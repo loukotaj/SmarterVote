@@ -18,16 +18,16 @@ resource "google_storage_bucket" "sv_data" {
     }
   }
   
-  lifecycle_rule {
-    condition {
-      age = 30
-      matches_storage_class = ["STANDARD"]
-    }
-    action {
-      type = "SetStorageClass"
-      storage_class = "NEARLINE"
-    }
+lifecycle_rule {
+  condition {
+    age = 60
+    matches_storage_class = ["STANDARD"]
   }
+  action {
+    type = "SetStorageClass"
+    storage_class = "NEARLINE"
+  }
+}
 }
 
 # Create folder structure (objects with trailing slashes)

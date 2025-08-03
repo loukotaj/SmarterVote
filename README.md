@@ -143,9 +143,12 @@ We welcome contributions! Please ensure:
 # Create feature branch
 git checkout -b feature/your-feature-name
 
-# Make changes and test
-npm run test          # Web frontend tests
-python -m pytest     # Python pipeline tests
+# Run tests (now adjacent to source code)
+python -m pytest                    # All Python tests
+python -m pytest pipeline/          # Pipeline unit tests  
+python -m pytest services/          # Service tests
+python -m pytest tests/             # Integration tests
+npm test                            # Web frontend tests
 
 # Format and lint
 npm run format        # Frontend formatting

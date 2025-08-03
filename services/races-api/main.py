@@ -5,6 +5,7 @@ This service exposes endpoints for listing available races and retrieving
 individual race data stored as JSON files.
 """
 
+import importlib.util
 import json
 import os
 from pathlib import Path
@@ -12,7 +13,6 @@ from typing import List
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-import importlib.util
 
 # Load RaceJSON model without importing the full pipeline package
 _schema_path = Path(__file__).resolve().parents[2] / "pipeline" / "app" / "schema.py"
@@ -25,6 +25,7 @@ RaceJSON = _race_schema.RaceJSON
 # Configure data directory from environment variable
 DATA_DIR = Path(os.getenv("DATA_DIR", "data/published"))
 DATA_DIR.mkdir(parents=True, exist_ok=True)
+
 
 # Utility helpers
 def _list_race_files() -> List[Path]:

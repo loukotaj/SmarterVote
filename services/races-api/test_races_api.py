@@ -1,9 +1,8 @@
 """Tests for the races API service."""
 
+import importlib.util
 import json
 import os
-import importlib.util
-import sys
 from pathlib import Path
 
 import pytest
@@ -13,34 +12,27 @@ from fastapi.testclient import TestClient
 @pytest.fixture()
 def client(tmp_path):
     """Create a TestClient with temporary data directory."""
-    # Create sample race file
+    # Set the environment variable before importing the app
+    os.environ["DATA_DIR"] = str(tmp_path)
+
+    # Create sample race file in the temporary directory
     race_data = {
         "id": "race1",
         "title": "Test Race 1",
         "office": "Office",
         "jurisdiction": "Jurisdiction",
         "election_date": "2024-11-05T00:00:00",
-        "candidates": [],
-        "description": "Test race",
-        "key_issues": [],
-        "status": "completed",
-        "sources": [],
-        "created_at": "2023-01-01T00:00:00",
         "updated_utc": "2023-01-02T00:00:00",
+        "candidates": [],
         "generator": ["gpt-4o"],
-        "confidence": "unknown",
     }
     (tmp_path / "race1.json").write_text(json.dumps(race_data))
 
-    os.environ["DATA_DIR"] = str(tmp_path)
-
     # Dynamically import the app after setting DATA_DIR
-    main_path = (
-        Path(__file__).resolve().parents[3] / "services" / "races-api" / "main.py"
-    )
-    sys.path.append(str(main_path.parents[2]))
+    main_path = Path(__file__).parent / "main.py"
     spec = importlib.util.spec_from_file_location("races_api", main_path)
     module = importlib.util.module_from_spec(spec)
+    assert spec.loader is not None
     spec.loader.exec_module(module)  # type: ignore
 
     return TestClient(module.app)
