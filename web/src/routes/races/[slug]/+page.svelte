@@ -23,7 +23,7 @@
 	async function loadMockData(): Promise<void> {
 		// Mock data for development - replace with actual API call
 		race = {
-			id: slug,
+			id: slug || 'unknown',
 			title: "Mayor of Example City",
 			office: "Mayor",
 			jurisdiction: "Example City",
