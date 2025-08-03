@@ -106,12 +106,13 @@
               d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
             />
           </svg>
-          <span>Updated: {new Date(race.updated_utc).toLocaleDateString()}</span>
+          <span>Updated: {new Date(race.updated_utc).toLocaleDateString()}</span
+          >
         </div>
       </div>
       <div class="model-label">
         <span>Analysis by:</span>
-        {#each race.generator as model, i}
+        {#each race.generator as model}
           <span class="model-tag">{model}</span>
         {/each}
       </div>

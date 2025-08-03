@@ -1,10 +1,10 @@
 <script lang="ts">
-  import ConfidenceIndicator from './ConfidenceIndicator.svelte';
-  import SourceLink from './SourceLink.svelte';
-  import type { CanonicalIssue, IssueStance } from '$lib/types';
-  
+  import ConfidenceIndicator from "./ConfidenceIndicator.svelte";
+  import SourceLink from "./SourceLink.svelte";
+  import type { CanonicalIssue, IssueStance } from "$lib/types";
+
   export let issues: Record<CanonicalIssue, IssueStance>;
-  
+
   $: issueEntries = Object.entries(issues) as [CanonicalIssue, IssueStance][];
 </script>
 
@@ -14,12 +14,16 @@
       <tr class="border-b border-gray-200">
         <th class="text-left py-3 px-4 font-semibold text-gray-900">Issue</th>
         <th class="text-left py-3 px-4 font-semibold text-gray-900">Stance</th>
-        <th class="text-center py-3 px-4 font-semibold text-gray-900">Confidence</th>
-        <th class="text-center py-3 px-4 font-semibold text-gray-900">Sources</th>
+        <th class="text-center py-3 px-4 font-semibold text-gray-900"
+          >Confidence</th
+        >
+        <th class="text-center py-3 px-4 font-semibold text-gray-900"
+          >Sources</th
+        >
       </tr>
     </thead>
     <tbody>
-      {#each issueEntries as [issue, stance], i}
+      {#each issueEntries as [issue, stance]}
         <tr class="border-b border-gray-100 hover:bg-gray-50">
           <td class="py-3 px-4 font-medium text-gray-900">{issue}</td>
           <td class="py-3 px-4 text-gray-700">{stance.stance}</td>
@@ -28,9 +32,12 @@
           </td>
           <td class="py-3 px-4 text-center">
             {#if stance.sources.length > 0}
-              <button 
+              <button
                 class="text-blue-600 hover:text-blue-800 text-sm underline"
-                title="View {stance.sources.length} source{stance.sources.length > 1 ? 's' : ''}"
+                title="View {stance.sources.length} source{stance.sources
+                  .length > 1
+                  ? 's'
+                  : ''}"
               >
                 View Sources ({stance.sources.length})
               </button>
