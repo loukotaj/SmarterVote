@@ -4,14 +4,6 @@
 
 SmarterVote transforms how voters access candidate information through advanced AI analysis and corpus-first data processing. Our platform aggregates, processes, and synthesizes electoral race data to provide comprehensive, unbiased candidate comparisons across 11 canonical political issues.
 
-## 🚀 Current Release: v1.1 (Corpus-First Design)
-
-**Latest Updates (August 2025):**
-- ✅ Corpus-First pipeline architecture with ChromaDB integration
-- ✅ 7-step processing workflow with LLM triangulation (GPT-4o, Claude-3.5, Grok-4)
-- ✅ RaceJSON v0.2 standardized output format
-- ✅ Production-ready infrastructure with automated CI/CD
-- ✅ Modern SvelteKit frontend with responsive design
 
 ## 🎯 Project Overview
 
