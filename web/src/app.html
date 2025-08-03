@@ -1,54 +1,78 @@
 <!DOCTYPE html>
 <html lang="en" %sveltekit.theme%>
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" href="%sveltekit.assets%/favicon.svg" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		
-		<!-- SEO Meta Tags -->
-		<meta name="description" content="AI-powered candidate comparison tool helping voters make informed decisions by analyzing positions on key issues from public sources." />
-		<meta name="keywords" content="election, voting, candidates, politics, AI analysis, voter guide, issues, democracy" />
-		<meta name="author" content="Smarter.vote" />
-		<meta name="robots" content="index, follow" />
-		
-		<!-- Open Graph / Facebook -->
-		<meta property="og:type" content="website" />
-		<meta property="og:url" content="https://smarter.vote/" />
-		<meta property="og:title" content="Smarter.vote - AI-Powered Election Information" />
-		<meta property="og:description" content="Compare candidates on key issues with AI-powered analysis from public sources." />
-		<meta property="og:image" content="https://smarter.vote/og-image.png" />
-		
-		<!-- Twitter -->
-		<meta property="twitter:card" content="summary_large_image" />
-		<meta property="twitter:url" content="https://smarter.vote/" />
-		<meta property="twitter:title" content="Smarter.vote - AI-Powered Election Information" />
-		<meta property="twitter:description" content="Compare candidates on key issues with AI-powered analysis from public sources." />
-		<meta property="twitter:image" content="https://smarter.vote/og-image.png" />
-		
-		<!-- Fonts -->
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-		
-		<!-- Structured Data -->
-		<script type="application/ld+json">
-		{
-			"@context": "https://schema.org",
-			"@type": "WebSite",
-			"name": "Smarter.vote",
-			"url": "https://smarter.vote",
-			"description": "AI-powered candidate comparison tool for informed voting decisions",
-			"potentialAction": {
-				"@type": "SearchAction",
-				"target": "https://smarter.vote/races/{search_term_string}",
-				"query-input": "required name=search_term_string"
-			}
-		}
-		</script>
-		
-		%sveltekit.head%
-	</head>
-	<body data-sveltekit-preload-data="hover" class="bg-gray-50 text-gray-900">
-		<div style="display: contents">%sveltekit.body%</div>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%sveltekit.assets%/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- SEO Meta Tags -->
+    <meta
+      name="description"
+      content="AI-powered candidate comparison tool helping voters make informed decisions by analyzing positions on key issues from public sources."
+    />
+    <meta
+      name="keywords"
+      content="election, voting, candidates, politics, AI analysis, voter guide, issues, democracy"
+    />
+    <meta name="author" content="Smarter.vote" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://smarter.vote/" />
+    <meta
+      property="og:title"
+      content="Smarter.vote - AI-Powered Election Information"
+    />
+    <meta
+      property="og:description"
+      content="Compare candidates on key issues with AI-powered analysis from public sources."
+    />
+    <meta property="og:image" content="https://smarter.vote/og-image.png" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://smarter.vote/" />
+    <meta
+      property="twitter:title"
+      content="Smarter.vote - AI-Powered Election Information"
+    />
+    <meta
+      property="twitter:description"
+      content="Compare candidates on key issues with AI-powered analysis from public sources."
+    />
+    <meta
+      property="twitter:image"
+      content="https://smarter.vote/og-image.png"
+    />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Smarter.vote",
+        "url": "https://smarter.vote",
+        "description": "AI-powered candidate comparison tool for informed voting decisions",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://smarter.vote/races/{search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      }
+    </script>
+
+    %sveltekit.head%
+  </head>
+  <body data-sveltekit-preload-data="hover" class="bg-gray-50 text-gray-900">
+    <div style="display: contents">%sveltekit.body%</div>
+  </body>
 </html>

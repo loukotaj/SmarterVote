@@ -2,20 +2,20 @@
  * TypeScript definitions for SmarterVote RaceJSON v0.2
  */
 
-export type ConfidenceLevel = 'high' | 'medium' | 'low' | 'unknown';
+export type ConfidenceLevel = "high" | "medium" | "low" | "unknown";
 
-export type CanonicalIssue = 
-  | 'Healthcare'
-  | 'Economy'
-  | 'Climate/Energy'
-  | 'Reproductive Rights'
-  | 'Immigration'
-  | 'Guns & Safety'
-  | 'Foreign Policy'
-  | 'LGBTQ+ Rights'
-  | 'Education'
-  | 'Tech & AI'
-  | 'Election Reform';
+export type CanonicalIssue =
+  | "Healthcare"
+  | "Economy"
+  | "Climate/Energy"
+  | "Reproductive Rights"
+  | "Immigration"
+  | "Guns & Safety"
+  | "Foreign Policy"
+  | "LGBTQ+ Rights"
+  | "Education"
+  | "Tech & AI"
+  | "Election Reform";
 
 export interface IssueStance {
   stance: string;
@@ -53,15 +53,15 @@ export interface Race {
 }
 
 export const CANONICAL_ISSUES: CanonicalIssue[] = [
-  'Healthcare',
-  'Economy', 
-  'Climate/Energy',
-  'Reproductive Rights',
-  'Immigration',
-  'Guns & Safety',
-  'Foreign Policy',
-  'LGBTQ+ Rights',
-  'Education',
-  'Tech & AI',
-  'Election Reform'
+  "Healthcare",
+  "Economy",
+  "Climate/Energy",
+  "Reproductive Rights",
+  "Immigration",
+  "Guns & Safety",
+  "Foreign Policy",
+  "LGBTQ+ Rights",
+  "Education",
+  "Tech & AI",
+  "Election Reform",
 ];
