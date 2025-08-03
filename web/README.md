@@ -2,7 +2,12 @@
 
 A clean, modern web application for comparing political candidates using AI-powered analysis.
 
-## 🚀 Features
+## � Prerequisites
+
+- **Node.js**: Version 22.0.0 or higher
+- **npm**: Version 10.0.0 or higher
+
+## �🚀 Features
 
 - **TypeScript Support**: Full TypeScript integration with proper type checking
 - **Responsive Design**: Mobile-first design using Tailwind CSS

@@ -2,6 +2,10 @@
 	"name": "smartervote-web",
 	"version": "1.0.0",
 	"private": true,
+	"engines": {
+		"node": ">=22.0.0",
+		"npm": ">=10.0.0"
+	},
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
