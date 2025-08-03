@@ -10,7 +10,8 @@
   let loading = true;
   let error: string | null = null;
 
-  $: slug = $page.params.slug;
+  let slug: string;
+  $: slug = $page.params.slug as string;
 
   onMount(async () => {
     try {
@@ -34,29 +35,24 @@
 
 <div class="container mx-auto px-4 py-8 max-w-7xl">
   {#if loading}
-    <div class="flex items-center justify-center py-20">
-      <div
-        class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"
-      />
-      <span class="ml-3 text-lg text-gray-600">Loading race data...</span>
+    <div class="loading-wrapper">
+      <div class="spinner" />
+      <span class="loading-text">Loading race data...</span>
     </div>
   {:else if error}
-    <div class="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
-      <h2 class="text-2xl font-bold text-red-800 mb-2">Error Loading Race</h2>
+    <div class="error-box">
+      <h2 class="error-title">Error Loading Race</h2>
       <p class="text-red-600">{error}</p>
-      <button
-        class="mt-4 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
-        on:click={() => window.location.reload()}
-      >
+      <button class="error-button" on:click={() => window.location.reload()}>
         Try Again
       </button>
     </div>
   {:else if race}
     <!-- Race Header -->
-    <Card tag="header" class="p-6 mb-8 shadow-sm">
-      <h1 class="text-4xl font-bold text-gray-900 mb-4">{race.title}</h1>
-      <div class="flex flex-wrap items-center gap-6 text-gray-600">
-        <div class="flex items-center gap-2">
+    <Card tag="header" class="header-card">
+      <h1 class="header-title">{race.title}</h1>
+      <div class="header-meta">
+        <div class="info-row">
           <svg
             class="w-5 h-5"
             fill="none"
@@ -74,7 +70,7 @@
             >Election: {new Date(race.election_date).toLocaleDateString()}</span
           >
         </div>
-        <div class="flex items-center gap-2">
+        <div class="info-row">
           <svg
             class="w-5 h-5"
             fill="none"
@@ -96,7 +92,7 @@
           </svg>
           <span>{race.office} • {race.jurisdiction}</span>
         </div>
-        <div class="flex items-center gap-2">
+        <div class="info-row">
           <svg
             class="w-5 h-5"
             fill="none"
@@ -110,24 +106,21 @@
               d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
             />
           </svg>
-          <span>Updated: {new Date(race.updated_utc).toLocaleDateString()}</span
-          >
+          <span>Updated: {new Date(race.updated_utc).toLocaleDateString()}</span>
         </div>
       </div>
-      <div class="mt-4 flex items-center gap-2 text-sm text-gray-500">
+      <div class="model-label">
         <span>Analysis by:</span>
         {#each race.generator as model, i}
-          <span class="bg-gray-100 px-2 py-1 rounded">{model}</span>
+          <span class="model-tag">{model}</span>
         {/each}
       </div>
     </Card>
 
     <!-- Candidates Section -->
     <section>
-      <h2 class="text-2xl font-semibold text-gray-900 mb-6">Candidates</h2>
-      <div
-        class="grid gap-8 justify-items-center lg:grid-cols-2 lg:justify-items-stretch"
-      >
+      <h2 class="candidates-title">Candidates</h2>
+      <div class="candidate-grid">
         {#each race.candidates as candidate}
           <CandidateCard {candidate} />
         {/each}
@@ -135,11 +128,9 @@
     </section>
 
     <!-- Data Note -->
-    <div
-      class="mt-12 bg-blue-50 border border-blue-200 rounded-lg p-6 text-center"
-    >
-      <p class="text-blue-800 font-medium mb-2">Data Analysis Information</p>
-      <p class="text-blue-700 text-sm">
+    <div class="data-note">
+      <p class="data-note-title">Data Analysis Information</p>
+      <p class="data-note-text">
         Data compiled from public sources and analyzed using AI. Last updated {new Date(
           race.updated_utc
         ).toLocaleDateString()}. Visit candidate websites for the most current
@@ -148,3 +139,73 @@
     </div>
   {/if}
 </div>
+
+<style lang="postcss">
+  .loading-wrapper {
+    @apply flex items-center justify-center py-20;
+  }
+
+  .spinner {
+    @apply animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600;
+  }
+
+  .loading-text {
+    @apply ml-3 text-lg text-gray-600;
+  }
+
+  .error-box {
+    @apply bg-red-50 border border-red-200 rounded-lg p-6 text-center;
+  }
+
+  .error-title {
+    @apply text-2xl font-bold text-red-800 mb-2;
+  }
+
+  .error-button {
+    @apply mt-4 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700;
+  }
+
+  :global(.header-card) {
+    @apply p-6 mb-8 shadow-sm;
+  }
+
+  .header-title {
+    @apply text-4xl font-bold text-gray-900 mb-4;
+  }
+
+  .header-meta {
+    @apply flex flex-wrap items-center gap-6 text-gray-600;
+  }
+
+  .info-row {
+    @apply flex items-center gap-2;
+  }
+
+  .model-label {
+    @apply mt-4 flex items-center gap-2 text-sm text-gray-500;
+  }
+
+  .model-tag {
+    @apply bg-gray-100 px-2 py-1 rounded;
+  }
+
+  .candidates-title {
+    @apply text-2xl font-semibold text-gray-900 mb-6;
+  }
+
+  .candidate-grid {
+    @apply grid gap-8 justify-items-center lg:grid-cols-2 lg:justify-items-stretch;
+  }
+
+  .data-note {
+    @apply mt-12 bg-blue-50 border border-blue-200 rounded-lg p-6 text-center;
+  }
+
+  .data-note-title {
+    @apply text-blue-800 font-medium mb-2;
+  }
+
+  .data-note-text {
+    @apply text-blue-700 text-sm;
+  }
+</style>

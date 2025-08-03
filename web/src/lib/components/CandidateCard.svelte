@@ -6,35 +6,25 @@
   export let candidate: Candidate;
 </script>
 
-<Card
-  class="p-4 sm:p-6 h-full w-full max-w-sm sm:max-w-md lg:max-w-none mx-auto lg:mx-0 shadow-lg"
->
+<Card class="candidate-card">
   <!-- Candidate Header -->
   <div class="mb-6">
     <div class="flex items-start justify-between mb-3">
-      <h3 class="text-xl sm:text-2xl font-bold text-gray-900">
+      <h3 class="candidate-name">
         {candidate.name}
       </h3>
       <div class="flex flex-col items-end gap-1">
         {#if candidate.party}
-          <span
-            class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium"
-          >
-            {candidate.party}
-          </span>
+          <span class="badge party-badge">{candidate.party}</span>
         {/if}
         {#if candidate.incumbent}
-          <span
-            class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium"
-          >
-            Incumbent
-          </span>
+          <span class="badge incumbent-badge">Incumbent</span>
         {/if}
       </div>
     </div>
 
     <!-- Summary -->
-    <p class="text-gray-700 leading-relaxed text-sm sm:text-base">
+    <p class="summary">
       {candidate.summary}
     </p>
 
@@ -45,7 +35,7 @@
           href={candidate.website}
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 font-medium"
+          class="website-link"
         >
           Official Website
           <svg
@@ -68,7 +58,41 @@
 
   <!-- Issues Section -->
   <div>
-    <h4 class="text-lg font-semibold text-gray-900 mb-4">Key Issues</h4>
+    <h4 class="section-title">Key Issues</h4>
     <IssueTable issues={candidate.issues} />
   </div>
 </Card>
+
+<style lang="postcss">
+  :global(.candidate-card) {
+    @apply p-4 sm:p-6 h-full w-full max-w-sm sm:max-w-md lg:max-w-none mx-auto lg:mx-0 shadow-lg;
+  }
+
+  .candidate-name {
+    @apply text-xl sm:text-2xl font-bold text-gray-900;
+  }
+
+  .badge {
+    @apply px-3 py-1 rounded-full text-sm font-medium;
+  }
+
+  .party-badge {
+    @apply badge bg-blue-100 text-blue-800;
+  }
+
+  .incumbent-badge {
+    @apply badge bg-green-100 text-green-800;
+  }
+
+  .summary {
+    @apply text-gray-700 leading-relaxed text-sm sm:text-base;
+  }
+
+  .website-link {
+    @apply inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 font-medium;
+  }
+
+  .section-title {
+    @apply text-lg font-semibold text-gray-900 mb-4;
+  }
+</style>
