@@ -7,6 +7,8 @@ requests and publishes them to Google Cloud Pub/Sub for asynchronous processing.
 
 import os
 import logging
+import random
+import string
 from datetime import datetime
 from typing import Optional
 
@@ -19,6 +21,22 @@ import json
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+
+def generate_job_id(race_id: str) -> str:
+    """
+    Generate a unique job ID using timestamp and random suffix.
+    
+    Args:
+        race_id: The race ID to include in the job ID
+        
+    Returns:
+        Unique job ID string
+    """
+    timestamp = int(datetime.utcnow().timestamp() * 1000)  # millisecond precision
+    random_suffix = ''.join(random.choices(string.ascii_lowercase + string.digits, k=6))
+    return f"job_{race_id}_{timestamp}_{random_suffix}"
+
 
 # Environment variables
 PROJECT_ID = os.getenv("PROJECT_ID")
@@ -106,8 +124,8 @@ async def process_race(request: ProcessRaceRequest, background_tasks: Background
         ProcessRaceResponse with job details
     """
     try:
-        # Generate job ID
-        job_id = f"job_{request.race_id}_{int(datetime.utcnow().timestamp())}"
+        # Generate unique job ID
+        job_id = generate_job_id(request.race_id)
         
         # Create message payload
         message_data = {
