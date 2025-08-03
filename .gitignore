@@ -205,3 +205,70 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Node.js / npm
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+.pnpm-debug.log*
+
+# Build outputs
+dist/
+build/
+.next/
+.nuxt/
+.vuepress/dist/
+.serverless/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE / Editor
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Node
+web/node_modules
+web/.env
+web/.env.*.local
+web/npm-debug.log*
+web/yarn-debug.log*
+web/yarn-error.log*
+web/pnpm-debug.log*
+
+# SvelteKit
+web/.svelte-kit
+web/.build
+
+# Vite
+web/dist
+web/.vite
+
+# Mac/Linux
+web/.DS_Store
+
+# Windows
+web/Thumbs.db
+
+# VSCode
+web/.vscode/*
+!web/.vscode/extensions.json
+!web/.vscode/settings.json
+
+infra/secrets.tfvars

@@ -1,8 +1,11 @@
-name: Deploy
+name: Deploy - SmarterVote Infrastructure
 
 on:
-  push:
-    branches: [ main ]
+  workflow_run:
+    workflows: ["CI Pipeline - SmarterVote Corpus-First"]
+    types:
+      - completed
+    branches: [main]
   workflow_dispatch:
     inputs:
       environment:
@@ -12,8 +15,11 @@ on:
         type: choice
         options:
         - dev
-        - staging
         - prod
+
+env:
+  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+  REGION: us-central1
 
 jobs:
   terraform:

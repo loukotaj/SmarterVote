@@ -3,7 +3,7 @@ terraform {
   required_providers {
     google = {
       source  = "hashicorp/google"
-      version = "~> 4.0"
+      version = "~> 5.0"
     }
   }
 
@@ -36,6 +36,37 @@ variable "environment" {
   default     = "dev"
 }
 
+# API Keys (from secrets.tfvars)
+variable "openai_api_key" {
+  description = "OpenAI API Key"
+  type        = string
+  sensitive   = true
+}
+
+variable "anthropic_api_key" {
+  description = "Anthropic API Key"
+  type        = string
+  sensitive   = true
+}
+
+variable "grok_api_key" {
+  description = "Grok API Key"
+  type        = string
+  sensitive   = true
+}
+
+variable "google_search_api_key" {
+  description = "Google Custom Search API Key"
+  type        = string
+  sensitive   = true
+}
+
+variable "google_search_cx" {
+  description = "Google Custom Search Engine ID"
+  type        = string
+  sensitive   = true
+}
+
 # Data sources
 data "google_project" "project" {
   project_id = var.project_id
@@ -47,19 +78,30 @@ resource "google_project_service" "apis" {
     "run.googleapis.com",
     "pubsub.googleapis.com",
     "storage.googleapis.com",
-    "firestore.googleapis.com",
+    "secretmanager.googleapis.com",
     "cloudbuild.googleapis.com",
+    "cloudscheduler.googleapis.com",
     "logging.googleapis.com",
-    "monitoring.googleapis.com"
+    "monitoring.googleapis.com",
+    "customsearch.googleapis.com"
   ])
 
   service                    = each.value
   disable_dependent_services = true
 }
 
-# Cloud Storage bucket for data
-resource "google_storage_bucket" "data_bucket" {
-  name     = "${var.project_id}-smartervote-data"
+# Random ID for unique resource names
+resource "random_id" "suffix" {
+  byte_length = 4
+}
+
+# Include all infrastructure components
+# Note: In a real setup, these would be separate modules
+# For now, we're including them directly
+
+# Storage (sv-data bucket)
+resource "google_storage_bucket" "sv_data" {
+  name     = "${var.project_id}-sv-data"
   location = var.region
   
   uniform_bucket_level_access = true
@@ -78,82 +120,55 @@ resource "google_storage_bucket" "data_bucket" {
   }
 }
 
-# Pub/Sub topic for race processing
-resource "google_pubsub_topic" "race_processing" {
-  name = "race-processing"
-}
-
-# Pub/Sub subscription
-resource "google_pubsub_subscription" "race_processing_sub" {
-  name  = "race-processing-sub"
-  topic = google_pubsub_topic.race_processing.name
+# Secret Manager for API keys
+resource "google_secret_manager_secret" "openai_key" {
+  secret_id = "openai-api-key"
   
-  ack_deadline_seconds = 600
+  replication {
+    auto {}
+  }
   
-  retry_policy {
-    minimum_backoff = "10s"
-    maximum_backoff = "300s"
-  }
-}
-
-# Cloud Run service for enqueue API
-resource "google_cloud_run_service" "enqueue_api" {
-  name     = "smartervote-enqueue-api"
-  location = var.region
-
-  template {
-    spec {
-      containers {
-        image = "gcr.io/${var.project_id}/smartervote-enqueue-api:latest"
-        
-        env {
-          name  = "PROJECT_ID"
-          value = var.project_id
-        }
-        
-        env {
-          name  = "PUBSUB_TOPIC"
-          value = google_pubsub_topic.race_processing.name
-        }
-        
-        resources {
-          limits = {
-            cpu    = "1000m"
-            memory = "512Mi"
-          }
-        }
-      }
-    }
-  }
-
-  traffic {
-    percent         = 100
-    latest_revision = true
-  }
-
   depends_on = [google_project_service.apis]
 }
 
-# IAM for Cloud Run
-resource "google_cloud_run_service_iam_binding" "enqueue_api_invoker" {
-  location = google_cloud_run_service.enqueue_api.location
-  service  = google_cloud_run_service.enqueue_api.name
-  role     = "roles/run.invoker"
-  members  = ["allUsers"]
+resource "google_secret_manager_secret_version" "openai_key" {
+  secret = google_secret_manager_secret.openai_key.id
+  secret_data = var.openai_api_key
+}
+
+# Service accounts
+resource "google_service_account" "race_worker" {
+  account_id   = "race-worker"
+  display_name = "Race Processing Worker"
+  description  = "Service account for Cloud Run race processing jobs"
+}
+
+# Basic IAM
+resource "google_project_iam_member" "race_worker_storage" {
+  project = var.project_id
+  role    = "roles/storage.objectAdmin"
+  member  = "serviceAccount:${google_service_account.race_worker.email}"
+}
+
+# Pub/Sub topic for race jobs
+resource "google_pubsub_topic" "race_jobs" {
+  name = "race-jobs"
+  
+  depends_on = [google_project_service.apis]
 }
 
 # Outputs
-output "enqueue_api_url" {
-  description = "URL of the enqueue API"
-  value       = google_cloud_run_service.enqueue_api.status[0].url
+output "bucket_name" {
+  description = "Name of the sv-data bucket"
+  value       = google_storage_bucket.sv_data.name
 }
 
-output "data_bucket_name" {
-  description = "Name of the data storage bucket"
-  value       = google_storage_bucket.data_bucket.name
+output "project_id" {
+  description = "GCP Project ID"
+  value       = var.project_id
 }
 
-output "pubsub_topic_name" {
-  description = "Name of the Pub/Sub topic"
-  value       = google_pubsub_topic.race_processing.name
+output "pubsub_topic" {
+  description = "Pub/Sub topic for race jobs"
+  value       = google_pubsub_topic.race_jobs.name
 }

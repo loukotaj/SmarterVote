@@ -4,8 +4,13 @@ Tests for the SmarterVote pipeline modules.
 
 import pytest
 import asyncio
+import sys
+from pathlib import Path
 from datetime import datetime
 from unittest.mock import Mock, AsyncMock
+
+# Add pipeline to path
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 from pipeline.app.schema import Source, SourceType, ExtractedContent
 from pipeline.app.discover import DiscoveryService

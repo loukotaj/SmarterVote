@@ -6,5 +6,19 @@ export default defineConfig({
 	server: {
 		port: 3000,
 		host: true
+	},
+	build: {
+		target: 'es2020',
+		sourcemap: false,
+		rollupOptions: {
+			output: {
+				manualChunks: {
+					vendor: ['svelte']
+				}
+			}
+		}
+	},
+	optimizeDeps: {
+		include: ['svelte']
 	}
 });

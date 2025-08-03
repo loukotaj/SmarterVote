@@ -10,9 +10,9 @@ import logging
 from pathlib import Path
 
 # Add the pipeline app to the Python path
-sys.path.insert(0, str(Path(__file__).parent.parent / "pipeline"))
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from pipeline.app import Pipeline
+from pipeline import CorpusFirstPipeline
 
 
 logging.basicConfig(level=logging.INFO)
@@ -23,18 +23,20 @@ async def main():
     """Run the pipeline locally for a single race."""
     if len(sys.argv) < 2:
         print("Usage: python run_local.py <race_id>")
+        print("Example: python run_local.py mo-senate-2024")
         sys.exit(1)
     
     race_id = sys.argv[1]
-    logger.info(f"Running local pipeline for race: {race_id}")
+    logger.info(f"🗳️  Running local Corpus-First pipeline for race: {race_id}")
     
     # Initialize and run pipeline
-    pipeline = Pipeline()
+    pipeline = CorpusFirstPipeline()
     success = await pipeline.process_race(race_id)
     
     if success:
         logger.info("Local pipeline completed successfully")
         print(f"✅ Successfully processed race: {race_id}")
+        print(f"🌐 Result should be in data/published/{race_id}.json")
     else:
         logger.error("Local pipeline failed")
         print(f"❌ Failed to process race: {race_id}")

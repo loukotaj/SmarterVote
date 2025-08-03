@@ -1,34 +1,9 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
-	
-	interface Candidate {
-		name: string;
-		party?: string;
-		incumbent: boolean;
-		website?: string;
-		biography?: string;
-		positions: Position[];
-	}
-	
-	interface Position {
-		topic: string;
-		stance: string;
-		summary: string;
-		confidence: 'high' | 'medium' | 'low' | 'unknown';
-	}
-	
-	interface Race {
-		id: string;
-		title: string;
-		office: string;
-		jurisdiction: string;
-		election_date: string;
-		candidates: Candidate[];
-		description?: string;
-		key_issues: string[];
-	}
-	
+	import CandidateCard from '$lib/components/CandidateCard.svelte';
+	import type { Race } from '$lib/types';
+
 	let race: Race | null = null;
 	let loading = true;
 	let error: string | null = null;
@@ -37,187 +12,243 @@
 	
 	onMount(async () => {
 		try {
-			// TODO: Replace with actual API call
-			// const response = await fetch(`/api/races/${slug}`);
-			// race = await response.json();
-			
-			// Mock data for development
-			race = {
-				id: slug,
-				title: "Mayor of Example City",
-				office: "Mayor",
-				jurisdiction: "Example City",
-				election_date: "2024-11-05",
-				candidates: [
-					{
-						name: "Jane Smith",
-						party: "Democratic",
-						incumbent: true,
-						website: "https://janesmith.com",
-						biography: "Jane Smith has served as mayor for the past 4 years...",
-						positions: [
-							{
-								topic: "Housing",
-								stance: "Pro-affordable housing",
-								summary: "Supports increasing affordable housing units by 20%",
-								confidence: "high"
-							},
-							{
-								topic: "Transportation",
-								stance: "Pro-public transit",
-								summary: "Plans to expand bus routes and bike lanes",
-								confidence: "medium"
-							}
-						]
-					},
-					{
-						name: "John Doe",
-						party: "Republican",
-						incumbent: false,
-						website: "https://johndoe.com",
-						biography: "John Doe is a local business owner...",
-						positions: [
-							{
-								topic: "Economic Development",
-								stance: "Pro-business",
-								summary: "Wants to reduce business taxes and regulations",
-								confidence: "high"
-							},
-							{
-								topic: "Public Safety",
-								stance: "Increase police funding",
-								summary: "Proposes hiring 50 additional police officers",
-								confidence: "medium"
-							}
-						]
-					}
-				],
-				description: "The mayoral race for Example City",
-				key_issues: ["Housing", "Transportation", "Economic Development", "Public Safety"]
-			};
-			
-			loading = false;
-		} catch (e) {
-			error = 'Failed to load race information';
+			await loadMockData();
+		} catch (err) {
+			error = err instanceof Error ? err.message : 'Failed to load race data';
+		} finally {
 			loading = false;
 		}
 	});
-	
-	function getConfidenceColor(confidence: string): string {
-		switch (confidence) {
-			case 'high': return 'text-green-600';
-			case 'medium': return 'text-yellow-600';
-			case 'low': return 'text-orange-600';
-			default: return 'text-gray-600';
-		}
+
+	async function loadMockData(): Promise<void> {
+		// Mock data for development - replace with actual API call
+		race = {
+			id: slug,
+			title: "Mayor of Example City",
+			office: "Mayor",
+			jurisdiction: "Example City",
+			election_date: "2024-11-05",
+			updated_utc: "2024-10-15T10:30:00Z",
+			generator: ["GPT-4", "Claude"],
+			candidates: [
+				{
+					name: "Jane Smith",
+					party: "Democratic",
+					incumbent: true,
+					website: "https://janesmith.com",
+					social_media: {
+						twitter: "https://twitter.com/janesmith",
+						facebook: "https://facebook.com/janesmith"
+					},
+					summary: "Current mayor with 8 years of experience in local government. Focuses on sustainable development and community engagement.",
+					top_donors: [
+						{
+							name: "Local Teachers Union",
+							amount: 50000,
+							source: "Campaign Finance Report 2024"
+						}
+					],
+					issues: {
+						"Healthcare": {
+							stance: "Supports expanding community health programs and improving access to mental health services.",
+							confidence: "high",
+							sources: ["https://janesmith.com/issues/healthcare"]
+						},
+						"Economy": {
+							stance: "Focuses on supporting small businesses and creating green jobs.",
+							confidence: "high",
+							sources: ["https://janesmith.com/issues/economy"]
+						},
+						"Climate/Energy": {
+							stance: "Advocates for renewable energy transition and carbon neutrality by 2035.",
+							confidence: "high",
+							sources: ["https://janesmith.com/issues/climate"]
+						},
+						"Reproductive Rights": {
+							stance: "Strongly supports reproductive rights and access to healthcare.",
+							confidence: "high",
+							sources: ["https://janesmith.com/issues/reproductive"]
+						},
+						"Immigration": {
+							stance: "Supports welcoming policies for immigrants and refugees.",
+							confidence: "medium",
+							sources: ["https://janesmith.com/issues/immigration"]
+						},
+						"Guns & Safety": {
+							stance: "Supports common-sense gun safety measures.",
+							confidence: "medium",
+							sources: ["https://janesmith.com/issues/guns"]
+						},
+						"Foreign Policy": {
+							stance: "Focuses on local issues but supports diplomatic solutions.",
+							confidence: "low",
+							sources: []
+						},
+						"LGBTQ+ Rights": {
+							stance: "Supports LGBTQ+ protections.",
+							confidence: "high",
+							sources: ["https://janesmith.com/issues/lgbtq"]
+						},
+						"Education": {
+							stance: "Supports increased funding for public schools.",
+							confidence: "medium",
+							sources: ["https://janesmith.com/issues/education"]
+						},
+						"Tech & AI": {
+							stance: "Promotes responsible AI development.",
+							confidence: "low",
+							sources: []
+						},
+						"Election Reform": {
+							stance: "Supports ranked-choice voting.",
+							confidence: "medium",
+							sources: ["https://janesmith.com/issues/election"]
+						}
+					}
+				},
+				{
+					name: "John Doe",
+					party: "Republican",
+					incumbent: false,
+					website: "https://johndoe.com",
+					social_media: {},
+					summary: "Local business owner focused on economic development and public safety.",
+					top_donors: [],
+					issues: {
+						"Healthcare": {
+							stance: "Opposes universal healthcare.",
+							confidence: "medium",
+							sources: ["https://johndoe.com/issues/healthcare"]
+						},
+						"Economy": {
+							stance: "Wants to reduce business taxes and regulations.",
+							confidence: "high",
+							sources: ["https://johndoe.com/issues/economy"]
+						},
+						"Climate/Energy": {
+							stance: "Supports fossil fuel industry.",
+							confidence: "medium",
+							sources: ["https://johndoe.com/issues/climate"]
+						},
+						"Reproductive Rights": {
+							stance: "Pro-life.",
+							confidence: "high",
+							sources: ["https://johndoe.com/issues/reproductive"]
+						},
+						"Immigration": {
+							stance: "Supports stricter immigration enforcement.",
+							confidence: "high",
+							sources: ["https://johndoe.com/issues/immigration"]
+						},
+						"Guns & Safety": {
+							stance: "Supports gun rights.",
+							confidence: "high",
+							sources: ["https://johndoe.com/issues/guns"]
+						},
+						"Foreign Policy": {
+							stance: "Advocates for strong national defense.",
+							confidence: "medium",
+							sources: ["https://johndoe.com/issues/foreign"]
+						},
+						"LGBTQ+ Rights": {
+							stance: "Opposes expansion of LGBTQ+ protections.",
+							confidence: "low",
+							sources: []
+						},
+						"Education": {
+							stance: "Supports school choice.",
+							confidence: "medium",
+							sources: ["https://johndoe.com/issues/education"]
+						},
+						"Tech & AI": {
+							stance: "Supports deregulation of tech industry.",
+							confidence: "low",
+							sources: []
+						},
+						"Election Reform": {
+							stance: "Opposes election reforms.",
+							confidence: "medium",
+							sources: ["https://johndoe.com/issues/election"]
+						}
+					}
+				}
+			]
+		};
 	}
 </script>
 
 <svelte:head>
-	<title>{race ? race.title : 'Loading...'} - SmarterVote</title>
-	<meta name="description" content={race?.description || 'Electoral race information'} />
+	<title>{race?.title || 'Loading...'} | Smarter.vote</title>
+	<meta name="description" content="Compare candidates for {race?.title || 'this election'} on key issues with AI-powered analysis." />
 </svelte:head>
 
-<div class="container mx-auto px-4 py-8">
+<div class="container mx-auto px-4 py-8 max-w-7xl">
 	{#if loading}
-		<div class="flex justify-center items-center h-64">
-			<div class="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+		<div class="flex items-center justify-center py-20">
+			<div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+			<span class="ml-3 text-lg text-gray-600">Loading race data...</span>
 		</div>
 	{:else if error}
-		<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-			<h2 class="font-bold">Error</h2>
-			<p>{error}</p>
+		<div class="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
+			<h2 class="text-2xl font-bold text-red-800 mb-2">Error Loading Race</h2>
+			<p class="text-red-600">{error}</p>
+			<button 
+				class="mt-4 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+				on:click={() => window.location.reload()}
+			>
+				Try Again
+			</button>
 		</div>
 	{:else if race}
-		<header class="mb-8">
-			<h1 class="text-4xl font-bold text-gray-900 mb-2">{race.title}</h1>
-			<div class="text-lg text-gray-600 mb-4">
-				<p>{race.office} • {race.jurisdiction}</p>
-				<p>Election Date: {new Date(race.election_date).toLocaleDateString()}</p>
+		<!-- Race Header -->
+		<header class="bg-white rounded-lg shadow-sm p-6 mb-8">
+			<h1 class="text-4xl font-bold text-gray-900 mb-4">{race.title}</h1>
+			<div class="flex flex-wrap items-center gap-6 text-gray-600">
+				<div class="flex items-center gap-2">
+					<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+					</svg>
+					<span>Election: {new Date(race.election_date).toLocaleDateString()}</span>
+				</div>
+				<div class="flex items-center gap-2">
+					<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+					</svg>
+					<span>{race.office} • {race.jurisdiction}</span>
+				</div>
+				<div class="flex items-center gap-2">
+					<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+					</svg>
+					<span>Updated: {new Date(race.updated_utc).toLocaleDateString()}</span>
+				</div>
 			</div>
-			{#if race.description}
-				<p class="text-gray-700">{race.description}</p>
-			{/if}
+			<div class="mt-4 flex items-center gap-2 text-sm text-gray-500">
+				<span>Analysis by:</span>
+				{#each race.generator as model, i}
+					<span class="bg-gray-100 px-2 py-1 rounded">{model}</span>
+				{/each}
+			</div>
 		</header>
 
-		{#if race.key_issues.length > 0}
-			<section class="mb-8">
-				<h2 class="text-2xl font-semibold mb-4">Key Issues</h2>
-				<div class="flex flex-wrap gap-2">
-					{#each race.key_issues as issue}
-						<span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">
-							{issue}
-						</span>
-					{/each}
-				</div>
-			</section>
-		{/if}
-
+		<!-- Candidates Section -->
 		<section>
-			<h2 class="text-2xl font-semibold mb-6">Candidates</h2>
-			<div class="grid gap-8 md:grid-cols-2">
+			<h2 class="text-2xl font-semibold text-gray-900 mb-6">Candidates</h2>
+			<div class="grid gap-8 lg:grid-cols-2">
 				{#each race.candidates as candidate}
-					<div class="bg-white rounded-lg shadow-lg p-6">
-						<div class="mb-4">
-							<h3 class="text-2xl font-bold text-gray-900">{candidate.name}</h3>
-							<div class="flex items-center gap-2 text-sm text-gray-600">
-								{#if candidate.party}
-									<span class="bg-gray-100 px-2 py-1 rounded">{candidate.party}</span>
-								{/if}
-								{#if candidate.incumbent}
-									<span class="bg-green-100 text-green-800 px-2 py-1 rounded">Incumbent</span>
-								{/if}
-							</div>
-						</div>
-
-						{#if candidate.biography}
-							<div class="mb-4">
-								<h4 class="font-semibold text-gray-800 mb-2">Biography</h4>
-								<p class="text-gray-700">{candidate.biography}</p>
-							</div>
-						{/if}
-
-						{#if candidate.website}
-							<div class="mb-4">
-								<a 
-									href={candidate.website} 
-									target="_blank" 
-									rel="noopener noreferrer"
-									class="text-blue-600 hover:text-blue-800 underline"
-								>
-									Official Website
-								</a>
-							</div>
-						{/if}
-
-						{#if candidate.positions.length > 0}
-							<div>
-								<h4 class="font-semibold text-gray-800 mb-3">Positions</h4>
-								<div class="space-y-3">
-									{#each candidate.positions as position}
-										<div class="border-l-4 border-blue-200 pl-4">
-											<div class="flex items-center justify-between mb-1">
-												<h5 class="font-medium text-gray-800">{position.topic}</h5>
-												<span class="text-xs {getConfidenceColor(position.confidence)} font-medium">
-													{position.confidence} confidence
-												</span>
-											</div>
-											<p class="text-sm text-gray-600 mb-1">{position.stance}</p>
-											<p class="text-sm text-gray-700">{position.summary}</p>
-										</div>
-									{/each}
-								</div>
-							</div>
-						{/if}
-					</div>
+					<CandidateCard {candidate} />
 				{/each}
 			</div>
 		</section>
+
+		<!-- Data Note -->
+		<div class="mt-12 bg-blue-50 border border-blue-200 rounded-lg p-6 text-center">
+			<p class="text-blue-800 font-medium mb-2">Data Analysis Information</p>
+			<p class="text-blue-700 text-sm">
+				Data compiled from public sources and analyzed using AI. Last updated {new Date(race.updated_utc).toLocaleDateString()}.
+				Visit candidate websites for the most current information.
+			</p>
+		</div>
 	{/if}
 </div>
-
-<style>
-	.container {
-		max-width: 1200px;
-	}
-</style>
