@@ -26,15 +26,18 @@ def client(tmp_path):
         "status": "completed",
         "sources": [],
         "created_at": "2023-01-01T00:00:00",
-        "last_updated": "2023-01-02T00:00:00",
-        "confidence": "unknown"
+        "updated_utc": "2023-01-02T00:00:00",
+        "generator": ["gpt-4o"],
+        "confidence": "unknown",
     }
     (tmp_path / "race1.json").write_text(json.dumps(race_data))
 
     os.environ["DATA_DIR"] = str(tmp_path)
 
     # Dynamically import the app after setting DATA_DIR
-    main_path = Path(__file__).resolve().parents[3] / "services" / "races-api" / "main.py"
+    main_path = (
+        Path(__file__).resolve().parents[3] / "services" / "races-api" / "main.py"
+    )
     sys.path.append(str(main_path.parents[2]))
     spec = importlib.util.spec_from_file_location("races_api", main_path)
     module = importlib.util.module_from_spec(spec)

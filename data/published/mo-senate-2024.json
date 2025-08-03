@@ -1,0 +1,49 @@
+{
+  "id": "mo-senate-2024",
+  "title": "Missouri Senate 2024",
+  "office": "U.S. Senate",
+  "jurisdiction": "Missouri",
+  "election_date": "2024-11-05T00:00:00",
+  "updated_utc": "2024-06-01T00:00:00",
+  "generator": ["gpt-4o"],
+  "candidates": [
+    {
+      "name": "Jane Doe",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Advocates for healthcare reform and renewable energy.",
+      "issues": {
+        "Healthcare": {
+          "issue": "Healthcare",
+          "stance": "Supports expanding affordable healthcare access.",
+          "confidence": "medium",
+          "sources": []
+        },
+        "Climate/Energy": {
+          "issue": "Climate/Energy",
+          "stance": "Supports investment in renewable energy.",
+          "confidence": "medium",
+          "sources": []
+        }
+      },
+      "top_donors": [],
+      "social_media": {}
+    },
+    {
+      "name": "John Smith",
+      "party": "Example Party",
+      "incumbent": true,
+      "summary": "Focuses on economic growth and tax cuts.",
+      "issues": {
+        "Economy": {
+          "issue": "Economy",
+          "stance": "Advocates for lower taxes and deregulation.",
+          "confidence": "medium",
+          "sources": []
+        }
+      },
+      "top_donors": [],
+      "social_media": {}
+    }
+  ]
+}
