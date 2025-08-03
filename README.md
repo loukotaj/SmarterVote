@@ -1,20 +1,39 @@
 # SmarterVote
 
-A comprehensive platform for analyzing and summarizing electoral race information using AI-powered data pipeline.
+**AI-Powered Electoral Analysis Platform** 🗳️
 
-## Project Overview
+SmarterVote transforms how voters access candidate information through advanced AI analysis and corpus-first data processing. Our platform aggregates, processes, and synthesizes electoral race data to provide comprehensive, unbiased candidate comparisons across 11 canonical political issues.
 
-SmarterVote aggregates, processes, and analyzes electoral race data from multiple sources to provide voters with comprehensive, unbiased summaries of candidates and their positions.
+## 🚀 Current Release: v1.1 (Corpus-First Design)
 
-## Quick Start
+**Latest Updates (August 2025):**
+- ✅ Corpus-First pipeline architecture with ChromaDB integration
+- ✅ 7-step processing workflow with LLM triangulation (GPT-4o, Claude-3.5, Grok-4)
+- ✅ RaceJSON v0.2 standardized output format
+- ✅ Production-ready infrastructure with automated CI/CD
+- ✅ Modern SvelteKit frontend with responsive design
+
+## 🎯 Project Overview
+
+SmarterVote employs a sophisticated **corpus-first approach** to electoral analysis:
+
+1. **Intelligent Discovery**: Multi-source content discovery including fresh issue-specific searches
+2. **Content Processing**: Advanced extraction from HTML, PDF, and structured data
+3. **Vector Corpus**: ChromaDB-powered semantic search and content indexing
+4. **AI Triangulation**: Multiple LLM consensus for accuracy and bias reduction
+5. **Confidence Scoring**: 2-of-3 arbitration with reliability metrics
+6. **Standardized Output**: Structured RaceJSON format for consistent analysis
+
+## ⚡ Quick Start
 
 ### Prerequisites
-- Python 3.9+
-- Node.js 18+
-- Docker
-- Terraform
+- **Python**: 3.9+ (Pipeline and services)
+- **Node.js**: 22.0+ (Web frontend)
+- **Docker**: Container runtime
+- **Terraform**: 1.5+ (Infrastructure as Code)
+- **Google Cloud SDK**: For cloud deployment
 
-### Local Development
+### 🏃‍♂️ Local Development
 
 1. **Clone the repository**
    ```bash
@@ -22,39 +41,147 @@ SmarterVote aggregates, processes, and analyzes electoral race data from multipl
    cd SmarterVote
    ```
 
-2. **Set up Python environment**
+2. **Set up Python pipeline environment**
    ```bash
    cd pipeline
    pip install -r requirements.txt
    ```
 
-3. **Set up web frontend**
+3. **Launch web frontend**
    ```bash
    cd web
    npm install
    npm run dev
    ```
 
-4. **Run local pipeline**
+4. **Run local pipeline processing**
    ```bash
    python scripts/run_local.py
    ```
 
-## Architecture
+5. **Validate project health**
+   ```bash
+   python scripts/validate_project.py
+   ```
 
-- **Pipeline**: Python-based ETL system for data processing
-- **Services**: Cloud Run microservices for API endpoints
-- **Web**: SvelteKit frontend for user interface
-- **Infrastructure**: Terraform for cloud resource management
+## 🏗️ Architecture Overview
 
-## Documentation
+### Core Components
 
-See the `docs/` directory for detailed architecture documentation and issue tracking.
+| Component | Technology | Purpose |
+|-----------|------------|---------|
+| **Pipeline** | Python + Pydantic | Corpus-first AI processing engine |
+| **Services** | FastAPI + Cloud Run | Microservices for API endpoints |
+| **Web Frontend** | SvelteKit + TypeScript | Modern responsive user interface |
+| **Infrastructure** | Terraform + GCP | Cloud-native resource management |
+| **Data Storage** | ChromaDB + Cloud Storage | Vector database and file storage |
 
-## Contributing
+### Processing Workflow
 
-Please read our contributing guidelines and code of conduct before submitting pull requests.
+```mermaid
+graph LR
+    A[Discover] --> B[Fetch]
+    B --> C[Extract]
+    C --> D[Corpus]
+    D --> E[Summarize]
+    E --> F[Arbitrate]
+    F --> G[Publish]
+```
 
-## License
+**7-Step Pipeline:**
+1. **DISCOVER** - Seed URLs + Google dorks + Fresh issue search
+2. **FETCH** - Download raw content from sources
+3. **EXTRACT** - Convert HTML/PDF to plain text
+4. **CORPUS** - Index content in ChromaDB vector database
+5. **SUMMARIZE** - RAG + 3-model LLM triangulation
+6. **ARBITRATE** - 2-of-3 consensus with confidence scoring
+7. **PUBLISH** - Generate standardized RaceJSON v0.2
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+## 📊 Data Standards
+
+### Canonical Issues Framework
+Our analysis focuses on 11 consistent political issues:
+- Healthcare
+- Economy
+- Climate/Energy
+- Reproductive Rights
+- Immigration
+- Guns & Safety
+- Foreign Policy
+- LGBTQ+ Rights
+- Education
+- Tech & AI
+- Election Reform
+
+### RaceJSON v0.2 Format
+Standardized output format ensuring consistent candidate comparisons across all electoral races.
+
+## 🔧 Development Tools
+
+### Code Quality
+- **Python**: Black formatting, isort imports, pytest testing
+- **TypeScript**: ESLint, Prettier, Svelte-check
+- **Infrastructure**: Terraform validate, plan verification
+
+### CI/CD Pipeline
+- **GitHub Actions**: Automated testing and deployment
+- **Multi-environment**: Dev, staging, production workflows
+- **Quality Gates**: Code quality, security, and performance checks
+
+## 📚 Documentation
+
+| Document | Description |
+|----------|-------------|
+| [`docs/architecture.md`](docs/architecture.md) | Detailed system architecture and design patterns |
+| [`docs/issues-list.md`](docs/issues-list.md) | Current development priorities and feature roadmap |
+| [`infra/README.md`](infra/README.md) | Infrastructure deployment and management guide |
+| [`web/README.md`](web/README.md) | Frontend development and deployment instructions |
+
+## 🤝 Contributing
+
+We welcome contributions! Please ensure:
+
+1. **Code Quality**: Run linting and formatting tools
+2. **Testing**: Add tests for new features
+3. **Documentation**: Update relevant docs with changes
+4. **CI/CD**: Ensure all GitHub Actions workflows pass
+
+### Development Workflow
+```bash
+# Create feature branch
+git checkout -b feature/your-feature-name
+
+# Make changes and test
+npm run test          # Web frontend tests
+python -m pytest     # Python pipeline tests
+
+# Format and lint
+npm run format        # Frontend formatting
+black pipeline/       # Python formatting
+
+# Submit pull request
+```
+
+## 🛡️ Security & Compliance
+
+- **API Keys**: Stored in Google Secret Manager
+- **Data Privacy**: No personally identifiable information stored
+- **Content Sourcing**: Public electoral information only
+- **AI Ethics**: Multi-model consensus to reduce bias
+
+## 📈 Performance & Scaling
+
+- **Serverless Architecture**: Auto-scaling Cloud Run services
+- **Vector Database**: ChromaDB for efficient similarity search
+- **CDN Delivery**: Static site optimized for global distribution
+- **Monitoring**: Cloud Logging and error tracking
+
+## 📄 License
+
+This project is licensed under CC BY-NC-SA 4.0- see the [LICENSE](LICENSE) file for details.
+
+---
+
+**Built with ❤️ for democracy and informed voting**
+
+*Last updated: August 2025*

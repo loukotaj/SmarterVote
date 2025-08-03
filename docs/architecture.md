@@ -1,48 +1,345 @@
-# SmarterVote Architecture
+# SmarterVote Architecture v1.1
 
-## Overview
+**Corpus-First AI Pipeline for Electoral Analysis** 🏗️
 
-SmarterVote is a comprehensive electoral analysis platform that processes and summarizes candidate information using AI-powered data processing pipelines.
+*Last updated: August 2025*
 
-## System Architecture
+## 🎯 Overview
 
-### Components
+SmarterVote implements a sophisticated **corpus-first architecture** that prioritizes content comprehension and semantic understanding over simple aggregation. Our system processes electoral data through a multi-stage AI pipeline designed for accuracy, bias reduction, and scalable analysis.
 
-#### 1. Data Pipeline (`pipeline/`)
-- **Discover**: URL discovery and search API integration
-- **Fetch**: HTTP download and data collection
-- **Extract**: Content extraction from HTML, PDF, and JSON sources
-- **Corpus**: ChromaDB vector database for content indexing
-- **Summarize**: AI model integration (GPT-4o, Claude-3.5, Grok-4)
-- **Arbitrate**: Confidence scoring and validation logic
-- **Publish**: Final data output in structured JSON format
+## 🔧 System Architecture
 
-#### 2. Services (`services/`)
-- **Enqueue API**: REST API for triggering data processing via Pub/Sub
+### Core Design Principles
 
-#### 3. Web Frontend (`web/`)
-- **SvelteKit**: Modern web framework for the user interface
-- **Dynamic routing**: Race-specific pages with slug-based routing
+1. **Corpus-First Processing**: Build comprehensive content understanding before analysis
+2. **Multi-Model Consensus**: Triangulate across multiple AI models for reliability
+3. **Confidence Scoring**: Quantify certainty in analysis results
+4. **Semantic Indexing**: Vector-based content search and retrieval
+5. **Modular Pipeline**: Independent, testable processing stages
 
-#### 4. Infrastructure (`infra/`)
-- **Terraform**: Infrastructure as Code for cloud resources
-- **Modular design**: Reusable modules for common resources
+### Architecture Diagram
 
-## Data Flow
+```mermaid
+graph TB
+    subgraph "Data Sources"
+        A[Campaign Websites]
+        B[Government APIs]
+        C[News Sources]
+        D[Social Media]
+        E[Fresh Issue Search]
+    end
+    
+    subgraph "Processing Pipeline"
+        F[Discovery Engine] --> G[Content Fetcher]
+        G --> H[Content Extractor]
+        H --> I[Vector Corpus]
+        I --> J[LLM Summarization]
+        J --> K[Arbitration Engine]
+        K --> L[Publishing Engine]
+    end
+    
+    subgraph "AI Models"
+        M[GPT-4o]
+        N[Claude-3.5]
+        O[Grok-4]
+    end
+    
+    subgraph "Storage & APIs"
+        P[ChromaDB]
+        Q[Cloud Storage]
+        R[Race API]
+        S[Enqueue API]
+    end
+    
+    subgraph "Frontend"
+        T[SvelteKit Web App]
+        U[Static Site Generator]
+    end
+    
+    A --> F
+    B --> F
+    C --> F
+    D --> F
+    E --> F
+    
+    J --> M
+    J --> N
+    J --> O
+    
+    I --> P
+    L --> Q
+    L --> R
+    
+    R --> T
+    T --> U
+```
 
-1. **Input**: Electoral race information and candidate data sources
-2. **Discovery**: Automated URL discovery and content identification
-3. **Extraction**: Content processing and text extraction
-4. **Analysis**: AI-powered summarization and fact-checking
-5. **Storage**: Vector database storage for similarity search
-6. **Output**: Structured race data with candidate summaries
-7. **Presentation**: Web interface for public consumption
+## 🚀 Pipeline Components (v1.1)
 
-## Technology Stack
+### 1. Discovery Engine (`pipeline/app/discover/`)
+**Purpose**: Intelligent content source identification
 
-- **Backend**: Python with Pydantic for data validation
-- **Frontend**: SvelteKit with TypeScript
-- **Database**: ChromaDB for vector storage
-- **AI**: Multiple LLM providers for redundancy and accuracy
-- **Infrastructure**: Google Cloud Platform with Terraform
-- **CI/CD**: GitHub Actions
+**Capabilities**:
+- Seed URL expansion from candidate websites
+- Google Search API integration with specialized dorks
+- Fresh issue-specific search for current positions
+- Social media and news source detection
+- Source quality scoring and prioritization
+
+**Output**: Validated source list with metadata
+
+### 2. Content Fetcher (`pipeline/app/fetch/`)
+**Purpose**: Robust content acquisition with error handling
+
+**Capabilities**:
+- Multi-protocol support (HTTP/HTTPS, APIs)
+- Rate limiting and respectful crawling
+- Content type detection and handling
+- Retry logic with exponential backoff
+- Content integrity verification (checksums)
+
+**Output**: Raw content with metadata
+
+### 3. Content Extractor (`pipeline/app/extract/`)
+**Purpose**: Transform raw content into structured text
+
+**Capabilities**:
+- HTML parsing with semantic awareness
+- PDF text extraction with layout preservation
+- JSON/XML structured data processing
+- Image OCR for embedded text
+- Content cleaning and normalization
+
+**Output**: Clean, searchable text content
+
+### 4. Vector Corpus (`pipeline/app/corpus/`)
+**Purpose**: Semantic content indexing and retrieval
+
+**Technology**: ChromaDB vector database
+**Capabilities**:
+- Embedding generation for semantic search
+- Multi-dimensional content indexing
+- Similarity-based content retrieval
+- Context-aware content clustering
+- Efficient vector similarity queries
+
+**Output**: Indexed content corpus with semantic search
+
+### 5. LLM Summarization Engine (`pipeline/app/summarise/`)
+**Purpose**: Multi-model content analysis and summarization
+
+**AI Models**:
+- **GPT-4o**: General analysis and reasoning
+- **Claude-3.5**: Structured content analysis
+- **Grok-4**: Alternative perspective and fact-checking
+
+**Process**:
+1. RAG (Retrieval-Augmented Generation) query preparation
+2. Parallel analysis across all models
+3. Issue-specific position extraction
+4. Evidence citation and sourcing
+
+**Output**: Structured candidate positions per canonical issue
+
+### 6. Arbitration Engine (`pipeline/app/arbitrate/`)
+**Purpose**: Consensus-building and confidence scoring
+
+**Arbitration Logic**:
+- **2-of-3 Consensus**: Majority agreement for high confidence
+- **Partial Consensus**: Single agreement for medium confidence  
+- **No Consensus**: Store all perspectives with low confidence
+- **Evidence Weighting**: Source quality affects final scoring
+
+**Confidence Levels**:
+- **HIGH**: 85%+ model agreement with quality sources
+- **MEDIUM**: 60-84% agreement or limited sources
+- **LOW**: <60% agreement or contradictory information
+
+**Output**: Arbitrated positions with confidence metrics
+
+### 7. Publishing Engine (`pipeline/app/publish/`)
+**Purpose**: Generate standardized output formats
+
+**Capabilities**:
+- RaceJSON v0.2 format generation
+- Multi-destination publishing (Cloud Storage, APIs)
+- Data validation and quality checks
+- Versioning and audit trails
+- Webhook notifications
+
+**Output**: Published race data in standardized format
+
+## 🌐 Services Architecture
+
+### Enqueue API (`services/enqueue-api/`)
+**Technology**: FastAPI + Cloud Run
+**Purpose**: Public API for triggering race processing
+
+**Endpoints**:
+- `POST /enqueue`: Submit race for processing
+- `GET /health`: Service health check
+- `GET /metrics`: Processing metrics
+
+**Features**:
+- Pub/Sub integration for async processing
+- Request validation and sanitization
+- Rate limiting and authentication
+- CORS configuration for web access
+
+### Races API (`services/races-api/`)
+**Technology**: FastAPI + Cloud Run  
+**Purpose**: Serve processed race data
+
+**Endpoints**:
+- `GET /races`: List available races
+- `GET /races/{race_id}`: Get specific race data
+- `GET /races/{race_id}/candidates`: Get candidate details
+- `POST /webhook`: Handle processing completion
+
+**Features**:
+- Data caching and optimization
+- Version management
+- Content delivery optimization
+
+## 💻 Web Frontend Architecture
+
+### SvelteKit Application (`web/`)
+**Technology**: SvelteKit + TypeScript + Tailwind CSS
+
+**Architecture Features**:
+- **Static Site Generation**: Pre-built pages for optimal performance
+- **Component-Based Design**: Reusable UI components
+- **Type Safety**: Full TypeScript integration
+- **Responsive Design**: Mobile-first approach
+- **SEO Optimization**: Structured data and meta tags
+
+**Key Routes**:
+- `/`: Homepage with featured races
+- `/about`: Platform information and methodology
+- `/races/[slug]`: Dynamic race-specific pages
+- `/api/`: Client-side API integration
+
+**Performance Optimizations**:
+- Code splitting and lazy loading
+- Image optimization and CDN delivery
+- Minimal JavaScript footprint
+- Progressive enhancement approach
+
+## ☁️ Cloud Infrastructure
+
+### Google Cloud Platform Architecture
+
+**Compute Services**:
+- **Cloud Run Services**: Auto-scaling API endpoints
+- **Cloud Run Jobs**: Batch processing workers
+- **Cloud Scheduler**: Automated pipeline triggers
+
+**Storage Services**:
+- **Cloud Storage**: File storage with lifecycle management
+- **Secret Manager**: Encrypted API key storage
+- **Firestore**: Metadata and configuration storage
+
+**Messaging & Events**:
+- **Pub/Sub**: Async job queuing and event handling
+- **Dead Letter Queues**: Failed job recovery
+- **Cloud Scheduler**: Automated daily processing
+
+**Security & Monitoring**:
+- **IAM**: Principle of least privilege access
+- **Cloud Logging**: Centralized log aggregation
+- **Error Reporting**: Automated error tracking
+- **Cloud Monitoring**: Performance and health metrics
+
+## 📊 Data Flow Architecture
+
+### End-to-End Processing Flow
+
+```
+Electoral Race Input
+        ↓
+1. Discovery Phase
+   - Seed URLs → Google Search → Fresh Issue Search
+   - Source validation and scoring
+        ↓
+2. Content Acquisition
+   - Parallel fetching with rate limiting
+   - Content type detection and processing
+        ↓
+3. Content Processing
+   - HTML/PDF extraction → Plain text
+   - Content cleaning and normalization
+        ↓
+4. Corpus Building
+   - Vector embedding generation
+   - ChromaDB indexing and storage
+        ↓
+5. AI Analysis Phase
+   - RAG query preparation
+   - Parallel LLM processing (GPT-4o, Claude-3.5, Grok-4)
+   - Issue-specific position extraction
+        ↓
+6. Consensus & Arbitration
+   - Cross-model comparison
+   - Confidence scoring calculation
+   - Evidence validation
+        ↓
+7. Publication
+   - RaceJSON v0.2 generation
+   - Multi-destination publishing
+   - Web frontend update
+        ↓
+Voter-Ready Analysis
+```
+
+## 🔧 Technology Stack
+
+### Backend Technologies
+| Component | Technology | Version | Purpose |
+|-----------|------------|---------|---------|
+| Pipeline Runtime | Python | 3.9+ | Core processing logic |
+| Data Validation | Pydantic | 2.x | Schema validation |
+| Vector Database | ChromaDB | Latest | Semantic search |
+| API Framework | FastAPI | Latest | REST API services |
+| Task Queue | Pub/Sub | GCP | Async processing |
+
+### Frontend Technologies  
+| Component | Technology | Version | Purpose |
+|-----------|------------|---------|---------|
+| Framework | SvelteKit | 2.x | Web application |
+| Language | TypeScript | 5.x | Type safety |
+| Styling | Tailwind CSS | 3.x | Responsive design |
+| Build Tool | Vite | 5.x | Development & bundling |
+| Runtime | Node.js | 22+ | JavaScript execution |
+
+### Infrastructure Technologies
+| Component | Technology | Version | Purpose |
+|-----------|------------|---------|---------|
+| IaC | Terraform | 1.5+ | Resource management |
+| Container Runtime | Docker | Latest | Application packaging |
+| Cloud Platform | Google Cloud | Current | Hosting & services |
+| CI/CD | GitHub Actions | Current | Automation pipeline |
+
+## 🎯 Quality Assurance
+
+### Testing Strategy
+- **Unit Tests**: Individual component testing
+- **Integration Tests**: Service interaction testing  
+- **End-to-End Tests**: Full workflow validation
+- **Performance Tests**: Load and latency testing
+
+### Code Quality
+- **Static Analysis**: ESLint, Black, isort
+- **Type Checking**: TypeScript, mypy
+- **Security Scanning**: Dependency vulnerability checks
+- **Documentation**: Automated doc generation
+
+### Monitoring & Observability
+- **Application Metrics**: Performance and usage tracking
+- **Error Tracking**: Automated error reporting and alerting
+- **Log Aggregation**: Centralized logging with search
+- **Health Checks**: Service availability monitoring
+
+---
+
+*This architecture supports democratic values through transparent, accountable, and accurate electoral information processing.*
