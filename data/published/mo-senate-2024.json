@@ -1,0 +1,113 @@
+{
+  "id": "example-state-senate-2025",
+  "election_date": "2025-11-05T00:00:00Z",
+  "title": "Example State U.S. Senate Race 2025",
+  "office": "U.S. Senate",
+  "jurisdiction": "Example State",
+  "updated_utc": "2025-01-15T12:00:00Z",
+  "generator": ["gpt-4o", "claude-3.5", "grok-4"],
+  "candidates": [
+    {
+      "name": "Jane Smith",
+      "party": "Republican",
+      "incumbent": true,
+      "website": "https://www.example-candidate-website.com",
+      "social_media": {
+        "twitter": "https://twitter.com/example_candidate",
+        "facebook": "https://facebook.com/example.candidate"
+      },
+      "summary": "Example conservative candidate with fictional policy positions for demonstration purposes only. This is dummy data for testing.",
+      "issues": {
+        "Healthcare": {
+          "issue": "Healthcare",
+          "stance": "Example stance on healthcare policy for demonstration purposes only. This is fictional test data.",
+          "confidence": "high",
+          "sources": ["src:example:dummy-source-1", "src:test:fake-voting-record"]
+        },
+        "Economy": {
+          "issue": "Economy",
+          "stance": "Sample economic policy position. This is dummy data for testing the system.",
+          "confidence": "medium",
+          "sources": ["src:example:economic-plan", "src:test:sample-speech"]
+        },
+        "Climate/Energy": {
+          "issue": "Climate/Energy",
+          "stance": "Example climate and energy position for testing purposes only.",
+          "confidence": "low",
+          "sources": ["src:test:climate-statement", "src:example:energy-policy"]
+        },
+        "Immigration": {
+          "issue": "Immigration",
+          "stance": "Sample immigration policy stance. This is fictional test data.",
+          "confidence": "high",
+          "sources": ["src:example:border-policy", "src:test:immigration-speech"]
+        }
+      },
+      "top_donors": [
+        {
+          "name": "Example PAC Organization",
+          "amount": 10000.0,
+          "organization": "Test Political Action Committee",
+          "source": "src:example:dummy-donations"
+        },
+        {
+          "name": "Sample Industry Group",
+          "amount": 5000.0,
+          "organization": "Fictional Trade Association",
+          "source": "src:test:fake-fec-data"
+        }
+      ]
+    },
+    {
+      "name": "John Doe",
+      "party": "Democratic",
+      "incumbent": false,
+      "website": "https://www.example-democrat-candidate.com",
+      "social_media": {
+        "twitter": "https://twitter.com/example_dem",
+        "facebook": "https://facebook.com/example.democrat"
+      },
+      "summary": "Example progressive candidate with fictional policy positions for demonstration purposes only. This is dummy test data.",
+      "issues": {
+        "Healthcare": {
+          "issue": "Healthcare",
+          "stance": "Sample healthcare policy position for testing purposes. This is fictional data.",
+          "confidence": "high",
+          "sources": ["src:example:health-plan", "src:test:dummy-interview"]
+        },
+        "Economy": {
+          "issue": "Economy",
+          "stance": "Example economic policy stance for demonstration. This is test data only.",
+          "confidence": "medium",
+          "sources": ["src:test:economic-speech", "src:example:worker-policy"]
+        },
+        "Climate/Energy": {
+          "issue": "Climate/Energy",
+          "stance": "Sample climate action position for testing purposes only.",
+          "confidence": "high",
+          "sources": ["src:example:climate-plan", "src:test:green-energy"]
+        },
+        "Education": {
+          "issue": "Education",
+          "stance": "Example education policy for demonstration purposes. This is dummy data.",
+          "confidence": "medium",
+          "sources": ["src:test:education-forum", "src:example:school-funding"]
+        }
+      },
+      "top_donors": [
+        {
+          "name": "Example Labor Union",
+          "amount": 15000.0,
+          "organization": "Test Workers Union",
+          "source": "src:example:union-donations"
+        },
+        {
+          "name": "Sample Advocacy Group",
+          "amount": 8000.0,
+          "organization": "Fictional Issue PAC",
+          "source": "src:test:advocacy-funding"
+        }
+      ]
+    }
+  ]
+}

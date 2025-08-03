@@ -1,0 +1,164 @@
+{
+  "id": "tx-governor-2024",
+  "election_date": "2024-11-05T00:00:00Z",
+  "title": "Texas Governor Race 2024 (Demo Data)",
+  "office": "Governor",
+  "jurisdiction": "Texas",
+  "updated_utc": "2024-03-15T19:15:00Z",
+  "generator": ["gpt-4o", "claude-3.5", "grok-4"],
+  "candidates": [
+    {
+      "name": "Jane Smith",
+      "party": "Republican",
+      "incumbent": true,
+      "website": "https://example.com/jane-smith",
+      "social_media": {
+        "twitter": "https://twitter.com/example_jane",
+        "facebook": "https://facebook.com/example_jane"
+      },
+      "summary": "Fictional incumbent governor running for re-election. This is dummy data for testing purposes only.",
+      "issues": {
+        "Economy": {
+          "issue": "Economy",
+          "stance": "Supports moderate economic policies with focus on job creation and small business development. Example stance for testing.",
+          "confidence": "high",
+          "sources": ["src:website:economic-policy-demo", "src:press:example-2024"]
+        },
+        "Education": {
+          "issue": "Education",
+          "stance": "Advocates for increased education funding and teacher support programs. Fictional policy position for demo purposes.",
+          "confidence": "medium",
+          "sources": ["src:website:education-demo", "src:speech:example-event"]
+        },
+        "Healthcare": {
+          "issue": "Healthcare",
+          "stance": "Proposes healthcare accessibility improvements and cost reduction measures. Sample stance for testing.",
+          "confidence": "high",
+          "sources": ["src:policy:healthcare-demo", "src:interview:example-media"]
+        },
+        "Tech & AI": {
+          "issue": "Tech & AI",
+          "stance": "Plans technology infrastructure investments including broadband expansion. Example tech position.",
+          "confidence": "medium",
+          "sources": ["src:website:infrastructure-plan", "src:press:demo-2024"]
+        }
+      },
+      "top_donors": [
+        {
+          "name": "Example Business PAC",
+          "amount": 150000.0,
+          "organization": "Business Association",
+          "source": "src:demo-records:donations-2024"
+        },
+        {
+          "name": "Fictional Industry Group",
+          "amount": 75000.0,
+          "organization": "Industry Association",
+          "source": "src:demo-records:donations-2024"
+        }
+      ]
+    },
+    {
+      "name": "John Doe",
+      "party": "Democratic",
+      "incumbent": false,
+      "website": "https://example.com/john-doe",
+      "social_media": {
+        "twitter": "https://twitter.com/example_john",
+        "facebook": "https://facebook.com/example_john"
+      },
+      "summary": "Fictional challenger candidate with progressive platform. This is sample data for development and testing.",
+      "issues": {
+        "Healthcare": {
+          "issue": "Healthcare",
+          "stance": "Supports universal healthcare access and prescription drug cost controls. Example healthcare position for testing.",
+          "confidence": "high",
+          "sources": ["src:website:healthcare-demo", "src:rally:example-event"]
+        },
+        "Education": {
+          "issue": "Education",
+          "stance": "Advocates for free public college and student debt relief programs. Fictional education policy for demo.",
+          "confidence": "high",
+          "sources": ["src:website:education-demo", "src:town-hall:example-2024"]
+        },
+        "Climate/Energy": {
+          "issue": "Climate/Energy",
+          "stance": "Promotes renewable energy transition and environmental protection measures. Sample climate stance.",
+          "confidence": "medium",
+          "sources": ["src:website:climate-demo", "src:interview:example-media"]
+        },
+        "Economy": {
+          "issue": "Economy",
+          "stance": "Focuses on worker rights, minimum wage increases, and wealth inequality reduction. Example economic position.",
+          "confidence": "high",
+          "sources": ["src:website:economy-demo", "src:speech:labor-event"]
+        },
+        "Reproductive Rights": {
+          "issue": "Reproductive Rights",
+          "stance": "Supports reproductive choice and family planning access. Fictional social policy position.",
+          "confidence": "medium",
+          "sources": ["src:website:social-demo", "src:press:example-2024"]
+        }
+      },
+      "top_donors": [
+        {
+          "name": "Demo Labor Union",
+          "amount": 200000.0,
+          "organization": "Labor Union",
+          "source": "src:demo-records:donations-2024"
+        },
+        {
+          "name": "Example Progressive PAC",
+          "amount": 125000.0,
+          "organization": "Political Action Committee",
+          "source": "src:demo-records:donations-2024"
+        }
+      ]
+    },
+    {
+      "name": "Alex Johnson",
+      "party": "Independent",
+      "incumbent": false,
+      "website": "https://example.com/alex-johnson",
+      "social_media": {
+        "twitter": "https://twitter.com/example_alex",
+        "facebook": "https://facebook.com/example_alex"
+      },
+      "summary": "Fictional independent candidate running on government reform platform. Demo data for testing third-party candidates.",
+      "issues": {
+        "Election Reform": {
+          "issue": "Election Reform",
+          "stance": "Advocates for campaign finance reform and transparency in government. Example reform position for testing.",
+          "confidence": "high",
+          "sources": ["src:website:reform-demo", "src:interview:example-show"]
+        },
+        "Economy": {
+          "issue": "Economy",
+          "stance": "Proposes balanced budget approach with fiscal responsibility measures. Sample economic stance.",
+          "confidence": "medium",
+          "sources": ["src:website:fiscal-demo", "src:debate:example-2024"]
+        },
+        "Tech & AI": {
+          "issue": "Tech & AI",
+          "stance": "Supports bipartisan technology investments funded through public-private partnerships. Demo tech policy.",
+          "confidence": "high",
+          "sources": ["src:website:infrastructure-demo", "src:press:example-release"]
+        }
+      },
+      "top_donors": [
+        {
+          "name": "Citizens for Reform",
+          "amount": 50000.0,
+          "organization": "Advocacy Group",
+          "source": "src:demo-records:donations-2024"
+        },
+        {
+          "name": "Example Small Business Coalition",
+          "amount": 25000.0,
+          "organization": "Business Group",
+          "source": "src:demo-records:donations-2024"
+        }
+      ]
+    }
+  ]
+}

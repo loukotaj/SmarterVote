@@ -1,0 +1,57 @@
+{
+    // Python Configuration
+    "python.defaultInterpreterPath": "./venv/Scripts/python.exe",
+    "python.terminal.activateEnvironment": true,
+    
+    // Test Discovery and Execution
+    "python.testing.pytestEnabled": true,
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestArgs": [
+        ".",
+        "--verbose",
+        "--tb=short"
+    ],
+    "python.testing.cwd": "${workspaceFolder}",
+    "python.testing.autoTestDiscoverOnSaveEnabled": true,
+    
+    // Test Explorer Configuration
+    "python.testing.pytestPath": "pytest",
+    "testExplorer.useNativeTesting": true,
+    
+    // File Associations
+    "files.associations": {
+        "**/test_*.py": "python",
+        "**/*_test.py": "python"
+    },
+    
+    // Python Path for Imports
+    "python.analysis.extraPaths": [
+        "./pipeline",
+        "./services",
+        "./tests"
+    ],
+    
+    // Auto-save for test discovery
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 1000,
+    
+    // Editor Configuration
+    "editor.rulers": [88],
+    "python.formatting.provider": "black",
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    
+    // Exclude patterns for cleaner workspace
+    "files.exclude": {
+        "**/__pycache__": true,
+        "**/*.pyc": true,
+        "**/.pytest_cache": true
+    },
+    
+    // Test Result Display
+    "python.testing.showOutputPanel": "always",
+    "testExplorer.showCollapseButton": true,
+    "testExplorer.showExpandButton": true,
+    "testExplorer.showOnlyFailedTests": false
+}

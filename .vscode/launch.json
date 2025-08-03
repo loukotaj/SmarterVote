@@ -1,0 +1,121 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Races API",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/services/races-api/main.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/services/races-api",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}",
+                "DATA_DIR": "../../data/published"
+            },
+            "justMyCode": false,
+            "stopOnEntry": false
+        },
+        {
+            "name": "Debug Pipeline Script",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/scripts/run_local.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            },
+            "args": [
+                "tx-governor-2024"
+            ],
+            "justMyCode": false,
+            "stopOnEntry": false
+        },
+        {
+            "name": "Debug Pipeline Main",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "pipeline.app",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            },
+            "args": [
+                "--race-id",
+                "tx-governor-2024"
+            ],
+            "justMyCode": false,
+            "stopOnEntry": false
+        },
+        {
+            "name": "Debug Enqueue API",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/services/enqueue-api/main.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/services/enqueue-api",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            },
+            "justMyCode": false,
+            "stopOnEntry": false
+        },
+        {
+            "name": "Debug Tests",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "pytest",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            },
+            "args": [
+                "-v",
+                "${file}"
+            ],
+            "justMyCode": false,
+            "stopOnEntry": false
+        },
+        {
+            "name": "Debug Current File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "cwd": "${fileDirname}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            },
+            "justMyCode": false,
+            "stopOnEntry": false
+        },
+        {
+            "name": "Attach to Races API Process",
+            "type": "debugpy",
+            "request": "attach",
+            "connect": {
+                "host": "localhost",
+                "port": 5678
+            },
+            "pathMappings": [
+                {
+                    "localRoot": "${workspaceFolder}",
+                    "remoteRoot": "."
+                }
+            ],
+            "justMyCode": false
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Debug Full Stack",
+            "configurations": [
+                "Debug Races API"
+            ],
+            "stopAll": true,
+            "preLaunchTask": "Start Web Frontend Only"
+        }
+    ]
+}

@@ -1,0 +1,107 @@
+{
+  "id": "ca-senate-2024",
+  "election_date": "2024-11-05T00:00:00Z",
+  "title": "California Senate Race 2024 (Demo Data)",
+  "office": "U.S. Senate",
+  "jurisdiction": "California",
+  "updated_utc": "2024-03-15T20:30:00Z",
+  "generator": ["gpt-4o", "claude-3.5", "grok-4"],
+  "candidates": [
+    {
+      "name": "Maria Rodriguez",
+      "party": "Democratic",
+      "incumbent": false,
+      "website": "https://example.com/maria-rodriguez",
+      "social_media": {
+        "twitter": "https://twitter.com/example_maria",
+        "facebook": "https://facebook.com/example_maria"
+      },
+      "summary": "Fictional Democratic Senate candidate with focus on technology and environmental issues. Demo data for testing purposes.",
+      "issues": {
+        "Climate/Energy": {
+          "issue": "Climate/Energy",
+          "stance": "Advocates for aggressive climate action and renewable energy investments. Example environmental stance for testing.",
+          "confidence": "high",
+          "sources": ["src:website:climate-demo", "src:rally:green-energy-2024"]
+        },
+        "Tech & AI": {
+          "issue": "Tech & AI",
+          "stance": "Supports tech industry regulation and data privacy protections. Fictional tech policy for demo purposes.",
+          "confidence": "high",
+          "sources": ["src:website:tech-demo", "src:hearing:silicon-valley"]
+        },
+        "Healthcare": {
+          "issue": "Healthcare",
+          "stance": "Promotes Medicare for All and pharmaceutical cost controls. Sample healthcare position.",
+          "confidence": "medium",
+          "sources": ["src:website:healthcare-demo", "src:interview:example-news"]
+        },
+        "Immigration": {
+          "issue": "Immigration",
+          "stance": "Supports comprehensive immigration reform and pathway to citizenship. Example immigration stance.",
+          "confidence": "high",
+          "sources": ["src:website:immigration-demo", "src:speech:community-event"]
+        }
+      },
+      "top_donors": [
+        {
+          "name": "Tech Workers Union",
+          "amount": 300000.0,
+          "organization": "Labor Union",
+          "source": "src:demo-records:donations-2024"
+        },
+        {
+          "name": "Environmental Action PAC",
+          "amount": 250000.0,
+          "organization": "Environmental Group",
+          "source": "src:demo-records:donations-2024"
+        }
+      ]
+    },
+    {
+      "name": "Robert Thompson",
+      "party": "Republican",
+      "incumbent": false,
+      "website": "https://example.com/robert-thompson",
+      "social_media": {
+        "twitter": "https://twitter.com/example_robert",
+        "facebook": "https://facebook.com/example_robert"
+      },
+      "summary": "Fictional Republican Senate candidate emphasizing business and security issues. Test data for development.",
+      "issues": {
+        "Economy": {
+          "issue": "Economy",
+          "stance": "Focuses on tax reduction and business deregulation to spur economic growth. Example economic policy for testing.",
+          "confidence": "high",
+          "sources": ["src:website:economy-demo", "src:press:business-forum"]
+        },
+        "Foreign Policy": {
+          "issue": "Foreign Policy",
+          "stance": "Advocates for strong defense spending and international security measures. Sample security stance.",
+          "confidence": "medium",
+          "sources": ["src:website:security-demo", "src:interview:defense-topics"]
+        },
+        "Tech & AI": {
+          "issue": "Tech & AI",
+          "stance": "Supports free market approach to tech innovation with minimal regulation. Fictional tech position.",
+          "confidence": "high",
+          "sources": ["src:website:innovation-demo", "src:speech:tech-conference"]
+        }
+      },
+      "top_donors": [
+        {
+          "name": "Business Coalition PAC",
+          "amount": 400000.0,
+          "organization": "Business Group",
+          "source": "src:demo-records:donations-2024"
+        },
+        {
+          "name": "Defense Industry Association",
+          "amount": 175000.0,
+          "organization": "Industry Group",
+          "source": "src:demo-records:donations-2024"
+        }
+      ]
+    }
+  ]
+}
