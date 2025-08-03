@@ -13,15 +13,15 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 from pipeline.app.publish import PublishService
-from pipeline.app.schema import Race
+from pipeline.app.schema import RaceJSON as Race
 
 # Configure data directory from environment variable
 DATA_DIR = os.getenv("DATA_DIR", "data/published/")
 
 # Initialize publish service with custom data directory
-publish_service = PublishService()
-publish_service.output_dir = Path(DATA_DIR)
-publish_service.output_dir.mkdir(parents=True, exist_ok=True)
+from pipeline.app.publish import PublicationConfig
+config = PublicationConfig(output_directory=Path(DATA_DIR))
+publish_service = PublishService(config=config)
 
 # Initialize FastAPI app
 app = FastAPI(title="SmarterVote Races API")

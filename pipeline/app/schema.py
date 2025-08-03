@@ -62,15 +62,6 @@ class Source(BaseModel):
     is_fresh: bool = False  # Flag for fresh issue search results
 
 
-class FreshSearchQuery(BaseModel):
-    """Query for fresh issue-specific content discovery."""
-    text: str
-    issue: CanonicalIssue
-    race_id: str
-    max_results: int = 10
-    date_restrict: Optional[str] = None  # e.g., "d30" for last 30 days
-
-
 class ChromaChunk(BaseModel):
     """Document chunk stored in ChromaDB corpus."""
     id: str
@@ -199,7 +190,7 @@ class FreshSearchQuery(BaseModel):
     """Query for fresh issue-specific Google searches."""
     race_id: str
     candidate_name: str
-    issue: CanonicalIssue
+    issue: CanonicalIssue = None
     query_terms: List[str]
     max_results: int = 5
 

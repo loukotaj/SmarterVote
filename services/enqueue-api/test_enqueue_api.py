@@ -2,10 +2,7 @@
 
 import json
 import os
-import importlib.util
-import sys
 import time
-from pathlib import Path
 from unittest.mock import Mock, patch, MagicMock
 from datetime import datetime
 
@@ -15,16 +12,40 @@ from google.cloud import pubsub_v1
 
 
 @pytest.fixture
+def mock_pubsub_publisher():
+    """Mock Pub/Sub publisher for testing."""
+    # Set environment variables first
+    os.environ["PROJECT_ID"] = "test-project"
+    os.environ["PUBSUB_TOPIC"] = "race-processing"
+    
+    # Mock the PublisherClient class before any imports
+    with patch('google.cloud.pubsub_v1.PublisherClient') as mock_publisher_class:
+        mock_publisher = MagicMock()
+        mock_publisher_class.return_value = mock_publisher
+        
+        # Set up default mock behavior
+        mock_publisher.topic_path.return_value = "projects/test-project/topics/race-processing"
+        mock_publisher.get_topic.return_value = True
+        
+        # Mock publish method
+        mock_future = MagicMock()
+        mock_future.result.return_value = "test-message-id"
+        mock_publisher.publish.return_value = mock_future
+        
+        yield mock_publisher
+
+
+@pytest.fixture
 def client(mock_pubsub_publisher):
     """Create a TestClient with mocked Pub/Sub."""
-    # Dynamically import the app after setting environment variables and mocking
-    main_path = Path(__file__).resolve().parents[3] / "services" / "enqueue-api" / "main.py"
-    sys.path.append(str(main_path.parents[2]))
-    spec = importlib.util.spec_from_file_location("enqueue_api", main_path)
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)  # type: ignore
+    # Clear any cached imports to ensure fresh import with mocked publisher
+    import sys
+    if 'main' in sys.modules:
+        del sys.modules['main']
     
-    return TestClient(module.app)
+    # Import the app AFTER the mock is set up and cache is cleared
+    from main import app
+    return TestClient(app)
 
 
 def test_root_endpoint(client):
@@ -270,12 +291,8 @@ def test_missing_environment_variables():
         mock_publisher.topic_path.return_value = "projects/None/topics/race-processing"
         
         # Import should still work, but topic_path will have None
-        main_path = Path(__file__).resolve().parents[3] / "services" / "enqueue-api" / "main.py"
-        spec = importlib.util.spec_from_file_location("enqueue_api_no_env", main_path)
-        module = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(module)  # type: ignore
-        
-        client = TestClient(module.app)
+        from main import app
+        client = TestClient(app)
         
         # Basic endpoints should still work
         response = client.get("/")

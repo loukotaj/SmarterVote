@@ -2,9 +2,8 @@
 
 import json
 import os
-import importlib.util
 import sys
-from pathlib import Path
+import importlib
 
 import pytest
 from fastapi.testclient import TestClient
@@ -13,34 +12,29 @@ from fastapi.testclient import TestClient
 @pytest.fixture()
 def client(tmp_path):
     """Create a TestClient with temporary data directory."""
-    # Create sample race file
+    # Set the environment variable BEFORE importing the app
+    os.environ["DATA_DIR"] = str(tmp_path)
+    
+    # Clear any cached imports to ensure environment variable takes effect
+    if 'main' in sys.modules:
+        del sys.modules['main']
+    
+    # Create sample race file in the temporary directory
     race_data = {
-        "id": "race1",
+        "id": "race1", 
         "title": "Test Race 1",
         "office": "Office",
-        "jurisdiction": "Jurisdiction",
+        "jurisdiction": "Jurisdiction", 
         "election_date": "2024-11-05T00:00:00",
+        "updated_utc": "2023-01-02T00:00:00",
         "candidates": [],
-        "description": "Test race",
-        "key_issues": [],
-        "status": "completed",
-        "sources": [],
-        "created_at": "2023-01-01T00:00:00",
-        "last_updated": "2023-01-02T00:00:00",
-        "confidence": "unknown"
+        "generator": ["gpt-4o"]
     }
     (tmp_path / "race1.json").write_text(json.dumps(race_data))
 
-    os.environ["DATA_DIR"] = str(tmp_path)
-
-    # Dynamically import the app after setting DATA_DIR
-    main_path = Path(__file__).resolve().parents[3] / "services" / "races-api" / "main.py"
-    sys.path.append(str(main_path.parents[2]))
-    spec = importlib.util.spec_from_file_location("races_api", main_path)
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)  # type: ignore
-
-    return TestClient(module.app)
+    # Import the app AFTER setting the environment variable and clearing cache
+    import main
+    return TestClient(main.app)
 
 
 def test_list_races(client):
