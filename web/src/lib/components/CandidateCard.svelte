@@ -47,7 +47,7 @@
   
   <!-- Issues Section -->
   <div>
-    <h4 class="text-lg font-semibold text-gray-900 mb-4">Issue Positions</h4>
+    <h4 class="text-lg font-semibold text-gray-900 mb-4">Key Issues</h4>
     <IssueTable issues={candidate.issues} />
   </div>
 </div>
