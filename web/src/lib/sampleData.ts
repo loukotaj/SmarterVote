@@ -2,7 +2,7 @@ import type { Race } from "./types";
 
 /**
  * Sample race data for fallback when API is unavailable
- * Based on the Missouri Senate 2024 example data
+ * Enhanced with comprehensive realistic policy positions and donor data
  */
 export const sampleRace: Race = {
   id: "sample-race-fallback",
@@ -14,172 +14,310 @@ export const sampleRace: Race = {
   generator: ["gpt-4o", "claude-3.5", "grok-4"],
   candidates: [
     {
-      name: "Jane Smith",
+      name: "Senator Sarah Johnson",
       party: "Republican",
       incumbent: true,
-      website: "https://www.example-candidate-website.com",
+      website: "https://www.sarahjohnsonforsenate.com",
       social_media: {
-        twitter: "https://twitter.com/example_candidate",
-        facebook: "https://facebook.com/example.candidate"
+        twitter: "https://twitter.com/SenSarahJohnson",
+        facebook: "https://facebook.com/SenatorSarahJohnson",
+        instagram: "https://instagram.com/sarahjohnsonsenate"
       },
-      summary: "Example conservative candidate with fictional policy positions for demonstration purposes only. This is dummy data for testing.",
+      summary: "Three-term incumbent Senator with a focus on fiscal conservatism, national security, and energy independence. Former state attorney general with 15 years of public service. Strong advocate for small businesses and rural communities. Sits on Armed Services and Energy committees.",
       issues: {
         Healthcare: {
-          stance: "Example stance on healthcare policy for demonstration purposes only. This is fictional test data.",
+          stance: "Supports market-based healthcare solutions, including health savings accounts and price transparency. Opposes government-run healthcare systems. Advocates for protecting pre-existing conditions coverage while reducing regulatory burden on providers. Supports telehealth expansion for rural areas.",
           confidence: "high",
-          sources: ["src:example:dummy-source-1", "src:test:fake-voting-record"]
+          sources: ["src:voting-record:aca-repeal-2023", "src:speech:healthcare-reform-summit-2024", "src:website:healthcare-policy"]
         },
         Economy: {
-          stance: "Sample economic policy position. This is dummy data for testing the system.",
-          confidence: "medium",
-          sources: ["src:example:economic-plan", "src:test:sample-speech"]
+          stance: "Champions tax cuts for individuals and businesses, deregulation to spur growth, and reduced government spending. Strong supporter of domestic energy production. Opposes minimum wage increases, favors right-to-work laws. Advocates for balanced budget amendment.",
+          confidence: "high",
+          sources: ["src:voting-record:tax-cuts-2024", "src:committee:budget-testimony", "src:op-ed:wall-street-journal-2024"]
         },
         "Climate/Energy": {
-          stance: "Example climate and energy position for testing purposes only.",
-          confidence: "low",
-          sources: ["src:test:climate-statement", "src:example:energy-policy"]
+          stance: "Prioritizes energy independence through domestic oil, gas, and coal production. Supports nuclear energy expansion. Skeptical of climate regulations that harm economic growth. Opposes Green New Deal. Favors innovation-based climate solutions over mandates.",
+          confidence: "high",
+          sources: ["src:committee:energy-hearing-2024", "src:statement:keystone-pipeline", "src:voting-record:epa-regulations"]
         },
         Immigration: {
-          stance: "Sample immigration policy stance. This is fictional test data.",
+          stance: "Strong border security advocate, supports completing border wall. Favors merit-based immigration system, opposes amnesty for undocumented immigrants. Supports e-verify mandate and increased deportations. Backs temporary worker programs for agriculture.",
           confidence: "high",
-          sources: ["src:example:border-policy", "src:test:immigration-speech"]
+          sources: ["src:floor-speech:border-security-2024", "src:bill:merit-immigration-act", "src:interview:fox-news-immigration"]
         },
         "Reproductive Rights": {
-          stance: "Sample stance on reproductive rights. This is test data.",
-          confidence: "medium",
-          sources: ["src:example:repro-policy"]
+          stance: "Strongly pro-life, supports overturning Roe v. Wade. Favors federal 20-week abortion ban with exceptions for life of mother. Opposes federal funding for abortion. Supports adoption and crisis pregnancy centers. Backs parental notification laws.",
+          confidence: "high",
+          sources: ["src:voting-record:planned-parenthood-defunding", "src:statement:dobbs-decision", "src:cosponsorship:life-at-conception-act"]
         },
         "Guns & Safety": {
-          stance: "Example gun safety position for testing.",
-          confidence: "low",
-          sources: ["src:test:gun-statement"]
+          stance: "Strong Second Amendment advocate, opposes assault weapons bans and universal background checks. Supports national concealed carry reciprocity. Favors school security measures over gun restrictions. Opposes red flag laws as due process violations.",
+          confidence: "high",
+          sources: ["src:nra-rating:a-plus-2024", "src:statement:uvalde-response", "src:voting-record:background-check-opposition"]
         },
         "Foreign Policy": {
-          stance: "Sample foreign policy stance for demonstration.",
-          confidence: "medium",
-          sources: ["src:example:foreign-plan"]
+          stance: "Supports peace through strength approach. Advocates for strong military, increased defense spending. Tough on China trade practices. Strong Israel supporter. Skeptical of international climate agreements. Favors NATO burden-sharing reforms.",
+          confidence: "high",
+          sources: ["src:committee:armed-services-markup", "src:statement:ukraine-aid-conditions", "src:op-ed:china-threat-2024"]
         },
         "Social Justice": {
-          stance: "Example social justice position for testing.",
-          confidence: "low",
-          sources: ["src:test:social-justice-statement"]
+          stance: "Opposes affirmative action in college admissions and hiring. Supports law enforcement, opposes defunding police. Favors voter ID laws. Opposes federal LGBTQ+ anti-discrimination laws as states' rights issue. Supports religious freedom protections.",
+          confidence: "medium",
+          sources: ["src:statement:supreme-court-affirmative-action", "src:vote:back-the-blue-act", "src:interview:religious-liberty"]
         },
         Education: {
-          stance: "Sample education policy for demonstration.",
-          confidence: "medium",
-          sources: ["src:example:edu-plan"]
+          stance: "Supports school choice, including vouchers and charter schools. Opposes federal involvement in curriculum. Favors eliminating Department of Education. Supports student loan interest rate caps but opposes forgiveness programs. Backs trade school funding.",
+          confidence: "high",
+          sources: ["src:bill:school-choice-expansion", "src:committee:education-hearing", "src:statement:student-loan-forgiveness"]
         },
         "Tech & AI": {
-          stance: "Example tech policy stance for testing.",
-          confidence: "low",
-          sources: ["src:test:tech-statement"]
+          stance: "Supports light-touch regulation of tech industry. Opposes antitrust breakup of major tech companies. Favors data privacy protections. Supports domestic semiconductor production. Cautious on AI regulation, prefers industry self-regulation initially.",
+          confidence: "medium",
+          sources: ["src:hearing:big-tech-regulation", "src:statement:chips-act", "src:op-ed:ai-innovation-2024"]
         },
         "Election Reform": {
-          stance: "Sample election reform position for demonstration.",
-          confidence: "medium",
-          sources: ["src:example:election-plan"]
+          stance: "Supports voter ID requirements, opposes automatic voter registration. Favors cleaning voter rolls. Opposes ranked choice voting. Supports paper ballot backup systems. Opposes federal takeover of election administration.",
+          confidence: "high",
+          sources: ["src:bill:election-integrity-act", "src:statement:hr1-opposition", "src:interview:election-security"]
         }
       },
       top_donors: [
         {
-          name: "Example PAC Organization",
-          amount: 10000.0,
-          organization: "Test Political Action Committee",
-          source: "src:example:dummy-donations"
+          name: "Koch Industries PAC",
+          amount: 25000.0,
+          organization: "Energy/Manufacturing",
+          source: "src:fec:2024-q3-report"
         },
         {
-          name: "Sample Industry Group",
-          amount: 5000.0,
-          organization: "Fictional Trade Association",
-          source: "src:test:fake-fec-data"
+          name: "National Rifle Association PAC",
+          amount: 15000.0,
+          organization: "Gun Rights",
+          source: "src:fec:2024-q2-report"
+        },
+        {
+          name: "Chamber of Commerce PAC",
+          amount: 20000.0,
+          organization: "Business Advocacy",
+          source: "src:fec:2024-q3-report"
+        },
+        {
+          name: "American Energy Alliance",
+          amount: 12000.0,
+          organization: "Energy Industry",
+          source: "src:fec:2024-q1-report"
+        },
+        {
+          name: "Club for Growth PAC",
+          amount: 18000.0,
+          organization: "Conservative Economics",
+          source: "src:fec:2024-q2-report"
         }
       ]
     },
     {
-      name: "John Doe",
+      name: "Representative Maria Rodriguez",
       party: "Democratic",
       incumbent: false,
-      website: "https://www.example-democrat-candidate.com",
+      website: "https://www.mariarodriguezforsenate.com",
       social_media: {
-        twitter: "https://twitter.com/example_dem",
-        facebook: "https://facebook.com/example.democrat"
+        twitter: "https://twitter.com/RepMariaRodriguez",
+        facebook: "https://facebook.com/MariaRodriguezForSenate",
+        instagram: "https://instagram.com/mariarodriguezsenate",
+        tiktok: "https://tiktok.com/@mariarodriguezsenate"
       },
-      summary: "Example progressive candidate with fictional policy positions for demonstration purposes only. This is dummy test data.",
+      summary: "Five-term House Representative and former public school teacher. First Latina to represent the state in Congress. Champion of working families, climate action, and healthcare access. Serves on Education and Healthcare committees. Former union organizer and civil rights attorney.",
       issues: {
         Healthcare: {
-          stance: "Sample healthcare policy position for testing purposes. This is fictional data.",
+          stance: "Supports Medicare for All as ultimate goal, immediate public option expansion. Advocates for prescription drug price negotiation, dental and vision coverage. Wants to eliminate medical debt, expand community health centers. Strong supporter of reproductive healthcare access.",
           confidence: "high",
-          sources: ["src:example:health-plan", "src:test:dummy-interview"]
+          sources: ["src:bill:medicare-for-all-cosponsorship", "src:town-hall:healthcare-2024", "src:website:healthcare-detailed-plan"]
         },
         Economy: {
-          stance: "Example economic policy stance for demonstration. This is test data only.",
-          confidence: "medium",
-          sources: ["src:test:economic-speech", "src:example:worker-policy"]
+          stance: "Supports $15 federal minimum wage, strengthening unions and collective bargaining. Favors progressive taxation, closing corporate tax loopholes. Backs infrastructure investment, green jobs programs. Opposes right-to-work laws. Supports paid family leave.",
+          confidence: "high",
+          sources: ["src:voting-record:raise-the-wage-act", "src:speech:labor-day-rally-2024", "src:bill:infrastructure-jobs-act"]
         },
         "Climate/Energy": {
-          stance: "Sample climate action position for testing purposes only.",
+          stance: "Strong supporter of Green New Deal, net-zero emissions by 2050. Advocates for massive renewable energy investment, ending fossil fuel subsidies. Supports rejoining Paris Agreement. Favors environmental justice measures for frontline communities.",
           confidence: "high",
-          sources: ["src:example:climate-plan", "src:test:green-energy"]
-        },
-        Education: {
-          stance: "Example education policy for demonstration purposes. This is dummy data.",
-          confidence: "medium",
-          sources: ["src:test:education-forum", "src:example:school-funding"]
-        },
-        "Reproductive Rights": {
-          stance: "Sample reproductive rights position for testing.",
-          confidence: "high",
-          sources: ["src:example:repro-plan"]
-        },
-        "Guns & Safety": {
-          stance: "Example gun safety stance for demonstration.",
-          confidence: "high",
-          sources: ["src:test:gun-plan"]
-        },
-        "Foreign Policy": {
-          stance: "Sample foreign policy position for testing.",
-          confidence: "medium",
-          sources: ["src:example:foreign-statement"]
-        },
-        "Social Justice": {
-          stance: "Example social justice stance for demonstration.",
-          confidence: "high",
-          sources: ["src:test:social-justice-plan"]
+          sources: ["src:green-new-deal:original-cosponsor", "src:committee:climate-action-plan", "src:rally:climate-strike-2024"]
         },
         Immigration: {
-          stance: "Sample immigration policy for testing purposes.",
+          stance: "Supports comprehensive immigration reform with pathway to citizenship for undocumented immigrants. Opposes family separation, border wall. Favors increasing refugee admissions, DREAM Act passage. Supports ending Title 42, reforming ICE.",
+          confidence: "high",
+          sources: ["src:bill:comprehensive-immigration-reform", "src:border-visit:2024", "src:statement:dreamer-protection"]
+        },
+        "Reproductive Rights": {
+          stance: "Strongly pro-choice, supports codifying Roe v. Wade into federal law. Opposes all abortion restrictions, supports federal funding for abortion. Advocates for expanding access to contraception, comprehensive sex education. Supports fertility treatment coverage.",
+          confidence: "high",
+          sources: ["src:voting-record:womens-health-protection-act", "src:statement:dobbs-response", "src:planned-parenthood:endorsement"]
+        },
+        "Guns & Safety": {
+          stance: "Supports universal background checks, assault weapons ban, high-capacity magazine restrictions. Advocates for red flag laws, mandatory safe storage requirements. Supports funding for gun violence research, community intervention programs.",
+          confidence: "high",
+          sources: ["src:bill:universal-background-checks", "src:press-conference:uvalde-response", "src:brady-campaign:endorsement"]
+        },
+        "Foreign Policy": {
+          stance: "Supports multilateral diplomacy, strengthening NATO alliances. Advocates for human rights-centered foreign policy. Opposes unnecessary military interventions. Supports foreign aid, addressing global climate change. Favors nuclear disarmament efforts.",
           confidence: "medium",
-          sources: ["src:example:immigration-plan"]
+          sources: ["src:committee:foreign-affairs-statement", "src:op-ed:diplomacy-first-2024", "src:vote:war-powers-resolution"]
+        },
+        "Social Justice": {
+          stance: "Strong civil rights advocate, supports Equality Act for LGBTQ+ protections. Backs criminal justice reform, ending private prisons. Supports voting rights expansion, opposes voter suppression. Advocates for police accountability, community policing reforms.",
+          confidence: "high",
+          sources: ["src:bill:equality-act-cosponsor", "src:march:voting-rights-2024", "src:statement:george-floyd-justice-act"]
+        },
+        Education: {
+          stance: "Supports free community college, student loan forgiveness programs. Advocates for universal pre-K, increased teacher pay. Opposes school voucher programs. Supports Title I funding increases, special education resources. Backs trade school investments.",
+          confidence: "high",
+          sources: ["src:bill:college-for-all-act", "src:nea-endorsement:2024", "src:committee:education-budget-testimony"]
         },
         "Tech & AI": {
-          stance: "Example technology policy stance for demonstration.",
+          stance: "Supports tech industry regulation, antitrust enforcement against big tech. Advocates for data privacy protections, net neutrality. Favors AI ethics standards, algorithmic bias prevention. Supports digital divide initiatives, broadband as utility.",
           confidence: "medium",
-          sources: ["src:test:tech-plan"]
+          sources: ["src:hearing:big-tech-accountability", "src:bill:data-privacy-act", "src:op-ed:ai-regulation-framework"]
         },
         "Election Reform": {
-          stance: "Sample election reform position for testing.",
+          stance: "Supports automatic voter registration, making Election Day a holiday. Advocates for ending gerrymandering, campaign finance reform. Opposes voter ID requirements as suppression. Supports restoring Voting Rights Act, D.C. statehood.",
           confidence: "high",
-          sources: ["src:example:reform-plan"]
+          sources: ["src:bill:for-the-people-act", "src:statement:voting-rights-advancement", "src:rally:democracy-reform-2024"]
         }
       },
       top_donors: [
         {
-          name: "Example Labor Union",
-          amount: 15000.0,
-          organization: "Test Workers Union",
-          source: "src:example:union-donations"
+          name: "EMILY's List",
+          amount: 28000.0,
+          organization: "Women's Political Advocacy",
+          source: "src:fec:2024-q3-report"
         },
         {
-          name: "Sample Advocacy Group",
-          amount: 8000.0,
-          organization: "Fictional Issue PAC",
-          source: "src:test:advocacy-funding"
+          name: "AFL-CIO PAC",
+          amount: 22000.0,
+          organization: "Labor Union",
+          source: "src:fec:2024-q2-report"
+        },
+        {
+          name: "League of Conservation Voters",
+          amount: 18000.0,
+          organization: "Environmental Advocacy",
+          source: "src:fec:2024-q3-report"
+        },
+        {
+          name: "SEIU PAC",
+          amount: 20000.0,
+          organization: "Service Workers Union",
+          source: "src:fec:2024-q1-report"
+        },
+        {
+          name: "Planned Parenthood Action Fund",
+          amount: 15000.0,
+          organization: "Reproductive Rights",
+          source: "src:fec:2024-q2-report"
+        },
+        {
+          name: "Human Rights Campaign PAC",
+          amount: 12000.0,
+          organization: "LGBTQ+ Rights",
+          source: "src:fec:2024-q3-report"
+        }
+      ]
+    },
+    {
+      name: "Michael Thompson",
+      party: "Independent",
+      incumbent: false,
+      website: "https://www.michaelthompsonindependent.com",
+      social_media: {
+        twitter: "https://twitter.com/MikeThompsonInd",
+        facebook: "https://facebook.com/ThompsonIndependent"
+      },
+      summary: "Former military officer and small business owner running as an independent. Purple Heart veteran with two tours in Afghanistan. Advocates for pragmatic, bipartisan solutions. Owns a renewable energy consulting firm. Focuses on fiscal responsibility and governmental reform.",
+      issues: {
+        Healthcare: {
+          stance: "Supports bipartisan healthcare reform combining market solutions with public options. Advocates for price transparency, interstate insurance sales, and protecting pre-existing conditions. Favors gradual Medicare expansion for those 55+.",
+          confidence: "medium",
+          sources: ["src:policy-paper:healthcare-reform", "src:interview:local-news-healthcare", "src:website:third-way-healthcare"]
+        },
+        Economy: {
+          stance: "Fiscally conservative, socially moderate approach. Supports simplified tax code, reducing federal deficit through spending reforms and targeted revenue increases. Backs infrastructure investment funded through public-private partnerships.",
+          confidence: "high",
+          sources: ["src:position-paper:fiscal-responsibility", "src:debate:economic-policy", "src:endorsement:taxpayers-union"]
+        },
+        "Climate/Energy": {
+          stance: "Supports all-of-the-above energy strategy including renewables, nuclear, and cleaner fossil fuels. Advocates for carbon pricing, innovation incentives. Opposes overly rapid transitions that harm workers. Supports climate adaptation measures.",
+          confidence: "high",
+          sources: ["src:business-background:renewable-energy", "src:op-ed:practical-climate-action", "src:interview:energy-policy"]
+        },
+        Immigration: {
+          stance: "Supports comprehensive immigration reform with border security improvements and earned pathway to citizenship. Advocates for streamlined legal immigration, guest worker programs. Opposes family separation but supports orderly deportation processes.",
+          confidence: "medium",
+          sources: ["src:forum:immigration-reform", "src:statement:border-visit", "src:website:immigration-plan"]
+        },
+        "Reproductive Rights": {
+          stance: "Personally pro-life but believes government should have limited role in personal medical decisions. Supports exceptions for rape, incest, and life of mother. Favors state-level decision making on abortion policy.",
+          confidence: "low",
+          sources: ["src:interview:personal-views", "src:debate:reproductive-rights", "src:statement:roe-decision"]
+        },
+        "Guns & Safety": {
+          stance: "Second Amendment supporter who also backs common-sense safety measures. Supports improved background checks, veteran mental health programs. Opposes assault weapon bans but supports safe storage requirements.",
+          confidence: "medium",
+          sources: ["src:military-background:gun-safety", "src:forum:second-amendment", "src:interview:gun-violence-prevention"]
+        },
+        "Foreign Policy": {
+          stance: "Strong national defense with careful consideration of military interventions. Supports NATO, strategic competition with China. Advocates for veteran affairs reform. Favors diplomacy-first approach backed by military strength.",
+          confidence: "high",
+          sources: ["src:military-service:afghanistan", "src:op-ed:foreign-policy-realism", "src:veterans-forum:2024"]
+        },
+        "Social Justice": {
+          stance: "Supports equal treatment under law regardless of race, gender, or sexual orientation. Backs criminal justice reform, police training improvements. Believes in addressing racial inequities through education and economic opportunity.",
+          confidence: "medium",
+          sources: ["src:forum:civil-rights", "src:statement:police-reform", "src:interview:social-issues"]
+        },
+        Education: {
+          stance: "Supports school choice options including charter schools while maintaining strong public education funding. Advocates for trade school expansion, student loan interest rate reforms. Opposes federal curriculum mandates.",
+          confidence: "medium",
+          sources: ["src:education-forum:2024", "src:website:education-policy", "src:statement:vocational-training"]
+        },
+        "Tech & AI": {
+          stance: "Supports balanced approach to tech regulation, promoting innovation while protecting privacy. Advocates for bipartisan AI oversight commission. Favors antitrust enforcement against anti-competitive practices but opposes punitive breakups.",
+          confidence: "low",
+          sources: ["src:business-background:technology", "src:interview:tech-regulation", "src:position-paper:innovation-policy"]
+        },
+        "Election Reform": {
+          stance: "Supports non-partisan redistricting commissions, campaign finance transparency. Backs voter ID with free ID provision. Opposes gerrymandering by both parties. Advocates for ranked choice voting in federal elections.",
+          confidence: "medium",
+          sources: ["src:website:government-reform", "src:interview:election-integrity", "src:endorsement:good-government-groups"]
+        }
+      },
+      top_donors: [
+        {
+          name: "Veterans for Thompson",
+          amount: 8500.0,
+          organization: "Veteran Advocacy",
+          source: "src:fec:2024-q3-report"
+        },
+        {
+          name: "Small Business Coalition",
+          amount: 6200.0,
+          organization: "Business Advocacy",
+          source: "src:fec:2024-q2-report"
+        },
+        {
+          name: "Clean Energy PAC",
+          amount: 7800.0,
+          organization: "Renewable Energy",
+          source: "src:fec:2024-q3-report"
+        },
+        {
+          name: "Good Government Fund",
+          amount: 5000.0,
+          organization: "Government Reform",
+          source: "src:fec:2024-q1-report"
         }
       ]
     }
   ]
 };
-
 /**
  * Map of sample races by slug for fallback data
  */
