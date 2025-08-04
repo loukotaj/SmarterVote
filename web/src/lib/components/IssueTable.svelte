@@ -13,7 +13,9 @@
     <thead>
       <tr class="border-b border-gray-200">
         <th class="text-left py-3 px-4 font-semibold text-gray-900">Issue</th>
-        <th class="text-left py-3 px-4 font-semibold text-gray-900">Stance</th>
+        <th class="text-left py-3 px-4 font-semibold text-gray-900 w-2/5">
+          Stance
+        </th>
         <th class="text-center py-3 px-4 font-semibold text-gray-900"
           >Confidence</th
         >
@@ -26,7 +28,9 @@
       {#each issueEntries as [issue, stance]}
         <tr class="border-b border-gray-100 hover:bg-gray-50">
           <td class="py-3 px-4 font-medium text-gray-900">{issue}</td>
-            <td class="py-3 px-12 text-gray-700">{stance.stance}</td>
+          <td class="py-3 px-4 text-gray-700 w-2/5 whitespace-normal">
+            {stance.stance}
+          </td>
           <td class="py-3 px-4 text-center">
             <ConfidenceIndicator confidence={stance.confidence} />
           </td>
