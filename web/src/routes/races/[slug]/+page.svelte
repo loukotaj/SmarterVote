@@ -9,6 +9,7 @@
   let race: Race | null = null;
   let loading = true;
   let error: string | null = null;
+  let usingFallbackData = false;
 
   let slug: string;
   $: slug = $page.params.slug as string;
@@ -16,8 +17,17 @@
   onMount(async () => {
     try {
       race = await getRace(slug);
+      usingFallbackData = false;
     } catch (err) {
-      error = err instanceof Error ? err.message : "Failed to load race data";
+      // Try to use fallback data
+      try {
+        race = await getRace(slug, fetch, true);
+        usingFallbackData = true;
+        error = null;
+      } catch (fallbackErr) {
+        error = err instanceof Error ? err.message : "Failed to load race data";
+        usingFallbackData = false;
+      }
     } finally {
       loading = false;
     }
@@ -118,6 +128,33 @@
       </div>
     </Card>
 
+    <!-- Fallback Data Notice -->
+    {#if usingFallbackData}
+      <div class="fallback-notice">
+        <div class="fallback-content">
+          <svg
+            class="w-5 h-5 text-yellow-600"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"
+            />
+          </svg>
+          <div>
+            <p class="fallback-title">Using Sample Data</p>
+            <p class="fallback-text">
+              Live data is currently unavailable. The information shown below is sample data for demonstration purposes.
+            </p>
+          </div>
+        </div>
+      </div>
+    {/if}
+
     <!-- Candidates Section -->
     <section>
       <h2 class="candidates-title">Candidates</h2>
@@ -130,12 +167,17 @@
 
     <!-- Data Note -->
     <div class="data-note">
-      <p class="data-note-title">Data Analysis Information</p>
+      <p class="data-note-title">
+        {usingFallbackData ? "Sample Data Information" : "Data Analysis Information"}
+      </p>
       <p class="data-note-text">
-        Data compiled from public sources and analyzed using AI. Last updated {new Date(
-          race.updated_utc
-        ).toLocaleDateString()}. Visit candidate websites for the most current
-        information.
+        {#if usingFallbackData}
+          This is sample data for demonstration purposes. The actual race data is currently unavailable.
+        {:else}
+          Data compiled from public sources and analyzed using AI. Last updated {new Date(
+            race.updated_utc
+          ).toLocaleDateString()}. Visit candidate websites for the most current information.
+        {/if}
       </p>
     </div>
   {/if}
@@ -208,5 +250,21 @@
 
   .data-note-text {
     @apply text-blue-700 text-sm;
+  }
+
+  .fallback-notice {
+    @apply bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-8;
+  }
+
+  .fallback-content {
+    @apply flex items-start gap-3;
+  }
+
+  .fallback-title {
+    @apply font-medium text-yellow-800;
+  }
+
+  .fallback-text {
+    @apply text-yellow-700 text-sm mt-1;
   }
 </style>
