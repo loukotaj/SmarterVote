@@ -267,3 +267,5 @@ web/.vscode/*
 !web/.vscode/settings.json
 
 infra/secrets.tfvars
+infra/.terraform.*
+infra/.terraform

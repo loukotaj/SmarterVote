@@ -1,0 +1,86 @@
+name: Deploy SmarterVote Infrastructure & Services
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'services/**'
+      - 'pipeline/**'
+      - 'infra/**'
+  workflow_dispatch:
+
+env:
+  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+  REGION: us-central1
+  ENVIRONMENT: dev  # Change to 'staging' or 'prod' as needed
+
+jobs:
+  build-and-deploy-services:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Google Cloud SDK
+      uses: google-github-actions/setup-gcloud@v2
+      with:
+        service_account_key: ${{ secrets.GCP_SA_KEY }}
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+    
+    - name: Configure Docker for GCR
+      run: gcloud auth configure-docker gcr.io
+    
+    # Build and push all container images
+    - name: Build and Push Pipeline Worker
+      run: |
+        cd pipeline
+        docker build -t gcr.io/${{ env.PROJECT_ID }}/smartervote-pipeline:${{ github.sha }} \
+                     -t gcr.io/${{ env.PROJECT_ID }}/smartervote-pipeline:latest .
+        docker push gcr.io/${{ env.PROJECT_ID }}/smartervote-pipeline:${{ github.sha }}
+        docker push gcr.io/${{ env.PROJECT_ID }}/smartervote-pipeline:latest
+    
+    - name: Build and Push Enqueue API
+      run: |
+        cd services/enqueue-api
+        docker build -t gcr.io/${{ env.PROJECT_ID }}/smartervote-enqueue-api:${{ github.sha }} \
+                     -t gcr.io/${{ env.PROJECT_ID }}/smartervote-enqueue-api:latest .
+        docker push gcr.io/${{ env.PROJECT_ID }}/smartervote-enqueue-api:${{ github.sha }}
+        docker push gcr.io/${{ env.PROJECT_ID }}/smartervote-enqueue-api:latest
+    
+    - name: Build and Push Races API
+      run: |
+        cd services/races-api
+        docker build -t gcr.io/${{ env.PROJECT_ID }}/smartervote-races-api:${{ github.sha }} \
+                     -t gcr.io/${{ env.PROJECT_ID }}/smartervote-races-api:latest .
+        docker push gcr.io/${{ env.PROJECT_ID }}/smartervote-races-api:${{ github.sha }}
+        docker push gcr.io/${{ env.PROJECT_ID }}/smartervote-races-api:latest
+    
+    # Deploy services using the new Terraform naming convention
+    - name: Update Cloud Run Job (Pipeline Worker)
+      run: |
+        gcloud run jobs update race-worker-${{ env.ENVIRONMENT }} \
+          --image gcr.io/${{ env.PROJECT_ID }}/smartervote-pipeline:${{ github.sha }} \
+          --region ${{ env.REGION }}
+    
+    - name: Deploy Enqueue API Service
+      run: |
+        gcloud run services update enqueue-api-${{ env.ENVIRONMENT }} \
+          --image gcr.io/${{ env.PROJECT_ID }}/smartervote-enqueue-api:${{ github.sha }} \
+          --region ${{ env.REGION }}
+    
+    - name: Deploy Races API Service
+      run: |
+        gcloud run services update races-api-${{ env.ENVIRONMENT }} \
+          --image gcr.io/${{ env.PROJECT_ID }}/smartervote-races-api:${{ github.sha }} \
+          --region ${{ env.REGION }}
+    
+    # Optional: Test endpoints after deployment
+    - name: Test API Endpoints
+      run: |
+        echo "Testing Enqueue API..."
+        ENQUEUE_URL=$(gcloud run services describe enqueue-api-${{ env.ENVIRONMENT }} --region=${{ env.REGION }} --format='value(status.url)')
+        curl -f "$ENQUEUE_URL/health" || echo "Enqueue API health check failed"
+        
+        echo "Testing Races API..."
+        RACES_URL=$(gcloud run services describe races-api-${{ env.ENVIRONMENT }} --region=${{ env.REGION }} --format='value(status.url)')
+        curl -f "$RACES_URL/races" || echo "Races API health check failed"

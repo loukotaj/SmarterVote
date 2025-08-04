@@ -1,0 +1,86 @@
+name: Deploy Infrastructure
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'infra/**'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy (dev/staging/prod)'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+        - dev
+        - staging  
+        - prod
+
+env:
+  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+  REGION: us-central1
+  ENVIRONMENT: ${{ github.event.inputs.environment || 'dev' }}
+
+jobs:
+  deploy-terraform:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: 1.5.7
+    
+    - name: Setup Google Cloud SDK
+      uses: google-github-actions/setup-gcloud@v2
+      with:
+        service_account_key: ${{ secrets.GCP_SA_KEY }}
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+    
+    - name: Create Terraform variables file
+      run: |
+        cd infra
+        cat > github-actions.tfvars << EOF
+        project_id = "${{ env.PROJECT_ID }}"
+        region = "${{ env.REGION }}"
+        environment = "${{ env.ENVIRONMENT }}"
+        openai_api_key = "${{ secrets.OPENAI_API_KEY }}"
+        anthropic_api_key = "${{ secrets.ANTHROPIC_API_KEY }}"
+        grok_api_key = "${{ secrets.GROK_API_KEY }}"
+        google_search_api_key = "${{ secrets.GOOGLE_SEARCH_API_KEY }}"
+        google_search_cx = "${{ secrets.GOOGLE_SEARCH_CX }}"
+        EOF
+    
+    - name: Terraform Init
+      run: |
+        cd infra
+        terraform init
+    
+    - name: Terraform Plan
+      run: |
+        cd infra
+        terraform plan -var-file=github-actions.tfvars
+    
+    - name: Terraform Apply
+      if: github.ref == 'refs/heads/main'
+      run: |
+        cd infra
+        terraform apply -var-file=github-actions.tfvars -auto-approve
+    
+    - name: Output Infrastructure URLs
+      run: |
+        cd infra
+        echo "## 🚀 Deployed Infrastructure" >> $GITHUB_STEP_SUMMARY
+        echo "- **Environment**: ${{ env.ENVIRONMENT }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Project**: ${{ env.PROJECT_ID }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Region**: ${{ env.REGION }}" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        terraform output -json | jq -r 'to_entries[] | "- **\(.key)**: \(.value.value)"' >> $GITHUB_STEP_SUMMARY
+    
+    - name: Clean up secrets
+      run: |
+        cd infra
+        rm -f github-actions.tfvars
