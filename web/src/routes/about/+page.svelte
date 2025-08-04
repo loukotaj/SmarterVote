@@ -69,7 +69,7 @@
         </ul>
         <ul class="space-y-2 text-gray-700">
           <li>• Foreign Policy</li>
-          <li>• LGBTQ+ Rights</li>
+          <li>• Social Justice</li>
           <li>• Education</li>
           <li>• Tech & AI</li>
           <li>• Election Reform</li>

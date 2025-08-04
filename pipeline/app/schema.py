@@ -45,7 +45,7 @@ class CanonicalIssue(str, Enum):
     IMMIGRATION = "Immigration"
     GUNS_SAFETY = "Guns & Safety"
     FOREIGN_POLICY = "Foreign Policy"
-    LGBTQ_RIGHTS = "LGBTQ+ Rights"
+    SOCIAL_JUSTICE = "Social Justice"
     EDUCATION = "Education"
     TECH_AI = "Tech & AI"
     ELECTION_REFORM = "Election Reform"

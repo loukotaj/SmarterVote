@@ -59,10 +59,10 @@ export const sampleRace: Race = {
           confidence: "medium",
           sources: ["src:example:foreign-plan"]
         },
-        "LGBTQ+ Rights": {
-          stance: "Example LGBTQ+ rights position for testing.",
+        "Social Justice": {
+          stance: "Example social justice position for testing.",
           confidence: "low",
-          sources: ["src:test:lgbtq-statement"]
+          sources: ["src:test:social-justice-statement"]
         },
         Education: {
           stance: "Sample education policy for demonstration.",
@@ -141,10 +141,10 @@ export const sampleRace: Race = {
           confidence: "medium",
           sources: ["src:example:foreign-statement"]
         },
-        "LGBTQ+ Rights": {
-          stance: "Example LGBTQ+ rights stance for demonstration.",
+        "Social Justice": {
+          stance: "Example social justice stance for demonstration.",
           confidence: "high",
-          sources: ["src:test:lgbtq-plan"]
+          sources: ["src:test:social-justice-plan"]
         },
         Immigration: {
           stance: "Sample immigration policy for testing purposes.",

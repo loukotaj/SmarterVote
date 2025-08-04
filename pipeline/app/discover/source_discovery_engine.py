@@ -237,7 +237,7 @@ class SourceDiscoveryEngine:
             CanonicalIssue.IMMIGRATION: ["border", "refugees", "citizenship", "visa"],
             CanonicalIssue.GUNS_SAFETY: ["gun control", "firearms", "second amendment", "gun violence"],
             CanonicalIssue.FOREIGN_POLICY: ["international", "defense", "military", "diplomacy"],
-            CanonicalIssue.LGBTQ_RIGHTS: ["LGBTQ", "gay rights", "transgender", "equality"],
+            CanonicalIssue.SOCIAL_JUSTICE: ["LGBTQ", "gay rights", "transgender", "equality", "civil rights", "racial justice", "gender equality", "disability rights"],
             CanonicalIssue.EDUCATION: ["schools", "teachers", "students", "university"],
             CanonicalIssue.TECH_AI: ["technology", "artificial intelligence", "privacy", "internet"],
             CanonicalIssue.ELECTION_REFORM: ["voting rights", "gerrymandering", "campaign finance"]

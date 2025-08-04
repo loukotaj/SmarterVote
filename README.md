@@ -100,7 +100,7 @@ Our analysis focuses on 11 consistent political issues:
 - Immigration
 - Guns & Safety
 - Foreign Policy
-- LGBTQ+ Rights
+- Social Justice
 - Education
 - Tech & AI
 - Election Reform

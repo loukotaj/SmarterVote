@@ -12,7 +12,7 @@ export type CanonicalIssue =
   | "Immigration"
   | "Guns & Safety"
   | "Foreign Policy"
-  | "LGBTQ+ Rights"
+  | "Social Justice"
   | "Education"
   | "Tech & AI"
   | "Election Reform";
@@ -60,7 +60,7 @@ export const CANONICAL_ISSUES: CanonicalIssue[] = [
   "Immigration",
   "Guns & Safety",
   "Foreign Policy",
-  "LGBTQ+ Rights",
+  "Social Justice",
   "Education",
   "Tech & AI",
   "Election Reform",
