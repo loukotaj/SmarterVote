@@ -6,13 +6,13 @@
   />
 </svelte:head>
 
-<div class="container mx-auto px-4 py-12 max-w-4xl">
-  <h1 class="text-4xl font-bold text-gray-900 mb-8">About Smarter.vote</h1>
+<div class="container mx-auto px-4 py-8 sm:py-12 max-w-4xl">
+  <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-6 sm:mb-8">About Smarter.vote</h1>
 
   <div class="prose prose-lg max-w-none">
-    <div class="bg-white rounded-lg shadow-sm p-8 mb-8">
-      <h2 class="text-2xl font-semibold text-gray-900 mb-4">Our Mission</h2>
-      <p class="text-gray-700 leading-relaxed">
+    <div class="bg-white rounded-lg shadow-sm p-4 sm:p-8 mb-6 sm:mb-8">
+      <h2 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-3 sm:mb-4">Our Mission</h2>
+      <p class="text-gray-700 leading-relaxed text-sm sm:text-base">
         Democracy works best when voters have access to clear, unbiased
         information about candidates and their positions. Smarter.vote uses
         artificial intelligence to analyze public sources and present candidate
@@ -21,22 +21,22 @@
       </p>
     </div>
 
-    <div class="bg-white rounded-lg shadow-sm p-8 mb-8">
-      <h2 class="text-2xl font-semibold text-gray-900 mb-4">How We Work</h2>
-      <div class="space-y-4">
+    <div class="bg-white rounded-lg shadow-sm p-4 sm:p-8 mb-6 sm:mb-8">
+      <h2 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-3 sm:mb-4">How We Work</h2>
+      <div class="space-y-3 sm:space-y-4">
         <div>
-          <h3 class="text-lg font-semibold text-gray-900 mb-2">
+          <h3 class="text-base sm:text-lg font-semibold text-gray-900 mb-2">
             Source Discovery
           </h3>
-          <p class="text-gray-700">
+          <p class="text-gray-700 text-sm sm:text-base">
             We automatically discover and collect information from candidate
             websites, voting records, public speeches, position papers, and
             other publicly available sources.
           </p>
         </div>
         <div>
-          <h3 class="text-lg font-semibold text-gray-900 mb-2">AI Analysis</h3>
-          <p class="text-gray-700">
+          <h3 class="text-base sm:text-lg font-semibold text-gray-900 mb-2">AI Analysis</h3>
+          <p class="text-gray-700 text-sm sm:text-base">
             Multiple AI models (including GPT-4 and Claude) independently
             analyze the collected information to extract candidate positions on
             key issues. This multi-model approach helps ensure accuracy and
@@ -44,8 +44,8 @@
           </p>
         </div>
         <div>
-          <h3 class="text-lg font-semibold text-gray-900 mb-2">Transparency</h3>
-          <p class="text-gray-700">
+          <h3 class="text-base sm:text-lg font-semibold text-gray-900 mb-2">Transparency</h3>
+          <p class="text-gray-700 text-sm sm:text-base">
             Every position includes confidence ratings and links to the original
             sources, so you can verify the information yourself and understand
             how certain we are about each stance.
@@ -54,12 +54,12 @@
       </div>
     </div>
 
-    <div class="bg-white rounded-lg shadow-sm p-8 mb-8">
-      <h2 class="text-2xl font-semibold text-gray-900 mb-4">
+    <div class="bg-white rounded-lg shadow-sm p-4 sm:p-8 mb-6 sm:mb-8">
+      <h2 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-3 sm:mb-4">
         Key Issues We Cover
       </h2>
-      <div class="grid md:grid-cols-2 gap-4">
-        <ul class="space-y-2 text-gray-700">
+      <div class="grid gap-3 sm:gap-4 sm:grid-cols-2">
+        <ul class="space-y-1 sm:space-y-2 text-gray-700 text-sm sm:text-base">
           <li>• Healthcare</li>
           <li>• Economy</li>
           <li>• Climate/Energy</li>
@@ -67,7 +67,7 @@
           <li>• Immigration</li>
           <li>• Guns & Safety</li>
         </ul>
-        <ul class="space-y-2 text-gray-700">
+        <ul class="space-y-1 sm:space-y-2 text-gray-700 text-sm sm:text-base">
           <li>• Foreign Policy</li>
           <li>• Social Justice</li>
           <li>• Education</li>
@@ -77,11 +77,11 @@
       </div>
     </div>
 
-    <div class="bg-white rounded-lg shadow-sm p-8 mb-8">
-      <h2 class="text-2xl font-semibold text-gray-900 mb-4">
+    <div class="bg-white rounded-lg shadow-sm p-4 sm:p-8 mb-6 sm:mb-8">
+      <h2 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-3 sm:mb-4">
         Important Disclaimers
       </h2>
-      <div class="space-y-3 text-gray-700">
+      <div class="space-y-3 text-gray-700 text-sm sm:text-base">
         <p>
           <strong>Verify Information:</strong> While we strive for accuracy, always
           verify information by visiting candidate websites directly. Candidate positions
@@ -106,11 +106,11 @@
       </div>
     </div>
 
-    <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 text-center">
-      <h3 class="text-lg font-semibold text-blue-900 mb-2">
+    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 sm:p-6 text-center">
+      <h3 class="text-base sm:text-lg font-semibold text-blue-900 mb-2">
         Questions or Concerns?
       </h3>
-      <p class="text-blue-800">
+      <p class="text-blue-800 text-sm sm:text-base">
         If you notice any inaccuracies or have questions about our methodology,
         please contact us through our GitHub repository where this project is
         developed openly.

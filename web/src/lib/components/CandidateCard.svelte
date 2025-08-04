@@ -130,11 +130,11 @@
 
 <style lang="postcss">
   :global(.candidate-card) {
-    @apply p-4 sm:p-6 h-full w-full mx-auto shadow-lg;
+    @apply p-3 sm:p-4 lg:p-6 h-full w-full mx-auto shadow-lg;
   }
 
   .candidate-name {
-    @apply text-xl sm:text-2xl font-bold text-gray-900 flex items-center gap-2;
+    @apply text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 flex items-center gap-2;
   }
 
   .permalink-anchor {
@@ -146,7 +146,7 @@
   }
 
   .badge {
-    @apply px-3 py-1 rounded-full text-sm font-medium;
+    @apply px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium;
   }
 
   .party-badge {
@@ -158,7 +158,7 @@
   }
 
   .summary {
-    @apply text-gray-700 leading-relaxed text-sm sm:text-base;
+    @apply text-gray-700 leading-relaxed text-xs sm:text-sm lg:text-base;
   }
 
   .website-link {
@@ -166,7 +166,7 @@
   }
 
   .section-title {
-    @apply text-lg font-semibold text-gray-900 mb-4;
+    @apply text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4;
   }
 
   .expand-button {
@@ -174,7 +174,7 @@
   }
 
   .expand-text {
-    @apply text-sm font-medium;
+    @apply text-xs sm:text-sm font-medium;
   }
 
   .expand-icon {
@@ -186,19 +186,19 @@
   }
 
   .issues-section {
-    @apply border-t border-gray-200 pt-6;
+    @apply border-t border-gray-200 pt-4 sm:pt-6;
   }
 
   .issues-preview {
-    @apply border-t border-gray-200 pt-6;
+    @apply border-t border-gray-200 pt-4 sm:pt-6;
   }
 
   .issues-tags {
-    @apply flex flex-wrap gap-2;
+    @apply flex flex-wrap gap-1 sm:gap-2;
   }
 
   .issue-tag {
-    @apply bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-medium;
+    @apply bg-gray-100 text-gray-700 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium;
   }
 
   .more-tag {

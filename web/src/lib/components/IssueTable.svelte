@@ -8,7 +8,7 @@
   $: issueEntries = Object.entries(issues) as [CanonicalIssue, IssueStance][];
 </script>
 
-<div class="overflow-x-auto">
+<div class="hidden lg:block overflow-x-auto">
   <table class="w-full border-collapse">
     <thead>
       <tr class="border-b border-gray-200">

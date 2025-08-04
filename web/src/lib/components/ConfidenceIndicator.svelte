@@ -38,9 +38,9 @@
 </script>
 
 <span
-  class="inline-flex items-center gap-1 text-sm font-medium {iconClass}"
+  class="inline-flex items-center gap-1 text-xs sm:text-sm font-medium {iconClass}"
   title="Confidence: {confidence}"
 >
-  <span class="text-lg leading-none">{iconSymbol}</span>
+  <span class="text-base sm:text-lg leading-none">{iconSymbol}</span>
   <span class="capitalize">{confidence}</span>
 </span>

@@ -43,7 +43,7 @@
   />
 </svelte:head>
 
-<div class="container mx-auto px-4 py-8 max-w-7xl">
+<div class="container mx-auto px-4 py-6 sm:py-8 max-w-7xl">
   {#if loading}
     <div class="loading-wrapper">
       <div class="spinner" />
@@ -242,15 +242,15 @@
   }
 
   :global(.header-card) {
-    @apply p-6 mb-8 shadow-sm;
+    @apply p-4 sm:p-6 mb-6 sm:mb-8 shadow-sm;
   }
 
   .header-title {
-    @apply text-4xl font-bold text-gray-900 mb-4;
+    @apply text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4;
   }
 
   .header-meta {
-    @apply flex flex-wrap items-center gap-6 text-gray-600;
+    @apply flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center gap-3 sm:gap-6 text-gray-600;
   }
 
   .info-row {
@@ -266,55 +266,55 @@
   }
 
   .candidates-title {
-    @apply text-2xl font-semibold text-gray-900 mb-6;
+    @apply text-xl sm:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6;
   }
 
   .candidate-nav {
-    @apply mb-8 p-4 bg-gray-50 rounded-lg border border-gray-200;
+    @apply mb-6 sm:mb-8 p-3 sm:p-4 bg-gray-50 rounded-lg border border-gray-200;
   }
 
   .nav-label {
-    @apply text-sm font-medium text-gray-700 mb-3;
+    @apply text-xs sm:text-sm font-medium text-gray-700 mb-2 sm:mb-3;
   }
 
   .nav-links {
-    @apply flex flex-wrap gap-2;
+    @apply flex flex-wrap gap-1 sm:gap-2;
   }
 
   .nav-link {
-    @apply px-3 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 transition-colors duration-200;
+    @apply px-2 sm:px-3 py-1 sm:py-2 bg-white border border-gray-300 rounded-md text-xs sm:text-sm font-medium text-gray-700 hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 transition-colors duration-200;
   }
 
   .candidate-grid {
-    @apply grid gap-8 justify-items-stretch;
+    @apply grid gap-6 sm:gap-8 justify-items-stretch;
   }
 
   .data-note {
-    @apply mt-12 bg-blue-50 border border-blue-200 rounded-lg p-6 text-center;
+    @apply mt-8 sm:mt-12 bg-blue-50 border border-blue-200 rounded-lg p-4 sm:p-6 text-center;
   }
 
   .data-note-title {
-    @apply text-blue-800 font-medium mb-2;
+    @apply text-blue-800 font-medium mb-2 text-sm sm:text-base;
   }
 
   .data-note-text {
-    @apply text-blue-700 text-sm;
+    @apply text-blue-700 text-xs sm:text-sm;
   }
 
   .fallback-notice {
-    @apply bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-8;
+    @apply bg-yellow-50 border border-yellow-200 rounded-lg p-3 sm:p-4 mb-6 sm:mb-8;
   }
 
   .fallback-content {
-    @apply flex items-start gap-3;
+    @apply flex items-start gap-2 sm:gap-3;
   }
 
   .fallback-title {
-    @apply font-medium text-yellow-800;
+    @apply font-medium text-yellow-800 text-sm sm:text-base;
   }
 
   .fallback-text {
-    @apply text-yellow-700 text-sm mt-1;
+    @apply text-yellow-700 text-xs sm:text-sm mt-1;
   }
 
   .back-to-top {

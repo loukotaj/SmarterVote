@@ -10,11 +10,11 @@
       <div class="flex items-center justify-between">
         <a
           href="/"
-          class="text-2xl font-bold text-blue-600 hover:text-blue-700"
+          class="text-xl sm:text-2xl font-bold text-blue-600 hover:text-blue-700"
         >
           Smarter.vote
         </a>
-        <div class="flex items-center gap-6 text-sm">
+        <div class="flex items-center gap-4 sm:gap-6 text-sm">
           <a
             href="/"
             class="text-gray-600 hover:text-gray-900 {$page.url.pathname === '/'
@@ -43,8 +43,8 @@
   </main>
 
   <!-- Footer -->
-  <footer class="bg-white border-t border-gray-200 mt-16">
-    <div class="container mx-auto px-4 py-8 max-w-7xl">
+  <footer class="bg-white border-t border-gray-200 mt-12 sm:mt-16">
+    <div class="container mx-auto px-4 py-6 sm:py-8 max-w-7xl">
       <div class="text-center text-gray-600 text-sm">
         <p class="mb-2">
           © 2025 Smarter.vote. Analyzing public information to help voters make

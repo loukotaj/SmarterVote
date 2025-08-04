@@ -10,14 +10,14 @@
   />
 </svelte:head>
 
-<div class="container mx-auto px-4 py-12 max-w-4xl">
+<div class="container mx-auto px-4 py-8 sm:py-12 max-w-4xl">
   <!-- Hero Section -->
-  <header class="text-center mb-12">
-    <h1 class="text-5xl font-bold text-gray-900 mb-4">Smarter.vote</h1>
-    <p class="text-xl text-gray-600 mb-8">
+  <header class="text-center mb-8 sm:mb-12">
+    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Smarter.vote</h1>
+    <p class="text-lg sm:text-xl text-gray-600 mb-6 sm:mb-8">
       AI-powered candidate comparison on the issues that matter
     </p>
-    <p class="text-gray-500 max-w-2xl mx-auto">
+    <p class="text-sm sm:text-base text-gray-500 max-w-2xl mx-auto px-4">
       We analyze candidates' positions from public sources using multiple AI
       models to provide clear, unbiased comparisons of where they stand on key
       issues.
@@ -41,16 +41,16 @@
   </div>
 
   <!-- Sample Race (for demo) -->
-  <section class="bg-white rounded-lg shadow-sm p-8 mb-8">
-    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Featured Race</h2>
-    <div class="border border-gray-200 rounded-lg p-6">
-      <h3 class="text-xl font-bold text-gray-900 mb-2">Missouri Senate 2024</h3>
-      <p class="text-gray-600 mb-4">
+  <section class="bg-white rounded-lg shadow-sm p-4 sm:p-8 mb-6 sm:mb-8">
+    <h2 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6">Featured Race</h2>
+    <div class="border border-gray-200 rounded-lg p-4 sm:p-6">
+      <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-2">Missouri Senate 2024</h3>
+      <p class="text-sm sm:text-base text-gray-600 mb-4">
         U.S. Senate • Missouri • Election: November 5, 2024
       </p>
       <a
         href="/races/mo-senate-2024"
-        class="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+        class="inline-flex items-center gap-2 bg-blue-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-blue-700 transition-colors text-sm sm:text-base"
       >
         Compare Candidates
         <svg
@@ -71,17 +71,17 @@
   </section>
 
   <!-- How It Works -->
-  <section class="mb-12">
-    <h2 class="text-2xl font-semibold text-gray-900 mb-6 text-center">
+  <section class="mb-8 sm:mb-12">
+    <h2 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 text-center">
       How It Works
     </h2>
-    <div class="grid md:grid-cols-3 gap-6">
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       <div class="text-center">
         <div
-          class="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4"
+          class="bg-blue-100 rounded-full w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center mx-auto mb-3 sm:mb-4"
         >
           <svg
-            class="w-8 h-8 text-blue-600"
+            class="w-6 h-6 sm:w-8 sm:h-8 text-blue-600"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -94,18 +94,18 @@
             />
           </svg>
         </div>
-        <h3 class="font-semibold text-gray-900 mb-2">Discover Sources</h3>
-        <p class="text-gray-600 text-sm">
+        <h3 class="font-semibold text-gray-900 mb-2 text-sm sm:text-base">Discover Sources</h3>
+        <p class="text-gray-600 text-xs sm:text-sm">
           We find and analyze candidate websites, speeches, voting records, and
           public statements.
         </p>
       </div>
       <div class="text-center">
         <div
-          class="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4"
+          class="bg-green-100 rounded-full w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center mx-auto mb-3 sm:mb-4"
         >
           <svg
-            class="w-8 h-8 text-green-600"
+            class="w-6 h-6 sm:w-8 sm:h-8 text-green-600"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -118,18 +118,18 @@
             />
           </svg>
         </div>
-        <h3 class="font-semibold text-gray-900 mb-2">AI Analysis</h3>
-        <p class="text-gray-600 text-sm">
+        <h3 class="font-semibold text-gray-900 mb-2 text-sm sm:text-base">AI Analysis</h3>
+        <p class="text-gray-600 text-xs sm:text-sm">
           Multiple AI models analyze the content and extract positions on key
           issues with confidence ratings.
         </p>
       </div>
-      <div class="text-center">
+      <div class="text-center sm:col-span-2 lg:col-span-1">
         <div
-          class="bg-purple-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4"
+          class="bg-purple-100 rounded-full w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center mx-auto mb-3 sm:mb-4"
         >
           <svg
-            class="w-8 h-8 text-purple-600"
+            class="w-6 h-6 sm:w-8 sm:h-8 text-purple-600"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -142,8 +142,8 @@
             />
           </svg>
         </div>
-        <h3 class="font-semibold text-gray-900 mb-2">Clear Comparison</h3>
-        <p class="text-gray-600 text-sm">
+        <h3 class="font-semibold text-gray-900 mb-2 text-sm sm:text-base">Clear Comparison</h3>
+        <p class="text-gray-600 text-xs sm:text-sm">
           Clean, side-by-side comparison of candidate positions with source
           links and confidence indicators.
         </p>
@@ -152,11 +152,11 @@
   </section>
 
   <!-- Key Features -->
-  <section class="bg-white rounded-lg shadow-sm p-8">
-    <h2 class="text-2xl font-semibold text-gray-900 mb-6 text-center">
+  <section class="bg-white rounded-lg shadow-sm p-4 sm:p-8">
+    <h2 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 text-center">
       Why Smarter.vote?
     </h2>
-    <div class="grid md:grid-cols-2 gap-6">
+    <div class="grid gap-4 sm:gap-6 sm:grid-cols-2">
       <div class="flex items-start gap-3">
         <div
           class="bg-green-100 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 mt-1"
@@ -174,8 +174,8 @@
           </svg>
         </div>
         <div>
-          <h3 class="font-semibold text-gray-900 mb-1">Unbiased Analysis</h3>
-          <p class="text-gray-600 text-sm">
+          <h3 class="font-semibold text-gray-900 mb-1 text-sm sm:text-base">Unbiased Analysis</h3>
+          <p class="text-gray-600 text-xs sm:text-sm">
             AI analyzes public sources without political bias, presenting facts
             clearly.
           </p>
@@ -198,8 +198,8 @@
           </svg>
         </div>
         <div>
-          <h3 class="font-semibold text-gray-900 mb-1">Source Transparency</h3>
-          <p class="text-gray-600 text-sm">
+          <h3 class="font-semibold text-gray-900 mb-1 text-sm sm:text-base">Source Transparency</h3>
+          <p class="text-gray-600 text-xs sm:text-sm">
             Every position includes links to original sources and confidence
             ratings.
           </p>
@@ -222,10 +222,10 @@
           </svg>
         </div>
         <div>
-          <h3 class="font-semibold text-gray-900 mb-1">
+          <h3 class="font-semibold text-gray-900 mb-1 text-sm sm:text-base">
             Comprehensive Coverage
           </h3>
-          <p class="text-gray-600 text-sm">
+          <p class="text-gray-600 text-xs sm:text-sm">
             Analysis covers 11 key issue areas from healthcare to climate
             policy.
           </p>
@@ -248,8 +248,8 @@
           </svg>
         </div>
         <div>
-          <h3 class="font-semibold text-gray-900 mb-1">Always Up-to-Date</h3>
-          <p class="text-gray-600 text-sm">
+          <h3 class="font-semibold text-gray-900 mb-1 text-sm sm:text-base">Always Up-to-Date</h3>
+          <p class="text-gray-600 text-xs sm:text-sm">
             Information is continuously updated as new public statements emerge.
           </p>
         </div>
