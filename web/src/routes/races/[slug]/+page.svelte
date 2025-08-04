@@ -202,12 +202,15 @@
     <!-- Back to Top Link -->
     {#if race.candidates.length > 2}
       <div class="back-to-top">
-        <a href="#" class="back-to-top-link">
+        <button 
+          class="back-to-top-link"
+          on:click={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        >
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
           </svg>
           Back to Top
-        </a>
+        </button>
       </div>
     {/if}
   {/if}
@@ -319,6 +322,6 @@
   }
 
   .back-to-top-link {
-    @apply inline-flex items-center gap-2 text-gray-600 hover:text-blue-600 font-medium transition-colors duration-200;
+    @apply inline-flex items-center gap-2 text-gray-600 hover:text-blue-600 font-medium transition-colors duration-200 border-none bg-transparent cursor-pointer;
   }
 </style>

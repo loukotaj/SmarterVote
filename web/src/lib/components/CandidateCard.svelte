@@ -17,7 +17,7 @@
   }
 </script>
 
-<Card class="candidate-card" id={generateCandidateId(candidate.name)}>
+<Card class="candidate-card group" id={generateCandidateId(candidate.name)}>
   <!-- Candidate Header -->
   <div class="mb-6">
     <div class="flex items-start justify-between mb-3">
@@ -130,7 +130,7 @@
 
 <style lang="postcss">
   :global(.candidate-card) {
-    @apply p-4 sm:p-6 h-full w-full mx-auto shadow-lg group;
+    @apply p-4 sm:p-6 h-full w-full mx-auto shadow-lg;
   }
 
   .candidate-name {
@@ -138,7 +138,11 @@
   }
 
   .permalink-anchor {
-    @apply opacity-0 group-hover:opacity-100 hover:opacity-100 text-gray-400 hover:text-blue-600 transition-opacity duration-200;
+    @apply opacity-0 text-gray-400 hover:text-blue-600 transition-opacity duration-200;
+  }
+
+  :global(.candidate-card.group:hover) .permalink-anchor {
+    @apply opacity-100;
   }
 
   .badge {
