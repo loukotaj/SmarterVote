@@ -26,7 +26,7 @@
       {#each issueEntries as [issue, stance]}
         <tr class="border-b border-gray-100 hover:bg-gray-50">
           <td class="py-3 px-4 font-medium text-gray-900">{issue}</td>
-          <td class="py-3 px-4 text-gray-700">{stance.stance}</td>
+            <td class="py-3 px-12 text-gray-700">{stance.stance}</td>
           <td class="py-3 px-4 text-center">
             <ConfidenceIndicator confidence={stance.confidence} />
           </td>
