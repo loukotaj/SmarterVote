@@ -65,7 +65,7 @@
 
 <style lang="postcss">
   :global(.candidate-card) {
-    @apply p-4 sm:p-6 h-full w-full max-w-sm sm:max-w-md lg:max-w-none mx-auto lg:mx-0 shadow-lg;
+    @apply p-4 sm:p-6 h-full w-full mx-auto shadow-lg;
   }
 
   .candidate-name {

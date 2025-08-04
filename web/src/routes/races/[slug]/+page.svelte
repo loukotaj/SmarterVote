@@ -237,7 +237,7 @@
   }
 
   .candidate-grid {
-    @apply grid gap-8 justify-items-center lg:grid-cols-2 lg:justify-items-stretch;
+    @apply grid gap-8 justify-items-stretch;
   }
 
   .data-note {
