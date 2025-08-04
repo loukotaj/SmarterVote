@@ -158,6 +158,24 @@
     <!-- Candidates Section -->
     <section>
       <h2 class="candidates-title">Candidates</h2>
+      
+      <!-- Candidate Navigation -->
+      {#if race.candidates.length > 1}
+        <div class="candidate-nav">
+          <p class="nav-label">Jump to candidate:</p>
+          <div class="nav-links">
+            {#each race.candidates as candidate, index}
+              <a 
+                href="#{candidate.name.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')}"
+                class="nav-link"
+              >
+                {candidate.name}
+              </a>
+            {/each}
+          </div>
+        </div>
+      {/if}
+      
       <div class="candidate-grid">
         {#each race.candidates as candidate}
           <CandidateCard {candidate} />
@@ -180,6 +198,18 @@
         {/if}
       </p>
     </div>
+
+    <!-- Back to Top Link -->
+    {#if race.candidates.length > 2}
+      <div class="back-to-top">
+        <a href="#" class="back-to-top-link">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+          </svg>
+          Back to Top
+        </a>
+      </div>
+    {/if}
   {/if}
 </div>
 
@@ -236,6 +266,22 @@
     @apply text-2xl font-semibold text-gray-900 mb-6;
   }
 
+  .candidate-nav {
+    @apply mb-8 p-4 bg-gray-50 rounded-lg border border-gray-200;
+  }
+
+  .nav-label {
+    @apply text-sm font-medium text-gray-700 mb-3;
+  }
+
+  .nav-links {
+    @apply flex flex-wrap gap-2;
+  }
+
+  .nav-link {
+    @apply px-3 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 transition-colors duration-200;
+  }
+
   .candidate-grid {
     @apply grid gap-8 justify-items-stretch;
   }
@@ -266,5 +312,13 @@
 
   .fallback-text {
     @apply text-yellow-700 text-sm mt-1;
+  }
+
+  .back-to-top {
+    @apply mt-8 text-center;
+  }
+
+  .back-to-top-link {
+    @apply inline-flex items-center gap-2 text-gray-600 hover:text-blue-600 font-medium transition-colors duration-200;
   }
 </style>
