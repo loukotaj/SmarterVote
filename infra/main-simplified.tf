@@ -61,13 +61,13 @@ resource "google_project_service" "apis" {
 resource "google_storage_bucket" "published_data" {
   name     = "${var.project_id}-published-data-${var.environment}"
   location = var.region
-  
+
   uniform_bucket_level_access = true
-  
+
   versioning {
     enabled = true
   }
-  
+
   lifecycle_rule {
     condition {
       age = 90
@@ -92,7 +92,7 @@ resource "google_service_account" "enqueue_api" {
 
 resource "google_service_account" "races_api" {
   account_id   = "races-api-${var.environment}"
-  display_name = "Races API Service Account" 
+  display_name = "Races API Service Account"
   description  = "Service account for the races API Cloud Run service"
 }
 
@@ -120,9 +120,9 @@ resource "google_project_iam_member" "races_api_storage" {
 
 resource "google_pubsub_topic" "race_jobs" {
   name = "race-jobs-${var.environment}"
-  
-  message_retention_duration = "86400s"  # 24 hours
-  
+
+  message_retention_duration = "86400s" # 24 hours
+
   depends_on = [google_project_service.apis]
 }
 
@@ -138,34 +138,34 @@ resource "google_cloud_run_v2_service" "enqueue_api" {
   template {
     containers {
       image = "gcr.io/${var.project_id}/smartervote-enqueue-api:latest"
-      
+
       env {
         name  = "PROJECT_ID"
         value = var.project_id
       }
-      
+
       env {
         name  = "PUBSUB_TOPIC"
         value = google_pubsub_topic.race_jobs.name
       }
-      
+
       resources {
         limits = {
           cpu    = "1000m"
           memory = "512Mi"
         }
       }
-      
+
       ports {
         container_port = 8080
       }
     }
-    
+
     scaling {
       min_instance_count = 0
       max_instance_count = 10
     }
-    
+
     service_account = google_service_account.enqueue_api.email
   }
 
@@ -185,34 +185,34 @@ resource "google_cloud_run_v2_service" "races_api" {
   template {
     containers {
       image = "gcr.io/${var.project_id}/smartervote-races-api:latest"
-      
+
       env {
         name  = "DATA_DIR"
         value = "/app/data"
       }
-      
+
       env {
         name  = "BUCKET_NAME"
         value = google_storage_bucket.published_data.name
       }
-      
+
       resources {
         limits = {
           cpu    = "1000m"
           memory = "512Mi"
         }
       }
-      
+
       ports {
         container_port = 8080
       }
     }
-    
+
     scaling {
       min_instance_count = 0
       max_instance_count = 10
     }
-    
+
     service_account = google_service_account.races_api.email
   }
 
@@ -279,6 +279,6 @@ output "enqueue_api_url" {
 }
 
 output "races_api_url" {
-  description = "URL of the races API service"  
+  description = "URL of the races API service"
   value       = google_cloud_run_v2_service.races_api.uri
 }

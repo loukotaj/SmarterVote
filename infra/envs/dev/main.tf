@@ -1,4 +1,4 @@
-Start Development Environmentterraform {
+Start "Development" "Environmentterraform" {
   required_version = ">= 1.0"
   required_providers {
     google = {
@@ -103,13 +103,13 @@ resource "random_id" "suffix" {
 resource "google_storage_bucket" "sv_data" {
   name     = "${var.project_id}-sv-data"
   location = var.region
-  
+
   uniform_bucket_level_access = true
-  
+
   versioning {
     enabled = true
   }
-  
+
   lifecycle_rule {
     condition {
       age = 90
@@ -123,16 +123,16 @@ resource "google_storage_bucket" "sv_data" {
 # Secret Manager for API keys
 resource "google_secret_manager_secret" "openai_key" {
   secret_id = "openai-api-key"
-  
+
   replication {
     auto {}
   }
-  
+
   depends_on = [google_project_service.apis]
 }
 
 resource "google_secret_manager_secret_version" "openai_key" {
-  secret = google_secret_manager_secret.openai_key.id
+  secret      = google_secret_manager_secret.openai_key.id
   secret_data = var.openai_api_key
 }
 
@@ -153,7 +153,7 @@ resource "google_project_iam_member" "race_worker_storage" {
 # Pub/Sub topic for race jobs
 resource "google_pubsub_topic" "race_jobs" {
   name = "race-jobs"
-  
+
   depends_on = [google_project_service.apis]
 }
 
