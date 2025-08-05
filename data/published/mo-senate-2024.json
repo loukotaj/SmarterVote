@@ -1,111 +1,845 @@
 {
-  "id": "example-state-senate-2025",
-  "election_date": "2025-11-05T00:00:00Z",
-  "title": "Example State U.S. Senate Race 2025",
+  "id": "mo-senate-2024",
+  "election_date": "2024-11-05T00:00:00Z",
+  "title": "SAMPLE: Missouri U.S. Senate Race 2024 - Demo Data",
   "office": "U.S. Senate",
-  "jurisdiction": "Example State",
-  "updated_utc": "2025-01-15T12:00:00Z",
+  "jurisdiction": "Missouri",
+  "updated_utc": "2024-10-15T18:30:00Z",
   "generator": ["gpt-4o", "claude-3.5", "grok-4"],
   "candidates": [
     {
-      "name": "Jane Smith",
+      "name": "Senator Robert Mitchell",
       "party": "Republican",
       "incumbent": true,
-      "website": "https://www.example-candidate-website.com",
+      "website": "https://www.sample-candidate-website.com",
       "social_media": {
-        "twitter": "https://twitter.com/example_candidate",
-        "facebook": "https://facebook.com/example.candidate"
+        "twitter": "https://twitter.com/SampleCandidate1",
+        "facebook": "https://facebook.com/sample.candidate.demo",
+        "instagram": "https://instagram.com/democandidate1"
       },
-      "summary": "Example conservative candidate with fictional policy positions for demonstration purposes only. This is dummy data for testing.",
+      "summary": "SAMPLE DATA: Fictional incumbent Senator representing typical conservative positions for demonstration purposes. This is example data showing how the SmarterVote platform analyzes candidate positions across all 11 canonical issues with realistic confidence levels and source attribution.",
       "issues": {
         "Healthcare": {
-          "issue": "Healthcare",
-          "stance": "Example stance on healthcare policy for demonstration purposes only. This is fictional test data.",
+          "stance": "SAMPLE POSITION: Supports market-based healthcare solutions with price transparency and interstate competition. This is demonstration data showing how conservative healthcare positions would be analyzed by the SmarterVote system with proper source attribution and confidence scoring.",
           "confidence": "high",
-          "sources": ["src:example:dummy-source-1", "src:test:fake-voting-record"]
+          "sources": [
+            {
+              "url": "https://demo.smartervote.org/voting-record/mo-healthcare",
+              "type": "VOTING_RECORD",
+              "title": "Senator Mitchell Healthcare Voting Record",
+              "description": "Sample voting record data for healthcare-related bills and amendments",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/speeches/healthcare-reform-2023",
+              "type": "SPEECH",
+              "title": "Healthcare Reform Speech - 2023",
+              "description": "Example speech on healthcare policy and market solutions",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/policy/healthcare-platform",
+              "type": "POLICY_WEBSITE",
+              "title": "Official Healthcare Policy Platform",
+              "description": "Sample candidate's official healthcare policy positions",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            }
+          ]
         },
         "Economy": {
-          "issue": "Economy",
-          "stance": "Sample economic policy position. This is dummy data for testing the system.",
-          "confidence": "medium",
-          "sources": ["src:example:economic-plan", "src:test:sample-speech"]
+          "stance": "DEMO DATA: Example conservative economic platform including tax reduction policies and business-friendly regulations. This sample stance demonstrates how the system captures nuanced economic positions with appropriate confidence levels based on source quality.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://demo.smartervote.org/policy/economic-platform",
+              "type": "POLICY_PAPER",
+              "title": "Economic Growth and Tax Reform Policy Paper",
+              "description": "Sample comprehensive economic policy document",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/testimony/banking-committee-2023",
+              "type": "COMMITTEE_TESTIMONY",
+              "title": "Banking Committee Testimony on Tax Policy",
+              "description": "Example testimony on economic and tax reform proposals",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/campaign/economic-agenda",
+              "type": "CAMPAIGN_PLATFORM",
+              "title": "2024 Economic Agenda",
+              "description": "Sample campaign platform on economic issues",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            }
+          ]
         },
         "Climate/Energy": {
-          "issue": "Climate/Energy",
-          "stance": "Example climate and energy position for testing purposes only.",
-          "confidence": "low",
-          "sources": ["src:test:climate-statement", "src:example:energy-policy"]
+          "stance": "SAMPLE STANCE: Demonstrates typical energy independence platform prioritizing domestic production while showing how climate policy positions are analyzed. This example data illustrates the system's ability to capture complex policy nuances.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://demo.smartervote.org/committee/energy-environment",
+              "type": "COMMITTEE_TESTIMONY",
+              "title": "Energy Committee Testimony on Domestic Production",
+              "description": "Sample testimony on energy independence and domestic production",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/policy/energy-statement",
+              "type": "POLICY_STATEMENT",
+              "title": "Energy Independence Policy Statement",
+              "description": "Official policy statement on energy and climate issues",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/events/industry-roundtable",
+              "type": "INDUSTRY_EVENT",
+              "title": "Energy Industry Roundtable Discussion",
+              "description": "Sample industry event on energy policy and regulation",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            }
+          ]
         },
         "Immigration": {
-          "issue": "Immigration",
-          "stance": "Sample immigration policy stance. This is fictional test data.",
+          "stance": "DEMONSTRATION DATA: Example border security and immigration policy position showing how the platform analyzes comprehensive immigration stances. This sample illustrates multi-faceted policy positions with proper confidence scoring.",
           "confidence": "high",
-          "sources": ["src:example:border-policy", "src:test:immigration-speech"]
+          "sources": [
+            {
+              "url": "https://demo.smartervote.org/policy/border-security",
+              "type": "POLICY_STATEMENT",
+              "title": "Border Security and Immigration Policy",
+              "description": "Sample comprehensive immigration and border security platform",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/voting/immigration-bills",
+              "type": "VOTING_RECORD",
+              "title": "Immigration Legislation Voting Record",
+              "description": "Sample voting record on immigration-related bills",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/interviews/border-policy",
+              "type": "NEWS_INTERVIEW",
+              "title": "Border Policy Interview - Local News",
+              "description": "Sample news interview discussing immigration policy",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            }
+          ]
+        },
+        "Reproductive Rights": {
+          "stance": "SAMPLE POSITION: Example pro-life policy stance demonstrating how reproductive rights positions are captured and analyzed. This demo data shows the system's approach to sensitive policy areas with appropriate source documentation.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://demo.smartervote.org/policy/reproductive-rights",
+              "type": "POLICY_STATEMENT",
+              "title": "Pro-Life Policy Platform",
+              "description": "Sample official policy statement on reproductive rights",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/voting/reproductive-legislation",
+              "type": "VOTING_RECORD",
+              "title": "Reproductive Rights Voting Record",
+              "description": "Sample voting record on reproductive rights legislation",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/ratings/pro-life-groups",
+              "type": "ADVOCACY_GROUP_RATING",
+              "title": "Pro-Life Advocacy Group Ratings",
+              "description": "Sample ratings from pro-life advocacy organizations",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            }
+          ]
+        },
+        "Guns & Safety": {
+          "stance": "DEMO STANCE: Sample Second Amendment position showing strong gun rights advocacy. This demonstration data illustrates how firearms policy positions are analyzed with proper confidence levels and diverse source types.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://demo.smartervote.org/ratings/gun-rights-advocacy",
+              "type": "ADVOCACY_GROUP_RATING",
+              "title": "Gun Rights Advocacy Group Ratings",
+              "description": "Sample ratings from Second Amendment advocacy groups",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/policy/constitutional-rights",
+              "type": "POLICY_STATEMENT",
+              "title": "Constitutional Rights Position Paper",
+              "description": "Sample position on Second Amendment and constitutional rights",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/committee/judiciary-firearms",
+              "type": "COMMITTEE_TESTIMONY",
+              "title": "Judiciary Committee Firearms Testimony",
+              "description": "Sample testimony on firearms legislation and constitutional law",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "EXAMPLE POSITION: Demonstration of America First foreign policy approach with strong defense priorities. This sample data shows how complex international policy positions are captured and analyzed by the system.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://demo.smartervote.org/committee/defense-appropriations",
+              "type": "COMMITTEE_TESTIMONY",
+              "title": "Defense Committee Appropriations Testimony",
+              "description": "Sample testimony on defense spending and military priorities",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/speeches/foreign-policy-2023",
+              "type": "SPEECH",
+              "title": "Foreign Policy Address - America First",
+              "description": "Sample foreign policy speech outlining America First approach",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/statements/international-relations",
+              "type": "PRESS_RELEASE",
+              "title": "International Relations Policy Statement",
+              "description": "Sample press release on international relations and defense",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            }
+          ]
+        },
+        "Social Justice": {
+          "stance": "SAMPLE DATA: Example conservative social policy positions on education and law enforcement. This demonstration illustrates how the system analyzes social justice stances with appropriate confidence and source attribution.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://demo.smartervote.org/hearings/education-oversight",
+              "type": "COMMITTEE_HEARING",
+              "title": "Education Oversight Committee Hearing",
+              "description": "Sample hearing on education policy and local control",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/events/law-enforcement-forum",
+              "type": "PUBLIC_EVENT",
+              "title": "Law Enforcement Support Forum",
+              "description": "Sample public event supporting law enforcement initiatives",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/policy/social-issues",
+              "type": "POLICY_STATEMENT",
+              "title": "Social Policy Platform Statement",
+              "description": "Sample statement on social issues and community values",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            }
+          ]
+        },
+        "Education": {
+          "stance": "DEMO POSITION: Sample school choice and education policy stance showing support for local control. This example data demonstrates how education policy positions are captured with proper confidence scoring.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://demo.smartervote.org/committee/education-labor",
+              "type": "COMMITTEE_TESTIMONY",
+              "title": "Education and Labor Committee Testimony",
+              "description": "Sample testimony on school choice and education reform",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/events/school-choice-rally",
+              "type": "PUBLIC_EVENT",
+              "title": "School Choice Advocacy Rally",
+              "description": "Sample public event supporting school choice initiatives",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/policy/education-reform",
+              "type": "POLICY_PAPER",
+              "title": "Education Reform Policy Paper",
+              "description": "Sample comprehensive education policy document",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "DEMONSTRATION STANCE: Example technology policy position focusing on big tech regulation and privacy. This sample data shows how emerging technology issues are analyzed with appropriate confidence levels.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://demo.smartervote.org/hearings/tech-regulation",
+              "type": "COMMITTEE_HEARING",
+              "title": "Technology Regulation Committee Hearing",
+              "description": "Sample hearing on big tech regulation and antitrust",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/bills/privacy-legislation",
+              "type": "LEGISLATIVE_BILL",
+              "title": "Privacy Protection Legislation",
+              "description": "Sample privacy and data protection bill sponsorship",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/policy/ai-framework",
+              "type": "POLICY_FRAMEWORK",
+              "title": "AI Regulation Policy Framework",
+              "description": "Sample policy framework for artificial intelligence regulation",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            }
+          ]
+        },
+        "Election Reform": {
+          "stance": "SAMPLE POSITION: Example election integrity and voting policy stance. This demonstration data illustrates how election-related policy positions are captured and analyzed with proper source documentation.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://demo.smartervote.org/policy/election-integrity",
+              "type": "POLICY_STATEMENT",
+              "title": "Election Integrity Policy Platform",
+              "description": "Sample policy statement on election security and integrity",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/bills/voting-legislation",
+              "type": "LEGISLATIVE_BILL",
+              "title": "Voting Security Legislation",
+              "description": "Sample voting security and election integrity bill",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/testimony/election-committee",
+              "type": "COMMITTEE_TESTIMONY",
+              "title": "Election Integrity Committee Testimony",
+              "description": "Sample testimony on election security measures",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            }
+          ]
         }
       },
       "top_donors": [
         {
-          "name": "Example PAC Organization",
-          "amount": 10000.0,
-          "organization": "Test Political Action Committee",
-          "source": "src:example:dummy-donations"
+          "name": "Sample Conservative PAC",
+          "amount": 45000.0,
+          "organization": "Demo Political Action Committee",
+          "source": {
+            "url": "https://demo.smartervote.org/fec/sample-conservative-pac",
+            "type": "FEC_FILING",
+            "title": "FEC Campaign Finance Report - Conservative PAC",
+            "description": "Sample FEC filing data for conservative political action committee",
+            "last_accessed": "2024-10-15T18:30:00Z",
+            "is_fresh": true
+          }
         },
         {
-          "name": "Sample Industry Group",
-          "amount": 5000.0,
-          "organization": "Fictional Trade Association",
-          "source": "src:test:fake-fec-data"
+          "name": "Example Business Coalition",
+          "amount": 35000.0,
+          "organization": "Sample Industry Group",
+          "source": {
+            "url": "https://demo.smartervote.org/finance/business-coalition",
+            "type": "CAMPAIGN_FINANCE_REPORT",
+            "title": "Business Coalition Campaign Contributions",
+            "description": "Sample campaign finance report for business coalition donations",
+            "last_accessed": "2024-10-15T18:30:00Z",
+            "is_fresh": true
+          }
+        },
+        {
+          "name": "Demo Advocacy Organization",
+          "amount": 25000.0,
+          "organization": "Example Issue Advocacy",
+          "source": {
+            "url": "https://demo.smartervote.org/reports/advocacy-donors",
+            "type": "DONOR_REPORT",
+            "title": "Advocacy Organization Donor Report",
+            "description": "Sample donor report from issue advocacy organization",
+            "last_accessed": "2024-10-15T18:30:00Z",
+            "is_fresh": true
+          }
+        },
+        {
+          "name": "Sample Trade Association",
+          "amount": 18000.0,
+          "organization": "Demo Industry Association",
+          "source": {
+            "url": "https://demo.smartervote.org/contributions/trade-association",
+            "type": "CONTRIBUTION_DATA",
+            "title": "Trade Association Contribution Records",
+            "description": "Sample contribution data from industry trade association",
+            "last_accessed": "2024-10-15T18:30:00Z",
+            "is_fresh": true
+          }
+        },
+        {
+          "name": "Example Policy Institute",
+          "amount": 22000.0,
+          "organization": "Sample Think Tank",
+          "source": {
+            "url": "https://demo.smartervote.org/funding/policy-institute",
+            "type": "FUNDING_REPORT",
+            "title": "Policy Institute Funding Report",
+            "description": "Sample funding report from policy research institute",
+            "last_accessed": "2024-10-15T18:30:00Z",
+            "is_fresh": true
+          }
         }
       ]
     },
     {
-      "name": "John Doe",
+      "name": "Dr. Sarah Williams",
       "party": "Democratic",
       "incumbent": false,
-      "website": "https://www.example-democrat-candidate.com",
+      "website": "https://www.sample-challenger-demo.com",
       "social_media": {
-        "twitter": "https://twitter.com/example_dem",
-        "facebook": "https://facebook.com/example.democrat"
+        "twitter": "https://twitter.com/DemoCandidate2",
+        "facebook": "https://facebook.com/sample.challenger",
+        "instagram": "https://instagram.com/democandidate2",
+        "tiktok": "https://tiktok.com/@samplecandidate"
       },
-      "summary": "Example progressive candidate with fictional policy positions for demonstration purposes only. This is dummy test data.",
+      "summary": "SAMPLE DATA: Fictional challenger candidate representing typical progressive positions for demonstration purposes. This example profile shows how the SmarterVote platform captures diverse candidate backgrounds and policy positions across all canonical issues.",
       "issues": {
         "Healthcare": {
-          "issue": "Healthcare",
-          "stance": "Sample healthcare policy position for testing purposes. This is fictional data.",
+          "stance": "SAMPLE POSITION: Demonstrates progressive healthcare platform supporting universal access and cost reduction. This example data shows how comprehensive healthcare policies are analyzed with proper confidence scoring and source attribution.",
           "confidence": "high",
-          "sources": ["src:example:health-plan", "src:test:dummy-interview"]
+          "sources": [
+            {
+              "url": "https://demo.smartervote.org/policy/healthcare-for-all",
+              "type": "POLICY_STATEMENT",
+              "title": "Healthcare for All Policy Plan",
+              "description": "Sample comprehensive healthcare reform policy proposal",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/events/healthcare-townhall",
+              "type": "TOWN_HALL",
+              "title": "Healthcare Town Hall Discussion",
+              "description": "Sample town hall meeting on healthcare accessibility and costs",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/platform/healthcare-agenda",
+              "type": "CAMPAIGN_PLATFORM",
+              "title": "Healthcare Reform Campaign Platform",
+              "description": "Sample campaign platform on healthcare reform and access",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            }
+          ]
         },
         "Economy": {
-          "issue": "Economy",
-          "stance": "Example economic policy stance for demonstration. This is test data only.",
-          "confidence": "medium",
-          "sources": ["src:test:economic-speech", "src:example:worker-policy"]
+          "stance": "DEMONSTRATION DATA: Example progressive economic platform focusing on worker rights and corporate accountability. This sample stance illustrates how complex economic policies are captured and analyzed by the SmarterVote system.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://demo.smartervote.org/policy/worker-rights",
+              "type": "POLICY_STATEMENT",
+              "title": "Worker Rights and Economic Justice Policy",
+              "description": "Sample economic policy focusing on worker protections and rights",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/events/labor-advocacy",
+              "type": "ADVOCACY_EVENT",
+              "title": "Labor Rights Advocacy Event",
+              "description": "Sample worker advocacy event on economic justice",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/platform/economic-justice",
+              "type": "CAMPAIGN_PLATFORM",
+              "title": "Economic Justice Campaign Platform",
+              "description": "Sample campaign platform on economic inequality and worker rights",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            }
+          ]
         },
         "Climate/Energy": {
-          "issue": "Climate/Energy",
-          "stance": "Sample climate action position for testing purposes only.",
+          "stance": "DEMO STANCE: Sample environmental policy position supporting renewable energy transition. This demonstration data shows how climate policies are analyzed with attention to worker protection and economic impacts.",
           "confidence": "high",
-          "sources": ["src:example:climate-plan", "src:test:green-energy"]
+          "sources": [
+            {
+              "url": "https://demo.smartervote.org/policy/climate-action-plan",
+              "type": "POLICY_STATEMENT",
+              "title": "Comprehensive Climate Action Plan",
+              "description": "Sample climate policy with renewable energy transition plan",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/forums/environmental-policy",
+              "type": "ENVIRONMENTAL_FORUM",
+              "title": "Environmental Policy Forum Discussion",
+              "description": "Sample environmental forum on climate change and green jobs",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/policy/energy-transition",
+              "type": "POLICY_PAPER",
+              "title": "Just Energy Transition Policy Paper",
+              "description": "Sample policy paper on renewable energy and worker protections",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "SAMPLE DATA: Example comprehensive immigration reform position supporting pathway to citizenship. This demo illustrates how immigration policy stances are captured with appropriate confidence levels.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://demo.smartervote.org/forums/immigration-reform",
+              "type": "COMMUNITY_FORUM",
+              "title": "Immigration Reform Community Forum",
+              "description": "Sample community forum on comprehensive immigration reform",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/policy/immigration-platform",
+              "type": "POLICY_STATEMENT",
+              "title": "Immigration Reform Policy Platform",
+              "description": "Sample policy statement on immigration and pathway to citizenship",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/outreach/immigrant-communities",
+              "type": "COMMUNITY_OUTREACH",
+              "title": "Immigrant Community Outreach Event",
+              "description": "Sample community outreach event with immigrant advocacy groups",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            }
+          ]
+        },
+        "Reproductive Rights": {
+          "stance": "DEMONSTRATION POSITION: Sample pro-choice stance supporting federal protection of reproductive rights. This example data shows how reproductive policy positions are analyzed with proper source documentation.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://demo.smartervote.org/rallies/reproductive-rights",
+              "type": "PUBLIC_RALLY",
+              "title": "Reproductive Rights Protection Rally",
+              "description": "Sample public rally supporting reproductive freedom and choice",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/endorsements/choice-advocacy",
+              "type": "ADVOCACY_ENDORSEMENT",
+              "title": "Pro-Choice Advocacy Group Endorsement",
+              "description": "Sample endorsement from reproductive rights advocacy organizations",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/platform/reproductive-freedom",
+              "type": "CAMPAIGN_PLATFORM",
+              "title": "Reproductive Freedom Policy Platform",
+              "description": "Sample campaign platform on reproductive rights and healthcare access",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            }
+          ]
+        },
+        "Guns & Safety": {
+          "stance": "SAMPLE STANCE: Example balanced gun policy position supporting safety measures while respecting rights. This demo data illustrates how nuanced firearms positions are captured with appropriate confidence scoring.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://demo.smartervote.org/forums/gun-safety",
+              "type": "POLICY_FORUM",
+              "title": "Gun Safety Policy Forum",
+              "description": "Sample forum discussion on balanced gun safety measures",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/ratings/safety-advocacy",
+              "type": "ADVOCACY_GROUP_RATING",
+              "title": "Gun Safety Advocacy Group Ratings",
+              "description": "Sample ratings from gun safety advocacy organizations",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/discussions/firearms-policy",
+              "type": "POLICY_DISCUSSION",
+              "title": "Firearms Policy Discussion Panel",
+              "description": "Sample policy discussion on balanced firearms legislation",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "DEMO POSITION: Sample diplomatic approach to foreign policy emphasizing multilateral cooperation. This demonstration data shows how international policy positions are analyzed and documented.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://demo.smartervote.org/speeches/diplomatic-approach",
+              "type": "SPEECH",
+              "title": "Diplomatic Leadership Foreign Policy Speech",
+              "description": "Sample foreign policy speech emphasizing diplomatic solutions",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/background/diplomatic-experience",
+              "type": "BACKGROUND_DOCUMENT",
+              "title": "Diplomatic and International Experience Record",
+              "description": "Sample documentation of international relations experience",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/statements/international-cooperation",
+              "type": "PRESS_RELEASE",
+              "title": "International Cooperation Policy Statement",
+              "description": "Sample statement on multilateral cooperation and diplomacy",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            }
+          ]
+        },
+        "Social Justice": {
+          "stance": "SAMPLE DATA: Example civil rights and social justice platform supporting equality and reform. This demo illustrates how social justice positions are captured with proper confidence and source attribution.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://demo.smartervote.org/forums/civil-rights",
+              "type": "CIVIL_RIGHTS_FORUM",
+              "title": "Civil Rights and Equality Forum",
+              "description": "Sample forum on civil rights and social justice reform",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/advocacy/equality-organizations",
+              "type": "ADVOCACY_EVENT",
+              "title": "Equality Advocacy Organization Event",
+              "description": "Sample advocacy event supporting equality and civil rights",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/policy/justice-reform",
+              "type": "POLICY_PAPER",
+              "title": "Criminal Justice Reform Policy Plan",
+              "description": "Sample policy paper on criminal justice and social reform",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            }
+          ]
         },
         "Education": {
-          "issue": "Education",
-          "stance": "Example education policy for demonstration purposes. This is dummy data.",
+          "stance": "DEMONSTRATION STANCE: Sample education policy supporting public school investment and affordability. This example data shows how education positions are analyzed with appropriate confidence levels.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://demo.smartervote.org/policy/education-investment",
+              "type": "POLICY_STATEMENT",
+              "title": "Public Education Investment Plan",
+              "description": "Sample policy on public school funding and teacher support",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/endorsements/teachers-union",
+              "type": "ENDORSEMENT",
+              "title": "Teachers Union Endorsement",
+              "description": "Sample endorsement from education professionals and unions",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/policy/student-debt-relief",
+              "type": "POLICY_PROPOSAL",
+              "title": "Student Debt Relief Policy Proposal",
+              "description": "Sample policy proposal on student loan forgiveness and college affordability",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "SAMPLE POSITION: Example technology policy focusing on privacy protection and antitrust enforcement. This demo data illustrates how tech policy positions are captured and analyzed.",
           "confidence": "medium",
-          "sources": ["src:test:education-forum", "src:example:school-funding"]
+          "sources": [
+            {
+              "url": "https://demo.smartervote.org/policy/tech-regulation",
+              "type": "POLICY_PAPER",
+              "title": "Technology Regulation and Privacy Policy",
+              "description": "Sample policy paper on tech regulation and consumer protection",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/advocacy/privacy-rights",
+              "type": "ADVOCACY_EVENT",
+              "title": "Digital Privacy Rights Advocacy Event",
+              "description": "Sample advocacy event on digital privacy and tech accountability",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/statements/antitrust-enforcement",
+              "type": "POLICY_STATEMENT",
+              "title": "Antitrust Enforcement Policy Statement",
+              "description": "Sample statement on big tech antitrust and market competition",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            }
+          ]
+        },
+        "Election Reform": {
+          "stance": "DEMO STANCE: Sample election reform position supporting voting access and campaign finance reform. This demonstration data shows how election policy positions are analyzed.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://demo.smartervote.org/advocacy/voting-rights",
+              "type": "ADVOCACY_EVENT",
+              "title": "Voting Rights Protection Advocacy Event",
+              "description": "Sample advocacy event supporting voting access and rights",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/policy/election-reform",
+              "type": "POLICY_PROPOSAL",
+              "title": "Comprehensive Election Reform Plan",
+              "description": "Sample policy proposal on voting access and campaign finance reform",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/forums/democracy-protection",
+              "type": "DEMOCRACY_FORUM",
+              "title": "Democracy Protection and Reform Forum",
+              "description": "Sample forum discussion on election reform and democratic institutions",
+              "last_accessed": "2024-10-15T18:30:00Z",
+              "is_fresh": true
+            }
+          ]
         }
       },
       "top_donors": [
         {
-          "name": "Example Labor Union",
-          "amount": 15000.0,
-          "organization": "Test Workers Union",
-          "source": "src:example:union-donations"
+          "name": "Sample Progressive PAC",
+          "amount": 38000.0,
+          "organization": "Demo Reform Organization",
+          "source": {
+            "url": "https://demo.smartervote.org/fec/progressive-pac-funding",
+            "type": "FEC_FILING",
+            "title": "FEC Campaign Finance Report - Progressive PAC",
+            "description": "Sample FEC filing data for progressive reform organization",
+            "last_accessed": "2024-10-15T18:30:00Z",
+            "is_fresh": true
+          }
         },
         {
-          "name": "Sample Advocacy Group",
-          "amount": 8000.0,
-          "organization": "Fictional Issue PAC",
-          "source": "src:test:advocacy-funding"
+          "name": "Example Advocacy Coalition",
+          "amount": 32000.0,
+          "organization": "Sample Issue Advocacy",
+          "source": {
+            "url": "https://demo.smartervote.org/reports/advocacy-coalition",
+            "type": "DONOR_REPORT",
+            "title": "Advocacy Coalition Donor Report",
+            "description": "Sample donor report from issue advocacy coalition",
+            "last_accessed": "2024-10-15T18:30:00Z",
+            "is_fresh": true
+          }
+        },
+        {
+          "name": "Demo Labor Organization",
+          "amount": 28000.0,
+          "organization": "Sample Workers Union",
+          "source": {
+            "url": "https://demo.smartervote.org/contributions/labor-union",
+            "type": "UNION_CONTRIBUTION",
+            "title": "Labor Union Contribution Record",
+            "description": "Sample contribution record from workers union organization",
+            "last_accessed": "2024-10-15T18:30:00Z",
+            "is_fresh": true
+          }
+        },
+        {
+          "name": "Example Women's Group",
+          "amount": 25000.0,
+          "organization": "Demo Political Organization",
+          "source": {
+            "url": "https://demo.smartervote.org/endorsements/womens-group-funding",
+            "type": "ENDORSEMENT_FUNDING",
+            "title": "Women's Political Organization Funding",
+            "description": "Sample funding from women's political advocacy organization",
+            "last_accessed": "2024-10-15T18:30:00Z",
+            "is_fresh": true
+          }
+        },
+        {
+          "name": "Sample Environmental Group",
+          "amount": 20000.0,
+          "organization": "Demo Conservation PAC",
+          "source": {
+            "url": "https://demo.smartervote.org/funding/environmental-pac",
+            "type": "ENVIRONMENTAL_FUNDING",
+            "title": "Environmental PAC Funding Report",
+            "description": "Sample funding report from environmental conservation PAC",
+            "last_accessed": "2024-10-15T18:30:00Z",
+            "is_fresh": true
+          }
+        },
+        {
+          "name": "Example Healthcare Advocacy",
+          "amount": 18000.0,
+          "organization": "Sample Health Rights Org",
+          "source": {
+            "url": "https://demo.smartervote.org/pac/healthcare-advocacy",
+            "type": "HEALTHCARE_PAC",
+            "title": "Healthcare Advocacy PAC Contribution",
+            "description": "Sample contribution from healthcare rights advocacy organization",
+            "last_accessed": "2024-10-15T18:30:00Z",
+            "is_fresh": true
+          }
         }
       ]
     }

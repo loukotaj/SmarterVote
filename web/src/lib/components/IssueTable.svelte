@@ -70,7 +70,7 @@
           <div class="mt-1 space-y-1">
             {#each stance.sources as source}
               <div>
-                <SourceLink url={source} />
+                <SourceLink {source} />
               </div>
             {/each}
           </div>

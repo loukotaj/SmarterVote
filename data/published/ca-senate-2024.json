@@ -22,25 +22,93 @@
           "issue": "Climate/Energy",
           "stance": "Advocates for aggressive climate action and renewable energy investments. Example environmental stance for testing.",
           "confidence": "high",
-          "sources": ["src:website:climate-demo", "src:rally:green-energy-2024"]
+          "sources": [
+            {
+              "url": "https://example.com/candidate/climate-demo",
+              "type": "website",
+              "title": "Official Website - climate demo",
+              "description": "Source reference from Official Website",
+              "last_accessed": "2024-03-15T19:15:00Z",
+              "is_fresh": false
+            },
+            {
+              "url": "https://example.com/events/green-energy-2024",
+              "type": "government",
+              "title": "Political Rally - green energy 2024",
+              "description": "Source reference from Political Rally",
+              "last_accessed": "2024-03-15T19:15:00Z",
+              "is_fresh": false
+            }
+          ]
         },
         "Tech & AI": {
           "issue": "Tech & AI",
           "stance": "Supports tech industry regulation and data privacy protections. Fictional tech policy for demo purposes.",
           "confidence": "high",
-          "sources": ["src:website:tech-demo", "src:hearing:silicon-valley"]
+          "sources": [
+            {
+              "url": "https://example.com/candidate/tech-demo",
+              "type": "website",
+              "title": "Official Website - tech demo",
+              "description": "Source reference from Official Website",
+              "last_accessed": "2024-03-15T19:15:00Z",
+              "is_fresh": false
+            },
+            {
+              "url": "https://www.congress.gov/committees/silicon-valley",
+              "type": "government",
+              "title": "Congressional Hearing - silicon valley",
+              "description": "Source reference from Congressional Hearing",
+              "last_accessed": "2024-03-15T19:15:00Z",
+              "is_fresh": false
+            }
+          ]
         },
         "Healthcare": {
           "issue": "Healthcare",
           "stance": "Promotes Medicare for All and pharmaceutical cost controls. Sample healthcare position.",
           "confidence": "medium",
-          "sources": ["src:website:healthcare-demo", "src:interview:example-news"]
+          "sources": [
+            {
+              "url": "https://example.com/candidate/healthcare-demo",
+              "type": "website",
+              "title": "Official Website - healthcare demo",
+              "description": "Source reference from Official Website",
+              "last_accessed": "2024-03-15T19:15:00Z",
+              "is_fresh": false
+            },
+            {
+              "url": "https://example.com/interviews/example-news",
+              "type": "news",
+              "title": "News Interview - example news",
+              "description": "Source reference from News Interview",
+              "last_accessed": "2024-03-15T19:15:00Z",
+              "is_fresh": false
+            }
+          ]
         },
         "Immigration": {
           "issue": "Immigration",
           "stance": "Supports comprehensive immigration reform and pathway to citizenship. Example immigration stance.",
           "confidence": "high",
-          "sources": ["src:website:immigration-demo", "src:speech:community-event"]
+          "sources": [
+            {
+              "url": "https://example.com/candidate/immigration-demo",
+              "type": "website",
+              "title": "Official Website - immigration demo",
+              "description": "Source reference from Official Website",
+              "last_accessed": "2024-03-15T19:15:00Z",
+              "is_fresh": false
+            },
+            {
+              "url": "https://www.congress.gov/congressional-record/community-event",
+              "type": "government",
+              "title": "Congressional Speech - community event",
+              "description": "Source reference from Congressional Speech",
+              "last_accessed": "2024-03-15T19:15:00Z",
+              "is_fresh": false
+            }
+          ]
         }
       },
       "top_donors": [
@@ -48,13 +116,27 @@
           "name": "Tech Workers Union",
           "amount": 300000.0,
           "organization": "Labor Union",
-          "source": "src:demo-records:donations-2024"
+          "source": {
+            "url": "https://www.fec.gov/data/receipts/donations-2024",
+            "type": "government",
+            "title": "FEC Filing - donations 2024",
+            "description": "Source reference from FEC Filing",
+            "last_accessed": "2024-03-15T19:15:00Z",
+            "is_fresh": false
+          }
         },
         {
           "name": "Environmental Action PAC",
           "amount": 250000.0,
           "organization": "Environmental Group",
-          "source": "src:demo-records:donations-2024"
+          "source": {
+            "url": "https://www.fec.gov/data/receipts/donations-2024",
+            "type": "government",
+            "title": "FEC Filing - donations 2024",
+            "description": "Source reference from FEC Filing",
+            "last_accessed": "2024-03-15T19:15:00Z",
+            "is_fresh": false
+          }
         }
       ]
     },
@@ -73,19 +155,70 @@
           "issue": "Economy",
           "stance": "Focuses on tax reduction and business deregulation to spur economic growth. Example economic policy for testing.",
           "confidence": "high",
-          "sources": ["src:website:economy-demo", "src:press:business-forum"]
+          "sources": [
+            {
+              "url": "https://example.com/candidate/economy-demo",
+              "type": "website",
+              "title": "Official Website - economy demo",
+              "description": "Source reference from Official Website",
+              "last_accessed": "2024-03-15T19:15:00Z",
+              "is_fresh": false
+            },
+            {
+              "url": "https://example.com/press/business-forum",
+              "type": "news",
+              "title": "Press Conference - business forum",
+              "description": "Source reference from Press Conference",
+              "last_accessed": "2024-03-15T19:15:00Z",
+              "is_fresh": false
+            }
+          ]
         },
         "Foreign Policy": {
           "issue": "Foreign Policy",
           "stance": "Advocates for strong defense spending and international security measures. Sample security stance.",
           "confidence": "medium",
-          "sources": ["src:website:security-demo", "src:interview:defense-topics"]
+          "sources": [
+            {
+              "url": "https://example.com/candidate/security-demo",
+              "type": "website",
+              "title": "Official Website - security demo",
+              "description": "Source reference from Official Website",
+              "last_accessed": "2024-03-15T19:15:00Z",
+              "is_fresh": false
+            },
+            {
+              "url": "https://example.com/interviews/defense-topics",
+              "type": "news",
+              "title": "News Interview - defense topics",
+              "description": "Source reference from News Interview",
+              "last_accessed": "2024-03-15T19:15:00Z",
+              "is_fresh": false
+            }
+          ]
         },
         "Tech & AI": {
           "issue": "Tech & AI",
           "stance": "Supports free market approach to tech innovation with minimal regulation. Fictional tech position.",
           "confidence": "high",
-          "sources": ["src:website:innovation-demo", "src:speech:tech-conference"]
+          "sources": [
+            {
+              "url": "https://example.com/candidate/innovation-demo",
+              "type": "website",
+              "title": "Official Website - innovation demo",
+              "description": "Source reference from Official Website",
+              "last_accessed": "2024-03-15T19:15:00Z",
+              "is_fresh": false
+            },
+            {
+              "url": "https://www.congress.gov/congressional-record/tech-conference",
+              "type": "government",
+              "title": "Congressional Speech - tech conference",
+              "description": "Source reference from Congressional Speech",
+              "last_accessed": "2024-03-15T19:15:00Z",
+              "is_fresh": false
+            }
+          ]
         }
       },
       "top_donors": [
@@ -93,13 +226,27 @@
           "name": "Business Coalition PAC",
           "amount": 400000.0,
           "organization": "Business Group",
-          "source": "src:demo-records:donations-2024"
+          "source": {
+            "url": "https://www.fec.gov/data/receipts/donations-2024",
+            "type": "government",
+            "title": "FEC Filing - donations 2024",
+            "description": "Source reference from FEC Filing",
+            "last_accessed": "2024-03-15T19:15:00Z",
+            "is_fresh": false
+          }
         },
         {
           "name": "Defense Industry Association",
           "amount": 175000.0,
           "organization": "Industry Group",
-          "source": "src:demo-records:donations-2024"
+          "source": {
+            "url": "https://www.fec.gov/data/receipts/donations-2024",
+            "type": "government",
+            "title": "FEC Filing - donations 2024",
+            "description": "Source reference from FEC Filing",
+            "last_accessed": "2024-03-15T19:15:00Z",
+            "is_fresh": false
+          }
         }
       ]
     }

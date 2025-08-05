@@ -22,25 +22,93 @@
           "issue": "Economy",
           "stance": "Supports moderate economic policies with focus on job creation and small business development. Example stance for testing.",
           "confidence": "high",
-          "sources": ["src:website:economic-policy-demo", "src:press:example-2024"]
+          "sources": [
+            {
+              "url": "https://demo.smartervote.org/policy/economic-development",
+              "type": "POLICY_WEBSITE",
+              "title": "Economic Development Policy Platform",
+              "description": "Sample economic policy focused on job creation and small business",
+              "last_accessed": "2024-03-15T19:15:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/press/economic-announcement-2024",
+              "type": "PRESS_RELEASE",
+              "title": "Economic Policy Press Release 2024",
+              "description": "Sample press release on economic development initiatives",
+              "last_accessed": "2024-03-15T19:15:00Z",
+              "is_fresh": true
+            }
+          ]
         },
         "Education": {
           "issue": "Education",
           "stance": "Advocates for increased education funding and teacher support programs. Fictional policy position for demo purposes.",
           "confidence": "medium",
-          "sources": ["src:website:education-demo", "src:speech:example-event"]
+          "sources": [
+            {
+              "url": "https://demo.smartervote.org/policy/education-funding",
+              "type": "POLICY_WEBSITE",
+              "title": "Education Funding and Teacher Support Platform",
+              "description": "Sample education policy on funding and teacher programs",
+              "last_accessed": "2024-03-15T19:15:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/speeches/education-event-2024",
+              "type": "SPEECH",
+              "title": "Education Policy Speech at Example Event",
+              "description": "Sample speech on education funding and teacher support",
+              "last_accessed": "2024-03-15T19:15:00Z",
+              "is_fresh": true
+            }
+          ]
         },
         "Healthcare": {
           "issue": "Healthcare",
           "stance": "Proposes healthcare accessibility improvements and cost reduction measures. Sample stance for testing.",
           "confidence": "high",
-          "sources": ["src:policy:healthcare-demo", "src:interview:example-media"]
+          "sources": [
+            {
+              "url": "https://demo.smartervote.org/policy/healthcare-access",
+              "type": "POLICY_STATEMENT",
+              "title": "Healthcare Accessibility Policy Proposal",
+              "description": "Sample healthcare policy on accessibility and cost reduction",
+              "last_accessed": "2024-03-15T19:15:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/interviews/healthcare-media-2024",
+              "type": "NEWS_INTERVIEW",
+              "title": "Healthcare Policy Media Interview",
+              "description": "Sample media interview discussing healthcare proposals",
+              "last_accessed": "2024-03-15T19:15:00Z",
+              "is_fresh": true
+            }
+          ]
         },
         "Tech & AI": {
           "issue": "Tech & AI",
           "stance": "Plans technology infrastructure investments including broadband expansion. Example tech position.",
           "confidence": "medium",
-          "sources": ["src:website:infrastructure-plan", "src:press:demo-2024"]
+          "sources": [
+            {
+              "url": "https://demo.smartervote.org/policy/tech-infrastructure",
+              "type": "POLICY_WEBSITE",
+              "title": "Technology Infrastructure Investment Plan",
+              "description": "Sample technology policy on infrastructure and broadband",
+              "last_accessed": "2024-03-15T19:15:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/press/infrastructure-demo-2024",
+              "type": "PRESS_RELEASE",
+              "title": "Infrastructure Investment Press Release",
+              "description": "Sample press release on technology infrastructure plans",
+              "last_accessed": "2024-03-15T19:15:00Z",
+              "is_fresh": true
+            }
+          ]
         }
       },
       "top_donors": [
@@ -48,13 +116,27 @@
           "name": "Example Business PAC",
           "amount": 150000.0,
           "organization": "Business Association",
-          "source": "src:demo-records:donations-2024"
+          "source": {
+            "url": "https://demo.smartervote.org/records/business-pac-donations-2024",
+            "type": "DONATION_RECORD",
+            "title": "Business PAC Donation Records 2024",
+            "description": "Sample donation records from business political action committee",
+            "last_accessed": "2024-03-15T19:15:00Z",
+            "is_fresh": true
+          }
         },
         {
           "name": "Fictional Industry Group",
           "amount": 75000.0,
           "organization": "Industry Association",
-          "source": "src:demo-records:donations-2024"
+          "source": {
+            "url": "https://demo.smartervote.org/records/industry-group-donations-2024",
+            "type": "DONATION_RECORD",
+            "title": "Industry Group Donation Records 2024",
+            "description": "Sample donation records from industry association group",
+            "last_accessed": "2024-03-15T19:15:00Z",
+            "is_fresh": true
+          }
         }
       ]
     },
@@ -73,31 +155,116 @@
           "issue": "Healthcare",
           "stance": "Supports universal healthcare access and prescription drug cost controls. Example healthcare position for testing.",
           "confidence": "high",
-          "sources": ["src:website:healthcare-demo", "src:rally:example-event"]
+          "sources": [
+            {
+              "url": "https://demo.smartervote.org/policy/universal-healthcare",
+              "type": "POLICY_WEBSITE",
+              "title": "Universal Healthcare Access Policy",
+              "description": "Sample healthcare policy on universal access and drug costs",
+              "last_accessed": "2024-03-15T19:15:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/events/healthcare-rally-2024",
+              "type": "PUBLIC_RALLY",
+              "title": "Healthcare for All Rally Event",
+              "description": "Sample rally event supporting universal healthcare access",
+              "last_accessed": "2024-03-15T19:15:00Z",
+              "is_fresh": true
+            }
+          ]
         },
         "Education": {
           "issue": "Education",
           "stance": "Advocates for free public college and student debt relief programs. Fictional education policy for demo.",
           "confidence": "high",
-          "sources": ["src:website:education-demo", "src:town-hall:example-2024"]
+          "sources": [
+            {
+              "url": "https://demo.smartervote.org/policy/free-college",
+              "type": "POLICY_WEBSITE",
+              "title": "Free Public College and Debt Relief Policy",
+              "description": "Sample education policy on college affordability and debt relief",
+              "last_accessed": "2024-03-15T19:15:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/townhalls/education-2024",
+              "type": "TOWN_HALL",
+              "title": "Education Policy Town Hall 2024",
+              "description": "Sample town hall discussion on education and college costs",
+              "last_accessed": "2024-03-15T19:15:00Z",
+              "is_fresh": true
+            }
+          ]
         },
         "Climate/Energy": {
           "issue": "Climate/Energy",
           "stance": "Promotes renewable energy transition and environmental protection measures. Sample climate stance.",
           "confidence": "medium",
-          "sources": ["src:website:climate-demo", "src:interview:example-media"]
+          "sources": [
+            {
+              "url": "https://demo.smartervote.org/policy/renewable-energy",
+              "type": "POLICY_WEBSITE",
+              "title": "Renewable Energy Transition Policy",
+              "description": "Sample climate policy on renewable energy and environmental protection",
+              "last_accessed": "2024-03-15T19:15:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/interviews/climate-media-2024",
+              "type": "NEWS_INTERVIEW",
+              "title": "Climate Policy Media Interview",
+              "description": "Sample media interview discussing climate and energy policies",
+              "last_accessed": "2024-03-15T19:15:00Z",
+              "is_fresh": true
+            }
+          ]
         },
         "Economy": {
           "issue": "Economy",
           "stance": "Focuses on worker rights, minimum wage increases, and wealth inequality reduction. Example economic position.",
           "confidence": "high",
-          "sources": ["src:website:economy-demo", "src:speech:labor-event"]
+          "sources": [
+            {
+              "url": "https://demo.smartervote.org/policy/worker-rights",
+              "type": "POLICY_WEBSITE",
+              "title": "Worker Rights and Economic Justice Policy",
+              "description": "Sample economic policy on worker rights and wage increases",
+              "last_accessed": "2024-03-15T19:15:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/speeches/labor-event-2024",
+              "type": "SPEECH",
+              "title": "Worker Rights Speech at Labor Event",
+              "description": "Sample speech on worker rights and economic justice",
+              "last_accessed": "2024-03-15T19:15:00Z",
+              "is_fresh": true
+            }
+          ]
         },
         "Reproductive Rights": {
           "issue": "Reproductive Rights",
           "stance": "Supports reproductive choice and family planning access. Fictional social policy position.",
           "confidence": "medium",
-          "sources": ["src:website:social-demo", "src:press:example-2024"]
+          "sources": [
+            {
+              "url": "https://demo.smartervote.org/policy/reproductive-choice",
+              "type": "POLICY_WEBSITE",
+              "title": "Reproductive Choice and Family Planning Policy",
+              "description": "Sample social policy on reproductive rights and family planning",
+              "last_accessed": "2024-03-15T19:15:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/press/reproductive-rights-2024",
+              "type": "PRESS_RELEASE",
+              "title": "Reproductive Rights Policy Press Release",
+              "description": "Sample press release on reproductive choice and healthcare access",
+              "last_accessed": "2024-03-15T19:15:00Z",
+              "is_fresh": true
+            }
+          ]
         }
       },
       "top_donors": [
@@ -105,13 +272,27 @@
           "name": "Demo Labor Union",
           "amount": 200000.0,
           "organization": "Labor Union",
-          "source": "src:demo-records:donations-2024"
+          "source": {
+            "url": "https://demo.smartervote.org/records/labor-union-donations-2024",
+            "type": "UNION_CONTRIBUTION",
+            "title": "Labor Union Donation Records 2024",
+            "description": "Sample donation records from labor union organization",
+            "last_accessed": "2024-03-15T19:15:00Z",
+            "is_fresh": true
+          }
         },
         {
           "name": "Example Progressive PAC",
           "amount": 125000.0,
           "organization": "Political Action Committee",
-          "source": "src:demo-records:donations-2024"
+          "source": {
+            "url": "https://demo.smartervote.org/records/progressive-pac-donations-2024",
+            "type": "PAC_CONTRIBUTION",
+            "title": "Progressive PAC Donation Records 2024",
+            "description": "Sample donation records from progressive political action committee",
+            "last_accessed": "2024-03-15T19:15:00Z",
+            "is_fresh": true
+          }
         }
       ]
     },
@@ -130,19 +311,70 @@
           "issue": "Election Reform",
           "stance": "Advocates for campaign finance reform and transparency in government. Example reform position for testing.",
           "confidence": "high",
-          "sources": ["src:website:reform-demo", "src:interview:example-show"]
+          "sources": [
+            {
+              "url": "https://demo.smartervote.org/policy/campaign-finance-reform",
+              "type": "POLICY_WEBSITE",
+              "title": "Campaign Finance Reform and Government Transparency",
+              "description": "Sample reform policy on campaign finance and government transparency",
+              "last_accessed": "2024-03-15T19:15:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/interviews/reform-show-2024",
+              "type": "NEWS_INTERVIEW",
+              "title": "Government Reform Interview on Example Show",
+              "description": "Sample interview discussing campaign finance and transparency reforms",
+              "last_accessed": "2024-03-15T19:15:00Z",
+              "is_fresh": true
+            }
+          ]
         },
         "Economy": {
           "issue": "Economy",
           "stance": "Proposes balanced budget approach with fiscal responsibility measures. Sample economic stance.",
           "confidence": "medium",
-          "sources": ["src:website:fiscal-demo", "src:debate:example-2024"]
+          "sources": [
+            {
+              "url": "https://demo.smartervote.org/policy/fiscal-responsibility",
+              "type": "POLICY_WEBSITE",
+              "title": "Fiscal Responsibility and Balanced Budget Policy",
+              "description": "Sample economic policy on balanced budgets and fiscal responsibility",
+              "last_accessed": "2024-03-15T19:15:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/debates/economic-debate-2024",
+              "type": "DEBATE",
+              "title": "Economic Policy Debate 2024",
+              "description": "Sample debate performance on economic and fiscal policies",
+              "last_accessed": "2024-03-15T19:15:00Z",
+              "is_fresh": true
+            }
+          ]
         },
         "Tech & AI": {
           "issue": "Tech & AI",
           "stance": "Supports bipartisan technology investments funded through public-private partnerships. Demo tech policy.",
           "confidence": "high",
-          "sources": ["src:website:infrastructure-demo", "src:press:example-release"]
+          "sources": [
+            {
+              "url": "https://demo.smartervote.org/policy/tech-infrastructure-partnerships",
+              "type": "POLICY_WEBSITE",
+              "title": "Technology Infrastructure Public-Private Partnership Policy",
+              "description": "Sample technology policy on infrastructure and partnership funding",
+              "last_accessed": "2024-03-15T19:15:00Z",
+              "is_fresh": true
+            },
+            {
+              "url": "https://demo.smartervote.org/press/infrastructure-partnership-2024",
+              "type": "PRESS_RELEASE",
+              "title": "Infrastructure Partnership Press Release",
+              "description": "Sample press release on technology infrastructure partnerships",
+              "last_accessed": "2024-03-15T19:15:00Z",
+              "is_fresh": true
+            }
+          ]
         }
       },
       "top_donors": [
@@ -150,13 +382,27 @@
           "name": "Citizens for Reform",
           "amount": 50000.0,
           "organization": "Advocacy Group",
-          "source": "src:demo-records:donations-2024"
+          "source": {
+            "url": "https://demo.smartervote.org/records/reform-advocacy-donations-2024",
+            "type": "ADVOCACY_CONTRIBUTION",
+            "title": "Citizens for Reform Donation Records 2024",
+            "description": "Sample donation records from government reform advocacy group",
+            "last_accessed": "2024-03-15T19:15:00Z",
+            "is_fresh": true
+          }
         },
         {
           "name": "Example Small Business Coalition",
           "amount": 25000.0,
           "organization": "Business Group",
-          "source": "src:demo-records:donations-2024"
+          "source": {
+            "url": "https://demo.smartervote.org/records/small-business-donations-2024",
+            "type": "BUSINESS_CONTRIBUTION",
+            "title": "Small Business Coalition Donation Records 2024",
+            "description": "Sample donation records from small business advocacy coalition",
+            "last_accessed": "2024-03-15T19:15:00Z",
+            "is_fresh": true
+          }
         }
       ]
     }

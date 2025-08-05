@@ -1,9 +1,11 @@
 <script lang="ts">
-  export let url: string;
+  import type { Source } from '../types';
+
+  export let source: Source;
   export let text: string | undefined = undefined;
 
   // Extract domain from URL for display
-  $: domain = getDomain(url);
+  $: domain = getDomain(source.url);
 
   function getDomain(url: string): string {
     try {
@@ -16,13 +18,13 @@
 </script>
 
 <a
-  href={url}
+  href={source.url}
   target="_blank"
   rel="noopener noreferrer"
   class="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-xs sm:text-sm underline"
-  title="Open {domain} in new tab"
+  title="{source.title || text || domain} - Open in new tab"
 >
-  <span>{text || domain}</span>
+  <span>{text || source.title || domain}</span>
   <svg class="w-3 h-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
     <path
       stroke-linecap="round"

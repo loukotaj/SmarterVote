@@ -126,7 +126,7 @@ class IssueStance(BaseModel):
     issue: CanonicalIssue
     stance: str
     confidence: ConfidenceLevel
-    sources: List[str] = Field(default_factory=list)  # Source references like "src:bp:candidate_profile"
+    sources: List[Source] = Field(default_factory=list)  # Source objects with detailed information
 
 
 class TopDonor(BaseModel):
@@ -134,7 +134,7 @@ class TopDonor(BaseModel):
     name: str
     amount: Optional[float] = None
     organization: Optional[str] = None
-    source: str  # Reference to data source
+    source: Source  # Source object with detailed information
 
 
 class Candidate(BaseModel):

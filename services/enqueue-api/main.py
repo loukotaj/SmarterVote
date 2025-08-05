@@ -12,7 +12,7 @@ import string
 from datetime import datetime
 from typing import Optional
 
-from fastapi import FastAPI, HTTPException, BackgroundTasks
+from fastapi import FastAPI, HTTPException, BackgroundTasks, Body
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from google.cloud import pubsub_v1
@@ -112,7 +112,7 @@ async def health_check():
 
 
 @app.post("/process", response_model=ProcessRaceResponse)
-async def process_race(request: ProcessRaceRequest, background_tasks: BackgroundTasks):
+async def process_race(background_tasks: BackgroundTasks, request: ProcessRaceRequest = Body(...)):
     """
     Enqueue a race for processing.
     

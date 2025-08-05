@@ -4,6 +4,15 @@
 
 export type ConfidenceLevel = "high" | "medium" | "low" | "unknown";
 
+export type SourceType = 
+  | "website"
+  | "pdf"
+  | "api"
+  | "social_media"
+  | "news"
+  | "government"
+  | "fresh_search";
+
 export type CanonicalIssue =
   | "Healthcare"
   | "Economy"
@@ -17,17 +26,27 @@ export type CanonicalIssue =
   | "Tech & AI"
   | "Election Reform";
 
+export interface Source {
+  url: string;
+  type: SourceType;
+  title?: string;
+  description?: string;
+  last_accessed: string;
+  checksum?: string;
+  is_fresh?: boolean;
+}
+
 export interface IssueStance {
   stance: string;
   confidence: ConfidenceLevel;
-  sources: string[];
+  sources: Source[];
 }
 
 export interface TopDonor {
   name: string;
   amount?: number;
   organization?: string;
-  source: string;
+  source: Source;
 }
 
 export interface Candidate {
