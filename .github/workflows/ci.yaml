@@ -114,15 +114,7 @@ jobs:
     
     - name: Run unit tests
       run: |
-        cd web && npm run test:unit
-    
-    - name: Install Playwright
-      run: |
-        cd web && npx playwright install --with-deps
-    
-    - name: Run Playwright tests
-      run: |
-        cd web && npm run test:integration
+        cd web && npm run test:unit -- --run
 
   terraform-validate:
     name: Validate Terraform

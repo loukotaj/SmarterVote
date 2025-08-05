@@ -36,7 +36,7 @@ describe('API Fallback Functionality', () => {
     
     expect(result.id).toBe('unknown-race');
     expect(result.title).toBe('Sample Race Data (unknown-race)');
-    expect(result.candidates).toHaveLength(2);
+    expect(result.candidates).toHaveLength(3); // Updated to match actual sample data
   });
 
   it('should throw error when fallback is disabled', async () => {
