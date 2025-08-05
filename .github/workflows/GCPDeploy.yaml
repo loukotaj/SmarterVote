@@ -1,12 +1,11 @@
 name: Deploy SmarterVote Infrastructure & Services
 
 on:
-  push:
+  workflow_run:
+    workflows: ["CI - Quality Gates"]
+    types:
+      - completed
     branches: [main]
-    paths:
-      - 'services/**'
-      - 'pipeline/**'
-      - 'infra/**'
   workflow_dispatch:
 
 env:
@@ -17,15 +16,18 @@ env:
 jobs:
   build-and-deploy-services:
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     
     steps:
     - uses: actions/checkout@v4
     
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v2
+      with:
+        credentials_json: ${{ secrets.GCP_SA_KEY }}
+    
     - name: Setup Google Cloud SDK
       uses: google-github-actions/setup-gcloud@v2
-      with:
-        service_account_key: ${{ secrets.GCP_SA_KEY }}
-        project_id: ${{ secrets.GCP_PROJECT_ID }}
     
     - name: Configure Docker for GCR
       run: gcloud auth configure-docker gcr.io
