@@ -18,13 +18,12 @@ TODO: Implement the following features:
 - [ ] Add analytics and search quality metrics
 """
 
-import logging
-from typing import List, Dict, Any, Optional
-from datetime import datetime, timedelta
 import hashlib
+import logging
+from datetime import datetime, timedelta
+from typing import Any, Dict, List, Optional
 
-from ..schema import ExtractedContent, VectorDocument, CanonicalIssue
-
+from ..schema import CanonicalIssue, ExtractedContent, VectorDocument
 
 logger = logging.getLogger(__name__)
 

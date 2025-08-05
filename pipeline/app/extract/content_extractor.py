@@ -21,16 +21,15 @@ TODO: Implement the following features:
 """
 
 import logging
-from typing import List, Dict, Any, Optional
-from datetime import datetime
 import re
-
-from bs4 import BeautifulSoup
-import PyPDF2
+from datetime import datetime
 from io import BytesIO
+from typing import Any, Dict, List, Optional
+
+import PyPDF2
+from bs4 import BeautifulSoup
 
 from ..schema import ExtractedContent, Source
-
 
 logger = logging.getLogger(__name__)
 

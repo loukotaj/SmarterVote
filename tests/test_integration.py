@@ -1,8 +1,9 @@
 """Integration tests for the SmarterVote pipeline."""
 
-import pytest
 import asyncio
-from unittest.mock import Mock, AsyncMock
+from unittest.mock import AsyncMock, Mock
+
+import pytest
 
 # Integration tests focus on the interaction between components
 # rather than individual service unit tests (which are now adjacent to source)

@@ -5,18 +5,18 @@ This service provides a REST API endpoint that accepts race processing
 requests and publishes them to Google Cloud Pub/Sub for asynchronous processing.
 """
 
-import os
+import json
 import logging
+import os
 import random
 import string
 from datetime import datetime
 from typing import Optional
 
-from fastapi import FastAPI, HTTPException, BackgroundTasks, Body
+from fastapi import BackgroundTasks, Body, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
 from google.cloud import pubsub_v1
-import json
+from pydantic import BaseModel
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)

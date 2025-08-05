@@ -1,9 +1,10 @@
 """Tests for the ExtractService."""
 
-import pytest
 from datetime import datetime
 
-from ..schema import Source, SourceType, ExtractedContent
+import pytest
+
+from ..schema import ExtractedContent, Source, SourceType
 from . import ExtractService
 
 

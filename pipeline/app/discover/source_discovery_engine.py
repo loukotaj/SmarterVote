@@ -21,11 +21,10 @@ TODO: Implement the following features:
 """
 
 import logging
-from typing import List, Dict, Any, Optional
 from datetime import datetime, timedelta
+from typing import Any, Dict, List, Optional
 
-from ..schema import Source, SourceType, CanonicalIssue, FreshSearchQuery
-
+from ..schema import CanonicalIssue, FreshSearchQuery, Source, SourceType
 
 logger = logging.getLogger(__name__)
 

@@ -5,15 +5,14 @@ This script is useful for testing and development purposes.
 """
 
 import asyncio
-import sys
 import logging
+import sys
 from pathlib import Path
 
 # Add the pipeline app to the Python path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from pipeline import CorpusFirstPipeline
-
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

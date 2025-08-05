@@ -4,8 +4,9 @@ RaceJSON v0.2 - Corpus-First Design
 """
 
 from datetime import datetime
-from typing import List, Optional, Dict, Any, Literal
 from enum import Enum
+from typing import Any, Dict, List, Literal, Optional
+
 from pydantic import BaseModel, Field, HttpUrl
 
 

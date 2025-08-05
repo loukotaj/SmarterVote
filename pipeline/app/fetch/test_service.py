@@ -1,8 +1,9 @@
 """Tests for the FetchService."""
 
-import pytest
 from datetime import datetime
 from unittest.mock import AsyncMock
+
+import pytest
 
 from ..schema import Source, SourceType
 from . import FetchService

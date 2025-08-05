@@ -17,21 +17,15 @@ import sys
 from datetime import datetime
 from typing import Optional
 
-from .schema import (
-    RaceJSON,
-    ProcessingJob,
-    ProcessingStatus,
-    CanonicalIssue,
-    ConfidenceLevel,
-)
-from .discover import DiscoveryService
-from .fetch import FetchService
-from .extract import ExtractService
-from .corpus import CorpusService
-from .summarise import SummarizeService
 from .arbitrate import ArbitrationService
+from .corpus import CorpusService
+from .discover import DiscoveryService
+from .extract import ExtractService
+from .fetch import FetchService
 from .publish import PublishService
-
+from .schema import (CanonicalIssue, ConfidenceLevel, ProcessingJob,
+                     ProcessingStatus, RaceJSON)
+from .summarise import SummarizeService
 
 # Configure logging
 logging.basicConfig(

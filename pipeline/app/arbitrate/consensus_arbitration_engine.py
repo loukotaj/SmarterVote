@@ -19,19 +19,13 @@ TODO: Implement the following features:
 """
 
 import logging
-from typing import List, Dict, Any, Optional, Tuple
+import re
 from datetime import datetime
 from difflib import SequenceMatcher
-import re
+from typing import Any, Dict, List, Optional, Tuple
 
-from ..schema import (
-    Summary,
-    ConfidenceLevel,
-    ArbitrationResult,
-    LLMResponse,
-    CanonicalIssue,
-)
-
+from ..schema import (ArbitrationResult, CanonicalIssue, ConfidenceLevel,
+                      LLMResponse, Summary)
 
 logger = logging.getLogger(__name__)
 

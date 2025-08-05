@@ -20,17 +20,16 @@ TODO: Implement the following features:
 - [ ] Implement content deduplication based on URL/checksum
 """
 
-import logging
 import asyncio
-from typing import List, Dict, Any, Optional
+import logging
 from datetime import datetime
+from typing import Any, Dict, List, Optional
 
 import httpx
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 from ..schema import Source, SourceType
-
 
 logger = logging.getLogger(__name__)
 

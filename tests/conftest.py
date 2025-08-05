@@ -1,7 +1,8 @@
 """Integration test configuration for the pipeline."""
 
-import pytest
 import asyncio
+
+import pytest
 
 
 @pytest.fixture(scope="session")

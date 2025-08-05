@@ -1,13 +1,13 @@
 """Tests for the enqueue API service."""
 
+import importlib.util
 import json
 import os
+import sys
 import time
-from unittest.mock import Mock, patch, MagicMock
 from datetime import datetime
 from pathlib import Path
-import importlib.util
-import sys
+from unittest.mock import MagicMock, Mock, patch
 
 import pytest
 from fastapi.testclient import TestClient

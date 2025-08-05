@@ -18,19 +18,13 @@ TODO: Implement the following features:
 - [ ] Add multi-language summarization support
 """
 
-import logging
-from typing import List, Dict, Any, Optional
-from datetime import datetime
 import asyncio
+import logging
+from datetime import datetime
+from typing import Any, Dict, List, Optional
 
-from ..schema import (
-    ExtractedContent,
-    Summary,
-    ConfidenceLevel,
-    LLMResponse,
-    CanonicalIssue,
-)
-
+from ..schema import (CanonicalIssue, ConfidenceLevel, ExtractedContent,
+                      LLMResponse, Summary)
 
 logger = logging.getLogger(__name__)
 

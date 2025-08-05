@@ -13,17 +13,16 @@ Key responsibilities:
 - Maintain publication audit trails and versioning
 """
 
-import logging
-import json
 import asyncio
-from typing import Dict, Any, List, Optional, Union
-from datetime import datetime, timezone, timedelta
-from pathlib import Path
+import json
+import logging
 from dataclasses import dataclass
+from datetime import datetime, timedelta, timezone
 from enum import Enum
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Union
 
-from ..schema import RaceJSON, ProcessingStatus, ConfidenceLevel
-
+from ..schema import ConfidenceLevel, ProcessingStatus, RaceJSON
 
 logger = logging.getLogger(__name__)
 

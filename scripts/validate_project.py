@@ -5,8 +5,8 @@ This script validates that all components can be imported and basic
 functionality works before deployment.
 """
 
-import sys
 import logging
+import sys
 from pathlib import Path
 
 # Add project root to path
@@ -21,19 +21,19 @@ def test_pipeline_imports():
     """Test that pipeline components can be imported."""
     try:
         from pipeline import CorpusFirstPipeline
-        from pipeline.app.schema import RaceJSON, CanonicalIssue, Source
+        from pipeline.app.schema import CanonicalIssue, RaceJSON, Source
 
         logger.info("✅ Core pipeline imports successful")
 
         # Test service imports (these might fail due to missing dependencies)
         try:
-            from pipeline.app.discover import DiscoveryService
-            from pipeline.app.fetch import FetchService
-            from pipeline.app.extract import ExtractService
-            from pipeline.app.corpus import CorpusService
-            from pipeline.app.summarise import SummarizeService
             from pipeline.app.arbitrate import ArbitrationService
+            from pipeline.app.corpus import CorpusService
+            from pipeline.app.discover import DiscoveryService
+            from pipeline.app.extract import ExtractService
+            from pipeline.app.fetch import FetchService
             from pipeline.app.publish import PublishService
+            from pipeline.app.summarise import SummarizeService
 
             logger.info("✅ All service imports successful")
         except ImportError as e:
@@ -69,8 +69,10 @@ def test_pipeline_instantiation():
 def test_schema_validation():
     """Test that schema models work correctly."""
     try:
-        from pipeline.app.schema import RaceJSON, CanonicalIssue, Source, SourceType
         from datetime import datetime
+
+        from pipeline.app.schema import (CanonicalIssue, RaceJSON, Source,
+                                         SourceType)
 
         # Test enum
         issue = CanonicalIssue.ECONOMY

@@ -5,12 +5,12 @@ This script can be used to trigger processing for multiple races at once,
 either locally or by calling the enqueue API.
 """
 
+import argparse
 import asyncio
-import aiohttp
 import logging
 from typing import List
-import argparse
 
+import aiohttp
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
