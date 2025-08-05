@@ -16,5 +16,5 @@ __all__ = [
     "ExtractedContent",
     "Summary",
     "LLMResponse",
-    "ArbitrationResult"
+    "ArbitrationResult",
 ]

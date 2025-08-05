@@ -37,7 +37,7 @@ logger = logging.getLogger(__name__)
 
 class WebContentFetcher:
     """Service for fetching content from various web sources."""
-    
+
     def __init__(self):
         self.session = None
         self.selenium_driver = None
@@ -46,37 +46,37 @@ class WebContentFetcher:
             "timeout": 30.0,
             "user_agent": "SmarterVote/1.0 (Educational Research)",
             "max_retries": 3,
-            "selenium_wait_time": 3
+            "selenium_wait_time": 3,
         }
-    
+
     async def fetch_content(self, sources: List[Source]) -> List[Dict[str, Any]]:
         """
         Fetch content from all provided sources.
-        
+
         Args:
             sources: List of sources to fetch content from
-            
+
         Returns:
             List of fetched content with metadata
-            
-        TODO: 
+
+        TODO:
         - [ ] Add parallel processing limits to avoid overwhelming servers
         - [ ] Implement priority queue for high-priority sources
         - [ ] Add progress tracking and callbacks
         - [ ] Support for batch processing with checkpoints
         """
         logger.info(f"Fetching content from {len(sources)} sources")
-        
+
         async with httpx.AsyncClient(timeout=self.config["timeout"]) as client:
             self.session = client
-            
+
             tasks = []
             for source in sources:
                 task = self._fetch_single_source(source)
                 tasks.append(task)
-            
+
             results = await asyncio.gather(*tasks, return_exceptions=True)
-            
+
             # Filter out failed requests
             successful_results = []
             for i, result in enumerate(results):
@@ -84,32 +84,34 @@ class WebContentFetcher:
                     logger.error(f"Failed to fetch {sources[i].url}: {result}")
                 else:
                     successful_results.append(result)
-            
-            logger.info(f"Successfully fetched {len(successful_results)}/{len(sources)} sources")
+
+            logger.info(
+                f"Successfully fetched {len(successful_results)}/{len(sources)} sources"
+            )
             return successful_results
-    
+
     async def _fetch_single_source(self, source: Source) -> Dict[str, Any]:
         """
         Fetch content from a single source.
-        
+
         TODO:
         - [ ] Add source type detection based on URL patterns
         - [ ] Implement content-type specific handling
         - [ ] Add metrics collection (response time, size, etc.)
         """
         logger.debug(f"Fetching {source.url}")
-        
+
         if source.type in [SourceType.WEBSITE] and self._requires_javascript(source):
             # Use Selenium for dynamic content
             return await self._fetch_with_selenium(source)
         else:
             # Use httpx for static content
             return await self._fetch_with_httpx(source)
-    
+
     def _requires_javascript(self, source: Source) -> bool:
         """
         Determine if a source requires JavaScript rendering.
-        
+
         TODO:
         - [ ] Add heuristics based on URL patterns
         - [ ] Check for common JS frameworks in initial request
@@ -118,11 +120,11 @@ class WebContentFetcher:
         # Simple heuristic for now
         dynamic_domains = ["twitter.com", "facebook.com", "instagram.com"]
         return any(domain in str(source.url) for domain in dynamic_domains)
-    
+
     async def _fetch_with_httpx(self, source: Source) -> Dict[str, Any]:
         """
         Fetch content using httpx (for static websites).
-        
+
         TODO:
         - [ ] Add support for different HTTP methods
         - [ ] Implement session management and cookie handling
@@ -136,10 +138,10 @@ class WebContentFetcher:
             "Accept-Encoding": "gzip, deflate",
             "Connection": "keep-alive",
         }
-        
+
         response = await self.session.get(source.url, headers=headers)
         response.raise_for_status()
-        
+
         return {
             "source": source,
             "content": response.text,
@@ -149,13 +151,13 @@ class WebContentFetcher:
             "fetch_timestamp": datetime.utcnow(),
             "method": "httpx",
             "headers": dict(response.headers),
-            "encoding": response.encoding
+            "encoding": response.encoding,
         }
-    
+
     async def _fetch_with_selenium(self, source: Source) -> Dict[str, Any]:
         """
         Fetch content using Selenium (for dynamic websites).
-        
+
         TODO:
         - [ ] Add support for different browsers (Firefox, Safari)
         - [ ] Implement smart waiting for specific elements
@@ -165,31 +167,31 @@ class WebContentFetcher:
         """
         if not self.selenium_driver:
             self._init_selenium_driver()
-        
+
         self.selenium_driver.get(str(source.url))
-        
+
         # Wait for dynamic content to load
         # TODO: Replace with smart waiting for specific elements
         await asyncio.sleep(self.config["selenium_wait_time"])
-        
+
         content = self.selenium_driver.page_source
-        
+
         return {
             "source": source,
             "content": content,
             "content_type": "text/html",
             "status_code": 200,
-            "size_bytes": len(content.encode('utf-8')),
+            "size_bytes": len(content.encode("utf-8")),
             "fetch_timestamp": datetime.utcnow(),
             "method": "selenium",
             "page_title": self.selenium_driver.title,
-            "current_url": self.selenium_driver.current_url
+            "current_url": self.selenium_driver.current_url,
         }
-    
+
     def _init_selenium_driver(self):
         """
         Initialize Selenium Chrome driver with proper options.
-        
+
         TODO:
         - [ ] Add driver pooling for better performance
         - [ ] Support for custom Chrome binary paths
@@ -204,15 +206,17 @@ class WebContentFetcher:
         options.add_argument("--window-size=1920,1080")
         options.add_argument("--disable-blink-features=AutomationControlled")
         options.add_experimental_option("excludeSwitches", ["enable-automation"])
-        options.add_experimental_option('useAutomationExtension', False)
-        
+        options.add_experimental_option("useAutomationExtension", False)
+
         self.selenium_driver = webdriver.Chrome(options=options)
         # Hide automation indicators
-        self.selenium_driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
-    
+        self.selenium_driver.execute_script(
+            "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"
+        )
+
     def __del__(self):
         """Clean up Selenium driver."""
-        if hasattr(self, 'selenium_driver') and self.selenium_driver:
+        if hasattr(self, "selenium_driver") and self.selenium_driver:
             try:
                 self.selenium_driver.quit()
             except:

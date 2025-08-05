@@ -11,6 +11,7 @@ from pydantic import BaseModel, Field, HttpUrl
 
 class SourceType(str, Enum):
     """Types of data sources."""
+
     WEBSITE = "website"
     PDF = "pdf"
     API = "api"
@@ -22,14 +23,16 @@ class SourceType(str, Enum):
 
 class ConfidenceLevel(str, Enum):
     """Confidence levels for processed data."""
-    HIGH = "high"    # 2-of-3 LLM agreement
+
+    HIGH = "high"  # 2-of-3 LLM agreement
     MEDIUM = "medium"  # Partial consensus
-    LOW = "low"      # No consensus, minority view stored
+    LOW = "low"  # No consensus, minority view stored
     UNKNOWN = "unknown"
 
 
 class ProcessingStatus(str, Enum):
     """Status of data processing."""
+
     PENDING = "pending"
     PROCESSING = "processing"
     COMPLETED = "completed"
@@ -38,6 +41,7 @@ class ProcessingStatus(str, Enum):
 
 class CanonicalIssue(str, Enum):
     """The 11 canonical issues for consistent comparison across races."""
+
     HEALTHCARE = "Healthcare"
     ECONOMY = "Economy"
     CLIMATE_ENERGY = "Climate/Energy"
@@ -53,6 +57,7 @@ class CanonicalIssue(str, Enum):
 
 class Source(BaseModel):
     """Data source information."""
+
     url: HttpUrl
     type: SourceType
     title: Optional[str] = None
@@ -64,6 +69,7 @@ class Source(BaseModel):
 
 class ChromaChunk(BaseModel):
     """Document chunk stored in ChromaDB corpus."""
+
     id: str
     race_id: str
     candidate_name: Optional[str] = None
@@ -77,6 +83,7 @@ class ChromaChunk(BaseModel):
 
 class ExtractedContent(BaseModel):
     """Content extracted from a source."""
+
     source: Source
     text: str
     metadata: Dict[str, Any] = Field(default_factory=dict)
@@ -87,6 +94,7 @@ class ExtractedContent(BaseModel):
 
 class VectorDocument(BaseModel):
     """Document retrieved from vector search."""
+
     id: str
     content: str
     metadata: Dict[str, Any] = Field(default_factory=dict)
@@ -96,6 +104,7 @@ class VectorDocument(BaseModel):
 
 class Summary(BaseModel):
     """AI-generated summary of content."""
+
     content: str
     model: Literal["gpt-4o", "claude-3.5", "grok-4"]
     confidence: ConfidenceLevel
@@ -106,6 +115,7 @@ class Summary(BaseModel):
 
 class LLMResponse(BaseModel):
     """Response from a single LLM."""
+
     model: Literal["gpt-4o", "claude-3.5", "grok-4"]
     content: str
     tokens_used: Optional[int] = None
@@ -114,6 +124,7 @@ class LLMResponse(BaseModel):
 
 class TriangulatedSummary(BaseModel):
     """Summary triangulated from 3 LLMs."""
+
     final_content: str
     confidence: ConfidenceLevel
     llm_responses: List[LLMResponse]
@@ -123,14 +134,18 @@ class TriangulatedSummary(BaseModel):
 
 class IssueStance(BaseModel):
     """Candidate's stance on a canonical issue."""
+
     issue: CanonicalIssue
     stance: str
     confidence: ConfidenceLevel
-    sources: List[Source] = Field(default_factory=list)  # Source objects with detailed information
+    sources: List[Source] = Field(
+        default_factory=list
+    )  # Source objects with detailed information
 
 
 class TopDonor(BaseModel):
     """Top campaign donor information."""
+
     name: str
     amount: Optional[float] = None
     organization: Optional[str] = None
@@ -139,6 +154,7 @@ class TopDonor(BaseModel):
 
 class Candidate(BaseModel):
     """Candidate information for RaceJSON v0.2."""
+
     name: str
     party: Optional[str] = None
     incumbent: bool = False
@@ -151,12 +167,15 @@ class Candidate(BaseModel):
 
 class RaceJSON(BaseModel):
     """RaceJSON v0.2 - Final output format."""
+
     id: str = Field(..., description="Race slug like 'mo-senate-2024'")
     election_date: datetime
     candidates: List[Candidate]
     updated_utc: datetime
-    generator: List[Literal["gpt-4o", "claude-3.5", "grok-4"]] = Field(default_factory=list)
-    
+    generator: List[Literal["gpt-4o", "claude-3.5", "grok-4"]] = Field(
+        default_factory=list
+    )
+
     # Optional metadata
     title: Optional[str] = None
     office: Optional[str] = None
@@ -165,6 +184,7 @@ class RaceJSON(BaseModel):
 
 class ProcessingJob(BaseModel):
     """Job for processing a race through the corpus-first pipeline."""
+
     job_id: str
     race_id: str
     status: ProcessingStatus
@@ -174,7 +194,7 @@ class ProcessingJob(BaseModel):
     error_message: Optional[str] = None
     retry_count: int = 0
     max_retries: int = 3
-    
+
     # Pipeline step tracking
     step_discover: bool = False
     step_fetch: bool = False
@@ -188,6 +208,7 @@ class ProcessingJob(BaseModel):
 
 class FreshSearchQuery(BaseModel):
     """Query for fresh issue-specific Google searches."""
+
     race_id: str
     candidate_name: str
     issue: CanonicalIssue = None
@@ -197,6 +218,7 @@ class FreshSearchQuery(BaseModel):
 
 class RAGQuery(BaseModel):
     """Query for RAG-based summary generation."""
+
     race_id: str
     query_type: Literal["candidate_summary", "issue_stance"]
     candidate_name: Optional[str] = None
@@ -206,6 +228,7 @@ class RAGQuery(BaseModel):
 
 class ArbitrationResult(BaseModel):
     """Result of LLM triangulation and arbitration."""
+
     content: str
     confidence: ConfidenceLevel
     consensus_method: str

@@ -20,6 +20,7 @@ DATA_DIR = os.getenv("DATA_DIR", "data/published/")
 
 # Initialize publish service with custom data directory
 from pipeline.app.publish import PublicationConfig
+
 config = PublicationConfig(output_directory=Path(DATA_DIR))
 publish_service = PublishService(config=config)
 
@@ -53,4 +54,5 @@ def get_race(race_id: str) -> Race:
 
 if __name__ == "__main__":
     import uvicorn
+
     uvicorn.run(app, host="0.0.0.0", port=8080)

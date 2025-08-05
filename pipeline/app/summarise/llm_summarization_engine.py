@@ -23,7 +23,13 @@ from typing import List, Dict, Any, Optional
 from datetime import datetime
 import asyncio
 
-from ..schema import ExtractedContent, Summary, ConfidenceLevel, LLMResponse, CanonicalIssue
+from ..schema import (
+    ExtractedContent,
+    Summary,
+    ConfidenceLevel,
+    LLMResponse,
+    CanonicalIssue,
+)
 
 
 logger = logging.getLogger(__name__)
@@ -31,7 +37,7 @@ logger = logging.getLogger(__name__)
 
 class LLMSummarizationEngine:
     """Engine for generating AI summaries using multiple LLM providers."""
-    
+
     def __init__(self):
         self.models = {
             "openai": {
@@ -39,61 +45,67 @@ class LLMSummarizationEngine:
                 "api_key": None,  # TODO: Load from environment
                 "base_url": "https://api.openai.com/v1",
                 "max_tokens": 4000,
-                "temperature": 0.1  # Low temperature for factual content
+                "temperature": 0.1,  # Low temperature for factual content
             },
             "anthropic": {
                 "model": "claude-3.5-sonnet",
                 "api_key": None,  # TODO: Load from environment
                 "base_url": "https://api.anthropic.com/v1",
                 "max_tokens": 4000,
-                "temperature": 0.1
+                "temperature": 0.1,
             },
             "xai": {
                 "model": "grok-4",
                 "api_key": None,  # TODO: Load from environment
                 "base_url": "https://api.x.ai/v1",
                 "max_tokens": 4000,
-                "temperature": 0.1
-            }
+                "temperature": 0.1,
+            },
         }
-        
+
         # Prompt templates for different tasks
         self.prompts = {
             "candidate_summary": self._get_candidate_summary_prompt(),
             "issue_stance": self._get_issue_stance_prompt(),
-            "general_summary": self._get_general_summary_prompt()
+            "general_summary": self._get_general_summary_prompt(),
         }
-    
-    async def generate_summaries(self, race_id: str, content: List[ExtractedContent], 
-                               task_type: str = "general_summary") -> List[Summary]:
+
+    async def generate_summaries(
+        self,
+        race_id: str,
+        content: List[ExtractedContent],
+        task_type: str = "general_summary",
+    ) -> List[Summary]:
         """
         Generate AI summaries for extracted content using multiple LLMs.
-        
+
         Args:
             race_id: The race ID for context
             content: List of extracted content to summarize
             task_type: Type of summarization task
-            
+
         Returns:
             List of summaries from each LLM
-            
+
         TODO:
         - [ ] Add content grouping and chunking for large datasets
         - [ ] Implement parallel processing with rate limiting
         - [ ] Add content relevance filtering before summarization
         - [ ] Support for different summary lengths and styles
         """
-        logger.info(f"Generating summaries for {len(content)} content items (task: {task_type})")
-        
+        logger.info(
+            f"Generating summaries for {len(content)} content items (task: {task_type})"
+        )
+
         if not content:
             return []
-        
+
         # Prepare content for summarization
         prepared_content = self._prepare_content_for_summarization(content, race_id)
-        
+
         # Get appropriate prompt template
         prompt_template = self.prompts.get(task_type, self.prompts["general_summary"])
-        
+
         # Generate summaries from all three LLMs
         tasks = []
         for provider, config in self.models.items():
@@ -101,10 +113,10 @@ class LLMSummarizationEngine:
                 provider, config, prompt_template, prepared_content, race_id
             )
             tasks.append(task)
-        
+
         try:
             summaries = await asyncio.gather(*tasks, return_exceptions=True)
-            
+
             # Filter out failed requests
             successful_summaries = []
             for i, summary in enumerate(summaries):
@@ -113,18 +125,20 @@ class LLMSummarizationEngine:
                     logger.error(f"Summary generation failed for {provider}: {summary}")
                 else:
                     successful_summaries.append(summary)
-            
+
             logger.info(f"Generated {len(successful_summaries)} summaries")
             return successful_summaries
-            
+
         except Exception as e:
             logger.error(f"Failed to generate summaries: {e}")
             return []
-    
-    def _prepare_content_for_summarization(self, content: List[ExtractedContent], race_id: str) -> str:
+
+    def _prepare_content_for_summarization(
+        self, content: List[ExtractedContent], race_id: str
+    ) -> str:
         """
         Prepare extracted content for summarization.
-        
+
         TODO:
         - [ ] Add intelligent content ranking and selection
         - [ ] Implement content deduplication
@@ -133,26 +147,34 @@ class LLMSummarizationEngine:
         """
         # Combine content with source attribution
         content_blocks = []
-        
+
         for item in content:
             source_info = f"Source: {item.source.title or item.source.url}"
             content_block = f"{source_info}\n{item.text}\n"
             content_blocks.append(content_block)
-        
+
         combined_content = "\n---\n".join(content_blocks)
-        
+
         # Truncate if too long (TODO: Implement smarter chunking)
         max_content_length = 15000  # Leave room for prompt and response
         if len(combined_content) > max_content_length:
-            combined_content = combined_content[:max_content_length] + "\n\n[Content truncated...]"
-        
+            combined_content = (
+                combined_content[:max_content_length] + "\n\n[Content truncated...]"
+            )
+
         return combined_content
-    
-    async def _generate_single_summary(self, provider: str, config: Dict[str, Any], 
-                                     prompt_template: str, content: str, race_id: str) -> Summary:
+
+    async def _generate_single_summary(
+        self,
+        provider: str,
+        config: Dict[str, Any],
+        prompt_template: str,
+        content: str,
+        race_id: str,
+    ) -> Summary:
         """
         Generate a summary using a single LLM provider.
-        
+
         TODO:
         - [ ] Implement actual API calls for each provider
         - [ ] Add retry logic with exponential backoff
@@ -160,13 +182,10 @@ class LLMSummarizationEngine:
         - [ ] Add response validation and quality checks
         """
         logger.debug(f"Generating summary using {provider}")
-        
+
         # Construct full prompt
-        full_prompt = prompt_template.format(
-            race_id=race_id,
-            content=content
-        )
-        
+        full_prompt = prompt_template.format(race_id=race_id, content=content)
+
         try:
             # TODO: Replace with actual API calls
             if provider == "openai":
@@ -177,15 +196,15 @@ class LLMSummarizationEngine:
                 response = await self._call_xai_api(config, full_prompt)
             else:
                 raise ValueError(f"Unknown provider: {provider}")
-            
+
             # Create LLM response record
             llm_response = LLMResponse(
                 model=config["model"],
                 content=response["content"],
                 tokens_used=response.get("tokens_used"),
-                created_at=datetime.utcnow()
+                created_at=datetime.utcnow(),
             )
-            
+
             # Create summary
             summary = Summary(
                 content=response["content"],
@@ -193,19 +212,25 @@ class LLMSummarizationEngine:
                 confidence=self._assess_confidence(response["content"]),
                 tokens_used=response.get("tokens_used"),
                 created_at=datetime.utcnow(),
-                source_ids=[item.source.url for item in content] if hasattr(content, '__iter__') else []
+                source_ids=(
+                    [item.source.url for item in content]
+                    if hasattr(content, "__iter__")
+                    else []
+                ),
             )
-            
+
             return summary
-            
+
         except Exception as e:
             logger.error(f"Failed to generate summary with {provider}: {e}")
             raise
-    
-    async def _call_openai_api(self, config: Dict[str, Any], prompt: str) -> Dict[str, Any]:
+
+    async def _call_openai_api(
+        self, config: Dict[str, Any], prompt: str
+    ) -> Dict[str, Any]:
         """
         Call OpenAI API.
-        
+
         TODO:
         - [ ] Implement actual OpenAI API integration
         - [ ] Add proper error handling and rate limiting
@@ -213,16 +238,18 @@ class LLMSummarizationEngine:
         """
         # Placeholder implementation
         await asyncio.sleep(1)  # Simulate API call delay
-        
+
         return {
             "content": f"[OpenAI GPT-4o Summary]\n\nThis is a placeholder summary generated for the provided content. The actual implementation would call the OpenAI API with the given prompt and return a comprehensive analysis of the electoral race content.\n\nKey points would include:\n- Candidate positions on major issues\n- Recent developments and news\n- Source credibility assessment\n- Factual claims verification",
-            "tokens_used": 150
+            "tokens_used": 150,
         }
-    
-    async def _call_anthropic_api(self, config: Dict[str, Any], prompt: str) -> Dict[str, Any]:
+
+    async def _call_anthropic_api(
+        self, config: Dict[str, Any], prompt: str
+    ) -> Dict[str, Any]:
         """
         Call Anthropic Claude API.
-        
+
         TODO:
         - [ ] Implement actual Anthropic API integration
         - [ ] Add proper error handling and rate limiting
@@ -230,16 +257,18 @@ class LLMSummarizationEngine:
         """
         # Placeholder implementation
         await asyncio.sleep(1)  # Simulate API call delay
-        
+
         return {
             "content": f"[Anthropic Claude 3.5 Summary]\n\nThis is a placeholder summary from Claude 3.5. The actual implementation would provide a thorough analysis focusing on:\n- Balanced perspective on candidate positions\n- Critical evaluation of claims and sources\n- Identification of potential bias or missing information\n- Clear distinction between facts and opinions",
-            "tokens_used": 160
+            "tokens_used": 160,
         }
-    
-    async def _call_xai_api(self, config: Dict[str, Any], prompt: str) -> Dict[str, Any]:
+
+    async def _call_xai_api(
+        self, config: Dict[str, Any], prompt: str
+    ) -> Dict[str, Any]:
         """
         Call xAI Grok API.
-        
+
         TODO:
         - [ ] Implement actual xAI Grok API integration
         - [ ] Add proper error handling and rate limiting
@@ -247,16 +276,16 @@ class LLMSummarizationEngine:
         """
         # Placeholder implementation
         await asyncio.sleep(1)  # Simulate API call delay
-        
+
         return {
             "content": f"[xAI Grok Summary]\n\nThis is a placeholder summary from Grok. The actual implementation would offer:\n- Real-time analysis with current context\n- Detection of emerging trends and developments\n- Cross-reference with recent social media and news trends\n- Identification of key controversies or debates",
-            "tokens_used": 140
+            "tokens_used": 140,
         }
-    
+
     def _assess_confidence(self, content: str) -> ConfidenceLevel:
         """
         Assess the confidence level of a summary.
-        
+
         TODO:
         - [ ] Implement sophisticated confidence scoring
         - [ ] Add fact-checking integration
@@ -268,7 +297,7 @@ class LLMSummarizationEngine:
             return ConfidenceLevel.HIGH
         else:
             return ConfidenceLevel.LOW
-    
+
     def _get_candidate_summary_prompt(self) -> str:
         """Get prompt template for candidate summarization."""
         return """
@@ -289,7 +318,7 @@ Please provide a factual, balanced summary that clearly distinguishes between ve
 
 Summary:
 """
-    
+
     def _get_issue_stance_prompt(self) -> str:
         """Get prompt template for issue stance analysis."""
         return """
@@ -310,7 +339,7 @@ Focus on factual positions and avoid interpretation or bias. If information is c
 
 Issue Analysis:
 """
-    
+
     def _get_general_summary_prompt(self) -> str:
         """Get prompt template for general content summarization."""
         return """
