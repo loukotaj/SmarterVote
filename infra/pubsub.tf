@@ -36,13 +36,10 @@ resource "google_pubsub_subscription" "race_jobs_sub" {
     max_delivery_attempts = 5
   }
 
-  push_config {
-    push_endpoint = "${google_cloud_run_v2_service.enqueue_api.uri}/webhook"
+  # Note: Push endpoint will be configured after Cloud Run service is created
+  # This is handled in run-service.tf to avoid circular dependencies
 
-    oidc_token {
-      service_account_email = google_service_account.pubsub_invoker.email
-    }
-  }
+  depends_on = [google_project_service.apis]
 }
 
 resource "google_pubsub_subscription" "race_jobs_dlq_sub" {

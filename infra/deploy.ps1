@@ -36,7 +36,11 @@ Write-Host "✅ Prerequisites check passed" -ForegroundColor Green
 
 # Get project ID from secrets.tfvars
 $projectId = (Get-Content secrets.tfvars | Where-Object { $_ -match 'project_id' } | ForEach-Object { ($_ -split '"')[1] })
+$region = (Get-Content secrets.tfvars | Where-Object { $_ -match 'region' } | ForEach-Object { ($_ -split '"')[1] })
+if ([string]::IsNullOrEmpty($region)) { $region = "us-central1" }
+
 Write-Host "📋 Project ID: $projectId" -ForegroundColor Cyan
+Write-Host "📋 Region: $region" -ForegroundColor Cyan
 
 # Set gcloud project
 Write-Host "🔧 Setting gcloud project..." -ForegroundColor Yellow
@@ -68,11 +72,14 @@ terraform apply -var-file=secrets.tfvars -auto-approve
 Write-Host "✅ Infrastructure deployment completed!" -ForegroundColor Green
 Write-Host ""
 Write-Host "📋 Next steps:" -ForegroundColor Cyan
-Write-Host "1. Build and push your Docker images:" -ForegroundColor White
-Write-Host "   - cd ../pipeline && docker build -t gcr.io/$projectId/smartervote-pipeline:latest ." -ForegroundColor Gray
-Write-Host "   - docker push gcr.io/$projectId/smartervote-pipeline:latest" -ForegroundColor Gray
-Write-Host "   - cd ../services/enqueue-api && docker build -t gcr.io/$projectId/smartervote-enqueue-api:latest ." -ForegroundColor Gray
-Write-Host "   - docker push gcr.io/$projectId/smartervote-enqueue-api:latest" -ForegroundColor Gray
+Write-Host "1. Build and push your Docker images to Artifact Registry:" -ForegroundColor White
+Write-Host "   - gcloud auth configure-docker $region-docker.pkg.dev" -ForegroundColor Gray
+Write-Host "   - cd ../pipeline && docker build -t $region-docker.pkg.dev/$projectId/smartervote-dev/pipeline:latest ." -ForegroundColor Gray
+Write-Host "   - docker push $region-docker.pkg.dev/$projectId/smartervote-dev/pipeline:latest" -ForegroundColor Gray
+Write-Host "   - cd ../services/enqueue-api && docker build -t $region-docker.pkg.dev/$projectId/smartervote-dev/enqueue-api:latest ." -ForegroundColor Gray
+Write-Host "   - docker push $region-docker.pkg.dev/$projectId/smartervote-dev/enqueue-api:latest" -ForegroundColor Gray
+Write-Host "   - cd ../services/races-api && docker build -t $region-docker.pkg.dev/$projectId/smartervote-dev/races-api:latest ." -ForegroundColor Gray
+Write-Host "   - docker push $region-docker.pkg.dev/$projectId/smartervote-dev/races-api:latest" -ForegroundColor Gray
 Write-Host ""
 Write-Host "2. Update Cloud Run services to use the new images" -ForegroundColor White
-Write-Host "3. Test the enqueue API endpoint" -ForegroundColor White
+Write-Host "3. Test the API endpoints" -ForegroundColor White

@@ -7,7 +7,7 @@ resource "google_cloud_run_v2_job" "race_worker" {
   template {
     template {
       containers {
-        image = "gcr.io/${var.project_id}/smartervote-pipeline:latest"
+        image = "${var.region}-docker.pkg.dev/${var.project_id}/smartervote-${var.environment}/pipeline:latest"
 
         env {
           name  = "PROJECT_ID"

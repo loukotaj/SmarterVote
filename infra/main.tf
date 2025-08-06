@@ -1,5 +1,5 @@
 # SmarterVote Infrastructure - Main Configuration
-# Core provider setup and API enablement
+# Complete infrastructure deployment for corpus-first AI electoral analysis pipeline
 
 terraform {
   required_version = ">= 1.0"
@@ -26,12 +26,34 @@ resource "google_project_service" "apis" {
     "monitoring.googleapis.com",
     "secretmanager.googleapis.com",
     "cloudbuild.googleapis.com",
-    "cloudscheduler.googleapis.com"
+    "cloudscheduler.googleapis.com",
+    "containerregistry.googleapis.com",
+    "artifactregistry.googleapis.com",
+    "customsearch.googleapis.com",
+    "iam.googleapis.com"
   ])
 
   project                    = var.project_id
   service                    = each.value
   disable_dependent_services = true
+}
+
+# Container Registry for Docker images
+resource "google_container_registry" "registry" {
+  project  = var.project_id
+  location = "US"
+
+  depends_on = [google_project_service.apis]
+}
+
+# Artifact Registry for enhanced container management (recommended over GCR)
+resource "google_artifact_registry_repository" "smartervote" {
+  location      = var.region
+  repository_id = "smartervote-${var.environment}"
+  description   = "SmarterVote container images for ${var.environment} environment"
+  format        = "DOCKER"
+
+  depends_on = [google_project_service.apis]
 }
 
 

@@ -26,9 +26,15 @@ fi
 
 echo "✅ Prerequisites check passed"
 
-# Get project ID from secrets.tfvars
+# Get project ID and region from secrets.tfvars
 PROJECT_ID=$(grep 'project_id' secrets.tfvars | cut -d'"' -f2)
+REGION=$(grep 'region' secrets.tfvars | cut -d'"' -f2)
+if [ -z "$REGION" ]; then
+    REGION="us-central1"
+fi
+
 echo "📋 Project ID: $PROJECT_ID"
+echo "📋 Region: $REGION"
 
 # Set gcloud project
 echo "🔧 Setting gcloud project..."
@@ -61,11 +67,14 @@ terraform apply -var-file=secrets.tfvars -auto-approve
 echo "✅ Infrastructure deployment completed!"
 echo ""
 echo "📋 Next steps:"
-echo "1. Build and push your Docker images:"
-echo "   - cd ../pipeline && docker build -t gcr.io/$PROJECT_ID/smartervote-pipeline:latest ."
-echo "   - docker push gcr.io/$PROJECT_ID/smartervote-pipeline:latest"
-echo "   - cd ../services/enqueue-api && docker build -t gcr.io/$PROJECT_ID/smartervote-enqueue-api:latest ."
-echo "   - docker push gcr.io/$PROJECT_ID/smartervote-enqueue-api:latest"
+echo "1. Build and push your Docker images to Artifact Registry:"
+echo "   - gcloud auth configure-docker $REGION-docker.pkg.dev"
+echo "   - cd ../pipeline && docker build -t $REGION-docker.pkg.dev/$PROJECT_ID/smartervote-dev/pipeline:latest ."
+echo "   - docker push $REGION-docker.pkg.dev/$PROJECT_ID/smartervote-dev/pipeline:latest"
+echo "   - cd ../services/enqueue-api && docker build -t $REGION-docker.pkg.dev/$PROJECT_ID/smartervote-dev/enqueue-api:latest ."
+echo "   - docker push $REGION-docker.pkg.dev/$PROJECT_ID/smartervote-dev/enqueue-api:latest"
+echo "   - cd ../services/races-api && docker build -t $REGION-docker.pkg.dev/$PROJECT_ID/smartervote-dev/races-api:latest ."
+echo "   - docker push $REGION-docker.pkg.dev/$PROJECT_ID/smartervote-dev/races-api:latest"
 echo ""
 echo "2. Update Cloud Run services to use the new images"
-echo "3. Test the enqueue API endpoint"
+echo "3. Test the API endpoints"

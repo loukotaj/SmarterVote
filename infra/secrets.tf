@@ -134,6 +134,12 @@ resource "google_project_iam_member" "race_worker_pubsub" {
   member  = "serviceAccount:${google_service_account.race_worker.email}"
 }
 
+resource "google_project_iam_member" "race_worker_artifact_registry" {
+  project = var.project_id
+  role    = "roles/artifactregistry.reader"
+  member  = "serviceAccount:${google_service_account.race_worker.email}"
+}
+
 # IAM bindings for enqueue API
 resource "google_project_iam_member" "enqueue_api_pubsub" {
   project = var.project_id
@@ -147,10 +153,22 @@ resource "google_project_iam_member" "enqueue_api_run_jobs" {
   member  = "serviceAccount:${google_service_account.enqueue_api.email}"
 }
 
+resource "google_project_iam_member" "enqueue_api_artifact_registry" {
+  project = var.project_id
+  role    = "roles/artifactregistry.reader"
+  member  = "serviceAccount:${google_service_account.enqueue_api.email}"
+}
+
 # IAM bindings for races API
 resource "google_project_iam_member" "races_api_storage" {
   project = var.project_id
   role    = "roles/storage.objectViewer"
+  member  = "serviceAccount:${google_service_account.races_api.email}"
+}
+
+resource "google_project_iam_member" "races_api_artifact_registry" {
+  project = var.project_id
+  role    = "roles/artifactregistry.reader"
   member  = "serviceAccount:${google_service_account.races_api.email}"
 }
 

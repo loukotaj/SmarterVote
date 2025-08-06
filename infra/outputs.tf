@@ -21,6 +21,16 @@ output "bucket_name" {
   value       = google_storage_bucket.sv_data.name
 }
 
+output "artifact_registry_repository" {
+  description = "Artifact Registry repository for container images"
+  value       = google_artifact_registry_repository.smartervote.name
+}
+
+output "container_registry_url" {
+  description = "Base URL for container images"
+  value       = "${var.region}-docker.pkg.dev/${var.project_id}/${google_artifact_registry_repository.smartervote.repository_id}"
+}
+
 # Pub/Sub
 output "pubsub_topic_name" {
   description = "Name of the Pub/Sub topic for race jobs"
