@@ -1,5 +1,22 @@
+# Core API framework
 fastapi==0.104.1
 uvicorn[standard]==0.24.0
 pydantic==2.5.0
-httpx==0.24.1
+pydantic-settings==2.1.0
+
+# HTTP client
+httpx==0.25.2
+
+# Pipeline dependencies (needed because races-api imports pipeline code)
+# PDF processing
 PyPDF2==3.0.1
+
+# HTML parsing
+beautifulsoup4==4.12.2
+lxml==4.9.3
+
+# Text processing (used by content extractor)
+requests==2.31.0
+
+# Utilities
+python-dotenv==1.0.0
