@@ -73,7 +73,8 @@ def test_schema_validation():
     try:
         from datetime import datetime
 
-        from pipeline.app.schema import CanonicalIssue, RaceJSON, Source, SourceType
+        from pipeline.app.schema import (CanonicalIssue, RaceJSON, Source,
+                                         SourceType)
 
         # Test enum
         issue = CanonicalIssue.ECONOMY

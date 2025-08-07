@@ -24,13 +24,8 @@ from datetime import datetime
 from difflib import SequenceMatcher
 from typing import Any, Dict, List, Optional, Tuple
 
-from ..schema import (
-    ArbitrationResult,
-    CanonicalIssue,
-    ConfidenceLevel,
-    LLMResponse,
-    Summary,
-)
+from ..schema import (ArbitrationResult, CanonicalIssue, ConfidenceLevel,
+                      LLMResponse, Summary)
 
 logger = logging.getLogger(__name__)
 

@@ -23,13 +23,8 @@ from .discover import DiscoveryService
 from .extract import ExtractService
 from .fetch import FetchService
 from .publish import PublishService
-from .schema import (
-    CanonicalIssue,
-    ConfidenceLevel,
-    ProcessingJob,
-    ProcessingStatus,
-    RaceJSON,
-)
+from .schema import (CanonicalIssue, ConfidenceLevel, ProcessingJob,
+                     ProcessingStatus, RaceJSON)
 from .summarise import SummarizeService
 
 # Configure logging
