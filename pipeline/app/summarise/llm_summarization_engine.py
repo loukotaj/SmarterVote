@@ -23,8 +23,13 @@ import logging
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 
-from ..schema import (CanonicalIssue, ConfidenceLevel, ExtractedContent,
-                      LLMResponse, Summary)
+from ..schema import (
+    CanonicalIssue,
+    ConfidenceLevel,
+    ExtractedContent,
+    LLMResponse,
+    Summary,
+)
 
 logger = logging.getLogger(__name__)
 
