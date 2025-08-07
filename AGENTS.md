@@ -4,7 +4,7 @@
 
 SmarterVote is a **corpus-first AI pipeline** for electoral analysis with three main components:
 - **Pipeline** (`pipeline/`): Python-based 7-step processing engine using Pydantic models
-- **Services** (`services/`): FastAPI microservices for enqueue-api and races-api 
+- **Services** (`services/`): FastAPI microservices for enqueue-api and races-api
 - **Web** (`web/`): SvelteKit + TypeScript frontend with static site generation
 
 ## 🔄 Core Processing Workflow
@@ -36,7 +36,7 @@ All race data follows the standardized schema in `pipeline/app/schema.py`:
 python scripts/run_local.py <race-id>
 python scripts/validate_project.py
 
-# Web development  
+# Web development
 cd web && npm run dev
 npm run check  # Svelte type checking
 
@@ -47,7 +47,7 @@ cd infra && terraform plan
 ### Multi-LLM Triangulation
 The system uses 3 AI models (GPT-4o, Claude-3.5, Grok-4) for consensus:
 - **2-of-3 agreement** = HIGH confidence
-- **Partial consensus** = MEDIUM confidence  
+- **Partial consensus** = MEDIUM confidence
 - **No consensus** = LOW confidence (minority view stored)
 
 ### Testing Conventions

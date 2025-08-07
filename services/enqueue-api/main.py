@@ -112,9 +112,7 @@ async def health_check():
 
 
 @app.post("/process", response_model=ProcessRaceResponse)
-async def process_race(
-    background_tasks: BackgroundTasks, request: ProcessRaceRequest = Body(...)
-):
+async def process_race(background_tasks: BackgroundTasks, request: ProcessRaceRequest = Body(...)):
     """
     Enqueue a race for processing.
 
@@ -159,9 +157,7 @@ async def process_race(
 
     except Exception as e:
         logger.error(f"Failed to enqueue race {request.race_id}: {e}")
-        raise HTTPException(
-            status_code=500, detail=f"Failed to enqueue race processing: {str(e)}"
-        )
+        raise HTTPException(status_code=500, detail=f"Failed to enqueue race processing: {str(e)}")
 
 
 @app.get("/metrics")

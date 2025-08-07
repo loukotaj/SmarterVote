@@ -47,9 +47,7 @@ class ContentExtractor:
             "language_detection": True,
         }
 
-    async def extract_content(
-        self, raw_content: List[Dict[str, Any]]
-    ) -> List[ExtractedContent]:
+    async def extract_content(self, raw_content: List[Dict[str, Any]]) -> List[ExtractedContent]:
         """
         Extract text from all provided content items.
 
@@ -73,16 +71,12 @@ class ContentExtractor:
                 if result:
                     extracted.append(result)
             except Exception as e:
-                logger.error(
-                    f"Failed to extract content from {item.get('source', {}).get('url', 'unknown')}: {e}"
-                )
+                logger.error(f"Failed to extract content from {item.get('source', {}).get('url', 'unknown')}: {e}")
 
         logger.info(f"Successfully extracted {len(extracted)} items")
         return extracted
 
-    async def _extract_single_item(
-        self, item: Dict[str, Any]
-    ) -> Optional[ExtractedContent]:
+    async def _extract_single_item(self, item: Dict[str, Any]) -> Optional[ExtractedContent]:
         """
         Extract text from a single content item.
 
@@ -132,11 +126,7 @@ class ContentExtractor:
             },
             extraction_timestamp=datetime.utcnow(),
             word_count=word_count,
-            language=(
-                self._detect_language(text)
-                if self.config["language_detection"]
-                else "en"
-            ),
+            language=(self._detect_language(text) if self.config["language_detection"] else "en"),
         )
 
     def _extract_from_html(self, html_content: str) -> str:
@@ -157,9 +147,7 @@ class ContentExtractor:
                 element.decompose()
 
         # Remove comments
-        for element in soup(
-            text=lambda text: isinstance(text, str) and text.strip().startswith("<!--")
-        ):
+        for element in soup(text=lambda text: isinstance(text, str) and text.strip().startswith("<!--")):
             element.extract()
 
         # Get text content
@@ -232,11 +220,7 @@ class ContentExtractor:
                 ]
 
                 for field in priority_fields:
-                    if (
-                        field in obj
-                        and isinstance(obj[field], str)
-                        and len(obj[field]) > 10
-                    ):
+                    if field in obj and isinstance(obj[field], str) and len(obj[field]) > 10:
                         texts.append(obj[field])
 
                 # Extract from other string fields
@@ -245,9 +229,7 @@ class ContentExtractor:
                         if isinstance(value, str) and len(value) > 50:
                             texts.append(value)
                         elif isinstance(value, (dict, list)):
-                            texts.extend(
-                                extract_text_recursive(value, depth + 1, max_depth)
-                            )
+                            texts.extend(extract_text_recursive(value, depth + 1, max_depth))
 
             elif isinstance(obj, list):
                 for item in obj:

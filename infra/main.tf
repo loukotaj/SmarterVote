@@ -55,5 +55,3 @@ resource "google_artifact_registry_repository" "smartervote" {
 
   depends_on = [google_project_service.apis]
 }
-
-

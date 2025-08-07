@@ -129,9 +129,7 @@ class VectorDatabaseManager:
                 continue
 
             # Generate unique chunk ID
-            chunk_id = hashlib.md5(
-                f"{content.source.url}_{i}_{chunk_text[:100]}".encode()
-            ).hexdigest()
+            chunk_id = hashlib.md5(f"{content.source.url}_{i}_{chunk_text[:100]}".encode()).hexdigest()
 
             chunk_data = {
                 "id": chunk_id,
@@ -228,9 +226,7 @@ class VectorDatabaseManager:
             # Placeholder results
             results = {
                 "documents": [["Sample document 1", "Sample document 2"]],
-                "metadatas": [
-                    [{"source_url": "https://example.com", "race_id": race_id}] * 2
-                ],
+                "metadatas": [[{"source_url": "https://example.com", "race_id": race_id}] * 2],
                 "distances": [[0.3, 0.5]],
                 "ids": [["doc1", "doc2"]],
             }
@@ -239,14 +235,8 @@ class VectorDatabaseManager:
             documents = []
             for i, doc_list in enumerate(results["documents"]):
                 for j, doc_text in enumerate(doc_list):
-                    metadata = (
-                        results["metadatas"][i][j] if results["metadatas"] else {}
-                    )
-                    similarity = (
-                        1.0 - results["distances"][i][j]
-                        if results["distances"]
-                        else 0.0
-                    )
+                    metadata = results["metadatas"][i][j] if results["metadatas"] else {}
+                    similarity = 1.0 - results["distances"][i][j] if results["distances"] else 0.0
                     doc_id = results["ids"][i][j] if results["ids"] else f"doc_{i}_{j}"
 
                     # Create Source object from metadata
@@ -275,9 +265,7 @@ class VectorDatabaseManager:
             logger.error(f"Search failed: {e}")
             return []
 
-    async def search_content(
-        self, race_id: str, issue: Optional[CanonicalIssue] = None
-    ) -> List[ExtractedContent]:
+    async def search_content(self, race_id: str, issue: Optional[CanonicalIssue] = None) -> List[ExtractedContent]:
         """
         Search and retrieve content for summarization.
 
@@ -317,9 +305,7 @@ class VectorDatabaseManager:
 
         return [mock_content]
 
-    async def get_race_content(
-        self, race_id: str, issue: Optional[CanonicalIssue] = None
-    ) -> List[VectorDocument]:
+    async def get_race_content(self, race_id: str, issue: Optional[CanonicalIssue] = None) -> List[VectorDocument]:
         """
         Get all content for a specific race, optionally filtered by issue.
 

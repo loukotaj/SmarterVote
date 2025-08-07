@@ -23,8 +23,7 @@ import logging
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 
-from ..schema import (CanonicalIssue, ConfidenceLevel, ExtractedContent,
-                      LLMResponse, Summary)
+from ..schema import CanonicalIssue, ConfidenceLevel, ExtractedContent, LLMResponse, Summary
 
 logger = logging.getLogger(__name__)
 
@@ -87,9 +86,7 @@ class LLMSummarizationEngine:
         - [ ] Add content relevance filtering before summarization
         - [ ] Support for different summary lengths and styles
         """
-        logger.info(
-            f"Generating summaries for {len(content)} content items (task: {task_type})"
-        )
+        logger.info(f"Generating summaries for {len(content)} content items (task: {task_type})")
 
         if not content:
             return []
@@ -103,9 +100,7 @@ class LLMSummarizationEngine:
         # Generate summaries from all three LLMs
         tasks = []
         for provider, config in self.models.items():
-            task = self._generate_single_summary(
-                provider, config, prompt_template, prepared_content, race_id
-            )
+            task = self._generate_single_summary(provider, config, prompt_template, prepared_content, race_id)
             tasks.append(task)
 
         try:
@@ -127,9 +122,7 @@ class LLMSummarizationEngine:
             logger.error(f"Failed to generate summaries: {e}")
             return []
 
-    def _prepare_content_for_summarization(
-        self, content: List[ExtractedContent], race_id: str
-    ) -> str:
+    def _prepare_content_for_summarization(self, content: List[ExtractedContent], race_id: str) -> str:
         """
         Prepare extracted content for summarization.
 
@@ -152,9 +145,7 @@ class LLMSummarizationEngine:
         # Truncate if too long (TODO: Implement smarter chunking)
         max_content_length = 15000  # Leave room for prompt and response
         if len(combined_content) > max_content_length:
-            combined_content = (
-                combined_content[:max_content_length] + "\n\n[Content truncated...]"
-            )
+            combined_content = combined_content[:max_content_length] + "\n\n[Content truncated...]"
 
         return combined_content
 
@@ -206,11 +197,7 @@ class LLMSummarizationEngine:
                 confidence=self._assess_confidence(response["content"]),
                 tokens_used=response.get("tokens_used"),
                 created_at=datetime.utcnow(),
-                source_ids=(
-                    [item.source.url for item in content]
-                    if hasattr(content, "__iter__")
-                    else []
-                ),
+                source_ids=([item.source.url for item in content] if hasattr(content, "__iter__") else []),
             )
 
             return summary
@@ -219,9 +206,7 @@ class LLMSummarizationEngine:
             logger.error(f"Failed to generate summary with {provider}: {e}")
             raise
 
-    async def _call_openai_api(
-        self, config: Dict[str, Any], prompt: str
-    ) -> Dict[str, Any]:
+    async def _call_openai_api(self, config: Dict[str, Any], prompt: str) -> Dict[str, Any]:
         """
         Call OpenAI API.
 
@@ -238,9 +223,7 @@ class LLMSummarizationEngine:
             "tokens_used": 150,
         }
 
-    async def _call_anthropic_api(
-        self, config: Dict[str, Any], prompt: str
-    ) -> Dict[str, Any]:
+    async def _call_anthropic_api(self, config: Dict[str, Any], prompt: str) -> Dict[str, Any]:
         """
         Call Anthropic Claude API.
 
@@ -257,9 +240,7 @@ class LLMSummarizationEngine:
             "tokens_used": 160,
         }
 
-    async def _call_xai_api(
-        self, config: Dict[str, Any], prompt: str
-    ) -> Dict[str, Any]:
+    async def _call_xai_api(self, config: Dict[str, Any], prompt: str) -> Dict[str, Any]:
         """
         Call xAI Grok API.
 

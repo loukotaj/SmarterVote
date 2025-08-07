@@ -157,7 +157,7 @@
         {
           "bill_name": "H.B. 5678 - Healthcare Expansion",
           "bill_description": "Bill to expand state healthcare coverage and reduce prescription drug costs",
-          "vote": "yes", 
+          "vote": "yes",
           "date": "2024-01-20T00:00:00Z",
           "source": {
             "url": "https://example.com/voting-records/healthcare",
@@ -175,7 +175,7 @@
           "date": "2023-12-10T00:00:00Z",
           "source": {
             "url": "https://example.com/voting-records/immigration",
-            "type": "government", 
+            "type": "government",
             "title": "Legislative Record - Immigration Vote",
             "description": "Official voting record from state legislature",
             "last_accessed": "2024-03-15T19:15:00Z",

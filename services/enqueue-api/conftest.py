@@ -22,9 +22,7 @@ def mock_pubsub_publisher():
         mock_publisher_class.return_value = mock_publisher
 
         # Set up default mock behavior
-        mock_publisher.topic_path.return_value = (
-            "projects/test-project/topics/race-processing"
-        )
+        mock_publisher.topic_path.return_value = "projects/test-project/topics/race-processing"
         mock_publisher.get_topic.return_value = True
 
         # Mock publish method
@@ -39,11 +37,7 @@ def mock_pubsub_publisher():
 def app_module(mock_pubsub_publisher):
     """Import the app module with mocked dependencies."""
     # Clear any cached modules
-    modules_to_clear = [
-        mod
-        for mod in sys.modules.keys()
-        if mod == "main" or mod.endswith(".main") or "enqueue" in mod
-    ]
+    modules_to_clear = [mod for mod in sys.modules.keys() if mod == "main" or mod.endswith(".main") or "enqueue" in mod]
     for mod in modules_to_clear:
         del sys.modules[mod]
 

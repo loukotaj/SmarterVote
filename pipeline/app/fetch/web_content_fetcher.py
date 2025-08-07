@@ -84,9 +84,7 @@ class WebContentFetcher:
                 else:
                     successful_results.append(result)
 
-            logger.info(
-                f"Successfully fetched {len(successful_results)}/{len(sources)} sources"
-            )
+            logger.info(f"Successfully fetched {len(successful_results)}/{len(sources)} sources")
             return successful_results
 
     async def _fetch_single_source(self, source: Source) -> Dict[str, Any]:
@@ -209,9 +207,7 @@ class WebContentFetcher:
 
         self.selenium_driver = webdriver.Chrome(options=options)
         # Hide automation indicators
-        self.selenium_driver.execute_script(
-            "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"
-        )
+        self.selenium_driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
 
     def __del__(self):
         """Clean up Selenium driver."""

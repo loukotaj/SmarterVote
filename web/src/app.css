@@ -8,7 +8,7 @@
     font-family: "Inter", system-ui, sans-serif;
     scroll-behavior: smooth;
   }
-  
+
   /* Ensure proper touch targets on mobile */
   button, a, [role="button"] {
     min-height: 44px;
@@ -40,16 +40,16 @@
   .confidence-unknown {
     @apply text-gray-400;
   }
-  
+
   /* Mobile-specific utilities */
   .mobile-safe-area {
     @apply px-4 sm:px-6 lg:px-8;
   }
-  
+
   .mobile-text {
     @apply text-sm sm:text-base;
   }
-  
+
   .mobile-heading {
     @apply text-lg sm:text-xl lg:text-2xl;
   }

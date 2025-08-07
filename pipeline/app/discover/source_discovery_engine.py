@@ -104,13 +104,13 @@ class SourceDiscoveryEngine:
         return await self._discover_fresh_issue_sources(race_id)
         """
         Discover all relevant sources for a race.
-        
+
         Args:
             race_id: Race identifier (e.g., 'mo-senate-2024')
-            
+
         Returns:
             List of discovered sources
-            
+
         TODO:
         - [ ] Add parallel processing for different discovery methods
         - [ ] Implement source priority ranking
@@ -164,9 +164,7 @@ class SourceDiscoveryEngine:
             year = race_parts[2]
 
             # Ballotpedia URL construction
-            ballotpedia_url = (
-                f"https://ballotpedia.org/{year}_{state}_{office}_election"
-            )
+            ballotpedia_url = f"https://ballotpedia.org/{year}_{state}_{office}_election"
             sources.append(
                 Source(
                     url=ballotpedia_url,
@@ -214,9 +212,7 @@ class SourceDiscoveryEngine:
 
         return sources
 
-    def _generate_issue_query(
-        self, race_id: str, issue: CanonicalIssue
-    ) -> FreshSearchQuery:
+    def _generate_issue_query(self, race_id: str, issue: CanonicalIssue) -> FreshSearchQuery:
         """
         Generate optimized search query for a specific issue.
 
@@ -319,9 +315,7 @@ class SourceDiscoveryEngine:
             date_restrict=f"d{self.search_config['freshness_days']}",  # Last N days
         )
 
-    async def _search_google_custom(
-        self, query: FreshSearchQuery, issue: CanonicalIssue
-    ) -> List[Source]:
+    async def _search_google_custom(self, query: FreshSearchQuery, issue: CanonicalIssue) -> List[Source]:
         """
         Perform Google Custom Search for an issue.
 

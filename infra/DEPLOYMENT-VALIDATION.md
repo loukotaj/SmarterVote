@@ -23,7 +23,7 @@ This document validates that the Terraform configuration correctly deploys all c
 | **Cloud Run Job** | ✅ Complete | `run-job.tf` | Pipeline worker with secrets |
 | **Cloud Scheduler** | ✅ Complete | `scheduler.tf` | Nightly + weekly processing |
 
-### 🌐 Service Infrastructure  
+### 🌐 Service Infrastructure
 
 | Component | Status | Terraform File | Notes |
 |-----------|--------|---------------|-------|
@@ -89,7 +89,7 @@ This document validates that the Terraform configuration correctly deploys all c
 
 ### Deployment Order
 1. **APIs & Provider** → Core GCP services
-2. **Service Accounts** → Identity foundation  
+2. **Service Accounts** → Identity foundation
 3. **Secrets** → API key storage
 4. **Storage & Pub/Sub** → Data infrastructure
 5. **Container Registry** → Image storage
@@ -120,7 +120,7 @@ This document validates that the Terraform configuration correctly deploys all c
 ### Core Pipeline Components (from architecture.md)
 - ✅ **Discovery Engine** - Container deployed via Cloud Run Job
 - ✅ **Content Fetcher** - Part of pipeline container
-- ✅ **Content Extractor** - Part of pipeline container  
+- ✅ **Content Extractor** - Part of pipeline container
 - ✅ **Vector Corpus** - ChromaDB in pipeline container
 - ✅ **LLM Summarization** - Multi-model processing in pipeline
 - ✅ **Arbitration Engine** - Consensus logic in pipeline
@@ -176,7 +176,7 @@ git push origin main  # Triggers automated deployment
 # Check infrastructure
 terraform output
 
-# Test API endpoints  
+# Test API endpoints
 curl $(terraform output -raw enqueue_api_url)/health
 curl $(terraform output -raw races_api_url)/races
 ```

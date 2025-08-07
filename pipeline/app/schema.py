@@ -139,9 +139,7 @@ class IssueStance(BaseModel):
     issue: CanonicalIssue
     stance: str
     confidence: ConfidenceLevel
-    sources: List[Source] = Field(
-        default_factory=list
-    )  # Source objects with detailed information
+    sources: List[Source] = Field(default_factory=list)  # Source objects with detailed information
 
 
 class TopDonor(BaseModel):
@@ -173,9 +171,7 @@ class RaceJSON(BaseModel):
     election_date: datetime
     candidates: List[Candidate]
     updated_utc: datetime
-    generator: List[Literal["gpt-4o", "claude-3.5", "grok-4"]] = Field(
-        default_factory=list
-    )
+    generator: List[Literal["gpt-4o", "claude-3.5", "grok-4"]] = Field(default_factory=list)
 
     # Optional metadata
     title: Optional[str] = None

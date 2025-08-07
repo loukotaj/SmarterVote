@@ -6,7 +6,7 @@
 
 ### ✅ Recently Completed
 - [x] Corpus-first pipeline architecture implementation
-- [x] ChromaDB vector database integration 
+- [x] ChromaDB vector database integration
 - [x] Multi-LLM triangulation (GPT-4o, Claude-3.5, Grok-4)
 - [x] RaceJSON v0.2 standardized output format
 - [x] Production-ready infrastructure with Terraform

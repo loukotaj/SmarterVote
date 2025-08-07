@@ -27,9 +27,7 @@ def mock_pubsub_publisher():
         mock_publisher_class.return_value = mock_publisher
 
         # Set up default mock behavior
-        mock_publisher.topic_path.return_value = (
-            "projects/test-project/topics/race-processing"
-        )
+        mock_publisher.topic_path.return_value = "projects/test-project/topics/race-processing"
         mock_publisher.get_topic.return_value = True
 
         # Mock publish method
@@ -49,9 +47,7 @@ def client(mock_pubsub_publisher):
         sys.path.insert(0, str(current_dir))
 
     # Clear any cached modules that might interfere
-    modules_to_clear = [
-        mod for mod in sys.modules.keys() if "main" in mod and "unittest" not in mod
-    ]
+    modules_to_clear = [mod for mod in sys.modules.keys() if "main" in mod and "unittest" not in mod]
     for mod in modules_to_clear:
         del sys.modules[mod]
 
@@ -258,9 +254,7 @@ def test_cors_headers(client):
     """Test that CORS headers are properly set."""
     # Test with a POST request that should include CORS headers
     request_data = {"race_id": "test-race"}
-    response = client.post(
-        "/process", json=request_data, headers={"Origin": "http://localhost:3000"}
-    )
+    response = client.post("/process", json=request_data, headers={"Origin": "http://localhost:3000"})
 
     # The response should succeed (CORS is configured to allow all origins)
     assert response.status_code == 200
@@ -367,9 +361,7 @@ def test_datetime_handling(client, mock_pubsub_publisher):
     # Verify enqueued_at is a valid ISO format datetime
     enqueued_at = data["enqueued_at"]
     # Should be able to parse it back
-    parsed_dt = datetime.fromisoformat(
-        enqueued_at.replace("Z", "+00:00") if enqueued_at.endswith("Z") else enqueued_at
-    )
+    parsed_dt = datetime.fromisoformat(enqueued_at.replace("Z", "+00:00") if enqueued_at.endswith("Z") else enqueued_at)
     assert isinstance(parsed_dt, datetime)
 
     # Check message content too
@@ -379,8 +371,6 @@ def test_datetime_handling(client, mock_pubsub_publisher):
 
     message_enqueued_at = message_data["enqueued_at"]
     parsed_msg_dt = datetime.fromisoformat(
-        message_enqueued_at.replace("Z", "+00:00")
-        if message_enqueued_at.endswith("Z")
-        else message_enqueued_at
+        message_enqueued_at.replace("Z", "+00:00") if message_enqueued_at.endswith("Z") else message_enqueued_at
     )
     assert isinstance(parsed_msg_dt, datetime)

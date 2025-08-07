@@ -74,7 +74,7 @@ Your GitHub Actions workflows automatically handle:
   - Environment selection (dev/staging/prod)
   - Secure secret management
 
-- **🚀 Services**: `.github/workflows/GCPDeploy.yaml`  
+- **🚀 Services**: `.github/workflows/GCPDeploy.yaml`
   - Docker builds for all services (pipeline, APIs)
   - Push to Google Container Registry
   - Deploy to Cloud Run with proper naming
@@ -94,7 +94,7 @@ cd ..\services\enqueue-api
 docker build -t gcr.io/YOUR_PROJECT_ID/smartervote-enqueue-api:latest .
 docker push gcr.io/YOUR_PROJECT_ID/smartervote-enqueue-api:latest
 
-# Races API  
+# Races API
 cd ..\services\races-api
 docker build -t gcr.io/YOUR_PROJECT_ID/smartervote-races-api:latest .
 docker push gcr.io/YOUR_PROJECT_ID/smartervote-races-api:latest
@@ -134,7 +134,7 @@ git push origin main
 
 # 3. GitHub Actions automatically:
 #    ✅ Deploys infrastructure changes (Terraform)
-#    ✅ Builds & pushes Docker images  
+#    ✅ Builds & pushes Docker images
 #    ✅ Updates Cloud Run services
 #    ✅ Tests API endpoints
 #    ✅ Reports deployment status

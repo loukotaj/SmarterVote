@@ -50,7 +50,7 @@ The GitHub Actions workflow automatically:
 
 ### **Triggered When:**
 - Changes to `services/**` (API updates)
-- Changes to `pipeline/**` (Processing logic updates)  
+- Changes to `pipeline/**` (Processing logic updates)
 - Changes to `infra/**` (Infrastructure updates)
 - Manual workflow dispatch
 

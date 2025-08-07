@@ -20,7 +20,7 @@ export async function getRace(
       console.warn(`API request failed for race ${id}, falling back to sample data:`, error);
       return sampleRaces[id];
     }
-    
+
     // If no specific sample data exists but fallback is enabled, use generic sample
     if (useFallback) {
       console.warn(`API request failed for race ${id}, falling back to generic sample data:`, error);
@@ -30,7 +30,7 @@ export async function getRace(
         title: `Sample Race Data (${id})`,
       };
     }
-    
+
     // Re-throw the error if fallback is disabled
     throw error;
   }

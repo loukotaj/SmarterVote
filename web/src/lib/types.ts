@@ -4,7 +4,7 @@
 
 export type ConfidenceLevel = "high" | "medium" | "low" | "unknown";
 
-export type SourceType = 
+export type SourceType =
   | "website"
   | "pdf"
   | "api"

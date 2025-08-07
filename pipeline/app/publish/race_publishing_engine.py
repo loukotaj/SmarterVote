@@ -79,9 +79,7 @@ class RacePublishingEngine:
         Args:
             config: Publication configuration settings
         """
-        self.config = config or PublicationConfig(
-            output_directory=Path("data/published")
-        )
+        self.config = config or PublicationConfig(output_directory=Path("data/published"))
 
         # Ensure output directory exists
         self.config.output_directory.mkdir(parents=True, exist_ok=True)
@@ -94,13 +92,9 @@ class RacePublishingEngine:
         self.validation_rules = self._initialize_validation_rules()
         self.transformation_pipeline = self._initialize_transformation_pipeline()
 
-        logger.info(
-            f"Publishing engine initialized with output directory: {self.config.output_directory}"
-        )
+        logger.info(f"Publishing engine initialized with output directory: {self.config.output_directory}")
 
-    async def create_race_json(
-        self, race_id: str, arbitrated_data: Dict[str, Any]
-    ) -> RaceJSON:
+    async def create_race_json(self, race_id: str, arbitrated_data: Dict[str, Any]) -> RaceJSON:
         """
         Transform arbitrated data into standardized RaceJSON format.
 
@@ -134,9 +128,7 @@ class RacePublishingEngine:
             candidates = await self._extract_candidates(arbitrated_data)
 
             # Generate publication metadata
-            metadata = await self._generate_publication_metadata(
-                race_id, arbitrated_data
-            )
+            metadata = await self._generate_publication_metadata(race_id, arbitrated_data)
 
             # Create RaceJSON object
             race = RaceJSON(
@@ -144,9 +136,7 @@ class RacePublishingEngine:
                 election_date=race_info.get("election_date", datetime(2024, 11, 5)),
                 candidates=candidates,
                 updated_utc=datetime.now(timezone.utc),
-                generator=metadata.get(
-                    "generators", ["gpt-4o", "claude-3.5", "grok-4"]
-                ),
+                generator=metadata.get("generators", ["gpt-4o", "claude-3.5", "grok-4"]),
                 title=race_info.get("title", f"Electoral Race {race_id}"),
                 office=race_info.get("office", "Unknown Office"),
                 jurisdiction=race_info.get("jurisdiction", "Unknown Jurisdiction"),
@@ -162,9 +152,7 @@ class RacePublishingEngine:
             logger.error(f"Failed to create RaceJSON for race {race_id}: {e}")
             raise
 
-    async def publish_race(
-        self, race: RaceJSON, targets: Optional[List[PublicationTarget]] = None
-    ) -> List[PublicationResult]:
+    async def publish_race(self, race: RaceJSON, targets: Optional[List[PublicationTarget]] = None) -> List[PublicationResult]:
         """
         Publish race data to specified targets.
 
@@ -201,9 +189,7 @@ class RacePublishingEngine:
 
         # Execute all publications in parallel
         try:
-            task_results = await asyncio.gather(
-                *publication_tasks, return_exceptions=True
-            )
+            task_results = await asyncio.gather(*publication_tasks, return_exceptions=True)
 
             for i, result in enumerate(task_results):
                 target = targets[i]
@@ -234,20 +220,14 @@ class RacePublishingEngine:
         successful = [r for r in results if r.success]
         failed = [r for r in results if not r.success]
 
-        logger.info(
-            f"Race {race.id} publication complete: {len(successful)} successful, {len(failed)} failed"
-        )
+        logger.info(f"Race {race.id} publication complete: {len(successful)} successful, {len(failed)} failed")
 
         if failed:
-            logger.warning(
-                f"Failed publications for race {race.id}: {[f.target.value for f in failed]}"
-            )
+            logger.warning(f"Failed publications for race {race.id}: {[f.target.value for f in failed]}")
 
         return results
 
-    async def _publish_to_target(
-        self, race: RaceJSON, target: PublicationTarget
-    ) -> PublicationResult:
+    async def _publish_to_target(self, race: RaceJSON, target: PublicationTarget) -> PublicationResult:
         """
         Publish race data to a specific target.
 
@@ -281,12 +261,7 @@ class RacePublishingEngine:
                 success=True,
                 timestamp=start_time,
                 message=f"Successfully published to {target.value}",
-                metadata={
-                    "duration_ms": (
-                        datetime.now(timezone.utc) - start_time
-                    ).total_seconds()
-                    * 1000
-                },
+                metadata={"duration_ms": (datetime.now(timezone.utc) - start_time).total_seconds() * 1000},
             )
 
         except Exception as e:
@@ -333,9 +308,7 @@ class RacePublishingEngine:
             # Atomic rename to final filename
             temp_file.rename(output_file)
 
-            logger.debug(
-                f"Successfully published race {race.id} to local file: {output_file}"
-            )
+            logger.debug(f"Successfully published race {race.id} to local file: {output_file}")
 
         except Exception as e:
             logger.error(f"Failed to publish race {race.id} to local file: {e}")
@@ -454,9 +427,7 @@ class RacePublishingEngine:
             if field not in arbitrated_data:
                 logger.warning(f"Missing expected field in arbitrated data: {field}")
 
-    async def _extract_race_metadata(
-        self, race_id: str, arbitrated_data: Dict[str, Any]
-    ) -> Dict[str, Any]:
+    async def _extract_race_metadata(self, race_id: str, arbitrated_data: Dict[str, Any]) -> Dict[str, Any]:
         """
         Extract race metadata from arbitrated data.
 
@@ -478,9 +449,7 @@ class RacePublishingEngine:
             "election_date": datetime(2024, 11, 5),
         }
 
-    async def _extract_candidates(
-        self, arbitrated_data: Dict[str, Any]
-    ) -> List[Dict[str, Any]]:
+    async def _extract_candidates(self, arbitrated_data: Dict[str, Any]) -> List[Dict[str, Any]]:
         """
         Extract candidate information from arbitrated data.
 
@@ -497,9 +466,7 @@ class RacePublishingEngine:
         # Placeholder candidate extraction
         return []
 
-    async def _generate_publication_metadata(
-        self, race_id: str, arbitrated_data: Dict[str, Any]
-    ) -> Dict[str, Any]:
+    async def _generate_publication_metadata(self, race_id: str, arbitrated_data: Dict[str, Any]) -> Dict[str, Any]:
         """
         Generate metadata for the publication process.
 
@@ -583,9 +550,7 @@ class RacePublishingEngine:
             "format_standardization",
         ]
 
-    def get_publication_history(
-        self, race_id: Optional[str] = None
-    ) -> List[PublicationResult]:
+    def get_publication_history(self, race_id: Optional[str] = None) -> List[PublicationResult]:
         """
         Get publication history for all races or a specific race.
 
@@ -647,9 +612,7 @@ class RacePublishingEngine:
 
         return None
 
-    async def cleanup_old_publications(
-        self, retention_days: Optional[int] = None
-    ) -> int:
+    async def cleanup_old_publications(self, retention_days: Optional[int] = None) -> int:
         """
         Clean up old publication files based on retention policy.
 
@@ -684,9 +647,7 @@ class RacePublishingEngine:
         logger.info(f"Cleaned up {cleanup_count} old publication files")
         return cleanup_count
 
-    def _calculate_publication_metrics(
-        self, results: List[PublicationResult]
-    ) -> Dict[str, Any]:
+    def _calculate_publication_metrics(self, results: List[PublicationResult]) -> Dict[str, Any]:
         """Calculate metrics about publication results."""
         total = len(results)
         successful = sum(1 for r in results if r.success)

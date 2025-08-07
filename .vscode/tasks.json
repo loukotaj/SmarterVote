@@ -76,9 +76,9 @@
             "type": "shell",
             "command": "python",
             "args": [
-                "-m", "pytest", 
+                "-m", "pytest",
                 "--cov=pipeline",
-                "--cov=services", 
+                "--cov=services",
                 "--cov-report=html",
                 "--cov-report=term",
                 "-v"
@@ -116,7 +116,7 @@
             "type": "shell",
             "command": "powershell",
             "args": [
-                "-Command", 
+                "-Command",
                 "$env:PYTHONPATH='${workspaceFolder}'; $env:DATA_DIR='../../data/published'; & '${workspaceFolder}\\.venv\\Scripts\\python.exe' main.py"
             ],
             "group": "build",
@@ -133,7 +133,7 @@
         },
         {
             "label": "Start Web Frontend Only",
-            "type": "shell", 
+            "type": "shell",
             "command": "npm",
             "args": ["run", "dev"],
             "group": "build",

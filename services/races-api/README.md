@@ -76,7 +76,7 @@ The API automatically discovers race files in the `data/published/` directory. E
 The following demo races are included for testing:
 
 - **tx-governor-2024** - Texas Governor race with 3 fictional candidates
-- **ca-senate-2024** - California Senate race with 2 fictional candidates  
+- **ca-senate-2024** - California Senate race with 2 fictional candidates
 - **ny-house-03-2024** - New York House District 3 race with 2 fictional candidates
 
 ### Creating New Demo Data

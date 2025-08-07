@@ -19,7 +19,7 @@ on:
         type: choice
         options:
         - dev
-        - staging  
+        - staging
         - prod
 
 env:
@@ -31,23 +31,23 @@ jobs:
   deploy-terraform:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && contains(github.event.head_commit.modified, 'infra/')) }}
-    
+
     steps:
     - uses: actions/checkout@v4
-    
+
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
       with:
         terraform_version: 1.5.7
-    
+
     - name: Authenticate to Google Cloud
       uses: google-github-actions/auth@v2
       with:
         credentials_json: ${{ secrets.GCP_SA_KEY }}
-    
+
     - name: Setup Google Cloud SDK
       uses: google-github-actions/setup-gcloud@v2
-    
+
     - name: Create Terraform variables file
       run: |
         cd infra
@@ -61,23 +61,23 @@ jobs:
         google_search_api_key = "${{ secrets.GOOGLE_SEARCH_API_KEY }}"
         google_search_cx = "${{ secrets.GOOGLE_SEARCH_CX }}"
         EOF
-    
+
     - name: Terraform Init
       run: |
         cd infra
         terraform init
-    
+
     - name: Terraform Plan
       run: |
         cd infra
         terraform plan -var-file=github-actions.tfvars
-    
+
     - name: Terraform Apply
       if: github.ref == 'refs/heads/main'
       run: |
         cd infra
         terraform apply -var-file=github-actions.tfvars -auto-approve
-    
+
     - name: Output Infrastructure URLs
       run: |
         cd infra
@@ -87,7 +87,7 @@ jobs:
         echo "- **Region**: ${{ env.REGION }}" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         terraform output -json | jq -r 'to_entries[] | "- **\(.key)**: \(.value.value)"' >> $GITHUB_STEP_SUMMARY
-    
+
     - name: Clean up secrets
       run: |
         cd infra

@@ -23,14 +23,11 @@ from .discover import DiscoveryService
 from .extract import ExtractService
 from .fetch import FetchService
 from .publish import PublishService
-from .schema import (CanonicalIssue, ConfidenceLevel, ProcessingJob,
-                     ProcessingStatus, RaceJSON)
+from .schema import CanonicalIssue, ConfidenceLevel, ProcessingJob, ProcessingStatus, RaceJSON
 from .summarise import SummarizeService
 
 # Configure logging
-logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-)
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
 
 
@@ -69,9 +66,7 @@ class CorpusFirstPipeline:
 
         try:
             # Step 1: DISCOVER - Seed URLs + Google dorks + Fresh issue search
-            logger.info(
-                f"📡 Step 1: DISCOVER - Finding sources and fresh issues for {race_id}"
-            )
+            logger.info(f"📡 Step 1: DISCOVER - Finding sources and fresh issues for {race_id}")
             sources = await self.discovery.discover_all_sources(race_id)
             if not sources:
                 logger.warning(f"No sources found for race {race_id}")
@@ -121,9 +116,7 @@ class CorpusFirstPipeline:
                 job.status = ProcessingStatus.COMPLETED
                 job.completed_at = datetime.utcnow()
                 logger.info(f"🎉 Pipeline completed successfully for {race_id}")
-                logger.info(
-                    f"📊 Published RaceJSON v0.2 to gs://sv-data/out/{race_id}.json"
-                )
+                logger.info(f"📊 Published RaceJSON v0.2 to gs://sv-data/out/{race_id}.json")
                 return True
             else:
                 raise Exception("Publishing failed")

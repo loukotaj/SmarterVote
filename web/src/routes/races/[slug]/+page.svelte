@@ -158,14 +158,14 @@
     <!-- Candidates Section -->
     <section>
       <h2 class="candidates-title">Candidates</h2>
-      
+
       <!-- Candidate Navigation -->
       {#if race.candidates.length > 1}
         <div class="candidate-nav">
           <p class="nav-label">Jump to candidate:</p>
           <div class="nav-links">
             {#each race.candidates as candidate, index}
-              <a 
+              <a
                 href="#{candidate.name.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')}"
                 class="nav-link"
               >
@@ -175,7 +175,7 @@
           </div>
         </div>
       {/if}
-      
+
       <div class="candidate-grid">
         {#each race.candidates as candidate}
           <CandidateCard {candidate} />
@@ -202,7 +202,7 @@
     <!-- Back to Top Link -->
     {#if race.candidates.length > 2}
       <div class="back-to-top">
-        <button 
+        <button
           class="back-to-top-link"
           on:click={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >

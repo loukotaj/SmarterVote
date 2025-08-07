@@ -7,10 +7,10 @@
   import type { Candidate } from "$lib/types";
 
   export let candidate: Candidate;
-  
+
   let expanded = false;
   let activeTab: 'issues' | 'donors' | 'voting' = 'issues';
-  
+
   function toggleExpanded() {
     expanded = !expanded;
   }
@@ -18,7 +18,7 @@
   function setActiveTab(tab: 'issues' | 'donors' | 'voting') {
     activeTab = tab;
   }
-  
+
   // Generate a URL-safe ID from candidate name
   function generateCandidateId(name: string): string {
     return name.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
@@ -32,8 +32,8 @@
       <h3 class="candidate-name">
         {candidate.name}
         <!-- Permalink anchor -->
-        <a 
-          href="#{generateCandidateId(candidate.name)}" 
+        <a
+          href="#{generateCandidateId(candidate.name)}"
           class="permalink-anchor"
           aria-label="Link to {candidate.name}"
           title="Link to this candidate"
@@ -84,10 +84,10 @@
         </a>
       </div>
     {/if}
-    
+
     <!-- Expand/Collapse Button -->
     <div class="mt-4">
-      <button 
+      <button
         class="expand-button"
         on:click={toggleExpanded}
         aria-expanded={expanded}
@@ -96,17 +96,17 @@
         <span class="expand-text">
           {expanded ? 'Show Less' : 'Show More'}
         </span>
-        <svg 
-          class="expand-icon" 
+        <svg
+          class="expand-icon"
           class:expanded
-          fill="none" 
-          stroke="currentColor" 
+          fill="none"
+          stroke="currentColor"
           viewBox="0 0 24 24"
         >
-          <path 
-            stroke-linecap="round" 
-            stroke-linejoin="round" 
-            stroke-width="2" 
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
             d="M19 9l-7 7-7-7"
           />
         </svg>
@@ -119,20 +119,20 @@
     <div class="expanded-content">
       <!-- Tab Navigation -->
       <div class="tab-navigation">
-        <TabButton 
-          active={activeTab === 'issues'} 
+        <TabButton
+          active={activeTab === 'issues'}
           onClick={() => setActiveTab('issues')}
         >
           Key Issues
         </TabButton>
-        <TabButton 
-          active={activeTab === 'donors'} 
+        <TabButton
+          active={activeTab === 'donors'}
           onClick={() => setActiveTab('donors')}
         >
           Top Donors ({candidate.top_donors.length})
         </TabButton>
-        <TabButton 
-          active={activeTab === 'voting'} 
+        <TabButton
+          active={activeTab === 'voting'}
           onClick={() => setActiveTab('voting')}
           disabled={!candidate.voting_record || candidate.voting_record.length === 0}
         >

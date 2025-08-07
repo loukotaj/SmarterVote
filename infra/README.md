@@ -21,10 +21,10 @@ This directory contains production-ready Terraform configurations for deploying 
 
 ### Data Flow Architecture
 ```
-Internet → Cloud Load Balancer → Cloud Run (APIs) 
+Internet → Cloud Load Balancer → Cloud Run (APIs)
                                       ↓
                                  Pub/Sub Topics
-                                      ↓  
+                                      ↓
                               Cloud Run Jobs (Workers)
                                       ↓
                             Cloud Storage (Data Lake)
@@ -70,14 +70,14 @@ infra/
 
 3. **Docker** (for container image builds)
    ```bash
-   # Verify installation  
+   # Verify installation
    docker --version
    ```
 
 ### Required API Keys
 Obtain API keys for the following services:
 - **OpenAI API** - GPT-4o model access
-- **Anthropic API** - Claude-3.5 model access  
+- **Anthropic API** - Claude-3.5 model access
 - **Grok API** (X.AI) - Grok-4 model access
 - **Google Custom Search API** - Content discovery
 - **Google Cloud APIs** - Enable in your GCP project:
@@ -114,7 +114,7 @@ region     = "us-central1"
 
 # API Keys (stored in Secret Manager)
 openai_api_key     = "sk-your-openai-key"
-anthropic_api_key  = "your-anthropic-key" 
+anthropic_api_key  = "your-anthropic-key"
 grok_api_key       = "your-grok-key"
 google_search_key  = "your-google-search-key"
 google_search_cx   = "your-custom-search-engine-id"
@@ -129,7 +129,7 @@ google_search_cx   = "your-custom-search-engine-id"
 # Unix/Linux/macOS
 ./deploy.sh
 
-# Windows PowerShell  
+# Windows PowerShell
 .\deploy.ps1
 ```
 
@@ -153,7 +153,7 @@ docker build -t gcr.io/YOUR_PROJECT_ID/smartervote-worker:latest .
 docker push gcr.io/YOUR_PROJECT_ID/smartervote-worker:latest
 
 # Build and push enqueue API
-cd ../services/enqueue-api  
+cd ../services/enqueue-api
 docker build -t gcr.io/YOUR_PROJECT_ID/smartervote-enqueue-api:latest .
 docker push gcr.io/YOUR_PROJECT_ID/smartervote-enqueue-api:latest
 
@@ -229,7 +229,7 @@ gcloud run jobs update race-worker --image gcr.io/YOUR_PROJECT_ID/smartervote-pi
 # View application logs
 gcloud logs read "resource.type=cloud_run_revision" --limit=50
 
-# Monitor job execution  
+# Monitor job execution
 gcloud logs read "resource.type=cloud_run_job" --limit=20
 
 # Check Pub/Sub message flow

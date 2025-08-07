@@ -66,11 +66,11 @@
               <span class="vote-text">{record.vote.toUpperCase()}</span>
             </div>
           </div>
-          
+
           {#if record.bill_description}
             <div class="bill-description">{record.bill_description}</div>
           {/if}
-          
+
           <div class="vote-footer">
             <div class="vote-date">{formatDate(record.date)}</div>
             <SourceLink source={record.source} />

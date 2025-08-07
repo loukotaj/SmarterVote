@@ -14,7 +14,7 @@ describe('API Fallback Functionality', () => {
     });
 
     const result = await getRace('test-race', mockFetch);
-    
+
     expect(result.title).toBe('Live Data Race');
     expect(mockFetch).toHaveBeenCalledWith('http://localhost:8080/races/test-race');
   });
@@ -23,7 +23,7 @@ describe('API Fallback Functionality', () => {
     const mockFetch = vi.fn().mockRejectedValue(new Error('Network error'));
 
     const result = await getRace('mo-senate-2024', mockFetch, true);
-    
+
     expect(result.id).toBe('mo-senate-2024');
     expect(result.title).toBe('Missouri U.S. Senate Race 2024');
     expect(result.jurisdiction).toBe('Missouri');
@@ -33,7 +33,7 @@ describe('API Fallback Functionality', () => {
     const mockFetch = vi.fn().mockRejectedValue(new Error('Network error'));
 
     const result = await getRace('unknown-race', mockFetch, true);
-    
+
     expect(result.id).toBe('unknown-race');
     expect(result.title).toBe('Sample Race Data (unknown-race)');
     expect(result.candidates).toHaveLength(3); // Updated to match actual sample data
@@ -47,7 +47,7 @@ describe('API Fallback Functionality', () => {
 
   it('should have all required sample races', () => {
     const expectedRaces = ['mo-senate-2024', 'ca-senate-2024', 'ny-house-03-2024', 'tx-governor-2024'];
-    
+
     expectedRaces.forEach(raceId => {
       expect(sampleRaces[raceId]).toBeDefined();
       expect(sampleRaces[raceId].id).toBe(raceId);

@@ -51,13 +51,9 @@ class BatchTrigger:
                     logger.info(f"Successfully triggered {race_ids[i]}")
                     success_count += 1
 
-            logger.info(
-                f"Batch trigger completed: {success_count} success, {error_count} errors"
-            )
+            logger.info(f"Batch trigger completed: {success_count} success, {error_count} errors")
 
-    async def _trigger_single_race(
-        self, session: aiohttp.ClientSession, race_id: str
-    ) -> bool:
+    async def _trigger_single_race(self, session: aiohttp.ClientSession, race_id: str) -> bool:
         """Trigger processing for a single race."""
         payload = {"race_id": race_id, "priority": 1}
 
@@ -73,9 +69,7 @@ async def main():
     """Main entry point for batch trigger script."""
     parser = argparse.ArgumentParser(description="Batch trigger race processing")
     parser.add_argument("race_ids", nargs="+", help="Race IDs to process")
-    parser.add_argument(
-        "--api-url", default="http://localhost:8080", help="API URL for enqueue service"
-    )
+    parser.add_argument("--api-url", default="http://localhost:8080", help="API URL for enqueue service")
 
     args = parser.parse_args()
 

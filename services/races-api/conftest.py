@@ -17,11 +17,7 @@ def client(tmp_path):
     os.environ["DATA_DIR"] = str(tmp_path)
 
     # Clear any cached imports to ensure environment variable takes effect
-    modules_to_clear = [
-        mod
-        for mod in sys.modules.keys()
-        if mod == "main" or mod.endswith(".main") or "races_main" in mod
-    ]
+    modules_to_clear = [mod for mod in sys.modules.keys() if mod == "main" or mod.endswith(".main") or "races_main" in mod]
     for mod in modules_to_clear:
         del sys.modules[mod]
 

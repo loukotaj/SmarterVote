@@ -53,7 +53,7 @@ $apiJob = Start-Job -ScriptBlock {
     & "$using:PWD\.venv\Scripts\python.exe" main.py
 }
 
-# Function to start web frontend  
+# Function to start web frontend
 $webJob = Start-Job -ScriptBlock {
     Set-Location $using:PWD
     Set-Location "web"
@@ -81,7 +81,7 @@ try {
     # Wait for both jobs to complete or user interruption
     while ($apiJob.State -eq 'Running' -or $webJob.State -eq 'Running') {
         Start-Sleep -Seconds 2
-        
+
         # Check if either job failed
         if ($apiJob.State -eq 'Failed') {
             Write-Host "ERROR: Races API failed to start. Check error below:" -ForegroundColor Red

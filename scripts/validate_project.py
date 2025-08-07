@@ -37,9 +37,7 @@ def test_pipeline_imports():
 
             logger.info("✅ All service imports successful")
         except ImportError as e:
-            logger.warning(
-                f"⚠️  Some service imports failed (likely missing dependencies): {e}"
-            )
+            logger.warning(f"⚠️  Some service imports failed (likely missing dependencies): {e}")
 
         return True
     except ImportError as e:
@@ -56,9 +54,7 @@ def test_pipeline_instantiation():
         logger.info("✅ Pipeline instantiation successful")
         return True
     except ImportError as e:
-        logger.warning(
-            f"⚠️  Pipeline instantiation skipped (missing dependencies): {e}"
-        )
+        logger.warning(f"⚠️  Pipeline instantiation skipped (missing dependencies): {e}")
         return True  # Don't fail the test for missing optional dependencies
     except Exception as e:
         logger.error(f"❌ Pipeline instantiation failed: {e}")
@@ -73,8 +69,7 @@ def test_schema_validation():
     try:
         from datetime import datetime
 
-        from pipeline.app.schema import (CanonicalIssue, RaceJSON, Source,
-                                         SourceType)
+        from pipeline.app.schema import CanonicalIssue, RaceJSON, Source, SourceType
 
         # Test enum
         issue = CanonicalIssue.ECONOMY
@@ -151,9 +146,7 @@ def main():
         logger.info("🎉 All validation tests passed! Project is ready for deployment.")
         return True
     else:
-        logger.error(
-            "💥 Some validation tests failed. Please fix issues before proceeding."
-        )
+        logger.error("💥 Some validation tests failed. Please fix issues before proceeding.")
         return False
 
 

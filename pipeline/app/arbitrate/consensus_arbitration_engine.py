@@ -24,8 +24,7 @@ from datetime import datetime
 from difflib import SequenceMatcher
 from typing import Any, Dict, List, Optional, Tuple
 
-from ..schema import (ArbitrationResult, CanonicalIssue, ConfidenceLevel,
-                      LLMResponse, Summary)
+from ..schema import ArbitrationResult, CanonicalIssue, ConfidenceLevel, LLMResponse, Summary
 
 logger = logging.getLogger(__name__)
 
@@ -50,9 +49,7 @@ class ConsensusArbitrationEngine:
             "low_agreement": 0.4,
         }
 
-    async def arbitrate_summaries(
-        self, summaries: List[Summary], context: Dict[str, Any] = None
-    ) -> ArbitrationResult:
+    async def arbitrate_summaries(self, summaries: List[Summary], context: Dict[str, Any] = None) -> ArbitrationResult:
         """
         Arbitrate between multiple LLM summaries to create consensus.
 
@@ -97,9 +94,7 @@ class ConsensusArbitrationEngine:
         logger.info(f"Arbitration complete - confidence: {result.confidence}")
         return result
 
-    def _calculate_similarity_matrix(
-        self, summaries: List[Summary]
-    ) -> List[List[float]]:
+    def _calculate_similarity_matrix(self, summaries: List[Summary]) -> List[List[float]]:
         """
         Calculate similarity matrix between all summary pairs.
 
@@ -114,9 +109,7 @@ class ConsensusArbitrationEngine:
 
         for i in range(n):
             for j in range(i + 1, n):
-                similarity = self._calculate_text_similarity(
-                    summaries[i].content, summaries[j].content
-                )
+                similarity = self._calculate_text_similarity(summaries[i].content, summaries[j].content)
                 matrix[i][j] = similarity
                 matrix[j][i] = similarity  # Symmetric matrix
 
@@ -182,9 +175,7 @@ class ConsensusArbitrationEngine:
 
         return cleaned
 
-    def _find_consensus_groups(
-        self, summaries: List[Summary], similarity_matrix: List[List[float]]
-    ) -> List[List[int]]:
+    def _find_consensus_groups(self, summaries: List[Summary], similarity_matrix: List[List[float]]) -> List[List[int]]:
         """
         Find groups of summaries that agree with each other.
 
@@ -222,9 +213,7 @@ class ConsensusArbitrationEngine:
 
         return groups
 
-    async def _create_consensus_result(
-        self, consensus_indices: List[int], summaries: List[Summary]
-    ) -> ArbitrationResult:
+    async def _create_consensus_result(self, consensus_indices: List[int], summaries: List[Summary]) -> ArbitrationResult:
         """
         Create result from a consensus group.
 
@@ -237,15 +226,9 @@ class ConsensusArbitrationEngine:
         consensus_summaries = [summaries[i] for i in consensus_indices]
 
         # Calculate weighted confidence
-        total_weight = sum(
-            self.model_weights.get(s.model, 1.0) for s in consensus_summaries
-        )
+        total_weight = sum(self.model_weights.get(s.model, 1.0) for s in consensus_summaries)
         weighted_confidence = (
-            sum(
-                self.model_weights.get(s.model, 1.0)
-                * self._confidence_to_float(s.confidence)
-                for s in consensus_summaries
-            )
+            sum(self.model_weights.get(s.model, 1.0) * self._confidence_to_float(s.confidence) for s in consensus_summaries)
             / total_weight
             if total_weight > 0
             else 0.5
@@ -260,27 +243,19 @@ class ConsensusArbitrationEngine:
         if weighted_confidence >= self.confidence_thresholds["high"]:
             confidence = ConfidenceLevel.HIGH
         elif weighted_confidence >= self.confidence_thresholds["medium"]:
-            confidence = (
-                ConfidenceLevel.MEDIUM
-                if len(consensus_summaries) >= 2
-                else ConfidenceLevel.LOW
-            )
+            confidence = ConfidenceLevel.MEDIUM if len(consensus_summaries) >= 2 else ConfidenceLevel.LOW
         else:
             confidence = ConfidenceLevel.LOW
 
         return ArbitrationResult(
             final_content=merged_content,
             confidence=confidence,
-            llm_responses=[
-                self._summary_to_llm_response(s) for s in consensus_summaries
-            ],
+            llm_responses=[self._summary_to_llm_response(s) for s in consensus_summaries],
             consensus_method="2-of-3" if len(consensus_summaries) >= 2 else "single",
             arbitration_notes=f"Consensus reached with {len(consensus_summaries)} models",
         )
 
-    async def _handle_disagreement(
-        self, consensus_groups: List[List[int]], summaries: List[Summary]
-    ) -> ArbitrationResult:
+    async def _handle_disagreement(self, consensus_groups: List[List[int]], summaries: List[Summary]) -> ArbitrationResult:
         """
         Handle case where there are multiple competing viewpoints.
 
@@ -307,9 +282,7 @@ class ConsensusArbitrationEngine:
 
         # Add note about disagreement
         other_groups_count = len(consensus_groups) - 1
-        result.arbitration_notes += (
-            f". Note: {other_groups_count} alternative viewpoint(s) detected"
-        )
+        result.arbitration_notes += f". Note: {other_groups_count} alternative viewpoint(s) detected"
 
         return result
 
@@ -326,9 +299,7 @@ class ConsensusArbitrationEngine:
         logger.warning("No consensus found among summaries")
 
         # Use highest-weighted model's result
-        best_summary = max(
-            summaries, key=lambda s: self.model_weights.get(s.model, 1.0)
-        )
+        best_summary = max(summaries, key=lambda s: self.model_weights.get(s.model, 1.0))
 
         return ArbitrationResult(
             final_content=best_summary.content,
@@ -377,9 +348,7 @@ class ConsensusArbitrationEngine:
         }
         return mapping.get(confidence, 0.5)
 
-    async def validate_arbitration_quality(
-        self, result: ArbitrationResult
-    ) -> Dict[str, Any]:
+    async def validate_arbitration_quality(self, result: ArbitrationResult) -> Dict[str, Any]:
         """
         Validate the quality of arbitration result.
 
@@ -390,8 +359,7 @@ class ConsensusArbitrationEngine:
         - [ ] Support for domain-specific validation
         """
         quality_metrics = {
-            "consensus_strength": len(result.llm_responses)
-            / 3.0,  # Assuming max 3 models
+            "consensus_strength": len(result.llm_responses) / 3.0,  # Assuming max 3 models
             "confidence_score": self._confidence_to_float(result.confidence),
             "content_length": len(result.final_content),
             "has_consensus": len(result.llm_responses) >= 2,
@@ -402,6 +370,4 @@ class ConsensusArbitrationEngine:
 
     def _get_model_name(self, summary: Summary) -> str:
         """Extract model name from summary metadata."""
-        return (
-            summary.metadata.get("model", "unknown") if summary.metadata else "unknown"
-        )
+        return summary.metadata.get("model", "unknown") if summary.metadata else "unknown"

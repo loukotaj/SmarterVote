@@ -29,7 +29,7 @@ graph TB
         D[Social Media]
         E[Fresh Issue Search]
     end
-    
+
     subgraph "Processing Pipeline"
         F[Discovery Engine] --> G[Content Fetcher]
         G --> H[Content Extractor]
@@ -38,39 +38,39 @@ graph TB
         J --> K[Arbitration Engine]
         K --> L[Publishing Engine]
     end
-    
+
     subgraph "AI Models"
         M[GPT-4o]
         N[Claude-3.5]
         O[Grok-4]
     end
-    
+
     subgraph "Storage & APIs"
         P[ChromaDB]
         Q[Cloud Storage]
         R[Race API]
         S[Enqueue API]
     end
-    
+
     subgraph "Frontend"
         T[SvelteKit Web App]
         U[Static Site Generator]
     end
-    
+
     A --> F
     B --> F
     C --> F
     D --> F
     E --> F
-    
+
     J --> M
     J --> N
     J --> O
-    
+
     I --> P
     L --> Q
     L --> R
-    
+
     R --> T
     T --> U
 ```
@@ -147,7 +147,7 @@ graph TB
 
 **Arbitration Logic**:
 - **2-of-3 Consensus**: Majority agreement for high confidence
-- **Partial Consensus**: Single agreement for medium confidence  
+- **Partial Consensus**: Single agreement for medium confidence
 - **No Consensus**: Store all perspectives with low confidence
 - **Evidence Weighting**: Source quality affects final scoring
 
@@ -188,7 +188,7 @@ graph TB
 - CORS configuration for web access
 
 ### Races API (`services/races-api/`)
-**Technology**: FastAPI + Cloud Run  
+**Technology**: FastAPI + Cloud Run
 **Purpose**: Serve processed race data
 
 **Endpoints**:
@@ -303,7 +303,7 @@ Voter-Ready Analysis
 | API Framework | FastAPI | Latest | REST API services |
 | Task Queue | Pub/Sub | GCP | Async processing |
 
-### Frontend Technologies  
+### Frontend Technologies
 | Component | Technology | Version | Purpose |
 |-----------|------------|---------|---------|
 | Framework | SvelteKit | 2.x | Web application |
@@ -324,7 +324,7 @@ Voter-Ready Analysis
 
 ### Testing Strategy
 - **Unit Tests**: Individual component testing
-- **Integration Tests**: Service interaction testing  
+- **Integration Tests**: Service interaction testing
 - **End-to-End Tests**: Full workflow validation
 - **Performance Tests**: Load and latency testing
 

@@ -43,7 +43,7 @@ python -m pytest
 ### By Component
 ```bash
 python -m pytest pipeline/          # All pipeline unit tests
-python -m pytest services/          # All service tests  
+python -m pytest services/          # All service tests
 python -m pytest tests/             # Integration tests only
 npm test                            # Frontend tests
 ```
@@ -57,7 +57,7 @@ python -m pytest services/enqueue-api/     # Enqueue API tests
 ## Test Types
 
 - **Unit Tests**: Adjacent to source code, test individual components
-- **Integration Tests**: In `tests/` directory, test component interactions  
+- **Integration Tests**: In `tests/` directory, test component interactions
 - **Frontend Tests**: In web directory, test UI components and pages
 
 ## Benefits
@@ -91,6 +91,6 @@ npm test                                    # From web/ directory
 ## Benefits
 
 - **Simple imports**: No complex path manipulation needed
-- **Clear relationships**: Tests are obviously related to what they test  
+- **Clear relationships**: Tests are obviously related to what they test
 - **Easy maintenance**: When you modify code, tests are right there
 - **Better discovery**: Developers can find tests immediately

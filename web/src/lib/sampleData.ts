@@ -7,7 +7,7 @@ function createSource(sourceString: string): Source {
   const parts = sourceString.split(':');
   const type = parts[1];
   const id = parts[2] || 'unknown';
-  
+
   // Map source types to proper SourceType and generate realistic URLs
   const sourceTypeMap: Record<string, { type: SourceType; baseUrl: string; title: string }> = {
     'voting-record': { type: 'government', baseUrl: 'https://www.congress.gov/member', title: 'Congressional Voting Record' },
@@ -46,7 +46,7 @@ function createSource(sourceString: string): Source {
   };
 
   const sourceInfo = sourceTypeMap[type] || { type: 'website' as SourceType, baseUrl: 'https://example.com', title: 'Unknown Source' };
-  
+
   return {
     url: `${sourceInfo.baseUrl}/${id}`,
     type: sourceInfo.type,

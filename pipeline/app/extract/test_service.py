@@ -32,9 +32,7 @@ class TestExtractService:
         ]
 
     @pytest.mark.asyncio
-    async def test_extract_all_returns_extracted_content(
-        self, extract_service, mock_raw_content
-    ):
+    async def test_extract_all_returns_extracted_content(self, extract_service, mock_raw_content):
         """Test that extract_content returns ExtractedContent objects."""
         extracted = await extract_service.extract_content(mock_raw_content)
 

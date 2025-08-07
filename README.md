@@ -51,7 +51,16 @@ SmarterVote employs a sophisticated **corpus-first approach** to electoral analy
    python scripts/run_local.py
    ```
 
-5. **Validate project health**
+5. **Set up development environment with pre-commit hooks**
+   ```bash
+   # For Windows users
+   .\setup-dev.ps1
+
+   # For Unix/Linux/macOS users
+   python scripts/setup_dev.py
+   ```
+
+6. **Validate project health**
    ```bash
    python scripts/validate_project.py
    ```
@@ -114,6 +123,7 @@ Standardized output format ensuring consistent candidate comparisons across all 
 - **Python**: Black formatting, isort imports, pytest testing
 - **TypeScript**: ESLint, Prettier, Svelte-check
 - **Infrastructure**: Terraform validate, plan verification
+- **Pre-commit Hooks**: Automated code formatting and linting before commits
 
 ### CI/CD Pipeline
 - **GitHub Actions**: Automated testing and deployment
@@ -143,9 +153,16 @@ We welcome contributions! Please ensure:
 # Create feature branch
 git checkout -b feature/your-feature-name
 
+# Set up pre-commit hooks (first time only)
+pre-commit install
+
+# Make your changes - pre-commit will run automatically on commit
+# Or run manually:
+pre-commit run --all-files
+
 # Run tests (now adjacent to source code)
 python -m pytest                    # All Python tests
-python -m pytest pipeline/          # Pipeline unit tests  
+python -m pytest pipeline/          # Pipeline unit tests
 python -m pytest services/          # Service tests
 python -m pytest tests/             # Integration tests
 npm test                            # Web frontend tests
