@@ -138,6 +138,50 @@
             "is_fresh": false
           }
         }
+      ],
+      "voting_record": [
+        {
+          "bill_name": "S.B. 1234 - Clean Energy Act",
+          "bill_description": "Legislation to increase renewable energy standards and provide tax incentives for solar and wind power installations",
+          "vote": "yes",
+          "date": "2024-02-15T00:00:00Z",
+          "source": {
+            "url": "https://example.com/voting-records/clean-energy",
+            "type": "government",
+            "title": "Legislative Record - Clean Energy Vote",
+            "description": "Official voting record from state legislature",
+            "last_accessed": "2024-03-15T19:15:00Z",
+            "is_fresh": false
+          }
+        },
+        {
+          "bill_name": "H.B. 5678 - Healthcare Expansion",
+          "bill_description": "Bill to expand state healthcare coverage and reduce prescription drug costs",
+          "vote": "yes", 
+          "date": "2024-01-20T00:00:00Z",
+          "source": {
+            "url": "https://example.com/voting-records/healthcare",
+            "type": "government",
+            "title": "Legislative Record - Healthcare Vote",
+            "description": "Official voting record from state legislature",
+            "last_accessed": "2024-03-15T19:15:00Z",
+            "is_fresh": false
+          }
+        },
+        {
+          "bill_name": "S.B. 9876 - Immigration Enforcement",
+          "bill_description": "Controversial bill to increase immigration enforcement and border security funding",
+          "vote": "no",
+          "date": "2023-12-10T00:00:00Z",
+          "source": {
+            "url": "https://example.com/voting-records/immigration",
+            "type": "government", 
+            "title": "Legislative Record - Immigration Vote",
+            "description": "Official voting record from state legislature",
+            "last_accessed": "2024-03-15T19:15:00Z",
+            "is_fresh": false
+          }
+        }
       ]
     },
     {

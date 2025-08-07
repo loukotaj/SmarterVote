@@ -1,14 +1,22 @@
 <script lang="ts">
   import IssueTable from "./IssueTable.svelte";
+  import DonorTable from "./DonorTable.svelte";
+  import VotingRecordTable from "./VotingRecordTable.svelte";
+  import TabButton from "./TabButton.svelte";
   import Card from "./Card.svelte";
   import type { Candidate } from "$lib/types";
 
   export let candidate: Candidate;
   
   let expanded = false;
+  let activeTab: 'issues' | 'donors' | 'voting' = 'issues';
   
   function toggleExpanded() {
     expanded = !expanded;
+  }
+
+  function setActiveTab(tab: 'issues' | 'donors' | 'voting') {
+    activeTab = tab;
   }
   
   // Generate a URL-safe ID from candidate name
@@ -106,11 +114,45 @@
     </div>
   </div>
 
-  <!-- Issues Section - Only show when expanded -->
+  <!-- Expanded Content - Only show when expanded -->
   {#if expanded}
-    <div class="issues-section">
-      <h4 class="section-title">Key Issues</h4>
-      <IssueTable issues={candidate.issues} />
+    <div class="expanded-content">
+      <!-- Tab Navigation -->
+      <div class="tab-navigation">
+        <TabButton 
+          active={activeTab === 'issues'} 
+          onClick={() => setActiveTab('issues')}
+        >
+          Key Issues
+        </TabButton>
+        <TabButton 
+          active={activeTab === 'donors'} 
+          onClick={() => setActiveTab('donors')}
+        >
+          Top Donors ({candidate.top_donors.length})
+        </TabButton>
+        <TabButton 
+          active={activeTab === 'voting'} 
+          onClick={() => setActiveTab('voting')}
+          disabled={!candidate.voting_record || candidate.voting_record.length === 0}
+        >
+          Voting Record
+          {#if candidate.voting_record && candidate.voting_record.length > 0}
+            ({candidate.voting_record.length})
+          {/if}
+        </TabButton>
+      </div>
+
+      <!-- Tab Content -->
+      <div class="tab-content">
+        {#if activeTab === 'issues'}
+          <IssueTable issues={candidate.issues} />
+        {:else if activeTab === 'donors'}
+          <DonorTable donors={candidate.top_donors} />
+        {:else if activeTab === 'voting'}
+          <VotingRecordTable votingRecord={candidate.voting_record || []} />
+        {/if}
+      </div>
     </div>
   {:else}
     <!-- Condensed Issues Preview -->
@@ -134,11 +176,16 @@
   }
 
   .candidate-name {
-    @apply text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 flex items-center gap-2;
+    @apply text-lg sm:text-xl lg:text-2xl font-bold text-gray-900;
+    @apply flex items-center gap-2;
   }
 
   .permalink-anchor {
-    @apply opacity-0 text-gray-400 hover:text-blue-600 transition-opacity duration-200;
+    @apply opacity-0 text-gray-400 transition-opacity duration-200;
+  }
+
+  .permalink-anchor:hover {
+    @apply text-blue-600;
   }
 
   :global(.candidate-card.group:hover) .permalink-anchor {
@@ -150,11 +197,11 @@
   }
 
   .party-badge {
-    @apply badge bg-blue-100 text-blue-800;
+    @apply bg-blue-100 text-blue-800;
   }
 
   .incumbent-badge {
-    @apply badge bg-green-100 text-green-800;
+    @apply bg-green-100 text-green-800;
   }
 
   .summary {
@@ -162,7 +209,11 @@
   }
 
   .website-link {
-    @apply inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 font-medium;
+    @apply inline-flex items-center gap-1 text-blue-600 font-medium;
+  }
+
+  .website-link:hover {
+    @apply text-blue-800;
   }
 
   .section-title {
@@ -170,7 +221,12 @@
   }
 
   .expand-button {
-    @apply flex items-center gap-2 text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200;
+    @apply flex items-center gap-2 text-blue-600 font-medium;
+    @apply transition-colors duration-200;
+  }
+
+  .expand-button:hover {
+    @apply text-blue-800;
   }
 
   .expand-text {
@@ -185,8 +241,16 @@
     @apply rotate-180;
   }
 
-  .issues-section {
+  .expanded-content {
     @apply border-t border-gray-200 pt-4 sm:pt-6;
+  }
+
+  .tab-navigation {
+    @apply flex border-b border-gray-200 mb-6;
+  }
+
+  .tab-content {
+    @apply min-h-32;
   }
 
   .issues-preview {
@@ -198,7 +262,8 @@
   }
 
   .issue-tag {
-    @apply bg-gray-100 text-gray-700 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium;
+    @apply bg-gray-100 text-gray-700 px-2 sm:px-3 py-1 rounded-full;
+    @apply text-xs sm:text-sm font-medium;
   }
 
   .more-tag {

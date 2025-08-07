@@ -49,6 +49,14 @@ export interface TopDonor {
   source: Source;
 }
 
+export interface VotingRecord {
+  bill_name: string;
+  bill_description?: string;
+  vote: "yes" | "no" | "abstain" | "absent";
+  date: string;
+  source: Source;
+}
+
 export interface Candidate {
   name: string;
   party?: string;
@@ -56,6 +64,7 @@ export interface Candidate {
   summary: string;
   issues: Record<CanonicalIssue, IssueStance>;
   top_donors: TopDonor[];
+  voting_record?: VotingRecord[];
   website?: string;
   social_media: Record<string, string>;
 }
