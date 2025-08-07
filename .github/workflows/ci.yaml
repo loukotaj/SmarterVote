@@ -134,7 +134,7 @@ jobs:
     
     - name: Terraform Validate
       run: |
-        cd infra/envs/dev
+        cd infra
         terraform init -backend=false
         terraform validate
 
