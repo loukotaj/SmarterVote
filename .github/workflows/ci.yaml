@@ -80,7 +80,7 @@ jobs:
         cd services/enqueue-api
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        pip install pytest pytest-asyncio
+        pip install -r test-requirements.txt
         PYTHONPATH=../.. python -m pytest test_enqueue_api.py -v
     
     - name: Test Races API
@@ -88,7 +88,7 @@ jobs:
         cd services/races-api
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        pip install pytest pytest-asyncio
+        pip install -r test-requirements.txt
         PYTHONPATH=../.. python -m pytest test_races_api.py -v
 
   test-web:
