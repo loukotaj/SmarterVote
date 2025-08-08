@@ -22,7 +22,8 @@ infra/
 ├── secrets.tf          # Secret Manager + Service Accounts + IAM
 ├── pubsub.tf           # Messaging infrastructure
 ├── run-job.tf          # Race processing worker job
-├── run-service.tf      # Enqueue & Races API services
+├── enqueue-api.tf      # Enqueue API service
+├── races-api.tf        # Races API service
 ├── scheduler.tf        # Automated processing triggers
 ├── deploy.ps1          # Windows deployment script
 └── secrets.tfvars.example  # Configuration template

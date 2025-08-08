@@ -9,28 +9,37 @@ Tests are now organized adjacent to the code they test, making them easier to fi
 pipeline/app/
 ├── discover/
 │   ├── source_discovery_engine.py
-│   └── test_service.py          # ← Unit tests here
+│   └── test_service.py          # ✅ Unit tests
 ├── fetch/
 │   ├── web_content_fetcher.py
-│   └── test_service.py          # ← Unit tests here
-└── extract/
-    ├── content_extractor.py
-    └── test_service.py          # ← Unit tests here
+│   └── test_service.py          # ✅ Unit tests
+├── extract/
+│   ├── content_extractor.py
+│   └── test_service.py          # ✅ Unit tests
+├── corpus/
+│   ├── vector_database_manager.py
+│   └── test_service.py          # ❌ Missing - needs implementation
+├── summarise/
+│   ├── llm_summarization_engine.py
+│   └── test_service.py          # ❌ Missing - needs implementation
+├── arbitrate/
+│   ├── consensus_arbitration_engine.py
+│   └── test_service.py          # ❌ Missing - needs implementation
+└── publish/
+    ├── race_publishing_engine.py
+    └── test_service.py          # ❌ Missing - needs implementation
 
 services/
 ├── enqueue-api/
 │   ├── main.py
-│   └── test_main.py             # ← API tests here
+│   └── test_enqueue_api.py      # ✅ API tests
 └── races-api/
     ├── main.py
-    └── test_main.py             # ← API tests here
-
-web/src/routes/test/
-└── race.test.js                 # ← Frontend tests here
+    └── test_races_api.py        # ✅ API tests
 
 tests/
-├── conftest.py                  # ← Shared test configuration
-└── test_integration.py          # ← Integration tests
+├── conftest.py                  # ✅ Shared test configuration
+└── test_integration.py          # ✅ Integration tests
 ```
 
 ## Running Tests
@@ -60,37 +69,26 @@ python -m pytest services/enqueue-api/     # Enqueue API tests
 - **Integration Tests**: In `tests/` directory, test component interactions
 - **Frontend Tests**: In web directory, test UI components and pages
 
-## Benefits
+## Test Coverage Status
 
-- **Proximity**: Tests are right next to the code they test
-- **Discoverability**: Easy to find relevant tests when modifying code
-- **Maintainability**: When you change code, tests are immediately visible
-- **Consistency**: Same pattern across all components
+### Current Test Coverage
+- ✅ **Discovery Service**: Unit tests implemented
+- ✅ **Fetch Service**: Unit tests implemented
+- ✅ **Extract Service**: Unit tests implemented
+- ✅ **Enqueue API**: API tests implemented
+- ✅ **Races API**: API tests implemented
+- ✅ **Integration Tests**: Core workflow tests implemented
 
-tests/
-├── conftest.py                      # ← Test configuration
-└── pipeline/
-    └── test_pipeline.py             # ← Integration tests
-```
+### Missing Test Coverage (High Priority)
+- ❌ **Corpus Service**: Vector database operations testing needed
+- ❌ **Summarize Service**: LLM integration testing needed
+- ❌ **Arbitration Service**: Consensus logic testing needed
+- ❌ **Publish Service**: Output validation testing needed
+- ❌ **Web Frontend**: Component and page testing needed
 
-## Running Tests
+## Test Types
 
-```bash
-# All tests
-python -m pytest
-
-# Specific component tests
-python -m pytest pipeline/app/discover/    # Discovery service tests
-python -m pytest services/enqueue-api/     # Enqueue API tests
-python -m pytest tests/                    # Integration tests only
-
-# Web tests
-npm test                                    # From web/ directory
-```
-
-## Benefits
-
-- **Simple imports**: No complex path manipulation needed
-- **Clear relationships**: Tests are obviously related to what they test
-- **Easy maintenance**: When you modify code, tests are right there
-- **Better discovery**: Developers can find tests immediately
+- **Unit Tests**: Adjacent to source code, test individual components
+- **Integration Tests**: In `tests/` directory, test component interactions
+- **API Tests**: Test REST endpoints and request/response handling
+- **Frontend Tests**: Test UI components and user interactions (to be implemented)

@@ -35,20 +35,23 @@ Internet → Cloud Load Balancer → Cloud Run (APIs)
 ```
 infra/
 ├── main.tf                    # Core configuration & variables
+├── variables.tf               # Input variable definitions
+├── outputs.tf                 # Infrastructure outputs
 ├── bucket.tf                 # Cloud Storage with lifecycle rules
 ├── secrets.tf                # Secret Manager configuration
 ├── pubsub.tf                 # Messaging infrastructure
-├── run-service.tf            # Auto-scaling API services
+├── enqueue-api.tf            # Enqueue API service deployment
+├── races-api.tf              # Races API service deployment
 ├── run-job.tf                # Batch processing workers
 ├── scheduler.tf              # Automated job scheduling
 ├── deploy.sh                 # Unix deployment script
 ├── deploy.ps1                # Windows PowerShell deployment
 ├── validate.sh               # Infrastructure validation
 ├── secrets.tfvars.example    # Configuration template
-├── envs/                     # Environment-specific configs
-│   └── dev/
-│       └── main.tf           # Development environment
-└── modules/                  # Reusable Terraform modules
+├── modules/                  # Reusable Terraform modules
+└── envs/                     # Environment-specific configs
+    └── dev/
+        └── main.tf           # Development environment
 ```
 
 ## ⚡ Prerequisites

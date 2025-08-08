@@ -298,9 +298,9 @@ Voter-Ready Analysis
 | Component | Technology | Version | Purpose |
 |-----------|------------|---------|---------|
 | Pipeline Runtime | Python | 3.9+ | Core processing logic |
-| Data Validation | Pydantic | 2.x | Schema validation |
-| Vector Database | ChromaDB | Latest | Semantic search |
-| API Framework | FastAPI | Latest | REST API services |
+| Data Validation | Pydantic | 2.5+ | Schema validation |
+| Vector Database | ChromaDB | 0.4+ | Semantic search |
+| API Framework | FastAPI | 0.104+ | REST API services |
 | Task Queue | Pub/Sub | GCP | Async processing |
 
 ### Frontend Technologies
@@ -319,20 +319,21 @@ Voter-Ready Analysis
 | Container Runtime | Docker | Latest | Application packaging |
 | Cloud Platform | Google Cloud | Current | Hosting & services |
 | CI/CD | GitHub Actions | Current | Automation pipeline |
+| Monitoring | Cloud Logging | GCP | Log aggregation and analysis |
 
 ## 🎯 Quality Assurance
 
 ### Testing Strategy
-- **Unit Tests**: Individual component testing
-- **Integration Tests**: Service interaction testing
+- **Unit Tests**: Individual component testing (adjacent to source code)
+- **Integration Tests**: Service interaction testing (in `tests/` directory)
 - **End-to-End Tests**: Full workflow validation
 - **Performance Tests**: Load and latency testing
 
 ### Code Quality
 - **Static Analysis**: ESLint, Black, isort
-- **Type Checking**: TypeScript, mypy
+- **Type Checking**: TypeScript, mypy (planned)
 - **Security Scanning**: Dependency vulnerability checks
-- **Documentation**: Automated doc generation
+- **Documentation**: Automated doc generation and validation
 
 ### Monitoring & Observability
 - **Application Metrics**: Performance and usage tracking

@@ -115,7 +115,13 @@ Our analysis focuses on 11 consistent political issues:
 - Election Reform
 
 ### RaceJSON v0.2 Format
-Standardized output format ensuring consistent candidate comparisons across all electoral races.
+Standardized output format ensuring consistent candidate comparisons across all electoral races. The schema includes:
+
+- **Candidate Information**: Name, party, website, key positions
+- **Issue Analysis**: Stances on all 11 canonical political issues
+- **Confidence Scoring**: AI consensus levels (HIGH/MEDIUM/LOW)
+- **Source Attribution**: Transparent sourcing for all claims
+- **Processing Metadata**: Timestamps, version info, and audit trails
 
 ## 🔧 Development Tools
 
@@ -124,6 +130,22 @@ Standardized output format ensuring consistent candidate comparisons across all 
 - **TypeScript**: ESLint, Prettier, Svelte-check
 - **Infrastructure**: Terraform validate, plan verification
 - **Pre-commit Hooks**: Automated code formatting and linting before commits
+
+### Project Health Validation
+```bash
+# Validate project structure and imports
+python scripts/validate_project.py
+
+# Run all tests
+python -m pytest -v
+
+# Check code formatting
+black --check pipeline/
+npm run lint                     # From web/ directory
+
+# Validate infrastructure
+cd infra && terraform validate
+```
 
 ### CI/CD Pipeline
 - **GitHub Actions**: Automated testing and deployment
@@ -136,8 +158,10 @@ Standardized output format ensuring consistent candidate comparisons across all 
 |----------|-------------|
 | [`docs/architecture.md`](docs/architecture.md) | Detailed system architecture and design patterns |
 | [`docs/issues-list.md`](docs/issues-list.md) | Current development priorities and feature roadmap |
+| [`docs/testing.md`](docs/testing.md) | Testing strategy and test organization |
 | [`infra/README.md`](infra/README.md) | Infrastructure deployment and management guide |
 | [`web/README.md`](web/README.md) | Frontend development and deployment instructions |
+| [`AGENTS.md`](AGENTS.md) | AI agent instructions and development guidelines |
 
 ## 🤝 Contributing
 

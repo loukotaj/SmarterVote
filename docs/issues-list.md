@@ -35,6 +35,13 @@
   - Data encryption at rest and in transit
 
 ### Pipeline Enhancements
+- [ ] **Complete test coverage**
+  - Unit tests for corpus/vector database operations
+  - Unit tests for LLM summarization service
+  - Unit tests for arbitration/consensus logic
+  - Unit tests for publishing engine
+  - Frontend component and integration tests
+
 - [ ] **Content source expansion**
   - RSS feed integration for news sources
   - Social media API integration (Twitter, Facebook)
@@ -171,8 +178,8 @@
 
 ### Code Quality
 - [ ] **Type coverage improvements**
-  - Complete TypeScript migration
-  - Python type hints completion
+  - Complete TypeScript migration for web frontend
+  - Python type hints completion for pipeline components
   - Interface definition standardization
   - Generic type improvements
 
@@ -180,7 +187,8 @@
   - API documentation automation
   - Code comment standardization
   - Architecture diagram maintenance
-  - Onboarding documentation
+  - Onboarding documentation updates
+  - Testing documentation expansion
 
 ## 📊 Success Metrics
 
