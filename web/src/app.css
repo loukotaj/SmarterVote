@@ -8,12 +8,6 @@
     font-family: "Inter", system-ui, sans-serif;
     scroll-behavior: smooth;
   }
-
-  /* Ensure proper touch targets on mobile */
-  button, a, [role="button"] {
-    min-height: 44px;
-    min-width: 44px;
-  }
 }
 
 @layer components {
