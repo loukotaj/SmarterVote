@@ -20,9 +20,9 @@ from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from enum import Enum
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional
 
-from ..schema import ConfidenceLevel, ProcessingStatus, RaceJSON
+from ..schema import ConfidenceLevel, RaceJSON
 
 logger = logging.getLogger(__name__)
 
@@ -174,9 +174,10 @@ class RacePublishingEngine:
         - Search index updates for discovery
         """
         if targets is None:
-            targets = list(PublicationTarget)
+            # Auto-detect environment and choose appropriate targets
+            targets = self._get_environment_specific_targets()
 
-        logger.info(f"Publishing race {race.id} to {len(targets)} targets")
+        logger.info(f"Publishing race {race.id} to {len(targets)} targets: {[t.value for t in targets]}")
 
         results = []
         publication_tasks = []
@@ -821,7 +822,10 @@ class RacePublishingEngine:
                         "name": "Candidate Information Pending",
                         "party": None,
                         "incumbent": False,
-                        "summary": "Candidate information is being processed and will be available soon. This is a longer placeholder to meet content requirements for publication validation.",
+                        "summary": (
+                            "Candidate information is being processed and will be available soon. "
+                            "This is a longer placeholder to meet content requirements for publication validation."
+                        ),
                         "issues": {},
                         "top_donors": [],
                         "website": None,
@@ -837,7 +841,10 @@ class RacePublishingEngine:
                     "name": "Data Processing Error",
                     "party": None,
                     "incumbent": False,
-                    "summary": "There was an error processing candidate information. Please check the data sources and try again with updated inputs.",
+                    "summary": (
+                        "There was an error processing candidate information. "
+                        "Please check the data sources and try again with updated inputs."
+                    ),
                     "issues": {},
                     "top_donors": [],
                     "website": None,
@@ -912,9 +919,6 @@ class RacePublishingEngine:
 
         if race.updated_utc and race.updated_utc > datetime.now(timezone.utc):
             validation_errors.append("Updated timestamp cannot be in the future")
-
-        # Content quality checks
-        min_confidence = self.validation_rules.get("min_confidence", ConfidenceLevel.MEDIUM)
 
         # Check if we have enough high-quality content
         total_content_length = sum(len(candidate.summary) for candidate in race.candidates)
@@ -1085,6 +1089,48 @@ class RacePublishingEngine:
 
         logger.info(f"Cleaned up {cleanup_count} old publication files")
         return cleanup_count
+
+    def _get_environment_specific_targets(self) -> List[PublicationTarget]:
+        """
+        Detect environment and return appropriate publication targets.
+
+        Returns:
+            List of publication targets based on detected environment
+
+        Environment Detection Logic:
+        - Local: Publish to local files only
+        - Cloud: Publish to cloud storage, database, pub/sub, webhooks
+        """
+        import os
+
+        # Check for cloud environment indicators
+        cloud_indicators = [
+            os.getenv("GOOGLE_CLOUD_PROJECT"),
+            os.getenv("CLOUD_RUN_SERVICE"),
+            os.getenv("K_SERVICE"),  # Cloud Run service name
+            os.getenv("GAE_APPLICATION"),  # App Engine
+            os.getenv("FUNCTION_NAME"),  # Cloud Functions
+        ]
+
+        is_cloud_environment = any(cloud_indicators)
+
+        if is_cloud_environment:
+            logger.info("🌩️  Detected cloud environment - using cloud publication targets")
+            targets = [
+                PublicationTarget.CLOUD_STORAGE,
+                PublicationTarget.DATABASE,
+                PublicationTarget.PUBSUB,
+                PublicationTarget.WEBHOOK,
+                PublicationTarget.LOCAL_FILE,  # Also save locally for backup
+            ]
+        else:
+            logger.info("💻 Detected local environment - using local publication targets")
+            targets = [
+                PublicationTarget.LOCAL_FILE,
+            ]
+
+        logger.info(f"Selected publication targets: {[t.value for t in targets]}")
+        return targets
 
     def _calculate_publication_metrics(self, results: List[PublicationResult]) -> Dict[str, Any]:
         """Calculate metrics about publication results."""

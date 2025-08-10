@@ -30,8 +30,8 @@ tests/                        # integration tests
 - Web: `cd web && npm run test`
 
 ## Coverage status
-- Done: discover, fetch, extract, corpus, enqueue-api, races-api, integration
-- Missing: summarise, arbitrate, publish, web
+- Done: discover, fetch, extract, corpus, summarise, arbitrate, publish, enqueue-api, races-api, integration
+- Missing: web
 
 ## Notes
 - Prefer fast unit tests with mocks for external I/O

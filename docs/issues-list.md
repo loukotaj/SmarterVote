@@ -20,27 +20,25 @@
 - **Priority**: ✅ P0 - COMPLETED
 - **Tests**: ✅ Comprehensive test suite at `pipeline/app/corpus/test_service.py`
 
-#### 2. **LLM Summarization Engine**
-- **Status**: 🔴 Skeleton only - No API integrations
+#### 2. **LLM Summarization Engine** 🟡 PARTIALLY IMPLEMENTED
+- **Status**: 🟡 Core logic and API integrations in place; advanced features pending
 - **File**: `pipeline/app/summarise/llm_summarization_engine.py`
-- **Issues**:
-  - All LLM API clients (GPT-4o, Claude-3.5, grok-3) not implemented
-  - API key configuration missing
-  - Prompt engineering templates incomplete
-  - Response parsing logic stubbed
+- **Remaining**:
+  - Refine prompt templates and response parsing
+  - Add cost tracking, rate limiting, and streaming support
+  - Expand bias detection and moderation checks
 - **Priority**: P0 - Core to multi-LLM consensus
-- **Tests**: Missing `pipeline/app/summarise/test_service.py`
+- **Tests**: ✅ `pipeline/app/summarise/test_service.py`
 
-#### 3. **Consensus Arbitration Engine**
-- **Status**: 🔴 Skeleton only - No consensus logic
+#### 3. **Consensus Arbitration Engine** 🟡 PARTIALLY IMPLEMENTED
+- **Status**: 🟡 AI-driven arbitration with fallback logic; enhancements needed
 - **File**: `pipeline/app/arbitrate/consensus_arbitration_engine.py`
-- **Issues**:
-  - 2-of-3 consensus algorithm not implemented
-  - Text similarity scoring missing
-  - Confidence level calculation stubbed
-  - Bias detection logic missing
+- **Remaining**:
+  - Tune 2-of-3 consensus scoring and agreement analysis
+  - Improve bias detection and logging
+  - Add rate limiting and error handling polish
 - **Priority**: P0 - Essential for reliability scoring
-- **Tests**: Missing `pipeline/app/arbitrate/test_service.py`
+- **Tests**: ✅ `pipeline/app/arbitrate/test_service.py`
 
 #### 4. **Race Publishing Engine** ✅ COMPLETED
 - **Status**: ✅ Fully implemented and tested
@@ -72,25 +70,27 @@
   - 📋 Production environment variable documentation
 - **Priority**: P0 - Mostly completed, blocks full development
 
-#### 6. **ChromaDB Persistence**
-- **Status**: 🔴 In-memory only (as noted in deployment validation)
-- **Issues**:
-  - No persistent storage configured
-  - Data loss on container restart
-  - No backup/restore strategy
-- **Priority**: P1 - Data integrity concern
+#### 6. **ChromaDB Persistence** ✅ COMPLETED
+- **Status**: ✅ Persistent storage configured and validated
+- **Features**:
+  - ChromaDB uses `CHROMA_PERSIST_DIR` for on-disk storage
+  - Data retained across container restarts
+  - Backup/restore procedures documented
+- **Priority**: P1 - COMPLETED
 
 ## 🟡 High Priority Issues (Feature Gaps)
 
 ### Testing Coverage Gaps
 
-#### 7. **Missing Test Suites**
-- **Status**: 🟡 Core pipeline components untested
-- **Missing Files**:
+#### 7. **Test Suite Coverage**
+- **Status**: 🟡 Pipeline modules now tested; coverage expansion needed
+- **Current Tests**:
   - `pipeline/app/summarise/test_service.py`
   - `pipeline/app/arbitrate/test_service.py`
   - `pipeline/app/publish/test_service.py`
-- **Impact**: No validation of core business logic
+- **Remaining Gaps**:
+  - Broader integration tests
+  - Additional edge case coverage
 - **Priority**: P1 - Required for CI/CD confidence
 
 #### 8. **Web Frontend Testing**
@@ -194,10 +194,10 @@
 
 ## 📋 Action Plan for Operational Status
 
-### Phase 1: Core Pipeline (Weeks 1-2) - ✅ 40% COMPLETED
+### Phase 1: Core Pipeline (Weeks 1-2) - ✅ 60% COMPLETED
 1. ✅ Implement ChromaDB client and basic vector operations
-2. 🔄 Add LLM API integrations (start with one model) - **NEXT PRIORITY**
-3. 🔄 Create basic consensus arbitration logic - **NEXT PRIORITY**
+2. ✅ Add initial LLM API integrations
+3. ✅ Create basic consensus arbitration logic
 4. ✅ Set up environment configuration system
 5. ✅ Add critical test coverage for vector database
 6. ✅ Implement Race Publishing Engine with multi-target support
@@ -235,4 +235,4 @@
 
 *Last updated: August 10, 2025*
 *Total Issues: 17 (2 Critical, 8 High Priority, 5 Medium Priority)*
-*Completed: 2 Critical Issues (Vector Database Manager, Race Publishing Engine)*
+*Completed: 2 Critical Issues (Vector Database Manager, Race Publishing Engine) and 1 High Priority Issue (ChromaDB Persistence)*
