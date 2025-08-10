@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "smartervote-schema"
+version = "0.2.0"
+description = "Shared Pydantic models for SmarterVote project"
+authors = [{name = "SmarterVote Team"}]
+dependencies = [
+    "pydantic>=2.0.0",
+]
+requires-python = ">=3.10"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "black",
+    "isort",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["shared*"]

@@ -45,6 +45,9 @@ function Invoke-SafeCommand {
 
 $success = $true
 
+# Install shared schema package first
+$success = $success -and (Invoke-SafeCommand "python scripts/install_shared.py" "Installing shared schema package")
+
 # Install pre-commit hooks
 $success = $success -and (Invoke-SafeCommand "$precommitPath install" "Installing pre-commit hooks")
 

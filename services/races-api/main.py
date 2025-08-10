@@ -6,23 +6,23 @@ individual race data stored as JSON files.
 """
 
 import os
-from pathlib import Path
+import sys
 from typing import List
+
+# Add parent directories to path to import shared modules
+sys.path.append(os.path.join(os.path.dirname(__file__), "..", ".."))
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from simple_publish_service import SimplePublishService
 
-from pipeline.app.publish import PublishService
-from pipeline.app.schema import RaceJSON as Race
+from shared.models import RaceJSON as Race
 
 # Configure data directory from environment variable
 DATA_DIR = os.getenv("DATA_DIR", "data/published/")
 
-# Initialize publish service with custom data directory
-from pipeline.app.publish import PublicationConfig
-
-config = PublicationConfig(output_directory=Path(DATA_DIR))
-publish_service = PublishService(config=config)
+# Initialize simple publish service
+publish_service = SimplePublishService(data_directory=DATA_DIR)
 
 # Initialize FastAPI app
 app = FastAPI(title="SmarterVote Races API")
