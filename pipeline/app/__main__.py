@@ -22,6 +22,7 @@ from .corpus import CorpusService
 from .discover import DiscoveryService
 from .extract import ExtractService
 from .fetch import FetchService
+from .providers import list_providers, registry
 from .publish import PublishService
 from .schema import ProcessingJob, ProcessingStatus
 from .summarise import SummarizeService
@@ -36,6 +37,12 @@ class CorpusFirstPipeline:
 
     def __init__(self, cheap_mode: bool = True):
         self.cheap_mode = cheap_mode
+
+        # Log available providers and models
+        providers = list_providers()
+        logger.info(f"🤖 Available AI providers: {', '.join(providers)}")
+
+        # Initialize services with provider registry
         self.discovery = DiscoveryService()
         self.fetch = FetchService()
         self.extract = ExtractService()
@@ -93,8 +100,8 @@ class CorpusFirstPipeline:
             job.step_corpus = True
             logger.info(f"✅ Built corpus for {race_id}")
 
-            # Step 5: RAG + 3-MODEL SUMMARY - Triangulation
-            logger.info("🤖 Step 5: RAG + 3-MODEL SUMMARY - LLM Triangulation")
+            # Step 5: RAG + 3-MODEL SUMMARY - Provider-based triangulation
+            logger.info("🤖 Step 5: RAG + 3-MODEL SUMMARY - Provider-based triangulation")
             # Retrieve relevant content from corpus for summarization
             corpus_content = await self.corpus.search_content(race_id)
             all_summaries = await self.summarize.generate_summaries(race_id, corpus_content)
@@ -106,8 +113,8 @@ class CorpusFirstPipeline:
             issue_count = len(all_summaries.get("issue_summaries", []))
             logger.info(f"✅ Generated summaries: {race_count} race, {candidate_count} candidate, {issue_count} issue")
 
-            # Step 6: ARBITRATE - 2-of-3 consensus
-            logger.info("⚖️  Step 6: ARBITRATE - Confidence scoring")
+            # Step 6: ARBITRATE - Provider-based consensus scoring
+            logger.info("⚖️  Step 6: ARBITRATE - Provider-based consensus scoring")
             arbitrated_data = await self.arbitrate.arbitrate_summaries(all_summaries)
             job.step_arbitrate = True
             logger.info("✅ Arbitration complete")

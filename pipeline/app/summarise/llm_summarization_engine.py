@@ -5,17 +5,7 @@ This module handles AI-powered summarization using multiple LLM providers with
 triangulation for consensus building. Implements the 2-of-3 consensus model
 for high-confidence results.
 
-TODO: Implement the following features:
-- [ ] Add actual API integrations for OpenAI GPT-4o, Anthropic Claude 3.5, and xAI Grok
-- [ ] Implement prompt engineering and optimization for political content
-- [ ] Add token usage tracking and cost management
-- [ ] Support for streaming responses and partial results
-- [ ] Implement rate limiting and retry logic for each provider
-- [ ] Add prompt templates for different content types and issues
-- [ ] Support for custom model fine-tuning on political content
-- [ ] Add bias detection and mitigation strategies
-- [ ] Implement content safety and moderation checks
-- [ ] Add multi-language summarization support
+Uses the new provider registry system for easy model switching and registration.
 """
 
 import asyncio
@@ -38,7 +28,8 @@ try:
 except ImportError:
     pass
 
-from ..schema import ConfidenceLevel, ExtractedContent, Summary
+from ..providers import SummaryOutput, TaskType, registry
+from ..schema import CanonicalIssue, ConfidenceLevel, ExtractedContent, Summary
 
 logger = logging.getLogger(__name__)
 
@@ -67,73 +58,19 @@ class LLMSummarizationEngine:
     """Engine for generating AI summaries using multiple LLM providers."""
 
     def __init__(self, cheap_mode: bool = True):
-        # Load API keys from environment
-        self.openai_api_key = os.getenv("OPENAI_API_KEY")
-        self.anthropic_api_key = os.getenv("ANTHROPIC_API_KEY")
-        self.xai_api_key = os.getenv("XAI_API_KEY")
-
-        # Set mode
+        """Initialize the summarization engine with provider registry."""
         self.cheap_mode = cheap_mode
 
-        # Validate that at least one API key is available
-        if not any([self.openai_api_key, self.anthropic_api_key, self.xai_api_key]):
-            logger.warning("No LLM API keys found in environment. Set OPENAI_API_KEY, " "ANTHROPIC_API_KEY, or XAI_API_KEY")
+        # Log available providers
+        providers = registry.list_providers()
+        logger.info(f"🤖 Available AI providers: {', '.join(providers)}")
 
-        # Choose model configurations based on mode
-        if cheap_mode:
-            self.models = {
-                "openai": {
-                    "model": "gpt-4o-mini",
-                    "api_key": self.openai_api_key,
-                    "base_url": "https://api.openai.com/v1",
-                    "max_tokens": 2000,  # Reduced for mini models
-                    "temperature": 0.1,
-                    "enabled": bool(self.openai_api_key),
-                },
-                "anthropic": {
-                    "model": "claude-3-haiku-20240307",
-                    "api_key": self.anthropic_api_key,
-                    "base_url": "https://api.anthropic.com/v1",
-                    "max_tokens": 2000,  # Reduced for mini models
-                    "temperature": 0.1,
-                    "enabled": bool(self.anthropic_api_key),
-                },
-                "xai": {
-                    "model": "grok-3-mini",  # Updated to use grok-3
-                    "api_key": self.xai_api_key,
-                    "base_url": "https://api.x.ai/v1",
-                    "max_tokens": 2000,  # Appropriate for grok-3
-                    "temperature": 0.1,
-                    "enabled": bool(self.xai_api_key),
-                },
-            }
-        else:
-            self.models = {
-                "openai": {
-                    "model": "gpt-4o",
-                    "api_key": self.openai_api_key,
-                    "base_url": "https://api.openai.com/v1",
-                    "max_tokens": 4000,
-                    "temperature": 0.1,  # Low temperature for factual content
-                    "enabled": bool(self.openai_api_key),
-                },
-                "anthropic": {
-                    "model": "claude-3-5-sonnet-20241022",
-                    "api_key": self.anthropic_api_key,
-                    "base_url": "https://api.anthropic.com/v1",
-                    "max_tokens": 4000,
-                    "temperature": 0.1,
-                    "enabled": bool(self.anthropic_api_key),
-                },
-                "xai": {
-                    "model": "grok-3",  # Using grok-3-mini for fallback
-                    "api_key": self.xai_api_key,
-                    "base_url": "https://api.x.ai/v1",
-                    "max_tokens": 4000,
-                    "temperature": 0.1,
-                    "enabled": bool(self.xai_api_key),
-                },
-            }
+        # Get enabled models for summarization
+        enabled_models = registry.get_enabled_models(TaskType.SUMMARIZE)
+        logger.info(f"📊 Enabled models for summarization: {len(enabled_models)}")
+
+        for model in enabled_models:
+            logger.info(f"  - {model.provider}/{model.model_id} ({model.tier.value})")
 
         # Prompt templates for different tasks
         self.prompts = {
@@ -144,20 +81,36 @@ class LLMSummarizationEngine:
             "issue_summary": self._get_issue_summary_prompt(),
         }
 
-        # HTTP client for API calls
-        if HTTPX_AVAILABLE:
-            self.http_client = httpx.AsyncClient(timeout=30.0)
-        else:
-            self.http_client = None
-
         # Track API usage statistics
         self.api_stats = {
             "total_calls": 0,
             "successful_calls": 0,
             "failed_calls": 0,
             "total_tokens": 0,
-            "provider_stats": {provider: {"calls": 0, "tokens": 0, "errors": 0} for provider in self.models.keys()},
+            "provider_stats": {provider: {"calls": 0, "tokens": 0, "errors": 0} for provider in providers},
         }
+
+    def _get_display_model_name(self, full_model_name: str) -> str:
+        """
+        Convert full model names to display names for backwards compatibility.
+
+        Args:
+            full_model_name: The full API model name
+
+        Returns:
+            Display name for the model
+        """
+        model_mapping = {
+            # Standard models
+            "gpt-4o": "gpt-4o",
+            "claude-3-5-sonnet-20241022": "claude-3.5",
+            "grok-beta": "grok-3",
+            # Cheap/mini models
+            "gpt-4o-mini": "gpt-4o-mini",
+            "claude-3-haiku-20240307": "claude-3-haiku",
+            "grok-3-mini": "grok-3-mini",
+        }
+        return model_mapping.get(full_model_name, full_model_name)
 
     def _get_display_model_name(self, full_model_name: str) -> str:
         """
@@ -276,28 +229,43 @@ class LLMSummarizationEngine:
         - Each candidate
         - Each issue
         """
-        logger.info(f"Generating comprehensive summaries for {len(content)} content items")
+        logger.info(f"Generating comprehensive summaries for {len(content)} content items using provider registry")
 
         if not content:
             return {"race_summaries": [], "candidate_summaries": [], "issue_summaries": []}
+
+        # Get triangulation models for summarization
+        model_pairs = registry.get_triangulation_models(TaskType.SUMMARIZE)
+        logger.info(f"Using {len(model_pairs)} models for triangulation")
 
         # Generate different types of summaries
         all_summaries = {"race_summaries": [], "candidate_summaries": [], "issue_summaries": []}
 
         try:
-            # 1. Generate overall race summary
+            # Extract source URLs for context
+            context_sources = [
+                str(item.source.url)
+                for item in content
+                if hasattr(item, "source") and item.source and hasattr(item.source, "url")
+            ]
+
+            # 1. Generate overall race summary with each model
             logger.info("Generating overall race summary...")
-            race_summaries = await self._generate_race_summary(race_id, content)
+            race_summaries = await self._generate_race_summary_with_providers(race_id, content, model_pairs, context_sources)
             all_summaries["race_summaries"] = race_summaries
 
-            # 2. Generate candidate summaries
+            # 2. Generate candidate summaries with each model
             logger.info("Generating candidate summaries...")
-            candidate_summaries = await self._generate_candidate_summaries(race_id, content)
+            candidate_summaries = await self._generate_candidate_summaries_with_providers(
+                race_id, content, model_pairs, context_sources
+            )
             all_summaries["candidate_summaries"] = candidate_summaries
 
-            # 3. Generate issue-specific summaries
+            # 3. Generate issue-specific summaries with each model
             logger.info("Generating issue-specific summaries...")
-            issue_summaries = await self._generate_issue_summaries(race_id, content)
+            issue_summaries = await self._generate_issue_summaries_with_providers(
+                race_id, content, model_pairs, context_sources
+            )
             all_summaries["issue_summaries"] = issue_summaries
 
             total_summaries = (
@@ -356,6 +324,213 @@ class LLMSummarizationEngine:
             "models_used": [s.model for s in summaries],
             "created_at": datetime.utcnow(),
         }
+
+    async def _generate_race_summary_with_providers(
+        self, race_id: str, content: List[ExtractedContent], model_pairs: List[tuple], context_sources: List[str]
+    ) -> List[Summary]:
+        """Generate race summary using provider registry."""
+        summaries = []
+
+        # Prepare content for race overview
+        race_content = self._filter_content_for_race(content)
+        prepared_content = self._prepare_content_for_summarization(race_content, race_id)
+
+        # Generate race summary prompt
+        prompt = f"""
+        Based on the following content about the {race_id} election, provide a comprehensive race overview.
+
+        Content:
+        {prepared_content}
+
+        Please analyze:
+        1. Race dynamics and competitive landscape
+        2. Key candidates and their backgrounds
+        3. Major issues being debated
+        4. Recent developments and turning points
+        5. Electoral context and significance
+
+        Provide a balanced, factual summary suitable for voters.
+        """
+
+        for provider, model_config in model_pairs:
+            try:
+                summary_output = await provider.generate_summary(prompt, model_config, context_sources)
+
+                # Convert to legacy Summary format
+                summary = Summary(
+                    content=summary_output.content,
+                    model=self._get_display_model_name(model_config.model_id),
+                    confidence=self._map_confidence_to_enum(summary_output.confidence),
+                    created_at=datetime.utcnow(),
+                    metadata={
+                        "summary_type": "race_overview",
+                        "race_id": race_id,
+                        "sources_used": summary_output.sources,
+                        "model_provider": summary_output.model_provider,
+                        "reasoning": summary_output.reasoning,
+                    },
+                )
+                summaries.append(summary)
+
+            except Exception as e:
+                logger.error(f"Failed to generate race summary with {provider.name}/{model_config.model_id}: {e}")
+                continue
+
+        return summaries
+
+    async def _generate_candidate_summaries_with_providers(
+        self, race_id: str, content: List[ExtractedContent], model_pairs: List[tuple], context_sources: List[str]
+    ) -> List[Summary]:
+        """Generate candidate summaries using provider registry."""
+        summaries = []
+
+        # Extract candidates from content (simplified - could be enhanced)
+        candidates = self._extract_candidates_from_content(content)
+
+        for candidate in candidates:
+            # Filter content relevant to this candidate
+            candidate_content = self._filter_content_for_candidate(content, candidate)
+            prepared_content = self._prepare_content_for_summarization(candidate_content, race_id)
+
+            prompt = f"""
+            Based on the following content about {candidate} in the {race_id} election, provide a comprehensive candidate analysis.
+
+            Content:
+            {prepared_content}
+
+            Please analyze:
+            1. Background and qualifications
+            2. Policy positions and priorities
+            3. Campaign strategy and messaging
+            4. Public statements and endorsements
+            5. Electoral viability and support base
+
+            Focus specifically on {candidate} and provide factual, balanced analysis.
+            """
+
+            for provider, model_config in model_pairs:
+                try:
+                    summary_output = await provider.generate_summary(prompt, model_config, context_sources)
+
+                    summary = Summary(
+                        content=summary_output.content,
+                        model=self._get_display_model_name(model_config.model_id),
+                        confidence=self._map_confidence_to_enum(summary_output.confidence),
+                        created_at=datetime.utcnow(),
+                        metadata={
+                            "summary_type": "candidate_analysis",
+                            "race_id": race_id,
+                            "candidate_name": candidate,
+                            "sources_used": summary_output.sources,
+                            "model_provider": summary_output.model_provider,
+                            "reasoning": summary_output.reasoning,
+                        },
+                    )
+                    summaries.append(summary)
+
+                except Exception as e:
+                    logger.error(f"Failed to generate candidate summary for {candidate} with {provider.name}: {e}")
+                    continue
+
+        return summaries
+
+    async def _generate_issue_summaries_with_providers(
+        self, race_id: str, content: List[ExtractedContent], model_pairs: List[tuple], context_sources: List[str]
+    ) -> List[Summary]:
+        """Generate issue summaries using provider registry."""
+        summaries = []
+
+        # Generate summaries for each canonical issue
+        for issue in CanonicalIssue:
+            # Filter content relevant to this issue
+            issue_content = self._filter_content_for_issue(content, issue.value)
+            prepared_content = self._prepare_content_for_summarization(issue_content, race_id)
+
+            prompt = f"""
+            Based on the following content about {issue.value} in the {race_id} election, provide a comprehensive issue analysis.
+
+            Content:
+            {prepared_content}
+
+            Please analyze:
+            1. How {issue.value} is being discussed in this race
+            2. Different candidate positions and proposals
+            3. Key policy differences and debates
+            4. Voter concerns and priorities on this issue
+            5. Recent developments or policy announcements
+
+            Focus specifically on {issue.value} and provide balanced analysis of all perspectives.
+            """
+
+            for provider, model_config in model_pairs:
+                try:
+                    summary_output = await provider.generate_summary(prompt, model_config, context_sources)
+
+                    summary = Summary(
+                        content=summary_output.content,
+                        model=self._get_display_model_name(model_config.model_id),
+                        confidence=self._map_confidence_to_enum(summary_output.confidence),
+                        created_at=datetime.utcnow(),
+                        metadata={
+                            "summary_type": "issue_analysis",
+                            "race_id": race_id,
+                            "issue": issue.value,
+                            "sources_used": summary_output.sources,
+                            "model_provider": summary_output.model_provider,
+                            "reasoning": summary_output.reasoning,
+                        },
+                    )
+                    summaries.append(summary)
+
+                except Exception as e:
+                    logger.error(f"Failed to generate issue summary for {issue.value} with {provider.name}: {e}")
+                    continue
+
+        return summaries
+
+    def _map_confidence_to_enum(self, confidence_str: str) -> ConfidenceLevel:
+        """Map string confidence to enum."""
+        mapping = {
+            "high": ConfidenceLevel.HIGH,
+            "medium": ConfidenceLevel.MEDIUM,
+            "low": ConfidenceLevel.LOW,
+            "unknown": ConfidenceLevel.UNKNOWN,
+        }
+        return mapping.get(confidence_str.lower(), ConfidenceLevel.UNKNOWN)
+
+    def _extract_candidates_from_content(self, content: List[ExtractedContent]) -> List[str]:
+        """Extract candidate names from content (simplified implementation)."""
+        # This is a simplified implementation - in reality would use NER or other techniques
+        candidates = []
+        common_titles = ["senator", "representative", "governor", "mayor", "congressman", "congresswoman"]
+
+        for item in content[:5]:  # Check first few items
+            text = item.text.lower()
+            # Look for patterns like "candidate X" or "Senator Y"
+            words = text.split()
+            for i, word in enumerate(words):
+                if word in common_titles and i + 1 < len(words):
+                    potential_candidate = words[i + 1].title()
+                    if len(potential_candidate) > 2 and potential_candidate not in candidates:
+                        candidates.append(potential_candidate)
+                elif word == "candidate" and i + 1 < len(words):
+                    potential_candidate = words[i + 1].title()
+                    if len(potential_candidate) > 2 and potential_candidate not in candidates:
+                        candidates.append(potential_candidate)
+
+        # Fallback to common names if nothing found
+        if not candidates:
+            candidates = ["Candidate A", "Candidate B"]
+
+        return candidates[:5]  # Limit to 5 candidates max
+
+    def _filter_content_for_candidate(self, content: List[ExtractedContent], candidate: str) -> List[ExtractedContent]:
+        """Filter content relevant to a specific candidate."""
+        filtered = []
+        for item in content:
+            if candidate.lower() in item.text.lower():
+                filtered.append(item)
+        return filtered[:10]  # Limit for token management
 
     async def _generate_race_summary(self, race_id: str, content: List[ExtractedContent]) -> List[Summary]:
         """Generate overall race summary from all content."""
@@ -493,7 +668,17 @@ class LLMSummarizationEngine:
             CanonicalIssue.ELECTION_REFORM: ["voting", "election", "gerrymandering", "campaign finance"],
         }
 
-        keywords = issue_keywords.get(issue, [issue.value.lower()])
+        # Handle both string and CanonicalIssue input
+        if isinstance(issue, str):
+            # Try to match string to CanonicalIssue
+            for canonical_issue in CanonicalIssue:
+                if issue.lower() in canonical_issue.value.lower() or canonical_issue.value.lower() in issue.lower():
+                    keywords = issue_keywords.get(canonical_issue, [issue.lower()])
+                    break
+            else:
+                keywords = [issue.lower()]
+        else:
+            keywords = issue_keywords.get(issue, [issue.value.lower()])
 
         filtered = []
         for item in content:

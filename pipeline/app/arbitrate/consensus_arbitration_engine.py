@@ -8,6 +8,7 @@ to create high-confidence summaries. Uses AI calls instead of heuristics for:
 - Final consensus summary generation
 
 Implements the 2-of-3 consensus model for determining final content.
+Now uses the provider registry system for easy model switching.
 """
 
 import logging
@@ -29,6 +30,7 @@ try:
 except ImportError:
     pass
 
+from ..providers import TaskType, registry
 from ..schema import ConfidenceLevel, LLMResponse, Summary, TriangulatedSummary
 
 logger = logging.getLogger(__name__)
@@ -47,66 +49,25 @@ class ConsensusArbitrationEngine:
     """AI-driven engine for arbitrating between multiple LLM responses using AI analysis."""
 
     def __init__(self, cheap_mode: bool = True):
-        # Load API keys from environment
-        self.openai_api_key = os.getenv("OPENAI_API_KEY")
-        self.anthropic_api_key = os.getenv("ANTHROPIC_API_KEY")
-        self.xai_api_key = os.getenv("XAI_API_KEY")
-
-        # Set mode
+        """Initialize the arbitration engine with provider registry."""
         self.cheap_mode = cheap_mode
 
-        # Available models for arbitration based on mode
-        if cheap_mode:
-            self.arbitration_models = {
-                "openai": {
-                    "model": "gpt-4o-mini",
-                    "api_key": self.openai_api_key,
-                    "base_url": "https://api.openai.com/v1",
-                    "enabled": bool(self.openai_api_key),
-                },
-                "anthropic": {
-                    "model": "claude-3-haiku-20240307",
-                    "api_key": self.anthropic_api_key,
-                    "base_url": "https://api.anthropic.com/v1",
-                    "enabled": bool(self.anthropic_api_key),
-                },
-                "xai": {
-                    "model": "grok-2-1212",  # Using available model as placeholder
-                    "api_key": self.xai_api_key,
-                    "base_url": "https://api.x.ai/v1",
-                    "enabled": bool(self.xai_api_key),
-                },
-            }
-        else:
-            self.arbitration_models = {
-                "openai": {
-                    "model": "gpt-4o",
-                    "api_key": self.openai_api_key,
-                    "base_url": "https://api.openai.com/v1",
-                    "enabled": bool(self.openai_api_key),
-                },
-                "anthropic": {
-                    "model": "claude-3-5-sonnet-20241022",
-                    "api_key": self.anthropic_api_key,
-                    "base_url": "https://api.anthropic.com/v1",
-                    "enabled": bool(self.anthropic_api_key),
-                },
-                "xai": {
-                    "model": "grok-beta",
-                    "api_key": self.xai_api_key,
-                    "base_url": "https://api.x.ai/v1",
-                    "enabled": bool(self.xai_api_key),
-                },
-            }
-
-        # HTTP client for API calls
-        self.http_client = httpx.AsyncClient(timeout=30.0)
+        # Log available providers for arbitration
+        providers = registry.list_providers()
+        logger.info(f"⚖️  Available AI providers for arbitration: {', '.join(providers)}")
 
         # Get enabled models for arbitration
-        self.enabled_models = [name for name, config in self.arbitration_models.items() if config["enabled"]]
+        enabled_models = registry.get_enabled_models(TaskType.ARBITRATE)
+        logger.info(f"📊 Enabled models for arbitration: {len(enabled_models)}")
 
-        if not self.enabled_models:
-            logger.warning("No LLM API keys found for arbitration. Set OPENAI_API_KEY, ANTHROPIC_API_KEY, or XAI_API_KEY")
+        for model in enabled_models:
+            logger.info(f"  - {model.provider}/{model.model_id} ({model.tier.value})")
+
+        # HTTP client for API calls (legacy, kept for compatibility)
+        if HTTPX_AVAILABLE:
+            self.http_client = httpx.AsyncClient(timeout=30.0)
+        else:
+            self.http_client = None
 
     async def close(self):
         """Close the HTTP client."""
