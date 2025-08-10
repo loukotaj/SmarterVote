@@ -284,11 +284,6 @@ class LLMSummarizationEngine:
         # Generate different types of summaries
         all_summaries = {"race_summaries": [], "candidate_summaries": [], "issue_summaries": []}
 
-        for provider, config in enabled_models.items():
-            task = self._generate_single_summary(provider, config, prompt_template, prepared_content, race_id, content)
-            tasks.append(task)
-
-
         try:
             # 1. Generate overall race summary
             logger.info("Generating overall race summary...")
@@ -600,14 +595,6 @@ Content for Analysis:
 
             # Update success statistics
             self._update_stats(provider, True, response.get("tokens_used", 0))
-
-            # Create LLM response record
-            llm_response = LLMResponse(
-                model=self._get_display_model_name(config["model"]),
-                content=response["content"],
-                tokens_used=response.get("tokens_used"),
-                created_at=datetime.utcnow(),
-            )
 
             # Create summary with AI-generated confidence and extracted sources
             ai_confidence = self._parse_ai_confidence(response["content"])
