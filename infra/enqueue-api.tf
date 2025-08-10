@@ -48,6 +48,20 @@ resource "google_cloud_run_v2_service" "enqueue_api" {
     percent = 100
   }
 
+  lifecycle {
+    prevent_destroy = local.prevent_destroy
+
+    ignore_changes = [
+      # Ignore changes that don't require recreation
+      template[0].annotations,
+      metadata[0].annotations["run.googleapis.com/operation-id"],
+      metadata[0].annotations["serving.knative.dev/creator"],
+      metadata[0].annotations["serving.knative.dev/lastModifier"],
+    ]
+
+    create_before_destroy = true
+  }
+
   depends_on = [google_project_service.apis]
 }
 

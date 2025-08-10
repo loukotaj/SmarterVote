@@ -15,6 +15,17 @@ output "environment" {
   value       = var.environment
 }
 
+output "app_version" {
+  description = "Application version deployed"
+  value       = var.app_version
+}
+
+output "terraform_state_bucket" {
+  description = "Terraform state bucket name"
+  value       = google_storage_bucket.terraform_state.name
+  sensitive   = false
+}
+
 # Storage
 output "bucket_name" {
   description = "Name of the sv-data bucket"

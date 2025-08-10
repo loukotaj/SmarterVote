@@ -3,6 +3,13 @@
 
 terraform {
   required_version = ">= 1.0"
+
+  # Remote state backend for consistency and locking
+  backend "gcs" {
+    bucket = "smartervote-terraform-state"
+    prefix = "terraform/state"
+  }
+
   required_providers {
     google = {
       source  = "hashicorp/google"
@@ -14,6 +21,72 @@ terraform {
 provider "google" {
   project = var.project_id
   region  = var.region
+}
+
+# Common labels for all resources
+locals {
+  common_labels = {
+    project     = "smartervote"
+    environment = var.environment
+    managed_by  = "terraform"
+    version     = var.app_version != "" ? var.app_version : "unknown"
+  }
+
+  pipeline_labels = merge(local.common_labels, {
+    component = "pipeline"
+    service   = "race-processing"
+  })
+
+  api_labels = merge(local.common_labels, {
+    component = "api"
+  })
+
+  storage_labels = merge(local.common_labels, {
+    component = "storage"
+  })
+
+  # Prevent destroy setting - cannot use variables in lifecycle blocks
+  prevent_destroy = var.environment == "prod" && var.prevent_destroy_prod
+}
+
+# Terraform state bucket (must be created first with local backend)
+resource "google_storage_bucket" "terraform_state" {
+  name          = "smartervote-terraform-state"
+  location      = var.region
+  force_destroy = false
+  project       = var.project_id
+
+  uniform_bucket_level_access = true
+
+  versioning {
+    enabled = true
+  }
+
+  lifecycle_rule {
+    condition {
+      num_newer_versions = 10
+    }
+    action {
+      type = "Delete"
+    }
+  }
+
+  lifecycle_rule {
+    condition {
+      age = 365
+    }
+    action {
+      type = "Delete"
+    }
+  }
+
+  lifecycle {
+    prevent_destroy = true
+  }
+
+  labels = local.storage_labels
+
+  depends_on = [google_project_service.apis]
 }
 
 # Enable required GCP APIs for the project

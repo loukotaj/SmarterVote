@@ -83,3 +83,22 @@ variable "chroma_persist_dir" {
   type        = string
   default     = "/app/data/chroma_db"
 }
+
+# Deployment and versioning variables
+variable "app_version" {
+  description = "Application version for tracking updates"
+  type        = string
+  default     = ""
+}
+
+variable "force_update" {
+  description = "Force update of Cloud Run services"
+  type        = bool
+  default     = false
+}
+
+variable "prevent_destroy_prod" {
+  description = "Prevent destruction of resources in production"
+  type        = bool
+  default     = true
+}

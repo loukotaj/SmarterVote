@@ -21,11 +21,22 @@ on:
         - dev
         - staging
         - prod
+      action:
+        description: 'Action to perform'
+        required: true
+        default: 'plan'
+        type: choice
+        options:
+        - plan
+        - apply
+        - rollback
 
 env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
   REGION: us-central1
   ENVIRONMENT: ${{ github.event.inputs.environment || 'dev' }}
+  ACTION: ${{ github.event.inputs.action || 'apply' }}
+  TF_VAR_app_version: ${{ github.sha }}
 
 jobs:
   deploy-terraform:
@@ -55,6 +66,7 @@ jobs:
         project_id = "${{ env.PROJECT_ID }}"
         region = "${{ env.REGION }}"
         environment = "${{ env.ENVIRONMENT }}"
+        app_version = "${{ env.TF_VAR_app_version }}"
         openai_api_key = "${{ secrets.OPENAI_API_KEY }}"
         anthropic_api_key = "${{ secrets.ANTHROPIC_API_KEY }}"
         grok_api_key = "${{ secrets.GROK_API_KEY }}"
@@ -70,31 +82,117 @@ jobs:
         chroma_persist_dir = "/app/data/chroma_db"
         EOF
 
+    - name: Check if state bucket exists
+      run: |
+        if ! gsutil ls -b gs://smartervote-terraform-state >/dev/null 2>&1; then
+          echo "Creating Terraform state bucket..."
+          gsutil mb -p ${{ env.PROJECT_ID }} -l ${{ env.REGION }} gs://smartervote-terraform-state
+          gsutil versioning set on gs://smartervote-terraform-state
+        fi
+
     - name: Terraform Init
       run: |
         cd infra
         terraform init
 
+    - name: Store Current State (for rollback)
+      if: env.ACTION == 'apply' && github.ref == 'refs/heads/main'
+      run: |
+        cd infra
+        if [ -f "terraform.tfstate" ]; then
+          BACKUP_FILE="terraform-state-backup-$(date +%Y%m%d-%H%M%S).json"
+          terraform show -json > "../$BACKUP_FILE"
+          echo "BACKUP_FILE=$BACKUP_FILE" >> $GITHUB_ENV
+        fi
+
+    - name: Terraform Validate
+      run: |
+        cd infra
+        terraform validate
+
     - name: Terraform Plan
+      if: env.ACTION != 'rollback'
       run: |
         cd infra
-        terraform plan -var-file=github-actions.tfvars
+        terraform plan -var-file=github-actions.tfvars -out=tfplan
+        terraform show -json tfplan > ../terraform-plan.json
 
-    - name: Terraform Apply
-      if: github.ref == 'refs/heads/main'
-      run: |
-        cd infra
-        terraform apply -var-file=github-actions.tfvars -auto-approve
+    - name: Upload Plan Artifact
+      if: env.ACTION == 'plan'
+      uses: actions/upload-artifact@v4
+      with:
+        name: terraform-plan-${{ env.ENVIRONMENT }}
+        path: terraform-plan.json
+        retention-days: 30
 
-    - name: Output Infrastructure URLs
+    - name: Terraform Apply with Failure Handling
+      if: env.ACTION == 'apply' && github.ref == 'refs/heads/main'
       run: |
         cd infra
-        echo "## 🚀 Deployed Infrastructure" >> $GITHUB_STEP_SUMMARY
+        set +e  # Don't exit on error
+        terraform apply -auto-approve tfplan
+        APPLY_EXIT_CODE=$?
+
+        if [ $APPLY_EXIT_CODE -ne 0 ]; then
+          echo "❌ Terraform apply failed! Attempting rollback..."
+
+          # Try to rollback to previous commit
+          PREV_COMMIT=$(git log --oneline -n 2 --format="%H" -- . | tail -n 1)
+
+          echo "🔄 Rolling back to commit: $PREV_COMMIT"
+          git checkout $PREV_COMMIT -- .
+          terraform init
+          terraform plan -var-file=github-actions.tfvars -out=rollback-plan
+          terraform apply -auto-approve rollback-plan
+
+          echo "::error::Terraform apply failed and rollback attempted"
+          exit 1
+        fi
+
+    - name: Manual Rollback
+      if: env.ACTION == 'rollback'
+      run: |
+        cd infra
+        echo "🔄 Performing manual rollback..."
+        PREV_COMMIT=$(git log --oneline -n 2 --format="%H" -- . | tail -n 1)
+        git checkout $PREV_COMMIT -- .
+        terraform init
+        terraform plan -var-file=github-actions.tfvars -out=rollback-plan
+        terraform apply -auto-approve rollback-plan
+
+    - name: Upload State Backup
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: terraform-state-backup-${{ env.ENVIRONMENT }}-${{ github.sha }}
+        path: terraform-state-backup-*.json
+        retention-days: 30
+        if-no-files-found: ignore
+
+    - name: Output Infrastructure Summary
+      if: always()
+      run: |
+        cd infra
+        echo "## 🚀 SmarterVote Infrastructure Deployment" >> $GITHUB_STEP_SUMMARY
         echo "- **Environment**: ${{ env.ENVIRONMENT }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Action**: ${{ env.ACTION }}" >> $GITHUB_STEP_SUMMARY
         echo "- **Project**: ${{ env.PROJECT_ID }}" >> $GITHUB_STEP_SUMMARY
         echo "- **Region**: ${{ env.REGION }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Version**: ${{ env.TF_VAR_app_version }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Timestamp**: $(date -u)" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
-        terraform output -json | jq -r 'to_entries[] | "- **\(.key)**: \(.value.value)"' >> $GITHUB_STEP_SUMMARY
+
+        if [ "${{ env.ACTION }}" = "apply" ] || [ "${{ env.ACTION }}" = "rollback" ]; then
+          echo "### 📋 Infrastructure Outputs" >> $GITHUB_STEP_SUMMARY
+          terraform output -json | jq -r 'to_entries[] | "- **\(.key)**: \(.value.value)"' >> $GITHUB_STEP_SUMMARY || echo "- No outputs available" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          echo "### 🔗 Quick Links" >> $GITHUB_STEP_SUMMARY
+          echo "- [GCP Console](https://console.cloud.google.com/home/dashboard?project=${{ env.PROJECT_ID }})" >> $GITHUB_STEP_SUMMARY
+          echo "- [Cloud Run Services](https://console.cloud.google.com/run?project=${{ env.PROJECT_ID }})" >> $GITHUB_STEP_SUMMARY
+          echo "- [Storage Buckets](https://console.cloud.google.com/storage/browser?project=${{ env.PROJECT_ID }})" >> $GITHUB_STEP_SUMMARY
+          echo "- [Terraform State](https://console.cloud.google.com/storage/browser/smartervote-terraform-state?project=${{ env.PROJECT_ID }})" >> $GITHUB_STEP_SUMMARY
+        fi
 
     - name: Clean up secrets
       run: |

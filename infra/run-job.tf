@@ -131,6 +131,16 @@ resource "google_cloud_run_v2_job" "race_worker" {
     }
   }
 
+  lifecycle {
+    prevent_destroy = local.prevent_destroy
+
+    ignore_changes = [
+      spec[0].template[0].template[0].annotations,
+    ]
+
+    create_before_destroy = true
+  }
+
   depends_on = [
     google_project_service.apis,
     google_secret_manager_secret_version.openai_key,
