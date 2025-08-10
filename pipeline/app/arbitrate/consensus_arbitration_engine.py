@@ -20,11 +20,10 @@ TODO: Implement the following features:
 
 import logging
 import re
-from datetime import datetime
 from difflib import SequenceMatcher
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List
 
-from ..schema import ArbitrationResult, CanonicalIssue, ConfidenceLevel, LLMResponse, Summary
+from ..schema import ConfidenceLevel, LLMResponse, Summary, TriangulatedSummary
 
 logger = logging.getLogger(__name__)
 
@@ -40,7 +39,7 @@ class ConsensusArbitrationEngine:
         }
 
         # Model reliability weights (can be adjusted based on performance)
-        self.model_weights = {"gpt-4o": 1.0, "claude-3.5-sonnet": 1.0, "grok-4": 1.0}
+        self.model_weights = {"gpt-4o": 1.0, "claude-3.5": 1.0, "grok-4": 1.0}
 
         # Similarity thresholds for consensus detection
         self.similarity_thresholds = {
@@ -49,7 +48,9 @@ class ConsensusArbitrationEngine:
             "low_agreement": 0.4,
         }
 
-    async def arbitrate_summaries(self, summaries: List[Summary], context: Dict[str, Any] = None) -> ArbitrationResult:
+    async def arbitrate_summaries(
+        self, summaries: List[Summary], context: Dict[str, Any] | None = None
+    ) -> TriangulatedSummary:
         """
         Arbitrate between multiple LLM summaries to create consensus.
 
@@ -58,7 +59,7 @@ class ConsensusArbitrationEngine:
             context: Additional context for arbitration
 
         Returns:
-            ArbitrationResult with final content and confidence
+            TriangulatedSummary with final content and confidence
 
         TODO:
         - [ ] Add support for different arbitration strategies
@@ -77,18 +78,22 @@ class ConsensusArbitrationEngine:
         # Calculate pairwise similarities
         similarity_matrix = self._calculate_similarity_matrix(summaries)
 
-        # Find consensus groups
+        # Find groups of agreeing summaries
         consensus_groups = self._find_consensus_groups(summaries, similarity_matrix)
 
-        # Determine final result based on consensus
-        if len(consensus_groups) == 1 and len(consensus_groups[0]) >= 2:
-            # Strong consensus found
-            result = await self._create_consensus_result(consensus_groups[0], summaries)
-        elif len(consensus_groups) > 1:
-            # Multiple viewpoints - try to reconcile or flag disagreement
-            result = await self._handle_disagreement(consensus_groups, summaries)
+        # Implement 2-of-3 consensus: select largest agreeing group if it has 2+
+        top_group = max(consensus_groups, key=len) if consensus_groups else []
+
+        if len(top_group) >= 2:
+            result = await self._create_consensus_result(top_group, summaries)
+
+            # Note if there are dissenting opinions
+            other_groups = len(consensus_groups) - 1
+            if other_groups > 0:
+                result.arbitration_notes += f". Note: {other_groups} alternative viewpoint(s) detected"
+                if result.confidence == ConfidenceLevel.HIGH:
+                    result.confidence = ConfidenceLevel.MEDIUM
         else:
-            # No clear consensus
             result = await self._handle_no_consensus(summaries)
 
         logger.info(f"Arbitration complete - confidence: {result.confidence}")
@@ -133,8 +138,10 @@ class ConsensusArbitrationEngine:
         sequence_sim = SequenceMatcher(None, clean_text1, clean_text2).ratio()
 
         # Word overlap similarity
-        words1 = set(clean_text1.lower().split())
-        words2 = set(clean_text2.lower().split())
+        words1_list = clean_text1.lower().split()
+        words2_list = clean_text2.lower().split()
+        words1 = set(words1_list)
+        words2 = set(words2_list)
 
         if len(words1) == 0 and len(words2) == 0:
             word_sim = 1.0
@@ -145,8 +152,21 @@ class ConsensusArbitrationEngine:
             union = len(words1.union(words2))
             word_sim = intersection / union if union > 0 else 0.0
 
+        # Bigram overlap similarity for additional context
+        bigrams1 = {tuple(words1_list[i : i + 2]) for i in range(len(words1_list) - 1)}
+        bigrams2 = {tuple(words2_list[i : i + 2]) for i in range(len(words2_list) - 1)}
+
+        if len(bigrams1) == 0 and len(bigrams2) == 0:
+            bigram_sim = 1.0
+        elif len(bigrams1) == 0 or len(bigrams2) == 0:
+            bigram_sim = 0.0
+        else:
+            bigram_intersection = len(bigrams1.intersection(bigrams2))
+            bigram_union = len(bigrams1.union(bigrams2))
+            bigram_sim = bigram_intersection / bigram_union if bigram_union > 0 else 0.0
+
         # Combine similarities (weighted average)
-        combined_similarity = 0.3 * sequence_sim + 0.7 * word_sim
+        combined_similarity = 0.2 * sequence_sim + 0.4 * word_sim + 0.4 * bigram_sim
 
         return combined_similarity
 
@@ -174,6 +194,24 @@ class ConsensusArbitrationEngine:
         cleaned = re.sub(r"\s+", " ", cleaned).strip()
 
         return cleaned
+
+    def _detect_bias(self, text: str) -> float:
+        """Return a simple bias score based on loaded terms in text."""
+        bias_terms = {
+            "liberal",
+            "conservative",
+            "left-wing",
+            "right-wing",
+            "radical",
+            "extremist",
+            "biased",
+        ]
+        lowered = text.lower()
+        # Build regex pattern to match any bias term as a whole word (handles multi-word terms)
+        pattern = r"\b(" + "|".join(re.escape(term) for term in bias_terms) + r")\b"
+        matches = re.findall(pattern, lowered)
+        total_words = len(re.findall(r"\b\w+\b", lowered))
+        return len(matches) / total_words if total_words else 0.0
 
     def _find_consensus_groups(self, summaries: List[Summary], similarity_matrix: List[List[float]]) -> List[List[int]]:
         """
@@ -203,7 +241,7 @@ class ConsensusArbitrationEngine:
                     continue
 
                 # Check if j is similar to any summary in current group
-                max_similarity = max(similarity_matrix[i][j] for i in group)
+                max_similarity = max(similarity_matrix[idx][j] for idx in group)
 
                 if max_similarity >= self.similarity_thresholds["moderate_agreement"]:
                     group.append(j)
@@ -213,7 +251,7 @@ class ConsensusArbitrationEngine:
 
         return groups
 
-    async def _create_consensus_result(self, consensus_indices: List[int], summaries: List[Summary]) -> ArbitrationResult:
+    async def _create_consensus_result(self, consensus_indices: List[int], summaries: List[Summary]) -> TriangulatedSummary:
         """
         Create result from a consensus group.
 
@@ -225,7 +263,7 @@ class ConsensusArbitrationEngine:
         """
         consensus_summaries = [summaries[i] for i in consensus_indices]
 
-        # Calculate weighted confidence
+        # Calculate weighted model confidence
         total_weight = sum(self.model_weights.get(s.model, 1.0) for s in consensus_summaries)
         weighted_confidence = (
             sum(self.model_weights.get(s.model, 1.0) * self._confidence_to_float(s.confidence) for s in consensus_summaries)
@@ -234,28 +272,44 @@ class ConsensusArbitrationEngine:
             else 0.5
         )
 
+        # Average pairwise similarity within the consensus group
+        pairwise_sim = 0.0
+        comparisons = 0
+        for i in range(len(consensus_summaries)):
+            for j in range(i + 1, len(consensus_summaries)):
+                pairwise_sim += self._calculate_text_similarity(consensus_summaries[i].content, consensus_summaries[j].content)
+                comparisons += 1
+        pairwise_sim = pairwise_sim / comparisons if comparisons else 1.0
+
+        # Basic bias detection - penalise confidence if biased language present
+        bias_score = max(self._detect_bias(s.content) for s in consensus_summaries)
+
+        confidence_score = 0.5 * weighted_confidence + 0.5 * pairwise_sim
+        confidence_score = max(0, confidence_score * (1 - bias_score))
+
         # Merge content (simple approach - use longest/most detailed)
         merged_content = max(consensus_summaries, key=lambda s: len(s.content)).content
 
-        # TODO: Implement more sophisticated content merging
-
-        # Determine final confidence level
-        if weighted_confidence >= self.confidence_thresholds["high"]:
+        if confidence_score >= self.confidence_thresholds["high"]:
             confidence = ConfidenceLevel.HIGH
-        elif weighted_confidence >= self.confidence_thresholds["medium"]:
+        elif confidence_score >= self.confidence_thresholds["medium"]:
             confidence = ConfidenceLevel.MEDIUM if len(consensus_summaries) >= 2 else ConfidenceLevel.LOW
         else:
             confidence = ConfidenceLevel.LOW
 
-        return ArbitrationResult(
+        notes = f"Consensus reached with {len(consensus_summaries)} models"
+        if bias_score > 0:
+            notes += "; potential bias detected"
+
+        return TriangulatedSummary(
             final_content=merged_content,
             confidence=confidence,
             llm_responses=[self._summary_to_llm_response(s) for s in consensus_summaries],
             consensus_method="2-of-3" if len(consensus_summaries) >= 2 else "single",
-            arbitration_notes=f"Consensus reached with {len(consensus_summaries)} models",
+            arbitration_notes=notes,
         )
 
-    async def _handle_disagreement(self, consensus_groups: List[List[int]], summaries: List[Summary]) -> ArbitrationResult:
+    async def _handle_disagreement(self, consensus_groups: List[List[int]], summaries: List[Summary]) -> TriangulatedSummary:
         """
         Handle case where there are multiple competing viewpoints.
 
@@ -286,7 +340,7 @@ class ConsensusArbitrationEngine:
 
         return result
 
-    async def _handle_no_consensus(self, summaries: List[Summary]) -> ArbitrationResult:
+    async def _handle_no_consensus(self, summaries: List[Summary]) -> TriangulatedSummary:
         """
         Handle case where no clear consensus exists.
 
@@ -301,17 +355,21 @@ class ConsensusArbitrationEngine:
         # Use highest-weighted model's result
         best_summary = max(summaries, key=lambda s: self.model_weights.get(s.model, 1.0))
 
-        return ArbitrationResult(
+        note = "No consensus reached - using best single model result"
+        if self._detect_bias(best_summary.content) > 0:
+            note += "; potential bias detected"
+
+        return TriangulatedSummary(
             final_content=best_summary.content,
             confidence=ConfidenceLevel.LOW,
             llm_responses=[self._summary_to_llm_response(s) for s in summaries],
             consensus_method="fallback_best_model",
-            arbitration_notes="No consensus reached - using best single model result",
+            arbitration_notes=note,
         )
 
-    def _create_empty_result(self, reason: str) -> ArbitrationResult:
+    def _create_empty_result(self, reason: str) -> TriangulatedSummary:
         """Create empty result for error cases."""
-        return ArbitrationResult(
+        return TriangulatedSummary(
             final_content="",
             confidence=ConfidenceLevel.LOW,
             llm_responses=[],
@@ -319,9 +377,9 @@ class ConsensusArbitrationEngine:
             arbitration_notes=reason,
         )
 
-    def _create_single_result(self, summary: Summary) -> ArbitrationResult:
+    def _create_single_result(self, summary: Summary) -> TriangulatedSummary:
         """Create result from single summary."""
-        return ArbitrationResult(
+        return TriangulatedSummary(
             final_content=summary.content,
             confidence=summary.confidence,
             llm_responses=[self._summary_to_llm_response(summary)],
@@ -348,7 +406,7 @@ class ConsensusArbitrationEngine:
         }
         return mapping.get(confidence, 0.5)
 
-    async def validate_arbitration_quality(self, result: ArbitrationResult) -> Dict[str, Any]:
+    async def validate_arbitration_quality(self, result: TriangulatedSummary) -> Dict[str, Any]:
         """
         Validate the quality of arbitration result.
 
