@@ -1,0 +1,53 @@
+name: Pipeline Tests (Heavy Dependencies)
+
+# Run manually or on schedule to avoid slowing down main CI
+on:
+  workflow_dispatch:  # Manual trigger
+  schedule:
+    - cron: '0 2 * * 1'  # Weekly on Mondays at 2 AM UTC
+
+env:
+  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+  REGION: us-central1
+
+jobs:
+  test-pipeline:
+    name: Test Python Pipeline (Full Dependencies)
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Cache pip dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('pipeline/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        cd pipeline && pip install -r requirements.txt
+
+    - name: Run pipeline tests
+      run: |
+        python -m pytest pipeline/ tests/ --cov=pipeline --cov-report=xml --cov-report=term
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./coverage.xml
+        flags: pipeline
+        name: pipeline-coverage
+
+    - name: Test summary
+      run: |
+        echo "✅ Pipeline tests completed"
+        echo "📊 Coverage report uploaded"
+        echo "🧪 Full dependency test suite passed"

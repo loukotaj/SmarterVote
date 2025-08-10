@@ -38,15 +38,40 @@ gcloud iam service-accounts keys create github-actions-key.json \
 your-gcp-project-id
 ```
 
-## 🚀 Automated Workflow
+## � Workflow Files
 
-The GitHub Actions workflow automatically:
+### **`ci.yaml`** - Main CI Quality Gates
+- **Lightweight**: Fast linting and testing
+- **No heavy dependencies**: Skips ML/AI packages for speed
+- **Covers**: Python linting, API tests, web tests, Terraform validation
+- **Triggers**: Push to main/develop, PRs to main
+
+### **`pipeline-tests.yaml`** - Heavy Pipeline Testing
+- **Full dependencies**: Includes all ML/AI packages
+- **Manual/scheduled**: Weekly run or manual trigger
+- **Complete coverage**: Full pipeline test suite with coverage
+- **Performance**: Cached dependencies for faster reruns
+
+### **`terraform-deploy.yaml`** - Infrastructure Deployment
+- **Automated**: Deploys on successful CI
+- **Environment aware**: Supports dev/staging/prod
+- **Safe**: Uses Terraform state management
+
+### **`WebDeploy.yml`** - Frontend Deployment
+- **Static site**: Builds and deploys SvelteKit to GitHub Pages
+- **Optimized**: Includes build caching and optimization
 
 ### **On Push to Main:**
-1. **🔨 Builds** all Docker images (pipeline, enqueue-api, races-api)
-2. **📤 Pushes** images to Google Container Registry
-3. **🚀 Deploys** to Cloud Run services with environment naming
-4. **🧪 Tests** API endpoints post-deployment
+1. **� Lints** Python code with lightweight dependencies (no ML libs)
+2. **🧪 Tests** API services (fast, no heavy dependencies)
+3. **🌐 Tests** Web frontend (build + unit tests)
+4. **📋 Validates** Terraform configuration
+5. **🚀 Deploys** via separate terraform workflow
+
+### **Pipeline Tests (Separate Workflow):**
+- **Heavy ML dependencies** moved to `pipeline-tests.yaml`
+- **Manual trigger** or weekly schedule to avoid CI slowdown
+- **Full test coverage** maintained but not blocking main CI
 
 ### **Triggered When:**
 - Changes to `services/**` (API updates)

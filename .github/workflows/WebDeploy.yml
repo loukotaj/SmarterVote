@@ -50,6 +50,7 @@ jobs:
         working-directory: web
         env:
           NODE_ENV: production
+          VITE_RACES_API_URL: https://races-api-dev-ddsvfazica-uc.a.run.app
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
