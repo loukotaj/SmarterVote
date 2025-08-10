@@ -16,13 +16,19 @@ import os
 import random
 from typing import Any, Dict, List
 
-import httpx
-from dotenv import load_dotenv
+try:
+    import httpx
+    HTTPX_AVAILABLE = True
+except ImportError:
+    HTTPX_AVAILABLE = False
+
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
 
 from ..schema import ConfidenceLevel, LLMResponse, Summary, TriangulatedSummary
-
-# Load environment variables
-load_dotenv()
 
 logger = logging.getLogger(__name__)
 

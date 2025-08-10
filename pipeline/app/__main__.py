@@ -96,13 +96,18 @@ class CorpusFirstPipeline:
             logger.info(f"🤖 Step 5: RAG + 3-MODEL SUMMARY - LLM Triangulation")
             # Retrieve relevant content from corpus for summarization
             corpus_content = await self.corpus.search_content(race_id)
-            summaries = await self.summarize.generate_summaries(race_id, corpus_content)
+            all_summaries = await self.summarize.generate_summaries(race_id, corpus_content)
             job.step_rag_summary = True
-            logger.info(f"✅ Generated triangulated summaries")
+            
+            # Log summary counts
+            race_count = len(all_summaries.get("race_summaries", []))
+            candidate_count = len(all_summaries.get("candidate_summaries", []))
+            issue_count = len(all_summaries.get("issue_summaries", []))
+            logger.info(f"✅ Generated summaries: {race_count} race, {candidate_count} candidate, {issue_count} issue")
 
             # Step 6: ARBITRATE - 2-of-3 consensus
             logger.info(f"⚖️  Step 6: ARBITRATE - Confidence scoring")
-            arbitrated_data = await self.arbitrate.arbitrate_summaries(summaries)
+            arbitrated_data = await self.arbitrate.arbitrate_summaries(all_summaries)
             job.step_arbitrate = True
             logger.info(f"✅ Arbitration complete")
 
