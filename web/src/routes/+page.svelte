@@ -1,5 +1,42 @@
 <script lang="ts">
-  // Future: Add search functionality and featured races
+  import type { PageData } from "./$types";
+  import type { RaceSummary } from "$lib/types";
+
+  export let data: PageData;
+
+  let searchQuery = "";
+  let filteredRaces: RaceSummary[] = [];
+
+  // Reactive statement to filter races based on search query
+  $: {
+    if (!searchQuery.trim()) {
+      filteredRaces = data.races;
+    } else {
+      const query = searchQuery.toLowerCase();
+      filteredRaces = data.races.filter(race =>
+        race.title?.toLowerCase().includes(query) ||
+        race.office?.toLowerCase().includes(query) ||
+        race.jurisdiction?.toLowerCase().includes(query) ||
+        race.candidates.some(candidate =>
+          candidate.name.toLowerCase().includes(query) ||
+          candidate.party?.toLowerCase().includes(query)
+        )
+      );
+    }
+  }
+
+  function formatElectionDate(dateString: string): string {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  }
+
+  function getRaceUrl(raceId: string): string {
+    return `/races/${raceId}`;
+  }
 </script>
 
 <svelte:head>
@@ -10,7 +47,7 @@
   />
 </svelte:head>
 
-<div class="container mx-auto px-4 py-8 sm:py-12 max-w-4xl">
+<div class="container mx-auto px-4 py-8 sm:py-12 max-w-6xl">
   <!-- Hero Section -->
   <header class="text-center mb-8 sm:mb-12">
     <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Smarter.vote</h1>
@@ -24,54 +61,116 @@
     </p>
   </header>
 
-  <!-- Under Construction Notice -->
-  <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 mb-8 rounded-r-lg">
-    <div class="flex items-center">
-      <div class="flex-shrink-0">
-        <svg class="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
-          <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+  <!-- Search Bar -->
+  <div class="flex justify-end mb-6">
+    <div class="relative w-full max-w-md">
+      <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+        <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
         </svg>
       </div>
-      <div class="ml-3">
-        <p class="text-sm text-yellow-700">
-          <strong>Note:</strong> This project is currently under construction. Some features may be limited or unavailable while we continue development.
-        </p>
-      </div>
+      <input
+        type="text"
+        bind:value={searchQuery}
+        placeholder="Search races, candidates, or locations..."
+        class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+      />
     </div>
   </div>
 
-  <!-- Sample Race (for demo) -->
-  <section class="bg-white rounded-lg shadow-sm p-4 sm:p-8 mb-6 sm:mb-8">
-    <h2 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6">Featured Race</h2>
-    <div class="border border-gray-200 rounded-lg p-4 sm:p-6">
-      <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-2">Missouri Senate 2024</h3>
-      <p class="text-sm sm:text-base text-gray-600 mb-4">
-        U.S. Senate • Missouri • Election: November 5, 2024
+  <!-- All Races Section -->
+  <section class="bg-white rounded-lg shadow-sm">
+    <div class="p-4 sm:p-6 border-b border-gray-200">
+      <h2 class="text-xl sm:text-2xl font-semibold text-gray-900">
+        Available Races ({filteredRaces.length})
+      </h2>
+      <p class="text-sm text-gray-600 mt-1">
+        {searchQuery ? `Showing results for "${searchQuery}"` : 'Browse all available race analyses'}
       </p>
-      <a
-        href="/races/mo-senate-2024"
-        class="inline-flex items-center gap-2 bg-blue-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-blue-700 transition-colors text-sm sm:text-base"
-      >
-        Compare Candidates
-        <svg
-          class="w-4 h-4"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M9 5l7 7-7 7"
-          />
-        </svg>
-      </a>
+    </div>
+
+    <div class="h-96 overflow-y-auto">
+      {#if filteredRaces.length === 0}
+        <div class="p-8 text-center text-gray-500">
+          {#if searchQuery}
+            <svg class="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.47-.881-6.08-2.329C7.76 10.22 9.77 8 12.16 8c1.311 0 2.52.375 3.546 1.022M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <p class="text-lg font-medium">No races found</p>
+            <p class="mt-2">Try adjusting your search terms or browse all available races.</p>
+          {:else}
+            <svg class="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2h4a1 1 0 110 2h-1v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6H3a1 1 0 010-2h4zM9 6h6v12H9V6z"/>
+            </svg>
+            <p class="text-lg font-medium">No races available</p>
+            <p class="mt-2">Check back later for new race analyses.</p>
+          {/if}
+        </div>
+      {:else}
+        <div class="divide-y divide-gray-200">
+          {#each filteredRaces as race (race.id)}
+            <div class="p-4 sm:p-6 hover:bg-gray-50 transition-colors">
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                <div class="mb-4 sm:mb-0">
+                  <h3 class="text-lg font-semibold text-gray-900 mb-2">
+                    {race.title || `${race.office || 'Race'} - ${race.jurisdiction || 'Unknown'}`}
+                  </h3>
+                  <div class="flex flex-wrap gap-2 text-sm text-gray-600 mb-2">
+                    {#if race.office}
+                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                        {race.office}
+                      </span>
+                    {/if}
+                    {#if race.jurisdiction}
+                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                        {race.jurisdiction}
+                      </span>
+                    {/if}
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                      {formatElectionDate(race.election_date)}
+                    </span>
+                  </div>
+                  <div class="text-sm text-gray-600">
+                    <strong>Candidates:</strong>
+                    {#each race.candidates as candidate, index}
+                      <span class="font-medium">{candidate.name}</span>{#if candidate.party} ({candidate.party}){/if}{#if index < race.candidates.length - 1}, {/if}
+                    {/each}
+                  </div>
+                  <div class="text-xs text-gray-500 mt-1">
+                    Last updated: {new Date(race.updated_utc).toLocaleDateString()}
+                  </div>
+                </div>
+                <div class="flex-shrink-0">
+                  <a
+                    href={getRaceUrl(race.id)}
+                    class="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+                  >
+                    Compare Candidates
+                    <svg
+                      class="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          {/each}
+        </div>
+      {/if}
     </div>
   </section>
 
   <!-- How It Works -->
-  <section class="mb-8 sm:mb-12">
+  <section class="mt-12 mb-8 sm:mb-12">
     <h2 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 text-center">
       How It Works
     </h2>

@@ -93,3 +93,19 @@ export const CANONICAL_ISSUES: CanonicalIssue[] = [
   "Tech & AI",
   "Election Reform",
 ];
+
+export interface CandidateSummary {
+  name: string;
+  party?: string;
+  incumbent: boolean;
+}
+
+export interface RaceSummary {
+  id: string;
+  title?: string;
+  office?: string;
+  jurisdiction?: string;
+  election_date: string;
+  updated_utc: string;
+  candidates: CandidateSummary[];
+}

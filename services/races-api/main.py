@@ -9,6 +9,8 @@ import os
 import sys
 from typing import List
 
+from pydantic import BaseModel
+
 # Add parent directories to path to import shared modules
 sys.path.append(os.path.join(os.path.dirname(__file__), "..", ".."))
 
@@ -37,10 +39,62 @@ app.add_middleware(
 )
 
 
+class CandidateSummary(BaseModel):
+    """Summary of candidate for search purposes."""
+
+    name: str
+    party: str | None = None
+    incumbent: bool
+
+
+class RaceSummary(BaseModel):
+    """Summary of race for search and listing purposes."""
+
+    id: str
+    title: str | None = None
+    office: str | None = None
+    jurisdiction: str | None = None
+    election_date: str
+    updated_utc: str
+    candidates: List[CandidateSummary]
+
+
 @app.get("/races", response_model=List[str])
 def list_races() -> List[str]:
     """List available race IDs."""
     return publish_service.get_published_races()
+
+
+@app.get("/races/summaries", response_model=List[RaceSummary])
+def get_race_summaries() -> List[RaceSummary]:
+    """Get summaries of all races for search and listing."""
+    race_ids = publish_service.get_published_races()
+    summaries = []
+
+    for race_id in race_ids:
+        race_data = publish_service.get_race_data(race_id)
+        if race_data:
+            # Extract candidate summaries
+            candidate_summaries = [
+                CandidateSummary(
+                    name=candidate["name"], party=candidate.get("party"), incumbent=candidate.get("incumbent", False)
+                )
+                for candidate in race_data.get("candidates", [])
+            ]
+
+            # Create race summary
+            summary = RaceSummary(
+                id=race_data.get("id", race_id),
+                title=race_data.get("title"),
+                office=race_data.get("office"),
+                jurisdiction=race_data.get("jurisdiction"),
+                election_date=race_data.get("election_date", ""),
+                updated_utc=race_data.get("updated_utc", ""),
+                candidates=candidate_summaries,
+            )
+            summaries.append(summary)
+
+    return summaries
 
 
 @app.get("/races/{race_id}", response_model=Race)
