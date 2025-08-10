@@ -120,7 +120,7 @@ git push origin main
 
 ### **Build Optimization:**
 - Tags images with both `git-sha` and `latest`
-- Parallel builds for faster deployment
+- Parallel container builds (3 containers simultaneously)
 - Docker layer caching
 
 ### **Deployment Safety:**
