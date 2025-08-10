@@ -15,7 +15,7 @@ class TestConsensusArbitrationEngine:
 
     @pytest.fixture
     def engine(self) -> ConsensusArbitrationEngine:
-        engine = ConsensusArbitrationEngine()
+        engine = ConsensusArbitrationEngine(cheap_mode=True)
         # Mock the HTTP client to avoid real API calls
         engine.http_client = AsyncMock()
         engine.enabled_models = ["openai"]  # Mock having at least one model
@@ -41,7 +41,7 @@ class TestConsensusArbitrationEngine:
             self._make_summary(consensus_text, model="claude-3.5"),
             self._make_summary(
                 "Candidate focuses on education initiatives and environmental issues.",
-                model="grok-4",
+                model="grok-3",
             ),
         ]
 

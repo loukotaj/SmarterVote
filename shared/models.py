@@ -108,7 +108,7 @@ class Summary(BaseModel):
     """AI-generated summary of content."""
 
     content: str
-    model: Literal["gpt-4o", "claude-3.5", "grok-4", "gpt-4o-mini", "claude-3-haiku", "grok-3-mini"]
+    model: Literal["gpt-4o", "claude-3.5", "grok-3", "gpt-4o-mini", "claude-3-haiku", "grok-3-mini"]
     confidence: ConfidenceLevel
     tokens_used: Optional[int] = None
     created_at: datetime
@@ -118,7 +118,7 @@ class Summary(BaseModel):
 class LLMResponse(BaseModel):
     """Response from a single LLM."""
 
-    model: Literal["gpt-4o", "claude-3.5", "grok-4", "gpt-4o-mini", "claude-3-haiku", "grok-3-mini"]
+    model: Literal["gpt-4o", "claude-3.5", "grok-3", "gpt-4o-mini", "claude-3-haiku", "grok-3-mini"]
     content: str
     tokens_used: Optional[int] = None
     created_at: datetime
@@ -172,7 +172,7 @@ class RaceJSON(BaseModel):
     election_date: datetime
     candidates: List[Candidate]
     updated_utc: datetime
-    generator: List[Literal["gpt-4o", "claude-3.5", "grok-4"]] = Field(default_factory=list)
+    generator: List[Literal["gpt-4o", "claude-3.5", "grok-3"]] = Field(default_factory=list)
 
     # Optional metadata
     title: Optional[str] = None

@@ -57,13 +57,13 @@ class TestLLMSummarizationEngine:
     def engine_with_no_keys(self):
         """Create engine with no API keys for testing error handling."""
         with patch.dict(os.environ, {}, clear=True):
-            return LLMSummarizationEngine()
+            return LLMSummarizationEngine(cheap_mode=True)
 
     @pytest.fixture
     def engine_with_openai_key(self):
         """Create engine with OpenAI API key."""
         with patch.dict(os.environ, {"OPENAI_API_KEY": "test-openai-key"}):
-            return LLMSummarizationEngine()
+            return LLMSummarizationEngine(cheap_mode=True)
 
     @pytest.fixture
     def engine_with_all_keys(self):
@@ -74,7 +74,7 @@ class TestLLMSummarizationEngine:
             "XAI_API_KEY": "test-xai-key",
         }
         with patch.dict(os.environ, env_vars):
-            return LLMSummarizationEngine()
+            return LLMSummarizationEngine(cheap_mode=True)
 
     def test_initialization_no_keys(self, engine_with_no_keys):
         """Test that engine initializes but warns when no API keys are provided."""
@@ -88,7 +88,24 @@ class TestLLMSummarizationEngine:
         assert engine_with_all_keys.openai_api_key == "test-openai-key"
         assert engine_with_all_keys.anthropic_api_key == "test-anthropic-key"
         assert engine_with_all_keys.xai_api_key == "test-xai-key"
+        assert engine_with_all_keys.cheap_mode is True  # Should default to cheap mode
+        assert engine_with_all_keys.models["openai"]["model"] == "gpt-4o-mini"
+        assert engine_with_all_keys.models["anthropic"]["model"] == "claude-3-haiku-20240307"
         assert all(config["enabled"] for config in engine_with_all_keys.models.values())
+
+    def test_cheap_mode_default(self):
+        """Test that cheap mode is the default when no mode is specified."""
+        with patch.dict(os.environ, {"OPENAI_API_KEY": "test-key"}):
+            engine = LLMSummarizationEngine()
+            assert engine.cheap_mode is True
+            assert engine.models["openai"]["model"] == "gpt-4o-mini"
+
+    def test_explicit_standard_mode(self):
+        """Test that standard mode can be explicitly enabled."""
+        with patch.dict(os.environ, {"OPENAI_API_KEY": "test-key"}):
+            engine = LLMSummarizationEngine(cheap_mode=False)
+            assert engine.cheap_mode is False
+            assert engine.models["openai"]["model"] == "gpt-4o"
 
     @pytest.mark.asyncio
     async def test_async_context_manager(self, engine_with_openai_key):
@@ -321,7 +338,7 @@ class TestLLMSummarizationEngine:
 
             assert isinstance(summary, Summary)
             assert summary.content == mock_response["content"]
-            assert summary.model == "gpt-4o"
+            assert summary.model == "gpt-4o-mini"
             assert summary.tokens_used == 100
             assert summary.confidence in [ConfidenceLevel.HIGH, ConfidenceLevel.MEDIUM, ConfidenceLevel.LOW]
             assert len(summary.source_ids) > 0  # Should have extracted source IDs
@@ -548,7 +565,7 @@ class TestLLMSummarizationEngine:
             ),
             Summary(
                 content="Low confidence summary",
-                model="grok-4",
+                model="grok-3",
                 confidence=ConfidenceLevel.LOW,
                 tokens_used=80,
                 created_at=datetime.utcnow(),
@@ -561,7 +578,7 @@ class TestLLMSummarizationEngine:
         assert result["consensus_confidence"] == ConfidenceLevel.MEDIUM
         assert result["consensus_method"] == "majority-medium"
         assert result["total_summaries"] == 3
-        assert result["models_used"] == ["gpt-4o", "claude-3.5", "grok-4"]
+        assert result["models_used"] == ["gpt-4o", "claude-3.5", "grok-3"]
 
     @pytest.mark.asyncio
     async def test_custom_exceptions(self, engine_with_openai_key):

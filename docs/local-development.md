@@ -122,7 +122,7 @@ The vector database is the core of SmarterVote's corpus-first approach:
 
 1. OpenAI API Key: For GPT-4o summarization
 2. Anthropic API Key: For Claude-3.5 summarization
-3. X.AI API Key: For Grok-4 summarization
+3. X.AI API Key: For grok-3 summarization
 4. Google Custom Search API: For fresh content discovery (GOOGLE_SEARCH_API_KEY + GOOGLE_SEARCH_CX)
 
 ### Directory Structure

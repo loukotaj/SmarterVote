@@ -75,7 +75,7 @@ export const sampleRace: Race = {
   office: "U.S. Senate",
   jurisdiction: "Sample State",
   updated_utc: "2025-01-15T12:00:00Z",
-  generator: ["gpt-4o", "claude-3.5", "grok-4"],
+  generator: ["gpt-4o", "claude-3.5", "grok-3"],
   candidates: [
     {
       name: "Senator Sarah Johnson",

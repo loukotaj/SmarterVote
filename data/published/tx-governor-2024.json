@@ -5,7 +5,7 @@
   "office": "Governor",
   "jurisdiction": "Texas",
   "updated_utc": "2024-03-15T19:15:00Z",
-  "generator": ["gpt-4o", "claude-3.5", "grok-4"],
+  "generator": ["gpt-4o", "claude-3.5", "grok-3"],
   "candidates": [
     {
       "name": "Jane Smith",

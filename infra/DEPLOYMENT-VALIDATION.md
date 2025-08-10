@@ -129,7 +129,7 @@ This document validates that the Terraform configuration correctly deploys all c
 ### AI Model Integration
 - ✅ **GPT-4o** - API key in Secret Manager
 - ✅ **Claude-3.5** - API key in Secret Manager
-- ✅ **Grok-4** - API key in Secret Manager
+- ✅ **grok-3** - API key in Secret Manager
 
 ### Data Flow Architecture
 - ✅ **Source Discovery** - Google Search API integration

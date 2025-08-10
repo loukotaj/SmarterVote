@@ -115,7 +115,7 @@ def sample_race():
             },
         ],
         updated_utc=datetime.now(timezone.utc),
-        generator=["gpt-4o", "claude-3.5", "grok-4"],
+        generator=["gpt-4o", "claude-3.5", "grok-3"],
         title="Missouri U.S. Senate Race 2024",
         office="U.S. Senate",
         jurisdiction="Missouri",

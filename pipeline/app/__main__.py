@@ -6,7 +6,7 @@ SmarterVote Pipeline Entry Point - Corpus-First Design v1.1
 2. FETCH - Download raw bytes
 3. EXTRACT - HTML/PDF → plain text
 4. BUILD CORPUS - Index in ChromaDB
-5. RAG + 3-MODEL SUMMARY - GPT-4o, Claude 3.5, Grok-4 triangulation
+5. RAG + 3-MODEL SUMMARY - GPT-4o, Claude 3.5, grok-3 triangulation
 6. ARBITRATE - 2-of-3 consensus with confidence scoring
 7. PUBLISH - RaceJSON v0.2 output
 """
@@ -35,7 +35,7 @@ logger = logging.getLogger(__name__)
 class CorpusFirstPipeline:
     """Corpus-First Pipeline Orchestrator for SmarterVote."""
 
-    def __init__(self, cheap_mode: bool = False):
+    def __init__(self, cheap_mode: bool = True):
         self.cheap_mode = cheap_mode
         self.discovery = DiscoveryService()
         self.fetch = FetchService()
@@ -134,22 +134,25 @@ class CorpusFirstPipeline:
 async def main():
     """Main entry point for the corpus-first pipeline."""
     if len(sys.argv) < 2:
-        logger.error("Usage: python -m app <race_slug> [--cheap]")
+        logger.error("Usage: python -m app <race_slug> [--full-models]")
         logger.error("Example: python -m app mo-senate-2024")
-        logger.error("Example: python -m app mo-senate-2024 --cheap")
+        logger.error("Example: python -m app mo-senate-2024 --full-models")
         sys.exit(1)
 
     race_id = sys.argv[1]
-    cheap_mode = (
-        "--cheap" in sys.argv
-        or "--cheap-mode" in sys.argv
-        or os.getenv("SMARTERVOTE_CHEAP_MODE", "").lower() in ["true", "1", "yes"]
+    # Default to cheap mode (mini models), allow flags to override to full models
+    cheap_mode = not (
+        "--full-models" in sys.argv
+        or "--full" in sys.argv
+        or os.getenv("SMARTERVOTE_CHEAP_MODE", "").lower() in ["false", "0", "no"]
     )
 
     logger.info(f"🗳️  SmarterVote Corpus-First Pipeline v1.1")
     logger.info(f"🎯 Processing race: {race_id}")
     if cheap_mode:
         logger.info("💰 Using cheap mode (mini models)")
+    else:
+        logger.info("🚀 Using full models")
 
     pipeline = CorpusFirstPipeline(cheap_mode=cheap_mode)
     success = await pipeline.process_race(race_id)

@@ -24,7 +24,7 @@
 - **Status**: 🔴 Skeleton only - No API integrations
 - **File**: `pipeline/app/summarise/llm_summarization_engine.py`
 - **Issues**:
-  - All LLM API clients (GPT-4o, Claude-3.5, Grok-4) not implemented
+  - All LLM API clients (GPT-4o, Claude-3.5, grok-3) not implemented
   - API key configuration missing
   - Prompt engineering templates incomplete
   - Response parsing logic stubbed

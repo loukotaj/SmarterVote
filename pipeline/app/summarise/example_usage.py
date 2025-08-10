@@ -31,9 +31,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 try:
-    from pipeline.app.summarise.llm_summarization_engine import (
-        LLMSummarizationEngine,
-    )
+    from pipeline.app.summarise.llm_summarization_engine import LLMSummarizationEngine
     from shared import ExtractedContent, Source, SourceType
 except ImportError as e:
     logger.error(f"Import error: {e}")
@@ -113,7 +111,7 @@ async def demonstrate_basic_usage():
     """Demonstrate basic usage of the LLM Summarization Engine."""
     logger.info("=== LLM Summarization Engine Demo ===")
 
-    async with LLMSummarizationEngine() as engine:
+    async with LLMSummarizationEngine(cheap_mode=True) as engine:
         # Validate configuration
         validation = engine.validate_configuration()
         logger.info(f"Configuration validation: {validation}")
@@ -175,7 +173,7 @@ async def demonstrate_error_handling():
     test_env = os.environ.copy()
     test_env["OPENAI_API_KEY"] = "invalid-key-123"
 
-    with_invalid_key = LLMSummarizationEngine()
+    with_invalid_key = LLMSummarizationEngine(cheap_mode=True)
     # In a real scenario, this would fail with invalid credentials
     # but our demo will just show the configuration
 

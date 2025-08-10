@@ -5,7 +5,7 @@
   "office": "U.S. Senate",
   "jurisdiction": "California",
   "updated_utc": "2024-03-15T20:30:00Z",
-  "generator": ["gpt-4o", "claude-3.5", "grok-4"],
+  "generator": ["gpt-4o", "claude-3.5", "grok-3"],
   "candidates": [
     {
       "name": "Maria Rodriguez",

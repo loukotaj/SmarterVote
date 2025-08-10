@@ -17,7 +17,7 @@
   "generator": [
     "gpt-4o",
     "claude-3.5",
-    "grok-4"
+    "grok-3"
   ],
   "title": "Electoral Race mo-senate-2024",
   "office": "Unknown Office",

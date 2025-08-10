@@ -5,32 +5,32 @@ This module implements the core AI-powered summarization engine for SmarterVote'
 ## Features
 
 ### Multi-Provider Support
+**Cheap Mode (Mini Models - Default)**:
+- **OpenAI GPT-4o-mini**: Cost-effective reasoning and analysis
+- **Anthropic Claude 3 Haiku**: Fast and efficient perspective analysis
+- **xAI Grok**: Budget-friendly context analysis
+
 **Standard Mode (Premium)**:
 - **OpenAI GPT-4o**: Advanced reasoning and analysis
 - **Anthropic Claude 3.5**: Balanced perspective and critical evaluation
 - **xAI Grok**: Real-time context and trend detection
 
-**Cheap Mode (Mini Models)**:
-- **OpenAI GPT-4o-mini**: Cost-effective reasoning and analysis
-- **Anthropic Claude 3 Haiku**: Fast and efficient perspective analysis
-- **xAI Grok**: Budget-friendly context analysis
-
 ### Mode Configuration
 ```python
-# Standard mode (default)
+# Cheap mode (default) - Uses mini models for cost efficiency
 engine = LLMSummarizationEngine()
 
-# Cheap mode
-engine = LLMSummarizationEngine(cheap_mode=True)
+# Standard mode - Uses full models for premium quality
+engine = LLMSummarizationEngine(cheap_mode=False)
 ```
 
 Command line usage:
 ```bash
-# Standard mode
+# Cheap mode (default)
 python scripts/run_local.py mo-senate-2024
 
-# Cheap mode
-python scripts/run_local.py mo-senate-2024 --cheap
+# Standard mode with full models
+python scripts/run_local.py mo-senate-2024 --full-models
 ```
 
 ### Core Capabilities
@@ -83,9 +83,10 @@ async def example():
 
 #### Constructor
 ```python
-engine = LLMSummarizationEngine()
+engine = LLMSummarizationEngine(cheap_mode=True)  # Default: uses mini models
 ```
 Automatically loads API keys from environment variables and configures providers.
+By default, uses cost-effective mini models. Set `cheap_mode=False` for premium models.
 
 #### Key Methods
 

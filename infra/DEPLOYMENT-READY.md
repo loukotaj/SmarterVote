@@ -9,7 +9,7 @@
 - **✅ Modular Architecture** - Clean separation by component type
 - **✅ Complete Dependencies** - All resource references properly linked
 - **✅ IAM Security** - Principle of least privilege for all service accounts
-- **✅ Multi-LLM Support** - GPT-4o, Claude-3.5, Grok-4 API keys in Secret Manager
+- **✅ Multi-LLM Support** - GPT-4o, Claude-3.5, grok-3 API keys in Secret Manager
 
 ## 📁 **Modular File Structure:**
 

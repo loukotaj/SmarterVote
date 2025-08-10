@@ -42,7 +42,7 @@ graph TB
     subgraph "AI Models"
         M[GPT-4o]
         N[Claude-3.5]
-        O[Grok-4]
+        O[grok-3]
     end
 
     subgraph "Storage & APIs"
@@ -129,20 +129,20 @@ graph TB
 ### 5. LLM Summarization Engine (`pipeline/app/summarise/`)
 **Purpose**: Multi-model content analysis and summarization
 
-**AI Models (Standard Mode)**:
-- **GPT-4o**: General analysis and reasoning
-- **Claude-3.5**: Structured content analysis
-- **Grok-4**: Alternative perspective and fact-checking
-
-**AI Models (Cheap Mode)**:
+**AI Models (Cheap Mode - Default)**:
 - **GPT-4o-mini**: Cost-effective general analysis
 - **Claude-3-Haiku**: Fast structured content analysis
 - **Grok-3-mini**: Alternative perspective on a budget
 
+**AI Models (Standard Mode)**:
+- **GPT-4o**: General analysis and reasoning
+- **Claude-3.5**: Structured content analysis
+- **grok-3**: Alternative perspective and fact-checking
+
 **Mode Selection**:
+- Cheap mode (default): Cost-effective processing with mini models
 - Standard mode: High-quality analysis with premium models
-- Cheap mode: Cost-effective processing with mini models
-- Configurable via `--cheap` flag or `SMARTERVOTE_CHEAP_MODE` environment variable
+- Configurable via `--full-models` flag or `SMARTERVOTE_CHEAP_MODE=false` environment variable
 
 **Process**:
 1. RAG (Retrieval-Augmented Generation) query preparation
@@ -156,8 +156,8 @@ graph TB
 **Purpose**: Consensus-building and confidence scoring using AI analysis
 
 **AI Models**: Inherits mode setting from summarization engine
-- Standard: Uses GPT-4o, Claude-3.5, Grok-4 for arbitration
-- Cheap: Uses GPT-4o-mini, Claude-3-Haiku, Grok-3-mini for arbitration
+- Cheap (default): Uses GPT-4o-mini, Claude-3-Haiku, Grok-3-mini for arbitration
+- Standard: Uses GPT-4o, Claude-3.5, grok-3 for arbitration
 
 **Arbitration Logic**:
 - **AI-Driven Analysis**: Uses LLMs for bias detection and consensus generation
@@ -291,7 +291,7 @@ Electoral Race Input
         ↓
 5. AI Analysis Phase
    - RAG query preparation
-   - Parallel LLM processing (GPT-4o, Claude-3.5, Grok-4)
+   - Parallel LLM processing (GPT-4o, Claude-3.5, grok-3)
    - Issue-specific position extraction
         ↓
 6. Consensus & Arbitration

@@ -136,7 +136,7 @@ class RacePublishingEngine:
                 election_date=race_info.get("election_date", datetime(2024, 11, 5)),
                 candidates=candidates,
                 updated_utc=datetime.now(timezone.utc),
-                generator=metadata.get("generators", ["gpt-4o", "claude-3.5", "grok-4"]),
+                generator=metadata.get("generators", ["gpt-4o", "claude-3.5", "grok-3"]),
                 title=race_info.get("title", f"Electoral Race {race_id}"),
                 office=race_info.get("office", "Unknown Office"),
                 jurisdiction=race_info.get("jurisdiction", "Unknown Jurisdiction"),
@@ -863,7 +863,7 @@ class RacePublishingEngine:
         - Publication target configurations
         """
         return {
-            "generators": ["gpt-4o", "claude-3.5", "grok-4"],
+            "generators": ["gpt-4o", "claude-3.5", "grok-3"],
             "processing_version": "1.0.0",
             "publication_timestamp": datetime.now(timezone.utc).isoformat(),
         }

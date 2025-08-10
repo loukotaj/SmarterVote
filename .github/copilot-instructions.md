@@ -45,7 +45,7 @@ cd infra && terraform plan
 ```
 
 ### Multi-LLM Triangulation
-The system uses 3 AI models (GPT-4o, Claude-3.5, Grok-4) for consensus:
+The system uses 3 AI models (GPT-4o, Claude-3.5, grok-3) for consensus:
 - **2-of-3 agreement** = HIGH confidence
 - **Partial consensus** = MEDIUM confidence
 - **No consensus** = LOW confidence (minority view stored)

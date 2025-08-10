@@ -91,7 +91,7 @@ To add a new race, create a JSON file in `data/published/` following this struct
   "office": "Governor|U.S. Senate|U.S. House of Representatives",
   "jurisdiction": "State or District",
   "updated_utc": "2024-03-15T19:15:00Z",
-  "generator": ["gpt-4o", "claude-3.5", "grok-4"],
+  "generator": ["gpt-4o", "claude-3.5", "grok-3"],
   "candidates": [
     {
       "name": "Candidate Name",

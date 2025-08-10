@@ -58,7 +58,7 @@ class RateLimitError(LLMAPIError):
 class LLMSummarizationEngine:
     """Engine for generating AI summaries using multiple LLM providers."""
 
-    def __init__(self, cheap_mode: bool = False):
+    def __init__(self, cheap_mode: bool = True):
         # Load API keys from environment
         self.openai_api_key = os.getenv("OPENAI_API_KEY")
         self.anthropic_api_key = os.getenv("ANTHROPIC_API_KEY")
@@ -91,10 +91,10 @@ class LLMSummarizationEngine:
                     "enabled": bool(self.anthropic_api_key),
                 },
                 "xai": {
-                    "model": "grok-2-1212",  # Using available model, will need to update when mini is available
+                    "model": "grok-3-mini",  # Updated to use grok-3
                     "api_key": self.xai_api_key,
                     "base_url": "https://api.x.ai/v1",
-                    "max_tokens": 2000,  # Reduced for mini models
+                    "max_tokens": 2000,  # Appropriate for grok-3
                     "temperature": 0.1,
                     "enabled": bool(self.xai_api_key),
                 },
@@ -118,7 +118,7 @@ class LLMSummarizationEngine:
                     "enabled": bool(self.anthropic_api_key),
                 },
                 "xai": {
-                    "model": "grok-beta",
+                    "model": "grok-3",  # Using grok-3-mini for fallback
                     "api_key": self.xai_api_key,
                     "base_url": "https://api.x.ai/v1",
                     "max_tokens": 4000,
@@ -160,11 +160,11 @@ class LLMSummarizationEngine:
             # Standard models
             "gpt-4o": "gpt-4o",
             "claude-3-5-sonnet-20241022": "claude-3.5",
-            "grok-beta": "grok-4",
+            "grok-3": "grok-3",
             # Cheap/mini models
             "gpt-4o-mini": "gpt-4o-mini",
             "claude-3-haiku-20240307": "claude-3-haiku",
-            "grok-2-1212": "grok-3-mini",  # Using available model as placeholder
+            "grok-3-mini": "grok-3-mini",
         }
         return model_mapping.get(full_model_name, full_model_name)
 

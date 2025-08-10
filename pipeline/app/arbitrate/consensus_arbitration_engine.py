@@ -39,7 +39,7 @@ class LLMAPIError(Exception):
 class ConsensusArbitrationEngine:
     """AI-driven engine for arbitrating between multiple LLM responses using AI analysis."""
 
-    def __init__(self, cheap_mode: bool = False):
+    def __init__(self, cheap_mode: bool = True):
         # Load API keys from environment
         self.openai_api_key = os.getenv("OPENAI_API_KEY")
         self.anthropic_api_key = os.getenv("ANTHROPIC_API_KEY")
