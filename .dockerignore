@@ -46,8 +46,8 @@ build/
 dist/
 *.egg-info/
 
-# Data and temp files
-data/
+# Data and temp files (but allow published data for races-api)
+data/chroma_db/
 temp/
 tmp/
 

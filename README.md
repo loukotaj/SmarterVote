@@ -39,7 +39,23 @@ DISCOVER → FETCH → EXTRACT → CORPUS → SUMMARIZE → ARBITRATE → PUBLIS
 
 - Vector DB: ChromaDB (corpus-first)
 - Multi-LLM: GPT-4o, Claude-3.5, Grok-4 with 2-of-3 consensus
+- Cheap Mode: GPT-4o-mini, Claude-3-Haiku, Grok-3-mini for cost-effective processing
 - Output: RaceJSON v0.2, with confidence and sources
+
+## Running the Pipeline
+
+### Standard Mode (Premium Models)
+```bash
+python scripts/run_local.py mo-senate-2024
+```
+
+### Cheap Mode (Mini Models)
+```bash
+python scripts/run_local.py mo-senate-2024 --cheap
+# or set environment variable
+export SMARTERVOTE_CHEAP_MODE=true
+python scripts/run_local.py mo-senate-2024
+```
 
 ## Docs
 - Architecture: `docs/architecture.md`

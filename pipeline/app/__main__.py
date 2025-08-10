@@ -13,6 +13,7 @@ SmarterVote Pipeline Entry Point - Corpus-First Design v1.1
 
 import asyncio
 import logging
+import os
 import sys
 from datetime import datetime
 
@@ -33,13 +34,14 @@ logger = logging.getLogger(__name__)
 class CorpusFirstPipeline:
     """Corpus-First Pipeline Orchestrator for SmarterVote."""
 
-    def __init__(self):
+    def __init__(self, cheap_mode: bool = False):
+        self.cheap_mode = cheap_mode
         self.discovery = DiscoveryService()
         self.fetch = FetchService()
         self.extract = ExtractService()
         self.corpus = CorpusService()
-        self.summarize = SummarizeService()
-        self.arbitrate = ArbitrationService()
+        self.summarize = SummarizeService(cheap_mode=cheap_mode)
+        self.arbitrate = ArbitrationService(cheap_mode=cheap_mode)
         self.publish = PublishService()
 
     async def process_race(self, race_id: str) -> bool:
@@ -136,15 +138,25 @@ class CorpusFirstPipeline:
 async def main():
     """Main entry point for the corpus-first pipeline."""
     if len(sys.argv) < 2:
-        logger.error("Usage: python -m app <race_slug>")
+        logger.error("Usage: python -m app <race_slug> [--cheap]")
         logger.error("Example: python -m app mo-senate-2024")
+        logger.error("Example: python -m app mo-senate-2024 --cheap")
         sys.exit(1)
 
     race_id = sys.argv[1]
-    logger.info("🗳️  SmarterVote Corpus-First Pipeline v1.1")
-    logger.info(f"🎯 Processing race: {race_id}")
 
-    pipeline = CorpusFirstPipeline()
+    cheap_mode = (
+        "--cheap" in sys.argv
+        or "--cheap-mode" in sys.argv
+        or os.getenv("SMARTERVOTE_CHEAP_MODE", "").lower() in ["true", "1", "yes"]
+    )
+
+    logger.info(f"🗳️  SmarterVote Corpus-First Pipeline v1.1")
+    logger.info(f"🎯 Processing race: {race_id}")
+    if cheap_mode:
+        logger.info("💰 Using cheap mode (mini models)")
+
+    pipeline = CorpusFirstPipeline(cheap_mode=cheap_mode)
     success = await pipeline.process_race(race_id)
 
     if success:

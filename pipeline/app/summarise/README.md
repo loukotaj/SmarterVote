@@ -5,9 +5,33 @@ This module implements the core AI-powered summarization engine for SmarterVote'
 ## Features
 
 ### Multi-Provider Support
+**Standard Mode (Premium)**:
 - **OpenAI GPT-4o**: Advanced reasoning and analysis
-- **Anthropic Claude 3.5**: Balanced perspective and critical evaluation  
+- **Anthropic Claude 3.5**: Balanced perspective and critical evaluation
 - **xAI Grok**: Real-time context and trend detection
+
+**Cheap Mode (Mini Models)**:
+- **OpenAI GPT-4o-mini**: Cost-effective reasoning and analysis
+- **Anthropic Claude 3 Haiku**: Fast and efficient perspective analysis
+- **xAI Grok**: Budget-friendly context analysis
+
+### Mode Configuration
+```python
+# Standard mode (default)
+engine = LLMSummarizationEngine()
+
+# Cheap mode
+engine = LLMSummarizationEngine(cheap_mode=True)
+```
+
+Command line usage:
+```bash
+# Standard mode
+python scripts/run_local.py mo-senate-2024
+
+# Cheap mode
+python scripts/run_local.py mo-senate-2024 --cheap
+```
 
 ### Core Capabilities
 - ✅ **Async/Await Architecture**: Non-blocking concurrent API calls
@@ -24,7 +48,7 @@ This module implements the core AI-powered summarization engine for SmarterVote'
 ```bash
 # Set API keys in your environment
 export OPENAI_API_KEY="your-openai-key"
-export ANTHROPIC_API_KEY="your-anthropic-key"  
+export ANTHROPIC_API_KEY="your-anthropic-key"
 export XAI_API_KEY="your-xai-key"
 ```
 
@@ -39,14 +63,14 @@ async def example():
         if not validation["valid"]:
             print("Configuration issues:", validation["errors"])
             return
-            
+
         # Generate summaries
         summaries = await engine.generate_summaries(
             race_id="example-race-2024",
             content=extracted_content_list,
             task_type="candidate_summary"
         )
-        
+
         # Triangulate for consensus
         if len(summaries) >= 2:
             consensus = engine.triangulate_summaries(summaries)
@@ -139,7 +163,7 @@ python -m pytest app/summarise/test_service.py -v
 - ✅ Configuration validation (API keys, provider setup)
 - ✅ Content preparation and truncation
 - ✅ Confidence assessment algorithms
-- ✅ API call success/failure scenarios  
+- ✅ API call success/failure scenarios
 - ✅ Rate limiting and retry logic
 - ✅ Statistics tracking accuracy
 - ✅ Triangulation consensus algorithms
@@ -189,7 +213,7 @@ All configuration is handled through environment variables as defined in `.env.e
 ```bash
 # Required for each provider you want to enable
 OPENAI_API_KEY=your_openai_key
-ANTHROPIC_API_KEY=your_anthropic_key  
+ANTHROPIC_API_KEY=your_anthropic_key
 XAI_API_KEY=your_xai_key
 
 # Optional: Logging configuration

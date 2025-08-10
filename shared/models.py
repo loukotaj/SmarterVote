@@ -108,7 +108,7 @@ class Summary(BaseModel):
     """AI-generated summary of content."""
 
     content: str
-    model: Literal["gpt-4o", "claude-3.5", "grok-4"]
+    model: Literal["gpt-4o", "claude-3.5", "grok-4", "gpt-4o-mini", "claude-3-haiku", "grok-3-mini"]
     confidence: ConfidenceLevel
     tokens_used: Optional[int] = None
     created_at: datetime
@@ -118,7 +118,7 @@ class Summary(BaseModel):
 class LLMResponse(BaseModel):
     """Response from a single LLM."""
 
-    model: Literal["gpt-4o", "claude-3.5", "grok-4"]
+    model: Literal["gpt-4o", "claude-3.5", "grok-4", "gpt-4o-mini", "claude-3-haiku", "grok-3-mini"]
     content: str
     tokens_used: Optional[int] = None
     created_at: datetime
