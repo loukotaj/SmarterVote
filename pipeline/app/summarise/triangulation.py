@@ -58,9 +58,7 @@ class SummaryTriangulator:
             "overall_confidence": overall_confidence,
             "provider_count": len(summaries),
             "provider_agreement": provider_agreement,
-            "confidence_distribution": {
-                conf.value: len(summaries_list) for conf, summaries_list in confidence_groups.items()
-            },
+            "confidence_distribution": {conf.value: len(summaries_list) for conf, summaries_list in confidence_groups.items()},
             "source_summaries": [
                 {
                     "provider": summary.generator,

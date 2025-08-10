@@ -238,18 +238,16 @@ class LLMSummarizationEngine:
     def triangulate_summaries(self, summaries: List[Summary]) -> Optional[Dict[str, Any]]:
         """
         Delegate to triangulator for backward compatibility.
-        
+
         Args:
             summaries: List of summaries to triangulate
-            
+
         Returns:
             Triangulation result or None if insufficient data
         """
         return self.triangulator.triangulate_summaries(summaries)
 
-    async def _generate_race_summary_with_providers(
-        self, race_id: str, content: List[ExtractedContent]
-    ) -> List[Summary]:
+    async def _generate_race_summary_with_providers(self, race_id: str, content: List[ExtractedContent]) -> List[Summary]:
         """Generate race summaries using multiple providers."""
         return await self._generate_race_summary(race_id, content)
 
@@ -259,9 +257,7 @@ class LLMSummarizationEngine:
         """Generate candidate summaries using multiple providers."""
         return await self._generate_candidate_summaries(race_id, content)
 
-    async def _generate_issue_summaries_with_providers(
-        self, race_id: str, content: List[ExtractedContent]
-    ) -> List[Summary]:
+    async def _generate_issue_summaries_with_providers(self, race_id: str, content: List[ExtractedContent]) -> List[Summary]:
         """Generate issue summaries using multiple providers."""
         return await self._generate_issue_summaries(race_id, content)
 
@@ -284,14 +280,12 @@ class LLMSummarizationEngine:
         """Generate race overview summaries."""
         race_content = self.content_processor.filter_content_for_race(content)
         prompt_template = self.prompts["race_summary"]
-        return await self._generate_summaries_for_prompt(
-            race_id, race_content, prompt_template, "race_summary"
-        )
+        return await self._generate_summaries_for_prompt(race_id, race_content, prompt_template, "race_summary")
 
     async def _generate_candidate_summaries(self, race_id: str, content: List[ExtractedContent]) -> List[Summary]:
         """Generate candidate profile summaries."""
         candidates = self.content_processor.extract_candidates_from_content(content)
-        
+
         if not candidates:
             logger.warning(f"No candidates found in content for race {race_id}")
             return []
@@ -299,18 +293,14 @@ class LLMSummarizationEngine:
         # For now, generate summaries for all candidates together
         # TODO: Generate individual candidate summaries
         prompt_template = self.prompts["candidate_summary"]
-        return await self._generate_summaries_for_prompt(
-            race_id, content, prompt_template, "candidate_summary"
-        )
+        return await self._generate_summaries_for_prompt(race_id, content, prompt_template, "candidate_summary")
 
     async def _generate_issue_summaries(self, race_id: str, content: List[ExtractedContent]) -> List[Summary]:
         """Generate issue-specific summaries."""
         # Generate summaries for key canonical issues
         # TODO: Dynamically determine relevant issues from content
         prompt_template = self.prompts["issue_summary"]
-        return await self._generate_summaries_for_prompt(
-            race_id, content, prompt_template, "issue_summary"
-        )
+        return await self._generate_summaries_for_prompt(race_id, content, prompt_template, "issue_summary")
 
     async def _generate_summaries_for_prompt(
         self,
@@ -333,16 +323,16 @@ class LLMSummarizationEngine:
         - Response quality validation and filtering
         """
         enabled_models = registry.get_enabled_models(TaskType.SUMMARIZE)
-        
+
         if not enabled_models:
             logger.error("No enabled models available for summarization")
             return []
 
         # Prepare content for summarization
         formatted_content = self.content_processor.prepare_content_for_summarization(content, race_id)
-        
+
         summaries = []
-        
+
         # Generate summaries with available providers
         for model in enabled_models[:3]:  # Limit to 3 providers for triangulation
             try:
@@ -366,7 +356,7 @@ class LLMSummarizationEngine:
         try:
             # Format the prompt with content
             formatted_prompt = prompt_template.format(race_id=race_id, content=content)
-            
+
             # Get provider instance
             provider = registry.get_provider(model.provider)
             if not provider:
@@ -374,9 +364,7 @@ class LLMSummarizationEngine:
                 return None
 
             # Generate summary
-            result: SummaryOutput = await provider.generate_summary(
-                model.model_id, formatted_prompt, max_tokens=2000
-            )
+            result: SummaryOutput = await provider.generate_summary(model.model_id, formatted_prompt, max_tokens=2000)
 
             if not result or not result.summary:
                 logger.warning(f"Empty result from {model.provider}")
@@ -384,7 +372,7 @@ class LLMSummarizationEngine:
 
             # Parse confidence from response
             confidence = self.content_processor.parse_ai_confidence(result.summary)
-            
+
             # Extract sources
             sources = self.content_processor.extract_cited_sources(result.summary, [])
 

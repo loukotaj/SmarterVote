@@ -177,7 +177,7 @@ class SourceDiscoveryEngine:
 
         # Search for each issue in parallel (with concurrency limit)
         semaphore = asyncio.Semaphore(3)  # Limit concurrent searches
-        
+
         async def search_issue(issue: CanonicalIssue) -> List[Source]:
             async with semaphore:
                 try:
@@ -197,7 +197,7 @@ class SourceDiscoveryEngine:
             if isinstance(result, Exception):
                 logger.error(f"Search failed for {issue.value}: {result}")
                 continue
-            
+
             if isinstance(result, list):
                 all_sources.extend(result)
                 logger.info(f"Found {len(result)} sources for {issue.value}")

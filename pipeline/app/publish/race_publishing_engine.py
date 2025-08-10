@@ -253,16 +253,13 @@ class RacePublishingEngine:
         """Determine publication targets based on environment."""
         # Default targets for development/testing
         default_targets = [PublicationTarget.LOCAL_FILE]
-        
+
         # Add cloud targets in production environment
         import os
+
         if os.getenv("ENVIRONMENT", "development") == "production":
-            default_targets.extend([
-                PublicationTarget.CLOUD_STORAGE,
-                PublicationTarget.DATABASE,
-                PublicationTarget.PUBSUB
-            ])
-        
+            default_targets.extend([PublicationTarget.CLOUD_STORAGE, PublicationTarget.DATABASE, PublicationTarget.PUBSUB])
+
         return default_targets
 
     def get_publication_history(self, race_id: Optional[str] = None) -> List[PublicationResult]:
@@ -316,7 +313,7 @@ class RacePublishingEngine:
         - Add data freshness indicators and timestamps
         """
         race_file = self.config.output_directory / f"{race_id}.json"
-        
+
         if race_file.exists():
             try:
                 with open(race_file, "r", encoding="utf-8") as f:
@@ -324,5 +321,5 @@ class RacePublishingEngine:
             except Exception as e:
                 logger.error(f"Failed to load race data for {race_id}: {e}")
                 return None
-        
+
         return None
