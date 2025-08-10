@@ -20,39 +20,83 @@ TODO: Implement the following features:
 
 import asyncio
 import logging
+import os
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 
-from ..schema import CanonicalIssue, ConfidenceLevel, ExtractedContent, LLMResponse, Summary
+import httpx
+from dotenv import load_dotenv
+
+from ..schema import (
+    ConfidenceLevel,
+    ExtractedContent,
+    LLMResponse,
+    Summary,
+)
+
+# Load environment variables
+load_dotenv()
 
 logger = logging.getLogger(__name__)
+
+
+class LLMAPIError(Exception):
+    """Custom exception for LLM API errors."""
+
+    def __init__(self, provider: str, message: str, status_code: Optional[int] = None):
+        self.provider = provider
+        self.status_code = status_code
+        super().__init__(f"{provider} API Error: {message}")
+
+
+class RateLimitError(LLMAPIError):
+    """Exception for rate limiting errors."""
+
+    def __init__(self, provider: str, retry_after: Optional[int] = None):
+        self.retry_after = retry_after
+        message = "Rate limit exceeded"
+        if retry_after:
+            message += f", retry after {retry_after}s"
+        super().__init__(provider, message, 429)
 
 
 class LLMSummarizationEngine:
     """Engine for generating AI summaries using multiple LLM providers."""
 
     def __init__(self):
+        # Load API keys from environment
+        self.openai_api_key = os.getenv("OPENAI_API_KEY")
+        self.anthropic_api_key = os.getenv("ANTHROPIC_API_KEY")
+        self.xai_api_key = os.getenv("XAI_API_KEY")
+
+        # Validate that at least one API key is available
+        if not any([self.openai_api_key, self.anthropic_api_key, self.xai_api_key]):
+            logger.warning("No LLM API keys found in environment. Set OPENAI_API_KEY, " "ANTHROPIC_API_KEY, or XAI_API_KEY")
+
         self.models = {
             "openai": {
                 "model": "gpt-4o",
-                "api_key": None,  # TODO: Load from environment
+                "api_key": self.openai_api_key,
                 "base_url": "https://api.openai.com/v1",
                 "max_tokens": 4000,
                 "temperature": 0.1,  # Low temperature for factual content
+                "enabled": bool(self.openai_api_key),
             },
             "anthropic": {
-                "model": "claude-3.5-sonnet",
-                "api_key": None,  # TODO: Load from environment
+                "model": "claude-3-5-sonnet-20241022",
+                "api_key": self.anthropic_api_key,
                 "base_url": "https://api.anthropic.com/v1",
                 "max_tokens": 4000,
                 "temperature": 0.1,
+                "enabled": bool(self.anthropic_api_key),
             },
             "xai": {
-                "model": "grok-4",
-                "api_key": None,  # TODO: Load from environment
+                "model": "grok-beta",
+                "api_key": self.xai_api_key,
                 "base_url": "https://api.x.ai/v1",
                 "max_tokens": 4000,
                 "temperature": 0.1,
+                "enabled": bool(self.xai_api_key),
             },
         }
 
@@ -62,6 +106,86 @@ class LLMSummarizationEngine:
             "issue_stance": self._get_issue_stance_prompt(),
             "general_summary": self._get_general_summary_prompt(),
         }
+
+        # HTTP client for API calls
+        self.http_client = httpx.AsyncClient(timeout=30.0)
+
+        # Track API usage statistics
+        self.api_stats = {
+            "total_calls": 0,
+            "successful_calls": 0,
+            "failed_calls": 0,
+            "total_tokens": 0,
+            "provider_stats": {provider: {"calls": 0, "tokens": 0, "errors": 0} for provider in self.models.keys()},
+        }
+
+    async def __aenter__(self):
+        """Async context manager entry."""
+        return self
+
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        """Async context manager exit."""
+        await self.close()
+
+    async def close(self):
+        """Close the HTTP client."""
+        if hasattr(self, "http_client"):
+            await self.http_client.aclose()
+
+    def get_api_statistics(self) -> Dict[str, Any]:
+        """Get API usage statistics."""
+        return self.api_stats.copy()
+
+    def validate_configuration(self) -> Dict[str, Any]:
+        """
+        Validate the current configuration and return status report.
+
+        Returns:
+            Dict with validation results
+        """
+        validation_result = {
+            "valid": True,
+            "enabled_providers": [],
+            "disabled_providers": [],
+            "warnings": [],
+            "errors": [],
+        }
+
+        for provider, config in self.models.items():
+            if config.get("enabled"):
+                validation_result["enabled_providers"].append(provider)
+
+                # Check API key format (basic validation)
+                api_key = config.get("api_key")
+                if not api_key:
+                    validation_result["errors"].append(f"{provider}: API key is None")
+                    validation_result["valid"] = False
+                elif len(api_key) < 10:
+                    validation_result["warnings"].append(f"{provider}: API key appears too short")
+
+            else:
+                validation_result["disabled_providers"].append(provider)
+
+        if not validation_result["enabled_providers"]:
+            validation_result["errors"].append("No LLM providers are enabled")
+            validation_result["valid"] = False
+        elif len(validation_result["enabled_providers"]) == 1:
+            validation_result["warnings"].append("Only one provider enabled - triangulation requires 2+ providers")
+
+        return validation_result
+
+    def _update_stats(self, provider: str, success: bool, tokens_used: int = 0):
+        """Update API usage statistics."""
+        self.api_stats["total_calls"] += 1
+        if success:
+            self.api_stats["successful_calls"] += 1
+            self.api_stats["total_tokens"] += tokens_used
+            self.api_stats["provider_stats"][provider]["tokens"] += tokens_used
+        else:
+            self.api_stats["failed_calls"] += 1
+            self.api_stats["provider_stats"][provider]["errors"] += 1
+
+        self.api_stats["provider_stats"][provider]["calls"] += 1
 
     async def generate_summaries(
         self,
@@ -97,9 +221,17 @@ class LLMSummarizationEngine:
         # Get appropriate prompt template
         prompt_template = self.prompts.get(task_type, self.prompts["general_summary"])
 
-        # Generate summaries from all three LLMs
+        # Generate summaries from available LLMs
         tasks = []
-        for provider, config in self.models.items():
+        enabled_models = {k: v for k, v in self.models.items() if v.get("enabled", False)}
+
+        if not enabled_models:
+            logger.error("No LLM providers are enabled. Check API key configuration.")
+            return []
+
+        logger.info(f"Using {len(enabled_models)} enabled LLM providers: {list(enabled_models.keys())}")
+
+        for provider, config in enabled_models.items():
             task = self._generate_single_summary(provider, config, prompt_template, prepared_content, race_id)
             tasks.append(task)
 
@@ -121,6 +253,50 @@ class LLMSummarizationEngine:
         except Exception as e:
             logger.error(f"Failed to generate summaries: {e}")
             return []
+
+    def triangulate_summaries(self, summaries: List[Summary]) -> Optional[Dict[str, Any]]:
+        """
+        Triangulate multiple LLM summaries to create consensus analysis.
+
+        Args:
+            summaries: List of summaries from different LLMs
+
+        Returns:
+            Dict with triangulation results or None if insufficient data
+        """
+        if len(summaries) < 2:
+            logger.warning("Need at least 2 summaries for triangulation")
+            return None
+
+        # Analyze agreement patterns
+        high_confidence_summaries = [s for s in summaries if s.confidence == ConfidenceLevel.HIGH]
+        medium_confidence_summaries = [s for s in summaries if s.confidence == ConfidenceLevel.MEDIUM]
+
+        # Determine consensus confidence
+        if len(high_confidence_summaries) >= 2:
+            consensus_confidence = ConfidenceLevel.HIGH
+            consensus_method = "2-of-3-high"
+        elif len(summaries) >= 3 and (len(high_confidence_summaries) + len(medium_confidence_summaries)) >= 2:
+            consensus_confidence = ConfidenceLevel.MEDIUM
+            consensus_method = "majority-medium"
+        else:
+            consensus_confidence = ConfidenceLevel.LOW
+            consensus_method = "minority-view"
+
+        # Calculate average tokens used
+        total_tokens = sum(s.tokens_used or 0 for s in summaries)
+
+        # Create triangulation result
+        return {
+            "consensus_confidence": consensus_confidence,
+            "consensus_method": consensus_method,
+            "total_summaries": len(summaries),
+            "high_confidence_count": len(high_confidence_summaries),
+            "medium_confidence_count": len(medium_confidence_summaries),
+            "total_tokens_used": total_tokens,
+            "models_used": [s.model for s in summaries],
+            "created_at": datetime.utcnow(),
+        }
 
     def _prepare_content_for_summarization(self, content: List[ExtractedContent], race_id: str) -> str:
         """
@@ -182,6 +358,9 @@ class LLMSummarizationEngine:
             else:
                 raise ValueError(f"Unknown provider: {provider}")
 
+            # Update success statistics
+            self._update_stats(provider, True, response.get("tokens_used", 0))
+
             # Create LLM response record
             llm_response = LLMResponse(
                 model=config["model"],
@@ -197,12 +376,17 @@ class LLMSummarizationEngine:
                 confidence=self._assess_confidence(response["content"]),
                 tokens_used=response.get("tokens_used"),
                 created_at=datetime.utcnow(),
-                source_ids=([item.source.url for item in content] if hasattr(content, "__iter__") else []),
+                source_ids=[race_id],  # Store race_id as source reference
             )
 
+            logger.debug(
+                f"Generated summary from {provider}: {len(response['content'])} chars, {response.get('tokens_used', 0)} tokens"
+            )
             return summary
 
         except Exception as e:
+            # Update failure statistics
+            self._update_stats(provider, False)
             logger.error(f"Failed to generate summary with {provider}: {e}")
             raise
 
@@ -210,66 +394,318 @@ class LLMSummarizationEngine:
         """
         Call OpenAI API.
 
-        TODO:
-        - [ ] Implement actual OpenAI API integration
-        - [ ] Add proper error handling and rate limiting
-        - [ ] Support for different model variants
-        """
-        # Placeholder implementation
-        await asyncio.sleep(1)  # Simulate API call delay
+        Args:
+            config: Model configuration with API key and parameters
+            prompt: The prompt to send to the model
 
-        return {
-            "content": f"[OpenAI GPT-4o Summary]\n\nThis is a placeholder summary generated for the provided content. The actual implementation would call the OpenAI API with the given prompt and return a comprehensive analysis of the electoral race content.\n\nKey points would include:\n- Candidate positions on major issues\n- Recent developments and news\n- Source credibility assessment\n- Factual claims verification",
-            "tokens_used": 150,
+        Returns:
+            Dict with 'content' and 'tokens_used' keys
+
+        Raises:
+            Exception: If API call fails after retries
+        """
+        if not config.get("api_key"):
+            raise ValueError("OpenAI API key not configured")
+
+        headers = {
+            "Authorization": f"Bearer {config['api_key']}",
+            "Content-Type": "application/json",
         }
+
+        payload = {
+            "model": config["model"],
+            "messages": [{"role": "user", "content": prompt}],
+            "max_tokens": config["max_tokens"],
+            "temperature": config["temperature"],
+        }
+
+        for attempt in range(3):  # Retry up to 3 times
+            try:
+                response = await self.http_client.post(
+                    f"{config['base_url']}/chat/completions",
+                    headers=headers,
+                    json=payload,
+                )
+                response.raise_for_status()
+
+                data = response.json()
+
+                if "choices" not in data or not data["choices"]:
+                    raise ValueError("No choices in OpenAI response")
+
+                content = data["choices"][0]["message"]["content"]
+                tokens_used = data.get("usage", {}).get("total_tokens", 0)
+
+                logger.debug(f"OpenAI API call successful. Tokens used: {tokens_used}")
+
+                return {
+                    "content": content,
+                    "tokens_used": tokens_used,
+                }
+
+            except httpx.HTTPStatusError as e:
+                if e.response.status_code == 429:  # Rate limit
+                    retry_after = e.response.headers.get("retry-after")
+                    wait_time = int(retry_after) if retry_after else (2**attempt)
+                    logger.warning(f"OpenAI rate limit hit. Retrying in {wait_time}s...")
+                    await asyncio.sleep(wait_time)
+                    continue
+                else:
+                    error_text = e.response.text if hasattr(e.response, "text") else str(e)
+                    raise LLMAPIError("OpenAI", f"HTTP {e.response.status_code}: {error_text}", e.response.status_code)
+
+            except Exception as e:
+                if attempt == 2:  # Last attempt
+                    if isinstance(e, LLMAPIError):
+                        raise
+                    raise LLMAPIError("OpenAI", f"Unexpected error: {str(e)}")
+                else:
+                    wait_time = 2**attempt
+                    logger.warning(f"OpenAI API call failed, retrying in {wait_time}s: {e}")
+                    await asyncio.sleep(wait_time)
+
+        raise LLMAPIError("OpenAI", "API call failed after all retries")
 
     async def _call_anthropic_api(self, config: Dict[str, Any], prompt: str) -> Dict[str, Any]:
         """
         Call Anthropic Claude API.
 
-        TODO:
-        - [ ] Implement actual Anthropic API integration
-        - [ ] Add proper error handling and rate limiting
-        - [ ] Support for different Claude model variants
-        """
-        # Placeholder implementation
-        await asyncio.sleep(1)  # Simulate API call delay
+        Args:
+            config: Model configuration with API key and parameters
+            prompt: The prompt to send to the model
 
-        return {
-            "content": f"[Anthropic Claude 3.5 Summary]\n\nThis is a placeholder summary from Claude 3.5. The actual implementation would provide a thorough analysis focusing on:\n- Balanced perspective on candidate positions\n- Critical evaluation of claims and sources\n- Identification of potential bias or missing information\n- Clear distinction between facts and opinions",
-            "tokens_used": 160,
+        Returns:
+            Dict with 'content' and 'tokens_used' keys
+
+        Raises:
+            Exception: If API call fails after retries
+        """
+        if not config.get("api_key"):
+            raise ValueError("Anthropic API key not configured")
+
+        headers = {
+            "x-api-key": config["api_key"],
+            "Content-Type": "application/json",
+            "anthropic-version": "2023-06-01",
         }
+
+        payload = {
+            "model": config["model"],
+            "max_tokens": config["max_tokens"],
+            "temperature": config["temperature"],
+            "messages": [{"role": "user", "content": prompt}],
+        }
+
+        for attempt in range(3):  # Retry up to 3 times
+            try:
+                response = await self.http_client.post(
+                    f"{config['base_url']}/messages",
+                    headers=headers,
+                    json=payload,
+                )
+                response.raise_for_status()
+
+                data = response.json()
+
+                if "content" not in data or not data["content"]:
+                    raise ValueError("No content in Anthropic response")
+
+                content = data["content"][0]["text"]
+                tokens_used = data.get("usage", {}).get("output_tokens", 0) + data.get("usage", {}).get("input_tokens", 0)
+
+                logger.debug(f"Anthropic API call successful. Tokens used: {tokens_used}")
+
+                return {
+                    "content": content,
+                    "tokens_used": tokens_used,
+                }
+
+            except httpx.HTTPStatusError as e:
+                if e.response.status_code == 429:  # Rate limit
+                    retry_after = e.response.headers.get("retry-after")
+                    wait_time = int(retry_after) if retry_after else (2**attempt)
+                    logger.warning(f"Anthropic rate limit hit. Retrying in {wait_time}s...")
+                    await asyncio.sleep(wait_time)
+                    continue
+                else:
+                    error_text = e.response.text if hasattr(e.response, "text") else str(e)
+                    raise LLMAPIError("Anthropic", f"HTTP {e.response.status_code}: {error_text}", e.response.status_code)
+
+            except Exception as e:
+                if attempt == 2:  # Last attempt
+                    if isinstance(e, LLMAPIError):
+                        raise
+                    raise LLMAPIError("Anthropic", f"Unexpected error: {str(e)}")
+                else:
+                    wait_time = 2**attempt
+                    logger.warning(f"Anthropic API call failed, retrying in {wait_time}s: {e}")
+                    await asyncio.sleep(wait_time)
+
+        raise LLMAPIError("Anthropic", "API call failed after all retries")
 
     async def _call_xai_api(self, config: Dict[str, Any], prompt: str) -> Dict[str, Any]:
         """
         Call xAI Grok API.
 
-        TODO:
-        - [ ] Implement actual xAI Grok API integration
-        - [ ] Add proper error handling and rate limiting
-        - [ ] Support for different Grok model variants
-        """
-        # Placeholder implementation
-        await asyncio.sleep(1)  # Simulate API call delay
+        Args:
+            config: Model configuration with API key and parameters
+            prompt: The prompt to send to the model
 
-        return {
-            "content": f"[xAI Grok Summary]\n\nThis is a placeholder summary from Grok. The actual implementation would offer:\n- Real-time analysis with current context\n- Detection of emerging trends and developments\n- Cross-reference with recent social media and news trends\n- Identification of key controversies or debates",
-            "tokens_used": 140,
+        Returns:
+            Dict with 'content' and 'tokens_used' keys
+
+        Raises:
+            Exception: If API call fails after retries
+        """
+        if not config.get("api_key"):
+            raise ValueError("xAI API key not configured")
+
+        headers = {
+            "Authorization": f"Bearer {config['api_key']}",
+            "Content-Type": "application/json",
         }
+
+        payload = {
+            "model": config["model"],
+            "messages": [{"role": "user", "content": prompt}],
+            "max_tokens": config["max_tokens"],
+            "temperature": config["temperature"],
+        }
+
+        for attempt in range(3):  # Retry up to 3 times
+            try:
+                response = await self.http_client.post(
+                    f"{config['base_url']}/chat/completions",
+                    headers=headers,
+                    json=payload,
+                )
+                response.raise_for_status()
+
+                data = response.json()
+
+                if "choices" not in data or not data["choices"]:
+                    raise ValueError("No choices in xAI response")
+
+                content = data["choices"][0]["message"]["content"]
+                tokens_used = data.get("usage", {}).get("total_tokens", 0)
+
+                logger.debug(f"xAI API call successful. Tokens used: {tokens_used}")
+
+                return {
+                    "content": content,
+                    "tokens_used": tokens_used,
+                }
+
+            except httpx.HTTPStatusError as e:
+                if e.response.status_code == 429:  # Rate limit
+                    retry_after = e.response.headers.get("retry-after")
+                    wait_time = int(retry_after) if retry_after else (2**attempt)
+                    logger.warning(f"xAI rate limit hit. Retrying in {wait_time}s...")
+                    await asyncio.sleep(wait_time)
+                    continue
+                else:
+                    error_text = e.response.text if hasattr(e.response, "text") else str(e)
+                    raise LLMAPIError("xAI", f"HTTP {e.response.status_code}: {error_text}", e.response.status_code)
+
+            except Exception as e:
+                if attempt == 2:  # Last attempt
+                    if isinstance(e, LLMAPIError):
+                        raise
+                    raise LLMAPIError("xAI", f"Unexpected error: {str(e)}")
+                else:
+                    wait_time = 2**attempt
+                    logger.warning(f"xAI API call failed, retrying in {wait_time}s: {e}")
+                    await asyncio.sleep(wait_time)
+
+        raise LLMAPIError("xAI", "API call failed after all retries")
 
     def _assess_confidence(self, content: str) -> ConfidenceLevel:
         """
-        Assess the confidence level of a summary.
+        Assess the confidence level of a summary based on content quality indicators.
 
-        TODO:
-        - [ ] Implement sophisticated confidence scoring
-        - [ ] Add fact-checking integration
-        - [ ] Consider source quality and diversity
-        - [ ] Add uncertainty detection in the generated text
+        Args:
+            content: The generated summary content
+
+        Returns:
+            ConfidenceLevel: HIGH, MEDIUM, LOW, or UNKNOWN
         """
-        # Simple heuristic for now
-        if len(content) > 200 and "placeholder" not in content.lower():
+        if not content or len(content.strip()) < 50:
+            return ConfidenceLevel.UNKNOWN
+
+        # Convert to lowercase for analysis
+        content_lower = content.lower()
+
+        # High confidence indicators
+        high_confidence_indicators = [
+            "according to",
+            "based on",
+            "evidence shows",
+            "data indicates",
+            "research suggests",
+            "studies show",
+            "confirmed by",
+            "verified",
+            "documented",
+            "official",
+            "endorsed by",
+        ]
+
+        # Low confidence indicators
+        low_confidence_indicators = [
+            "placeholder",
+            "unclear",
+            "uncertain",
+            "might",
+            "possibly",
+            "potentially",
+            "appears to",
+            "seems to",
+            "allegedly",
+            "reportedly",
+            "rumored",
+            "unverified",
+            "unconfirmed",
+        ]
+
+        # Medium confidence indicators
+        medium_confidence_indicators = [
+            "likely",
+            "probably",
+            "suggests",
+            "indicates",
+            "implies",
+            "generally",
+            "typically",
+            "tends to",
+            "expected",
+        ]
+
+        # Count indicators
+        high_count = sum(1 for indicator in high_confidence_indicators if indicator in content_lower)
+        low_count = sum(1 for indicator in low_confidence_indicators if indicator in content_lower)
+        medium_count = sum(1 for indicator in medium_confidence_indicators if indicator in content_lower)
+
+        # Check for specific patterns that indicate low confidence
+        if any(pattern in content_lower for pattern in ["placeholder", "todo", "not implemented"]):
+            return ConfidenceLevel.LOW
+
+        # Assess content length and structure
+        word_count = len(content.split())
+        sentence_count = len([s for s in content.split(".") if s.strip()])
+
+        # Quality indicators
+        has_good_structure = sentence_count >= 3 and word_count >= 100
+        has_specific_details = any(char.isdigit() for char in content)  # Contains numbers/dates
+
+        # Decision logic
+        if high_count >= 2 and low_count == 0 and has_good_structure:
             return ConfidenceLevel.HIGH
+        elif low_count >= 2 or not has_good_structure:
+            return ConfidenceLevel.LOW
+        elif medium_count >= 1 or has_specific_details:
+            return ConfidenceLevel.MEDIUM
+        elif word_count >= 200 and sentence_count >= 5:
+            return ConfidenceLevel.MEDIUM
         else:
             return ConfidenceLevel.LOW
 
