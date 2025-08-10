@@ -28,7 +28,7 @@ textstat==0.7.3
 
 # AI and ML
 openai==1.3.7
-anthropic==0.7.7
+anthropic>=0.40.0
 chromadb==1.0.16
 sentence-transformers==3.0.1
 huggingface_hub==0.24.7

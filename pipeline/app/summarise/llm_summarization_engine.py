@@ -10,16 +10,9 @@ Uses the new provider registry system for easy model switching and registration.
 
 import asyncio
 import logging
-import os
+import re
 from datetime import datetime
 from typing import Any, Dict, List, Optional
-
-try:
-    import httpx
-
-    HTTPX_AVAILABLE = True
-except ImportError:
-    HTTPX_AVAILABLE = False
 
 try:
     from dotenv import load_dotenv
@@ -140,12 +133,7 @@ class LLMSummarizationEngine:
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):
         """Async context manager exit."""
-        await self.close()
-
-    async def close(self):
-        """Close the HTTP client."""
-        if hasattr(self, "http_client") and self.http_client is not None:
-            await self.http_client.aclose()
+        pass
 
     def get_api_statistics(self) -> Dict[str, Any]:
         """Get API usage statistics."""
@@ -540,7 +528,7 @@ class LLMSummarizationEngine:
 
         prompt_template = self.prompts.get("race_summary", self.prompts["general_summary"])
 
-        return await self._generate_summaries_for_prompt(prompt_template, prepared_content, race_id)
+        return await self._generate_summaries_for_prompt(prompt_template, prepared_content, race_id, race_content)
 
     async def _generate_candidate_summaries(self, race_id: str, content: List[ExtractedContent]) -> List[Summary]:
         """Generate individual candidate summaries."""
@@ -564,7 +552,9 @@ class LLMSummarizationEngine:
                 # Customize prompt with candidate name
                 candidate_prompt = prompt_template.replace("{candidate_name}", candidate_name)
 
-                summaries = await self._generate_summaries_for_prompt(candidate_prompt, prepared_content, race_id)
+                summaries = await self._generate_summaries_for_prompt(
+                    candidate_prompt, prepared_content, race_id, candidate_content
+                )
                 candidate_summaries.extend(summaries)
 
         return candidate_summaries
@@ -591,22 +581,37 @@ class LLMSummarizationEngine:
                 # Customize prompt with issue
                 issue_prompt = prompt_template.replace("{issue_name}", issue.value)
 
-                summaries = await self._generate_summaries_for_prompt(issue_prompt, prepared_content, race_id)
+                summaries = await self._generate_summaries_for_prompt(issue_prompt, prepared_content, race_id, issue_content)
                 issue_summaries.extend(summaries)
 
         return issue_summaries
 
-    async def _generate_summaries_for_prompt(self, prompt_template: str, prepared_content: str, race_id: str) -> List[Summary]:
-        """Generate summaries from all enabled LLMs for a given prompt."""
-        tasks = []
-        enabled_models = {k: v for k, v in self.models.items() if v.get("enabled", False)}
+    async def _generate_summaries_for_prompt(
+        self, prompt_template: str, prepared_content: str, race_id: str, original_content: List[ExtractedContent] = None
+    ) -> List[Summary]:
+        """Generate summaries from all enabled LLMs for a given prompt using provider registry."""
+        if original_content is None:
+            original_content = []
 
-        if not enabled_models:
+        # Extract source URLs for context
+        context_sources = [
+            str(item.source.url)
+            for item in original_content
+            if hasattr(item, "source") and item.source and hasattr(item.source, "url")
+        ]
+
+        # Get triangulation models for summarization
+        model_pairs = registry.get_triangulation_models(TaskType.SUMMARIZE)
+
+        if not model_pairs:
             logger.warning("No LLM providers are enabled. Check API key configuration.")
             return []
 
-        for provider, config in enabled_models.items():
-            task = self._generate_single_summary(provider, config, prompt_template, prepared_content, race_id)
+        tasks = []
+        for provider, model_config in model_pairs:
+            task = self._generate_single_summary_with_provider(
+                provider, model_config, prompt_template, prepared_content, race_id, original_content, context_sources
+            )
             tasks.append(task)
 
         try:
@@ -616,8 +621,8 @@ class LLMSummarizationEngine:
             successful_summaries = []
             for i, summary in enumerate(summaries):
                 if isinstance(summary, Exception):
-                    provider = list(enabled_models.keys())[i]
-                    logger.warning(f"Summary generation failed for {provider}: {summary}")
+                    provider_name = model_pairs[i][0].name if i < len(model_pairs) else "unknown"
+                    logger.warning(f"Summary generation failed for {provider_name}: {summary}")
                 else:
                     successful_summaries.append(summary)
 
@@ -742,295 +747,59 @@ Content for Analysis:
 
         return header
 
-    async def _generate_single_summary(
+    async def _generate_single_summary_with_provider(
         self,
-        provider: str,
-        config: Dict[str, Any],
+        provider,
+        model_config,
         prompt_template: str,
         content: str,
         race_id: str,
         original_content: List[ExtractedContent],
+        context_sources: List[str],
     ) -> Summary:
         """
-        Generate a summary using a single LLM provider.
-
-        TODO:
-        - [ ] Implement actual API calls for each provider
-        - [ ] Add retry logic with exponential backoff
-        - [ ] Implement token counting and cost tracking
-        - [ ] Add response validation and quality checks
+        Generate a summary using the provider registry system.
         """
-        logger.debug(f"Generating summary using {provider}")
+        logger.debug(f"Generating summary using {provider.name}/{model_config.model_id}")
 
         # Construct full prompt
         full_prompt = prompt_template.format(race_id=race_id, content=content)
 
         try:
-            # TODO: Replace with actual API calls
-            if provider == "openai":
-                response = await self._call_openai_api(config, full_prompt)
-            elif provider == "anthropic":
-                response = await self._call_anthropic_api(config, full_prompt)
-            elif provider == "xai":
-                response = await self._call_xai_api(config, full_prompt)
-            else:
-                raise ValueError(f"Unknown provider: {provider}")
+            # Use provider registry to generate summary
+            summary_output = await provider.generate_summary(full_prompt, model_config, context_sources)
 
             # Update success statistics
-            self._update_stats(provider, True, response.get("tokens_used", 0))
+            self._update_stats(provider.name, True, summary_output.tokens_used or 0)
 
             # Create summary with AI-generated confidence and extracted sources
-            ai_confidence = self._parse_ai_confidence(response["content"])
-            cited_sources = self._extract_cited_sources(response["content"], original_content)
+            ai_confidence = self._map_confidence_to_enum(summary_output.confidence)
+            cited_sources = self._extract_cited_sources(summary_output.content, original_content)
 
             summary = Summary(
-                content=response["content"],
-                model=self._get_display_model_name(config["model"]),
+                content=summary_output.content,
+                model=self._get_display_model_name(model_config.model_id),
                 confidence=ai_confidence,
-                tokens_used=response.get("tokens_used"),
+                tokens_used=summary_output.tokens_used,
                 created_at=datetime.utcnow(),
-                source_ids=cited_sources,  # Use extracted source IDs
+                source_ids=cited_sources,
+                metadata={
+                    "model_provider": summary_output.model_provider,
+                    "sources_used": summary_output.sources,
+                    "reasoning": summary_output.reasoning,
+                },
             )
 
             logger.debug(
-                f"Generated summary from {provider}: {len(response['content'])} chars, {response.get('tokens_used', 0)} tokens"
+                f"Generated summary from {provider.name}: {len(summary_output.content)} chars, {summary_output.tokens_used or 0} tokens"
             )
             return summary
 
         except Exception as e:
             # Update failure statistics
-            self._update_stats(provider, False)
-            logger.error(f"Failed to generate summary with {provider}: {e}")
+            self._update_stats(provider.name, False)
+            logger.error(f"Failed to generate summary with {provider.name}: {e}")
             raise
-
-    async def _call_openai_api(self, config: Dict[str, Any], prompt: str) -> Dict[str, Any]:
-        """
-        Call OpenAI API.
-
-        Args:
-            config: Model configuration with API key and parameters
-            prompt: The prompt to send to the model
-
-        Returns:
-            Dict with 'content' and 'tokens_used' keys
-
-        Raises:
-            Exception: If API call fails after retries
-        """
-        if not config.get("api_key"):
-            raise ValueError("OpenAI API key not configured")
-
-        headers = {
-            "Authorization": f"Bearer {config['api_key']}",
-            "Content-Type": "application/json",
-        }
-
-        payload = {
-            "model": config["model"],
-            "messages": [{"role": "user", "content": prompt}],
-            "max_tokens": config["max_tokens"],
-            "temperature": config["temperature"],
-        }
-
-        for attempt in range(3):  # Retry up to 3 times
-            try:
-                response = await self.http_client.post(
-                    f"{config['base_url']}/chat/completions",
-                    headers=headers,
-                    json=payload,
-                )
-                response.raise_for_status()
-
-                data = response.json()
-
-                if "choices" not in data or not data["choices"]:
-                    raise ValueError("No choices in OpenAI response")
-
-                content = data["choices"][0]["message"]["content"]
-                tokens_used = data.get("usage", {}).get("total_tokens", 0)
-
-                logger.debug(f"OpenAI API call successful. Tokens used: {tokens_used}")
-
-                return {
-                    "content": content,
-                    "tokens_used": tokens_used,
-                }
-
-            except httpx.HTTPStatusError as e:
-                if e.response.status_code == 429:  # Rate limit
-                    retry_after = e.response.headers.get("retry-after")
-                    wait_time = int(retry_after) if retry_after else (2**attempt)
-                    logger.warning(f"OpenAI rate limit hit. Retrying in {wait_time}s...")
-                    await asyncio.sleep(wait_time)
-                    continue
-                else:
-                    error_text = e.response.text if hasattr(e.response, "text") else str(e)
-                    raise LLMAPIError("OpenAI", f"HTTP {e.response.status_code}: {error_text}", e.response.status_code)
-
-            except Exception as e:
-                if attempt == 2:  # Last attempt
-                    if isinstance(e, LLMAPIError):
-                        raise
-                    raise LLMAPIError("OpenAI", f"Unexpected error: {str(e)}")
-                else:
-                    wait_time = 2**attempt
-                    logger.warning(f"OpenAI API call failed, retrying in {wait_time}s: {e}")
-                    await asyncio.sleep(wait_time)
-
-        raise LLMAPIError("OpenAI", "API call failed after all retries")
-
-    async def _call_anthropic_api(self, config: Dict[str, Any], prompt: str) -> Dict[str, Any]:
-        """
-        Call Anthropic Claude API.
-
-        Args:
-            config: Model configuration with API key and parameters
-            prompt: The prompt to send to the model
-
-        Returns:
-            Dict with 'content' and 'tokens_used' keys
-
-        Raises:
-            Exception: If API call fails after retries
-        """
-        if not config.get("api_key"):
-            raise ValueError("Anthropic API key not configured")
-
-        headers = {
-            "x-api-key": config["api_key"],
-            "Content-Type": "application/json",
-            "anthropic-version": "2023-06-01",
-        }
-
-        payload = {
-            "model": config["model"],
-            "max_tokens": config["max_tokens"],
-            "temperature": config["temperature"],
-            "messages": [{"role": "user", "content": prompt}],
-        }
-
-        for attempt in range(3):  # Retry up to 3 times
-            try:
-                response = await self.http_client.post(
-                    f"{config['base_url']}/messages",
-                    headers=headers,
-                    json=payload,
-                )
-                response.raise_for_status()
-
-                data = response.json()
-
-                if "content" not in data or not data["content"]:
-                    raise ValueError("No content in Anthropic response")
-
-                content = data["content"][0]["text"]
-                tokens_used = data.get("usage", {}).get("output_tokens", 0) + data.get("usage", {}).get("input_tokens", 0)
-
-                logger.debug(f"Anthropic API call successful. Tokens used: {tokens_used}")
-
-                return {
-                    "content": content,
-                    "tokens_used": tokens_used,
-                }
-
-            except httpx.HTTPStatusError as e:
-                if e.response.status_code == 429:  # Rate limit
-                    retry_after = e.response.headers.get("retry-after")
-                    wait_time = int(retry_after) if retry_after else (2**attempt)
-                    logger.warning(f"Anthropic rate limit hit. Retrying in {wait_time}s...")
-                    await asyncio.sleep(wait_time)
-                    continue
-                else:
-                    error_text = e.response.text if hasattr(e.response, "text") else str(e)
-                    raise LLMAPIError("Anthropic", f"HTTP {e.response.status_code}: {error_text}", e.response.status_code)
-
-            except Exception as e:
-                if attempt == 2:  # Last attempt
-                    if isinstance(e, LLMAPIError):
-                        raise
-                    raise LLMAPIError("Anthropic", f"Unexpected error: {str(e)}")
-                else:
-                    wait_time = 2**attempt
-                    logger.warning(f"Anthropic API call failed, retrying in {wait_time}s: {e}")
-                    await asyncio.sleep(wait_time)
-
-        raise LLMAPIError("Anthropic", "API call failed after all retries")
-
-    async def _call_xai_api(self, config: Dict[str, Any], prompt: str) -> Dict[str, Any]:
-        """
-        Call xAI Grok API.
-
-        Args:
-            config: Model configuration with API key and parameters
-            prompt: The prompt to send to the model
-
-        Returns:
-            Dict with 'content' and 'tokens_used' keys
-
-        Raises:
-            Exception: If API call fails after retries
-        """
-        if not config.get("api_key"):
-            raise ValueError("xAI API key not configured")
-
-        headers = {
-            "Authorization": f"Bearer {config['api_key']}",
-            "Content-Type": "application/json",
-        }
-
-        payload = {
-            "model": config["model"],
-            "messages": [{"role": "user", "content": prompt}],
-            "max_tokens": config["max_tokens"],
-            "temperature": config["temperature"],
-        }
-
-        for attempt in range(3):  # Retry up to 3 times
-            try:
-                response = await self.http_client.post(
-                    f"{config['base_url']}/chat/completions",
-                    headers=headers,
-                    json=payload,
-                )
-                response.raise_for_status()
-
-                data = response.json()
-
-                if "choices" not in data or not data["choices"]:
-                    raise ValueError("No choices in xAI response")
-
-                content = data["choices"][0]["message"]["content"]
-                tokens_used = data.get("usage", {}).get("total_tokens", 0)
-
-                logger.debug(f"xAI API call successful. Tokens used: {tokens_used}")
-
-                return {
-                    "content": content,
-                    "tokens_used": tokens_used,
-                }
-
-            except httpx.HTTPStatusError as e:
-                if e.response.status_code == 429:  # Rate limit
-                    retry_after = e.response.headers.get("retry-after")
-                    wait_time = int(retry_after) if retry_after else (2**attempt)
-                    logger.warning(f"xAI rate limit hit. Retrying in {wait_time}s...")
-                    await asyncio.sleep(wait_time)
-                    continue
-                else:
-                    error_text = e.response.text if hasattr(e.response, "text") else str(e)
-                    raise LLMAPIError("xAI", f"HTTP {e.response.status_code}: {error_text}", e.response.status_code)
-
-            except Exception as e:
-                if attempt == 2:  # Last attempt
-                    if isinstance(e, LLMAPIError):
-                        raise
-                    raise LLMAPIError("xAI", f"Unexpected error: {str(e)}")
-                else:
-                    wait_time = 2**attempt
-                    logger.warning(f"xAI API call failed, retrying in {wait_time}s: {e}")
-                    await asyncio.sleep(wait_time)
-
-        raise LLMAPIError("xAI", "API call failed after all retries")
 
     def _parse_ai_confidence(self, content: str) -> ConfidenceLevel:
         """
