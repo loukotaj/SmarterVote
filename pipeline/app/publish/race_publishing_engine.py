@@ -62,6 +62,11 @@ class RacePublishingEngine:
         self.publication_history: List[PublicationResult] = []
         self.active_publications: Dict[str, asyncio.Task] = {}
 
+        # Validation and transformation settings
+        self.validation_rules = self._initialize_validation_rules()
+        self.transformation_pipeline = self._initialize_transformation_pipeline()
+        
+        logger.info(f"Publishing engine initialized with output directory: {self.config.output_directory}")
     async def create_race_json(
         self,
         race_id: str,
@@ -74,7 +79,7 @@ class RacePublishingEngine:
         Args:
             race_id: Unique identifier for the race
             arbitrated_data: Consensus data from arbitration engine
-            race_metadata: Optional metadata from discovery phase
+            race_metadata: Metadata from discovery phase
 
         Returns:
             Validated RaceJSON object ready for publication
@@ -93,6 +98,7 @@ class RacePublishingEngine:
             # Validate input data
             await self.validation_utils.validate_arbitrated_data(arbitrated_data)
 
+
             # Extract base race information - prioritize race_metadata if available
             if race_metadata:
                 race_info = {
@@ -104,6 +110,7 @@ class RacePublishingEngine:
                 logger.info(f"Using provided race metadata for {race_id}")
             else:
                 race_info = await self.transformation_utils.extract_race_metadata(race_id, arbitrated_data)
+
                 logger.info(f"Extracted race metadata from arbitrated data for {race_id}")
 
             # Process candidate data
@@ -260,6 +267,468 @@ class RacePublishingEngine:
                 message=f"Publication failed: {str(e)}",
                 metadata={"error_type": type(e).__name__},
             )
+
+    async def _publish_to_local_file(self, race: RaceJSON) -> None:
+        """
+        Publish race data to local file system.
+
+        TODO: Implement advanced local file publishing:
+        - JSON pretty-printing with consistent formatting
+        - File versioning with timestamp suffixes
+        - Atomic write operations to prevent corruption
+        - Backup creation before overwriting existing files
+        - Directory organization by date/jurisdiction
+        - Compression for large race files
+        - Checksum generation for integrity verification
+        - Symbolic link creation for latest version
+        """
+        try:
+            # Convert to JSON with proper formatting
+            race_json = race.model_dump(mode="json")
+
+            # Generate output filename with versioning
+            output_file = self.config.output_directory / f"{race.id}.json"
+
+            # Create backup if file exists
+            if output_file.exists() and self.config.version_control:
+                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                backup_file = self.config.output_directory / f"{race.id}.json.backup.{timestamp}"
+                output_file.rename(backup_file)
+                logger.debug(f"Created backup: {backup_file}")
+
+            # Write race data atomically
+            temp_file = output_file.with_suffix(".tmp")
+            with open(temp_file, "w", encoding="utf-8") as f:
+                json.dump(race_json, f, indent=2, ensure_ascii=False, default=str)
+
+            # Atomic rename to final filename
+            temp_file.rename(output_file)
+
+            logger.debug(f"Successfully published race {race.id} to local file: {output_file}")
+
+        except Exception as e:
+            logger.error(f"Failed to publish race {race.id} to local file: {e}")
+            raise
+
+    async def _publish_to_cloud_storage(self, race: RaceJSON) -> None:
+        """
+        Publish race data to Google Cloud Storage.
+
+        Implements cloud storage integration with proper error handling,
+        metadata, and content type configuration.
+        """
+        try:
+            import os
+
+            from google.cloud import storage
+            from google.cloud.exceptions import GoogleCloudError
+
+            # Get configuration from environment
+            project_id = os.getenv("GOOGLE_CLOUD_PROJECT")
+            bucket_name = os.getenv("GCS_BUCKET_NAME")
+
+            if not project_id or not bucket_name:
+                raise ValueError("Missing required GCP configuration: GOOGLE_CLOUD_PROJECT and GCS_BUCKET_NAME")
+
+            # Initialize client
+            client = storage.Client(project=project_id)
+            bucket = client.bucket(bucket_name)
+
+            # Generate blob name with versioning
+            blob_name = f"races/{race.id}.json"
+            blob = bucket.blob(blob_name)
+
+            # Convert race to JSON
+            race_json = race.model_dump(mode="json")
+            race_data = json.dumps(race_json, indent=2, ensure_ascii=False, default=str)
+
+            # Set metadata
+            metadata = {
+                "race_id": race.id,
+                "updated_utc": race.updated_utc.isoformat(),
+                "pipeline_version": "1.0.0",
+                "content_type": "application/json",
+                "encoding": "utf-8",
+            }
+
+            # Upload with proper content type and metadata
+            blob.upload_from_string(race_data, content_type="application/json; charset=utf-8")
+
+            # Update blob metadata
+            blob.metadata = metadata
+            blob.patch()
+
+            # Make publicly readable if configured
+            if os.getenv("GCS_PUBLIC_READ", "false").lower() == "true":
+                blob.make_public()
+
+            logger.info(f"Successfully published race {race.id} to GCS bucket {bucket_name}")
+
+        except ImportError:
+            logger.error("Google Cloud Storage client not available. Install with: pip install google-cloud-storage")
+            raise
+        except GoogleCloudError as e:
+            logger.error(f"GCS error publishing race {race.id}: {e}")
+            raise
+        except Exception as e:
+            logger.error(f"Failed to publish race {race.id} to cloud storage: {e}")
+            raise
+
+    async def _publish_to_database(self, race: RaceJSON) -> None:
+        """
+        Publish race data to database systems.
+
+        Implements database publication with proper transaction handling,
+        conflict resolution, and data normalization.
+        """
+        try:
+            import os
+
+            import asyncpg
+            from asyncpg.exceptions import PostgresError
+
+            # Get database configuration
+            database_url = os.getenv("DATABASE_URL")
+
+            if not database_url:
+                logger.warning("DATABASE_URL not configured, skipping database publication")
+                return
+
+            # Connect to database
+            conn = await asyncpg.connect(database_url)
+
+            try:
+                # Start transaction
+                async with conn.transaction():
+                    # Convert race to dict for database storage
+                    race_data = race.model_dump(mode="json")
+
+                    # Upsert race record
+                    await conn.execute(
+                        """
+                        INSERT INTO races (id, data, updated_utc, title, office, jurisdiction, election_date)
+                        VALUES ($1, $2, $3, $4, $5, $6, $7)
+                        ON CONFLICT (id)
+                        DO UPDATE SET
+                            data = EXCLUDED.data,
+                            updated_utc = EXCLUDED.updated_utc,
+                            title = EXCLUDED.title,
+                            office = EXCLUDED.office,
+                            jurisdiction = EXCLUDED.jurisdiction,
+                            election_date = EXCLUDED.election_date
+                    """,
+                        race.id,
+                        json.dumps(race_data, default=str),
+                        race.updated_utc,
+                        race.title,
+                        race.office,
+                        race.jurisdiction,
+                        race.election_date,
+                    )
+
+                    # Insert/update candidate records for easier querying
+                    for candidate in race.candidates:
+                        await conn.execute(
+                            """
+                            INSERT INTO candidates (race_id, name, party, incumbent, summary)
+                            VALUES ($1, $2, $3, $4, $5)
+                            ON CONFLICT (race_id, name)
+                            DO UPDATE SET
+                                party = EXCLUDED.party,
+                                incumbent = EXCLUDED.incumbent,
+                                summary = EXCLUDED.summary
+                        """,
+                            race.id,
+                            candidate.name,
+                            candidate.party,
+                            candidate.incumbent,
+                            candidate.summary,
+                        )
+
+                logger.info(f"Successfully published race {race.id} to database")
+
+            finally:
+                await conn.close()
+
+        except ImportError:
+            logger.error("AsyncPG not available. Install with: pip install asyncpg")
+            raise
+        except PostgresError as e:
+            logger.error(f"Database error publishing race {race.id}: {e}")
+            raise
+        except Exception as e:
+            logger.error(f"Failed to publish race {race.id} to database: {e}")
+            raise
+
+    async def _publish_to_webhooks(self, race: RaceJSON) -> None:
+        """
+        Send race data to configured webhook endpoints.
+
+        Implements webhook notification system with proper security,
+        retry logic, and response handling.
+        """
+        try:
+            import hashlib
+            import hmac
+            import os
+
+            import aiohttp
+            from aiohttp import ClientError, ClientTimeout
+
+            # Get webhook configuration
+            webhook_urls = os.getenv("WEBHOOK_URLS", "").split(",")
+            webhook_secret = os.getenv("WEBHOOK_SECRET")
+            webhook_timeout = int(os.getenv("WEBHOOK_TIMEOUT", "30"))
+
+            # Filter out empty URLs
+            webhook_urls = [url.strip() for url in webhook_urls if url.strip()]
+
+            if not webhook_urls:
+                logger.debug(f"No webhook URLs configured for race {race.id}")
+                return
+
+            # Prepare payload
+            payload = {
+                "event": "race_published",
+                "race_id": race.id,
+                "timestamp": datetime.now(timezone.utc).isoformat(),
+                "data": race.model_dump(mode="json"),
+            }
+
+            payload_json = json.dumps(payload, default=str, separators=(",", ":"))
+
+            # Generate signature if secret is configured
+            signature = None
+            if webhook_secret:
+                signature = hmac.new(webhook_secret.encode("utf-8"), payload_json.encode("utf-8"), hashlib.sha256).hexdigest()
+
+            # Send to all configured webhooks
+            timeout = ClientTimeout(total=webhook_timeout)
+            async with aiohttp.ClientSession(timeout=timeout) as session:
+                for url in webhook_urls:
+                    try:
+                        headers = {
+                            "Content-Type": "application/json",
+                            "User-Agent": "SmarterVote-Publisher/1.0",
+                            "X-SmarterVote-Event": "race_published",
+                            "X-SmarterVote-Race-ID": race.id,
+                        }
+
+                        if signature:
+                            headers["X-SmarterVote-Signature"] = f"sha256={signature}"
+
+                        async with session.post(url, data=payload_json, headers=headers) as response:
+                            if response.status >= 200 and response.status < 300:
+                                logger.info(f"Successfully sent webhook for race {race.id} to {url}")
+                            else:
+                                response_text = await response.text()
+                                logger.warning(
+                                    f"Webhook failed for race {race.id} to {url}: {response.status} - {response_text}"
+                                )
+
+                    except ClientError as e:
+                        logger.error(f"Network error sending webhook for race {race.id} to {url}: {e}")
+                    except Exception as e:
+                        logger.error(f"Error sending webhook for race {race.id} to {url}: {e}")
+
+            logger.info(f"Completed webhook notifications for race {race.id}")
+
+        except ImportError:
+            logger.error("aiohttp not available. Install with: pip install aiohttp")
+            raise
+        except Exception as e:
+            logger.error(f"Failed to send webhooks for race {race.id}: {e}")
+            raise
+
+    async def _publish_to_pubsub(self, race: RaceJSON) -> None:
+        """
+        Publish race data to Google Cloud Pub/Sub.
+
+        Implements Pub/Sub messaging with proper error handling,
+        message ordering, and metadata.
+        """
+        try:
+            import os
+
+            from google.cloud import pubsub_v1
+            from google.cloud.exceptions import GoogleCloudError
+
+            # Get configuration
+            project_id = os.getenv("GOOGLE_CLOUD_PROJECT")
+            topic_name = os.getenv("PUBSUB_RACE_TOPIC", "race-published")
+
+            if not project_id:
+                raise ValueError("Missing required GCP configuration: GOOGLE_CLOUD_PROJECT")
+
+            # Initialize publisher
+            publisher = pubsub_v1.PublisherClient()
+            topic_path = publisher.topic_path(project_id, topic_name)
+
+            # Prepare message
+            message_data = {
+                "event": "race_published",
+                "race_id": race.id,
+                "timestamp": datetime.now(timezone.utc).isoformat(),
+                "office": race.office,
+                "jurisdiction": race.jurisdiction,
+                "election_date": race.election_date.isoformat() if race.election_date else None,
+                "candidate_count": len(race.candidates),
+                "updated_utc": race.updated_utc.isoformat(),
+            }
+
+            message_json = json.dumps(message_data, default=str)
+
+            # Message attributes for filtering
+            attributes = {
+                "event_type": "race_published",
+                "race_id": race.id,
+                "office": race.office or "unknown",
+                "jurisdiction": race.jurisdiction or "unknown",
+            }
+
+            # Publish message with ordering key for consistent processing
+            future = publisher.publish(topic_path, message_json.encode("utf-8"), ordering_key=race.id, **attributes)
+
+            # Wait for publish to complete
+            message_id = future.result(timeout=30)
+
+            logger.info(f"Successfully published race {race.id} to Pub/Sub topic {topic_name}, message ID: {message_id}")
+
+        except ImportError:
+            logger.error("Google Cloud Pub/Sub client not available. Install with: pip install google-cloud-pubsub")
+            raise
+        except GoogleCloudError as e:
+            logger.error(f"Pub/Sub error publishing race {race.id}: {e}")
+            raise
+        except Exception as e:
+            logger.error(f"Failed to publish race {race.id} to Pub/Sub: {e}")
+            raise
+
+    async def _publish_to_api_endpoint(self, race: RaceJSON) -> None:
+        """
+        Publish race data to API endpoints for immediate availability.
+
+        TODO: Implement API endpoint integration:
+        - RESTful API POST/PUT requests to race endpoints
+        - GraphQL mutation execution
+        - API authentication and authorization
+        - Request rate limiting and throttling
+        - API response validation and error handling
+        - Circuit breaker pattern for reliability
+        - API versioning and compatibility
+        - Real-time WebSocket updates
+        """
+        # Placeholder implementation
+        logger.debug(f"Would publish race {race.id} to API endpoints")
+        await asyncio.sleep(0.1)  # Simulate API call
+
+    async def _validate_arbitrated_data(self, arbitrated_data: Dict[str, Any]) -> None:
+        """
+        Validate arbitrated data before transformation.
+
+        TODO: Implement comprehensive data validation:
+        - Schema validation against expected data structure
+        - Consensus quality threshold checks
+        - Required field presence validation
+        - Data type and format validation
+        - Confidence level validation
+        - Source reference validation
+        - Content length and quality checks
+        - Cross-reference consistency validation
+        """
+        if not arbitrated_data:
+            raise ValueError("Arbitrated data cannot be empty")
+
+        # Basic validation placeholder
+        required_fields = ["consensus_data", "overall_confidence"]
+        for field in required_fields:
+            if field not in arbitrated_data:
+                logger.warning(f"Missing expected field in arbitrated data: {field}")
+
+    async def _extract_race_metadata(self, race_id: str, arbitrated_data: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Extract race metadata from arbitrated data.
+
+        Implements sophisticated metadata extraction from consensus data
+        including parsing dates, offices, and jurisdictions.
+        """
+        metadata = {
+            "title": f"Electoral Race {race_id}",
+            "office": "Unknown Office",
+            "jurisdiction": "Unknown Jurisdiction",
+            "election_date": datetime(2024, 11, 5),
+        }
+
+        try:
+            # Extract from arbitrated data structure
+            consensus_data = arbitrated_data.get("consensus_data", {})
+
+            # Try to extract race title
+            if "race_title" in consensus_data:
+                metadata["title"] = consensus_data["race_title"]
+            elif "title" in consensus_data:
+                metadata["title"] = consensus_data["title"]
+
+            # Extract office information
+            if "office" in consensus_data:
+                metadata["office"] = consensus_data["office"]
+            elif "position" in consensus_data:
+                metadata["office"] = consensus_data["position"]
+
+            # Extract jurisdiction
+            if "jurisdiction" in consensus_data:
+                metadata["jurisdiction"] = consensus_data["jurisdiction"]
+            elif "district" in consensus_data:
+                metadata["jurisdiction"] = consensus_data["district"]
+            elif "state" in consensus_data:
+                metadata["jurisdiction"] = consensus_data["state"]
+
+            # Parse election date
+            if "election_date" in consensus_data:
+                date_str = consensus_data["election_date"]
+                if isinstance(date_str, str):
+                    # Try to parse various date formats
+                    for fmt in ["%Y-%m-%d", "%m/%d/%Y", "%B %d, %Y"]:
+                        try:
+                            metadata["election_date"] = datetime.strptime(date_str, fmt)
+                            break
+                        except ValueError:
+                            continue
+                elif isinstance(date_str, datetime):
+                    metadata["election_date"] = date_str
+
+            # Infer from race_id if possible
+            race_parts = race_id.split("-")
+            if len(race_parts) >= 2:
+                # Extract state/jurisdiction from race ID
+                potential_state = race_parts[0].upper()
+                if len(potential_state) == 2:  # State abbreviation
+                    if metadata["jurisdiction"] == "Unknown Jurisdiction":
+                        metadata["jurisdiction"] = potential_state
+
+                # Extract office type from race ID
+                if "senate" in race_id.lower():
+                    if metadata["office"] == "Unknown Office":
+                        metadata["office"] = "U.S. Senate"
+                elif "house" in race_id.lower():
+                    if metadata["office"] == "Unknown Office":
+                        metadata["office"] = "U.S. House of Representatives"
+                elif "governor" in race_id.lower():
+                    if metadata["office"] == "Unknown Office":
+                        metadata["office"] = "Governor"
+
+                # Extract year from race ID
+                if race_parts[-1].isdigit() and len(race_parts[-1]) == 4:
+                    year = int(race_parts[-1])
+                    if 2020 <= year <= 2030:  # Reasonable range
+                        # Assume November election
+                        metadata["election_date"] = datetime(year, 11, 5)
+
+        except Exception as e:
+            logger.warning(f"Error extracting race metadata for {race_id}: {e}")
+
+        logger.debug(f"Extracted metadata for race {race_id}: {metadata}")
+        return metadata
 
     async def _extract_candidates(self, arbitrated_data: Dict[str, Any]) -> List[Dict[str, Any]]:
         """

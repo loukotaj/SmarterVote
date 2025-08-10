@@ -20,6 +20,8 @@ def mock_pubsub_publisher():
     # Set environment variables first
     os.environ["PROJECT_ID"] = "test-project"
     os.environ["PUBSUB_TOPIC"] = "race-processing"
+    os.environ["CLOUD_RUN_JOB_NAME"] = "test-race-worker"
+    os.environ["REGION"] = "us-central1"
 
     # Mock the PublisherClient class before any imports
     with patch("google.cloud.pubsub_v1.PublisherClient") as mock_publisher_class:
@@ -48,16 +50,26 @@ def client(mock_pubsub_publisher):
 
     # Clear any cached modules that might interfere
     modules_to_clear = [mod for mod in sys.modules.keys() if "main" in mod and "unittest" not in mod]
-    for mod in modules_to_clear:
-        del sys.modules[mod]
+    for module in modules_to_clear:
+        if module in sys.modules:
+            del sys.modules[module]
 
-    # Import using importlib to avoid conflicts
-    main_path = current_dir / "main.py"
-    spec = importlib.util.spec_from_file_location("enqueue_api_main", main_path)
-    main_module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(main_module)
+    # Mock Cloud Run client before importing main
+    with patch("main.get_run_client") as mock_get_run_client:
+        mock_run_client = MagicMock()
+        mock_get_run_client.return_value = mock_run_client
 
-    return TestClient(main_module.app)
+        # Mock Cloud Run job execution
+        mock_operation = MagicMock()
+        mock_operation.name = "test-operation"
+        mock_run_client.run_job.return_value = mock_operation
+        mock_run_client.job_path.return_value = "projects/test-project/locations/us-central1/jobs/test-race-worker"
+
+        # Import and create TestClient
+        import main
+        from fastapi.testclient import TestClient
+
+        yield TestClient(main.app)
 
 
 def test_root_endpoint(client):
@@ -374,3 +386,111 @@ def test_datetime_handling(client, mock_pubsub_publisher):
         message_enqueued_at.replace("Z", "+00:00") if message_enqueued_at.endswith("Z") else message_enqueued_at
     )
     assert isinstance(parsed_msg_dt, datetime)
+
+
+# Webhook endpoint tests
+
+
+def test_webhook_success(client):
+    """Test successful webhook processing with base64 encoded data."""
+    import base64
+
+    # Create a proper Pub/Sub message with base64 encoded data
+    job_data = {
+        "job_id": "test-job-123",
+        "race_id": "test-race-2024",
+        "priority": 1,
+        "retry_count": 0,
+        "metadata": {},
+        "enqueued_at": "2024-08-10T12:00:00Z",
+        "source": "enqueue-api",
+    }
+
+    encoded_data = base64.b64encode(json.dumps(job_data).encode("utf-8")).decode("utf-8")
+
+    pubsub_message = {
+        "message": {"data": encoded_data, "messageId": "test-message-id", "publishTime": "2024-08-10T12:00:00Z"},
+        "subscription": "projects/test-project/subscriptions/race-jobs-sub",
+    }
+
+    response = client.post("/webhook", json=pubsub_message)
+    assert response.status_code == 200
+
+    data = response.json()
+    assert data["status"] == "success"
+    assert "test-race-2024" in data["message"]
+
+
+def test_webhook_with_attributes(client):
+    """Test webhook processing with message attributes instead of data."""
+    pubsub_message = {
+        "message": {
+            "attributes": {"job_id": "test-job-456", "race_id": "attributes-race-2024"},
+            "messageId": "test-message-id",
+            "publishTime": "2024-08-10T12:00:00Z",
+        },
+        "subscription": "projects/test-project/subscriptions/race-jobs-sub",
+    }
+
+    response = client.post("/webhook", json=pubsub_message)
+    assert response.status_code == 200
+
+    data = response.json()
+    assert data["status"] == "success"
+    assert "attributes-race-2024" in data["message"]
+
+
+def test_webhook_missing_race_id(client):
+    """Test webhook with missing race_id."""
+    import base64
+
+    job_data = {
+        "job_id": "test-job-123",
+        # Missing race_id
+        "priority": 1,
+    }
+
+    encoded_data = base64.b64encode(json.dumps(job_data).encode("utf-8")).decode("utf-8")
+
+    pubsub_message = {"message": {"data": encoded_data, "messageId": "test-message-id"}}
+
+    response = client.post("/webhook", json=pubsub_message)
+    assert response.status_code == 400
+    assert "race_id is required" in response.json()["detail"]
+
+
+def test_webhook_missing_job_id(client):
+    """Test webhook with missing job_id."""
+    import base64
+
+    job_data = {
+        "race_id": "test-race-2024",
+        # Missing job_id
+        "priority": 1,
+    }
+
+    encoded_data = base64.b64encode(json.dumps(job_data).encode("utf-8")).decode("utf-8")
+
+    pubsub_message = {"message": {"data": encoded_data, "messageId": "test-message-id"}}
+
+    response = client.post("/webhook", json=pubsub_message)
+    assert response.status_code == 400
+    assert "job_id is required" in response.json()["detail"]
+
+
+def test_webhook_invalid_message_format(client):
+    """Test webhook with invalid message format."""
+    invalid_message = {"invalid": "format"}
+
+    response = client.post("/webhook", json=invalid_message)
+    assert response.status_code == 400
+    assert "Invalid Pub/Sub message format" in response.json()["detail"]
+
+
+def test_webhook_invalid_base64_data(client):
+    """Test webhook with invalid base64 data."""
+    pubsub_message = {"message": {"data": "invalid-base64-data!!!", "messageId": "test-message-id"}}
+
+    response = client.post("/webhook", json=pubsub_message)
+    assert response.status_code == 400
+    assert "Failed to decode message data" in response.json()["detail"]

@@ -1,7 +1,8 @@
 """
-SmarterVote Pipeline Entry Point - Corpus-First Design v1.1
+SmarterVote Pipeline Entry Point - Corpus-First Design v1.2
 
-7-Step Workflow:
+8-Step Workflow:
+0. METADATA EXTRACTION - Parse race details for optimized discovery
 1. DISCOVER - Seed URLs + Google dorks + Fresh issue search for 11 canonical issues
 2. FETCH - Download raw bytes
 3. EXTRACT - HTML/PDF → plain text
@@ -17,11 +18,20 @@ import os
 import sys
 from datetime import datetime
 
+# Load environment variables from .env file
+try:
+    from dotenv import load_dotenv
+
+    load_dotenv()
+except ImportError:
+    pass
+
 from .arbitrate import ArbitrationService
 from .corpus import CorpusService
 from .discover import DiscoveryService
 from .extract import ExtractService
 from .fetch import FetchService
+from .metadata import RaceMetadataService
 from .providers import list_providers, registry
 from .publish import PublishService
 from .schema import ProcessingJob, ProcessingStatus
@@ -30,6 +40,31 @@ from .summarise import SummarizeService
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
+
+# Log environment setup
+try:
+    # Check if key environment variables are loaded
+    openai_key = os.getenv("OPENAI_API_KEY")
+    anthropic_key = os.getenv("ANTHROPIC_API_KEY")
+    xai_key = os.getenv("XAI_API_KEY")
+
+    if openai_key:
+        logger.info("✅ OPENAI_API_KEY loaded")
+    else:
+        logger.warning("⚠️ OPENAI_API_KEY not found")
+
+    if anthropic_key:
+        logger.info("✅ ANTHROPIC_API_KEY loaded")
+    else:
+        logger.warning("⚠️ ANTHROPIC_API_KEY not found")
+
+    if xai_key:
+        logger.info("✅ XAI_API_KEY loaded")
+    else:
+        logger.warning("⚠️ XAI_API_KEY not found")
+
+except Exception as e:
+    logger.error(f"❌ Error checking environment variables: {e}")
 
 
 class CorpusFirstPipeline:
@@ -43,6 +78,7 @@ class CorpusFirstPipeline:
         logger.info(f"🤖 Available AI providers: {', '.join(providers)}")
 
         # Initialize services with provider registry
+        self.metadata = RaceMetadataService()
         self.discovery = DiscoveryService()
         self.fetch = FetchService()
         self.extract = ExtractService()
@@ -73,9 +109,16 @@ class CorpusFirstPipeline:
         )
 
         try:
+            # Step 0: EXTRACT RACE METADATA - High-level race details for optimization
+            logger.info(f"📋 Step 0: EXTRACT RACE METADATA - Analyzing race structure for {race_id}")
+            race_metadata = await self.metadata.extract_race_metadata(race_id)
+            job.step_metadata = True
+            logger.info(f"✅ Extracted metadata: {race_metadata.full_office_name} in {race_metadata.jurisdiction}")
+            logger.info(f"🎯 Priority issues: {', '.join(race_metadata.major_issues[:3])}")
+
             # Step 1: DISCOVER - Seed URLs + Google dorks + Fresh issue search
             logger.info(f"📡 Step 1: DISCOVER - Finding sources and fresh issues for {race_id}")
-            sources = await self.discovery.discover_all_sources(race_id)
+            sources = await self.discovery.discover_all_sources(race_id, race_metadata)
             if not sources:
                 logger.warning(f"No sources found for race {race_id}")
                 return False
@@ -121,7 +164,7 @@ class CorpusFirstPipeline:
 
             # Step 7: PUBLISH - RaceJSON v0.2 → /out/{race}.json
             logger.info("📤 Step 7: PUBLISH - Creating RaceJSON v0.2")
-            race_json = await self.publish.create_race_json(race_id, arbitrated_data)
+            race_json = await self.publish.create_race_json(race_id, arbitrated_data, race_metadata)
             success = await self.publish.publish_race(race_json)
             job.step_publish = True
 
@@ -158,7 +201,7 @@ async def main():
         or os.getenv("SMARTERVOTE_CHEAP_MODE", "").lower() in ["false", "0", "no"]
     )
 
-    logger.info(f"🗳️  SmarterVote Corpus-First Pipeline v1.1")
+    logger.info(f"🗳️  SmarterVote Corpus-First Pipeline v1.2")
     logger.info(f"🎯 Processing race: {race_id}")
     if cheap_mode:
         logger.info("💰 Using cheap mode (mini models)")

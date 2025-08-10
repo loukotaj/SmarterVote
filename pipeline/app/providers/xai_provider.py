@@ -40,11 +40,23 @@ class XAIProvider(AIProvider):
 
     def _register_models(self):
         """Register available xAI models."""
-        # Premium models only (no mini tier for xAI yet)
+        # Mini models for cheap mode
         self.register_model(
             ModelConfig(
                 provider="xai",
-                model_id="grok-beta",
+                model_id="grok-3-mini",
+                tier=ModelTier.MINI,
+                tasks=[TaskType.SUMMARIZE, TaskType.ARBITRATE, TaskType.EXTRACT],
+                max_tokens=65536,
+                cost_per_1k_tokens=0.002,
+            )
+        )
+
+        # Premium models for full mode
+        self.register_model(
+            ModelConfig(
+                provider="xai",
+                model_id="grok-3",
                 tier=ModelTier.PREMIUM,
                 tasks=[TaskType.SUMMARIZE, TaskType.ARBITRATE, TaskType.EXTRACT],
                 max_tokens=131072,
@@ -81,7 +93,6 @@ class XAIProvider(AIProvider):
         if not self.client:
             raise RuntimeError("xAI client not initialized")
 
-        # Enhanced prompt that requests structured output with confidence and sources
         enhanced_prompt = f"""
 {prompt}
 
