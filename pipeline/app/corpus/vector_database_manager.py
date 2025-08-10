@@ -253,28 +253,13 @@ class VectorDatabaseManager:
             chunk["metadata"]["content_hash"] = content_hash
 
             # Check for duplicate by content hash
-            existing = self.collection.get(where={"race_id": race_id, "content_hash": content_hash}, include=["ids"])
+            existing = self.collection.get(where={"$and": [{"race_id": race_id}, {"content_hash": content_hash}]})
             if existing.get("ids"):
                 logger.debug(f"Skipping duplicate chunk {chunk['id']} (hash match)")
                 return True
-                # Skip if very similar content already exists
-                if (
-                    existing_results["distances"]
-                    and len(existing_results["distances"]) > 0
-                    and isinstance(existing_results["distances"][0], list)
-                    and len(existing_results["distances"][0]) > 0
-                    and existing_results["distances"][0][0] < 0.05  # Very high similarity threshold
-                ):
-                    logger.debug(f"Skipping duplicate chunk {chunk['id']}")
-                    return True
-            # Add to ChromaDB collection
-            if embedding:
-                self.collection.add(
-                    documents=[chunk["text"]], metadatas=[chunk["metadata"]], ids=[chunk["id"]], embeddings=[embedding]
-                )
-            else:
-                # Use ChromaDB's default embedding
-                self.collection.add(documents=[chunk["text"]], metadatas=[chunk["metadata"]], ids=[chunk["id"]])
+
+            # Add to ChromaDB collection (using default embedding)
+            self.collection.add(documents=[chunk["text"]], metadatas=[chunk["metadata"]], ids=[chunk["id"]])
 
             logger.debug(f"Indexed chunk {chunk['id']} for race {race_id}")
             return True

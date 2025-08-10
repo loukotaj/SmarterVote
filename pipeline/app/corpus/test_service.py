@@ -23,7 +23,21 @@ def temp_db_dir():
     """Create a temporary directory for ChromaDB testing."""
     temp_dir = tempfile.mkdtemp()
     yield temp_dir
-    shutil.rmtree(temp_dir)
+    # Add a delay to allow ChromaDB to release file handles
+    import time
+
+    time.sleep(0.5)
+    try:
+        shutil.rmtree(temp_dir)
+    except PermissionError:
+        # On Windows, ChromaDB might still hold file handles
+        # Try again after a longer delay
+        time.sleep(2)
+        try:
+            shutil.rmtree(temp_dir)
+        except PermissionError:
+            # If still locked, ignore for now (files will be cleaned up by OS)
+            pass
 
 
 @pytest.fixture
@@ -53,7 +67,13 @@ def db_manager(temp_db_dir):
     """Create a vector database manager with temporary storage."""
     manager = VectorDatabaseManager()
     manager.config["persist_directory"] = temp_db_dir
-    return manager
+    yield manager
+    # Clean up ChromaDB connections
+    if hasattr(manager, "client") and manager.client:
+        try:
+            manager.client.reset()
+        except:
+            pass
 
 
 class TestVectorDatabaseManager:
