@@ -70,13 +70,10 @@ resource "google_cloud_run_v2_service" "races_api" {
   }
 
   lifecycle {
-    prevent_destroy = local.prevent_destroy
+    prevent_destroy = false
 
     ignore_changes = [
       template[0].annotations,
-      metadata[0].annotations["run.googleapis.com/operation-id"],
-      metadata[0].annotations["serving.knative.dev/creator"],
-      metadata[0].annotations["serving.knative.dev/lastModifier"],
     ]
 
     create_before_destroy = true

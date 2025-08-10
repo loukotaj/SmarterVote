@@ -132,10 +132,10 @@ resource "google_cloud_run_v2_job" "race_worker" {
   }
 
   lifecycle {
-    prevent_destroy = local.prevent_destroy
+    prevent_destroy = false
 
     ignore_changes = [
-      spec[0].template[0].template[0].annotations,
+      template[0].annotations,
     ]
 
     create_before_destroy = true

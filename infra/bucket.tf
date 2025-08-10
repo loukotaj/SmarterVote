@@ -32,7 +32,7 @@ resource "google_storage_bucket" "sv_data" {
 
   # Prevent accidental deletion and ignore certain changes
   lifecycle {
-    prevent_destroy = local.prevent_destroy
+    prevent_destroy = false
     ignore_changes = [
       # Ignore changes to labels that might be managed externally
       labels,

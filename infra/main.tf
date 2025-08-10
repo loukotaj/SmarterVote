@@ -44,9 +44,6 @@ locals {
   storage_labels = merge(local.common_labels, {
     component = "storage"
   })
-
-  # Prevent destroy setting - cannot use variables in lifecycle blocks
-  prevent_destroy = var.environment == "prod" && var.prevent_destroy_prod
 }
 
 # Terraform state bucket (must be created first with local backend)
@@ -81,7 +78,7 @@ resource "google_storage_bucket" "terraform_state" {
   }
 
   lifecycle {
-    prevent_destroy = true
+    prevent_destroy = false
   }
 
   labels = local.storage_labels
