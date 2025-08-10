@@ -82,7 +82,6 @@
 #### 7. **Missing Test Suites**
 - **Status**: 🟡 Core pipeline components untested
 - **Missing Files**:
-  - `pipeline/app/corpus/test_service.py`
   - `pipeline/app/summarise/test_service.py`
   - `pipeline/app/arbitrate/test_service.py`
   - `pipeline/app/publish/test_service.py`

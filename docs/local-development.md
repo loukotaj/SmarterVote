@@ -5,7 +5,7 @@ This guide helps you set up the SmarterVote pipeline for local development with 
 ## 📋 Prerequisites
 
 - Python 3.10+
-- Node.js 18+
+- Node.js 22+
 - Git
 - Google Cloud CLI (for production deployment)
 
@@ -44,7 +44,7 @@ XAI_API_KEY=your_xai_grok_api_key_here
 
 # Google Search API (Required for fresh content discovery)
 GOOGLE_SEARCH_API_KEY=your_google_search_api_key
-GOOGLE_SEARCH_ENGINE_ID=your_custom_search_engine_id
+GOOGLE_SEARCH_CX=your_custom_search_engine_id
 
 # Local Development Settings
 ENVIRONMENT=development
@@ -84,8 +84,6 @@ python -m pytest pipeline/app/corpus/test_service.py -v
 ```bash
 # Windows PowerShell
 .\dev-start.ps1
-
-# Or run individual components:
 ```
 
 #### Option B: Start Individual Services
@@ -115,24 +113,17 @@ python -m app.corpus.vector_database_manager  # Test vector DB
 
 The vector database is the core of SmarterVote's corpus-first approach:
 
-- **Storage**: Local SQLite database at `./data/chroma_db/`
-- **Embedding Model**: `all-MiniLM-L6-v2` (sentence transformers)
-- **Chunking**: 500 words per chunk with 50-word overlap
-- **Search**: Semantic similarity with 0.7 threshold
+- Storage: Local SQLite database at `./data/chroma_db/`
+- Embedding Model: `all-MiniLM-L6-v2` (sentence transformers)
+- Chunking: 500 words per chunk with 50-word overlap
+- Search: Semantic similarity with 0.7 threshold
 
 ### Required API Keys
 
-1. **OpenAI API Key**: For GPT-4o summarization
-   - Get from: https://platform.openai.com/api-keys
-
-2. **Anthropic API Key**: For Claude-3.5 summarization
-   - Get from: https://console.anthropic.com/
-
-3. **X.AI API Key**: For Grok-4 summarization
-   - Get from: https://x.ai/api
-
-4. **Google Search API**: For fresh content discovery
-   - Get from: https://developers.google.com/custom-search/v1/introduction
+1. OpenAI API Key: For GPT-4o summarization
+2. Anthropic API Key: For Claude-3.5 summarization
+3. X.AI API Key: For Grok-4 summarization
+4. Google Custom Search API: For fresh content discovery (GOOGLE_SEARCH_API_KEY + GOOGLE_SEARCH_CX)
 
 ### Directory Structure
 
@@ -177,55 +168,46 @@ python scripts/validate_project.py
 
 ## 🚀 Production Deployment
 
-The infrastructure is managed with Terraform and automatically deployed via GitHub Actions:
+The infrastructure is managed with Terraform and automatically deployed via GitHub Actions.
 
 ### Environment Variables in Production
 
-All configuration is managed through Terraform variables:
-- ChromaDB settings are configured via `infra/variables.tf`
-- API keys are stored in Google Secret Manager
-- Storage is provided by Google Cloud Storage buckets
+- ChromaDB settings via `infra/variables.tf`
+- API keys stored in Secret Manager
+- Storage in Google Cloud Storage buckets
 
 ### Deploy to Production
 
-1. **Push to main branch** (triggers automatic deployment)
-2. **Manual deployment**: Use GitHub Actions workflow dispatch
-3. **Infrastructure changes**: Modify `infra/*.tf` files
+1. Push to main branch (triggers automatic deployment)
+2. Manual deployment: use GitHub Actions workflow dispatch
+3. Infrastructure changes: modify `infra/*.tf`
 
 ## 🔍 Troubleshooting
 
-### Common Issues
+Common issues
 
-1. **ChromaDB initialization fails**
-   - Check that `./data/chroma_db/` directory exists and is writable
-   - Verify `sentence-transformers` is installed correctly
+1. ChromaDB initialization fails
+   - Ensure `./data/chroma_db/` exists and is writable
+   - Verify `sentence-transformers` installation
 
-2. **API key errors**
+2. API key errors
    - Ensure all required API keys are set in `.env`
    - Check API key validity and quotas
 
-3. **Memory issues during embedding**
-   - Reduce `CHROMA_CHUNK_SIZE` for systems with limited RAM
-   - Consider using a smaller embedding model
+3. Memory issues during embedding
+   - Reduce `CHROMA_CHUNK_SIZE`
+   - Consider a smaller embedding model
 
-4. **Port conflicts**
-   - Check that ports 8000, 8001, 8002 are available
-   - Modify port settings in service configurations
-
-### Get Help
-
-- **Documentation**: Check `docs/` directory
-- **Issues**: Create GitHub issue with error details
-- **Architecture**: See `docs/architecture.md`
+4. Port conflicts
+   - Check ports 8000, 8001, 8002
+   - Modify port settings as needed
 
 ## ✅ Success Criteria
 
-Your local setup is working correctly when:
-
-- ✅ Vector database initializes and stores content
-- ✅ Tests pass with >90% success rate
-- ✅ Services start without errors
-- ✅ Sample race data can be processed end-to-end
-- ✅ Web frontend displays race information
+- Vector database initializes and stores content
+- Tests pass
+- Services start without errors
+- Sample race data processed end-to-end
+- Web frontend displays race information
 
 Happy coding! 🎉

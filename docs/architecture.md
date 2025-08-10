@@ -297,7 +297,7 @@ Voter-Ready Analysis
 ### Backend Technologies
 | Component | Technology | Version | Purpose |
 |-----------|------------|---------|---------|
-| Pipeline Runtime | Python | 3.9+ | Core processing logic |
+| Pipeline Runtime | Python | 3.10+ | Core processing logic |
 | Data Validation | Pydantic | 2.5+ | Schema validation |
 | Vector Database | ChromaDB | 0.4+ | Semantic search |
 | API Framework | FastAPI | 0.104+ | REST API services |

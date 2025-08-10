@@ -28,7 +28,7 @@ echo "🔍 Checking infrastructure resources..."
 
 # Check Cloud Storage buckets
 echo -n "☁️  Main storage bucket: "
-if gsutil ls -b gs://$PROJECT_ID-sv-data >/dev/null 2>&1; then
+if gsutil ls -b gs://$PROJECT_ID-sv-data-$ENVIRONMENT >/dev/null 2>&1; then
     echo "✅ EXISTS"
 else
     echo "❌ MISSING"
@@ -43,25 +43,27 @@ fi
 
 # Check Pub/Sub topic
 echo -n "📨 Pub/Sub topic: "
-if gcloud pubsub topics describe race-jobs --project=$PROJECT_ID >/dev/null 2>&1; then
+if gcloud pubsub topics describe race-jobs-$ENVIRONMENT --project=$PROJECT_ID >/dev/null 2>&1; then
     echo "✅ EXISTS"
 else
     echo "❌ NOT FOUND"
 fi
 
 # Check Cloud Run service
-echo -n "🏃 Cloud Run service: "
-if gcloud run services describe enqueue-api --region=$REGION --project=$PROJECT_ID >/dev/null 2>&1; then
+echo -n "🏃 Cloud Run service (enqueue-api): "
+SERVICE_NAME=enqueue-api-$ENVIRONMENT
+if gcloud run services describe $SERVICE_NAME --region=$REGION --project=$PROJECT_ID >/dev/null 2>&1; then
     echo "✅ EXISTS"
-    SERVICE_URL=$(gcloud run services describe enqueue-api --region=$REGION --project=$PROJECT_ID --format="value(status.url)")
+    SERVICE_URL=$(gcloud run services describe $SERVICE_NAME --region=$REGION --project=$PROJECT_ID --format="value(status.url)")
     echo "   URL: $SERVICE_URL"
 else
     echo "❌ NOT FOUND"
 fi
 
 # Check Cloud Run job
-echo -n "⚙️  Cloud Run job: "
-if gcloud run jobs describe race-worker --region=$REGION --project=$PROJECT_ID >/dev/null 2>&1; then
+echo -n "⚙️  Cloud Run job (race-worker): "
+JOB_NAME=race-worker-$ENVIRONMENT
+if gcloud run jobs describe $JOB_NAME --region=$REGION --project=$PROJECT_ID >/dev/null 2>&1; then
     echo "✅ EXISTS"
 else
     echo "❌ NOT FOUND"
@@ -76,9 +78,18 @@ else
     echo "❌ NO SECRETS FOUND"
 fi
 
-# Check Cloud Scheduler job
-echo -n "⏰ Cloud Scheduler: "
-if gcloud scheduler jobs describe daily-race-check --location=$REGION --project=$PROJECT_ID >/dev/null 2>&1; then
+# Check Cloud Scheduler jobs
+echo -n "⏰ Cloud Scheduler (nightly): "
+NIGHTLY_JOB=nightly-race-processing-$ENVIRONMENT
+if gcloud scheduler jobs describe $NIGHTLY_JOB --location=$REGION --project=$PROJECT_ID >/dev/null 2>&1; then
+    echo "✅ EXISTS"
+else
+    echo "❌ NOT FOUND"
+fi
+
+echo -n "⏰ Cloud Scheduler (weekly refresh): "
+WEEKLY_JOB=weekly-race-refresh-$ENVIRONMENT
+if gcloud scheduler jobs describe $WEEKLY_JOB --location=$REGION --project=$PROJECT_ID >/dev/null 2>&1; then
     echo "✅ EXISTS"
 else
     echo "❌ NOT FOUND"
