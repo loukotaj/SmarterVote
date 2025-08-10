@@ -8,7 +8,7 @@ to discover sources for electoral content.
 import logging
 import os
 from datetime import datetime
-from typing import List
+from typing import List, Set
 
 from ..schema import CanonicalIssue, FreshSearchQuery, Source, SourceType
 
@@ -76,191 +76,147 @@ class SearchUtils:
                 "key": api_key,
                 "cx": search_engine_id,
                 "q": query.text,
-                "num": min(query.max_results, 10),  # Google allows max 10 per request
-                "safe": "active",
-                "sort": "date",  # Prioritize recent content
+                "num": self.search_config.get("max_results_per_query", 10),
+                "dateRestrict": f"d{self.search_config.get('freshness_days', 30)}",
+                "sort": "date",
             }
 
-            # Add date restriction if specified
-            if query.date_restrict:
-                params["dateRestrict"] = query.date_restrict
-
-            # Perform search
-            async with httpx.AsyncClient(timeout=30.0) as client:
+            async with httpx.AsyncClient() as client:
                 response = await client.get(search_url, params=params)
                 response.raise_for_status()
+                data = response.json()
 
-            data = response.json()
-            search_items = data.get("items", [])
-
-            logger.info(f"Google search returned {len(search_items)} results for {query.text}")
-
-            # Convert results to Source objects
-            sources = []
-            for item in search_items:
-                try:
+                sources = []
+                for item in data.get("items", []):
                     source = Source(
                         url=item["link"],
                         type=SourceType.FRESH_SEARCH,
-                        title=item.get("title", ""),
+                        title=item["title"],
                         description=item.get("snippet", ""),
                         last_accessed=datetime.utcnow(),
                         is_fresh=True,
-                        metadata={
-                            "search_query": query.text,
-                            "search_engine": "google",
-                            "issue": issue.value,
-                            "display_link": item.get("displayLink", ""),
-                        },
                     )
                     sources.append(source)
-                except KeyError as e:
-                    logger.warning(f"Skipping malformed search result: missing {e}")
-                    continue
 
-            return sources
+                return sources
 
-        except httpx.HTTPStatusError as e:
-            if e.response.status_code == 429:
-                logger.error("Google Search API rate limit exceeded")
-            else:
-                logger.error(f"Google Search API error {e.response.status_code}: {e.response.text}")
-            return []
         except Exception as e:
-            logger.error(f"Error during Google search for {query.text}: {e}")
+            logger.error(f"Google Custom Search failed: {e}")
             return []
 
     async def search_candidate_info(self, query: FreshSearchQuery) -> List[Source]:
-        """Search for candidate-specific information."""
-        # Placeholder for candidate-specific search
-        logger.debug(f"Would search for candidate info: {query.text}")
-        return []
+        """
+        Search for candidate-specific information.
+
+        TODO:
+        - [ ] Add social media profile discovery
+        - [ ] Implement campaign website detection
+        - [ ] Add financial disclosure search
+        - [ ] Support for video/podcast discovery
+        """
+        # For now, use Google Custom Search with candidate-specific queries
+        # This will be expanded to include specialized candidate information sources
+        return await self.search_google_custom(query, CanonicalIssue.GENERAL)
+
+    def generate_issue_query(
+        self,
+        race_id: str,
+        issue: CanonicalIssue,
+        candidate_names: List[str] = None,
+        state: str = None,
+        office: str = None,
+    ) -> FreshSearchQuery:
+        """
+        Generate a targeted search query for a specific issue.
+
+        Args:
+            race_id: Race identifier like 'mo-senate-2024'
+            issue: The canonical issue to search for
+            candidate_names: Optional list of candidate names to include
+            state: Optional state to include in search
+            office: Optional office type to include
+
+        Returns:
+            FreshSearchQuery optimized for the issue
+        """
+        # Start with the issue itself
+        query_parts = [issue.value]
+
+        # Add race/location context
+        if state:
+            query_parts.append(state)
+        if office:
+            query_parts.append(office)
+
+        # Add candidate names for personalized searches
+        if candidate_names:
+            # Create a query that includes candidates
+            candidates_part = " OR ".join(f'"{name}"' for name in candidate_names[:3])  # Limit to top 3
+            query_parts.append(f"({candidates_part})")
+
+        # Create search text
+        query_text = " ".join(query_parts)
+
+        # Add search operators for better results
+        query_text += ' -site:wikipedia.org -site:reddit.com -site:twitter.com'
+
+        return FreshSearchQuery(
+            text=query_text,
+            race_id=race_id,
+            issue=issue,
+            generated_at=datetime.utcnow(),
+        )
+
+    def generate_candidate_query(self, race_id: str, candidate_name: str) -> FreshSearchQuery:
+        """
+        Generate a search query specifically for a candidate.
+
+        TODO:
+        - [ ] Add candidate-specific search terms (positions, endorsements, etc.)
+        - [ ] Include negative search terms to filter out irrelevant content
+        - [ ] Add temporal constraints for recent information
+        """
+        query_text = f'"{candidate_name}" candidate {race_id.split("-")[0]} {race_id.split("-")[1]}'
+        query_text += ' -site:wikipedia.org -obituary -death'
+
+        return FreshSearchQuery(
+            text=query_text,
+            race_id=race_id,
+            issue=CanonicalIssue.GENERAL,
+            generated_at=datetime.utcnow(),
+        )
 
     def deduplicate_sources(self, sources: List[Source]) -> List[Source]:
         """
-        Remove duplicate sources based on URL and content similarity.
+        Remove duplicate sources based on URL normalization.
 
-        TODO: Implement sophisticated deduplication:
-        - URL normalization and canonical form matching
-        - Content similarity detection using hashing
-        - Title and description fuzzy matching
-        - Domain-based grouping and selection
-        - Source quality scoring for duplicate resolution
-        - Temporal preference for fresher content
+        TODO:
+        - [ ] Add more sophisticated URL normalization
+        - [ ] Implement content-based deduplication
+        - [ ] Add domain-based grouping and ranking
         """
-        if not sources:
-            return []
-
-        seen_urls = set()
-        deduplicated = []
+        seen_urls: Set[str] = set()
+        unique_sources = []
 
         for source in sources:
             # Normalize URL for comparison
             normalized_url = source.url.lower().rstrip("/")
 
-            # Remove common URL variations
-            normalized_url = normalized_url.replace("www.", "")
-            normalized_url = normalized_url.replace("http://", "https://")
+            # Remove common URL parameters that don't affect content
+            if "?" in normalized_url:
+                base_url, params = normalized_url.split("?", 1)
+                # Keep only important parameters
+                important_params = []
+                for param in params.split("&"):
+                    if param.startswith(("id=", "p=", "page=", "article=")):
+                        important_params.append(param)
+                if important_params:
+                    normalized_url = base_url + "?" + "&".join(important_params)
+                else:
+                    normalized_url = base_url
 
             if normalized_url not in seen_urls:
                 seen_urls.add(normalized_url)
-                deduplicated.append(source)
+                unique_sources.append(source)
 
-        logger.info(f"Deduplicated {len(sources)} sources to {len(deduplicated)}")
-        return deduplicated
-
-    def generate_issue_query(self, race_id: str, issue: CanonicalIssue) -> FreshSearchQuery:
-        """
-        Generate optimized search query for a specific issue.
-
-        Creates targeted search queries that combine race context with issue-specific
-        keywords for maximum relevance and discovery of fresh content.
-        """
-        # Parse race ID for geographic and office context
-        race_parts = race_id.split("-")
-        state = race_parts[0].upper() if race_parts else ""
-        office = " ".join(race_parts[1:-1]) if len(race_parts) > 2 else race_parts[1] if len(race_parts) > 1 else ""
-        year = race_parts[-1] if race_parts and race_parts[-1].isdigit() else "2024"
-
-        # Issue-specific query templates
-        issue_queries = {
-            CanonicalIssue.HEALTHCARE: [
-                f"{state} {office} healthcare policy {year}",
-                f"{state} {office} medicare medicaid {year}",
-                f"{state} {office} health insurance {year}",
-            ],
-            CanonicalIssue.ECONOMY: [
-                f"{state} {office} economy jobs {year}",
-                f"{state} {office} tax policy {year}",
-                f"{state} {office} business employment {year}",
-            ],
-            CanonicalIssue.CLIMATE_ENERGY: [
-                f"{state} {office} climate change {year}",
-                f"{state} {office} renewable energy {year}",
-                f"{state} {office} environmental policy {year}",
-            ],
-            CanonicalIssue.REPRODUCTIVE_RIGHTS: [
-                f"{state} {office} abortion reproductive rights {year}",
-                f"{state} {office} planned parenthood {year}",
-            ],
-            CanonicalIssue.IMMIGRATION: [
-                f"{state} {office} immigration border {year}",
-                f"{state} {office} citizenship immigration {year}",
-            ],
-            CanonicalIssue.GUNS_SAFETY: [
-                f"{state} {office} gun control {year}",
-                f"{state} {office} second amendment {year}",
-                f"{state} {office} gun safety {year}",
-            ],
-            CanonicalIssue.FOREIGN_POLICY: [
-                f"{state} {office} foreign policy {year}",
-                f"{state} {office} military defense {year}",
-            ],
-            CanonicalIssue.SOCIAL_JUSTICE: [
-                f"{state} {office} civil rights {year}",
-                f"{state} {office} social justice equality {year}",
-            ],
-            CanonicalIssue.EDUCATION: [
-                f"{state} {office} education schools {year}",
-                f"{state} {office} teacher education funding {year}",
-            ],
-            CanonicalIssue.TECH_AI: [
-                f"{state} {office} technology policy {year}",
-                f"{state} {office} artificial intelligence {year}",
-            ],
-            CanonicalIssue.ELECTION_REFORM: [
-                f"{state} {office} election reform {year}",
-                f"{state} {office} voting rights {year}",
-            ],
-        }
-
-        # Get queries for this issue, fallback to generic
-        queries = issue_queries.get(issue, [f"{state} {office} {issue.value} {year}"])
-
-        # Use the first (most specific) query
-        query_text = queries[0]
-
-        return FreshSearchQuery(
-            text=query_text,
-            issue=issue,
-            race_id=race_id,
-            max_results=self.search_config["max_results_per_query"],
-            date_restrict=f"d{self.search_config['freshness_days']}",  # Last N days
-        )
-
-    def generate_candidate_query(self, race_id: str, candidate_name: str) -> FreshSearchQuery:
-        """Generate search query for a specific candidate."""
-        race_parts = race_id.split("-")
-        state = race_parts[0] if race_parts else ""
-        office = " ".join(race_parts[1:-1]) if len(race_parts) > 2 else race_parts[1] if len(race_parts) > 1 else ""
-        year = race_parts[-1] if race_parts and race_parts[-1].isdigit() else "2024"
-
-        query_text = f'"{candidate_name}" {state} {office} {year}'
-
-        return FreshSearchQuery(
-            text=query_text,
-            issue=None,
-            race_id=race_id,
-            max_results=self.search_config["max_results_per_query"],
-            date_restrict=f"d{self.search_config['freshness_days']}",
-        )
+        return unique_sources

@@ -14,10 +14,8 @@ Key responsibilities:
 """
 
 import asyncio
-import json
 import logging
 from datetime import datetime, timezone
-from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from ..schema import RaceJSON
@@ -48,43 +46,45 @@ class RacePublishingEngine:
         Args:
             config: Publication configuration settings
         """
-        self.config = config or PublicationConfig(output_directory=Path("data/published"))
+        self.config = config or PublicationConfig(
+            default_targets=[PublicationTarget.LOCAL_FILE],
+            local_output_dir="data/published"
+        )
 
-        # Ensure output directory exists
-        self.config.output_directory.mkdir(parents=True, exist_ok=True)
+        # Initialize publishers and utilities
+        self.publishers = Publishers(self.config)
+        self.validation_utils = ValidationUtils()
+        self.transformation_utils = TransformationUtils()
+        self.transformation_pipeline = initialize_transformation_pipeline()
+        self.validation_rules = initialize_validation_rules()
 
         # Publication tracking
         self.publication_history: List[PublicationResult] = []
         self.active_publications: Dict[str, asyncio.Task] = {}
 
-        # Initialize utilities
-        self.validation_rules = initialize_validation_rules()
-        self.transformation_pipeline = initialize_transformation_pipeline()
-        self.validation_utils = ValidationUtils(self.validation_rules)
-        self.transformation_utils = TransformationUtils()
-        self.publishers = Publishers(self.config)
-
-        logger.info(f"Publishing engine initialized with output directory: {self.config.output_directory}")
-
-    async def create_race_json(self, race_id: str, arbitrated_data: Dict[str, Any]) -> RaceJSON:
+    async def create_race_json(
+        self,
+        race_id: str,
+        arbitrated_data: Dict[str, Any],
+        race_metadata: Optional[Any] = None,
+    ) -> RaceJSON:
         """
-        Transform arbitrated data into standardized RaceJSON format.
+        Transform arbitrated consensus data into standardized RaceJSON format.
 
         Args:
             race_id: Unique identifier for the race
             arbitrated_data: Consensus data from arbitration engine
+            race_metadata: Optional metadata from discovery phase
 
         Returns:
-            Complete RaceJSON object ready for publication
+            Validated RaceJSON object ready for publication
 
-        TODO: Implement comprehensive data transformation pipeline:
-        - Extract candidate information from arbitrated summaries
-        - Parse office, jurisdiction, and election metadata
-        - Map confidence levels to data quality indicators
-        - Generate structured issue positions and policy stances
-        - Create citation and source reference mappings
-        - Validate data completeness and consistency
-        - Apply data enrichment from external sources
+        TODO: Implement advanced transformation features:
+        - Multi-source data fusion and conflict resolution
+        - Temporal analysis and trend detection
+        - Cross-reference validation with external sources
+        - Intelligent metadata enrichment
+        - Source attribution and lineage tracking
         - Generate publication metadata and versioning
         """
         logger.info(f"Creating RaceJSON for race {race_id}")
@@ -93,25 +93,35 @@ class RacePublishingEngine:
             # Validate input data
             await self.validation_utils.validate_arbitrated_data(arbitrated_data)
 
-            # Extract base race information
-            race_info = await self.transformation_utils.extract_race_metadata(race_id, arbitrated_data)
+            # Extract base race information - prioritize race_metadata if available
+            if race_metadata:
+                race_info = {
+                    "title": f"{race_metadata.full_office_name} - {race_metadata.jurisdiction} {race_metadata.year}",
+                    "office": race_metadata.full_office_name,
+                    "jurisdiction": race_metadata.jurisdiction,
+                    "election_date": race_metadata.election_date,
+                }
+                logger.info(f"Using provided race metadata for {race_id}")
+            else:
+                race_info = await self.transformation_utils.extract_race_metadata(race_id, arbitrated_data)
+                logger.info(f"Extracted race metadata from arbitrated data for {race_id}")
 
             # Process candidate data
-            candidates = await self.transformation_utils.extract_candidates(arbitrated_data)
+            candidates = await self._extract_candidates(arbitrated_data)
 
             # Generate publication metadata
-            metadata = await self.transformation_utils.generate_publication_metadata(race_id, arbitrated_data)
+            metadata = await self._generate_publication_metadata(race_id, arbitrated_data)
 
             # Create RaceJSON object
             race = RaceJSON(
                 id=race_id,
-                election_date=race_info.get("election_date", datetime(2024, 11, 5)),
                 candidates=candidates,
-                updated_utc=datetime.now(timezone.utc),
-                generator=metadata.get("generators", ["gpt-4o", "claude-3.5", "grok-3"]),
-                title=race_info.get("title", f"Electoral Race {race_id}"),
+                metadata=metadata,
+                last_updated=datetime.utcnow(),
+                title=race_info.get("title", f"Race {race_id}"),
                 office=race_info.get("office", "Unknown Office"),
                 jurisdiction=race_info.get("jurisdiction", "Unknown Jurisdiction"),
+                race_metadata=race_metadata,  # Include the full metadata
             )
 
             # Apply validation rules
@@ -126,61 +136,60 @@ class RacePublishingEngine:
 
     async def publish_race(self, race: RaceJSON, targets: Optional[List[PublicationTarget]] = None) -> List[PublicationResult]:
         """
-        Publish race data to specified targets.
+        Publish race data to configured targets.
 
         Args:
-            race: Complete race object to publish
-            targets: List of publication targets (all if None)
+            race: Race data to publish
+            targets: Optional list of publication targets (uses default if None)
 
         Returns:
             List of publication results for each target
 
-        TODO: Implement parallel publication to multiple targets:
-        - Local file system with versioning and backup
-        - Cloud storage (GCS, S3, Azure) with CDN integration
-        - Database systems (PostgreSQL, MongoDB, BigQuery)
-        - Real-time notification systems (Pub/Sub, WebSockets)
-        - Webhook endpoints for external system integration
-        - API endpoints for immediate data availability
-        - Content delivery networks for public access
-        - Search index updates for discovery
+        TODO: Implement advanced publishing features:
+        - Intelligent target selection based on data characteristics
+        - Parallel publishing with dependency management
+        - Retry logic with exponential backoff
+        - Publication rollback on critical failures
+        - Real-time monitoring and alerting
+        - Performance optimization and caching
         """
-        if targets is None:
-            # Auto-detect environment and choose appropriate targets
-            targets = self._get_environment_specific_targets()
+        logger.info(f"Publishing race {race.id} to targets")
 
-        logger.info(f"Publishing race {race.id} to targets: {[t.value for t in targets]}")
+        # Use default targets if none specified
+        if targets is None:
+            targets = self.config.default_targets
 
         results = []
 
         try:
-            # Create tasks for parallel publication
+            # Create publication tasks for all targets
             tasks = []
             for target in targets:
-                task_key = f"{race.id}_{target.value}"
                 task = asyncio.create_task(self._publish_to_target(race, target))
+                task_key = f"{race.id}_{target.value}"
                 self.active_publications[task_key] = task
                 tasks.append(task)
 
-            # Wait for all publications to complete
-            completed_results = await asyncio.gather(*tasks, return_exceptions=True)
+            # Execute all publications concurrently
+            results = await asyncio.gather(*tasks, return_exceptions=True)
 
-            # Process results
-            for i, result in enumerate(completed_results):
+            # Process results and handle exceptions
+            final_results = []
+            for i, result in enumerate(results):
                 target = targets[i]
                 if isinstance(result, Exception):
-                    # Handle exception as failed publication
-                    error_result = PublicationResult(
-                        target=target,
-                        success=False,
-                        timestamp=datetime.now(timezone.utc),
-                        message=f"Publication failed: {str(result)}",
-                        metadata={"error_type": type(result).__name__},
+                    logger.error(f"Publication to {target.value} failed with exception: {result}")
+                    final_results.append(
+                        PublicationResult(
+                            target=target,
+                            success=False,
+                            timestamp=datetime.now(timezone.utc),
+                            message=f"Publication failed: {str(result)}",
+                            metadata={"error_type": type(result).__name__},
+                        )
                     )
-                    results.append(error_result)
-                    logger.error(f"Failed to publish race {race.id} to {target.value}: {result}")
                 else:
-                    results.append(result)
+                    final_results.append(result)
 
                 # Clean up task tracking
                 task_key = f"{race.id}_{target.value}"
@@ -192,15 +201,18 @@ class RacePublishingEngine:
             raise
 
         # Log publication summary
-        successful = [r for r in results if r.success]
-        failed = [r for r in results if not r.success]
+        successful = [r for r in final_results if r.success]
+        failed = [r for r in final_results if not r.success]
 
         logger.info(f"Race {race.id} publication complete: {len(successful)} successful, {len(failed)} failed")
 
         if failed:
             logger.warning(f"Failed publications for race {race.id}: {[f.target.value for f in failed]}")
 
-        return results
+        # Store in publication history
+        self.publication_history.extend(final_results)
+
+        return final_results
 
     async def _publish_to_target(self, race: RaceJSON, target: PublicationTarget) -> PublicationResult:
         """
@@ -249,25 +261,61 @@ class RacePublishingEngine:
                 metadata={"error_type": type(e).__name__},
             )
 
-    def _get_environment_specific_targets(self) -> List[PublicationTarget]:
-        """Determine publication targets based on environment."""
-        # Default targets for development/testing
-        default_targets = [PublicationTarget.LOCAL_FILE]
+    async def _extract_candidates(self, arbitrated_data: Dict[str, Any]) -> List[Dict[str, Any]]:
+        """
+        Extract candidate information from arbitrated data.
 
-        # Add cloud targets in production environment
-        import os
+        Implements comprehensive candidate extraction from consensus summaries
+        including policy positions, biographical data, and issue stances.
+        """
+        candidates = []
 
-        if os.getenv("ENVIRONMENT", "development") == "production":
-            default_targets.extend([PublicationTarget.CLOUD_STORAGE, PublicationTarget.DATABASE, PublicationTarget.PUBSUB])
+        try:
+            consensus_data = arbitrated_data.get("consensus_data", {})
+            candidates_data = consensus_data.get("candidates", [])
 
-        return default_targets
+            for candidate_info in candidates_data:
+                candidate = {
+                    "name": candidate_info.get("name", "Unknown Candidate"),
+                    "party": candidate_info.get("party", "Unknown Party"),
+                    "issue_stances": candidate_info.get("issue_stances", {}),
+                    "biographical_info": candidate_info.get("biographical_info", {}),
+                    "confidence_scores": candidate_info.get("confidence_scores", {}),
+                    "sources": candidate_info.get("sources", []),
+                }
+                candidates.append(candidate)
+
+            logger.debug(f"Extracted {len(candidates)} candidates from arbitrated data")
+
+        except Exception as e:
+            logger.warning(f"Error extracting candidates: {e}")
+
+        return candidates
+
+    async def _generate_publication_metadata(self, race_id: str, arbitrated_data: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Generate publication metadata for the race.
+
+        Includes information about data sources, processing timestamps,
+        confidence metrics, and publication audit trail.
+        """
+        metadata = {
+            "race_id": race_id,
+            "processing_timestamp": datetime.utcnow(),
+            "data_sources": arbitrated_data.get("sources", []),
+            "confidence_metrics": arbitrated_data.get("confidence_metrics", {}),
+            "processing_pipeline": self.transformation_pipeline,
+            "validation_rules": list(self.validation_rules.keys()),
+        }
+
+        return metadata
 
     def get_publication_history(self, race_id: Optional[str] = None) -> List[PublicationResult]:
         """
-        Get publication history for all races or a specific race.
+        Get publication history, optionally filtered by race ID.
 
         Args:
-            race_id: Optional race ID to filter history
+            race_id: Optional race ID to filter results
 
         Returns:
             List of publication results
@@ -276,50 +324,11 @@ class RacePublishingEngine:
             return [r for r in self.publication_history if race_id in str(r.metadata)]
         return self.publication_history.copy()
 
-    def get_published_races(self) -> List[str]:
+    def get_active_publications(self) -> Dict[str, asyncio.Task]:
         """
-        Get list of successfully published race IDs.
+        Get currently active publication tasks.
 
         Returns:
-            List of race IDs that have been published
-
-        TODO: Implement comprehensive race listing:
-        - Scan multiple storage backends for published races
-        - Aggregate publication status across targets
-        - Include publication timestamps and versions
-        - Filter by publication status and targets
-        - Support pagination for large race counts
-        - Include metadata and quality scores
+            Dictionary of active publication tasks by key
         """
-        published_files = list(self.config.output_directory.glob("*.json"))
-        return [f.stem for f in published_files]
-
-    def get_race_data(self, race_id: str) -> Optional[Dict[str, Any]]:
-        """
-        Retrieve published race data by race ID.
-
-        Args:
-            race_id: Race identifier to retrieve
-
-        Returns:
-            Race data dictionary if found, None otherwise
-
-        TODO: Implement comprehensive race data retrieval:
-        - Search across multiple storage backends
-        - Handle different data formats and versions
-        - Include caching for frequently accessed races
-        - Support partial data retrieval and field selection
-        - Implement access control and authorization
-        - Add data freshness indicators and timestamps
-        """
-        race_file = self.config.output_directory / f"{race_id}.json"
-
-        if race_file.exists():
-            try:
-                with open(race_file, "r", encoding="utf-8") as f:
-                    return json.load(f)
-            except Exception as e:
-                logger.error(f"Failed to load race data for {race_id}: {e}")
-                return None
-
-        return None
+        return self.active_publications.copy()

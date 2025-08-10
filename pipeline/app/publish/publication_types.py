@@ -1,15 +1,14 @@
 """
-Publication types and configuration for SmarterVote Pipeline.
+Publication types and configuration for SmarterVote race publishing.
 
-This module contains the core types, enums, and configuration classes
-used by the race publishing engine.
+This module contains enums, dataclasses, and configuration structures
+used throughout the race publishing system.
 """
 
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
-from pathlib import Path
-from typing import Any, Dict
+from typing import Any, Dict, List, Optional
 
 
 class PublicationTarget(str, Enum):
@@ -36,14 +35,27 @@ class PublicationResult:
 
 @dataclass
 class PublicationConfig:
-    """Configuration for publication operations."""
+    """Configuration for race publishing operations."""
 
-    output_directory: Path
-    enable_cloud_storage: bool = True
-    enable_database: bool = True
-    enable_webhooks: bool = True
+    # Default publication targets
+    default_targets: List[PublicationTarget]
+
+    # Local file publishing configuration
+    local_output_dir: str = "data/published"
+    pretty_json: bool = True
+
+    # Cloud storage configuration
+    cloud_bucket: Optional[str] = None
+    cloud_prefix: str = "races"
+
+    # Database configuration
+    database_url: Optional[str] = None
+    database_table: str = "races"
+
+    # Webhook configuration
+    webhook_urls: List[str] = None
+    webhook_timeout: int = 30
+
+    # Notification configuration
     enable_notifications: bool = True
-    version_control: bool = True
-    compression: bool = False
-    encryption: bool = False
-    retention_days: int = 365
+    notification_endpoints: List[str] = None
