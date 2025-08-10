@@ -46,3 +46,40 @@ variable "google_search_cx" {
   type        = string
   sensitive   = true
 }
+
+# ChromaDB Vector Database Configuration
+variable "chroma_chunk_size" {
+  description = "Word count per chunk for vector database"
+  type        = number
+  default     = 500
+}
+
+variable "chroma_chunk_overlap" {
+  description = "Word overlap between chunks"
+  type        = number
+  default     = 50
+}
+
+variable "chroma_embedding_model" {
+  description = "Sentence transformer model for embeddings"
+  type        = string
+  default     = "all-MiniLM-L6-v2"
+}
+
+variable "chroma_similarity_threshold" {
+  description = "Minimum similarity score for search results"
+  type        = number
+  default     = 0.7
+}
+
+variable "chroma_max_results" {
+  description = "Maximum search results to return"
+  type        = number
+  default     = 100
+}
+
+variable "chroma_persist_dir" {
+  description = "Directory for ChromaDB persistence in containers"
+  type        = string
+  default     = "/app/data/chroma_db"
+}

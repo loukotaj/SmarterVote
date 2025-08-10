@@ -109,6 +109,14 @@ resource "google_service_account" "pubsub_invoker" {
   description  = "Service account for Pub/Sub to invoke Cloud Run"
 }
 
+# GitHub Actions deployment service account
+resource "google_service_account" "github_actions" {
+  project      = var.project_id
+  account_id   = "github-actions-${var.environment}"
+  display_name = "GitHub Actions Deployment Service Account"
+  description  = "Service account for GitHub Actions to deploy infrastructure and services"
+}
+
 # IAM bindings for race worker - all within same project
 resource "google_project_iam_member" "race_worker_storage" {
   project = var.project_id
@@ -136,7 +144,7 @@ resource "google_project_iam_member" "race_worker_pubsub" {
 
 resource "google_project_iam_member" "race_worker_artifact_registry" {
   project = var.project_id
-  role    = "roles/artifactregistry.reader"
+  role    = "roles/artifactregistry.writer"
   member  = "serviceAccount:${google_service_account.race_worker.email}"
 }
 
@@ -155,7 +163,7 @@ resource "google_project_iam_member" "enqueue_api_run_jobs" {
 
 resource "google_project_iam_member" "enqueue_api_artifact_registry" {
   project = var.project_id
-  role    = "roles/artifactregistry.reader"
+  role    = "roles/artifactregistry.writer"
   member  = "serviceAccount:${google_service_account.enqueue_api.email}"
 }
 
@@ -168,8 +176,33 @@ resource "google_project_iam_member" "races_api_storage" {
 
 resource "google_project_iam_member" "races_api_artifact_registry" {
   project = var.project_id
-  role    = "roles/artifactregistry.reader"
+  role    = "roles/artifactregistry.writer"
   member  = "serviceAccount:${google_service_account.races_api.email}"
+}
+
+# IAM bindings for GitHub Actions deployment service account
+resource "google_project_iam_member" "github_actions_artifact_registry" {
+  project = var.project_id
+  role    = "roles/artifactregistry.writer"
+  member  = "serviceAccount:${google_service_account.github_actions.email}"
+}
+
+resource "google_project_iam_member" "github_actions_cloud_run" {
+  project = var.project_id
+  role    = "roles/run.admin"
+  member  = "serviceAccount:${google_service_account.github_actions.email}"
+}
+
+resource "google_project_iam_member" "github_actions_storage" {
+  project = var.project_id
+  role    = "roles/storage.admin"
+  member  = "serviceAccount:${google_service_account.github_actions.email}"
+}
+
+resource "google_project_iam_member" "github_actions_iam" {
+  project = var.project_id
+  role    = "roles/iam.serviceAccountUser"
+  member  = "serviceAccount:${google_service_account.github_actions.email}"
 }
 
 # IAM bindings for Pub/Sub invoker

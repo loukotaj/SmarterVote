@@ -1,11 +1,12 @@
 #!/bin/bash
 
 # SmarterVote Infrastructure Validation Script
+# Updated to include ChromaDB vector database validation
 
 set -e
 
-echo "🔍 SmarterVote Infrastructure Validation"
-echo "========================================"
+echo "🔍 SmarterVote Infrastructure Validation (with ChromaDB Support)"
+echo "================================================================="
 
 # Get project ID from secrets.tfvars
 if [ ! -f "secrets.tfvars" ]; then
@@ -15,20 +16,29 @@ fi
 
 PROJECT_ID=$(grep 'project_id' secrets.tfvars | cut -d'"' -f2)
 REGION=$(grep 'region' secrets.tfvars | cut -d'"' -f2 || echo "us-central1")
+ENVIRONMENT=$(grep 'environment' secrets.tfvars | cut -d'"' -f2 || echo "dev")
 
 echo "📋 Project ID: $PROJECT_ID"
 echo "📋 Region: $REGION"
+echo "📋 Environment: $ENVIRONMENT"
 echo ""
 
 # Check if resources exist
 echo "🔍 Checking infrastructure resources..."
 
-# Check Cloud Storage bucket
-echo -n "☁️  Storage bucket: "
+# Check Cloud Storage buckets
+echo -n "☁️  Main storage bucket: "
 if gsutil ls -b gs://$PROJECT_ID-sv-data >/dev/null 2>&1; then
     echo "✅ EXISTS"
 else
-    echo "❌ NOT FOUND"
+    echo "❌ MISSING"
+fi
+
+echo -n "🧠 ChromaDB storage bucket: "
+if gsutil ls -b gs://$PROJECT_ID-chroma-$ENVIRONMENT >/dev/null 2>&1; then
+    echo "✅ EXISTS"
+else
+    echo "❌ MISSING"
 fi
 
 # Check Pub/Sub topic

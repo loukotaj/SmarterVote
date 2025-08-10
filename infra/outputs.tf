@@ -21,6 +21,16 @@ output "bucket_name" {
   value       = google_storage_bucket.sv_data.name
 }
 
+output "chroma_bucket_name" {
+  description = "Name of the ChromaDB storage bucket"
+  value       = google_storage_bucket.chroma_storage.name
+}
+
+output "chroma_disk_name" {
+  description = "Name of the ChromaDB persistent disk"
+  value       = google_compute_disk.chroma_disk.name
+}
+
 output "artifact_registry_repository" {
   description = "Artifact Registry repository for container images"
   value       = google_artifact_registry_repository.smartervote.name
@@ -73,4 +83,9 @@ output "enqueue_api_email" {
 output "races_api_email" {
   description = "Email of the races API service account"
   value       = google_service_account.races_api.email
+}
+
+output "github_actions_email" {
+  description = "Email of the GitHub Actions deployment service account"
+  value       = google_service_account.github_actions.email
 }

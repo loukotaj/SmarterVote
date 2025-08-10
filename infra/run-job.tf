@@ -69,6 +69,53 @@ resource "google_cloud_run_v2_job" "race_worker" {
           }
         }
 
+        # ChromaDB Vector Database Configuration
+        env {
+          name  = "CHROMA_CHUNK_SIZE"
+          value = tostring(var.chroma_chunk_size)
+        }
+
+        env {
+          name  = "CHROMA_CHUNK_OVERLAP"
+          value = tostring(var.chroma_chunk_overlap)
+        }
+
+        env {
+          name  = "CHROMA_EMBEDDING_MODEL"
+          value = var.chroma_embedding_model
+        }
+
+        env {
+          name  = "CHROMA_SIMILARITY_THRESHOLD"
+          value = tostring(var.chroma_similarity_threshold)
+        }
+
+        env {
+          name  = "CHROMA_MAX_RESULTS"
+          value = tostring(var.chroma_max_results)
+        }
+
+        env {
+          name  = "CHROMA_PERSIST_DIR"
+          value = var.chroma_persist_dir
+        }
+
+        env {
+          name  = "CHROMA_BUCKET_NAME"
+          value = google_storage_bucket.chroma_storage.name
+        }
+
+        # System Configuration
+        env {
+          name  = "ENVIRONMENT"
+          value = var.environment
+        }
+
+        env {
+          name  = "LOG_LEVEL"
+          value = var.environment == "prod" ? "INFO" : "DEBUG"
+        }
+
         resources {
           limits = {
             cpu    = "2"
@@ -90,6 +137,7 @@ resource "google_cloud_run_v2_job" "race_worker" {
     google_secret_manager_secret_version.anthropic_key,
     google_secret_manager_secret_version.grok_key,
     google_secret_manager_secret_version.google_search_key,
-    google_secret_manager_secret_version.google_search_cx
+    google_secret_manager_secret_version.google_search_cx,
+    google_storage_bucket.chroma_storage
   ]
 }

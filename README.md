@@ -19,7 +19,7 @@ SmarterVote employs a sophisticated **corpus-first approach** to electoral analy
 ## ⚡ Quick Start
 
 ### Prerequisites
-- **Python**: 3.9+ (Pipeline and services)
+- **Python**: 3.10+ (Pipeline and services)
 - **Node.js**: 22.0+ (Web frontend)
 - **Docker**: Container runtime
 - **Terraform**: 1.5+ (Infrastructure as Code)
@@ -27,27 +27,42 @@ SmarterVote employs a sophisticated **corpus-first approach** to electoral analy
 
 ### 🏃‍♂️ Local Development
 
-1. **Clone the repository**
+1. **Clone and setup**
    ```bash
    git clone https://github.com/loukotaj/SmarterVote.git
    cd SmarterVote
+
+   # Copy environment template
+   cp .env.example .env
+   # Edit .env with your API keys and configuration
    ```
 
-2. **Set up Python pipeline environment**
+2. **Install dependencies**
    ```bash
-   cd pipeline
-   pip install -r requirements.txt
+   # Python environment
+   python -m venv .venv
+   .venv\Scripts\activate  # Windows
+   # source .venv/bin/activate  # macOS/Linux
+   pip install -r pipeline/requirements.txt
+
+   # Web frontend
+   cd web && npm install && cd ..
    ```
 
-3. **Launch web frontend**
+3. **Test Vector Database**
    ```bash
-   cd web
-   npm install
-   npm run dev
+   # Verify ChromaDB setup
+   python test_vector_db.py
    ```
 
-4. **Run local pipeline processing**
+4. **Start development services**
    ```bash
+   # All services (Windows PowerShell)
+   .\dev-start.ps1
+
+   # Or individually:
+   # Races API: cd services/races-api && python main.py
+   # Web: cd web && npm run dev
    python scripts/run_local.py
    ```
 

@@ -60,6 +60,14 @@ jobs:
         grok_api_key = "${{ secrets.GROK_API_KEY }}"
         google_search_api_key = "${{ secrets.GOOGLE_SEARCH_API_KEY }}"
         google_search_cx = "${{ secrets.GOOGLE_SEARCH_CX }}"
+
+        # ChromaDB Configuration
+        chroma_chunk_size = 500
+        chroma_chunk_overlap = 50
+        chroma_embedding_model = "all-MiniLM-L6-v2"
+        chroma_similarity_threshold = 0.7
+        chroma_max_results = 100
+        chroma_persist_dir = "/app/data/chroma_db"
         EOF
 
     - name: Terraform Init

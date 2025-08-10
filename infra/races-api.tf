@@ -28,6 +28,22 @@ resource "google_cloud_run_v2_service" "races_api" {
         value = "out/"
       }
 
+      # ChromaDB Configuration for races API
+      env {
+        name  = "CHROMA_PERSIST_DIR"
+        value = "/app/data/chroma_db"
+      }
+
+      env {
+        name  = "CHROMA_BUCKET_NAME"
+        value = google_storage_bucket.chroma_storage.name
+      }
+
+      env {
+        name  = "ENVIRONMENT"
+        value = var.environment
+      }
+
       resources {
         limits = {
           cpu    = "1000m"
