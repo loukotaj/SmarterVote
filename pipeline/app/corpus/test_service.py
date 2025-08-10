@@ -14,7 +14,7 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
-from ..corpus.vector_database_manager import VectorDatabaseManager
+from ..corpus.election_vector_database_manager import ElectionVectorDatabaseManager
 from ..schema import CanonicalIssue, ExtractedContent, Source, SourceType, VectorDocument
 
 
@@ -64,8 +64,8 @@ def sample_content():
 
 @pytest.fixture
 def db_manager(temp_db_dir):
-    """Create a vector database manager with temporary storage."""
-    manager = VectorDatabaseManager()
+    """Create an election-aware vector database manager with temporary storage."""
+    manager = ElectionVectorDatabaseManager()
     manager.config["persist_directory"] = temp_db_dir
     yield manager
     # Clean up ChromaDB connections
@@ -76,8 +76,8 @@ def db_manager(temp_db_dir):
             pass
 
 
-class TestVectorDatabaseManager:
-    """Test cases for VectorDatabaseManager class."""
+class TestElectionVectorDatabaseManager:
+    """Test cases for ElectionVectorDatabaseManager class."""
 
     @pytest.mark.asyncio
     async def test_initialization(self, db_manager):
@@ -104,7 +104,7 @@ class TestVectorDatabaseManager:
     async def test_initialization_creates_directory(self, temp_db_dir):
         """Test that initialization creates the persist directory."""
         db_path = Path(temp_db_dir) / "test_subdir"
-        manager = VectorDatabaseManager()
+        manager = ElectionVectorDatabaseManager()
         manager.config["persist_directory"] = str(db_path)
 
         assert not db_path.exists()
@@ -366,7 +366,7 @@ class TestVectorDatabaseManager:
         with patch.dict(
             "os.environ", {"CHROMA_CHUNK_SIZE": "300", "CHROMA_CHUNK_OVERLAP": "30", "CHROMA_SIMILARITY_THRESHOLD": "0.8"}
         ):
-            manager = VectorDatabaseManager()
+            manager = ElectionVectorDatabaseManager()
 
             assert manager.config["chunk_size"] == 300
             assert manager.config["chunk_overlap"] == 30
@@ -378,14 +378,14 @@ class TestVectorDatabaseManager:
         race_id = "persistence-test-2024"
 
         # First session: create and populate database
-        manager1 = VectorDatabaseManager()
+        manager1 = ElectionVectorDatabaseManager()
         manager1.config["persist_directory"] = temp_db_dir
         await manager1.initialize()
         await manager1.build_corpus(race_id, [sample_content])
         first_count = manager1.collection.count()
 
         # Second session: reconnect to same database
-        manager2 = VectorDatabaseManager()
+        manager2 = ElectionVectorDatabaseManager()
         manager2.config["persist_directory"] = temp_db_dir
         await manager2.initialize()
         second_count = manager2.collection.count()

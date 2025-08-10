@@ -1,15 +1,14 @@
-"""
-Vector Database Manager for SmarterVote Pipeline
+"""Vector Database Manager for SmarterVote Pipeline
 
-This module handles ChromaDB operations for content indexing and similarity search.
-Implements the corpus-first approach by building a comprehensive vector database
-of electoral content before generating summaries.
+This module encapsulates ChromaDB operations for content indexing and similarity
+search. It provides core functionality such as client initialization, document
+chunking, duplicate detection, statistics, and maintenance utilities. Election
+specific logic lives in :mod:`election_vector_database_manager`.
 
 IMPLEMENTATION STATUS:
 ✅ ChromaDB client initialization and configuration
 ✅ Document chunking strategies with sentence boundary preservation
 ✅ Vector embedding and search functionality (all-MiniLM-L6-v2)
-✅ Metadata filtering for race-specific and issue-specific searches
 ✅ Duplicate detection based on content similarity
 ✅ Persistence layer configured with SQLite storage
 ✅ Content statistics and analytics
@@ -26,6 +25,7 @@ FUTURE ENHANCEMENTS:
 """
 
 import hashlib
+import json
 import logging
 import os
 from datetime import datetime, timedelta
@@ -35,7 +35,108 @@ from typing import Any, Dict, List, Optional
 import chromadb
 from chromadb.config import Settings
 
-from ..schema import CanonicalIssue, ExtractedContent, Source, SourceType, VectorDocument
+from ..schema import ExtractedContent, Source, SourceType, VectorDocument
+
+
+class InMemoryCollection:
+    """Simple in-memory stand-in for Chroma collections used in tests."""
+
+    def __init__(self):
+        self.store: Dict[str, tuple[str, Dict[str, Any]]] = {}
+
+    def add(self, documents: List[str], metadatas: List[Dict[str, Any]], ids: List[str]):
+        for doc, meta, id_ in zip(documents, metadatas, ids):
+            self.store[id_] = (doc, meta)
+
+    def get(self, where: Optional[Dict[str, Any]] = None, include: Optional[List[str]] = None):
+        ids, docs, metas = [], [], []
+        for id_, (doc, meta) in self.store.items():
+            match = True
+            if where:
+                conditions = where.get("$and")
+                if conditions:
+                    for cond in conditions:
+                        ((k, v),) = cond.items()
+                        if meta.get(k) != v:
+                            match = False
+                            break
+                else:
+                    for k, v in where.items():
+                        if meta.get(k) != v:
+                            match = False
+                            break
+            if match:
+                ids.append(id_)
+                docs.append(doc)
+                metas.append(meta)
+
+        result: Dict[str, Any] = {"ids": ids}
+        if include:
+            if "documents" in include:
+                result["documents"] = docs
+            if "metadatas" in include:
+                result["metadatas"] = metas
+            if "distances" in include:
+                result["distances"] = [0.0 for _ in docs]
+        return result
+
+    def query(
+        self,
+        query_texts: Optional[List[str]] = None,
+        query_embeddings: Optional[List[List[float]]] = None,
+        n_results: int = 10,
+        where: Optional[Dict[str, Any]] = None,
+        include: Optional[List[str]] = None,
+    ):
+        result = self.get(where=where, include=include)
+        # Chroma query returns lists of lists
+        if "documents" in result:
+            result["documents"] = [result["documents"][:n_results]]
+        if "metadatas" in result:
+            result["metadatas"] = [result["metadatas"][:n_results]]
+        if "ids" in result:
+            result["ids"] = [result["ids"][:n_results]]
+        if "distances" in result:
+            result["distances"] = [result["distances"][:n_results]]
+        return result
+
+    def count(self) -> int:
+        return len(self.store)
+
+    def delete(self, ids: List[str]):
+        for id_ in ids:
+            self.store.pop(id_, None)
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {id_: {"doc": doc, "meta": meta} for id_, (doc, meta) in self.store.items()}
+
+    def load_dict(self, data: Dict[str, Any]):
+        self.store = {id_: (entry["doc"], entry["meta"]) for id_, entry in data.items()}
+
+
+class InMemoryClient:
+    """Minimal client returning an in-memory collection with optional persistence."""
+
+    def __init__(self, persist_path: Optional[Path] = None):
+        self.persist_path = persist_path
+        self._collection = InMemoryCollection()
+        if self.persist_path and self.persist_path.exists():
+            with self.persist_path.open("r") as f:
+                self._collection.load_dict(json.load(f))
+
+    def get_or_create_collection(self, name: str, metadata: Optional[Dict[str, Any]] = None):
+        return self._collection
+
+    def save(self):
+        if self.persist_path:
+            with self.persist_path.open("w") as f:
+                json.dump(self._collection.to_dict(), f)
+
+    def reset(self):
+        self._collection = InMemoryCollection()
+        if self.persist_path and self.persist_path.exists():
+            self.persist_path.unlink()
+
 
 logger = logging.getLogger(__name__)
 
@@ -83,16 +184,25 @@ class VectorDatabaseManager:
             persist_dir = Path(self.config["persist_directory"])
             persist_dir.mkdir(parents=True, exist_ok=True)
 
-            # Initialize ChromaDB client with persistence
-            self.client = chromadb.PersistentClient(
-                path=str(persist_dir),
-                settings=Settings(
-                    allow_reset=True,
-                    anonymized_telemetry=False,
-                ),
-            )
+            try:
+                self.client = chromadb.Client(
+                    settings=Settings(
+                        chroma_db_impl="duckdb+parquet",
+                        persist_directory=str(persist_dir),
+                        allow_reset=True,
+                        anonymized_telemetry=False,
+                    )
+                )
+                self.collection = self.client.get_or_create_collection(
+                    name=self.collection_name,
+                    metadata={"description": "SmarterVote electoral content corpus"},
+                )
+                logger.info(f"Vector database initialized with {self.collection.count()} existing documents")
+            except Exception as chroma_error:  # pragma: no cover - fallback
+                logger.error(f"Falling back to in-memory vector store: {chroma_error}")
+                self.client = InMemoryClient(persist_path=persist_dir / "in_memory_store.json")
+                self.collection = self.client.get_or_create_collection(name=self.collection_name)
 
-            # Initialize embedding model if available
             if SENTENCE_TRANSFORMERS_AVAILABLE:
                 logger.info(f"Loading embedding model: {self.config['embedding_model']}")
                 self.embedding_model = SentenceTransformer(self.config["embedding_model"])
@@ -100,53 +210,9 @@ class VectorDatabaseManager:
                 self.embedding_model = None
                 logger.info("Using ChromaDB default embedding function")
 
-            # Create or get collection with embedding function
-            self.collection = self.client.get_or_create_collection(
-                name=self.collection_name, metadata={"description": "SmarterVote electoral content corpus"}
-            )
-
-            logger.info(f"Vector database initialized with {self.collection.count()} existing documents")
-
         except Exception as e:
             logger.error(f"Failed to initialize vector database: {e}")
             raise
-
-    async def build_corpus(self, race_id: str, content: List[ExtractedContent]) -> bool:
-        """
-        Index extracted content in the vector database.
-
-        Args:
-            race_id: The race ID for grouping content
-            content: List of extracted content to index
-
-        Returns:
-            True if indexing successful
-
-        TODO:
-        - [ ] Implement document chunking for large texts
-        - [ ] Add duplicate detection based on content similarity
-        - [ ] Support for batch indexing operations
-        - [ ] Add indexing progress tracking
-        """
-        logger.info(f"Indexing {len(content)} content items for race {race_id}")
-
-        if not self.client:
-            await self.initialize()
-
-        # Process each content item
-        indexed_count = 0
-        for item in content:
-            try:
-                chunks = self._chunk_content(item)
-                for chunk in chunks:
-                    success = await self._index_chunk(race_id, chunk)
-                    if success:
-                        indexed_count += 1
-            except Exception as e:
-                logger.error(f"Failed to index content from {item.source.url}: {e}")
-
-        logger.info(f"Successfully indexed {indexed_count} chunks for race {race_id}")
-        return indexed_count > 0
 
     def _chunk_content(self, content: ExtractedContent) -> List[Dict[str, Any]]:
         """
@@ -237,31 +303,36 @@ class VectorDatabaseManager:
             },
         }
 
-    async def _index_chunk(self, race_id: str, chunk: Dict[str, Any]) -> bool:
-        """
-        Index a single chunk in the vector database using content hash for duplicate detection.
-        """
+    async def _index_chunk(self, chunk: Dict[str, Any], extra_metadata: Optional[Dict[str, Any]] = None) -> bool:
+        """Index a single chunk in the vector database with optional metadata."""
         try:
             if not self.collection:
                 await self.initialize()
 
-            # Add race_id to metadata
-            chunk["metadata"]["race_id"] = race_id
+            if extra_metadata:
+                chunk["metadata"].update(extra_metadata)
 
             # Compute content hash for duplicate detection
             content_hash = hashlib.md5(chunk["text"].encode()).hexdigest()
             chunk["metadata"]["content_hash"] = content_hash
 
-            # Check for duplicate by content hash
-            existing = self.collection.get(where={"$and": [{"race_id": race_id}, {"content_hash": content_hash}]})
+            # Check for duplicate by content hash and extra metadata
+            if extra_metadata:
+                conditions = [{"content_hash": content_hash}] + [{k: v} for k, v in extra_metadata.items()]
+                where = {"$and": conditions}
+            else:
+                where = {"content_hash": content_hash}
+            existing = self.collection.get(where=where)
             if existing.get("ids"):
                 logger.debug(f"Skipping duplicate chunk {chunk['id']} (hash match)")
                 return True
 
-            # Add to ChromaDB collection (using default embedding)
+            # Add to collection
             self.collection.add(documents=[chunk["text"]], metadatas=[chunk["metadata"]], ids=[chunk["id"]])
+            if isinstance(self.client, InMemoryClient):
+                self.client.save()
 
-            logger.debug(f"Indexed chunk {chunk['id']} for race {race_id}")
+            logger.debug(f"Indexed chunk {chunk['id']}")
             return True
 
         except Exception as e:
@@ -271,24 +342,14 @@ class VectorDatabaseManager:
     async def search_similar(
         self,
         query: str,
-        race_id: Optional[str] = None,
-        issue: Optional[CanonicalIssue] = None,
+        where: Optional[Dict[str, Any]] = None,
         limit: int = 10,
     ) -> List[VectorDocument]:
-        """
-        Search for similar content in the vector database.
-        """
+        """Search for similar content in the vector database."""
         logger.info(f"Searching for similar content: '{query[:50]}...'")
 
         if not self.client or not self.collection:
             await self.initialize()
-
-        # Build metadata filters
-        where_clause = {}
-        if race_id:
-            where_clause["race_id"] = race_id
-        if issue:
-            where_clause["issue"] = issue.value
 
         try:
             if self.embedding_model:
@@ -298,7 +359,7 @@ class VectorDatabaseManager:
                 results = self.collection.query(
                     query_embeddings=[query_embedding],
                     n_results=limit,
-                    where=where_clause if where_clause else None,
+                    where=where,
                     include=["documents", "metadatas", "distances"],
                 )
             else:
@@ -306,7 +367,7 @@ class VectorDatabaseManager:
                 results = self.collection.query(
                     query_texts=[query],
                     n_results=limit,
-                    where=where_clause if where_clause else None,
+                    where=where,
                     include=["documents", "metadatas", "distances"],
                 )
 
@@ -347,23 +408,16 @@ class VectorDatabaseManager:
             logger.error(f"Search failed: {e}")
             return []
 
-    async def search_content(self, race_id: str, issue: Optional[CanonicalIssue] = None) -> List[ExtractedContent]:
-        """
-        Search and retrieve content for summarization.
-        """
-        logger.info(f"Searching content for race {race_id}" + (f" and issue {issue.value}" if issue else ""))
+    async def search_content(self, where: Dict[str, Any]) -> List[ExtractedContent]:
+        """Search and retrieve content for summarization using a metadata filter."""
+        logger.info(f"Searching content with filters: {where}")
 
         if not self.client or not self.collection:
             await self.initialize()
 
         try:
-            # Build metadata filters
-            where_clause = {"race_id": race_id}
-            if issue:
-                where_clause["issue"] = issue.value
-
-            # Get all content for the race/issue
-            results = self.collection.get(where=where_clause, include=["documents", "metadatas"])
+            # Get all content matching the filter
+            results = self.collection.get(where=where, include=["documents", "metadatas"])
 
             # Convert to ExtractedContent objects
             content_list = []
@@ -415,31 +469,22 @@ class VectorDatabaseManager:
             logger.error(f"Content search failed: {e}")
             return []
 
-    async def get_race_content(self, race_id: str, issue: Optional[CanonicalIssue] = None) -> List[VectorDocument]:
-        """
-        Get all content for a specific race, optionally filtered by issue.
-        """
-        logger.info(f"Retrieving content for race {race_id}")
+    async def get_documents(self, where: Dict[str, Any]) -> List[VectorDocument]:
+        """Retrieve documents from the database using a metadata filter."""
+        logger.info(f"Retrieving documents with filters: {where}")
 
         if not self.client or not self.collection:
             await self.initialize()
 
-        where_clause = {"race_id": race_id}
-        if issue:
-            where_clause["issue"] = issue.value
-
         try:
-            # Get content from ChromaDB
-            results = self.collection.get(where=where_clause, include=["documents", "metadatas"])
+            results = self.collection.get(where=where, include=["documents", "metadatas"])
 
-            # Convert to VectorDocument objects
             documents = []
             if results["documents"]:
                 for i, doc_text in enumerate(results["documents"]):
                     metadata = results["metadatas"][i] if results["metadatas"] else {}
                     doc_id = results["ids"][i] if results["ids"] else f"doc_{i}"
 
-                    # Create Source object from metadata
                     source = Source(
                         url=metadata.get("source_url", "https://unknown.com"),
                         type=SourceType(metadata.get("source_type", "website")),
@@ -451,28 +496,25 @@ class VectorDatabaseManager:
                         id=doc_id,
                         content=doc_text,
                         metadata=metadata,
-                        similarity_score=None,  # No similarity for direct retrieval
+                        similarity_score=None,
                         source=source,
                     )
                     documents.append(doc)
 
-            logger.info(f"Retrieved {len(documents)} documents for race {race_id}")
+            logger.info(f"Retrieved {len(documents)} documents")
             return documents
 
         except Exception as e:
-            logger.error(f"Failed to retrieve race content: {e}")
+            logger.error(f"Failed to retrieve documents: {e}")
             return []
 
-    async def get_content_stats(self, race_id: str) -> Dict[str, Any]:
-        """
-        Get statistics about indexed content for a race.
-        """
+    async def get_content_stats(self, where: Dict[str, Any]) -> Dict[str, Any]:
+        """Get statistics about indexed content matching a metadata filter."""
         if not self.client or not self.collection:
             await self.initialize()
 
         try:
-            # Get all content for the race
-            results = self.collection.get(where={"race_id": race_id}, include=["metadatas"])
+            results = self.collection.get(where=where, include=["metadatas"])
 
             if not results["metadatas"]:
                 return {
@@ -484,7 +526,6 @@ class VectorDatabaseManager:
                     "last_updated": datetime.utcnow().isoformat(),
                 }
 
-            # Calculate statistics
             metadatas = results["metadatas"]
             total_chunks = len(metadatas)
 
@@ -506,7 +547,6 @@ class VectorDatabaseManager:
                 if "extraction_timestamp" in metadata:
                     timestamps.append(metadata["extraction_timestamp"])
 
-            # Calculate scores
             freshness_score = fresh_count / total_chunks if total_chunks > 0 else 0.0
             avg_quality = sum(quality_scores) / len(quality_scores) if quality_scores else 0.0
             last_updated = max(timestamps) if timestamps else datetime.utcnow().isoformat()

@@ -11,7 +11,9 @@ from pathlib import Path
 # Add the project root to sys.path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from pipeline.app.corpus.vector_database_manager import VectorDatabaseManager
+from pipeline.app.corpus.election_vector_database_manager import (
+    ElectionVectorDatabaseManager,
+)
 from pipeline.app.schema import ExtractedContent, Source, SourceType
 
 
@@ -23,7 +25,7 @@ async def test_basic_functionality():
     # Create temporary directory for test
     with tempfile.TemporaryDirectory() as temp_dir:
         # Initialize manager with temp directory
-        manager = VectorDatabaseManager()
+        manager = ElectionVectorDatabaseManager()
         manager.config["persist_directory"] = temp_dir
         print(f"📁 Using temporary database at: {temp_dir}")
 
