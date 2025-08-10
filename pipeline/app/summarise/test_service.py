@@ -392,3 +392,152 @@ class TestLLMSummarizationEngine:
             assert len(template) > 50  # Should be substantial prompts
             assert "{race_id}" in template
             assert "{content}" in template
+
+    def test_api_statistics_tracking(self, engine_with_openai_key):
+        """Test that API statistics are properly tracked."""
+        # Initial state
+        stats = engine_with_openai_key.get_api_statistics()
+        assert stats["total_calls"] == 0
+        assert stats["successful_calls"] == 0
+        assert stats["failed_calls"] == 0
+        
+        # Simulate successful call
+        engine_with_openai_key._update_stats("openai", True, 100)
+        stats = engine_with_openai_key.get_api_statistics()
+        assert stats["total_calls"] == 1
+        assert stats["successful_calls"] == 1
+        assert stats["total_tokens"] == 100
+        assert stats["provider_stats"]["openai"]["tokens"] == 100
+        
+        # Simulate failed call
+        engine_with_openai_key._update_stats("openai", False)
+        stats = engine_with_openai_key.get_api_statistics()
+        assert stats["total_calls"] == 2
+        assert stats["failed_calls"] == 1
+        assert stats["provider_stats"]["openai"]["errors"] == 1
+
+    def test_triangulate_summaries_insufficient_data(self, engine_with_openai_key):
+        """Test triangulation with insufficient summaries."""
+        single_summary = [
+            Summary(
+                content="Single summary",
+                model="gpt-4o",
+                confidence=ConfidenceLevel.HIGH,
+                created_at=datetime.utcnow(),
+                source_ids=["test"]
+            )
+        ]
+        
+        result = engine_with_openai_key.triangulate_summaries(single_summary)
+        assert result is None
+
+    def test_triangulate_summaries_high_consensus(self, engine_with_openai_key):
+        """Test triangulation with high confidence consensus."""
+        summaries = [
+            Summary(
+                content="High confidence summary 1",
+                model="gpt-4o",
+                confidence=ConfidenceLevel.HIGH,
+                tokens_used=100,
+                created_at=datetime.utcnow(),
+                source_ids=["test"]
+            ),
+            Summary(
+                content="High confidence summary 2",
+                model="claude-3-5-sonnet-20241022",
+                confidence=ConfidenceLevel.HIGH,
+                tokens_used=120,
+                created_at=datetime.utcnow(),
+                source_ids=["test"]
+            ),
+        ]
+        
+        result = engine_with_openai_key.triangulate_summaries(summaries)
+        assert result is not None
+        assert result["consensus_confidence"] == ConfidenceLevel.HIGH
+        assert result["consensus_method"] == "2-of-3-high"
+        assert result["total_summaries"] == 2
+        assert result["high_confidence_count"] == 2
+        assert result["total_tokens_used"] == 220
+
+    def test_triangulate_summaries_mixed_confidence(self, engine_with_openai_key):
+        """Test triangulation with mixed confidence levels."""
+        summaries = [
+            Summary(
+                content="High confidence summary",
+                model="gpt-4o",
+                confidence=ConfidenceLevel.HIGH,
+                tokens_used=100,
+                created_at=datetime.utcnow(),
+                source_ids=["test"]
+            ),
+            Summary(
+                content="Medium confidence summary",
+                model="claude-3-5-sonnet-20241022",
+                confidence=ConfidenceLevel.MEDIUM,
+                tokens_used=90,
+                created_at=datetime.utcnow(),
+                source_ids=["test"]
+            ),
+            Summary(
+                content="Low confidence summary",
+                model="grok-beta",
+                confidence=ConfidenceLevel.LOW,
+                tokens_used=80,
+                created_at=datetime.utcnow(),
+                source_ids=["test"]
+            ),
+        ]
+        
+        result = engine_with_openai_key.triangulate_summaries(summaries)
+        assert result is not None
+        assert result["consensus_confidence"] == ConfidenceLevel.MEDIUM
+        assert result["consensus_method"] == "majority-medium"
+        assert result["total_summaries"] == 3
+        assert result["models_used"] == ["gpt-4o", "claude-3-5-sonnet-20241022", "grok-beta"]
+
+    @pytest.mark.asyncio
+    async def test_custom_exceptions(self, engine_with_openai_key):
+        """Test custom LLM API exceptions."""
+        from pipeline.app.summarise.llm_summarization_engine import LLMAPIError, RateLimitError
+        
+        # Test LLMAPIError
+        error = LLMAPIError("TestProvider", "Test error message", 500)
+        assert error.provider == "TestProvider"
+        assert error.status_code == 500
+        assert "TestProvider API Error" in str(error)
+        
+        # Test RateLimitError
+        rate_error = RateLimitError("TestProvider", 60)
+        assert rate_error.provider == "TestProvider"
+        assert rate_error.retry_after == 60
+        assert rate_error.status_code == 429
+
+    def test_validate_configuration_no_keys(self, engine_with_no_keys):
+        """Test configuration validation with no API keys."""
+        validation = engine_with_no_keys.validate_configuration()
+        
+        assert not validation["valid"]
+        assert len(validation["enabled_providers"]) == 0
+        assert len(validation["disabled_providers"]) == 3
+        assert "No LLM providers are enabled" in validation["errors"]
+
+    def test_validate_configuration_single_provider(self, engine_with_openai_key):
+        """Test configuration validation with single provider."""
+        validation = engine_with_openai_key.validate_configuration()
+        
+        assert validation["valid"]  # Valid but with warnings
+        assert "openai" in validation["enabled_providers"]
+        assert len(validation["enabled_providers"]) == 1
+        assert any("triangulation requires 2+ providers" in warning for warning in validation["warnings"])
+
+    def test_validate_configuration_all_providers(self, engine_with_all_keys):
+        """Test configuration validation with all providers enabled."""
+        validation = engine_with_all_keys.validate_configuration()
+        
+        assert validation["valid"]
+        assert len(validation["enabled_providers"]) == 3
+        assert "openai" in validation["enabled_providers"]
+        assert "anthropic" in validation["enabled_providers"]
+        assert "xai" in validation["enabled_providers"]
+        # Should have no warnings about triangulation with 3 providers

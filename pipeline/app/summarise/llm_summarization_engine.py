@@ -22,7 +22,7 @@ import asyncio
 import logging
 import os
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 
 import httpx
 from dotenv import load_dotenv
@@ -33,6 +33,26 @@ from ..schema import CanonicalIssue, ConfidenceLevel, ExtractedContent, LLMRespo
 load_dotenv()
 
 logger = logging.getLogger(__name__)
+
+
+class LLMAPIError(Exception):
+    """Custom exception for LLM API errors."""
+    
+    def __init__(self, provider: str, message: str, status_code: Optional[int] = None):
+        self.provider = provider
+        self.status_code = status_code
+        super().__init__(f"{provider} API Error: {message}")
+
+
+class RateLimitError(LLMAPIError):
+    """Exception for rate limiting errors."""
+    
+    def __init__(self, provider: str, retry_after: Optional[int] = None):
+        self.retry_after = retry_after
+        message = f"Rate limit exceeded"
+        if retry_after:
+            message += f", retry after {retry_after}s"
+        super().__init__(provider, message, 429)
 
 
 class LLMSummarizationEngine:
@@ -84,6 +104,15 @@ class LLMSummarizationEngine:
         
         # HTTP client for API calls
         self.http_client = httpx.AsyncClient(timeout=30.0)
+        
+        # Track API usage statistics
+        self.api_stats = {
+            "total_calls": 0,
+            "successful_calls": 0,
+            "failed_calls": 0,
+            "total_tokens": 0,
+            "provider_stats": {provider: {"calls": 0, "tokens": 0, "errors": 0} for provider in self.models.keys()}
+        }
 
     async def __aenter__(self):
         """Async context manager entry."""
@@ -97,6 +126,61 @@ class LLMSummarizationEngine:
         """Close the HTTP client."""
         if hasattr(self, 'http_client'):
             await self.http_client.aclose()
+    
+    def get_api_statistics(self) -> Dict[str, Any]:
+        """Get API usage statistics."""
+        return self.api_stats.copy()
+    
+    def validate_configuration(self) -> Dict[str, Any]:
+        """
+        Validate the current configuration and return status report.
+        
+        Returns:
+            Dict with validation results
+        """
+        validation_result = {
+            "valid": True,
+            "enabled_providers": [],
+            "disabled_providers": [],
+            "warnings": [],
+            "errors": [],
+        }
+        
+        for provider, config in self.models.items():
+            if config.get("enabled"):
+                validation_result["enabled_providers"].append(provider)
+                
+                # Check API key format (basic validation)
+                api_key = config.get("api_key")
+                if not api_key:
+                    validation_result["errors"].append(f"{provider}: API key is None")
+                    validation_result["valid"] = False
+                elif len(api_key) < 10:
+                    validation_result["warnings"].append(f"{provider}: API key appears too short")
+                
+            else:
+                validation_result["disabled_providers"].append(provider)
+        
+        if not validation_result["enabled_providers"]:
+            validation_result["errors"].append("No LLM providers are enabled")
+            validation_result["valid"] = False
+        elif len(validation_result["enabled_providers"]) == 1:
+            validation_result["warnings"].append("Only one provider enabled - triangulation requires 2+ providers")
+        
+        return validation_result
+    
+    def _update_stats(self, provider: str, success: bool, tokens_used: int = 0):
+        """Update API usage statistics."""
+        self.api_stats["total_calls"] += 1
+        if success:
+            self.api_stats["successful_calls"] += 1
+            self.api_stats["total_tokens"] += tokens_used
+            self.api_stats["provider_stats"][provider]["tokens"] += tokens_used
+        else:
+            self.api_stats["failed_calls"] += 1
+            self.api_stats["provider_stats"][provider]["errors"] += 1
+        
+        self.api_stats["provider_stats"][provider]["calls"] += 1
 
     async def generate_summaries(
         self,
@@ -165,6 +249,50 @@ class LLMSummarizationEngine:
             logger.error(f"Failed to generate summaries: {e}")
             return []
 
+    def triangulate_summaries(self, summaries: List[Summary]) -> Optional[Dict[str, Any]]:
+        """
+        Triangulate multiple LLM summaries to create consensus analysis.
+        
+        Args:
+            summaries: List of summaries from different LLMs
+            
+        Returns:
+            Dict with triangulation results or None if insufficient data
+        """
+        if len(summaries) < 2:
+            logger.warning("Need at least 2 summaries for triangulation")
+            return None
+            
+        # Analyze agreement patterns
+        high_confidence_summaries = [s for s in summaries if s.confidence == ConfidenceLevel.HIGH]
+        medium_confidence_summaries = [s for s in summaries if s.confidence == ConfidenceLevel.MEDIUM]
+        
+        # Determine consensus confidence
+        if len(high_confidence_summaries) >= 2:
+            consensus_confidence = ConfidenceLevel.HIGH
+            consensus_method = "2-of-3-high"
+        elif len(summaries) >= 3 and (len(high_confidence_summaries) + len(medium_confidence_summaries)) >= 2:
+            consensus_confidence = ConfidenceLevel.MEDIUM
+            consensus_method = "majority-medium"
+        else:
+            consensus_confidence = ConfidenceLevel.LOW
+            consensus_method = "minority-view"
+        
+        # Calculate average tokens used
+        total_tokens = sum(s.tokens_used or 0 for s in summaries)
+        
+        # Create triangulation result
+        return {
+            "consensus_confidence": consensus_confidence,
+            "consensus_method": consensus_method,
+            "total_summaries": len(summaries),
+            "high_confidence_count": len(high_confidence_summaries),
+            "medium_confidence_count": len(medium_confidence_summaries),
+            "total_tokens_used": total_tokens,
+            "models_used": [s.model for s in summaries],
+            "created_at": datetime.utcnow(),
+        }
+
     def _prepare_content_for_summarization(self, content: List[ExtractedContent], race_id: str) -> str:
         """
         Prepare extracted content for summarization.
@@ -225,6 +353,9 @@ class LLMSummarizationEngine:
             else:
                 raise ValueError(f"Unknown provider: {provider}")
 
+            # Update success statistics
+            self._update_stats(provider, True, response.get("tokens_used", 0))
+
             # Create LLM response record
             llm_response = LLMResponse(
                 model=config["model"],
@@ -243,9 +374,12 @@ class LLMSummarizationEngine:
                 source_ids=[race_id],  # Store race_id as source reference
             )
 
+            logger.debug(f"Generated summary from {provider}: {len(response['content'])} chars, {response.get('tokens_used', 0)} tokens")
             return summary
 
         except Exception as e:
+            # Update failure statistics
+            self._update_stats(provider, False)
             logger.error(f"Failed to generate summary with {provider}: {e}")
             raise
 
@@ -309,24 +443,26 @@ class LLMSummarizationEngine:
                 
             except httpx.HTTPStatusError as e:
                 if e.response.status_code == 429:  # Rate limit
-                    wait_time = 2 ** attempt  # Exponential backoff
+                    retry_after = e.response.headers.get("retry-after")
+                    wait_time = int(retry_after) if retry_after else (2 ** attempt)
                     logger.warning(f"OpenAI rate limit hit. Retrying in {wait_time}s...")
                     await asyncio.sleep(wait_time)
                     continue
                 else:
-                    logger.error(f"OpenAI API error: {e.response.status_code} - {e.response.text}")
-                    raise
+                    error_text = e.response.text if hasattr(e.response, 'text') else str(e)
+                    raise LLMAPIError("OpenAI", f"HTTP {e.response.status_code}: {error_text}", e.response.status_code)
                     
             except Exception as e:
                 if attempt == 2:  # Last attempt
-                    logger.error(f"OpenAI API call failed after 3 attempts: {e}")
-                    raise
+                    if isinstance(e, LLMAPIError):
+                        raise
+                    raise LLMAPIError("OpenAI", f"Unexpected error: {str(e)}")
                 else:
                     wait_time = 2 ** attempt
                     logger.warning(f"OpenAI API call failed, retrying in {wait_time}s: {e}")
                     await asyncio.sleep(wait_time)
         
-        raise Exception("OpenAI API call failed after all retries")
+        raise LLMAPIError("OpenAI", "API call failed after all retries")
 
     async def _call_anthropic_api(self, config: Dict[str, Any], prompt: str) -> Dict[str, Any]:
         """
@@ -389,24 +525,26 @@ class LLMSummarizationEngine:
                 
             except httpx.HTTPStatusError as e:
                 if e.response.status_code == 429:  # Rate limit
-                    wait_time = 2 ** attempt  # Exponential backoff
+                    retry_after = e.response.headers.get("retry-after")
+                    wait_time = int(retry_after) if retry_after else (2 ** attempt)
                     logger.warning(f"Anthropic rate limit hit. Retrying in {wait_time}s...")
                     await asyncio.sleep(wait_time)
                     continue
                 else:
-                    logger.error(f"Anthropic API error: {e.response.status_code} - {e.response.text}")
-                    raise
+                    error_text = e.response.text if hasattr(e.response, 'text') else str(e)
+                    raise LLMAPIError("Anthropic", f"HTTP {e.response.status_code}: {error_text}", e.response.status_code)
                     
             except Exception as e:
                 if attempt == 2:  # Last attempt
-                    logger.error(f"Anthropic API call failed after 3 attempts: {e}")
-                    raise
+                    if isinstance(e, LLMAPIError):
+                        raise
+                    raise LLMAPIError("Anthropic", f"Unexpected error: {str(e)}")
                 else:
                     wait_time = 2 ** attempt
                     logger.warning(f"Anthropic API call failed, retrying in {wait_time}s: {e}")
                     await asyncio.sleep(wait_time)
         
-        raise Exception("Anthropic API call failed after all retries")
+        raise LLMAPIError("Anthropic", "API call failed after all retries")
 
     async def _call_xai_api(self, config: Dict[str, Any], prompt: str) -> Dict[str, Any]:
         """
@@ -468,24 +606,26 @@ class LLMSummarizationEngine:
                 
             except httpx.HTTPStatusError as e:
                 if e.response.status_code == 429:  # Rate limit
-                    wait_time = 2 ** attempt  # Exponential backoff
+                    retry_after = e.response.headers.get("retry-after")
+                    wait_time = int(retry_after) if retry_after else (2 ** attempt)
                     logger.warning(f"xAI rate limit hit. Retrying in {wait_time}s...")
                     await asyncio.sleep(wait_time)
                     continue
                 else:
-                    logger.error(f"xAI API error: {e.response.status_code} - {e.response.text}")
-                    raise
+                    error_text = e.response.text if hasattr(e.response, 'text') else str(e)
+                    raise LLMAPIError("xAI", f"HTTP {e.response.status_code}: {error_text}", e.response.status_code)
                     
             except Exception as e:
                 if attempt == 2:  # Last attempt
-                    logger.error(f"xAI API call failed after 3 attempts: {e}")
-                    raise
+                    if isinstance(e, LLMAPIError):
+                        raise
+                    raise LLMAPIError("xAI", f"Unexpected error: {str(e)}")
                 else:
                     wait_time = 2 ** attempt
                     logger.warning(f"xAI API call failed, retrying in {wait_time}s: {e}")
                     await asyncio.sleep(wait_time)
         
-        raise Exception("xAI API call failed after all retries")
+        raise LLMAPIError("xAI", "API call failed after all retries")
 
     def _assess_confidence(self, content: str) -> ConfidenceLevel:
         """
