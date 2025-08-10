@@ -94,13 +94,16 @@ class RacePublishingEngine:
 
         logger.info(f"Publishing engine initialized with output directory: {self.config.output_directory}")
 
-    async def create_race_json(self, race_id: str, arbitrated_data: Dict[str, Any]) -> RaceJSON:
+    async def create_race_json(
+        self, race_id: str, arbitrated_data: Dict[str, Any], race_metadata: Optional[Any] = None
+    ) -> RaceJSON:
         """
         Transform arbitrated data into standardized RaceJSON format.
 
         Args:
             race_id: Unique identifier for the race
             arbitrated_data: Consensus data from arbitration engine
+            race_metadata: Optional race metadata from early extraction
 
         Returns:
             Complete RaceJSON object ready for publication
@@ -121,8 +124,18 @@ class RacePublishingEngine:
             # Validate input data
             await self._validate_arbitrated_data(arbitrated_data)
 
-            # Extract base race information
-            race_info = await self._extract_race_metadata(race_id, arbitrated_data)
+            # Extract base race information - prioritize race_metadata if available
+            if race_metadata:
+                race_info = {
+                    "title": f"{race_metadata.full_office_name} - {race_metadata.jurisdiction} {race_metadata.year}",
+                    "office": race_metadata.full_office_name,
+                    "jurisdiction": race_metadata.jurisdiction,
+                    "election_date": race_metadata.election_date,
+                }
+                logger.info(f"Using provided race metadata for {race_id}")
+            else:
+                race_info = await self._extract_race_metadata(race_id, arbitrated_data)
+                logger.info(f"Extracted race metadata from arbitrated data for {race_id}")
 
             # Process candidate data
             candidates = await self._extract_candidates(arbitrated_data)
@@ -140,6 +153,7 @@ class RacePublishingEngine:
                 title=race_info.get("title", f"Electoral Race {race_id}"),
                 office=race_info.get("office", "Unknown Office"),
                 jurisdiction=race_info.get("jurisdiction", "Unknown Jurisdiction"),
+                race_metadata=race_metadata,  # Include the full metadata
             )
 
             # Apply validation rules

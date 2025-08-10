@@ -16,6 +16,7 @@ from .models import (
     ProcessingJob,
     ProcessingStatus,
     RaceJSON,
+    RaceMetadata,
     RAGQuery,
     Source,
     SourceType,
@@ -28,6 +29,7 @@ from .models import (
 __version__ = "0.2.0"
 __all__ = [
     "RaceJSON",
+    "RaceMetadata",
     "Candidate",
     "IssueStance",
     "CanonicalIssue",

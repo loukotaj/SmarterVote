@@ -22,9 +22,9 @@ TODO: Implement the following features:
 
 import logging
 from datetime import datetime
-from typing import List
+from typing import List, Optional
 
-from ..schema import CanonicalIssue, FreshSearchQuery, Source, SourceType
+from ..schema import CanonicalIssue, FreshSearchQuery, RaceMetadata, Source, SourceType
 
 logger = logging.getLogger(__name__)
 
@@ -52,24 +52,28 @@ class SourceDiscoveryEngine:
             "enable_news_search": True,
         }
 
-    async def discover_all_sources(self, race_id: str) -> List[Source]:
+    async def discover_all_sources(self, race_id: str, race_metadata: Optional[RaceMetadata] = None) -> List[Source]:
         """
         Discover all sources for a race including seed sources and fresh issue searches.
 
         Args:
             race_id: Race identifier like 'mo-senate-2024'
+            race_metadata: Optional race metadata for optimized discovery
 
         Returns:
             List of all discovered sources (seed + fresh)
         """
         logger.info(f"Starting comprehensive source discovery for {race_id}")
 
+        if race_metadata:
+            logger.info(f"Using race metadata: {race_metadata.full_office_name} in {race_metadata.jurisdiction}")
+
         # Get seed sources
-        seed_sources = await self.discover_seed_sources(race_id)
+        seed_sources = await self.discover_seed_sources(race_id, race_metadata)
         logger.info(f"Found {len(seed_sources)} seed sources")
 
         # Get fresh issue-specific sources
-        fresh_sources = await self.discover_fresh_issue_sources(race_id)
+        fresh_sources = await self.discover_fresh_issue_sources(race_id, race_metadata)
         logger.info(f"Found {len(fresh_sources)} fresh issue sources")
 
         # Combine and deduplicate
@@ -79,29 +83,31 @@ class SourceDiscoveryEngine:
         logger.info(f"Total sources after deduplication: {len(deduplicated)}")
         return deduplicated
 
-    async def discover_seed_sources(self, race_id: str) -> List[Source]:
+    async def discover_seed_sources(self, race_id: str, race_metadata: Optional[RaceMetadata] = None) -> List[Source]:
         """
         Discover seed sources for a race from known electoral databases.
 
         Args:
             race_id: Race identifier like 'mo-senate-2024'
+            race_metadata: Optional race metadata for targeted discovery
 
         Returns:
             List of seed sources
         """
-        return await self._discover_seed_sources(race_id)
+        return await self._discover_seed_sources(race_id, race_metadata)
 
-    async def discover_fresh_issue_sources(self, race_id: str) -> List[Source]:
+    async def discover_fresh_issue_sources(self, race_id: str, race_metadata: Optional[RaceMetadata] = None) -> List[Source]:
         """
         Discover fresh issue-specific sources using Google Custom Search.
 
         Args:
             race_id: Race identifier like 'mo-senate-2024'
+            race_metadata: Optional race metadata for issue prioritization
 
         Returns:
             List of fresh sources for all canonical issues
         """
-        return await self._discover_fresh_issue_sources(race_id)
+        return await self._discover_fresh_issue_sources(race_id, race_metadata)
         """
         Discover all relevant sources for a race.
 
@@ -144,7 +150,7 @@ class SourceDiscoveryEngine:
         logger.info(f"Discovered {len(quality_sources)} quality sources for {race_id}")
         return quality_sources
 
-    async def _discover_seed_sources(self, race_id: str) -> List[Source]:
+    async def _discover_seed_sources(self, race_id: str, race_metadata: Optional[RaceMetadata] = None) -> List[Source]:
         """
         Discover sources from known electoral databases.
 
@@ -156,43 +162,96 @@ class SourceDiscoveryEngine:
         """
         sources = []
 
-        # Parse race_id to extract state, office, year
-        race_parts = race_id.split("-")
-        if len(race_parts) >= 3:
-            state = race_parts[0].upper()
-            office = race_parts[1]
-            year = race_parts[2]
+        # Use metadata if available, otherwise parse race_id
+        if race_metadata:
+            state = race_metadata.state
+            office_type = race_metadata.office_type
+            year = race_metadata.year
+            district = race_metadata.district
+            race_type = race_metadata.race_type
+        else:
+            # Fallback to parsing race_id
+            race_parts = race_id.split("-")
+            if len(race_parts) >= 3:
+                state = race_parts[0].upper()
+                office_type = race_parts[1]
+                year = int(race_parts[2]) if race_parts[2].isdigit() else int(race_parts[-1])
+                district = race_parts[2] if len(race_parts) == 4 and race_parts[2].isdigit() else None
+                race_type = "federal" if office_type in ["senate", "house"] else "state"
+            else:
+                logger.warning(f"Could not parse race_id {race_id}, using minimal sources")
+                return sources
 
-            # Ballotpedia URL construction
-            ballotpedia_url = f"https://ballotpedia.org/{year}_{state}_{office}_election"
+        # Ballotpedia URL construction (enhanced with metadata)
+        if district:
+            ballotpedia_url = f"https://ballotpedia.org/{year}_{state}_{office_type}_district_{district}_election"
+        else:
+            ballotpedia_url = f"https://ballotpedia.org/{year}_{state}_{office_type}_election"
+
+        sources.append(
+            Source(
+                url=ballotpedia_url,
+                type=SourceType.GOVERNMENT,
+                title=f"Ballotpedia - {state} {office_type.title()} Election {year}",
+                description="Official election information from Ballotpedia",
+                last_accessed=datetime.utcnow(),
+                is_fresh=False,
+            )
+        )
+
+        # Federal races get additional federal sources
+        if race_type == "federal":
+            # FEC data for federal races
+            if office_type == "senate":
+                fec_url = f"https://www.fec.gov/data/elections/senate/{state.lower()}/{year}/"
+            elif office_type == "house" and district:
+                fec_url = f"https://www.fec.gov/data/elections/house/{state.lower()}/{district}/{year}/"
+            else:
+                fec_url = f"https://www.fec.gov/data/elections/{office_type.lower()}/{state.lower()}/{year}/"
+
             sources.append(
                 Source(
-                    url=ballotpedia_url,
+                    url=fec_url,
                     type=SourceType.GOVERNMENT,
-                    title=f"Ballotpedia - {state} {office.title()} Election {year}",
-                    description="Official election information from Ballotpedia",
+                    title=f"FEC - {state} {office_type.title()} Election {year}",
+                    description="Federal Election Commission data",
                     last_accessed=datetime.utcnow(),
                     is_fresh=False,
                 )
             )
 
-            # FEC data for federal races
-            if office.lower() in ["senate", "house", "president"]:
-                fec_url = f"https://www.fec.gov/data/elections/{office.lower()}/{state.lower()}/{year}/"
-                sources.append(
-                    Source(
-                        url=fec_url,
-                        type=SourceType.GOVERNMENT,
-                        title=f"FEC - {state} {office.title()} Election {year}",
-                        description="Federal Election Commission data",
-                        last_accessed=datetime.utcnow(),
-                        is_fresh=False,
-                    )
+            # OpenSecrets for campaign finance
+            opensecrets_url = f"https://www.opensecrets.org/races/summary?cycle={year}&id={state}{district or ''}&spec=N"
+            sources.append(
+                Source(
+                    url=opensecrets_url,
+                    type=SourceType.GOVERNMENT,
+                    title=f"OpenSecrets - {state} {office_type.title()} Campaign Finance",
+                    description="Campaign finance data from OpenSecrets",
+                    last_accessed=datetime.utcnow(),
+                    is_fresh=False,
                 )
+            )
 
+        # State-specific sources for state races
+        elif race_type == "state":
+            # Secretary of State election pages (varies by state)
+            sos_url = f"https://www.sos.{state.lower()}.gov/elections/{year}"
+            sources.append(
+                Source(
+                    url=sos_url,
+                    type=SourceType.GOVERNMENT,
+                    title=f"{state} Secretary of State - Elections",
+                    description=f"Official {state} election information",
+                    last_accessed=datetime.utcnow(),
+                    is_fresh=False,
+                )
+            )
+
+        logger.info(f"Generated {len(sources)} seed sources for {race_id}")
         return sources
 
-    async def _discover_fresh_issue_sources(self, race_id: str) -> List[Source]:
+    async def _discover_fresh_issue_sources(self, race_id: str, race_metadata: Optional[RaceMetadata] = None) -> List[Source]:
         """
         Discover fresh content for each canonical issue using Google Custom Search.
 
@@ -204,15 +263,33 @@ class SourceDiscoveryEngine:
         """
         sources = []
 
-        # Generate search queries for each canonical issue
-        for issue in CanonicalIssue:
-            query = self._generate_issue_query(race_id, issue)
+        # Prioritize issues based on race metadata
+        if race_metadata and race_metadata.major_issues:
+            # Use prioritized issues from metadata
+            priority_issues = [
+                getattr(CanonicalIssue, issue.replace("/", "_").replace(" ", "_").replace("&", "").upper(), None)
+                for issue in race_metadata.major_issues
+            ]
+            priority_issues = [issue for issue in priority_issues if issue is not None]
+
+            # Add remaining issues
+            remaining_issues = [issue for issue in CanonicalIssue if issue not in priority_issues]
+            issues_to_search = priority_issues + remaining_issues
+        else:
+            # Default: search all canonical issues
+            issues_to_search = list(CanonicalIssue)
+
+        # Generate search queries for each issue
+        for issue in issues_to_search:
+            query = self._generate_issue_query(race_id, issue, race_metadata)
             issue_sources = await self._search_google_custom(query, issue)
             sources.extend(issue_sources)
 
         return sources
 
-    def _generate_issue_query(self, race_id: str, issue: CanonicalIssue) -> FreshSearchQuery:
+    def _generate_issue_query(
+        self, race_id: str, issue: CanonicalIssue, race_metadata: Optional[RaceMetadata] = None
+    ) -> FreshSearchQuery:
         """
         Generate optimized search query for a specific issue.
 
@@ -222,10 +299,31 @@ class SourceDiscoveryEngine:
         - [ ] Add negative keywords to filter out irrelevant content
         - [ ] Support for different query strategies per issue type
         """
-        race_parts = race_id.split("-")
-        state = race_parts[0] if race_parts else ""
-        office = race_parts[1] if len(race_parts) > 1 else ""
-        year = race_parts[2] if len(race_parts) > 2 else ""
+
+        # Use metadata for enhanced query generation if available
+        if race_metadata:
+            # Use structured metadata for better queries
+            state = race_metadata.state
+            office = race_metadata.office_type
+            year = race_metadata.year
+            geographic_terms = race_metadata.geographic_keywords[:2]  # Top 2 geo terms
+
+            # Office-specific query terms
+            office_terms = {
+                "senate": ["senator", "senate"],
+                "house": ["representative", "congressman", "congresswoman", "house"],
+                "governor": ["governor", "gubernatorial"],
+            }
+
+            office_keywords = office_terms.get(office, [office])
+        else:
+            # Fallback to parsing race_id
+            race_parts = race_id.split("-")
+            state = race_parts[0] if race_parts else ""
+            office = race_parts[1] if len(race_parts) > 1 else ""
+            year = race_parts[2] if len(race_parts) > 2 else ""
+            geographic_terms = [state]
+            office_keywords = [office]
 
         # Base query components
         issue_terms = [issue.value.lower()]
@@ -297,12 +395,25 @@ class SourceDiscoveryEngine:
         if issue in issue_synonyms:
             issue_terms.extend(issue_synonyms[issue])
 
-        # Construct query
-        query_parts = [
-            f'"{state} {office} election {year}"',
-            f'({" OR ".join(issue_terms)})',
-            "candidate position OR stance OR policy",
-        ]
+        # Construct optimized query using metadata
+        if race_metadata:
+            # Enhanced query with geographic and office context
+            geo_part = " OR ".join(geographic_terms)
+            office_part = " OR ".join(office_keywords)
+            query_parts = [
+                f"({geo_part})",
+                f"({office_part})",
+                f'({" OR ".join(issue_terms)})',
+                f"election {year}",
+                "candidate position OR stance OR policy",
+            ]
+        else:
+            # Basic fallback query
+            query_parts = [
+                f'"{state} {office} election {year}"',
+                f'({" OR ".join(issue_terms)})',
+                "candidate position OR stance OR policy",
+            ]
 
         query_text = " ".join(query_parts)
 

@@ -85,18 +85,21 @@ class PublishService:
 
         return job
 
-    async def create_race_json(self, race_id: str, arbitrated_data: Dict[str, Any]) -> RaceJSON:
+    async def create_race_json(
+        self, race_id: str, arbitrated_data: Dict[str, Any], race_metadata: Optional[Any] = None
+    ) -> RaceJSON:
         """
         Create RaceJSON from arbitrated data.
 
         Args:
             race_id: The race identifier
             arbitrated_data: Arbitrated consensus data
+            race_metadata: Optional race metadata from early extraction
 
         Returns:
             RaceJSON object ready for publishing
         """
-        return await self.engine.create_race_json(race_id, arbitrated_data)
+        return await self.engine.create_race_json(race_id, arbitrated_data, race_metadata)
 
     async def publish_race(self, race_json: RaceJSON) -> bool:
         """

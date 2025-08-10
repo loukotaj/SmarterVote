@@ -165,6 +165,40 @@ class Candidate(BaseModel):
     social_media: Dict[str, HttpUrl] = Field(default_factory=dict)
 
 
+class RaceMetadata(BaseModel):
+    """High-level race details extracted early in pipeline for search optimization."""
+
+    # Core identifiers
+    race_id: str = Field(..., description="Race slug like 'mo-senate-2024'")
+    state: str = Field(..., description="Two-letter state code (e.g., 'MO', 'CA')")
+    office_type: str = Field(..., description="Type of office (senate, house, governor, etc.)")
+    year: int = Field(..., description="Election year")
+
+    # Detailed race information
+    full_office_name: str = Field(..., description="Full office name (e.g., 'U.S. Senate', 'Governor')")
+    jurisdiction: str = Field(..., description="Jurisdiction (state code, district, etc.)")
+    district: Optional[str] = None  # For House races, state legislature, etc.
+    election_date: datetime = Field(..., description="Official election date")
+
+    # Race context
+    race_type: str = Field(..., description="federal, state, local")
+    is_primary: bool = False
+    primary_date: Optional[datetime] = None
+    is_special_election: bool = False
+
+    # Key candidates (extracted from race_id pattern or early discovery)
+    incumbent_party: Optional[str] = None
+    competitive_rating: Optional[str] = None  # safe, lean, toss-up, etc.
+
+    # Search optimization hints
+    major_issues: List[str] = Field(default_factory=list, description="Key issues likely relevant to this race")
+    geographic_keywords: List[str] = Field(default_factory=list, description="Location-specific search terms")
+
+    # Metadata
+    extracted_at: datetime = Field(default_factory=lambda: datetime.utcnow())
+    confidence: ConfidenceLevel = ConfidenceLevel.MEDIUM
+
+
 class RaceJSON(BaseModel):
     """RaceJSON v0.2 - Final output format."""
 
@@ -174,10 +208,11 @@ class RaceJSON(BaseModel):
     updated_utc: datetime
     generator: List[Literal["gpt-4o", "claude-3.5", "grok-3"]] = Field(default_factory=list)
 
-    # Optional metadata
+    # Enhanced metadata (now populated from RaceMetadata)
     title: Optional[str] = None
     office: Optional[str] = None
     jurisdiction: Optional[str] = None
+    race_metadata: Optional[RaceMetadata] = None
 
 
 class ProcessingJob(BaseModel):
@@ -194,6 +229,7 @@ class ProcessingJob(BaseModel):
     max_retries: int = 3
 
     # Pipeline step tracking
+    step_metadata: bool = False
     step_discover: bool = False
     step_fetch: bool = False
     step_extract: bool = False
