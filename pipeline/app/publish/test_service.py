@@ -345,7 +345,9 @@ class TestRacePublishingEngine:
         engine._publish_to_pubsub = AsyncMock()
         engine._publish_to_api_endpoint = AsyncMock()
 
-        results = await engine.publish_race(sample_race)
+        # Explicitly test all targets instead of relying on environment detection
+        all_targets = list(PublicationTarget)
+        results = await engine.publish_race(sample_race, targets=all_targets)
 
         # Should have results for all targets
         assert len(results) == len(PublicationTarget)
@@ -365,7 +367,9 @@ class TestRacePublishingEngine:
         engine._publish_to_pubsub = AsyncMock()
         engine._publish_to_api_endpoint = AsyncMock()
 
-        results = await engine.publish_race(sample_race)
+        # Explicitly test all targets to ensure mixed success/failure
+        all_targets = list(PublicationTarget)
+        results = await engine.publish_race(sample_race, targets=all_targets)
 
         # Check mixed results
         successful = [r for r in results if r.success]

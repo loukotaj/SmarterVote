@@ -166,25 +166,23 @@ class LLMSummarizationEngine:
             "errors": [],
         }
 
-        for provider, config in self.models.items():
-            if config.get("enabled"):
-                validation_result["enabled_providers"].append(provider)
+        all_providers = registry.list_providers()
+        enabled_models = registry.get_enabled_models(TaskType.SUMMARIZE)
 
-                # Check API key format (basic validation)
-                api_key = config.get("api_key")
-                if not api_key:
-                    validation_result["errors"].append(f"{provider}: API key is None")
-                    validation_result["valid"] = False
-                elif len(api_key) < 10:
-                    validation_result["warnings"].append(f"{provider}: API key appears too short")
+        # Check which providers actually have working API keys
+        working_providers = []
+        for provider_name in all_providers:
+            provider = registry.get_provider(provider_name)
+            if hasattr(provider, "client") and provider.client is not None:
+                working_providers.append(provider_name)
 
-            else:
-                validation_result["disabled_providers"].append(provider)
+        validation_result["enabled_providers"] = working_providers
+        validation_result["disabled_providers"] = [p for p in all_providers if p not in working_providers]
 
-        if not validation_result["enabled_providers"]:
+        if not working_providers:
             validation_result["errors"].append("No LLM providers are enabled")
             validation_result["valid"] = False
-        elif len(validation_result["enabled_providers"]) == 1:
+        elif len(working_providers) == 1:
             validation_result["warnings"].append("Only one provider enabled - triangulation requires 2+ providers")
 
         return validation_result
