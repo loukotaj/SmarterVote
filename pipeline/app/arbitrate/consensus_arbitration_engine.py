@@ -10,19 +10,26 @@ to create high-confidence summaries. Uses AI calls instead of heuristics for:
 Implements the 2-of-3 consensus model for determining final content.
 """
 
-import asyncio
 import logging
 import os
 import random
 from typing import Any, Dict, List
 
-import httpx
-from dotenv import load_dotenv
+try:
+    import httpx
+
+    HTTPX_AVAILABLE = True
+except ImportError:
+    HTTPX_AVAILABLE = False
+
+try:
+    from dotenv import load_dotenv
+
+    load_dotenv()
+except ImportError:
+    pass
 
 from ..schema import ConfidenceLevel, LLMResponse, Summary, TriangulatedSummary
-
-# Load environment variables
-load_dotenv()
 
 logger = logging.getLogger(__name__)
 
@@ -167,7 +174,8 @@ class ConsensusArbitrationEngine:
         3. Bias severity (low, medium, high)
         4. Specific examples of biased language if found
 
-        Provide your analysis in JSON format with a "bias_scores" array containing an object for each summary with "summary_index", "bias_level", "bias_direction", "severity", and "examples" fields.
+        Provide your analysis in JSON format with a "bias_scores" array containing an object for each summary with
+        "summary_index", "bias_level", "bias_direction", "severity", and "examples" fields.
 
         SUMMARIES TO ANALYZE:
         {summaries_text}

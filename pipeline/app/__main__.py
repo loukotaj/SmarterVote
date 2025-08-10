@@ -16,7 +16,6 @@ import logging
 import os
 import sys
 from datetime import datetime
-from typing import Optional
 
 from .arbitrate import ArbitrationService
 from .corpus import CorpusService
@@ -24,7 +23,7 @@ from .discover import DiscoveryService
 from .extract import ExtractService
 from .fetch import FetchService
 from .publish import PublishService
-from .schema import CanonicalIssue, ConfidenceLevel, ProcessingJob, ProcessingStatus, RaceJSON
+from .schema import ProcessingJob, ProcessingStatus
 from .summarise import SummarizeService
 
 # Configure logging
@@ -83,33 +82,38 @@ class CorpusFirstPipeline:
             logger.info(f"✅ Fetched {len(raw_content)} items")
 
             # Step 3: EXTRACT - HTML/PDF → plain text → /norm/{race}/
-            logger.info(f"📄 Step 3: EXTRACT - Converting to plain text")
+            logger.info("📄 Step 3: EXTRACT - Converting to plain text")
             extracted_content = await self.extract.extract_content(raw_content)
             job.step_extract = True
             logger.info(f"✅ Extracted text from {len(extracted_content)} items")
 
             # Step 4: BUILD CORPUS - Index in ChromaDB
-            logger.info(f"🗂️  Step 4: BUILD CORPUS - Indexing in ChromaDB")
+            logger.info("🗂️  Step 4: BUILD CORPUS - Indexing in ChromaDB")
             await self.corpus.build_corpus(race_id, extracted_content)
             job.step_corpus = True
             logger.info(f"✅ Built corpus for {race_id}")
 
             # Step 5: RAG + 3-MODEL SUMMARY - Triangulation
-            logger.info(f"🤖 Step 5: RAG + 3-MODEL SUMMARY - LLM Triangulation")
+            logger.info("🤖 Step 5: RAG + 3-MODEL SUMMARY - LLM Triangulation")
             # Retrieve relevant content from corpus for summarization
             corpus_content = await self.corpus.search_content(race_id)
-            summaries = await self.summarize.generate_summaries(race_id, corpus_content)
+            all_summaries = await self.summarize.generate_summaries(race_id, corpus_content)
             job.step_rag_summary = True
-            logger.info(f"✅ Generated triangulated summaries")
+
+            # Log summary counts
+            race_count = len(all_summaries.get("race_summaries", []))
+            candidate_count = len(all_summaries.get("candidate_summaries", []))
+            issue_count = len(all_summaries.get("issue_summaries", []))
+            logger.info(f"✅ Generated summaries: {race_count} race, {candidate_count} candidate, {issue_count} issue")
 
             # Step 6: ARBITRATE - 2-of-3 consensus
-            logger.info(f"⚖️  Step 6: ARBITRATE - Confidence scoring")
-            arbitrated_data = await self.arbitrate.arbitrate_summaries(summaries)
+            logger.info("⚖️  Step 6: ARBITRATE - Confidence scoring")
+            arbitrated_data = await self.arbitrate.arbitrate_summaries(all_summaries)
             job.step_arbitrate = True
-            logger.info(f"✅ Arbitration complete")
+            logger.info("✅ Arbitration complete")
 
             # Step 7: PUBLISH - RaceJSON v0.2 → /out/{race}.json
-            logger.info(f"📤 Step 7: PUBLISH - Creating RaceJSON v0.2")
+            logger.info("📤 Step 7: PUBLISH - Creating RaceJSON v0.2")
             race_json = await self.publish.create_race_json(race_id, arbitrated_data)
             success = await self.publish.publish_race(race_json)
             job.step_publish = True
@@ -140,6 +144,7 @@ async def main():
         sys.exit(1)
 
     race_id = sys.argv[1]
+
     cheap_mode = (
         "--cheap" in sys.argv
         or "--cheap-mode" in sys.argv
@@ -156,7 +161,7 @@ async def main():
 
     if success:
         logger.info("🏆 Pipeline completed successfully")
-        logger.info(f"🌐 Result will be available at smarter.vote/{race_id}")
+        logger.info("🌐 Result will be available at smarter.vote/{race_id}")
         sys.exit(0)
     else:
         logger.error("💥 Pipeline failed")
