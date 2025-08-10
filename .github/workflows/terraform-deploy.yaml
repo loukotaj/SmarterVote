@@ -39,8 +39,52 @@ env:
   TF_VAR_app_version: ${{ github.sha }}
 
 jobs:
-  deploy-terraform:
+  build-containers:
+    name: Build Container Images
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && contains(github.event.head_commit.modified, 'infra/')) }}
+    strategy:
+      matrix:
+        container:
+          - name: pipeline
+            dockerfile: pipeline/Dockerfile
+            context: .
+          - name: enqueue-api
+            dockerfile: services/enqueue-api/Dockerfile
+            context: services/enqueue-api
+          - name: races-api
+            dockerfile: services/races-api/Dockerfile
+            context: .
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v2
+      with:
+        credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+    - name: Setup Google Cloud SDK
+      uses: google-github-actions/setup-gcloud@v2
+
+    - name: Configure Docker for Artifact Registry
+      if: env.ACTION == 'apply' || github.event_name != 'workflow_dispatch'
+      run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev
+
+    - name: Build and Push ${{ matrix.container.name }}
+      if: env.ACTION == 'apply' || github.event_name != 'workflow_dispatch'
+      run: |
+        docker build -f ${{ matrix.container.dockerfile }} \
+                     -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/${{ matrix.container.name }}:${{ github.sha }} \
+                     -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/${{ matrix.container.name }}:latest \
+                     ${{ matrix.container.context }}
+        docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/${{ matrix.container.name }}:${{ github.sha }}
+        docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/${{ matrix.container.name }}:latest
+
+  deploy-terraform:
+    name: Deploy Infrastructure
+    runs-on: ubuntu-latest
+    needs: build-containers
     if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && contains(github.event.head_commit.modified, 'infra/')) }}
 
     steps:
@@ -58,36 +102,6 @@ jobs:
 
     - name: Setup Google Cloud SDK
       uses: google-github-actions/setup-gcloud@v2
-
-    - name: Configure Docker for Artifact Registry
-      if: env.ACTION == 'apply' || github.event_name != 'workflow_dispatch'
-      run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev
-
-    # Build and push all container images before Terraform deploy
-    - name: Build and Push Pipeline Worker
-      if: env.ACTION == 'apply' || github.event_name != 'workflow_dispatch'
-      run: |
-        docker build -f pipeline/Dockerfile -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/pipeline:${{ github.sha }} \
-                     -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/pipeline:latest .
-        docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/pipeline:${{ github.sha }}
-        docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/pipeline:latest
-
-    - name: Build and Push Enqueue API
-      if: env.ACTION == 'apply' || github.event_name != 'workflow_dispatch'
-      run: |
-        cd services/enqueue-api
-        docker build -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/enqueue-api:${{ github.sha }} \
-                     -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/enqueue-api:latest .
-        docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/enqueue-api:${{ github.sha }}
-        docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/enqueue-api:latest
-
-    - name: Build and Push Races API
-      if: env.ACTION == 'apply' || github.event_name != 'workflow_dispatch'
-      run: |
-        docker build -f services/races-api/Dockerfile -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/races-api:${{ github.sha }} \
-                     -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/races-api:latest .
-        docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/races-api:${{ github.sha }}
-        docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/races-api:latest
 
     - name: Create Terraform variables file
       run: |
