@@ -23,6 +23,11 @@ resource "google_cloud_run_v2_service" "enqueue_api" {
         value = google_cloud_run_v2_job.race_worker.name
       }
 
+      env {
+        name  = "REGION"
+        value = var.region
+      }
+
       resources {
         limits = {
           cpu    = "1000m"

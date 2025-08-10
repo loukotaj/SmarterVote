@@ -155,9 +155,15 @@ resource "google_project_iam_member" "enqueue_api_pubsub" {
   member  = "serviceAccount:${google_service_account.enqueue_api.email}"
 }
 
-resource "google_project_iam_member" "enqueue_api_run_jobs" {
+resource "google_project_iam_member" "enqueue_api_run_invoker" {
   project = var.project_id
   role    = "roles/run.invoker"
+  member  = "serviceAccount:${google_service_account.enqueue_api.email}"
+}
+
+resource "google_project_iam_member" "enqueue_api_run_developer" {
+  project = var.project_id
+  role    = "roles/run.developer"
   member  = "serviceAccount:${google_service_account.enqueue_api.email}"
 }
 
