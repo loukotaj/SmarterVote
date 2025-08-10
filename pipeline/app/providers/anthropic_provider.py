@@ -93,8 +93,7 @@ class AnthropicProvider(AIProvider):
         if not self.client:
             raise RuntimeError("Anthropic client not initialized")
 
-        # Enhanced prompt that requests structured output with confidence and sources
-        enhanced_prompt = f"""
+        prompt_with_confidence = f"""
 {prompt}
 
 IMPORTANT: Your response must be in the following JSON format:
@@ -112,6 +111,8 @@ Confidence guidelines:
 - UNKNOWN: No relevant sources found
 
 Available sources to reference: {context_sources or []}
+
+Remember JSON FORMAT
 """
 
         try:
@@ -119,7 +120,7 @@ Available sources to reference: {context_sources or []}
                 model=model_config.model_id,
                 max_tokens=model_config.max_tokens,
                 temperature=model_config.temperature,
-                messages=[{"role": "user", "content": enhanced_prompt}],
+                messages=[{"role": "user", "content": prompt_with_confidence}],
                 **kwargs,
             )
 
@@ -138,7 +139,7 @@ Available sources to reference: {context_sources or []}
                 )
             except json.JSONDecodeError:
                 # Fallback if model doesn't return valid JSON
-                logger.warning(f"Anthropic model {model_config.model_id} returned non-JSON response")
+                logger.warning(f"Anthropic model {model_config.model_id} returned non-JSON response {response}")
                 return SummaryOutput(
                     content=response_text,
                     confidence="unknown",

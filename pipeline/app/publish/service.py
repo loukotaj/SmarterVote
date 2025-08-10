@@ -125,7 +125,28 @@ class PublishService:
             return False
 
     def _get_enabled_targets(self) -> List[PublicationTarget]:
-        """Get list of enabled publication targets based on configuration."""
+        """Get list of enabled publication targets based on configuration and environment."""
+        # Check for local development environment
+        import os
+
+        # Check for cloud runtime environment indicators (not just config)
+        cloud_runtime_indicators = [
+            os.getenv("CLOUD_RUN_SERVICE"),
+            os.getenv("K_SERVICE"),  # Cloud Run service name
+            os.getenv("GAE_APPLICATION"),  # App Engine
+            os.getenv("FUNCTION_NAME"),  # Cloud Functions
+            os.getenv("KUBERNETES_SERVICE_HOST"),  # Kubernetes
+        ]
+
+        is_cloud_environment = any(cloud_runtime_indicators)
+
+        if not is_cloud_environment:
+            # Local development - only publish to local file
+            logger.info("💻 Local development detected - publishing to local file only")
+            return [PublicationTarget.LOCAL_FILE]
+
+        # Cloud environment - use full configuration
+        logger.info("🌩️ Cloud environment detected - using configured targets")
         targets = [PublicationTarget.LOCAL_FILE]  # Always enabled
 
         if self.config.enable_cloud_storage:

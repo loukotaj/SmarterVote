@@ -8,6 +8,6 @@ from .election_vector_database_manager import ElectionVectorDatabaseManager
 from .vector_database_manager import VectorDatabaseManager
 
 # Main service class for backwards compatibility
-CorpusService = VectorDatabaseManager
+CorpusService = ElectionVectorDatabaseManager
 
 __all__ = ["CorpusService", "VectorDatabaseManager", "ElectionVectorDatabaseManager"]

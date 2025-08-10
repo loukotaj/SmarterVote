@@ -17,6 +17,14 @@ import os
 import sys
 from datetime import datetime
 
+# Load environment variables from .env file
+try:
+    from dotenv import load_dotenv
+
+    load_dotenv()
+except ImportError:
+    pass
+
 from .arbitrate import ArbitrationService
 from .corpus import CorpusService
 from .discover import DiscoveryService
@@ -30,6 +38,31 @@ from .summarise import SummarizeService
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
+
+# Log environment setup
+try:
+    # Check if key environment variables are loaded
+    openai_key = os.getenv("OPENAI_API_KEY")
+    anthropic_key = os.getenv("ANTHROPIC_API_KEY")
+    xai_key = os.getenv("XAI_API_KEY")
+
+    if openai_key:
+        logger.info("✅ OPENAI_API_KEY loaded")
+    else:
+        logger.warning("⚠️ OPENAI_API_KEY not found")
+
+    if anthropic_key:
+        logger.info("✅ ANTHROPIC_API_KEY loaded")
+    else:
+        logger.warning("⚠️ ANTHROPIC_API_KEY not found")
+
+    if xai_key:
+        logger.info("✅ XAI_API_KEY loaded")
+    else:
+        logger.warning("⚠️ XAI_API_KEY not found")
+
+except Exception as e:
+    logger.error(f"❌ Error checking environment variables: {e}")
 
 
 class CorpusFirstPipeline:

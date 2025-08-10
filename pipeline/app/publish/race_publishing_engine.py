@@ -298,8 +298,10 @@ class RacePublishingEngine:
 
             # Create backup if file exists
             if output_file.exists() and self.config.version_control:
-                backup_file = self.config.output_directory / f"{race.id}.json.backup"
+                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                backup_file = self.config.output_directory / f"{race.id}.json.backup.{timestamp}"
                 output_file.rename(backup_file)
+                logger.debug(f"Created backup: {backup_file}")
 
             # Write race data atomically
             temp_file = output_file.with_suffix(".tmp")

@@ -3,23 +3,23 @@
   "election_date": "2024-11-05T00:00:00",
   "candidates": [
     {
-      "name": "Candidate Information Pending",
+      "name": "Data Processing Error",
       "party": null,
       "incumbent": false,
-      "summary": "Candidate information is being processed and will be available soon. This is a longer placeholder to meet content requirements for publication validation.",
+      "summary": "There was an error processing candidate information. Please check the data sources and try again with updated inputs.",
       "issues": {},
       "top_donors": [],
       "website": null,
       "social_media": {}
     }
   ],
-  "updated_utc": "2025-08-10T21:35:25.186666Z",
+  "updated_utc": "2025-08-10T06:29:18.625234Z",
   "generator": [
     "gpt-4o",
     "claude-3.5",
     "grok-3"
   ],
   "title": "Electoral Race mo-senate-2024",
-  "office": "U.S. Senate",
-  "jurisdiction": "MO"
+  "office": "Unknown Office",
+  "jurisdiction": "Unknown Jurisdiction"
 }
