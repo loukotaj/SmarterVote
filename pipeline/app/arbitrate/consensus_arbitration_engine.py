@@ -283,7 +283,7 @@ class ConsensusArbitrationEngine:
         bias_score = max(self._detect_bias(s.content) for s in consensus_summaries)
 
         confidence_score = 0.5 * weighted_confidence + 0.5 * pairwise_sim
-        confidence_score *= 1 - bias_score
+        confidence_score = max(0, confidence_score * (1 - bias_score))
 
         # Merge content (simple approach - use longest/most detailed)
         merged_content = max(consensus_summaries, key=lambda s: len(s.content)).content
