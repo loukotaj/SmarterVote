@@ -6,31 +6,70 @@ SmarterVote is a **corpus-first AI pipeline** for electoral analysis with three 
 - **Pipeline** (`pipeline/`): Python-based 7-step processing engine using Pydantic models
 - **Services** (`services/`): FastAPI microservices for enqueue-api and races-api
 - **Web** (`web/`): SvelteKit + TypeScript frontend with static site generation
+- **Shared** (`shared/`): Common Pydantic models and schemas used across components
 
 ## 🔄 Core Processing Workflow
 
 The pipeline follows a strict 7-step sequence (see `pipeline/app/__main__.py`):
-1. **DISCOVER** → 2. **FETCH** → 3. **EXTRACT** → 4. **CORPUS** → 5. **SUMMARIZE** → 6. **ARBITRATE** → 7. **PUBLISH**
+1. **DISCOVER** → 2. **FETCH** → 3. **EXTRACT** → 4. **BUILD CORPUS** → 5. **RAG + 3-MODEL SUMMARY** → 6. **ARBITRATE** → 7. **PUBLISH**
 
 Each step has its own service class (e.g., `DiscoveryService`, `FetchService`) and processes data through the `ProcessingJob` schema.
 
 ## 📊 Data Standards
 
 ### RaceJSON v0.2 Format
-All race data follows the standardized schema in `pipeline/app/schema.py`:
-- **11 Canonical Issues**: Healthcare, Economy, Climate/Energy, etc. (see `CanonicalIssue` enum)
+All race data follows the standardized schema in `shared/models.py` (imported via `pipeline/app/schema.py`):
+- **11 Canonical Issues**: Healthcare, Economy, Climate/Energy, Reproductive Rights, Immigration, Guns & Safety, Foreign Policy, Social Justice, Education, Tech & AI, Election Reform (see `CanonicalIssue` enum)
 - **Confidence Levels**: `high|medium|low|unknown` based on 2-of-3 LLM consensus
 - **Source Types**: website, pdf, api, social_media, news, government, fresh_search
 
-### Key Pydantic Models
+### Key Pydantic Models (in `shared/models.py`)
 - `RaceJSON`: Complete race analysis output
 - `Candidate`: Individual candidate with issue stances
 - `IssueStance`: Position on canonical issue with confidence + sources
 - `ProcessingJob`: Pipeline execution state tracking
+- `ChromaChunk`: Document chunks stored in ChromaDB corpus
+- `ExtractedContent`: Content extracted from sources
 
 ## 🛠️ Development Patterns
 
-### Local Development Workflow
+### PowerShell Development Workflow (Windows)
+**Use PowerShell commands instead of VS Code tasks** - direct terminal commands are more reliable:
+
+```powershell
+# Set up development environment
+.\setup-dev.ps1
+
+# Start development servers (both API and web frontend)
+.\dev-start.ps1
+
+# Pipeline testing (use mini models for faster/cheaper testing)
+python scripts/run_local.py <race-id>
+python scripts/run_local.py mo-senate-2024 --full-models  # Use full models
+
+# Project validation
+python scripts/validate_project.py
+
+# Testing
+python -m pytest -v                    # All tests
+python -m pytest pipeline/ -v          # Pipeline tests only
+python -m pytest services/ -v          # Service tests only
+python -m pytest tests/ -v             # Integration tests only
+python -m pytest --cov=pipeline --cov=services --cov-report=html -v  # With coverage
+
+# Web development (from web/ directory)
+cd web
+npm run dev
+npm run check  # Svelte type checking
+npm run build  # Production build
+
+# Infrastructure (from infra/ directory)
+cd infra
+terraform plan
+terraform apply
+```
+
+### Alternative Bash Commands (for reference)
 ```bash
 # Pipeline testing
 python scripts/run_local.py <race-id>
@@ -83,13 +122,25 @@ The system uses 3 AI models (GPT-4o, Claude-3.5, grok-3) for consensus:
 
 ## 📂 Key Files for Context
 
-- `pipeline/app/schema.py` - Core data models and enums
+- `shared/models.py` - Core Pydantic data models and enums (primary schema location)
+- `pipeline/app/schema.py` - Pipeline-specific imports from shared models
 - `pipeline/app/__main__.py` - Pipeline orchestration and workflow
 - `web/src/lib/types.ts` - Frontend type definitions
 - `scripts/run_local.py` - Local development execution
+- `setup-dev.ps1` - Development environment setup (PowerShell)
+- `dev-start.ps1` - Start development servers (PowerShell)
 - `infra/main.tf` - Infrastructure as code patterns
 - `docs/architecture.md` - Detailed system design
 - `docs/issues-list.md` - Current development priorities
+
+## 🖥️ Windows Development Notes
+
+- **Use PowerShell**: All development scripts are optimized for PowerShell (.ps1 files)
+- **Avoid VS Code Tasks**: Use direct PowerShell commands instead of tasks.json for reliability
+- **Virtual Environment**: Project uses `.venv` directory for Python dependencies
+- **Prerequisites**: Python 3.10+, Node.js 22+, npm 10+
+- **Data Directory**: `data/published/` contains processed race JSON files
+- **ChromaDB**: Local vector database stored in `data/chroma_db/`
 
 ## 🎯 Project-Specific Considerations
 
