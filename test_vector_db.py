@@ -39,7 +39,7 @@ async def test_basic_functionality():
             type=SourceType.WEBSITE,
             title="Candidate Platform Document",
             last_accessed=datetime.utcnow(),
-            is_fresh=True
+            is_fresh=True,
         )
 
         content = ExtractedContent(
@@ -49,7 +49,7 @@ async def test_basic_functionality():
             language="en",
             word_count=65,
             quality_score=0.85,
-            metadata={"candidate": "Test Candidate", "topic": "policy platform"}
+            metadata={"candidate": "Test Candidate", "topic": "policy platform"},
         )
 
         race_id = "test-race-2024"
@@ -80,11 +80,7 @@ async def test_basic_functionality():
 
         # Test similarity search
         print("\n6️⃣  Testing similarity search...")
-        search_queries = [
-            "universal healthcare coverage",
-            "climate change renewable energy",
-            "economic growth families"
-        ]
+        search_queries = ["universal healthcare coverage", "climate change renewable energy", "economic growth families"]
 
         for query in search_queries:
             results = await manager.search_similar(query, race_id=race_id, limit=3)
