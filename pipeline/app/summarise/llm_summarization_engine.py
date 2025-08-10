@@ -26,17 +26,19 @@ from typing import Any, Dict, List, Optional
 
 try:
     import httpx
+
     HTTPX_AVAILABLE = True
 except ImportError:
     HTTPX_AVAILABLE = False
-    
+
 try:
     from dotenv import load_dotenv
+
     load_dotenv()
 except ImportError:
     pass
 
-from ..schema import ConfidenceLevel, ExtractedContent, LLMResponse, Summary
+from ..schema import ConfidenceLevel, ExtractedContent, Summary
 
 logger = logging.getLogger(__name__)
 
@@ -201,10 +203,10 @@ class LLMSummarizationEngine:
     ) -> Dict[str, List[Summary]]:
         """
         Generate comprehensive summaries for extracted content using multiple LLMs.
-        
+
         Creates summaries for:
         1. Overall race summary
-        2. Individual candidate summaries  
+        2. Individual candidate summaries
         3. Issue-specific analysis for each canonical issue
 
         Args:
@@ -226,11 +228,7 @@ class LLMSummarizationEngine:
             return {"race_summaries": [], "candidate_summaries": [], "issue_summaries": []}
 
         # Generate different types of summaries
-        all_summaries = {
-            "race_summaries": [],
-            "candidate_summaries": [], 
-            "issue_summaries": []
-        }
+        all_summaries = {"race_summaries": [], "candidate_summaries": [], "issue_summaries": []}
 
         try:
             # 1. Generate overall race summary
@@ -249,12 +247,12 @@ class LLMSummarizationEngine:
             all_summaries["issue_summaries"] = issue_summaries
 
             total_summaries = (
-                len(all_summaries["race_summaries"]) +
-                len(all_summaries["candidate_summaries"]) +
-                len(all_summaries["issue_summaries"])
+                len(all_summaries["race_summaries"])
+                + len(all_summaries["candidate_summaries"])
+                + len(all_summaries["issue_summaries"])
             )
             logger.info(f"Generated {total_summaries} total summaries across all categories")
-            
+
             return all_summaries
 
         except Exception as e:
@@ -308,75 +306,70 @@ class LLMSummarizationEngine:
     async def _generate_race_summary(self, race_id: str, content: List[ExtractedContent]) -> List[Summary]:
         """Generate overall race summary from all content."""
         logger.info(f"Generating race summary for {race_id}")
-        
+
         # Prepare content focusing on race overview
         race_content = self._filter_content_for_race(content)
         prepared_content = self._prepare_content_for_summarization(race_content, race_id)
-        
+
         prompt_template = self.prompts.get("race_summary", self.prompts["general_summary"])
-        
+
         return await self._generate_summaries_for_prompt(prompt_template, prepared_content, race_id)
-    
+
     async def _generate_candidate_summaries(self, race_id: str, content: List[ExtractedContent]) -> List[Summary]:
         """Generate individual candidate summaries."""
         logger.info(f"Generating candidate summaries for {race_id}")
-        
+
         candidate_summaries = []
-        
+
         # Extract candidate names from content
         candidate_names = self._extract_candidate_names_from_content(content)
-        
+
         for candidate_name in candidate_names:
             logger.info(f"Generating summary for candidate: {candidate_name}")
-            
+
             # Filter content for this specific candidate
             candidate_content = self._filter_content_for_candidate(content, candidate_name)
-            
+
             if candidate_content:
                 prepared_content = self._prepare_content_for_summarization(candidate_content, race_id)
                 prompt_template = self.prompts.get("candidate_summary", self.prompts["general_summary"])
-                
+
                 # Customize prompt with candidate name
                 candidate_prompt = prompt_template.replace("{candidate_name}", candidate_name)
-                
+
                 summaries = await self._generate_summaries_for_prompt(candidate_prompt, prepared_content, race_id)
                 candidate_summaries.extend(summaries)
-        
+
         return candidate_summaries
-    
+
     async def _generate_issue_summaries(self, race_id: str, content: List[ExtractedContent]) -> List[Summary]:
         """Generate issue-specific summaries for all canonical issues."""
         logger.info(f"Generating issue summaries for {race_id}")
-        
+
         issue_summaries = []
-        
+
         # Import CanonicalIssue from schema
         from ..schema import CanonicalIssue
-        
+
         for issue in CanonicalIssue:
             logger.info(f"Generating summary for issue: {issue.value}")
-            
+
             # Filter content for this specific issue
             issue_content = self._filter_content_for_issue(content, issue)
-            
+
             if issue_content:
                 prepared_content = self._prepare_content_for_summarization(issue_content, race_id)
                 prompt_template = self.prompts.get("issue_summary", self.prompts["general_summary"])
-                
+
                 # Customize prompt with issue
                 issue_prompt = prompt_template.replace("{issue_name}", issue.value)
-                
+
                 summaries = await self._generate_summaries_for_prompt(issue_prompt, prepared_content, race_id)
                 issue_summaries.extend(summaries)
-        
+
         return issue_summaries
-    
-    async def _generate_summaries_for_prompt(
-        self, 
-        prompt_template: str, 
-        prepared_content: str, 
-        race_id: str
-    ) -> List[Summary]:
+
+    async def _generate_summaries_for_prompt(self, prompt_template: str, prepared_content: str, race_id: str) -> List[Summary]:
         """Generate summaries from all enabled LLMs for a given prompt."""
         tasks = []
         enabled_models = {k: v for k, v in self.models.items() if v.get("enabled", False)}
@@ -406,18 +399,18 @@ class LLMSummarizationEngine:
         except Exception as e:
             logger.error(f"Failed to generate summaries for prompt: {e}")
             return []
-    
+
     def _extract_candidate_names_from_content(self, content: List[ExtractedContent]) -> List[str]:
         """Extract candidate names from content analysis."""
         # Simple implementation - in practice would use NER or other techniques
         candidate_names = ["Candidate A", "Candidate B"]  # Placeholder
         return candidate_names
-    
+
     def _filter_content_for_race(self, content: List[ExtractedContent]) -> List[ExtractedContent]:
         """Filter content relevant to overall race information."""
         # For now return all content, but could filter for race-level info
         return content
-    
+
     def _filter_content_for_candidate(self, content: List[ExtractedContent], candidate_name: str) -> List[ExtractedContent]:
         """Filter content relevant to specific candidate."""
         # Simple text matching - would use more sophisticated NLP in practice
@@ -426,11 +419,11 @@ class LLMSummarizationEngine:
             if candidate_name.lower() in item.text.lower():
                 filtered.append(item)
         return filtered if filtered else content[:3]  # Fallback to some content
-    
+
     def _filter_content_for_issue(self, content: List[ExtractedContent], issue) -> List[ExtractedContent]:
         """Filter content relevant to specific issue."""
         from ..schema import CanonicalIssue
-        
+
         # Define issue keywords
         issue_keywords = {
             CanonicalIssue.HEALTHCARE: ["health", "medical", "insurance", "medicare", "medicaid"],
@@ -445,15 +438,15 @@ class LLMSummarizationEngine:
             CanonicalIssue.TECH_AI: ["technology", "artificial intelligence", "privacy", "tech"],
             CanonicalIssue.ELECTION_REFORM: ["voting", "election", "gerrymandering", "campaign finance"],
         }
-        
+
         keywords = issue_keywords.get(issue, [issue.value.lower()])
-        
+
         filtered = []
         for item in content:
             text_lower = item.text.lower()
             if any(keyword in text_lower for keyword in keywords):
                 filtered.append(item)
-        
+
         return filtered if filtered else content[:2]  # Fallback to some content
 
     def _prepare_content_for_summarization(self, content: List[ExtractedContent], race_id: str) -> str:
@@ -518,14 +511,6 @@ class LLMSummarizationEngine:
 
             # Update success statistics
             self._update_stats(provider, True, response.get("tokens_used", 0))
-
-            # Create LLM response record
-            llm_response = LLMResponse(
-                model=config["model"],
-                content=response["content"],
-                tokens_used=response.get("tokens_used"),
-                created_at=datetime.utcnow(),
-            )
 
             # Create summary
             summary = Summary(
@@ -893,7 +878,8 @@ Summary:
         return """
 You are analyzing candidate positions on specific policy issues for the {race_id} election.
 
-Based on the following content, identify and summarize each candidate's stance on the key issues. For each position:
+Based on the following content, identify and summarize each candidate's stance on the key issues.
+For each position:
 
 1. State the candidate's position clearly
 2. Provide supporting evidence or quotes
