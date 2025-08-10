@@ -187,6 +187,7 @@ class RaceMetadata(BaseModel):
     is_special_election: bool = False
 
     # Key candidates (extracted from race_id pattern or early discovery)
+    discovered_candidates: List[str] = Field(default_factory=list, description="Candidate names discovered during metadata extraction")
     incumbent_party: Optional[str] = None
     competitive_rating: Optional[str] = None  # safe, lean, toss-up, etc.
 
