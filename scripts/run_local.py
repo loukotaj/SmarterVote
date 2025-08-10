@@ -21,15 +21,20 @@ logger = logging.getLogger(__name__)
 async def main():
     """Run the pipeline locally for a single race."""
     if len(sys.argv) < 2:
-        print("Usage: python run_local.py <race_id>")
+        print("Usage: python run_local.py <race_id> [--cheap]")
         print("Example: python run_local.py mo-senate-2024")
+        print("Example: python run_local.py mo-senate-2024 --cheap")
         sys.exit(1)
 
     race_id = sys.argv[1]
+    cheap_mode = "--cheap" in sys.argv or "--cheap-mode" in sys.argv
+
     logger.info(f"🗳️  Running local Corpus-First pipeline for race: {race_id}")
+    if cheap_mode:
+        logger.info("💰 Using cheap mode (mini models)")
 
     # Initialize and run pipeline
-    pipeline = CorpusFirstPipeline()
+    pipeline = CorpusFirstPipeline(cheap_mode=cheap_mode)
     success = await pipeline.process_race(race_id)
 
     if success:

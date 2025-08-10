@@ -58,42 +58,74 @@ class RateLimitError(LLMAPIError):
 class LLMSummarizationEngine:
     """Engine for generating AI summaries using multiple LLM providers."""
 
-    def __init__(self):
+    def __init__(self, cheap_mode: bool = False):
         # Load API keys from environment
         self.openai_api_key = os.getenv("OPENAI_API_KEY")
         self.anthropic_api_key = os.getenv("ANTHROPIC_API_KEY")
         self.xai_api_key = os.getenv("XAI_API_KEY")
 
+        # Set mode
+        self.cheap_mode = cheap_mode
+
         # Validate that at least one API key is available
         if not any([self.openai_api_key, self.anthropic_api_key, self.xai_api_key]):
             logger.warning("No LLM API keys found in environment. Set OPENAI_API_KEY, " "ANTHROPIC_API_KEY, or XAI_API_KEY")
 
-        self.models = {
-            "openai": {
-                "model": "gpt-4o",
-                "api_key": self.openai_api_key,
-                "base_url": "https://api.openai.com/v1",
-                "max_tokens": 4000,
-                "temperature": 0.1,  # Low temperature for factual content
-                "enabled": bool(self.openai_api_key),
-            },
-            "anthropic": {
-                "model": "claude-3-5-sonnet-20241022",
-                "api_key": self.anthropic_api_key,
-                "base_url": "https://api.anthropic.com/v1",
-                "max_tokens": 4000,
-                "temperature": 0.1,
-                "enabled": bool(self.anthropic_api_key),
-            },
-            "xai": {
-                "model": "grok-beta",
-                "api_key": self.xai_api_key,
-                "base_url": "https://api.x.ai/v1",
-                "max_tokens": 4000,
-                "temperature": 0.1,
-                "enabled": bool(self.xai_api_key),
-            },
-        }
+        # Choose model configurations based on mode
+        if cheap_mode:
+            self.models = {
+                "openai": {
+                    "model": "gpt-4o-mini",
+                    "api_key": self.openai_api_key,
+                    "base_url": "https://api.openai.com/v1",
+                    "max_tokens": 2000,  # Reduced for mini models
+                    "temperature": 0.1,
+                    "enabled": bool(self.openai_api_key),
+                },
+                "anthropic": {
+                    "model": "claude-3-haiku-20240307",
+                    "api_key": self.anthropic_api_key,
+                    "base_url": "https://api.anthropic.com/v1",
+                    "max_tokens": 2000,  # Reduced for mini models
+                    "temperature": 0.1,
+                    "enabled": bool(self.anthropic_api_key),
+                },
+                "xai": {
+                    "model": "grok-2-1212",  # Using available model, will need to update when mini is available
+                    "api_key": self.xai_api_key,
+                    "base_url": "https://api.x.ai/v1",
+                    "max_tokens": 2000,  # Reduced for mini models
+                    "temperature": 0.1,
+                    "enabled": bool(self.xai_api_key),
+                },
+            }
+        else:
+            self.models = {
+                "openai": {
+                    "model": "gpt-4o",
+                    "api_key": self.openai_api_key,
+                    "base_url": "https://api.openai.com/v1",
+                    "max_tokens": 4000,
+                    "temperature": 0.1,  # Low temperature for factual content
+                    "enabled": bool(self.openai_api_key),
+                },
+                "anthropic": {
+                    "model": "claude-3-5-sonnet-20241022",
+                    "api_key": self.anthropic_api_key,
+                    "base_url": "https://api.anthropic.com/v1",
+                    "max_tokens": 4000,
+                    "temperature": 0.1,
+                    "enabled": bool(self.anthropic_api_key),
+                },
+                "xai": {
+                    "model": "grok-beta",
+                    "api_key": self.xai_api_key,
+                    "base_url": "https://api.x.ai/v1",
+                    "max_tokens": 4000,
+                    "temperature": 0.1,
+                    "enabled": bool(self.xai_api_key),
+                },
+            }
 
         # Prompt templates for different tasks
         self.prompts = {
@@ -113,6 +145,28 @@ class LLMSummarizationEngine:
             "total_tokens": 0,
             "provider_stats": {provider: {"calls": 0, "tokens": 0, "errors": 0} for provider in self.models.keys()},
         }
+
+    def _get_display_model_name(self, full_model_name: str) -> str:
+        """
+        Convert full model names to display names for backwards compatibility.
+
+        Args:
+            full_model_name: The full API model name
+
+        Returns:
+            Display name for the model
+        """
+        model_mapping = {
+            # Standard models
+            "gpt-4o": "gpt-4o",
+            "claude-3-5-sonnet-20241022": "claude-3.5",
+            "grok-beta": "grok-4",
+            # Cheap/mini models
+            "gpt-4o-mini": "gpt-4o-mini",
+            "claude-3-haiku-20240307": "claude-3-haiku",
+            "grok-2-1212": "grok-3-mini",  # Using available model as placeholder
+        }
+        return model_mapping.get(full_model_name, full_model_name)
 
     async def __aenter__(self):
         """Async context manager entry."""
@@ -388,7 +442,7 @@ Content for Analysis:
 
             # Create LLM response record
             llm_response = LLMResponse(
-                model=config["model"],
+                model=self._get_display_model_name(config["model"]),
                 content=response["content"],
                 tokens_used=response.get("tokens_used"),
                 created_at=datetime.utcnow(),
@@ -400,7 +454,7 @@ Content for Analysis:
 
             summary = Summary(
                 content=response["content"],
-                model=config["model"],
+                model=self._get_display_model_name(config["model"]),
                 confidence=ai_confidence,
                 tokens_used=response.get("tokens_used"),
                 created_at=datetime.utcnow(),

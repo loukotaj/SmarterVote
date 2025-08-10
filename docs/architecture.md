@@ -129,10 +129,20 @@ graph TB
 ### 5. LLM Summarization Engine (`pipeline/app/summarise/`)
 **Purpose**: Multi-model content analysis and summarization
 
-**AI Models**:
+**AI Models (Standard Mode)**:
 - **GPT-4o**: General analysis and reasoning
 - **Claude-3.5**: Structured content analysis
 - **Grok-4**: Alternative perspective and fact-checking
+
+**AI Models (Cheap Mode)**:
+- **GPT-4o-mini**: Cost-effective general analysis
+- **Claude-3-Haiku**: Fast structured content analysis
+- **Grok-3-mini**: Alternative perspective on a budget
+
+**Mode Selection**:
+- Standard mode: High-quality analysis with premium models
+- Cheap mode: Cost-effective processing with mini models
+- Configurable via `--cheap` flag or `SMARTERVOTE_CHEAP_MODE` environment variable
 
 **Process**:
 1. RAG (Retrieval-Augmented Generation) query preparation
@@ -143,9 +153,14 @@ graph TB
 **Output**: Structured candidate positions per canonical issue
 
 ### 6. Arbitration Engine (`pipeline/app/arbitrate/`)
-**Purpose**: Consensus-building and confidence scoring
+**Purpose**: Consensus-building and confidence scoring using AI analysis
+
+**AI Models**: Inherits mode setting from summarization engine
+- Standard: Uses GPT-4o, Claude-3.5, Grok-4 for arbitration
+- Cheap: Uses GPT-4o-mini, Claude-3-Haiku, Grok-3-mini for arbitration
 
 **Arbitration Logic**:
+- **AI-Driven Analysis**: Uses LLMs for bias detection and consensus generation
 - **2-of-3 Consensus**: Majority agreement for high confidence
 - **Partial Consensus**: Single agreement for medium confidence
 - **No Consensus**: Store all perspectives with low confidence
