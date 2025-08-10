@@ -1,5 +1,5 @@
 {
-  "id": "mo-senate-2024",
+  "id": "test-senate-2024",
   "election_date": "2024-11-05T00:00:00",
   "candidates": [
     {
@@ -13,13 +13,13 @@
       "social_media": {}
     }
   ],
-  "updated_utc": "2025-08-10T06:29:18.625234Z",
+  "updated_utc": "2025-08-10T06:31:23.765219Z",
   "generator": [
     "gpt-4o",
     "claude-3.5",
     "grok-4"
   ],
-  "title": "Electoral Race mo-senate-2024",
+  "title": "Electoral Race test-senate-2024",
   "office": "Unknown Office",
   "jurisdiction": "Unknown Jurisdiction"
 }

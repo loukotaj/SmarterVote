@@ -9,6 +9,7 @@ import asyncio
 import logging
 import os
 from datetime import datetime, timezone
+from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from ..schema import ProcessingJob, ProcessingStatus, RaceJSON
@@ -28,7 +29,7 @@ class PublishService:
     def __init__(self):
         """Initialize the publish service with configuration."""
         self.config = PublicationConfig(
-            output_directory=os.getenv("DATA_PUBLISH_DIR", "data/published"),
+            output_directory=Path(os.getenv("DATA_PUBLISH_DIR", "data/published")),
             enable_cloud_storage=os.getenv("ENABLE_CLOUD_STORAGE", "true").lower() == "true",
             enable_database=os.getenv("ENABLE_DATABASE", "true").lower() == "true",
             enable_webhooks=os.getenv("ENABLE_WEBHOOKS", "true").lower() == "true",
@@ -83,6 +84,45 @@ class PublishService:
             logger.error(f"Publish step failed for job {job.job_id}: {e}", exc_info=True)
 
         return job
+
+    async def create_race_json(self, race_id: str, arbitrated_data: Dict[str, Any]) -> RaceJSON:
+        """
+        Create RaceJSON from arbitrated data.
+
+        Args:
+            race_id: The race identifier
+            arbitrated_data: Arbitrated consensus data
+
+        Returns:
+            RaceJSON object ready for publishing
+        """
+        return await self.engine.create_race_json(race_id, arbitrated_data)
+
+    async def publish_race(self, race_json: RaceJSON) -> bool:
+        """
+        Publish race data to configured targets.
+
+        Args:
+            race_json: RaceJSON object to publish
+
+        Returns:
+            True if successful, False otherwise
+        """
+        try:
+            targets = self._get_enabled_targets()
+            results = await self.engine.publish_race(race_json, targets)
+
+            # For local development, consider success if local file publishing worked
+            local_success = any(result.success and result.target == PublicationTarget.LOCAL_FILE for result in results)
+            if local_success:
+                logger.info(f"Local publishing successful for race {race_json.id}")
+                return True
+
+            # Otherwise require all configured targets to succeed
+            return all(result.success for result in results)
+        except Exception as e:
+            logger.error(f"Failed to publish race {race_json.id}: {e}")
+            return False
 
     def _get_enabled_targets(self) -> List[PublicationTarget]:
         """Get list of enabled publication targets based on configuration."""

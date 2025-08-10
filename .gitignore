@@ -273,3 +273,4 @@ infra/.terraform
 
 # Pre-commit
 .pre-commit-cache/
+data/chroma_db/

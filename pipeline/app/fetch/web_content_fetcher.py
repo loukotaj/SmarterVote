@@ -136,7 +136,7 @@ class WebContentFetcher:
             "Connection": "keep-alive",
         }
 
-        response = await self.session.get(source.url, headers=headers)
+        response = await self.session.get(str(source.url), headers=headers)
         response.raise_for_status()
 
         return {

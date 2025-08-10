@@ -80,15 +80,18 @@ def test_schema_validation():
             url="https://example.com",
             type=SourceType.WEBSITE,
             title="Test Source",
-            last_accessed=datetime.utcnow(),
+            last_accessed=datetime.now(),
             is_fresh=False,
         )
-        assert source.url == "https://example.com"
+        assert str(source.url) == "https://example.com/"
 
         logger.info("✅ Schema validation successful")
         return True
     except Exception as e:
         logger.error(f"❌ Schema validation failed: {e}")
+        import traceback
+
+        logger.error(f"Full traceback: {traceback.format_exc()}")
         return False
 
 

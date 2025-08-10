@@ -208,10 +208,10 @@ class FreshSearchQuery(BaseModel):
     """Query for fresh issue-specific Google searches."""
 
     race_id: str
-    candidate_name: str
-    issue: CanonicalIssue = None
-    query_terms: List[str]
+    text: str
+    issue: Optional[CanonicalIssue] = None
     max_results: int = 5
+    date_restrict: Optional[str] = None  # Format like "d30" for last 30 days
 
 
 class RAGQuery(BaseModel):
