@@ -205,11 +205,13 @@ class ConsensusArbitrationEngine:
             "radical",
             "extremist",
             "biased",
-        }
+        ]
         lowered = text.lower()
-        count = sum(lowered.count(term) for term in bias_terms)
-        total_words = len(lowered.split())
-        return count / total_words if total_words else 0.0
+        # Build regex pattern to match any bias term as a whole word (handles multi-word terms)
+        pattern = r"\b(" + "|".join(re.escape(term) for term in bias_terms) + r")\b"
+        matches = re.findall(pattern, lowered)
+        total_words = len(re.findall(r"\b\w+\b", lowered))
+        return len(matches) / total_words if total_words else 0.0
 
     def _find_consensus_groups(self, summaries: List[Summary], similarity_matrix: List[List[float]]) -> List[List[int]]:
         """
