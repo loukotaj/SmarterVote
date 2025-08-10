@@ -25,9 +25,9 @@ from datetime import datetime
 from typing import List, Optional
 
 from ..schema import CanonicalIssue, FreshSearchQuery, RaceMetadata, Source, SourceType
+from .search_utils import SearchUtils
 
 logger = logging.getLogger(__name__)
-
 
 class SourceDiscoveryEngine:
     """Engine for discovering data sources about electoral races."""
@@ -51,6 +51,9 @@ class SourceDiscoveryEngine:
             "enable_social_media": True,
             "enable_news_search": True,
         }
+        # Initialize search utilities
+        self.search_utils = SearchUtils(self.search_config)
+
 
     async def discover_all_sources(self, race_id: str, race_metadata: Optional[RaceMetadata] = None) -> List[Source]:
         """
@@ -78,7 +81,7 @@ class SourceDiscoveryEngine:
 
         # Combine and deduplicate
         all_sources = seed_sources + fresh_sources
-        deduplicated = self._deduplicate_sources(all_sources)
+        deduplicated = self.search_utils.deduplicate_sources(all_sources)
 
         logger.info(f"Total sources after deduplication: {len(deduplicated)}")
         return deduplicated
@@ -144,7 +147,7 @@ class SourceDiscoveryEngine:
         all_sources.extend(news_sources)
 
         # Remove duplicates and filter by quality
-        unique_sources = self._deduplicate_sources(all_sources)
+        unique_sources = self.search_utils.deduplicate_sources(all_sources)
         quality_sources = self._filter_by_quality(unique_sources)
 
         logger.info(f"Discovered {len(quality_sources)} quality sources for {race_id}")
@@ -281,11 +284,18 @@ class SourceDiscoveryEngine:
 
         # Generate search queries for each issue
         for issue in issues_to_search:
-            query = self._generate_issue_query(race_id, issue, race_metadata)
-            issue_sources = await self._search_google_custom(query, issue)
+            query = self.search_utils.generate_issue_query(
+                race_id, issue, 
+                candidate_names=race_metadata.candidates if race_metadata else None,
+                state=race_metadata.state if race_metadata else None,
+                office=race_metadata.office if race_metadata else None
+            )
+            issue_sources = await self.search_utils.search_google_custom(query, issue)
+
             sources.extend(issue_sources)
 
         return sources
+
 
     def _generate_issue_query(
         self, race_id: str, issue: CanonicalIssue, race_metadata: Optional[RaceMetadata] = None
@@ -583,8 +593,8 @@ class SourceDiscoveryEngine:
                 logger.info(f"Discovering sources for candidate: {candidate_name}")
 
                 # Search for candidate-specific information
-                candidate_query = self._generate_candidate_query(race_id, candidate_name)
-                candidate_sources = await self._search_candidate_info(candidate_query)
+                candidate_query = self.search_utils.generate_candidate_query(race_id, candidate_name)
+                candidate_sources = await self.search_utils.search_candidate_info(candidate_query)
                 sources.extend(candidate_sources)
 
         except Exception as e:
@@ -615,34 +625,6 @@ class SourceDiscoveryEngine:
         logger.debug(f"Extracted candidate names for {race_id}: {candidate_names}")
         return candidate_names
 
-    def _generate_candidate_query(self, race_id: str, candidate_name: str) -> FreshSearchQuery:
-        """Generate search query for a specific candidate."""
-        race_parts = race_id.split("-")
-        state = race_parts[0] if race_parts else ""
-        office = race_parts[1] if len(race_parts) > 1 else ""
-        year = race_parts[2] if len(race_parts) > 2 else ""
-
-        # Build candidate-specific query
-        query_parts = [
-            f'"{candidate_name}"',
-            f'"{state} {office} {year}"',
-            "candidate OR campaign OR biography OR platform",
-        ]
-
-        query_text = " ".join(query_parts)
-
-        return FreshSearchQuery(
-            text=query_text,
-            race_id=race_id,
-            max_results=5,
-            date_restrict=f"d{self.search_config['freshness_days']}",
-        )
-
-    async def _search_candidate_info(self, query: FreshSearchQuery) -> List[Source]:
-        """Search for candidate-specific information."""
-        # Use the same Google Custom Search infrastructure
-        return await self._search_google_custom(query, CanonicalIssue.ELECTION_REFORM)  # Use any issue for type
-
     async def _discover_news_sources(self, race_id: str) -> List[Source]:
         """
         Discover news sources covering the race.
@@ -659,26 +641,6 @@ class SourceDiscoveryEngine:
         logger.info(f"Would discover news sources for {race_id}")
 
         return sources
-
-    def _deduplicate_sources(self, sources: List[Source]) -> List[Source]:
-        """
-        Remove duplicate sources based on URL.
-
-        TODO:
-        - [ ] Add more sophisticated deduplication (domain, content similarity)
-        - [ ] Preserve source with highest quality score
-        - [ ] Add URL normalization before comparison
-        """
-        seen_urls = set()
-        unique_sources = []
-
-        for source in sources:
-            url_str = str(source.url).lower().strip("/")
-            if url_str not in seen_urls:
-                seen_urls.add(url_str)
-                unique_sources.append(source)
-
-        return unique_sources
 
     def _filter_by_quality(self, sources: List[Source]) -> List[Source]:
         """

@@ -14,54 +14,21 @@ Key responsibilities:
 """
 
 import asyncio
-import json
 import logging
-from dataclasses import dataclass
-from datetime import datetime, timedelta, timezone
-from enum import Enum
-from pathlib import Path
+from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 
-from ..schema import ConfidenceLevel, RaceJSON
+from ..schema import RaceJSON
+from .publication_types import PublicationConfig, PublicationResult, PublicationTarget
+from .publishers import Publishers
+from .validation_utils import (
+    TransformationUtils,
+    ValidationUtils,
+    initialize_transformation_pipeline,
+    initialize_validation_rules,
+)
 
 logger = logging.getLogger(__name__)
-
-
-class PublicationTarget(str, Enum):
-    """Available publication targets for race data."""
-
-    LOCAL_FILE = "local_file"
-    CLOUD_STORAGE = "cloud_storage"
-    DATABASE = "database"
-    WEBHOOK = "webhook"
-    PUBSUB = "pubsub"
-    API_ENDPOINT = "api_endpoint"
-
-
-@dataclass
-class PublicationResult:
-    """Result of a publication operation."""
-
-    target: PublicationTarget
-    success: bool
-    timestamp: datetime
-    message: str
-    metadata: Dict[str, Any] = None
-
-
-@dataclass
-class PublicationConfig:
-    """Configuration for publication operations."""
-
-    output_directory: Path
-    enable_cloud_storage: bool = True
-    enable_database: bool = True
-    enable_webhooks: bool = True
-    enable_notifications: bool = True
-    version_control: bool = True
-    compression: bool = False
-    encryption: bool = False
-    retention_days: int = 365
 
 
 class RacePublishingEngine:
@@ -79,10 +46,17 @@ class RacePublishingEngine:
         Args:
             config: Publication configuration settings
         """
-        self.config = config or PublicationConfig(output_directory=Path("data/published"))
+        self.config = config or PublicationConfig(
+            default_targets=[PublicationTarget.LOCAL_FILE],
+            local_output_dir="data/published"
+        )
 
-        # Ensure output directory exists
-        self.config.output_directory.mkdir(parents=True, exist_ok=True)
+        # Initialize publishers and utilities
+        self.publishers = Publishers(self.config)
+        self.validation_utils = ValidationUtils()
+        self.transformation_utils = TransformationUtils()
+        self.transformation_pipeline = initialize_transformation_pipeline()
+        self.validation_rules = initialize_validation_rules()
 
         # Publication tracking
         self.publication_history: List[PublicationResult] = []
@@ -91,38 +65,39 @@ class RacePublishingEngine:
         # Validation and transformation settings
         self.validation_rules = self._initialize_validation_rules()
         self.transformation_pipeline = self._initialize_transformation_pipeline()
-
+        
         logger.info(f"Publishing engine initialized with output directory: {self.config.output_directory}")
-
     async def create_race_json(
-        self, race_id: str, arbitrated_data: Dict[str, Any], race_metadata: Optional[Any] = None
+        self,
+        race_id: str,
+        arbitrated_data: Dict[str, Any],
+        race_metadata: Optional[Any] = None,
     ) -> RaceJSON:
         """
-        Transform arbitrated data into standardized RaceJSON format.
+        Transform arbitrated consensus data into standardized RaceJSON format.
 
         Args:
             race_id: Unique identifier for the race
             arbitrated_data: Consensus data from arbitration engine
-            race_metadata: Optional race metadata from early extraction
+            race_metadata: Metadata from discovery phase
 
         Returns:
-            Complete RaceJSON object ready for publication
+            Validated RaceJSON object ready for publication
 
-        TODO: Implement comprehensive data transformation pipeline:
-        - Extract candidate information from arbitrated summaries
-        - Parse office, jurisdiction, and election metadata
-        - Map confidence levels to data quality indicators
-        - Generate structured issue positions and policy stances
-        - Create citation and source reference mappings
-        - Validate data completeness and consistency
-        - Apply data enrichment from external sources
+        TODO: Implement advanced transformation features:
+        - Multi-source data fusion and conflict resolution
+        - Temporal analysis and trend detection
+        - Cross-reference validation with external sources
+        - Intelligent metadata enrichment
+        - Source attribution and lineage tracking
         - Generate publication metadata and versioning
         """
         logger.info(f"Creating RaceJSON for race {race_id}")
 
         try:
             # Validate input data
-            await self._validate_arbitrated_data(arbitrated_data)
+            await self.validation_utils.validate_arbitrated_data(arbitrated_data)
+
 
             # Extract base race information - prioritize race_metadata if available
             if race_metadata:
@@ -134,7 +109,8 @@ class RacePublishingEngine:
                 }
                 logger.info(f"Using provided race metadata for {race_id}")
             else:
-                race_info = await self._extract_race_metadata(race_id, arbitrated_data)
+                race_info = await self.transformation_utils.extract_race_metadata(race_id, arbitrated_data)
+
                 logger.info(f"Extracted race metadata from arbitrated data for {race_id}")
 
             # Process candidate data
@@ -146,18 +122,17 @@ class RacePublishingEngine:
             # Create RaceJSON object
             race = RaceJSON(
                 id=race_id,
-                election_date=race_info.get("election_date", datetime(2024, 11, 5)),
                 candidates=candidates,
-                updated_utc=datetime.now(timezone.utc),
-                generator=metadata.get("generators", ["gpt-4o", "claude-3.5", "grok-3"]),
-                title=race_info.get("title", f"Electoral Race {race_id}"),
+                metadata=metadata,
+                last_updated=datetime.utcnow(),
+                title=race_info.get("title", f"Race {race_id}"),
                 office=race_info.get("office", "Unknown Office"),
                 jurisdiction=race_info.get("jurisdiction", "Unknown Jurisdiction"),
                 race_metadata=race_metadata,  # Include the full metadata
             )
 
             # Apply validation rules
-            await self._validate_race_json(race)
+            await self.validation_utils.validate_race_json(race)
 
             logger.info(f"Successfully created RaceJSON for race {race_id}")
             return race
@@ -168,59 +143,60 @@ class RacePublishingEngine:
 
     async def publish_race(self, race: RaceJSON, targets: Optional[List[PublicationTarget]] = None) -> List[PublicationResult]:
         """
-        Publish race data to specified targets.
+        Publish race data to configured targets.
 
         Args:
-            race: Complete race object to publish
-            targets: List of publication targets (all if None)
+            race: Race data to publish
+            targets: Optional list of publication targets (uses default if None)
 
         Returns:
             List of publication results for each target
 
-        TODO: Implement parallel publication to multiple targets:
-        - Local file system with versioning and backup
-        - Cloud storage (GCS, S3, Azure) with CDN integration
-        - Database systems (PostgreSQL, MongoDB, BigQuery)
-        - Real-time notification systems (Pub/Sub, WebSockets)
-        - Webhook endpoints for external system integration
-        - API endpoints for immediate data availability
-        - Content delivery networks for public access
-        - Search index updates for discovery
+        TODO: Implement advanced publishing features:
+        - Intelligent target selection based on data characteristics
+        - Parallel publishing with dependency management
+        - Retry logic with exponential backoff
+        - Publication rollback on critical failures
+        - Real-time monitoring and alerting
+        - Performance optimization and caching
         """
-        if targets is None:
-            # Auto-detect environment and choose appropriate targets
-            targets = self._get_environment_specific_targets()
+        logger.info(f"Publishing race {race.id} to targets")
 
-        logger.info(f"Publishing race {race.id} to {len(targets)} targets: {[t.value for t in targets]}")
+        # Use default targets if none specified
+        if targets is None:
+            targets = self.config.default_targets
 
         results = []
-        publication_tasks = []
 
-        # Create publication tasks for each target
-        for target in targets:
-            task = asyncio.create_task(self._publish_to_target(race, target))
-            publication_tasks.append(task)
-            self.active_publications[f"{race.id}_{target.value}"] = task
-
-        # Execute all publications in parallel
         try:
-            task_results = await asyncio.gather(*publication_tasks, return_exceptions=True)
+            # Create publication tasks for all targets
+            tasks = []
+            for target in targets:
+                task = asyncio.create_task(self._publish_to_target(race, target))
+                task_key = f"{race.id}_{target.value}"
+                self.active_publications[task_key] = task
+                tasks.append(task)
 
-            for i, result in enumerate(task_results):
+            # Execute all publications concurrently
+            results = await asyncio.gather(*tasks, return_exceptions=True)
+
+            # Process results and handle exceptions
+            final_results = []
+            for i, result in enumerate(results):
                 target = targets[i]
-
                 if isinstance(result, Exception):
-                    pub_result = PublicationResult(
-                        target=target,
-                        success=False,
-                        timestamp=datetime.now(timezone.utc),
-                        message=f"Publication failed: {str(result)}",
+                    logger.error(f"Publication to {target.value} failed with exception: {result}")
+                    final_results.append(
+                        PublicationResult(
+                            target=target,
+                            success=False,
+                            timestamp=datetime.now(timezone.utc),
+                            message=f"Publication failed: {str(result)}",
+                            metadata={"error_type": type(result).__name__},
+                        )
                     )
                 else:
-                    pub_result = result
-
-                results.append(pub_result)
-                self.publication_history.append(pub_result)
+                    final_results.append(result)
 
                 # Clean up task tracking
                 task_key = f"{race.id}_{target.value}"
@@ -232,15 +208,18 @@ class RacePublishingEngine:
             raise
 
         # Log publication summary
-        successful = [r for r in results if r.success]
-        failed = [r for r in results if not r.success]
+        successful = [r for r in final_results if r.success]
+        failed = [r for r in final_results if not r.success]
 
         logger.info(f"Race {race.id} publication complete: {len(successful)} successful, {len(failed)} failed")
 
         if failed:
             logger.warning(f"Failed publications for race {race.id}: {[f.target.value for f in failed]}")
 
-        return results
+        # Store in publication history
+        self.publication_history.extend(final_results)
+
+        return final_results
 
     async def _publish_to_target(self, race: RaceJSON, target: PublicationTarget) -> PublicationResult:
         """
@@ -257,17 +236,17 @@ class RacePublishingEngine:
 
         try:
             if target == PublicationTarget.LOCAL_FILE:
-                await self._publish_to_local_file(race)
+                await self.publishers.publish_to_local_file(race)
             elif target == PublicationTarget.CLOUD_STORAGE:
-                await self._publish_to_cloud_storage(race)
+                await self.publishers.publish_to_cloud_storage(race)
             elif target == PublicationTarget.DATABASE:
-                await self._publish_to_database(race)
+                await self.publishers.publish_to_database(race)
             elif target == PublicationTarget.WEBHOOK:
-                await self._publish_to_webhooks(race)
+                await self.publishers.publish_to_webhooks(race)
             elif target == PublicationTarget.PUBSUB:
-                await self._publish_to_pubsub(race)
+                await self.publishers.publish_to_pubsub(race)
             elif target == PublicationTarget.API_ENDPOINT:
-                await self._publish_to_api_endpoint(race)
+                await self.publishers.publish_to_api_endpoint(race)
             else:
                 raise ValueError(f"Unknown publication target: {target}")
 
@@ -762,259 +741,50 @@ class RacePublishingEngine:
 
         try:
             consensus_data = arbitrated_data.get("consensus_data", {})
+            candidates_data = consensus_data.get("candidates", [])
 
-            # Look for candidate data in various possible structures
-            candidate_summaries = []
-
-            # Check for direct candidate summaries
-            if "candidate_summaries" in consensus_data:
-                candidate_summaries = consensus_data["candidate_summaries"]
-            elif "candidates" in consensus_data:
-                candidate_summaries = consensus_data["candidates"]
-
-            # If no direct candidate data, try to extract from arbitrated summaries
-            if not candidate_summaries and "arbitrated_summaries" in arbitrated_data:
-                summaries = arbitrated_data["arbitrated_summaries"]
-                for summary_data in summaries:
-                    if summary_data.get("query_type") == "candidate_summary":
-                        candidate_name = summary_data.get("candidate_name")
-                        if candidate_name:
-                            candidate_summaries.append(
-                                {
-                                    "name": candidate_name,
-                                    "summary": summary_data.get("content", ""),
-                                    "confidence": summary_data.get("confidence", "unknown"),
-                                }
-                            )
-
-            # Process each candidate
-            for candidate_data in candidate_summaries:
-                if not isinstance(candidate_data, dict):
-                    continue
-
+            for candidate_info in candidates_data:
                 candidate = {
-                    "name": candidate_data.get("name", "Unknown Candidate"),
-                    "party": candidate_data.get("party"),
-                    "incumbent": candidate_data.get("incumbent", False),
-                    "summary": candidate_data.get("summary", "No summary available"),
-                    "issues": {},
-                    "top_donors": [],
-                    "website": candidate_data.get("website"),
-                    "social_media": candidate_data.get("social_media", {}),
+                    "name": candidate_info.get("name", "Unknown Candidate"),
+                    "party": candidate_info.get("party", "Unknown Party"),
+                    "issue_stances": candidate_info.get("issue_stances", {}),
+                    "biographical_info": candidate_info.get("biographical_info", {}),
+                    "confidence_scores": candidate_info.get("confidence_scores", {}),
+                    "sources": candidate_info.get("sources", []),
                 }
-
-                # Extract issue stances from arbitrated data
-                if "arbitrated_summaries" in arbitrated_data:
-                    for summary_data in arbitrated_data["arbitrated_summaries"]:
-                        if (
-                            summary_data.get("query_type") == "issue_stance"
-                            and summary_data.get("candidate_name") == candidate["name"]
-                        ):
-                            issue = summary_data.get("issue")
-                            if issue:
-                                stance = {
-                                    "issue": issue,
-                                    "stance": summary_data.get("content", "Position unclear"),
-                                    "confidence": summary_data.get("confidence", "unknown"),
-                                    "sources": [],
-                                }
-                                candidate["issues"][issue] = stance
-
-                # Clean up and validate candidate data
-                if len(candidate["summary"]) < 10:
-                    candidate["summary"] = f"Information about {candidate['name']} is being processed."
-
-                # Ensure required fields
-                if not candidate["name"] or candidate["name"] == "Unknown Candidate":
-                    continue  # Skip candidates without names
-
                 candidates.append(candidate)
 
-            # If no candidates were extracted, create a placeholder
-            if not candidates:
-                logger.warning("No candidates extracted from arbitrated data, creating placeholder")
-                candidates.append(
-                    {
-                        "name": "Candidate Information Pending",
-                        "party": None,
-                        "incumbent": False,
-                        "summary": (
-                            "Candidate information is being processed and will be available soon. "
-                            "This is a longer placeholder to meet content requirements for publication validation."
-                        ),
-                        "issues": {},
-                        "top_donors": [],
-                        "website": None,
-                        "social_media": {},
-                    }
-                )
+            logger.debug(f"Extracted {len(candidates)} candidates from arbitrated data")
 
         except Exception as e:
-            logger.error(f"Error extracting candidates from arbitrated data: {e}")
-            # Return minimal candidate structure to prevent pipeline failure
-            candidates = [
-                {
-                    "name": "Data Processing Error",
-                    "party": None,
-                    "incumbent": False,
-                    "summary": (
-                        "There was an error processing candidate information. "
-                        "Please check the data sources and try again with updated inputs."
-                    ),
-                    "issues": {},
-                    "top_donors": [],
-                    "website": None,
-                    "social_media": {},
-                }
-            ]
+            logger.warning(f"Error extracting candidates: {e}")
 
-        logger.debug(f"Extracted {len(candidates)} candidates from arbitrated data")
         return candidates
 
     async def _generate_publication_metadata(self, race_id: str, arbitrated_data: Dict[str, Any]) -> Dict[str, Any]:
         """
-        Generate metadata for the publication process.
+        Generate publication metadata for the race.
 
-        TODO: Implement comprehensive metadata generation:
-        - Processing pipeline version and configuration
-        - Source data fingerprints and checksums
-        - AI model versions and parameters used
-        - Confidence metrics and quality scores
-        - Processing timestamps and duration
-        - Data lineage and transformation history
-        - Validation results and warnings
-        - Publication target configurations
+        Includes information about data sources, processing timestamps,
+        confidence metrics, and publication audit trail.
         """
-        return {
-            "generators": ["gpt-4o", "claude-3.5", "grok-3"],
-            "processing_version": "1.0.0",
-            "publication_timestamp": datetime.now(timezone.utc).isoformat(),
+        metadata = {
+            "race_id": race_id,
+            "processing_timestamp": datetime.utcnow(),
+            "data_sources": arbitrated_data.get("sources", []),
+            "confidence_metrics": arbitrated_data.get("confidence_metrics", {}),
+            "processing_pipeline": self.transformation_pipeline,
+            "validation_rules": list(self.validation_rules.keys()),
         }
 
-    async def _validate_race_json(self, race: RaceJSON) -> None:
-        """
-        Validate RaceJSON object before publication.
-
-        Implements comprehensive validation including business rules,
-        data completeness, and publication readiness checks.
-        """
-        validation_errors = []
-
-        try:
-            # Basic Pydantic model validation
-            race.model_validate(race.model_dump())
-        except Exception as e:
-            validation_errors.append(f"Pydantic validation failed: {e}")
-
-        # Business rule validations
-        if not race.id or not race.id.strip():
-            validation_errors.append("Race ID is required and cannot be empty")
-
-        if not race.title or not race.title.strip():
-            validation_errors.append("Race title is required and cannot be empty")
-
-        if not race.candidates:
-            validation_errors.append("Race must have at least one candidate")
-
-        # Validate candidates
-        candidate_names = set()
-        for i, candidate in enumerate(race.candidates):
-            if not candidate.name or not candidate.name.strip():
-                validation_errors.append(f"Candidate {i} name is required")
-
-            if candidate.name in candidate_names:
-                validation_errors.append(f"Duplicate candidate name: {candidate.name}")
-            candidate_names.add(candidate.name)
-
-            if not candidate.summary or len(candidate.summary.strip()) < 10:
-                validation_errors.append(f"Candidate {candidate.name} summary is too short (minimum 10 characters)")
-
-        # Date validations
-        if race.election_date and race.election_date < datetime(1900, 1, 1):
-            validation_errors.append("Election date cannot be before 1900")
-
-        if race.updated_utc and race.updated_utc > datetime.now(timezone.utc):
-            validation_errors.append("Updated timestamp cannot be in the future")
-
-        # Check if we have enough high-quality content
-        total_content_length = sum(len(candidate.summary) for candidate in race.candidates)
-        min_content_length = self.validation_rules.get("min_content_length", 100)
-
-        if total_content_length < min_content_length:
-            validation_errors.append(f"Total content length ({total_content_length}) below minimum ({min_content_length})")
-
-        # Validate required fields are present
-        required_fields = self.validation_rules.get("required_fields", [])
-        race_dict = race.model_dump()
-
-        for field in required_fields:
-            if field not in race_dict or not race_dict[field]:
-                validation_errors.append(f"Required field missing or empty: {field}")
-
-        # Check for suspicious or invalid data
-        if race.office and len(race.office) > 200:
-            validation_errors.append("Office name is suspiciously long (>200 characters)")
-
-        if race.jurisdiction and len(race.jurisdiction) > 200:
-            validation_errors.append("Jurisdiction name is suspiciously long (>200 characters)")
-
-        # If there are validation errors, raise exception
-        if validation_errors:
-            error_message = f"RaceJSON validation failed for {race.id}: " + "; ".join(validation_errors)
-            logger.error(error_message)
-            raise ValueError(error_message)
-
-        logger.debug(f"RaceJSON validation passed for race {race.id}")
-
-    def _initialize_validation_rules(self) -> Dict[str, Any]:
-        """
-        Initialize data validation rules and thresholds.
-
-        TODO: Define comprehensive validation rules:
-        - Minimum content length requirements
-        - Required confidence levels for publication
-        - Mandatory field validation rules
-        - Data quality score thresholds
-        - Source reference requirements
-        - Candidate information completeness rules
-        - Date and time validation constraints
-        - Geographic and jurisdictional validation
-        """
-        return {
-            "min_confidence": ConfidenceLevel.MEDIUM,
-            "required_fields": ["id", "title", "office"],
-            "min_content_length": 100,
-        }
-
-    def _initialize_transformation_pipeline(self) -> List[str]:
-        """
-        Initialize data transformation pipeline stages.
-
-        TODO: Define transformation pipeline:
-        - Data cleaning and normalization
-        - Entity extraction and linking
-        - Content summarization and structuring
-        - Metadata enrichment and augmentation
-        - Quality scoring and validation
-        - Format conversion and standardization
-        - Reference resolution and validation
-        - Final packaging and optimization
-        """
-        return [
-            "data_cleaning",
-            "entity_extraction",
-            "content_structuring",
-            "metadata_enrichment",
-            "quality_validation",
-            "format_standardization",
-        ]
+        return metadata
 
     def get_publication_history(self, race_id: Optional[str] = None) -> List[PublicationResult]:
         """
-        Get publication history for all races or a specific race.
+        Get publication history, optionally filtered by race ID.
 
         Args:
-            race_id: Optional race ID to filter history
+            race_id: Optional race ID to filter results
 
         Returns:
             List of publication results
@@ -1023,142 +793,11 @@ class RacePublishingEngine:
             return [r for r in self.publication_history if race_id in str(r.metadata)]
         return self.publication_history.copy()
 
-    def get_published_races(self) -> List[str]:
+    def get_active_publications(self) -> Dict[str, asyncio.Task]:
         """
-        Get list of successfully published race IDs.
+        Get currently active publication tasks.
 
         Returns:
-            List of race IDs that have been published
-
-        TODO: Implement comprehensive race listing:
-        - Scan multiple storage backends for published races
-        - Aggregate publication status across targets
-        - Include publication timestamps and versions
-        - Filter by publication status and targets
-        - Support pagination for large race counts
-        - Include metadata and quality scores
+            Dictionary of active publication tasks by key
         """
-        published_files = list(self.config.output_directory.glob("*.json"))
-        return [f.stem for f in published_files]
-
-    def get_race_data(self, race_id: str) -> Optional[Dict[str, Any]]:
-        """
-        Retrieve published race data by ID.
-
-        Args:
-            race_id: Race identifier
-
-        Returns:
-            Race data dictionary or None if not found
-
-        TODO: Implement multi-source race data retrieval:
-        - Check local file system first
-        - Fall back to cloud storage if local not available
-        - Query database for most recent version
-        - Handle version conflicts and merging
-        - Cache frequently accessed race data
-        - Support partial data retrieval for large races
-        """
-        race_file = self.config.output_directory / f"{race_id}.json"
-
-        if race_file.exists():
-            try:
-                with open(race_file, "r", encoding="utf-8") as f:
-                    return json.load(f)
-            except Exception as e:
-                logger.error(f"Failed to load race data for {race_id}: {e}")
-                return None
-
-        return None
-
-    async def cleanup_old_publications(self, retention_days: Optional[int] = None) -> int:
-        """
-        Clean up old publication files based on retention policy.
-
-        Args:
-            retention_days: Number of days to retain files (uses config default if None)
-
-        Returns:
-            Number of files cleaned up
-
-        TODO: Implement comprehensive cleanup:
-        - Clean up local files older than retention period
-        - Archive old files to long-term storage
-        - Clean up cloud storage objects with lifecycle policies
-        - Remove old database records with archival
-        - Clean up publication history and logs
-        - Generate cleanup reports and notifications
-        """
-        days = retention_days or self.config.retention_days
-        cutoff_date = datetime.now() - timedelta(days=days)
-
-        cleanup_count = 0
-
-        for file_path in self.config.output_directory.glob("*.json"):
-            if file_path.stat().st_mtime < cutoff_date.timestamp():
-                try:
-                    file_path.unlink()
-                    cleanup_count += 1
-                    logger.debug(f"Cleaned up old publication file: {file_path}")
-                except Exception as e:
-                    logger.warning(f"Failed to clean up file {file_path}: {e}")
-
-        logger.info(f"Cleaned up {cleanup_count} old publication files")
-        return cleanup_count
-
-    def _get_environment_specific_targets(self) -> List[PublicationTarget]:
-        """
-        Detect environment and return appropriate publication targets.
-
-        Returns:
-            List of publication targets based on detected environment
-
-        Environment Detection Logic:
-        - Local: Publish to local files only
-        - Cloud: Publish to cloud storage, database, pub/sub, webhooks
-        """
-        import os
-
-        # Check for cloud environment indicators
-        cloud_indicators = [
-            os.getenv("GOOGLE_CLOUD_PROJECT"),
-            os.getenv("CLOUD_RUN_SERVICE"),
-            os.getenv("K_SERVICE"),  # Cloud Run service name
-            os.getenv("GAE_APPLICATION"),  # App Engine
-            os.getenv("FUNCTION_NAME"),  # Cloud Functions
-        ]
-
-        is_cloud_environment = any(cloud_indicators)
-
-        if is_cloud_environment:
-            logger.info("🌩️  Detected cloud environment - using cloud publication targets")
-            targets = [
-                PublicationTarget.CLOUD_STORAGE,
-                PublicationTarget.DATABASE,
-                PublicationTarget.PUBSUB,
-                PublicationTarget.WEBHOOK,
-                PublicationTarget.LOCAL_FILE,  # Also save locally for backup
-            ]
-        else:
-            logger.info("💻 Detected local environment - using local publication targets")
-            targets = [
-                PublicationTarget.LOCAL_FILE,
-            ]
-
-        logger.info(f"Selected publication targets: {[t.value for t in targets]}")
-        return targets
-
-    def _calculate_publication_metrics(self, results: List[PublicationResult]) -> Dict[str, Any]:
-        """Calculate metrics about publication results."""
-        total = len(results)
-        successful = sum(1 for r in results if r.success)
-        failed = total - successful
-
-        return {
-            "total_targets": total,
-            "successful_publications": successful,
-            "failed_publications": failed,
-            "success_rate": successful / total if total > 0 else 0.0,
-            "publication_targets": [r.target.value for r in results],
-            "publication_time": datetime.now(timezone.utc),
-        }
+        return self.active_publications.copy()
