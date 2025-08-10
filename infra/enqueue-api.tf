@@ -19,7 +19,7 @@ resource "google_cloud_run_v2_service" "enqueue_api" {
       }
 
       env {
-        name  = "CLOUD_RUN_JOB"
+        name  = "CLOUD_RUN_JOB_NAME"
         value = google_cloud_run_v2_job.race_worker.name
       }
 
@@ -73,12 +73,7 @@ resource "google_cloud_run_v2_service_iam_binding" "enqueue_api_invoker" {
 # Update the original Pub/Sub subscription with push config after Cloud Run service exists
 resource "null_resource" "configure_pubsub_push" {
   provisioner "local-exec" {
-    command = <<-EOT
-      gcloud pubsub subscriptions modify race-jobs-sub-${var.environment} \
-        --push-endpoint="${google_cloud_run_v2_service.enqueue_api.uri}/webhook" \
-        --push-auth-service-account="${google_service_account.pubsub_invoker.email}" \
-        --project="${var.project_id}"
-    EOT
+    command = "gcloud pubsub subscriptions update race-jobs-sub-${var.environment} --push-endpoint=${google_cloud_run_v2_service.enqueue_api.uri}/webhook --push-auth-service-account=${google_service_account.pubsub_invoker.email} --project=${var.project_id}"
   }
 
   depends_on = [

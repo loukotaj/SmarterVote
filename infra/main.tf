@@ -108,14 +108,6 @@ resource "google_project_service" "apis" {
   disable_dependent_services = true
 }
 
-# Container Registry for Docker images
-resource "google_container_registry" "registry" {
-  project  = var.project_id
-  location = "US"
-
-  depends_on = [google_project_service.apis]
-}
-
 # Artifact Registry for enhanced container management (recommended over GCR)
 resource "google_artifact_registry_repository" "smartervote" {
   location      = var.region

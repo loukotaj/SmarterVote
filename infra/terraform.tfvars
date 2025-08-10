@@ -10,7 +10,7 @@ region      = "us-central1"
 app_version = "latest"
 
 # Development Settings
-force_update_services = false
+force_update = false
 prevent_destroy_prod  = true
 
 # Note: project_id and API keys are set in secrets.tfvars

@@ -59,6 +59,38 @@ jobs:
     - name: Setup Google Cloud SDK
       uses: google-github-actions/setup-gcloud@v2
 
+    - name: Configure Docker for Artifact Registry
+      if: env.ACTION == 'apply' || github.event_name != 'workflow_dispatch'
+      run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev
+
+    # Build and push all container images before Terraform deploy
+    - name: Build and Push Pipeline Worker
+      if: env.ACTION == 'apply' || github.event_name != 'workflow_dispatch'
+      run: |
+        cd pipeline
+        docker build -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/pipeline:${{ github.sha }} \
+                     -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/pipeline:latest .
+        docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/pipeline:${{ github.sha }}
+        docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/pipeline:latest
+
+    - name: Build and Push Enqueue API
+      if: env.ACTION == 'apply' || github.event_name != 'workflow_dispatch'
+      run: |
+        cd services/enqueue-api
+        docker build -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/enqueue-api:${{ github.sha }} \
+                     -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/enqueue-api:latest .
+        docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/enqueue-api:${{ github.sha }}
+        docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/enqueue-api:latest
+
+    - name: Build and Push Races API
+      if: env.ACTION == 'apply' || github.event_name != 'workflow_dispatch'
+      run: |
+        cd services/races-api
+        docker build -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/races-api:${{ github.sha }} \
+                     -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/races-api:latest .
+        docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/races-api:${{ github.sha }}
+        docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/races-api:latest
+
     - name: Create Terraform variables file
       run: |
         cd infra
