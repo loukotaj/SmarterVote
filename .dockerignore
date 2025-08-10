@@ -1,0 +1,71 @@
+# Development files
+.git
+.gitignore
+.github
+*.md
+LICENSE
+
+# Python cache and virtual environments
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env
+pip-log.txt
+pip-delete-this-directory.txt
+.tox
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.venv
+.pytest_cache
+
+# IDE files
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Data and temp files
+data/
+temp/
+tmp/
+
+# Web build files
+web/node_modules/
+web/build/
+web/.svelte-kit/
+web/package-lock.json
+
+# Infrastructure files
+infra/.terraform/
+infra/terraform.tfstate*
+infra/*.tfvars
+infra/*.log
+
+# Test files (except for the specific service being built)
+tests/
+test-results/
+
+# Documentation
+docs/

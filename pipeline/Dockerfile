@@ -20,7 +20,7 @@ RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements first for better Docker layer caching
-COPY requirements.txt .
+COPY pipeline/requirements.txt .
 
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
@@ -29,7 +29,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 RUN python -m spacy download en_core_web_sm
 
 # Copy application code
-COPY app/ ./app/
+COPY pipeline/app/ ./app/
+COPY shared ./shared
 
 # Create non-root user for security
 RUN useradd --create-home --shell /bin/bash app \

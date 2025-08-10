@@ -67,8 +67,7 @@ jobs:
     - name: Build and Push Pipeline Worker
       if: env.ACTION == 'apply' || github.event_name != 'workflow_dispatch'
       run: |
-        cd pipeline
-        docker build -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/pipeline:${{ github.sha }} \
+        docker build -f pipeline/Dockerfile -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/pipeline:${{ github.sha }} \
                      -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/pipeline:latest .
         docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/pipeline:${{ github.sha }}
         docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/pipeline:latest
@@ -85,8 +84,7 @@ jobs:
     - name: Build and Push Races API
       if: env.ACTION == 'apply' || github.event_name != 'workflow_dispatch'
       run: |
-        cd services/races-api
-        docker build -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/races-api:${{ github.sha }} \
+        docker build -f services/races-api/Dockerfile -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/races-api:${{ github.sha }} \
                      -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/races-api:latest .
         docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/races-api:${{ github.sha }}
         docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/races-api:latest
