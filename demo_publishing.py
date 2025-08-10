@@ -12,7 +12,7 @@ import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 
-from pipeline.app.publish import PublishService, RacePublishingEngine, PublicationConfig
+from pipeline.app.publish import PublicationConfig, PublishService, RacePublishingEngine
 
 
 async def main():
