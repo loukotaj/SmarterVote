@@ -119,7 +119,9 @@ class TestLLMSummarizationEngine:
         assert "Candidate Official Page" in prepared
         assert "healthcare reform" in prepared
         assert "economic policies" in prepared
-        assert "Source:" in prepared
+        assert "Source 1:" in prepared  # Updated to match new format
+        assert "Source 2:" in prepared  # Updated to match new format
+        assert "Race ID: test-race-123" in prepared
 
     @pytest.mark.asyncio
     async def test_prepare_content_truncation(self, engine_with_openai_key):
@@ -296,15 +298,33 @@ class TestLLMSummarizationEngine:
             config = engine_with_openai_key.models["openai"]
             prompt = "Test prompt for {race_id}: {content}"
             content = "Test content"
+            # Create sample extracted content for the new parameter
+            sample_content = [
+                ExtractedContent(
+                    source=Source(
+                        url="https://example.com/test",
+                        type=SourceType.WEBSITE,
+                        title="Test Source",
+                        last_accessed=datetime.utcnow(),
+                    ),
+                    text="Test content",
+                    metadata={},
+                    extraction_timestamp=datetime.utcnow(),
+                    word_count=2,
+                    language="en",
+                )
+            ]
 
-            summary = await engine_with_openai_key._generate_single_summary("openai", config, prompt, content, "test-race-123")
+            summary = await engine_with_openai_key._generate_single_summary(
+                "openai", config, prompt, content, "test-race-123", sample_content
+            )
 
             assert isinstance(summary, Summary)
             assert summary.content == mock_response["content"]
             assert summary.model == "gpt-4o"
             assert summary.tokens_used == 100
             assert summary.confidence in [ConfidenceLevel.HIGH, ConfidenceLevel.MEDIUM, ConfidenceLevel.LOW]
-            assert "test-race-123" in summary.source_ids
+            assert len(summary.source_ids) > 0  # Should have extracted source IDs
 
     @pytest.mark.asyncio
     async def test_generate_single_summary_api_failure(self, engine_with_openai_key):
@@ -313,9 +333,88 @@ class TestLLMSummarizationEngine:
             config = engine_with_openai_key.models["openai"]
             prompt = "Test prompt"
             content = "Test content"
+            # Create sample extracted content for the new parameter
+            sample_content = [
+                ExtractedContent(
+                    source=Source(
+                        url="https://example.com/test",
+                        type=SourceType.WEBSITE,
+                        title="Test Source",
+                        last_accessed=datetime.utcnow(),
+                    ),
+                    text="Test content",
+                    metadata={},
+                    extraction_timestamp=datetime.utcnow(),
+                    word_count=2,
+                    language="en",
+                )
+            ]
 
             with pytest.raises(Exception, match="API Error"):
-                await engine_with_openai_key._generate_single_summary("openai", config, prompt, content, "test-race-123")
+                await engine_with_openai_key._generate_single_summary(
+                    "openai", config, prompt, content, "test-race-123", sample_content
+                )
+
+    @pytest.mark.asyncio
+    async def test_parse_ai_confidence(self, engine_with_openai_key):
+        """Test parsing AI-generated confidence scores."""
+        # Test HIGH confidence
+        high_content = "CONFIDENCE: HIGH\nThis is a high confidence summary..."
+        assert engine_with_openai_key._parse_ai_confidence(high_content) == ConfidenceLevel.HIGH
+
+        # Test MEDIUM confidence
+        medium_content = "CONFIDENCE: MEDIUM\nThis is a medium confidence summary..."
+        assert engine_with_openai_key._parse_ai_confidence(medium_content) == ConfidenceLevel.MEDIUM
+
+        # Test LOW confidence
+        low_content = "CONFIDENCE: LOW\nThis is a low confidence summary..."
+        assert engine_with_openai_key._parse_ai_confidence(low_content) == ConfidenceLevel.LOW
+
+        # Test UNKNOWN confidence
+        unknown_content = "CONFIDENCE: UNKNOWN\nThis is an unknown confidence summary..."
+        assert engine_with_openai_key._parse_ai_confidence(unknown_content) == ConfidenceLevel.UNKNOWN
+
+        # Test fallback to heuristic
+        no_confidence_content = "This is a summary without confidence indicator"
+        result = engine_with_openai_key._parse_ai_confidence(no_confidence_content)
+        assert result in [ConfidenceLevel.HIGH, ConfidenceLevel.MEDIUM, ConfidenceLevel.LOW, ConfidenceLevel.UNKNOWN]
+
+    @pytest.mark.asyncio
+    async def test_extract_cited_sources(self, engine_with_openai_key, sample_extracted_content):
+        """Test extraction of cited sources from AI response."""
+        # Test response with source citations
+        ai_response = """
+        CONFIDENCE: HIGH
+        SUMMARY:
+        The candidate supports healthcare reform (Source: https://example.com/candidate-page).
+        Economic policies focus on job creation (Source: https://example.com/interview).
+        SOURCES CITED:
+        - https://example.com/candidate-page
+        - https://example.com/interview
+        """
+
+        cited_sources = engine_with_openai_key._extract_cited_sources(ai_response, sample_extracted_content)
+        assert len(cited_sources) >= 2
+        assert "https://example.com/candidate-page" in cited_sources
+        assert "https://example.com/interview" in cited_sources
+
+        # Test response with source number citations
+        ai_response_numbered = """
+        CONFIDENCE: HIGH
+        SUMMARY:
+        Source 1: mentions healthcare reform.
+        Source 2: discusses economic policies.
+        """
+
+        cited_sources_numbered = engine_with_openai_key._extract_cited_sources(ai_response_numbered, sample_extracted_content)
+        assert len(cited_sources_numbered) >= 2
+
+        # Test response with no citations (fallback)
+        ai_response_no_citations = "This is a summary with no source citations."
+        cited_sources_fallback = engine_with_openai_key._extract_cited_sources(
+            ai_response_no_citations, sample_extracted_content
+        )
+        assert len(cited_sources_fallback) == len(sample_extracted_content)  # Should include all sources as fallback
 
     @pytest.mark.asyncio
     async def test_full_generate_summaries_workflow(self, engine_with_openai_key, sample_extracted_content):

@@ -227,7 +227,7 @@ class LLMSummarizationEngine:
         logger.info(f"Using {len(enabled_models)} enabled LLM providers: {list(enabled_models.keys())}")
 
         for provider, config in enabled_models.items():
-            task = self._generate_single_summary(provider, config, prompt_template, prepared_content, race_id)
+            task = self._generate_single_summary(provider, config, prompt_template, prepared_content, race_id, content)
             tasks.append(task)
 
         try:
@@ -295,7 +295,7 @@ class LLMSummarizationEngine:
 
     def _prepare_content_for_summarization(self, content: List[ExtractedContent], race_id: str) -> str:
         """
-        Prepare extracted content for summarization.
+        Prepare extracted content for summarization with detailed source attribution.
 
         TODO:
         - [ ] Add intelligent content ranking and selection
@@ -303,22 +303,51 @@ class LLMSummarizationEngine:
         - [ ] Add source attribution and credibility weighting
         - [ ] Support for preserving important quotes and data
         """
-        # Combine content with source attribution
+        # Combine content with enhanced source attribution
         content_blocks = []
 
-        for item in content:
-            source_info = f"Source: {item.source.title or item.source.url}"
-            content_block = f"{source_info}\n{item.text}\n"
+        for i, item in enumerate(content, 1):
+            # Create detailed source information
+            source_info = f"Source {i}: {item.source.title or 'Untitled'}"
+            source_url = f"URL: {item.source.url}"
+            source_type = f"Type: {item.source.type.value}"
+            source_date = f"Accessed: {item.source.last_accessed.strftime('%Y-%m-%d')}"
+
+            # Add metadata if available
+            metadata_info = ""
+            if item.metadata:
+                metadata_items = [f"{k}: {v}" for k, v in item.metadata.items() if v]
+                if metadata_items:
+                    metadata_info = f"Metadata: {'; '.join(metadata_items)}"
+
+            # Build source header
+            source_header = f"{source_info}\n{source_url}\n{source_type}\n{source_date}"
+            if metadata_info:
+                source_header += f"\n{metadata_info}"
+
+            # Add word count for reference
+            word_count = f"Word count: {item.word_count}"
+            source_header += f"\n{word_count}"
+
+            content_block = f"{source_header}\n\nContent:\n{item.text}\n"
             content_blocks.append(content_block)
 
-        combined_content = "\n---\n".join(content_blocks)
+        combined_content = "\n" + "=" * 80 + "\n".join(content_blocks)
+
+        # Add a summary header for the AI
+        header = f"""
+Race ID: {race_id}
+Total Sources: {len(content)}
+Content for Analysis:
+{combined_content}
+        """
 
         # Truncate if too long (TODO: Implement smarter chunking)
         max_content_length = 15000  # Leave room for prompt and response
-        if len(combined_content) > max_content_length:
-            combined_content = combined_content[:max_content_length] + "\n\n[Content truncated...]"
+        if len(header) > max_content_length:
+            header = header[:max_content_length] + "\n\n[Content truncated...]"
 
-        return combined_content
+        return header
 
     async def _generate_single_summary(
         self,
@@ -327,6 +356,7 @@ class LLMSummarizationEngine:
         prompt_template: str,
         content: str,
         race_id: str,
+        original_content: List[ExtractedContent],
     ) -> Summary:
         """
         Generate a summary using a single LLM provider.
@@ -364,14 +394,17 @@ class LLMSummarizationEngine:
                 created_at=datetime.utcnow(),
             )
 
-            # Create summary
+            # Create summary with AI-generated confidence and extracted sources
+            ai_confidence = self._parse_ai_confidence(response["content"])
+            cited_sources = self._extract_cited_sources(response["content"], original_content)
+
             summary = Summary(
                 content=response["content"],
                 model=config["model"],
-                confidence=self._assess_confidence(response["content"]),
+                confidence=ai_confidence,
                 tokens_used=response.get("tokens_used"),
                 created_at=datetime.utcnow(),
-                source_ids=[race_id],  # Store race_id as source reference
+                source_ids=cited_sources,  # Use extracted source IDs
             )
 
             logger.debug(
@@ -614,6 +647,93 @@ class LLMSummarizationEngine:
 
         raise LLMAPIError("xAI", "API call failed after all retries")
 
+    def _parse_ai_confidence(self, content: str) -> ConfidenceLevel:
+        """
+        Parse AI-generated confidence score from response content.
+
+        Args:
+            content: The AI response content containing confidence indicator
+
+        Returns:
+            ConfidenceLevel: The parsed confidence level
+        """
+        content_upper = content.upper()
+
+        # Look for confidence indicators in the response
+        if "CONFIDENCE: HIGH" in content_upper:
+            return ConfidenceLevel.HIGH
+        elif "CONFIDENCE: MEDIUM" in content_upper:
+            return ConfidenceLevel.MEDIUM
+        elif "CONFIDENCE: LOW" in content_upper:
+            return ConfidenceLevel.LOW
+        elif "CONFIDENCE: UNKNOWN" in content_upper:
+            return ConfidenceLevel.UNKNOWN
+        else:
+            # Fallback to heuristic if AI didn't follow format
+            logger.warning("AI response did not include expected confidence format, falling back to heuristic assessment")
+            return self._assess_confidence(content)
+
+    def _extract_cited_sources(self, ai_response: str, original_content: List[ExtractedContent]) -> List[str]:
+        """
+        Extract source references from AI response and map them to actual source IDs.
+
+        Args:
+            ai_response: The AI-generated response containing source citations
+            original_content: The original content with source information
+
+        Returns:
+            List of source IDs that were cited in the response
+        """
+        cited_source_ids = []
+
+        # Create mapping of URLs to source IDs for quick lookup
+        url_to_content = {str(item.source.url): item for item in original_content}
+
+        # Look for source citations in various formats
+        import re
+
+        # Pattern for (Source: URL) citations
+        url_citations = re.findall(r"\(Source:\s*([^)]+)\)", ai_response, re.IGNORECASE)
+
+        # Pattern for "Source N:" references where N is the source number
+        source_num_citations = re.findall(r"Source\s+(\d+):", ai_response, re.IGNORECASE)
+
+        # Map URL citations to source IDs
+        for citation in url_citations:
+            citation = citation.strip()
+            # Try exact URL match first
+            if citation in url_to_content:
+                source_id = str(url_to_content[citation].source.url)
+                if source_id not in cited_source_ids:
+                    cited_source_ids.append(source_id)
+            else:
+                # Try partial URL match for cases where AI abbreviated
+                for url, content_item in url_to_content.items():
+                    if citation in url or url in citation:
+                        source_id = str(content_item.source.url)
+                        if source_id not in cited_source_ids:
+                            cited_source_ids.append(source_id)
+                        break
+
+        # Map source number citations to source IDs
+        for source_num in source_num_citations:
+            try:
+                idx = int(source_num) - 1  # Convert to 0-based index
+                if 0 <= idx < len(original_content):
+                    source_id = str(original_content[idx].source.url)
+                    if source_id not in cited_source_ids:
+                        cited_source_ids.append(source_id)
+            except ValueError:
+                continue
+
+        # If no sources were extracted from citations, include all sources as fallback
+        if not cited_source_ids:
+            logger.warning("No source citations found in AI response, including all sources as fallback")
+            cited_source_ids = [str(item.source.url) for item in original_content]
+
+        logger.debug(f"Extracted {len(cited_source_ids)} cited sources from AI response")
+        return cited_source_ids
+
     def _assess_confidence(self, content: str) -> ConfidenceLevel:
         """
         Assess the confidence level of a summary based on content quality indicators.
@@ -720,7 +840,19 @@ Based on the following content from various sources, provide a comprehensive but
 Content to analyze:
 {content}
 
-Please provide a factual, balanced summary that clearly distinguishes between verified facts and claims. Cite sources when possible and note any conflicting information.
+IMPORTANT: Your response must follow this exact format:
+
+CONFIDENCE: [HIGH|MEDIUM|LOW|UNKNOWN]
+- HIGH: Multiple reliable sources confirm most key information
+- MEDIUM: Some reliable sources with limited conflicting information
+- LOW: Limited sources or significant conflicting information
+- UNKNOWN: Insufficient information to make reliable assessment
+
+SUMMARY:
+[Your factual, balanced summary here. Include specific source citations in the format (Source: [URL or title]) when referencing information. Clearly distinguish between verified facts and claims.]
+
+SOURCES CITED:
+- [List the specific sources you referenced in your summary]
 
 Summary:
 """
@@ -741,7 +873,19 @@ Based on the following content, identify and summarize each candidate's stance o
 Content to analyze:
 {content}
 
-Focus on factual positions and avoid interpretation or bias. If information is contradictory or unclear, note this explicitly.
+IMPORTANT: Your response must follow this exact format:
+
+CONFIDENCE: [HIGH|MEDIUM|LOW|UNKNOWN]
+- HIGH: Multiple reliable sources confirm candidate positions with clear statements
+- MEDIUM: Some reliable sources with minor ambiguities or gaps
+- LOW: Limited sources or conflicting/unclear position statements
+- UNKNOWN: Insufficient information to determine candidate positions
+
+ISSUE ANALYSIS:
+[Your factual analysis here. Include specific source citations in the format (Source: [URL or title]) for each position or statement. Focus on factual positions and avoid interpretation or bias.]
+
+SOURCES CITED:
+- [List the specific sources you referenced in your analysis]
 
 Issue Analysis:
 """
@@ -762,7 +906,19 @@ Please provide a comprehensive summary of the following content that includes:
 Content to summarize:
 {content}
 
-Maintain objectivity and distinguish between facts, claims, and opinions. Organize the information logically and highlight the most important points.
+IMPORTANT: Your response must follow this exact format:
+
+CONFIDENCE: [HIGH|MEDIUM|LOW|UNKNOWN]
+- HIGH: Multiple reliable sources confirm most key information with good coverage
+- MEDIUM: Adequate sources with some gaps or minor inconsistencies
+- LOW: Limited sources or significant information gaps
+- UNKNOWN: Insufficient information for reliable analysis
+
+SUMMARY:
+[Your comprehensive summary here. Include specific source citations in the format (Source: [URL or title]) when referencing information. Maintain objectivity and distinguish between facts, claims, and opinions. Organize the information logically and highlight the most important points.]
+
+SOURCES CITED:
+- [List the specific sources you referenced in your summary]
 
 Summary:
 """
