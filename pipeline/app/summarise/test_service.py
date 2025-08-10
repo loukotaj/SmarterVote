@@ -15,14 +15,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 from app.summarise.llm_summarization_engine import LLMSummarizationEngine
 
-from shared import (
-    CanonicalIssue,
-    ConfidenceLevel,
-    ExtractedContent,
-    Source,
-    SourceType,
-    Summary,
-)
+from shared import CanonicalIssue, ConfidenceLevel, ExtractedContent, Source, SourceType, Summary
 
 
 class TestLLMSummarizationEngine:
@@ -160,10 +153,12 @@ class TestLLMSummarizationEngine:
             "usage": {"total_tokens": 50},
         }
 
-        with patch.object(engine_with_openai_key.http_client, "post") as mock_post:
-            mock_post.return_value.json.return_value = mock_response
-            mock_post.return_value.raise_for_status.return_value = None
+        # Create a mock response that behaves like httpx.Response
+        mock_http_response = MagicMock()
+        mock_http_response.json.return_value = mock_response
+        mock_http_response.raise_for_status.return_value = None
 
+        with patch.object(engine_with_openai_key.http_client, "post", return_value=mock_http_response) as mock_post:
             config = engine_with_openai_key.models["openai"]
             result = await engine_with_openai_key._call_openai_api(config, "Test prompt")
 
@@ -214,10 +209,12 @@ class TestLLMSummarizationEngine:
             "usage": {"input_tokens": 20, "output_tokens": 30},
         }
 
-        with patch.object(engine_with_all_keys.http_client, "post") as mock_post:
-            mock_post.return_value.json.return_value = mock_response
-            mock_post.return_value.raise_for_status.return_value = None
+        # Create a mock response that behaves like httpx.Response
+        mock_http_response = MagicMock()
+        mock_http_response.json.return_value = mock_response
+        mock_http_response.raise_for_status.return_value = None
 
+        with patch.object(engine_with_all_keys.http_client, "post", return_value=mock_http_response) as mock_post:
             config = engine_with_all_keys.models["anthropic"]
             result = await engine_with_all_keys._call_anthropic_api(config, "Test prompt")
 
@@ -232,10 +229,12 @@ class TestLLMSummarizationEngine:
             "usage": {"total_tokens": 40},
         }
 
-        with patch.object(engine_with_all_keys.http_client, "post") as mock_post:
-            mock_post.return_value.json.return_value = mock_response
-            mock_post.return_value.raise_for_status.return_value = None
+        # Create a mock response that behaves like httpx.Response
+        mock_http_response = MagicMock()
+        mock_http_response.json.return_value = mock_response
+        mock_http_response.raise_for_status.return_value = None
 
+        with patch.object(engine_with_all_keys.http_client, "post", return_value=mock_http_response) as mock_post:
             config = engine_with_all_keys.models["xai"]
             result = await engine_with_all_keys._call_xai_api(config, "Test prompt")
 
@@ -245,10 +244,14 @@ class TestLLMSummarizationEngine:
     def test_assess_confidence_high(self, engine_with_openai_key):
         """Test confidence assessment for high-quality content."""
         high_quality_content = """
-        According to verified documents and official campaign statements, the candidate has a comprehensive policy platform. 
-        Based on evidence from multiple speeches and policy papers, they support healthcare reform with specific provisions for 
-        expanding coverage. Research suggests their economic plan focuses on infrastructure investment confirmed by official 
-        endorsements from major organizations.
+        According to verified documents and official campaign statements, the candidate has a comprehensive policy platform
+        that has been documented extensively. Based on evidence from multiple speeches and policy papers, they support
+        healthcare reform with specific provisions for expanding coverage to underserved communities. Research suggests
+        their economic plan focuses on infrastructure investment confirmed by official endorsements from major organizations
+        including the state chamber of commerce and labor unions. The candidate's voting record shows consistent support
+        for education funding increases, verified through legislative documents and confirmed by independent analysis.
+        Data indicates strong bipartisan support for their environmental initiatives, documented in recent polls and
+        studies show effectiveness of their proposed climate action plans.
         """
 
         confidence = engine_with_openai_key._assess_confidence(high_quality_content)
@@ -264,10 +267,13 @@ class TestLLMSummarizationEngine:
     def test_assess_confidence_medium(self, engine_with_openai_key):
         """Test confidence assessment for medium-quality content."""
         medium_quality_content = """
-        The candidate likely supports healthcare reform based on campaign statements. 
-        Their economic policy generally indicates support for infrastructure spending,
-        and they typically advocate for education funding increases. This suggests
-        a progressive platform with expected focus on social programs.
+        The candidate likely supports healthcare reform based on campaign statements made during town halls and debates.
+        Their economic policy generally indicates support for infrastructure spending, particularly in transportation
+        and broadband expansion. They typically advocate for education funding increases, suggesting a progressive
+        platform with expected focus on social programs. Campaign materials indicate planned investment of $2.5 billion
+        in state infrastructure over the next 4 years. The candidate suggests implementing tax reforms that would
+        generally benefit middle-class families while potentially raising rates on high earners. Their environmental
+        policy typically focuses on renewable energy expansion and suggests carbon reduction targets by 2030.
         """
 
         confidence = engine_with_openai_key._assess_confidence(medium_quality_content)
@@ -406,7 +412,7 @@ class TestLLMSummarizationEngine:
             ),
             Summary(
                 content="High confidence summary 2",
-                model="claude-3-5-sonnet-20241022",
+                model="claude-3.5",
                 confidence=ConfidenceLevel.HIGH,
                 tokens_used=120,
                 created_at=datetime.utcnow(),
@@ -435,7 +441,7 @@ class TestLLMSummarizationEngine:
             ),
             Summary(
                 content="Medium confidence summary",
-                model="claude-3-5-sonnet-20241022",
+                model="claude-3.5",
                 confidence=ConfidenceLevel.MEDIUM,
                 tokens_used=90,
                 created_at=datetime.utcnow(),
@@ -443,7 +449,7 @@ class TestLLMSummarizationEngine:
             ),
             Summary(
                 content="Low confidence summary",
-                model="grok-beta",
+                model="grok-4",
                 confidence=ConfidenceLevel.LOW,
                 tokens_used=80,
                 created_at=datetime.utcnow(),
@@ -456,7 +462,7 @@ class TestLLMSummarizationEngine:
         assert result["consensus_confidence"] == ConfidenceLevel.MEDIUM
         assert result["consensus_method"] == "majority-medium"
         assert result["total_summaries"] == 3
-        assert result["models_used"] == ["gpt-4o", "claude-3-5-sonnet-20241022", "grok-beta"]
+        assert result["models_used"] == ["gpt-4o", "claude-3.5", "grok-4"]
 
     @pytest.mark.asyncio
     async def test_custom_exceptions(self, engine_with_openai_key):

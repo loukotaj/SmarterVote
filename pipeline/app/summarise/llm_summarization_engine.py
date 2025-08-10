@@ -27,12 +27,7 @@ from typing import Any, Dict, List, Optional
 import httpx
 from dotenv import load_dotenv
 
-from ..schema import (
-    ConfidenceLevel,
-    ExtractedContent,
-    LLMResponse,
-    Summary,
-)
+from ..schema import ConfidenceLevel, ExtractedContent, LLMResponse, Summary
 
 # Load environment variables
 load_dotenv()
@@ -693,18 +688,18 @@ class LLMSummarizationEngine:
         word_count = len(content.split())
         sentence_count = len([s for s in content.split(".") if s.strip()])
 
-        # Quality indicators
-        has_good_structure = sentence_count >= 3 and word_count >= 100
+        # Quality indicators - lowered word count threshold for better assessment
+        has_good_structure = sentence_count >= 2 and word_count >= 30  # More reasonable minimum
         has_specific_details = any(char.isdigit() for char in content)  # Contains numbers/dates
 
         # Decision logic
         if high_count >= 2 and low_count == 0 and has_good_structure:
             return ConfidenceLevel.HIGH
-        elif low_count >= 2 or not has_good_structure:
+        elif low_count >= 2:
             return ConfidenceLevel.LOW
         elif medium_count >= 1 or has_specific_details:
             return ConfidenceLevel.MEDIUM
-        elif word_count >= 200 and sentence_count >= 5:
+        elif word_count >= 100 and sentence_count >= 4 and high_count >= 1:
             return ConfidenceLevel.MEDIUM
         else:
             return ConfidenceLevel.LOW
