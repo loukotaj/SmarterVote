@@ -227,9 +227,10 @@ class TestVectorDatabaseManagerBasic:
         assert not db_path.exists()
 
         # Mock the ChromaDB and embedding model initialization to avoid dependency issues
-        with patch("chromadb.PersistentClient") as mock_client, patch(
-            "pipeline.app.corpus.vector_database_manager.SentenceTransformer"
-        ) as mock_embedding:
+        with (
+            patch("chromadb.PersistentClient") as mock_client,
+            patch("pipeline.app.corpus.vector_database_manager.SentenceTransformer") as mock_embedding,
+        ):
             mock_collection = MagicMock()
             mock_collection.count.return_value = 0
             mock_client.return_value.get_or_create_collection.return_value = mock_collection

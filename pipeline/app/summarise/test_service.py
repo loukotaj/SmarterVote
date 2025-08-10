@@ -2,19 +2,19 @@
 
 import asyncio
 import os
+import sys
 from datetime import datetime
+from pathlib import Path
 from unittest.mock import AsyncMock, MagicMock, patch
 
-import pytest
 import httpx
-
-import sys
-from pathlib import Path
+import pytest
 
 # Add the pipeline root to the path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 from app.summarise.llm_summarization_engine import LLMSummarizationEngine
+
 from shared import (
     CanonicalIssue,
     ConfidenceLevel,
@@ -109,9 +109,7 @@ class TestLLMSummarizationEngine:
     @pytest.mark.asyncio
     async def test_generate_summaries_no_enabled_models(self, engine_with_no_keys, sample_extracted_content):
         """Test that generate_summaries returns empty list when no models are enabled."""
-        summaries = await engine_with_no_keys.generate_summaries(
-            "test-race-123", sample_extracted_content
-        )
+        summaries = await engine_with_no_keys.generate_summaries("test-race-123", sample_extracted_content)
         assert summaries == []
 
     @pytest.mark.asyncio
@@ -123,10 +121,8 @@ class TestLLMSummarizationEngine:
     @pytest.mark.asyncio
     async def test_prepare_content_for_summarization(self, engine_with_openai_key, sample_extracted_content):
         """Test content preparation for summarization."""
-        prepared = engine_with_openai_key._prepare_content_for_summarization(
-            sample_extracted_content, "test-race-123"
-        )
-        
+        prepared = engine_with_openai_key._prepare_content_for_summarization(sample_extracted_content, "test-race-123")
+
         assert "Candidate Official Page" in prepared
         assert "healthcare reform" in prepared
         assert "economic policies" in prepared
@@ -150,11 +146,9 @@ class TestLLMSummarizationEngine:
                 language="en",
             )
         ]
-        
-        prepared = engine_with_openai_key._prepare_content_for_summarization(
-            long_content, "test-race-123"
-        )
-        
+
+        prepared = engine_with_openai_key._prepare_content_for_summarization(long_content, "test-race-123")
+
         assert len(prepared) <= 15050  # Max content + truncation message
         assert "[Content truncated...]" in prepared
 
@@ -162,25 +156,17 @@ class TestLLMSummarizationEngine:
     async def test_openai_api_call_success(self, engine_with_openai_key):
         """Test successful OpenAI API call."""
         mock_response = {
-            "choices": [
-                {
-                    "message": {
-                        "content": "This is a test summary from OpenAI."
-                    }
-                }
-            ],
-            "usage": {
-                "total_tokens": 50
-            }
+            "choices": [{"message": {"content": "This is a test summary from OpenAI."}}],
+            "usage": {"total_tokens": 50},
         }
-        
-        with patch.object(engine_with_openai_key.http_client, 'post') as mock_post:
+
+        with patch.object(engine_with_openai_key.http_client, "post") as mock_post:
             mock_post.return_value.json.return_value = mock_response
             mock_post.return_value.raise_for_status.return_value = None
-            
+
             config = engine_with_openai_key.models["openai"]
             result = await engine_with_openai_key._call_openai_api(config, "Test prompt")
-            
+
             assert result["content"] == "This is a test summary from OpenAI."
             assert result["tokens_used"] == 50
 
@@ -188,7 +174,7 @@ class TestLLMSummarizationEngine:
     async def test_openai_api_call_missing_key(self, engine_with_no_keys):
         """Test OpenAI API call with missing API key."""
         config = {"api_key": None}
-        
+
         with pytest.raises(ValueError, match="OpenAI API key not configured"):
             await engine_with_no_keys._call_openai_api(config, "Test prompt")
 
@@ -198,25 +184,25 @@ class TestLLMSummarizationEngine:
         rate_limit_response = MagicMock()
         rate_limit_response.status_code = 429
         rate_limit_response.text = "Rate limit exceeded"
-        
+
         success_response = MagicMock()
         success_response.json.return_value = {
             "choices": [{"message": {"content": "Success after retry"}}],
-            "usage": {"total_tokens": 25}
+            "usage": {"total_tokens": 25},
         }
         success_response.raise_for_status.return_value = None
-        
-        with patch.object(engine_with_openai_key.http_client, 'post') as mock_post:
+
+        with patch.object(engine_with_openai_key.http_client, "post") as mock_post:
             # First call returns rate limit, second succeeds
             mock_post.side_effect = [
                 httpx.HTTPStatusError("Rate limit", request=MagicMock(), response=rate_limit_response),
-                success_response
+                success_response,
             ]
-            
-            with patch('asyncio.sleep') as mock_sleep:  # Mock sleep to speed up test
+
+            with patch("asyncio.sleep") as mock_sleep:  # Mock sleep to speed up test
                 config = engine_with_openai_key.models["openai"]
                 result = await engine_with_openai_key._call_openai_api(config, "Test prompt")
-                
+
                 assert result["content"] == "Success after retry"
                 assert mock_sleep.called  # Verify sleep was called for retry
 
@@ -224,24 +210,17 @@ class TestLLMSummarizationEngine:
     async def test_anthropic_api_call_success(self, engine_with_all_keys):
         """Test successful Anthropic API call."""
         mock_response = {
-            "content": [
-                {
-                    "text": "This is a test summary from Claude."
-                }
-            ],
-            "usage": {
-                "input_tokens": 20,
-                "output_tokens": 30
-            }
+            "content": [{"text": "This is a test summary from Claude."}],
+            "usage": {"input_tokens": 20, "output_tokens": 30},
         }
-        
-        with patch.object(engine_with_all_keys.http_client, 'post') as mock_post:
+
+        with patch.object(engine_with_all_keys.http_client, "post") as mock_post:
             mock_post.return_value.json.return_value = mock_response
             mock_post.return_value.raise_for_status.return_value = None
-            
+
             config = engine_with_all_keys.models["anthropic"]
             result = await engine_with_all_keys._call_anthropic_api(config, "Test prompt")
-            
+
             assert result["content"] == "This is a test summary from Claude."
             assert result["tokens_used"] == 50  # 20 + 30
 
@@ -249,25 +228,17 @@ class TestLLMSummarizationEngine:
     async def test_xai_api_call_success(self, engine_with_all_keys):
         """Test successful xAI API call."""
         mock_response = {
-            "choices": [
-                {
-                    "message": {
-                        "content": "This is a test summary from Grok."
-                    }
-                }
-            ],
-            "usage": {
-                "total_tokens": 40
-            }
+            "choices": [{"message": {"content": "This is a test summary from Grok."}}],
+            "usage": {"total_tokens": 40},
         }
-        
-        with patch.object(engine_with_all_keys.http_client, 'post') as mock_post:
+
+        with patch.object(engine_with_all_keys.http_client, "post") as mock_post:
             mock_post.return_value.json.return_value = mock_response
             mock_post.return_value.raise_for_status.return_value = None
-            
+
             config = engine_with_all_keys.models["xai"]
             result = await engine_with_all_keys._call_xai_api(config, "Test prompt")
-            
+
             assert result["content"] == "This is a test summary from Grok."
             assert result["tokens_used"] == 40
 
@@ -279,14 +250,14 @@ class TestLLMSummarizationEngine:
         expanding coverage. Research suggests their economic plan focuses on infrastructure investment confirmed by official 
         endorsements from major organizations.
         """
-        
+
         confidence = engine_with_openai_key._assess_confidence(high_quality_content)
         assert confidence == ConfidenceLevel.HIGH
 
     def test_assess_confidence_low(self, engine_with_openai_key):
         """Test confidence assessment for low-quality content."""
         low_quality_content = "This is placeholder content that is unclear and unverified."
-        
+
         confidence = engine_with_openai_key._assess_confidence(low_quality_content)
         assert confidence == ConfidenceLevel.LOW
 
@@ -298,7 +269,7 @@ class TestLLMSummarizationEngine:
         and they typically advocate for education funding increases. This suggests
         a progressive platform with expected focus on social programs.
         """
-        
+
         confidence = engine_with_openai_key._assess_confidence(medium_quality_content)
         assert confidence == ConfidenceLevel.MEDIUM
 
@@ -312,18 +283,16 @@ class TestLLMSummarizationEngine:
         """Test successful single summary generation."""
         mock_response = {
             "content": "Generated summary content with specific details and verified information.",
-            "tokens_used": 100
+            "tokens_used": 100,
         }
-        
-        with patch.object(engine_with_openai_key, '_call_openai_api', return_value=mock_response):
+
+        with patch.object(engine_with_openai_key, "_call_openai_api", return_value=mock_response):
             config = engine_with_openai_key.models["openai"]
             prompt = "Test prompt for {race_id}: {content}"
             content = "Test content"
-            
-            summary = await engine_with_openai_key._generate_single_summary(
-                "openai", config, prompt, content, "test-race-123"
-            )
-            
+
+            summary = await engine_with_openai_key._generate_single_summary("openai", config, prompt, content, "test-race-123")
+
             assert isinstance(summary, Summary)
             assert summary.content == mock_response["content"]
             assert summary.model == "gpt-4o"
@@ -334,29 +303,27 @@ class TestLLMSummarizationEngine:
     @pytest.mark.asyncio
     async def test_generate_single_summary_api_failure(self, engine_with_openai_key):
         """Test single summary generation with API failure."""
-        with patch.object(engine_with_openai_key, '_call_openai_api', side_effect=Exception("API Error")):
+        with patch.object(engine_with_openai_key, "_call_openai_api", side_effect=Exception("API Error")):
             config = engine_with_openai_key.models["openai"]
             prompt = "Test prompt"
             content = "Test content"
-            
+
             with pytest.raises(Exception, match="API Error"):
-                await engine_with_openai_key._generate_single_summary(
-                    "openai", config, prompt, content, "test-race-123"
-                )
+                await engine_with_openai_key._generate_single_summary("openai", config, prompt, content, "test-race-123")
 
     @pytest.mark.asyncio
     async def test_full_generate_summaries_workflow(self, engine_with_openai_key, sample_extracted_content):
         """Test the complete workflow of generating summaries."""
         mock_openai_response = {
             "content": "OpenAI summary with comprehensive analysis based on verified sources.",
-            "tokens_used": 150
+            "tokens_used": 150,
         }
-        
-        with patch.object(engine_with_openai_key, '_call_openai_api', return_value=mock_openai_response):
+
+        with patch.object(engine_with_openai_key, "_call_openai_api", return_value=mock_openai_response):
             summaries = await engine_with_openai_key.generate_summaries(
                 "test-race-123", sample_extracted_content, "general_summary"
             )
-            
+
             assert len(summaries) == 1  # Only OpenAI enabled
             assert isinstance(summaries[0], Summary)
             assert summaries[0].model == "gpt-4o"
@@ -365,18 +332,13 @@ class TestLLMSummarizationEngine:
     @pytest.mark.asyncio
     async def test_generate_summaries_mixed_success_failure(self, engine_with_all_keys, sample_extracted_content):
         """Test generate_summaries with some APIs succeeding and others failing."""
-        mock_openai_response = {
-            "content": "OpenAI summary content",
-            "tokens_used": 100
-        }
-        
-        with patch.object(engine_with_all_keys, '_call_openai_api', return_value=mock_openai_response):
-            with patch.object(engine_with_all_keys, '_call_anthropic_api', side_effect=Exception("Anthropic Error")):
-                with patch.object(engine_with_all_keys, '_call_xai_api', side_effect=Exception("xAI Error")):
-                    summaries = await engine_with_all_keys.generate_summaries(
-                        "test-race-123", sample_extracted_content
-                    )
-                    
+        mock_openai_response = {"content": "OpenAI summary content", "tokens_used": 100}
+
+        with patch.object(engine_with_all_keys, "_call_openai_api", return_value=mock_openai_response):
+            with patch.object(engine_with_all_keys, "_call_anthropic_api", side_effect=Exception("Anthropic Error")):
+                with patch.object(engine_with_all_keys, "_call_xai_api", side_effect=Exception("xAI Error")):
+                    summaries = await engine_with_all_keys.generate_summaries("test-race-123", sample_extracted_content)
+
                     # Should only get the successful OpenAI summary
                     assert len(summaries) == 1
                     assert summaries[0].model == "gpt-4o"
@@ -384,7 +346,7 @@ class TestLLMSummarizationEngine:
     def test_prompt_templates_exist(self, engine_with_openai_key):
         """Test that all expected prompt templates are defined."""
         expected_templates = ["candidate_summary", "issue_stance", "general_summary"]
-        
+
         for template_name in expected_templates:
             assert template_name in engine_with_openai_key.prompts
             template = engine_with_openai_key.prompts[template_name]
@@ -400,7 +362,7 @@ class TestLLMSummarizationEngine:
         assert stats["total_calls"] == 0
         assert stats["successful_calls"] == 0
         assert stats["failed_calls"] == 0
-        
+
         # Simulate successful call
         engine_with_openai_key._update_stats("openai", True, 100)
         stats = engine_with_openai_key.get_api_statistics()
@@ -408,7 +370,7 @@ class TestLLMSummarizationEngine:
         assert stats["successful_calls"] == 1
         assert stats["total_tokens"] == 100
         assert stats["provider_stats"]["openai"]["tokens"] == 100
-        
+
         # Simulate failed call
         engine_with_openai_key._update_stats("openai", False)
         stats = engine_with_openai_key.get_api_statistics()
@@ -424,10 +386,10 @@ class TestLLMSummarizationEngine:
                 model="gpt-4o",
                 confidence=ConfidenceLevel.HIGH,
                 created_at=datetime.utcnow(),
-                source_ids=["test"]
+                source_ids=["test"],
             )
         ]
-        
+
         result = engine_with_openai_key.triangulate_summaries(single_summary)
         assert result is None
 
@@ -440,7 +402,7 @@ class TestLLMSummarizationEngine:
                 confidence=ConfidenceLevel.HIGH,
                 tokens_used=100,
                 created_at=datetime.utcnow(),
-                source_ids=["test"]
+                source_ids=["test"],
             ),
             Summary(
                 content="High confidence summary 2",
@@ -448,10 +410,10 @@ class TestLLMSummarizationEngine:
                 confidence=ConfidenceLevel.HIGH,
                 tokens_used=120,
                 created_at=datetime.utcnow(),
-                source_ids=["test"]
+                source_ids=["test"],
             ),
         ]
-        
+
         result = engine_with_openai_key.triangulate_summaries(summaries)
         assert result is not None
         assert result["consensus_confidence"] == ConfidenceLevel.HIGH
@@ -469,7 +431,7 @@ class TestLLMSummarizationEngine:
                 confidence=ConfidenceLevel.HIGH,
                 tokens_used=100,
                 created_at=datetime.utcnow(),
-                source_ids=["test"]
+                source_ids=["test"],
             ),
             Summary(
                 content="Medium confidence summary",
@@ -477,7 +439,7 @@ class TestLLMSummarizationEngine:
                 confidence=ConfidenceLevel.MEDIUM,
                 tokens_used=90,
                 created_at=datetime.utcnow(),
-                source_ids=["test"]
+                source_ids=["test"],
             ),
             Summary(
                 content="Low confidence summary",
@@ -485,10 +447,10 @@ class TestLLMSummarizationEngine:
                 confidence=ConfidenceLevel.LOW,
                 tokens_used=80,
                 created_at=datetime.utcnow(),
-                source_ids=["test"]
+                source_ids=["test"],
             ),
         ]
-        
+
         result = engine_with_openai_key.triangulate_summaries(summaries)
         assert result is not None
         assert result["consensus_confidence"] == ConfidenceLevel.MEDIUM
@@ -500,13 +462,13 @@ class TestLLMSummarizationEngine:
     async def test_custom_exceptions(self, engine_with_openai_key):
         """Test custom LLM API exceptions."""
         from pipeline.app.summarise.llm_summarization_engine import LLMAPIError, RateLimitError
-        
+
         # Test LLMAPIError
         error = LLMAPIError("TestProvider", "Test error message", 500)
         assert error.provider == "TestProvider"
         assert error.status_code == 500
         assert "TestProvider API Error" in str(error)
-        
+
         # Test RateLimitError
         rate_error = RateLimitError("TestProvider", 60)
         assert rate_error.provider == "TestProvider"
@@ -516,7 +478,7 @@ class TestLLMSummarizationEngine:
     def test_validate_configuration_no_keys(self, engine_with_no_keys):
         """Test configuration validation with no API keys."""
         validation = engine_with_no_keys.validate_configuration()
-        
+
         assert not validation["valid"]
         assert len(validation["enabled_providers"]) == 0
         assert len(validation["disabled_providers"]) == 3
@@ -525,7 +487,7 @@ class TestLLMSummarizationEngine:
     def test_validate_configuration_single_provider(self, engine_with_openai_key):
         """Test configuration validation with single provider."""
         validation = engine_with_openai_key.validate_configuration()
-        
+
         assert validation["valid"]  # Valid but with warnings
         assert "openai" in validation["enabled_providers"]
         assert len(validation["enabled_providers"]) == 1
@@ -534,7 +496,7 @@ class TestLLMSummarizationEngine:
     def test_validate_configuration_all_providers(self, engine_with_all_keys):
         """Test configuration validation with all providers enabled."""
         validation = engine_with_all_keys.validate_configuration()
-        
+
         assert validation["valid"]
         assert len(validation["enabled_providers"]) == 3
         assert "openai" in validation["enabled_providers"]
