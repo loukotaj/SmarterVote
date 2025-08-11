@@ -318,7 +318,7 @@ class VectorDatabaseManager:
 
             # Enhanced duplicate detection with claim hash
             claim_hash = chunk["metadata"].get("claim_hash", "")
-            
+
             # Check for duplicate by content hash and extra metadata
             if extra_metadata:
                 conditions = [{"content_hash": content_hash}] + [{k: v} for k, v in extra_metadata.items()]
@@ -337,7 +337,7 @@ class VectorDatabaseManager:
                     # Check for claim duplicates within the same context (e.g., same race)
                     claim_conditions = [{"claim_hash": claim_hash}] + [{k: v} for k, v in extra_metadata.items()]
                     claim_where = {"$and": claim_conditions}
-                
+
                 existing_claims = self.collection.get(where=claim_where)
                 if existing_claims.get("ids"):
                     logger.debug(f"Skipping duplicate chunk {chunk['id']} (claim hash match)")
@@ -558,27 +558,27 @@ class VectorDatabaseManager:
 
             for metadata in metadatas:
                 sources.add(metadata.get("source_url", ""))
-                
+
                 # Legacy issue tracking
                 if "issue" in metadata:
                     issues.add(metadata["issue"])
-                
+
                 # AI-enriched issue tracking
                 if "ai_issues" in metadata:
                     ai_issue_list = metadata["ai_issues"]
                     if isinstance(ai_issue_list, list):
                         ai_issues.update(ai_issue_list)
-                
+
                 if metadata.get("is_fresh", False):
                     fresh_count += 1
-                
+
                 if "quality_score" in metadata:
                     quality_scores.append(float(metadata["quality_score"]))
-                
+
                 # AI usefulness scores
                 if "ai_usefulness" in metadata:
                     usefulness_scores.append(float(metadata["ai_usefulness"]))
-                
+
                 if "extraction_timestamp" in metadata:
                     timestamps.append(metadata["extraction_timestamp"])
 

@@ -15,10 +15,12 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
 try:
     from pipeline.app.utils.ai_enrichment import ai_enrich, hash_claims, AIAnnotations
     from pipeline.app.schema import ExtractedContent, Source, SourceType
+
     IMPORTS_AVAILABLE = True
 except ImportError:
     IMPORTS_AVAILABLE = False
-    
+
+
 @pytest.mark.skipif(not IMPORTS_AVAILABLE, reason="Pipeline imports not available")
 class TestAIEnrichment:
     """Test AI enrichment functionality."""
@@ -29,18 +31,12 @@ class TestAIEnrichment:
 
     def test_hash_claims_consistency(self):
         """Test that identical claims produce identical hashes."""
-        claims1 = [
-            {"normalized": "candidate supports healthcare reform"},
-            {"normalized": "opposes tax increases"}
-        ]
-        claims2 = [
-            {"normalized": "opposes tax increases"},
-            {"normalized": "candidate supports healthcare reform"}
-        ]
-        
+        claims1 = [{"normalized": "candidate supports healthcare reform"}, {"normalized": "opposes tax increases"}]
+        claims2 = [{"normalized": "opposes tax increases"}, {"normalized": "candidate supports healthcare reform"}]
+
         hash1 = hash_claims(claims1)
         hash2 = hash_claims(claims2)
-        
+
         # Should be the same due to sorting
         assert hash1 == hash2
         assert len(hash1) == 32  # MD5 hash length
@@ -52,9 +48,9 @@ class TestAIEnrichment:
         He believes in expanding access to affordable healthcare for all Americans.
         Smith has proposed a comprehensive plan to reduce healthcare costs.
         """
-        
+
         annotations = ai_enrich(content_text)
-        
+
         assert isinstance(annotations, AIAnnotations)
         assert annotations.usefulness.get("score", 0.0) > 0.0
         assert len(annotations.index_summary) > 0
@@ -63,9 +59,9 @@ class TestAIEnrichment:
         """Test AI enrichment with metadata context."""
         content_text = "Healthcare reform is essential for our state."
         metadata = {"race_id": "test-race-2024", "source_url": "https://example.com"}
-        
+
         annotations = ai_enrich(content_text, metadata)
-        
+
         assert isinstance(annotations, AIAnnotations)
         assert "Healthcare" in annotations.issues
 
@@ -74,7 +70,7 @@ class TestAIEnrichment:
         # Very short content
         short_content = "Yes."
         short_annotations = ai_enrich(short_content)
-        
+
         # Substantial content with issues
         substantial_content = """
         Healthcare reform is a top priority for our campaign. We support expanding 
@@ -83,7 +79,7 @@ class TestAIEnrichment:
         with pharmaceutical companies.
         """
         substantial_annotations = ai_enrich(substantial_content)
-        
+
         assert short_annotations.usefulness.get("score", 0.0) < substantial_annotations.usefulness.get("score", 0.0)
 
     def test_issue_detection(self):
@@ -91,7 +87,7 @@ class TestAIEnrichment:
         healthcare_text = "We need comprehensive healthcare reform and better medical insurance."
         annotations = ai_enrich(healthcare_text)
         assert "Healthcare" in annotations.issues
-        
+
         economy_text = "Creating jobs and improving the economy is our priority."
         annotations = ai_enrich(economy_text)
         assert "Economy" in annotations.issues
@@ -104,7 +100,7 @@ class TestAIEnrichment:
         assert annotations.usefulness.get("score", 0.0) >= 0.0
 
 
-@pytest.mark.skipif(not IMPORTS_AVAILABLE, reason="Pipeline imports not available")  
+@pytest.mark.skipif(not IMPORTS_AVAILABLE, reason="Pipeline imports not available")
 class TestEnrichedVectorDatabase:
     """Test vector database with AI enrichment integration."""
 
@@ -117,7 +113,7 @@ class TestEnrichedVectorDatabase:
             title="Candidate Policy Page",
             last_accessed=datetime.utcnow(),
         )
-        
+
         return ExtractedContent(
             source=source,
             text="""
@@ -137,7 +133,7 @@ class TestEnrichedVectorDatabase:
         # This would test the full integration but requires running pipeline
         # For now, just test that enrichment produces valid output
         annotations = ai_enrich(sample_content.text)
-        
+
         assert isinstance(annotations, AIAnnotations)
         assert len(annotations.issues) > 0
         assert annotations.usefulness.get("score", 0.0) > 0.35  # Should pass usefulness threshold
@@ -146,29 +142,29 @@ class TestEnrichedVectorDatabase:
 # Minimal test that can run without full pipeline dependencies
 class TestBasicFunctionality:
     """Basic tests that can run without full pipeline setup."""
-    
+
     def test_imports_structure(self):
         """Test that the module structure is correct."""
         # This will pass if the files were created correctly
         import os
-        
+
         # Check that ai_enrichment.py exists
         ai_enrichment_path = Path(__file__).parent.parent.parent.parent / "pipeline" / "app" / "utils" / "ai_enrichment.py"
         assert ai_enrichment_path.exists()
-        
-        # Check that models.py was updated  
+
+        # Check that models.py was updated
         models_path = Path(__file__).parent.parent.parent.parent / "shared" / "models.py"
         assert models_path.exists()
-        
+
         # Check that AIAnnotations was added to models
-        with open(models_path, 'r') as f:
+        with open(models_path, "r") as f:
             content = f.read()
             assert "class AIAnnotations" in content
 
     def test_file_structure(self):
         """Verify the correct files were created and modified."""
         pipeline_root = Path(__file__).parent.parent.parent.parent / "pipeline"
-        
+
         # Check key files exist
         assert (pipeline_root / "app" / "utils" / "ai_enrichment.py").exists()
         assert (pipeline_root / "app" / "schema.py").exists()
