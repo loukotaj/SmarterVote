@@ -229,6 +229,7 @@ class TestRacePublishingEngine:
             backup_data = json.load(f)
         assert backup_data == {"old": "data"}
 
+    @pytest.mark.cloud
     @pytest.mark.asyncio
     @patch("google.cloud.storage.Client")
     async def test_publish_to_cloud_storage_success(self, mock_client, engine, sample_race):
@@ -261,6 +262,7 @@ class TestRacePublishingEngine:
             if "GCS_BUCKET_NAME" in os.environ:
                 del os.environ["GCS_BUCKET_NAME"]
 
+    @pytest.mark.cloud
     @pytest.mark.asyncio
     async def test_publish_to_cloud_storage_missing_config(self, engine, sample_race):
         """Test cloud storage publication with missing configuration."""
@@ -278,6 +280,7 @@ class TestRacePublishingEngine:
         with pytest.raises(ValueError, match="Cloud storage not configured"):
             await engine.publishers.publish_to_cloud_storage(sample_race)
 
+    @pytest.mark.network
     @pytest.mark.asyncio
     async def test_publish_to_webhooks_success(self, engine, sample_race):
         """Test successful webhook publication."""
@@ -303,6 +306,7 @@ class TestRacePublishingEngine:
                 if var in os.environ:
                     del os.environ[var]
 
+    @pytest.mark.cloud
     @pytest.mark.asyncio
     async def test_publish_to_pubsub_success(self, engine, sample_race):
         """Test successful Pub/Sub publication."""

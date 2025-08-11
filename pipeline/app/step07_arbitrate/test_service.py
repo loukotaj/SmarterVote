@@ -44,6 +44,7 @@ class TestConsensusArbitrationEngine:
             source_ids=[],
         )
 
+    @pytest.mark.llm_api
     @pytest.mark.asyncio
     async def test_arbitrate_summaries_ai_consensus(
         self, engine: ConsensusArbitrationEngine, mock_provider, mock_model_config

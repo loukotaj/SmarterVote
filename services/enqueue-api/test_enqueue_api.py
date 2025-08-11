@@ -13,6 +13,10 @@ import pytest
 from fastapi.testclient import TestClient
 from google.cloud import pubsub_v1
 
+# Add the current directory to the path so we can import main
+current_dir = Path(__file__).parent
+sys.path.insert(0, str(current_dir))
+
 
 @pytest.fixture
 def mock_pubsub_publisher():
@@ -43,19 +47,18 @@ def mock_pubsub_publisher():
 @pytest.fixture
 def client(mock_pubsub_publisher):
     """Create a TestClient with mocked Pub/Sub."""
-    # Add the current directory to Python path for isolation
-    current_dir = Path(__file__).parent
-    if str(current_dir) not in sys.path:
-        sys.path.insert(0, str(current_dir))
+    # Use importlib to import the specific main module from this directory
+    import importlib.util
 
-    # Clear any cached modules that might interfere
-    modules_to_clear = [mod for mod in sys.modules.keys() if "main" in mod and "unittest" not in mod]
-    for module in modules_to_clear:
-        if module in sys.modules:
-            del sys.modules[module]
+    main_path = Path(__file__).parent / "main.py"
+    spec = importlib.util.spec_from_file_location("enqueue_main", main_path)
+    enqueue_main = importlib.util.module_from_spec(spec)
 
-    # Mock Cloud Run client before importing main
-    with patch("main.get_run_client") as mock_get_run_client:
+    # Execute the module to load it fully BEFORE mocking
+    spec.loader.exec_module(enqueue_main)
+
+    # Mock Cloud Run client using the imported module
+    with patch.object(enqueue_main, "get_run_client") as mock_get_run_client:
         mock_run_client = MagicMock()
         mock_get_run_client.return_value = mock_run_client
 
@@ -65,11 +68,10 @@ def client(mock_pubsub_publisher):
         mock_run_client.run_job.return_value = mock_operation
         mock_run_client.job_path.return_value = "projects/test-project/locations/us-central1/jobs/test-race-worker"
 
-        # Import and create TestClient
-        import main
+        # Create TestClient
         from fastapi.testclient import TestClient
 
-        yield TestClient(main.app)
+        yield TestClient(enqueue_main.app)
 
 
 def test_root_endpoint(client):
@@ -113,6 +115,7 @@ def test_health_check_pubsub_unhealthy(client, mock_pubsub_publisher):
     assert "timestamp" in data
 
 
+@pytest.mark.cloud
 def test_process_race_success(client, mock_pubsub_publisher):
     """Test successful race processing request."""
     request_data = {
@@ -159,6 +162,7 @@ def test_process_race_success(client, mock_pubsub_publisher):
     assert "enqueued_at" in message_data
 
 
+@pytest.mark.cloud
 def test_process_race_minimal_request(client, mock_pubsub_publisher):
     """Test race processing with minimal required data."""
     request_data = {"race_id": "minimal-race"}
@@ -190,6 +194,7 @@ def test_process_race_missing_race_id(client):
     assert response.status_code == 422  # Validation error
 
 
+@pytest.mark.cloud
 def test_process_race_pubsub_failure(client, mock_pubsub_publisher):
     """Test race processing when Pub/Sub publish fails."""
     # Make publish raise an exception
@@ -204,6 +209,7 @@ def test_process_race_pubsub_failure(client, mock_pubsub_publisher):
     assert "Failed to enqueue race processing" in data["detail"]
 
 
+@pytest.mark.cloud
 def test_process_race_pubsub_timeout(client, mock_pubsub_publisher):
     """Test race processing when Pub/Sub future times out."""
     # Make future.result() raise a timeout exception
@@ -220,6 +226,7 @@ def test_process_race_pubsub_timeout(client, mock_pubsub_publisher):
     assert "Failed to enqueue race processing" in data["detail"]
 
 
+@pytest.mark.cloud
 def test_process_race_custom_priority(client, mock_pubsub_publisher):
     """Test race processing with custom priority."""
     request_data = {

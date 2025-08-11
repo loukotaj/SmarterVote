@@ -109,6 +109,8 @@ class TestLLMSummarizationEngine:
             # The engine might not have http_client attribute in new provider system
             assert hasattr(engine, "cheap_mode")
 
+    @pytest.mark.llm_api
+    @pytest.mark.llm_api
     @pytest.mark.asyncio
     async def test_generate_summaries_no_enabled_models(self, engine_with_no_keys, sample_extracted_content):
         """Test that generate_summaries works correctly when no models are enabled."""
@@ -122,6 +124,7 @@ class TestLLMSummarizationEngine:
         assert "summaries" in summaries
         assert "triangulation" in summaries
 
+    @pytest.mark.llm_api
     @pytest.mark.asyncio
     async def test_generate_summaries_empty_content(self, engine_with_openai_key):
         """Test that generate_summaries handles empty content gracefully."""

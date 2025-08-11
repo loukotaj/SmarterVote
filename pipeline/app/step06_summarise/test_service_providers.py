@@ -129,7 +129,6 @@ class TestLLMSummarizationEngineProviders:
         assert summaries["summaries"]["candidates"] == []
         assert summaries["summaries"]["issues"] == []
 
-    @pytest.mark.llm_api
     @pytest.mark.asyncio
     async def test_generate_summaries_empty_content(self, engine_with_openai_key):
         """Test that generate_summaries handles empty content gracefully."""
@@ -214,7 +213,6 @@ class TestLLMSummarizationEngineProviders:
         assert isinstance(result["summaries"]["candidates"], list)
         assert isinstance(result["summaries"]["issues"], list)
 
-    @pytest.mark.llm_api
     @pytest.mark.asyncio
     async def test_summary_output_structure(self, engine_with_openai_key, sample_extracted_content):
         """Test that summaries include confidence and source information."""
