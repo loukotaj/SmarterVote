@@ -165,6 +165,15 @@ class Candidate(BaseModel):
     social_media: Dict[str, HttpUrl] = Field(default_factory=dict)
 
 
+class DiscoveredCandidate(BaseModel):
+    """Light discovered candidate stub with structured data."""
+    
+    name: str
+    party: Optional[str] = None
+    incumbent: bool = False
+    sources: List[HttpUrl] = Field(default_factory=list)
+
+
 class RaceMetadata(BaseModel):
     """High-level race details extracted early in pipeline for search optimization."""
 
@@ -185,10 +194,14 @@ class RaceMetadata(BaseModel):
     is_primary: bool = False
     primary_date: Optional[datetime] = None
     is_special_election: bool = False
+    is_runoff: bool = False
 
     # Key candidates (extracted from race_id pattern or early discovery)
     discovered_candidates: List[str] = Field(
-        default_factory=list, description="Candidate names discovered during metadata extraction"
+        default_factory=list, description="Candidate names discovered during metadata extraction (backward compatibility)"
+    )
+    discovered_candidate_details: List[DiscoveredCandidate] = Field(
+        default_factory=list, description="Structured candidate data with party/incumbent/sources"
     )
     incumbent_party: Optional[str] = None
     competitive_rating: Optional[str] = None  # safe, lean, toss-up, etc.
