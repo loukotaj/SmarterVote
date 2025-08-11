@@ -324,15 +324,13 @@ class VectorDatabaseManager:
                 where = {"content_hash": content_hash}
             existing = self.collection.get(where=where)
             if existing.get("ids"):
-                logger.debug(f"Skipping duplicate chunk {chunk['id']} (hash match)")
-                return True
+                return True  # Skip duplicate without verbose logging
 
             # Add to collection
             self.collection.add(documents=[chunk["text"]], metadatas=[chunk["metadata"]], ids=[chunk["id"]])
             if isinstance(self.client, InMemoryClient):
                 self.client.save()
 
-            logger.debug(f"Indexed chunk {chunk['id']}")
             return True
 
         except Exception as e:

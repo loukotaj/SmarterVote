@@ -83,7 +83,8 @@ class OpenAIProvider(AIProvider):
             )
             return response.choices[0].message.content
         except Exception as e:
-            logger.error(f"OpenAI generation failed: {e}")
+            error_details = f"Model: {model_config.model_id}, Temperature: {model_config.temperature}, MaxTokens: {model_config.max_tokens}"
+            logger.error(f"❌ OpenAI generation failed - {error_details}: {type(e).__name__}: {str(e)[:200]}")
             raise
 
     async def generate_summary(
@@ -149,5 +150,6 @@ Available sources to reference: {context_sources or []}
                 )
 
         except Exception as e:
-            logger.error(f"OpenAI summary generation failed: {e}")
+            error_details = f"Model: {model_config.model_id}, Sources: {len(context_sources or [])}"
+            logger.error(f"❌ OpenAI summary generation failed - {error_details}: {type(e).__name__}: {str(e)[:200]}")
             raise

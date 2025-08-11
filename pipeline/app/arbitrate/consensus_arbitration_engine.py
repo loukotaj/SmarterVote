@@ -180,7 +180,6 @@ class ConsensusArbitrationEngine:
         Returns:
             Dict with bias analysis for each summary
         """
-        logger.debug("Using AI to detect bias in summaries")
 
         # Create prompt for bias detection
         summaries_text = ""
@@ -206,7 +205,6 @@ class ConsensusArbitrationEngine:
         try:
             # Select random AI model for bias detection
             provider, model_config = random.choice(model_pairs)
-            logger.debug(f"Using {model_config.provider}/{model_config.model_id} for bias detection")
 
             # Generate using provider
             result_content = await provider.generate(bias_prompt, model_config)
@@ -214,7 +212,6 @@ class ConsensusArbitrationEngine:
             # Parse JSON response
             bias_data = json.loads(result_content)
 
-            logger.debug(f"AI bias detection completed: {bias_data}")
             return bias_data
 
         except Exception as e:
@@ -233,7 +230,6 @@ class ConsensusArbitrationEngine:
         Returns:
             Dict with agreement analysis
         """
-        logger.debug("Using AI to analyze agreement between summaries")
 
         # Create prompt for agreement analysis
         summaries_text = ""
@@ -263,7 +259,6 @@ class ConsensusArbitrationEngine:
         try:
             # Select random AI model for agreement analysis
             provider, model_config = random.choice(model_pairs)
-            logger.debug(f"Using {model_config.provider}/{model_config.model_id} for agreement analysis")
 
             # Generate using provider
             result_content = await provider.generate(agreement_prompt, model_config)
@@ -271,7 +266,6 @@ class ConsensusArbitrationEngine:
             # Parse JSON response
             agreement_data = json.loads(result_content)
 
-            logger.debug(f"AI agreement analysis completed: {agreement_data}")
             return agreement_data
 
         except Exception as e:
@@ -297,7 +291,6 @@ class ConsensusArbitrationEngine:
         Returns:
             TriangulatedSummary with AI-generated consensus
         """
-        logger.debug("Using AI to generate consensus summary")
 
         # Create context for consensus generation
         summaries_text = ""
@@ -336,7 +329,6 @@ class ConsensusArbitrationEngine:
         try:
             # Select random AI model for consensus generation
             provider, model_config = random.choice(model_pairs)
-            logger.debug(f"Using {model_config.provider}/{model_config.model_id} for consensus generation")
 
             # Generate using provider
             result_content = await provider.generate(consensus_prompt, model_config)

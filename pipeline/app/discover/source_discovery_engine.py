@@ -66,24 +66,41 @@ class SourceDiscoveryEngine:
         Returns:
             List of all discovered sources (seed + fresh)
         """
-        logger.info(f"Starting comprehensive source discovery for {race_id}")
+        start_time = datetime.utcnow()
+        logger.info(f"🔍 Starting comprehensive source discovery for {race_id}")
 
         if race_metadata:
-            logger.info(f"Using race metadata: {race_metadata.full_office_name} in {race_metadata.jurisdiction}")
+            logger.info(f"📋 Using race metadata: {race_metadata.full_office_name} in {race_metadata.jurisdiction}")
+            logger.info(f"🎯 Targeting {len(race_metadata.major_issues)} priority issues: {', '.join(race_metadata.major_issues[:5])}")
 
         # Get seed sources
         seed_sources = await self.discover_seed_sources(race_id, race_metadata)
-        logger.info(f"Found {len(seed_sources)} seed sources")
+        logger.info(f"🌱 Found {len(seed_sources)} seed sources from electoral databases")
 
         # Get fresh issue-specific sources
         fresh_sources = await self.discover_fresh_issue_sources(race_id, race_metadata)
-        logger.info(f"Found {len(fresh_sources)} fresh issue sources")
+        logger.info(f"🆕 Found {len(fresh_sources)} fresh issue-specific sources")
 
         # Combine and deduplicate
         all_sources = seed_sources + fresh_sources
         deduplicated = self.search_utils.deduplicate_sources(all_sources)
-
-        logger.info(f"Total sources after deduplication: {len(deduplicated)}")
+        
+        # Log deduplication statistics
+        duplicates_removed = len(all_sources) - len(deduplicated)
+        discovery_duration = (datetime.utcnow() - start_time).total_seconds()
+        
+        logger.info(f"✅ Discovery completed: {len(deduplicated)} unique sources ({duplicates_removed} duplicates removed)")
+        logger.info(f"⏱️  Discovery took {discovery_duration:.1f}s")
+        
+        # Log source breakdown by type
+        source_types = {}
+        for source in deduplicated:
+            source_type = source.type.value if hasattr(source.type, 'value') else str(source.type)
+            source_types[source_type] = source_types.get(source_type, 0) + 1
+        
+        type_breakdown = ", ".join([f"{count} {stype}" for stype, count in source_types.items()])
+        logger.info(f"📊 Source types: {type_breakdown}")
+        
         return deduplicated
 
     async def discover_seed_sources(self, race_id: str, race_metadata: Optional[RaceMetadata] = None) -> List[Source]:
@@ -622,7 +639,6 @@ class SourceDiscoveryEngine:
             f"Challenger {state}",
         ]
 
-        logger.debug(f"Extracted candidate names for {race_id}: {candidate_names}")
         return candidate_names
 
     async def _discover_news_sources(self, race_id: str) -> List[Source]:

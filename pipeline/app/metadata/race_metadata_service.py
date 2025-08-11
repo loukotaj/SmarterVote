@@ -92,14 +92,17 @@ class RaceMetadataService:
         Returns:
             RaceMetadata object with structured race information
         """
-        logger.info(f"Extracting race metadata for: {race_id}")
+        start_time = datetime.utcnow()
+        logger.info(f"📋 Starting race metadata extraction for: {race_id}")
 
         try:
             # Parse race_id components
             state, office_type, year, district = self._parse_race_id(race_id)
+            logger.info(f"🔍 Parsed race components: {state.upper()}, {office_type}, {year}, district={district}")
 
             # Get office information
             office_info = self._get_office_info(office_type)
+            logger.info(f"🏛️  Office: {office_info['full_name']} ({office_info['race_type']} level)")
 
             # Calculate election date
             election_date = self._calculate_election_date(year)
@@ -109,12 +112,13 @@ class RaceMetadataService:
 
             # Get major issues for this race type and state
             major_issues = self._get_major_issues(office_type, state)
+            logger.info(f"🎯 Priority issues for {office_type}: {', '.join(major_issues[:5])}")
 
             # Generate geographic search keywords
             geographic_keywords = self._generate_geographic_keywords(state, district)
 
             # Perform targeted search focusing on reliable sources
-            logger.info(f"Performing candidate discovery search for {race_id}")
+            logger.info(f"🔍 Discovering candidates via reliable sources...")
             discovered_candidates = await self._discover_candidates_via_reliable_sources(
                 race_id, state, office_type, year, district
             )

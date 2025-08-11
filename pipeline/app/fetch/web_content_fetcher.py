@@ -61,10 +61,19 @@ class WebContentFetcher:
         TODO:
         - [ ] Add parallel processing limits to avoid overwhelming servers
         - [ ] Implement priority queue for high-priority sources
-        - [ ] Add progress tracking and callbacks
         - [ ] Support for batch processing with checkpoints
         """
-        logger.info(f"Fetching content from {len(sources)} sources")
+        start_time = datetime.utcnow()
+        logger.info(f"📥 Starting content fetch for {len(sources)} sources")
+        
+        # Log source breakdown by type
+        source_types = {}
+        for source in sources:
+            source_type = source.type.value if hasattr(source.type, 'value') else str(source.type)
+            source_types[source_type] = source_types.get(source_type, 0) + 1
+        
+        type_breakdown = ", ".join([f"{count} {stype}" for stype, count in source_types.items()])
+        logger.info(f"📊 Source breakdown: {type_breakdown}")
 
         async with httpx.AsyncClient(timeout=self.config["timeout"]) as client:
             self.session = client
@@ -76,15 +85,34 @@ class WebContentFetcher:
 
             results = await asyncio.gather(*tasks, return_exceptions=True)
 
-            # Filter out failed requests
+            # Analyze results with detailed logging
             successful_results = []
+            failed_count = 0
+            total_size = 0
+            
             for i, result in enumerate(results):
                 if isinstance(result, Exception):
-                    logger.error(f"Failed to fetch {sources[i].url}: {result}")
+                    failed_count += 1
+                    source_url = sources[i].url
+                    error_type = type(result).__name__
+                    logger.warning(f"❌ Fetch failed for {source_url}: {error_type} - {str(result)[:100]}")
                 else:
                     successful_results.append(result)
+                    if 'size_bytes' in result:
+                        total_size += result['size_bytes']
 
-            logger.info(f"Successfully fetched {len(successful_results)}/{len(sources)} sources")
+            # Log final statistics
+            duration = (datetime.utcnow() - start_time).total_seconds()
+            success_rate = (len(successful_results) / len(sources)) * 100 if sources else 0
+            avg_size = total_size / len(successful_results) if successful_results else 0
+            
+            logger.info(f"✅ Fetch completed: {len(successful_results)}/{len(sources)} sources ({success_rate:.1f}% success)")
+            logger.info(f"📊 Total size: {total_size:,} bytes, Average: {avg_size:,.0f} bytes/source")
+            logger.info(f"⏱️  Fetch duration: {duration:.1f}s ({duration/len(sources):.2f}s per source)")
+            
+            if failed_count > 0:
+                logger.warning(f"⚠️  {failed_count} sources failed to fetch - check network connectivity and source availability")
+            
             return successful_results
 
     async def _fetch_single_source(self, source: Source) -> Dict[str, Any]:
@@ -96,14 +124,16 @@ class WebContentFetcher:
         - [ ] Implement content-type specific handling
         - [ ] Add metrics collection (response time, size, etc.)
         """
-        logger.debug(f"Fetching {source.url}")
-
-        if source.type in [SourceType.WEBSITE] and self._requires_javascript(source):
-            # Use Selenium for dynamic content
-            return await self._fetch_with_selenium(source)
-        else:
-            # Use httpx for static content
-            return await self._fetch_with_httpx(source)
+        try:
+            if source.type in [SourceType.WEBSITE] and self._requires_javascript(source):
+                # Use Selenium for dynamic content
+                return await self._fetch_with_selenium(source)
+            else:
+                # Use httpx for static content
+                return await self._fetch_with_httpx(source)
+        except Exception as e:
+            # Add context to the error for better debugging
+            raise Exception(f"Failed to fetch {source.url} ({source.type}): {str(e)}") from e
 
     def _requires_javascript(self, source: Source) -> bool:
         """
