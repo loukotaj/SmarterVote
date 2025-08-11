@@ -10,23 +10,11 @@ from typing import Dict, List, Any, Optional
 import json
 import re
 
-"""AI Enrichment Service for Content Chunks
-
-This module provides AI-powered enrichment for content chunks before indexing,
-including issue tagging, candidate linking, claim extraction, and usefulness scoring.
-"""
-
-import hashlib
-import logging
-from typing import Dict, List, Any, Optional
-import json
-import re
-
 logger = logging.getLogger(__name__)
 
 # Define AIAnnotations here to avoid import issues during development
 try:
-    from ...shared.models import AIAnnotations, CanonicalIssue
+    from shared.models import AIAnnotations, CanonicalIssue
 except ImportError:
     # Fallback definition for standalone testing
     class AIAnnotations:

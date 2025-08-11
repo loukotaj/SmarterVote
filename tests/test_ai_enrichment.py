@@ -9,7 +9,7 @@ import sys
 from pathlib import Path
 
 # Add the pipeline app to the path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 # Mock imports to avoid dependency issues
 try:
@@ -149,11 +149,11 @@ class TestBasicFunctionality:
         import os
 
         # Check that ai_enrichment.py exists
-        ai_enrichment_path = Path(__file__).parent.parent.parent.parent / "pipeline" / "app" / "utils" / "ai_enrichment.py"
+        ai_enrichment_path = Path(__file__).parent.parent / "pipeline" / "app" / "utils" / "ai_enrichment.py"
         assert ai_enrichment_path.exists()
 
         # Check that models.py was updated
-        models_path = Path(__file__).parent.parent.parent.parent / "shared" / "models.py"
+        models_path = Path(__file__).parent.parent / "shared" / "models.py"
         assert models_path.exists()
 
         # Check that AIAnnotations was added to models
@@ -163,9 +163,46 @@ class TestBasicFunctionality:
 
     def test_file_structure(self):
         """Verify the correct files were created and modified."""
-        pipeline_root = Path(__file__).parent.parent.parent.parent / "pipeline"
+        pipeline_root = Path(__file__).parent.parent / "pipeline"
 
         # Check key files exist
         assert (pipeline_root / "app" / "utils" / "ai_enrichment.py").exists()
         assert (pipeline_root / "app" / "schema.py").exists()
         assert (pipeline_root / "app" / "step05_corpus" / "election_vector_database_manager.py").exists()
+
+    def test_ai_enrichment_functionality(self):
+        """Test AI enrichment functionality by loading module directly."""
+        import importlib.util
+        import sys
+
+        # Load the module directly to avoid import path issues
+        ai_enrichment_path = Path(__file__).parent.parent / "pipeline" / "app" / "utils" / "ai_enrichment.py"
+        spec = importlib.util.spec_from_file_location("ai_enrichment", ai_enrichment_path)
+        ai_module = importlib.util.module_from_spec(spec)
+        sys.modules["ai_enrichment_test"] = ai_module
+        spec.loader.exec_module(ai_module)
+
+        # Test hash_claims function
+        empty_hash = ai_module.hash_claims([])
+        assert empty_hash == ""
+
+        # Test with actual claims
+        claims = [{"normalized": "candidate supports healthcare reform"}, {"normalized": "opposes tax increases"}]
+        hash_result = ai_module.hash_claims(claims)
+        assert len(hash_result) == 32  # MD5 hash length
+
+        # Test ai_enrich function
+        content_text = """
+        John Smith supports healthcare reform and opposes higher taxes. 
+        He believes in expanding access to affordable healthcare for all Americans.
+        """
+        annotations = ai_module.ai_enrich(content_text)
+
+        # Check basic structure
+        assert hasattr(annotations, "usefulness")
+        assert hasattr(annotations, "issues")
+        assert hasattr(annotations, "index_summary")
+        assert annotations.usefulness.get("score", 0.0) > 0.0
+
+        # Test that healthcare was detected
+        assert "Healthcare" in annotations.issues
