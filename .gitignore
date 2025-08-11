@@ -270,6 +270,7 @@ web/.vscode/*
 infra/secrets.tfvars
 infra/.terraform.*
 infra/.terraform
+terraform_*.zip
 
 # Pre-commit
 .pre-commit-cache/
