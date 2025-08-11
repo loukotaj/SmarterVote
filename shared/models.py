@@ -284,3 +284,27 @@ class ArbitrationResult(BaseModel):
     consensus_method: str
     llm_responses: List[LLMResponse]
     minority_view: Optional[str] = None  # Stored when confidence is LOW
+
+
+class AIAnnotations(BaseModel):
+    """AI enrichment annotations for content chunks before indexing."""
+
+    issues: List[str] = Field(default_factory=list, description="Canonical issues detected with confidence")
+    candidates: List[str] = Field(default_factory=list, description="Canonical candidate names linked with confidence")
+    stance: List[Dict[str, Any]] = Field(
+        default_factory=list,
+        description="Per (candidate, issue): {position: pro/con/mixed/unknown, evidence_snippets[], rationale}"
+    )
+    index_summary: str = Field("", description="120-180 word evidence-grounded abstract per chunk")
+    claims: List[Dict[str, Any]] = Field(
+        default_factory=list,
+        description="Claims with quote, normalized_claim, location (start, end), support_urls"
+    )
+    qa_pairs: List[Dict[str, Any]] = Field(
+        default_factory=list,
+        description="2-5 synthetic (query, grounded_answer, evidence_offsets[]) per chunk"
+    )
+    usefulness: Dict[str, Any] = Field(
+        default_factory=dict,
+        description="Usefulness score 0-1 and reasons list"
+    )

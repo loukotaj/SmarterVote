@@ -304,7 +304,7 @@ class VectorDatabaseManager:
         }
 
     async def _index_chunk(self, chunk: Dict[str, Any], extra_metadata: Optional[Dict[str, Any]] = None) -> bool:
-        """Index a single chunk in the vector database with optional metadata."""
+        """Index a single chunk in the vector database with optional metadata and enhanced duplicate detection."""
         try:
             if not self.collection:
                 await self.initialize()
@@ -316,6 +316,9 @@ class VectorDatabaseManager:
             content_hash = hashlib.md5(chunk["text"].encode()).hexdigest()
             chunk["metadata"]["content_hash"] = content_hash
 
+            # Enhanced duplicate detection with claim hash
+            claim_hash = chunk["metadata"].get("claim_hash", "")
+            
             # Check for duplicate by content hash and extra metadata
             if extra_metadata:
                 conditions = [{"content_hash": content_hash}] + [{k: v} for k, v in extra_metadata.items()]
@@ -324,8 +327,21 @@ class VectorDatabaseManager:
                 where = {"content_hash": content_hash}
             existing = self.collection.get(where=where)
             if existing.get("ids"):
-                logger.debug(f"Skipping duplicate chunk {chunk['id']} (hash match)")
+                logger.debug(f"Skipping duplicate chunk {chunk['id']} (content hash match)")
                 return True
+
+            # Additional claim-based duplicate detection if claim_hash is available
+            if claim_hash:
+                claim_where = {"claim_hash": claim_hash}
+                if extra_metadata:
+                    # Check for claim duplicates within the same context (e.g., same race)
+                    claim_conditions = [{"claim_hash": claim_hash}] + [{k: v} for k, v in extra_metadata.items()]
+                    claim_where = {"$and": claim_conditions}
+                
+                existing_claims = self.collection.get(where=claim_where)
+                if existing_claims.get("ids"):
+                    logger.debug(f"Skipping duplicate chunk {chunk['id']} (claim hash match)")
+                    return True
 
             # Add to collection
             self.collection.add(documents=[chunk["text"]], metadatas=[chunk["metadata"]], ids=[chunk["id"]])
@@ -509,7 +525,7 @@ class VectorDatabaseManager:
             return []
 
     async def get_content_stats(self, where: Dict[str, Any]) -> Dict[str, Any]:
-        """Get statistics about indexed content matching a metadata filter."""
+        """Get statistics about indexed content matching a metadata filter, including AI enrichment metrics."""
         if not self.client or not self.collection:
             await self.initialize()
 
@@ -523,6 +539,8 @@ class VectorDatabaseManager:
                     "issues_covered": [],
                     "freshness_score": 0.0,
                     "quality_score": 0.0,
+                    "average_usefulness": 0.0,
+                    "ai_issues_distinct": [],
                     "last_updated": datetime.utcnow().isoformat(),
                 }
 
@@ -532,31 +550,51 @@ class VectorDatabaseManager:
             # Count unique sources
             sources = set()
             issues = set()
+            ai_issues = set()
             fresh_count = 0
             quality_scores = []
+            usefulness_scores = []
             timestamps = []
 
             for metadata in metadatas:
                 sources.add(metadata.get("source_url", ""))
+                
+                # Legacy issue tracking
                 if "issue" in metadata:
                     issues.add(metadata["issue"])
+                
+                # AI-enriched issue tracking
+                if "ai_issues" in metadata:
+                    ai_issue_list = metadata["ai_issues"]
+                    if isinstance(ai_issue_list, list):
+                        ai_issues.update(ai_issue_list)
+                
                 if metadata.get("is_fresh", False):
                     fresh_count += 1
+                
                 if "quality_score" in metadata:
                     quality_scores.append(float(metadata["quality_score"]))
+                
+                # AI usefulness scores
+                if "ai_usefulness" in metadata:
+                    usefulness_scores.append(float(metadata["ai_usefulness"]))
+                
                 if "extraction_timestamp" in metadata:
                     timestamps.append(metadata["extraction_timestamp"])
 
             freshness_score = fresh_count / total_chunks if total_chunks > 0 else 0.0
             avg_quality = sum(quality_scores) / len(quality_scores) if quality_scores else 0.0
+            avg_usefulness = sum(usefulness_scores) / len(usefulness_scores) if usefulness_scores else 0.0
             last_updated = max(timestamps) if timestamps else datetime.utcnow().isoformat()
 
             return {
                 "total_chunks": total_chunks,
                 "total_sources": len(sources),
-                "issues_covered": list(issues),
+                "issues_covered": list(issues),  # Legacy issue list
+                "ai_issues_distinct": list(ai_issues),  # AI-detected issues
                 "freshness_score": freshness_score,
                 "quality_score": avg_quality,
+                "average_usefulness": avg_usefulness,  # AI usefulness metric
                 "last_updated": last_updated,
             }
 
@@ -566,8 +604,10 @@ class VectorDatabaseManager:
                 "total_chunks": 0,
                 "total_sources": 0,
                 "issues_covered": [],
+                "ai_issues_distinct": [],
                 "freshness_score": 0.0,
                 "quality_score": 0.0,
+                "average_usefulness": 0.0,
                 "last_updated": datetime.utcnow().isoformat(),
             }
 

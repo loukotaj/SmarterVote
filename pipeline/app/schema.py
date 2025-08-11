@@ -1,7 +1,55 @@
 """
-Pipeline-specific extensions to shared schema models.
-Import shared models and add pipeline-only functionality if needed.
+Pipeline-specific Pydantic schemas and imports from shared models.
+This module acts as the primary schema interface for the pipeline app.
 """
 
-# Import all shared models for backwards compatibility
-from shared import *  # noqa: F401, F403
+# Import shared models for pipeline use
+from ...shared.models import (
+    AIAnnotations,
+    ArbitrationResult,
+    CanonicalIssue,
+    Candidate,
+    ChromaChunk,
+    ConfidenceLevel,
+    DiscoveredCandidate,
+    ExtractedContent,
+    FreshSearchQuery,
+    IssueStance,
+    LLMResponse,
+    ProcessingJob,
+    ProcessingStatus,
+    RAGQuery,
+    RaceJSON,
+    RaceMetadata,
+    Source,
+    SourceType,
+    Summary,
+    TopDonor,
+    TriangulatedSummary,
+    VectorDocument,
+)
+
+__all__ = [
+    "AIAnnotations",
+    "ArbitrationResult",
+    "CanonicalIssue",
+    "Candidate",
+    "ChromaChunk",
+    "ConfidenceLevel",
+    "DiscoveredCandidate",
+    "ExtractedContent",
+    "FreshSearchQuery",
+    "IssueStance",
+    "LLMResponse",
+    "ProcessingJob",
+    "ProcessingStatus",
+    "RAGQuery",
+    "RaceJSON",
+    "RaceMetadata",
+    "Source",
+    "SourceType",
+    "Summary",
+    "TopDonor",
+    "TriangulatedSummary",
+    "VectorDocument",
+]
