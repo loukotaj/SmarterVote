@@ -11,6 +11,15 @@ from typing import Any, Dict, List, Literal, Optional
 from pydantic import BaseModel, Field, HttpUrl
 
 
+class DiscoveredCandidate(BaseModel):
+    """Structured candidate information discovered during metadata extraction."""
+    
+    name: str
+    party: Optional[str] = None  # 'Democratic', 'Republican', 'Independent', etc.
+    incumbent: bool = False
+    sources: List[HttpUrl] = Field(default_factory=list)
+
+
 class SourceType(str, Enum):
     """Types of data sources."""
 
@@ -185,10 +194,14 @@ class RaceMetadata(BaseModel):
     is_primary: bool = False
     primary_date: Optional[datetime] = None
     is_special_election: bool = False
+    is_runoff: bool = False
 
     # Key candidates (extracted from race_id pattern or early discovery)
     discovered_candidates: List[str] = Field(
-        default_factory=list, description="Candidate names discovered during metadata extraction"
+        default_factory=list, description="Candidate names discovered during metadata extraction (backward compatibility)"
+    )
+    structured_candidates: List[DiscoveredCandidate] = Field(
+        default_factory=list, description="Structured candidate information with party, incumbent status, and sources"
     )
     incumbent_party: Optional[str] = None
     competitive_rating: Optional[str] = None  # safe, lean, toss-up, etc.

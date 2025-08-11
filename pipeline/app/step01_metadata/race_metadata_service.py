@@ -7,11 +7,12 @@ initial lookups for basic race information, and creates structured metadata
 that can guide subsequent pipeline steps.
 
 Key responsibilities:
-- Parse race_id patterns to extract state, office, year
-- Perform initial discovery to identify key candidates
+- Parse race_id patterns to extract state, office, year, and race type (primary/special/runoff)
+- Perform initial discovery to identify key candidates with structured information
 - Determine race type (federal/state/local) and characteristics
 - Generate search optimization hints for issue discovery
 - Create structured RaceMetadata for pipeline use
+- Implement evidence-based confidence scoring
 """
 
 import logging
@@ -21,17 +22,30 @@ from typing import Dict, List, Optional, Tuple
 
 from ..schema import CanonicalIssue, ConfidenceLevel, FreshSearchQuery, RaceMetadata, Source, SourceType
 from ..step02_discover.source_discovery_engine import SourceDiscoveryEngine
+from shared.models import DiscoveredCandidate
+from shared.state_constants import STATE_NAME, PRIMARY_DATE_BY_STATE
+from ..providers.base import ProviderRegistry, TaskType
 
 logger = logging.getLogger(__name__)
+
+# Slug parsing regex pattern - matches: state-office[-district]-year[-kind]
+SLUG_PATTERN = re.compile(
+    r"^(?P<state>[a-z]{2})-(?P<office>[a-z-]+)"
+    r"(?:-(?P<district>\d{1,2}|al))?-(?P<year>\d{4})"
+    r"(?:-(?P<kind>primary|runoff|special))?$"
+)
 
 
 class RaceMetadataService:
     """Service for extracting structured race metadata early in pipeline."""
 
-    def __init__(self):
+    def __init__(self, providers: ProviderRegistry = None):
         """Initialize the race metadata service."""
         # Initialize discovery engine for candidate and issue searches
         self.discovery_engine = SourceDiscoveryEngine()
+        
+        # Provider registry for AI validation
+        self.providers = providers
 
         # Office type mappings
         self.office_mappings = {
@@ -95,14 +109,22 @@ class RaceMetadataService:
         logger.info(f"Extracting race metadata for: {race_id}")
 
         try:
-            # Parse race_id components
-            state, office_type, year, district = self._parse_race_id(race_id)
+            # Parse race_id components (now includes race kind)
+            state, office_type, year, district, kind = self._parse_race_id(race_id)
+
+            # Set race type flags based on slug
+            is_primary = (kind == "primary")
+            is_special_election = (kind == "special")
+            is_runoff = (kind == "runoff")
 
             # Get office information
             office_info = self._get_office_info(office_type)
 
             # Calculate election date
             election_date = self._calculate_election_date(year)
+
+            # Get primary date if this is a primary
+            primary_date = self._get_primary_date(state, year) if is_primary else None
 
             # Determine jurisdiction string
             jurisdiction = self._build_jurisdiction(state, district)
@@ -115,9 +137,18 @@ class RaceMetadataService:
 
             # Perform targeted search focusing on reliable sources
             logger.info(f"Performing candidate discovery search for {race_id}")
-            discovered_candidates = await self._discover_candidates_via_reliable_sources(
+            structured_candidates = await self._discover_candidates_via_reliable_sources(
                 race_id, state, office_type, year, district
             )
+
+            # Extract incumbent party from structured candidates
+            incumbent_party = self._extract_incumbent_party(structured_candidates)
+
+            # Calculate evidence-based confidence
+            confidence = self._calculate_confidence(structured_candidates, primary_date is not None)
+
+            # Create backward-compatible string list
+            discovered_candidates = [c.name for c in structured_candidates]
 
             # Create metadata object
             metadata = RaceMetadata(
@@ -130,16 +161,21 @@ class RaceMetadataService:
                 district=district,
                 election_date=election_date,
                 race_type=office_info["race_type"],
-                is_primary=False,  # Default, could be enhanced
-                is_special_election=False,  # Default, could be enhanced
+                is_primary=is_primary,
+                primary_date=primary_date,
+                is_special_election=is_special_election,
+                is_runoff=is_runoff,
                 discovered_candidates=discovered_candidates,
+                structured_candidates=structured_candidates,
+                incumbent_party=incumbent_party,
                 major_issues=major_issues,
                 geographic_keywords=geographic_keywords,
-                confidence=ConfidenceLevel.HIGH,
+                confidence=confidence,
             )
 
             logger.info(
-                f"✅ Extracted metadata for {race_id}: {office_info['full_name']} in {jurisdiction}, found {len(discovered_candidates)} candidates"
+                f"✅ Extracted metadata for {race_id}: {office_info['full_name']} in {jurisdiction}, "
+                f"found {len(structured_candidates)} candidates, confidence: {confidence.value}"
             )
             return metadata
 
@@ -148,48 +184,104 @@ class RaceMetadataService:
             # Return minimal metadata as fallback
             return self._create_fallback_metadata(race_id)
 
-    def _parse_race_id(self, race_id: str) -> Tuple[str, str, int, Optional[str]]:
+    def _parse_race_id(self, race_id: str) -> Tuple[str, str, int, Optional[str], Optional[str]]:
         """
-        Parse race_id to extract components.
+        Parse race_id to extract components including race kind.
 
         Args:
-            race_id: Race identifier like 'mo-senate-2024' or 'ny-house-03-2024'
+            race_id: Race identifier like 'mo-senate-2024', 'ny-house-03-2024-primary', or 'ga-senate-2026-special'
 
         Returns:
-            Tuple of (state, office_type, year, district)
+            Tuple of (state, office_type, year, district, kind)
         """
-        # Common patterns:
-        # mo-senate-2024
-        # ny-house-03-2024
-        # ca-governor-2024
-        # tx-house-15-2024
-
-        parts = race_id.lower().split("-")
-
-        if len(parts) < 3:
+        match = SLUG_PATTERN.match(race_id.lower())
+        if not match:
             raise ValueError(f"Invalid race_id format: {race_id}")
 
-        state = parts[0].upper()
+        state = match.group("state").upper()
+        office_type = match.group("office")
+        year = int(match.group("year"))
+        district = match.group("district")
+        kind = match.group("kind")
 
-        # Check if there's a district number
-        district = None
-        if len(parts) == 4 and parts[2].isdigit():
-            office_type = parts[1]
-            district = parts[2].zfill(2)  # Ensure 2-digit format
-            year = int(parts[3])
-        else:
-            office_type = parts[1]
-            year = int(parts[-1])
+        # Normalize district format
+        if district and district.isdigit():
+            district = district.zfill(2)  # '3' -> '03'
 
         # Validate state code
-        if len(state) != 2:
+        if len(state) != 2 or state not in STATE_NAME:
             raise ValueError(f"Invalid state code: {state}")
 
         # Validate year
         if not (2020 <= year <= 2030):
             raise ValueError(f"Invalid year: {year}")
 
-        return state, office_type, year, district
+        return state, office_type, year, district, kind
+
+    def _get_primary_date(self, state: str, year: int) -> Optional[datetime]:
+        """Get primary date for state and year if available."""
+        primary_dates = PRIMARY_DATE_BY_STATE.get(year, {})
+        date_str = primary_dates.get(state)
+        
+        if date_str:
+            try:
+                return datetime.strptime(date_str, "%Y-%m-%d")
+            except ValueError:
+                logger.warning(f"Invalid primary date format for {state} {year}: {date_str}")
+        
+        return None
+
+    def _extract_incumbent_party(self, candidates: List[DiscoveredCandidate]) -> Optional[str]:
+        """Extract incumbent party from structured candidates."""
+        incumbents = [c for c in candidates if c.incumbent and c.party]
+        
+        if not incumbents:
+            return None
+            
+        # If multiple incumbents, prefer those from trusted sources
+        for candidate in incumbents:
+            if any(self._is_trusted_source(str(url)) for url in candidate.sources):
+                return candidate.party
+                
+        # Fallback to first incumbent with party
+        return incumbents[0].party
+
+    def _calculate_confidence(self, candidates: List[DiscoveredCandidate], have_primary_date: bool) -> ConfidenceLevel:
+        """Calculate evidence-based confidence score."""
+        if not candidates:
+            return ConfidenceLevel.LOW
+            
+        # Count trusted domains across all candidates
+        trusted_domains = set()
+        for candidate in candidates:
+            for source in candidate.sources:
+                if self._is_trusted_source(str(source)):
+                    domain = str(source).split('/')[2]
+                    trusted_domains.add(domain)
+        
+        trusted_domains_count = len(trusted_domains)
+        
+        # Apply heuristic
+        if len(candidates) >= 2 and trusted_domains_count >= 2:
+            confidence = ConfidenceLevel.HIGH
+        elif len(candidates) >= 1 and (trusted_domains_count >= 1 or have_primary_date):
+            confidence = ConfidenceLevel.MEDIUM
+        else:
+            confidence = ConfidenceLevel.LOW
+            
+        # Log reasoning for observability
+        logger.info(
+            f"Confidence calculation: {len(candidates)} candidates, "
+            f"{trusted_domains_count} trusted domains, "
+            f"primary_date: {have_primary_date} → {confidence.value}"
+        )
+        
+        return confidence
+
+    def _is_trusted_source(self, url: str) -> bool:
+        """Check if URL is from a trusted source."""
+        trusted_domains = ["fec.gov", "ballotpedia.org", "wikipedia.org"]
+        return any(domain in url.lower() for domain in trusted_domains)
 
     def _get_office_info(self, office_type: str) -> Dict[str, any]:
         """Get detailed office information."""
@@ -236,65 +328,12 @@ class RaceMetadataService:
         return major_issues
 
     def _generate_geographic_keywords(self, state: str, district: Optional[str]) -> List[str]:
-        """Generate geographic search keywords."""
+        """Generate geographic search keywords using unified state constants."""
         keywords = [state]
 
-        # Add state name if we have a mapping
-        state_names = {
-            "CA": "California",
-            "TX": "Texas",
-            "FL": "Florida",
-            "NY": "New York",
-            "MO": "Missouri",
-            "OH": "Ohio",
-            "IL": "Illinois",
-            "PA": "Pennsylvania",
-            "MI": "Michigan",
-            "NC": "North Carolina",
-            "GA": "Georgia",
-            "VA": "Virginia",
-            "WA": "Washington",
-            "AZ": "Arizona",
-            "MA": "Massachusetts",
-            "IN": "Indiana",
-            "TN": "Tennessee",
-            "MD": "Maryland",
-            "MN": "Minnesota",
-            "WI": "Wisconsin",
-            "CO": "Colorado",
-            "SC": "South Carolina",
-            "AL": "Alabama",
-            "LA": "Louisiana",
-            "KY": "Kentucky",
-            "OR": "Oregon",
-            "OK": "Oklahoma",
-            "CT": "Connecticut",
-            "IA": "Iowa",
-            "MS": "Mississippi",
-            "AR": "Arkansas",
-            "KS": "Kansas",
-            "UT": "Utah",
-            "NV": "Nevada",
-            "NM": "New Mexico",
-            "WV": "West Virginia",
-            "NE": "Nebraska",
-            "ID": "Idaho",
-            "HI": "Hawaii",
-            "NH": "New Hampshire",
-            "ME": "Maine",
-            "RI": "Rhode Island",
-            "MT": "Montana",
-            "DE": "Delaware",
-            "SD": "South Dakota",
-            "ND": "North Dakota",
-            "AK": "Alaska",
-            "VT": "Vermont",
-            "WY": "Wyoming",
-            "DC": "Washington DC",
-        }
-
-        if state in state_names:
-            keywords.append(state_names[state])
+        # Add state name from unified mapping
+        if state in STATE_NAME:
+            keywords.append(STATE_NAME[state])
 
         # Add district if applicable
         if district:
@@ -321,9 +360,9 @@ class RaceMetadataService:
 
     async def _discover_candidates_via_reliable_sources(
         self, race_id: str, state: str, office_type: str, year: int, district: Optional[str] = None
-    ) -> List[str]:
+    ) -> List[DiscoveredCandidate]:
         """
-        Discover candidates using reliable sources with AI validation.
+        Discover candidates using reliable sources with structured information.
 
         Focuses on Wikipedia and Ballotpedia for high-quality candidate data.
         """
@@ -339,21 +378,21 @@ class RaceMetadataService:
                 # Use discovery engine to search for candidate information
                 search_results = await self.discovery_engine._search_google_custom(query, CanonicalIssue.ELECTION_REFORM)
 
-                # Extract candidate names from search results
-                candidates_from_results = self._extract_candidates_from_search_results(search_results, state, office_type)
+                # Extract structured candidate info from search results
+                candidates_from_results = self._extract_structured_candidates_from_search_results(search_results, state, office_type)
                 discovered_candidates.extend(candidates_from_results)
 
-            # Deduplicate candidates
-            unique_candidates = self._clean_and_deduplicate_candidates(discovered_candidates)
+            # Merge and deduplicate structured candidates
+            unique_candidates = self._merge_and_deduplicate_structured_candidates(discovered_candidates)
 
-            # AI validation of candidates using GPT-4o-mini
+            # AI validation of candidates using provider registry
             if unique_candidates:
                 logger.info(f"Validating {len(unique_candidates)} candidate(s) with AI for {race_id}")
-                validated_candidates = await self._validate_candidates_with_ai(
+                validated_candidates = await self._validate_structured_candidates_with_ai(
                     unique_candidates, race_id, state, office_type, year, district
                 )
 
-                logger.info(f"✅ Validated {len(validated_candidates)} candidates for {race_id}: {validated_candidates}")
+                logger.info(f"✅ Validated {len(validated_candidates)} candidates for {race_id}")
                 return validated_candidates
             else:
                 logger.warning(f"No candidates found in reliable sources for {race_id}")
@@ -366,67 +405,15 @@ class RaceMetadataService:
     def _generate_reliable_source_queries(
         self, race_id: str, state: str, office_type: str, year: int, district: Optional[str] = None
     ) -> List[FreshSearchQuery]:
-        """Generate search queries focused on Wikipedia and Ballotpedia."""
+        """Generate search queries focused on Wikipedia and Ballotpedia using unified state constants."""
         queries = []
 
         # Get full office name and geographic terms
         office_info = self._get_office_info(office_type)
         full_office = office_info["full_name"]
 
-        # Add state name if available
-        state_names = {
-            "CA": "California",
-            "TX": "Texas",
-            "FL": "Florida",
-            "NY": "New York",
-            "MO": "Missouri",
-            "OH": "Ohio",
-            "IL": "Illinois",
-            "PA": "Pennsylvania",
-            "MI": "Michigan",
-            "NC": "North Carolina",
-            "GA": "Georgia",
-            "VA": "Virginia",
-            "WA": "Washington",
-            "AZ": "Arizona",
-            "MA": "Massachusetts",
-            "IN": "Indiana",
-            "TN": "Tennessee",
-            "MD": "Maryland",
-            "MN": "Minnesota",
-            "WI": "Wisconsin",
-            "CO": "Colorado",
-            "SC": "South Carolina",
-            "AL": "Alabama",
-            "LA": "Louisiana",
-            "KY": "Kentucky",
-            "OR": "Oregon",
-            "OK": "Oklahoma",
-            "CT": "Connecticut",
-            "IA": "Iowa",
-            "MS": "Mississippi",
-            "AR": "Arkansas",
-            "KS": "Kansas",
-            "UT": "Utah",
-            "NV": "Nevada",
-            "NM": "New Mexico",
-            "WV": "West Virginia",
-            "NE": "Nebraska",
-            "ID": "Idaho",
-            "HI": "Hawaii",
-            "NH": "New Hampshire",
-            "ME": "Maine",
-            "RI": "Rhode Island",
-            "MT": "Montana",
-            "DE": "Delaware",
-            "SD": "South Dakota",
-            "ND": "North Dakota",
-            "AK": "Alaska",
-            "VT": "Vermont",
-            "WY": "Wyoming",
-            "DC": "Washington DC",
-        }
-        state_name = state_names.get(state, state)
+        # Use unified state name mapping
+        state_name = STATE_NAME.get(state, state)
 
         # District information
         district_text = f" district {district}" if district else ""
@@ -456,6 +443,208 @@ class RaceMetadataService:
             queries.append(FreshSearchQuery(race_id=race_id, text=term, max_results=10, date_restrict="y1"))  # Last year
 
         return queries
+
+    def _extract_structured_candidates_from_search_results(
+        self, search_results: List[Source], state: str, office_type: str
+    ) -> List[DiscoveredCandidate]:
+        """Extract structured candidate information from search results."""
+        candidates = []
+
+        # Enhanced patterns for extracting candidate info
+        candidate_patterns = [
+            # Ballotpedia specific patterns with party info
+            r"([A-Z][a-z]+\s+[A-Z][a-z]+)\s+\((?P<party>Democratic|Republican|Independent|Libertarian|Green)\)",
+            r"(?:Incumbent|Senator|Representative)\s+([A-Z][a-z]+\s+[A-Z][a-z]+)\s+\((?P<party>D|R|I)\)",
+            # General high-confidence patterns
+            r"([A-Z][a-z]+\s+[A-Z][a-z]+)\s+(?:vs\.?|versus|against)",
+            r"(?:candidate|nominee)\s+([A-Z][a-z]+\s+[A-Z][a-z]+)",
+            r"([A-Z][a-z]+\s+[A-Z][a-z]+)\s+(?:is running|will run|announced)",
+        ]
+
+        for source in search_results:
+            # Only process results from trusted sources
+            source_url = str(source.url).lower()
+            if not self._is_trusted_source(source_url):
+                continue
+
+            text_to_search = f"{source.title or ''} {source.description or ''}"
+
+            for pattern in candidate_patterns:
+                matches = re.finditer(pattern, text_to_search, re.IGNORECASE)
+                for match in matches:
+                    name = match.group(1).strip()
+                    if not self._is_valid_candidate_name(name):
+                        continue
+
+                    # Extract party information if available
+                    party = None
+                    if match.lastindex and match.lastindex > 1:
+                        party_code = match.group(2)
+                        party = self._normalize_party_name(party_code)
+                    else:
+                        # Try to find party info in surrounding text
+                        party = self._extract_party_from_context(text_to_search, name)
+
+                    # Check for incumbent status
+                    incumbent = self._check_incumbent_status(text_to_search, name)
+
+                    candidate = DiscoveredCandidate(
+                        name=name,
+                        party=party,
+                        incumbent=incumbent,
+                        sources=[source.url]
+                    )
+                    candidates.append(candidate)
+
+        return candidates
+
+    def _normalize_party_name(self, party_code: str) -> Optional[str]:
+        """Normalize party codes and names."""
+        if not party_code:
+            return None
+            
+        party_map = {
+            "D": "Democratic",
+            "R": "Republican", 
+            "I": "Independent",
+            "L": "Libertarian",
+            "G": "Green"
+        }
+        
+        party_normalized = party_code.strip().title()
+        return party_map.get(party_code.upper(), party_normalized)
+
+    def _extract_party_from_context(self, text: str, candidate_name: str) -> Optional[str]:
+        """Extract party affiliation from text context around candidate name."""
+        # Look for party keywords within 80 characters of the candidate name
+        name_pos = text.lower().find(candidate_name.lower())
+        if name_pos == -1:
+            return None
+            
+        context_start = max(0, name_pos - 80)
+        context_end = min(len(text), name_pos + len(candidate_name) + 80)
+        context = text[context_start:context_end]
+        
+        party_pattern = re.compile(r'\b(Democratic|Republican|Libertarian|Green|Independent)\b', re.IGNORECASE)
+        match = party_pattern.search(context)
+        
+        return match.group(1).title() if match else None
+
+    def _check_incumbent_status(self, text: str, candidate_name: str) -> bool:
+        """Check if candidate is mentioned as incumbent."""
+        # Look for incumbent keywords near the candidate name
+        name_pos = text.lower().find(candidate_name.lower())
+        if name_pos == -1:
+            return False
+            
+        context_start = max(0, name_pos - 80)
+        context_end = min(len(text), name_pos + len(candidate_name) + 80)
+        context = text[context_start:context_end]
+        
+        incumbent_pattern = re.compile(r'\bincumbent\b', re.IGNORECASE)
+        return bool(incumbent_pattern.search(context))
+
+    def _merge_and_deduplicate_structured_candidates(self, candidates: List[DiscoveredCandidate]) -> List[DiscoveredCandidate]:
+        """Merge and deduplicate structured candidates by name."""
+        merged = {}
+        
+        for candidate in candidates:
+            # Normalize name for deduplication
+            name_key = re.sub(r'\s+', ' ', candidate.name.strip().lower())
+            
+            if name_key in merged:
+                # Merge information from multiple sources
+                existing = merged[name_key]
+                
+                # Prefer party info from trusted sources, or first non-None
+                if not existing.party and candidate.party:
+                    existing.party = candidate.party
+                elif candidate.party and self._has_more_trusted_sources(candidate, existing):
+                    existing.party = candidate.party
+                    
+                # Set incumbent if any source says so
+                if candidate.incumbent:
+                    existing.incumbent = True
+                    
+                # Merge source lists
+                for source in candidate.sources:
+                    if source not in existing.sources:
+                        existing.sources.append(source)
+            else:
+                merged[name_key] = candidate
+                
+        return list(merged.values())[:8]  # Limit to reasonable number
+
+    def _has_more_trusted_sources(self, candidate1: DiscoveredCandidate, candidate2: DiscoveredCandidate) -> bool:
+        """Check if candidate1 has more trusted sources than candidate2."""
+        trusted1 = sum(1 for url in candidate1.sources if self._is_trusted_source(str(url)))
+        trusted2 = sum(1 for url in candidate2.sources if self._is_trusted_source(str(url)))
+        return trusted1 > trusted2
+
+    async def _validate_structured_candidates_with_ai(
+        self, candidates: List[DiscoveredCandidate], race_id: str, state: str, office_type: str, year: int, district: Optional[str] = None
+    ) -> List[DiscoveredCandidate]:
+        """
+        Validate structured candidates using provider registry.
+        """
+        if not self.providers or not candidates:
+            return candidates[:5]  # Return first 5 without validation
+            
+        try:
+            # Get models for DISCOVER task
+            models = self.providers.get_enabled_models(TaskType.DISCOVER)
+            if not models:
+                logger.warning("No models available for candidate validation, skipping AI validation")
+                return candidates[:5]
+                
+            # Use first available model (cheap mode will give us mini models)
+            model = models[0]
+            provider = self.providers.get_provider(model.provider)
+            
+            # Prepare context
+            office_info = self._get_office_info(office_type)
+            full_office = office_info["full_name"]
+            district_text = f" District {district}" if district else ""
+
+            # Create validation prompt
+            candidate_names = [c.name for c in candidates]
+            prompt = f"""You are validating candidates for the {year} {full_office} election in {state}{district_text}.
+
+Here are potential candidate names found from Ballotpedia and Wikipedia searches:
+{', '.join(candidate_names)}
+
+Please analyze these names and return ONLY the candidates who are:
+1. Real people (not organizations, websites, or generic terms)
+2. Actually running for this specific office in {year}
+3. Legitimate candidates with a reasonable chance of being on the ballot
+
+Return your response as a simple comma-separated list of validated candidate names, or "NONE" if no valid candidates found.
+
+Validated candidates:"""
+
+            # Make API call through provider
+            response = await provider.generate(prompt, model)
+            
+            if response.strip().upper() == "NONE":
+                logger.info(f"AI validation found no valid candidates for {race_id}")
+                return []
+
+            # Parse validated names
+            validated_names = [name.strip() for name in response.split(",") if name.strip()]
+            
+            # Filter original candidates to only include validated ones
+            validated_candidates = []
+            for candidate in candidates:
+                if any(name.lower() in candidate.name.lower() or candidate.name.lower() in name.lower() 
+                      for name in validated_names):
+                    validated_candidates.append(candidate)
+                    
+            logger.info(f"AI validated {len(validated_candidates)} of {len(candidates)} candidates for {race_id}")
+            return validated_candidates[:8]
+            
+        except Exception as e:
+            logger.warning(f"Error during AI validation for {race_id}: {e}")
+            return candidates[:3]  # Fallback
 
     async def _validate_candidates_with_ai(
         self, candidate_names: List[str], race_id: str, state: str, office_type: str, year: int, district: Optional[str] = None
