@@ -66,6 +66,10 @@ class OpenAIProvider(AIProvider):
 
     def is_available(self) -> bool:
         """Check if OpenAI is available."""
+        if not self.client:
+            api_key = os.getenv("OPENAI_API_KEY")
+            if api_key:
+                self._setup_client()
         return self.client is not None
 
     async def generate(self, prompt: str, model_config: ModelConfig, **kwargs) -> str:

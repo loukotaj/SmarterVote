@@ -54,8 +54,13 @@ def client(mock_pubsub_publisher):
         if module in sys.modules:
             del sys.modules[module]
 
-    # Mock Cloud Run client before importing main
-    with patch("main.get_run_client") as mock_get_run_client:
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location("enqueue_main", current_dir / "main.py")
+    main = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(main)
+
+    with patch.object(main, "get_run_client") as mock_get_run_client:
         mock_run_client = MagicMock()
         mock_get_run_client.return_value = mock_run_client
 
@@ -65,8 +70,6 @@ def client(mock_pubsub_publisher):
         mock_run_client.run_job.return_value = mock_operation
         mock_run_client.job_path.return_value = "projects/test-project/locations/us-central1/jobs/test-race-worker"
 
-        # Import and create TestClient
-        import main
         from fastapi.testclient import TestClient
 
         yield TestClient(main.app)
