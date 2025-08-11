@@ -270,7 +270,10 @@ web/.vscode/*
 infra/secrets.tfvars
 infra/.terraform.*
 infra/.terraform
+terraform_*.zip
 
 # Pre-commit
 .pre-commit-cache/
 data/chroma_db/
+test_enhanced_fetcher_extractor.py
+test_backward_compatibility.py

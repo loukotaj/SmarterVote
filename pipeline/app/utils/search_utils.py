@@ -1,16 +1,15 @@
-"""
-Search utilities for source discovery in SmarterVote Pipeline.
+"""Search utilities for source discovery in SmarterVote Pipeline."""
 
-This module contains utilities for performing various types of searches
-to discover sources for electoral content.
-"""
-
+import asyncio
 import logging
 import os
-from datetime import datetime
-from typing import List, Set
+import re
+from collections import defaultdict
+from datetime import datetime, timedelta
+from typing import Any, Dict, List, Optional, Set, Tuple
+from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
 
-from ..schema import CanonicalIssue, FreshSearchQuery, Source, SourceType
+from ..schema import CanonicalIssue, FreshSearchQuery, RaceMetadata, Source, SourceType
 
 logger = logging.getLogger(__name__)
 
@@ -21,15 +20,92 @@ class SearchUtils:
     def __init__(self, search_config: dict):
         """Initialize with search configuration."""
         self.search_config = search_config
+        self.cache: Dict[str, Tuple[datetime, List[Source]]] = {}
+        self.cache_ttl = search_config.get("cache_ttl_seconds", 300)
+        self.per_host_concurrency = search_config.get("per_host_concurrency", 5)
+        self._host_semaphores: Dict[str, asyncio.Semaphore] = defaultdict(lambda: asyncio.Semaphore(self.per_host_concurrency))
+
+        # Basic domain trust ranking
+        self.domain_trust: Dict[str, float] = {
+            "gov": 1.0,
+            "edu": 0.9,
+            "fec.gov": 0.95,
+            "ballotpedia.org": 0.9,
+            "opensecrets.org": 0.9,
+        }
+
+        # Canonical issue synonyms
+        self.issue_synonyms: Dict[CanonicalIssue, List[str]] = {
+            CanonicalIssue.HEALTHCARE: [
+                "health care",
+                "medical",
+                "medicare",
+                "medicaid",
+            ],
+            CanonicalIssue.ECONOMY: [
+                "economic",
+                "jobs",
+                "employment",
+                "taxes",
+                "budget",
+            ],
+            CanonicalIssue.CLIMATE_ENERGY: [
+                "climate change",
+                "environment",
+                "renewable energy",
+                "fossil fuels",
+            ],
+            CanonicalIssue.REPRODUCTIVE_RIGHTS: [
+                "abortion",
+                "reproductive health",
+                "family planning",
+            ],
+            CanonicalIssue.IMMIGRATION: ["border", "refugees", "citizenship", "visa"],
+            CanonicalIssue.GUNS_SAFETY: [
+                "gun control",
+                "firearms",
+                "second amendment",
+                "gun violence",
+            ],
+            CanonicalIssue.FOREIGN_POLICY: [
+                "international",
+                "defense",
+                "military",
+                "diplomacy",
+            ],
+            CanonicalIssue.SOCIAL_JUSTICE: [
+                "LGBTQ",
+                "gay rights",
+                "transgender",
+                "equality",
+                "civil rights",
+                "racial justice",
+                "gender equality",
+                "disability rights",
+            ],
+            CanonicalIssue.EDUCATION: ["schools", "teachers", "students", "university"],
+            CanonicalIssue.TECH_AI: [
+                "technology",
+                "artificial intelligence",
+                "privacy",
+                "internet",
+            ],
+            CanonicalIssue.ELECTION_REFORM: [
+                "voting rights",
+                "gerrymandering",
+                "campaign finance",
+            ],
+        }
 
     async def search_google_custom(self, query: FreshSearchQuery, issue: CanonicalIssue) -> List[Source]:
-        """
-        Perform Google Custom Search for an issue.
+        """Perform Google Custom Search with caching, concurrency and scoring."""
 
-        Implements actual Google Custom Search API integration with proper error handling,
-        retry logic, and result quality filtering.
-        """
-        # Get Google Custom Search configuration
+        cache_key = f"{query.race_id}:{query.text}"
+        now = datetime.utcnow()
+        cached = self.cache.get(cache_key)
+        if cached and now - cached[0] < timedelta(seconds=self.cache_ttl):
+            return cached[1]
+
         api_key = os.getenv("GOOGLE_SEARCH_API_KEY")
         search_engine_id = os.getenv("GOOGLE_SEARCH_ENGINE_ID")
 
@@ -38,71 +114,90 @@ class SearchUtils:
                 "Google Custom Search API not configured (missing GOOGLE_SEARCH_API_KEY or GOOGLE_SEARCH_ENGINE_ID)"
             )
             logger.info(f"Would search Google for: {query.text}")
-
-            # Return mock results when API is not configured for local development
-            mock_results = [
-                Source(
-                    url=f"https://example.com/news/{issue.value.lower()}-{query.race_id}",
-                    type=SourceType.FRESH_SEARCH,
-                    title=f"Fresh: {issue.value} in {query.race_id}",
-                    description=f"Fresh search content about {issue.value} for this race",
-                    last_accessed=datetime.utcnow(),
-                    is_fresh=True,
-                )
-            ]
-            return mock_results
+            mock_source = Source(
+                url=f"https://example.com/news/{issue.value.lower()}-{query.race_id}",
+                type=SourceType.FRESH_SEARCH,
+                title=f"Fresh: {issue.value} in {query.race_id}",
+                description=f"Fresh search content about {issue.value} for this race",
+                last_accessed=now,
+                published_at=now,
+                score=0.5,
+                scoring_reason="mock",
+                is_fresh=True,
+            )
+            self.cache[cache_key] = (now, [mock_source])
+            return [mock_source]
 
         logger.info(f"Searching Google Custom Search for: {query.text}")
 
         try:
+            import httpx
+        except ImportError:
+            logger.warning("httpx not available for Google search. Using mock results.")
+            mock_source = Source(
+                url=f"https://example.com/mock/{issue.value.lower()}-{query.race_id}",
+                type=SourceType.FRESH_SEARCH,
+                title=f"Mock: {issue.value} in {query.race_id}",
+                description=f"Mock search content about {issue.value} for this race",
+                last_accessed=now,
+                published_at=now,
+                score=0.5,
+                scoring_reason="mock",
+                is_fresh=True,
+            )
+            self.cache[cache_key] = (now, [mock_source])
+            return [mock_source]
+
+        search_url = "https://www.googleapis.com/customsearch/v1"
+        params = {
+            "key": api_key,
+            "cx": search_engine_id,
+            "q": query.text,
+            "num": self.search_config.get("max_results_per_query", 10),
+            "dateRestrict": f"d{self.search_config.get('freshness_days', 30)}",
+            "sort": "date",
+        }
+
+        host = urlparse(search_url).netloc
+        async with self._host_semaphores[host]:
             try:
-                import httpx
-            except ImportError:
-                logger.warning("httpx not available for Google search. Using mock results.")
-                return [
-                    Source(
-                        url=f"https://example.com/mock/{issue.value.lower()}-{query.race_id}",
-                        type=SourceType.FRESH_SEARCH,
-                        title=f"Mock: {issue.value} in {query.race_id}",
-                        description=f"Mock search content about {issue.value} for this race",
-                        last_accessed=datetime.utcnow(),
-                        is_fresh=True,
-                    )
-                ]
+                async with httpx.AsyncClient() as client:
+                    response = await client.get(search_url, params=params)
+                    response.raise_for_status()
+                    data = response.json()
 
-            # Build search URL
-            search_url = "https://www.googleapis.com/customsearch/v1"
-            params = {
-                "key": api_key,
-                "cx": search_engine_id,
-                "q": query.text,
-                "num": self.search_config.get("max_results_per_query", 10),
-                "dateRestrict": f"d{self.search_config.get('freshness_days', 30)}",
-                "sort": "date",
-            }
+            except Exception as e:  # noqa: BLE001
+                logger.error(f"Google Custom Search failed: {e}")
+                return []
 
-            async with httpx.AsyncClient() as client:
-                response = await client.get(search_url, params=params)
-                response.raise_for_status()
-                data = response.json()
+        sources: List[Source] = []
+        state = query.race_id.split("-")[0] if query.race_id else None
+        for item in data.get("items", []):
+            published_at = self._extract_published_time(item)
+            source_type = self._classify_source(item["link"])
+            score, reason = self._score_source(
+                item["link"],
+                item.get("title", ""),
+                item.get("snippet", ""),
+                published_at,
+                state,
+            )
+            source = Source(
+                url=item["link"],
+                type=source_type,
+                title=item.get("title"),
+                description=item.get("snippet", ""),
+                last_accessed=now,
+                published_at=published_at,
+                score=score,
+                scoring_reason=reason,
+                is_fresh=True,
+            )
+            sources.append(source)
 
-                sources = []
-                for item in data.get("items", []):
-                    source = Source(
-                        url=item["link"],
-                        type=SourceType.FRESH_SEARCH,
-                        title=item["title"],
-                        description=item.get("snippet", ""),
-                        last_accessed=datetime.utcnow(),
-                        is_fresh=True,
-                    )
-                    sources.append(source)
-
-                return sources
-
-        except Exception as e:
-            logger.error(f"Google Custom Search failed: {e}")
-            return []
+        sources.sort(key=lambda s: s.score or 0, reverse=True)
+        self.cache[cache_key] = (datetime.utcnow(), sources)
+        return sources
 
     async def search_candidate_info(self, query: FreshSearchQuery) -> List[Source]:
         """
@@ -186,37 +281,182 @@ class SearchUtils:
             generated_at=datetime.utcnow(),
         )
 
+    def generate_candidate_issue_queries(
+        self,
+        race_id: str,
+        candidate_name: str,
+        issue: CanonicalIssue,
+        race_metadata: Optional[RaceMetadata],
+        sites: List[str],
+    ) -> List[FreshSearchQuery]:
+        """Generate base and site-specific queries for candidate×issue searches."""
+
+        state = None
+        year = None
+        district = None
+        if race_metadata:
+            state = race_metadata.state
+            year = race_metadata.year
+            district = race_metadata.district
+        else:
+            parts = race_id.split("-")
+            if parts:
+                state = parts[0]
+            if len(parts) >= 3 and parts[-1].isdigit():
+                year = parts[-1]
+
+        issue_terms = [issue.value.lower()] + self.issue_synonyms.get(issue, [])
+        issue_part = "(" + " OR ".join(issue_terms) + ")"
+
+        base = f'"{candidate_name}" {issue_part}'
+        if state:
+            base += f" {state}"
+        if district:
+            base += f" {district}"
+        if year:
+            base += f" {year}"
+
+        queries = [
+            FreshSearchQuery(
+                text=base,
+                race_id=race_id,
+                issue=issue,
+                generated_at=datetime.utcnow(),
+            )
+        ]
+
+        for site in sites:
+            queries.append(
+                FreshSearchQuery(
+                    text=f"{base} site:{site}",
+                    race_id=race_id,
+                    issue=issue,
+                    generated_at=datetime.utcnow(),
+                )
+            )
+
+        return queries
+
     def deduplicate_sources(self, sources: List[Source]) -> List[Source]:
-        """
-        Remove duplicate sources based on URL normalization.
+        """Remove duplicate sources with aggressive URL normalization."""
 
-        TODO:
-        - [ ] Add more sophisticated URL normalization
-        - [ ] Implement content-based deduplication
-        - [ ] Add domain-based grouping and ranking
-        """
-        seen_urls: Set[str] = set()
-        unique_sources = []
+        seen: Set[str] = set()
+        seen_titles: Set[str] = set()
+        unique_sources: List[Source] = []
 
-        for source in sources:
-            # Normalize URL for comparison
-            normalized_url = str(source.url).lower().rstrip("/")
-
-            # Remove common URL parameters that don't affect content
-            if "?" in normalized_url:
-                base_url, params = normalized_url.split("?", 1)
-                # Keep only important parameters
-                important_params = []
-                for param in params.split("&"):
-                    if param.startswith(("id=", "p=", "page=", "article=")):
-                        important_params.append(param)
-                if important_params:
-                    normalized_url = base_url + "?" + "&".join(important_params)
-                else:
-                    normalized_url = base_url
-
-            if normalized_url not in seen_urls:
-                seen_urls.add(normalized_url)
-                unique_sources.append(source)
+        for src in sources:
+            normalized = self._normalize_url(str(src.url))
+            title_key = urlparse(normalized).netloc + "|" + re.sub(r"\s+", " ", (src.title or "").lower())
+            if normalized in seen or title_key in seen_titles:
+                continue
+            seen.add(normalized)
+            seen_titles.add(title_key)
+            unique_sources.append(src)
 
         return unique_sources
+
+    def _normalize_url(self, url: str) -> str:
+        parsed = urlparse(url)
+        netloc = parsed.netloc.lower()
+        if netloc.startswith("m."):
+            netloc = netloc[2:]
+
+        path = re.sub(r"/(amp|mobile|print)/?", "/", parsed.path)
+        query = [
+            (k, v)
+            for k, v in parse_qsl(parsed.query, keep_blank_values=True)
+            if not k.lower().startswith(("utm_", "gclid", "fbclid"))
+        ]
+        normalized = urlunparse(
+            (
+                parsed.scheme,
+                netloc,
+                path.rstrip("/"),
+                "",
+                urlencode(query),
+                "",
+            )
+        )
+        return normalized
+
+    def _extract_published_time(self, item: Dict[str, Any]) -> Optional[datetime]:  # noqa: ANN401
+        pagemap = item.get("pagemap", {})
+        date_str = None
+        if "metatags" in pagemap:
+            for tag in pagemap["metatags"]:
+                date_str = tag.get("article:published_time") or tag.get("pubdate")
+                if date_str:
+                    break
+        if not date_str and "newsarticle" in pagemap:
+            date_str = pagemap["newsarticle"][0].get("datepublished")
+        if not date_str:
+            return None
+        try:
+            return datetime.fromisoformat(date_str.replace("Z", "+00:00"))
+        except Exception:  # noqa: BLE001
+            return None
+
+    def _classify_source(self, url: str) -> SourceType:
+        domain = urlparse(url).netloc.lower()
+        if domain.endswith(".gov") or "fec.gov" in domain:
+            return SourceType.GOVERNMENT
+        if any(social in domain for social in ["twitter.com", "facebook.com", "youtube.com"]):
+            return SourceType.SOCIAL_MEDIA
+        if url.lower().endswith(".pdf"):
+            return SourceType.PDF
+        return SourceType.WEBSITE
+
+    def _score_source(
+        self,
+        url: str,
+        title: str,
+        snippet: str,
+        published_at: Optional[datetime],
+        state: Optional[str],
+    ) -> Tuple[float, str]:
+        domain = urlparse(url).netloc.lower()
+        reason = []
+
+        # Domain trust
+        trust = 0.5
+        if domain.endswith(".gov") or "fec.gov" in domain:
+            trust = 1.0
+            reason.append("trust=gov")
+        elif domain.endswith(".edu"):
+            trust = 0.9
+            reason.append("trust=edu")
+        elif any(k in domain for k in ["ballotpedia.org", "opensecrets.org"]):
+            trust = 0.8
+            reason.append("trust=org")
+        else:
+            reason.append("trust=other")
+
+        score = trust
+
+        # Freshness
+        fresh_window = self.search_config.get("freshness_days", 30)
+        if published_at:
+            if (datetime.utcnow() - published_at).days <= fresh_window:
+                score += 0.1
+                reason.append("fresh=Y")
+            else:
+                reason.append("fresh=N")
+        else:
+            reason.append("fresh=?")
+
+        # Localness
+        local = 0.0
+        if state:
+            state_l = state.lower()
+            if state_l in url.lower() or state_l in title.lower() or state_l in snippet.lower():
+                local = 0.1
+        reason.append(f"local={local}")
+        score += local
+
+        # Type bonus
+        source_type = self._classify_source(url)
+        if source_type in {SourceType.GOVERNMENT, SourceType.PDF}:
+            score += 0.1
+        reason.append(f"type={source_type.value}")
+
+        return min(score, 1.0), "; ".join(reason)

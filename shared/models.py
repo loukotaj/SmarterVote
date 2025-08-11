@@ -11,6 +11,15 @@ from typing import Any, Dict, List, Literal, Optional
 from pydantic import BaseModel, Field, HttpUrl
 
 
+class DiscoveredCandidate(BaseModel):
+    """Structured candidate information discovered during metadata extraction."""
+
+    name: str
+    party: Optional[str] = None  # 'Democratic', 'Republican', 'Independent', etc.
+    incumbent: bool = False
+    sources: List[HttpUrl] = Field(default_factory=list)
+
+
 class SourceType(str, Enum):
     """Types of data sources."""
 
@@ -65,6 +74,9 @@ class Source(BaseModel):
     title: Optional[str] = None
     description: Optional[str] = None
     last_accessed: datetime
+    published_at: Optional[datetime] = None
+    score: Optional[float] = None
+    scoring_reason: Optional[str] = None
     checksum: Optional[str] = None
     is_fresh: bool = False  # Flag for fresh issue search results
 
@@ -185,10 +197,14 @@ class RaceMetadata(BaseModel):
     is_primary: bool = False
     primary_date: Optional[datetime] = None
     is_special_election: bool = False
+    is_runoff: bool = False
 
     # Key candidates (extracted from race_id pattern or early discovery)
     discovered_candidates: List[str] = Field(
-        default_factory=list, description="Candidate names discovered during metadata extraction"
+        default_factory=list, description="Candidate names discovered during metadata extraction (backward compatibility)"
+    )
+    structured_candidates: List[DiscoveredCandidate] = Field(
+        default_factory=list, description="Structured candidate information with party, incumbent status, and sources"
     )
     incumbent_party: Optional[str] = None
     competitive_rating: Optional[str] = None  # safe, lean, toss-up, etc.
@@ -271,3 +287,22 @@ class ArbitrationResult(BaseModel):
     consensus_method: str
     llm_responses: List[LLMResponse]
     minority_view: Optional[str] = None  # Stored when confidence is LOW
+
+
+class AIAnnotations(BaseModel):
+    """AI enrichment annotations for content chunks before indexing."""
+
+    issues: List[str] = Field(default_factory=list, description="Canonical issues detected with confidence")
+    candidates: List[str] = Field(default_factory=list, description="Canonical candidate names linked with confidence")
+    stance: List[Dict[str, Any]] = Field(
+        default_factory=list,
+        description="Per (candidate, issue): {position: pro/con/mixed/unknown, evidence_snippets[], rationale}",
+    )
+    index_summary: str = Field("", description="120-180 word evidence-grounded abstract per chunk")
+    claims: List[Dict[str, Any]] = Field(
+        default_factory=list, description="Claims with quote, normalized_claim, location (start, end), support_urls"
+    )
+    qa_pairs: List[Dict[str, Any]] = Field(
+        default_factory=list, description="2-5 synthetic (query, grounded_answer, evidence_offsets[]) per chunk"
+    )
+    usefulness: Dict[str, Any] = Field(default_factory=dict, description="Usefulness score 0-1 and reasons list")
