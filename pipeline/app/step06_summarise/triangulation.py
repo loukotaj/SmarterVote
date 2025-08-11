@@ -137,8 +137,8 @@ class SummaryTriangulator:
         # Simple approach: concatenate with provider attribution
         consensus_parts = []
         for i, summary in enumerate(summaries):
-            provider = summary.generator
-            text = summary.summary_text[:1000]  # Limit length
+            provider = summary.model
+            text = summary.content[:1000]  # Limit length
 
             if len(summaries) > 1:
                 consensus_parts.append(f"[{provider}]: {text}")
@@ -148,7 +148,7 @@ class SummaryTriangulator:
         consensus_text = "\n\n".join(consensus_parts)
 
         # Add consensus metadata
-        provider_list = [s.generator for s in summaries]
+        provider_list = [s.model for s in summaries]
         consensus_header = f"Consensus summary from {len(summaries)} providers ({', '.join(provider_list)}):\n\n"
 
         return consensus_header + consensus_text
@@ -165,7 +165,7 @@ class SummaryTriangulator:
         confidence_agreement = 1.0 - (len(unique_confidences) - 1) / len(summaries)
 
         # Analyze summary length consistency
-        summary_lengths = [len(s.summary_text) for s in summaries if s.summary_text]
+        summary_lengths = [len(s.content) for s in summaries if s.content]
         if summary_lengths:
             avg_length = sum(summary_lengths) / len(summary_lengths)
             length_variance = sum((length - avg_length) ** 2 for length in summary_lengths) / len(summary_lengths)
