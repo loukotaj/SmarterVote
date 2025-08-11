@@ -21,14 +21,14 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from ..schema import CanonicalIssue, ConfidenceLevel, IssueStance, RaceJSON
-from .publication_types import PublicationConfig, PublicationResult, PublicationTarget
-from .publishers import Publishers
-from .validation_utils import (
+from ..utils.validation_utils import (
     TransformationUtils,
     ValidationUtils,
     initialize_transformation_pipeline,
     initialize_validation_rules,
 )
+from .publication_types import PublicationConfig, PublicationResult, PublicationTarget
+from .publishers import Publishers
 
 logger = logging.getLogger(__name__)
 

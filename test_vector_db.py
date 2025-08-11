@@ -11,10 +11,10 @@ from pathlib import Path
 # Add the project root to sys.path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from pipeline.app.corpus.election_vector_database_manager import (
+from pipeline.app.schema import ExtractedContent, Source, SourceType
+from pipeline.app.step05_corpus.election_vector_database_manager import (
     ElectionVectorDatabaseManager,
 )
-from pipeline.app.schema import ExtractedContent, Source, SourceType
 
 
 async def test_basic_functionality():

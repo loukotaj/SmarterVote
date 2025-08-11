@@ -6,8 +6,8 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
-from pipeline.app.arbitrate.consensus_arbitration_engine import ConsensusArbitrationEngine
 from pipeline.app.providers import ModelConfig, ModelTier, TaskType, registry
+from pipeline.app.step07_arbitrate.consensus_arbitration_engine import ConsensusArbitrationEngine
 from shared import ConfidenceLevel, Summary
 
 
@@ -93,7 +93,9 @@ class TestConsensusArbitrationEngine:
         ]
 
         # Mock the registry to return our mock provider and model
-        with patch("pipeline.app.arbitrate.consensus_arbitration_engine.registry.get_triangulation_models") as mock_get_models:
+        with patch(
+            "pipeline.app.step07_arbitrate.consensus_arbitration_engine.registry.get_triangulation_models"
+        ) as mock_get_models:
             mock_get_models.return_value = [(mock_provider, mock_model_config)]
 
             result = await engine.arbitrate_summaries(all_summaries)
@@ -126,7 +128,9 @@ class TestConsensusArbitrationEngine:
         # Mock AI call to raise an exception
         mock_provider.generate.side_effect = Exception("AI API failed")
 
-        with patch("pipeline.app.arbitrate.consensus_arbitration_engine.registry.get_triangulation_models") as mock_get_models:
+        with patch(
+            "pipeline.app.step07_arbitrate.consensus_arbitration_engine.registry.get_triangulation_models"
+        ) as mock_get_models:
             mock_get_models.return_value = [(mock_provider, mock_model_config)]
 
             result = await engine.arbitrate_summaries(all_summaries)
@@ -189,7 +193,9 @@ class TestConsensusArbitrationEngine:
             mock_consensus_response,
         ]
 
-        with patch("pipeline.app.arbitrate.consensus_arbitration_engine.registry.get_triangulation_models") as mock_get_models:
+        with patch(
+            "pipeline.app.step07_arbitrate.consensus_arbitration_engine.registry.get_triangulation_models"
+        ) as mock_get_models:
             mock_get_models.return_value = [(mock_provider, mock_model_config)]
 
             result = await engine.arbitrate_summaries(all_summaries)
@@ -212,7 +218,9 @@ class TestConsensusArbitrationEngine:
         all_summaries = {"race_summaries": summaries, "candidate_summaries": [], "issue_summaries": []}
 
         # Mock registry to return no models
-        with patch("pipeline.app.arbitrate.consensus_arbitration_engine.registry.get_triangulation_models") as mock_get_models:
+        with patch(
+            "pipeline.app.step07_arbitrate.consensus_arbitration_engine.registry.get_triangulation_models"
+        ) as mock_get_models:
             mock_get_models.return_value = []  # No models available
 
             result = await engine.arbitrate_summaries(all_summaries)
@@ -269,7 +277,9 @@ class TestConsensusArbitrationEngine:
         # Mock AI call to return invalid JSON
         mock_provider.generate.return_value = "Invalid JSON response"
 
-        with patch("pipeline.app.arbitrate.consensus_arbitration_engine.registry.get_triangulation_models") as mock_get_models:
+        with patch(
+            "pipeline.app.step07_arbitrate.consensus_arbitration_engine.registry.get_triangulation_models"
+        ) as mock_get_models:
             mock_get_models.return_value = [(mock_provider, mock_model_config)]
 
             result = await engine.arbitrate_summaries(all_summaries)

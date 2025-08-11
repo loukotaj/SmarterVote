@@ -21,10 +21,10 @@ except ImportError:
     pass
 
 from ..providers import SummaryOutput, TaskType, registry
+from ..providers.prompt_templates import PromptTemplates
 from ..schema import CanonicalIssue, ConfidenceLevel, ExtractedContent, Summary
 from .api_errors import LLMAPIError, RateLimitError
 from .content_processor import ContentProcessor
-from .prompt_templates import PromptTemplates
 from .triangulation import SummaryTriangulator
 
 logger = logging.getLogger(__name__)
@@ -200,7 +200,7 @@ class LLMSummarizationEngine:
             "generated_at": datetime.utcnow().isoformat(),
             "content_stats": {
                 "total_items": len(content),
-                "total_characters": sum(len(item.content) for item in content),
+                "total_characters": sum(len(item.text) for item in content),
             },
             "summaries": {},
             "triangulation": {},

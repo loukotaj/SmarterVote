@@ -18,7 +18,7 @@ from shared import ConfidenceLevel, ExtractedContent, Source, SourceType, Summar
 # Add parent directories to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
 
-from pipeline.app.summarise import LLMSummarizationEngine
+from pipeline.app.step06_summarise.llm_summarization_engine import LLMSummarizationEngine
 
 
 class TestLLMSummarizationEngineProviders:
@@ -35,7 +35,7 @@ class TestLLMSummarizationEngineProviders:
                     title="Candidate Official Page",
                     last_accessed=datetime.utcnow(),
                 ),
-                text="The candidate supports comprehensive healthcare reform including expanding access to affordable care.",
+                text="John Smith supports comprehensive healthcare reform including expanding access to affordable care.",
                 metadata={"word_count": 15},
                 extraction_timestamp=datetime.utcnow(),
                 word_count=15,
@@ -48,7 +48,7 @@ class TestLLMSummarizationEngineProviders:
                     title="Candidate Interview",
                     last_accessed=datetime.utcnow(),
                 ),
-                text="In a recent interview, the candidate outlined their economic policies focusing on job creation and infrastructure investment.",
+                text="In a recent interview, Jane Doe outlined her economic policies focusing on job creation and infrastructure investment.",
                 metadata={"word_count": 18},
                 extraction_timestamp=datetime.utcnow(),
                 word_count=18,
@@ -115,25 +115,46 @@ class TestLLMSummarizationEngineProviders:
         """Test that generate_summaries returns empty structure when no models are enabled."""
         summaries = await engine_with_no_keys.generate_summaries("test-race-123", sample_extracted_content)
 
-        # The actual behavior might vary - it could return empty lists or handle gracefully
+        # Check the new response format
         assert isinstance(summaries, dict)
-        assert "race_summaries" in summaries
-        assert "candidate_summaries" in summaries
-        assert "issue_summaries" in summaries
+        assert "race_id" in summaries
+        assert "generated_at" in summaries
+        assert "content_stats" in summaries
+        assert "summaries" in summaries
+        assert "triangulation" in summaries
+
+        # Check that all summary types are empty when no models are enabled
+        assert summaries["summaries"]["race"] == []
+        assert summaries["summaries"]["candidates"] == []
+        assert summaries["summaries"]["issues"] == []
 
     @pytest.mark.asyncio
     async def test_generate_summaries_empty_content(self, engine_with_openai_key):
         """Test that generate_summaries handles empty content gracefully."""
         summaries = await engine_with_openai_key.generate_summaries("test-race-123", [])
-        expected = {"race_summaries": [], "candidate_summaries": [], "issue_summaries": []}
-        assert summaries == expected
+
+        # Check the new response format
+        assert "race_id" in summaries
+        assert "generated_at" in summaries
+        assert "content_stats" in summaries
+        assert "summaries" in summaries
+        assert "triangulation" in summaries
+
+        # Check content stats for empty content
+        assert summaries["content_stats"]["total_items"] == 0
+        assert summaries["content_stats"]["total_characters"] == 0
+
+        # Check that all summary types are empty
+        assert summaries["summaries"]["race"] == []
+        assert summaries["summaries"]["candidates"] == []
+        assert summaries["summaries"]["issues"] == []
 
     # Provider-based functional tests
 
     @pytest.mark.asyncio
     async def test_provider_registry_integration(self):
         """Test that the engine properly integrates with the provider registry."""
-        from ..providers import TaskType, registry
+        from . import TaskType, registry
 
         # Check that we can get models for summarization
         models = registry.get_enabled_models(TaskType.SUMMARIZE)
@@ -149,7 +170,7 @@ class TestLLMSummarizationEngineProviders:
     @pytest.mark.asyncio
     async def test_triangulation_models_selection(self):
         """Test that triangulation models are properly selected."""
-        from ..providers import TaskType, registry
+        from . import TaskType, registry
 
         triangulation_models = registry.get_triangulation_models(TaskType.SUMMARIZE)
         assert isinstance(triangulation_models, list)
@@ -163,7 +184,7 @@ class TestLLMSummarizationEngineProviders:
     @pytest.mark.asyncio
     async def test_provider_availability_check(self):
         """Test provider availability checking."""
-        from ..providers import registry
+        from . import registry
 
         for provider_name in registry.list_providers():
             provider = registry.get_provider(provider_name)
@@ -179,20 +200,22 @@ class TestLLMSummarizationEngineProviders:
 
         # Should return the expected structure
         assert isinstance(result, dict)
-        assert "race_summaries" in result
-        assert "candidate_summaries" in result
-        assert "issue_summaries" in result
+        assert "race_id" in result
+        assert "generated_at" in result
+        assert "content_stats" in result
+        assert "summaries" in result
+        assert "triangulation" in result
 
-        # Each should be a list
-        assert isinstance(result["race_summaries"], list)
-        assert isinstance(result["candidate_summaries"], list)
-        assert isinstance(result["issue_summaries"], list)
+        # Each summary type should be a list
+        assert isinstance(result["summaries"]["race"], list)
+        assert isinstance(result["summaries"]["candidates"], list)
+        assert isinstance(result["summaries"]["issues"], list)
 
     @pytest.mark.asyncio
     async def test_summary_output_structure(self, engine_with_openai_key, sample_extracted_content):
         """Test that summaries include confidence and source information."""
         # Mock the provider to return structured output
-        from ..providers import SummaryOutput, registry
+        from . import SummaryOutput, registry
 
         mock_summary_output = SummaryOutput(
             content="Test summary content",
@@ -208,8 +231,8 @@ class TestLLMSummarizationEngineProviders:
             result = await engine_with_openai_key.generate_summaries("test-race", sample_extracted_content)
 
             # Check that summaries have the expected structure
-            if result["race_summaries"]:
-                summary = result["race_summaries"][0]
+            if result["summaries"]["race"]:
+                summary = result["summaries"]["race"][0]
                 assert hasattr(summary, "content")
                 assert hasattr(summary, "confidence")
                 assert hasattr(summary, "model")
@@ -219,23 +242,27 @@ class TestLLMSummarizationEngineProviders:
     def test_content_filtering_methods(self, engine_with_openai_key, sample_extracted_content):
         """Test content filtering helper methods."""
         # Test candidate extraction
-        candidates = engine_with_openai_key._extract_candidates_from_content(sample_extracted_content)
+        candidates = engine_with_openai_key.content_processor.extract_candidates_from_content(sample_extracted_content)
         assert isinstance(candidates, list)
         assert len(candidates) > 0
 
         # Test candidate filtering
         if candidates:
-            filtered = engine_with_openai_key._filter_content_for_candidate(sample_extracted_content, candidates[0])
+            filtered = engine_with_openai_key.content_processor.filter_content_for_candidate(
+                sample_extracted_content, candidates[0]
+            )
             assert isinstance(filtered, list)
 
         # Test issue filtering
-        filtered_issue = engine_with_openai_key._filter_content_for_issue(sample_extracted_content, "Healthcare")
+        filtered_issue = engine_with_openai_key.content_processor.filter_content_for_issue(
+            sample_extracted_content, "Healthcare"
+        )
         assert isinstance(filtered_issue, list)
 
     @pytest.mark.asyncio
     async def test_cheap_mode_vs_premium_mode(self):
         """Test that cheap mode and premium mode use different model tiers."""
-        from ..providers import ModelTier, TaskType, registry
+        from . import ModelTier, TaskType, registry
 
         # Test premium mode - explicitly set cheap mode to false
         with patch.dict(os.environ, {"OPENAI_API_KEY": "test-key", "SMARTERVOTE_CHEAP_MODE": "false"}):
@@ -265,7 +292,9 @@ class TestLLMSummarizationEngineProviders:
 
     def test_prepare_content_for_summarization(self, engine_with_openai_key, sample_extracted_content):
         """Test content preparation for summarization."""
-        prepared = engine_with_openai_key._prepare_content_for_summarization(sample_extracted_content, "test-race-123")
+        prepared = engine_with_openai_key.content_processor.prepare_content_for_summarization(
+            sample_extracted_content, "test-race-123"
+        )
 
         assert isinstance(prepared, str)
         assert len(prepared) > 0

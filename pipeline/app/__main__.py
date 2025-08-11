@@ -26,16 +26,16 @@ try:
 except ImportError:
     pass
 
-from .arbitrate import ArbitrationService
-from .corpus import CorpusService
-from .discover import DiscoveryService
-from .extract import ExtractService
-from .fetch import FetchService
-from .metadata import RaceMetadataService
 from .providers import list_providers, registry
-from .publish import PublishService
 from .schema import ProcessingJob, ProcessingStatus
-from .summarise import SummarizeService
+from .step01_metadata import RaceMetadataService
+from .step02_discover import DiscoveryService
+from .step03_fetch import FetchService
+from .step04_extract import ExtractService
+from .step05_corpus import CorpusService
+from .step06_summarise import SummarizeService
+from .step07_arbitrate import ArbitrationService
+from .step08_publish import PublishService
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")

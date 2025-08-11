@@ -25,7 +25,7 @@ from datetime import datetime
 from typing import List, Optional
 
 from ..schema import CanonicalIssue, FreshSearchQuery, RaceMetadata, Source, SourceType
-from .search_utils import SearchUtils
+from ..utils.search_utils import SearchUtils
 
 logger = logging.getLogger(__name__)
 

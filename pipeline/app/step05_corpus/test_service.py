@@ -14,8 +14,8 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
-from ..corpus.election_vector_database_manager import ElectionVectorDatabaseManager
 from ..schema import CanonicalIssue, ExtractedContent, Source, SourceType, VectorDocument
+from ..step05_corpus.election_vector_database_manager import ElectionVectorDatabaseManager
 
 
 @pytest.fixture
@@ -85,14 +85,14 @@ class TestElectionVectorDatabaseManager:
         # Mock dependencies to avoid import issues in CI
         with (
             patch("chromadb.PersistentClient") as mock_client,
-            patch("pipeline.app.corpus.vector_database_manager.SentenceTransformer") as mock_embedding,
+            patch("pipeline.app.step05_corpus.vector_database_manager.SentenceTransformer") as mock_embedding,
         ):
             mock_collection = MagicMock()
             mock_collection.count.return_value = 0
             mock_client.return_value.get_or_create_collection.return_value = mock_collection
 
             # Mock the availability flag
-            with patch("pipeline.app.corpus.vector_database_manager.SENTENCE_TRANSFORMERS_AVAILABLE", True):
+            with patch("pipeline.app.step05_corpus.vector_database_manager.SENTENCE_TRANSFORMERS_AVAILABLE", True):
                 await db_manager.initialize()
 
             assert db_manager.client is not None

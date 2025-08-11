@@ -40,7 +40,7 @@ class ContentProcessor:
         ]
 
         for item in content:
-            text = item.content
+            text = item.text
             for pattern in name_patterns:
                 matches = re.findall(pattern, text)
                 for match in matches:
@@ -62,7 +62,7 @@ class ContentProcessor:
         candidate_keywords = candidate.lower().split()
 
         for item in content:
-            content_lower = item.content.lower()
+            content_lower = item.text.lower()
             # Check if candidate name appears in content
             if any(keyword in content_lower for keyword in candidate_keywords):
                 filtered_content.append(item)
@@ -176,7 +176,7 @@ class ContentProcessor:
 
         filtered_content = []
         for item in content:
-            content_lower = item.content.lower()
+            content_lower = item.text.lower()
             if any(keyword in content_lower for keyword in keywords):
                 filtered_content.append(item)
 
@@ -218,11 +218,11 @@ class ContentProcessor:
 
             for i, item in enumerate(items[:10], 1):  # Limit to 10 items per type
                 # Format each content item
-                url = getattr(item, "url", "Unknown URL")
-                title = getattr(item, "title", "Unknown Title")
-                content_text = item.content[:2000]  # Limit content length
+                url = getattr(item.source, "url", "Unknown URL") if hasattr(item, "source") else "Unknown URL"
+                title = getattr(item.source, "title", "Unknown Title") if hasattr(item, "source") else "Unknown Title"
+                content_text = item.text[:2000]  # Limit content length
 
-                if len(item.content) > 2000:
+                if len(item.text) > 2000:
                     content_text += "... [truncated]"
 
                 formatted_content.append(f"\n{i}. Source: {title}")
@@ -231,7 +231,7 @@ class ContentProcessor:
 
         # Add content statistics
         total_items = len(content)
-        total_chars = sum(len(item.content) for item in content)
+        total_chars = sum(len(item.text) for item in content)
         formatted_content.append(f"\n--- CONTENT STATISTICS ---")
         formatted_content.append(f"Total items: {total_items}")
         formatted_content.append(f"Total characters: {total_chars}")

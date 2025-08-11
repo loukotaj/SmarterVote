@@ -19,8 +19,8 @@ import re
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional, Tuple
 
-from ..discover.source_discovery_engine import SourceDiscoveryEngine
 from ..schema import CanonicalIssue, ConfidenceLevel, FreshSearchQuery, RaceMetadata, Source, SourceType
+from ..step02_discover.source_discovery_engine import SourceDiscoveryEngine
 
 logger = logging.getLogger(__name__)
 

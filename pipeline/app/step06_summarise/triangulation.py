@@ -125,11 +125,11 @@ class SummaryTriangulator:
             return "No summaries available for consensus building."
 
         if len(summaries) == 1:
-            return summaries[0].summary_text
+            return summaries[0].content
 
         # For multiple summaries, create a combined summary
         # TODO: Implement sophisticated summary fusion
-        summary_texts = [s.summary_text for s in summaries if s.summary_text]
+        summary_texts = [s.content for s in summaries if s.content]
 
         if not summary_texts:
             return "No valid summary text available."
