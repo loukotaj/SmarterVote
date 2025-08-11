@@ -50,8 +50,10 @@ class Publishers:
 
             # Create backup if file exists
             if output_file.exists():
-                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-                backup_file = output_dir / f"{race.id}.json.backup.{timestamp}"
+                backup_file = output_dir / f"{race.id}.json.backup"
+                # Remove existing backup if it exists
+                if backup_file.exists():
+                    backup_file.unlink()
                 output_file.rename(backup_file)
                 logger.debug(f"Created backup: {backup_file}")
 
@@ -89,13 +91,55 @@ class Publishers:
         - Cost optimization through intelligent storage classes
         """
         try:
-            if not self.config.cloud_bucket:
-                logger.warning("Cloud storage not configured, skipping cloud publication")
-                return
+            import os
 
-            # Mock implementation - replace with actual cloud SDK calls
-            logger.info(f"Would publish race {race.id} to cloud storage bucket: {self.config.cloud_bucket}")
-            logger.debug(f"Cloud storage path: {self.config.cloud_prefix}/{race.id}.json")
+            # Get configuration from environment
+            project_id = os.getenv("GOOGLE_CLOUD_PROJECT")
+            bucket_name = os.getenv("GCS_BUCKET_NAME")
+
+            if not project_id or not bucket_name:
+                raise ValueError("Cloud storage not configured: missing cloud_bucket configuration")
+
+            # Import and use Google Cloud Storage client
+            try:
+                from google.cloud import storage
+                from google.cloud.exceptions import GoogleCloudError
+
+                # Initialize client
+                client = storage.Client(project=project_id)
+                bucket = client.bucket(bucket_name)
+
+                # Generate blob name
+                blob_name = f"races/{race.id}.json"
+                blob = bucket.blob(blob_name)
+
+                # Convert race to JSON
+                race_json = race.model_dump(mode="json")
+                race_data = json.dumps(race_json, indent=2, ensure_ascii=False, default=str)
+
+                # Set metadata
+                metadata = {
+                    "race_id": race.id,
+                    "updated_utc": race.updated_utc.isoformat(),
+                    "pipeline_version": "1.0.0",
+                    "content_type": "application/json",
+                    "encoding": "utf-8",
+                }
+
+                # Upload with proper content type and metadata
+                blob.upload_from_string(race_data, content_type="application/json; charset=utf-8")
+
+                # Update blob metadata
+                blob.metadata = metadata
+                blob.patch()
+
+                logger.info(f"Successfully published race {race.id} to GCS bucket {bucket_name}")
+
+            except ImportError:
+                # Fallback to mock implementation if GCS client not available
+                logger.warning("Google Cloud Storage client not available, using mock implementation")
+                logger.info(f"Would publish race {race.id} to cloud storage bucket: {bucket_name}")
+                logger.debug(f"Cloud storage path: races/{race.id}.json")
 
             # TODO: Implement actual cloud storage upload
             # Example for Google Cloud Storage:
@@ -127,8 +171,7 @@ class Publishers:
         """
         try:
             if not self.config.database_url:
-                logger.warning("Database not configured, skipping database publication")
-                return
+                raise ValueError("Database not configured: missing database_url configuration")
 
             # Mock implementation - replace with actual database operations
             logger.info(f"Would publish race {race.id} to database: {self.config.database_url}")
@@ -164,8 +207,7 @@ class Publishers:
         """
         try:
             if not self.config.webhook_urls:
-                logger.debug("No webhooks configured, skipping webhook publication")
-                return
+                raise ValueError("Webhooks not configured: missing webhook_urls configuration")
 
             for webhook_url in self.config.webhook_urls:
                 logger.info(f"Would send race {race.id} to webhook: {webhook_url}")

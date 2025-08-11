@@ -158,7 +158,7 @@ class SearchUtils:
         query_text = " ".join(query_parts)
 
         # Add search operators for better results
-        query_text += ' -site:wikipedia.org -site:reddit.com -site:twitter.com'
+        query_text += " -site:wikipedia.org -site:reddit.com -site:twitter.com"
 
         return FreshSearchQuery(
             text=query_text,
@@ -177,7 +177,7 @@ class SearchUtils:
         - [ ] Add temporal constraints for recent information
         """
         query_text = f'"{candidate_name}" candidate {race_id.split("-")[0]} {race_id.split("-")[1]}'
-        query_text += ' -site:wikipedia.org -obituary -death'
+        query_text += " -site:wikipedia.org -obituary -death"
 
         return FreshSearchQuery(
             text=query_text,
@@ -200,7 +200,7 @@ class SearchUtils:
 
         for source in sources:
             # Normalize URL for comparison
-            normalized_url = source.url.lower().rstrip("/")
+            normalized_url = str(source.url).lower().rstrip("/")
 
             # Remove common URL parameters that don't affect content
             if "?" in normalized_url:

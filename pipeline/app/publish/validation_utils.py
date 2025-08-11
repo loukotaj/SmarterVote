@@ -61,11 +61,19 @@ class ValidationUtils:
         try:
             # Pydantic model validation
             race.model_validate(race.model_dump())
+
+            # Additional business rule validation
+            if not race.id.strip():
+                raise ValueError("Race ID cannot be empty")
+
+            if len(race.candidates) == 0:
+                raise ValueError("Race must have at least one candidate")
+
             logger.debug(f"RaceJSON validation passed for race {race.id}")
 
         except Exception as e:
             logger.error(f"RaceJSON validation failed for race {race.id}: {e}")
-            raise ValueError(f"Invalid RaceJSON structure: {e}")
+            raise ValueError(f"RaceJSON validation failed: {e}")
 
 
 class TransformationUtils:
@@ -98,6 +106,9 @@ class TransformationUtils:
         try:
             # Extract from consensus data if available
             consensus_data = arbitrated_data.get("race_info", {})
+            # Fallback to consensus_data for backwards compatibility
+            if not consensus_data:
+                consensus_data = arbitrated_data.get("consensus_data", {})
 
             # Office information
             if "office" in consensus_data:
@@ -112,6 +123,12 @@ class TransformationUtils:
                 metadata["jurisdiction"] = consensus_data["district"]
             elif "state" in consensus_data:
                 metadata["jurisdiction"] = consensus_data["state"]
+
+            # Title information
+            if "race_title" in consensus_data:
+                metadata["title"] = consensus_data["race_title"]
+            elif "title" in consensus_data:
+                metadata["title"] = consensus_data["title"]
 
             # Parse election date
             if "election_date" in consensus_data:

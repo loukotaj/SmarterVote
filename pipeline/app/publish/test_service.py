@@ -29,13 +29,7 @@ def temp_output_dir():
 @pytest.fixture
 def config(temp_output_dir):
     """Create a test configuration."""
-    return PublicationConfig(
-        output_directory=temp_output_dir,
-        enable_cloud_storage=True,
-        enable_database=True,
-        enable_webhooks=True,
-        enable_notifications=True,
-    )
+    return PublicationConfig(default_targets=[PublicationTarget.LOCAL_FILE], local_output_dir=str(temp_output_dir))
 
 
 @pytest.fixture
@@ -127,10 +121,10 @@ class TestRacePublishingEngine:
 
     def test_initialization(self, temp_output_dir):
         """Test engine initialization with custom config."""
-        config = PublicationConfig(output_directory=temp_output_dir)
+        config = PublicationConfig(default_targets=[PublicationTarget.LOCAL_FILE], local_output_dir=str(temp_output_dir))
         engine = RacePublishingEngine(config)
 
-        assert engine.config.output_directory == temp_output_dir
+        assert engine.config.local_output_dir == str(temp_output_dir)
         assert temp_output_dir.exists()
         assert engine.publication_history == []
         assert engine.active_publications == {}
@@ -139,8 +133,8 @@ class TestRacePublishingEngine:
         """Test engine initialization with default config."""
         engine = RacePublishingEngine()
 
-        assert engine.config.output_directory == Path("data/published")
-        assert engine.config.enable_cloud_storage is True
+        assert engine.config.local_output_dir == "data/published"
+        assert engine.config.enable_notifications is True
 
     @pytest.mark.asyncio
     async def test_create_race_json_success(self, engine, sample_arbitrated_data):
@@ -201,7 +195,7 @@ class TestRacePublishingEngine:
     @pytest.mark.asyncio
     async def test_publish_to_local_file(self, engine, sample_race, temp_output_dir):
         """Test publishing to local file system."""
-        await engine._publish_to_local_file(sample_race)
+        await engine.publishers.publish_to_local_file(sample_race)
 
         output_file = temp_output_dir / f"{sample_race.id}.json"
         assert output_file.exists()
@@ -224,7 +218,7 @@ class TestRacePublishingEngine:
         output_file.write_text('{"old": "data"}')
 
         # Publish new data
-        await engine._publish_to_local_file(sample_race)
+        await engine.publishers.publish_to_local_file(sample_race)
 
         # Check backup was created and new file exists
         assert output_file.exists()
@@ -252,7 +246,7 @@ class TestRacePublishingEngine:
         os.environ["GCS_BUCKET_NAME"] = "test-bucket"
 
         try:
-            await engine._publish_to_cloud_storage(sample_race)
+            await engine.publishers.publish_to_cloud_storage(sample_race)
 
             # Verify GCS operations were called
             mock_client.assert_called_once_with(project="test-project")
@@ -281,8 +275,8 @@ class TestRacePublishingEngine:
             if var in os.environ:
                 del os.environ[var]
 
-        with pytest.raises(ValueError, match="Missing required GCP configuration"):
-            await engine._publish_to_cloud_storage(sample_race)
+        with pytest.raises(ValueError, match="Cloud storage not configured"):
+            await engine.publishers.publish_to_cloud_storage(sample_race)
 
     @pytest.mark.asyncio
     async def test_publish_to_webhooks_success(self, engine, sample_race):
@@ -299,8 +293,8 @@ class TestRacePublishingEngine:
 
         try:
             # Mock the aiohttp calls by patching the method directly
-            with patch.object(engine, "_publish_to_webhooks", new_callable=AsyncMock) as mock_webhooks:
-                await engine._publish_to_webhooks(sample_race)
+            with patch.object(engine.publishers, "publish_to_webhooks", new_callable=AsyncMock) as mock_webhooks:
+                await engine.publishers.publish_to_webhooks(sample_race)
                 mock_webhooks.assert_called_once_with(sample_race)
 
         finally:
@@ -324,8 +318,8 @@ class TestRacePublishingEngine:
 
         try:
             # Mock the method to avoid actual Pub/Sub calls
-            with patch.object(engine, "_publish_to_pubsub", new_callable=AsyncMock) as mock_pubsub:
-                await engine._publish_to_pubsub(sample_race)
+            with patch.object(engine.publishers, "publish_to_pubsub", new_callable=AsyncMock) as mock_pubsub:
+                await engine.publishers.publish_to_pubsub(sample_race)
                 mock_pubsub.assert_called_once_with(sample_race)
 
         finally:
@@ -338,12 +332,12 @@ class TestRacePublishingEngine:
     async def test_publish_race_all_targets(self, engine, sample_race):
         """Test publishing to all targets."""
         # Mock all publication methods to avoid external dependencies
-        engine._publish_to_local_file = AsyncMock()
-        engine._publish_to_cloud_storage = AsyncMock()
-        engine._publish_to_database = AsyncMock()
-        engine._publish_to_webhooks = AsyncMock()
-        engine._publish_to_pubsub = AsyncMock()
-        engine._publish_to_api_endpoint = AsyncMock()
+        engine.publishers.publish_to_local_file = AsyncMock()
+        engine.publishers.publish_to_cloud_storage = AsyncMock()
+        engine.publishers.publish_to_database = AsyncMock()
+        engine.publishers.publish_to_webhooks = AsyncMock()
+        engine.publishers.publish_to_pubsub = AsyncMock()
+        engine.publishers.publish_to_api_endpoint = AsyncMock()
 
         # Explicitly test all targets instead of relying on environment detection
         all_targets = list(PublicationTarget)
@@ -360,12 +354,12 @@ class TestRacePublishingEngine:
     async def test_publish_race_partial_failure(self, engine, sample_race):
         """Test publishing with some targets failing."""
         # Mock methods with mixed success
-        engine._publish_to_local_file = AsyncMock()
-        engine._publish_to_cloud_storage = AsyncMock(side_effect=Exception("GCS Error"))
-        engine._publish_to_database = AsyncMock()
-        engine._publish_to_webhooks = AsyncMock(side_effect=Exception("Webhook Error"))
-        engine._publish_to_pubsub = AsyncMock()
-        engine._publish_to_api_endpoint = AsyncMock()
+        engine.publishers.publish_to_local_file = AsyncMock()
+        engine.publishers.publish_to_cloud_storage = AsyncMock(side_effect=Exception("GCS Error"))
+        engine.publishers.publish_to_database = AsyncMock()
+        engine.publishers.publish_to_webhooks = AsyncMock(side_effect=Exception("Webhook Error"))
+        engine.publishers.publish_to_pubsub = AsyncMock()
+        engine.publishers.publish_to_api_endpoint = AsyncMock()
 
         # Explicitly test all targets to ensure mixed success/failure
         all_targets = list(PublicationTarget)

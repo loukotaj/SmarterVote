@@ -14,11 +14,13 @@ Key responsibilities:
 """
 
 import asyncio
+import json
 import logging
 from datetime import datetime, timezone
+from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from ..schema import RaceJSON
+from ..schema import CanonicalIssue, ConfidenceLevel, IssueStance, RaceJSON
 from .publication_types import PublicationConfig, PublicationResult, PublicationTarget
 from .publishers import Publishers
 from .validation_utils import (
@@ -47,8 +49,7 @@ class RacePublishingEngine:
             config: Publication configuration settings
         """
         self.config = config or PublicationConfig(
-            default_targets=[PublicationTarget.LOCAL_FILE],
-            local_output_dir="data/published"
+            default_targets=[PublicationTarget.LOCAL_FILE], local_output_dir="data/published"
         )
 
         # Initialize publishers and utilities
@@ -62,11 +63,8 @@ class RacePublishingEngine:
         self.publication_history: List[PublicationResult] = []
         self.active_publications: Dict[str, asyncio.Task] = {}
 
-        # Validation and transformation settings
-        self.validation_rules = self._initialize_validation_rules()
-        self.transformation_pipeline = self._initialize_transformation_pipeline()
-        
-        logger.info(f"Publishing engine initialized with output directory: {self.config.output_directory}")
+        logger.info(f"Publishing engine initialized with output directory: {self.config.local_output_dir}")
+
     async def create_race_json(
         self,
         race_id: str,
@@ -98,7 +96,6 @@ class RacePublishingEngine:
             # Validate input data
             await self.validation_utils.validate_arbitrated_data(arbitrated_data)
 
-
             # Extract base race information - prioritize race_metadata if available
             if race_metadata:
                 race_info = {
@@ -122,10 +119,10 @@ class RacePublishingEngine:
             # Create RaceJSON object
             race = RaceJSON(
                 id=race_id,
+                election_date=race_info.get("election_date", datetime.utcnow()),
                 candidates=candidates,
-                metadata=metadata,
-                last_updated=datetime.utcnow(),
-                title=race_info.get("title", f"Race {race_id}"),
+                updated_utc=datetime.utcnow(),
+                title=race_info.get("title", f"Electoral Race {race_id}"),
                 office=race_info.get("office", "Unknown Office"),
                 jurisdiction=race_info.get("jurisdiction", "Unknown Jurisdiction"),
                 race_metadata=race_metadata,  # Include the full metadata
@@ -268,360 +265,6 @@ class RacePublishingEngine:
                 metadata={"error_type": type(e).__name__},
             )
 
-    async def _publish_to_local_file(self, race: RaceJSON) -> None:
-        """
-        Publish race data to local file system.
-
-        TODO: Implement advanced local file publishing:
-        - JSON pretty-printing with consistent formatting
-        - File versioning with timestamp suffixes
-        - Atomic write operations to prevent corruption
-        - Backup creation before overwriting existing files
-        - Directory organization by date/jurisdiction
-        - Compression for large race files
-        - Checksum generation for integrity verification
-        - Symbolic link creation for latest version
-        """
-        try:
-            # Convert to JSON with proper formatting
-            race_json = race.model_dump(mode="json")
-
-            # Generate output filename with versioning
-            output_file = self.config.output_directory / f"{race.id}.json"
-
-            # Create backup if file exists
-            if output_file.exists() and self.config.version_control:
-                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-                backup_file = self.config.output_directory / f"{race.id}.json.backup.{timestamp}"
-                output_file.rename(backup_file)
-                logger.debug(f"Created backup: {backup_file}")
-
-            # Write race data atomically
-            temp_file = output_file.with_suffix(".tmp")
-            with open(temp_file, "w", encoding="utf-8") as f:
-                json.dump(race_json, f, indent=2, ensure_ascii=False, default=str)
-
-            # Atomic rename to final filename
-            temp_file.rename(output_file)
-
-            logger.debug(f"Successfully published race {race.id} to local file: {output_file}")
-
-        except Exception as e:
-            logger.error(f"Failed to publish race {race.id} to local file: {e}")
-            raise
-
-    async def _publish_to_cloud_storage(self, race: RaceJSON) -> None:
-        """
-        Publish race data to Google Cloud Storage.
-
-        Implements cloud storage integration with proper error handling,
-        metadata, and content type configuration.
-        """
-        try:
-            import os
-
-            from google.cloud import storage
-            from google.cloud.exceptions import GoogleCloudError
-
-            # Get configuration from environment
-            project_id = os.getenv("GOOGLE_CLOUD_PROJECT")
-            bucket_name = os.getenv("GCS_BUCKET_NAME")
-
-            if not project_id or not bucket_name:
-                raise ValueError("Missing required GCP configuration: GOOGLE_CLOUD_PROJECT and GCS_BUCKET_NAME")
-
-            # Initialize client
-            client = storage.Client(project=project_id)
-            bucket = client.bucket(bucket_name)
-
-            # Generate blob name with versioning
-            blob_name = f"races/{race.id}.json"
-            blob = bucket.blob(blob_name)
-
-            # Convert race to JSON
-            race_json = race.model_dump(mode="json")
-            race_data = json.dumps(race_json, indent=2, ensure_ascii=False, default=str)
-
-            # Set metadata
-            metadata = {
-                "race_id": race.id,
-                "updated_utc": race.updated_utc.isoformat(),
-                "pipeline_version": "1.0.0",
-                "content_type": "application/json",
-                "encoding": "utf-8",
-            }
-
-            # Upload with proper content type and metadata
-            blob.upload_from_string(race_data, content_type="application/json; charset=utf-8")
-
-            # Update blob metadata
-            blob.metadata = metadata
-            blob.patch()
-
-            # Make publicly readable if configured
-            if os.getenv("GCS_PUBLIC_READ", "false").lower() == "true":
-                blob.make_public()
-
-            logger.info(f"Successfully published race {race.id} to GCS bucket {bucket_name}")
-
-        except ImportError:
-            logger.error("Google Cloud Storage client not available. Install with: pip install google-cloud-storage")
-            raise
-        except GoogleCloudError as e:
-            logger.error(f"GCS error publishing race {race.id}: {e}")
-            raise
-        except Exception as e:
-            logger.error(f"Failed to publish race {race.id} to cloud storage: {e}")
-            raise
-
-    async def _publish_to_database(self, race: RaceJSON) -> None:
-        """
-        Publish race data to database systems.
-
-        Implements database publication with proper transaction handling,
-        conflict resolution, and data normalization.
-        """
-        try:
-            import os
-
-            import asyncpg
-            from asyncpg.exceptions import PostgresError
-
-            # Get database configuration
-            database_url = os.getenv("DATABASE_URL")
-
-            if not database_url:
-                logger.warning("DATABASE_URL not configured, skipping database publication")
-                return
-
-            # Connect to database
-            conn = await asyncpg.connect(database_url)
-
-            try:
-                # Start transaction
-                async with conn.transaction():
-                    # Convert race to dict for database storage
-                    race_data = race.model_dump(mode="json")
-
-                    # Upsert race record
-                    await conn.execute(
-                        """
-                        INSERT INTO races (id, data, updated_utc, title, office, jurisdiction, election_date)
-                        VALUES ($1, $2, $3, $4, $5, $6, $7)
-                        ON CONFLICT (id)
-                        DO UPDATE SET
-                            data = EXCLUDED.data,
-                            updated_utc = EXCLUDED.updated_utc,
-                            title = EXCLUDED.title,
-                            office = EXCLUDED.office,
-                            jurisdiction = EXCLUDED.jurisdiction,
-                            election_date = EXCLUDED.election_date
-                    """,
-                        race.id,
-                        json.dumps(race_data, default=str),
-                        race.updated_utc,
-                        race.title,
-                        race.office,
-                        race.jurisdiction,
-                        race.election_date,
-                    )
-
-                    # Insert/update candidate records for easier querying
-                    for candidate in race.candidates:
-                        await conn.execute(
-                            """
-                            INSERT INTO candidates (race_id, name, party, incumbent, summary)
-                            VALUES ($1, $2, $3, $4, $5)
-                            ON CONFLICT (race_id, name)
-                            DO UPDATE SET
-                                party = EXCLUDED.party,
-                                incumbent = EXCLUDED.incumbent,
-                                summary = EXCLUDED.summary
-                        """,
-                            race.id,
-                            candidate.name,
-                            candidate.party,
-                            candidate.incumbent,
-                            candidate.summary,
-                        )
-
-                logger.info(f"Successfully published race {race.id} to database")
-
-            finally:
-                await conn.close()
-
-        except ImportError:
-            logger.error("AsyncPG not available. Install with: pip install asyncpg")
-            raise
-        except PostgresError as e:
-            logger.error(f"Database error publishing race {race.id}: {e}")
-            raise
-        except Exception as e:
-            logger.error(f"Failed to publish race {race.id} to database: {e}")
-            raise
-
-    async def _publish_to_webhooks(self, race: RaceJSON) -> None:
-        """
-        Send race data to configured webhook endpoints.
-
-        Implements webhook notification system with proper security,
-        retry logic, and response handling.
-        """
-        try:
-            import hashlib
-            import hmac
-            import os
-
-            import aiohttp
-            from aiohttp import ClientError, ClientTimeout
-
-            # Get webhook configuration
-            webhook_urls = os.getenv("WEBHOOK_URLS", "").split(",")
-            webhook_secret = os.getenv("WEBHOOK_SECRET")
-            webhook_timeout = int(os.getenv("WEBHOOK_TIMEOUT", "30"))
-
-            # Filter out empty URLs
-            webhook_urls = [url.strip() for url in webhook_urls if url.strip()]
-
-            if not webhook_urls:
-                logger.debug(f"No webhook URLs configured for race {race.id}")
-                return
-
-            # Prepare payload
-            payload = {
-                "event": "race_published",
-                "race_id": race.id,
-                "timestamp": datetime.now(timezone.utc).isoformat(),
-                "data": race.model_dump(mode="json"),
-            }
-
-            payload_json = json.dumps(payload, default=str, separators=(",", ":"))
-
-            # Generate signature if secret is configured
-            signature = None
-            if webhook_secret:
-                signature = hmac.new(webhook_secret.encode("utf-8"), payload_json.encode("utf-8"), hashlib.sha256).hexdigest()
-
-            # Send to all configured webhooks
-            timeout = ClientTimeout(total=webhook_timeout)
-            async with aiohttp.ClientSession(timeout=timeout) as session:
-                for url in webhook_urls:
-                    try:
-                        headers = {
-                            "Content-Type": "application/json",
-                            "User-Agent": "SmarterVote-Publisher/1.0",
-                            "X-SmarterVote-Event": "race_published",
-                            "X-SmarterVote-Race-ID": race.id,
-                        }
-
-                        if signature:
-                            headers["X-SmarterVote-Signature"] = f"sha256={signature}"
-
-                        async with session.post(url, data=payload_json, headers=headers) as response:
-                            if response.status >= 200 and response.status < 300:
-                                logger.info(f"Successfully sent webhook for race {race.id} to {url}")
-                            else:
-                                response_text = await response.text()
-                                logger.warning(
-                                    f"Webhook failed for race {race.id} to {url}: {response.status} - {response_text}"
-                                )
-
-                    except ClientError as e:
-                        logger.error(f"Network error sending webhook for race {race.id} to {url}: {e}")
-                    except Exception as e:
-                        logger.error(f"Error sending webhook for race {race.id} to {url}: {e}")
-
-            logger.info(f"Completed webhook notifications for race {race.id}")
-
-        except ImportError:
-            logger.error("aiohttp not available. Install with: pip install aiohttp")
-            raise
-        except Exception as e:
-            logger.error(f"Failed to send webhooks for race {race.id}: {e}")
-            raise
-
-    async def _publish_to_pubsub(self, race: RaceJSON) -> None:
-        """
-        Publish race data to Google Cloud Pub/Sub.
-
-        Implements Pub/Sub messaging with proper error handling,
-        message ordering, and metadata.
-        """
-        try:
-            import os
-
-            from google.cloud import pubsub_v1
-            from google.cloud.exceptions import GoogleCloudError
-
-            # Get configuration
-            project_id = os.getenv("GOOGLE_CLOUD_PROJECT")
-            topic_name = os.getenv("PUBSUB_RACE_TOPIC", "race-published")
-
-            if not project_id:
-                raise ValueError("Missing required GCP configuration: GOOGLE_CLOUD_PROJECT")
-
-            # Initialize publisher
-            publisher = pubsub_v1.PublisherClient()
-            topic_path = publisher.topic_path(project_id, topic_name)
-
-            # Prepare message
-            message_data = {
-                "event": "race_published",
-                "race_id": race.id,
-                "timestamp": datetime.now(timezone.utc).isoformat(),
-                "office": race.office,
-                "jurisdiction": race.jurisdiction,
-                "election_date": race.election_date.isoformat() if race.election_date else None,
-                "candidate_count": len(race.candidates),
-                "updated_utc": race.updated_utc.isoformat(),
-            }
-
-            message_json = json.dumps(message_data, default=str)
-
-            # Message attributes for filtering
-            attributes = {
-                "event_type": "race_published",
-                "race_id": race.id,
-                "office": race.office or "unknown",
-                "jurisdiction": race.jurisdiction or "unknown",
-            }
-
-            # Publish message with ordering key for consistent processing
-            future = publisher.publish(topic_path, message_json.encode("utf-8"), ordering_key=race.id, **attributes)
-
-            # Wait for publish to complete
-            message_id = future.result(timeout=30)
-
-            logger.info(f"Successfully published race {race.id} to Pub/Sub topic {topic_name}, message ID: {message_id}")
-
-        except ImportError:
-            logger.error("Google Cloud Pub/Sub client not available. Install with: pip install google-cloud-pubsub")
-            raise
-        except GoogleCloudError as e:
-            logger.error(f"Pub/Sub error publishing race {race.id}: {e}")
-            raise
-        except Exception as e:
-            logger.error(f"Failed to publish race {race.id} to Pub/Sub: {e}")
-            raise
-
-    async def _publish_to_api_endpoint(self, race: RaceJSON) -> None:
-        """
-        Publish race data to API endpoints for immediate availability.
-
-        TODO: Implement API endpoint integration:
-        - RESTful API POST/PUT requests to race endpoints
-        - GraphQL mutation execution
-        - API authentication and authorization
-        - Request rate limiting and throttling
-        - API response validation and error handling
-        - Circuit breaker pattern for reliability
-        - API versioning and compatibility
-        - Real-time WebSocket updates
-        """
-        # Placeholder implementation
-        logger.debug(f"Would publish race {race.id} to API endpoints")
-        await asyncio.sleep(0.1)  # Simulate API call
-
     async def _validate_arbitrated_data(self, arbitrated_data: Dict[str, Any]) -> None:
         """
         Validate arbitrated data before transformation.
@@ -644,6 +287,18 @@ class RacePublishingEngine:
         for field in required_fields:
             if field not in arbitrated_data:
                 logger.warning(f"Missing expected field in arbitrated data: {field}")
+
+    async def _validate_race_json(self, race: RaceJSON) -> None:
+        """
+        Validate a RaceJSON object.
+
+        Args:
+            race: RaceJSON object to validate
+
+        Raises:
+            ValidationError: If race data is invalid
+        """
+        await self.validation_utils.validate_race_json(race)
 
     async def _extract_race_metadata(self, race_id: str, arbitrated_data: Dict[str, Any]) -> Dict[str, Any]:
         """
@@ -743,6 +398,7 @@ class RacePublishingEngine:
             consensus_data = arbitrated_data.get("consensus_data", {})
             candidates_data = consensus_data.get("candidates", [])
 
+            # If candidates are directly provided, use them
             for candidate_info in candidates_data:
                 candidate = {
                     "name": candidate_info.get("name", "Unknown Candidate"),
@@ -753,6 +409,72 @@ class RacePublishingEngine:
                     "sources": candidate_info.get("sources", []),
                 }
                 candidates.append(candidate)
+
+            # If no direct candidates, extract from arbitrated summaries
+            if not candidates:
+                arbitrated_summaries = arbitrated_data.get("arbitrated_summaries", [])
+                candidate_map = {}
+
+                for summary in arbitrated_summaries:
+                    candidate_name = summary.get("candidate_name")
+                    if candidate_name:
+                        if candidate_name not in candidate_map:
+                            candidate_map[candidate_name] = {
+                                "name": candidate_name,
+                                "party": summary.get("party", "Unknown Party"),
+                                "summary": "",
+                                "issues": {},
+                                "top_donors": [],
+                                "website": None,
+                                "social_media": {},
+                                "incumbent": False,
+                            }
+
+                        # Add candidate information based on query type
+                        if summary.get("query_type") == "candidate_summary":
+                            candidate_map[candidate_name]["summary"] = summary.get("content", "")
+                        elif summary.get("query_type") == "issue_stance":
+                            issue_name = summary.get("issue", "Unknown Issue")
+                            # Try to map to canonical issue
+                            canonical_issue = None
+                            for ci in CanonicalIssue:
+                                if ci.value.lower() == issue_name.lower():
+                                    canonical_issue = ci
+                                    break
+
+                            if canonical_issue:
+                                # Create IssueStance object
+                                confidence_str = summary.get("confidence", "unknown")
+                                confidence_level = ConfidenceLevel.UNKNOWN
+                                for cl in ConfidenceLevel:
+                                    if cl.value.lower() == confidence_str.lower():
+                                        confidence_level = cl
+                                        break
+
+                                issue_stance = IssueStance(
+                                    issue=canonical_issue,
+                                    stance=summary.get("content", ""),
+                                    confidence=confidence_level,
+                                    sources=[],
+                                )
+                                candidate_map[candidate_name]["issues"][canonical_issue] = issue_stance
+
+                candidates = list(candidate_map.values())
+
+            # If still no candidates, create a placeholder for minimal data scenarios
+            if not candidates:
+                candidates = [
+                    {
+                        "name": "Candidate Information Pending",
+                        "party": "Unknown Party",
+                        "summary": "Candidate information not yet available",
+                        "issues": {},
+                        "top_donors": [],
+                        "website": None,
+                        "social_media": {},
+                        "incumbent": False,
+                    }
+                ]
 
             logger.debug(f"Extracted {len(candidates)} candidates from arbitrated data")
 
@@ -801,3 +523,93 @@ class RacePublishingEngine:
             Dictionary of active publication tasks by key
         """
         return self.active_publications.copy()
+
+    def get_published_races(self) -> List[str]:
+        """
+        Get list of published race IDs from local storage.
+
+        Returns:
+            List of race IDs that have been published to local files
+        """
+        try:
+            output_dir = Path(self.config.local_output_dir)
+            if not output_dir.exists():
+                return []
+
+            race_files = output_dir.glob("*.json")
+            race_ids = []
+
+            for race_file in race_files:
+                # Skip backup files
+                if ".backup" in race_file.name:
+                    continue
+
+                # Extract race ID from filename (remove .json extension)
+                race_id = race_file.stem
+                race_ids.append(race_id)
+
+            return sorted(race_ids)
+
+        except Exception as e:
+            logger.error(f"Failed to get published races: {e}")
+            return []
+
+    def get_race_data(self, race_id: str) -> Optional[Dict[str, Any]]:
+        """
+        Get race data for a specific race ID from local storage.
+
+        Args:
+            race_id: Race ID to retrieve data for
+
+        Returns:
+            Race data as dictionary, or None if not found
+        """
+        try:
+            output_file = Path(self.config.local_output_dir) / f"{race_id}.json"
+
+            if not output_file.exists():
+                return None
+
+            with open(output_file, "r", encoding="utf-8") as f:
+                return json.load(f)
+
+        except Exception as e:
+            logger.error(f"Failed to get race data for {race_id}: {e}")
+            return None
+
+    async def cleanup_old_publications(self, retention_days: int) -> int:
+        """
+        Clean up old publication files based on retention policy.
+
+        Args:
+            retention_days: Number of days to retain files
+
+        Returns:
+            Number of files cleaned up
+        """
+        try:
+            output_dir = Path(self.config.local_output_dir)
+            if not output_dir.exists():
+                return 0
+
+            cutoff_time = datetime.now().timestamp() - (retention_days * 24 * 3600)
+            cleaned_count = 0
+
+            for race_file in output_dir.glob("*.json"):
+                # Skip backup files
+                if ".backup" in race_file.name:
+                    continue
+
+                # Check file modification time
+                file_mtime = race_file.stat().st_mtime
+                if file_mtime < cutoff_time:
+                    logger.info(f"Cleaning up old publication file: {race_file}")
+                    race_file.unlink()
+                    cleaned_count += 1
+
+            logger.info(f"Cleaned up {cleaned_count} old publication files")
+            return cleaned_count
+
+        except Exception as e:
+            logger.error(f"Failed to cleanup old publications: {e}")
+            return 0
