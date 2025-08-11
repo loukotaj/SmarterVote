@@ -277,3 +277,4 @@ terraform_*.zip
 data/chroma_db/
 test_enhanced_fetcher_extractor.py
 test_backward_compatibility.py
+htmlcov/

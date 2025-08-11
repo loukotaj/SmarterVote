@@ -63,27 +63,16 @@ def test_local_publishing_mode():
             json.dump(test_race_data, f, indent=2)
 
         # Test that file was created correctly
-        if race_file.exists():
-            print("✅ Local race file creation works")
-        else:
-            print("❌ Local race file creation failed")
-            return False
+        assert race_file.exists(), "Local race file creation failed"
+        print("✅ Local race file creation works")
 
         # Test reading the file back
-        try:
-            with open(race_file, "r") as f:
-                loaded_data = json.load(f)
+        with open(race_file, "r") as f:
+            loaded_data = json.load(f)
 
-            if loaded_data["id"] == "test-senate-2024" and len(loaded_data["candidates"]) == 2:
-                print("✅ Local race file reading works")
-            else:
-                print("❌ Local race file reading failed")
-                return False
-        except Exception as e:
-            print(f"❌ Error reading race file: {e}")
-            return False
-
-    return True
+        assert loaded_data["id"] == "test-senate-2024", "Race ID mismatch in loaded data"
+        assert len(loaded_data["candidates"]) == 2, "Incorrect number of candidates in loaded data"
+        print("✅ Local race file reading works")
 
 
 def test_cloud_storage_simulation():
@@ -118,11 +107,8 @@ def test_cloud_storage_simulation():
     race_list = list_cloud_races()
     expected_races = ["mo-senate-2024", "tx-governor-2024"]
 
-    if set(race_list) == set(expected_races):
-        print("✅ Cloud race listing simulation works")
-    else:
-        print("❌ Cloud race listing simulation failed")
-        return False
+    assert set(race_list) == set(expected_races), "Cloud race listing mismatch"
+    print("✅ Cloud race listing simulation works")
 
     # Test retrieving specific race from cloud
     def get_cloud_race(race_id):
@@ -130,13 +116,9 @@ def test_cloud_storage_simulation():
         return cloud_races.get(blob_name)
 
     race_data = get_cloud_race("mo-senate-2024")
-    if race_data and race_data["id"] == "mo-senate-2024":
-        print("✅ Cloud race retrieval simulation works")
-    else:
-        print("❌ Cloud race retrieval simulation failed")
-        return False
-
-    return True
+    assert race_data is not None, "Race data should not be None"
+    assert race_data["id"] == "mo-senate-2024", "Race ID mismatch in retrieved data"
+    print("✅ Cloud race retrieval simulation works")
 
 
 def test_search_functionality():
@@ -166,11 +148,8 @@ def test_search_functionality():
     healthcare_query = build_issue_search_query("mo-senate-2024", "Healthcare")
     expected_terms = ["mo", "senate", "2024", "health care", "medical", "position"]
 
-    if all(term in healthcare_query.lower() for term in expected_terms):
-        print("✅ Issue search query construction works")
-    else:
-        print("❌ Issue search query construction failed")
-        return False
+    assert all(term in healthcare_query.lower() for term in expected_terms), "Issue search query missing expected terms"
+    print("✅ Issue search query construction works")
 
     # Test candidate search query
     def build_candidate_search_query(race_id, candidate_name):
@@ -183,13 +162,9 @@ def test_search_functionality():
 
     candidate_query = build_candidate_search_query("mo-senate-2024", "John Smith")
 
-    if "John Smith" in candidate_query and "mo senate 2024" in candidate_query:
-        print("✅ Candidate search query construction works")
-    else:
-        print("❌ Candidate search query construction failed")
-        return False
-
-    return True
+    assert "John Smith" in candidate_query, "Candidate name not in search query"
+    assert "mo senate 2024" in candidate_query, "Race details not in search query"
+    print("✅ Candidate search query construction works")
 
 
 def test_summary_generation():
@@ -221,11 +196,9 @@ def test_summary_generation():
         return filtered
 
     john_content = filter_content_for_candidate(mock_content, "John Smith")
-    if len(john_content) == 1 and "healthcare" in john_content[0]["text"]:
-        print("✅ Candidate content filtering works")
-    else:
-        print("❌ Candidate content filtering failed")
-        return False
+    assert len(john_content) == 1, "Should find exactly one John Smith content item"
+    assert "healthcare" in john_content[0]["text"], "John Smith content should mention healthcare"
+    print("✅ Candidate content filtering works")
 
     # Test content filtering for issues
     def filter_content_for_issue(content, issue):
@@ -244,11 +217,8 @@ def test_summary_generation():
         return filtered
 
     healthcare_content = filter_content_for_issue(mock_content, "Healthcare")
-    if len(healthcare_content) >= 1:
-        print("✅ Issue content filtering works")
-    else:
-        print("❌ Issue content filtering failed")
-        return False
+    assert len(healthcare_content) >= 1, "Issue content filtering failed"
+    print("✅ Issue content filtering works")
 
     # Test summary categorization
     summary_categories = {
@@ -258,13 +228,8 @@ def test_summary_generation():
     }
 
     total_summaries = sum(len(summaries) for summaries in summary_categories.values())
-    if total_summaries >= 5:  # Should have multiple types of summaries
-        print("✅ Summary categorization works")
-    else:
-        print("❌ Summary categorization failed")
-        return False
-
-    return True
+    assert total_summaries >= 5, "Summary categorization failed - not enough summaries"
+    print("✅ Summary categorization works")
 
 
 def test_races_api_integration():
@@ -303,37 +268,26 @@ def test_races_api_integration():
 
     # Test listing races
     races = service.get_published_races()
-    if "local-race-1" in races and "cloud-race-1" in races:
-        print("✅ Races API listing works")
-    else:
-        print("❌ Races API listing failed")
-        return False
+    assert "local-race-1" in races, "Local race not found in race list"
+    assert "cloud-race-1" in races, "Cloud race not found in race list"
+    print("✅ Races API listing works")
 
     # Test local data retrieval
     local_data = service.get_race_data("local-race-1")
-    if local_data and local_data["source"] == "local":
-        print("✅ Races API local retrieval works")
-    else:
-        print("❌ Races API local retrieval failed")
-        return False
+    assert local_data is not None, "Local data should not be None"
+    assert local_data["source"] == "local", "Local data source mismatch"
+    print("✅ Races API local retrieval works")
 
     # Test cloud fallback
     cloud_data = service.get_race_data("cloud-race-1")
-    if cloud_data and cloud_data["source"] == "cloud":
-        print("✅ Races API cloud fallback works")
-    else:
-        print("❌ Races API cloud fallback failed")
-        return False
+    assert cloud_data is not None, "Cloud data should not be None"
+    assert cloud_data["source"] == "cloud", "Cloud data source mismatch"
+    print("✅ Races API cloud fallback works")
 
     # Test missing data
     missing_data = service.get_race_data("nonexistent-race")
-    if missing_data is None:
-        print("✅ Races API missing data handling works")
-    else:
-        print("❌ Races API missing data handling failed")
-        return False
-
-    return True
+    assert missing_data is None, "Missing data should return None"
+    print("✅ Races API missing data handling works")
 
 
 def test_environment_detection():
@@ -352,25 +306,17 @@ def test_environment_detection():
     for var in ["GOOGLE_CLOUD_PROJECT", "CLOUD_RUN_SERVICE", "K_SERVICE"]:
         os.environ.pop(var, None)
 
-    if not detect_environment():
-        print("✅ Local environment detection works")
-    else:
-        print("❌ Local environment detection failed")
-        return False
+    assert not detect_environment(), "Local environment detection failed"
+    print("✅ Local environment detection works")
 
     # Test cloud environment
     os.environ["GOOGLE_CLOUD_PROJECT"] = "test-project"
 
-    if detect_environment():
-        print("✅ Cloud environment detection works")
-    else:
-        print("❌ Cloud environment detection failed")
-        return False
+    assert detect_environment(), "Cloud environment detection failed"
+    print("✅ Cloud environment detection works")
 
     # Clean up
     os.environ.pop("GOOGLE_CLOUD_PROJECT", None)
-
-    return True
 
 
 def main():
@@ -393,11 +339,11 @@ def main():
     for test_name, test_func in tests:
         print(f"\n🧪 Running: {test_name}")
         try:
-            if test_func():
-                print(f"✅ {test_name} PASSED")
-                passed += 1
-            else:
-                print(f"❌ {test_name} FAILED")
+            test_func()  # Run test function - will raise AssertionError if failed
+            print(f"✅ {test_name} PASSED")
+            passed += 1
+        except AssertionError as e:
+            print(f"❌ {test_name} FAILED: {e}")
         except Exception as e:
             print(f"❌ {test_name} ERROR: {e}")
 
