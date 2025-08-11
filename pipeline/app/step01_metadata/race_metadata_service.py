@@ -20,11 +20,12 @@ import re
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional, Tuple
 
+from shared.models import DiscoveredCandidate
+from shared.state_constants import PRIMARY_DATE_BY_STATE, STATE_NAME
+
+from ..providers.base import ProviderRegistry, TaskType
 from ..schema import CanonicalIssue, ConfidenceLevel, FreshSearchQuery, RaceMetadata, Source, SourceType
 from ..step02_discover.source_discovery_engine import SourceDiscoveryEngine
-from shared.models import DiscoveredCandidate
-from shared.state_constants import STATE_NAME, PRIMARY_DATE_BY_STATE
-from ..providers.base import ProviderRegistry, TaskType
 
 logger = logging.getLogger(__name__)
 
@@ -43,7 +44,7 @@ class RaceMetadataService:
         """Initialize the race metadata service."""
         # Initialize discovery engine for candidate and issue searches
         self.discovery_engine = SourceDiscoveryEngine()
-        
+
         # Provider registry for AI validation
         self.providers = providers
 
@@ -113,9 +114,9 @@ class RaceMetadataService:
             state, office_type, year, district, kind = self._parse_race_id(race_id)
 
             # Set race type flags based on slug
-            is_primary = (kind == "primary")
-            is_special_election = (kind == "special")
-            is_runoff = (kind == "runoff")
+            is_primary = kind == "primary"
+            is_special_election = kind == "special"
+            is_runoff = kind == "runoff"
 
             # Get office information
             office_info = self._get_office_info(office_type)
@@ -222,27 +223,27 @@ class RaceMetadataService:
         """Get primary date for state and year if available."""
         primary_dates = PRIMARY_DATE_BY_STATE.get(year, {})
         date_str = primary_dates.get(state)
-        
+
         if date_str:
             try:
                 return datetime.strptime(date_str, "%Y-%m-%d")
             except ValueError:
                 logger.warning(f"Invalid primary date format for {state} {year}: {date_str}")
-        
+
         return None
 
     def _extract_incumbent_party(self, candidates: List[DiscoveredCandidate]) -> Optional[str]:
         """Extract incumbent party from structured candidates."""
         incumbents = [c for c in candidates if c.incumbent and c.party]
-        
+
         if not incumbents:
             return None
-            
+
         # If multiple incumbents, prefer those from trusted sources
         for candidate in incumbents:
             if any(self._is_trusted_source(str(url)) for url in candidate.sources):
                 return candidate.party
-                
+
         # Fallback to first incumbent with party
         return incumbents[0].party
 
@@ -250,17 +251,17 @@ class RaceMetadataService:
         """Calculate evidence-based confidence score."""
         if not candidates:
             return ConfidenceLevel.LOW
-            
+
         # Count trusted domains across all candidates
         trusted_domains = set()
         for candidate in candidates:
             for source in candidate.sources:
                 if self._is_trusted_source(str(source)):
-                    domain = str(source).split('/')[2]
+                    domain = str(source).split("/")[2]
                     trusted_domains.add(domain)
-        
+
         trusted_domains_count = len(trusted_domains)
-        
+
         # Apply heuristic
         if len(candidates) >= 2 and trusted_domains_count >= 2:
             confidence = ConfidenceLevel.HIGH
@@ -268,14 +269,14 @@ class RaceMetadataService:
             confidence = ConfidenceLevel.MEDIUM
         else:
             confidence = ConfidenceLevel.LOW
-            
+
         # Log reasoning for observability
         logger.info(
             f"Confidence calculation: {len(candidates)} candidates, "
             f"{trusted_domains_count} trusted domains, "
             f"primary_date: {have_primary_date} → {confidence.value}"
         )
-        
+
         return confidence
 
     def _is_trusted_source(self, url: str) -> bool:
@@ -379,7 +380,9 @@ class RaceMetadataService:
                 search_results = await self.discovery_engine._search_google_custom(query, CanonicalIssue.ELECTION_REFORM)
 
                 # Extract structured candidate info from search results
-                candidates_from_results = self._extract_structured_candidates_from_search_results(search_results, state, office_type)
+                candidates_from_results = self._extract_structured_candidates_from_search_results(
+                    search_results, state, office_type
+                )
                 discovered_candidates.extend(candidates_from_results)
 
             # Merge and deduplicate structured candidates
@@ -488,12 +491,7 @@ class RaceMetadataService:
                     # Check for incumbent status
                     incumbent = self._check_incumbent_status(text_to_search, name)
 
-                    candidate = DiscoveredCandidate(
-                        name=name,
-                        party=party,
-                        incumbent=incumbent,
-                        sources=[source.url]
-                    )
+                    candidate = DiscoveredCandidate(name=name, party=party, incumbent=incumbent, sources=[source.url])
                     candidates.append(candidate)
 
         return candidates
@@ -502,15 +500,9 @@ class RaceMetadataService:
         """Normalize party codes and names."""
         if not party_code:
             return None
-            
-        party_map = {
-            "D": "Democratic",
-            "R": "Republican", 
-            "I": "Independent",
-            "L": "Libertarian",
-            "G": "Green"
-        }
-        
+
+        party_map = {"D": "Democratic", "R": "Republican", "I": "Independent", "L": "Libertarian", "G": "Green"}
+
         party_normalized = party_code.strip().title()
         return party_map.get(party_code.upper(), party_normalized)
 
@@ -520,14 +512,14 @@ class RaceMetadataService:
         name_pos = text.lower().find(candidate_name.lower())
         if name_pos == -1:
             return None
-            
+
         context_start = max(0, name_pos - 80)
         context_end = min(len(text), name_pos + len(candidate_name) + 80)
         context = text[context_start:context_end]
-        
-        party_pattern = re.compile(r'\b(Democratic|Republican|Libertarian|Green|Independent)\b', re.IGNORECASE)
+
+        party_pattern = re.compile(r"\b(Democratic|Republican|Libertarian|Green|Independent)\b", re.IGNORECASE)
         match = party_pattern.search(context)
-        
+
         return match.group(1).title() if match else None
 
     def _check_incumbent_status(self, text: str, candidate_name: str) -> bool:
@@ -536,43 +528,43 @@ class RaceMetadataService:
         name_pos = text.lower().find(candidate_name.lower())
         if name_pos == -1:
             return False
-            
+
         context_start = max(0, name_pos - 80)
         context_end = min(len(text), name_pos + len(candidate_name) + 80)
         context = text[context_start:context_end]
-        
-        incumbent_pattern = re.compile(r'\bincumbent\b', re.IGNORECASE)
+
+        incumbent_pattern = re.compile(r"\bincumbent\b", re.IGNORECASE)
         return bool(incumbent_pattern.search(context))
 
     def _merge_and_deduplicate_structured_candidates(self, candidates: List[DiscoveredCandidate]) -> List[DiscoveredCandidate]:
         """Merge and deduplicate structured candidates by name."""
         merged = {}
-        
+
         for candidate in candidates:
             # Normalize name for deduplication
-            name_key = re.sub(r'\s+', ' ', candidate.name.strip().lower())
-            
+            name_key = re.sub(r"\s+", " ", candidate.name.strip().lower())
+
             if name_key in merged:
                 # Merge information from multiple sources
                 existing = merged[name_key]
-                
+
                 # Prefer party info from trusted sources, or first non-None
                 if not existing.party and candidate.party:
                     existing.party = candidate.party
                 elif candidate.party and self._has_more_trusted_sources(candidate, existing):
                     existing.party = candidate.party
-                    
+
                 # Set incumbent if any source says so
                 if candidate.incumbent:
                     existing.incumbent = True
-                    
+
                 # Merge source lists
                 for source in candidate.sources:
                     if source not in existing.sources:
                         existing.sources.append(source)
             else:
                 merged[name_key] = candidate
-                
+
         return list(merged.values())[:8]  # Limit to reasonable number
 
     def _has_more_trusted_sources(self, candidate1: DiscoveredCandidate, candidate2: DiscoveredCandidate) -> bool:
@@ -582,25 +574,31 @@ class RaceMetadataService:
         return trusted1 > trusted2
 
     async def _validate_structured_candidates_with_ai(
-        self, candidates: List[DiscoveredCandidate], race_id: str, state: str, office_type: str, year: int, district: Optional[str] = None
+        self,
+        candidates: List[DiscoveredCandidate],
+        race_id: str,
+        state: str,
+        office_type: str,
+        year: int,
+        district: Optional[str] = None,
     ) -> List[DiscoveredCandidate]:
         """
         Validate structured candidates using provider registry.
         """
         if not self.providers or not candidates:
             return candidates[:5]  # Return first 5 without validation
-            
+
         try:
             # Get models for DISCOVER task
             models = self.providers.get_enabled_models(TaskType.DISCOVER)
             if not models:
                 logger.warning("No models available for candidate validation, skipping AI validation")
                 return candidates[:5]
-                
+
             # Use first available model (cheap mode will give us mini models)
             model = models[0]
             provider = self.providers.get_provider(model.provider)
-            
+
             # Prepare context
             office_info = self._get_office_info(office_type)
             full_office = office_info["full_name"]
@@ -624,24 +622,26 @@ Validated candidates:"""
 
             # Make API call through provider
             response = await provider.generate(prompt, model)
-            
+
             if response.strip().upper() == "NONE":
                 logger.info(f"AI validation found no valid candidates for {race_id}")
                 return []
 
             # Parse validated names
             validated_names = [name.strip() for name in response.split(",") if name.strip()]
-            
+
             # Filter original candidates to only include validated ones
             validated_candidates = []
             for candidate in candidates:
-                if any(name.lower() in candidate.name.lower() or candidate.name.lower() in name.lower() 
-                      for name in validated_names):
+                if any(
+                    name.lower() in candidate.name.lower() or candidate.name.lower() in name.lower()
+                    for name in validated_names
+                ):
                     validated_candidates.append(candidate)
-                    
+
             logger.info(f"AI validated {len(validated_candidates)} of {len(candidates)} candidates for {race_id}")
             return validated_candidates[:8]
-            
+
         except Exception as e:
             logger.warning(f"Error during AI validation for {race_id}: {e}")
             return candidates[:3]  # Fallback

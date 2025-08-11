@@ -13,7 +13,7 @@ from pydantic import BaseModel, Field, HttpUrl
 
 class DiscoveredCandidate(BaseModel):
     """Structured candidate information discovered during metadata extraction."""
-    
+
     name: str
     party: Optional[str] = None  # 'Democratic', 'Republican', 'Independent', etc.
     incumbent: bool = False

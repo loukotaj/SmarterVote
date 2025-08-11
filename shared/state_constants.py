@@ -6,7 +6,7 @@ Single source of truth for all state code to name mappings.
 # Complete US state and territory mapping
 STATE_NAME = {
     "AL": "Alabama",
-    "AK": "Alaska", 
+    "AK": "Alaska",
     "AZ": "Arizona",
     "AR": "Arkansas",
     "CA": "California",
@@ -62,7 +62,7 @@ STATE_NAME = {
 PRIMARY_DATE_BY_STATE = {
     2024: {
         "GA": "2024-05-21",
-        "PA": "2024-04-23", 
+        "PA": "2024-04-23",
         "OH": "2024-03-19",
         "CA": "2024-03-05",
         "TX": "2024-03-05",
@@ -74,5 +74,5 @@ PRIMARY_DATE_BY_STATE = {
     },
     2026: {
         # Will be populated as needed
-    }
+    },
 }
