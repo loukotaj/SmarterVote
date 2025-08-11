@@ -65,6 +65,9 @@ class Source(BaseModel):
     title: Optional[str] = None
     description: Optional[str] = None
     last_accessed: datetime
+    published_at: Optional[datetime] = None
+    score: Optional[float] = None
+    scoring_reason: Optional[str] = None
     checksum: Optional[str] = None
     is_fresh: bool = False  # Flag for fresh issue search results
 
