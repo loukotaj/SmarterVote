@@ -6,23 +6,24 @@ Tests the end-to-end functionality without external dependencies.
 
 import json
 import os
-import sys
-from pathlib import Path
-import tempfile
 import shutil
+import sys
+import tempfile
+from pathlib import Path
 
 # Add project paths
 sys.path.insert(0, str(Path(__file__).parent))
 
+
 def test_local_publishing_mode():
     """Test local publishing mode functionality."""
     print("🧪 Testing local publishing mode...")
-    
+
     # Create a temporary directory for testing
     with tempfile.TemporaryDirectory() as temp_dir:
         test_data_dir = Path(temp_dir) / "published"
         test_data_dir.mkdir(parents=True, exist_ok=True)
-        
+
         # Simulate race data
         test_race_data = {
             "id": "test-senate-2024",
@@ -41,38 +42,38 @@ def test_local_publishing_mode():
                     "issues": {},
                     "top_donors": [],
                     "website": None,
-                    "social_media": {}
+                    "social_media": {},
                 },
                 {
-                    "name": "Candidate B", 
+                    "name": "Candidate B",
                     "party": "Republican",
                     "incumbent": False,
                     "summary": "Business leader running on economic reform and fiscal responsibility.",
                     "issues": {},
                     "top_donors": [],
                     "website": None,
-                    "social_media": {}
-                }
-            ]
+                    "social_media": {},
+                },
+            ],
         }
-        
+
         # Write test data to file (simulating local publishing)
         race_file = test_data_dir / "test-senate-2024.json"
-        with open(race_file, 'w') as f:
+        with open(race_file, "w") as f:
             json.dump(test_race_data, f, indent=2)
-        
+
         # Test that file was created correctly
         if race_file.exists():
             print("✅ Local race file creation works")
         else:
             print("❌ Local race file creation failed")
             return False
-        
+
         # Test reading the file back
         try:
-            with open(race_file, 'r') as f:
+            with open(race_file, "r") as f:
                 loaded_data = json.load(f)
-            
+
             if loaded_data["id"] == "test-senate-2024" and len(loaded_data["candidates"]) == 2:
                 print("✅ Local race file reading works")
             else:
@@ -81,29 +82,30 @@ def test_local_publishing_mode():
         except Exception as e:
             print(f"❌ Error reading race file: {e}")
             return False
-    
+
     return True
+
 
 def test_cloud_storage_simulation():
     """Test cloud storage simulation (without actual cloud dependencies)."""
     print("🧪 Testing cloud storage simulation...")
-    
+
     # Simulate cloud storage structure
     cloud_races = {
         "races/mo-senate-2024.json": {
             "id": "mo-senate-2024",
             "title": "Missouri Senate Race 2024",
             "office": "U.S. Senate",
-            "candidates": []
+            "candidates": [],
         },
         "races/tx-governor-2024.json": {
-            "id": "tx-governor-2024", 
+            "id": "tx-governor-2024",
             "title": "Texas Governor Race 2024",
             "office": "Governor",
-            "candidates": []
-        }
+            "candidates": [],
+        },
     }
-    
+
     # Test listing races from cloud storage
     def list_cloud_races():
         race_ids = []
@@ -112,106 +114,104 @@ def test_cloud_storage_simulation():
                 race_id = blob_name.replace("races/", "").replace(".json", "")
                 race_ids.append(race_id)
         return sorted(race_ids)
-    
+
     race_list = list_cloud_races()
     expected_races = ["mo-senate-2024", "tx-governor-2024"]
-    
+
     if set(race_list) == set(expected_races):
         print("✅ Cloud race listing simulation works")
     else:
         print("❌ Cloud race listing simulation failed")
         return False
-    
+
     # Test retrieving specific race from cloud
     def get_cloud_race(race_id):
         blob_name = f"races/{race_id}.json"
         return cloud_races.get(blob_name)
-    
+
     race_data = get_cloud_race("mo-senate-2024")
     if race_data and race_data["id"] == "mo-senate-2024":
         print("✅ Cloud race retrieval simulation works")
     else:
         print("❌ Cloud race retrieval simulation failed")
         return False
-    
+
     return True
+
 
 def test_search_functionality():
     """Test search functionality for issues and candidates."""
     print("🧪 Testing search functionality...")
-    
+
     # Test Google search query construction
     def build_issue_search_query(race_id, issue):
         race_parts = race_id.split("-")
         state = race_parts[0] if race_parts else ""
         office = race_parts[1] if len(race_parts) > 1 else ""
         year = race_parts[2] if len(race_parts) > 2 else ""
-        
+
         issue_keywords = {
             "Healthcare": ["health care", "medical", "insurance"],
             "Economy": ["economic", "jobs", "employment"],
-            "Climate": ["climate", "environment", "energy"]
+            "Climate": ["climate", "environment", "energy"],
         }
-        
+
         keywords = issue_keywords.get(issue, [issue.lower()])
-        
-        query_parts = [
-            f'"{state} {office} election {year}"',
-            f'({" OR ".join(keywords)})',
-            "candidate position OR stance"
-        ]
-        
+
+        query_parts = [f'"{state} {office} election {year}"', f'({" OR ".join(keywords)})', "candidate position OR stance"]
+
         return " ".join(query_parts)
-    
+
     # Test healthcare query
     healthcare_query = build_issue_search_query("mo-senate-2024", "Healthcare")
     expected_terms = ["mo", "senate", "2024", "health care", "medical", "position"]
-    
+
     if all(term in healthcare_query.lower() for term in expected_terms):
         print("✅ Issue search query construction works")
     else:
         print("❌ Issue search query construction failed")
         return False
-    
-    # Test candidate search query  
+
+    # Test candidate search query
     def build_candidate_search_query(race_id, candidate_name):
         race_parts = race_id.split("-")
         state = race_parts[0] if race_parts else ""
         office = race_parts[1] if len(race_parts) > 1 else ""
         year = race_parts[2] if len(race_parts) > 2 else ""
-        
+
         return f'"{candidate_name}" "{state} {office} {year}" candidate OR campaign'
-    
+
     candidate_query = build_candidate_search_query("mo-senate-2024", "John Smith")
-    
+
     if "John Smith" in candidate_query and "mo senate 2024" in candidate_query:
         print("✅ Candidate search query construction works")
     else:
         print("❌ Candidate search query construction failed")
         return False
-    
+
     return True
+
 
 def test_summary_generation():
     """Test summary generation for race, candidates, and issues."""
     print("🧪 Testing summary generation...")
-    
+
     # Mock content for summarization
     mock_content = [
         {
             "text": "Candidate John Smith supports universal healthcare and has proposed expanding Medicare.",
-            "source": {"url": "https://example.com/healthcare", "type": "news"}
+            "source": {"url": "https://example.com/healthcare", "type": "news"},
         },
         {
             "text": "Jane Doe believes in fiscal responsibility and reducing government spending on social programs.",
-            "source": {"url": "https://example.com/economy", "type": "news"}
+            "source": {"url": "https://example.com/economy", "type": "news"},
         },
         {
             "text": "The Missouri Senate race is expected to be competitive with healthcare as a major issue.",
-            "source": {"url": "https://example.com/race", "type": "news"}
-        }
+            "source": {"url": "https://example.com/race", "type": "news"},
+        },
     ]
-    
+
     # Test content filtering for candidates
     def filter_content_for_candidate(content, candidate_name):
         filtered = []
@@ -219,64 +219,65 @@ def test_summary_generation():
             if candidate_name.lower() in item["text"].lower():
                 filtered.append(item)
         return filtered
-    
+
     john_content = filter_content_for_candidate(mock_content, "John Smith")
     if len(john_content) == 1 and "healthcare" in john_content[0]["text"]:
         print("✅ Candidate content filtering works")
     else:
         print("❌ Candidate content filtering failed")
         return False
-    
+
     # Test content filtering for issues
     def filter_content_for_issue(content, issue):
         issue_keywords = {
             "Healthcare": ["health", "medical", "medicare"],
             "Economy": ["economic", "fiscal", "spending"],
         }
-        
+
         keywords = issue_keywords.get(issue, [issue.lower()])
         filtered = []
-        
+
         for item in content:
             if any(keyword in item["text"].lower() for keyword in keywords):
                 filtered.append(item)
-        
+
         return filtered
-    
+
     healthcare_content = filter_content_for_issue(mock_content, "Healthcare")
     if len(healthcare_content) >= 1:
         print("✅ Issue content filtering works")
     else:
         print("❌ Issue content filtering failed")
         return False
-    
+
     # Test summary categorization
     summary_categories = {
         "race_summaries": ["Overall race information and dynamics"],
         "candidate_summaries": ["John Smith summary", "Jane Doe summary"],
-        "issue_summaries": ["Healthcare analysis", "Economy analysis"]
+        "issue_summaries": ["Healthcare analysis", "Economy analysis"],
     }
-    
+
     total_summaries = sum(len(summaries) for summaries in summary_categories.values())
     if total_summaries >= 5:  # Should have multiple types of summaries
         print("✅ Summary categorization works")
     else:
         print("❌ Summary categorization failed")
         return False
-    
+
     return True
+
 
 def test_races_api_integration():
     """Test races API integration with local and cloud data sources."""
     print("🧪 Testing races API integration...")
-    
+
     # Simulate API service behavior
     class MockRacesAPIService:
         def __init__(self):
             self.local_races = {"local-race-1": {"source": "local"}}
             self.cloud_races = {"cloud-race-1": {"source": "cloud"}}
             self.cloud_enabled = True
-        
+
         def get_published_races(self):
             """Get races from both sources."""
             all_races = set()
@@ -284,22 +285,22 @@ def test_races_api_integration():
             if self.cloud_enabled:
                 all_races.update(self.cloud_races.keys())
             return sorted(list(all_races))
-        
+
         def get_race_data(self, race_id):
             """Get race data with fallback logic."""
             # Try local first
             if race_id in self.local_races:
                 return self.local_races[race_id]
-            
+
             # Fall back to cloud
             if self.cloud_enabled and race_id in self.cloud_races:
                 return self.cloud_races[race_id]
-            
+
             return None
-    
+
     # Test the service
     service = MockRacesAPIService()
-    
+
     # Test listing races
     races = service.get_published_races()
     if "local-race-1" in races and "cloud-race-1" in races:
@@ -307,7 +308,7 @@ def test_races_api_integration():
     else:
         print("❌ Races API listing failed")
         return False
-    
+
     # Test local data retrieval
     local_data = service.get_race_data("local-race-1")
     if local_data and local_data["source"] == "local":
@@ -315,7 +316,7 @@ def test_races_api_integration():
     else:
         print("❌ Races API local retrieval failed")
         return False
-    
+
     # Test cloud fallback
     cloud_data = service.get_race_data("cloud-race-1")
     if cloud_data and cloud_data["source"] == "cloud":
@@ -323,7 +324,7 @@ def test_races_api_integration():
     else:
         print("❌ Races API cloud fallback failed")
         return False
-    
+
     # Test missing data
     missing_data = service.get_race_data("nonexistent-race")
     if missing_data is None:
@@ -331,13 +332,14 @@ def test_races_api_integration():
     else:
         print("❌ Races API missing data handling failed")
         return False
-    
+
     return True
+
 
 def test_environment_detection():
     """Test environment detection for choosing publication targets."""
     print("🧪 Testing environment detection...")
-    
+
     def detect_environment():
         cloud_indicators = [
             os.getenv("GOOGLE_CLOUD_PROJECT"),
@@ -345,36 +347,37 @@ def test_environment_detection():
             os.getenv("K_SERVICE"),
         ]
         return any(cloud_indicators)
-    
+
     # Test local environment (no cloud vars)
     for var in ["GOOGLE_CLOUD_PROJECT", "CLOUD_RUN_SERVICE", "K_SERVICE"]:
         os.environ.pop(var, None)
-    
+
     if not detect_environment():
         print("✅ Local environment detection works")
     else:
         print("❌ Local environment detection failed")
         return False
-    
+
     # Test cloud environment
     os.environ["GOOGLE_CLOUD_PROJECT"] = "test-project"
-    
+
     if detect_environment():
         print("✅ Cloud environment detection works")
     else:
         print("❌ Cloud environment detection failed")
         return False
-    
+
     # Clean up
     os.environ.pop("GOOGLE_CLOUD_PROJECT", None)
-    
+
     return True
+
 
 def main():
     """Run all integration tests."""
     print("🗳️  SmarterVote Integration Tests")
     print("=" * 50)
-    
+
     tests = [
         ("Local Publishing Mode", test_local_publishing_mode),
         ("Cloud Storage Simulation", test_cloud_storage_simulation),
@@ -383,10 +386,10 @@ def main():
         ("Races API Integration", test_races_api_integration),
         ("Environment Detection", test_environment_detection),
     ]
-    
+
     passed = 0
     total = len(tests)
-    
+
     for test_name, test_func in tests:
         print(f"\n🧪 Running: {test_name}")
         try:
@@ -397,12 +400,12 @@ def main():
                 print(f"❌ {test_name} FAILED")
         except Exception as e:
             print(f"❌ {test_name} ERROR: {e}")
-    
+
     print("\n" + "=" * 50)
     print("📊 Integration Test Results:")
     print(f"   ✅ Passed: {passed}/{total}")
     print(f"   ❌ Failed: {total - passed}/{total}")
-    
+
     if passed == total:
         print("\n🎉 All integration tests PASSED!")
         print("✅ Pipeline meets all requirements:")
@@ -416,6 +419,7 @@ def main():
         print("\n⚠️  Some integration tests failed")
         print("🔧 Review failed tests and fix issues")
         return False
+
 
 if __name__ == "__main__":
     success = main()

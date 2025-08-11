@@ -29,6 +29,7 @@ from .search_utils import SearchUtils
 
 logger = logging.getLogger(__name__)
 
+
 class SourceDiscoveryEngine:
     """Engine for discovering data sources about electoral races."""
 
@@ -53,7 +54,6 @@ class SourceDiscoveryEngine:
         }
         # Initialize search utilities
         self.search_utils = SearchUtils(self.search_config)
-
 
     async def discover_all_sources(self, race_id: str, race_metadata: Optional[RaceMetadata] = None) -> List[Source]:
         """
@@ -285,17 +285,17 @@ class SourceDiscoveryEngine:
         # Generate search queries for each issue
         for issue in issues_to_search:
             query = self.search_utils.generate_issue_query(
-                race_id, issue, 
+                race_id,
+                issue,
                 candidate_names=race_metadata.candidates if race_metadata else None,
                 state=race_metadata.state if race_metadata else None,
-                office=race_metadata.office if race_metadata else None
+                office=race_metadata.office if race_metadata else None,
             )
             issue_sources = await self.search_utils.search_google_custom(query, issue)
 
             sources.extend(issue_sources)
 
         return sources
-
 
     def _generate_issue_query(
         self, race_id: str, issue: CanonicalIssue, race_metadata: Optional[RaceMetadata] = None
