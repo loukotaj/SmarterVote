@@ -5,10 +5,10 @@ including issue tagging, candidate linking, claim extraction, and usefulness sco
 """
 
 import hashlib
-import logging
-from typing import Dict, List, Any, Optional
 import json
+import logging
 import re
+from typing import Any, Dict, List, Optional
 
 logger = logging.getLogger(__name__)
 
