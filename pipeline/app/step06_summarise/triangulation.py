@@ -55,16 +55,20 @@ class SummaryTriangulator:
 
         triangulated_result = {
             "consensus_summary": consensus_summary,
-            "overall_confidence": overall_confidence,
+            "consensus_confidence": overall_confidence,
+            "overall_confidence": overall_confidence,  # Backwards compatibility
+            "consensus_method": self._determine_consensus_method(confidence_groups),
+            "total_summaries": len(summaries),
+            "models_used": [summary.model for summary in summaries],
             "provider_count": len(summaries),
             "provider_agreement": provider_agreement,
             "confidence_distribution": {conf.value: len(summaries_list) for conf, summaries_list in confidence_groups.items()},
             "source_summaries": [
                 {
-                    "provider": summary.generator,
+                    "provider": summary.model,
                     "confidence": summary.confidence.value,
-                    "summary": summary.summary_text[:500],  # Truncate for storage
-                    "sources": summary.sources,
+                    "summary": summary.content[:500],  # Truncate for storage
+                    "sources": summary.source_ids,
                 }
                 for summary in summaries
             ],
@@ -118,6 +122,25 @@ class SummaryTriangulator:
         else:
             # Single summary
             return most_common_confidence
+
+    def _determine_consensus_method(self, confidence_groups: Dict[ConfidenceLevel, List[Summary]]) -> str:
+        """Determine the method used for consensus building."""
+        if not confidence_groups:
+            return "unknown"
+
+        confidence_counts = {conf: len(summaries) for conf, summaries in confidence_groups.items()}
+        sorted_confidence = sorted(confidence_counts.items(), key=lambda x: x[1], reverse=True)
+        most_common_confidence, most_common_count = sorted_confidence[0]
+        total_summaries = sum(confidence_counts.values())
+
+        if total_summaries >= 3 and most_common_count >= 2:
+            return f"majority-{most_common_confidence.value.lower()}"
+        elif total_summaries == 2 and most_common_count == 2:
+            return f"unanimous-{most_common_confidence.value.lower()}"
+        else:
+            # When there's no clear majority, we default to medium confidence
+            # so the method should reflect "majority-medium"
+            return "majority-medium"
 
     def _build_consensus_summary(self, summaries: List[Summary]) -> str:
         """Build a consensus summary from multiple provider responses."""
@@ -208,7 +231,7 @@ class SummaryTriangulator:
             analysis_parts.append("variable summary lengths")
 
         # Provider diversity
-        providers = [s.generator for s in summaries]
+        providers = [s.model for s in summaries]
         unique_providers = set(providers)
         analysis_parts.append(f"{len(unique_providers)} unique providers")
 
