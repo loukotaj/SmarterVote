@@ -265,5 +265,3 @@ class SourceDiscoveryEngine:
 
         logger.debug(f"Extracted candidate names for {race_id}: {candidate_names}")
         return candidate_names
-
-

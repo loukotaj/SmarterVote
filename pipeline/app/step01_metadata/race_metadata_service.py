@@ -268,26 +268,26 @@ class RaceMetadataService:
         # Count unique trusted domains across all candidates using normalized extraction
         trusted_domains = set()
         has_gov_source = False
-        
+
         for candidate in candidates:
             for source in candidate.sources:
                 source_str = str(source).lower().strip()
                 if self._is_trusted_source(source_str):
                     try:
                         parsed_url = urlparse(source_str)
-                        domain = parsed_url.netloc.removeprefix('www.').strip()
+                        domain = parsed_url.netloc.removeprefix("www.").strip()
                         trusted_domains.add(domain)
-                        
+
                         # Check for .gov sources
-                        if domain.endswith('.gov'):
+                        if domain.endswith(".gov"):
                             has_gov_source = True
                     except Exception:
                         # Fallback to simpler domain extraction
                         domain_parts = source_str.split("/")
                         if len(domain_parts) > 2:
-                            domain = domain_parts[2].removeprefix('www.').strip()
+                            domain = domain_parts[2].removeprefix("www.").strip()
                             trusted_domains.add(domain)
-                            if domain.endswith('.gov'):
+                            if domain.endswith(".gov"):
                                 has_gov_source = True
 
         trusted_domains_count = len(trusted_domains)
@@ -389,7 +389,7 @@ class RaceMetadataService:
         """Create minimal fallback metadata when parsing fails."""
         current_year = datetime.utcnow().year
         fallback_election_date = self._calculate_election_date(current_year)
-        
+
         return RaceMetadata(
             race_id=race_id,
             state="XX",
@@ -574,20 +574,20 @@ class RaceMetadataService:
             return None
 
         party_map = {
-            "D": "Democratic", 
-            "R": "Republican", 
-            "I": "Independent", 
-            "L": "Libertarian", 
+            "D": "Democratic",
+            "R": "Republican",
+            "I": "Independent",
+            "L": "Libertarian",
             "G": "Green",
             "NP": "Nonpartisan",
             "U": "Unaffiliated",
-            "NPP": "No Party Preference"
+            "NPP": "No Party Preference",
         }
 
         party_code_upper = party_code.strip().upper()
         if party_code_upper in party_map:
             return party_map[party_code_upper]
-        
+
         # Handle full names
         party_normalized = party_code.strip().title()
         return party_normalized
@@ -630,13 +630,13 @@ class RaceMetadataService:
             r"\bcurrent\s+(?:senator|representative|governor)\b",
             r"\bserving\s+(?:senator|representative|governor)\b",
             r"\breelection\b",
-            r"\bdefending\s+(?:seat|office)\b"
+            r"\bdefending\s+(?:seat|office)\b",
         ]
-        
+
         for pattern in incumbent_patterns:
             if re.search(pattern, context, re.IGNORECASE):
                 return True
-                
+
         return False
 
     def _merge_and_deduplicate_structured_candidates(self, candidates: List[DiscoveredCandidate]) -> List[DiscoveredCandidate]:
@@ -664,7 +664,7 @@ class RaceMetadataService:
                 # Merge source lists with efficient deduplication
                 if not hasattr(existing, "_src_set"):
                     existing._src_set = {self._normalize_source_url(s) for s in existing.sources}
-                
+
                 for source in candidate.sources:
                     norm = self._normalize_source_url(source)
                     if norm not in existing._src_set:

@@ -216,10 +216,10 @@ class SearchUtils:
     async def search_general(self, query: FreshSearchQuery) -> List[Source]:
         """
         Perform a general search without requiring a specific canonical issue.
-        
+
         Args:
             query: Search query object
-            
+
         Returns:
             List of search results as Source objects
         """
