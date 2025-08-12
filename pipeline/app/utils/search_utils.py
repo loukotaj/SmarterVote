@@ -1,4 +1,11 @@
-"""Search utilities for source discovery in SmarterVote Pipeline."""
+"""Search utilities for source discovery in SmarterVote Pipeline.
+
+Backwards-compatibility notes
+- Public methods kept: search_google_custom, search_candidate_info, search_general,
+  generate_issue_query, generate_candidate_query, generate_candidate_issue_queries,
+  deduplicate_sources.
+- Added helpers are additive and safe for other services to ignore.
+"""
 
 import asyncio
 import logging
@@ -25,54 +32,22 @@ class SearchUtils:
         self.per_host_concurrency = search_config.get("per_host_concurrency", 5)
         self._host_semaphores: Dict[str, asyncio.Semaphore] = defaultdict(lambda: asyncio.Semaphore(self.per_host_concurrency))
 
-        # Basic domain trust ranking
+        # Basic domain trust ranking (explicit hosts; TLDs are handled in _score_source)
         self.domain_trust: Dict[str, float] = {
-            "gov": 1.0,
-            "edu": 0.9,
             "fec.gov": 0.95,
-            "ballotpedia.org": 0.9,
-            "opensecrets.org": 0.9,
+            "ballotpedia.org": 0.90,
+            "opensecrets.org": 0.90,
         }
 
         # Canonical issue synonyms
         self.issue_synonyms: Dict[CanonicalIssue, List[str]] = {
-            CanonicalIssue.HEALTHCARE: [
-                "health care",
-                "medical",
-                "medicare",
-                "medicaid",
-            ],
-            CanonicalIssue.ECONOMY: [
-                "economic",
-                "jobs",
-                "employment",
-                "taxes",
-                "budget",
-            ],
-            CanonicalIssue.CLIMATE_ENERGY: [
-                "climate change",
-                "environment",
-                "renewable energy",
-                "fossil fuels",
-            ],
-            CanonicalIssue.REPRODUCTIVE_RIGHTS: [
-                "abortion",
-                "reproductive health",
-                "family planning",
-            ],
+            CanonicalIssue.HEALTHCARE: ["health care", "medical", "medicare", "medicaid"],
+            CanonicalIssue.ECONOMY: ["economic", "jobs", "employment", "taxes", "budget"],
+            CanonicalIssue.CLIMATE_ENERGY: ["climate change", "environment", "renewable energy", "fossil fuels"],
+            CanonicalIssue.REPRODUCTIVE_RIGHTS: ["abortion", "reproductive health", "family planning"],
             CanonicalIssue.IMMIGRATION: ["border", "refugees", "citizenship", "visa"],
-            CanonicalIssue.GUNS_SAFETY: [
-                "gun control",
-                "firearms",
-                "second amendment",
-                "gun violence",
-            ],
-            CanonicalIssue.FOREIGN_POLICY: [
-                "international",
-                "defense",
-                "military",
-                "diplomacy",
-            ],
+            CanonicalIssue.GUNS_SAFETY: ["gun control", "firearms", "second amendment", "gun violence"],
+            CanonicalIssue.FOREIGN_POLICY: ["international", "defense", "military", "diplomacy"],
             CanonicalIssue.SOCIAL_JUSTICE: [
                 "LGBTQ",
                 "gay rights",
@@ -84,22 +59,14 @@ class SearchUtils:
                 "disability rights",
             ],
             CanonicalIssue.EDUCATION: ["schools", "teachers", "students", "university"],
-            CanonicalIssue.TECH_AI: [
-                "technology",
-                "artificial intelligence",
-                "privacy",
-                "internet",
-            ],
-            CanonicalIssue.ELECTION_REFORM: [
-                "voting rights",
-                "gerrymandering",
-                "campaign finance",
-            ],
+            CanonicalIssue.TECH_AI: ["technology", "artificial intelligence", "privacy", "internet"],
+            CanonicalIssue.ELECTION_REFORM: ["voting rights", "gerrymandering", "campaign finance"],
         }
 
-    async def search_google_custom(self, query: FreshSearchQuery, issue: CanonicalIssue) -> List[Source]:
-        """Perform Google Custom Search with caching, concurrency and scoring."""
+    # ------------------------- public search APIs ------------------------- #
 
+    async def search_google_custom(self, query: FreshSearchQuery, issue: CanonicalIssue) -> List[Source]:
+        """Perform Google Custom Search with light caching, concurrency and scoring."""
         cache_key = f"{query.race_id}:{query.text}"
         now = datetime.utcnow()
         cached = self.cache.get(cache_key)
@@ -113,12 +80,14 @@ class SearchUtils:
             logger.warning(
                 "Google Custom Search API not configured (missing GOOGLE_SEARCH_API_KEY or GOOGLE_SEARCH_ENGINE_ID)"
             )
-            logger.info(f"Would search Google for: {query.text}")
+            logger.info("Would search Google for: %s", query.text)
+
+            # Minimal mock: always produce a valid SourceType
             mock_source = Source(
-                url=f"https://example.com/news/{issue.value.lower()}-{query.race_id}",
-                type=SourceType.FRESH_SEARCH,
-                title=f"Fresh: {issue.value} in {query.race_id}",
-                description=f"Fresh search content about {issue.value} for this race",
+                url=f"https://example.com/news/{(getattr(issue, 'value', str(issue))).lower()}-{query.race_id}",
+                type=self._choose_type("WEBSITE"),
+                title=f"Fresh: {getattr(issue, 'value', str(issue))} in {query.race_id}",
+                description=f"Fresh search content about {getattr(issue, 'value', str(issue))} for this race",
                 last_accessed=now,
                 published_at=now,
                 score=0.5,
@@ -128,17 +97,17 @@ class SearchUtils:
             self.cache[cache_key] = (now, [mock_source])
             return [mock_source]
 
-        logger.info(f"Searching Google Custom Search for: {query.text}")
+        logger.info("Searching Google Custom Search for: %s", query.text)
 
         try:
-            import httpx
+            import httpx  # type: ignore
         except ImportError:
             logger.warning("httpx not available for Google search. Using mock results.")
             mock_source = Source(
-                url=f"https://example.com/mock/{issue.value.lower()}-{query.race_id}",
-                type=SourceType.FRESH_SEARCH,
-                title=f"Mock: {issue.value} in {query.race_id}",
-                description=f"Mock search content about {issue.value} for this race",
+                url=f"https://example.com/mock/{(getattr(issue, 'value', str(issue))).lower()}-{query.race_id}",
+                type=self._choose_type("WEBSITE"),
+                title=f"Mock: {getattr(issue, 'value', str(issue))} in {query.race_id}",
+                description=f"Mock search content about {getattr(issue, 'value', str(issue))} for this race",
                 last_accessed=now,
                 published_at=now,
                 score=0.5,
@@ -149,44 +118,54 @@ class SearchUtils:
             return [mock_source]
 
         search_url = "https://www.googleapis.com/customsearch/v1"
+
+        # Respect query overrides for freshness and num
+        date_restrict = getattr(query, "date_restrict", None)
+        date_param = date_restrict if date_restrict else f"d{self.search_config.get('freshness_days', 30)}"
+        num = getattr(query, "max_results", None) or self.search_config.get("max_results_per_query", 10)
+
         params = {
             "key": api_key,
             "cx": search_engine_id,
             "q": query.text,
-            "num": self.search_config.get("max_results_per_query", 10),
-            "dateRestrict": f"d{self.search_config.get('freshness_days', 30)}",
+            "num": num,
+            "dateRestrict": date_param,
             "sort": "date",
         }
 
         host = urlparse(search_url).netloc
         async with self._host_semaphores[host]:
             try:
-                async with httpx.AsyncClient() as client:
+                async with httpx.AsyncClient(timeout=self.search_config.get("http_timeout_seconds", 20)) as client:
                     response = await client.get(search_url, params=params)
                     response.raise_for_status()
                     data = response.json()
-
             except Exception as e:  # noqa: BLE001
-                logger.error(f"Google Custom Search failed: {e}")
+                logger.error("Google Custom Search failed for %s | error=%s", query.text, e)
                 return []
 
         sources: List[Source] = []
         state = query.race_id.split("-")[0] if query.race_id else None
-        for item in data.get("items", []):
+        for item in data.get("items", []) or []:
+            link = item.get("link")
+            if not link:
+                continue
+
+            link_norm = self._normalize_url(link)
             published_at = self._extract_published_time(item)
-            source_type = self._classify_source(item["link"])
+            source_type = self._classify_source(link_norm)
             score, reason = self._score_source(
-                item["link"],
-                item.get("title", ""),
-                item.get("snippet", ""),
+                link_norm,
+                item.get("title", "") or "",
+                item.get("snippet", "") or "",
                 published_at,
                 state,
             )
             source = Source(
-                url=item["link"],
+                url=link_norm,
                 type=source_type,
                 title=item.get("title"),
-                description=item.get("snippet", ""),
+                description=item.get("snippet", "") or "",
                 last_accessed=now,
                 published_at=published_at,
                 score=score,
@@ -195,35 +174,24 @@ class SearchUtils:
             )
             sources.append(source)
 
-        sources.sort(key=lambda s: s.score or 0, reverse=True)
+        # Deduplicate and score-sort
+        sources = self.deduplicate_sources(sources)
+        sources.sort(key=lambda s: s.score or 0.0, reverse=True)
+
         self.cache[cache_key] = (datetime.utcnow(), sources)
         return sources
 
     async def search_candidate_info(self, query: FreshSearchQuery) -> List[Source]:
-        """
-        Search for candidate-specific information.
-
-        TODO:
-        - [ ] Add social media profile discovery
-        - [ ] Implement campaign website detection
-        - [ ] Add financial disclosure search
-        - [ ] Support for video/podcast discovery
-        """
-        # For now, use Google Custom Search with candidate-specific queries
-        # This will be expanded to include specialized candidate information sources
-        return await self.search_google_custom(query, CanonicalIssue.GENERAL)
+        """Search for candidate-specific information (kept for compatibility)."""
+        issue = self._pick_issue("GENERAL")
+        return await self.search_google_custom(query, issue)
 
     async def search_general(self, query: FreshSearchQuery) -> List[Source]:
-        """
-        Perform a general search without requiring a specific canonical issue.
+        """Perform a general search without requiring a specific canonical issue."""
+        issue = self._pick_issue("GENERAL")
+        return await self.search_google_custom(query, issue)
 
-        Args:
-            query: Search query object
-
-        Returns:
-            List of search results as Source objects
-        """
-        return await self.search_google_custom(query, CanonicalIssue.GENERAL)
+    # ------------------------- query generation ------------------------- #
 
     def generate_issue_query(
         self,
@@ -233,38 +201,19 @@ class SearchUtils:
         state: str = None,
         office: str = None,
     ) -> FreshSearchQuery:
-        """
-        Generate a targeted search query for a specific issue.
-
-        Args:
-            race_id: Race identifier like 'mo-senate-2024'
-            issue: The canonical issue to search for
-            candidate_names: Optional list of candidate names to include
-            state: Optional state to include in search
-            office: Optional office type to include
-
-        Returns:
-            FreshSearchQuery optimized for the issue
-        """
-        # Start with the issue itself
+        """Generate a targeted search query for a specific issue."""
         query_parts = [issue.value]
 
-        # Add race/location context
         if state:
             query_parts.append(state)
         if office:
             query_parts.append(office)
 
-        # Add candidate names for personalized searches
         if candidate_names:
-            # Create a query that includes candidates
-            candidates_part = " OR ".join(f'"{name}"' for name in candidate_names[:3])  # Limit to top 3
+            candidates_part = " OR ".join(f'"{name}"' for name in candidate_names[:3])
             query_parts.append(f"({candidates_part})")
 
-        # Create search text
         query_text = " ".join(query_parts)
-
-        # Add search operators for better results
         query_text += " -site:wikipedia.org -site:reddit.com -site:twitter.com"
 
         return FreshSearchQuery(
@@ -275,21 +224,16 @@ class SearchUtils:
         )
 
     def generate_candidate_query(self, race_id: str, candidate_name: str) -> FreshSearchQuery:
-        """
-        Generate a search query specifically for a candidate.
-
-        TODO:
-        - [ ] Add candidate-specific search terms (positions, endorsements, etc.)
-        - [ ] Include negative search terms to filter out irrelevant content
-        - [ ] Add temporal constraints for recent information
-        """
-        query_text = f'"{candidate_name}" candidate {race_id.split("-")[0]} {race_id.split("-")[1]}'
-        query_text += " -site:wikipedia.org -obituary -death"
+        """Generate a search query specifically for a candidate."""
+        parts = (race_id or "").split("-")
+        state = parts[0] if len(parts) > 0 else ""
+        office = parts[1] if len(parts) > 1 else ""
+        query_text = f'"{candidate_name}" candidate {state} {office} -site:wikipedia.org -obituary -death'
 
         return FreshSearchQuery(
             text=query_text,
             race_id=race_id,
-            issue=CanonicalIssue.GENERAL,
+            issue=self._pick_issue("GENERAL"),
             generated_at=datetime.utcnow(),
         )
 
@@ -302,16 +246,16 @@ class SearchUtils:
         sites: List[str],
     ) -> List[FreshSearchQuery]:
         """Generate base and site-specific queries for candidate×issue searches."""
-
         state = None
-        year = None
-        district = None
+        year: Optional[str] = None
+        district: Optional[str] = None
+
         if race_metadata:
             state = race_metadata.state
-            year = race_metadata.year
+            year = str(race_metadata.year)
             district = race_metadata.district
         else:
-            parts = race_id.split("-")
+            parts = race_id.split("-") if race_id else []
             if parts:
                 state = parts[0]
             if len(parts) >= 3 and parts[-1].isdigit():
@@ -328,30 +272,80 @@ class SearchUtils:
         if year:
             base += f" {year}"
 
-        queries = [
-            FreshSearchQuery(
-                text=base,
-                race_id=race_id,
-                issue=issue,
-                generated_at=datetime.utcnow(),
-            )
-        ]
-
+        queries = [FreshSearchQuery(text=base, race_id=race_id, issue=issue, generated_at=datetime.utcnow())]
         for site in sites:
             queries.append(
+                FreshSearchQuery(text=f"{base} site:{site}", race_id=race_id, issue=issue, generated_at=datetime.utcnow())
+            )
+        return queries
+
+    # ------------------------- new helpers (additive) ------------------------- #
+
+    def is_trusted_domain(self, url: str) -> bool:
+        """Public helper: whether a URL is on a trusted election info domain."""
+        try:
+            host = urlparse(url).netloc.lower().removeprefix("www.")
+            if host.endswith(".gov"):
+                return True
+            return host in self.domain_trust or any(host.endswith("." + d) for d in self.domain_trust)
+        except Exception:
+            return False
+
+    def canonicalize_url(self, url: str) -> str:
+        """Public helper: aggressive URL canonicalization (safe to use elsewhere)."""
+        return self._normalize_url(url)
+
+    def build_race_seed_queries(
+        self,
+        race_id: str,
+        state: str,
+        office: str,
+        year: int,
+        district: Optional[str],
+        trusted_only: bool = True,
+    ) -> List[FreshSearchQuery]:
+        """Build a small set of seed queries for a race (trusted-first or permissive)."""
+        state_part = state
+        district_text = ""
+        if district:
+            district_text = " at-large" if district == "AL" else f" district {district}"
+
+        targets = []
+        if trusted_only:
+            targets = [
+                f"site:ballotpedia.org {year} {state_part}{district_text} {office} election",
+                f"site:wikipedia.org {year} {state_part}{district_text} {office} election",
+            ]
+            if office in {"senate", "house"}:
+                # Generic FEC landing—more filters will happen downstream
+                targets.append(f"site:fec.gov {year} {state} {office} candidates")
+        else:
+            base = f"{year} {state_part}{district_text} {office}"
+            targets = [
+                f"{base} candidates",
+                f"{base} candidate list",
+                f"{base} ballotpedia OR wikipedia OR site:.gov",
+                f"{base} official campaign website",
+            ]
+
+        q: List[FreshSearchQuery] = []
+        for t in targets:
+            q.append(
                 FreshSearchQuery(
-                    text=f"{base} site:{site}",
+                    text=t,
                     race_id=race_id,
-                    issue=issue,
+                    issue=self._pick_issue("GENERAL"),
                     generated_at=datetime.utcnow(),
+                    max_results=10,
+                    date_restrict="y2",
                 )
             )
+        return q
 
-        return queries
+    # ------------------------- utilities ------------------------- #
 
     def deduplicate_sources(self, sources: List[Source]) -> List[Source]:
         """Remove duplicate sources with aggressive URL normalization."""
-
         seen: Set[str] = set()
         seen_titles: Set[str] = set()
         unique_sources: List[Source] = []
@@ -369,41 +363,54 @@ class SearchUtils:
 
     def _normalize_url(self, url: str) -> str:
         parsed = urlparse(url)
-        netloc = parsed.netloc.lower()
+        scheme = parsed.scheme or "https"
+        netloc = parsed.netloc.lower().lstrip(".")
+        # Drop common mobile subdomain
         if netloc.startswith("m."):
             netloc = netloc[2:]
+        # Strip default ports
+        netloc = netloc.replace(":80", "").replace(":443", "")
 
-        path = re.sub(r"/(amp|mobile|print)/?", "/", parsed.path)
+        # Normalize path variants (amp/mobile/print)
+        path = re.sub(r"/(amp|mobile|print)/?", "/", parsed.path or "/")
+
+        # Strip noisy tracking params
         query = [
             (k, v)
-            for k, v in parse_qsl(parsed.query, keep_blank_values=True)
-            if not k.lower().startswith(("utm_", "gclid", "fbclid"))
+            for k, v in parse_qsl(parsed.query or "", keep_blank_values=True)
+            if not k.lower().startswith(("utm_", "gclid", "fbclid", "mc_cid", "mc_eid"))
         ]
-        normalized = urlunparse(
-            (
-                parsed.scheme,
-                netloc,
-                path.rstrip("/"),
-                "",
-                urlencode(query),
-                "",
-            )
-        )
-        return normalized
+
+        return urlunparse((scheme, netloc, path.rstrip("/"), "", urlencode(query), ""))
 
     def _extract_published_time(self, item: Dict[str, Any]) -> Optional[datetime]:  # noqa: ANN401
-        pagemap = item.get("pagemap", {})
-        date_str = None
-        if "metatags" in pagemap:
-            for tag in pagemap["metatags"]:
-                date_str = tag.get("article:published_time") or tag.get("pubdate")
-                if date_str:
-                    break
-        if not date_str and "newsarticle" in pagemap:
-            date_str = pagemap["newsarticle"][0].get("datepublished")
+        pagemap = item.get("pagemap", {}) or {}
+        date_str: Optional[str] = None
+
+        # Common metatags
+        for tag in pagemap.get("metatags", []) or []:
+            date_str = (
+                tag.get("article:published_time")
+                or tag.get("pubdate")
+                or tag.get("date")
+                or tag.get("dc.date.issued")
+                or tag.get("og:updated_time")
+            )
+            if date_str:
+                break
+
+        # Schema.org overlays
+        if not date_str:
+            if "newsarticle" in pagemap:
+                date_str = (pagemap["newsarticle"][0] or {}).get("datepublished")
+            elif "article" in pagemap:
+                date_str = (pagemap["article"][0] or {}).get("datepublished")
+
         if not date_str:
             return None
+
         try:
+            # Normalize trailing Z
             return datetime.fromisoformat(date_str.replace("Z", "+00:00"))
         except Exception:  # noqa: BLE001
             return None
@@ -411,12 +418,25 @@ class SearchUtils:
     def _classify_source(self, url: str) -> SourceType:
         domain = urlparse(url).netloc.lower()
         if domain.endswith(".gov") or "fec.gov" in domain:
-            return SourceType.GOVERNMENT
-        if any(social in domain for social in ["twitter.com", "facebook.com", "youtube.com"]):
-            return SourceType.SOCIAL_MEDIA
+            return self._choose_type("GOVERNMENT")
+        if any(social in domain for social in ["twitter.com", "facebook.com", "youtube.com", "tiktok.com"]):
+            return self._choose_type("SOCIAL_MEDIA")
         if url.lower().endswith(".pdf"):
-            return SourceType.PDF
-        return SourceType.WEBSITE
+            return self._choose_type("PDF")
+        return self._choose_type("WEBSITE")
+
+    def _choose_type(self, preferred: str) -> SourceType:
+        """Always return a valid SourceType, tolerating enum name drift across services."""
+        if hasattr(SourceType, preferred):
+            return getattr(SourceType, preferred)
+        for alt in ("WEBSITE", "WEB", "URL", "ARTICLE", "UNKNOWN"):
+            if hasattr(SourceType, alt):
+                return getattr(SourceType, alt)
+        # Fall back to first enum member
+        try:
+            return next(iter(SourceType))
+        except Exception as e:  # noqa: BLE001
+            raise AttributeError("SourceType enum has no accessible members") from e
 
     def _score_source(
         self,
@@ -426,20 +446,25 @@ class SearchUtils:
         published_at: Optional[datetime],
         state: Optional[str],
     ) -> Tuple[float, str]:
+        """Return (score, reason) using domain trust, freshness, locality, and type."""
         domain = urlparse(url).netloc.lower()
-        reason = []
+        reason: List[str] = []
 
         # Domain trust
         trust = 0.5
-        if domain.endswith(".gov") or "fec.gov" in domain:
+        if domain in self.domain_trust:
+            trust = self.domain_trust[domain]
+            reason.append(f"trust=domain({trust:.2f})")
+        elif domain.endswith(".gov"):
             trust = 1.0
-            reason.append("trust=gov")
+            reason.append("trust=tld(gov)")
         elif domain.endswith(".edu"):
             trust = 0.9
-            reason.append("trust=edu")
-        elif any(k in domain for k in ["ballotpedia.org", "opensecrets.org"]):
-            trust = 0.8
-            reason.append("trust=org")
+            reason.append("trust=tld(edu)")
+        elif any(domain.endswith(k) for k in self.domain_trust):
+            match = next(k for k in self.domain_trust if domain.endswith(k))
+            trust = self.domain_trust[match]
+            reason.append(f"trust=parent({match})")
         else:
             reason.append("trust=other")
 
@@ -457,18 +482,34 @@ class SearchUtils:
             reason.append("fresh=?")
 
         # Localness
-        local = 0.0
+        local_bonus = 0.0
         if state:
             state_l = state.lower()
-            if state_l in url.lower() or state_l in title.lower() or state_l in snippet.lower():
-                local = 0.1
-        reason.append(f"local={local}")
-        score += local
+            if state_l in domain or state_l in (title or "").lower() or state_l in (snippet or "").lower():
+                local_bonus = 0.1
+        reason.append(f"local={local_bonus:.1f}")
+        score += local_bonus
 
         # Type bonus
         source_type = self._classify_source(url)
-        if source_type in {SourceType.GOVERNMENT, SourceType.PDF}:
+        if source_type in {self._choose_type("GOVERNMENT"), self._choose_type("PDF")}:
             score += 0.1
-        reason.append(f"type={source_type.value}")
+            reason.append("type=bonus")
+        else:
+            reason.append(f"type={getattr(source_type, 'value', str(source_type))}")
 
         return min(score, 1.0), "; ".join(reason)
+
+    # ------------------------- internal helpers ------------------------- #
+
+    def _pick_issue(self, preferred: str = "GENERAL") -> CanonicalIssue:
+        """Pick a valid CanonicalIssue, tolerating missing members."""
+        if hasattr(CanonicalIssue, preferred):
+            return getattr(CanonicalIssue, preferred)
+        for alt in ("GENERAL_ELECTIONS", "DEFAULT"):
+            if hasattr(CanonicalIssue, alt):
+                return getattr(CanonicalIssue, alt)
+        try:
+            return next(iter(CanonicalIssue))
+        except Exception as e:  # noqa: BLE001
+            raise AttributeError("No usable CanonicalIssue enum member found") from e

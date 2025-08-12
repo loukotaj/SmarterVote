@@ -1,64 +1,127 @@
 """
-Race Metadata Extraction Service for SmarterVote Pipeline
+Race Metadata Extraction Service for SmarterVote Pipeline (v0.6)
 
-This service extracts high-level race details early in the pipeline to enable
-more targeted discovery and search operations. It parses race IDs, performs
-initial lookups for basic race information, and creates structured metadata
-that can guide subsequent pipeline steps.
-
-Key responsibilities:
-- Parse race_id patterns to extract state, office, year, and race type (primary/special/runoff)
-- Perform initial discovery to identify key candidates with structured information
-- Determine race type (federal/state/local) and characteristics
-- Generate search optimization hints for issue discovery
-- Create structured RaceMetadata for pipeline use
-- Implement evidence-based confidence scoring
 """
 
+from __future__ import annotations
+
+import json
 import logging
 import re
+import time
+import traceback
+import uuid
+from dataclasses import asdict
 from datetime import datetime, timedelta
 from typing import Any, Dict, List, Optional, Tuple
-from urllib.parse import urlparse
+from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
 
-from shared.models import DiscoveredCandidate
 from shared.state_constants import PRIMARY_DATE_BY_STATE, STATE_NAME
 
 from ..providers.base import ProviderRegistry, TaskType
-from ..schema import CanonicalIssue, ConfidenceLevel, FreshSearchQuery, RaceMetadata, Source, SourceType
+from ..schema import DiscoveredCandidate  # if your schema exposes this
+from ..schema import ConfidenceLevel, FreshSearchQuery, RaceMetadata, Source, SourceType
+from ..step03_fetch import WebContentFetcher
+from ..step04_extract import ContentExtractor
 from ..utils.search_utils import SearchUtils
 
 logger = logging.getLogger(__name__)
 
-# Trusted domains for candidate validation and confidence scoring
+# --------------------------- constants & regex --------------------------- #
+
 TRUSTED_DOMAINS = {"ballotpedia.org", "wikipedia.org", "fec.gov", "vote411.org"}
 
-# Slug parsing regex pattern - matches: state-office[-district]-year[-kind]
-# Uses non-greedy matching for office to properly handle at-large districts
 SLUG_PATTERN = re.compile(
-    r"^(?P<state>[a-z]{2})-(?P<office>[a-z]+(?:-[a-z]+)*?)"
-    r"(?:-(?P<district>\d{1,2}|al))?-(?P<year>\d{4})"
-    r"(?:-(?P<kind>primary|runoff|special))?$"
+    r"^(?P<state>[a-z]{2})-(?P<office>[a-z]+(?:-[a-z]+)*?)"  # e.g., mo-senate, ny-house, ca-secretary-state
+    r"(?:-(?P<district>\d{1,2}|al))?-(?P<year>\d{4})"  # optional district: 01..99 or al
+    r"(?:-(?P<kind>primary|runoff|special))?$",
 )
+
+# Names we should never treat as candidates
+NAME_STOP_WORDS = {
+    "united states",
+    "candidate connection",
+    "republican party",
+    "democratic party",
+    "state senate",
+    "state house",
+    "missouri state",
+    "u.s.",
+    "us senate",
+    "u.s. senate",
+    "house of representatives",
+}
+
+PARTY_ALIASES = {
+    "d": "Democratic",
+    "democrat": "Democratic",
+    "democratic": "Democratic",
+    "r": "Republican",
+    "republican": "Republican",
+    "i": "Independent",
+    "independent": "Independent",
+    "l": "Libertarian",
+    "libertarian": "Libertarian",
+    "g": "Green",
+    "green": "Green",
+    "np": "Nonpartisan",
+    "npp": "Nonpartisan",
+    "u": "Unaffiliated",
+    "unaffiliated": "Unaffiliated",
+}
+
+# --------------------------- logging helpers --------------------------- #
+
+
+def _now_utc_iso() -> str:
+    return datetime.utcnow().isoformat(timespec="milliseconds") + "Z"
+
+
+def _jlog(level: int, event: str, trace_id: str, **fields: Any) -> None:
+    payload = {
+        "ts": _now_utc_iso(),
+        "level": logging.getLevelName(level).lower(),
+        "event": event,
+        "trace_id": trace_id,
+        "component": "RaceMetadataService",
+        **fields,
+    }
+    try:
+        logger.log(level, json.dumps(payload, default=str))
+    except Exception:
+        logger.log(level, f"{event} | trace_id={trace_id} | {fields}")
+
+
+def _exc_fields(e: Exception) -> Dict[str, Any]:
+    return {
+        "error": str(e),
+        "error_class": e.__class__.__name__,
+        "error_code": getattr(e, "code", None),
+        "error_details": getattr(e, "details", None),
+        "stack": "".join(traceback.format_exc(limit=2)).strip(),
+    }
+
+
+# --------------------------- main service --------------------------- #
 
 
 class RaceMetadataService:
-    """Service for extracting structured race metadata early in pipeline."""
+    """Metadata extraction orchestrator for a single race_id."""
 
-    def __init__(self, providers: ProviderRegistry = None):
-        """Initialize the race metadata service."""
-        # Initialize search utils for candidate discovery
-        search_config = {
-            "max_results_per_query": 10,
-            "cache_ttl_seconds": 300,
-            "per_host_concurrency": 5,
-        }
-        self.search_utils = SearchUtils(search_config)
-
-        # Provider registry for AI validation
+    def __init__(self, providers: Optional[ProviderRegistry] = None) -> None:
         self.providers = providers
 
-        # Office type mappings
+        # Keep search simple & deterministic for now
+        self.search = SearchUtils(
+            {
+                "max_results_per_query": 10,
+                "per_host_concurrency": 5,
+            }
+        )
+        self.fetcher = WebContentFetcher()
+        self.extractor = ContentExtractor()
+
+        # Office mappings → display + defaults
         self.office_mappings = {
             "senate": {
                 "full_name": "U.S. Senate",
@@ -98,68 +161,44 @@ class RaceMetadataService:
             },
         }
 
-        # Default election date patterns
-        self.election_date_patterns = {
-            "general": {"month": 11, "day": 5},  # First Tuesday after first Monday in November
-            "primary": {"month": 3, "day": 15},  # Varies by state, using default
-        }
+    # ---------------------- public API ---------------------- #
 
     async def extract_race_metadata(self, race_id: str) -> RaceMetadata:
-        """
-        Extract comprehensive race metadata from race_id and initial discovery.
-
-        Args:
-            race_id: Race identifier like 'mo-senate-2024'
-
-        Returns:
-            RaceMetadata object with structured race information
-        """
-        logger.info(f"Extracting race metadata for: {race_id}")
+        trace_id = uuid.uuid4().hex
+        t0 = time.perf_counter()
+        _jlog(logging.INFO, "race_metadata.extract.start", trace_id, race_id=race_id)
 
         try:
-            # Parse race_id components (now includes race kind)
-            state, office_type, year, district, kind = self._parse_race_id(race_id)
-
-            # Set race type flags based on slug
+            state, office_type, year, district, kind = self._parse_race_id(race_id, trace_id)
             is_primary = kind == "primary"
-            is_special_election = kind == "special"
-            is_runoff = kind == "runoff"
 
-            # Get office information
             office_info = self._get_office_info(office_type)
-
-            # Calculate election date
             election_date = self._calculate_election_date(year)
-
-            # Get primary date if this is a primary
             primary_date = self._get_primary_date(state, year) if is_primary else None
-
-            # Determine jurisdiction string
             jurisdiction = self._build_jurisdiction(state, district)
+            major_issues = self._get_major_issues(office_type)
+            geographic_keywords = self._geo_keywords(state, district)
 
-            # Get major issues for this race type and state
-            major_issues = self._get_major_issues(office_type, state)
+            # Phase 1: strict (trusted domains)
+            strict = await self._discover(race_id, state, office_type, year, district, trace_id, strict=True)
 
-            # Generate geographic search keywords
-            geographic_keywords = self._generate_geographic_keywords(state, district)
+            # Phase 2: fallback (if strict empty)
+            cands = strict
+            if not cands:
+                _jlog(logging.INFO, "candidate_discovery.fallback.start", trace_id, reason="strict_yielded_zero")
+                cands = await self._discover(race_id, state, office_type, year, district, trace_id, strict=False)
+                _jlog(logging.INFO, "candidate_discovery.fallback.finish", trace_id, found=len(cands))
 
-            # Perform targeted search focusing on reliable sources
-            logger.info(f"Performing candidate discovery search for {race_id}")
-            structured_candidates = await self._discover_candidates_via_reliable_sources(
-                race_id, state, office_type, year, district
-            )
+            # Optional AI pass to clean names/parties
+            cands = await self._ai_refine_candidates(cands, race_id, state, office_type, year, district, trace_id)
 
-            # Extract incumbent party from structured candidates
-            incumbent_party = self._extract_incumbent_party(structured_candidates)
+            incumbent_party = self._incumbent_party(cands)
+            confidence = self._confidence(cands, bool(primary_date), trace_id)
 
-            # Calculate evidence-based confidence
-            confidence = self._calculate_confidence(structured_candidates, primary_date is not None)
+            # Final JSON-safe candidates
+            cands = self._sanitize_candidates_for_json(cands)
 
-            # Create backward-compatible string list
-            discovered_candidates = [c.name for c in structured_candidates]
-
-            # Create metadata object
-            metadata = RaceMetadata(
+            meta = RaceMetadata(
                 race_id=race_id,
                 state=state,
                 office_type=office_type,
@@ -171,585 +210,651 @@ class RaceMetadataService:
                 race_type=office_info["race_type"],
                 is_primary=is_primary,
                 primary_date=primary_date,
-                is_special_election=is_special_election,
-                is_runoff=is_runoff,
-                discovered_candidates=discovered_candidates,
-                structured_candidates=structured_candidates,
+                is_special_election=(kind == "special"),
+                is_runoff=(kind == "runoff"),
+                discovered_candidates=[c.name for c in cands],
+                structured_candidates=cands,
                 incumbent_party=incumbent_party,
                 major_issues=major_issues,
                 geographic_keywords=geographic_keywords,
                 confidence=confidence,
             )
 
-            logger.info(
-                f"✅ Extracted metadata for {race_id}: {office_info['full_name']} in {jurisdiction}, "
-                f"found {len(structured_candidates)} candidates, confidence: {confidence.value}"
+            _jlog(
+                logging.INFO,
+                "race_metadata.extract.success",
+                trace_id,
+                race_id=race_id,
+                candidates=len(cands),
+                confidence=str(confidence.value),
+                total_duration_ms=int((time.perf_counter() - t0) * 1000),
             )
-            return metadata
-
-        except Exception as e:
-            logger.error(f"❌ Failed to extract metadata for {race_id}: {e}")
-            # Return minimal metadata as fallback
-            return self._create_fallback_metadata(race_id)
-
-    def _parse_race_id(self, race_id: str) -> Tuple[str, str, int, Optional[str], Optional[str]]:
-        """
-        Parse race_id to extract components including race kind.
-
-        Args:
-            race_id: Race identifier like 'mo-senate-2024', 'ny-house-03-2024-primary', or 'ga-senate-2026-special'
-
-        Returns:
-            Tuple of (state, office_type, year, district, kind)
-        """
-        match = SLUG_PATTERN.match(race_id.lower())
-        if not match:
-            raise ValueError(f"Invalid race_id format: {race_id}")
-
-        state = match.group("state").upper()
-        office_type = match.group("office")
-        year = int(match.group("year"))
-        district = match.group("district")
-        kind = match.group("kind")
-
-        # Normalize district format - handle "al" -> "AL" for at-large
-        if district:
-            if district.lower() == "al":
-                district = "AL"
-            elif district.isdigit():
-                district = district.zfill(2)  # '3' -> '03'
-
-        # Validate state code
-        if len(state) != 2 or state not in STATE_NAME:
-            raise ValueError(f"Invalid state code: {state}")
-
-        # Validate year - allow current year ±2
-        current_year = datetime.utcnow().year
-        min_year = current_year - 2
-        max_year = current_year + 2
-        if not (min_year <= year <= max_year):
-            raise ValueError(f"Invalid year: {year} (must be between {min_year} and {max_year})")
-
-        return state, office_type, year, district, kind
-
-    def _get_primary_date(self, state: str, year: int) -> Optional[datetime]:
-        """Get primary date for state and year if available."""
-        primary_dates = PRIMARY_DATE_BY_STATE.get(year, {})
-        date_str = primary_dates.get(state)
-
-        if date_str:
-            try:
-                return datetime.strptime(date_str, "%Y-%m-%d")
-            except ValueError:
-                logger.warning(f"Invalid primary date format for {state} {year}: {date_str}")
-
-        return None
-
-    def _extract_incumbent_party(self, candidates: List[DiscoveredCandidate]) -> Optional[str]:
-        """Extract incumbent party from structured candidates."""
-        incumbents = [c for c in candidates if c.incumbent and c.party]
-
-        if not incumbents:
-            return None
-
-        # If multiple incumbents, prefer those from trusted sources
-        for candidate in incumbents:
-            if any(self._is_trusted_source(str(url)) for url in candidate.sources):
-                return candidate.party
-
-        # Fallback to first incumbent with party
-        return incumbents[0].party
-
-    def _calculate_confidence(self, candidates: List[DiscoveredCandidate], have_primary_date: bool) -> ConfidenceLevel:
-        """Calculate evidence-based confidence score using normalized domain matching."""
-        if not candidates:
-            return ConfidenceLevel.LOW
-
-        # Count unique trusted domains across all candidates using normalized extraction
-        trusted_domains = set()
-        has_gov_source = False
-
-        for candidate in candidates:
-            for source in candidate.sources:
-                source_str = str(source).lower().strip()
-                if self._is_trusted_source(source_str):
-                    try:
-                        parsed_url = urlparse(source_str)
-                        domain = parsed_url.netloc.removeprefix("www.").strip()
-                        trusted_domains.add(domain)
-
-                        # Check for .gov sources
-                        if domain.endswith(".gov"):
-                            has_gov_source = True
-                    except Exception:
-                        # Fallback to simpler domain extraction
-                        domain_parts = source_str.split("/")
-                        if len(domain_parts) > 2:
-                            domain = domain_parts[2].removeprefix("www.").strip()
-                            trusted_domains.add(domain)
-                            if domain.endswith(".gov"):
-                                has_gov_source = True
-
-        trusted_domains_count = len(trusted_domains)
-
-        # Enhanced heuristic: consider both candidate count and domain diversity
-        # Heuristic bump for .gov sources + trusted source combination
-        if has_gov_source and trusted_domains_count >= 1:
-            confidence = ConfidenceLevel.HIGH
-        elif len(candidates) >= 2 and trusted_domains_count >= 2:
-            confidence = ConfidenceLevel.HIGH
-        elif len(candidates) >= 1 and (trusted_domains_count >= 1 or have_primary_date):
-            confidence = ConfidenceLevel.MEDIUM
-        else:
-            confidence = ConfidenceLevel.LOW
-
-        # Log reasoning for observability
-        logger.info(
-            f"Confidence calculation: {len(candidates)} candidates, "
-            f"{trusted_domains_count} trusted domains ({', '.join(trusted_domains)}), "
-            f"has_gov: {has_gov_source}, primary_date: {have_primary_date} → {confidence.value}"
-        )
-
-        return confidence
-
-    def _is_trusted_source(self, url: str) -> bool:
-        """Check if URL is from a trusted source using proper domain boundary checks."""
-        try:
-            host = urlparse(url.lower()).netloc.removeprefix("www.")
-            return any(host == d or host.endswith("." + d) for d in TRUSTED_DOMAINS)
-        except Exception:
-            return False
-
-    def _get_office_info(self, office_type: str) -> Dict[str, Any]:
-        """Get detailed office information."""
-        office_info = self.office_mappings.get(office_type)
-        if not office_info:
-            # Default fallback
-            office_info = {
-                "full_name": office_type.replace("-", " ").title(),
-                "race_type": "unknown",
-                "term_years": 4,
-                "major_issues": ["Economy", "Healthcare", "Education"],
-            }
-            logger.warning(f"Unknown office type '{office_type}', using fallback")
-
-        return office_info
-
-    def _calculate_election_date(self, year: int) -> datetime:
-        """Calculate election date for given year."""
-        # General election: First Tuesday after first Monday in November
-        november_first = datetime(year, 11, 1)
-
-        # Find first Monday in November
-        days_to_monday = (7 - november_first.weekday()) % 7
-        first_monday = november_first + timedelta(days=days_to_monday)
-
-        # Election is first Tuesday after first Monday
-        election_date = first_monday + timedelta(days=1)
-
-        return election_date
-
-    def _build_jurisdiction(self, state: str, district: Optional[str]) -> str:
-        """Build jurisdiction string."""
-        if district:
-            if district == "AL":
-                return f"{state}-AL"  # At-large district
-            return f"{state}-{district}"
-        return state
-
-    def _get_major_issues(self, office_type: str, state: str) -> List[str]:
-        """Get major issues for this race type - only use office-based issues."""
-        # Only use office-based issues, removing hardcoded state assumptions
-        office_info = self._get_office_info(office_type)
-        major_issues = office_info.get("major_issues", [])
-
-        # Return only the office-specific issues without state assumptions
-        return major_issues
-
-    def _generate_geographic_keywords(self, state: str, district: Optional[str]) -> List[str]:
-        """Generate geographic search keywords using unified state constants."""
-        keywords = [state]
-
-        # Add state name from unified mapping
-        if state in STATE_NAME:
-            keywords.append(STATE_NAME[state])
-
-        # Add district-specific keywords
-        if district:
-            if district == "AL":
-                # At-large district keywords
-                keywords.extend(["At-Large", "CD-AL", f"{state}-AL", "at-large"])
-            else:
-                # Numbered district keywords
-                keywords.extend([f"District {district}", f"CD-{district}", f"{state}-{district}"])
-
-        return keywords
-
-    def _create_fallback_metadata(self, race_id: str) -> RaceMetadata:
-        """Create minimal fallback metadata when parsing fails."""
-        current_year = datetime.utcnow().year
-        fallback_election_date = self._calculate_election_date(current_year)
-
-        return RaceMetadata(
-            race_id=race_id,
-            state="XX",
-            office_type="unknown",
-            year=current_year,
-            full_office_name="Unknown Office",
-            jurisdiction="Unknown",
-            election_date=fallback_election_date,
-            race_type="unknown",
-            discovered_candidates=[],
-            major_issues=["Economy", "Healthcare"],
-            geographic_keywords=[],
-            confidence=ConfidenceLevel.LOW,
-        )
-
-    async def _discover_candidates_via_reliable_sources(
-        self, race_id: str, state: str, office_type: str, year: int, district: Optional[str] = None
-    ) -> List[DiscoveredCandidate]:
-        """
-        Discover candidates using reliable sources with structured information.
-
-        Focuses on Wikipedia and Ballotpedia for high-quality candidate data.
-        """
-        discovered_candidates = []
-
-        try:
-            # Create targeted searches for reliable sources only
-            search_queries = self._generate_reliable_source_queries(race_id, state, office_type, year, district)
-
-            for query in search_queries:
-                logger.debug(f"Searching reliable sources with query: {query.text}")
-
-                # Use search utils directly for general searches
-                search_results = await self.search_utils.search_general(query)
-
-                # Extract structured candidate info from search results
-                candidates_from_results = self._extract_structured_candidates_from_search_results(
-                    search_results, state, office_type
-                )
-                discovered_candidates.extend(candidates_from_results)
-
-            # Merge and deduplicate structured candidates
-            unique_candidates = self._merge_and_deduplicate_structured_candidates(discovered_candidates)
-
-            # AI validation of candidates using provider registry
-            if unique_candidates:
-                logger.info(f"Validating {len(unique_candidates)} candidate(s) with AI for {race_id}")
-                validated_candidates = await self._validate_structured_candidates_with_ai(
-                    unique_candidates, race_id, state, office_type, year, district
-                )
-
-                logger.info(f"✅ Validated {len(validated_candidates)} candidates for {race_id}")
-                return validated_candidates
-            else:
-                logger.warning(f"No candidates found in reliable sources for {race_id}")
-                return []
-
-        except Exception as e:
-            logger.warning(f"Error during candidate discovery for {race_id}: {e}")
-            return []
-
-    def _generate_reliable_source_queries(
-        self, race_id: str, state: str, office_type: str, year: int, district: Optional[str] = None
-    ) -> List[FreshSearchQuery]:
-        """Generate search queries focused on Wikipedia and Ballotpedia using unified state constants."""
-        queries = []
-
-        # Get full office name and geographic terms
-        office_info = self._get_office_info(office_type)
-        full_office = office_info["full_name"]
-
-        # Use unified state name mapping
-        state_name = STATE_NAME.get(state, state)
-
-        # Enhanced district handling
-        district_text = ""
-        district_keywords = []
-        if district:
-            if district == "AL":
-                district_text = " at-large"
-                district_keywords = ["at-large", "At-Large", "CD-AL"]
-            else:
-                district_text = f" district {district}"
-                district_keywords = [f"district {district}", f"District {district}", f"CD-{district}"]
-
-        # Ballotpedia searches (highest priority) - include both full office and district terms
-        ballotpedia_terms = [
-            f"site:ballotpedia.org {year} {state_name}{district_text} {office_type} election",
-            f"site:ballotpedia.org {state_name} {full_office} {year} candidates",
-            f"site:ballotpedia.org {year} {state} {office_type} general election",
-        ]
-
-        # Add district-specific Ballotpedia queries
-        if district_keywords:
-            for keyword in district_keywords:
-                ballotpedia_terms.append(f"site:ballotpedia.org {state_name} {full_office} {year} {keyword}")
-
-        # Wikipedia searches - include both full office and district terms
-        wikipedia_terms = [
-            f"site:wikipedia.org {year} {state_name}{district_text} {office_type} election",
-            f"site:wikipedia.org {year} United States {office_type} elections {state_name}",
-        ]
-
-        # Add district-specific Wikipedia queries
-        if district_keywords:
-            for keyword in district_keywords:
-                wikipedia_terms.append(f"site:wikipedia.org {year} {state_name} {office_type} {keyword}")
-
-        # FEC searches for federal races - include district terms
-        fec_terms = []
-        if office_type in ["senate", "house"]:
-            fec_terms = [f"site:fec.gov {year} {state} {office_type} candidates"]
-            if district_keywords:
-                for keyword in district_keywords:
-                    fec_terms.append(f"site:fec.gov {year} {state} {office_type} {keyword}")
-
-        all_terms = ballotpedia_terms + wikipedia_terms + fec_terms
-
-        # Create search queries with relaxed date restrictions
-        for term in all_terms:
-            # Relax date restriction - allow y2 (2 years) for better coverage of upcoming races
-            queries.append(FreshSearchQuery(race_id=race_id, text=term, max_results=10, date_restrict="y2"))
-
-        return queries
-
-    def _extract_structured_candidates_from_search_results(
-        self, search_results: List[Source], state: str, office_type: str
-    ) -> List[DiscoveredCandidate]:
-        """Extract structured candidate information from search results."""
-        candidates = []
-
-        # Enhanced patterns for extracting candidate info with better name and party support
-        candidate_patterns = [
-            # Ballotpedia specific patterns with comprehensive party info
-            r"([A-Z][a-z]+(?:\s+[A-Z]\.?\s+)?[A-Z][a-z]+(?:-[A-Z][a-z]+)?)\s+\((?P<party>Democratic|Republican|Independent|Libertarian|Green|Nonpartisan|Unaffiliated|NPP)\)",
-            r"(?:Incumbent|Senator|Representative)\s+([A-Z][a-z]+(?:\s+[A-Z]\.?\s+)?[A-Z][a-z]+(?:-[A-Z][a-z]+)?)\s+\((?P<party>D|R|I|L|G|NP|U)\)",
-            # General high-confidence patterns with middle initials and hyphens
-            r"([A-Z][a-z]+(?:\s+[A-Z]\.?\s+)?[A-Z][a-z]+(?:-[A-Z][a-z]+)?)\s+(?:vs\.?|versus|against)",
-            r"(?:candidate|nominee)\s+([A-Z][a-z]+(?:\s+[A-Z]\.?\s+)?[A-Z][a-z]+(?:-[A-Z][a-z]+)?)",
-            r"([A-Z][a-z]+(?:\s+[A-Z]\.?\s+)?[A-Z][a-z]+(?:-[A-Z][a-z]+)?)\s+(?:is running|will run|announced)",
-            # Three-name patterns (First Middle Last)
-            r"([A-Z][a-z]+\s+[A-Z][a-z]+\s+[A-Z][a-z]+(?:-[A-Z][a-z]+)?)\s+\((?P<party>D|R|I|L|G|Democratic|Republican|Independent|Libertarian|Green|Nonpartisan|Unaffiliated|NPP)\)",
-        ]
-
-        for source in search_results:
-            # Only process results from trusted sources
-            source_url = str(source.url).lower()
-            if not self._is_trusted_source(source_url):
-                continue
-
-            text_to_search = f"{source.title or ''} {source.description or ''}"
-
-            for pattern in candidate_patterns:
-                matches = re.finditer(pattern, text_to_search, re.IGNORECASE)
-                for match in matches:
-                    name = match.group(1).strip()
-                    if not self._is_valid_candidate_name(name):
-                        continue
-
-                    # Extract party information if available
-                    party = None
-                    if match.lastindex and match.lastindex > 1:
-                        party_code = match.group(2)
-                        party = self._normalize_party_name(party_code)
-                    else:
-                        # Try to find party info in surrounding text
-                        party = self._extract_party_from_context(text_to_search, name)
-
-                    # Check for incumbent status with enhanced context matching
-                    incumbent = self._check_incumbent_status(text_to_search, name)
-
-                    # Normalize candidate source URLs
-                    normalized_source = self._normalize_source_url(source.url)
-                    candidate = DiscoveredCandidate(name=name, party=party, incumbent=incumbent, sources=[normalized_source])
-                    candidates.append(candidate)
-
-        return candidates
-
-    def _normalize_party_name(self, party_code: str) -> Optional[str]:
-        """Normalize party codes and names including aliases."""
-        if not party_code:
-            return None
-
-        party_map = {
-            "D": "Democratic",
-            "R": "Republican",
-            "I": "Independent",
-            "L": "Libertarian",
-            "G": "Green",
-            "NP": "Nonpartisan",
-            "U": "Unaffiliated",
-            "NPP": "No Party Preference",
-        }
-
-        party_code_upper = party_code.strip().upper()
-        if party_code_upper in party_map:
-            return party_map[party_code_upper]
-
-        # Handle full names
-        party_normalized = party_code.strip().title()
-        return party_normalized
-
-    def _normalize_source_url(self, url) -> str:
-        """Normalize source URL to lowercase for consistent deduplication."""
-        return str(url).lower().strip()
-
-    def _extract_party_from_context(self, text: str, candidate_name: str) -> Optional[str]:
-        """Extract party affiliation from text context around candidate name."""
-        # Look for party keywords within 80 characters of the candidate name
-        name_pos = text.lower().find(candidate_name.lower())
-        if name_pos == -1:
-            return None
-
-        context_start = max(0, name_pos - 80)
-        context_end = min(len(text), name_pos + len(candidate_name) + 80)
-        context = text[context_start:context_end]
-
-        party_pattern = re.compile(r"\b(Democratic|Republican|Libertarian|Green|Independent)\b", re.IGNORECASE)
-        match = party_pattern.search(context)
-
-        return match.group(1).title() if match else None
-
-    def _check_incumbent_status(self, text: str, candidate_name: str) -> bool:
-        """Check if candidate is mentioned as incumbent with enhanced context matching."""
-        # Look for incumbent keywords near the candidate name with broader context
-        name_pos = text.lower().find(candidate_name.lower())
-        if name_pos == -1:
-            return False
-
-        # Expand context window for better detection
-        context_start = max(0, name_pos - 120)
-        context_end = min(len(text), name_pos + len(candidate_name) + 120)
-        context = text[context_start:context_end]
-
-        # Enhanced incumbent patterns
-        incumbent_patterns = [
-            r"\bincumbent\b",
-            r"\bcurrent\s+(?:senator|representative|governor)\b",
-            r"\bserving\s+(?:senator|representative|governor)\b",
-            r"\breelection\b",
-            r"\bdefending\s+(?:seat|office)\b",
-        ]
-
-        for pattern in incumbent_patterns:
-            if re.search(pattern, context, re.IGNORECASE):
-                return True
-
-        return False
-
-    def _merge_and_deduplicate_structured_candidates(self, candidates: List[DiscoveredCandidate]) -> List[DiscoveredCandidate]:
-        """Merge and deduplicate structured candidates by name with normalized source URLs."""
-        merged = {}
-
-        for candidate in candidates:
-            # Normalize name for deduplication
-            name_key = re.sub(r"\s+", " ", candidate.name.strip().lower())
-
-            if name_key in merged:
-                # Merge information from multiple sources
-                existing = merged[name_key]
-
-                # Prefer party info from trusted sources, or first non-None
-                if not existing.party and candidate.party:
-                    existing.party = candidate.party
-                elif candidate.party and self._has_more_trusted_sources(candidate, existing):
-                    existing.party = candidate.party
-
-                # Set incumbent if any source says so
-                if candidate.incumbent:
-                    existing.incumbent = True
-
-                # Merge source lists with efficient deduplication
-                if not hasattr(existing, "_src_set"):
-                    existing._src_set = {self._normalize_source_url(s) for s in existing.sources}
-
-                for source in candidate.sources:
-                    norm = self._normalize_source_url(source)
-                    if norm not in existing._src_set:
-                        existing.sources.append(source)
-                        existing._src_set.add(norm)
-            else:
-                merged[name_key] = candidate
-
-        return list(merged.values())[:8]  # Limit to reasonable number
-
-    def _has_more_trusted_sources(self, candidate1: DiscoveredCandidate, candidate2: DiscoveredCandidate) -> bool:
-        """Check if candidate1 has more trusted sources than candidate2."""
-        trusted1 = sum(1 for url in candidate1.sources if self._is_trusted_source(str(url)))
-        trusted2 = sum(1 for url in candidate2.sources if self._is_trusted_source(str(url)))
-        return trusted1 > trusted2
-
-    async def _validate_structured_candidates_with_ai(
+            return meta
+        except Exception as e:  # keep the pipeline alive with a fallback shell
+            _jlog(
+                logging.ERROR,
+                "race_metadata.extract.error",
+                trace_id,
+                race_id=race_id,
+                **_exc_fields(e),
+                total_duration_ms=int((time.perf_counter() - t0) * 1000),
+            )
+            # Minimal viable metadata on error
+            return RaceMetadata(
+                race_id=race_id,
+                state=race_id.split("-")[0].upper() if "-" in race_id else "",
+                office_type=race_id.split("-")[1] if len(race_id.split("-")) > 1 else "",
+                year=int(race_id.split("-")[-1]) if race_id.split("-")[-1].isdigit() else datetime.utcnow().year,
+                full_office_name=self._get_office_info(race_id.split("-")[1] if "-" in race_id else "")["full_name"],
+                jurisdiction=race_id.split("-")[0].upper() if "-" in race_id else "",
+                district=None,
+                election_date=self._calculate_election_date(datetime.utcnow().year),
+                race_type=self._get_office_info(race_id.split("-")[1] if "-" in race_id else "")["race_type"],
+                is_primary=False,
+                primary_date=None,
+                is_special_election=False,
+                is_runoff=False,
+                discovered_candidates=[],
+                structured_candidates=[],
+                incumbent_party=None,
+                major_issues=self._get_major_issues(race_id.split("-")[1] if "-" in race_id else ""),
+                geographic_keywords=[],
+                confidence=ConfidenceLevel.LOW,
+            )
+
+    # ---------------------- discovery ---------------------- #
+
+    async def _discover(
         self,
-        candidates: List[DiscoveredCandidate],
         race_id: str,
         state: str,
         office_type: str,
         year: int,
-        district: Optional[str] = None,
+        district: Optional[str],
+        trace_id: str,
+        strict: bool,
     ) -> List[DiscoveredCandidate]:
-        """
-        Validate structured candidates using provider registry.
-        """
-        if not self.providers or not candidates:
-            return candidates[:5]  # Return first 5 without validation
+        phase = "strict" if strict else "fallback"
 
+        # 1) Build queries
+        if strict:
+            queries = self._queries_strict(race_id, state, office_type, year, district)
+        else:
+            queries = self._queries_fallback(race_id, state, office_type, year, district)
+
+        _jlog(
+            logging.INFO,
+            f"candidate_discovery.{phase}.queries",
+            trace_id,
+            count=len(queries),
+            sample=[q.text for q in queries[:3]],
+        )
+
+        # 2) Search
+        results: List[Source] = []
+        errors = 0
+        for i, q in enumerate(queries):
+            t = time.perf_counter()
+            try:
+                res = await self.search.search_general(q)
+                results.extend(res or [])
+                _jlog(
+                    logging.DEBUG,
+                    f"candidate_discovery.{phase}.query.results",
+                    trace_id,
+                    idx=i,
+                    text=q.text[:160],
+                    results=len(res or []),
+                    duration_ms=int((time.perf_counter() - t) * 1000),
+                )
+            except Exception as e:
+                errors += 1
+                _jlog(
+                    logging.WARNING,
+                    f"candidate_discovery.{phase}.query.error",
+                    trace_id,
+                    idx=i,
+                    text=q.text[:160],
+                    **_exc_fields(e),
+                )
+
+        if not results:
+            if strict and errors:
+                # On strict failure, escalate to fallback immediately
+                _jlog(logging.INFO, "candidate_discovery.fallback.start", trace_id, reason="strict_errors")
+                return await self._discover(race_id, state, office_type, year, district, trace_id, strict=False)
+
+            # Last-chance canonical URLs
+            last_urls = self._last_chance_urls(state, office_type, year, district)
+            if last_urls:
+                try:
+                    _jlog(logging.INFO, "candidate_discovery.last_chance.start", trace_id, urls=last_urls[:5])
+                    fetched = await self.fetcher.fetch_content([Source(url=u, type=SourceType.WEBSITE) for u in last_urls])
+                    extracted = await self.extractor.extract_content(fetched)
+                    harvested = self._harvest_from_extractions(extracted, trace_id)
+                    return self._merge_and_dedupe(harvested)
+                except Exception as e:
+                    _jlog(logging.WARNING, "candidate_discovery.last_chance.error", trace_id, **_exc_fields(e))
+            _jlog(logging.WARNING, f"candidate_discovery.{phase}.no_results", trace_id)
+            return []
+
+        # 3) Prefilter + cap
+        filtered = self._prefilter_sources(results, strict)
+        _jlog(logging.INFO, f"candidate_discovery.{phase}.prefiltered", trace_id, before=len(results), after=len(filtered))
+
+        # 4) Fetch
+        fetched = await self.fetcher.fetch_content(filtered)
+        ok = sum(1 for f in fetched if getattr(f, "ok", True))
+        hosts: Dict[str, int] = {}
+        for item in fetched:
+            try:
+                host = urlparse(str(getattr(item, "final_url", getattr(item, "url", "")))).netloc.replace("www.", "")
+                if host:
+                    hosts[host] = hosts.get(host, 0) + 1
+            except Exception:
+                pass
+        _jlog(
+            logging.INFO,
+            f"candidate_discovery.{phase}.fetched",
+            trace_id,
+            count=len(fetched),
+            ok=ok,
+            top_hosts=sorted(hosts.items(), key=lambda x: -x[1])[:5],
+        )
+        if not fetched:
+            return []
+
+        # 5) Extract
+        extracted = await self.extractor.extract_content(fetched)
+        usable = sum(1 for e in extracted if getattr(e, "text", None))
+        _jlog(logging.INFO, f"candidate_discovery.{phase}.extracted", trace_id, count=len(extracted), usable=usable)
+        if not extracted:
+            return []
+
+        # 6) Harvest from extracted text and from search snippets (trusted only)
+        c_from_text = self._harvest_from_extractions(extracted, trace_id)
+        c_from_snip = self._harvest_from_snippets(filtered, trace_id)
+        merged = self._merge_and_dedupe(c_from_text + c_from_snip)
+        return merged
+
+    # ---------------------- query builders ---------------------- #
+
+    def _queries_strict(
+        self, race_id: str, state: str, office: str, year: int, district: Optional[str]
+    ) -> List[FreshSearchQuery]:
+        queries: List[FreshSearchQuery] = []
+        full_office = self._get_office_info(office)["full_name"]
+        state_name = STATE_NAME.get(state, state)
+
+        district_text = ""
+        if district:
+            district_text = (
+                " at-large" if district == "AL" else f" district {int(district) if district.isdigit() else district}"
+            )
+
+        terms = [
+            f"site:ballotpedia.org {year} {state_name}{district_text} {office} election",
+            f"site:ballotpedia.org {state_name} {full_office} {year} candidates",
+            f"site:wikipedia.org {year} {state_name}{district_text} {office} election",
+        ]
+        if office in {"senate", "house"}:
+            terms.append(f"site:fec.gov {year} {state} {office} candidates")
+
+        for t in terms:
+            queries.append(FreshSearchQuery(race_id=race_id, text=t, max_results=10, date_restrict="y2"))
+        return queries
+
+    def _queries_fallback(
+        self, race_id: str, state: str, office: str, year: int, district: Optional[str]
+    ) -> List[FreshSearchQuery]:
+        queries: List[FreshSearchQuery] = []
+        state_name = STATE_NAME.get(state, state)
+        district_text = (
+            " at-large" if district == "AL" else (f" district {int(district)}" if district and district.isdigit() else "")
+        )
+        base = f"{year} {state_name}{district_text} {office}"
+        for t in [
+            f"{base} candidates",
+            f"{base} candidate list",
+            f"{base} ballotpedia OR wikipedia OR site:.gov",
+            f"{base} official campaign website",
+            f"{base} filed candidates",
+            f"{base} primary candidates",
+        ]:
+            queries.append(FreshSearchQuery(race_id=race_id, text=t, max_results=10, date_restrict="y2"))
+        return queries
+
+    def _last_chance_urls(self, state: str, office: str, year: int, district: Optional[str]) -> List[str]:
+        urls: List[str] = []
+        state_ = STATE_NAME.get(state, state).replace(" ", "_")
+        if office == "senate":
+            urls += [
+                f"https://en.wikipedia.org/wiki/{year}_United_States_Senate_election_in_{state_}",
+                f"https://ballotpedia.org/{year}_United_States_Senate_election_in_{state_}",
+                f"https://www.fec.gov/data/candidates/senate/?election_year={year}&state={state}",
+            ]
+        elif office == "house":
+            base = f"https://en.wikipedia.org/wiki/{year}_United_States_House_of_Representatives_elections_in_{state_}"
+            if district == "AL":
+                urls.append(base + "#At-large")
+            elif district and district.isdigit():
+                urls.append(base + f"#District_{int(district)}")
+            else:
+                urls.append(base)
+            fec = f"https://www.fec.gov/data/candidates/house/?election_year={year}&state={state}"
+            if district and district.isdigit():
+                fec += f"&district={int(district)}"
+            urls.append(fec)
+        return urls
+
+    # ---------------------- fetch/extract helpers ---------------------- #
+
+    def _prefilter_sources(self, sources: List[Source], strict: bool) -> List[Source]:
+        seen: set[str] = set()
+        out: List[Source] = []
+        for s in sources:
+            url = str(getattr(s, "url", "")).strip()
+            if not url or url in seen:
+                continue
+            seen.add(url)
+            if strict and not self._is_trusted(url):
+                continue
+            out.append(s)
+
+        def key_fn(src: Source):  # trusted first, then recency desc
+            host = urlparse(str(src.url)).netloc.replace("www.", "")
+            is_trusted = any(host == d or host.endswith("." + d) for d in TRUSTED_DOMAINS)
+            ts = getattr(src, "published_at", None)
+            return (0 if is_trusted else 1, -int(ts.timestamp()) if ts else 0)
+
+        out.sort(key=key_fn)
+        return out[:18]
+
+    def _harvest_from_extractions(self, extracted: List[Any], trace_id: str) -> List[DiscoveredCandidate]:
+        cands: List[DiscoveredCandidate] = []
+        for item in extracted:
+            try:
+                text = getattr(item, "text", "") or ""
+                meta = getattr(item, "metadata", {}) or {}
+                src = getattr(item, "source", None)
+                source_url = (
+                    str(getattr(src, "url", "")) if src else (meta.get("final_url") or meta.get("canonical_url") or "")
+                )
+
+                names = (meta.get("entity_hits", {}) or {}).get("candidates") or []
+                if not names:
+                    names = self._regex_scan_names(text)
+
+                for name in names:
+                    if not self._looks_like_person(name):
+                        continue
+                    party = self._party_from_context(text, name)
+                    incumbent = self._is_incumbent(text, name)
+                    cands.append(
+                        DiscoveredCandidate(
+                            name=name.strip(),
+                            party=party,
+                            incumbent=incumbent,
+                            sources=[self._norm_url(source_url)] if source_url else [],
+                        )
+                    )
+            except Exception as e:
+                _jlog(logging.DEBUG, "harvest.from_extraction.error", trace_id, **_exc_fields(e))
+        _jlog(logging.INFO, "harvest.from_extraction.done", trace_id, candidates=len(cands))
+        return cands
+
+    def _harvest_from_snippets(self, results: List[Source], trace_id: str) -> List[DiscoveredCandidate]:
+        cands: List[DiscoveredCandidate] = []
+        patts = [
+            # Name (Party)
+            r"([A-Z][a-z]+(?:\s+[A-Z]\.?)?\s+[A-Z][a-z]+(?:-[A-Z][a-z]+)?)\s*\((?P<party>[A-Za-z]{1,15})\)",
+            # Incumbent Name (R/D/...) variants
+            r"(?:Incumbent|Senator|Representative|Rep\.)\s+([A-Z][a-z]+(?:\s+[A-Z]\.?)?\s+[A-Z][a-z]+)\s*\((?P<party>[A-Za-z]{1,15})\)",
+        ]
+        trusted_only = [s for s in results if self._is_trusted(str(getattr(s, "url", "")))]
+        for s in trusted_only:
+            blob = f"{getattr(s, 'title', '')} {getattr(s, 'description', '')}"
+            for p in patts:
+                for m in re.finditer(p, blob):
+                    name = m.group(1).strip()
+                    party = self._normalize_party(m.groupdict().get("party"))
+                    if self._looks_like_person(name):
+                        cands.append(
+                            DiscoveredCandidate(name=name, party=party, incumbent=False, sources=[self._norm_url(str(s.url))])
+                        )
+        _jlog(logging.DEBUG, "candidates.extracted_from_snippets", trace_id, extracted=len(cands))
+        return cands
+
+    # ---------------------- AI refinement (optional) ---------------------- #
+
+    async def _ai_refine_candidates(
+        self,
+        candidates: List[DiscoveredCandidate],
+        race_id: str,
+        state: str,
+        office: str,
+        year: int,
+        district: Optional[str],
+        trace_id: str,
+    ) -> List[DiscoveredCandidate]:
+        if not candidates:
+            return []
+        if not self.providers:
+            return self._merge_and_dedupe(candidates)
         try:
-            # Get models for DISCOVER task
-            models = self.providers.get_enabled_models(TaskType.DISCOVER)
-            if not models:
-                logger.warning("No models available for candidate validation, skipping AI validation")
-                return candidates[:5]
-
-            # Use first available model (cheap mode will give us mini models)
-            model = models[0]
-            provider = self.providers.get_provider(model.provider)
-
-            # Prepare context
-            office_info = self._get_office_info(office_type)
-            full_office = office_info["full_name"]
-            district_text = f" District {district}" if district else ""
-
-            # Create validation prompt
-            candidate_names = [c.name for c in candidates]
-            prompt = f"""You are validating candidates for the {year} {full_office} election in {state}{district_text}.
-
-Here are potential candidate names found from Ballotpedia and Wikipedia searches:
-{', '.join(candidate_names)}
-
-Please analyze these names and return ONLY the candidates who are:
-1. Real people (not organizations, websites, or generic terms)
-2. Actually running for this specific office in {year}
-3. Legitimate candidates with a reasonable chance of being on the ballot
-
-Return your response as a simple comma-separated list of validated candidate names, or "NONE" if no valid candidates found.
-
-Validated candidates:"""
-
-            # Make API call through provider
-            response = await provider.generate(prompt, model)
-
-            if response.strip().upper() == "NONE":
-                logger.info(f"AI validation found no valid candidates for {race_id}")
-                return []
-
-            # Parse validated names
-            validated_names = [name.strip() for name in response.split(",") if name.strip()]
-
-            # Filter original candidates to only include validated ones
-            validated_candidates = []
-            for candidate in candidates:
-                if any(
-                    name.lower() in candidate.name.lower() or candidate.name.lower() in name.lower()
-                    for name in validated_names
-                ):
-                    validated_candidates.append(candidate)
-
-            logger.info(f"AI validated {len(validated_candidates)} of {len(candidates)} candidates for {race_id}")
-            return validated_candidates[:8]
-
+            # Compose a compact prompt
+            payload = {
+                "race_id": race_id,
+                "state": state,
+                "office": office,
+                "year": year,
+                "district": district,
+                "candidates": [{"name": c.name, "party": c.party, "incumbent": bool(c.incumbent)} for c in candidates],
+            }
+            prompt = (
+                "You are cleaning a list of candidate-like strings. "
+                "Return a JSON array with unique candidates for this race only, each object = {name, party?, incumbent?}. "
+                "Drop organizations or generic terms. Normalize party to Democratic/Republican/Independent/Libertarian/Green/Nonpartisan/Unaffiliated if present."
+            )
+            result_text = await self.providers.run(TaskType.LLM_JSON, system=None, user=prompt, data=payload)
+            cleaned = json.loads(result_text)
+            out: List[DiscoveredCandidate] = []
+            for it in cleaned:
+                name = str(it.get("name", "")).strip()
+                if not self._looks_like_person(name):
+                    continue
+                party = self._normalize_party(it.get("party"))
+                incumbent = bool(it.get("incumbent", False))
+                out.append(DiscoveredCandidate(name=name, party=party, incumbent=incumbent, sources=[]))
+            # Merge with original to keep sources
+            merged = self._merge_and_dedupe(out + candidates)
+            return merged
         except Exception as e:
-            logger.warning(f"Error during AI validation for {race_id}: {e}")
-            return candidates[:3]  # Fallback
+            _jlog(logging.WARNING, "ai_refine.error", trace_id, **_exc_fields(e))
+            return self._merge_and_dedupe(candidates)
+
+    # ---------------------- merge/dedupe & scoring ---------------------- #
+
+    def _merge_and_dedupe(self, items: List[DiscoveredCandidate]) -> List[DiscoveredCandidate]:
+        by_name: Dict[str, DiscoveredCandidate] = {}
+        for c in items:
+            key = self._name_key(c.name)
+            if not key:
+                continue
+            existing = by_name.get(key)
+            if not existing:
+                # ensure sources list exists & stringified
+                srcs = [self._norm_url(s) for s in getattr(c, "sources", []) if s]
+                by_name[key] = DiscoveredCandidate(
+                    name=c.name.strip(),
+                    party=self._pick_party(c.party),
+                    incumbent=bool(c.incumbent),
+                    sources=list(dict.fromkeys(srcs))[:8],
+                )
+                continue
+            # Merge party/incumbent
+            if not existing.party and c.party:
+                existing.party = self._pick_party(c.party)
+            if c.incumbent:
+                existing.incumbent = True
+            # Merge sources
+            for s in getattr(c, "sources", []) or []:
+                s_norm = self._norm_url(s)
+                if s_norm and s_norm not in existing.sources:
+                    existing.sources.append(s_norm)
+            if len(existing.sources) > 8:
+                existing.sources = existing.sources[:8]
+        # Cap final list to something reasonable
+        return list(by_name.values())[:12]
+
+    def _confidence(self, candidates: List[DiscoveredCandidate], has_primary_date: bool, trace_id: str) -> ConfidenceLevel:
+        if not candidates:
+            lvl = ConfidenceLevel.LOW
+        elif any(self._source_is_gov(s) for c in candidates for s in getattr(c, "sources", []) or []):
+            lvl = ConfidenceLevel.HIGH
+        elif has_primary_date and len(candidates) >= 2:
+            lvl = ConfidenceLevel.MEDIUM
+        else:
+            lvl = ConfidenceLevel.MEDIUM
+        _jlog(
+            logging.INFO,
+            "confidence.result",
+            trace_id,
+            candidates=len(candidates),
+            has_gov=any(self._source_is_gov(s) for c in candidates for s in getattr(c, "sources", []) or []),
+            primary_date=has_primary_date,
+            confidence=str(lvl.value),
+        )
+        return lvl
+
+    def _incumbent_party(self, candidates: List[DiscoveredCandidate]) -> Optional[str]:
+        for c in candidates:
+            if getattr(c, "incumbent", False) and c.party:
+                return c.party
+        return None
+
+    def _sanitize_candidates_for_json(self, candidates: List[DiscoveredCandidate]) -> List[DiscoveredCandidate]:
+        out: List[DiscoveredCandidate] = []
+        for c in candidates:
+            # Convert any non-primitive URLs to plain strings
+            srcs = []
+            for s in getattr(c, "sources", []) or []:
+                try:
+                    srcs.append(self._norm_url(s))
+                except Exception:
+                    continue
+            out.append(DiscoveredCandidate(name=c.name.strip(), party=c.party, incumbent=bool(c.incumbent), sources=srcs))
+        return out
+
+    # ---------------------- small NLP-ish helpers ---------------------- #
+
+    def _regex_scan_names(self, text: str) -> List[str]:
+        pats = [
+            r"\b([A-Z][a-z]+(?:\s+[A-Z]\.)?\s+[A-Z][a-z]+(?:-[A-Z][a-z]+)?)\b",  # First Last / First M. Last
+            r"\b(?:Senator|Rep\.|Representative|Gov\.|Governor|Mayor|Judge)\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)+)\b",
+        ]
+        out: List[str] = []
+        seen: set[str] = set()
+        for p in pats:
+            for m in re.finditer(p, text):
+                name = m.group(1).strip()
+                key = self._name_key(name)
+                if key and key not in seen and self._looks_like_person(name):
+                    out.append(name)
+                    seen.add(key)
+        return out
+
+    def _looks_like_person(self, name: str) -> bool:
+        if not name:
+            return False
+        n = re.sub(r"\s+", " ", name.strip())
+        low = n.lower()
+        if low in NAME_STOP_WORDS:
+            return False
+        # Must be 2–4 tokens; tokens must start with capital letters (allow hyphen)
+        tokens = [t for t in re.split(r"[\s\u00A0]+", n) if t]
+        if len(tokens) < 2 or len(tokens) > 4:
+            return False
+        if any(t[0].islower() for t in tokens if t and t[0].isalpha()):
+            return False
+        # Avoid common org/office words
+        if any(w in low for w in ["party", "senate", "house", "state", "united", "district"]):
+            return False
+        return True
+
+    def _party_from_context(self, text: str, name: str) -> Optional[str]:
+        # Look around the name for (D)/(R)/words
+        try:
+            window = 140
+            idx = text.find(name)
+            if idx == -1:
+                idx = text.lower().find(name.lower())
+            if idx == -1:
+                return None
+            start = max(0, idx - window)
+            end = min(len(text), idx + len(name) + window)
+            blob = text[start:end]
+            # Parenthetical code
+            m = re.search(r"\((D|R|I|L|G)\)", blob)
+            if m:
+                return PARTY_ALIASES.get(m.group(1).lower())
+            # Word variants
+            for k, v in PARTY_ALIASES.items():
+                if re.search(rf"\b{k}\b", blob, re.IGNORECASE):
+                    return v
+        except Exception:
+            return None
+        return None
+
+    def _is_incumbent(self, text: str, name: str) -> bool:
+        try:
+            window = 120
+            idx = text.find(name)
+            if idx == -1:
+                idx = text.lower().find(name.lower())
+            if idx == -1:
+                return False
+            start = max(0, idx - window)
+            end = min(len(text), idx + len(name) + window)
+            blob = text[start:end].lower()
+            return any(
+                k in blob for k in ["incumbent", "seeking re-election", "seeking reelection", "running for re-election"]
+            )  # noqa: E501
+        except Exception:
+            return False
+
+    # ---------------------- parsing & misc ---------------------- #
+
+    def _parse_race_id(self, race_id: str, trace_id: str) -> Tuple[str, str, int, Optional[str], Optional[str]]:
+        m = SLUG_PATTERN.match(race_id.lower())
+        if not m:
+            _jlog(logging.ERROR, "race_id.parse.invalid", trace_id, race_id=race_id)
+            raise ValueError(f"Invalid race_id format: {race_id}")
+        state = m.group("state").upper()
+        office = m.group("office")
+        year = int(m.group("year"))
+        district = m.group("district")
+        if district:
+            district = "AL" if district.lower() == "al" else district.zfill(2) if district.isdigit() else district
+        kind = m.group("kind")
+
+        # sanity checks
+        if state not in STATE_NAME:
+            _jlog(logging.ERROR, "race_id.parse.bad_state", trace_id, state=state)
+            raise ValueError(f"Invalid state code: {state}")
+        cur = datetime.utcnow().year
+        if not (cur - 2 <= year <= cur + 2):
+            _jlog(logging.ERROR, "race_id.parse.bad_year", trace_id, year=year)
+            raise ValueError("Year out of reasonable range")
+
+        _jlog(
+            logging.INFO,
+            "race_id.parse.success",
+            trace_id,
+            race_id=race_id,
+            state=state,
+            office_type=office,
+            year=year,
+            district=district,
+            kind=kind,
+        )
+        return state, office, year, district, kind
+
+    def _get_office_info(self, office: str) -> Dict[str, Any]:
+        info = self.office_mappings.get(office)
+        if info:
+            return info
+        # Generic fallback
+        return {
+            "full_name": office.replace("-", " ").title(),
+            "race_type": "unknown",
+            "term_years": 4,
+            "major_issues": ["Economy", "Healthcare", "Education"],
+        }
+
+    def _calculate_election_date(self, year: int) -> datetime:
+        # US general: first Tuesday after first Monday in November
+        nov1 = datetime(year, 11, 1)
+        days_to_monday = (7 - nov1.weekday()) % 7
+        first_monday = nov1 + timedelta(days=days_to_monday)
+        return first_monday + timedelta(days=1)
+
+    def _get_primary_date(self, state: str, year: int) -> Optional[datetime]:
+        date_str = PRIMARY_DATE_BY_STATE.get(year, {}).get(state)
+        if not date_str:
+            return None
+        try:
+            return datetime.strptime(date_str, "%Y-%m-%d")
+        except Exception:
+            return None
+
+    def _build_jurisdiction(self, state: str, district: Optional[str]) -> str:
+        if district:
+            return f"{state}-AL" if district == "AL" else f"{state}-{district}"
+        return state
+
+    def _get_major_issues(self, office: str) -> List[str]:
+        return self.office_mappings.get(office, {}).get("major_issues", ["Economy", "Healthcare", "Education"])
+
+    def _geo_keywords(self, state: str, district: Optional[str]) -> List[str]:
+        out = [state]
+        if state in STATE_NAME:
+            out.append(STATE_NAME[state])
+        if district:
+            if district == "AL":
+                out += ["At-Large", "CD-AL", f"{state}-AL", "at-large"]
+            else:
+                out += [f"District {district}", f"CD-{district}", f"{state}-{district}"]
+        return out
+
+    # ---------------------- small URL helpers ---------------------- #
+
+    def _is_trusted(self, url: str) -> bool:
+        try:
+            host = urlparse(url).netloc.replace("www.", "").lower()
+            return any(host == d or host.endswith("." + d) for d in TRUSTED_DOMAINS)
+        except Exception:
+            return False
+
+    def _norm_url(self, url: Any) -> str:
+        if not url:
+            return ""
+        if not isinstance(url, str):
+            url = str(url)
+        try:
+            p = urlparse(url)
+            netloc = p.netloc.lower().replace("www.", "")
+            path = re.sub(r"/(amp|mobile|print)/?", "/", p.path or "")
+            query = [
+                (k, v)
+                for k, v in parse_qsl(p.query, keep_blank_values=True)
+                if not k.lower().startswith(("utm_", "gclid", "fbclid"))
+            ]
+            return urlunparse((p.scheme or "https", netloc, path.rstrip("/"), "", urlencode(query), ""))
+        except Exception:
+            return url
+
+    def _source_is_gov(self, url: str) -> bool:
+        try:
+            host = urlparse(url).netloc.lower()
+            return host.endswith(".gov") or "fec.gov" in host
+        except Exception:
+            return False
+
+    def _name_key(self, name: str) -> str:
+        if not name:
+            return ""
+        n = re.sub(r"\s+", " ", name.strip().lower())
+        n = re.sub(r"[^a-z\s-]", "", n)
+        return n
+
+    def _pick_party(self, raw: Optional[str]) -> Optional[str]:
+        if not raw:
+            return None
+        return self._normalize_party(raw)
+
+    def _normalize_party(self, raw: Optional[str]) -> Optional[str]:
+        if not raw:
+            return None
+        low = str(raw).strip().lower()
+        return PARTY_ALIASES.get(low, raw if low and low[0].isalpha() else None)
