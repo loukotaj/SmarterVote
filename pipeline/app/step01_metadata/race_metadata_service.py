@@ -18,20 +18,25 @@ Key responsibilities:
 import logging
 import re
 from datetime import datetime, timedelta
-from typing import Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
+from urllib.parse import urlparse
 
 from shared.models import DiscoveredCandidate
 from shared.state_constants import PRIMARY_DATE_BY_STATE, STATE_NAME
 
 from ..providers.base import ProviderRegistry, TaskType
 from ..schema import CanonicalIssue, ConfidenceLevel, FreshSearchQuery, RaceMetadata, Source, SourceType
-from ..step02_discover.source_discovery_engine import SourceDiscoveryEngine
+from ..utils.search_utils import SearchUtils
 
 logger = logging.getLogger(__name__)
 
+# Trusted domains for candidate validation and confidence scoring
+TRUSTED_DOMAINS = {"ballotpedia.org", "wikipedia.org", "fec.gov", "vote411.org"}
+
 # Slug parsing regex pattern - matches: state-office[-district]-year[-kind]
+# Uses non-greedy matching for office to properly handle at-large districts
 SLUG_PATTERN = re.compile(
-    r"^(?P<state>[a-z]{2})-(?P<office>[a-z-]+)"
+    r"^(?P<state>[a-z]{2})-(?P<office>[a-z]+(?:-[a-z]+)*?)"
     r"(?:-(?P<district>\d{1,2}|al))?-(?P<year>\d{4})"
     r"(?:-(?P<kind>primary|runoff|special))?$"
 )
@@ -42,8 +47,13 @@ class RaceMetadataService:
 
     def __init__(self, providers: ProviderRegistry = None):
         """Initialize the race metadata service."""
-        # Initialize discovery engine for candidate and issue searches
-        self.discovery_engine = SourceDiscoveryEngine()
+        # Initialize search utils for candidate discovery
+        search_config = {
+            "max_results_per_query": 10,
+            "cache_ttl_seconds": 300,
+            "per_host_concurrency": 5,
+        }
+        self.search_utils = SearchUtils(search_config)
 
         # Provider registry for AI validation
         self.providers = providers
@@ -87,9 +97,6 @@ class RaceMetadataService:
                 "major_issues": ["Election Reform", "Tech & AI"],
             },
         }
-
-        # Preferred sources for candidate validation (in priority order)
-        self.preferred_candidate_sources = ["ballotpedia.org", "wikipedia.org", "fec.gov", "vote411.org"]
 
         # Default election date patterns
         self.election_date_patterns = {
@@ -205,17 +212,23 @@ class RaceMetadataService:
         district = match.group("district")
         kind = match.group("kind")
 
-        # Normalize district format
-        if district and district.isdigit():
-            district = district.zfill(2)  # '3' -> '03'
+        # Normalize district format - handle "al" -> "AL" for at-large
+        if district:
+            if district.lower() == "al":
+                district = "AL"
+            elif district.isdigit():
+                district = district.zfill(2)  # '3' -> '03'
 
         # Validate state code
         if len(state) != 2 or state not in STATE_NAME:
             raise ValueError(f"Invalid state code: {state}")
 
-        # Validate year
-        if not (2020 <= year <= 2030):
-            raise ValueError(f"Invalid year: {year}")
+        # Validate year - allow current year ±2
+        current_year = datetime.utcnow().year
+        min_year = current_year - 2
+        max_year = current_year + 2
+        if not (min_year <= year <= max_year):
+            raise ValueError(f"Invalid year: {year} (must be between {min_year} and {max_year})")
 
         return state, office_type, year, district, kind
 
@@ -248,22 +261,42 @@ class RaceMetadataService:
         return incumbents[0].party
 
     def _calculate_confidence(self, candidates: List[DiscoveredCandidate], have_primary_date: bool) -> ConfidenceLevel:
-        """Calculate evidence-based confidence score."""
+        """Calculate evidence-based confidence score using normalized domain matching."""
         if not candidates:
             return ConfidenceLevel.LOW
 
-        # Count trusted domains across all candidates
+        # Count unique trusted domains across all candidates using normalized extraction
         trusted_domains = set()
+        has_gov_source = False
+
         for candidate in candidates:
             for source in candidate.sources:
-                if self._is_trusted_source(str(source)):
-                    domain = str(source).split("/")[2]
-                    trusted_domains.add(domain)
+                source_str = str(source).lower().strip()
+                if self._is_trusted_source(source_str):
+                    try:
+                        parsed_url = urlparse(source_str)
+                        domain = parsed_url.netloc.removeprefix("www.").strip()
+                        trusted_domains.add(domain)
+
+                        # Check for .gov sources
+                        if domain.endswith(".gov"):
+                            has_gov_source = True
+                    except Exception:
+                        # Fallback to simpler domain extraction
+                        domain_parts = source_str.split("/")
+                        if len(domain_parts) > 2:
+                            domain = domain_parts[2].removeprefix("www.").strip()
+                            trusted_domains.add(domain)
+                            if domain.endswith(".gov"):
+                                has_gov_source = True
 
         trusted_domains_count = len(trusted_domains)
 
-        # Apply heuristic
-        if len(candidates) >= 2 and trusted_domains_count >= 2:
+        # Enhanced heuristic: consider both candidate count and domain diversity
+        # Heuristic bump for .gov sources + trusted source combination
+        if has_gov_source and trusted_domains_count >= 1:
+            confidence = ConfidenceLevel.HIGH
+        elif len(candidates) >= 2 and trusted_domains_count >= 2:
             confidence = ConfidenceLevel.HIGH
         elif len(candidates) >= 1 and (trusted_domains_count >= 1 or have_primary_date):
             confidence = ConfidenceLevel.MEDIUM
@@ -273,18 +306,21 @@ class RaceMetadataService:
         # Log reasoning for observability
         logger.info(
             f"Confidence calculation: {len(candidates)} candidates, "
-            f"{trusted_domains_count} trusted domains, "
-            f"primary_date: {have_primary_date} → {confidence.value}"
+            f"{trusted_domains_count} trusted domains ({', '.join(trusted_domains)}), "
+            f"has_gov: {has_gov_source}, primary_date: {have_primary_date} → {confidence.value}"
         )
 
         return confidence
 
     def _is_trusted_source(self, url: str) -> bool:
-        """Check if URL is from a trusted source."""
-        trusted_domains = ["fec.gov", "ballotpedia.org", "wikipedia.org"]
-        return any(domain in url.lower() for domain in trusted_domains)
+        """Check if URL is from a trusted source using proper domain boundary checks."""
+        try:
+            host = urlparse(url.lower()).netloc.removeprefix("www.")
+            return any(host == d or host.endswith("." + d) for d in TRUSTED_DOMAINS)
+        except Exception:
+            return False
 
-    def _get_office_info(self, office_type: str) -> Dict[str, any]:
+    def _get_office_info(self, office_type: str) -> Dict[str, Any]:
         """Get detailed office information."""
         office_info = self.office_mappings.get(office_type)
         if not office_info:
@@ -316,6 +352,8 @@ class RaceMetadataService:
     def _build_jurisdiction(self, state: str, district: Optional[str]) -> str:
         """Build jurisdiction string."""
         if district:
+            if district == "AL":
+                return f"{state}-AL"  # At-large district
             return f"{state}-{district}"
         return state
 
@@ -336,22 +374,30 @@ class RaceMetadataService:
         if state in STATE_NAME:
             keywords.append(STATE_NAME[state])
 
-        # Add district if applicable
+        # Add district-specific keywords
         if district:
-            keywords.extend([f"District {district}", f"CD-{district}", f"{state}-{district}"])
+            if district == "AL":
+                # At-large district keywords
+                keywords.extend(["At-Large", "CD-AL", f"{state}-AL", "at-large"])
+            else:
+                # Numbered district keywords
+                keywords.extend([f"District {district}", f"CD-{district}", f"{state}-{district}"])
 
         return keywords
 
     def _create_fallback_metadata(self, race_id: str) -> RaceMetadata:
         """Create minimal fallback metadata when parsing fails."""
+        current_year = datetime.utcnow().year
+        fallback_election_date = self._calculate_election_date(current_year)
+
         return RaceMetadata(
             race_id=race_id,
             state="XX",
             office_type="unknown",
-            year=2024,
+            year=current_year,
             full_office_name="Unknown Office",
             jurisdiction="Unknown",
-            election_date=datetime(2024, 11, 5),
+            election_date=fallback_election_date,
             race_type="unknown",
             discovered_candidates=[],
             major_issues=["Economy", "Healthcare"],
@@ -376,8 +422,8 @@ class RaceMetadataService:
             for query in search_queries:
                 logger.debug(f"Searching reliable sources with query: {query.text}")
 
-                # Use discovery engine to search for candidate information
-                search_results = await self.discovery_engine._search_google_custom(query, CanonicalIssue.ELECTION_REFORM)
+                # Use search utils directly for general searches
+                search_results = await self.search_utils.search_general(query)
 
                 # Extract structured candidate info from search results
                 candidates_from_results = self._extract_structured_candidates_from_search_results(
@@ -418,32 +464,54 @@ class RaceMetadataService:
         # Use unified state name mapping
         state_name = STATE_NAME.get(state, state)
 
-        # District information
-        district_text = f" district {district}" if district else ""
+        # Enhanced district handling
+        district_text = ""
+        district_keywords = []
+        if district:
+            if district == "AL":
+                district_text = " at-large"
+                district_keywords = ["at-large", "At-Large", "CD-AL"]
+            else:
+                district_text = f" district {district}"
+                district_keywords = [f"district {district}", f"District {district}", f"CD-{district}"]
 
-        # Ballotpedia searches (highest priority)
+        # Ballotpedia searches (highest priority) - include both full office and district terms
         ballotpedia_terms = [
             f"site:ballotpedia.org {year} {state_name}{district_text} {office_type} election",
             f"site:ballotpedia.org {state_name} {full_office} {year} candidates",
             f"site:ballotpedia.org {year} {state} {office_type} general election",
         ]
 
-        # Wikipedia searches
+        # Add district-specific Ballotpedia queries
+        if district_keywords:
+            for keyword in district_keywords:
+                ballotpedia_terms.append(f"site:ballotpedia.org {state_name} {full_office} {year} {keyword}")
+
+        # Wikipedia searches - include both full office and district terms
         wikipedia_terms = [
             f"site:wikipedia.org {year} {state_name}{district_text} {office_type} election",
             f"site:wikipedia.org {year} United States {office_type} elections {state_name}",
         ]
 
-        # FEC searches for federal races
+        # Add district-specific Wikipedia queries
+        if district_keywords:
+            for keyword in district_keywords:
+                wikipedia_terms.append(f"site:wikipedia.org {year} {state_name} {office_type} {keyword}")
+
+        # FEC searches for federal races - include district terms
         fec_terms = []
         if office_type in ["senate", "house"]:
             fec_terms = [f"site:fec.gov {year} {state} {office_type} candidates"]
+            if district_keywords:
+                for keyword in district_keywords:
+                    fec_terms.append(f"site:fec.gov {year} {state} {office_type} {keyword}")
 
         all_terms = ballotpedia_terms + wikipedia_terms + fec_terms
 
-        # Create search queries
+        # Create search queries with relaxed date restrictions
         for term in all_terms:
-            queries.append(FreshSearchQuery(race_id=race_id, text=term, max_results=10, date_restrict="y1"))  # Last year
+            # Relax date restriction - allow y2 (2 years) for better coverage of upcoming races
+            queries.append(FreshSearchQuery(race_id=race_id, text=term, max_results=10, date_restrict="y2"))
 
         return queries
 
@@ -453,15 +521,17 @@ class RaceMetadataService:
         """Extract structured candidate information from search results."""
         candidates = []
 
-        # Enhanced patterns for extracting candidate info
+        # Enhanced patterns for extracting candidate info with better name and party support
         candidate_patterns = [
-            # Ballotpedia specific patterns with party info
-            r"([A-Z][a-z]+\s+[A-Z][a-z]+)\s+\((?P<party>Democratic|Republican|Independent|Libertarian|Green)\)",
-            r"(?:Incumbent|Senator|Representative)\s+([A-Z][a-z]+\s+[A-Z][a-z]+)\s+\((?P<party>D|R|I)\)",
-            # General high-confidence patterns
-            r"([A-Z][a-z]+\s+[A-Z][a-z]+)\s+(?:vs\.?|versus|against)",
-            r"(?:candidate|nominee)\s+([A-Z][a-z]+\s+[A-Z][a-z]+)",
-            r"([A-Z][a-z]+\s+[A-Z][a-z]+)\s+(?:is running|will run|announced)",
+            # Ballotpedia specific patterns with comprehensive party info
+            r"([A-Z][a-z]+(?:\s+[A-Z]\.?\s+)?[A-Z][a-z]+(?:-[A-Z][a-z]+)?)\s+\((?P<party>Democratic|Republican|Independent|Libertarian|Green|Nonpartisan|Unaffiliated|NPP)\)",
+            r"(?:Incumbent|Senator|Representative)\s+([A-Z][a-z]+(?:\s+[A-Z]\.?\s+)?[A-Z][a-z]+(?:-[A-Z][a-z]+)?)\s+\((?P<party>D|R|I|L|G|NP|U)\)",
+            # General high-confidence patterns with middle initials and hyphens
+            r"([A-Z][a-z]+(?:\s+[A-Z]\.?\s+)?[A-Z][a-z]+(?:-[A-Z][a-z]+)?)\s+(?:vs\.?|versus|against)",
+            r"(?:candidate|nominee)\s+([A-Z][a-z]+(?:\s+[A-Z]\.?\s+)?[A-Z][a-z]+(?:-[A-Z][a-z]+)?)",
+            r"([A-Z][a-z]+(?:\s+[A-Z]\.?\s+)?[A-Z][a-z]+(?:-[A-Z][a-z]+)?)\s+(?:is running|will run|announced)",
+            # Three-name patterns (First Middle Last)
+            r"([A-Z][a-z]+\s+[A-Z][a-z]+\s+[A-Z][a-z]+(?:-[A-Z][a-z]+)?)\s+\((?P<party>D|R|I|L|G|Democratic|Republican|Independent|Libertarian|Green|Nonpartisan|Unaffiliated|NPP)\)",
         ]
 
         for source in search_results:
@@ -488,23 +558,43 @@ class RaceMetadataService:
                         # Try to find party info in surrounding text
                         party = self._extract_party_from_context(text_to_search, name)
 
-                    # Check for incumbent status
+                    # Check for incumbent status with enhanced context matching
                     incumbent = self._check_incumbent_status(text_to_search, name)
 
-                    candidate = DiscoveredCandidate(name=name, party=party, incumbent=incumbent, sources=[source.url])
+                    # Normalize candidate source URLs
+                    normalized_source = self._normalize_source_url(source.url)
+                    candidate = DiscoveredCandidate(name=name, party=party, incumbent=incumbent, sources=[normalized_source])
                     candidates.append(candidate)
 
         return candidates
 
     def _normalize_party_name(self, party_code: str) -> Optional[str]:
-        """Normalize party codes and names."""
+        """Normalize party codes and names including aliases."""
         if not party_code:
             return None
 
-        party_map = {"D": "Democratic", "R": "Republican", "I": "Independent", "L": "Libertarian", "G": "Green"}
+        party_map = {
+            "D": "Democratic",
+            "R": "Republican",
+            "I": "Independent",
+            "L": "Libertarian",
+            "G": "Green",
+            "NP": "Nonpartisan",
+            "U": "Unaffiliated",
+            "NPP": "No Party Preference",
+        }
 
+        party_code_upper = party_code.strip().upper()
+        if party_code_upper in party_map:
+            return party_map[party_code_upper]
+
+        # Handle full names
         party_normalized = party_code.strip().title()
-        return party_map.get(party_code.upper(), party_normalized)
+        return party_normalized
+
+    def _normalize_source_url(self, url) -> str:
+        """Normalize source URL to lowercase for consistent deduplication."""
+        return str(url).lower().strip()
 
     def _extract_party_from_context(self, text: str, candidate_name: str) -> Optional[str]:
         """Extract party affiliation from text context around candidate name."""
@@ -523,21 +613,34 @@ class RaceMetadataService:
         return match.group(1).title() if match else None
 
     def _check_incumbent_status(self, text: str, candidate_name: str) -> bool:
-        """Check if candidate is mentioned as incumbent."""
-        # Look for incumbent keywords near the candidate name
+        """Check if candidate is mentioned as incumbent with enhanced context matching."""
+        # Look for incumbent keywords near the candidate name with broader context
         name_pos = text.lower().find(candidate_name.lower())
         if name_pos == -1:
             return False
 
-        context_start = max(0, name_pos - 80)
-        context_end = min(len(text), name_pos + len(candidate_name) + 80)
+        # Expand context window for better detection
+        context_start = max(0, name_pos - 120)
+        context_end = min(len(text), name_pos + len(candidate_name) + 120)
         context = text[context_start:context_end]
 
-        incumbent_pattern = re.compile(r"\bincumbent\b", re.IGNORECASE)
-        return bool(incumbent_pattern.search(context))
+        # Enhanced incumbent patterns
+        incumbent_patterns = [
+            r"\bincumbent\b",
+            r"\bcurrent\s+(?:senator|representative|governor)\b",
+            r"\bserving\s+(?:senator|representative|governor)\b",
+            r"\breelection\b",
+            r"\bdefending\s+(?:seat|office)\b",
+        ]
+
+        for pattern in incumbent_patterns:
+            if re.search(pattern, context, re.IGNORECASE):
+                return True
+
+        return False
 
     def _merge_and_deduplicate_structured_candidates(self, candidates: List[DiscoveredCandidate]) -> List[DiscoveredCandidate]:
-        """Merge and deduplicate structured candidates by name."""
+        """Merge and deduplicate structured candidates by name with normalized source URLs."""
         merged = {}
 
         for candidate in candidates:
@@ -558,10 +661,15 @@ class RaceMetadataService:
                 if candidate.incumbent:
                     existing.incumbent = True
 
-                # Merge source lists
+                # Merge source lists with efficient deduplication
+                if not hasattr(existing, "_src_set"):
+                    existing._src_set = {self._normalize_source_url(s) for s in existing.sources}
+
                 for source in candidate.sources:
-                    if source not in existing.sources:
+                    norm = self._normalize_source_url(source)
+                    if norm not in existing._src_set:
                         existing.sources.append(source)
+                        existing._src_set.add(norm)
             else:
                 merged[name_key] = candidate
 

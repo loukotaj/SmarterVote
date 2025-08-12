@@ -213,6 +213,18 @@ class SearchUtils:
         # This will be expanded to include specialized candidate information sources
         return await self.search_google_custom(query, CanonicalIssue.GENERAL)
 
+    async def search_general(self, query: FreshSearchQuery) -> List[Source]:
+        """
+        Perform a general search without requiring a specific canonical issue.
+
+        Args:
+            query: Search query object
+
+        Returns:
+            List of search results as Source objects
+        """
+        return await self.search_google_custom(query, CanonicalIssue.GENERAL)
+
     def generate_issue_query(
         self,
         race_id: str,
