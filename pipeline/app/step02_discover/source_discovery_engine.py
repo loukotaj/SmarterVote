@@ -265,3 +265,16 @@ class SourceDiscoveryEngine:
 
         logger.debug(f"Extracted candidate names for {race_id}: {candidate_names}")
         return candidate_names
+
+    async def search(self, query: "FreshSearchQuery", issue: "CanonicalIssue") -> List[Source]:
+        """
+        Public search method for external components to perform Google Custom Search.
+        
+        Args:
+            query: Search query object
+            issue: Canonical issue for context
+            
+        Returns:
+            List of search results as Source objects
+        """
+        return await self.search_utils.search_google_custom(query, issue)

@@ -18,7 +18,7 @@ Key responsibilities:
 import logging
 import re
 from datetime import datetime, timedelta
-from typing import Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 from urllib.parse import urlparse
 
 from shared.models import DiscoveredCandidate
@@ -31,7 +31,7 @@ from ..step02_discover.source_discovery_engine import SourceDiscoveryEngine
 logger = logging.getLogger(__name__)
 
 # Trusted domains for candidate validation and confidence scoring
-TRUSTED_DOMAINS = ["ballotpedia.org", "wikipedia.org", "fec.gov", "vote411.org"]
+TRUSTED_DOMAINS = {"ballotpedia.org", "wikipedia.org", "fec.gov", "vote411.org"}
 
 # Slug parsing regex pattern - matches: state-office[-district]-year[-kind]
 # Uses non-greedy matching for office to properly handle at-large districts
@@ -219,7 +219,7 @@ class RaceMetadataService:
             raise ValueError(f"Invalid state code: {state}")
 
         # Validate year - allow current year ±2
-        current_year = datetime.now().year
+        current_year = datetime.utcnow().year
         min_year = current_year - 2
         max_year = current_year + 2
         if not (min_year <= year <= max_year):
@@ -262,28 +262,36 @@ class RaceMetadataService:
 
         # Count unique trusted domains across all candidates using normalized extraction
         trusted_domains = set()
+        has_gov_source = False
+        
         for candidate in candidates:
             for source in candidate.sources:
-                if self._is_trusted_source(str(source)):
+                source_str = str(source).lower().strip()
+                if self._is_trusted_source(source_str):
                     try:
-                        parsed_url = urlparse(str(source).lower())
-                        domain = parsed_url.netloc
-                        if domain.startswith('www.'):
-                            domain = domain[4:]
+                        parsed_url = urlparse(source_str)
+                        domain = parsed_url.netloc.removeprefix('www.').strip()
                         trusted_domains.add(domain)
+                        
+                        # Check for .gov sources
+                        if domain.endswith('.gov'):
+                            has_gov_source = True
                     except Exception:
                         # Fallback to simpler domain extraction
-                        domain_parts = str(source).lower().split("/")
+                        domain_parts = source_str.split("/")
                         if len(domain_parts) > 2:
-                            domain = domain_parts[2]
-                            if domain.startswith('www.'):
-                                domain = domain[4:]
+                            domain = domain_parts[2].removeprefix('www.').strip()
                             trusted_domains.add(domain)
+                            if domain.endswith('.gov'):
+                                has_gov_source = True
 
         trusted_domains_count = len(trusted_domains)
 
         # Enhanced heuristic: consider both candidate count and domain diversity
-        if len(candidates) >= 2 and trusted_domains_count >= 2:
+        # Heuristic bump for .gov sources + trusted source combination
+        if has_gov_source and trusted_domains_count >= 1:
+            confidence = ConfidenceLevel.HIGH
+        elif len(candidates) >= 2 and trusted_domains_count >= 2:
             confidence = ConfidenceLevel.HIGH
         elif len(candidates) >= 1 and (trusted_domains_count >= 1 or have_primary_date):
             confidence = ConfidenceLevel.MEDIUM
@@ -294,25 +302,20 @@ class RaceMetadataService:
         logger.info(
             f"Confidence calculation: {len(candidates)} candidates, "
             f"{trusted_domains_count} trusted domains ({', '.join(trusted_domains)}), "
-            f"primary_date: {have_primary_date} → {confidence.value}"
+            f"has_gov: {has_gov_source}, primary_date: {have_primary_date} → {confidence.value}"
         )
 
         return confidence
 
     def _is_trusted_source(self, url: str) -> bool:
-        """Check if URL is from a trusted source using normalized domain extraction."""
+        """Check if URL is from a trusted source using proper domain boundary checks."""
         try:
-            parsed_url = urlparse(url.lower())
-            domain = parsed_url.netloc
-            # Remove 'www.' prefix if present
-            if domain.startswith('www.'):
-                domain = domain[4:]
-            return any(trusted_domain in domain for trusted_domain in TRUSTED_DOMAINS)
+            host = urlparse(url.lower()).netloc.removeprefix("www.")
+            return any(host == d or host.endswith("." + d) for d in TRUSTED_DOMAINS)
         except Exception:
-            # Fallback to string checking if URL parsing fails
-            return any(trusted_domain in url.lower() for trusted_domain in TRUSTED_DOMAINS)
+            return False
 
-    def _get_office_info(self, office_type: str) -> Dict[str, any]:
+    def _get_office_info(self, office_type: str) -> Dict[str, Any]:
         """Get detailed office information."""
         office_info = self.office_mappings.get(office_type)
         if not office_info:
@@ -379,7 +382,7 @@ class RaceMetadataService:
 
     def _create_fallback_metadata(self, race_id: str) -> RaceMetadata:
         """Create minimal fallback metadata when parsing fails."""
-        current_year = datetime.now().year
+        current_year = datetime.utcnow().year
         fallback_election_date = self._calculate_election_date(current_year)
         
         return RaceMetadata(
@@ -414,8 +417,8 @@ class RaceMetadataService:
             for query in search_queries:
                 logger.debug(f"Searching reliable sources with query: {query.text}")
 
-                # Use discovery engine's public search method instead of private method
-                search_results = await self.discovery_engine.search_utils.search_google_custom(query, CanonicalIssue.ELECTION_REFORM)
+                # Use discovery engine's public search method
+                search_results = await self.discovery_engine.search(query, CanonicalIssue.ELECTION_REFORM)
 
                 # Extract structured candidate info from search results
                 candidates_from_results = self._extract_structured_candidates_from_search_results(
@@ -573,7 +576,7 @@ class RaceMetadataService:
             "G": "Green",
             "NP": "Nonpartisan",
             "U": "Unaffiliated",
-            "NPP": "Nonpartisan"
+            "NPP": "No Party Preference"
         }
 
         party_code_upper = party_code.strip().upper()
@@ -653,11 +656,15 @@ class RaceMetadataService:
                 if candidate.incumbent:
                     existing.incumbent = True
 
-                # Merge source lists with normalization and deduplication
+                # Merge source lists with efficient deduplication
+                if not hasattr(existing, "_src_set"):
+                    existing._src_set = {self._normalize_source_url(s) for s in existing.sources}
+                
                 for source in candidate.sources:
-                    normalized_source = self._normalize_source_url(source)
-                    if normalized_source not in [self._normalize_source_url(s) for s in existing.sources]:
+                    norm = self._normalize_source_url(source)
+                    if norm not in existing._src_set:
                         existing.sources.append(source)
+                        existing._src_set.add(norm)
             else:
                 merged[name_key] = candidate
 
