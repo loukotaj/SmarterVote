@@ -99,7 +99,7 @@ def mock_openai_provider():
         return {
             "summary": "Mock healthcare summary for testing",
             "confidence": "high",
-            "sources": ["mock-source-1", "mock-source-2"]
+            "sources": ["mock-source-1", "mock-source-2"],
         }
 
     mock_provider.summarize = AsyncMock(side_effect=mock_summarize)
@@ -120,7 +120,7 @@ def mock_anthropic_provider():
         return {
             "summary": "Mock economic summary for testing",
             "confidence": "medium",
-            "sources": ["mock-source-3", "mock-source-4"]
+            "sources": ["mock-source-3", "mock-source-4"],
         }
 
     mock_provider.summarize = AsyncMock(side_effect=mock_summarize)
@@ -141,7 +141,7 @@ def mock_xai_provider():
         return {
             "summary": "Mock climate summary for testing",
             "confidence": "low",
-            "sources": ["mock-source-5", "mock-source-6"]
+            "sources": ["mock-source-5", "mock-source-6"],
         }
 
     mock_provider.summarize = AsyncMock(side_effect=mock_summarize)
@@ -151,8 +151,4 @@ def mock_xai_provider():
 @pytest.fixture
 def mock_all_llm_providers(mock_openai_provider, mock_anthropic_provider, mock_xai_provider):
     """Mock all LLM providers for testing."""
-    return {
-        "openai": mock_openai_provider,
-        "anthropic": mock_anthropic_provider,
-        "xai": mock_xai_provider
-    }
+    return {"openai": mock_openai_provider, "anthropic": mock_anthropic_provider, "xai": mock_xai_provider}
