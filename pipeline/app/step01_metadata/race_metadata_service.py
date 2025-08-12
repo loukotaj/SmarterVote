@@ -26,7 +26,7 @@ from shared.state_constants import PRIMARY_DATE_BY_STATE, STATE_NAME
 
 from ..providers.base import ProviderRegistry, TaskType
 from ..schema import CanonicalIssue, ConfidenceLevel, FreshSearchQuery, RaceMetadata, Source, SourceType
-from ..step02_discover.source_discovery_engine import SourceDiscoveryEngine
+from ..utils.search_utils import SearchUtils
 
 logger = logging.getLogger(__name__)
 
@@ -47,8 +47,13 @@ class RaceMetadataService:
 
     def __init__(self, providers: ProviderRegistry = None):
         """Initialize the race metadata service."""
-        # Initialize discovery engine for candidate and issue searches
-        self.discovery_engine = SourceDiscoveryEngine()
+        # Initialize search utils for candidate discovery
+        search_config = {
+            "max_results_per_query": 10,
+            "cache_ttl_seconds": 300,
+            "per_host_concurrency": 5,
+        }
+        self.search_utils = SearchUtils(search_config)
 
         # Provider registry for AI validation
         self.providers = providers
@@ -417,8 +422,8 @@ class RaceMetadataService:
             for query in search_queries:
                 logger.debug(f"Searching reliable sources with query: {query.text}")
 
-                # Use discovery engine's public search method
-                search_results = await self.discovery_engine.search(query, CanonicalIssue.ELECTION_REFORM)
+                # Use search utils directly for general searches
+                search_results = await self.search_utils.search_general(query)
 
                 # Extract structured candidate info from search results
                 candidates_from_results = self._extract_structured_candidates_from_search_results(
