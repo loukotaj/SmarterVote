@@ -132,6 +132,7 @@ The system uses 3 AI models (GPT-4o, Claude-3.5, grok-3) for consensus:
 - `infra/main.tf` - Infrastructure as code patterns
 - `docs/architecture.md` - Detailed system design
 - `docs/issues-list.md` - Current development priorities
+- `docs/testing-guide.md` - Testing strategies and conventions
 
 ## 🖥️ Windows Development Notes
 

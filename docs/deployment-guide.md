@@ -201,7 +201,7 @@ gsutil cp gs://smartervote-terraform-state/terraform/state/default.tfstate.12345
 
 - [Architecture Overview](../docs/architecture.md)
 - [Local Development](../docs/local-development.md)
-- [Testing Guide](../docs/testing.md)
+- [Testing Guide](../docs/testing-guide.md)
 - [Deployment Validation](../infra/DEPLOYMENT-VALIDATION.md)
 
 ## 🆘 Support

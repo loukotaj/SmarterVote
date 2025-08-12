@@ -165,7 +165,12 @@ class ContentExtractor:
                     extracted.append(result)
 
             except Exception as e:
-                logger.error(f"Failed to extract content from {item.get('source', {}).get('url', 'unknown')}: {e}")
+                source = item.get("source")
+                if hasattr(source, "url"):
+                    source_url = str(source.url)
+                else:
+                    source_url = source.get("url", "unknown") if source else "unknown"
+                logger.error(f"Failed to extract content from {source_url}: {e}")
                 dropped_reasons["extraction_error"] = dropped_reasons.get("extraction_error", 0) + 1
 
         logger.info(f"Successfully extracted {len(extracted)}/{len(raw_content)} items")
@@ -1032,7 +1037,11 @@ class ContentExtractor:
                 reasons.append("low_content_density")
 
         # 5. Source credibility (0.15 weight)
-        source_url = str(original_item.get("source", {}).get("url", ""))
+        source = original_item.get("source")
+        if hasattr(source, "url"):
+            source_url = str(source.url)
+        else:
+            source_url = str(source.get("url", "")) if source else ""
         detected_source_type = original_item.get("detected_source_type", "")
 
         # Government and official sources get bonus

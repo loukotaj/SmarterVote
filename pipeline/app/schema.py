@@ -4,7 +4,7 @@ This module acts as the primary schema interface for the pipeline app.
 """
 
 # Import shared models for pipeline use
-from ...shared.models import (
+from shared.models import (
     AIAnnotations,
     ArbitrationResult,
     Candidate,

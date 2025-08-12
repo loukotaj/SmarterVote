@@ -25,9 +25,13 @@ class TestExtractService:
                     title="Test Site",
                     last_accessed=datetime.utcnow(),
                 ),
-                "content": "<html><body><h1>Test Title</h1><p>Test content paragraph.</p></body></html>",
+                "content": """<html><body>
+                    <h1>Test Title</h1>
+                    <p>Test content paragraph with sufficient length to meet quality standards. This is a detailed article about a political candidate or issue that provides meaningful information for voters. The content includes multiple sentences and covers relevant topics that would be useful for political analysis and summarization.</p>
+                    <p>This second paragraph ensures we have enough content to pass the minimum length requirements while maintaining realistic test data that reflects actual website content structure.</p>
+                </body></html>""",
                 "content_type": "text/html",
-                "size_bytes": 100,
+                "size_bytes": 500,
             }
         ]
 
@@ -40,7 +44,7 @@ class TestExtractService:
         assert len(extracted) == 1
         assert isinstance(extracted[0], ExtractedContent)
         assert "Test Title" in extracted[0].text
-        assert "Test content paragraph" in extracted[0].text
+        assert "sufficient length" in extracted[0].text
         assert extracted[0].word_count > 0
 
     def test_extract_from_html_removes_scripts(self, extract_service):
@@ -56,7 +60,7 @@ class TestExtractService:
         </html>
         """
 
-        text = extract_service._extract_from_html(html_content)
+        text, metadata = extract_service._extract_from_html(html_content)
 
         assert "alert" not in text
         assert "console.log" not in text

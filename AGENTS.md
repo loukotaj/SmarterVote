@@ -21,7 +21,7 @@ Use these guardrails when generating or editing code in this repository.
 ## Key references
 - Architecture: `docs/architecture.md`
 - Issues & status: `docs/issues-list.md`
-- Testing guide: `docs/testing.md`
+- Testing guide: `docs/testing-guide.md`
 - Schemas: `pipeline/app/schema.py`, web `src/lib/types.ts`
 
 ## Project-specific rules

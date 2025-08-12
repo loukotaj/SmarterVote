@@ -60,7 +60,7 @@ python scripts/run_local.py mo-senate-2024
 ## Docs
 - Architecture: `docs/architecture.md`
 - Local dev: `docs/local-development.md`
-- Testing: `docs/testing.md`
+- Testing: `docs/testing-guide.md`
 - Infra: `infra/README.md`
 - Web: `web/README.md`
 
