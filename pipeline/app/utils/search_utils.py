@@ -10,11 +10,10 @@ Backwards-compatibility notes
 import asyncio
 import logging
 import os
-import re
 from collections import defaultdict
 from datetime import datetime, timedelta
 from typing import Any, Dict, List, Optional, Set, Tuple
-from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
+from urllib.parse import urlparse
 
 from ..schema import CanonicalIssue, FreshSearchQuery, RaceMetadata, Source, SourceType
 
@@ -81,16 +80,6 @@ class SearchUtils:
         "PR": "Puerto Rico",
     }
 
-    _NEG_OFFICE_FOR_US_SENATE = [
-        r"\bstate senate\b",
-        r"\bstate\s+legislature\b",
-        r"\bgeneral assembly\b",
-        r"\bhouse district\b",
-        r"\bcounty commission(er)?\b",
-        r"\bcity council\b",
-        r"\bstate representative\b",
-    ]
-
     def __init__(self, search_config: dict):
         """Initialize with search configuration."""
         self.search_config = search_config
@@ -98,13 +87,6 @@ class SearchUtils:
         self.cache_ttl = search_config.get("cache_ttl_seconds", 300)
         self.per_host_concurrency = search_config.get("per_host_concurrency", 5)
         self._host_semaphores: Dict[str, asyncio.Semaphore] = defaultdict(lambda: asyncio.Semaphore(self.per_host_concurrency))
-
-        # Basic domain trust ranking (explicit hosts; TLDs handled in _score_source)
-        self.domain_trust: Dict[str, float] = {
-            "fec.gov": 0.95,
-            "ballotpedia.org": 0.90,
-            "opensecrets.org": 0.90,
-        }
 
         # Canonical issue synonyms
         self.issue_synonyms: Dict[CanonicalIssue, List[str]] = {
@@ -133,7 +115,7 @@ class SearchUtils:
     # ------------------------- public search APIs ------------------------- #
 
     async def search_google_custom(self, query: FreshSearchQuery, issue: CanonicalIssue) -> List[Source]:
-        """Perform Google Custom Search with light caching, concurrency and scoring + race-aware post-filter."""
+        """Perform Google Custom Search and return raw results."""
         cache_key = f"{query.race_id}:{query.text}"
         now = datetime.utcnow()
         cached = self.cache.get(cache_key)
@@ -156,17 +138,10 @@ class SearchUtils:
                 description=f"Fresh search content about {getattr(issue, 'value', str(issue))} for this race",
                 last_accessed=now,
                 published_at=now,
-                score=0.5,
-                scoring_reason="mock",
                 is_fresh=True,
             )
             self.cache[cache_key] = (now, [mock_source])
             return [mock_source]
-
-        # Derive race context from race_id (tolerant of partials)
-        race_ctx = self._race_context_from_race_id(getattr(query, "race_id", None))
-
-        force_relevance = True
 
         logger.info("Searching Google Custom Search for: %s", query.text)
 
@@ -181,8 +156,6 @@ class SearchUtils:
                 description=f"Mock search content about {getattr(issue, 'value', str(issue))} for this race",
                 last_accessed=now,
                 published_at=now,
-                score=0.5,
-                scoring_reason="mock",
                 is_fresh=True,
             )
             self.cache[cache_key] = (now, [mock_source])
@@ -190,7 +163,6 @@ class SearchUtils:
 
         search_url = "https://www.googleapis.com/customsearch/v1"
 
-        # Respect query overrides for freshness and num
         date_restrict = getattr(query, "date_restrict", None)
         date_param = date_restrict if date_restrict else f"d{self.search_config.get('freshness_days', 30)}"
         num = getattr(query, "max_results", None) or self.search_config.get("max_results_per_query", 10)
@@ -202,8 +174,6 @@ class SearchUtils:
             "num": num,
             "dateRestrict": date_param,
         }
-        if not force_relevance:
-            params["sort"] = "date"
 
         host = urlparse(search_url).netloc
         async with self._host_semaphores[host]:
@@ -216,58 +186,28 @@ class SearchUtils:
                 logger.error("Google Custom Search failed for %s | error=%s", query.text, e)
                 return []
 
-        strict = bool(getattr(query, "strict", self.search_config.get("strict_seed_filter", True)))
-
         sources: List[Source] = []
         for item in data.get("items", []) or []:
             link = item.get("link")
             if not link:
                 continue
-
-            link_norm = self._normalize_url(link)
             title = item.get("title", "") or ""
             snippet = item.get("snippet", "") or ""
-
-            # Race-aware gating (state/year/office; plus negative keyword rules)
-            gate_res = self._race_gate(link_norm, title, snippet, race_ctx)
-
-            # If strict, drop non-matching or conflicting results early
-            if strict and not gate_res["pass"]:
-                logger.debug(
-                    "Dropping result (strict): reason=%s | url=%s",
-                    ",".join(gate_res["reasons"]) or "unknown",
-                    link_norm,
-                )
-                continue
-
             published_at = self._extract_published_time(item)
-            source_type = self._classify_source(link_norm)
-
-            base_score, reason = self._score_source(link_norm, title, snippet, published_at, race_ctx.get("state"))
-            # Boost/penalize by gate strength even if not strict
-            boost = gate_res["match_strength"]  # 0.0 - 0.5 range
-            penalty = gate_res["penalty"]  # 0.0 - 0.4 range
-            final_score = max(0.0, min(1.0, base_score + boost - penalty))
-            full_reason = f"{reason}; race_gate={gate_res['summary']}; boost={boost:.2f}; penalty={penalty:.2f}"
-
+            source_type = self._classify_source(link)
             sources.append(
                 Source(
-                    url=link_norm,
+                    url=link,
                     type=source_type,
                     title=title,
                     description=snippet,
                     last_accessed=now,
                     published_at=published_at,
-                    score=final_score,
-                    scoring_reason=full_reason,
                     is_fresh=True,
                 )
             )
 
-        # Deduplicate and score-sort
         sources = self.deduplicate_sources(sources)
-        sources.sort(key=lambda s: s.score or 0.0, reverse=True)
-
         self.cache[cache_key] = (datetime.utcnow(), sources)
         return sources
 
@@ -369,22 +309,6 @@ class SearchUtils:
             )
         return queries
 
-    # ------------------------- new helpers (additive) ------------------------- #
-
-    def is_trusted_domain(self, url: str) -> bool:
-        """Public helper: whether a URL is on a trusted election info domain."""
-        try:
-            host = urlparse(url).netloc.lower().removeprefix("www.")
-            if host.endswith(".gov"):
-                return True
-            return host in self.domain_trust or any(host.endswith("." + d) for d in self.domain_trust)
-        except Exception:
-            return False
-
-    def canonicalize_url(self, url: str) -> str:
-        """Public helper: aggressive URL canonicalization (safe to use elsewhere)."""
-        return self._normalize_url(url)
-
     def build_race_seed_queries(
         self,
         race_id: str,
@@ -435,45 +359,21 @@ class SearchUtils:
     # ------------------------- utilities ------------------------- #
 
     def deduplicate_sources(self, sources: List[Source]) -> List[Source]:
-        """Remove duplicate sources with aggressive URL normalization."""
+        """Remove duplicate sources based on scheme, netloc, and path."""
         seen: Set[str] = set()
-        seen_titles: Set[str] = set()
         unique_sources: List[Source] = []
 
         for src in sources:
-            normalized = self._normalize_url(str(src.url))
-            title_key = urlparse(normalized).netloc + "|" + re.sub(r"\s+", " ", (src.title or "").lower())
-            if normalized in seen or title_key in seen_titles:
+            parsed = urlparse(str(src.url))
+            key = f"{parsed.scheme.lower()}://{parsed.netloc.lower()}{parsed.path.rstrip('/')}"
+            if key in seen:
                 continue
-            seen.add(normalized)
-            seen_titles.add(title_key)
+            seen.add(key)
             unique_sources.append(src)
 
         return unique_sources
 
     # ------------------------- internal helpers ------------------------- #
-
-    def _normalize_url(self, url: str) -> str:
-        parsed = urlparse(url)
-        scheme = (parsed.scheme or "https").lower()
-        netloc = parsed.netloc.lower().lstrip(".")
-        # Drop common mobile subdomain
-        if netloc.startswith("m."):
-            netloc = netloc[2:]
-        # Strip default ports
-        netloc = netloc.replace(":80", "").replace(":443", "")
-        # Normalize path variants (amp/mobile/print)
-        path = re.sub(r"/(amp|mobile|print)/?", "/", (parsed.path or "/"))
-        # Strip fragments
-        fragmentless = (scheme, netloc, path.rstrip("/"), "", "", "")
-        # Strip noisy tracking params
-        query_pairs = [
-            (k, v)
-            for k, v in parse_qsl(parsed.query or "", keep_blank_values=True)
-            if not k.lower().startswith(("utm_", "gclid", "fbclid", "mc_cid", "mc_eid", "ref"))
-            and k.lower() not in {"amp", "amp_js_v"}
-        ]
-        return urlunparse((scheme, netloc, path.rstrip("/"), "", urlencode(query_pairs), ""))
 
     def _extract_published_time(self, item: Dict[str, Any]) -> Optional[datetime]:  # noqa: ANN401
         pagemap = item.get("pagemap", {}) or {}
@@ -528,233 +428,6 @@ class SearchUtils:
             return next(iter(SourceType))
         except Exception as e:  # noqa: BLE001
             raise AttributeError("SourceType enum has no accessible members") from e
-
-    def _score_source(
-        self,
-        url: str,
-        title: str,
-        snippet: str,
-        published_at: Optional[datetime],
-        state: Optional[str],
-    ) -> Tuple[float, str]:
-        """Return (score, reason) using domain trust, freshness, locality, and type."""
-        domain = urlparse(url).netloc.lower()
-        reason: List[str] = []
-
-        # Domain trust
-        trust = 0.5
-        if domain in self.domain_trust:
-            trust = self.domain_trust[domain]
-            reason.append(f"trust=domain({trust:.2f})")
-        elif domain.endswith(".gov"):
-            trust = 1.0
-            reason.append("trust=tld(gov)")
-        elif domain.endswith(".edu"):
-            trust = 0.9
-            reason.append("trust=tld(edu)")
-        elif any(domain.endswith(k) for k in self.domain_trust):
-            match = next(k for k in self.domain_trust if domain.endswith(k))
-            trust = self.domain_trust[match]
-            reason.append(f"trust=parent({match})")
-        else:
-            reason.append("trust=other")
-
-        score = trust
-
-        # Freshness
-        fresh_window = self.search_config.get("freshness_days", 30)
-        if published_at:
-            if (datetime.utcnow() - published_at).days <= fresh_window:
-                score += 0.1
-                reason.append("fresh=Y")
-            else:
-                reason.append("fresh=N")
-        else:
-            reason.append("fresh=?")
-
-        # Localness (light)
-        local_bonus = 0.0
-        if state:
-            state_l = state.lower()
-            combined = " ".join([url.lower(), (title or "").lower(), (snippet or "").lower()])
-            if state_l in combined or self._STATE_MAP.get(state.upper(), "").lower() in combined:
-                local_bonus = 0.1
-        reason.append(f"local={local_bonus:.1f}")
-        score += local_bonus
-
-        # Type bonus
-        source_type = self._classify_source(url)
-        if source_type in {self._choose_type("GOVERNMENT"), self._choose_type("PDF")}:
-            score += 0.1
-            reason.append("type=bonus")
-        else:
-            reason.append(f"type={getattr(source_type, 'value', str(source_type))}")
-
-        return min(score, 1.0), "; ".join(reason)
-
-    # ---- race-aware post-filter & context helpers ---- #
-
-    def _race_context_from_race_id(self, race_id: Optional[str]) -> Dict[str, Any]:
-        """Parse 'mo-senate-2024' into a context dict. Be tolerant if missing pieces."""
-        out = {"race_id": race_id, "state": None, "state_name": None, "year": None, "office": None}
-        if not race_id:
-            return out
-        parts = [p for p in (race_id or "").split("-") if p]
-        if len(parts) >= 1 and len(parts[0]) in (2, 3):
-            out["state"] = parts[0].upper()
-            out["state_name"] = self._STATE_MAP.get(out["state"])
-        if len(parts) >= 2:
-            out["office"] = parts[1].lower()
-        if len(parts) >= 3 and parts[-1].isdigit():
-            out["year"] = int(parts[-1])
-        return out
-
-    def _race_gate(self, url: str, title: str, snippet: str, ctx: Dict[str, Any]) -> Dict[str, Any]:
-        """Race-aware gating + match strength. Returns dict with pass, reasons, match_strength, penalty, summary."""
-        reasons: List[str] = []
-        penalty = 0.0
-        boost = 0.0
-
-        combined_lower = " ".join([url.lower(), title.lower(), snippet.lower()])
-
-        # No context → neutral pass
-        if not ctx or not ctx.get("state") or not ctx.get("year") or not ctx.get("office"):
-            return {"pass": True, "reasons": [], "match_strength": 0.0, "penalty": 0.0, "summary": "no_ctx"}
-
-        state = ctx["state"]
-        state_name = (ctx.get("state_name") or "").lower()
-        year = ctx["year"]
-        office = (ctx["office"] or "").lower()
-
-        # 1) Year presence (required but forgiving for evergreen pages like Ballotpedia/Wiki)
-        year_present = str(year) in combined_lower
-        if not year_present and not any(h in url for h in ("ballotpedia.org", "wikipedia.org", "fec.gov")):
-            reasons.append("year_miss")
-            penalty += 0.15
-
-        # 2) State presence
-        state_hit = state.lower() in combined_lower or (state_name and state_name in combined_lower)
-        if not state_hit:
-            reasons.append("state_miss")
-            penalty += 0.2
-
-        # 3) Office alignment
-        office_ok = self._office_match(office, combined_lower)
-        if not office_ok:
-            reasons.append("office_miss")
-            penalty += 0.2
-
-        # 4) Negative keywords for US Senate to avoid state legislature bleed
-        if office in ("senate", "us-senate", "u.s.-senate", "ussenate", "us_senate"):
-            for pat in self._NEG_OFFICE_FOR_US_SENATE:
-                if re.search(pat, combined_lower, flags=re.IGNORECASE):
-                    reasons.append("neg_keyword:" + pat)
-                    penalty += 0.2
-                    break
-
-        # 5) Other state leakage (mention of a different state is a red flag)
-        other_state = self._detect_other_state_hit(combined_lower, state)
-        if other_state:
-            reasons.append(f"other_state:{other_state}")
-            penalty += 0.25
-
-        # 6) Canonical slug check for Ballotpedia/Wikipedia (strong positive)
-        if any(h in url for h in ("ballotpedia.org", "wikipedia.org")):
-            if self._matches_canonical_slug(url, state, state_name, year, office):
-                boost += 0.4
-                reasons.append("canonical_slug_hit")
-
-        # Construct overall decision
-        match_strength = boost  # we already used boost for canonical; keep as report
-        passed = (penalty < 0.3) and (state_hit or office_ok)
-
-        summary = "ok" if passed else "fail"
-        if reasons:
-            summary += ":" + ",".join(reasons)
-
-        return {
-            "pass": passed,
-            "reasons": reasons,
-            "match_strength": min(0.5, match_strength),
-            "penalty": min(0.4, penalty),
-            "summary": summary,
-        }
-
-    def _office_match(self, office: str, combined_lower: str) -> bool:
-        """Heuristic office matching for common offices."""
-        if not office:
-            return True
-        if office in ("senate", "us-senate", "u.s.-senate", "ussenate", "us_senate"):
-            return (
-                ("u.s. senate" in combined_lower)
-                or ("united states senate" in combined_lower)
-                or ("us senate" in combined_lower)
-            )
-        if office in ("house", "us-house", "u.s.-house", "ushouse", "us_house"):
-            return (
-                ("u.s. house" in combined_lower)
-                or ("united states house" in combined_lower)
-                or ("house of representatives" in combined_lower)
-            )
-        if office in ("governor", "governorship", "gubernatorial"):
-            return ("governor" in combined_lower) or ("gubernatorial" in combined_lower)
-        # fallback: just check literal office token
-        return office.replace("_", " ") in combined_lower
-
-    def _detect_other_state_hit(self, combined_lower: str, current_state_abbr: str) -> Optional[str]:
-        """Detect if another state's name/abbr appears prominently."""
-        curr = current_state_abbr.upper()
-        for abbr, name in self._STATE_MAP.items():
-            if abbr == curr:
-                continue
-            name_l = name.lower()
-            if f" {abbr.lower()} " in combined_lower or f" {name_l} " in combined_lower:
-                return abbr
-        return None
-
-    def _matches_canonical_slug(self, url: str, state: str, state_name: Optional[str], year: int, office: str) -> bool:
-        """Check if URL path looks like the canonical Ballotpedia/Wikipedia election page for the race."""
-        try:
-            parsed = urlparse(url)
-            host = parsed.netloc.lower()
-            path = parsed.path
-
-            state_name = state_name or self._STATE_MAP.get(state.upper(), "")
-            state_name_u = (state_name or "").replace(" ", "_")
-            year_s = str(year)
-
-            # Ballotpedia canonical pattern examples:
-            # /United_States_Senate_election_in_Missouri,_2024
-            # /United_States_House_of_Representatives_elections_in_Missouri,_2024
-            if "ballotpedia.org" in host:
-                if office in ("senate", "us-senate", "ussenate", "us_senate", "u.s.-senate"):
-                    bp = rf"/United_States_Senate_election_in_{re.escape(state_name_u)},_{year_s}$"
-                    return re.search(bp, path, flags=re.IGNORECASE) is not None
-                if office in ("house", "us-house", "ushouse", "us_house", "u.s.-house"):
-                    bp = rf"/United_States_House_of_Representatives_elections_in_{re.escape(state_name_u)},_{year_s}$"
-                    return re.search(bp, path, flags=re.IGNORECASE) is not None
-                if office in ("governor", "gubernatorial"):
-                    bp = rf"/Gubernatorial_election_in_{re.escape(state_name_u)},_{year_s}$"
-                    return re.search(bp, path, flags=re.IGNORECASE) is not None
-
-            # Wikipedia canonical pattern examples:
-            # /wiki/2024_United_States_Senate_election_in_Missouri
-            # /wiki/2024_United_States_House_of_Representatives_elections_in_Missouri
-            if "wikipedia.org" in host:
-                if office in ("senate", "us-senate", "ussenate", "us_senate", "u.s.-senate"):
-                    wp = rf"/wiki/{year_s}_United_States_Senate_election_in_{re.escape(state_name_u)}$"
-                    return re.search(wp, path, flags=re.IGNORECASE) is not None
-                if office in ("house", "us-house", "ushouse", "us_house", "u.s.-house"):
-                    wp = rf"/wiki/{year_s}_United_States_House_of_Representatives_elections_in_{re.escape(state_name_u)}$"
-                    return re.search(wp, path, flags=re.IGNORECASE) is not None
-                if office in ("governor", "gubernatorial"):
-                    wp = rf"/wiki/{year_s}_{re.escape(state_name_u)}_gubernatorial_election$"
-                    return re.search(wp, path, flags=re.IGNORECASE) is not None
-
-        except Exception:
-            return False
-
-        return False
 
     def _pick_issue(self, preferred: str = "GENERAL") -> CanonicalIssue:
         """Pick a valid CanonicalIssue, tolerating missing members."""

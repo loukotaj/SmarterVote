@@ -7,7 +7,7 @@ from .search_utils import SearchUtils
 
 
 @pytest.mark.asyncio
-async def test_deduplicate_sources_normalizes_tracking_params():
+async def test_deduplicate_sources_ignores_query_params():
     utils = SearchUtils({})
     url1 = "https://example.com/path?utm_source=news&id=5&fbclid=123"
     url2 = "https://example.com/path?id=5"
@@ -17,3 +17,4 @@ async def test_deduplicate_sources_normalizes_tracking_params():
     ]
     deduped = utils.deduplicate_sources(sources)
     assert len(deduped) == 1
+    assert str(deduped[0].url) == url1
