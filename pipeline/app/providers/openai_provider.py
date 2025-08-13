@@ -17,13 +17,42 @@ from .base import AIProvider, ModelConfig, ModelTier, SummaryOutput, TaskType
 logger = logging.getLogger(__name__)
 
 
+ALLOWED_CHAT_KWARGS = {
+    # sampling / output control
+    "temperature",
+    "top_p",
+    "n",
+    "stop",
+    "max_tokens",
+    "seed",
+    # penalties / biasing
+    "presence_penalty",
+    "frequency_penalty",
+    "logit_bias",
+    # streaming
+    "stream",
+    "stream_options",
+    # function/tool calling
+    "tools",
+    "tool_choice",
+    "functions",
+    "function_call",
+    # misc
+    "user",
+    "logprobs",
+    "top_logprobs",
+    "response_format",
+}
+
+
 class OpenAIProvider(AIProvider):
     """OpenAI provider for GPT models."""
 
-    def __init__(self):
+    def __init__(self, client: Any | None = None):
         super().__init__("openai")
-        self.client = None
-        self._setup_client()
+        self.client = client
+        if not self.client:
+            self._setup_client()
         self._register_models()
 
     def _setup_client(self):
@@ -76,49 +105,27 @@ class OpenAIProvider(AIProvider):
         """Generate text using OpenAI."""
         if not self.client:
             raise RuntimeError("OpenAI client not initialized")
-        ALLOWED_CHAT_KWARGS = {
-            # sampling / output control
-            "temperature",
-            "top_p",
-            "n",
-            "stop",
-            "max_tokens",
-            "seed",
-            # penalties / biasing
-            "presence_penalty",
-            "frequency_penalty",
-            "logit_bias",
-            # streaming
-            "stream",
-            "stream_options",
-            # function/tool calling
-            "tools",
-            "tool_choice",
-            "functions",
-            "function_call",
-            # misc
-            "user",
-            "logprobs",
-            "top_logprobs",
-            "response_format",
-        }
-
         params = {
             "model": model_config.model_id,
             "messages": [{"role": "user", "content": prompt}],
             "max_tokens": model_config.max_tokens,
+            "temperature": model_config.temperature,
         }
 
         # Only pass through recognized OpenAI Chat Completions params; drop unknowns/None.
         safe_kwargs = {k: v for k, v in kwargs.items() if k in ALLOWED_CHAT_KWARGS and v is not None}
         params.update(safe_kwargs)
+        logger.debug(
+            "openai.request",
+            extra={"model": model_config.model_id, "kwargs": list(kwargs.keys())},
+        )
 
         try:
             response = await self.client.chat.completions.create(**params)
-            logger.debug(f"OpenAI generate response: {response}")
+            logger.debug("openai.response", extra={"model": model_config.model_id})
             return response.choices[0].message.content
-        except Exception as e:
-            logger.error(f"OpenAI generation failed: {e}")
+        except Exception:
+            logger.exception("openai.error", extra={"model": model_config.model_id})
             raise
 
     async def generate_summary(
@@ -154,11 +161,16 @@ Available sources to reference: {context_sources or []}
             "max_tokens": model_config.max_tokens,
             "temperature": model_config.temperature,
         }
-        params.update(kwargs)
+        safe_kwargs = {k: v for k, v in kwargs.items() if k in ALLOWED_CHAT_KWARGS and v is not None}
+        params.update(safe_kwargs)
+        logger.debug(
+            "openai.request",
+            extra={"model": model_config.model_id, "kwargs": list(kwargs.keys())},
+        )
 
         try:
             response = await self.client.chat.completions.create(**params)
-            logger.debug(f"OpenAI generate_summary response: {response}")
+            logger.debug("openai.response", extra={"model": model_config.model_id})
             response_text = response.choices[0].message.content
 
             # Try to parse JSON response
@@ -184,6 +196,6 @@ Available sources to reference: {context_sources or []}
                     reasoning="Model did not provide confidence assessment",
                 )
 
-        except Exception as e:
-            logger.error(f"OpenAI summary generation failed: {e}")
+        except Exception:
+            logger.exception("openai.error", extra={"model": model_config.model_id})
             raise
