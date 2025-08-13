@@ -111,14 +111,16 @@ class CorpusFirstPipeline:
         try:
             # Step 0: EXTRACT RACE METADATA - High-level race details for optimization
             logger.info(f"📋 Step 0: EXTRACT RACE METADATA - Analyzing race structure for {race_id}")
-            race_metadata = await self.metadata.extract_race_metadata(race_id)
+            race_json = await self.metadata.extract_race_metadata(race_id)
             job.step_metadata = True
-            logger.info(f"✅ Extracted metadata: {race_metadata.full_office_name} in {race_metadata.jurisdiction}")
-            logger.info(f"🎯 Priority issues: {', '.join(race_metadata.major_issues[:3])}")
+            meta = race_json.race_metadata
+            if meta:
+                logger.info(f"✅ Extracted metadata: {meta.full_office_name} in {meta.jurisdiction}")
+                logger.info(f"🎯 Priority issues: {', '.join(meta.major_issues[:3])}")
 
             # Step 1: DISCOVER - Seed URLs + Google dorks + Fresh issue search
             logger.info(f"📡 Step 1: DISCOVER - Finding sources and fresh issues for {race_id}")
-            sources = await self.discovery.discover_all_sources(race_id, race_metadata)
+            sources = await self.discovery.discover_all_sources(race_id, race_json)
             if not sources:
                 logger.warning(f"No sources found for race {race_id}")
                 return False

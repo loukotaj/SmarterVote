@@ -28,7 +28,7 @@ from urllib.parse import urlencode, urlparse
 from shared.state_constants import PRIMARY_DATE_BY_STATE, STATE_NAME
 
 from ..providers.base import ProviderRegistry, TaskType
-from ..schema import ConfidenceLevel, DiscoveredCandidate, FreshSearchQuery, RaceMetadata, Source, SourceType
+from ..schema import Candidate, ConfidenceLevel, FreshSearchQuery, RaceJSON, RaceMetadata, Source, SourceType
 from ..step03_fetch import WebContentFetcher
 from ..step04_extract import ContentExtractor
 from ..utils.search_utils import SearchUtils
@@ -107,7 +107,7 @@ class RaceMetadataService:
 
     # ------------------------------ API ------------------------------ #
 
-    async def extract_race_metadata(self, race_id: str) -> RaceMetadata:
+    async def extract_race_metadata(self, race_id: str) -> RaceJSON:
         trace_id = uuid.uuid4().hex
         t0 = time.perf_counter()
         _jlog(logging.INFO, "race_metadata.extract.start", trace_id, race_id=race_id)
@@ -134,7 +134,7 @@ class RaceMetadataService:
             docs = await self._fetch_and_extract_docs(seeds, trace_id)
 
             # ----- LLM pass (preferred model: openai:gpt-4o-mini) -----
-            candidates, incumbent_party = await self._llm_candidates(
+            candidates, incumbent_party, source_list = await self._llm_candidates(
                 state=state,
                 office=office,
                 year=year,
@@ -152,7 +152,7 @@ class RaceMetadataService:
                 _jlog(logging.INFO, "fallback_search.urls", trace_id, urls=more_urls)
                 if more_urls:
                     more_docs = await self._fetch_and_extract_docs(more_urls, trace_id)
-                    candidates, incumbent_party = await self._llm_candidates(
+                    candidates, incumbent_party, source_list = await self._llm_candidates(
                         state=state,
                         office=office,
                         year=year,
@@ -168,7 +168,7 @@ class RaceMetadataService:
                 _jlog(logging.WARNING, "llm.yielded_zero", trace_id)
                 return self._empty_meta(race_id, state, office, year, info, election_date, is_primary, primary_date)
 
-            confidence = self._confidence(candidates)
+            confidence = self._confidence(candidates, source_list)
             meta = RaceMetadata(
                 race_id=race_id,
                 state=state,
@@ -183,13 +183,20 @@ class RaceMetadataService:
                 primary_date=primary_date,
                 is_special_election=(kind == "special"),
                 is_runoff=(kind == "runoff"),
-                discovered_candidates=[c.name for c in candidates],
-                structured_candidates=candidates,
                 incumbent_party=incumbent_party or self._incumbent_party(candidates),
-                major_issues=info["issues"],
+                major_issues=[],
                 geographic_keywords=self._geo_keywords(state, district),
                 confidence=confidence,
                 extracted_at=datetime.utcnow(),
+            )
+
+            race_json = RaceJSON(
+                id=race_id,
+                election_date=election_date,
+                candidates=candidates,
+                updated_utc=datetime.utcnow(),
+                generator=[],
+                race_metadata=meta,
             )
 
             _jlog(
@@ -201,7 +208,7 @@ class RaceMetadataService:
                 confidence=str(confidence.value),
                 total_duration_ms=int((time.perf_counter() - t0) * 1000),
             )
-            return meta
+            return race_json
 
         except Exception as e:
             _jlog(logging.ERROR, "race_metadata.extract.error", trace_id, error=str(e))
@@ -315,13 +322,13 @@ class RaceMetadataService:
         info: Dict[str, Any],
         docs: List[Dict[str, str]],
         trace_id: str,
-    ) -> Tuple[List[DiscoveredCandidate], Optional[str]]:
+    ) -> Tuple[List[Candidate], Optional[str], List[str]]:
         if not docs:
-            return [], None
+            return [], None, []
 
         if not self.providers:
             _jlog(logging.WARNING, "providers.none", trace_id)
-            return [], None
+            return [], None, []
 
         # Build prompt for strict-JSON extraction
         state_name = STATE_NAME.get(state, state)
@@ -449,7 +456,7 @@ class RaceMetadataService:
         inc_party = (result or {}).get("incumbent_party")
 
         # Sanitize and cap
-        out: List[DiscoveredCandidate] = []
+        out: List[Candidate] = []
         seen = set()
         source_list = [d["url"] for d in trusted_docs]
         for it in raw_cands:
@@ -465,18 +472,11 @@ class RaceMetadataService:
             inc = it.get("incumbent")
             inc = bool(inc) if inc is not None else False
 
-            out.append(
-                DiscoveredCandidate(
-                    name=name,
-                    party=party,
-                    incumbent=inc,
-                    sources=source_list[:3],  # strings only
-                )
-            )
+            out.append(Candidate(name=name, party=party, incumbent=inc))
             if len(out) >= 12:
                 break
 
-        return out, self._norm_party(inc_party) if inc_party else None
+        return out, self._norm_party(inc_party) if inc_party else None, source_list
 
     async def _one_search(
         self,
@@ -592,16 +592,16 @@ class RaceMetadataService:
         except Exception:
             return ""
 
-    def _confidence(self, candidates: List[DiscoveredCandidate]) -> ConfidenceLevel:
-        def is_fec(u) -> bool:
+    def _confidence(self, candidates: List[Candidate], sources: List[str]) -> ConfidenceLevel:
+        def is_fec(u: str) -> bool:
             return self._url_host(u).endswith("fec.gov")
 
-        has_fec = any(any(is_fec(s) for s in (c.sources or [])) for c in candidates)
+        has_fec = any(is_fec(s) for s in sources)
         if has_fec and len(candidates) >= 2:
             return ConfidenceLevel.HIGH
         return ConfidenceLevel.MEDIUM if candidates else ConfidenceLevel.LOW
 
-    def _incumbent_party(self, candidates: List[DiscoveredCandidate]) -> Optional[str]:
+    def _incumbent_party(self, candidates: List[Candidate]) -> Optional[str]:
         for c in candidates:
             if getattr(c, "incumbent", False) and c.party:
                 return c.party
@@ -658,8 +658,8 @@ class RaceMetadataService:
         election_date: datetime,
         is_primary: bool,
         primary_date: Optional[datetime],
-    ) -> RaceMetadata:
-        return RaceMetadata(
+    ) -> RaceJSON:
+        meta = RaceMetadata(
             race_id=race_id,
             state=state,
             office_type=office,
@@ -673,13 +673,20 @@ class RaceMetadataService:
             primary_date=primary_date,
             is_special_election=False,
             is_runoff=False,
-            discovered_candidates=[],
-            structured_candidates=[],
             incumbent_party=None,
-            major_issues=info.get("issues", ["Economy", "Healthcare", "Education"]),
+            major_issues=[],
             geographic_keywords=[state, STATE_NAME.get(state, state)],
             confidence=ConfidenceLevel.LOW,
             extracted_at=datetime.utcnow(),
+        )
+
+        return RaceJSON(
+            id=race_id,
+            election_date=election_date,
+            candidates=[],
+            updated_utc=datetime.utcnow(),
+            generator=[],
+            race_metadata=meta,
         )
 
     # --------------------------- FEC helper ---------------------------- #
