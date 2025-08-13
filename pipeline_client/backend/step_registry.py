@@ -3,18 +3,14 @@ import json
 import logging
 import os
 import time
-from typing import Any, Dict, Protocol, runtime_checkable, Optional
+from typing import Any, Dict, Optional, Protocol, runtime_checkable
+
+# Provider plumbing
+from pipeline.app.providers.base import ModelConfig, ModelTier, ProviderRegistry, TaskType
 
 # Use the LLM-first service
 from pipeline.app.step01_metadata.race_metadata_service import RaceMetadataService
 
-# Provider plumbing
-from pipeline.app.providers.base import (
-    ProviderRegistry,
-    TaskType,
-    ModelConfig,
-    ModelTier,
-)
 
 def to_jsonable(obj):
     if isinstance(obj, dict):
@@ -31,7 +27,8 @@ def to_jsonable(obj):
 
 @runtime_checkable
 class StepHandler(Protocol):
-    async def handle(self, payload: Dict[str, Any], options: Dict[str, Any]) -> Any: ...
+    async def handle(self, payload: Dict[str, Any], options: Dict[str, Any]) -> Any:
+        ...
 
 
 def _build_provider_registry(logger: logging.Logger) -> Optional[ProviderRegistry]:

@@ -1,20 +1,22 @@
+import asyncio
 import sys
 import uuid
-import asyncio
-from pathlib import Path
-from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
-from fastapi.responses import HTMLResponse
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
 from contextlib import asynccontextmanager
-from typing import Dict, Any, List
-from .models import RunRequest, RunResponse, BatchRunRequest, BatchRunResponse, RunInfo
+from pathlib import Path
+from typing import Any, Dict, List
+
+from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+
+from .logging_manager import logging_manager
+from .models import BatchRunRequest, BatchRunResponse, RunInfo, RunRequest, RunResponse
 from .pipeline_runner import run_step_async
+from .run_manager import run_manager
+from .settings import settings
 from .step_registry import REGISTRY
 from .storage import list_artifacts, load_artifact
-from .settings import settings
-from .logging_manager import logging_manager
-from .run_manager import run_manager
 
 ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:  # pragma: no cover
@@ -34,6 +36,8 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title=settings.app_name, description="Enhanced Pipeline Client with Live Logging", lifespan=lifespan)
+
+
 # New endpoints for frontend modal details
 @app.get("/run/{run_id}")
 async def get_run_details(run_id: str) -> Dict[str, Any]:
@@ -44,6 +48,7 @@ async def get_run_details(run_id: str) -> Dict[str, Any]:
     # Return as dict for frontend
     return run_info.model_dump(mode="json")
 
+
 @app.get("/artifact/{artifact_id}")
 async def get_artifact_details(artifact_id: str) -> Dict[str, Any]:
     """Get full details of a specific artifact as dict (for modal view)."""
@@ -52,6 +57,7 @@ async def get_artifact_details(artifact_id: str) -> Dict[str, Any]:
         return artifact
     except FileNotFoundError:
         raise HTTPException(status_code=404, detail="artifact not found")
+
 
 app.add_middleware(
     CORSMiddleware,

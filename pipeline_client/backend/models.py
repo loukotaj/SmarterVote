@@ -1,7 +1,8 @@
-from pydantic import BaseModel
-from typing import Any, Dict, Optional, List
 from datetime import datetime
 from enum import Enum
+from typing import Any, Dict, List, Optional
+
+from pydantic import BaseModel
 
 
 class RunStatus(str, Enum):

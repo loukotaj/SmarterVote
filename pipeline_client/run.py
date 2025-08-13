@@ -20,8 +20,9 @@ logging.basicConfig(
 
 if __name__ == "__main__":
     import uvicorn
-    from pipeline_client.backend.main import app
+
     from pipeline_client.backend.logging_manager import logging_manager
+    from pipeline_client.backend.main import app
 
     # Setup the logging manager
     logger = logging_manager.setup_logger("pipeline")
