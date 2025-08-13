@@ -36,6 +36,7 @@ from .step05_corpus import CorpusService
 from .step06_summarise import SummarizeService
 from .step07_arbitrate import ArbitrationService
 from .step08_publish import PublishService
+from .utils.ai_relevance_filter import AIRelevanceFilter
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
@@ -82,6 +83,7 @@ class CorpusFirstPipeline:
         self.discovery = DiscoveryService()
         self.fetch = FetchService()
         self.extract = ExtractService()
+        self.relevance = AIRelevanceFilter()
         self.corpus = CorpusService()
         self.summarize = SummarizeService(cheap_mode=cheap_mode)
         self.arbitrate = ArbitrationService(cheap_mode=cheap_mode)
@@ -139,9 +141,13 @@ class CorpusFirstPipeline:
             job.step_extract = True
             logger.info(f"✅ Extracted text from {len(extracted_content)} items")
 
+            logger.info("🔎 AI relevance filtering")
+            filtered_content = await self.relevance.filter_content(extracted_content)
+            logger.info(f"✅ {len(filtered_content)}/{len(extracted_content)} items passed relevance filter")
+
             # Step 4: BUILD CORPUS - Index in ChromaDB
             logger.info("🗂️  Step 4: BUILD CORPUS - Indexing in ChromaDB")
-            await self.corpus.build_corpus(race_id, extracted_content)
+            await self.corpus.build_corpus(race_id, filtered_content)
             job.step_corpus = True
             logger.info(f"✅ Built corpus for {race_id}")
 

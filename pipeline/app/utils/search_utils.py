@@ -1,9 +1,8 @@
 """Search utilities for source discovery in SmarterVote Pipeline.
 
 Backwards-compatibility notes
-- Public methods kept: search_google_custom, search_candidate_info, search_general,
-  generate_issue_query, generate_candidate_query, generate_candidate_issue_queries,
-  deduplicate_sources.
+- Public methods kept: search_google_custom, search_general,
+  generate_issue_query, generate_candidate_issue_queries, deduplicate_sources.
 - Added helpers are additive and safe for other services to ignore.
 """
 
@@ -165,7 +164,7 @@ class SearchUtils:
 
         date_restrict = getattr(query, "date_restrict", None)
         date_param = date_restrict if date_restrict else f"d{self.search_config.get('freshness_days', 30)}"
-        num = getattr(query, "max_results", None) or self.search_config.get("max_results_per_query", 10)
+        num = getattr(query, "max_results", None) or self.search_config.get("top_results_per_query", 5)
 
         params = {
             "key": api_key,
@@ -211,11 +210,6 @@ class SearchUtils:
         self.cache[cache_key] = (datetime.utcnow(), sources)
         return sources
 
-    async def search_candidate_info(self, query: FreshSearchQuery) -> List[Source]:
-        """Search for candidate-specific information (kept for compatibility)."""
-        issue = self._pick_issue("GENERAL")
-        return await self.search_google_custom(query, issue)
-
     async def search_general(self, query: FreshSearchQuery) -> List[Source]:
         """Perform a general search without requiring a specific canonical issue."""
         issue = self._pick_issue("GENERAL")
@@ -227,7 +221,6 @@ class SearchUtils:
         self,
         race_id: str,
         issue: CanonicalIssue,
-        candidate_names: List[str] = None,
         state: str = None,
         office: str = None,
     ) -> FreshSearchQuery:
@@ -239,12 +232,7 @@ class SearchUtils:
         if office:
             query_parts.append(office)
 
-        if candidate_names:
-            candidates_part = " OR ".join(f'"{name}"' for name in candidate_names[:3])
-            query_parts.append(f"({candidates_part})")
-
         query_text = " ".join(query_parts)
-        query_text += " -site:wikipedia.org -site:reddit.com -site:twitter.com"
 
         return FreshSearchQuery(
             text=query_text,
@@ -253,37 +241,20 @@ class SearchUtils:
             generated_at=datetime.utcnow(),
         )
 
-    def generate_candidate_query(self, race_id: str, candidate_name: str) -> FreshSearchQuery:
-        """Generate a search query specifically for a candidate."""
-        parts = (race_id or "").split("-")
-        state = parts[0] if len(parts) > 0 else ""
-        office = parts[1] if len(parts) > 1 else ""
-        query_text = f'"{candidate_name}" candidate {state} {office} -site:wikipedia.org -obituary -death'
-
-        return FreshSearchQuery(
-            text=query_text,
-            race_id=race_id,
-            issue=self._pick_issue("GENERAL"),
-            generated_at=datetime.utcnow(),
-        )
-
     def generate_candidate_issue_queries(
         self,
         race_id: str,
         candidate_name: str,
-        issue: CanonicalIssue,
+        issues: List[CanonicalIssue],
         race_metadata: Optional[RaceMetadata],
-        sites: List[str],
+        limit: int,
     ) -> List[FreshSearchQuery]:
-        """Generate base and site-specific queries for candidate×issue searches."""
+        """Generate a set of candidate×issue queries with simple keyword combinations."""
         state = None
         year: Optional[str] = None
-        district: Optional[str] = None
-
         if race_metadata:
             state = race_metadata.state
             year = str(race_metadata.year)
-            district = race_metadata.district
         else:
             parts = race_id.split("-") if race_id else []
             if parts:
@@ -291,22 +262,26 @@ class SearchUtils:
             if len(parts) >= 3 and parts[-1].isdigit():
                 year = parts[-1]
 
-        issue_terms = [issue.value.lower()] + self.issue_synonyms.get(issue, [])
-        issue_part = "(" + " OR ".join(issue_terms) + ")"
-
-        base = f'"{candidate_name}" {issue_part}'
-        if state:
-            base += f" {state}"
-        if district:
-            base += f" {district}"
-        if year:
-            base += f" {year}"
-
-        queries = [FreshSearchQuery(text=base, race_id=race_id, issue=issue, generated_at=datetime.utcnow())]
-        for site in sites:
-            queries.append(
-                FreshSearchQuery(text=f"{base} site:{site}", race_id=race_id, issue=issue, generated_at=datetime.utcnow())
-            )
+        queries: List[FreshSearchQuery] = []
+        for issue in issues:
+            terms = [issue.value] + self.issue_synonyms.get(issue, [])[:2]
+            for term in terms:
+                base = f'"{candidate_name}" {term}'
+                if state:
+                    base += f" {state}"
+                if year:
+                    base += f" {year}"
+                queries.append(
+                    FreshSearchQuery(
+                        text=base,
+                        race_id=race_id,
+                        issue=issue,
+                        generated_at=datetime.utcnow(),
+                        max_results=self.search_config.get("top_results_per_query", 5),
+                    )
+                )
+                if len(queries) >= limit:
+                    return queries
         return queries
 
     def build_race_seed_queries(
