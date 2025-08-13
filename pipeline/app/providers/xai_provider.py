@@ -5,7 +5,7 @@ xAI provider implementation.
 import json
 import logging
 import os
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 try:
     import openai  # xAI uses OpenAI-compatible API
@@ -20,10 +20,11 @@ logger = logging.getLogger(__name__)
 class XAIProvider(AIProvider):
     """xAI provider for Grok models."""
 
-    def __init__(self):
+    def __init__(self, client: Optional[Any] = None):
         super().__init__("xai")
-        self.client = None
-        self._setup_client()
+        self.client = client
+        if self.client is None:
+            self._setup_client()
         self._register_models()
 
     def _setup_client(self):
@@ -79,14 +80,17 @@ class XAIProvider(AIProvider):
             "max_tokens": model_config.max_tokens,
             "temperature": model_config.temperature,
         }
-        params.update(kwargs)
+
+        if "response_format" in kwargs:
+            params["response_format"] = kwargs["response_format"]
 
         try:
+            logger.info("xai.request", extra={"params": params})
             response = await self.client.chat.completions.create(**params)
-            logger.debug(f"xAI generate response: {response}")
+            logger.info("xai.response", extra={"response": response})
             return response.choices[0].message.content
         except Exception as e:
-            logger.error(f"xAI generation failed: {e}")
+            logger.exception("xai.error", extra={"error": str(e)})
             raise
 
     async def generate_summary(
@@ -122,11 +126,14 @@ Available sources to reference: {context_sources or []}
             "max_tokens": model_config.max_tokens,
             "temperature": model_config.temperature,
         }
-        params.update(kwargs)
+
+        if "response_format" in kwargs:
+            params["response_format"] = kwargs["response_format"]
 
         try:
+            logger.info("xai.request", extra={"params": params})
             response = await self.client.chat.completions.create(**params)
-            logger.debug(f"xAI generate_summary response: {response}")
+            logger.info("xai.response", extra={"response": response})
             response_text = response.choices[0].message.content
 
             # Try to parse JSON response
@@ -153,5 +160,5 @@ Available sources to reference: {context_sources or []}
                 )
 
         except Exception as e:
-            logger.error(f"xAI summary generation failed: {e}")
+            logger.exception("xai.error", extra={"error": str(e)})
             raise
