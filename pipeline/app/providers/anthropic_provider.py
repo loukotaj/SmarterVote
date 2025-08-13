@@ -5,7 +5,7 @@ Anthropic provider implementation.
 import json
 import logging
 import os
-from typing import Any, Dict, List
+from typing import List
 
 try:
     import anthropic
@@ -20,10 +20,15 @@ logger = logging.getLogger(__name__)
 class AnthropicProvider(AIProvider):
     """Anthropic provider for Claude models."""
 
-    def __init__(self):
+    def __init__(self, client=None):
+        """Initialize provider.
+
+        If a client is provided, use it directly and skip automatic setup.
+        """
         super().__init__("anthropic")
-        self.client = None
-        self._setup_client()
+        self.client = client
+        if not self.client:
+            self._setup_client()
         self._register_models()
 
     def _setup_client(self):
@@ -73,6 +78,11 @@ class AnthropicProvider(AIProvider):
         if not self.client:
             raise RuntimeError("Anthropic client not initialized")
 
+        # Add beta header when requesting structured responses
+        if "response_format" in kwargs:
+            kwargs.setdefault("extra_headers", {}).setdefault("anthropic-beta", "response-format-1")
+            # Header enables response_format; harmless if present otherwise
+
         # Only pass allowed parameters to the API
         params = {
             "model": model_config.model_id,
@@ -83,10 +93,12 @@ class AnthropicProvider(AIProvider):
         params.update(kwargs)
 
         try:
+            logger.debug("anthropic.request", extra={"params": params})
             response = await self.client.messages.create(**params)
-            logger.debug(f"Anthropic generate response: {response}")
+            logger.debug("anthropic.response", extra={"response": response})
             return response.content[0].text
         except Exception as e:
+            logger.debug("anthropic.error", extra={"error": str(e)})
             logger.error(f"Anthropic generation failed: {e}")
             raise
 
@@ -119,6 +131,10 @@ Available sources to reference: {context_sources or []}
 Remember JSON FORMAT
 """
 
+        if "response_format" in kwargs:
+            kwargs.setdefault("extra_headers", {}).setdefault("anthropic-beta", "response-format-1")
+            # Header enables response_format; harmless if present otherwise
+
         params = {
             "model": model_config.model_id,
             "max_tokens": model_config.max_tokens,
@@ -128,8 +144,9 @@ Remember JSON FORMAT
         params.update(kwargs)
 
         try:
+            logger.debug("anthropic.request", extra={"params": params})
             response = await self.client.messages.create(**params)
-            logger.debug(f"Anthropic generate_summary response: {response}")
+            logger.debug("anthropic.response", extra={"response": response})
             response_text = response.content[0].text
 
             # Try to parse JSON response
@@ -156,5 +173,6 @@ Remember JSON FORMAT
                 )
 
         except Exception as e:
+            logger.debug("anthropic.error", extra={"error": str(e)})
             logger.error(f"Anthropic summary generation failed: {e}")
             raise
