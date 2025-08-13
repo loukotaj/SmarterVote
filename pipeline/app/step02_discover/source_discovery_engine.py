@@ -47,7 +47,8 @@ class SourceDiscoveryEngine:
 
         # TODO: Move to configuration
         self.search_config = {
-            "max_results_per_query": 5,
+            "top_results_per_query": 5,
+            "num_queries_per_candidate": 15,
             "freshness_days": 30,
             "quality_threshold": 0.7,
             "candidate_cap": 5,
@@ -56,13 +57,9 @@ class SourceDiscoveryEngine:
                 CanonicalIssue.ECONOMY,
                 CanonicalIssue.IMMIGRATION,
             ],
-            "site_whitelist": [
-                "ballotpedia.org",
-                "fec.gov",
-                "opensecrets.org",
-                "twitter.com",
-                "facebook.com",
-                "youtube.com",
+            "general_issue_terms": [
+                CanonicalIssue.HEALTHCARE,
+                CanonicalIssue.ECONOMY,
             ],
             "per_host_concurrency": 5,
             "cache_ttl_seconds": 300,
@@ -228,7 +225,8 @@ class SourceDiscoveryEngine:
 
         issues = self.search_config.get("issues", list(CanonicalIssue))
         candidate_cap = self.search_config.get("candidate_cap", 3)
-        sites = self.search_config.get("site_whitelist", [])
+        query_limit = self.search_config.get("num_queries_per_candidate", 15)
+        top_results = self.search_config.get("top_results_per_query", 5)
 
         if race_json and race_json.candidates:
             candidates = [c.name for c in race_json.candidates][:candidate_cap]
@@ -237,17 +235,28 @@ class SourceDiscoveryEngine:
             candidates = (await self._extract_candidate_names(race_id))[:candidate_cap]
             race_meta = race_json.race_metadata if race_json else None
 
-        tasks = []
+        all_sources: List[Source] = []
         for cand in candidates:
-            for issue in issues:
-                queries = self.search_utils.generate_candidate_issue_queries(race_id, cand, issue, race_meta, sites)
-                for q in queries:
-                    tasks.append(self.search_utils.search_google_custom(q, issue))
+            queries = self.search_utils.generate_candidate_issue_queries(race_id, cand, issues, race_meta, query_limit)
+            tasks = [self.search_utils.search_google_custom(q, q.issue) for q in queries]
+            results = await asyncio.gather(*tasks) if tasks else []
+            sources = [s for r in results for s in r]
+            deduped = self.search_utils.deduplicate_sources(sources)
+            all_sources.extend(sorted(deduped, key=lambda s: s.score or 0, reverse=True))
 
-        results = await asyncio.gather(*tasks) if tasks else []
-        sources = [s for r in results for s in r]
-        deduped = self.search_utils.deduplicate_sources(sources)
-        return sorted(deduped, key=lambda s: s.score or 0, reverse=True)
+        general_issues = self.search_config.get("general_issue_terms", [])
+        for issue in general_issues:
+            q = self.search_utils.generate_issue_query(
+                race_id,
+                issue,
+                state=getattr(race_meta, "state", None),
+                office=getattr(race_meta, "office_type", None),
+            )
+            q.max_results = top_results
+            all_sources.extend(await self.search_utils.search_google_custom(q, issue))
+
+        deduped_all = self.search_utils.deduplicate_sources(all_sources)
+        return sorted(deduped_all, key=lambda s: s.score or 0, reverse=True)
 
     async def _extract_candidate_names(self, race_id: str) -> List[str]:
         """

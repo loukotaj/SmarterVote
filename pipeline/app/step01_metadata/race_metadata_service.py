@@ -80,7 +80,7 @@ class RaceMetadataService:
         self.providers = providers
         self.fetcher = WebContentFetcher()
         self.extractor = ContentExtractor()
-        self.search = SearchUtils({"max_results_per_query": 8, "per_host_concurrency": 4})
+        self.search = SearchUtils({"top_results_per_query": 8, "per_host_concurrency": 4})
 
         self.office_info = {
             "senate": {
