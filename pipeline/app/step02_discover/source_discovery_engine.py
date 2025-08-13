@@ -25,7 +25,7 @@ import logging
 from datetime import datetime
 from typing import List, Optional
 
-from ..schema import CanonicalIssue, RaceMetadata, Source, SourceType
+from ..schema import CanonicalIssue, RaceJSON, RaceMetadata, Source, SourceType
 from ..utils.search_utils import SearchUtils
 
 logger = logging.getLogger(__name__)
@@ -70,28 +70,31 @@ class SourceDiscoveryEngine:
         # Initialize search utilities
         self.search_utils = SearchUtils(self.search_config)
 
-    async def discover_all_sources(self, race_id: str, race_metadata: Optional[RaceMetadata] = None) -> List[Source]:
+    async def discover_all_sources(self, race_id: str, race_json: Optional[RaceJSON] = None) -> List[Source]:
         """
         Discover all sources for a race including seed sources and fresh issue searches.
 
         Args:
             race_id: Race identifier like 'mo-senate-2024'
-            race_metadata: Optional race metadata for optimized discovery
+            race_json: Optional RaceJSON for optimized discovery
 
         Returns:
             List of all discovered sources (seed + fresh)
         """
         logger.info(f"Starting comprehensive source discovery for {race_id}")
 
-        if race_metadata:
-            logger.info(f"Using race metadata: {race_metadata.full_office_name} in {race_metadata.jurisdiction}")
+        if race_json and race_json.race_metadata:
+            rm = race_json.race_metadata
+            logger.info(f"Using race metadata: {rm.full_office_name} in {rm.jurisdiction}")
+        else:
+            rm = None
 
         # Get seed sources
-        seed_sources = await self.discover_seed_sources(race_id, race_metadata)
+        seed_sources = await self.discover_seed_sources(race_id, rm)
         logger.info(f"Found {len(seed_sources)} seed sources")
 
         # Get fresh issue-specific sources
-        fresh_sources = await self.discover_fresh_issue_sources(race_id, race_metadata)
+        fresh_sources = await self.discover_fresh_issue_sources(race_id, race_json)
         logger.info(f"Found {len(fresh_sources)} fresh issue sources")
 
         # Combine and deduplicate
@@ -114,10 +117,10 @@ class SourceDiscoveryEngine:
         """
         return await self._discover_seed_sources(race_id, race_metadata)
 
-    async def discover_fresh_issue_sources(self, race_id: str, race_metadata: Optional[RaceMetadata] = None) -> List[Source]:
+    async def discover_fresh_issue_sources(self, race_id: str, race_json: Optional[RaceJSON] = None) -> List[Source]:
         """Discover fresh issue-specific sources using Google Custom Search."""
 
-        return await self._discover_fresh_issue_sources(race_id, race_metadata)
+        return await self._discover_fresh_issue_sources(race_id, race_json)
 
     async def _discover_seed_sources(self, race_id: str, race_metadata: Optional[RaceMetadata] = None) -> List[Source]:
         """
@@ -220,22 +223,24 @@ class SourceDiscoveryEngine:
         logger.info(f"Generated {len(sources)} seed sources for {race_id}")
         return sources
 
-    async def _discover_fresh_issue_sources(self, race_id: str, race_metadata: Optional[RaceMetadata] = None) -> List[Source]:
+    async def _discover_fresh_issue_sources(self, race_id: str, race_json: Optional[RaceJSON] = None) -> List[Source]:
         """Run candidate×issue searches concurrently and rank results."""
 
         issues = self.search_config.get("issues", list(CanonicalIssue))
         candidate_cap = self.search_config.get("candidate_cap", 3)
         sites = self.search_config.get("site_whitelist", [])
 
-        if race_metadata and race_metadata.discovered_candidates:
-            candidates = race_metadata.discovered_candidates[:candidate_cap]
+        if race_json and race_json.candidates:
+            candidates = [c.name for c in race_json.candidates][:candidate_cap]
+            race_meta = race_json.race_metadata
         else:
             candidates = (await self._extract_candidate_names(race_id))[:candidate_cap]
+            race_meta = race_json.race_metadata if race_json else None
 
         tasks = []
         for cand in candidates:
             for issue in issues:
-                queries = self.search_utils.generate_candidate_issue_queries(race_id, cand, issue, race_metadata, sites)
+                queries = self.search_utils.generate_candidate_issue_queries(race_id, cand, issue, race_meta, sites)
                 for q in queries:
                     tasks.append(self.search_utils.search_google_custom(q, issue))
 
