@@ -84,8 +84,10 @@ class AIProvider(ABC):
         Providers MAY honor the following kwargs (best-effort):
           - temperature: float
           - max_tokens: int
-          - json_mode: bool  (hint to enable native JSON mode if supports_json_mode=True)
+          - response_format: dict
           - extra: dict      (provider-specific passthrough)
+
+        Providers should enable native JSON output when `response_format` is supplied and the model supports it.
         """
         raise NotImplementedError
 
