@@ -6,10 +6,10 @@ Design goals
 - Minimal seeds (Wikipedia + Ballotpedia + FEC when federal).
 - Prefer a single LLM (OpenAI gpt-4o-mini) for structured extraction.
 - If the initial pass yields no candidates, do ONE web search and retry
-  with the top 3 trusted results.
+  with the top 3 results.
 - Providers are used via ProviderRegistry.generate_json(TaskType.EXTRACT, ...),
   with an explicit provider/model override (and graceful fallback).
-- JSON-safe sources (plain strings), tight noise filtering, and small, readable code.
+- JSON-safe sources (plain strings) and small, readable code.
 
 This module is intended to replace the older heuristic-heavy service.
 """
@@ -23,12 +23,21 @@ import time
 import uuid
 from datetime import datetime, timedelta
 from typing import Any, Dict, List, Optional, Tuple
-from urllib.parse import urlencode, urlparse
+from urllib.parse import urlencode
 
 from shared.state_constants import PRIMARY_DATE_BY_STATE, STATE_NAME
 
 from ..providers.base import ProviderRegistry, TaskType
-from ..schema import Candidate, ConfidenceLevel, FreshSearchQuery, RaceJSON, RaceMetadata, Source, SourceType
+from ..schema import (
+    Candidate,
+    CanonicalIssue,
+    ConfidenceLevel,
+    FreshSearchQuery,
+    RaceJSON,
+    RaceMetadata,
+    Source,
+    SourceType,
+)
 from ..step03_fetch import WebContentFetcher
 from ..step04_extract import ContentExtractor
 from ..utils.search_utils import SearchUtils
@@ -40,8 +49,6 @@ SLUG_PATTERN = re.compile(
     r"(?:-(?P<district>\d{1,2}|al))?-(?P<year>\d{4})"
     r"(?:-(?P<kind>primary|runoff|special))?$",
 )
-
-TRUSTED_HOSTS = ("wikipedia.org", "ballotpedia.org", "fec.gov")
 
 
 # --------------------------- logging helpers --------------------------- #
@@ -75,7 +82,7 @@ class RaceMetadataService:
     1) Build 2–3 canonical seed URLs for the race.
     2) Fetch & extract text.
     3) Ask a single model (gpt-4o-mini) for strict JSON {candidates[], incumbent_party?}.
-    4) If empty → do one search → take top 3 trusted results → refetch → retry LLM.
+    4) If empty → do one search → take top 3 results → refetch → retry LLM.
     """
 
     def __init__(self, providers: Optional[ProviderRegistry] = None) -> None:
@@ -168,7 +175,7 @@ class RaceMetadataService:
                 _jlog(logging.WARNING, "llm.yielded_zero", trace_id)
                 return self._empty_meta(race_id, state, office, year, info, election_date, is_primary, primary_date)
 
-            confidence = self._confidence(candidates, source_list)
+            confidence = ConfidenceLevel.MEDIUM if candidates else ConfidenceLevel.LOW
             meta = RaceMetadata(
                 race_id=race_id,
                 state=state,
@@ -274,19 +281,7 @@ class RaceMetadataService:
             # non-federal minimal attempt
             seeds.append(f"https://ballotpedia.org/{STATE_NAME.get(state, state).replace(' ', '_')}_elections,_" f"{year}")
 
-        # keep only trusted & unique
-        out: List[str] = []
-        seen = set()
-        for u in seeds:
-            if not u:
-                continue
-            host = urlparse(u).netloc.lower()
-            if not any(h in host for h in TRUSTED_HOSTS):
-                continue
-            if u not in seen:
-                out.append(u)
-                seen.add(u)
-        return out[:3]
+        return [u for u in seeds if u][:3]
 
     async def _fetch_and_extract_docs(self, urls: List[str], trace_id: str) -> List[Dict[str, str]]:
         # Fetch
@@ -339,17 +334,12 @@ class RaceMetadataService:
             + "."
         )
 
-        # Keep only trusted sources in the corpus we pass
-        trusted_docs = [d for d in docs if any(h in urlparse(d["url"]).netloc for h in TRUSTED_HOSTS)]
-        if not trusted_docs:
-            trusted_docs = docs[:3]
-        trusted_docs = trusted_docs[:3]
-
+        corpus_docs = docs[:3]
         corpus_lines = ["Sources:"]
-        for d in trusted_docs:
+        for d in corpus_docs:
             corpus_lines.append(f"- {d['url']}")
         corpus_lines.append("\nExcerpts:")
-        for d in trusted_docs:
+        for d in corpus_docs:
             corpus_lines.append(f"\nSOURCE: {d['url']}\n{d['text']}")
 
         schema_hint = (
@@ -455,23 +445,15 @@ class RaceMetadataService:
         raw_cands: List[Dict[str, Any]] = (result or {}).get("candidates") or []
         inc_party = (result or {}).get("incumbent_party")
 
-        # Sanitize and cap
         out: List[Candidate] = []
-        seen = set()
-        source_list = [d["url"] for d in trusted_docs]
+        source_list = [d["url"] for d in corpus_docs]
         for it in raw_cands:
             name = (it.get("name") or "").strip()
-            if not name or self._looks_like_noise(name):
+            if not name:
                 continue
-            key = name.lower()
-            if key in seen:
-                continue
-            seen.add(key)
-
             party = self._norm_party(it.get("party"))
             inc = it.get("incumbent")
             inc = bool(inc) if inc is not None else False
-
             out.append(Candidate(name=name, party=party, incumbent=inc))
             if len(out) >= 12:
                 break
@@ -486,9 +468,7 @@ class RaceMetadataService:
         district: Optional[str],
         trace_id: str,
     ) -> List[str]:
-        """
-        Do a single broad query and return up to 3 trusted URLs.
-        """
+        """Do a single Google Custom Search and return up to 3 URLs."""
         state_name = STATE_NAME.get(state, state)
         district_text = ""
         if district:
@@ -502,56 +482,14 @@ class RaceMetadataService:
             date_restrict="y2",
         )
         try:
-            results: List[Source] = await self.search.search_general(q)
+            results: List[Source] = await self.search.search_google_custom(q, CanonicalIssue.ELECTION_REFORM)
         except Exception as e:
             _jlog(logging.WARNING, "fallback_search.error", trace_id, error=str(e))
             return []
 
-        # Filter trusted & unique
-        trusted: List[str] = []
-        seen = set()
-        for r in results or []:
-            url = str(getattr(r, "url", "")).strip()
-            if not url:
-                continue
-            host = urlparse(url).netloc.lower().replace("www.", "")
-            if not any(host.endswith(h) or host == h for h in TRUSTED_HOSTS):
-                continue
-            if url not in seen:
-                trusted.append(url)
-                seen.add(url)
-            if len(trusted) >= 3:
-                break
-        return trusted
+        return [str(getattr(r, "url", "")) for r in (results or [])][:3]
 
     # --------------------------- helpers ---------------------------- #
-
-    def _looks_like_noise(self, name: str) -> bool:
-        low = name.lower().strip()
-        # obvious junk
-        junk = (
-            "candidate connection",
-            "republican party",
-            "democratic party",
-            "key messages",
-            "state senate",
-            "state house",
-            "house of representatives",
-            "county",
-            "city",
-            "ballotpedia",
-        )
-        if any(t in low for t in junk):
-            return True
-
-        # require 2–4 tokens, majority capitalized initials
-        tokens = [t for t in re.split(r"\s+", name.strip()) if t]
-        if len(tokens) < 2 or len(tokens) > 4:
-            return True
-        caps = sum(1 for t in tokens if t and t[0].isupper())
-        if caps < 2:
-            return True
-        return False
 
     def _norm_party(self, party: Optional[str]) -> Optional[str]:
         if not party:
@@ -579,27 +517,6 @@ class RaceMetadataService:
             "unaffiliated": "Unaffiliated",
         }
         return aliases.get(p, party if p and p[0].isalpha() else None)
-
-    def _url_host(self, u) -> str:
-        try:
-            host = getattr(u, "host", None)
-            if host:
-                return host.lower().replace("www.", "")
-        except Exception:
-            pass
-        try:
-            return urlparse(str(u)).netloc.lower().replace("www.", "")
-        except Exception:
-            return ""
-
-    def _confidence(self, candidates: List[Candidate], sources: List[str]) -> ConfidenceLevel:
-        def is_fec(u: str) -> bool:
-            return self._url_host(u).endswith("fec.gov")
-
-        has_fec = any(is_fec(s) for s in sources)
-        if has_fec and len(candidates) >= 2:
-            return ConfidenceLevel.HIGH
-        return ConfidenceLevel.MEDIUM if candidates else ConfidenceLevel.LOW
 
     def _incumbent_party(self, candidates: List[Candidate]) -> Optional[str]:
         for c in candidates:
