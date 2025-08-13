@@ -28,16 +28,7 @@ from urllib.parse import urlencode
 from shared.state_constants import PRIMARY_DATE_BY_STATE, STATE_NAME
 
 from ..providers.base import ProviderRegistry, TaskType
-from ..schema import (
-    Candidate,
-    CanonicalIssue,
-    ConfidenceLevel,
-    FreshSearchQuery,
-    RaceJSON,
-    RaceMetadata,
-    Source,
-    SourceType,
-)
+from ..schema import Candidate, CanonicalIssue, ConfidenceLevel, FreshSearchQuery, RaceJSON, RaceMetadata, Source, SourceType
 from ..step03_fetch import WebContentFetcher
 from ..step04_extract import ContentExtractor
 from ..utils.search_utils import SearchUtils
@@ -482,7 +473,7 @@ class RaceMetadataService:
             date_restrict="y2",
         )
         try:
-            results: List[Source] = await self.search.search_google_custom(q, CanonicalIssue.ELECTION_REFORM)
+            results: List[Source] = await self.search.search_general(q)
         except Exception as e:
             _jlog(logging.WARNING, "fallback_search.error", trace_id, error=str(e))
             return []
