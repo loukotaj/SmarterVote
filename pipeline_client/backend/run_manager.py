@@ -8,6 +8,7 @@ from typing import Dict, List, Optional
 from .models import RunInfo, RunStatus, RunRequest, RunOptions
 import json
 from pathlib import Path
+import logging
 
 
 class RunManager:
@@ -18,6 +19,40 @@ class RunManager:
         self.storage_dir.mkdir(parents=True, exist_ok=True)
         self.active_runs: Dict[str, RunInfo] = {}
         self._load_runs()
+        self._log_handlers: Dict[str, logging.Handler] = {}
+    class RunLogHandler(logging.Handler):
+        def __init__(self, run_manager, run_id):
+            super().__init__()
+            self.run_manager = run_manager
+            self.run_id = run_id
+
+        def emit(self, record):
+            log_entry = {
+                "level": record.levelname,
+                "message": record.getMessage(),
+                "time": datetime.fromtimestamp(record.created).isoformat(),
+                "logger": record.name,
+                "filename": record.filename,
+                "funcName": record.funcName,
+                "lineno": record.lineno,
+            }
+            self.run_manager.add_run_log(self.run_id, log_entry)
+
+    def attach_run_logger(self, run_id: str, logger_name: str = None):
+        """Attach a logging handler to capture logs for this run."""
+        if run_id in self._log_handlers:
+            return  # Already attached
+        handler = self.RunLogHandler(self, run_id)
+        handler.setLevel(logging.DEBUG)
+        logger = logging.getLogger(logger_name) if logger_name else logging.getLogger()
+        logger.addHandler(handler)
+        self._log_handlers[run_id] = (handler, logger)
+
+    def detach_run_logger(self, run_id: str):
+        """Detach the logging handler for this run."""
+        if run_id in self._log_handlers:
+            handler, logger = self._log_handlers.pop(run_id)
+            logger.removeHandler(handler)
 
     def _load_runs(self):
         """Load existing runs from storage."""
@@ -54,6 +89,8 @@ class RunManager:
         )
 
         self.active_runs[run_id] = run_info
+        # Attach logs list to run_info
+        run_info.logs = []
         self._save_run(run_info)
         return run_info
 
@@ -62,6 +99,7 @@ class RunManager:
         if run_id in self.active_runs:
             self.active_runs[run_id].status = RunStatus.RUNNING
             self._save_run(self.active_runs[run_id])
+            self.attach_run_logger(run_id)
 
     def complete_run(self, run_id: str, artifact_id: Optional[str] = None, duration_ms: Optional[int] = None):
         """Mark a run as completed."""
@@ -74,6 +112,7 @@ class RunManager:
             self._save_run(run_info)
             # Remove from active runs
             del self.active_runs[run_id]
+            self.detach_run_logger(run_id)
 
     def fail_run(self, run_id: str, error: str, duration_ms: Optional[int] = None):
         """Mark a run as failed."""
@@ -86,6 +125,7 @@ class RunManager:
             self._save_run(run_info)
             # Remove from active runs
             del self.active_runs[run_id]
+            self.detach_run_logger(run_id)
 
     def cancel_run(self, run_id: str):
         """Cancel a running process."""
@@ -96,6 +136,7 @@ class RunManager:
             self._save_run(run_info)
             # Remove from active runs
             del self.active_runs[run_id]
+            self.detach_run_logger(run_id)
 
     def get_run(self, run_id: str) -> Optional[RunInfo]:
         """Get run information."""
@@ -146,12 +187,35 @@ class RunManager:
         runs.sort(key=lambda r: r.started_at, reverse=True)
         return runs[:limit]
 
+    def add_run_log(self, run_id: str, log: dict):
+        """Add a log entry to a run and persist it."""
+        # Try active first
+        run_info = self.active_runs.get(run_id)
+        if not run_info:
+            # Try loading from disk
+            run_info = self.get_run(run_id)
+        if run_info:
+            if not hasattr(run_info, 'logs') or run_info.logs is None:
+                run_info.logs = []
+            run_info.logs.append(log)
+            self._save_run(run_info)
+
+    def get_run_logs(self, run_id: str):
+        run_info = self.get_run(run_id)
+        if run_info and hasattr(run_info, 'logs'):
+            return run_info.logs
+        return []
+
     def _save_run(self, run_info: RunInfo):
         """Save run information to storage."""
         try:
             run_file = self.storage_dir / f"{run_info.run_id}.json"
+            # Use dict to include logs
+            data = run_info.model_dump(mode="json")
+            if hasattr(run_info, 'logs'):
+                data['logs'] = run_info.logs
             with open(run_file, "w") as f:
-                json.dump(run_info.model_dump(mode="json"), f, indent=2, default=str)
+                json.dump(data, f, indent=2, default=str)
         except Exception:
             pass  # Continue if saving fails
 

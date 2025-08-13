@@ -31,6 +31,12 @@
   let logFilter = 'all';
   let runHistory: any[] = [];
 
+  // Modal state
+  let showModal = false;
+  let modalTitle = '';
+  let modalData: any = null;
+  let modalLoading = false;
+
   async function loadSteps() {
     const res = await fetch(`${API_BASE}/steps`);
     const data = await res.json();
@@ -303,6 +309,62 @@
     }
     stopElapsedTimer();
   });
+
+  function openModal(title: string, data: any) {
+    modalTitle = title;
+    modalData = data;
+    showModal = true;
+    modalLoading = false;
+  }
+
+  function closeModal() {
+    showModal = false;
+    modalData = null;
+    modalTitle = '';
+    modalLoading = false;
+  }
+
+  async function handleRunClick(run: any) {
+    modalLoading = true;
+    showModal = true;
+    modalTitle = 'Run Details';
+    modalData = null;
+    try {
+      // Prefer run.id, fallback to run.run_id, fallback to run._id
+      const runId = run.id || run.run_id || run._id;
+      if (runId) {
+        const res = await fetch(`${API_BASE}/run/${runId}`);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        modalData = await res.json();
+      } else {
+        modalData = run;
+      }
+    } catch (e) {
+      modalData = { error: String(e), ...run };
+    }
+    modalLoading = false;
+  }
+
+  async function handleArtifactClick(artifact: any) {
+    modalLoading = true;
+    showModal = true;
+    modalTitle = 'Artifact Details';
+    modalData = null;
+    try {
+      // Prefer artifact.id, fallback to artifact.artifact_id, fallback to artifact._id
+      const artifactId = artifact.id || artifact.artifact_id || artifact._id;
+      if (artifactId) {
+        const res = await fetch(`${API_BASE}/artifact/${artifactId}`);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        modalData = await res.json();
+      } else {
+        modalData = artifact;
+      }
+    } catch (e) {
+      modalData = { error: String(e), ...artifact };
+    }
+    modalLoading = false;
+  }
 </script>
 
 <style>
@@ -410,9 +472,59 @@
   .artifacts-list li:hover {
     background-color: #f8fafc;
   }
-</style>
 
-<h1 class="mb-6 text-3xl font-bold text-gray-900">Enhanced Pipeline Admin</h1>
+  /* Modal styles */
+  .modal-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.35);
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-content {
+    background: #fff;
+    border-radius: 0.75rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    max-width: 600px;
+    width: 90vw;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 2rem;
+    position: relative;
+  }
+  .modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #64748b;
+    cursor: pointer;
+  }
+  .modal-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #1e293b;
+  }
+  .modal-json {
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 13px;
+    background: #f8fafc;
+    color: #334155;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    white-space: pre-wrap;
+    max-height: 50vh;
+    overflow-y: auto;
+  }
+</style>
 
 <!-- Connection Status Header -->
 <div class="mb-6 card p-4">
@@ -602,11 +714,11 @@
       </div>
       <div class="divide-y divide-gray-200 max-h-64 overflow-auto custom-scrollbar">
         {#each runHistory.slice(0, 10) as run}
-          <div class="p-4 hover:bg-gray-50">
+          <div class="p-4 hover:bg-gray-50 cursor-pointer" on:click={() => handleRunClick(run)}>
             <div class="flex items-center justify-between">
               <div>
                 <div class="text-sm font-medium text-gray-900">{run.step || 'Unknown Step'}</div>
-                <div class="text-xs text-gray-500">{new Date(run.created_at).toLocaleString()}</div>
+                <div class="text-xs text-gray-500">{new Date(run.started_at).toLocaleString()}</div>
               </div>
               <span class="px-2 py-1 rounded-full text-xs {getStatusClass(run.status)}">
                 {(run.status || 'unknown').charAt(0).toUpperCase() + (run.status || 'unknown').slice(1)}
@@ -627,7 +739,7 @@
       </div>
       <ul class="artifacts-list custom-scrollbar">
         {#each artifacts as artifact}
-          <li>
+          <li class="cursor-pointer" on:click={() => handleArtifactClick(artifact)}>
             <span class="font-mono text-sm">{artifact.id}</span>
             <span class="text-xs text-gray-500">{Math.round(artifact.size/1024*10)/10} KB</span>
           </li>
@@ -638,3 +750,17 @@
     </div>
   </div>
 </div>
+
+{#if showModal}
+  <div class="modal-bg" on:click|self={closeModal}>
+    <div class="modal-content">
+      <button class="modal-close" on:click={closeModal} title="Close">&times;</button>
+      <div class="modal-title">{modalTitle}</div>
+      {#if modalLoading}
+        <div class="text-gray-500 text-center py-8">Loading...</div>
+      {:else}
+        <div class="modal-json">{JSON.stringify(modalData, null, 2)}</div>
+      {/if}
+    </div>
+  </div>
+{/if}

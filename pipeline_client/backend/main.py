@@ -34,6 +34,24 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title=settings.app_name, description="Enhanced Pipeline Client with Live Logging", lifespan=lifespan)
+# New endpoints for frontend modal details
+@app.get("/run/{run_id}")
+async def get_run_details(run_id: str) -> Dict[str, Any]:
+    """Get full details of a specific run as dict (for modal view)."""
+    run_info = run_manager.get_run(run_id)
+    if not run_info:
+        raise HTTPException(status_code=404, detail="Run not found")
+    # Return as dict for frontend
+    return run_info.model_dump(mode="json")
+
+@app.get("/artifact/{artifact_id}")
+async def get_artifact_details(artifact_id: str) -> Dict[str, Any]:
+    """Get full details of a specific artifact as dict (for modal view)."""
+    try:
+        artifact = load_artifact(artifact_id)
+        return artifact
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="artifact not found")
 
 app.add_middleware(
     CORSMiddleware,

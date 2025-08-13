@@ -497,7 +497,7 @@ class RaceMetadataService:
             )
         q = FreshSearchQuery(
             race_id=f"{state.lower()}-{office}-{year}",
-            text=f"{year} {state_name}{district_text} {office} election wiki OR ballotpedia OR site:.gov",
+            text=f"{year} {state_name}{district_text} {office} election candidates",
             max_results=10,
             date_restrict="y2",
         )

@@ -166,8 +166,7 @@ class SearchUtils:
         # Derive race context from race_id (tolerant of partials)
         race_ctx = self._race_context_from_race_id(getattr(query, "race_id", None))
 
-        # If the query explicitly targets Ballotpedia/Wikipedia, prefer relevance over date sorting
-        force_relevance = any(site in (query.text or "").lower() for site in ("site:ballotpedia.org", "site:wikipedia.org"))
+        force_relevance = True
 
         logger.info("Searching Google Custom Search for: %s", query.text)
 

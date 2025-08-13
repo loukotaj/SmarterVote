@@ -49,6 +49,7 @@ class RunInfo(BaseModel):
     duration_ms: Optional[int] = None
     artifact_id: Optional[str] = None
     error: Optional[str] = None
+    logs: Optional[List[Dict]] = []
 
 
 class LogEntry(BaseModel):
