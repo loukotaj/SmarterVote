@@ -73,14 +73,17 @@ class XAIProvider(AIProvider):
         if not self.client:
             raise RuntimeError("xAI client not initialized")
 
+        params = {
+            "model": model_config.model_id,
+            "messages": [{"role": "user", "content": prompt}],
+            "max_tokens": model_config.max_tokens,
+            "temperature": model_config.temperature,
+        }
+        params.update(kwargs)
+
         try:
-            response = await self.client.chat.completions.create(
-                model=model_config.model_id,
-                messages=[{"role": "user", "content": prompt}],
-                max_tokens=model_config.max_tokens,
-                temperature=model_config.temperature,
-                **kwargs,
-            )
+            response = await self.client.chat.completions.create(**params)
+            logger.debug(f"xAI generate response: {response}")
             return response.choices[0].message.content
         except Exception as e:
             logger.error(f"xAI generation failed: {e}")
@@ -113,15 +116,17 @@ Confidence guidelines:
 Available sources to reference: {context_sources or []}
 """
 
-        try:
-            response = await self.client.chat.completions.create(
-                model=model_config.model_id,
-                messages=[{"role": "user", "content": enhanced_prompt}],
-                max_tokens=model_config.max_tokens,
-                temperature=model_config.temperature,
-                **kwargs,
-            )
+        params = {
+            "model": model_config.model_id,
+            "messages": [{"role": "user", "content": enhanced_prompt}],
+            "max_tokens": model_config.max_tokens,
+            "temperature": model_config.temperature,
+        }
+        params.update(kwargs)
 
+        try:
+            response = await self.client.chat.completions.create(**params)
+            logger.debug(f"xAI generate_summary response: {response}")
             response_text = response.choices[0].message.content
 
             # Try to parse JSON response

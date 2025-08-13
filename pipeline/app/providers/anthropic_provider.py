@@ -73,14 +73,18 @@ class AnthropicProvider(AIProvider):
         if not self.client:
             raise RuntimeError("Anthropic client not initialized")
 
+        # Only pass allowed parameters to the API
+        params = {
+            "model": model_config.model_id,
+            "max_tokens": model_config.max_tokens,
+            "temperature": model_config.temperature,
+            "messages": [{"role": "user", "content": prompt}],
+        }
+        params.update(kwargs)
+
         try:
-            response = await self.client.messages.create(
-                model=model_config.model_id,
-                max_tokens=model_config.max_tokens,
-                temperature=model_config.temperature,
-                messages=[{"role": "user", "content": prompt}],
-                **kwargs,
-            )
+            response = await self.client.messages.create(**params)
+            logger.debug(f"Anthropic generate response: {response}")
             return response.content[0].text
         except Exception as e:
             logger.error(f"Anthropic generation failed: {e}")
@@ -115,15 +119,17 @@ Available sources to reference: {context_sources or []}
 Remember JSON FORMAT
 """
 
-        try:
-            response = await self.client.messages.create(
-                model=model_config.model_id,
-                max_tokens=model_config.max_tokens,
-                temperature=model_config.temperature,
-                messages=[{"role": "user", "content": prompt_with_confidence}],
-                **kwargs,
-            )
+        params = {
+            "model": model_config.model_id,
+            "max_tokens": model_config.max_tokens,
+            "temperature": model_config.temperature,
+            "messages": [{"role": "user", "content": prompt_with_confidence}],
+        }
+        params.update(kwargs)
 
+        try:
+            response = await self.client.messages.create(**params)
+            logger.debug(f"Anthropic generate_summary response: {response}")
             response_text = response.content[0].text
 
             # Try to parse JSON response

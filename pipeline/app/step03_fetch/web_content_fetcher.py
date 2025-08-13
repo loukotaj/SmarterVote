@@ -98,7 +98,9 @@ class WebContentFetcher:
         logger.info(f"Fetching content from {len(sources)} sources")
 
         async with httpx.AsyncClient(
-            timeout=self.config["timeout"], limits=httpx.Limits(max_connections=20, max_keepalive_connections=10)
+            timeout=self.config["timeout"],
+            limits=httpx.Limits(max_connections=20, max_keepalive_connections=10),
+            follow_redirects=True,  # Ensure redirects are followed automatically
         ) as client:
             self.session = client
 
@@ -352,6 +354,16 @@ class WebContentFetcher:
         if response.status_code == 304:
             logger.debug(f"Content not modified: {canonical_url}")
             return None
+
+        # Manual redirect handling for FEC or other 3xx loops (if follow_redirects fails)
+        if response.status_code in {301, 302, 303, 307, 308}:
+            location = response.headers.get("location")
+            if location:
+                logger.warning(f"Manual redirect for {canonical_url} to {location} (status {response.status_code})")
+                # Only reissue once to avoid infinite loops
+                redirected_url = urljoin(canonical_url, location)
+                response = await self.session.get(redirected_url, headers=headers)
+                fetch_duration = (datetime.utcnow() - start_time).total_seconds()
 
         response.raise_for_status()
 

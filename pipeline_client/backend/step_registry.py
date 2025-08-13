@@ -1,10 +1,20 @@
 import datetime
+import json
 import logging
+import os
 import time
-from typing import Any, Dict, Protocol, runtime_checkable
+from typing import Any, Dict, Protocol, runtime_checkable, Optional
 
+# Use the LLM-first service
 from pipeline.app.step01_metadata.race_metadata_service import RaceMetadataService
 
+# Provider plumbing
+from pipeline.app.providers.base import (
+    ProviderRegistry,
+    TaskType,
+    ModelConfig,
+    ModelTier,
+)
 
 def to_jsonable(obj):
     if isinstance(obj, dict):
@@ -24,14 +34,51 @@ class StepHandler(Protocol):
     async def handle(self, payload: Dict[str, Any], options: Dict[str, Any]) -> Any: ...
 
 
+def _build_provider_registry(logger: logging.Logger) -> Optional[ProviderRegistry]:
+    """
+    Try to build a ProviderRegistry with OpenAI gpt-4o-mini registered
+    for extraction/JSON tasks. If anything is missing (provider class,
+    API key, etc.), return a registry with no providers and log a warning.
+    """
+    registry = ProviderRegistry()
+
+    # If something upstream already created/primed a registry and put it in env,
+    # you could look it up here. For now we build locally.
+    openai_api_key = os.getenv("OPENAI_API_KEY") or os.getenv("OPENAI_APIKEY") or os.getenv("OPENAI_KEY")
+    if not openai_api_key:
+        logger.warning("Provider setup: OPENAI_API_KEY not set; LLM calls will be skipped.")
+        return registry  # empty registry is fine; service handles gracefully
+
+    # Try to import a concrete OpenAI provider implementation.
+    # Adjust the import path to wherever your OpenAI provider lives.
+    try:
+        from pipeline.app.providers.openai_provider import OpenAIProvider  # noqa: F401
+    except Exception as e:
+        logger.warning(f"Provider setup: Could not import OpenAIProvider: {e}. LLM calls will be skipped.")
+        return registry
+
+    try:
+        # Instantiate provider
+        provider = OpenAIProvider()
+
+        # Register the provider
+        registry.register_provider("openai", provider)
+
+        logger.info("Provider setup: OpenAI gpt-4o-mini registered for TaskType.EXTRACT.")
+        return registry
+
+    except Exception as e:
+        logger.warning(f"Provider setup: Failed to initialize/register OpenAI provider: {e}")
+        return registry
+
+
 class Step01MetadataHandler:
     def __init__(self) -> None:
+        # Swap to the LLM-first service class
         self.service_cls = RaceMetadataService
 
     async def handle(self, payload: Dict[str, Any], options: Dict[str, Any]) -> Any:
         logger = logging.getLogger("pipeline")
-
-        # No dynamic import error handling needed; import errors will be raised at module load time
 
         race_id = payload.get("race_id")
         if not race_id:
@@ -41,8 +88,11 @@ class Step01MetadataHandler:
 
         logger.info(f"Initializing RaceMetadataService for race_id='{race_id}'")
 
+        # Build provider registry (OpenAI gpt-4o-mini), if possible
+        providers = _build_provider_registry(logger)
+
         try:
-            service = self.service_cls()
+            service = self.service_cls(providers=providers)
             logger.debug("RaceMetadataService instantiated successfully")
         except Exception as e:
             error_msg = f"Step01MetadataHandler: Failed to instantiate RaceMetadataService: {e}"
@@ -58,13 +108,12 @@ class Step01MetadataHandler:
             duration_ms = int((time.perf_counter() - t0) * 1000)
             logger.info(f"Race metadata extraction completed in {duration_ms}ms")
 
-            # Convert RaceMetadata (Pydantic) to dict for JSON serialization, including datetime fields
             if hasattr(result, "model_dump"):
-                output = to_jsonable(result.model_dump())
-            elif hasattr(result, "dict"):
-                output = to_jsonable(result.dict())
+                output = result.model_dump(mode="json", by_alias=True, exclude_none=True)
+            elif hasattr(result, "json"):
+                output = json.loads(result.json(by_alias=True, exclude_none=True))
             else:
-                output = to_jsonable(dict(result))
+                output = to_jsonable(result)
 
             logger.debug(
                 f"Metadata conversion completed, output keys: {list(output.keys()) if isinstance(output, dict) else 'non-dict result'}"
