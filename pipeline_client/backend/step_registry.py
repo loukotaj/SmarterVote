@@ -1,29 +1,24 @@
-import datetime
 import json
 import logging
-import os
 import time
-from typing import Any, Dict, Protocol, runtime_checkable, Optional
+from datetime import date, datetime
+from typing import Any, Dict, Protocol, runtime_checkable
+
+# Shared provider registry
+from pipeline.app.providers import registry
 
 # Use the LLM-first service
 from pipeline.app.step01_metadata.race_metadata_service import RaceMetadataService
 
-# Provider plumbing
-from pipeline.app.providers.base import (
-    ProviderRegistry,
-    TaskType,
-    ModelConfig,
-    ModelTier,
-)
 
 def to_jsonable(obj):
     if isinstance(obj, dict):
         return {k: to_jsonable(v) for k, v in obj.items()}
     elif isinstance(obj, list):
         return [to_jsonable(v) for v in obj]
-    elif isinstance(obj, datetime.datetime):
+    elif isinstance(obj, datetime):
         return obj.isoformat()
-    elif isinstance(obj, datetime.date):
+    elif isinstance(obj, date):
         return obj.isoformat()
     else:
         return obj
@@ -32,44 +27,6 @@ def to_jsonable(obj):
 @runtime_checkable
 class StepHandler(Protocol):
     async def handle(self, payload: Dict[str, Any], options: Dict[str, Any]) -> Any: ...
-
-
-def _build_provider_registry(logger: logging.Logger) -> Optional[ProviderRegistry]:
-    """
-    Try to build a ProviderRegistry with OpenAI gpt-4o-mini registered
-    for extraction/JSON tasks. If anything is missing (provider class,
-    API key, etc.), return a registry with no providers and log a warning.
-    """
-    registry = ProviderRegistry()
-
-    # If something upstream already created/primed a registry and put it in env,
-    # you could look it up here. For now we build locally.
-    openai_api_key = os.getenv("OPENAI_API_KEY") or os.getenv("OPENAI_APIKEY") or os.getenv("OPENAI_KEY")
-    if not openai_api_key:
-        logger.warning("Provider setup: OPENAI_API_KEY not set; LLM calls will be skipped.")
-        return registry  # empty registry is fine; service handles gracefully
-
-    # Try to import a concrete OpenAI provider implementation.
-    # Adjust the import path to wherever your OpenAI provider lives.
-    try:
-        from pipeline.app.providers.openai_provider import OpenAIProvider  # noqa: F401
-    except Exception as e:
-        logger.warning(f"Provider setup: Could not import OpenAIProvider: {e}. LLM calls will be skipped.")
-        return registry
-
-    try:
-        # Instantiate provider
-        provider = OpenAIProvider()
-
-        # Register the provider
-        registry.register_provider("openai", provider)
-
-        logger.info("Provider setup: OpenAI gpt-4o-mini registered for TaskType.EXTRACT.")
-        return registry
-
-    except Exception as e:
-        logger.warning(f"Provider setup: Failed to initialize/register OpenAI provider: {e}")
-        return registry
 
 
 class Step01MetadataHandler:
@@ -88,11 +45,8 @@ class Step01MetadataHandler:
 
         logger.info(f"Initializing RaceMetadataService for race_id='{race_id}'")
 
-        # Build provider registry (OpenAI gpt-4o-mini), if possible
-        providers = _build_provider_registry(logger)
-
         try:
-            service = self.service_cls(providers=providers)
+            service = self.service_cls(providers=registry)
             logger.debug("RaceMetadataService instantiated successfully")
         except Exception as e:
             error_msg = f"Step01MetadataHandler: Failed to instantiate RaceMetadataService: {e}"
