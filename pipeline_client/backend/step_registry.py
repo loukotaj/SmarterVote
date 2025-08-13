@@ -26,7 +26,8 @@ def to_jsonable(obj):
 
 @runtime_checkable
 class StepHandler(Protocol):
-    async def handle(self, payload: Dict[str, Any], options: Dict[str, Any]) -> Any: ...
+    async def handle(self, payload: Dict[str, Any], options: Dict[str, Any]) -> Any:
+        ...
 
 
 class Step01MetadataHandler:

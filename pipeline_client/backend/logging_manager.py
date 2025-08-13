@@ -5,14 +5,15 @@ WebSocket-based logging manager for real-time log streaming.
 import asyncio
 import json
 import logging
+import threading
 import time
 import uuid
+from collections import deque
+from dataclasses import asdict, dataclass
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Set
+
 from fastapi import WebSocket
-from dataclasses import dataclass, asdict
-from collections import deque
-import threading
 
 
 @dataclass

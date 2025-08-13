@@ -58,7 +58,7 @@ def client(mock_pubsub_publisher):
     spec.loader.exec_module(enqueue_main)
 
     # Mock Cloud Run client using the imported module
-    with patch("enqueue_main.get_run_client") as mock_get_run_client:
+    with patch.object(enqueue_main, "get_run_client") as mock_get_run_client:
         mock_run_client = MagicMock()
         mock_get_run_client.return_value = mock_run_client
 

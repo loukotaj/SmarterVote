@@ -2,13 +2,14 @@
 Run management service for tracking pipeline executions.
 """
 
+import json
+import logging
 import uuid
 from datetime import datetime
-from typing import Dict, List, Optional
-from .models import RunInfo, RunStatus, RunRequest, RunOptions
-import json
 from pathlib import Path
-import logging
+from typing import Dict, List, Optional
+
+from .models import RunInfo, RunOptions, RunRequest, RunStatus
 
 
 class RunManager:
@@ -20,6 +21,7 @@ class RunManager:
         self.active_runs: Dict[str, RunInfo] = {}
         self._load_runs()
         self._log_handlers: Dict[str, logging.Handler] = {}
+
     class RunLogHandler(logging.Handler):
         def __init__(self, run_manager, run_id):
             super().__init__()
@@ -195,14 +197,14 @@ class RunManager:
             # Try loading from disk
             run_info = self.get_run(run_id)
         if run_info:
-            if not hasattr(run_info, 'logs') or run_info.logs is None:
+            if not hasattr(run_info, "logs") or run_info.logs is None:
                 run_info.logs = []
             run_info.logs.append(log)
             self._save_run(run_info)
 
     def get_run_logs(self, run_id: str):
         run_info = self.get_run(run_id)
-        if run_info and hasattr(run_info, 'logs'):
+        if run_info and hasattr(run_info, "logs"):
             return run_info.logs
         return []
 
@@ -212,8 +214,8 @@ class RunManager:
             run_file = self.storage_dir / f"{run_info.run_id}.json"
             # Use dict to include logs
             data = run_info.model_dump(mode="json")
-            if hasattr(run_info, 'logs'):
-                data['logs'] = run_info.logs
+            if hasattr(run_info, "logs"):
+                data["logs"] = run_info.logs
             with open(run_file, "w") as f:
                 json.dump(data, f, indent=2, default=str)
         except Exception:
