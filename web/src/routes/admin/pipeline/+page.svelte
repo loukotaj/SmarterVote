@@ -37,7 +37,8 @@
   let runHistory: any[] = [];
   let selectedRun: any = null;
   let runAll = false;
-  let runMode: "new" | "existing" = "new";
+  // Run mode is selected in a separate flow; hide dashboard until set
+  let runMode: "new" | "existing" | null = null;
   let selectedRunId = "";
 
   // Modal state
@@ -63,7 +64,12 @@
     try {
       const res = await fetch(`${API_BASE}/runs`);
       const data = await res.json();
-      runHistory = data.runs || [];
+      runHistory = (data.runs || []).map((r: any, idx: number) => ({
+        ...r,
+        run_id: r.run_id || r.id || r._id || `run-${idx + 1}`,
+        id: r.run_id || r.id || r._id || `run-${idx + 1}`,
+        updated_at: r.completed_at || r.started_at,
+      }));
     } catch (error) {
       console.error("Failed to load run history:", error);
     }
@@ -175,7 +181,7 @@
   }
 
   async function runStep() {
-    if (isExecuting) return;
+    if (isExecuting || !runMode) return;
 
     setExecutionState(true);
     output = null;
@@ -407,8 +413,7 @@
     modalTitle = "Run Details";
     modalData = null;
     try {
-      // Prefer run.id, fallback to run.run_id, fallback to run._id
-      const runId = run.id || run.run_id || run._id;
+      const runId = run.run_id;
       if (runId) {
         const res = await fetch(`${API_BASE}/run/${runId}`);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -446,7 +451,7 @@
   async function selectRun(run: any) {
     runAll = false;
     try {
-      const runId = run.id || run.run_id || run._id;
+      const runId = run.run_id;
       if (!runId) return;
       const res = await fetch(`${API_BASE}/run/${runId}`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -464,16 +469,16 @@
             payload = { ...payload };
             switch (runData.step) {
               case "step01a_metadata":
-                payload.race_json = artifact;
+                payload.race_json = artifact.output;
                 break;
               case "step01b_discovery":
-                payload.sources = artifact;
+                payload.sources = artifact.output;
                 break;
               case "step01c_fetch":
-                payload.raw_content = artifact;
+                payload.raw_content = artifact.output;
                 break;
               case "step01d_extract":
-                payload.content = artifact;
+                payload.content = artifact.output;
                 break;
             }
           }
@@ -506,10 +511,9 @@
   async function handleRunSelect(event: Event) {
     const runId = (event.target as HTMLSelectElement).value;
     selectedRunId = runId;
-    const run = runHistory.find(
-      (r) => r.id === runId || r.run_id === runId || r._id === runId
-    );
+    const run = runHistory.find((r) => r.run_id === runId);
     if (run) {
+      runMode = "existing";
       await selectRun(run);
     }
   }
@@ -547,6 +551,37 @@
     </div>
   </div>
 </div>
+
+{#if runMode === null}
+  <div class="card p-6 max-w-xl mx-auto">
+    <h3 class="text-lg font-semibold text-gray-900 mb-4">Select Run</h3>
+    <div class="space-y-4">
+      <button class="btn-primary w-full" on:click={startNewRun}>New Run</button>
+      {#if runHistory.length}
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2"
+            >Existing Runs</label
+          >
+          <select
+            class="w-full border border-gray-300 rounded px-2 py-1"
+            bind:value={selectedRunId}
+            on:change={handleRunSelect}
+          >
+            <option value="" disabled selected>Select run</option>
+            {#each runHistory as run}
+              <option value={run.run_id}>
+                {run.run_id.slice(0, 8)} – {run.step} –
+                {new Date(run.updated_at).toLocaleString()}
+              </option>
+            {/each}
+          </select>
+        </div>
+      {:else}
+        <p class="text-sm text-gray-500 text-center">No runs yet</p>
+      {/if}
+    </div>
+  </div>
+{:else}
 
 <div class="dashboard-grid">
   <!-- Left Panel: Controls & Progress -->
@@ -588,8 +623,9 @@
             >
               <option value="" disabled selected>Select run</option>
               {#each runHistory as run}
-                <option value={run.id || run.run_id || run._id}>
-                  {run.step || run.run_id}
+                <option value={run.run_id}>
+                  {run.run_id.slice(0, 8)} – {run.step} –
+                  {new Date(run.updated_at).toLocaleString()}
                 </option>
               {/each}
             </select>
@@ -939,6 +975,7 @@
     </div>
   </div>
 </div>
+{/if}
 
 {#if showModal}
   <div class="modal-bg" on:click|self={closeModal}>
