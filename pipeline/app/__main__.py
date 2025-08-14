@@ -28,7 +28,7 @@ except ImportError:
 
 from .providers import list_providers, registry
 from .schema import ProcessingJob, ProcessingStatus
-from .step01_ingest.ContentExtractor import ExtractServicefrom
+from .step01_ingest.ContentExtractor import ExtractService
 from .step01_ingest.ContentFetcher import WebContentFetcher
 from .step01_ingest.DiscoveryService import SourceDiscoveryEngine
 from .step01_ingest.MetaDataService import RaceMetadataService
