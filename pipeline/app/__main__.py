@@ -37,6 +37,7 @@ from .step06_summarise import SummarizeService
 from .step07_arbitrate import ArbitrationService
 from .step08_publish import PublishService
 from .utils.ai_relevance_filter import AIRelevanceFilter
+from .utils.firestore_cache import FirestoreCache
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
@@ -84,6 +85,7 @@ class CorpusFirstPipeline:
         self.fetch = FetchService()
         self.extract = ExtractService()
         self.relevance = AIRelevanceFilter()
+        self.cache = FirestoreCache()
         self.corpus = CorpusService()
         self.summarize = SummarizeService(cheap_mode=cheap_mode)
         self.arbitrate = ArbitrationService(cheap_mode=cheap_mode)
@@ -145,6 +147,14 @@ class CorpusFirstPipeline:
             filtered_content = await self.relevance.filter_content(extracted_content)
             logger.info(f"✅ {len(filtered_content)}/{len(extracted_content)} items passed relevance filter")
 
+            # Cache the filtered content to Firestore
+            logger.info("💾 Caching filtered content to Firestore")
+            cache_success = await self.cache.cache_content(race_id, filtered_content)
+            if cache_success:
+                logger.info("✅ Successfully cached filtered content")
+            else:
+                logger.warning("⚠️ Failed to cache filtered content")
+
             # Step 4: BUILD CORPUS - Index in ChromaDB
             logger.info("🗂️  Step 4: BUILD CORPUS - Indexing in ChromaDB")
             await self.corpus.build_corpus(race_id, filtered_content)
@@ -191,6 +201,10 @@ class CorpusFirstPipeline:
             job.error_message = str(e)
             job.completed_at = datetime.utcnow()
             return False
+
+        finally:
+            # Clean up resources
+            await self.cache.close()
 
 
 async def main():
