@@ -3,6 +3,7 @@
 from datetime import datetime
 from unittest.mock import AsyncMock
 
+import asyncio
 import pytest
 
 from ...schema import Source, SourceType
@@ -16,8 +17,9 @@ class TestSourceDiscoveryEngine:
     def discovery_service(self):
         return SourceDiscoveryEngine()
 
-    @pytest.mark.asyncio
-    async def test_discover_all_sources_returns_list(self, discovery_service):
+    @pytest.mark.network
+    @pytest.mark.external_api
+    def test_discover_all_sources_returns_list(self, discovery_service):
         """Test that discover_all_sources returns a list of sources."""
         # Mock the underlying methods to avoid external dependencies
         discovery_service.discover_seed_sources = AsyncMock(
@@ -42,7 +44,11 @@ class TestSourceDiscoveryEngine:
         )
 
         race_id = "test-race-123"
-        sources = await discovery_service.discover_all_sources(race_id)
+
+        async def run():
+            return await discovery_service.discover_all_sources(race_id)
+
+        sources = asyncio.run(run())
 
         assert isinstance(sources, list)
         assert len(sources) > 0

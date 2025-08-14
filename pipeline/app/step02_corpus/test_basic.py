@@ -14,6 +14,9 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
+# Skip if chromadb (required for VectorDatabaseManager) isn't installed
+pytest.importorskip("chromadb")
+
 from ..schema import CanonicalIssue, ExtractedContent, Source, SourceType
 from ..step02_corpus.vector_database_manager import VectorDatabaseManager
 
