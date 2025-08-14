@@ -2,7 +2,7 @@
 SmarterVote Pipeline Application
 
 This package contains the corpus-first AI pipeline for processing electoral race data.
-The pipeline follows a 7-step process: DISCOVER → FETCH → EXTRACT → CORPUS → SUMMARIZE → ARBITRATE → PUBLISH
+The pipeline follows a 4-step process: INGEST → CORPUS → SUMMARIZE → PUBLISH
 """
 
 from .__main__ import CorpusFirstPipeline

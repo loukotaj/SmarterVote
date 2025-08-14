@@ -13,7 +13,7 @@ import pytest
 # Add the pipeline root to the path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from pipeline.app.step06_summarise.llm_summarization_engine import LLMSummarizationEngine
+from pipeline.app.step03_summarise.llm_summarization_engine import LLMSummarizationEngine
 from shared import CanonicalIssue, ConfidenceLevel, ExtractedContent, Source, SourceType, Summary
 
 
@@ -340,7 +340,7 @@ class TestLLMSummarizationEngine:
     @pytest.mark.asyncio
     async def test_custom_exceptions(self, engine_with_openai_key):
         """Test custom LLM API exceptions."""
-        from pipeline.app.step06_summarise.api_errors import LLMAPIError, RateLimitError
+        from pipeline.app.step03_summarise.api_errors import LLMAPIError, RateLimitError
 
         # Test LLMAPIError
         error = LLMAPIError("TestProvider", "Test error message", 500)

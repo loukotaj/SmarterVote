@@ -7,7 +7,7 @@ from unittest.mock import AsyncMock, MagicMock, patch
 import pytest
 
 from pipeline.app.providers import ModelConfig, ModelTier, TaskType, registry
-from pipeline.app.step07_arbitrate.consensus_arbitration_engine import ConsensusArbitrationEngine
+from pipeline.app.step03_summarise.consensus_arbitration_engine import ConsensusArbitrationEngine
 from shared import ConfidenceLevel, Summary
 
 
@@ -95,7 +95,7 @@ class TestConsensusArbitrationEngine:
 
         # Mock the registry to return our mock provider and model
         with patch(
-            "pipeline.app.step07_arbitrate.consensus_arbitration_engine.registry.get_triangulation_models"
+            "pipeline.app.step03_summarise.consensus_arbitration_engine.registry.get_triangulation_models"
         ) as mock_get_models:
             mock_get_models.return_value = [(mock_provider, mock_model_config)]
 
@@ -130,7 +130,7 @@ class TestConsensusArbitrationEngine:
         mock_provider.generate.side_effect = Exception("AI API failed")
 
         with patch(
-            "pipeline.app.step07_arbitrate.consensus_arbitration_engine.registry.get_triangulation_models"
+            "pipeline.app.step03_summarise.consensus_arbitration_engine.registry.get_triangulation_models"
         ) as mock_get_models:
             mock_get_models.return_value = [(mock_provider, mock_model_config)]
 
@@ -195,7 +195,7 @@ class TestConsensusArbitrationEngine:
         ]
 
         with patch(
-            "pipeline.app.step07_arbitrate.consensus_arbitration_engine.registry.get_triangulation_models"
+            "pipeline.app.step03_summarise.consensus_arbitration_engine.registry.get_triangulation_models"
         ) as mock_get_models:
             mock_get_models.return_value = [(mock_provider, mock_model_config)]
 
@@ -220,7 +220,7 @@ class TestConsensusArbitrationEngine:
 
         # Mock registry to return no models
         with patch(
-            "pipeline.app.step07_arbitrate.consensus_arbitration_engine.registry.get_triangulation_models"
+            "pipeline.app.step03_summarise.consensus_arbitration_engine.registry.get_triangulation_models"
         ) as mock_get_models:
             mock_get_models.return_value = []  # No models available
 
@@ -279,7 +279,7 @@ class TestConsensusArbitrationEngine:
         mock_provider.generate.return_value = "Invalid JSON response"
 
         with patch(
-            "pipeline.app.step07_arbitrate.consensus_arbitration_engine.registry.get_triangulation_models"
+            "pipeline.app.step03_summarise.consensus_arbitration_engine.registry.get_triangulation_models"
         ) as mock_get_models:
             mock_get_models.return_value = [(mock_provider, mock_model_config)]
 

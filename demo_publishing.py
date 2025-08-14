@@ -12,7 +12,7 @@ import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 
-from pipeline.app.step08_publish import PublicationConfig, PublishService, RacePublishingEngine
+from pipeline.app.step04_publish import PublicationConfig, PublishService, RacePublishingEngine
 
 
 async def main():
@@ -126,7 +126,7 @@ async def main():
 
         # Step 3: Publish to local file (only enabled target)
         print("\n📤 Step 3: Publishing race data...")
-        from pipeline.app.step08_publish.race_publishing_engine import PublicationTarget
+        from pipeline.app.step04_publish.race_publishing_engine import PublicationTarget
 
         results = await engine.publish_race(race, [PublicationTarget.LOCAL_FILE])
 
