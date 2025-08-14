@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime as dt
 from unittest.mock import AsyncMock
 
 import pytest
@@ -7,7 +7,7 @@ import pytest
 # packages. Skip these tests in lightweight environments.
 pytest.skip("Ingest service requires full pipeline dependencies", allow_module_level=True)
 
-from ...schema import ExtractedContent, Source, SourceType
+from ...schema import Candidate, ExtractedContent, RaceJSON, Source, SourceType
 from .ingest_service import IngestService
 
 
@@ -24,13 +24,13 @@ class TestIngestService:
             url="https://example.com/test",
             type=SourceType.WEBSITE,
             title="Test Source",
-            last_accessed=datetime.utcnow(),
+            last_accessed=dt.utcnow(),
         )
         extracted = ExtractedContent(
             source=source,
             text="example text",
             metadata={},
-            extraction_timestamp=datetime.utcnow(),
+            extraction_timestamp=dt.utcnow(),
             word_count=2,
         )
 
@@ -38,7 +38,15 @@ class TestIngestService:
         ingest_service.fetcher.fetch_content = AsyncMock(return_value=[{"source": source, "content": "<html></html>"}])
         ingest_service.extractor.extract_content = AsyncMock(return_value=[extracted])
 
-        result = await ingest_service.ingest("test-race")
+        race_json = RaceJSON(
+            id="test-race",
+            election_date=dt.utcnow(),
+            candidates=[Candidate(name="Test Candidate", party="Test")],
+            updated_utc=dt.utcnow(),
+            generator=[],
+        )
+
+        result = await ingest_service.ingest("test-race", race_json=race_json)
 
         assert isinstance(result, list)
         assert len(result) == 1

@@ -42,11 +42,7 @@ from nltk.tokenize import sent_tokenize
 from readability import Document
 from simhash import Simhash
 
-try:
-    from ..schema import CanonicalIssue, ExtractedContent, Source  # noqa: F401
-except ImportError:
-    # Fallback for direct imports
-    from shared.models import CanonicalIssue, ExtractedContent, Source  # type: ignore  # noqa: F401
+from shared.models import CanonicalIssue, ExtractedContent, Source
 
 logger = logging.getLogger(__name__)
 
