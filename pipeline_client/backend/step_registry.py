@@ -98,18 +98,25 @@ class Step01DiscoveryHandler:
             raise ValueError(error_msg)
 
         race_json_payload = payload.get("race_json")
-        race_json: RaceJSON | None = None
-        if race_json_payload:
-            try:
-                if isinstance(race_json_payload, RaceJSON):
-                    race_json = race_json_payload
-                elif hasattr(RaceJSON, "model_validate"):
-                    race_json = RaceJSON.model_validate(race_json_payload)
-                else:
-                    race_json = RaceJSON.parse_obj(race_json_payload)  # type: ignore[arg-type]
-            except Exception as e:
-                logger.warning(f"Step01DiscoveryHandler: Invalid race_json provided: {e}")
-                race_json = None
+        if not race_json_payload:
+            error_msg = (
+                "Step01DiscoveryHandler: Missing 'race_json' in payload. "
+                "This step requires output from the metadata service."
+            )
+            logger.error(error_msg)
+            raise ValueError(error_msg)
+
+        try:
+            if isinstance(race_json_payload, RaceJSON):
+                race_json: RaceJSON = race_json_payload
+            elif hasattr(RaceJSON, "model_validate"):
+                race_json = RaceJSON.model_validate(race_json_payload)
+            else:
+                race_json = RaceJSON.parse_obj(race_json_payload)  # type: ignore[arg-type]
+        except Exception as e:
+            error_msg = f"Step01DiscoveryHandler: Invalid race_json provided: {e}"
+            logger.error(error_msg)
+            raise ValueError(error_msg)
 
         logger.info(f"Initializing SourceDiscoveryEngine for race_id='{race_id}'")
 
@@ -267,18 +274,24 @@ class Step01IngestHandler:
             raise ValueError(error_msg)
 
         race_json_payload = payload.get("race_json")
-        race_json: RaceJSON | None = None
-        if race_json_payload:
-            try:
-                if isinstance(race_json_payload, RaceJSON):
-                    race_json = race_json_payload
-                elif hasattr(RaceJSON, "model_validate"):
-                    race_json = RaceJSON.model_validate(race_json_payload)
-                else:
-                    race_json = RaceJSON.parse_obj(race_json_payload)  # type: ignore[arg-type]
-            except Exception as e:
-                logger.warning(f"Step01IngestHandler: Invalid race_json provided: {e}")
-                race_json = None
+        if not race_json_payload:
+            error_msg = (
+                "Step01IngestHandler: Missing 'race_json' in payload. " "This step requires output from the metadata service."
+            )
+            logger.error(error_msg)
+            raise ValueError(error_msg)
+
+        try:
+            if isinstance(race_json_payload, RaceJSON):
+                race_json: RaceJSON = race_json_payload
+            elif hasattr(RaceJSON, "model_validate"):
+                race_json = RaceJSON.model_validate(race_json_payload)
+            else:
+                race_json = RaceJSON.parse_obj(race_json_payload)  # type: ignore[arg-type]
+        except Exception as e:
+            error_msg = f"Step01IngestHandler: Invalid race_json provided: {e}"
+            logger.error(error_msg)
+            raise ValueError(error_msg)
 
         logger.info(f"Initializing IngestService for race_id='{race_id}'")
 

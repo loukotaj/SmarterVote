@@ -233,7 +233,7 @@ class SourceDiscoveryEngine:
             candidates = [c.name for c in race_json.candidates][:candidate_cap]
             race_meta = race_json.race_metadata
         else:
-            candidates = (await self._extract_candidate_names(race_id))[:candidate_cap]
+            candidates = []
             race_meta = race_json.race_metadata if race_json else None
 
         all_sources: List[Source] = []
@@ -258,25 +258,3 @@ class SourceDiscoveryEngine:
 
         deduped_all = self.search_utils.deduplicate_sources(all_sources)
         return sorted(deduped_all, key=lambda s: s.score or 0, reverse=True)
-
-    async def _extract_candidate_names(self, race_id: str) -> List[str]:
-        """
-        Extract candidate names from basic race information.
-
-        This is a simplified implementation that generates likely candidate names
-        for testing. In production, this would query Ballotpedia or other sources.
-        """
-        # Parse race info
-        race_parts = race_id.split("-")
-        state = race_parts[0].upper() if race_parts else "XX"
-        office = race_parts[1] if len(race_parts) > 1 else "office"
-
-        # For now, return some common candidate patterns for testing
-        # In production, this would query actual candidate data
-        candidate_names = [
-            f"Incumbent {office.title()}",
-            f"Challenger {state}",
-        ]
-
-        logger.debug(f"Extracted candidate names for {race_id}: {candidate_names}")
-        return candidate_names
