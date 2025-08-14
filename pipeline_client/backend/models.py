@@ -80,3 +80,11 @@ class BatchRunResponse(BaseModel):
     batch_id: str
     total_runs: int
     runs: List[RunInfo]
+
+
+class ContinueRunRequest(BaseModel):
+    """Request to continue a pipeline run."""
+
+    run_id: str
+    steps: Optional[List[str]] = None
+    state: Optional[Dict[str, Any]] = None
