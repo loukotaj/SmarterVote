@@ -11,7 +11,14 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 
 from .logging_manager import logging_manager
-from .models import BatchRunRequest, BatchRunResponse, RunInfo, RunRequest, RunResponse
+from .models import (
+    BatchRunRequest,
+    BatchRunResponse,
+    ContinueRunRequest,
+    RunInfo,
+    RunRequest,
+    RunResponse,
+)
 from .pipeline_runner import run_step_async
 from .run_manager import run_manager
 from .settings import settings
@@ -113,6 +120,18 @@ async def api_execute(request: Dict[str, Any]) -> Dict[str, Any]:
     asyncio.create_task(_execute_run_async(step, run_request, run_info.run_id))
 
     return {"run_id": run_info.run_id, "status": "started", "step": step}
+
+
+@app.post("/api/continue")
+async def api_continue(request: ContinueRunRequest) -> Dict[str, Any]:
+    """Enhanced continue endpoint for the frontend dashboard."""
+
+    try:
+        return await continue_pipeline(request.run_id, steps=request.steps, state=request.state)
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except KeyError as e:
+        raise HTTPException(status_code=400, detail=str(e))
 
 
 async def _execute_run_async(step: str, request: RunRequest, run_id: str):
