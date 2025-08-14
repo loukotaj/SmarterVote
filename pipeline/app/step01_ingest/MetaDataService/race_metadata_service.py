@@ -27,11 +27,11 @@ from urllib.parse import urlencode
 
 from shared.state_constants import PRIMARY_DATE_BY_STATE, STATE_NAME
 
-from ..providers.base import ProviderRegistry, TaskType
-from ..schema import Candidate, CanonicalIssue, ConfidenceLevel, FreshSearchQuery, RaceJSON, RaceMetadata, Source, SourceType
-from ..step03_fetch import WebContentFetcher
-from ..step04_extract import ContentExtractor
-from ..utils.search_utils import SearchUtils
+from ...providers.base import ProviderRegistry, TaskType
+from ...schema import Candidate, CanonicalIssue, ConfidenceLevel, FreshSearchQuery, RaceJSON, RaceMetadata, Source, SourceType
+from ...utils.search_utils import SearchUtils
+from ..ContentExtractor import ContentExtractor
+from ..ContentFetcher import WebContentFetcher
 
 logger = logging.getLogger(__name__)
 

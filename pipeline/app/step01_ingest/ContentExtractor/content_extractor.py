@@ -20,21 +20,8 @@ from datetime import datetime
 from io import BytesIO, StringIO
 from typing import Any, Dict, List, Optional, Set, Tuple
 
-# Pandas is only needed for HTML table extraction. It isn't installed in the
-# execution environment used for tests, so we attempt to import it lazily. When
-# unavailable we simply disable table extraction rather than failing to import
-# the entire module.
-try:  # pragma: no cover - exercised indirectly in tests
-    import pandas as pd  # type: ignore
-except Exception:  # noqa: BLE001 - broad to catch optional dependency absence
-    pd = None
-
-# PyPDF2 is an optional dependency used only for PDF extraction. Gracefully
-# handle its absence so importing this module doesn't require it.
-try:  # pragma: no cover - exercised indirectly in tests
-    import PyPDF2  # type: ignore
-except Exception:  # noqa: BLE001
-    PyPDF2 = None
+import pandas as pd
+import PyPDF2
 from bs4 import BeautifulSoup
 from bs4.element import Comment as Bs4Comment
 from langdetect.lang_detect_exception import LangDetectException
