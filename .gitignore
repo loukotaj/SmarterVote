@@ -280,3 +280,4 @@ test_backward_compatibility.py
 pipeline_client/artifacts/*
 pipeline_client/runs/*
 pipeline_client/pipeline_client/runs/*
+web/vite.config.js.timestamp-*
