@@ -178,7 +178,7 @@ class CorpusFirstPipeline:
 
             # Step 4: PUBLISH - RaceJSON v0.2 → /out/{race}.json
             logger.info("📤 Step 4: PUBLISH - Creating RaceJSON v0.2")
-            race_json = await self.publish.create_race_json(race_id, arbitrated_data, race_metadata)
+            race_json = await self.publish.create_race_json(race_id, arbitrated_data)
             success = await self.publish.publish_race(race_json)
             job.step_publish = True
 
