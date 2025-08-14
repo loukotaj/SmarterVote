@@ -30,6 +30,7 @@
   let progressMessage = '';
   let logFilter = 'all';
   let runHistory: any[] = [];
+  let selectedRun: any = null;
 
   // Modal state
   let showModal = false;
@@ -365,6 +366,63 @@
     }
     modalLoading = false;
   }
+
+  async function selectRun(run: any) {
+    try {
+      const runId = run.id || run.run_id || run._id;
+      if (!runId) return;
+      const res = await fetch(`${API_BASE}/run/${runId}`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const runData = await res.json();
+      selectedRun = runData;
+
+      let payload = runData.payload || {};
+      if (runData.artifact_id) {
+        try {
+          const artRes = await fetch(`${API_BASE}/artifact/${runData.artifact_id}`);
+          if (artRes.ok) {
+            const artifact = await artRes.json();
+            payload = { ...payload };
+            switch (runData.step) {
+              case 'step01a_metadata':
+                payload.race_json = artifact;
+                break;
+              case 'step01b_discovery':
+                payload.sources = artifact;
+                break;
+              case 'step01c_fetch':
+                payload.raw_content = artifact;
+                break;
+              case 'step01d_extract':
+                payload.content = artifact;
+                break;
+            }
+          }
+        } catch (e) {
+          console.error('Failed to load artifact for run', e);
+        }
+      }
+
+      inputJson = JSON.stringify(payload, null, 2);
+
+      if (steps.length) {
+        const idx = steps.indexOf(runData.step);
+        if (idx >= 0 && idx < steps.length - 1) {
+          selectedStep = steps[idx + 1];
+        }
+      }
+    } catch (e) {
+      console.error('Failed to select run:', e);
+    }
+  }
+
+  function startNewRun() {
+    selectedRun = null;
+    inputJson = '{\n  "race_id": "mo-senate-2024"\n}';
+    if (steps.length) {
+      selectedStep = steps[0];
+    }
+  }
 </script>
 
 <style>
@@ -547,6 +605,15 @@
     <div class="card p-6">
       <h3 class="text-lg font-semibold text-gray-900 mb-4">Pipeline Execution</h3>
 
+      <div class="mb-4 flex items-center justify-between text-sm text-gray-600">
+        {#if selectedRun}
+          <span>Using run {selectedRun.run_id}</span>
+          <button on:click={startNewRun} class="text-blue-600 hover:text-blue-800">Start New Run</button>
+        {:else}
+          <span>Starting new run</span>
+        {/if}
+      </div>
+
       <div class="space-y-4">
         <!-- Step Selection -->
         <div>
@@ -714,16 +781,21 @@
       </div>
       <div class="divide-y divide-gray-200 max-h-64 overflow-auto custom-scrollbar">
         {#each runHistory.slice(0, 10) as run}
-          <div class="p-4 hover:bg-gray-50 cursor-pointer" on:click={() => handleRunClick(run)}>
-            <div class="flex items-center justify-between">
-              <div>
-                <div class="text-sm font-medium text-gray-900">{run.step || 'Unknown Step'}</div>
-                <div class="text-xs text-gray-500">{new Date(run.started_at).toLocaleString()}</div>
+          <div class="p-4 hover:bg-gray-50 flex items-center justify-between">
+            <div class="flex-1 cursor-pointer" on:click={() => handleRunClick(run)}>
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="text-sm font-medium text-gray-900">{run.step || 'Unknown Step'}</div>
+                  <div class="text-xs text-gray-500">{new Date(run.started_at).toLocaleString()}</div>
+                </div>
+                <span class="px-2 py-1 rounded-full text-xs {getStatusClass(run.status)}">
+                  {(run.status || 'unknown').charAt(0).toUpperCase() + (run.status || 'unknown').slice(1)}
+                </span>
               </div>
-              <span class="px-2 py-1 rounded-full text-xs {getStatusClass(run.status)}">
-                {(run.status || 'unknown').charAt(0).toUpperCase() + (run.status || 'unknown').slice(1)}
-              </span>
             </div>
+            <button class="text-xs text-blue-600 ml-2" on:click|stopPropagation={() => selectRun(run)}>
+              Use
+            </button>
           </div>
         {:else}
           <div class="p-4 text-center text-gray-500 text-sm">No runs yet</div>
