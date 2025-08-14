@@ -6,6 +6,7 @@ This module provides a unified interface for extracting text content from variou
 
 try:  # pragma: no cover - optional heavy deps
     from .content_extractor import ContentExtractor
+
     # Main service class for backwards compatibility
     ExtractService = ContentExtractor
     __all__ = ["ExtractService", "ContentExtractor"]

@@ -12,6 +12,7 @@ try:  # pragma: no cover - optional cloud dependency
     from google.cloud import firestore  # type: ignore
     from google.cloud.firestore_v1 import AsyncClient  # type: ignore
 except Exception:  # noqa: BLE001
+
     class _FirestoreStub:  # minimal stub for patching in tests
         class AsyncClient:  # type: ignore[empty-body]
             pass

@@ -1,9 +1,9 @@
 """Tests for the SourceDiscoveryEngine."""
 
+import asyncio
 from datetime import datetime
 from unittest.mock import AsyncMock
 
-import asyncio
 import pytest
 
 from ...schema import Source, SourceType

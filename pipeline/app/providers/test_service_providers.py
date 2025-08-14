@@ -116,9 +116,7 @@ class TestLLMSummarizationEngineProviders:
     @pytest.mark.llm_api
     def test_generate_summaries_no_enabled_models(self, engine_with_no_keys, sample_extracted_content):
         """Test that generate_summaries returns empty structure when no models are enabled."""
-        summaries = asyncio.run(
-            engine_with_no_keys.generate_summaries("test-race-123", sample_extracted_content)
-        )
+        summaries = asyncio.run(engine_with_no_keys.generate_summaries("test-race-123", sample_extracted_content))
 
         # Check the new response format
         assert isinstance(summaries, dict)
@@ -136,9 +134,7 @@ class TestLLMSummarizationEngineProviders:
     @pytest.mark.llm_api
     def test_generate_summaries_empty_content(self, engine_with_openai_key):
         """Test that generate_summaries handles empty content gracefully."""
-        summaries = asyncio.run(
-            engine_with_openai_key.generate_summaries("test-race-123", [])
-        )
+        summaries = asyncio.run(engine_with_openai_key.generate_summaries("test-race-123", []))
 
         # Check the new response format
         assert "race_id" in summaries
@@ -200,9 +196,7 @@ class TestLLMSummarizationEngineProviders:
     def test_generate_summaries_provider_integration(self, engine_with_all_keys, sample_extracted_content):
         """Test that generate_summaries works with the provider system."""
         # This test verifies the integration works end-to-end
-        result = asyncio.run(
-            engine_with_all_keys.generate_summaries("test-race", sample_extracted_content)
-        )
+        result = asyncio.run(engine_with_all_keys.generate_summaries("test-race", sample_extracted_content))
 
         # Should return the expected structure
         assert isinstance(result, dict)
@@ -233,12 +227,8 @@ class TestLLMSummarizationEngineProviders:
         )
 
         # Mock provider generate_summary method
-        with patch.object(
-            registry.get_provider("openai"), "generate_summary", return_value=mock_summary_output
-        ):
-            result = asyncio.run(
-                engine_with_openai_key.generate_summaries("test-race", sample_extracted_content)
-            )
+        with patch.object(registry.get_provider("openai"), "generate_summary", return_value=mock_summary_output):
+            result = asyncio.run(engine_with_openai_key.generate_summaries("test-race", sample_extracted_content))
 
             # Check that summaries have the expected structure
             if result["summaries"]["race"]:
