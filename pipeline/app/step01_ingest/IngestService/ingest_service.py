@@ -4,9 +4,9 @@ import logging
 from typing import List, Optional
 
 from ...schema import ExtractedContent, RaceJSON, Source
-from ..step02_discover import SourceDiscoveryEngine
-from ..step03_fetch import WebContentFetcher
-from ..step04_extract import ContentExtractor
+from ..ContentExtractor import ContentExtractor
+from ..ContentFetcher import WebContentFetcher
+from ..DiscoveryService import SourceDiscoveryEngine
 
 logger = logging.getLogger(__name__)
 
