@@ -4,7 +4,11 @@ from datetime import datetime
 
 import pytest
 
-from ..schema import ExtractedContent, Source, SourceType
+# Skip if required parsing libraries are unavailable in the test environment
+for _dep in ["bs4", "readability", "nltk", "langdetect", "simhash"]:
+    pytest.importorskip(_dep)
+
+from ...schema import ExtractedContent, Source, SourceType
 from . import ExtractService
 
 

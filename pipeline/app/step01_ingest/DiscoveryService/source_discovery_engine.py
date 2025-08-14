@@ -25,8 +25,8 @@ import logging
 from datetime import datetime
 from typing import List, Optional
 
-from ..schema import CanonicalIssue, RaceJSON, RaceMetadata, Source, SourceType
-from ..utils.search_utils import SearchUtils
+from ...schema import CanonicalIssue, RaceJSON, RaceMetadata, Source, SourceType
+from ...utils.search_utils import SearchUtils
 
 logger = logging.getLogger(__name__)
 

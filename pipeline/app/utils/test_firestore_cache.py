@@ -1,6 +1,4 @@
-"""
-Test module for Firestore caching functionality.
-"""
+"""Test module for Firestore caching functionality."""
 
 import asyncio
 import os
@@ -8,7 +6,11 @@ from datetime import datetime
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
-from firestore_cache import FirestoreCache
+
+# Skip entire module if google cloud dependencies are unavailable
+pytest.importorskip("google.cloud.firestore")
+
+from .firestore_cache import FirestoreCache
 
 try:
     from ..schema import ExtractedContent, Source, SourceType
@@ -21,7 +23,13 @@ class TestFirestoreCache:
 
     def create_test_content(self, url: str = "https://example.com", text: str = "Test content") -> ExtractedContent:
         """Create test ExtractedContent object."""
-        source = Source(url=url, source_type=SourceType.WEBSITE, title="Test Source", description="Test description")
+        source = Source(
+            url=url,
+            type=SourceType.WEBSITE,
+            title="Test Source",
+            last_accessed=datetime.utcnow(),
+            description="Test description",
+        )
 
         return ExtractedContent(
             source=source,
@@ -38,8 +46,8 @@ class TestFirestoreCache:
             language="en",
         )
 
-    @pytest.mark.asyncio
-    async def test_cache_initialization(self):
+    @pytest.mark.cloud
+    def test_cache_initialization(self):
         """Test cache initialization."""
         cache = FirestoreCache(project_id="test-project", collection_name="test_collection")
         assert cache.project_id == "test-project"
@@ -50,9 +58,9 @@ class TestFirestoreCache:
         assert default_cache.project_id is None
         assert default_cache.collection_name == "extracted_content_cache"
 
-    @pytest.mark.asyncio
-    @patch("firestore_cache.firestore.AsyncClient")
-    async def test_cache_content_success(self, mock_client_class):
+    @pytest.mark.cloud
+    @patch("pipeline.app.utils.firestore_cache.firestore.AsyncClient")
+    def test_cache_content_success(self, mock_client_class):
         """Test successful content caching."""
         # Mock Firestore client and operations
         mock_client = AsyncMock()
@@ -74,7 +82,7 @@ class TestFirestoreCache:
         ]
 
         # Test caching
-        result = await cache.cache_content("test-race-2024", test_content)
+        result = asyncio.run(cache.cache_content("test-race-2024", test_content))
 
         # Assertions
         assert result is True
@@ -84,9 +92,9 @@ class TestFirestoreCache:
         # Verify batch.set was called for each content item
         assert mock_batch.set.call_count == 2
 
-    @pytest.mark.asyncio
-    @patch("firestore_cache.firestore.AsyncClient")
-    async def test_get_cached_content(self, mock_client_class):
+    @pytest.mark.cloud
+    @patch("pipeline.app.utils.firestore_cache.firestore.AsyncClient")
+    def test_get_cached_content(self, mock_client_class):
         """Test retrieving cached content."""
         # Mock Firestore client
         mock_client = AsyncMock()
@@ -110,7 +118,7 @@ class TestFirestoreCache:
         cache = FirestoreCache()
 
         # Test retrieval
-        result = await cache.get_cached_content("test-race-2024")
+        result = asyncio.run(cache.get_cached_content("test-race-2024"))
 
         # Assertions
         assert len(result) == 1

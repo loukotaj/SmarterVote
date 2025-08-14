@@ -103,18 +103,22 @@ class TestLLMSummarizationEngineProviders:
             engine = LLMSummarizationEngine(cheap_mode=False)
             assert engine.cheap_mode is False
 
-    @pytest.mark.asyncio
-    async def test_async_context_manager(self, engine_with_openai_key):
+    def test_async_context_manager(self, engine_with_openai_key):
         """Test that engine works as async context manager."""
-        async with engine_with_openai_key as engine:
-            assert engine is not None
-            assert hasattr(engine, "cheap_mode")
+
+        async def run():
+            async with engine_with_openai_key as engine:
+                assert engine is not None
+                assert hasattr(engine, "cheap_mode")
+
+        asyncio.run(run())
 
     @pytest.mark.llm_api
-    @pytest.mark.asyncio
-    async def test_generate_summaries_no_enabled_models(self, engine_with_no_keys, sample_extracted_content):
+    def test_generate_summaries_no_enabled_models(self, engine_with_no_keys, sample_extracted_content):
         """Test that generate_summaries returns empty structure when no models are enabled."""
-        summaries = await engine_with_no_keys.generate_summaries("test-race-123", sample_extracted_content)
+        summaries = asyncio.run(
+            engine_with_no_keys.generate_summaries("test-race-123", sample_extracted_content)
+        )
 
         # Check the new response format
         assert isinstance(summaries, dict)
@@ -130,10 +134,11 @@ class TestLLMSummarizationEngineProviders:
         assert summaries["summaries"]["issues"] == []
 
     @pytest.mark.llm_api
-    @pytest.mark.asyncio
-    async def test_generate_summaries_empty_content(self, engine_with_openai_key):
+    def test_generate_summaries_empty_content(self, engine_with_openai_key):
         """Test that generate_summaries handles empty content gracefully."""
-        summaries = await engine_with_openai_key.generate_summaries("test-race-123", [])
+        summaries = asyncio.run(
+            engine_with_openai_key.generate_summaries("test-race-123", [])
+        )
 
         # Check the new response format
         assert "race_id" in summaries
@@ -153,8 +158,7 @@ class TestLLMSummarizationEngineProviders:
 
     # Provider-based functional tests
 
-    @pytest.mark.asyncio
-    async def test_provider_registry_integration(self):
+    def test_provider_registry_integration(self):
         """Test that the engine properly integrates with the provider registry."""
         from ..providers import TaskType, registry
 
@@ -169,8 +173,7 @@ class TestLLMSummarizationEngineProviders:
         assert "anthropic" in providers
         assert "xai" in providers
 
-    @pytest.mark.asyncio
-    async def test_triangulation_models_selection(self):
+    def test_triangulation_models_selection(self):
         """Test that triangulation models are properly selected."""
         from ..providers import TaskType, registry
 
@@ -183,8 +186,7 @@ class TestLLMSummarizationEngineProviders:
             assert hasattr(model_config, "model_id")
             assert hasattr(model_config, "provider")
 
-    @pytest.mark.asyncio
-    async def test_provider_availability_check(self):
+    def test_provider_availability_check(self):
         """Test provider availability checking."""
         from ..providers import registry
 
@@ -195,11 +197,12 @@ class TestLLMSummarizationEngineProviders:
             assert isinstance(availability, bool)
 
     @pytest.mark.llm_api
-    @pytest.mark.asyncio
-    async def test_generate_summaries_provider_integration(self, engine_with_all_keys, sample_extracted_content):
+    def test_generate_summaries_provider_integration(self, engine_with_all_keys, sample_extracted_content):
         """Test that generate_summaries works with the provider system."""
         # This test verifies the integration works end-to-end
-        result = await engine_with_all_keys.generate_summaries("test-race", sample_extracted_content)
+        result = asyncio.run(
+            engine_with_all_keys.generate_summaries("test-race", sample_extracted_content)
+        )
 
         # Should return the expected structure
         assert isinstance(result, dict)
@@ -215,8 +218,7 @@ class TestLLMSummarizationEngineProviders:
         assert isinstance(result["summaries"]["issues"], list)
 
     @pytest.mark.llm_api
-    @pytest.mark.asyncio
-    async def test_summary_output_structure(self, engine_with_openai_key, sample_extracted_content):
+    def test_summary_output_structure(self, engine_with_openai_key, sample_extracted_content):
         """Test that summaries include confidence and source information."""
         # Mock the provider to return structured output
         from ..providers import SummaryOutput, registry
@@ -231,8 +233,12 @@ class TestLLMSummarizationEngineProviders:
         )
 
         # Mock provider generate_summary method
-        with patch.object(registry.get_provider("openai"), "generate_summary", return_value=mock_summary_output):
-            result = await engine_with_openai_key.generate_summaries("test-race", sample_extracted_content)
+        with patch.object(
+            registry.get_provider("openai"), "generate_summary", return_value=mock_summary_output
+        ):
+            result = asyncio.run(
+                engine_with_openai_key.generate_summaries("test-race", sample_extracted_content)
+            )
 
             # Check that summaries have the expected structure
             if result["summaries"]["race"]:
@@ -263,36 +269,22 @@ class TestLLMSummarizationEngineProviders:
         )
         assert isinstance(filtered_issue, list)
 
-    @pytest.mark.asyncio
-    async def test_cheap_mode_vs_premium_mode(self):
+    def test_cheap_mode_vs_premium_mode(self):
         """Test that cheap mode and premium mode use different model tiers."""
+        pytest.importorskip("openai")
         from ..providers import ModelTier, TaskType, registry
 
-        # Test premium mode - explicitly set cheap mode to false
         with patch.dict(os.environ, {"OPENAI_API_KEY": "test-key", "SMARTERVOTE_CHEAP_MODE": "false"}):
-            # Reset registry to pick up new environment
             registry._cheap_mode = False
-
             premium_models = registry.get_enabled_models(TaskType.SUMMARIZE)
             premium_available = [m for m in premium_models if m.tier == ModelTier.PREMIUM]
+            assert len(premium_available) > 0
 
-            # Should have premium models when not in cheap mode
-            assert (
-                len(premium_available) > 0
-            ), f"Expected premium models but got: {[(m.model_id, m.tier.value) for m in premium_models]}"
-
-        # Test cheap mode
         with patch.dict(os.environ, {"OPENAI_API_KEY": "test-key", "SMARTERVOTE_CHEAP_MODE": "true"}):
-            # Reset registry to pick up new environment
             registry._cheap_mode = True
-
             cheap_models = registry.get_enabled_models(TaskType.SUMMARIZE)
             mini_available = [m for m in cheap_models if m.tier == ModelTier.MINI]
-
-            # Should have mini models in cheap mode
-            assert (
-                len(mini_available) > 0
-            ), f"Expected mini models in cheap mode but got: {[(m.model_id, m.tier.value) for m in cheap_models]}"
+            assert len(mini_available) > 0
 
     def test_prepare_content_for_summarization(self, engine_with_openai_key, sample_extracted_content):
         """Test content preparation for summarization."""
