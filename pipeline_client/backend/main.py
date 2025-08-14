@@ -15,6 +15,7 @@ from .models import BatchRunRequest, BatchRunResponse, RunInfo, RunRequest, RunR
 from .pipeline_runner import run_step_async
 from .run_manager import run_manager
 from .settings import settings
+from .step_orchestrator import continue_run as continue_pipeline
 from .step_registry import REGISTRY
 from .storage import list_artifacts, load_artifact
 
@@ -195,6 +196,28 @@ async def cancel_run(run_id: str) -> Dict[str, Any]:
     await logging_manager.send_run_status(run_id, "cancelled")
 
     return {"message": "Run cancelled", "run_id": run_id}
+
+
+@app.post("/runs/{run_id}/continue")
+async def continue_run_endpoint(run_id: str, request: Dict[str, Any]) -> Dict[str, Any]:
+    """Continue a pipeline run by executing subsequent steps.
+
+    The request body may include:
+
+    - ``steps``: list of steps to execute. ``["all"]`` runs all remaining steps.
+      Omitted or empty runs only the next step.
+    - ``state``: optional JSON object allowing edits before execution.
+    """
+
+    steps = request.get("steps")
+    state = request.get("state")
+
+    try:
+        return await continue_pipeline(run_id, steps=steps, state=state)
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except KeyError as e:
+        raise HTTPException(status_code=400, detail=str(e))
 
 
 @app.get("/artifacts")
