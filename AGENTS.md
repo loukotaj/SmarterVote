@@ -4,7 +4,7 @@ Use these guardrails when generating or editing code in this repository.
 
 ## Context
 - Corpus-first AI pipeline: Python pipeline, FastAPI services, SvelteKit web, Terraform infra
-- 7-step pipeline: DISCOVER → FETCH → EXTRACT → CORPUS → SUMMARIZE → ARBITRATE → PUBLISH
+- 4-step pipeline: INGEST → CORPUS → SUMMARIZE → PUBLISH
 - Output: RaceJSON v0.2 with 11 canonical issues, confidence levels, and sources
 
 ## Coding conventions

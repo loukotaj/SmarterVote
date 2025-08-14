@@ -3,7 +3,7 @@
 AI-powered electoral analysis with a corpus-first pipeline and multi-LLM consensus.
 
 ## What it is
-- Pipeline (Python): 7-step processing engine producing RaceJSON v0.2
+- Pipeline (Python): 4-step processing engine producing RaceJSON v0.2
 - Services (FastAPI): enqueue-api (jobs), races-api (serve published data)
 - Web (SvelteKit + TypeScript): static site consuming races-api
 - Infra (Terraform + GCP): Cloud Run, Pub/Sub, Secret Manager, Cloud Storage
@@ -35,7 +35,7 @@ Dev commands
 - Local pipeline run: `python scripts/run_local.py <race-id>`
 
 ## Pipeline workflow
-DISCOVER → FETCH → EXTRACT → CORPUS → SUMMARIZE → ARBITRATE → PUBLISH
+INGEST → CORPUS → SUMMARIZE → PUBLISH
 
 - Vector DB: ChromaDB (corpus-first)
 - Multi-LLM: GPT-4o, Claude-3.5, grok-3 with 2-of-3 consensus

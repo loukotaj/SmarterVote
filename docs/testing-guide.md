@@ -26,10 +26,23 @@ The project uses pytest markers to categorize tests by their requirements and ex
 Tests follow a **colocated pattern** for maximum maintainability:
 
 ```
-pipeline/app/step01_discover/
-├── service.py                    # Implementation
-├── test_service.py              # Unit tests
+pipeline/app/step01_ingest/
+├── ContentFetcher.py           # Implementation
+├── test_service.py             # Unit tests
 └── __init__.py
+
+pipeline/app/step02_corpus/
+├── vector_database_manager.py  # Implementation
+└── test_service.py             # Unit tests
+
+pipeline/app/step03_summarise/
+├── llm_summarization_engine.py # Implementation
+├── consensus_arbitration_engine.py
+└── test_service.py
+
+pipeline/app/step04_publish/
+├── race_publishing_engine.py   # Implementation
+└── test_service.py             # Unit tests
 
 services/enqueue-api/
 ├── main.py                      # FastAPI application

@@ -18,7 +18,7 @@ from shared import ConfidenceLevel, ExtractedContent, Source, SourceType, Summar
 # Add parent directories to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
 
-from pipeline.app.step06_summarise.llm_summarization_engine import LLMSummarizationEngine
+from pipeline.app.step03_summarise.llm_summarization_engine import LLMSummarizationEngine
 
 
 class TestLLMSummarizationEngineProviders:

@@ -1,15 +1,12 @@
 """
 SmarterVote Pipeline Entry Point - Corpus-First Design v1.2
 
-8-Step Workflow:
+4-Step Workflow:
 0. METADATA EXTRACTION - Parse race details for optimized discovery
-1. DISCOVER - Seed URLs + Google dorks + Fresh issue search for 11 canonical issues
-2. FETCH - Download raw bytes
-3. EXTRACT - HTML/PDF → plain text
-4. BUILD CORPUS - Index in ChromaDB
-5. RAG + 3-MODEL SUMMARY - GPT-4o, Claude 3.5, grok-3 triangulation
-6. ARBITRATE - 2-of-3 consensus with confidence scoring
-7. PUBLISH - RaceJSON v0.2 output
+1. INGEST - Discover, fetch, extract and filter sources
+2. CORPUS - Index in ChromaDB
+3. SUMMARIZE & ARBITRATE - Multi-LLM summaries with consensus scoring
+4. PUBLISH - RaceJSON v0.2 output
 """
 
 import asyncio
@@ -32,10 +29,9 @@ from .step01_ingest.ContentExtractor import ExtractService
 from .step01_ingest.ContentFetcher import WebContentFetcher
 from .step01_ingest.DiscoveryService import SourceDiscoveryEngine
 from .step01_ingest.MetaDataService import RaceMetadataService
-from .step05_corpus import CorpusService
-from .step06_summarise import SummarizeService
-from .step07_arbitrate import ArbitrationService
-from .step08_publish import PublishService
+from .step02_corpus import CorpusService
+from .step03_summarise import ArbitrationService, SummarizeService
+from .step04_publish import PublishService
 from .utils.ai_relevance_filter import AIRelevanceFilter
 from .utils.firestore_cache import FirestoreCache
 
@@ -93,7 +89,7 @@ class CorpusFirstPipeline:
 
     async def process_race(self, race_id: str) -> bool:
         """
-        Process a single race through the 7-step corpus-first pipeline.
+        Process a single race through the 4-step corpus-first pipeline.
 
         Args:
             race_id: Race slug like 'mo-senate-2024'
@@ -122,8 +118,8 @@ class CorpusFirstPipeline:
                 logger.info(f"✅ Extracted metadata: {meta.full_office_name} in {meta.jurisdiction}")
                 logger.info(f"🎯 Priority issues: {', '.join(meta.major_issues[:3])}")
 
-            # Step 1: DISCOVER - Seed URLs + Google dorks + Fresh issue search
-            logger.info(f"📡 Step 1: DISCOVER - Finding sources and fresh issues for {race_id}")
+            # Step 1: INGEST - Discover sources
+            logger.info(f"📡 Step 1: INGEST - Finding sources and fresh issues for {race_id}")
             sources = await self.discovery.discover_all_sources(race_id, race_json)
             if not sources:
                 logger.warning(f"No sources found for race {race_id}")
@@ -131,14 +127,14 @@ class CorpusFirstPipeline:
             job.step_discover = True
             logger.info(f"✅ Discovered {len(sources)} total sources (seed + fresh)")
 
-            # Step 2: FETCH - Download raw bytes → /raw/{race}/
-            logger.info(f"⬇️  Step 2: FETCH - Downloading {len(sources)} sources")
+            # Step 1: INGEST - Download raw bytes → /raw/{race}/
+            logger.info(f"⬇️  Step 1: INGEST - Downloading {len(sources)} sources")
             raw_content = await self.fetch.fetch_content(sources)
             job.step_fetch = True
             logger.info(f"✅ Fetched {len(raw_content)} items")
 
-            # Step 3: EXTRACT - HTML/PDF → plain text → /norm/{race}/
-            logger.info("📄 Step 3: EXTRACT - Converting to plain text")
+            # Step 1: INGEST - HTML/PDF → plain text → /norm/{race}/
+            logger.info("📄 Step 1: INGEST - Converting to plain text")
             extracted_content = await self.extract.extract_content(raw_content)
             job.step_extract = True
             logger.info(f"✅ Extracted text from {len(extracted_content)} items")
@@ -155,14 +151,14 @@ class CorpusFirstPipeline:
             else:
                 logger.warning("⚠️ Failed to cache filtered content")
 
-            # Step 4: BUILD CORPUS - Index in ChromaDB
-            logger.info("🗂️  Step 4: BUILD CORPUS - Indexing in ChromaDB")
+            # Step 2: BUILD CORPUS - Index in ChromaDB
+            logger.info("🗂️  Step 2: CORPUS - Indexing in ChromaDB")
             await self.corpus.build_corpus(race_id, filtered_content)
             job.step_corpus = True
             logger.info(f"✅ Built corpus for {race_id}")
 
-            # Step 5: RAG + 3-MODEL SUMMARY - Provider-based triangulation
-            logger.info("🤖 Step 5: RAG + 3-MODEL SUMMARY - Provider-based triangulation")
+            # Step 3: RAG + 3-MODEL SUMMARY - Provider-based triangulation
+            logger.info("🤖 Step 3: SUMMARIZE - Provider-based triangulation")
             # Retrieve relevant content from corpus for summarization
             corpus_content = await self.corpus.search_content(race_id)
             all_summaries = await self.summarize.generate_summaries(race_id, corpus_content)
@@ -174,14 +170,14 @@ class CorpusFirstPipeline:
             issue_count = len(all_summaries.get("issue_summaries", []))
             logger.info(f"✅ Generated summaries: {race_count} race, {candidate_count} candidate, {issue_count} issue")
 
-            # Step 6: ARBITRATE - Provider-based consensus scoring
-            logger.info("⚖️  Step 6: ARBITRATE - Provider-based consensus scoring")
+            # Step 3: ARBITRATE - Provider-based consensus scoring
+            logger.info("⚖️  Step 3: ARBITRATE - Provider-based consensus scoring")
             arbitrated_data = await self.arbitrate.arbitrate_summaries(all_summaries)
             job.step_arbitrate = True
             logger.info("✅ Arbitration complete")
 
-            # Step 7: PUBLISH - RaceJSON v0.2 → /out/{race}.json
-            logger.info("📤 Step 7: PUBLISH - Creating RaceJSON v0.2")
+            # Step 4: PUBLISH - RaceJSON v0.2 → /out/{race}.json
+            logger.info("📤 Step 4: PUBLISH - Creating RaceJSON v0.2")
             race_json = await self.publish.create_race_json(race_id, arbitrated_data, race_metadata)
             success = await self.publish.publish_race(race_json)
             job.step_publish = True
