@@ -139,7 +139,10 @@ class CorpusFirstPipeline:
 
             # Step 3: EXTRACT - HTML/PDF → plain text → /norm/{race}/
             logger.info("📄 Step 3: EXTRACT - Converting to plain text")
-            extracted_content = await self.extract.extract_content(raw_content)
+            race_context = {"race_id": race_id}
+            if race_json and getattr(race_json, "candidates", None):
+                race_context["candidates"] = [c.name for c in race_json.candidates]
+            extracted_content = await self.extract.extract_content(raw_content, race_context=race_context)
             job.step_extract = True
             logger.info(f"✅ Extracted text from {len(extracted_content)} items")
 

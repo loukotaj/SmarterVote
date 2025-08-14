@@ -29,6 +29,8 @@ from nltk.tokenize import sent_tokenize
 from readability import Document
 from simhash import Simhash
 
+from ..providers import TaskType, registry
+
 try:
     from ..schema import CanonicalIssue, ExtractedContent, Source  # noqa: F401
 except ImportError:
@@ -103,12 +105,15 @@ class ContentExtractor:
         # NLTK availability flag (avoid implicit downloads here)
         self._has_punkt = self._check_nltk_punkt()
 
-    async def extract_content(self, raw_content: List[Dict[str, Any]]) -> List[ExtractedContent]:
+    async def extract_content(
+        self, raw_content: List[Dict[str, Any]], race_context: Optional[Dict[str, Any]] = None
+    ) -> List[ExtractedContent]:
         """
         Extract text from all provided content items with filtering and processing.
 
         Args:
             raw_content: List of raw content dicts from the fetcher
+            race_context: Optional race-level context (race_id, candidates, etc.)
 
         Returns:
             List of ExtractedContent objects that pass usefulness criteria
@@ -120,7 +125,7 @@ class ContentExtractor:
 
         for item in raw_content:
             try:
-                result = await self._extract_single_item(item)
+                result = await self._extract_single_item(item, race_context)
                 if not result:
                     continue
 
@@ -167,7 +172,9 @@ class ContentExtractor:
 
     # ------------------------- core extraction ------------------------- #
 
-    async def _extract_single_item(self, item: Dict[str, Any]) -> Optional[ExtractedContent]:
+    async def _extract_single_item(
+        self, item: Dict[str, Any], race_context: Optional[Dict[str, Any]]
+    ) -> Optional[ExtractedContent]:
         """Extract text from a single content item with enriched metadata and quality assessment."""
         source = item.get("source")
         content_type = (item.get("content_type") or "").lower()
@@ -242,7 +249,7 @@ class ContentExtractor:
         content_simhash = Simhash(text).value
 
         # Usefulness scoring
-        usefulness_score, is_useful, usefulness_reasons = self._calculate_usefulness(
+        usefulness_score, is_useful, usefulness_reasons, usefulness_ai = await self._calculate_usefulness(
             text=text,
             word_count=word_count,
             language=language,
@@ -252,6 +259,7 @@ class ContentExtractor:
             structured_metadata=structured_metadata,
             tables=tables,
             original_item=item,
+            race_context=race_context,
         )
 
         # Build metadata
@@ -273,6 +281,7 @@ class ContentExtractor:
             "usefulness_score": usefulness_score,
             "is_useful": is_useful,
             "usefulness_reasons": usefulness_reasons,
+            "usefulness_ai": usefulness_ai,
             # Deduplication
             "content_checksum": content_checksum,
             "simhash": content_simhash,
@@ -792,7 +801,39 @@ class ContentExtractor:
             confidence = min(1.0, (english_count / max(len(words), 1)) * 10)
             return "en", confidence
 
-    def _calculate_usefulness(
+    async def _ai_usefulness_check(self, text: str, race_context: Optional[Dict[str, Any]]) -> Dict[str, Any]:
+        """Use an AI model to assess usefulness of the text for the race."""
+        prompt = (
+            "Assess if the following text is useful for voters in this political race."
+            " Return JSON with fields: useful (bool), score (0-1), reason (string)."
+        )
+        context_str = json.dumps(race_context or {}, ensure_ascii=False)
+        prompt += f"\nRace context: {context_str}\nText:\n{text[:4000]}"
+        schema = {
+            "type": "object",
+            "properties": {
+                "useful": {"type": "boolean"},
+                "score": {"type": "number"},
+                "reason": {"type": "string"},
+            },
+            "required": ["useful", "reason"],
+        }
+        try:
+            result = await registry.generate_json(
+                TaskType.EXTRACT,
+                prompt,
+                max_tokens=256,
+                response_format=schema,
+            )
+            useful = bool(result.get("useful"))
+            score = float(result.get("score", 1.0 if useful else 0.0))
+            reason = str(result.get("reason", ""))
+            return {"is_useful": useful, "score": score, "reason": reason}
+        except Exception as e:  # noqa: BLE001
+            logger.warning("AI usefulness check failed: %s", e)
+            return {"is_useful": False, "score": 0.0, "reason": "ai_check_failed"}
+
+    async def _calculate_usefulness(
         self,
         text: str,
         word_count: int,
@@ -803,7 +844,8 @@ class ContentExtractor:
         structured_metadata: Dict[str, Any],
         tables: List[Dict[str, Any]],
         original_item: Dict[str, Any],
-    ) -> Tuple[float, bool, List[str]]:
+        race_context: Optional[Dict[str, Any]] = None,
+    ) -> Tuple[float, bool, List[str], Dict[str, Any]]:
         """Calculate usefulness score and keep/drop decision."""
         score = 0.0
         reasons: List[str] = []
@@ -899,14 +941,17 @@ class ContentExtractor:
             reasons.append("poor_dynamic_extraction")
 
         final = max(0.0, min(1.0, score))
-        is_useful = final >= self.config["usefulness_threshold"]
+        ai_result = await self._ai_usefulness_check(text, race_context)
+        reasons.append("ai_useful" if ai_result.get("is_useful") else "ai_not_useful")
+        combined = (final + ai_result.get("score", 0.0)) / 2
+        is_useful = combined >= self.config["usefulness_threshold"]
 
         # Override for official docs with some content
         if not is_useful and any(domain in str(source_url) for domain in [".gov", "fec.gov"]) and word_count > 10:
             is_useful = True
             reasons.append("official_document_override")
 
-        return final, is_useful, reasons
+        return combined, is_useful, reasons, ai_result
 
     def _calculate_extraction_quality(self, text: str, method: str) -> float:
         """Quality score for the extraction process itself."""

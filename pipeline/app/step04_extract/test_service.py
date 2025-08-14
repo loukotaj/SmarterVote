@@ -46,6 +46,7 @@ class TestExtractService:
         assert "Test Title" in extracted[0].text
         assert "sufficient length" in extracted[0].text
         assert extracted[0].word_count > 0
+        assert "usefulness_ai" in extracted[0].metadata
 
     def test_extract_from_html_removes_scripts(self, extract_service):
         """Test that HTML extraction removes script tags."""

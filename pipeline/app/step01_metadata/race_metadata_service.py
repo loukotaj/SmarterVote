@@ -129,7 +129,7 @@ class RaceMetadataService:
             seeds = self._seed_urls(state, office, year, district)
             _jlog(logging.INFO, "seeds.built", trace_id, count=len(seeds), urls=seeds)
 
-            docs = await self._fetch_and_extract_docs(seeds, trace_id)
+            docs = await self._fetch_and_extract_docs(seeds, trace_id, race_context={"race_id": race_id})
 
             # ----- LLM pass (preferred model: openai:gpt-4o-mini) -----
             candidates, incumbent_party, source_list = await self._llm_candidates(
@@ -149,7 +149,7 @@ class RaceMetadataService:
                 more_urls = await self._one_search(state, office, year, district, trace_id)
                 _jlog(logging.INFO, "fallback_search.urls", trace_id, urls=more_urls)
                 if more_urls:
-                    more_docs = await self._fetch_and_extract_docs(more_urls, trace_id)
+                    more_docs = await self._fetch_and_extract_docs(more_urls, trace_id, race_context={"race_id": race_id})
                     candidates, incumbent_party, source_list = await self._llm_candidates(
                         state=state,
                         office=office,
@@ -274,7 +274,9 @@ class RaceMetadataService:
 
         return [u for u in seeds if u][:3]
 
-    async def _fetch_and_extract_docs(self, urls: List[str], trace_id: str) -> List[Dict[str, str]]:
+    async def _fetch_and_extract_docs(
+        self, urls: List[str], trace_id: str, race_context: Optional[Dict[str, Any]] = None
+    ) -> List[Dict[str, str]]:
         # Fetch
         _jlog(logging.INFO, "sources.fetch.start", trace_id, count=len(urls))
         fetched = await self.fetcher.fetch_content([self._mk_source(u) for u in urls if u])
@@ -282,7 +284,7 @@ class RaceMetadataService:
         _jlog(logging.INFO, "sources.fetch.done", trace_id, ok=ok, total=len(fetched))
 
         # Extract
-        extracted = await self.extractor.extract_content(fetched)
+        extracted = await self.extractor.extract_content(fetched, race_context=race_context)
         docs: List[Dict[str, str]] = []
         for e in extracted:
             url = ""

@@ -35,7 +35,10 @@ class IngestService:
             return []
 
         raw_content = await self.fetcher.fetch_content(sources)
-        extracted = await self.extractor.extract_content(raw_content)
+        race_context = {"race_id": race_id}
+        if race_json and getattr(race_json, "candidates", None):
+            race_context["candidates"] = [c.name for c in race_json.candidates]
+        extracted = await self.extractor.extract_content(raw_content, race_context=race_context)
 
         # Ensure each extracted item has its Source and no raw content is leaked
         cleaned: List[ExtractedContent] = [ec for ec in extracted if isinstance(ec.source, Source)]
