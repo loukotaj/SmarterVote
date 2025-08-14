@@ -44,6 +44,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@auth0/auth0-spa-js": "^2.3.0",
     "@sveltejs/adapter-static": "^3.0.8",
     "@tailwindcss/typography": "^0.5.10",
     "autoprefixer": "^10.4.16",
