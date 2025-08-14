@@ -37,6 +37,8 @@
   let runHistory: any[] = [];
   let selectedRun: any = null;
   let runAll = false;
+  let runMode: "new" | "existing" = "new";
+  let selectedRunId = "";
 
   // Modal state
   let showModal = false;
@@ -179,7 +181,10 @@
     output = null;
 
     try {
-      if (selectedRun) {
+      if (runMode === "existing") {
+        if (!selectedRun) {
+          throw new Error("No run selected to continue");
+        }
         const state = JSON.parse(inputJson || "{}");
         const stepsToRun = runAll ? ["all"] : [selectedStep];
         const res = await fetch(
@@ -246,6 +251,8 @@
           step: selectedStep,
           artifact_id: result.artifact_id,
         });
+        runMode = "existing";
+        selectedRunId = result.meta?.run_id || result.run_id;
         await loadRunHistory();
         await loadArtifacts();
       }
@@ -488,6 +495,25 @@
     }
   }
 
+  function handleRunModeChange(mode: "new" | "existing") {
+    runMode = mode;
+    if (mode === "new") {
+      startNewRun();
+      selectedRunId = "";
+    }
+  }
+
+  async function handleRunSelect(event: Event) {
+    const runId = (event.target as HTMLSelectElement).value;
+    selectedRunId = runId;
+    const run = runHistory.find(
+      (r) => r.id === runId || r.run_id === runId || r._id === runId
+    );
+    if (run) {
+      await selectRun(run);
+    }
+  }
+
   function startNewRun() {
     selectedRun = null;
     runAll = false;
@@ -495,6 +521,8 @@
     if (steps.length) {
       selectedStep = steps[0];
     }
+    runMode = "new";
+    selectedRunId = "";
   }
 </script>
 
@@ -529,15 +557,48 @@
         Pipeline Execution
       </h3>
 
-      <div class="mb-4 flex items-center justify-between text-sm text-gray-600">
-        {#if selectedRun}
-          <span>Using run {selectedRun.run_id}</span>
-          <button
-            on:click={startNewRun}
-            class="text-blue-600 hover:text-blue-800">Start New Run</button
-          >
-        {:else}
-          <span>Starting new run</span>
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-2"
+          >Run Mode</label
+        >
+        <div class="flex items-center gap-4">
+          <label class="flex items-center gap-2 text-sm text-gray-600">
+            <input
+              type="radio"
+              bind:group={runMode}
+              value="new"
+              on:change={() => handleRunModeChange("new")}
+            />
+            <span>New Run</span>
+          </label>
+          <label class="flex items-center gap-2 text-sm text-gray-600">
+            <input
+              type="radio"
+              bind:group={runMode}
+              value="existing"
+              on:change={() => handleRunModeChange("existing")}
+            />
+            <span>Continue Existing</span>
+          </label>
+          {#if runMode === "existing"}
+            <select
+              class="px-2 py-1 border border-gray-300 rounded"
+              bind:value={selectedRunId}
+              on:change={handleRunSelect}
+            >
+              <option value="" disabled selected>Select run</option>
+              {#each runHistory as run}
+                <option value={run.id || run.run_id || run._id}>
+                  {run.step || run.run_id}
+                </option>
+              {/each}
+            </select>
+          {/if}
+        </div>
+        {#if runMode === "existing" && selectedRun}
+          <p class="text-sm text-gray-600 mt-2">
+            Continuing run {selectedRun.run_id}
+          </p>
         {/if}
       </div>
 
@@ -840,12 +901,6 @@
                   (run.status || "unknown").slice(1)}
               </span>
             </div>
-            <button
-              class="text-xs text-blue-600 ml-2"
-              on:click|stopPropagation={() => selectRun(run)}
-            >
-              Use
-            </button>
           </div>
         {:else}
           <div class="p-4 text-center text-gray-500 text-sm">No runs yet</div>
