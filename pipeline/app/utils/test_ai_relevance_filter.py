@@ -1,6 +1,7 @@
 """Tests for AIRelevanceFilter."""
 
 from datetime import datetime
+import asyncio
 
 import pytest
 
@@ -8,8 +9,7 @@ from ..schema import ExtractedContent, Source, SourceType
 from .ai_relevance_filter import AIRelevanceFilter
 
 
-@pytest.mark.asyncio
-async def test_filter_content_filters_irrelevant():
+def test_filter_content_filters_irrelevant():
     filt = AIRelevanceFilter(threshold=0.5)
     doc1 = ExtractedContent(
         source=Source(url="https://a", type=SourceType.WEBSITE, last_accessed=datetime.utcnow()),
@@ -25,7 +25,7 @@ async def test_filter_content_filters_irrelevant():
         extraction_timestamp=datetime.utcnow(),
         word_count=3,
     )
-    out = await filt.filter_content([doc1, doc2])
+    out = asyncio.run(filt.filter_content([doc1, doc2]))
     assert doc1 in out
     assert doc2 not in out
     assert "relevance" in doc1.metadata

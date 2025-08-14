@@ -1,8 +1,8 @@
-"""SmarterVote Pipeline Step01 Ingest: Unified Import Interface"""
+"""SmarterVote Pipeline Step01 Ingest package.
 
-# Import all main service classes from submodules
-from .ContentExtractor import *
-from .ContentFetcher import *
-from .IngestService.ingest_service import *
-from .MetaDataService import *
-from .SourceDiscoveryEngine import *
+The submodules in this package have heavy optional dependencies. We keep the
+package lightweight by avoiding implicit imports here; tests can import
+submodules directly as needed.
+"""
+
+__all__: list[str] = []

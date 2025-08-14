@@ -7,8 +7,17 @@ import logging
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 
-from google.cloud import firestore
-from google.cloud.firestore_v1 import AsyncClient
+# Firestore is optional; provide a lightweight stub if the dependency is missing
+try:  # pragma: no cover - optional cloud dependency
+    from google.cloud import firestore  # type: ignore
+    from google.cloud.firestore_v1 import AsyncClient  # type: ignore
+except Exception:  # noqa: BLE001
+    class _FirestoreStub:  # minimal stub for patching in tests
+        class AsyncClient:  # type: ignore[empty-body]
+            pass
+
+    firestore = _FirestoreStub()  # type: ignore
+    AsyncClient = _FirestoreStub.AsyncClient  # type: ignore
 
 try:
     from ..schema import ExtractedContent

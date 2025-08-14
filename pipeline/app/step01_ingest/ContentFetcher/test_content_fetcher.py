@@ -5,8 +5,11 @@ from unittest.mock import AsyncMock
 
 import pytest
 
+# Skip the test module entirely if the selenium dependency isn't available.
+pytest.importorskip("selenium")
+
 from ...schema import Source, SourceType
-from ..step03_fetch import WebContentFetcher
+from .web_content_fetcher import WebContentFetcher
 
 
 class TestWebContentFetcher:

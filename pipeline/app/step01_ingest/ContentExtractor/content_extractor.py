@@ -20,8 +20,21 @@ from datetime import datetime
 from io import BytesIO, StringIO
 from typing import Any, Dict, List, Optional, Set, Tuple
 
-import pandas as pd
-import PyPDF2
+# Pandas is only needed for HTML table extraction. It isn't installed in the
+# execution environment used for tests, so we attempt to import it lazily. When
+# unavailable we simply disable table extraction rather than failing to import
+# the entire module.
+try:  # pragma: no cover - exercised indirectly in tests
+    import pandas as pd  # type: ignore
+except Exception:  # noqa: BLE001 - broad to catch optional dependency absence
+    pd = None
+
+# PyPDF2 is an optional dependency used only for PDF extraction. Gracefully
+# handle its absence so importing this module doesn't require it.
+try:  # pragma: no cover - exercised indirectly in tests
+    import PyPDF2  # type: ignore
+except Exception:  # noqa: BLE001
+    PyPDF2 = None
 from bs4 import BeautifulSoup
 from bs4.element import Comment as Bs4Comment
 from langdetect.lang_detect_exception import LangDetectException
@@ -488,6 +501,9 @@ class ContentExtractor:
 
     def _extract_from_pdf(self, pdf_data: Optional[bytes]) -> Tuple[str, Dict[str, Any]]:
         """Extract text from PDF content with scanned document detection."""
+        if PyPDF2 is None:
+            logger.debug("PyPDF2 not installed; skipping PDF extraction")
+            return "", {"pdf_extraction_error": "PyPDF2 not installed"}
         if not pdf_data:
             return "", {}
 
@@ -645,9 +661,15 @@ class ContentExtractor:
         return cleaned_text, metadata
 
     def _extract_tables_from_html(self, html_content: str) -> List[Dict[str, Any]]:
-        """Extract tables from HTML using pandas (best-effort)."""
+        """Extract tables from HTML using pandas (best-effort).
+
+        If pandas isn't installed, table extraction is skipped and an empty list is
+        returned. The rest of the content extraction pipeline still works, which
+        keeps tests independent of the optional dependency.
+        """
+
         tables: List[Dict[str, Any]] = []
-        if not html_content:
+        if not html_content or pd is None:
             return tables
 
         try:

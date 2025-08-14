@@ -14,6 +14,9 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
+# Skip if chromadb isn't installed; these tests exercise the vector DB
+pytest.importorskip("chromadb")
+
 from ..schema import CanonicalIssue, ExtractedContent, Source, SourceType, VectorDocument
 from ..step02_corpus.election_vector_database_manager import ElectionVectorDatabaseManager
 
