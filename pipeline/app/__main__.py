@@ -28,10 +28,10 @@ except ImportError:
 
 from .providers import list_providers, registry
 from .schema import ProcessingJob, ProcessingStatus
-from .step01_metadata import RaceMetadataService
-from .step02_discover import DiscoveryService
-from .step03_fetch import FetchService
-from .step04_extract import ExtractService
+from .step01_ingest.ContentExtractor import ExtractServicefrom
+from .step01_ingest.ContentFetcher import WebContentFetcher
+from .step01_ingest.DiscoveryService import SourceDiscoveryEngine
+from .step01_ingest.MetaDataService import RaceMetadataService
 from .step05_corpus import CorpusService
 from .step06_summarise import SummarizeService
 from .step07_arbitrate import ArbitrationService
@@ -81,8 +81,8 @@ class CorpusFirstPipeline:
 
         # Initialize services with provider registry
         self.metadata = RaceMetadataService()
-        self.discovery = DiscoveryService()
-        self.fetch = FetchService()
+        self.discovery = SourceDiscoveryEngine()
+        self.fetch = WebContentFetcher()
         self.extract = ExtractService()
         self.relevance = AIRelevanceFilter()
         self.cache = FirestoreCache()

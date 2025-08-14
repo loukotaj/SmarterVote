@@ -37,7 +37,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 try:
-    from ..schema import Source, SourceType
+    from ...schema import Source, SourceType
 except ImportError:
     # Fallback for direct imports
     from shared.models import Source, SourceType

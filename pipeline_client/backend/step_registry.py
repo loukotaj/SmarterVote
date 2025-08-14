@@ -4,13 +4,13 @@ import time
 from datetime import date, datetime
 from typing import Any, Dict, Protocol, runtime_checkable
 
+# Use the LLM-first service
+from pipeline.app.StepMetaDataService.race_metadata_service import RaceMetadataService
+
 # Shared provider registry
 from pipeline.app.providers import registry
 from pipeline.app.schema import RaceJSON
-
-# Use the LLM-first service
-from pipeline.app.step01_metadata.race_metadata_service import RaceMetadataService
-from pipeline.app.step02_ingest import IngestService
+from pipeline.app.step01_ingest import IngestService
 
 
 def to_jsonable(obj):

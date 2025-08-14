@@ -2,7 +2,7 @@
 
 import pytest
 
-from pipeline.app.step01_metadata.race_metadata_service import RaceMetadataService
+from pipeline.app.MetaDataService.race_metadata_service import RaceMetadataService
 
 
 class TestRaceMetadataService:

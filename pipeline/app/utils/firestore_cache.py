@@ -78,9 +78,11 @@ class FirestoreCache:
                     doc_data = {
                         "race_id": race_id,
                         "source_url": str(getattr(content.source, "url", "")),
-                        "source_type": getattr(content.source, "source_type", "").value
-                        if hasattr(getattr(content.source, "source_type", ""), "value")
-                        else str(getattr(content.source, "source_type", "")),
+                        "source_type": (
+                            getattr(content.source, "source_type", "").value
+                            if hasattr(getattr(content.source, "source_type", ""), "value")
+                            else str(getattr(content.source, "source_type", ""))
+                        ),
                         "text": content.text,
                         "metadata": self._serialize_metadata(content.metadata),
                         "extraction_timestamp": content.extraction_timestamp,

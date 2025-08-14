@@ -27,13 +27,13 @@ def test_pipeline_imports():
 
         # Test service imports (these might fail due to missing dependencies)
         try:
-            from pipeline.app.step02_discover import DiscoveryService
-            from pipeline.app.step03_fetch import FetchService
+            from pipeline.app.step03_fetch import WebContentFetcher
             from pipeline.app.step04_extract import ExtractService
             from pipeline.app.step05_corpus import CorpusService
             from pipeline.app.step06_summarise import SummarizeService
             from pipeline.app.step07_arbitrate import ArbitrationService
             from pipeline.app.step08_publish import PublishService
+            from pipeline.appfrom.step01_ingest.SourceDiscoveryEngine import SourceDiscoveryEngine
 
             logger.info("✅ All service imports successful")
         except ImportError as e:

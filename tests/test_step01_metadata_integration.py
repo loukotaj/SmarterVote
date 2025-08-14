@@ -19,7 +19,7 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from pipeline.app.step01_metadata.race_metadata_service import RaceMetadataService
+from pipeline.app.MetaDataService.race_metadata_service import RaceMetadataService
 from shared.models import ConfidenceLevel, DiscoveredCandidate, RaceMetadata
 
 

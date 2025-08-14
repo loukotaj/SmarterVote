@@ -13,7 +13,7 @@ SmarterVote is a **corpus-first AI pipeline** for electoral analysis with three 
 The pipeline follows a strict 7-step sequence (see `pipeline/app/__main__.py`):
 1. **DISCOVER** → 2. **FETCH** → 3. **EXTRACT** → 4. **BUILD CORPUS** → 5. **RAG + 3-MODEL SUMMARY** → 6. **ARBITRATE** → 7. **PUBLISH**
 
-Each step has its own service class (e.g., `DiscoveryService`, `FetchService`) and processes data through the `ProcessingJob` schema.
+Each step has its own service class (e.g., `SourceDiscoveryEngine`, `WebContentFetcher`) and processes data through the `ProcessingJob` schema.
 
 ## 📊 Data Standards
 

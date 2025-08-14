@@ -3,7 +3,7 @@ from __future__ import annotations
 import logging
 from typing import List, Optional
 
-from ..schema import ExtractedContent, RaceJSON, Source
+from ...schema import ExtractedContent, RaceJSON, Source
 from ..step02_discover import SourceDiscoveryEngine
 from ..step03_fetch import WebContentFetcher
 from ..step04_extract import ContentExtractor

@@ -1,20 +1,20 @@
-"""Tests for the DiscoveryService."""
+"""Tests for the SourceDiscoveryEngine."""
 
 from datetime import datetime
 from unittest.mock import AsyncMock
 
 import pytest
 
-from ..schema import Source, SourceType
-from . import DiscoveryService
+from ...schema import Source, SourceType
+from .source_discovery_engine import SourceDiscoveryEngine
 
 
-class TestDiscoveryService:
-    """Tests for the DiscoveryService."""
+class TestSourceDiscoveryEngine:
+    """Tests for the SourceDiscoveryEngine."""
 
     @pytest.fixture
     def discovery_service(self):
-        return DiscoveryService()
+        return SourceDiscoveryEngine()
 
     @pytest.mark.asyncio
     async def test_discover_all_sources_returns_list(self, discovery_service):

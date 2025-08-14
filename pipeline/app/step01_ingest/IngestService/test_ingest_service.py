@@ -3,8 +3,8 @@ from unittest.mock import AsyncMock
 
 import pytest
 
-from ..schema import ExtractedContent, Source, SourceType
-from . import IngestService
+from ...schema import ExtractedContent, Source, SourceType
+from .. import IngestService
 
 
 class TestIngestService:

@@ -1,20 +1,20 @@
-"""Tests for the FetchService."""
+"""Tests for the WebContentFetcher."""
 
 from datetime import datetime
 from unittest.mock import AsyncMock
 
 import pytest
 
-from ..schema import Source, SourceType
-from . import FetchService
+from ...schema import Source, SourceType
+from ..step03_fetch import WebContentFetcher
 
 
-class TestFetchService:
-    """Tests for the FetchService."""
+class TestWebContentFetcher:
+    """Tests for the WebContentFetcher."""
 
     @pytest.fixture
     def fetch_service(self):
-        return FetchService()
+        return WebContentFetcher()
 
     @pytest.fixture
     def mock_sources(self):
