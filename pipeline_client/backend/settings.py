@@ -1,5 +1,6 @@
 from pathlib import Path
 
+from pydantic import Field
 from pydantic_settings import BaseSettings
 
 
@@ -10,6 +11,7 @@ class Settings(BaseSettings):
     skip_external_apis: bool = False
     skip_network_calls: bool = False
     skip_cloud_services: bool = False
+    allowed_origins: list[str] = Field(default_factory=lambda: ["*"])
 
     class Config:
         env_prefix = ""

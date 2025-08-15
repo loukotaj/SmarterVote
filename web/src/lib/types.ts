@@ -118,6 +118,15 @@ export type RunStatus =
   | "failed"
   | "cancelled";
 
+export interface RunOptions {
+  skip_llm_apis?: boolean;
+  skip_external_apis?: boolean;
+  skip_network_calls?: boolean;
+  skip_cloud_services?: boolean;
+  save_artifact?: boolean;
+  note?: string;
+}
+
 export interface RunStep {
   name: string;
   status: RunStatus;
@@ -131,13 +140,37 @@ export interface RunStep {
 export interface RunInfo {
   run_id: string;
   status: RunStatus;
-  payload: Record<string, any>;
-  options: Record<string, any>;
+  payload: Record<string, unknown>;
+  options: RunOptions;
   started_at: string;
   completed_at?: string;
   duration_ms?: number;
   artifact_id?: string;
   error?: string;
   steps: RunStep[];
-  logs?: Record<string, any>[];
+  logs?: LogEntry[];
+}
+
+export interface Artifact {
+  id: string;
+  path: string;
+  size: number;
+  modified: number;
+}
+
+export interface LogEntry {
+  timestamp: string;
+  level: string;
+  message: string;
+  step?: string;
+  run_id?: string;
+  race_id?: string;
+  duration_ms?: number;
+  extra?: Record<string, unknown>;
+}
+
+export interface RunHistoryItem extends RunInfo {
+  display_id: number;
+  updated_at: string;
+  last_step?: string;
 }

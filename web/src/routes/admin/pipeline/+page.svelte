@@ -1,15 +1,22 @@
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
-  import type { RunInfo, RunStatus, RunStep } from "$lib/types";
+  import type {
+    RunInfo,
+    RunStatus,
+    RunStep,
+    Artifact,
+    LogEntry,
+    RunHistoryItem,
+    RunOptions,
+  } from "$lib/types";
   import RunStepList from "$lib/components/RunStepList.svelte";
 
-  const API_BASE = "http://127.0.0.1:8001"; // FastAPI local
+  const API_BASE = import.meta.env.VITE_API_BASE || "http://127.0.0.1:8001"; // FastAPI local
 
   let steps: string[] = [];
   let inputJson = '{\n  "race_id": "mo-senate-2024"\n}';
-  let output: any = null;
-  let artifacts: any[] = [];
-  let loading = false;
+  let output: unknown = null;
+  let artifacts: Artifact[] = [];
 
   let skip_llm_apis = false;
   let skip_external_apis = false;
@@ -20,49 +27,42 @@
   // Enhanced features
   let ws: WebSocket | null = null;
   let connected = false;
-  let logs: Array<{
-    level: string;
-    message: string;
-    timestamp: string;
-    run_id?: string;
-  }> = [];
+  let logs: LogEntry[] = [];
   let currentRunId: string | null = null;
   let isExecuting = false;
   let runStartTime: number | null = null;
   let elapsedTime = 0;
-  let elapsedTimer: any = null;
+  let elapsedTimer: ReturnType<typeof setInterval> | null = null;
   let runStatus: RunStatus | "idle" = "idle";
   let progress = 0;
   let progressMessage = "";
-  let logFilter = "all";
+  let logFilter: "all" | "debug" | "info" | "warning" | "error" = "all";
   let currentStep: string | null = null;
-  interface RunHistoryItem extends RunInfo {
-    display_id: number;
-    updated_at: string;
-    step?: string;
-  }
 
   let runHistory: RunHistoryItem[] = [];
   let selectedRun: RunHistoryItem | null = null;
-  let runAll = false;
   let selectedRunId = "";
+  let startStep = "";
+  let endStep = "";
 
   // Modal state
   let showModal = false;
   let modalTitle = "";
-  let modalData: any = null;
+  let modalData: unknown = null;
   let modalLoading = false;
 
   async function loadSteps() {
     const res = await fetch(`${API_BASE}/steps`);
     const data = await res.json();
-    steps = data.steps;
+    steps = data.steps || [];
+    startStep = steps[0] || "";
+    endStep = steps[steps.length - 1] || "";
   }
 
   async function loadArtifacts() {
     const res = await fetch(`${API_BASE}/artifacts`);
     const data = await res.json();
-    artifacts = data.items;
+    artifacts = data.items || [];
   }
 
   interface RunsResponse {
@@ -74,15 +74,15 @@
       const res = await fetch(`${API_BASE}/runs`);
       const data: RunsResponse = await res.json();
       const runs = data.runs || [];
-      runHistory = runs.map((r: any, idx: number) => {
-        const lastStep = r.steps?.at(-1)?.name || r.step;
+      runHistory = runs.map((r: RunInfo, idx: number) => {
+        const lastStep = r.steps?.at(-1)?.name || (r as any).step;
         return {
-          ...r,
-          run_id: r.run_id || r.id || r._id,
+          ...(r as any),
+          run_id: (r as any).run_id || (r as any).id || (r as any)._id,
           display_id: runs.length - idx,
-          updated_at: r.completed_at || r.started_at,
+          updated_at: (r as any).completed_at || (r as any).started_at,
           last_step: lastStep,
-        };
+        } as RunHistoryItem;
       });
     } catch (error) {
       console.error("Failed to load run history:", error);
@@ -90,7 +90,7 @@
   }
 
   function connectWebSocket() {
-    const wsUrl = `ws://127.0.0.1:8001/ws/logs`;
+    const wsUrl = API_BASE.replace(/^http/, "ws") + "/ws/logs";
     ws = new WebSocket(wsUrl);
 
     ws.onopen = () => {
@@ -100,7 +100,7 @@
 
     ws.onmessage = (event) => {
       try {
-        const data = JSON.parse(event.data);
+        const data = JSON.parse(event.data) as PipelineEvent;
         handleWebSocketMessage(data);
       } catch (e) {
         console.error("Failed to parse WebSocket message:", e);
@@ -110,8 +110,6 @@
     ws.onclose = () => {
       connected = false;
       addLog("warning", "Disconnected from pipeline server");
-
-      // Attempt to reconnect after 3 seconds
       setTimeout(() => {
         if (!ws || ws.readyState === WebSocket.CLOSED) {
           connectWebSocket();
@@ -125,7 +123,14 @@
     };
   }
 
-  function handleWebSocketMessage(data: any) {
+  type PipelineEvent =
+    | { type: "log"; level: string; message: string; timestamp?: string; run_id?: string }
+    | { type: "run_started"; run_id: string; step: string }
+    | { type: "run_progress"; progress?: number; message?: string }
+    | { type: "run_completed"; result?: unknown; artifact_id?: string; duration_ms?: number }
+    | { type: "run_failed"; error?: string };
+
+  function handleWebSocketMessage(data: PipelineEvent) {
     switch (data.type) {
       case "log":
         addLog(data.level, data.message, data.timestamp, data.run_id);
@@ -145,19 +150,13 @@
     }
   }
 
-  function addLog(
-    level: string,
-    message: string,
-    timestamp?: string,
-    run_id?: string
-  ) {
-    const logEntry = {
+  function addLog(level: string, message: string, timestamp?: string, run_id?: string) {
+    const logEntry: LogEntry = {
       level,
       message,
       timestamp: timestamp || new Date().toISOString(),
       run_id,
     };
-
     logs = [...logs.slice(-999), logEntry]; // Keep last 1000 entries
   }
 
@@ -170,12 +169,16 @@
     updateStepStatus(data.step, "running");
   }
 
-  function handleRunProgress(data: any) {
-    progress = data.progress || 0;
-    progressMessage = data.message || "";
+  function handleRunProgress(data: { progress?: number; message?: string }) {
+    progress = data.progress ?? progress;
+    progressMessage = data.message ?? progressMessage;
   }
 
-  function handleRunCompleted(data: { result?: any; artifact_id?: string; duration_ms?: number }) {
+  function handleRunCompleted(data: {
+    result?: unknown;
+    artifact_id?: string;
+    duration_ms?: number;
+  }) {
     runStatus = "completed";
     progress = 100;
     progressMessage = "Completed successfully";
@@ -189,7 +192,7 @@
       currentStep = null;
     }
 
-    if (data.result) {
+    if (data.result !== undefined) {
       output = data.result;
     }
 
@@ -197,7 +200,7 @@
     loadArtifacts();
   }
 
-  function handleRunFailed(data: any) {
+  function handleRunFailed(data: { error?: string }) {
     runStatus = "failed";
     setExecutionState(false);
     if (currentStep) {
@@ -218,16 +221,59 @@
     };
   }
 
-  async function runStep() {
+  async function executeStep(stepName: string) {
+    const payload = JSON.parse(inputJson || "{}");
+    const options: RunOptions = {
+      skip_llm_apis: skip_llm_apis || undefined,
+      skip_external_apis: skip_external_apis || undefined,
+      skip_network_calls: skip_network_calls || undefined,
+      skip_cloud_services: skip_cloud_services || undefined,
+      save_artifact,
+    };
+    const body = { payload, options };
+
+    const res = await fetch(`${API_BASE}/run/${stepName}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+    }
+
+    const result = await res.json();
+    currentRunId = result.run_id;
+    addLog("info", `Started execution: ${stepName}`);
+
+    await loadRunHistory();
+    await loadArtifacts();
+    const runId = result.meta?.run_id || result.run_id;
+    const run = runHistory.find((r) => r.run_id === runId);
+    if (run) {
+      await selectRun(run);
+    }
+    selectedRunId = runId;
+  }
+
+  async function runFromStep(stepName: string) {
     if (isExecuting) return;
+
+    if (!ws || ws.readyState === WebSocket.CLOSED) {
+      connectWebSocket();
+    }
 
     setExecutionState(true);
     output = null;
 
     try {
       if (selectedRun) {
+        currentRunId = selectedRun.run_id;
         const state = JSON.parse(inputJson || "{}");
-        const stepsToRun = runAll ? ["all"] : [];
+        const startIdx = Math.max(0, steps.indexOf(stepName));
+        const endIdx = Math.max(startIdx, steps.indexOf(endStep));
+        const stepsToRun = steps.slice(startIdx, endIdx + 1);
+
         const res = await fetch(
           `${API_BASE}/runs/${selectedRun.run_id}/continue`,
           {
@@ -243,7 +289,7 @@
 
         const result = await res.json();
         output = result;
-        inputJson = JSON.stringify(result.state, null, 2);
+        inputJson = JSON.stringify(result.state ?? {}, null, 2);
         const last = result.runs?.[result.runs.length - 1];
         if (last) {
           selectedRunId = last.run_id;
@@ -257,86 +303,9 @@
           }
         }
       } else {
-        const payload = JSON.parse(inputJson || "{}");
-        const options: Record<string, any> = {
-          skip_llm_apis: skip_llm_apis || undefined,
-          skip_external_apis: skip_external_apis || undefined,
-          skip_network_calls: skip_network_calls || undefined,
-          skip_cloud_services: skip_cloud_services || undefined,
-          save_artifact,
-        };
-        const body = { payload, options };
-
-        const step = steps[0] || "step01a_metadata";
-        const res = await fetch(`${API_BASE}/run/${step}`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(body),
-        });
-
-        if (!res.ok) {
-          throw new Error(`HTTP ${res.status}: ${res.statusText}`);
-        }
-
-        const result = await res.json();
-        currentRunId = result.run_id;
-
-        addLog("info", `Started execution: ${step}`);
-
-        await loadRunHistory();
-        await loadArtifacts();
-        const runId = result.meta?.run_id || result.run_id;
-        const run = runHistory.find((r) => r.run_id === runId);
-        if (run) {
-          await selectRun(run);
-        }
-        selectedRunId = runId;
+        const step = stepName || steps[0] || "step01a_metadata";
+        await executeStep(step);
       }
-    } catch (err) {
-      output = { error: String(err) };
-      addLog("error", `Execution failed: ${err}`);
-      setExecutionState(false);
-    }
-  }
-
-  async function runFromStep(stepName: string) {
-    if (isExecuting) return;
-
-    setExecutionState(true);
-    output = null;
-
-    try {
-      const payload = JSON.parse(inputJson || "{}");
-      const options: Record<string, any> = {
-        skip_llm_apis: skip_llm_apis || undefined,
-        skip_external_apis: skip_external_apis || undefined,
-        skip_network_calls: skip_network_calls || undefined,
-        skip_cloud_services: skip_cloud_services || undefined,
-        save_artifact,
-      };
-      const body = { payload, options };
-
-      const res = await fetch(`${API_BASE}/run/${stepName}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
-
-      if (!res.ok) {
-        throw new Error(`HTTP ${res.status}: ${res.statusText}`);
-      }
-
-      const result = await res.json();
-      currentRunId = result.run_id;
-      addLog("info", `Started execution: ${stepName}`);
-      await loadRunHistory();
-      await loadArtifacts();
-      const runId = result.meta?.run_id || result.run_id;
-      const run = runHistory.find((r) => r.run_id === runId);
-      if (run) {
-        await selectRun(run);
-      }
-      selectedRunId = runId;
     } catch (err) {
       output = { error: String(err) };
       addLog("error", `Execution failed: ${err}`);
@@ -387,7 +356,7 @@
   function useAsInput() {
     if (!output) return;
     try {
-      const next = output.output ?? output;
+      const next = (output as any)?.output ?? output;
       inputJson = JSON.stringify(next, null, 2);
     } catch {}
   }
@@ -397,13 +366,13 @@
   }
 
   function copyOutput() {
-    if (output) {
+    if (output !== null && output !== undefined) {
       navigator.clipboard.writeText(JSON.stringify(output, null, 2));
     }
   }
 
   function downloadOutput() {
-    if (output) {
+    if (output !== null && output !== undefined) {
       const blob = new Blob([JSON.stringify(output, null, 2)], {
         type: "application/json",
       });
@@ -468,7 +437,7 @@
     stopElapsedTimer();
   });
 
-  function openModal(title: string, data: any) {
+  function openModal(title: string, data: unknown) {
     modalTitle = title;
     modalData = data;
     showModal = true;
@@ -503,14 +472,13 @@
     modalLoading = false;
   }
 
-  async function handleArtifactClick(artifact: any) {
+  async function handleArtifactClick(artifact: Artifact) {
     modalLoading = true;
     showModal = true;
     modalTitle = "Artifact Details";
     modalData = null;
     try {
-      // Prefer artifact.id, fallback to artifact.artifact_id, fallback to artifact._id
-      const artifactId = artifact.id || artifact.artifact_id || artifact._id;
+      const artifactId = artifact.id || (artifact as any).artifact_id || (artifact as any)._id;
       if (artifactId) {
         const res = await fetch(`${API_BASE}/artifact/${artifactId}`);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -525,45 +493,49 @@
   }
 
   async function selectRun(run: RunHistoryItem) {
-    runAll = false;
     try {
       const runId = run.run_id;
       if (!runId) return;
       const res = await fetch(`${API_BASE}/run/${runId}`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const runData: RunInfo = await res.json();
-      const stepsData: RunStep[] = runData.steps;
-      const stepName = stepsData[stepsData.length - 1]?.name;
+      const stepsData: RunStep[] = runData.steps || [];
+      const stepName = stepsData[stepsData.length - 1]?.name || "";
+
       selectedRun = {
-        ...runData,
-        display_id: run.display_id,
-        updated_at: runData.completed_at ?? runData.started_at,
+        ...(runData as any),
+        display_id: (run as any).display_id,
+        updated_at: (runData as any).completed_at ?? (runData as any).started_at,
         step: stepName,
-        steps: runData.steps,
-      };
+        steps: stepsData,
+      } as RunHistoryItem;
+
       currentStep = stepsData.find((s) => s.status === "running")?.name || null;
 
-      let payload = runData.payload || {};
-      if (runData.artifact_id) {
+      const lastIdx = Math.max(0, steps.indexOf(stepName));
+      const nextIndex = Math.min(lastIdx + 1, Math.max(0, steps.length - 1));
+      startStep = steps[nextIndex] || steps[0] || "";
+      endStep = steps[steps.length - 1] || "";
+
+      let payload: Record<string, unknown> = (runData as any).payload || {};
+      if ((runData as any).artifact_id) {
         try {
-          const artRes = await fetch(
-            `${API_BASE}/artifact/${runData.artifact_id}`
-          );
+          const artRes = await fetch(`${API_BASE}/artifact/${(runData as any).artifact_id}`);
           if (artRes.ok) {
             const artifact = await artRes.json();
             payload = { ...payload };
             switch (stepName) {
               case "step01a_metadata":
-                payload.race_json = artifact.output;
+                (payload as any).race_json = artifact.output;
                 break;
               case "step01b_discovery":
-                payload.sources = artifact.output;
+                (payload as any).sources = artifact.output;
                 break;
               case "step01c_fetch":
-                payload.raw_content = artifact.output;
+                (payload as any).raw_content = artifact.output;
                 break;
               case "step01d_extract":
-                payload.content = artifact.output;
+                (payload as any).content = artifact.output;
                 break;
             }
           }
@@ -587,6 +559,7 @@
     }
   }
 </script>
+
 <div class="mt-2 mb-6 card p-4">
   <div class="flex items-center justify-between">
     <div class="flex items-center space-x-4">
@@ -622,8 +595,9 @@
             on:click={() => {
               selectedRun = null;
               selectedRunId = "";
-              runAll = false;
               inputJson = '{\n  "race_id": "mo-senate-2024"\n}';
+              startStep = steps[0] || "";
+              endStep = steps[steps.length - 1] || "";
             }}
           >
             Start New Run
@@ -637,7 +611,7 @@
               <option value="" selected>Select run</option>
               {#each runHistory as run}
                 <option value={run.run_id}>
-                  Run {run.display_id} – {run.last_step} –
+                  Run {run.display_id} – {run.last_step || "Unknown Step"} –
                   {new Date(run.updated_at).toLocaleString()}
                 </option>
               {/each}
@@ -666,7 +640,7 @@
             bind:value={inputJson}
             class="json-editor"
             spellcheck="false"
-            placeholder={'{"race_id": "example_race_2024"}'}
+            placeholder='{"race_id": "example_race_2024"}'
           />
         </div>
 
@@ -716,20 +690,9 @@
               />
               <span class="text-sm text-gray-700">Save Artifact</span>
             </label>
-            {#if selectedRun}
-              <label class="flex items-center space-x-2 col-span-2">
-                <input
-                  type="checkbox"
-                  bind:checked={runAll}
-                  class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                />
-                <span class="text-sm text-gray-700"
-                  >Run all remaining steps</span
-                >
-              </label>
-            {/if}
           </div>
         </details>
+
         {#if selectedRun}
           <RunStepList
             {API_BASE}
@@ -743,7 +706,7 @@
         <div class="flex space-x-3">
           <button
             disabled={isExecuting}
-            on:click={runStep}
+            on:click={() => runFromStep(startStep)}
             class="btn-primary flex-1 flex items-center justify-center"
           >
             {#if isExecuting}
@@ -787,7 +750,8 @@
           <span
             class="px-3 py-1 rounded-full text-xs font-medium border {getStatusClass(
               runStatus
-            )}">{runStatus.charAt(0).toUpperCase() + runStatus.slice(1)}</span
+            )}"
+            >{(runStatus as string).charAt(0).toUpperCase() + (runStatus as string).slice(1)}</span
           >
         </div>
 
@@ -830,7 +794,7 @@
     {/if}
 
     <!-- Output Results -->
-    {#if output}
+    {#if output !== null}
       <div class="card p-6">
         <div class="flex items-center justify-between mb-4">
           <h3 class="text-lg font-semibold text-gray-900">Results</h3>
@@ -857,9 +821,7 @@
   <div class="space-y-6">
     <!-- Live Logs -->
     <div class="card p-0 flex flex-col h-96">
-      <div
-        class="p-4 border-b border-gray-200 flex items-center justify-between"
-      >
+      <div class="p-4 border-b border-gray-200 flex items-center justify-between">
         <div class="flex items-center space-x-3">
           <h3 class="text-lg font-semibold text-gray-900">Live Logs</h3>
           <div class="flex items-center space-x-2">
@@ -905,18 +867,14 @@
 
     <!-- Run History -->
     <div class="card p-0">
-      <div
-        class="p-4 border-b border-gray-200 flex items-center justify-between"
-      >
+      <div class="p-4 border-b border-gray-200 flex items-center justify-between">
         <h3 class="text-lg font-semibold text-gray-900">Recent Runs</h3>
         <button
           on:click={loadRunHistory}
           class="text-sm text-blue-600 hover:text-blue-800">Refresh</button
         >
       </div>
-      <div
-        class="divide-y divide-gray-200 max-h-64 overflow-auto custom-scrollbar"
-      >
+      <div class="divide-y divide-gray-200 max-h-64 overflow-auto custom-scrollbar">
         {#each runHistory.slice(0, 10) as run}
           <div
             class="p-4 hover:bg-gray-50 cursor-pointer"
@@ -932,9 +890,7 @@
                 </div>
               </div>
               <span
-                class="px-2 py-1 rounded-full text-xs {getStatusClass(
-                  run.status
-                )}"
+                class="px-2 py-1 rounded-full text-xs {getStatusClass(run.status || 'unknown')}"
               >
                 {(run.status || "unknown").charAt(0).toUpperCase() +
                   (run.status || "unknown").slice(1)}
@@ -949,9 +905,7 @@
 
     <!-- Artifacts -->
     <div class="card p-0">
-      <div
-        class="p-4 border-b border-gray-200 flex items-center justify-between"
-      >
+      <div class="p-4 border-b border-gray-200 flex items-center justify-between">
         <h3 class="text-lg font-semibold text-gray-900">Artifacts</h3>
         <button
           on:click={loadArtifacts}
@@ -964,10 +918,10 @@
             class="cursor-pointer"
             on:click={() => handleArtifactClick(artifact)}
           >
-            <span class="font-mono text-sm">{artifact.id}</span>
-            <span class="text-xs text-gray-500"
-              >{Math.round((artifact.size / 1024) * 10) / 10} KB</span
-            >
+            <span class="font-mono text-sm">{artifact.id || (artifact as any).artifact_id || (artifact as any)._id}</span>
+            <span class="text-xs text-gray-500">
+              {artifact.size ? `${(artifact.size / 1024).toFixed(1)} KB` : "—"}
+            </span>
           </li>
         {:else}
           <li class="text-center text-gray-500 text-sm py-4">
@@ -1055,18 +1009,11 @@
   }
 
   @keyframes pulse {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.5;
-    }
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
   }
 
-  .custom-scrollbar::-webkit-scrollbar {
-    width: 6px;
-  }
+  .custom-scrollbar::-webkit-scrollbar { width: 6px; }
   .custom-scrollbar::-webkit-scrollbar-track {
     background: #f1f5f9;
     border-radius: 3px;
@@ -1075,16 +1022,9 @@
     background: #cbd5e1;
     border-radius: 3px;
   }
-  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #94a3b8;
-  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
-  .options label {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 0.5rem;
-  }
+  .options label { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
 
   .artifacts-list {
     list-style: none;
@@ -1102,59 +1042,23 @@
     align-items: center;
   }
 
-  .artifacts-list li:hover {
-    background-color: #f8fafc;
-  }
+  .artifacts-list li:hover { background-color: #f8fafc; }
 
-  /* Modal styles */
+  /* Modal */
   .modal-bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.35);
-    z-index: 50;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: fixed; inset: 0; background: rgba(0, 0, 0, 0.35);
+    z-index: 50; display: flex; align-items: center; justify-content: center;
   }
   .modal-content {
-    background: #fff;
-    border-radius: 0.75rem;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
-    max-width: 600px;
-    width: 90vw;
-    max-height: 80vh;
-    overflow-y: auto;
-    padding: 2rem;
-    position: relative;
+    background: #fff; border-radius: 0.75rem; box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    max-width: 600px; width: 90vw; max-height: 80vh; overflow-y: auto; padding: 2rem; position: relative;
   }
   .modal-close {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    color: #64748b;
-    cursor: pointer;
+    position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.5rem; color: #64748b; cursor: pointer;
   }
-  .modal-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    color: #1e293b;
-  }
+  .modal-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; color: #1e293b; }
   .modal-json {
     font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
-    font-size: 13px;
-    background: #f8fafc;
-    color: #334155;
-    border-radius: 0.5rem;
-    padding: 1rem;
-    white-space: pre-wrap;
-    max-height: 50vh;
-    overflow-y: auto;
+    font-size: 13px; background: #f8fafc; color: #334155; border-radius: 0.5rem; padding: 1rem; white-space: pre-wrap; max-height: 50vh; overflow-y: auto;
   }
 </style>
