@@ -114,7 +114,7 @@ async def api_execute(request: Dict[str, Any]) -> Dict[str, Any]:
 
     # Create run request
     run_request = RunRequest(payload=payload, options=options)
-    run_info = run_manager.create_run(step, run_request)
+    run_info = run_manager.create_run([step], run_request)
 
     # Start execution in background
     asyncio.create_task(_execute_run_async(step, run_request, run_info.run_id))
@@ -137,7 +137,7 @@ async def api_continue(request: ContinueRunRequest) -> Dict[str, Any]:
 async def _execute_run_async(step: str, request: RunRequest, run_id: str):
     """Execute a single run asynchronously."""
     try:
-        await run_step_async(step, request)
+        await run_step_async(step, request, run_id)
     except Exception as e:
         # Error handling is done in run_step_async
         pass
@@ -154,7 +154,7 @@ async def batch_run(step: str, request: BatchRunRequest) -> BatchRunResponse:
 
     for race_id in request.race_ids:
         run_request = RunRequest(payload={"race_id": race_id}, options=request.options)
-        run_info = run_manager.create_run(step, run_request)
+        run_info = run_manager.create_run([step], run_request)
         runs.append(run_info)
 
     # Start batch execution in background
@@ -168,7 +168,7 @@ async def _execute_batch(step: str, runs: List[RunInfo], options):
     for run_info in runs:
         try:
             request = RunRequest(payload=run_info.payload, options=options)
-            await run_step_async(step, request)
+            await run_step_async(step, request, run_info.run_id)
         except Exception:
             # Error handling is done in run_step_async
             pass

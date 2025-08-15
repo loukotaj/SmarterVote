@@ -37,11 +37,22 @@ class RunResponse(BaseModel):
     meta: Dict[str, Any] = {}
 
 
+class RunStep(BaseModel):
+    """Information about a single step within a run."""
+
+    name: str
+    status: RunStatus = RunStatus.PENDING
+    started_at: Optional[datetime] = None
+    completed_at: Optional[datetime] = None
+    duration_ms: Optional[int] = None
+    artifact_id: Optional[str] = None
+    error: Optional[str] = None
+
+
 class RunInfo(BaseModel):
     """Information about a pipeline run."""
 
     run_id: str
-    step: str
     status: RunStatus
     payload: Dict[str, Any]
     options: Dict[str, Any]
@@ -50,6 +61,7 @@ class RunInfo(BaseModel):
     duration_ms: Optional[int] = None
     artifact_id: Optional[str] = None
     error: Optional[str] = None
+    steps: List[RunStep] = []
     logs: Optional[List[Dict]] = []
 
 

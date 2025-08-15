@@ -1,7 +1,7 @@
 import asyncio
 import logging
 import time
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
 from .logging_manager import logging_manager
 from .models import RunRequest, RunResponse, RunStatus
@@ -44,11 +44,17 @@ def _safe_broadcast(message_data):
         pass
 
 
-async def run_step_async(step: str, request: RunRequest) -> RunResponse:
+async def run_step_async(step: str, request: RunRequest, run_id: Optional[str] = None) -> RunResponse:
     """Run a pipeline step with comprehensive logging and run tracking."""
-    # Create run record
-    run_info = run_manager.create_run(step, request)
-    run_id = run_info.run_id
+    if run_id:
+        # Append to existing run
+        if not run_manager.get_run(run_id):
+            raise ValueError("Run not found")
+        run_manager.add_step(run_id, step)
+    else:
+        run_info = run_manager.create_run([step], request)
+        run_id = run_info.run_id
+        run_manager.start_run(run_id)
 
     # Setup logging context
     logger = logging_manager.setup_logger("pipeline")
@@ -79,8 +85,8 @@ async def run_step_async(step: str, request: RunRequest) -> RunResponse:
 
         context_logger.info(f"Merged options: {options}")
 
-        # Mark run as started
-        run_manager.start_run(run_id)
+        # Mark step as running
+        run_manager.update_step_status(run_id, step, RunStatus.RUNNING)
         await logging_manager.send_run_status(run_id, "running")
 
         context_logger.info(f"Getting handler for step '{step}'")
@@ -112,8 +118,8 @@ async def run_step_async(step: str, request: RunRequest) -> RunResponse:
             )
             context_logger.info(f"Artifact saved with ID: {artifact_id}")
 
-        # Mark run as completed
-        run_manager.complete_run(run_id, artifact_id, duration_ms)
+        # Mark step as completed
+        run_manager.update_step_status(run_id, step, RunStatus.COMPLETED, artifact_id, duration_ms)
         await logging_manager.send_run_status(run_id, "completed", artifact_id=artifact_id, duration_ms=duration_ms)
 
         # Send run_completed message that frontend expects
@@ -143,7 +149,8 @@ async def run_step_async(step: str, request: RunRequest) -> RunResponse:
 
         context_logger.error(f"Pipeline step '{step}' failed: {error_msg}", exc_info=True)
 
-        # Mark run as failed
+        # Mark step and run as failed
+        run_manager.update_step_status(run_id, step, RunStatus.FAILED, error=error_msg, duration_ms=duration_ms)
         run_manager.fail_run(run_id, error_msg, duration_ms)
         await logging_manager.send_run_status(run_id, "failed", error=error_msg, duration_ms=duration_ms)
 
@@ -153,5 +160,5 @@ async def run_step_async(step: str, request: RunRequest) -> RunResponse:
         return RunResponse(step=step, ok=False, output=None, error=error_msg, duration_ms=duration_ms, meta={"run_id": run_id})
 
 
-def run_step(step: str, request: RunRequest) -> RunResponse:
-    return asyncio.run(run_step_async(step, request))
+def run_step(step: str, request: RunRequest, run_id: Optional[str] = None) -> RunResponse:
+    return asyncio.run(run_step_async(step, request, run_id))
