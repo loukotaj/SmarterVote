@@ -495,17 +495,12 @@
     }
   }
 </script>
-
-<!-- Connection Status Header -->
-<div class="mb-6 card p-4">
+<div class="mt-2 mb-6 card p-4">
   <div class="flex items-center justify-between">
     <div class="flex items-center space-x-4">
       <h2 class="text-lg font-semibold text-gray-900">
         Pipeline Client Dashboard
       </h2>
-      <span class="text-sm text-gray-500"
-        >Live Logging & Real-time Monitoring</span
-      >
     </div>
     <div class="flex items-center space-x-2">
       <div

@@ -372,7 +372,7 @@ def _looks_like_official_campaign(src: Source) -> bool:
     """Cheap heuristic to identify campaign homepages using only the URL/title."""
     if not src or not src.url:
         return False
-    u = (src.url or "").lower()
+    u = src.url or ""
     title = (src.title or "").lower()
 
     # Avoid socials; we want the campaign site itself here
