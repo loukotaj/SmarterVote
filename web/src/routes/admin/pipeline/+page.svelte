@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
+  import type { RunInfo, RunStatus, RunStep } from "$lib/types";
 
   const API_BASE = "http://127.0.0.1:8001"; // FastAPI local
 
@@ -29,12 +30,18 @@
   let runStartTime: number | null = null;
   let elapsedTime = 0;
   let elapsedTimer: any = null;
-  let runStatus = "idle";
+  let runStatus: RunStatus | "idle" = "idle";
   let progress = 0;
   let progressMessage = "";
   let logFilter = "all";
-  let runHistory: any[] = [];
-  let selectedRun: any = null;
+  interface RunHistoryItem extends RunInfo {
+    display_id: number;
+    updated_at: string;
+    step?: string;
+  }
+
+  let runHistory: RunHistoryItem[] = [];
+  let selectedRun: RunHistoryItem | null = null;
   let runAll = false;
   // Run mode is selected in a separate flow; hide dashboard until set
   let runMode: "new" | "existing" | null = null;
@@ -58,16 +65,21 @@
     artifacts = data.items;
   }
 
+  interface RunsResponse {
+    runs: RunInfo[];
+  }
+
   async function loadRunHistory() {
     try {
       const res = await fetch(`${API_BASE}/runs`);
-      const data = await res.json();
+      const data: RunsResponse = await res.json();
       const runs = data.runs || [];
-      runHistory = runs.map((r: any, idx: number) => ({
+      runHistory = runs.map((r, idx) => ({
         ...r,
-        run_id: r.run_id || r.id || r._id,
+        run_id: r.run_id ?? (r as any).id ?? (r as any)._id,
         display_id: runs.length - idx,
-        updated_at: r.completed_at || r.started_at,
+        updated_at: r.completed_at ?? r.started_at,
+        step: (r as any).step ?? r.steps?.[r.steps.length - 1]?.name,
       }));
     } catch (error) {
       console.error("Failed to load run history:", error);
@@ -146,7 +158,7 @@
     logs = [...logs.slice(-999), logEntry]; // Keep last 1000 entries
   }
 
-  function handleRunStarted(data: any) {
+  function handleRunStarted(data: { run_id: string }) {
     currentRunId = data.run_id;
     runStatus = "running";
     progress = 0;
@@ -158,7 +170,7 @@
     progressMessage = data.message || "";
   }
 
-  function handleRunCompleted(data: any) {
+  function handleRunCompleted(data: { result?: any }) {
     runStatus = "completed";
     progress = 100;
     progressMessage = "Completed successfully";
@@ -210,16 +222,12 @@
         inputJson = JSON.stringify(result.state, null, 2);
         const last = result.runs?.[result.runs.length - 1];
         if (last) {
-          selectedRun = {
-            run_id: last.run_id,
-            step: last.step,
-            artifact_id: last.artifact_id,
-          };
+          selectedRunId = last.run_id;
         }
         await loadRunHistory();
         await loadArtifacts();
-        if (selectedRun) {
-          const run = runHistory.find((r) => r.run_id === selectedRun.run_id);
+        if (selectedRunId) {
+          const run = runHistory.find((r) => r.run_id === selectedRunId);
           if (run) {
             selectedRun = run;
           }
@@ -346,7 +354,7 @@
     return mins > 0 ? `${mins}m ${secs}s` : `${secs}s`;
   }
 
-  function getStatusClass(status: string): string {
+  function getStatusClass(status: RunStatus | string): string {
     switch (status) {
       case "running":
         return "bg-blue-100 text-blue-800 border-blue-200";
@@ -406,7 +414,7 @@
     modalLoading = false;
   }
 
-  async function handleRunClick(run: any) {
+  async function handleRunClick(run: RunHistoryItem) {
     modalLoading = true;
     showModal = true;
     modalTitle = "Run Details";
@@ -416,7 +424,8 @@
       if (runId) {
         const res = await fetch(`${API_BASE}/run/${runId}`);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        modalData = await res.json();
+        const runData: RunInfo = await res.json();
+        modalData = runData;
       } else {
         modalData = run;
       }
@@ -447,15 +456,22 @@
     modalLoading = false;
   }
 
-  async function selectRun(run: any) {
+  async function selectRun(run: RunHistoryItem) {
     runAll = false;
     try {
       const runId = run.run_id;
       if (!runId) return;
       const res = await fetch(`${API_BASE}/run/${runId}`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const runData = await res.json();
-      selectedRun = { ...runData, display_id: run.display_id };
+      const runData: RunInfo = await res.json();
+      const stepsData: RunStep[] = runData.steps;
+      const stepName = stepsData[stepsData.length - 1]?.name;
+      selectedRun = {
+        ...runData,
+        display_id: run.display_id,
+        updated_at: runData.completed_at ?? runData.started_at,
+        step: stepName,
+      };
 
       let payload = runData.payload || {};
       if (runData.artifact_id) {
@@ -466,7 +482,7 @@
           if (artRes.ok) {
             const artifact = await artRes.json();
             payload = { ...payload };
-            switch (runData.step) {
+            switch (stepName) {
               case "step01a_metadata":
                 payload.race_json = artifact.output;
                 break;
