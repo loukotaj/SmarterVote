@@ -11,10 +11,9 @@ import logging
 from datetime import datetime
 from typing import Any, Dict, Iterable, List, Optional
 
-from app.providers.base import TaskType
-
 from shared import CanonicalIssue, FreshSearchQuery, RaceJSON, RaceMetadata, Source, SourceType
 
+from ...providers.base import TaskType
 from ...utils.search_utils import SearchUtils
 
 logger = logging.getLogger(__name__)
