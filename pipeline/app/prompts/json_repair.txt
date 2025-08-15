@@ -1,0 +1,5 @@
+Fix the following into STRICT, valid JSON only.
+Do not add code fences or any prose.
+{schema_section}---
+{raw_text}
+---

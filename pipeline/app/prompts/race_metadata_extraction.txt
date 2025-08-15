@@ -1,0 +1,13 @@
+You are a precise elections data normalizer.
+{header}
+
+Task:
+- Extract ONLY real candidate names for THIS race.
+- Ignore committees, counties, offices, headings, page furniture, and phrases like 'Candidate Connection' or 'Key Messages'.
+- If a party is unclear, use null.
+- Mark incumbent=true only if explicitly stated for THIS office.
+
+{schema_hint}
+Do not include any explanation—only the JSON.
+
+{corpus_lines}

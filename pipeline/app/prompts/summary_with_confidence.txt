@@ -1,0 +1,17 @@
+{prompt}
+
+IMPORTANT: Your response must be in the following JSON format:
+{
+    "content": "Your main analysis/summary here",
+    "confidence": "high|medium|low",
+    "sources_used": ["list", "of", "source", "URLs", "or", "references"],
+    "reasoning": "Brief explanation of why you assigned this confidence level"
+}
+
+Confidence guidelines:
+- HIGH: Multiple reliable sources confirm the same information
+- MEDIUM: Some sources available but may conflict or be incomplete
+- LOW: Limited or questionable source material
+- UNKNOWN: No relevant sources found
+
+Available sources to reference: {context_sources}

@@ -1,0 +1,13 @@
+Analyze the following political summaries for bias. For each summary, identify:
+1. Political bias (left-leaning, right-leaning, or neutral)
+2. Loaded language or emotional terms
+3. Bias severity (low, medium, high)
+4. Specific examples of biased language if found
+
+Provide your analysis in JSON format with a "bias_scores" array containing an object for each summary with
+"summary_index", "bias_level", "bias_direction", "severity", and "examples" fields.
+
+SUMMARIES TO ANALYZE:
+{summaries_text}
+
+Respond only with valid JSON.

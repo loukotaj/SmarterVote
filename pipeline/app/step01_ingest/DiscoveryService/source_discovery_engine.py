@@ -21,6 +21,8 @@ from shared import CanonicalIssue, FreshSearchQuery, RaceJSON, RaceMetadata, Sou
 from ...providers import registry
 from ...providers.base import TaskType
 from ...utils.search_utils import SearchUtils
+from ..constants import ALLOW as BASE_ALLOW
+from ..constants import DENY as BASE_DENY
 
 logger = logging.getLogger(__name__)
 
@@ -417,35 +419,8 @@ class SourceDiscoveryEngine:
         host = urlparse(base).netloc
         soup = BeautifulSoup(html, "html.parser")
 
-        ALLOW = (
-            "/issues",
-            "/priorities",
-            "/platform",
-            "/policy",
-            "/policies",
-            "/on-the-issues",
-            "/agenda",
-            "/plans",
-            "/about",
-            "/news",
-            "/press",
-            "/media",
-            "/updates",
-        )
-        DENY = (
-            "/donate",
-            "/volunteer",
-            "/shop",
-            "/store",
-            "/events",
-            "/privacy",
-            "/terms",
-            "/sitemap",
-            "/subscribe",
-            "/merch",
-            "/cart",
-            "/donation",
-        )
+        ALLOW = BASE_ALLOW + ("/policies", "/media", "/updates")
+        DENY = BASE_DENY + ("/sitemap", "/subscribe", "/merch", "/cart", "/donation")
 
         out: List[Source] = []
         seen: set[str] = set()

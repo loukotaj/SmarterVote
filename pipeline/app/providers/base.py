@@ -15,6 +15,8 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import Any, Dict, List, Optional, Tuple
 
+from ..utils.prompt_loader import load_prompt
+
 logger = logging.getLogger(__name__)
 
 
@@ -470,13 +472,10 @@ class ProviderRegistry:
         Single cheap repair pass using the selected provider/model.
         Provider may honor json_mode to enforce strict JSON if supported.
         """
-        repair_prompt = (
-            "Fix the following into STRICT, valid JSON only.\n"
-            "Do not add code fences or any prose.\n"
-            + (f"It MUST match this shape (schema hint): {schema_hint}\n" if schema_hint else "")
-            + "\n---\n"
-            + raw_text
-            + "\n---"
+        schema_section = f"It MUST match this shape (schema hint): {schema_hint}\n" if schema_hint else ""
+        repair_prompt = load_prompt("json_repair").format(
+            schema_section=schema_section,
+            raw_text=raw_text,
         )
         repaired = await provider.generate(
             repair_prompt,

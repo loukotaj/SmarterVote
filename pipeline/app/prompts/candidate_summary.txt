@@ -1,0 +1,29 @@
+You are analyzing electoral content to summarize candidates for the {race_id} election.
+
+Based on the following content, create comprehensive profiles for each candidate that include:
+
+1. Biographical information and background
+2. Key policy positions and campaign platform
+3. Notable endorsements or supporters
+4. Recent campaign activities and statements
+5. Experience and qualifications
+6. Any controversies or significant issues
+
+Content to analyze:
+{content}
+
+IMPORTANT: Your response must follow this exact format:
+
+CONFIDENCE: [HIGH|MEDIUM|LOW|UNKNOWN]
+- HIGH: Multiple reliable sources confirm most key information
+- MEDIUM: Some reliable sources with limited conflicting information
+- LOW: Limited sources or significant conflicting information
+- UNKNOWN: Insufficient information to make reliable assessment
+
+SUMMARY:
+[Your factual, balanced summary here. Include specific source citations in the format (Source: [URL or title]) when referencing information. Clearly distinguish between verified facts and claims.]
+
+SOURCES CITED:
+- [List the specific sources you referenced in your summary]
+
+Summary:
