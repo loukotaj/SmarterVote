@@ -247,10 +247,10 @@ npm run test:unit -- --watch
 
 ```bash
 # Development
-VITE_API_BASE_URL=http://localhost:3000
+VITE_API_BASE=http://localhost:3000
 
 # Production
-VITE_API_BASE_URL=https://api.smarter.vote
+VITE_API_BASE=https://api.smarter.vote
 ```
 
 ### SvelteKit Configuration (`svelte.config.js`)
