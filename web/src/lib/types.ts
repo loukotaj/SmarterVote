@@ -109,3 +109,35 @@ export interface RaceSummary {
   updated_utc: string;
   candidates: CandidateSummary[];
 }
+
+// Pipeline run types
+export type RunStatus =
+  | "pending"
+  | "running"
+  | "completed"
+  | "failed"
+  | "cancelled";
+
+export interface RunStep {
+  name: string;
+  status: RunStatus;
+  started_at?: string;
+  completed_at?: string;
+  duration_ms?: number;
+  artifact_id?: string;
+  error?: string;
+}
+
+export interface RunInfo {
+  run_id: string;
+  status: RunStatus;
+  payload: Record<string, any>;
+  options: Record<string, any>;
+  started_at: string;
+  completed_at?: string;
+  duration_ms?: number;
+  artifact_id?: string;
+  error?: string;
+  steps: RunStep[];
+  logs?: Record<string, any>[];
+}
