@@ -61,12 +61,16 @@
       const res = await fetch(`${API_BASE}/runs`);
       const data = await res.json();
       const runs = data.runs || [];
-      runHistory = runs.map((r: any, idx: number) => ({
-        ...r,
-        run_id: r.run_id || r.id || r._id,
-        display_id: runs.length - idx,
-        updated_at: r.completed_at || r.started_at,
-      }));
+      runHistory = runs.map((r: any, idx: number) => {
+        const lastStep = r.steps?.at(-1)?.name || r.step;
+        return {
+          ...r,
+          run_id: r.run_id || r.id || r._id,
+          display_id: runs.length - idx,
+          updated_at: r.completed_at || r.started_at,
+          last_step: lastStep,
+        };
+      });
     } catch (error) {
       console.error("Failed to load run history:", error);
     }
@@ -550,7 +554,7 @@
               <option value="" selected>Select run</option>
               {#each runHistory as run}
                 <option value={run.run_id}>
-                  Run {run.display_id} – {run.step} –
+                  Run {run.display_id} – {run.last_step} –
                   {new Date(run.updated_at).toLocaleString()}
                 </option>
               {/each}
@@ -830,7 +834,7 @@
             <div class="flex items-center justify-between">
               <div>
                 <div class="text-sm font-medium text-gray-900">
-                  Run {run.display_id} – {run.step || "Unknown Step"}
+                  Run {run.display_id} – {run.last_step || "Unknown Step"}
                 </div>
                 <div class="text-xs text-gray-500">
                   {new Date(run.started_at).toLocaleString()}
