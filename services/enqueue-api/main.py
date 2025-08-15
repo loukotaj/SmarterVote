@@ -8,16 +8,16 @@ requests and publishes them to Google Cloud Pub/Sub for asynchronous processing.
 import base64
 import json
 import logging
-import os
 import random
 import string
 from datetime import datetime
-from typing import Optional
 
+from config import CLOUD_RUN_JOB_NAME, PROJECT_ID, PUBSUB_TOPIC, REGION
+from constants import SERVICE_NAME, SOURCE_NAME
 from fastapi import BackgroundTasks, Body, FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from google.cloud import pubsub_v1, run_v2
-from pydantic import BaseModel
+from schemas import ProcessRaceRequest, ProcessRaceResponse, PubSubMessage
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -38,12 +38,6 @@ def generate_job_id(race_id: str) -> str:
     random_suffix = "".join(random.choices(string.ascii_lowercase + string.digits, k=6))
     return f"job_{race_id}_{timestamp}_{random_suffix}"
 
-
-# Environment variables
-PROJECT_ID = os.getenv("PROJECT_ID")
-PUBSUB_TOPIC = os.getenv("PUBSUB_TOPIC", "race-processing")
-CLOUD_RUN_JOB_NAME = os.getenv("CLOUD_RUN_JOB_NAME")
-REGION = os.getenv("REGION", "us-central1")
 
 # Initialize Pub/Sub client
 publisher = pubsub_v1.PublisherClient()
@@ -76,32 +70,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
-class ProcessRaceRequest(BaseModel):
-    """Request model for processing a race."""
-
-    race_id: str
-    priority: Optional[int] = 1
-    retry_count: Optional[int] = 0
-    metadata: Optional[dict] = None
-
-
-class ProcessRaceResponse(BaseModel):
-    """Response model for race processing requests."""
-
-    success: bool
-    message: str
-    job_id: str
-    race_id: str
-    enqueued_at: datetime
-
-
-class PubSubMessage(BaseModel):
-    """Model for Pub/Sub push messages."""
-
-    message: dict
-    subscription: Optional[str] = None
 
 
 async def execute_cloud_run_job(race_id: str, job_id: str) -> bool:
@@ -156,7 +124,7 @@ async def execute_cloud_run_job(race_id: str, job_id: str) -> bool:
 async def root():
     """Health check endpoint."""
     return {
-        "service": "smartervote-enqueue-api",
+        "service": SERVICE_NAME,
         "status": "healthy",
         "timestamp": datetime.utcnow().isoformat(),
     }
@@ -174,7 +142,7 @@ async def health_check():
         pubsub_status = "unhealthy"
 
     return {
-        "service": "smartervote-enqueue-api",
+        "service": SERVICE_NAME,
         "status": "healthy" if pubsub_status == "healthy" else "degraded",
         "components": {"pubsub": pubsub_status},
         "timestamp": datetime.utcnow().isoformat(),
@@ -205,7 +173,7 @@ async def process_race(background_tasks: BackgroundTasks, request: ProcessRaceRe
             "retry_count": request.retry_count,
             "metadata": request.metadata or {},
             "enqueued_at": datetime.utcnow().isoformat(),
-            "source": "enqueue-api",
+            "source": SOURCE_NAME,
         }
 
         # Publish to Pub/Sub
