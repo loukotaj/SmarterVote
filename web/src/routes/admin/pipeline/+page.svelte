@@ -4,7 +4,6 @@
   const API_BASE = "http://127.0.0.1:8001"; // FastAPI local
 
   let steps: string[] = [];
-  let selectedStep = "";
   let inputJson = '{\n  "race_id": "mo-senate-2024"\n}';
   let output: any = null;
   let artifacts: any[] = [];
@@ -51,7 +50,6 @@
     const res = await fetch(`${API_BASE}/steps`);
     const data = await res.json();
     steps = data.steps;
-    if (!selectedStep && steps.length) selectedStep = steps[0];
   }
 
   async function loadArtifacts() {
@@ -64,10 +62,11 @@
     try {
       const res = await fetch(`${API_BASE}/runs`);
       const data = await res.json();
-      runHistory = (data.runs || []).map((r: any, idx: number) => ({
+      const runs = data.runs || [];
+      runHistory = runs.map((r: any, idx: number) => ({
         ...r,
-        run_id: r.run_id || r.id || r._id || `run-${idx + 1}`,
-        id: r.run_id || r.id || r._id || `run-${idx + 1}`,
+        run_id: r.run_id || r.id || r._id,
+        display_id: runs.length - idx,
         updated_at: r.completed_at || r.started_at,
       }));
     } catch (error) {
@@ -192,7 +191,7 @@
           throw new Error("No run selected to continue");
         }
         const state = JSON.parse(inputJson || "{}");
-        const stepsToRun = runAll ? ["all"] : [selectedStep];
+        const stepsToRun = runAll ? ["all"] : [];
         const res = await fetch(
           `${API_BASE}/runs/${selectedRun.run_id}/continue`,
           {
@@ -216,13 +215,15 @@
             step: last.step,
             artifact_id: last.artifact_id,
           };
-          const idx = steps.indexOf(result.last_step);
-          if (idx >= 0 && idx < steps.length - 1) {
-            selectedStep = steps[idx + 1];
-          }
         }
         await loadRunHistory();
         await loadArtifacts();
+        if (selectedRun) {
+          const run = runHistory.find((r) => r.run_id === selectedRun.run_id);
+          if (run) {
+            selectedRun = run;
+          }
+        }
       } else {
         const payload = JSON.parse(inputJson || "{}");
         const options: Record<string, any> = {
@@ -234,7 +235,8 @@
         };
         const body = { payload, options };
 
-        const res = await fetch(`${API_BASE}/run/${selectedStep}`, {
+        const step = steps[0] || "step01a_metadata";
+        const res = await fetch(`${API_BASE}/run/${step}`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(body),
@@ -247,20 +249,17 @@
         const result = await res.json();
         currentRunId = result.run_id;
 
-        addLog(
-          "info",
-          `Started execution: ${selectedStep} (Run ID: ${currentRunId})`
-        );
+        addLog("info", `Started execution: ${step}`);
 
-        await selectRun({
-          run_id: result.meta?.run_id || result.run_id,
-          step: selectedStep,
-          artifact_id: result.artifact_id,
-        });
-        runMode = "existing";
-        selectedRunId = result.meta?.run_id || result.run_id;
         await loadRunHistory();
         await loadArtifacts();
+        const runId = result.meta?.run_id || result.run_id;
+        const run = runHistory.find((r) => r.run_id === runId);
+        if (run) {
+          await selectRun(run);
+        }
+        runMode = "existing";
+        selectedRunId = runId;
       }
     } catch (err) {
       output = { error: String(err) };
@@ -456,7 +455,7 @@
       const res = await fetch(`${API_BASE}/run/${runId}`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const runData = await res.json();
-      selectedRun = runData;
+      selectedRun = { ...runData, display_id: run.display_id };
 
       let payload = runData.payload || {};
       if (runData.artifact_id) {
@@ -488,13 +487,6 @@
       }
 
       inputJson = JSON.stringify(payload, null, 2);
-
-      if (steps.length) {
-        const idx = steps.indexOf(runData.step);
-        if (idx >= 0 && idx < steps.length - 1) {
-          selectedStep = steps[idx + 1];
-        }
-      }
     } catch (e) {
       console.error("Failed to select run:", e);
     }
@@ -522,9 +514,6 @@
     selectedRun = null;
     runAll = false;
     inputJson = '{\n  "race_id": "mo-senate-2024"\n}';
-    if (steps.length) {
-      selectedStep = steps[0];
-    }
     runMode = "new";
     selectedRunId = "";
   }
@@ -570,7 +559,7 @@
             <option value="" disabled selected>Select run</option>
             {#each runHistory as run}
               <option value={run.run_id}>
-                {run.run_id.slice(0, 8)} – {run.step} –
+                Run {run.display_id} – {run.step} –
                 {new Date(run.updated_at).toLocaleString()}
               </option>
             {/each}
@@ -582,399 +571,380 @@
     </div>
   </div>
 {:else}
+  <div class="dashboard-grid">
+    <!-- Left Panel: Controls & Progress -->
+    <div class="space-y-6">
+      <!-- Pipeline Execution Card -->
+      <div class="card p-6">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">
+          Pipeline Execution
+        </h3>
 
-<div class="dashboard-grid">
-  <!-- Left Panel: Controls & Progress -->
-  <div class="space-y-6">
-    <!-- Pipeline Execution Card -->
-    <div class="card p-6">
-      <h3 class="text-lg font-semibold text-gray-900 mb-4">
-        Pipeline Execution
-      </h3>
-
-      <div class="mb-4">
-        <label class="block text-sm font-medium text-gray-700 mb-2"
-          >Run Mode</label
-        >
-        <div class="flex items-center gap-4">
-          <label class="flex items-center gap-2 text-sm text-gray-600">
-            <input
-              type="radio"
-              bind:group={runMode}
-              value="new"
-              on:change={() => handleRunModeChange("new")}
-            />
-            <span>New Run</span>
-          </label>
-          <label class="flex items-center gap-2 text-sm text-gray-600">
-            <input
-              type="radio"
-              bind:group={runMode}
-              value="existing"
-              on:change={() => handleRunModeChange("existing")}
-            />
-            <span>Continue Existing</span>
-          </label>
-          {#if runMode === "existing"}
-            <select
-              class="px-2 py-1 border border-gray-300 rounded"
-              bind:value={selectedRunId}
-              on:change={handleRunSelect}
-            >
-              <option value="" disabled selected>Select run</option>
-              {#each runHistory as run}
-                <option value={run.run_id}>
-                  {run.run_id.slice(0, 8)} – {run.step} –
-                  {new Date(run.updated_at).toLocaleString()}
-                </option>
-              {/each}
-            </select>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-2"
+            >Run Mode</label
+          >
+          <div class="flex items-center gap-4">
+            <label class="flex items-center gap-2 text-sm text-gray-600">
+              <input
+                type="radio"
+                bind:group={runMode}
+                value="new"
+                on:change={() => handleRunModeChange("new")}
+              />
+              <span>New Run</span>
+            </label>
+            <label class="flex items-center gap-2 text-sm text-gray-600">
+              <input
+                type="radio"
+                bind:group={runMode}
+                value="existing"
+                on:change={() => handleRunModeChange("existing")}
+              />
+              <span>Continue Existing</span>
+            </label>
+            {#if runMode === "existing"}
+              <select
+                class="px-2 py-1 border border-gray-300 rounded"
+                bind:value={selectedRunId}
+                on:change={handleRunSelect}
+              >
+                <option value="" disabled selected>Select run</option>
+                {#each runHistory as run}
+                  <option value={run.run_id}>
+                    Run {run.display_id} – {run.step} –
+                    {new Date(run.updated_at).toLocaleString()}
+                  </option>
+                {/each}
+              </select>
+            {/if}
+          </div>
+          {#if runMode === "existing" && selectedRun}
+            <p class="text-sm text-gray-600 mt-2">
+              Continuing run {selectedRun.display_id}
+            </p>
           {/if}
         </div>
-        {#if runMode === "existing" && selectedRun}
-          <p class="text-sm text-gray-600 mt-2">
-            Continuing run {selectedRun.run_id}
-          </p>
-        {/if}
-      </div>
 
-      <div class="space-y-4">
-        <!-- Step Selection -->
-        <div>
-          <label
-            for="stepSelect"
-            class="block text-sm font-medium text-gray-700 mb-2"
-            >Pipeline Step</label
-          >
-          <div class="flex gap-2">
-            <select
-              bind:value={selectedStep}
-              class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+        <div class="space-y-4">
+          <!-- Input JSON -->
+          <div>
+            <label
+              for="inputJson"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Input JSON</label
             >
-              {#each steps as step}
-                <option value={step}>{step}</option>
-              {/each}
-            </select>
-            <button on:click={loadSteps} class="btn-secondary">Refresh</button>
+            <textarea
+              id="inputJson"
+              bind:value={inputJson}
+              class="json-editor"
+              spellcheck="false"
+              placeholder={'{"race_id": "example_race_2024"}'}
+            />
           </div>
-        </div>
 
-        <!-- Input JSON -->
-        <div>
-          <label
-            for="inputJson"
-            class="block text-sm font-medium text-gray-700 mb-2"
-            >Input JSON</label
-          >
-          <textarea
-            id="inputJson"
-            bind:value={inputJson}
-            class="json-editor"
-            spellcheck="false"
-            placeholder={'{"race_id": "example_race_2024"}'}
-          />
-        </div>
-
-        <!-- Options -->
-        <details class="options border border-gray-200 rounded-lg p-4">
-          <summary class="cursor-pointer font-medium text-gray-700 mb-3"
-            >Execution Options</summary
-          >
-          <div class="grid grid-cols-2 gap-3">
-            <label class="flex items-center space-x-2">
-              <input
-                type="checkbox"
-                bind:checked={skip_llm_apis}
-                class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-              />
-              <span class="text-sm text-gray-700">Skip LLM APIs</span>
-            </label>
-            <label class="flex items-center space-x-2">
-              <input
-                type="checkbox"
-                bind:checked={skip_external_apis}
-                class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-              />
-              <span class="text-sm text-gray-700">Skip External APIs</span>
-            </label>
-            <label class="flex items-center space-x-2">
-              <input
-                type="checkbox"
-                bind:checked={skip_network_calls}
-                class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-              />
-              <span class="text-sm text-gray-700">Skip Network Calls</span>
-            </label>
-            <label class="flex items-center space-x-2">
-              <input
-                type="checkbox"
-                bind:checked={skip_cloud_services}
-                class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-              />
-              <span class="text-sm text-gray-700">Skip Cloud Services</span>
-            </label>
-            <label class="flex items-center space-x-2 col-span-2">
-              <input
-                type="checkbox"
-                bind:checked={save_artifact}
-                class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-              />
-              <span class="text-sm text-gray-700">Save Artifact</span>
-            </label>
-            {#if selectedRun}
+          <!-- Options -->
+          <details class="options border border-gray-200 rounded-lg p-4">
+            <summary class="cursor-pointer font-medium text-gray-700 mb-3"
+              >Execution Options</summary
+            >
+            <div class="grid grid-cols-2 gap-3">
+              <label class="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  bind:checked={skip_llm_apis}
+                  class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                />
+                <span class="text-sm text-gray-700">Skip LLM APIs</span>
+              </label>
+              <label class="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  bind:checked={skip_external_apis}
+                  class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                />
+                <span class="text-sm text-gray-700">Skip External APIs</span>
+              </label>
+              <label class="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  bind:checked={skip_network_calls}
+                  class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                />
+                <span class="text-sm text-gray-700">Skip Network Calls</span>
+              </label>
+              <label class="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  bind:checked={skip_cloud_services}
+                  class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                />
+                <span class="text-sm text-gray-700">Skip Cloud Services</span>
+              </label>
               <label class="flex items-center space-x-2 col-span-2">
                 <input
                   type="checkbox"
-                  bind:checked={runAll}
+                  bind:checked={save_artifact}
                   class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                 />
-                <span class="text-sm text-gray-700"
-                  >Run all remaining steps</span
-                >
+                <span class="text-sm text-gray-700">Save Artifact</span>
               </label>
-            {/if}
-          </div>
-        </details>
+              {#if selectedRun}
+                <label class="flex items-center space-x-2 col-span-2">
+                  <input
+                    type="checkbox"
+                    bind:checked={runAll}
+                    class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  />
+                  <span class="text-sm text-gray-700"
+                    >Run all remaining steps</span
+                  >
+                </label>
+              {/if}
+            </div>
+          </details>
 
-        <!-- Action Buttons -->
-        <div class="flex space-x-3">
-          <button
-            disabled={isExecuting}
-            on:click={runStep}
-            class="btn-primary flex-1 flex items-center justify-center"
-          >
+          <!-- Action Buttons -->
+          <div class="flex space-x-3">
+            <button
+              disabled={isExecuting}
+              on:click={runStep}
+              class="btn-primary flex-1 flex items-center justify-center"
+            >
+              {#if isExecuting}
+                <svg
+                  class="animate-spin h-4 w-4 mr-2"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    class="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="4"
+                  />
+                  <path
+                    class="opacity-75"
+                    fill="currentColor"
+                    d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  />
+                </svg>
+                Executing...
+              {:else}
+                Execute Pipeline
+              {/if}
+            </button>
             {#if isExecuting}
-              <svg
-                class="animate-spin h-4 w-4 mr-2"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <circle
-                  class="opacity-25"
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  stroke-width="4"
-                />
-                <path
-                  class="opacity-75"
-                  fill="currentColor"
-                  d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                />
-              </svg>
-              Executing...
-            {:else}
-              Execute Pipeline
+              <button on:click={stopExecution} class="btn-danger">Stop</button>
             {/if}
-          </button>
-          {#if isExecuting}
-            <button on:click={stopExecution} class="btn-danger">Stop</button>
-          {/if}
-        </div>
-      </div>
-    </div>
-
-    <!-- Current Run Progress -->
-    {#if isExecuting || runStatus !== "idle"}
-      <div class="card p-6">
-        <div class="flex items-center justify-between mb-4">
-          <h3 class="text-lg font-semibold text-gray-900">Current Run</h3>
-          <span
-            class="px-3 py-1 rounded-full text-xs font-medium border {getStatusClass(
-              runStatus
-            )}">{runStatus.charAt(0).toUpperCase() + runStatus.slice(1)}</span
-          >
-        </div>
-
-        <!-- Progress Bar -->
-        <div class="mb-4">
-          <div class="flex justify-between text-sm text-gray-600 mb-2">
-            <span>{progressMessage}</span>
-            <span>{Math.round(progress)}%</span>
-          </div>
-          <div class="w-full bg-gray-200 rounded-full h-2">
-            <div
-              class="progress-bar bg-blue-600 h-2 rounded-full"
-              style="width: {progress}%"
-            />
-          </div>
-        </div>
-
-        <!-- Run Metrics -->
-        <div class="grid grid-cols-3 gap-4 text-sm">
-          <div class="text-center">
-            <div class="text-lg font-semibold text-blue-600">
-              {formatDuration(elapsedTime)}
-            </div>
-            <div class="text-gray-600">Elapsed</div>
-          </div>
-          <div class="text-center">
-            <div class="text-lg font-semibold text-green-600">
-              {currentRunId ? "1" : "0"}
-            </div>
-            <div class="text-gray-600">Active</div>
-          </div>
-          <div class="text-center">
-            <div class="text-lg font-semibold text-gray-600">
-              {filteredLogs.filter((l) => l.level === "error").length}
-            </div>
-            <div class="text-gray-600">Errors</div>
           </div>
         </div>
       </div>
-    {/if}
 
-    <!-- Output Results -->
-    {#if output}
-      <div class="card p-6">
-        <div class="flex items-center justify-between mb-4">
-          <h3 class="text-lg font-semibold text-gray-900">Results</h3>
-          <div class="flex space-x-2">
-            <button on:click={copyOutput} class="btn-secondary text-sm"
-              >Copy</button
-            >
-            <button on:click={downloadOutput} class="btn-secondary text-sm"
-              >Download</button
-            >
-            <button on:click={useAsInput} class="btn-secondary text-sm"
-              >Use as Input</button
+      <!-- Current Run Progress -->
+      {#if isExecuting || runStatus !== "idle"}
+        <div class="card p-6">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-semibold text-gray-900">Current Run</h3>
+            <span
+              class="px-3 py-1 rounded-full text-xs font-medium border {getStatusClass(
+                runStatus
+              )}">{runStatus.charAt(0).toUpperCase() + runStatus.slice(1)}</span
             >
           </div>
-        </div>
-        <div class="output-display custom-scrollbar">
-          {JSON.stringify(output, null, 2)}
-        </div>
-      </div>
-    {/if}
-  </div>
 
-  <!-- Right Panel: Logs & History -->
-  <div class="space-y-6">
-    <!-- Live Logs -->
-    <div class="card p-0 flex flex-col h-96">
-      <div
-        class="p-4 border-b border-gray-200 flex items-center justify-between"
-      >
-        <div class="flex items-center space-x-3">
-          <h3 class="text-lg font-semibold text-gray-900">Live Logs</h3>
-          <div class="flex items-center space-x-2">
-            <div class="w-2 h-2 rounded-full bg-green-500 pulse-dot" />
-            <span class="text-xs text-gray-500">Live</span>
-          </div>
-        </div>
-        <div class="flex space-x-2">
-          <select
-            bind:value={logFilter}
-            class="text-xs px-2 py-1 border border-gray-300 rounded"
-          >
-            <option value="all">All Levels</option>
-            <option value="debug">Debug</option>
-            <option value="info">Info</option>
-            <option value="warning">Warning</option>
-            <option value="error">Error</option>
-          </select>
-          <button
-            on:click={clearLogs}
-            class="text-xs px-2 py-1 text-gray-600 hover:text-gray-800"
-            >Clear</button
-          >
-        </div>
-      </div>
-      <div class="flex-1 overflow-auto custom-scrollbar bg-gray-50">
-        <div class="min-h-full">
-          {#each filteredLogs as log}
-            <div class="log-line {getLogClass(log.level)}">
-              <span class="text-gray-500"
-                >[{new Date(log.timestamp).toLocaleTimeString()}]</span
-              >
-              <span class="font-medium">[{log.level.toUpperCase()}]</span>
-              {log.message}
+          <!-- Progress Bar -->
+          <div class="mb-4">
+            <div class="flex justify-between text-sm text-gray-600 mb-2">
+              <span>{progressMessage}</span>
+              <span>{Math.round(progress)}%</span>
             </div>
-          {/each}
-          {#if filteredLogs.length === 0}
-            <div class="p-4 text-center text-gray-500 text-sm">No logs yet</div>
-          {/if}
-        </div>
-      </div>
-    </div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+              <div
+                class="progress-bar bg-blue-600 h-2 rounded-full"
+                style="width: {progress}%"
+              />
+            </div>
+          </div>
 
-    <!-- Run History -->
-    <div class="card p-0">
-      <div
-        class="p-4 border-b border-gray-200 flex items-center justify-between"
-      >
-        <h3 class="text-lg font-semibold text-gray-900">Recent Runs</h3>
-        <button
-          on:click={loadRunHistory}
-          class="text-sm text-blue-600 hover:text-blue-800">Refresh</button
-        >
-      </div>
-      <div
-        class="divide-y divide-gray-200 max-h-64 overflow-auto custom-scrollbar"
-      >
-        {#each runHistory.slice(0, 10) as run}
-          <div
-            class="p-4 hover:bg-gray-50 cursor-pointer"
-            on:click={() => handleRunClick(run)}
-          >
-            <div class="flex items-center justify-between">
-              <div>
-                <div class="text-sm font-medium text-gray-900">
-                  {run.step || "Unknown Step"}
-                </div>
-                <div class="text-xs text-gray-500">
-                  {new Date(run.started_at).toLocaleString()}
-                </div>
+          <!-- Run Metrics -->
+          <div class="grid grid-cols-3 gap-4 text-sm">
+            <div class="text-center">
+              <div class="text-lg font-semibold text-blue-600">
+                {formatDuration(elapsedTime)}
               </div>
-              <span
-                class="px-2 py-1 rounded-full text-xs {getStatusClass(
-                  run.status
-                )}"
-              >
-                {(run.status || "unknown").charAt(0).toUpperCase() +
-                  (run.status || "unknown").slice(1)}
-              </span>
+              <div class="text-gray-600">Elapsed</div>
+            </div>
+            <div class="text-center">
+              <div class="text-lg font-semibold text-green-600">
+                {currentRunId ? "1" : "0"}
+              </div>
+              <div class="text-gray-600">Active</div>
+            </div>
+            <div class="text-center">
+              <div class="text-lg font-semibold text-gray-600">
+                {filteredLogs.filter((l) => l.level === "error").length}
+              </div>
+              <div class="text-gray-600">Errors</div>
             </div>
           </div>
-        {:else}
-          <div class="p-4 text-center text-gray-500 text-sm">No runs yet</div>
-        {/each}
-      </div>
+        </div>
+      {/if}
+
+      <!-- Output Results -->
+      {#if output}
+        <div class="card p-6">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-semibold text-gray-900">Results</h3>
+            <div class="flex space-x-2">
+              <button on:click={copyOutput} class="btn-secondary text-sm"
+                >Copy</button
+              >
+              <button on:click={downloadOutput} class="btn-secondary text-sm"
+                >Download</button
+              >
+              <button on:click={useAsInput} class="btn-secondary text-sm"
+                >Use as Input</button
+              >
+            </div>
+          </div>
+          <div class="output-display custom-scrollbar">
+            {JSON.stringify(output, null, 2)}
+          </div>
+        </div>
+      {/if}
     </div>
 
-    <!-- Artifacts -->
-    <div class="card p-0">
-      <div
-        class="p-4 border-b border-gray-200 flex items-center justify-between"
-      >
-        <h3 class="text-lg font-semibold text-gray-900">Artifacts</h3>
-        <button
-          on:click={loadArtifacts}
-          class="text-sm text-blue-600 hover:text-blue-800">Refresh</button
+    <!-- Right Panel: Logs & History -->
+    <div class="space-y-6">
+      <!-- Live Logs -->
+      <div class="card p-0 flex flex-col h-96">
+        <div
+          class="p-4 border-b border-gray-200 flex items-center justify-between"
         >
-      </div>
-      <ul class="artifacts-list custom-scrollbar">
-        {#each artifacts as artifact}
-          <li
-            class="cursor-pointer"
-            on:click={() => handleArtifactClick(artifact)}
-          >
-            <span class="font-mono text-sm">{artifact.id}</span>
-            <span class="text-xs text-gray-500"
-              >{Math.round((artifact.size / 1024) * 10) / 10} KB</span
+          <div class="flex items-center space-x-3">
+            <h3 class="text-lg font-semibold text-gray-900">Live Logs</h3>
+            <div class="flex items-center space-x-2">
+              <div class="w-2 h-2 rounded-full bg-green-500 pulse-dot" />
+              <span class="text-xs text-gray-500">Live</span>
+            </div>
+          </div>
+          <div class="flex space-x-2">
+            <select
+              bind:value={logFilter}
+              class="text-xs px-2 py-1 border border-gray-300 rounded"
             >
-          </li>
-        {:else}
-          <li class="text-center text-gray-500 text-sm py-4">
-            No artifacts yet
-          </li>
-        {/each}
-      </ul>
+              <option value="all">All Levels</option>
+              <option value="debug">Debug</option>
+              <option value="info">Info</option>
+              <option value="warning">Warning</option>
+              <option value="error">Error</option>
+            </select>
+            <button
+              on:click={clearLogs}
+              class="text-xs px-2 py-1 text-gray-600 hover:text-gray-800"
+              >Clear</button
+            >
+          </div>
+        </div>
+        <div class="flex-1 overflow-auto custom-scrollbar bg-gray-50">
+          <div class="min-h-full">
+            {#each filteredLogs as log}
+              <div class="log-line {getLogClass(log.level)}">
+                <span class="text-gray-500"
+                  >[{new Date(log.timestamp).toLocaleTimeString()}]</span
+                >
+                <span class="font-medium">[{log.level.toUpperCase()}]</span>
+                {log.message}
+              </div>
+            {/each}
+            {#if filteredLogs.length === 0}
+              <div class="p-4 text-center text-gray-500 text-sm">
+                No logs yet
+              </div>
+            {/if}
+          </div>
+        </div>
+      </div>
+
+      <!-- Run History -->
+      <div class="card p-0">
+        <div
+          class="p-4 border-b border-gray-200 flex items-center justify-between"
+        >
+          <h3 class="text-lg font-semibold text-gray-900">Recent Runs</h3>
+          <button
+            on:click={loadRunHistory}
+            class="text-sm text-blue-600 hover:text-blue-800">Refresh</button
+          >
+        </div>
+        <div
+          class="divide-y divide-gray-200 max-h-64 overflow-auto custom-scrollbar"
+        >
+          {#each runHistory.slice(0, 10) as run}
+            <div
+              class="p-4 hover:bg-gray-50 cursor-pointer"
+              on:click={() => handleRunClick(run)}
+            >
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="text-sm font-medium text-gray-900">
+                    Run {run.display_id} – {run.step || "Unknown Step"}
+                  </div>
+                  <div class="text-xs text-gray-500">
+                    {new Date(run.started_at).toLocaleString()}
+                  </div>
+                </div>
+                <span
+                  class="px-2 py-1 rounded-full text-xs {getStatusClass(
+                    run.status
+                  )}"
+                >
+                  {(run.status || "unknown").charAt(0).toUpperCase() +
+                    (run.status || "unknown").slice(1)}
+                </span>
+              </div>
+            </div>
+          {:else}
+            <div class="p-4 text-center text-gray-500 text-sm">No runs yet</div>
+          {/each}
+        </div>
+      </div>
+
+      <!-- Artifacts -->
+      <div class="card p-0">
+        <div
+          class="p-4 border-b border-gray-200 flex items-center justify-between"
+        >
+          <h3 class="text-lg font-semibold text-gray-900">Artifacts</h3>
+          <button
+            on:click={loadArtifacts}
+            class="text-sm text-blue-600 hover:text-blue-800">Refresh</button
+          >
+        </div>
+        <ul class="artifacts-list custom-scrollbar">
+          {#each artifacts as artifact}
+            <li
+              class="cursor-pointer"
+              on:click={() => handleArtifactClick(artifact)}
+            >
+              <span class="font-mono text-sm">{artifact.id}</span>
+              <span class="text-xs text-gray-500"
+                >{Math.round((artifact.size / 1024) * 10) / 10} KB</span
+              >
+            </li>
+          {:else}
+            <li class="text-center text-gray-500 text-sm py-4">
+              No artifacts yet
+            </li>
+          {/each}
+        </ul>
+      </div>
     </div>
   </div>
-</div>
 {/if}
 
 {#if showModal}
