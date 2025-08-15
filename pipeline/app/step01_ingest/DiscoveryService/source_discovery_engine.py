@@ -1,31 +1,19 @@
 """
-Source Discovery Engine for SmarterVote Pipeline
+Source Discovery Engine for SmarterVote Pipeline (updated)
 
-This module handles discovering data sources about electoral races including:
-- Seed URL discovery from known databases (Ballotpedia, FEC, etc.)
-- Google Custom Search for fresh issue-specific content
-- Social media platform discovery
-- News outlet searches
-
-TODO: Implement the following features:
-- [ ] Add support for more electoral data sources (Vote411, OpenSecrets)
-- [ ] Implement intelligent query generation for Google searches
-- [ ] Add rate limiting and quota management for search APIs
-- [ ] Support for discovering candidate social media accounts
-- [ ] Add RSS feed discovery for news sources
-- [ ] Implement source quality scoring and filtering
-- [ ] Add geographic filtering for local news sources
-- [ ] Support for discovering debate transcripts and videos
-- [ ] Add campaign finance data source discovery
-- [ ] Implement duplicate source detection and deduplication
+Two-phase strategy:
+  1) Core (evergreen, no freshness): Ballotpedia/FEC/OpenSecrets/Wikipedia/SoS + official campaign sites
+  2) Recency (fresh): candidate×issue news/social/debate, date-limited
 """
 
 import asyncio
 import logging
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, Iterable, List, Optional
 
-from shared import CanonicalIssue, RaceJSON, RaceMetadata, Source, SourceType
+from app.providers.base import TaskType
+
+from shared import CanonicalIssue, FreshSearchQuery, RaceJSON, RaceMetadata, Source, SourceType
 
 from ...utils.search_utils import SearchUtils
 
@@ -44,12 +32,13 @@ class SourceDiscoveryEngine:
             "vote411": "https://www.vote411.org",
             "govtrack": "https://www.govtrack.us",
             "congress_gov": "https://www.congress.gov",
+            "wikipedia": "https://www.wikipedia.org",
         }
 
         # TODO: Move to configuration
         self.search_config = {
             "top_results_per_query": 5,
-            "num_queries_per_candidate": 15,
+            "num_queries_per_candidate": 10,  # tighter, higher-signal
             "freshness_days": 30,
             "quality_threshold": 0.7,
             "candidate_cap": 5,
@@ -64,73 +53,131 @@ class SourceDiscoveryEngine:
             ],
             "per_host_concurrency": 5,
             "cache_ttl_seconds": 300,
+            # new knobs
+            "require_campaign_homepage": True,
+            "run_core_phase_first": True,
+            "http_timeout_seconds": 20,
         }
+
         # Initialize search utilities
         self.search_utils = SearchUtils(self.search_config)
 
     async def discover_all_sources(self, race_id: str, race_json: Optional[RaceJSON] = None) -> List[Source]:
-        """
-        Discover all sources for a race including seed sources and fresh issue searches.
+        logger.info("Starting comprehensive source discovery for %s", race_id)
+        rm = race_json.race_metadata if (race_json and race_json.race_metadata) else None
 
-        Args:
-            race_id: Race identifier like 'mo-senate-2024'
-            race_json: Optional RaceJSON for optimized discovery
+        core = await self.discover_core_sources(race_id, race_json)
+        fresh = await self.discover_recency_sources(race_id, race_json)
 
-        Returns:
-            List of all discovered sources (seed + fresh)
-        """
-        logger.info(f"Starting comprehensive source discovery for {race_id}")
+        combined = self.search_utils.deduplicate_sources(core + fresh)
 
-        if race_json and race_json.race_metadata:
-            rm = race_json.race_metadata
-            logger.info(f"Using race metadata: {rm.full_office_name} in {rm.jurisdiction}")
-        else:
-            rm = None
+        # MINI MODEL PREFILTER right here, pre-fetch
+        filtered = await self.prefilter_with_mini_model(race_id, combined, rm)
 
-        # Get seed sources
-        seed_sources = await self.discover_seed_sources(race_id, rm)
-        logger.info(f"Found {len(seed_sources)} seed sources")
+        # ensure official sites are pinned
+        for s in filtered:
+            if getattr(s, "is_official_campaign", False):
+                s.score = max(s.score or 0, 0.99)
 
-        # Get fresh issue-specific sources
-        fresh_sources = await self.discover_fresh_issue_sources(race_id, race_json)
-        logger.info(f"Found {len(fresh_sources)} fresh issue sources")
-
-        # Combine and deduplicate
-        all_sources = seed_sources + fresh_sources
-        deduplicated = self.search_utils.deduplicate_sources(all_sources)
-
-        logger.info(f"Total sources after deduplication: {len(deduplicated)}")
-        return deduplicated
+        return sorted(filtered, key=lambda s: (s.score or 0), reverse=True)
 
     async def discover_seed_sources(self, race_id: str, race_metadata: Optional[RaceMetadata] = None) -> List[Source]:
-        """
-        Discover seed sources for a race from known electoral databases.
-
-        Args:
-            race_id: Race identifier like 'mo-senate-2024'
-            race_metadata: Optional race metadata for targeted discovery
-
-        Returns:
-            List of seed sources
-        """
+        """(Evergreen) Discover seed sources from known electoral databases."""
         return await self._discover_seed_sources(race_id, race_metadata)
 
     async def discover_fresh_issue_sources(self, race_id: str, race_json: Optional[RaceJSON] = None) -> List[Source]:
-        """Discover fresh issue-specific sources using Google Custom Search."""
-
+        """(Fresh) Discover issue-specific sources using Google Custom Search."""
         return await self._discover_fresh_issue_sources(race_id, race_json)
+
+    async def discover_core_sources(self, race_id: str, race_json: Optional[RaceJSON]) -> List[Source]:
+        """
+        Phase 1 (Core): No freshness filters. Must capture:
+          - Ballotpedia/Wikipedia race & candidate profiles
+          - FEC/OpenSecrets (federal), SoS (state) pages
+          - Official campaign homepage per candidate (if possible)
+          - Vote411 (if available)
+        """
+        rm = race_json.race_metadata if (race_json and race_json.race_metadata) else None
+
+        # 1) Structured seeds (Ballotpedia/FEC/OpenSecrets/SoS)
+        structured = await self._discover_seed_sources(race_id, rm)
+
+        # 2) Trusted seed queries (Ballotpedia/Wikipedia/FEC by search)
+        trusted_seed_queries = []
+        if rm:
+            trusted_seed_queries = self.search_utils.build_race_seed_queries(
+                race_id=race_id,
+                state=rm.state,
+                office=rm.office_type,
+                year=rm.year,
+                district=rm.district,
+                trusted_only=True,
+            )
+        trusted_results = await _run_queries(self.search_utils, trusted_seed_queries)
+
+        # 3) Campaign site finder per candidate (no date filter)
+        campaign_results: List[Source] = []
+        if race_json and race_json.candidates:
+            candidate_names = [c.name for c in race_json.candidates][: self.search_config.get("candidate_cap", 5)]
+            campaign_queries = _build_campaign_site_queries(race_id, candidate_names, rm)
+            campaign_results = await _run_queries(self.search_utils, campaign_queries)
+            # Heuristic boost for likely official sites
+            for s in campaign_results:
+                if _looks_like_official_campaign(s):
+                    s.score = max(s.score or 0, 0.98)
+
+        # 4) Vote411 & Wikipedia fallbacks by generic queries (no date)
+        generic_queries = []
+        if rm:
+            generic_queries.extend(
+                [
+                    FreshSearchQuery(
+                        text=f"site:vote411.org {rm.state} {rm.office_type} {rm.year}",
+                        race_id=race_id,
+                        issue=CanonicalIssue.GENERAL if hasattr(CanonicalIssue, "GENERAL") else next(iter(CanonicalIssue)),
+                        generated_at=datetime.utcnow(),
+                        max_results=5,
+                        date_restrict="y2",  # 2 years is fine for evergreen directories
+                    ),
+                    FreshSearchQuery(
+                        text=f"site:wikipedia.org {rm.year} {rm.state} {rm.office_type} election",
+                        race_id=race_id,
+                        issue=CanonicalIssue.GENERAL if hasattr(CanonicalIssue, "GENERAL") else next(iter(CanonicalIssue)),
+                        generated_at=datetime.utcnow(),
+                        max_results=5,
+                        date_restrict="y2",
+                    ),
+                ]
+            )
+        generic_results = await _run_queries(self.search_utils, generic_queries)
+
+        core_all = self.search_utils.deduplicate_sources(structured + trusted_results + campaign_results + generic_results)
+
+        # Optional: enforce campaign homepage coverage if configured
+        if self.search_config.get("require_campaign_homepage", True) and race_json and race_json.candidates:
+            # Keep at least one campaign-looking domain per candidate, if we found one
+            pass  # scoring already promotes them; hard enforcement can be added here if desired
+
+        logger.info("Core phase collected %d sources", len(core_all))
+        return core_all
+
+    async def discover_recency_sources(self, race_id: str, race_json: Optional[RaceJSON]) -> List[Source]:
+        """
+        Phase 2 (Recency): date-limited, higher-churn content
+        Reuses the existing _discover_fresh_issue_sources implementation.
+        """
+        fresh = await self._discover_fresh_issue_sources(race_id, race_json)
+        logger.info("Recency phase collected %d sources", len(fresh))
+        return fresh
 
     async def _discover_seed_sources(self, race_id: str, race_metadata: Optional[RaceMetadata] = None) -> List[Source]:
         """
         Discover sources from known electoral databases.
 
-        TODO:
-        - [ ] Add specific URL construction for each database
-        - [ ] Implement API integrations where available
-        - [ ] Add error handling for unavailable sources
-        - [ ] Support for different race types (federal, state, local)
+        NOTE: Do not assume SoS URL format; many states differ.
+              Keep these as generic seeds; trusted searches will firm them up.
         """
-        sources = []
+        sources: List[Source] = []
 
         # Use metadata if available, otherwise parse race_id
         if race_metadata:
@@ -149,10 +196,10 @@ class SourceDiscoveryEngine:
                 district = race_parts[2] if len(race_parts) == 4 and race_parts[2].isdigit() else None
                 race_type = "federal" if office_type in ["senate", "house"] else "state"
             else:
-                logger.warning(f"Could not parse race_id {race_id}, using minimal sources")
+                logger.warning("Could not parse race_id %s, using minimal sources", race_id)
                 return sources
 
-        # Ballotpedia URL construction (enhanced with metadata)
+        # Ballotpedia (basic constructed URL; trusted search will reinforce)
         if district:
             ballotpedia_url = f"https://ballotpedia.org/{year}_{state}_{office_type}_district_{district}_election"
         else:
@@ -161,17 +208,17 @@ class SourceDiscoveryEngine:
         sources.append(
             Source(
                 url=ballotpedia_url,
-                type=SourceType.GOVERNMENT,
+                type=SourceType.GOVERNMENT if hasattr(SourceType, "GOVERNMENT") else SourceType.WEBSITE,
                 title=f"Ballotpedia - {state} {office_type.title()} Election {year}",
-                description="Official election information from Ballotpedia",
+                description="Election overview (Ballotpedia)",
                 last_accessed=datetime.utcnow(),
                 is_fresh=False,
+                score=0.7,
             )
         )
 
-        # Federal races get additional federal sources
+        # Federal races get FEC + OpenSecrets
         if race_type == "federal":
-            # FEC data for federal races
             if office_type == "senate":
                 fec_url = f"https://www.fec.gov/data/elections/senate/{state.lower()}/{year}/"
             elif office_type == "house" and district:
@@ -182,51 +229,55 @@ class SourceDiscoveryEngine:
             sources.append(
                 Source(
                     url=fec_url,
-                    type=SourceType.GOVERNMENT,
+                    type=SourceType.GOVERNMENT if hasattr(SourceType, "GOVERNMENT") else SourceType.WEBSITE,
                     title=f"FEC - {state} {office_type.title()} Election {year}",
                     description="Federal Election Commission data",
                     last_accessed=datetime.utcnow(),
                     is_fresh=False,
+                    score=0.8,
                 )
             )
 
-            # OpenSecrets for campaign finance
-            opensecrets_url = f"https://www.opensecrets.org/races/summary?cycle={year}&id={state}{district or ''}&spec=N"
+            # Campaign finance (OpenSecrets) — heuristic URL as a seed only
+            opensecrets_url = (
+                f"https://www.opensecrets.org/races?cycle={year}&state={state.lower()}&chamber={office_type.lower()}"
+            )
             sources.append(
                 Source(
                     url=opensecrets_url,
-                    type=SourceType.GOVERNMENT,
+                    type=SourceType.WEBSITE,
                     title=f"OpenSecrets - {state} {office_type.title()} Campaign Finance",
-                    description="Campaign finance data from OpenSecrets",
+                    description="Campaign finance overview (OpenSecrets)",
                     last_accessed=datetime.utcnow(),
                     is_fresh=False,
+                    score=0.7,
                 )
             )
-
-        # State-specific sources for state races
-        elif race_type == "state":
-            # Secretary of State election pages (varies by state)
-            sos_url = f"https://www.sos.{state.lower()}.gov/elections/{year}"
+        else:
+            # State-level SoS seed via generic domain pattern (not guaranteed)
+            sos_url = f"https://www.sos.{state.lower()}.gov"
             sources.append(
                 Source(
                     url=sos_url,
-                    type=SourceType.GOVERNMENT,
-                    title=f"{state} Secretary of State - Elections",
-                    description=f"Official {state} election information",
+                    type=SourceType.GOVERNMENT if hasattr(SourceType, "GOVERNMENT") else SourceType.WEBSITE,
+                    title=f"{state} Secretary of State",
+                    description=f"Official {state} election information (root)",
                     last_accessed=datetime.utcnow(),
                     is_fresh=False,
+                    score=0.6,
                 )
             )
 
-        logger.info(f"Generated {len(sources)} seed sources for {race_id}")
+        logger.info("Generated %d seed sources for %s", len(sources), race_id)
         return sources
 
-    async def _discover_fresh_issue_sources(self, race_id: str, race_json: Optional[RaceJSON] = None) -> List[Source]:
-        """Run candidate×issue searches concurrently and rank results."""
+    # ----------------------------- Internal (fresh) --------------------------- #
 
+    async def _discover_fresh_issue_sources(self, race_id: str, race_json: Optional[RaceJSON] = None) -> List[Source]:
+        """Run candidate×issue searches (date-limited) and rank results."""
         issues = self.search_config.get("issues", list(CanonicalIssue))
         candidate_cap = self.search_config.get("candidate_cap", 3)
-        query_limit = self.search_config.get("num_queries_per_candidate", 15)
+        query_limit = self.search_config.get("num_queries_per_candidate", 10)
         top_results = self.search_config.get("top_results_per_query", 5)
 
         if race_json and race_json.candidates:
@@ -237,15 +288,30 @@ class SourceDiscoveryEngine:
             race_meta = race_json.race_metadata if race_json else None
 
         all_sources: List[Source] = []
+
+        # Candidate × issue (smarter templates are inside SearchUtils; limit reduced)
         for cand in candidates:
             queries = self.search_utils.generate_candidate_issue_queries(race_id, cand, issues, race_meta, query_limit)
-            tasks = [self.search_utils.search_google_custom(q, q.issue) for q in queries]
-            results = await asyncio.gather(*tasks) if tasks else []
-            sources = [s for r in results for s in r]
-            deduped = self.search_utils.deduplicate_sources(sources)
+            results_nested = (
+                await asyncio.gather(*[self.search_utils.search_google_custom(q, q.issue) for q in queries]) if queries else []
+            )
+            flat = [s for r in results_nested for s in r]
+
+            # Score nudges for news/social vs blogs (cheap heuristics)
+            for s in flat:
+                host = (s.url or "").lower()
+                if "youtube.com" in host or "twitter.com" in host or "facebook.com" in host:
+                    s.score = max(s.score or 0, 0.68)
+                elif ".gov" in host or "fec.gov" in host:
+                    s.score = max(s.score or 0, 0.75)
+                else:
+                    s.score = max(s.score or 0, 0.6)
+
+            deduped = self.search_utils.deduplicate_sources(flat)
             all_sources.extend(sorted(deduped, key=lambda s: s.score or 0, reverse=True))
 
-        general_issues = self.search_config.get("general_issue_terms", [])
+        # Race-level general issue sweeps (few, fresh)
+        general_issues: Iterable[CanonicalIssue] = self.search_config.get("general_issue_terms", [])
         for issue in general_issues:
             q = self.search_utils.generate_issue_query(
                 race_id,
@@ -258,3 +324,207 @@ class SourceDiscoveryEngine:
 
         deduped_all = self.search_utils.deduplicate_sources(all_sources)
         return sorted(deduped_all, key=lambda s: s.score or 0, reverse=True)
+
+
+def _build_campaign_site_queries(
+    race_id: str,
+    candidate_names: List[str],
+    rm: Optional[RaceMetadata],
+) -> List[FreshSearchQuery]:
+    """Craft high-signal, no-freshness templates to capture official homepages + socials."""
+    if not candidate_names:
+        return []
+
+    state = getattr(rm, "state", "") if rm else ""
+    office = getattr(rm, "office_type", "") if rm else ""
+    year = getattr(rm, "year", "") if rm else ""
+
+    templates = [
+        '"{name}" ("for {office}" OR campaign OR "official site") {state}',
+        'intitle:"{name}" ("for {office}" OR "for {office} {state}")',
+        '"{name}" site:.com OR site:.org',
+        # socials as pivots (no freshness)
+        '"{name}" ("for {office}" OR campaign) site:facebook.com',
+        '"{name}" ("for {office}" OR campaign) site:twitter.com',
+        '"{name}" ("for {office}" OR campaign) site:youtube.com',
+        # directories that often list the official link
+        '"{name}" Ballotpedia',
+        '"{name}" OpenSecrets',
+    ]
+
+    out: List[FreshSearchQuery] = []
+    for name in candidate_names:
+        for t in templates:
+            text = t.format(name=name, office=office, state=state, year=year)
+            out.append(
+                FreshSearchQuery(
+                    text=text,
+                    race_id=race_id,
+                    issue=CanonicalIssue.GENERAL if hasattr(CanonicalIssue, "GENERAL") else next(iter(CanonicalIssue)),
+                    generated_at=datetime.utcnow(),
+                    max_results=5,
+                    # no dateRestrict => evergreen
+                )
+            )
+    return out
+
+
+def _looks_like_official_campaign(src: Source) -> bool:
+    """Cheap heuristic to identify campaign homepages using only the URL/title."""
+    if not src or not src.url:
+        return False
+    u = (src.url or "").lower()
+    title = (src.title or "").lower()
+
+    # Avoid socials; we want the campaign site itself here
+    if any(s in u for s in ["facebook.com", "twitter.com", "x.com", "youtube.com", "tiktok.com"]):
+        return False
+
+    tokens = ["for", "elect", "vote", "campaign", "donate", "volunteer"]
+    domain_tokens = ["for", "elect", "vote", "4"]
+    looks_campaign_domain = any(f".{tok}" in u or f"{tok}" in u for tok in domain_tokens)
+    looks_campaign_title = any(tok in title for tok in tokens)
+
+    # prefer apex domains ending in .com/.org and not .gov/.edu/news
+    good_tld = u.endswith(".com") or u.endswith(".org") or ".com/" in u or ".org/" in u
+    bad_tld = u.endswith(".gov") or ".gov/" in u or "/news" in u
+
+    return (looks_campaign_domain or looks_campaign_title) and good_tld and not bad_tld
+
+
+async def _run_queries(search_utils: SearchUtils, queries: List[FreshSearchQuery]) -> List[Source]:
+    if not queries:
+        return []
+    # Run with concurrency via SearchUtils
+    results_nested = await asyncio.gather(*[search_utils.search_general(q) for q in queries])
+    flat = [s for r in results_nested for s in r]
+    return search_utils.deduplicate_sources(flat)
+
+
+async def prefilter_with_mini_model(
+    self,
+    race_id: str,
+    sources: List[Source],
+    race_meta: Optional[RaceMetadata],
+    *,
+    batch_size: int = 18,
+    drop_threshold: float = 0.35,
+    boost_threshold: float = 0.75,
+) -> List[Source]:
+    if not sources:
+        return sources
+
+    ctx_parts = []
+    if race_meta:
+        ctx_parts.append(f"state={race_meta.state}")
+        ctx_parts.append(f"office={race_meta.office_type}")
+        ctx_parts.append(f"year={race_meta.year}")
+        if getattr(race_meta, "district", None):
+            ctx_parts.append(f"district={race_meta.district}")
+    ctx = ", ".join(ctx_parts) or "state=?, office=?, year=?"
+
+    schema = {
+        "type": "object",
+        "properties": {
+            "items": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "required": ["i", "keep", "priority", "category", "official"],
+                    "properties": {
+                        "i": {"type": "integer"},  # index in the batch
+                        "keep": {"type": "boolean"},  # fetch or drop
+                        "priority": {"type": "number"},  # 0.0-1.0 suggested
+                        "category": {"type": "string"},  # campaign|gov|news|social|blog|spam|other
+                        "official": {"type": "boolean"},  # likely official campaign site
+                        "notes": {"type": "string"},
+                    },
+                },
+            }
+        },
+        "additionalProperties": False,
+    }
+
+    def build_prompt(batch: List[Source], start_idx: int) -> str:
+        lines = [
+            "You are triaging URLs about an election. Return JSON only per schema.",
+            f"Race context: {ctx}.",
+            "Label each URL with: keep, priority (0-1), category, official (campaign site?).",
+            "Prefer: official campaign sites, Ballotpedia/FEC/OpenSecrets/SoS, reputable local/state news.",
+            "Demote: spam, SEO blogs, irrelevant homonyms, fundraising aggregators without first-party info.",
+            "",
+            "BATCH:",
+        ]
+        for j, s in enumerate(batch):
+            idx = start_idx + j
+            title = (s.title or "").strip()
+            lines.append(f"{j}. url={s.url} | title={title}")
+        lines.append("\nReturn strictly the JSON for {items:[...]}.")
+        return "\n".join(lines)
+
+    out: List[Source] = []
+    for start in range(0, len(sources), batch_size):
+        batch = sources[start : start + batch_size]
+        prompt = build_prompt(batch, start_idx=start)
+
+        data = await self.registry.generate_json(
+            TaskType.DISCOVER,
+            prompt,
+            response_format={"type": "json_schema", "json_schema": schema},  # providers honor if supported
+            max_tokens=1200,
+            allow_repair=True,
+            repair_schema_hint=str(schema),
+        )
+
+        by_local_idx: Dict[int, Dict[str, Any]] = {
+            item["i"]: item for item in data.get("items", []) if isinstance(item, dict) and "i" in item
+        }
+        for j, src in enumerate(batch):
+            ann = by_local_idx.get(j)
+            if not ann:
+                # if model didn't return an entry, keep but with minimal priority
+                out.append(src)
+                continue
+
+            # apply annotations
+            pr = float(max(0.0, min(1.0, ann.get("priority", 0.5))))
+            keep = bool(ann.get("keep", True))
+            cat = (ann.get("category") or "").lower()
+            official = bool(ann.get("official", False))
+
+            # score shaping
+            base = src.score or 0.5
+            # category nudges (cheap heuristics)
+            if cat in ("campaign",):
+                base = max(base, 0.85)
+            elif cat in ("gov", "fec", "opensecrets", "ballotpedia", "wikipedia", "sos"):
+                base = max(base, 0.8)
+            elif cat in ("news", "localnews"):
+                base = max(base, 0.65)
+            elif cat in ("social",):
+                base = max(base, 0.6)
+            elif cat in ("spam",):
+                base = min(base, 0.2)
+
+            # blend model priority (weighted)
+            src.score = 0.6 * base + 0.4 * pr
+
+            # pin likely official homepage
+            if official:
+                try:
+                    setattr(src, "is_official_campaign", True)
+                except Exception:
+                    pass
+                src.score = max(src.score, 0.98)
+
+            # final keep/drop
+            if keep and src.score >= drop_threshold:
+                out.append(src)
+            else:
+                # drop only if both say "no" and score is very low
+                if src.score >= drop_threshold * 0.6:
+                    out.append(src)
+
+    # light re-rank: strong keeps first
+    out.sort(key=lambda s: (s.score or 0), reverse=True)
+    return out
