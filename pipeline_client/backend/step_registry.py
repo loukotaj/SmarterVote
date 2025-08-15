@@ -1,3 +1,4 @@
+import base64
 import json
 import logging
 import time
@@ -24,6 +25,8 @@ def to_jsonable(obj):
         return obj.isoformat()
     elif isinstance(obj, date):
         return obj.isoformat()
+    elif isinstance(obj, bytes):
+        return base64.b64encode(obj).decode("utf-8")
     else:
         return obj
 
