@@ -320,7 +320,7 @@ class SourceDiscoveryEngine:
 
             # Score nudges for news/social vs blogs (cheap heuristics)
             for s in flat:
-                host = (s.url or "").lower()
+                host = (str(s.url) or "").lower()
                 if "youtube.com" in host or "twitter.com" in host or "facebook.com" in host:
                     s.score = max(s.score or 0, 0.68)
                 elif ".gov" in host or "fec.gov" in host:
@@ -559,7 +559,14 @@ class SourceDiscoveryEngine:
             data = await registry.generate_json(
                 TaskType.DISCOVER,
                 prompt,
-                response_format={"type": "json_schema", "json_schema": schema},
+                response_format={
+                    "type": "json_schema",
+                    "json_schema": {
+                        "name": "Source Discovery Engine",
+                        "schema": schema,
+                        "strict": True,  # keep the model pinned to your schema
+                    },
+                },
                 max_tokens=1200,
                 allow_repair=True,
                 repair_schema_hint=str(schema),
@@ -666,7 +673,7 @@ def _looks_like_official_campaign(src: Source) -> bool:
     """Cheap heuristic to identify campaign homepages using only the URL/title."""
     if not src or not src.url:
         return False
-    u = src.url or ""
+    u = str(src.url) if src.url else ""
     title = (src.title or "").lower()
 
     # Avoid socials; we want the campaign site itself here

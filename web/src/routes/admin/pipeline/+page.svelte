@@ -640,7 +640,7 @@
             bind:value={inputJson}
             class="json-editor"
             spellcheck="false"
-            placeholder='{"race_id": "example_race_2024"}'
+            placeholder="{`{\"race_id\": \"example_race_2024\"}`}"
           />
         </div>
 
@@ -748,11 +748,8 @@
         <div class="flex items-center justify-between mb-4">
           <h3 class="text-lg font-semibold text-gray-900">Current Run</h3>
           <span
-            class="px-3 py-1 rounded-full text-xs font-medium border {getStatusClass(
-              runStatus
-            )}"
-            >{(runStatus as string).charAt(0).toUpperCase() + (runStatus as string).slice(1)}</span
-          >
+            class="px-3 py-1 rounded-full text-xs font-medium border {getStatusClass(runStatus)}"
+          >{runStatus.charAt(0).toUpperCase() + runStatus.slice(1)}</span>
         </div>
 
         <!-- Progress Bar -->
@@ -914,14 +911,17 @@
       </div>
       <ul class="artifacts-list custom-scrollbar">
         {#each artifacts as artifact}
-          <li
-            class="cursor-pointer"
-            on:click={() => handleArtifactClick(artifact)}
-          >
-            <span class="font-mono text-sm">{artifact.id || (artifact as any).artifact_id || (artifact as any)._id}</span>
-            <span class="text-xs text-gray-500">
-              {artifact.size ? `${(artifact.size / 1024).toFixed(1)} KB` : "—"}
-            </span>
+          <li>
+            <button
+              type="button"
+              class="cursor-pointer w-full flex justify-between items-center px-0 py-0 bg-transparent border-none text-inherit"
+              on:click={() => handleArtifactClick(artifact)}
+            >
+              <span class="font-mono text-sm">{artifact.id}</span>
+              <span class="text-xs text-gray-500">
+                {artifact.size ? `${(artifact.size / 1024).toFixed(1)} KB` : "—"}
+              </span>
+            </button>
           </li>
         {:else}
           <li class="text-center text-gray-500 text-sm py-4">
