@@ -9,19 +9,16 @@ import os
 import sys
 from typing import List
 
-from pydantic import BaseModel
-
 # Add parent directories to path to import shared modules
 sys.path.append(os.path.join(os.path.dirname(__file__), "..", ".."))
 
+from config import DATA_DIR
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from schemas import CandidateSummary, RaceSummary
 from simple_publish_service import SimplePublishService
 
 from shared.models import RaceJSON as Race
-
-# Configure data directory from environment variable
-DATA_DIR = os.getenv("DATA_DIR", "data/published/")
 
 # Initialize simple publish service
 publish_service = SimplePublishService(data_directory=DATA_DIR)
@@ -37,26 +34,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
-class CandidateSummary(BaseModel):
-    """Summary of candidate for search purposes."""
-
-    name: str
-    party: str | None = None
-    incumbent: bool
-
-
-class RaceSummary(BaseModel):
-    """Summary of race for search and listing purposes."""
-
-    id: str
-    title: str | None = None
-    office: str | None = None
-    jurisdiction: str | None = None
-    election_date: str
-    updated_utc: str
-    candidates: List[CandidateSummary]
 
 
 @app.get("/races", response_model=List[str])
