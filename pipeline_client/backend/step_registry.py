@@ -151,7 +151,7 @@ class Step01DiscoveryHandler:
             return output
         except Exception as e:
             error_msg = f"Step01DiscoveryHandler: Error discovering sources for race_id='{race_id}': {e}"
-            logger.error(error_msg, exc_info=True, traceback=True)
+            logger.error(error_msg, exc_info=True)
             raise RuntimeError(error_msg)
 
 
