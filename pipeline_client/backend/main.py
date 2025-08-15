@@ -1,4 +1,5 @@
 import asyncio
+import logging
 import sys
 import uuid
 from contextlib import asynccontextmanager
@@ -69,7 +70,7 @@ async def get_artifact_details(artifact_id: str) -> Dict[str, Any]:
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=settings.allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -138,9 +139,8 @@ async def _execute_run_async(step: str, request: RunRequest, run_id: str):
     """Execute a single run asynchronously."""
     try:
         await run_step_async(step, request, run_id)
-    except Exception as e:
-        # Error handling is done in run_step_async
-        pass
+    except Exception:
+        logging.exception("Unexpected error during async run %s", run_id)
 
 
 @app.post("/batch/{step}", response_model=BatchRunResponse)
@@ -170,8 +170,7 @@ async def _execute_batch(step: str, runs: List[RunInfo], options):
             request = RunRequest(payload=run_info.payload, options=options)
             await run_step_async(step, request, run_info.run_id)
         except Exception:
-            # Error handling is done in run_step_async
-            pass
+            logging.exception("Run %s failed during batch execution", run_info.run_id)
 
 
 @app.get("/runs")
