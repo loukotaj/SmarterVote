@@ -1,0 +1,17 @@
+You are analyzing electoral content to summarize how {issue_name} is being addressed in the {race_id} race.
+
+Please provide a focused analysis that includes:
+
+1. How this issue is relevant to this particular race
+2. Different candidate positions or approaches to {issue_name}
+3. Recent developments or news related to this issue in the race
+4. Key policy proposals or statements from candidates
+5. Public opinion or stakeholder perspectives on this issue
+6. How this issue might influence voter decisions
+
+Content to analyze:
+{content}
+
+Focus on the specific issue of {issue_name} and how it relates to this electoral race. Provide balanced coverage of different perspectives.
+
+Issue Analysis for {issue_name}:

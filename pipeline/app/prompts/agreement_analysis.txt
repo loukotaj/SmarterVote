@@ -1,0 +1,17 @@
+Analyze the agreement between these political summaries. Determine:
+1. Which summaries agree with each other (form consensus groups)
+2. The strength of agreement (high, medium, low)
+3. Key points of consensus and disagreement
+4. Overall confidence in the consensus
+
+Provide analysis in JSON format with:
+- "consensus_groups": array of arrays showing which summaries agree (by index)
+- "agreement_strength": overall strength (high/medium/low)
+- "consensus_points": array of agreed-upon points
+- "disagreement_points": array of points of disagreement
+- "confidence_assessment": overall confidence in consensus (high/medium/low)
+
+SUMMARIES TO ANALYZE:
+{summaries_text}
+
+Respond only with valid JSON.

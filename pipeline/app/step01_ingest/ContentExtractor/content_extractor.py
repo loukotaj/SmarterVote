@@ -33,6 +33,7 @@ from shared.models import CanonicalIssue, ExtractedContent, Source
 
 from ...providers import registry
 from ...providers.base import TaskType
+from ...utils.prompt_loader import load_prompt
 
 logger = logging.getLogger(__name__)
 
@@ -1025,10 +1026,7 @@ class ContentExtractor:
     async def _mini_cleanup(self, providers, text: str, tables: list[dict]) -> tuple[str, list[dict]]:
         if not providers or not text or not tables:
             return text, tables
-        prompt = (
-            "Normalize table headers to plain English, keep data as-is. "
-            "Return JSON {tables:[{headers:[], sample_data:[]}]} with the same row counts as input."
-        )
+        prompt = load_prompt("table_cleanup")
         try:
             resp = await registry.generate_json(
                 TaskType.EXTRACT,
