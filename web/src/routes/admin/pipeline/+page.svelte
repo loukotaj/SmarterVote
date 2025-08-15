@@ -1,14 +1,22 @@
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
-  import type { RunInfo, RunStatus, RunStep } from "$lib/types";
+  import type {
+    RunInfo,
+    RunStatus,
+    RunStep,
+    Artifact,
+    LogEntry,
+    RunHistoryItem,
+    RunOptions,
+  } from "$lib/types";
   import RunStepList from "$lib/components/RunStepList.svelte";
 
   const API_BASE = "http://127.0.0.1:8001"; // FastAPI local
 
   let steps: string[] = [];
   let inputJson = '{\n  "race_id": "mo-senate-2024"\n}';
-  let output: any = null;
-  let artifacts: any[] = [];
+  let output: unknown = null;
+  let artifacts: Artifact[] = [];
   let loading = false;
 
   let skip_llm_apis = false;
@@ -20,28 +28,17 @@
   // Enhanced features
   let ws: WebSocket | null = null;
   let connected = false;
-  let logs: Array<{
-    level: string;
-    message: string;
-    timestamp: string;
-    run_id?: string;
-  }> = [];
+  let logs: LogEntry[] = [];
   let currentRunId: string | null = null;
   let isExecuting = false;
   let runStartTime: number | null = null;
   let elapsedTime = 0;
-  let elapsedTimer: any = null;
+  let elapsedTimer: ReturnType<typeof setInterval> | null = null;
   let runStatus: RunStatus | "idle" = "idle";
   let progress = 0;
   let progressMessage = "";
   let logFilter = "all";
   let currentStep: string | null = null;
-  interface RunHistoryItem extends RunInfo {
-    display_id: number;
-    updated_at: string;
-    step?: string;
-  }
-
   let runHistory: RunHistoryItem[] = [];
   let selectedRun: RunHistoryItem | null = null;
   let runAll = false;
@@ -50,7 +47,7 @@
   // Modal state
   let showModal = false;
   let modalTitle = "";
-  let modalData: any = null;
+  let modalData: unknown = null;
   let modalLoading = false;
 
   async function loadSteps() {
@@ -74,7 +71,7 @@
       const res = await fetch(`${API_BASE}/runs`);
       const data: RunsResponse = await res.json();
       const runs = data.runs || [];
-      runHistory = runs.map((r: any, idx: number) => {
+      runHistory = runs.map((r: RunInfo, idx: number) => {
         const lastStep = r.steps?.at(-1)?.name || r.step;
         return {
           ...r,
@@ -125,7 +122,14 @@
     };
   }
 
-  function handleWebSocketMessage(data: any) {
+  type PipelineEvent =
+    | { type: "log"; level: string; message: string; timestamp?: string; run_id?: string }
+    | { type: "run_started"; run_id: string; step: string }
+    | { type: "run_progress"; progress?: number; message?: string }
+    | { type: "run_completed"; result?: unknown; artifact_id?: string; duration_ms?: number }
+    | { type: "run_failed"; error?: string };
+
+  function handleWebSocketMessage(data: PipelineEvent) {
     switch (data.type) {
       case "log":
         addLog(data.level, data.message, data.timestamp, data.run_id);
@@ -145,13 +149,8 @@
     }
   }
 
-  function addLog(
-    level: string,
-    message: string,
-    timestamp?: string,
-    run_id?: string
-  ) {
-    const logEntry = {
+  function addLog(level: string, message: string, timestamp?: string, run_id?: string) {
+    const logEntry: LogEntry = {
       level,
       message,
       timestamp: timestamp || new Date().toISOString(),
@@ -170,12 +169,16 @@
     updateStepStatus(data.step, "running");
   }
 
-  function handleRunProgress(data: any) {
+  function handleRunProgress(data: { progress?: number; message?: string }) {
     progress = data.progress || 0;
     progressMessage = data.message || "";
   }
 
-  function handleRunCompleted(data: { result?: any; artifact_id?: string; duration_ms?: number }) {
+  function handleRunCompleted(data: {
+    result?: unknown;
+    artifact_id?: string;
+    duration_ms?: number;
+  }) {
     runStatus = "completed";
     progress = 100;
     progressMessage = "Completed successfully";
@@ -197,7 +200,7 @@
     loadArtifacts();
   }
 
-  function handleRunFailed(data: any) {
+  function handleRunFailed(data: { error?: string }) {
     runStatus = "failed";
     setExecutionState(false);
     if (currentStep) {
@@ -258,7 +261,7 @@
         }
       } else {
         const payload = JSON.parse(inputJson || "{}");
-        const options: Record<string, any> = {
+        const options: RunOptions = {
           skip_llm_apis: skip_llm_apis || undefined,
           skip_external_apis: skip_external_apis || undefined,
           skip_network_calls: skip_network_calls || undefined,
@@ -307,7 +310,7 @@
 
     try {
       const payload = JSON.parse(inputJson || "{}");
-      const options: Record<string, any> = {
+      const options: RunOptions = {
         skip_llm_apis: skip_llm_apis || undefined,
         skip_external_apis: skip_external_apis || undefined,
         skip_network_calls: skip_network_calls || undefined,
@@ -468,7 +471,7 @@
     stopElapsedTimer();
   });
 
-  function openModal(title: string, data: any) {
+  function openModal(title: string, data: unknown) {
     modalTitle = title;
     modalData = data;
     showModal = true;
@@ -503,7 +506,7 @@
     modalLoading = false;
   }
 
-  async function handleArtifactClick(artifact: any) {
+  async function handleArtifactClick(artifact: Artifact) {
     modalLoading = true;
     showModal = true;
     modalTitle = "Artifact Details";
