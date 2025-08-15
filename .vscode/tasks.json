@@ -18,6 +18,9 @@
             "problemMatcher": ["$python"],
             "options": {
                 "cwd": "${workspaceFolder}"
+            },
+            "runOptions": {
+                "instanceLimit": 1
             }
         },
         {
@@ -35,6 +38,9 @@
             "problemMatcher": ["$python"],
             "options": {
                 "cwd": "${workspaceFolder}"
+            },
+            "runOptions": {
+                "instanceLimit": 1
             }
         },
         {
@@ -52,6 +58,9 @@
             "problemMatcher": ["$python"],
             "options": {
                 "cwd": "${workspaceFolder}"
+            },
+            "runOptions": {
+                "instanceLimit": 1
             }
         },
         {
@@ -69,6 +78,9 @@
             "problemMatcher": ["$python"],
             "options": {
                 "cwd": "${workspaceFolder}"
+            },
+            "runOptions": {
+                "instanceLimit": 1
             }
         },
         {
@@ -93,13 +105,19 @@
             "problemMatcher": ["$python"],
             "options": {
                 "cwd": "${workspaceFolder}"
+            },
+            "runOptions": {
+                "instanceLimit": 1
             }
         },
         {
             "label": "Start Development Environment",
             "type": "shell",
             "command": "powershell",
-            "args": ["-ExecutionPolicy", "Bypass", "-File", ".\\dev-start.ps1"],
+            "args": [
+                "-ExecutionPolicy", "Bypass",
+                "-File", ".\\start.ps1"
+            ],
             "group": "build",
             "presentation": {
                 "echo": true,
@@ -108,17 +126,39 @@
                 "panel": "new"
             },
             "options": {
+                "cwd": "${workspaceFolder}\\pipeline_client"
+            },
+            "runOptions": {
+                "instanceLimit": 1
+            }
+        },
+        {
+            "label": "Start All Services",
+            "type": "shell",
+            "dependsOn": [
+                "Start Development Environment",
+                "Start Web Frontend Only",
+                "Start Races API Only"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "options": {
                 "cwd": "${workspaceFolder}"
+            },
+            "runOptions": {
+                "instanceLimit": 1
             }
         },
         {
             "label": "Start Races API Only",
             "type": "shell",
-            "command": "powershell",
-            "args": [
-                "-Command",
-                "$env:PYTHONPATH='${workspaceFolder}'; $env:DATA_DIR='../../data/published'; & '${workspaceFolder}\\.venv\\Scripts\\python.exe' main.py"
-            ],
+            "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+            "args": ["main.py"],
             "group": "build",
             "isBackground": true,
             "presentation": {
@@ -128,7 +168,14 @@
                 "panel": "new"
             },
             "options": {
-                "cwd": "${workspaceFolder}/services/races-api"
+                "cwd": "${workspaceFolder}/services/races-api",
+                "env": {
+                    "PYTHONPATH": "${workspaceFolder}",
+                    "DATA_DIR": "${workspaceFolder}\\data\\published"
+                }
+            },
+            "runOptions": {
+                "instanceLimit": 1
             }
         },
         {
@@ -146,6 +193,9 @@
             },
             "options": {
                 "cwd": "${workspaceFolder}/web"
+            },
+            "runOptions": {
+                "instanceLimit": 1
             }
         }
     ]
