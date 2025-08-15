@@ -1,4 +1,5 @@
-"""Search utilities for source discovery in SmarterVote Pipeline.
+"""
+Search utilities for source discovery in SmarterVote Pipeline.
 
 Backwards-compatibility notes
 - Public methods kept: search_google_custom, search_general,
@@ -12,7 +13,7 @@ import os
 from collections import defaultdict
 from datetime import datetime, timedelta
 from typing import Any, Dict, List, Optional, Set, Tuple
-from urllib.parse import urlparse
+from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
 
 from ..schema import CanonicalIssue, FreshSearchQuery, RaceMetadata, Source, SourceType
 
@@ -21,8 +22,6 @@ logger = logging.getLogger(__name__)
 
 class SearchUtils:
     """Utilities for performing searches to discover sources."""
-
-    # --- static maps / constants (small, local, no external deps) --- #
 
     _STATE_MAP: Dict[str, str] = {
         "AL": "Alabama",
@@ -79,15 +78,45 @@ class SearchUtils:
         "PR": "Puerto Rico",
     }
 
+    _REDIRECTOR_HOSTS: Set[str] = {
+        "t.co",
+        "l.facebook.com",
+        "lm.facebook.com",
+        "outlook.office.com",
+        "link.agenda4democracy.org",
+        "lnkd.in",
+        "bit.ly",
+        "tinyurl.com",
+        "mail.google.com",
+        "news.google.com",
+    }
+
+    _TRACKING_PARAMS: Set[str] = {
+        "utm_source",
+        "utm_medium",
+        "utm_campaign",
+        "utm_term",
+        "utm_content",
+        "gclid",
+        "fbclid",
+        "mc_cid",
+        "mc_eid",
+        "pk_campaign",
+        "pk_kwd",
+        "irgwc",
+        "icid",
+        "ref",
+        "ref_src",
+        "cmpid",
+    }
+
     def __init__(self, search_config: dict):
-        """Initialize with search configuration."""
         self.search_config = search_config
         self.cache: Dict[str, Tuple[datetime, List[Source]]] = {}
         self.cache_ttl = search_config.get("cache_ttl_seconds", 300)
         self.per_host_concurrency = search_config.get("per_host_concurrency", 5)
         self._host_semaphores: Dict[str, asyncio.Semaphore] = defaultdict(lambda: asyncio.Semaphore(self.per_host_concurrency))
 
-        # Canonical issue synonyms
         self.issue_synonyms: Dict[CanonicalIssue, List[str]] = {
             CanonicalIssue.HEALTHCARE: ["health care", "medical", "medicare", "medicaid"],
             CanonicalIssue.ECONOMY: ["economic", "jobs", "employment", "taxes", "budget"],
@@ -115,7 +144,7 @@ class SearchUtils:
 
     async def search_google_custom(self, query: FreshSearchQuery, issue: CanonicalIssue) -> List[Source]:
         """Perform Google Custom Search and return raw results."""
-        cache_key = f"{query.race_id}:{query.text}"
+        cache_key = f"{query.race_id}:{query.text}:{getattr(query, 'date_restrict', '')}:{getattr(query, 'max_results', '')}"
         now = datetime.utcnow()
         cached = self.cache.get(cache_key)
         if cached and now - cached[0] < timedelta(seconds=self.cache_ttl):
@@ -125,13 +154,9 @@ class SearchUtils:
         search_engine_id = os.getenv("GOOGLE_SEARCH_ENGINE_ID")
 
         if not api_key or not search_engine_id:
-            logger.warning(
-                "Google Custom Search API not configured (missing GOOGLE_SEARCH_API_KEY or GOOGLE_SEARCH_ENGINE_ID)"
-            )
-            logger.info("Would search Google for: %s", query.text)
-
-            mock_source = Source(
-                url=f"https://example.com/news/{(getattr(issue, 'value', str(issue))).lower()}-{query.race_id}",
+            logger.warning("Google Custom Search API not configured.")
+            mock = Source(
+                url=f"https://example.com/news/{getattr(issue, 'value', str(issue)).lower()}-{query.race_id}",
                 type=self._choose_type("WEBSITE"),
                 title=f"Fresh: {getattr(issue, 'value', str(issue))} in {query.race_id}",
                 description=f"Fresh search content about {getattr(issue, 'value', str(issue))} for this race",
@@ -139,17 +164,15 @@ class SearchUtils:
                 published_at=now,
                 is_fresh=True,
             )
-            self.cache[cache_key] = (now, [mock_source])
-            return [mock_source]
-
-        logger.info("Searching Google Custom Search for: %s", query.text)
+            self.cache[cache_key] = (now, [mock])
+            return [mock]
 
         try:
             import httpx  # type: ignore
         except ImportError:
-            logger.warning("httpx not available for Google search. Using mock results.")
-            mock_source = Source(
-                url=f"https://example.com/mock/{(getattr(issue, 'value', str(issue))).lower()}-{query.race_id}",
+            logger.warning("httpx not available; returning mock result.")
+            mock = Source(
+                url=f"https://example.com/mock/{getattr(issue, 'value', str(issue)).lower()}-{query.race_id}",
                 type=self._choose_type("WEBSITE"),
                 title=f"Mock: {getattr(issue, 'value', str(issue))} in {query.race_id}",
                 description=f"Mock search content about {getattr(issue, 'value', str(issue))} for this race",
@@ -157,44 +180,41 @@ class SearchUtils:
                 published_at=now,
                 is_fresh=True,
             )
-            self.cache[cache_key] = (now, [mock_source])
-            return [mock_source]
+            self.cache[cache_key] = (now, [mock])
+            return [mock]
 
         search_url = "https://www.googleapis.com/customsearch/v1"
 
-        date_restrict = getattr(query, "date_restrict", None)
-        date_param = date_restrict if date_restrict else f"d{self.search_config.get('freshness_days', 30)}"
+        # Only send dateRestrict if explicitly requested.
+        date_param = getattr(query, "date_restrict", None)
         num = getattr(query, "max_results", None) or self.search_config.get("top_results_per_query", 5)
 
-        params = {
-            "key": api_key,
-            "cx": search_engine_id,
-            "q": query.text,
-            "num": num,
-            "dateRestrict": date_param,
-        }
+        params = {"key": api_key, "cx": search_engine_id, "q": query.text, "num": num}
+        if date_param:
+            params["dateRestrict"] = date_param
 
         host = urlparse(search_url).netloc
         async with self._host_semaphores[host]:
             try:
                 async with httpx.AsyncClient(timeout=self.search_config.get("http_timeout_seconds", 20)) as client:
-                    response = await client.get(search_url, params=params)
-                    response.raise_for_status()
-                    data = response.json()
+                    resp = await client.get(search_url, params=params)
+                    resp.raise_for_status()
+                    data = resp.json()
             except Exception as e:  # noqa: BLE001
                 logger.error("Google Custom Search failed for %s | error=%s", query.text, e)
                 return []
 
-        sources: List[Source] = []
+        out: List[Source] = []
         for item in data.get("items", []) or []:
             link = item.get("link")
             if not link:
                 continue
+            link = self._normalize_url(link)
             title = item.get("title", "") or ""
             snippet = item.get("snippet", "") or ""
             published_at = self._extract_published_time(item)
             source_type = self._classify_source(link)
-            sources.append(
+            out.append(
                 Source(
                     url=link,
                     type=source_type,
@@ -202,16 +222,15 @@ class SearchUtils:
                     description=snippet,
                     last_accessed=now,
                     published_at=published_at,
-                    is_fresh=True,
+                    is_fresh=bool(date_param),
                 )
             )
 
-        sources = self.deduplicate_sources(sources)
-        self.cache[cache_key] = (datetime.utcnow(), sources)
-        return sources
+        out = self.deduplicate_sources(out)
+        self.cache[cache_key] = (datetime.utcnow(), out)
+        return out
 
     async def search_general(self, query: FreshSearchQuery) -> List[Source]:
-        """Perform a general search without requiring a specific canonical issue."""
         issue = self._pick_issue("GENERAL")
         return await self.search_google_custom(query, issue)
 
@@ -224,18 +243,13 @@ class SearchUtils:
         state: str = None,
         office: str = None,
     ) -> FreshSearchQuery:
-        """Generate a targeted search query for a specific issue."""
-        query_parts = [issue.value]
-
+        parts = [issue.value]
         if state:
-            query_parts.append(state)
+            parts.append(state)
         if office:
-            query_parts.append(office)
-
-        query_text = " ".join(query_parts)
-
+            parts.append(office)
         return FreshSearchQuery(
-            text=query_text,
+            text=" ".join(parts),
             race_id=race_id,
             issue=issue,
             generated_at=datetime.utcnow(),
@@ -249,14 +263,13 @@ class SearchUtils:
         race_metadata: Optional[RaceMetadata],
         limit: int,
     ) -> List[FreshSearchQuery]:
-        """Generate a set of candidate×issue queries with simple keyword combinations."""
         state = None
         year: Optional[str] = None
         if race_metadata:
             state = race_metadata.state
             year = str(race_metadata.year)
         else:
-            parts = race_id.split("-") if race_id else []
+            parts = (race_id or "").split("-")
             if parts:
                 state = parts[0]
             if len(parts) >= 3 and parts[-1].isdigit():
@@ -278,11 +291,78 @@ class SearchUtils:
                         issue=issue,
                         generated_at=datetime.utcnow(),
                         max_results=self.search_config.get("top_results_per_query", 5),
+                        date_restrict=f"d{self.search_config.get('freshness_days', 30)}",  # keep this one fresh
                     )
                 )
                 if len(queries) >= limit:
                     return queries
         return queries
+
+    # NEW: super-simple name-only queries to let Google surface the homepage
+    def generate_candidate_baseline_queries(
+        self,
+        race_id: str,
+        candidate_name: str,
+        race_metadata: Optional[RaceMetadata],
+        max_results: int = 5,
+    ) -> List[FreshSearchQuery]:
+        state = getattr(race_metadata, "state", None) if race_metadata else None
+        office = getattr(race_metadata, "office_type", None) if race_metadata else None
+
+        templates = [
+            f'"{candidate_name}"',
+            f'"{candidate_name}" {state or ""}'.strip(),
+            f'"{candidate_name}" {office or ""} {state or ""}'.strip(),
+        ]
+
+        out: List[FreshSearchQuery] = []
+        for t in templates:
+            out.append(
+                FreshSearchQuery(
+                    text=t,
+                    race_id=race_id,
+                    issue=self._pick_issue("GENERAL"),
+                    generated_at=datetime.utcnow(),
+                    max_results=max_results,
+                    # no date_restrict — evergreen
+                )
+            )
+        return out
+
+    # NEW: lightly-biased campaign queries (not over-constrained)
+    def generate_campaign_homerun_queries(
+        self,
+        race_id: str,
+        candidate_name: str,
+        race_metadata: Optional[RaceMetadata],
+        max_results: int = 5,
+    ) -> List[FreshSearchQuery]:
+        state = getattr(race_metadata, "state", None) if race_metadata else None
+        office = getattr(race_metadata, "office_type", None) if race_metadata else None
+
+        templates = [
+            f'"{candidate_name}" campaign',
+            (
+                f'"{candidate_name}" "for {office}" {state or ""}'.strip()
+                if office
+                else f'"{candidate_name}" campaign {state or ""}'.strip()
+            ),
+            f'"{candidate_name}" site:.org',
+            f'"{candidate_name}" site:.com',
+        ]
+
+        out: List[FreshSearchQuery] = []
+        for t in templates:
+            out.append(
+                FreshSearchQuery(
+                    text=t,
+                    race_id=race_id,
+                    issue=self._pick_issue("GENERAL"),
+                    generated_at=datetime.utcnow(),
+                    max_results=max_results,
+                )
+            )
+        return out
 
     def build_race_seed_queries(
         self,
@@ -293,13 +373,11 @@ class SearchUtils:
         district: Optional[str],
         trusted_only: bool = True,
     ) -> List[FreshSearchQuery]:
-        """Build a small set of seed queries for a race (trusted-first or permissive)."""
         state_part = state
         district_text = ""
         if district:
             district_text = " at-large" if str(district).upper() == "AL" else f" district {district}"
 
-        targets = []
         if trusted_only:
             targets = [
                 f"site:ballotpedia.org {year} {state_part}{district_text} {office} election",
@@ -317,7 +395,7 @@ class SearchUtils:
             ]
 
         out: List[FreshSearchQuery] = []
-        for t in targets:
+        for t in targets if trusted_only else targets:
             out.append(
                 FreshSearchQuery(
                     text=t,
@@ -326,7 +404,7 @@ class SearchUtils:
                     generated_at=datetime.utcnow(),
                     max_results=10,
                     date_restrict="y2",
-                    strict=True,  # enforce post-filter for seed
+                    strict=True,
                 )
             )
         return out
@@ -334,27 +412,31 @@ class SearchUtils:
     # ------------------------- utilities ------------------------- #
 
     def deduplicate_sources(self, sources: List[Source]) -> List[Source]:
-        """Remove duplicate sources based on scheme, netloc, and path."""
+        """Remove duplicate sources with light URL normalization."""
         seen: Set[str] = set()
-        unique_sources: List[Source] = []
+        unique: List[Source] = []
 
         for src in sources:
-            parsed = urlparse(str(src.url))
-            key = f"{parsed.scheme.lower()}://{parsed.netloc.lower()}{parsed.path.rstrip('/')}"
+            norm = self._normalize_url(str(src.url or ""))
+            parsed = urlparse(norm)
+            # collapse /index.html and trailing slash
+            path = parsed.path.replace("/index.html", "/").rstrip("/") or "/"
+            key = f"{parsed.scheme.lower()}://{parsed.netloc.lower()}{path}"
             if key in seen:
                 continue
             seen.add(key)
-            unique_sources.append(src)
+            # write normalized back
+            src.url = f"{parsed.scheme}://{parsed.netloc}{path}{('?' + parsed.query) if parsed.query else ''}"
+            unique.append(src)
 
-        return unique_sources
+        return unique
 
     # ------------------------- internal helpers ------------------------- #
 
-    def _extract_published_time(self, item: Dict[str, Any]) -> Optional[datetime]:  # noqa: ANN401
+    def _extract_published_time(self, item: Dict[str, Any]) -> Optional[datetime]:
         pagemap = item.get("pagemap", {}) or {}
         date_str: Optional[str] = None
 
-        # Common metatags
         for tag in pagemap.get("metatags", []) or []:
             date_str = (
                 tag.get("article:published_time")
@@ -366,7 +448,6 @@ class SearchUtils:
             if date_str:
                 break
 
-        # Schema.org overlays
         if not date_str:
             if "newsarticle" in pagemap:
                 date_str = (pagemap["newsarticle"][0] or {}).get("datepublished")
@@ -377,23 +458,23 @@ class SearchUtils:
             return None
 
         try:
-            # Normalize trailing Z
             return datetime.fromisoformat(date_str.replace("Z", "+00:00"))
-        except Exception:  # noqa: BLE001
+        except Exception:
             return None
 
     def _classify_source(self, url: str) -> SourceType:
         domain = urlparse(url).netloc.lower()
         if domain.endswith(".gov") or "fec.gov" in domain:
             return self._choose_type("GOVERNMENT")
-        if any(social in domain for social in ["twitter.com", "facebook.com", "youtube.com", "tiktok.com"]):
+        if "c-span.org" in domain:
+            return self._choose_type("WEBSITE")
+        if any(s in domain for s in ["twitter.com", "facebook.com", "youtube.com", "tiktok.com", "x.com"]):
             return self._choose_type("SOCIAL_MEDIA")
         if url.lower().endswith(".pdf"):
             return self._choose_type("PDF")
         return self._choose_type("WEBSITE")
 
     def _choose_type(self, preferred: str) -> SourceType:
-        """Always return a valid SourceType, tolerating enum name drift across services."""
         if hasattr(SourceType, preferred):
             return getattr(SourceType, preferred)
         for alt in ("WEBSITE", "WEB", "URL", "ARTICLE", "UNKNOWN"):
@@ -401,11 +482,10 @@ class SearchUtils:
                 return getattr(SourceType, alt)
         try:
             return next(iter(SourceType))
-        except Exception as e:  # noqa: BLE001
+        except Exception as e:
             raise AttributeError("SourceType enum has no accessible members") from e
 
     def _pick_issue(self, preferred: str = "GENERAL") -> CanonicalIssue:
-        """Pick a valid CanonicalIssue, tolerating missing members."""
         if hasattr(CanonicalIssue, preferred):
             return getattr(CanonicalIssue, preferred)
         for alt in ("GENERAL_ELECTIONS", "DEFAULT"):
@@ -413,5 +493,20 @@ class SearchUtils:
                 return getattr(CanonicalIssue, alt)
         try:
             return next(iter(CanonicalIssue))
-        except Exception as e:  # noqa: BLE001
+        except Exception as e:
             raise AttributeError("No usable CanonicalIssue enum member found") from e
+
+    # URL normalization: strip trackers, preserve path, avoid redirector noise
+    def _normalize_url(self, url: str) -> str:
+        if not url:
+            return url
+        try:
+            p = urlparse(url)
+            # kill obvious redirector wrappers (keep as-is; true unwrapping requires a fetch)
+            host = p.netloc.lower()
+            # strip tracking params
+            q = [(k, v) for (k, v) in parse_qsl(p.query, keep_blank_values=True) if k not in self._TRACKING_PARAMS]
+            cleaned = p._replace(query=urlencode(q, doseq=True))
+            return urlunparse(cleaned)
+        except Exception:
+            return url
