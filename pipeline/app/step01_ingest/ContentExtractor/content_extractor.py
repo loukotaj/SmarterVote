@@ -26,11 +26,13 @@ from bs4 import BeautifulSoup
 from bs4.element import Comment as Bs4Comment
 from langdetect.lang_detect_exception import LangDetectException
 from nltk.tokenize import sent_tokenize
-from providers.base import TaskType
 from readability import Document
 from simhash import Simhash
 
 from shared.models import CanonicalIssue, ExtractedContent, Source
+
+from ...providers import registry
+from ...providers.base import TaskType
 
 logger = logging.getLogger(__name__)
 
@@ -1028,7 +1030,7 @@ class ContentExtractor:
             "Return JSON {tables:[{headers:[], sample_data:[]}]} with the same row counts as input."
         )
         try:
-            resp = await providers.generate_json(
+            resp = await registry.generate_json(
                 TaskType.EXTRACT,
                 prompt + "\n" + json.dumps({"tables": tables})[:6000],
                 response_format={"type": "object", "properties": {"tables": {"type": "array"}}},

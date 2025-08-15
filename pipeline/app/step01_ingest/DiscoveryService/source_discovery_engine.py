@@ -18,6 +18,7 @@ from bs4 import BeautifulSoup
 
 from shared import CanonicalIssue, FreshSearchQuery, RaceJSON, RaceMetadata, Source, SourceType
 
+from ...providers import registry
 from ...providers.base import TaskType
 from ...utils.search_utils import SearchUtils
 
@@ -67,9 +68,6 @@ class SourceDiscoveryEngine:
             "site_walker_timeout_seconds": 12,
             "site_walker_global_concurrency": 8,
         }
-
-        # Will be assigned by the pipeline bootstrapper (provider registry with JSON-LLM capability)
-        # self.registry = ...
 
         # Initialize search utilities
         self.search_utils = SearchUtils(self.search_config)
@@ -553,17 +551,12 @@ class SourceDiscoveryEngine:
             lines.append("\nReturn strictly the JSON for {items:[...]}.")
             return "\n".join(lines)
 
-        # NOTE: self.registry must be provided by the pipeline wiring.
-        if not hasattr(self, "registry") or self.registry is None:
-            logger.warning("Mini-model prefilter skipped: no provider registry attached.")
-            return sorted(sources, key=lambda s: (s.score or 0), reverse=True)
-
         out: List[Source] = []
         for start in range(0, len(sources), batch_size):
             batch = sources[start : start + batch_size]
             prompt = build_prompt(batch, start_idx=start)
 
-            data = await self.registry.generate_json(
+            data = await registry.generate_json(
                 TaskType.DISCOVER,
                 prompt,
                 response_format={"type": "json_schema", "json_schema": schema},

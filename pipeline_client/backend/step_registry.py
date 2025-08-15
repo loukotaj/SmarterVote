@@ -7,7 +7,7 @@ from typing import Any, Dict, Protocol, runtime_checkable
 
 from pipeline.app.providers import registry
 from pipeline.app.schema import RaceJSON, Source
-from pipeline.app.step01_ingest.ContentExtractor import ContentExtractor
+from pipeline.app.step01_ingest.ContentExtractor.content_extractor import ContentExtractor
 from pipeline.app.step01_ingest.ContentFetcher import WebContentFetcher
 from pipeline.app.step01_ingest.DiscoveryService.source_discovery_engine import SourceDiscoveryEngine
 from pipeline.app.step01_ingest.IngestService import IngestService
