@@ -3,7 +3,7 @@
   import type { RunInfo, RunStatus, RunStep } from "$lib/types";
   import RunStepList from "$lib/components/RunStepList.svelte";
 
-  const API_BASE = "http://127.0.0.1:8001"; // FastAPI local
+  const API_BASE = import.meta.env.VITE_API_BASE || "http://127.0.0.1:8001"; // FastAPI local
 
   let steps: string[] = [];
   let inputJson = '{\n  "race_id": "mo-senate-2024"\n}';
@@ -90,7 +90,7 @@
   }
 
   function connectWebSocket() {
-    const wsUrl = `ws://127.0.0.1:8001/ws/logs`;
+    const wsUrl = API_BASE.replace(/^http/, "ws") + "/ws/logs";
     ws = new WebSocket(wsUrl);
 
     ws.onopen = () => {
