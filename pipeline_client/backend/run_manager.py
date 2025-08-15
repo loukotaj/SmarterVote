@@ -9,7 +9,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional
 
-from .models import RunInfo, RunOptions, RunRequest, RunStatus
+from .models import RunInfo, RunOptions, RunRequest, RunStatus, RunStep
 
 
 class RunManager:
@@ -72,7 +72,7 @@ class RunManager:
         except Exception:
             pass  # Continue if loading fails
 
-    def create_run(self, step: str, request: RunRequest) -> RunInfo:
+    def create_run(self, steps: List[str], request: RunRequest) -> RunInfo:
         """Create a new pipeline run."""
         run_id = str(uuid.uuid4())
 
@@ -83,11 +83,11 @@ class RunManager:
 
         run_info = RunInfo(
             run_id=run_id,
-            step=step,
             status=RunStatus.PENDING,
             payload=request.payload,
             options=options,
             started_at=datetime.now(),
+            steps=[RunStep(name=s) for s in steps],
         )
 
         self.active_runs[run_id] = run_info
@@ -95,6 +95,44 @@ class RunManager:
         run_info.logs = []
         self._save_run(run_info)
         return run_info
+
+    def add_step(self, run_id: str, step: str) -> Optional[RunStep]:
+        """Append a new step to an existing run."""
+        run_info = self.active_runs.get(run_id)
+        if not run_info:
+            return None
+        step_info = RunStep(name=step)
+        run_info.steps.append(step_info)
+        self._save_run(run_info)
+        return step_info
+
+    def update_step_status(
+        self,
+        run_id: str,
+        step: str,
+        status: RunStatus,
+        artifact_id: Optional[str] = None,
+        duration_ms: Optional[int] = None,
+        error: Optional[str] = None,
+    ):
+        """Update status information for a specific step."""
+        run_info = self.active_runs.get(run_id)
+        if not run_info:
+            return
+        for step_info in run_info.steps:
+            if step_info.name == step:
+                step_info.status = status
+                if status == RunStatus.RUNNING:
+                    step_info.started_at = datetime.now()
+                if status in [RunStatus.COMPLETED, RunStatus.FAILED]:
+                    step_info.completed_at = datetime.now()
+                    step_info.duration_ms = duration_ms
+                    step_info.artifact_id = artifact_id
+                    step_info.error = error
+                    if artifact_id:
+                        run_info.artifact_id = artifact_id
+                break
+        self._save_run(run_info)
 
     def start_run(self, run_id: str):
         """Mark a run as started."""

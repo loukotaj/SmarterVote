@@ -102,6 +102,8 @@ async def continue_run(
         that were executed.
     """
 
+    from datetime import datetime
+
     from .pipeline_runner import run_step_async
     from .run_manager import run_manager
     from .storage import load_artifact
@@ -121,7 +123,7 @@ async def continue_run(
 
     for step in steps_to_run:
         payload = build_payload(step, current_state)
-        response = await run_step_async(step, RunRequest(payload=payload))
+        response = await run_step_async(step, RunRequest(payload=payload), run_id=run_id)
         executed.append(
             {
                 "step": step,
@@ -134,7 +136,20 @@ async def continue_run(
         current_state = update_state(step, current_state, response.output)
         current_step = step
 
-    return {"state": current_state, "runs": executed, "last_step": current_step}
+    # If we've reached the end of the pipeline, mark the run complete
+    if not remaining_steps(current_step, None):
+        run_info = run_manager.get_run(run_id)
+        if run_info:
+            duration_ms = int((datetime.now() - run_info.started_at).total_seconds() * 1000)
+            last_artifact = executed[-1]["artifact_id"] if executed else run_info.artifact_id
+            run_manager.complete_run(run_id, last_artifact, duration_ms)
+
+    updated_run = run_manager.get_run(run_id)
+    steps_info = []
+    if updated_run:
+        steps_info = [s.model_dump(mode="json") for s in updated_run.steps]
+
+    return {"state": current_state, "runs": executed, "last_step": current_step, "steps": steps_info}
 
 
 __all__ = [
