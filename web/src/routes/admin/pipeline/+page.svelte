@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
   import type { RunInfo, RunStatus, RunStep } from "$lib/types";
+  import RunStepList from "$lib/components/RunStepList.svelte";
 
   const API_BASE = "http://127.0.0.1:8001"; // FastAPI local
 
@@ -34,6 +35,7 @@
   let progress = 0;
   let progressMessage = "";
   let logFilter = "all";
+  let currentStep: string | null = null;
   interface RunHistoryItem extends RunInfo {
     display_id: number;
     updated_at: string;
@@ -159,11 +161,13 @@
     logs = [...logs.slice(-999), logEntry]; // Keep last 1000 entries
   }
 
-  function handleRunStarted(data: { run_id: string }) {
+  function handleRunStarted(data: { run_id: string; step: string }) {
     currentRunId = data.run_id;
     runStatus = "running";
     progress = 0;
     progressMessage = "Initializing...";
+    currentStep = data.step;
+    updateStepStatus(data.step, "running");
   }
 
   function handleRunProgress(data: any) {
@@ -171,11 +175,19 @@
     progressMessage = data.message || "";
   }
 
-  function handleRunCompleted(data: { result?: any }) {
+  function handleRunCompleted(data: { result?: any; artifact_id?: string; duration_ms?: number }) {
     runStatus = "completed";
     progress = 100;
     progressMessage = "Completed successfully";
     setExecutionState(false);
+
+    if (currentStep) {
+      updateStepStatus(currentStep, "completed", {
+        artifact_id: data.artifact_id,
+        duration_ms: data.duration_ms,
+      });
+      currentStep = null;
+    }
 
     if (data.result) {
       output = data.result;
@@ -188,8 +200,22 @@
   function handleRunFailed(data: any) {
     runStatus = "failed";
     setExecutionState(false);
+    if (currentStep) {
+      updateStepStatus(currentStep, "failed");
+      currentStep = null;
+    }
     addLog("error", `Run failed: ${data.error || "Unknown error"}`);
     loadRunHistory();
+  }
+
+  function updateStepStatus(name: string, status: RunStatus, extras: Partial<RunStep> = {}) {
+    if (!selectedRun) return;
+    selectedRun = {
+      ...selectedRun,
+      steps: selectedRun.steps.map((s) =>
+        s.name === name ? { ...s, status, ...extras } : s
+      ),
+    };
   }
 
   async function runStep() {
@@ -266,6 +292,51 @@
         }
         selectedRunId = runId;
       }
+    } catch (err) {
+      output = { error: String(err) };
+      addLog("error", `Execution failed: ${err}`);
+      setExecutionState(false);
+    }
+  }
+
+  async function runFromStep(stepName: string) {
+    if (isExecuting) return;
+
+    setExecutionState(true);
+    output = null;
+
+    try {
+      const payload = JSON.parse(inputJson || "{}");
+      const options: Record<string, any> = {
+        skip_llm_apis: skip_llm_apis || undefined,
+        skip_external_apis: skip_external_apis || undefined,
+        skip_network_calls: skip_network_calls || undefined,
+        skip_cloud_services: skip_cloud_services || undefined,
+        save_artifact,
+      };
+      const body = { payload, options };
+
+      const res = await fetch(`${API_BASE}/run/${stepName}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+      }
+
+      const result = await res.json();
+      currentRunId = result.run_id;
+      addLog("info", `Started execution: ${stepName}`);
+      await loadRunHistory();
+      await loadArtifacts();
+      const runId = result.meta?.run_id || result.run_id;
+      const run = runHistory.find((r) => r.run_id === runId);
+      if (run) {
+        await selectRun(run);
+      }
+      selectedRunId = runId;
     } catch (err) {
       output = { error: String(err) };
       addLog("error", `Execution failed: ${err}`);
@@ -468,7 +539,9 @@
         display_id: run.display_id,
         updated_at: runData.completed_at ?? runData.started_at,
         step: stepName,
+        steps: runData.steps,
       };
+      currentStep = stepsData.find((s) => s.status === "running")?.name || null;
 
       let payload = runData.payload || {};
       if (runData.artifact_id) {
@@ -657,6 +730,14 @@
             {/if}
           </div>
         </details>
+        {#if selectedRun}
+          <RunStepList
+            {API_BASE}
+            {currentStep}
+            steps={selectedRun.steps}
+            runFromStep={runFromStep}
+          />
+        {/if}
 
         <!-- Action Buttons -->
         <div class="flex space-x-3">
