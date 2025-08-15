@@ -26,6 +26,7 @@ from bs4 import BeautifulSoup
 from bs4.element import Comment as Bs4Comment
 from langdetect.lang_detect_exception import LangDetectException
 from nltk.tokenize import sent_tokenize
+from providers.base import TaskType
 from readability import Document
 from simhash import Simhash
 
@@ -1017,3 +1018,24 @@ class ContentExtractor:
             # Do not auto-download here to avoid network calls in production
             logger.debug("NLTK punkt not available; falling back to naive sentence split.")
             return False
+
+    # inside ContentExtractor (new helper)
+    async def _mini_cleanup(self, providers, text: str, tables: list[dict]) -> tuple[str, list[dict]]:
+        if not providers or not text or not tables:
+            return text, tables
+        prompt = (
+            "Normalize table headers to plain English, keep data as-is. "
+            "Return JSON {tables:[{headers:[], sample_data:[]}]} with the same row counts as input."
+        )
+        try:
+            resp = await providers.generate_json(
+                TaskType.EXTRACT,
+                prompt + "\n" + json.dumps({"tables": tables})[:6000],
+                response_format={"type": "object", "properties": {"tables": {"type": "array"}}},
+                max_tokens=600,
+                model_id="gpt-4o-mini",
+            )
+            new_tables = resp.get("tables") or tables
+            return text, new_tables
+        except Exception:
+            return text, tables

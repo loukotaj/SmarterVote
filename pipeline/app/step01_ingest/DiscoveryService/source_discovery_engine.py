@@ -1,8 +1,9 @@
 """
-Source Discovery Engine for SmarterVote Pipeline (updated)
+Source Discovery Engine for SmarterVote Pipeline (updated, with site walker)
 
 Two-phase strategy:
   1) Core (evergreen, no freshness): Ballotpedia/FEC/OpenSecrets/Wikipedia/SoS + official campaign sites
+     + depth-1 site walker on official campaign homepages to capture /issues, /platform, /news, /press, etc.
   2) Recency (fresh): candidate×issue news/social/debate, date-limited
 """
 
@@ -10,6 +11,10 @@ import asyncio
 import logging
 from datetime import datetime
 from typing import Any, Dict, Iterable, List, Optional
+from urllib.parse import urljoin, urlparse
+
+import httpx
+from bs4 import BeautifulSoup
 
 from shared import CanonicalIssue, FreshSearchQuery, RaceJSON, RaceMetadata, Source, SourceType
 
@@ -35,7 +40,7 @@ class SourceDiscoveryEngine:
         }
 
         # TODO: Move to configuration
-        self.search_config = {
+        self.search_config: Dict[str, Any] = {
             "top_results_per_query": 5,
             "num_queries_per_candidate": 10,  # tighter, higher-signal
             "freshness_days": 30,
@@ -52,11 +57,19 @@ class SourceDiscoveryEngine:
             ],
             "per_host_concurrency": 5,
             "cache_ttl_seconds": 300,
-            # new knobs
+            # core flow knobs
             "require_campaign_homepage": True,
             "run_core_phase_first": True,
             "http_timeout_seconds": 20,
+            # site walker knobs
+            "site_walker_enabled": True,
+            "site_walker_max_links_per_site": 8,
+            "site_walker_timeout_seconds": 12,
+            "site_walker_global_concurrency": 8,
         }
+
+        # Will be assigned by the pipeline bootstrapper (provider registry with JSON-LLM capability)
+        # self.registry = ...
 
         # Initialize search utilities
         self.search_utils = SearchUtils(self.search_config)
@@ -95,6 +108,7 @@ class SourceDiscoveryEngine:
           - FEC/OpenSecrets (federal), SoS (state) pages
           - Official campaign homepage per candidate (if possible)
           - Vote411 (if available)
+          - NEW: depth-1 campaign subpages via site walker (pre-fetch expansion)
         """
         rm = race_json.race_metadata if (race_json and race_json.race_metadata) else None
 
@@ -124,6 +138,15 @@ class SourceDiscoveryEngine:
             for s in campaign_results:
                 if _looks_like_official_campaign(s):
                     s.score = max(s.score or 0, 0.98)
+                    try:
+                        setattr(s, "is_official_campaign", True)
+                    except Exception:
+                        pass
+
+        # 3b) Expand official homepages with depth-1 site walker (HTML fetch, cheap)
+        walked_subpages: List[Source] = []
+        if self.search_config.get("site_walker_enabled", True) and campaign_results:
+            walked_subpages = await self._expand_campaign_sites_with_walker(campaign_results)
 
         # 4) Vote411 & Wikipedia fallbacks by generic queries (no date)
         generic_queries = []
@@ -150,12 +173,13 @@ class SourceDiscoveryEngine:
             )
         generic_results = await _run_queries(self.search_utils, generic_queries)
 
-        core_all = self.search_utils.deduplicate_sources(structured + trusted_results + campaign_results + generic_results)
+        core_all = self.search_utils.deduplicate_sources(
+            structured + trusted_results + campaign_results + walked_subpages + generic_results
+        )
 
-        # Optional: enforce campaign homepage coverage if configured
+        # Optional: enforce campaign homepage coverage if configured (no-op for now)
         if self.search_config.get("require_campaign_homepage", True) and race_json and race_json.candidates:
-            # Keep at least one campaign-looking domain per candidate, if we found one
-            pass  # scoring already promotes them; hard enforcement can be added here if desired
+            pass
 
         logger.info("Core phase collected %d sources", len(core_all))
         return core_all
@@ -324,6 +348,283 @@ class SourceDiscoveryEngine:
         deduped_all = self.search_utils.deduplicate_sources(all_sources)
         return sorted(deduped_all, key=lambda s: s.score or 0, reverse=True)
 
+    # ----------------------------- Site Walker --------------------------- #
+
+    async def _expand_campaign_sites_with_walker(self, campaign_sources: List[Source]) -> List[Source]:
+        """
+        For each likely official campaign homepage, fetch HTML and extract same-domain,
+        depth-1 subpages that look like issues/platform/news/press/about.
+        Returns additional Source objects (pre-fetch expansion).
+        """
+        timeout_s = int(self.search_config.get("site_walker_timeout_seconds", 12))
+        max_links = int(self.search_config.get("site_walker_max_links_per_site", 8))
+        global_concurrency = int(self.search_config.get("site_walker_global_concurrency", 8))
+
+        sem = asyncio.Semaphore(global_concurrency)
+        out: List[Source] = []
+
+        async with httpx.AsyncClient(
+            timeout=timeout_s, follow_redirects=True, headers={"User-Agent": "SmarterVoteBot/1.0"}
+        ) as client:
+
+            async def process(src: Source):
+                if not _looks_like_official_campaign(src):
+                    return
+                # best effort HTML GET
+                try:
+                    async with sem:
+                        html = await self._fetch_html(client, src.url)
+                except Exception as e:
+                    logger.debug("Site walker fetch failed for %s: %s", src.url, e)
+                    return
+                if not html:
+                    return
+                derived = self._derive_candidate_pages(src, html, max_links=max_links)
+                # score: below homepage, above most other sources
+                for s in derived:
+                    s.score = max(s.score or 0, min((src.score or 0.95) - 0.03, 0.94))
+                    s.is_fresh = False
+                    # keep a hint for later stages if needed
+                    try:
+                        setattr(s, "is_campaign_subpage", True)
+                    except Exception:
+                        pass
+                out.extend(derived)
+
+            await asyncio.gather(*[process(s) for s in campaign_sources])
+
+        # de-dup within walker outputs
+        deduped = self.search_utils.deduplicate_sources(out)
+        logger.info("Site walker discovered %d campaign subpages", len(deduped))
+        return deduped
+
+    async def _fetch_html(self, client: httpx.AsyncClient, url: Optional[str]) -> str:
+        if not url:
+            return ""
+        try:
+            r = await client.get(url)
+            ct = (r.headers.get("content-type") or "").lower()
+            if "text/html" not in ct and "html" not in ct:
+                return ""
+            return r.text or ""
+        except Exception as e:
+            logger.debug("HTTP GET failed for %s: %s", url, e)
+            return ""
+
+    def _derive_candidate_pages(self, homepage: Source, html: str, *, max_links: int = 8) -> List[Source]:
+        """Extract same-domain links that look like issues/platform/news/press/about."""
+        if not homepage or not getattr(homepage, "url", None) or not html:
+            return []
+        base = homepage.url
+        host = urlparse(base).netloc
+        soup = BeautifulSoup(html, "html.parser")
+
+        ALLOW = (
+            "/issues",
+            "/priorities",
+            "/platform",
+            "/policy",
+            "/policies",
+            "/on-the-issues",
+            "/agenda",
+            "/plans",
+            "/about",
+            "/news",
+            "/press",
+            "/media",
+            "/updates",
+        )
+        DENY = (
+            "/donate",
+            "/volunteer",
+            "/shop",
+            "/store",
+            "/events",
+            "/privacy",
+            "/terms",
+            "/sitemap",
+            "/subscribe",
+            "/merch",
+            "/cart",
+            "/donation",
+        )
+
+        out: List[Source] = []
+        seen: set[str] = set()
+
+        def keep(path: str) -> bool:
+            p = path.lower()
+            if any(p.startswith(d) for d in DENY):
+                return False
+            if any(p.startswith(a) for a in ALLOW):
+                return True
+            # common variations
+            return any(x in p for x in ("/issue", "/policy", "/plan", "/press", "/news", "/about"))
+
+        for a in soup.find_all("a", href=True):
+            href = a["href"].strip()
+            if not href or href.startswith("#") or href.startswith("mailto:") or href.startswith("tel:"):
+                continue
+            link = urljoin(base, href)
+            parsed = urlparse(link)
+            if parsed.netloc != host:
+                continue
+            if not keep(parsed.path):
+                continue
+            if link in seen:
+                continue
+            seen.add(link)
+            title = (a.get_text() or "").strip()
+            out.append(
+                Source(
+                    url=link,
+                    type=SourceType.WEBSITE,
+                    title=title or "Campaign subpage",
+                    description="Likely campaign issues/press/about page",
+                    last_accessed=datetime.utcnow(),
+                    is_fresh=False,
+                    score=0.9,
+                )
+            )
+            if len(out) >= max_links:
+                break
+
+        return out
+
+    # ----------------------------- Mini-model prefilter --------------------------- #
+
+    async def prefilter_with_mini_model(
+        self,
+        race_id: str,
+        sources: List[Source],
+        race_meta: Optional[RaceMetadata],
+        *,
+        batch_size: int = 18,
+        drop_threshold: float = 0.35,
+        boost_threshold: float = 0.75,
+    ) -> List[Source]:
+        if not sources:
+            return sources
+
+        ctx_parts = []
+        if race_meta:
+            ctx_parts.append(f"state={race_meta.state}")
+            ctx_parts.append(f"office={race_meta.office_type}")
+            ctx_parts.append(f"year={race_meta.year}")
+            if getattr(race_meta, "district", None):
+                ctx_parts.append(f"district={race_meta.district}")
+        ctx = ", ".join(ctx_parts) or "state=?, office=?, year=?"
+
+        schema = {
+            "type": "object",
+            "properties": {
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "required": ["i", "keep", "priority", "category", "official"],
+                        "properties": {
+                            "i": {"type": "integer"},  # index in the batch
+                            "keep": {"type": "boolean"},  # fetch or drop
+                            "priority": {"type": "number"},  # 0.0-1.0 suggested
+                            "category": {"type": "string"},  # campaign|gov|news|social|blog|spam|other
+                            "official": {"type": "boolean"},  # likely official campaign site
+                            "notes": {"type": "string"},
+                        },
+                    },
+                }
+            },
+            "additionalProperties": False,
+        }
+
+        def build_prompt(batch: List[Source], start_idx: int) -> str:
+            lines = [
+                "You are triaging URLs about an election. Return JSON only per schema.",
+                f"Race context: {ctx}.",
+                "Label each URL with: keep, priority (0-1), category, official (campaign site?).",
+                "Prefer: official campaign sites, Ballotpedia/FEC/OpenSecrets/SoS, reputable local/state news.",
+                "Demote: spam, SEO blogs, irrelevant homonyms, fundraising aggregators without first-party info.",
+                "",
+                "BATCH:",
+            ]
+            for j, s in enumerate(batch):
+                title = (s.title or "").strip()
+                lines.append(f"{j}. url={s.url} | title={title}")
+            lines.append("\nReturn strictly the JSON for {items:[...]}.")
+            return "\n".join(lines)
+
+        # NOTE: self.registry must be provided by the pipeline wiring.
+        if not hasattr(self, "registry") or self.registry is None:
+            logger.warning("Mini-model prefilter skipped: no provider registry attached.")
+            return sorted(sources, key=lambda s: (s.score or 0), reverse=True)
+
+        out: List[Source] = []
+        for start in range(0, len(sources), batch_size):
+            batch = sources[start : start + batch_size]
+            prompt = build_prompt(batch, start_idx=start)
+
+            data = await self.registry.generate_json(
+                TaskType.DISCOVER,
+                prompt,
+                response_format={"type": "json_schema", "json_schema": schema},
+                max_tokens=1200,
+                allow_repair=True,
+                repair_schema_hint=str(schema),
+            )
+
+            by_local_idx: Dict[int, Dict[str, Any]] = {
+                item["i"]: item for item in data.get("items", []) if isinstance(item, dict) and "i" in item
+            }
+            for j, src in enumerate(batch):
+                ann = by_local_idx.get(j)
+                if not ann:
+                    # if model didn't return an entry, keep but with minimal priority shaping
+                    out.append(src)
+                    continue
+
+                pr = float(max(0.0, min(1.0, ann.get("priority", 0.5))))
+                keep = bool(ann.get("keep", True))
+                cat = (ann.get("category") or "").lower()
+                official = bool(ann.get("official", False))
+
+                base = src.score or 0.5
+                if cat in ("campaign",):
+                    base = max(base, 0.85)
+                elif cat in ("gov", "fec", "opensecrets", "ballotpedia", "wikipedia", "sos"):
+                    base = max(base, 0.8)
+                elif cat in ("news", "localnews"):
+                    base = max(base, 0.65)
+                elif cat in ("social",):
+                    base = max(base, 0.6)
+                elif cat in ("spam",):
+                    base = min(base, 0.2)
+
+                # blend model priority (weighted)
+                src.score = 0.6 * base + 0.4 * pr
+
+                # pin likely official homepage
+                if official:
+                    try:
+                        setattr(src, "is_official_campaign", True)
+                    except Exception:
+                        pass
+                    src.score = max(src.score, 0.98)
+
+                # final keep/drop
+                if keep and src.score >= drop_threshold:
+                    out.append(src)
+                else:
+                    # drop only if both say "no" and score is very low
+                    if src.score >= drop_threshold * 0.6:
+                        out.append(src)
+
+        # light re-rank: strong keeps first
+        out.sort(key=lambda s: (s.score or 0), reverse=True)
+        return out
+
+
+# ----------------------------- Helpers --------------------------- #
+
 
 def _build_campaign_site_queries(
     race_id: str,
@@ -372,7 +673,7 @@ def _looks_like_official_campaign(src: Source) -> bool:
     """Cheap heuristic to identify campaign homepages using only the URL/title."""
     if not src or not src.url:
         return False
-    u = (src.url or "").lower()
+    u = src.url or ""
     title = (src.title or "").lower()
 
     # Avoid socials; we want the campaign site itself here
@@ -398,132 +699,3 @@ async def _run_queries(search_utils: SearchUtils, queries: List[FreshSearchQuery
     results_nested = await asyncio.gather(*[search_utils.search_general(q) for q in queries])
     flat = [s for r in results_nested for s in r]
     return search_utils.deduplicate_sources(flat)
-
-
-async def prefilter_with_mini_model(
-    self,
-    race_id: str,
-    sources: List[Source],
-    race_meta: Optional[RaceMetadata],
-    *,
-    batch_size: int = 18,
-    drop_threshold: float = 0.35,
-    boost_threshold: float = 0.75,
-) -> List[Source]:
-    if not sources:
-        return sources
-
-    ctx_parts = []
-    if race_meta:
-        ctx_parts.append(f"state={race_meta.state}")
-        ctx_parts.append(f"office={race_meta.office_type}")
-        ctx_parts.append(f"year={race_meta.year}")
-        if getattr(race_meta, "district", None):
-            ctx_parts.append(f"district={race_meta.district}")
-    ctx = ", ".join(ctx_parts) or "state=?, office=?, year=?"
-
-    schema = {
-        "type": "object",
-        "properties": {
-            "items": {
-                "type": "array",
-                "items": {
-                    "type": "object",
-                    "required": ["i", "keep", "priority", "category", "official"],
-                    "properties": {
-                        "i": {"type": "integer"},  # index in the batch
-                        "keep": {"type": "boolean"},  # fetch or drop
-                        "priority": {"type": "number"},  # 0.0-1.0 suggested
-                        "category": {"type": "string"},  # campaign|gov|news|social|blog|spam|other
-                        "official": {"type": "boolean"},  # likely official campaign site
-                        "notes": {"type": "string"},
-                    },
-                },
-            }
-        },
-        "additionalProperties": False,
-    }
-
-    def build_prompt(batch: List[Source], start_idx: int) -> str:
-        lines = [
-            "You are triaging URLs about an election. Return JSON only per schema.",
-            f"Race context: {ctx}.",
-            "Label each URL with: keep, priority (0-1), category, official (campaign site?).",
-            "Prefer: official campaign sites, Ballotpedia/FEC/OpenSecrets/SoS, reputable local/state news.",
-            "Demote: spam, SEO blogs, irrelevant homonyms, fundraising aggregators without first-party info.",
-            "",
-            "BATCH:",
-        ]
-        for j, s in enumerate(batch):
-            idx = start_idx + j
-            title = (s.title or "").strip()
-            lines.append(f"{j}. url={s.url} | title={title}")
-        lines.append("\nReturn strictly the JSON for {items:[...]}.")
-        return "\n".join(lines)
-
-    out: List[Source] = []
-    for start in range(0, len(sources), batch_size):
-        batch = sources[start : start + batch_size]
-        prompt = build_prompt(batch, start_idx=start)
-
-        data = await self.registry.generate_json(
-            TaskType.DISCOVER,
-            prompt,
-            response_format={"type": "json_schema", "json_schema": schema},  # providers honor if supported
-            max_tokens=1200,
-            allow_repair=True,
-            repair_schema_hint=str(schema),
-        )
-
-        by_local_idx: Dict[int, Dict[str, Any]] = {
-            item["i"]: item for item in data.get("items", []) if isinstance(item, dict) and "i" in item
-        }
-        for j, src in enumerate(batch):
-            ann = by_local_idx.get(j)
-            if not ann:
-                # if model didn't return an entry, keep but with minimal priority
-                out.append(src)
-                continue
-
-            # apply annotations
-            pr = float(max(0.0, min(1.0, ann.get("priority", 0.5))))
-            keep = bool(ann.get("keep", True))
-            cat = (ann.get("category") or "").lower()
-            official = bool(ann.get("official", False))
-
-            # score shaping
-            base = src.score or 0.5
-            # category nudges (cheap heuristics)
-            if cat in ("campaign",):
-                base = max(base, 0.85)
-            elif cat in ("gov", "fec", "opensecrets", "ballotpedia", "wikipedia", "sos"):
-                base = max(base, 0.8)
-            elif cat in ("news", "localnews"):
-                base = max(base, 0.65)
-            elif cat in ("social",):
-                base = max(base, 0.6)
-            elif cat in ("spam",):
-                base = min(base, 0.2)
-
-            # blend model priority (weighted)
-            src.score = 0.6 * base + 0.4 * pr
-
-            # pin likely official homepage
-            if official:
-                try:
-                    setattr(src, "is_official_campaign", True)
-                except Exception:
-                    pass
-                src.score = max(src.score, 0.98)
-
-            # final keep/drop
-            if keep and src.score >= drop_threshold:
-                out.append(src)
-            else:
-                # drop only if both say "no" and score is very low
-                if src.score >= drop_threshold * 0.6:
-                    out.append(src)
-
-    # light re-rank: strong keeps first
-    out.sort(key=lambda s: (s.score or 0), reverse=True)
-    return out

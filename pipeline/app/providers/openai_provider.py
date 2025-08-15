@@ -75,7 +75,7 @@ class OpenAIProvider(AIProvider):
                 provider="openai",
                 model_id="gpt-4o-mini",
                 tier=ModelTier.MINI,
-                tasks=[TaskType.SUMMARIZE, TaskType.ARBITRATE, TaskType.EXTRACT],
+                tasks=[TaskType.SUMMARIZE, TaskType.ARBITRATE, TaskType.EXTRACT, TaskType.DISCOVER],
                 max_tokens=16384,
                 cost_per_1k_tokens=0.00015,
             )

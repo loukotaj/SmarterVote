@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
   import type { RunInfo, RunStatus, RunStep } from "$lib/types";
+  import RunStepList from "$lib/components/RunStepList.svelte";
 
   const API_BASE = "http://127.0.0.1:8001"; // FastAPI local
 
@@ -34,6 +35,7 @@
   let progress = 0;
   let progressMessage = "";
   let logFilter = "all";
+  let currentStep: string | null = null;
   interface RunHistoryItem extends RunInfo {
     display_id: number;
     updated_at: string;
@@ -162,11 +164,13 @@
     logs = [...logs.slice(-999), logEntry]; // Keep last 1000 entries
   }
 
-  function handleRunStarted(data: { run_id: string }) {
+  function handleRunStarted(data: { run_id: string; step: string }) {
     currentRunId = data.run_id;
     runStatus = "running";
     progress = 0;
     progressMessage = "Initializing...";
+    currentStep = data.step;
+    updateStepStatus(data.step, "running");
   }
 
   function handleRunProgress(data: any) {
@@ -174,11 +178,19 @@
     progressMessage = data.message || "";
   }
 
-  function handleRunCompleted(data: { result?: any }) {
+  function handleRunCompleted(data: { result?: any; artifact_id?: string; duration_ms?: number }) {
     runStatus = "completed";
     progress = 100;
     progressMessage = "Completed successfully";
     setExecutionState(false);
+
+    if (currentStep) {
+      updateStepStatus(currentStep, "completed", {
+        artifact_id: data.artifact_id,
+        duration_ms: data.duration_ms,
+      });
+      currentStep = null;
+    }
 
     if (data.result) {
       output = data.result;
@@ -191,11 +203,27 @@
   function handleRunFailed(data: any) {
     runStatus = "failed";
     setExecutionState(false);
+    if (currentStep) {
+      updateStepStatus(currentStep, "failed");
+      currentStep = null;
+    }
     addLog("error", `Run failed: ${data.error || "Unknown error"}`);
     loadRunHistory();
   }
 
+
+  function updateStepStatus(name: string, status: RunStatus, extras: Partial<RunStep> = {}) {
+    if (!selectedRun) return;
+    selectedRun = {
+      ...selectedRun,
+      steps: selectedRun.steps.map((s) =>
+        s.name === name ? { ...s, status, ...extras } : s
+      ),
+    };
+  }
+
   async function runFromStep(stepName: string) {
+
     if (isExecuting) return;
 
     if (!ws || ws.readyState === WebSocket.CLOSED) {
@@ -281,6 +309,8 @@
       setExecutionState(false);
     }
   }
+
+
 
   function setExecutionState(executing: boolean) {
     isExecuting = executing;
@@ -476,7 +506,9 @@
         display_id: run.display_id,
         updated_at: runData.completed_at ?? runData.started_at,
         step: stepName,
+        steps: runData.steps,
       };
+      currentStep = stepsData.find((s) => s.status === "running")?.name || null;
 
       const nextIndex = Math.min(steps.indexOf(stepName) + 1, steps.length - 1);
       startStep = steps[nextIndex];
@@ -526,17 +558,12 @@
     }
   }
 </script>
-
-<!-- Connection Status Header -->
-<div class="mb-6 card p-4">
+<div class="mt-2 mb-6 card p-4">
   <div class="flex items-center justify-between">
     <div class="flex items-center space-x-4">
       <h2 class="text-lg font-semibold text-gray-900">
         Pipeline Client Dashboard
       </h2>
-      <span class="text-sm text-gray-500"
-        >Live Logging & Real-time Monitoring</span
-      >
     </div>
     <div class="flex items-center space-x-2">
       <div
@@ -663,6 +690,14 @@
             </label>
           </div>
         </details>
+        {#if selectedRun}
+          <RunStepList
+            {API_BASE}
+            {currentStep}
+            steps={selectedRun.steps}
+            runFromStep={runFromStep}
+          />
+        {/if}
 
         <!-- Action Buttons -->
         <div class="flex space-x-3">
