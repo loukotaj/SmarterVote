@@ -42,8 +42,9 @@
 
   let runHistory: RunHistoryItem[] = [];
   let selectedRun: RunHistoryItem | null = null;
-  let runAll = false;
   let selectedRunId = "";
+  let startStep: string = "";
+  let endStep: string = "";
 
   // Modal state
   let showModal = false;
@@ -55,6 +56,8 @@
     const res = await fetch(`${API_BASE}/steps`);
     const data = await res.json();
     steps = data.steps;
+    startStep = steps[0] || "";
+    endStep = steps[steps.length - 1] || "";
   }
 
   async function loadArtifacts() {
@@ -192,16 +195,23 @@
     loadRunHistory();
   }
 
-  async function runStep() {
+  async function runFromStep(stepName: string) {
     if (isExecuting) return;
+
+    if (!ws || ws.readyState === WebSocket.CLOSED) {
+      connectWebSocket();
+    }
 
     setExecutionState(true);
     output = null;
 
     try {
       if (selectedRun) {
+        currentRunId = selectedRun.run_id;
         const state = JSON.parse(inputJson || "{}");
-        const stepsToRun = runAll ? ["all"] : [];
+        const startIdx = steps.indexOf(stepName);
+        const endIdx = Math.max(startIdx, steps.indexOf(endStep));
+        const stepsToRun = steps.slice(startIdx, endIdx + 1);
         const res = await fetch(
           `${API_BASE}/runs/${selectedRun.run_id}/continue`,
           {
@@ -241,8 +251,7 @@
         };
         const body = { payload, options };
 
-        const step = steps[0] || "step01a_metadata";
-        const res = await fetch(`${API_BASE}/run/${step}`, {
+        const res = await fetch(`${API_BASE}/run/${stepName}`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(body),
@@ -255,7 +264,7 @@
         const result = await res.json();
         currentRunId = result.run_id;
 
-        addLog("info", `Started execution: ${step}`);
+        addLog("info", `Started execution: ${stepName}`);
 
         await loadRunHistory();
         await loadArtifacts();
@@ -454,7 +463,6 @@
   }
 
   async function selectRun(run: RunHistoryItem) {
-    runAll = false;
     try {
       const runId = run.run_id;
       if (!runId) return;
@@ -469,6 +477,10 @@
         updated_at: runData.completed_at ?? runData.started_at,
         step: stepName,
       };
+
+      const nextIndex = Math.min(steps.indexOf(stepName) + 1, steps.length - 1);
+      startStep = steps[nextIndex];
+      endStep = steps[steps.length - 1];
 
       let payload = runData.payload || {};
       if (runData.artifact_id) {
@@ -554,8 +566,9 @@
             on:click={() => {
               selectedRun = null;
               selectedRunId = "";
-              runAll = false;
               inputJson = '{\n  "race_id": "mo-senate-2024"\n}';
+              startStep = steps[0];
+              endStep = steps[steps.length - 1];
             }}
           >
             Start New Run
@@ -648,18 +661,6 @@
               />
               <span class="text-sm text-gray-700">Save Artifact</span>
             </label>
-            {#if selectedRun}
-              <label class="flex items-center space-x-2 col-span-2">
-                <input
-                  type="checkbox"
-                  bind:checked={runAll}
-                  class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                />
-                <span class="text-sm text-gray-700"
-                  >Run all remaining steps</span
-                >
-              </label>
-            {/if}
           </div>
         </details>
 
@@ -667,7 +668,7 @@
         <div class="flex space-x-3">
           <button
             disabled={isExecuting}
-            on:click={runStep}
+            on:click={() => runFromStep(startStep)}
             class="btn-primary flex-1 flex items-center justify-center"
           >
             {#if isExecuting}
