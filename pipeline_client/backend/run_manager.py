@@ -69,8 +69,8 @@ class RunManager:
                         run_info.error = "Process interrupted"
                         self._save_run(run_info)
                     # Don't load completed runs into active_runs to save memory
-        except Exception:
-            pass  # Continue if loading fails
+        except (OSError, json.JSONDecodeError, ValueError):
+            logging.exception("Failed to load existing runs from storage")
 
     def create_run(self, steps: List[str], request: RunRequest) -> RunInfo:
         """Create a new pipeline run."""
@@ -218,10 +218,11 @@ class RunManager:
                         run_info = RunInfo(**data)
                         if run_info.run_id not in self.active_runs:
                             runs.append(run_info)
-                except Exception:
+                except (OSError, json.JSONDecodeError, ValueError):
+                    logging.exception("Failed to read run file %s", run_file)
                     continue
-        except Exception:
-            pass
+        except OSError:
+            logging.exception("Failed to list recent runs from storage")
 
         # Sort by start time, most recent first
         runs.sort(key=lambda r: r.started_at, reverse=True)
@@ -256,8 +257,8 @@ class RunManager:
                 data["logs"] = run_info.logs
             with open(run_file, "w") as f:
                 json.dump(data, f, indent=2, default=str)
-        except Exception:
-            pass  # Continue if saving fails
+        except OSError:
+            logging.exception("Failed to save run %s", run_info.run_id)
 
 
 # Global run manager instance
