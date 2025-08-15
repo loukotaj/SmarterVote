@@ -218,6 +218,41 @@
     };
   }
 
+  async function executeStep(stepName: string) {
+    const payload = JSON.parse(inputJson || "{}");
+    const options: Record<string, any> = {
+      skip_llm_apis: skip_llm_apis || undefined,
+      skip_external_apis: skip_external_apis || undefined,
+      skip_network_calls: skip_network_calls || undefined,
+      skip_cloud_services: skip_cloud_services || undefined,
+      save_artifact,
+    };
+    const body = { payload, options };
+
+    const res = await fetch(`${API_BASE}/run/${stepName}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+    }
+
+    const result = await res.json();
+    currentRunId = result.run_id;
+    addLog("info", `Started execution: ${stepName}`);
+
+    await loadRunHistory();
+    await loadArtifacts();
+    const runId = result.meta?.run_id || result.run_id;
+    const run = runHistory.find((r) => r.run_id === runId);
+    if (run) {
+      await selectRun(run);
+    }
+    selectedRunId = runId;
+  }
+
   async function runStep() {
     if (isExecuting) return;
 
@@ -257,40 +292,8 @@
           }
         }
       } else {
-        const payload = JSON.parse(inputJson || "{}");
-        const options: Record<string, any> = {
-          skip_llm_apis: skip_llm_apis || undefined,
-          skip_external_apis: skip_external_apis || undefined,
-          skip_network_calls: skip_network_calls || undefined,
-          skip_cloud_services: skip_cloud_services || undefined,
-          save_artifact,
-        };
-        const body = { payload, options };
-
         const step = steps[0] || "step01a_metadata";
-        const res = await fetch(`${API_BASE}/run/${step}`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(body),
-        });
-
-        if (!res.ok) {
-          throw new Error(`HTTP ${res.status}: ${res.statusText}`);
-        }
-
-        const result = await res.json();
-        currentRunId = result.run_id;
-
-        addLog("info", `Started execution: ${step}`);
-
-        await loadRunHistory();
-        await loadArtifacts();
-        const runId = result.meta?.run_id || result.run_id;
-        const run = runHistory.find((r) => r.run_id === runId);
-        if (run) {
-          await selectRun(run);
-        }
-        selectedRunId = runId;
+        await executeStep(step);
       }
     } catch (err) {
       output = { error: String(err) };
@@ -306,37 +309,7 @@
     output = null;
 
     try {
-      const payload = JSON.parse(inputJson || "{}");
-      const options: Record<string, any> = {
-        skip_llm_apis: skip_llm_apis || undefined,
-        skip_external_apis: skip_external_apis || undefined,
-        skip_network_calls: skip_network_calls || undefined,
-        skip_cloud_services: skip_cloud_services || undefined,
-        save_artifact,
-      };
-      const body = { payload, options };
-
-      const res = await fetch(`${API_BASE}/run/${stepName}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
-
-      if (!res.ok) {
-        throw new Error(`HTTP ${res.status}: ${res.statusText}`);
-      }
-
-      const result = await res.json();
-      currentRunId = result.run_id;
-      addLog("info", `Started execution: ${stepName}`);
-      await loadRunHistory();
-      await loadArtifacts();
-      const runId = result.meta?.run_id || result.run_id;
-      const run = runHistory.find((r) => r.run_id === runId);
-      if (run) {
-        await selectRun(run);
-      }
-      selectedRunId = runId;
+      await executeStep(stepName);
     } catch (err) {
       output = { error: String(err) };
       addLog("error", `Execution failed: ${err}`);
