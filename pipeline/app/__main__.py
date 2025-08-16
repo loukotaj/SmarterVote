@@ -140,7 +140,9 @@ class CorpusFirstPipeline:
             logger.info(f"✅ Extracted text from {len(extracted_content)} items")
 
             logger.info("🔎 AI relevance filtering")
-            filtered_content = await self.relevance.filter_content(extracted_content)
+            race_name = race_json.title or race_id
+            candidate_names = [c.name for c in race_json.candidates]
+            filtered_content = await self.relevance.filter_content(extracted_content, race_name, candidate_names)
             logger.info(f"✅ {len(filtered_content)}/{len(extracted_content)} items passed relevance filter")
 
             # Cache the filtered content to Firestore

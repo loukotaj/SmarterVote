@@ -14,4 +14,5 @@ def test_deduplicate_sources_ignores_query_params():
     ]
     deduped = utils.deduplicate_sources(sources)
     assert len(deduped) == 1
-    assert str(deduped[0].url) == url1
+    # URL is normalized, so tracking params are removed
+    assert str(deduped[0].url) == url2
