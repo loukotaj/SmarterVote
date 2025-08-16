@@ -25,7 +25,13 @@ def test_filter_content_filters_irrelevant():
         extraction_timestamp=datetime.utcnow(),
         word_count=3,
     )
-    out = asyncio.run(filt.filter_content([doc1, doc2]))
+    out = asyncio.run(
+        filt.filter_content(
+            [doc1, doc2],
+            "Test Election",
+            ["Test Candidate", "Other"],
+        )
+    )
     assert doc1 in out
     assert doc2 not in out
     assert "relevance" in doc1.metadata
