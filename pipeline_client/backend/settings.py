@@ -11,6 +11,9 @@ class Settings(BaseSettings):
     skip_external_apis: bool = False
     skip_network_calls: bool = False
     skip_cloud_services: bool = False
+    storage_mode: str = "local"  # "local" or "gcp"
+    gcs_bucket: str | None = None
+    firestore_project: str | None = None
     allowed_origins: list[str] = Field(default_factory=lambda: ["*"])
 
     class Config:
