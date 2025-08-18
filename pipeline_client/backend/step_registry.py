@@ -13,7 +13,6 @@ from pipeline.app.schema import RaceJSON, Source
 from pipeline.app.step01_ingest.ContentExtractor.content_extractor import ContentExtractor
 from pipeline.app.step01_ingest.ContentFetcher import WebContentFetcher
 from pipeline.app.step01_ingest.DiscoveryService.source_discovery_engine import SourceDiscoveryEngine
-from pipeline.app.step01_ingest.IngestService import IngestService
 from pipeline.app.step01_ingest.MetaDataService.race_metadata_service import (
     RaceMetadataService,
 )
@@ -325,100 +324,15 @@ class Step01ExtractHandler:
             raise RuntimeError(error_msg)
 
 
-class Step01IngestHandler:
-    def __init__(self, storage_backend: StorageBackend) -> None:
-        self.service_cls = IngestService
-        self.storage_backend = storage_backend
-
-    async def handle(self, payload: Dict[str, Any], options: Dict[str, Any]) -> Any:
-        logger = logging.getLogger("pipeline")
-
-        race_id = payload.get("race_id")
-        if not race_id:
-            error_msg = f"Step01IngestHandler: Missing 'race_id' in payload.\nPayload received: {payload}"
-            logger.error(error_msg)
-            raise ValueError(error_msg)
-
-        race_json_payload = payload.get("race_json")
-        if not race_json_payload:
-            error_msg = (
-                "Step01IngestHandler: Missing 'race_json' in payload. " "This step requires output from the metadata service."
-            )
-            logger.error(error_msg)
-            raise ValueError(error_msg)
-
-        try:
-            if isinstance(race_json_payload, RaceJSON):
-                race_json: RaceJSON = race_json_payload
-            elif hasattr(RaceJSON, "model_validate"):
-                race_json = RaceJSON.model_validate(race_json_payload)
-            else:
-                race_json = RaceJSON.parse_obj(race_json_payload)  # type: ignore[arg-type]
-        except Exception as e:
-            error_msg = f"Step01IngestHandler: Invalid race_json provided: {e}"
-            logger.error(error_msg)
-            raise ValueError(error_msg)
-
-        logger.info(f"Initializing IngestService for race_id='{race_id}'")
-
-        try:
-            service = self.service_cls()
-            logger.debug("IngestService instantiated successfully")
-        except Exception as e:
-            error_msg = f"Step01IngestHandler: Failed to instantiate IngestService: {e}"
-            logger.error(error_msg)
-            raise RuntimeError(error_msg)
-
-        try:
-            logger.info(f"Running ingest for race_id='{race_id}'")
-            t0 = time.perf_counter()
-
-            result = await service.ingest(race_id, race_json=race_json)
-
-            duration_ms = int((time.perf_counter() - t0) * 1000)
-            logger.info(f"Ingest completed in {duration_ms}ms")
-
-            output = []
-            for item in result:
-                if hasattr(item, "model_dump"):
-                    data = item.model_dump(mode="json", by_alias=True, exclude_none=True)
-                    text = item.text
-                elif hasattr(item, "json"):
-                    data = json.loads(item.json(by_alias=True, exclude_none=True))
-                    text = data.get("text", "")
-                else:
-                    data = to_jsonable(item)
-                    text = data.get("text", "")
-
-                checksum = data.get("metadata", {}).get("content_checksum") or hashlib.sha256(text.encode("utf-8")).hexdigest()
-                filename = f"{checksum}.txt"
-                uri = self.storage_backend.save_web_content(
-                    race_id,
-                    filename,
-                    text,
-                    content_type="text/plain",
-                    kind="extracted",
-                )
-                data["extracted_uri"] = uri
-                output.append(data)
-
-            logger.debug(f"Ingest conversion completed, items: {len(output)}")
-            return output
-        except Exception as e:
-            error_msg = f"Step01IngestHandler: Error running ingest(race_id='{race_id}'): {e}"
-            logger.error(error_msg, exc_info=True)
-            raise RuntimeError(error_msg)
-
-
 _STORAGE_BACKEND = _init_storage_backend()
 
 
 REGISTRY: Dict[str, StepHandler] = {
     "step01a_metadata": Step01MetadataHandler(_STORAGE_BACKEND),
     "step01b_discovery": Step01DiscoveryHandler(),
-    "step01c_fetch": Step01FetchHandler(_STORAGE_BACKEND),
-    "step01d_extract": Step01ExtractHandler(_STORAGE_BACKEND),
-    "step01_ingest": Step01IngestHandler(_STORAGE_BACKEND),
+    "step01c_fetch": Step01FetchHandler(),
+    "step01d_extract": Step01ExtractHandler(),
+
 }
 
 
