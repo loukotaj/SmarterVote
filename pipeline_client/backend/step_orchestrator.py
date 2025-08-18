@@ -16,7 +16,7 @@ PIPELINE_ORDER = [
     "step01b_discovery",
     "step01c_fetch",
     "step01d_extract",
-    "step01_ingest",
+    "step01e_relevance",
 ]
 
 
@@ -41,8 +41,9 @@ def build_payload(step: str, state: Dict[str, Any]) -> Dict[str, Any]:
         return {"race_id": state["race_id"], "sources": state["sources"]}
     if step == "step01d_extract":
         return {"race_id": state["race_id"], "raw_content": state["raw_content"]}
-    if step == "step01_ingest":
-        return {"race_id": state["race_id"], "race_json": state["race_json"]}
+    if step == "step01e_relevance":
+        return {"race_id": state["race_id"], "processed_content": state["processed_content"]}
+
     raise KeyError(f"Unknown step '{step}'")
 
 
@@ -63,8 +64,9 @@ def update_state(step: str, state: Dict[str, Any], output: Any) -> Dict[str, Any
         new_state["raw_content"] = output
     elif step == "step01d_extract":
         new_state["processed_content"] = output
-    elif step == "step01_ingest":
-        new_state["ingest_result"] = output
+    elif step == "step01e_relevance":
+        new_state["relevant_content"] = output
+
     return new_state
 
 
