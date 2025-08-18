@@ -51,7 +51,12 @@ def update_state(step: str, state: Dict[str, Any], output: Any) -> Dict[str, Any
 
     new_state = dict(state)
     if step == "step01a_metadata":
-        new_state["race_json"] = output
+        if isinstance(output, dict) and "race_json" in output:
+            new_state["race_json"] = output["race_json"]
+            if "race_json_uri" in output:
+                new_state["race_json_uri"] = output["race_json_uri"]
+        else:
+            new_state["race_json"] = output
     elif step == "step01b_discovery":
         new_state["sources"] = output
     elif step == "step01c_fetch":
