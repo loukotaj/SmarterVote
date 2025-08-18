@@ -99,7 +99,6 @@ def test_file_structure():
     expected_files = [
         "pipeline/__init__.py",
         "pipeline/app/__init__.py",
-        "pipeline/app/__main__.py",
         "pipeline/app/schema.py",
         "pipeline/requirements.txt",
         "services/enqueue-api/main.py",

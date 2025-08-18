@@ -3,7 +3,7 @@
 AI-powered electoral analysis with a corpus-first pipeline and multi-LLM consensus.
 
 ## What it is
-- Pipeline (Python): 4-step processing engine producing RaceJSON v0.2
+- Pipeline Client (FastAPI): official execution engine for the 4-step pipeline producing RaceJSON v0.2
 - Services (FastAPI): enqueue-api (jobs), races-api (serve published data)
 - Web (SvelteKit + TypeScript): static site consuming races-api
 - Infra (Terraform + GCP): Cloud Run, Pub/Sub, Secret Manager, Cloud Storage
@@ -32,7 +32,7 @@ Dev commands
 - Run all tests: `python -m pytest -v`
 - Start web: `cd web && npm run dev`
 - Start races API: `cd services/races-api && python main.py`
-- Local pipeline run: `python scripts/run_local.py <race-id>`
+- Run Step 01 via pipeline client: `python pipeline_client/backend/main.py <race-id>`
 
 ## Pipeline workflow
 INGEST → CORPUS → SUMMARIZE → PUBLISH
@@ -44,17 +44,10 @@ INGEST → CORPUS → SUMMARIZE → PUBLISH
 
 ## Running the Pipeline
 
-### Cheap Mode (Mini Models - Default)
-```bash
-python scripts/run_local.py mo-senate-2024
-```
+Use the pipeline client to execute Step 01 (metadata → ingest):
 
-### Standard Mode (Premium Models)
 ```bash
-python scripts/run_local.py mo-senate-2024 --full-models
-# or set environment variable
-export SMARTERVOTE_CHEAP_MODE=false
-python scripts/run_local.py mo-senate-2024
+python pipeline_client/backend/main.py mo-senate-2024
 ```
 
 ## Docs

@@ -8,6 +8,8 @@
 
 SmarterVote implements a sophisticated **corpus-first architecture** that prioritizes content comprehension and semantic understanding over simple aggregation. Our system processes electoral data through a multi-stage AI pipeline designed for accuracy, bias reduction, and scalable analysis.
 
+The **pipeline client** (`pipeline_client/backend`) serves as the official execution engine, providing HTTP endpoints and a CLI for orchestrating pipeline steps.
+
 ## 🔧 System Architecture
 
 ### Core Design Principles

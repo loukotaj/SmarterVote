@@ -18,7 +18,7 @@ Pipeline Flow:
 Extract → Relevance Filter → [CACHE TO FIRESTORE] → Corpus → ...
 ```
 
-The caching happens in `__main__.py` right after the relevance filtering step:
+The caching happens in the pipeline right after the relevance filtering step:
 
 ```python
 # Step 3: EXTRACT - HTML/PDF → plain text
