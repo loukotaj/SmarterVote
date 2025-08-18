@@ -29,10 +29,10 @@ class StorageBackend(Protocol):
 class LocalStorageBackend:
     """Local filesystem storage implementation."""
 
-    def __init__(self, artifacts_dir: Path) -> None:
+    def __init__(self, artifacts_dir: Path, races_dir: Path | None = None) -> None:
         self.artifacts_dir = artifacts_dir
         self.artifacts_dir.mkdir(parents=True, exist_ok=True)
-        self.races_dir = self.artifacts_dir / "races"
+        self.races_dir = races_dir or self.artifacts_dir / "races"
         self.races_dir.mkdir(parents=True, exist_ok=True)
         self.web_dir = self.artifacts_dir / "web"
         self.web_dir.mkdir(parents=True, exist_ok=True)
