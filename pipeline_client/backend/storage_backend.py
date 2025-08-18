@@ -39,6 +39,8 @@ class LocalStorageBackend:
         self.raw_dir.mkdir(parents=True, exist_ok=True)
         self.extracted_dir = self.artifacts_dir / "extracted"
         self.extracted_dir.mkdir(parents=True, exist_ok=True)
+        self.relevant_dir = self.artifacts_dir / "relevant"
+        self.relevant_dir.mkdir(parents=True, exist_ok=True)
 
     def _artifact_path(self, artifact_id: str) -> Path:
         return self.artifacts_dir / f"{artifact_id}.json"
@@ -83,6 +85,7 @@ class LocalStorageBackend:
         base_dir = {
             "raw": self.raw_dir,
             "extracted": self.extracted_dir,
+            "relevant": self.relevant_dir,
         }.get(kind, self.raw_dir)
 
         race_dir = base_dir / race_id

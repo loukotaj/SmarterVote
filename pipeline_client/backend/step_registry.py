@@ -40,7 +40,7 @@ REGISTRY: Dict[str, StepHandler] = {
     "step01b_discovery": Step01DiscoveryHandler(),
     "step01c_fetch": Step01FetchHandler(),
     "step01d_extract": Step01ExtractHandler(),
-    "step01e_relevance": Step01RelevanceHandler(),
+    "step01e_relevance": Step01RelevanceHandler(_STORAGE_BACKEND),
 }
 
 
