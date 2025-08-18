@@ -29,10 +29,10 @@ from .step01_ingest.ContentExtractor import ExtractService
 from .step01_ingest.ContentFetcher import WebContentFetcher
 from .step01_ingest.DiscoveryService import SourceDiscoveryEngine
 from .step01_ingest.MetaDataService import RaceMetadataService
+from .step01_ingest.RelevanceCheck.ai_relevance_filter import AIRelevanceFilter
 from .step02_corpus import CorpusService
 from .step03_summarise import ArbitrationService, SummarizeService
 from .step04_publish import PublishService
-from .utils.ai_relevance_filter import AIRelevanceFilter
 from .utils.firestore_cache import FirestoreCache
 
 # Configure logging

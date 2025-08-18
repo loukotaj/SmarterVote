@@ -5,7 +5,7 @@ from datetime import datetime
 
 import pytest
 
-from ..schema import ExtractedContent, Source, SourceType
+from ...schema import ExtractedContent, Source, SourceType
 from .ai_relevance_filter import AIRelevanceFilter
 
 

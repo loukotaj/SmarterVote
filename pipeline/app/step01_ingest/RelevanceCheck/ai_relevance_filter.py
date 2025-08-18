@@ -1,10 +1,10 @@
 import logging
 from typing import Any, Dict, List
 
-from ..providers import TaskType, registry
+from ...providers import TaskType, registry
 
 try:
-    from ..schema import ExtractedContent
+    from ...schema import ExtractedContent
 except ImportError:  # pragma: no cover - fallback for tests
     from shared.models import ExtractedContent  # type: ignore
 
