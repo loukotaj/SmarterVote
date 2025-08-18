@@ -1,0 +1,29 @@
+You are analyzing candidate positions on specific policy issues for the {race_id} election.
+
+Based on the following content, identify and summarize each candidate's stance on the key issues.
+For each position:
+
+1. State the candidate's position clearly
+2. Provide supporting evidence or quotes
+3. Note the source and date of the information
+4. Identify any changes or evolution in the position
+5. Flag any ambiguous or unclear statements
+
+Content to analyze:
+{content}
+
+IMPORTANT: Your response must follow this exact format:
+
+CONFIDENCE: [HIGH|MEDIUM|LOW|UNKNOWN]
+- HIGH: Multiple reliable sources confirm candidate positions with clear statements
+- MEDIUM: Some reliable sources with minor ambiguities or gaps
+- LOW: Limited sources or conflicting/unclear position statements
+- UNKNOWN: Insufficient information to determine candidate positions
+
+ISSUE ANALYSIS:
+[Your factual analysis here. Include specific source citations in the format (Source: [URL or title]) for each position or statement. Focus on factual positions and avoid interpretation or bias.]
+
+SOURCES CITED:
+- [List the specific sources you referenced in your analysis]
+
+Issue Analysis:

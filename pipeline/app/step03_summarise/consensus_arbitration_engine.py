@@ -19,6 +19,7 @@ from typing import Any, Dict, List
 
 from ..providers import TaskType, registry
 from ..schema import ConfidenceLevel, LLMResponse, Summary, TriangulatedSummary
+from ..utils.prompt_loader import load_prompt
 
 logger = logging.getLogger(__name__)
 
@@ -187,21 +188,7 @@ class ConsensusArbitrationEngine:
         for i, summary in enumerate(summaries):
             summaries_text += f"SUMMARY {i+1} (Model: {summary.model}):\n{summary.content}\n\n"
 
-        bias_prompt = f"""
-        Analyze the following political summaries for bias. For each summary, identify:
-        1. Political bias (left-leaning, right-leaning, or neutral)
-        2. Loaded language or emotional terms
-        3. Bias severity (low, medium, high)
-        4. Specific examples of biased language if found
-
-        Provide your analysis in JSON format with a "bias_scores" array containing an object for each summary with
-        "summary_index", "bias_level", "bias_direction", "severity", and "examples" fields.
-
-        SUMMARIES TO ANALYZE:
-        {summaries_text}
-
-        Respond only with valid JSON.
-        """
+        bias_prompt = load_prompt("bias_detection").format(summaries_text=summaries_text)
 
         try:
             # Select random AI model for bias detection
@@ -240,25 +227,7 @@ class ConsensusArbitrationEngine:
         for i, summary in enumerate(summaries):
             summaries_text += f"SUMMARY {i+1} (Model: {summary.model}):\n{summary.content}\n\n"
 
-        agreement_prompt = f"""
-        Analyze the agreement between these political summaries. Determine:
-        1. Which summaries agree with each other (form consensus groups)
-        2. The strength of agreement (high, medium, low)
-        3. Key points of consensus and disagreement
-        4. Overall confidence in the consensus
-
-        Provide analysis in JSON format with:
-        - "consensus_groups": array of arrays showing which summaries agree (by index)
-        - "agreement_strength": overall strength (high/medium/low)
-        - "consensus_points": array of agreed-upon points
-        - "disagreement_points": array of points of disagreement
-        - "confidence_assessment": overall confidence in consensus (high/medium/low)
-
-        SUMMARIES TO ANALYZE:
-        {summaries_text}
-
-        Respond only with valid JSON.
-        """
+        agreement_prompt = load_prompt("agreement_analysis").format(summaries_text=summaries_text)
 
         try:
             # Select random AI model for agreement analysis
@@ -305,33 +274,11 @@ class ConsensusArbitrationEngine:
             summaries_text += f"SUMMARY {i+1} (Model: {summary.model}):\n{summary.content}\n\n"
 
         # Include analysis context
-        consensus_prompt = f"""
-        Based on the following summaries and analysis, generate a final consensus summary that:
-        1. Incorporates the most reliable and agreed-upon information
-        2. Avoids biased language identified in the analysis
-        3. Reflects the strength of consensus found
-        4. Maintains political neutrality and factual accuracy
-
-        ORIGINAL SUMMARIES:
-        {summaries_text}
-
-        BIAS ANALYSIS:
-        {bias_analysis}
-
-        AGREEMENT ANALYSIS:
-        {agreement_analysis}
-
-        Generate a final consensus summary that synthesizes the best elements while avoiding bias.
-        The summary should be comprehensive but concise, focusing on factual information and policy positions.
-
-        Also determine the appropriate confidence level (HIGH, MEDIUM, LOW) based on:
-        - Strength of agreement between models
-        - Absence of bias
-        - Quality of source consensus
-
-        Provide response in JSON format with "final_summary" and "confidence_level" fields.
-        Respond only with valid JSON.
-        """
+        consensus_prompt = load_prompt("consensus_generation").format(
+            summaries_text=summaries_text,
+            bias_analysis=bias_analysis,
+            agreement_analysis=agreement_analysis,
+        )
 
         try:
             # Select random AI model for consensus generation

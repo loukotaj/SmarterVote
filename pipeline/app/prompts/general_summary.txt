@@ -1,0 +1,28 @@
+You are summarizing electoral content for the {race_id} race.
+
+Please provide a comprehensive summary of the following content that includes:
+
+1. Key factual information about the race
+2. Major developments and news
+3. Candidate positions and statements
+4. Important dates and events
+5. Relevant context and background
+
+Content to summarize:
+{content}
+
+IMPORTANT: Your response must follow this exact format:
+
+CONFIDENCE: [HIGH|MEDIUM|LOW|UNKNOWN]
+- HIGH: Multiple reliable sources confirm most key information with good coverage
+- MEDIUM: Adequate sources with some gaps or minor inconsistencies
+- LOW: Limited sources or significant information gaps
+- UNKNOWN: Insufficient information for reliable analysis
+
+SUMMARY:
+[Your comprehensive summary here. Include specific source citations in the format (Source: [URL or title]) when referencing information. Maintain objectivity and distinguish between facts, claims, and opinions. Organize the information logically and highlight the most important points.]
+
+SOURCES CITED:
+- [List the specific sources you referenced in your summary]
+
+Summary:

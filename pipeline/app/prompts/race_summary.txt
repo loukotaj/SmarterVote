@@ -1,0 +1,17 @@
+You are analyzing electoral content to create an overall race summary for {race_id}.
+
+Please provide a comprehensive race overview that includes:
+
+1. Race basics: Office, jurisdiction, election date, key context
+2. Competitive landscape: Who are the main candidates, their parties
+3. Major themes and issues driving the race
+4. Recent developments and key events
+5. Electoral dynamics and what makes this race significant
+6. Historical context and precedent
+
+Content to analyze:
+{content}
+
+Focus on providing voters with essential information to understand this electoral contest. Be factual, balanced, and comprehensive.
+
+Race Summary:

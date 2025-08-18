@@ -3,6 +3,7 @@ import json
 import logging
 import time
 from datetime import date, datetime
+from pathlib import Path
 from typing import Any, Dict, Protocol, runtime_checkable
 
 from pipeline.app.providers import registry
@@ -13,6 +14,9 @@ from pipeline.app.step01_ingest.DiscoveryService.source_discovery_engine import 
 from pipeline.app.step01_ingest.MetaDataService.race_metadata_service import (
     RaceMetadataService,
 )
+
+from .settings import settings
+from .storage_backend import GCPStorageBackend, LocalStorageBackend, StorageBackend
 
 
 def to_jsonable(obj):
@@ -35,10 +39,23 @@ class StepHandler(Protocol):
     async def handle(self, payload: Dict[str, Any], options: Dict[str, Any]) -> Any: ...
 
 
+def _init_storage_backend() -> StorageBackend:
+    if settings.storage_mode == "gcp":
+        if not settings.gcs_bucket:
+            raise ValueError("gcs_bucket must be configured for gcp storage mode")
+        return GCPStorageBackend(
+            bucket=settings.gcs_bucket,
+            firestore_project=settings.firestore_project,
+        )
+    published_dir = Path(__file__).resolve().parents[2] / "data/published"
+    return LocalStorageBackend(settings.artifacts_dir, races_dir=published_dir)
+
+
 class Step01MetadataHandler:
-    def __init__(self) -> None:
+    def __init__(self, storage_backend: StorageBackend) -> None:
         # Swap to the LLM-first service class
         self.service_cls = RaceMetadataService
+        self.storage_backend = storage_backend
 
     async def handle(self, payload: Dict[str, Any], options: Dict[str, Any]) -> Any:
         logger = logging.getLogger("pipeline")
@@ -78,7 +95,9 @@ class Step01MetadataHandler:
             logger.debug(
                 f"Metadata conversion completed, output keys: {list(output.keys()) if isinstance(output, dict) else 'non-dict result'}"
             )
-            return output
+            race_json_uri = self.storage_backend.save_race_json(race_id, output)
+            logger.info(f"Race JSON saved to {race_json_uri}")
+            return {"race_json": output, "race_json_uri": race_json_uri}
 
         except Exception as e:
             error_msg = f"Step01MetadataHandler: Error running extract_race_metadata(race_id='{race_id}'): {e}"
@@ -263,8 +282,11 @@ class Step01ExtractHandler:
 
 
 
+_STORAGE_BACKEND = _init_storage_backend()
+
+
 REGISTRY: Dict[str, StepHandler] = {
-    "step01a_metadata": Step01MetadataHandler(),
+    "step01a_metadata": Step01MetadataHandler(_STORAGE_BACKEND),
     "step01b_discovery": Step01DiscoveryHandler(),
     "step01c_fetch": Step01FetchHandler(),
     "step01d_extract": Step01ExtractHandler(),

@@ -1,0 +1,25 @@
+Based on the following summaries and analysis, generate a final consensus summary that:
+1. Incorporates the most reliable and agreed-upon information
+2. Avoids biased language identified in the analysis
+3. Reflects the strength of consensus found
+4. Maintains political neutrality and factual accuracy
+
+ORIGINAL SUMMARIES:
+{summaries_text}
+
+BIAS ANALYSIS:
+{bias_analysis}
+
+AGREEMENT ANALYSIS:
+{agreement_analysis}
+
+Generate a final consensus summary that synthesizes the best elements while avoiding bias.
+The summary should be comprehensive but concise, focusing on factual information and policy positions.
+
+Also determine the appropriate confidence level (HIGH, MEDIUM, LOW) based on:
+- Strength of agreement between models
+- Absence of bias
+- Quality of source consensus
+
+Provide response in JSON format with "final_summary" and "confidence_level" fields.
+Respond only with valid JSON.

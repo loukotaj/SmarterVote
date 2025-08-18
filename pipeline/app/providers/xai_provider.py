@@ -12,6 +12,7 @@ try:
 except ImportError:
     openai = None
 
+from ..utils.prompt_loader import load_prompt
 from .base import AIProvider, ModelConfig, ModelTier, SummaryOutput, TaskType
 
 logger = logging.getLogger(__name__)
@@ -100,25 +101,10 @@ class XAIProvider(AIProvider):
         if not self.client:
             raise RuntimeError("xAI client not initialized")
 
-        enhanced_prompt = f"""
-{prompt}
-
-IMPORTANT: Your response must be in the following JSON format:
-{{
-    "content": "Your main analysis/summary here",
-    "confidence": "high|medium|low",
-    "sources_used": ["list", "of", "source", "URLs", "or", "references"],
-    "reasoning": "Brief explanation of why you assigned this confidence level"
-}}
-
-Confidence guidelines:
-- HIGH: Multiple reliable sources confirm the same information
-- MEDIUM: Some sources available but may conflict or be incomplete
-- LOW: Limited or questionable source material
-- UNKNOWN: No relevant sources found
-
-Available sources to reference: {context_sources or []}
-"""
+        enhanced_prompt = load_prompt("summary_with_confidence").format(
+            prompt=prompt,
+            context_sources=context_sources or [],
+        )
 
         params = {
             "model": model_config.model_id,

@@ -18,7 +18,6 @@ FUTURE ENHANCEMENTS:
 import hashlib
 import json
 import logging
-import os
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -27,6 +26,7 @@ import chromadb
 from chromadb.config import Settings
 
 from ..schema import ExtractedContent, Source, SourceType, VectorDocument
+from .config import DEFAULT_CONFIG
 
 
 class InMemoryCollection:
@@ -152,14 +152,7 @@ class VectorDatabaseManager:
         self.embedding_model = None
 
         # Configuration from environment or defaults
-        self.config = {
-            "chunk_size": int(os.getenv("CHROMA_CHUNK_SIZE", "500")),  # words per chunk
-            "chunk_overlap": int(os.getenv("CHROMA_CHUNK_OVERLAP", "50")),  # word overlap between chunks
-            "embedding_model": os.getenv("CHROMA_EMBEDDING_MODEL", "all-MiniLM-L6-v2"),  # Sentence transformer model
-            "similarity_threshold": float(os.getenv("CHROMA_SIMILARITY_THRESHOLD", "0.7")),
-            "max_results": int(os.getenv("CHROMA_MAX_RESULTS", "100")),
-            "persist_directory": os.getenv("CHROMA_PERSIST_DIR", "./data/chroma_db"),
-        }
+        self.config = DEFAULT_CONFIG.copy()
 
     async def initialize(self):
         """

@@ -5,8 +5,7 @@ from bs4 import BeautifulSoup
 
 from shared.models import Source, SourceType
 
-ALLOW = ("/issues", "/priorities", "/platform", "/policy", "/on-the-issues", "/agenda", "/plans", "/news", "/press", "/about")
-DENY = ("/donate", "/volunteer", "/shop", "/store", "/events", "/privacy", "/terms")
+from ..constants import ALLOW, DENY
 
 
 def derive_candidate_pages(homepage: Source, html: str, *, max_links: int = 8) -> list[Source]:

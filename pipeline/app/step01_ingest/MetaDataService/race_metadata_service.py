@@ -18,7 +18,6 @@ from __future__ import annotations
 
 import json
 import logging
-import re
 import time
 import uuid
 from datetime import datetime, timedelta
@@ -29,17 +28,13 @@ from shared.state_constants import PRIMARY_DATE_BY_STATE, STATE_NAME
 
 from ...providers.base import ProviderRegistry, TaskType
 from ...schema import Candidate, CanonicalIssue, ConfidenceLevel, FreshSearchQuery, RaceJSON, RaceMetadata, Source, SourceType
+from ...utils.prompt_loader import load_prompt
 from ...utils.search_utils import SearchUtils
+from ..constants import SLUG_PATTERN
 from ..ContentExtractor import ContentExtractor
 from ..ContentFetcher import WebContentFetcher
 
 logger = logging.getLogger(__name__)
-
-SLUG_PATTERN = re.compile(
-    r"^(?P<state>[a-z]{2})-(?P<office>[a-z]+(?:-[a-z]+)*?)"
-    r"(?:-(?P<district>\d{1,2}|al))?-(?P<year>\d{4})"
-    r"(?:-(?P<kind>primary|runoff|special))?$",
-)
 
 
 # --------------------------- logging helpers --------------------------- #
@@ -343,16 +338,11 @@ class RaceMetadataService:
             "}\n"
         )
 
-        prompt = (
-            "You are a precise elections data normalizer.\n"
-            f"{header}\n\n"
-            "Task:\n"
-            "- Extract ONLY real candidate names for THIS race.\n"
-            "- Ignore committees, counties, offices, headings, page furniture, and phrases like 'Candidate Connection' or 'Key Messages'.\n"
-            "- If a party is unclear, use null.\n"
-            "- Mark incumbent=true only if explicitly stated for THIS office.\n\n"
-            f"{schema_hint}"
-            "Do not include any explanation—only the JSON.\n\n" + "\n".join(corpus_lines)
+        prompt_template = load_prompt("race_metadata_extraction")
+        prompt = prompt_template.format(
+            header=header,
+            schema_hint=schema_hint,
+            corpus_lines="\n".join(corpus_lines),
         )
 
         # Ask the provider for JSON using a specific model (gpt-4o-mini).
