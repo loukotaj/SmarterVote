@@ -63,19 +63,19 @@ def _jlog(level: int, event: str, trace_id: str, **fields: Any) -> None:
 
 
 class RaceMetadataService:
-    """
-    LLM-first race metadata extractor:
-    1) Build 2–3 canonical seed URLs for the race.
-    2) Fetch & extract text.
-    3) Ask a single model (gpt-4o-mini) for strict JSON {candidates[], incumbent_party?}.
-    4) If empty → do one search → take top 3 results → refetch → retry LLM.
-    """
+    """LLM-first race metadata extractor with optional persistence."""
 
-    def __init__(self, providers: Optional[ProviderRegistry] = None) -> None:
+    def __init__(
+        self,
+        providers: Optional[ProviderRegistry] = None,
+        storage_backend: Optional[Any] = None,
+    ) -> None:
         self.providers = providers
         self.fetcher = WebContentFetcher()
         self.extractor = ContentExtractor()
         self.search = SearchUtils({"top_results_per_query": 8, "per_host_concurrency": 4})
+        self.storage_backend = storage_backend
+        self.race_json_uri: Optional[str] = None
 
         self.office_info = {
             "senate": {
@@ -191,6 +191,27 @@ class RaceMetadataService:
                 generator=[],
                 race_metadata=meta,
             )
+
+            if self.storage_backend:
+                try:
+                    payload = race_json.model_dump(mode="json", by_alias=True, exclude_none=True)
+                except Exception:
+                    payload = json.loads(race_json.json(by_alias=True, exclude_none=True))
+                try:
+                    self.race_json_uri = self.storage_backend.save_race_json(race_id, payload)
+                    _jlog(
+                        logging.INFO,
+                        "race_metadata.publish.success",
+                        trace_id,
+                        uri=self.race_json_uri,
+                    )
+                except Exception as e:  # noqa: BLE001
+                    _jlog(
+                        logging.ERROR,
+                        "race_metadata.publish.error",
+                        trace_id,
+                        error=str(e),
+                    )
 
             _jlog(
                 logging.INFO,

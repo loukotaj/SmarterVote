@@ -20,7 +20,9 @@ class Step01MetadataHandler:
             raise ValueError(error_msg)
         logger.info(f"Initializing RaceMetadataService for race_id='{race_id}'")
         try:
-            service = self.service_cls(providers=registry)
+            service = self.service_cls(
+                providers=registry, storage_backend=self.storage_backend
+            )
             logger.debug("RaceMetadataService instantiated successfully")
         except Exception as e:
             error_msg = f"Step01MetadataHandler: Failed to instantiate RaceMetadataService: {e}"
@@ -38,10 +40,14 @@ class Step01MetadataHandler:
                 output = json.loads(result.json(by_alias=True, exclude_none=True))
             else:
                 output = to_jsonable(result)
-            logger.debug(f"Metadata conversion completed, output keys: {list(output.keys()) if isinstance(output, dict) else 'non-dict result'}")
-            race_json_uri = self.storage_backend.save_race_json(race_id, output)
-            logger.info(f"Race JSON saved to {race_json_uri}")
-            return {"race_json": output, "race_json_uri": race_json_uri}
+            logger.debug(
+                f"Metadata conversion completed, output keys: {list(output.keys()) if isinstance(output, dict) else 'non-dict result'}"
+            )
+            race_json_uri = getattr(service, "race_json_uri", None)
+            if race_json_uri:
+                logger.info(f"Race JSON saved to {race_json_uri}")
+                return {"race_json": output, "race_json_uri": race_json_uri}
+            return {"race_json": output}
         except Exception as e:
             error_msg = f"Step01MetadataHandler: Error running extract_race_metadata(race_id='{race_id}'): {e}"
             logger.error(error_msg, exc_info=True)
