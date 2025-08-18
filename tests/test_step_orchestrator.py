@@ -35,10 +35,10 @@ def test_build_payload_and_remaining_steps():
     assert payload == {"race_id": "r1", "race_json": {"foo": 1}}
 
     payload = build_payload("step01c_fetch", state)
-    assert payload == {"sources": [{"url": "a"}]}
+    assert payload == {"race_id": "r1", "sources": [{"url": "a"}]}
 
     payload = build_payload("step01d_extract", state)
-    assert payload == {"raw_content": [{"text": "hi"}]}
+    assert payload == {"race_id": "r1", "raw_content": [{"text": "hi"}]}
 
     nxt = remaining_steps("step01a_metadata", None)
     assert nxt == [PIPELINE_ORDER[1]]

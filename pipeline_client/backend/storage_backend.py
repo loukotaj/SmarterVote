@@ -23,6 +23,7 @@ class StorageBackend(Protocol):
         filename: str,
         content: bytes | str,
         content_type: str | None = None,
+        kind: str = "raw",
     ) -> str: ...
 
 
@@ -34,8 +35,10 @@ class LocalStorageBackend:
         self.artifacts_dir.mkdir(parents=True, exist_ok=True)
         self.races_dir = races_dir or self.artifacts_dir / "races"
         self.races_dir.mkdir(parents=True, exist_ok=True)
-        self.web_dir = self.artifacts_dir / "web"
-        self.web_dir.mkdir(parents=True, exist_ok=True)
+        self.raw_dir = self.artifacts_dir / "raw"
+        self.raw_dir.mkdir(parents=True, exist_ok=True)
+        self.extracted_dir = self.artifacts_dir / "extracted"
+        self.extracted_dir.mkdir(parents=True, exist_ok=True)
 
     def _artifact_path(self, artifact_id: str) -> Path:
         return self.artifacts_dir / f"{artifact_id}.json"
@@ -75,8 +78,14 @@ class LocalStorageBackend:
         filename: str,
         content: bytes | str,
         content_type: str | None = None,
+        kind: str = "raw",
     ) -> str:
-        race_dir = self.web_dir / race_id
+        base_dir = {
+            "raw": self.raw_dir,
+            "extracted": self.extracted_dir,
+        }.get(kind, self.raw_dir)
+
+        race_dir = base_dir / race_id
         race_dir.mkdir(parents=True, exist_ok=True)
         path = race_dir / filename
         if isinstance(content, bytes):
@@ -125,10 +134,11 @@ class GCPStorageBackend:
         filename: str,
         content: bytes | str,
         content_type: str | None = None,
+        kind: str = "raw",
     ) -> str:
-        blob = self.bucket.blob(f"{race_id}/{filename}")
+        blob = self.bucket.blob(f"{race_id}/{kind}/{filename}")
         if isinstance(content, bytes):
             blob.upload_from_string(content, content_type=content_type or "application/octet-stream")
         else:
             blob.upload_from_string(content, content_type=content_type or "text/plain")
-        return f"gs://{self.bucket.name}/{race_id}/{filename}"
+        return f"gs://{self.bucket.name}/{race_id}/{kind}/{filename}"
