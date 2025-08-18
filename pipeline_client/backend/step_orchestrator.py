@@ -38,9 +38,9 @@ def build_payload(step: str, state: Dict[str, Any]) -> Dict[str, Any]:
     if step == "step01b_discovery":
         return {"race_id": state["race_id"], "race_json": state["race_json"]}
     if step == "step01c_fetch":
-        return {"sources": state["sources"]}
+        return {"race_id": state["race_id"], "sources": state["sources"]}
     if step == "step01d_extract":
-        return {"raw_content": state["raw_content"]}
+        return {"race_id": state["race_id"], "raw_content": state["raw_content"]}
     if step == "step01_ingest":
         return {"race_id": state["race_id"], "race_json": state["race_json"]}
     raise KeyError(f"Unknown step '{step}'")

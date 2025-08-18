@@ -1,6 +1,8 @@
 import base64
+import hashlib
 import json
 import logging
+import mimetypes
 import time
 from datetime import date, datetime
 from pathlib import Path
@@ -175,11 +177,18 @@ class Step01DiscoveryHandler:
 
 
 class Step01FetchHandler:
-    def __init__(self) -> None:
+    def __init__(self, storage_backend: StorageBackend) -> None:
         self.service_cls = WebContentFetcher
+        self.storage_backend = storage_backend
 
     async def handle(self, payload: Dict[str, Any], options: Dict[str, Any]) -> Any:
         logger = logging.getLogger("pipeline")
+
+        race_id = payload.get("race_id")
+        if not race_id:
+            error_msg = f"Step01FetchHandler: Missing 'race_id' in payload.\nPayload received: {payload}"
+            logger.error(error_msg)
+            raise ValueError(error_msg)
 
         sources_payload = payload.get("sources")
         if not sources_payload or not isinstance(sources_payload, list):
@@ -223,6 +232,19 @@ class Step01FetchHandler:
                 src = item.get("source")
                 if hasattr(src, "model_dump"):
                     item["source"] = src.model_dump(mode="json", by_alias=True, exclude_none=True)
+
+                checksum = item.get("content_checksum") or hashlib.sha256(item.get("content_bytes", b"")).hexdigest()
+                mime = item.get("mime_type") or item.get("content_type") or "application/octet-stream"
+                ext = mimetypes.guess_extension(mime) or ""
+                filename = f"{checksum}{ext}"
+                uri = self.storage_backend.save_web_content(
+                    race_id,
+                    filename,
+                    item.get("content_bytes") or item.get("content", b""),
+                    content_type=mime,
+                    kind="raw",
+                )
+                item["raw_uri"] = uri
                 output.append(to_jsonable(item))
 
             logger.debug(f"Fetch conversion completed, items: {len(output)}")
@@ -234,11 +256,18 @@ class Step01FetchHandler:
 
 
 class Step01ExtractHandler:
-    def __init__(self) -> None:
+    def __init__(self, storage_backend: StorageBackend) -> None:
         self.service_cls = ContentExtractor
+        self.storage_backend = storage_backend
 
     async def handle(self, payload: Dict[str, Any], options: Dict[str, Any]) -> Any:
         logger = logging.getLogger("pipeline")
+
+        race_id = payload.get("race_id")
+        if not race_id:
+            error_msg = f"Step01ExtractHandler: Missing 'race_id' in payload.\nPayload received: {payload}"
+            logger.error(error_msg)
+            raise ValueError(error_msg)
 
         raw_content = payload.get("raw_content")
         if not raw_content or not isinstance(raw_content, list):
@@ -267,12 +296,26 @@ class Step01ExtractHandler:
 
             output = []
             for item in result:
+                data: Dict[str, Any]
                 if hasattr(item, "model_dump"):
-                    output.append(item.model_dump(mode="json", by_alias=True, exclude_none=True))
+                    data = item.model_dump(mode="json", by_alias=True, exclude_none=True)
                 elif hasattr(item, "json"):
-                    output.append(json.loads(item.json(by_alias=True, exclude_none=True)))
+                    data = json.loads(item.json(by_alias=True, exclude_none=True))
                 else:
-                    output.append(to_jsonable(item))
+                    data = to_jsonable(item)
+
+                text = data.get("text", "")
+                checksum = data.get("metadata", {}).get("content_checksum") or hashlib.sha256(text.encode("utf-8")).hexdigest()
+                filename = f"{checksum}.txt"
+                uri = self.storage_backend.save_web_content(
+                    race_id,
+                    filename,
+                    text,
+                    content_type="text/plain",
+                    kind="extracted",
+                )
+                data["extracted_uri"] = uri
+                output.append(data)
 
             logger.debug(f"Extract conversion completed, items: {len(output)}")
             return output
@@ -283,8 +326,9 @@ class Step01ExtractHandler:
 
 
 class Step01IngestHandler:
-    def __init__(self) -> None:
+    def __init__(self, storage_backend: StorageBackend) -> None:
         self.service_cls = IngestService
+        self.storage_backend = storage_backend
 
     async def handle(self, payload: Dict[str, Any], options: Dict[str, Any]) -> Any:
         logger = logging.getLogger("pipeline")
@@ -337,11 +381,26 @@ class Step01IngestHandler:
             output = []
             for item in result:
                 if hasattr(item, "model_dump"):
-                    output.append(item.model_dump(mode="json", by_alias=True, exclude_none=True))
+                    data = item.model_dump(mode="json", by_alias=True, exclude_none=True)
+                    text = item.text
                 elif hasattr(item, "json"):
-                    output.append(json.loads(item.json(by_alias=True, exclude_none=True)))
+                    data = json.loads(item.json(by_alias=True, exclude_none=True))
+                    text = data.get("text", "")
                 else:
-                    output.append(to_jsonable(item))
+                    data = to_jsonable(item)
+                    text = data.get("text", "")
+
+                checksum = data.get("metadata", {}).get("content_checksum") or hashlib.sha256(text.encode("utf-8")).hexdigest()
+                filename = f"{checksum}.txt"
+                uri = self.storage_backend.save_web_content(
+                    race_id,
+                    filename,
+                    text,
+                    content_type="text/plain",
+                    kind="extracted",
+                )
+                data["extracted_uri"] = uri
+                output.append(data)
 
             logger.debug(f"Ingest conversion completed, items: {len(output)}")
             return output
@@ -357,9 +416,9 @@ _STORAGE_BACKEND = _init_storage_backend()
 REGISTRY: Dict[str, StepHandler] = {
     "step01a_metadata": Step01MetadataHandler(_STORAGE_BACKEND),
     "step01b_discovery": Step01DiscoveryHandler(),
-    "step01c_fetch": Step01FetchHandler(),
-    "step01d_extract": Step01ExtractHandler(),
-    "step01_ingest": Step01IngestHandler(),
+    "step01c_fetch": Step01FetchHandler(_STORAGE_BACKEND),
+    "step01d_extract": Step01ExtractHandler(_STORAGE_BACKEND),
+    "step01_ingest": Step01IngestHandler(_STORAGE_BACKEND),
 }
 
 
