@@ -1,10 +1,11 @@
-import json
+from __future__ import annotations
+
 import uuid
 from datetime import datetime, timezone
-from pathlib import Path
 from typing import Any, Dict
 
 from .settings import settings
+from .storage_backend import GCPStorageBackend, LocalStorageBackend, StorageBackend
 
 
 def new_artifact_id(step: str) -> str:
@@ -12,24 +13,40 @@ def new_artifact_id(step: str) -> str:
     return f"{ts}-{step}-{uuid.uuid4().hex[:8]}"
 
 
-def artifact_path(artifact_id: str) -> Path:
-    return settings.artifacts_dir / f"{artifact_id}.json"
+def _get_backend() -> StorageBackend:
+    if settings.storage_mode == "gcp":
+        if not settings.gcs_bucket:
+            raise ValueError("gcs_bucket must be configured for gcp storage mode")
+        return GCPStorageBackend(
+            bucket=settings.gcs_bucket,
+            firestore_project=settings.firestore_project,
+        )
+    return LocalStorageBackend(settings.artifacts_dir)
 
 
-def save_artifact(artifact_id: str, data: Dict[str, Any]) -> Path:
-    path = artifact_path(artifact_id)
-    path.write_text(json.dumps(data, indent=2))
-    return path
+_backend = _get_backend()
+
+
+def save_artifact(artifact_id: str, data: Dict[str, Any]) -> str:
+    return _backend.save_artifact(artifact_id, data)
 
 
 def load_artifact(artifact_id: str) -> Dict[str, Any]:
-    path = artifact_path(artifact_id)
-    return json.loads(path.read_text())
+    return _backend.load_artifact(artifact_id)
 
 
 def list_artifacts() -> Dict[str, Any]:
-    files = sorted(settings.artifacts_dir.glob("*.json"))
-    return {
-        "count": len(files),
-        "items": [{"id": f.stem, "path": str(f), "size": f.stat().st_size, "modified": f.stat().st_mtime} for f in files],
-    }
+    return _backend.list_artifacts()
+
+
+def save_race_json(race_id: str, data: Dict[str, Any]) -> str:
+    return _backend.save_race_json(race_id, data)
+
+
+def save_web_content(
+    race_id: str,
+    filename: str,
+    content: bytes | str,
+    content_type: str | None = None,
+) -> str:
+    return _backend.save_web_content(race_id, filename, content, content_type)
