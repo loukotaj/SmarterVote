@@ -6,6 +6,8 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Any, Dict, List
 
+from pydantic import BaseModel
+
 from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
@@ -16,6 +18,7 @@ from .models import (
     BatchRunRequest,
     BatchRunResponse,
     ContinueRunRequest,
+    RunOptions,
     RunInfo,
     RunRequest,
     RunResponse,
@@ -45,6 +48,40 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title=settings.app_name, description="Enhanced Pipeline Client with Live Logging", lifespan=lifespan)
+
+
+# Request model for running the full Step 01 sequence
+class Step01Request(BaseModel):
+    race_id: str
+    options: RunOptions | None = None
+
+
+async def _run_step01_sequence(race_id: str, options: RunOptions | None = None) -> Dict[str, Any]:
+    """Run metadata through ingest using the step orchestrator."""
+    run_req = RunRequest(payload={"race_id": race_id}, options=options)
+    first = await run_step_async("step01a_metadata", run_req)
+    if not first.ok:
+        raise RuntimeError(first.error or "metadata step failed")
+    cont = await continue_pipeline(first.meta["run_id"], steps=["all"])
+    cont["runs"].insert(
+        0,
+        {
+            "step": "step01a_metadata",
+            "run_id": first.meta["run_id"],
+            "artifact_id": first.artifact_id,
+        },
+    )
+    cont["run_id"] = first.meta["run_id"]
+    return cont
+
+
+# Endpoint to run the full Step 01 sequence
+@app.post("/run/step01")
+async def run_step01(request: Step01Request) -> Dict[str, Any]:
+    try:
+        return await _run_step01_sequence(request.race_id, request.options)
+    except RuntimeError as exc:  # pragma: no cover - surface pipeline error
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
 
 
 # New endpoints for frontend modal details
@@ -313,3 +350,15 @@ async def root():
     """,
         status_code=200,
     )
+
+
+if __name__ == "__main__":  # pragma: no cover - CLI utility
+    import argparse
+    import json
+
+    parser = argparse.ArgumentParser(description="Run Step 01 pipeline sequence")
+    parser.add_argument("race_id", help="Race identifier to process")
+    args = parser.parse_args()
+
+    result = asyncio.run(_run_step01_sequence(args.race_id))
+    print(json.dumps(result, indent=2))
