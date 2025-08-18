@@ -44,8 +44,10 @@ class Step01RelevanceHandler:
             logger.error(error_msg, exc_info=True)
             raise RuntimeError(error_msg)
 import base64
+import hashlib
 import json
 import logging
+import mimetypes
 import time
 from datetime import date, datetime
 from pathlib import Path
