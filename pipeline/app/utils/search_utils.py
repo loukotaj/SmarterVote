@@ -116,6 +116,8 @@ class SearchUtils:
         self.cache_ttl = search_config.get("cache_ttl_seconds", 300)
         self.per_host_concurrency = search_config.get("per_host_concurrency", 5)
         self._host_semaphores: Dict[str, asyncio.Semaphore] = defaultdict(lambda: asyncio.Semaphore(self.per_host_concurrency))
+        # Choose which external search provider to use. Defaults to Google CSE.
+        self.search_provider = search_config.get("search_provider", "google").lower()
 
         self.issue_synonyms: Dict[CanonicalIssue, List[str]] = {
             CanonicalIssue.HEALTHCARE: ["health care", "medical", "medicare", "medicaid"],
@@ -143,49 +145,57 @@ class SearchUtils:
     # ------------------------- public search APIs ------------------------- #
 
     async def search_google_custom(self, query: FreshSearchQuery, issue: CanonicalIssue) -> List[Source]:
-        """Perform Google Custom Search and return raw results."""
+        """Perform a web search using the configured provider and return raw results."""
         cache_key = f"{query.race_id}:{query.text}:{getattr(query, 'date_restrict', '')}:{getattr(query, 'max_results', '')}"
         now = datetime.utcnow()
         cached = self.cache.get(cache_key)
         if cached and now - cached[0] < timedelta(seconds=self.cache_ttl):
             return cached[1]
 
+        if self.search_provider == "serper":
+            results = await self._search_serper(query, issue, now)
+        else:
+            results = await self._search_google_cse(query, issue, now)
+
+        self.cache[cache_key] = (datetime.utcnow(), results)
+        return results
+
+    async def _search_google_cse(self, query: FreshSearchQuery, issue: CanonicalIssue, now: datetime) -> List[Source]:
+        """Internal helper for Google Custom Search API."""
         api_key = os.getenv("GOOGLE_SEARCH_API_KEY")
         search_engine_id = os.getenv("GOOGLE_SEARCH_ENGINE_ID")
 
         if not api_key or not search_engine_id:
             logger.warning("Google Custom Search API not configured.")
-            mock = Source(
-                url=f"https://example.com/news/{getattr(issue, 'value', str(issue)).lower()}-{query.race_id}",
-                type=self._choose_type("WEBSITE"),
-                title=f"Fresh: {getattr(issue, 'value', str(issue))} in {query.race_id}",
-                description=f"Fresh search content about {getattr(issue, 'value', str(issue))} for this race",
-                last_accessed=now,
-                published_at=now,
-                is_fresh=True,
-            )
-            self.cache[cache_key] = (now, [mock])
-            return [mock]
+            return [
+                Source(
+                    url=f"https://example.com/news/{getattr(issue, 'value', str(issue)).lower()}-{query.race_id}",
+                    type=self._choose_type("WEBSITE"),
+                    title=f"Fresh: {getattr(issue, 'value', str(issue))} in {query.race_id}",
+                    description=f"Fresh search content about {getattr(issue, 'value', str(issue))} for this race",
+                    last_accessed=now,
+                    published_at=now,
+                    is_fresh=True,
+                )
+            ]
 
         try:
             import httpx  # type: ignore
         except ImportError:
             logger.warning("httpx not available; returning mock result.")
-            mock = Source(
-                url=f"https://example.com/mock/{getattr(issue, 'value', str(issue)).lower()}-{query.race_id}",
-                type=self._choose_type("WEBSITE"),
-                title=f"Mock: {getattr(issue, 'value', str(issue))} in {query.race_id}",
-                description=f"Mock search content about {getattr(issue, 'value', str(issue))} for this race",
-                last_accessed=now,
-                published_at=now,
-                is_fresh=True,
-            )
-            self.cache[cache_key] = (now, [mock])
-            return [mock]
+            return [
+                Source(
+                    url=f"https://example.com/mock/{getattr(issue, 'value', str(issue)).lower()}-{query.race_id}",
+                    type=self._choose_type("WEBSITE"),
+                    title=f"Mock: {getattr(issue, 'value', str(issue))} in {query.race_id}",
+                    description=f"Mock search content about {getattr(issue, 'value', str(issue))} for this race",
+                    last_accessed=now,
+                    published_at=now,
+                    is_fresh=True,
+                )
+            ]
 
         search_url = "https://www.googleapis.com/customsearch/v1"
-
-        # Only send dateRestrict if explicitly requested.
         date_param = getattr(query, "date_restrict", None)
         num = getattr(query, "max_results", None) or self.search_config.get("top_results_per_query", 5)
 
@@ -226,9 +236,90 @@ class SearchUtils:
                 )
             )
 
-        out = self.deduplicate_sources(out)
-        self.cache[cache_key] = (datetime.utcnow(), out)
-        return out
+        return self.deduplicate_sources(out)
+
+    async def _search_serper(self, query: FreshSearchQuery, issue: CanonicalIssue, now: datetime) -> List[Source]:
+        """Internal helper for Serper search API."""
+        api_key = os.getenv("SERPER_API_KEY")
+        if not api_key:
+            logger.warning("Serper API key not configured.")
+            return [
+                Source(
+                    url=f"https://example.com/serper/{getattr(issue, 'value', str(issue)).lower()}-{query.race_id}",
+                    type=self._choose_type("WEBSITE"),
+                    title=f"Serper: {getattr(issue, 'value', str(issue))} in {query.race_id}",
+                    description=f"Serper search content about {getattr(issue, 'value', str(issue))} for this race",
+                    last_accessed=now,
+                    published_at=now,
+                    is_fresh=True,
+                )
+            ]
+
+        try:
+            import httpx  # type: ignore
+        except ImportError:
+            logger.warning("httpx not available; returning mock result.")
+            return [
+                Source(
+                    url=f"https://example.com/serper-mock/{getattr(issue, 'value', str(issue)).lower()}-{query.race_id}",
+                    type=self._choose_type("WEBSITE"),
+                    title=f"Serper mock: {getattr(issue, 'value', str(issue))} in {query.race_id}",
+                    description=f"Serper mock search content about {getattr(issue, 'value', str(issue))} for this race",
+                    last_accessed=now,
+                    published_at=now,
+                    is_fresh=True,
+                )
+            ]
+
+        search_url = "https://google.serper.dev/search"
+        date_param = getattr(query, "date_restrict", None)
+        num = getattr(query, "max_results", None) or self.search_config.get("top_results_per_query", 5)
+
+        payload: Dict[str, Any] = {"q": query.text, "num": num}
+        if date_param:
+            payload["tbs"] = f"qdr:{date_param}"
+
+        headers = {"X-API-KEY": api_key}
+        host = urlparse(search_url).netloc
+        async with self._host_semaphores[host]:
+            try:
+                async with httpx.AsyncClient(timeout=self.search_config.get("http_timeout_seconds", 20)) as client:
+                    resp = await client.post(search_url, json=payload, headers=headers)
+                    resp.raise_for_status()
+                    data = resp.json()
+            except Exception as e:  # noqa: BLE001
+                logger.error("Serper search failed for %s | error=%s", query.text, e)
+                return []
+
+        out: List[Source] = []
+        for item in data.get("organic", []) or []:
+            link = item.get("link")
+            if not link:
+                continue
+            link = self._normalize_url(link)
+            title = item.get("title", "") or ""
+            snippet = item.get("snippet", "") or ""
+            published_at = None
+            date_str = item.get("date")
+            if date_str:
+                try:
+                    published_at = datetime.fromisoformat(date_str.replace("Z", "+00:00"))
+                except Exception:  # noqa: BLE001
+                    published_at = None
+            source_type = self._classify_source(link)
+            out.append(
+                Source(
+                    url=link,
+                    type=source_type,
+                    title=title,
+                    description=snippet,
+                    last_accessed=now,
+                    published_at=published_at,
+                    is_fresh=bool(date_param),
+                )
+            )
+
+        return self.deduplicate_sources(out)
 
     async def search_general(self, query: FreshSearchQuery) -> List[Source]:
         issue = self._pick_issue("GENERAL")

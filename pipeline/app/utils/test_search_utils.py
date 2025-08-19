@@ -1,6 +1,9 @@
+import asyncio
 from datetime import datetime
 
-from ..schema import Source, SourceType
+import pytest
+
+from ..schema import CanonicalIssue, FreshSearchQuery, Source, SourceType
 from .search_utils import SearchUtils
 
 
@@ -16,3 +19,11 @@ def test_deduplicate_sources_ignores_query_params():
     assert len(deduped) == 1
     # URL is normalized, so tracking params are removed
     assert str(deduped[0].url) == url2
+
+
+def test_serper_mode_returns_mock_when_no_key():
+    utils = SearchUtils({"search_provider": "serper"})
+    query = FreshSearchQuery(race_id="tx-sen-2024", text="test")
+    results = asyncio.run(utils.search_google_custom(query, CanonicalIssue.ECONOMY))
+    assert len(results) == 1
+    assert "serper" in str(results[0].url)
