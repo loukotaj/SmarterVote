@@ -75,7 +75,7 @@ pip install -r pipeline/requirements.txt
 python test_vector_db.py
 
 # Run comprehensive tests
-python -m pytest pipeline/app/corpus/test_service.py -v
+python -m pytest pipeline/app/step02_corpus/test_service.py -v
 ```
 
 ### 5. Start Development Services
@@ -104,7 +104,7 @@ npm run dev
 **Pipeline Components:**
 ```bash
 cd pipeline
-python -m app.corpus.vector_database_manager  # Test vector DB
+python -m app.step02_corpus.vector_database_manager  # Test vector DB
 ```
 
 ## 🔧 Configuration Details
@@ -136,7 +136,7 @@ SmarterVote/
 │   └── published/               # Sample race data
 ├── pipeline/
 │   └── app/
-│       └── corpus/
+│       └── step02_corpus/
 │           ├── vector_database_manager.py  # Vector DB implementation
 │           └── test_service.py             # Comprehensive tests
 ├── services/
@@ -150,11 +150,11 @@ SmarterVote/
 ### Run Vector Database Tests
 ```bash
 # Run all corpus tests
-python -m pytest pipeline/app/corpus/ -v
+python -m pytest pipeline/app/step02_corpus/ -v
 
 # Run specific test categories
-python -m pytest pipeline/app/corpus/test_service.py::TestVectorDatabaseManager::test_initialization -v
-python -m pytest pipeline/app/corpus/test_service.py::TestVectorDatabaseManager::test_build_corpus -v
+python -m pytest pipeline/app/step02_corpus/test_service.py::TestVectorDatabaseManager::test_initialization -v
+python -m pytest pipeline/app/step02_corpus/test_service.py::TestVectorDatabaseManager::test_build_corpus -v
 ```
 
 ### Test Pipeline Components

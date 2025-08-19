@@ -79,7 +79,7 @@ graph TB
 
 ## 🚀 Pipeline Components (v1.1)
 
-### 1. Discovery Engine (`pipeline/app/discover/`)
+### 1. Discovery Service (`pipeline/app/step01_ingest/DiscoveryService/`)
 **Purpose**: Intelligent content source identification
 
 **Capabilities**:
@@ -91,7 +91,7 @@ graph TB
 
 **Output**: Validated source list with metadata
 
-### 2. Content Fetcher (`pipeline/app/fetch/`)
+### 2. Content Fetcher (`pipeline/app/step01_ingest/ContentFetcher/`)
 **Purpose**: Robust content acquisition with error handling
 
 **Capabilities**:
@@ -103,7 +103,7 @@ graph TB
 
 **Output**: Raw content with metadata
 
-### 3. Content Extractor (`pipeline/app/extract/`)
+### 3. Content Extractor (`pipeline/app/step01_ingest/ContentExtractor/`)
 **Purpose**: Transform raw content into structured text
 
 **Capabilities**:
@@ -115,7 +115,7 @@ graph TB
 
 **Output**: Clean, searchable text content
 
-### 4. Vector Corpus (`pipeline/app/corpus/`)
+### 4. Vector Corpus (`pipeline/app/step02_corpus/`)
 **Purpose**: Semantic content indexing and retrieval
 
 **Technology**: ChromaDB vector database
@@ -128,7 +128,7 @@ graph TB
 
 **Output**: Indexed content corpus with semantic search
 
-### 5. LLM Summarization Engine (`pipeline/app/summarise/`)
+### 5. LLM Summarization Engine (`pipeline/app/step03_summarise/`)
 **Purpose**: Multi-model content analysis and summarization
 
 **AI Models (Cheap Mode - Default)**:
@@ -154,7 +154,7 @@ graph TB
 
 **Output**: Structured candidate positions per canonical issue
 
-### 6. Arbitration Engine (`pipeline/app/arbitrate/`)
+### 6. Consensus Arbitration Engine (`pipeline/app/step03_summarise/consensus_arbitration_engine.py`)
 **Purpose**: Consensus-building and confidence scoring using AI analysis
 
 **AI Models**: Inherits mode setting from summarization engine
@@ -175,7 +175,7 @@ graph TB
 
 **Output**: Arbitrated positions with confidence metrics
 
-### 7. Publishing Engine (`pipeline/app/publish/`)
+### 7. Race Publishing Engine (`pipeline/app/step04_publish/race_publishing_engine.py`)
 **Purpose**: Generate standardized output formats
 
 **Capabilities**:
