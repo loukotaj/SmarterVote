@@ -26,6 +26,7 @@ infra/
 ├── pubsub.tf                  # Messaging infrastructure
 ├── enqueue-api.tf             # Enqueue API service deployment
 ├── races-api.tf               # Races API service deployment
+├── pipeline-client.tf         # Pipeline client service deployment
 ├── run-job.tf                 # Batch processing workers
 ├── scheduler.tf               # Automated job scheduling
 ├── deploy.sh                  # Unix deployment script
@@ -80,6 +81,11 @@ cd ../pipeline
 docker build -t gcr.io/YOUR_PROJECT_ID/smartervote-worker:latest .
 docker push gcr.io/YOUR_PROJECT_ID/smartervote-worker:latest
 
+# Pipeline client
+cd ../pipeline_client
+docker build -t gcr.io/YOUR_PROJECT_ID/smartervote-pipeline-client:latest .
+docker push gcr.io/YOUR_PROJECT_ID/smartervote-pipeline-client:latest
+
 # Enqueue API
 cd ../services/enqueue-api
 docker build -t gcr.io/YOUR_PROJECT_ID/smartervote-enqueue-api:latest .
@@ -94,6 +100,10 @@ gcloud run services update enqueue-api \
 
 gcloud run jobs update race-worker \
   --image gcr.io/YOUR_PROJECT_ID/smartervote-worker:latest \
+  --region us-central1
+
+gcloud run services update pipeline-client \
+  --image gcr.io/YOUR_PROJECT_ID/smartervote-pipeline-client:latest \
   --region us-central1
 ```
 

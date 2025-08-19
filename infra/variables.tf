@@ -102,3 +102,21 @@ variable "prevent_destroy_prod" {
   type        = bool
   default     = true
 }
+
+variable "auth0_domain" {
+  description = "Auth0 domain for pipeline client authentication"
+  type        = string
+  default     = ""
+}
+
+variable "auth0_audience" {
+  description = "Auth0 audience for pipeline client authentication"
+  type        = string
+  default     = ""
+}
+
+variable "allowed_origins" {
+  description = "Allowed CORS origins for pipeline client"
+  type        = list(string)
+  default     = ["*"]
+}
