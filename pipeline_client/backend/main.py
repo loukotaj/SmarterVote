@@ -6,20 +6,22 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Any, Dict, List
 
-from pydantic import BaseModel
-
-from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
+import httpx
+from fastapi import Depends, FastAPI, HTTPException, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from fastapi.staticfiles import StaticFiles
+from jose import JWTError, jwt
+from pydantic import BaseModel
 
 from .logging_manager import logging_manager
 from .models import (
     BatchRunRequest,
     BatchRunResponse,
     ContinueRunRequest,
-    RunOptions,
     RunInfo,
+    RunOptions,
     RunRequest,
     RunResponse,
 )
@@ -49,6 +51,49 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title=settings.app_name, description="Enhanced Pipeline Client with Live Logging", lifespan=lifespan)
 
+http_bearer = HTTPBearer(auto_error=False)
+
+
+async def _decode_token(token: str) -> Dict[str, Any]:
+    jwks_url = f"https://{settings.auth0_domain}/.well-known/jwks.json"
+    async with httpx.AsyncClient() as client:
+        jwks = (await client.get(jwks_url)).json()
+    unverified = jwt.get_unverified_header(token)
+    rsa_key = next((k for k in jwks["keys"] if k.get("kid") == unverified.get("kid")), None)
+    if not rsa_key:
+        raise HTTPException(status_code=401, detail="Invalid token")
+    return jwt.decode(
+        token,
+        rsa_key,
+        algorithms=[unverified.get("alg", "RS256")],
+        audience=settings.auth0_audience,
+        issuer=f"https://{settings.auth0_domain}/",
+    )
+
+
+async def verify_token(
+    credentials: HTTPAuthorizationCredentials | None = Depends(http_bearer),
+) -> Dict[str, Any]:
+    if not settings.auth0_domain or not settings.auth0_audience:
+        return {}
+    if credentials is None:
+        raise HTTPException(status_code=401, detail="Missing token")
+    try:
+        return await _decode_token(credentials.credentials)
+    except (JWTError, httpx.HTTPError) as exc:
+        raise HTTPException(status_code=401, detail="Invalid authentication") from exc
+
+
+async def verify_token_ws(token: str | None) -> Dict[str, Any]:
+    if not settings.auth0_domain or not settings.auth0_audience:
+        return {}
+    if not token:
+        raise HTTPException(status_code=401, detail="Missing token")
+    try:
+        return await _decode_token(token)
+    except (JWTError, httpx.HTTPError) as exc:
+        raise HTTPException(status_code=401, detail="Invalid authentication") from exc
+
 
 # Request model for running the full Step 01 sequence
 class Step01Request(BaseModel):
@@ -76,7 +121,7 @@ async def _run_step01_sequence(race_id: str, options: RunOptions | None = None) 
 
 
 # Endpoint to run the full Step 01 sequence
-@app.post("/run/step01")
+@app.post("/run/step01", dependencies=[Depends(verify_token)])
 async def run_step01(request: Step01Request) -> Dict[str, Any]:
     try:
         return await _run_step01_sequence(request.race_id, request.options)
@@ -85,7 +130,7 @@ async def run_step01(request: Step01Request) -> Dict[str, Any]:
 
 
 # New endpoints for frontend modal details
-@app.get("/run/{run_id}")
+@app.get("/run/{run_id}", dependencies=[Depends(verify_token)])
 async def get_run_details(run_id: str) -> Dict[str, Any]:
     """Get full details of a specific run as dict (for modal view)."""
     run_info = run_manager.get_run(run_id)
@@ -95,7 +140,7 @@ async def get_run_details(run_id: str) -> Dict[str, Any]:
     return run_info.model_dump(mode="json")
 
 
-@app.get("/artifact/{artifact_id}")
+@app.get("/artifact/{artifact_id}", dependencies=[Depends(verify_token)])
 async def get_artifact_details(artifact_id: str) -> Dict[str, Any]:
     """Get full details of a specific artifact as dict (for modal view)."""
     try:
@@ -124,12 +169,12 @@ async def health() -> Dict[str, Any]:
     return {"ok": True, "name": settings.app_name}
 
 
-@app.get("/steps")
+@app.get("/steps", dependencies=[Depends(verify_token)])
 async def steps() -> Dict[str, Any]:
     return {"steps": list(REGISTRY.keys())}
 
 
-@app.post("/run/{step}", response_model=RunResponse)
+@app.post("/run/{step}", response_model=RunResponse, dependencies=[Depends(verify_token)])
 async def run(step: str, request: RunRequest) -> RunResponse:
     if step not in REGISTRY:
         raise HTTPException(status_code=404, detail=f"Unknown step '{step}'")
@@ -137,7 +182,7 @@ async def run(step: str, request: RunRequest) -> RunResponse:
 
 
 # Enhanced API endpoint for frontend
-@app.post("/api/execute")
+@app.post("/api/execute", dependencies=[Depends(verify_token)])
 async def api_execute(request: Dict[str, Any]) -> Dict[str, Any]:
     """Enhanced execute endpoint for the frontend dashboard"""
     step = request.get("step")
@@ -160,7 +205,7 @@ async def api_execute(request: Dict[str, Any]) -> Dict[str, Any]:
     return {"run_id": run_info.run_id, "status": "started", "step": step}
 
 
-@app.post("/api/continue")
+@app.post("/api/continue", dependencies=[Depends(verify_token)])
 async def api_continue(request: ContinueRunRequest) -> Dict[str, Any]:
     """Enhanced continue endpoint for the frontend dashboard."""
 
@@ -180,7 +225,7 @@ async def _execute_run_async(step: str, request: RunRequest, run_id: str):
         logging.exception("Unexpected error during async run %s", run_id)
 
 
-@app.post("/batch/{step}", response_model=BatchRunResponse)
+@app.post("/batch/{step}", response_model=BatchRunResponse, dependencies=[Depends(verify_token)])
 async def batch_run(step: str, request: BatchRunRequest) -> BatchRunResponse:
     """Run a step for multiple race IDs."""
     if step not in REGISTRY:
@@ -210,7 +255,7 @@ async def _execute_batch(step: str, runs: List[RunInfo], options):
             logging.exception("Run %s failed during batch execution", run_info.run_id)
 
 
-@app.get("/runs")
+@app.get("/runs", dependencies=[Depends(verify_token)])
 async def list_runs(limit: int = 50) -> Dict[str, Any]:
     """List recent runs."""
     runs = run_manager.list_recent_runs(limit)
@@ -221,14 +266,14 @@ async def list_runs(limit: int = 50) -> Dict[str, Any]:
     }
 
 
-@app.get("/runs/active")
+@app.get("/runs/active", dependencies=[Depends(verify_token)])
 async def list_active_runs() -> Dict[str, Any]:
     """List currently active runs."""
     runs = run_manager.list_active_runs()
     return {"runs": [run.model_dump(mode="json") for run in runs], "count": len(runs)}
 
 
-@app.get("/runs/{run_id}")
+@app.get("/runs/{run_id}", dependencies=[Depends(verify_token)])
 async def get_run(run_id: str) -> RunInfo:
     """Get details of a specific run."""
     run_info = run_manager.get_run(run_id)
@@ -237,7 +282,7 @@ async def get_run(run_id: str) -> RunInfo:
     return run_info
 
 
-@app.delete("/runs/{run_id}")
+@app.delete("/runs/{run_id}", dependencies=[Depends(verify_token)])
 async def cancel_run(run_id: str) -> Dict[str, Any]:
     """Cancel a running process."""
     run_info = run_manager.get_run(run_id)
@@ -253,7 +298,7 @@ async def cancel_run(run_id: str) -> Dict[str, Any]:
     return {"message": "Run cancelled", "run_id": run_id}
 
 
-@app.post("/runs/{run_id}/continue")
+@app.post("/runs/{run_id}/continue", dependencies=[Depends(verify_token)])
 async def continue_run_endpoint(run_id: str, request: Dict[str, Any]) -> Dict[str, Any]:
     """Continue a pipeline run by executing subsequent steps.
 
@@ -275,12 +320,12 @@ async def continue_run_endpoint(run_id: str, request: Dict[str, Any]) -> Dict[st
         raise HTTPException(status_code=400, detail=str(e))
 
 
-@app.get("/artifacts")
+@app.get("/artifacts", dependencies=[Depends(verify_token)])
 async def artifacts() -> Dict[str, Any]:
     return list_artifacts()
 
 
-@app.get("/artifacts/{artifact_id}")
+@app.get("/artifacts/{artifact_id}", dependencies=[Depends(verify_token)])
 async def artifact(artifact_id: str) -> Dict[str, Any]:
     try:
         return load_artifact(artifact_id)
@@ -292,6 +337,12 @@ async def artifact(artifact_id: str) -> Dict[str, Any]:
 @app.websocket("/ws/logs")
 async def websocket_logs_all(websocket: WebSocket):
     """WebSocket endpoint for all logs."""
+    token = websocket.query_params.get("token")
+    try:
+        await verify_token_ws(token)
+    except HTTPException:
+        await websocket.close(code=1008)
+        return
     connection_id = str(uuid.uuid4())
 
     try:
@@ -315,6 +366,12 @@ async def websocket_logs_all(websocket: WebSocket):
 @app.websocket("/ws/logs/{run_id}")
 async def websocket_logs_run(websocket: WebSocket, run_id: str):
     """WebSocket endpoint for logs of a specific run."""
+    token = websocket.query_params.get("token")
+    try:
+        await verify_token_ws(token)
+    except HTTPException:
+        await websocket.close(code=1008)
+        return
     connection_id = str(uuid.uuid4())
 
     try:
