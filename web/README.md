@@ -99,7 +99,6 @@ npm run format               # Prettier formatting
 
 # Testing
 npm run test:unit            # Vitest unit tests
-npm run test:integration     # Playwright integration tests
 npm run test                 # Run all tests
 
 # Building
@@ -133,10 +132,12 @@ The development server supports HMR for:
 
 ### Component Library
 
-- **CandidateCard**: Structured candidate information display
-- **IssueComparison**: Side-by-side position analysis
-- **ConfidenceIndicator**: Visual confidence scoring
-- **NavigationBar**: Responsive navigation component
+- **CandidateCard.svelte**: Structured candidate information display
+- **IssueTable.svelte**: Tabular issue position comparisons
+- **DonorTable.svelte**: Campaign donor contribution details
+- **VotingRecordTable.svelte**: Historical voting record overview
+- **ConfidenceIndicator.svelte**: Visual confidence scoring
+- **SourceLink.svelte**: Consistent source attribution links
 
 ## 🌐 Deployment & Hosting
 
