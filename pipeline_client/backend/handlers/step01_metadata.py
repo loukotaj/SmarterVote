@@ -40,6 +40,15 @@ class Step01MetadataHandler:
                 output = json.loads(result.json(by_alias=True, exclude_none=True))
             else:
                 output = to_jsonable(result)
+                if isinstance(output, str):
+                    try:
+                        output = json.loads(output)
+                    except json.JSONDecodeError as json_err:
+                        err = (
+                            "Step01MetadataHandler: Metadata service returned non-JSON string"
+                        )
+                        logger.error(err)
+                        raise ValueError(err) from json_err
             logger.debug(
                 f"Metadata conversion completed, output keys: {list(output.keys()) if isinstance(output, dict) else 'non-dict result'}"
             )
