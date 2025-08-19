@@ -28,7 +28,7 @@ Setup
   - Web: `cd web && npm install`
 
 Dev commands
-- Test vector DB: `python test_vector_db.py`
+- Test vector DB: `python -m pytest pipeline/app/step02_corpus/test_service.py -v`
 - Run all tests: `python -m pytest -v`
 - Start web: `cd web && npm run dev`
 - Start races API: `cd services/races-api && python main.py`
