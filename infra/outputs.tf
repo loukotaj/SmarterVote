@@ -74,6 +74,11 @@ output "races_api_url" {
   value       = google_cloud_run_v2_service.races_api.uri
 }
 
+output "pipeline_client_url" {
+  description = "URL of the pipeline client service"
+  value       = google_cloud_run_v2_service.pipeline_client.uri
+}
+
 # Cloud Run Jobs
 output "race_worker_job_name" {
   description = "Name of the race worker Cloud Run job"
@@ -94,6 +99,11 @@ output "enqueue_api_email" {
 output "races_api_email" {
   description = "Email of the races API service account"
   value       = google_service_account.races_api.email
+}
+
+output "pipeline_client_email" {
+  description = "Email of the pipeline client service account"
+  value       = google_service_account.pipeline_client.email
 }
 
 output "github_actions_email" {
