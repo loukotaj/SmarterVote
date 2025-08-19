@@ -27,9 +27,10 @@ Tests follow a **colocated pattern** for maximum maintainability:
 
 ```
 pipeline/app/step01_ingest/
-├── ContentFetcher.py           # Implementation
-├── test_service.py             # Unit tests
-└── __init__.py
+├── ContentFetcher/
+│   ├── web_content_fetcher.py   # Implementation
+│   └── test_content_fetcher.py  # Unit tests
+└── constants.py
 
 pipeline/app/step02_corpus/
 ├── vector_database_manager.py  # Implementation
@@ -45,13 +46,17 @@ pipeline/app/step04_publish/
 └── test_service.py             # Unit tests
 
 services/enqueue-api/
-├── main.py                      # FastAPI application
+├── main.py                     # FastAPI application
 ├── test_enqueue_api.py         # Service tests
 └── conftest.py                 # Test configuration
 
 tests/                          # Integration tests
-├── test_integration.py         # Cross-service integration
-└── test_ai_enrichment.py      # AI workflow integration
+├── conftest.py
+├── test_run_steps.py
+├── test_step_registry_storage.py
+├── test_step_orchestrator.py
+├── test_step01_metadata_integration.py
+└── test_storage_integration.py
 ```
 
 ## Test Execution
