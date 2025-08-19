@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
+  import { getAuth0Client } from "$lib/auth";
   import type {
     RunInfo,
     RunStatus,
@@ -10,8 +11,22 @@
     RunOptions,
   } from "$lib/types";
   import RunStepList from "$lib/components/RunStepList.svelte";
+  import type { Auth0Client } from "@auth0/auth0-spa-js";
 
   const API_BASE = import.meta.env.VITE_API_BASE || "http://127.0.0.1:8001"; // FastAPI local
+  let auth0: Auth0Client;
+  let token = "";
+
+  async function fetchWithAuth(url: string, options: RequestInit = {}) {
+    if (!token) {
+      token = await auth0.getTokenSilently();
+    }
+    options.headers = {
+      ...(options.headers || {}),
+      Authorization: `Bearer ${token}`,
+    };
+    return fetch(url, options);
+  }
 
   let steps: string[] = [];
   let inputJson = '{\n  "race_id": "mo-senate-2024"\n}';
@@ -52,7 +67,7 @@
   let modalLoading = false;
 
   async function loadSteps() {
-    const res = await fetch(`${API_BASE}/steps`);
+    const res = await fetchWithAuth(`${API_BASE}/steps`);
     const data = await res.json();
     steps = data.steps || [];
     startStep = steps[0] || "";
@@ -60,7 +75,7 @@
   }
 
   async function loadArtifacts() {
-    const res = await fetch(`${API_BASE}/artifacts`);
+    const res = await fetchWithAuth(`${API_BASE}/artifacts`);
     const data = await res.json();
     artifacts = data.items || [];
   }
@@ -71,7 +86,7 @@
 
   async function loadRunHistory() {
     try {
-      const res = await fetch(`${API_BASE}/runs`);
+      const res = await fetchWithAuth(`${API_BASE}/runs`);
       const data: RunsResponse = await res.json();
       const runs = data.runs || [];
       runHistory = runs.map((r: RunInfo, idx: number) => {
@@ -90,7 +105,8 @@
   }
 
   function connectWebSocket() {
-    const wsUrl = API_BASE.replace(/^http/, "ws") + "/ws/logs";
+    const wsUrl =
+      API_BASE.replace(/^http/, "ws") + `/ws/logs?token=${encodeURIComponent(token)}`;
     ws = new WebSocket(wsUrl);
 
     ws.onopen = () => {
@@ -232,7 +248,7 @@
     };
     const body = { payload, options };
 
-    const res = await fetch(`${API_BASE}/run/${stepName}`, {
+    const res = await fetchWithAuth(`${API_BASE}/run/${stepName}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
@@ -274,7 +290,7 @@
         const endIdx = Math.max(startIdx, steps.indexOf(endStep));
         const stepsToRun = steps.slice(startIdx, endIdx + 1);
 
-        const res = await fetch(
+        const res = await fetchWithAuth(
           `${API_BASE}/runs/${selectedRun.run_id}/continue`,
           {
             method: "POST",
@@ -424,6 +440,8 @@
   );
 
   onMount(async () => {
+    auth0 = await getAuth0Client();
+    token = await auth0.getTokenSilently();
     await loadSteps();
     await loadArtifacts();
     await loadRunHistory();
@@ -459,7 +477,7 @@
     try {
       const runId = run.run_id;
       if (runId) {
-        const res = await fetch(`${API_BASE}/run/${runId}`);
+        const res = await fetchWithAuth(`${API_BASE}/run/${runId}`);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const runData: RunInfo = await res.json();
         modalData = runData;
@@ -480,7 +498,7 @@
     try {
       const artifactId = artifact.id || (artifact as any).artifact_id || (artifact as any)._id;
       if (artifactId) {
-        const res = await fetch(`${API_BASE}/artifact/${artifactId}`);
+        const res = await fetchWithAuth(`${API_BASE}/artifact/${artifactId}`);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         modalData = await res.json();
       } else {
@@ -496,7 +514,7 @@
     try {
       const runId = run.run_id;
       if (!runId) return;
-      const res = await fetch(`${API_BASE}/run/${runId}`);
+      const res = await fetchWithAuth(`${API_BASE}/run/${runId}`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const runData: RunInfo = await res.json();
       const stepsData: RunStep[] = runData.steps || [];
@@ -520,7 +538,7 @@
       let payload: Record<string, unknown> = (runData as any).payload || {};
       if ((runData as any).artifact_id) {
         try {
-          const artRes = await fetch(`${API_BASE}/artifact/${(runData as any).artifact_id}`);
+          const artRes = await fetchWithAuth(`${API_BASE}/artifact/${(runData as any).artifact_id}`);
           if (artRes.ok) {
             const artifact = await artRes.json();
             payload = { ...payload };

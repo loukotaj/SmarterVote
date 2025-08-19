@@ -15,6 +15,8 @@ class Settings(BaseSettings):
     gcs_bucket: str | None = None
     firestore_project: str | None = None
     allowed_origins: list[str] = Field(default_factory=lambda: ["*"])
+    auth0_domain: str | None = None
+    auth0_audience: str | None = None
 
     class Config:
         env_prefix = ""
