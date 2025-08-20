@@ -1,10 +1,8 @@
 import logging
-import json
 import time
 from typing import Any, Dict
 from pipeline.app.providers import registry
 from pipeline.app.step01_ingest.MetaDataService.race_metadata_service import RaceMetadataService
-from pipeline_client.backend.handlers.utils import to_jsonable
 
 class Step01MetadataHandler:
     def __init__(self, storage_backend) -> None:
@@ -34,40 +32,12 @@ class Step01MetadataHandler:
             result = await service.extract_race_metadata(race_id)
             duration_ms = int((time.perf_counter() - t0) * 1000)
             logger.info(f"Race metadata extraction completed in {duration_ms}ms")
-            if hasattr(result, "model_dump"):
-                output = result.model_dump(mode="json", by_alias=True, exclude_none=True)
-            elif hasattr(result, "json"):
-                output = json.loads(result.json(by_alias=True, exclude_none=True))
-            else:
-                output = to_jsonable(result)
-                if isinstance(output, str):
-                    try:
-                        output = json.loads(output)
-                    except json.JSONDecodeError as json_err:
-                        err = (
-                            "Step01MetadataHandler: Metadata service returned non-JSON string"
-                        )
-                        logger.error(err)
-                        raise ValueError(err) from json_err
-            logger.debug(
-                f"Metadata conversion completed, output keys: {list(output.keys()) if isinstance(output, dict) else 'non-dict result'}"
-            )
+            race_json = result.model_dump(mode="json", by_alias=True, exclude_none=True)
             race_json_uri = getattr(service, "race_json_uri", None)
-            if isinstance(output, dict) and "race_json" in output:
-                race_json_uri = output.get("race_json_uri", race_json_uri)
-                race_json = output["race_json"]
-                if isinstance(race_json, str):
-                    try:
-                        race_json = json.loads(race_json)
-                    except json.JSONDecodeError as json_err:
-                        err = "Step01MetadataHandler: Nested race_json is not valid JSON"
-                        logger.error(err)
-                        raise ValueError(err) from json_err
-                output = race_json
             if race_json_uri:
                 logger.info(f"Race JSON saved to {race_json_uri}")
-                return {"race_json": output, "race_json_uri": race_json_uri}
-            return {"race_json": output}
+                return {"race_json": race_json, "race_json_uri": race_json_uri}
+            return {"race_json": race_json}
         except Exception as e:
             error_msg = f"Step01MetadataHandler: Error running extract_race_metadata(race_id='{race_id}'): {e}"
             logger.error(error_msg, exc_info=True)
