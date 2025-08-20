@@ -53,6 +53,17 @@ class Step01MetadataHandler:
                 f"Metadata conversion completed, output keys: {list(output.keys()) if isinstance(output, dict) else 'non-dict result'}"
             )
             race_json_uri = getattr(service, "race_json_uri", None)
+            if isinstance(output, dict) and "race_json" in output:
+                race_json_uri = output.get("race_json_uri", race_json_uri)
+                race_json = output["race_json"]
+                if isinstance(race_json, str):
+                    try:
+                        race_json = json.loads(race_json)
+                    except json.JSONDecodeError as json_err:
+                        err = "Step01MetadataHandler: Nested race_json is not valid JSON"
+                        logger.error(err)
+                        raise ValueError(err) from json_err
+                output = race_json
             if race_json_uri:
                 logger.info(f"Race JSON saved to {race_json_uri}")
                 return {"race_json": output, "race_json_uri": race_json_uri}
