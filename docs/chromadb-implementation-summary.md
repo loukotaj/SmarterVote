@@ -61,7 +61,7 @@ All infrastructure and configuration updates have been successfully implemented 
 
 ### 4. Vector Database Implementation
 
-#### **Complete Implementation** (`pipeline/app/corpus/vector_database_manager.py`)
+#### **Complete Implementation** (`pipeline/app/step02_corpus/vector_database_manager.py`)
 - ✅ ChromaDB client initialization
 - ✅ Sentence transformer embeddings (all-MiniLM-L6-v2)
 - ✅ Smart content chunking with sentence boundaries
@@ -71,7 +71,7 @@ All infrastructure and configuration updates have been successfully implemented 
 - ✅ Database cleanup and maintenance
 - ✅ Environment-based configuration
 
-#### **Comprehensive Tests** (`pipeline/app/corpus/test_service.py`)
+#### **Comprehensive Tests** (`pipeline/app/step02_corpus/test_service.py`)
 - 17 test cases covering all functionality
 - Integration tests for end-to-end workflows
 - Error handling and edge case validation
@@ -90,7 +90,7 @@ python -m venv .venv
 pip install -r pipeline/requirements.txt
 
 # 3. Test vector database
-python test_vector_db.py
+python -m pytest pipeline/app/step02_corpus/test_service.py -v
 
 # 4. Start services
 .\dev-start.ps1

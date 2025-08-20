@@ -71,10 +71,7 @@ pip install -r pipeline/requirements.txt
 ### 4. Test Vector Database Setup
 
 ```bash
-# Run vector database test
-python test_vector_db.py
-
-# Run comprehensive tests
+# Run vector database tests
 python -m pytest pipeline/app/step02_corpus/test_service.py -v
 ```
 
