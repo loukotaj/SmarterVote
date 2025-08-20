@@ -7,7 +7,7 @@
 
 #### 1. **Vector Database Manager (Corpus Service)** 🟡 MOSTLY IMPLEMENTED
 - **Status**: 🟡 Core functionality complete but has remaining TODOs
-- **File**: `pipeline/app/corpus/vector_database_manager.py`
+- **File**: `pipeline/app/step02_corpus/vector_database_manager.py`
 - **Completed Features**:
   - ✅ ChromaDB client initialization and configuration
   - ✅ Document chunking strategies with sentence boundary preservation
@@ -19,29 +19,29 @@
   - ✅ Database cleanup and maintenance operations
 - **Remaining**: 1 TODO item found in implementation
 - **Priority**: P1 - Core functionality works, polish needed
-- **Tests**: ✅ Comprehensive test suite at `pipeline/app/corpus/test_service.py`
+- **Tests**: ✅ Comprehensive test suite at `pipeline/app/step02_corpus/test_service.py`
 
 #### 2. **LLM Summarization Engine** 🟡 PARTIALLY IMPLEMENTED
 - **Status**: 🟡 Core logic in place but multiple TODOs remain
-- **File**: `pipeline/app/summarise/llm_summarization_engine.py`
+- **File**: `pipeline/app/step03_summarise/llm_summarization_engine.py`
 - **Remaining**: 4 TODO items identified:
   - Refine prompt templates and response parsing
   - Implement smarter chunking for long content
   - Add actual API calls (currently stubbed)
   - Complete bias detection and moderation checks
 - **Priority**: P0 - Essential for multi-LLM consensus
-- **Tests**: ✅ `pipeline/app/summarise/test_service.py`
+- **Tests**: ✅ `pipeline/app/step03_summarise/test_service.py`
 
 #### 3. **Consensus Arbitration Engine** ✅ IMPLEMENTED
 - **Status**: ✅ AI-driven arbitration implementation complete
-- **File**: `pipeline/app/arbitrate/consensus_arbitration_engine.py`
+- **File**: `pipeline/app/step03_summarise/consensus_arbitration_engine.py`
 - **Features**: Complete 2-of-3 consensus with AI-driven bias detection
 - **Priority**: ✅ P0 - COMPLETED
-- **Tests**: ✅ `pipeline/app/arbitrate/test_service.py`
+- **Tests**: ✅ `pipeline/app/step03_summarise/test_arbitration_service.py`
 
 #### 4. **Race Publishing Engine** 🟡 MOSTLY IMPLEMENTED
 - **Status**: 🟡 Core publishing works but 11 TODO items remain
-- **File**: `pipeline/app/publish/race_publishing_engine.py`
+- **File**: `pipeline/app/step04_publish/race_publishing_engine.py`
 - **Completed Features**:
   - ✅ Cloud Storage upload implemented (Google Cloud Storage)
   - ✅ RaceJSON validation logic with comprehensive business rules
@@ -54,7 +54,7 @@
   - API endpoint integration
   - Enhanced metadata generation
 - **Priority**: P1 - Core works, advanced features needed
-- **Tests**: ✅ Comprehensive test suite at `pipeline/app/publish/test_service.py`
+- **Tests**: ✅ Comprehensive test suite at `pipeline/app/step04_publish/test_service.py`
 
 ### Infrastructure & Configuration Issues
 
@@ -85,10 +85,10 @@
 #### 7. **Test Suite Coverage**
 - **Status**: 🟡 Pipeline modules well-tested; coverage expansion needed
 - **Current Tests**:
-  - `pipeline/app/summarise/test_service.py`
-  - `pipeline/app/arbitrate/test_service.py`
-  - `pipeline/app/publish/test_service.py`
-  - `pipeline/app/corpus/test_service.py` + `test_basic.py`
+   - `pipeline/app/step03_summarise/test_service.py`
+   - `pipeline/app/step03_summarise/test_arbitration_service.py`
+   - `pipeline/app/step04_publish/test_service.py`
+   - `pipeline/app/step02_corpus/test_service.py` + `test_basic.py`
   - Total: 9 test files in pipeline
 - **Remaining Gaps**:
   - Broader integration tests
@@ -158,9 +158,9 @@
 #### 13. **TODO Item Resolution** 🟡 ACTIVE MAINTENANCE NEEDED
 - **Status**: 🟡 Multiple TODO items throughout codebase require attention
 - **Found in**:
-  - `pipeline/app/publish/race_publishing_engine.py` (11 TODOs)
-  - `pipeline/app/summarise/llm_summarization_engine.py` (4 TODOs)
-  - `pipeline/app/corpus/vector_database_manager.py` (1 TODO)
+   - `pipeline/app/step04_publish/race_publishing_engine.py` (11 TODOs)
+   - `pipeline/app/step03_summarise/llm_summarization_engine.py` (4 TODOs)
+   - `pipeline/app/step02_corpus/vector_database_manager.py` (1 TODO)
   - `services/enqueue-api/main.py` (TODO items)
   - Additional files across discovery, fetch, extract modules
 - **Impact**: Indicates incomplete implementations and tech debt
