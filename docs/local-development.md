@@ -72,7 +72,7 @@ pip install -r pipeline/requirements.txt
 
 ```bash
 # Run vector database test
-python test_vector_db.py
+python -m pytest pipeline/app/step02_corpus/test_service.py::TestVectorDatabaseManager::test_build_corpus -v
 
 # Run comprehensive tests
 python -m pytest pipeline/app/step02_corpus/test_service.py -v
@@ -104,7 +104,7 @@ npm run dev
 **Pipeline Components:**
 ```bash
 cd pipeline
-python -m app.step02_corpus.vector_database_manager  # Test vector DB
+python -m pytest app/step02_corpus/test_service.py -v  # Test vector DB
 ```
 
 ## 🔧 Configuration Details

@@ -38,7 +38,7 @@ gcloud iam service-accounts keys create github-actions-key.json \
 your-gcp-project-id
 ```
 
-## � Workflow Files
+## Workflow Files
 
 ### **`ci.yaml`** - Main CI Quality Gates
 - **Lightweight**: Fast linting and testing
@@ -62,11 +62,11 @@ your-gcp-project-id
 - **Optimized**: Includes build caching and optimization
 
 ### **On Push to Main:**
-1. **� Lints** Python code with lightweight dependencies (no ML libs)
-2. **🧪 Tests** API services (fast, no heavy dependencies)
-3. **🌐 Tests** Web frontend (build + unit tests)
-4. **📋 Validates** Terraform configuration
-5. **🚀 Deploys** via separate terraform workflow
+1. **Lint** Python code with lightweight dependencies (no ML libs)
+2. **🧪 Test** API services (fast, no heavy dependencies)
+3. **🌐 Test** web frontend (build + unit tests)
+4. **📋 Validate** Terraform configuration
+5. **🚀 Deploy** via separate terraform workflow
 
 ### **Pipeline Tests (Separate Workflow):**
 - **Heavy ML dependencies** moved to `pipeline-tests.yaml`

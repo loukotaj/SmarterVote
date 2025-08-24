@@ -86,7 +86,7 @@ GOOGLE_SEARCH_ENGINE_ID=your_search_engine_id
 
 ### Basic Usage
 ```python
-from pipeline.app.metadata.race_metadata_service import RaceMetadataService
+from pipeline.app.step01_ingest.MetaDataService.race_metadata_service import RaceMetadataService
 
 service = RaceMetadataService()
 metadata = await service.extract_race_metadata("mo-senate-2024")

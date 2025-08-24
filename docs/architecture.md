@@ -10,6 +10,10 @@ SmarterVote implements a sophisticated **corpus-first architecture** that priori
 
 The **pipeline client** (`pipeline_client/backend`) serves as the official execution engine, providing HTTP endpoints and a CLI for orchestrating pipeline steps.
 
+## 🧭 Pipeline Flow
+
+The pipeline runs four sequential stages: **INGEST → CORPUS → SUMMARIZE → PUBLISH**.
+
 ## 🔧 System Architecture
 
 ### Core Design Principles
