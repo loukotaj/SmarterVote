@@ -2,12 +2,12 @@
 
 ## Overview
 
-The Race Metadata Service has been significantly enhanced to include Google search integration and candidate discovery capabilities. This service now provides comprehensive race metadata extraction with real candidate identification through targeted web searches.
+The Race Metadata Service has been significantly enhanced to include web search integration (Serper by default with optional Google Custom Search) and candidate discovery capabilities. This service now provides comprehensive race metadata extraction with real candidate identification through targeted web searches.
 
 ## Key Enhancements
 
-### 1. Google Search Integration
-- **Real API Integration**: Uses Google Custom Search API with proper authentication
+### 1. Web Search Integration
+- **Real API Integration**: Uses the Serper API by default (Google CSE supported as a fallback)
 - **Intelligent Query Generation**: Creates targeted search queries for candidate discovery
 - **Site-Specific Searches**: Prioritizes authoritative sources like Ballotpedia, FEC, Vote411
 - **Fallback Handling**: Gracefully handles API failures and missing configuration
@@ -73,8 +73,9 @@ The enhanced service successfully discovered candidates for multiple race types:
 
 ### Required Environment Variables
 ```bash
-GOOGLE_SEARCH_API_KEY=your_google_api_key
-GOOGLE_SEARCH_ENGINE_ID=your_search_engine_id
+SERPER_API_KEY=your_serper_api_key
+GOOGLE_SEARCH_API_KEY=your_google_api_key  # optional fallback
+GOOGLE_SEARCH_ENGINE_ID=your_search_engine_id  # optional fallback
 ```
 
 ### API Quotas

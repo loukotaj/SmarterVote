@@ -116,8 +116,8 @@ class SearchUtils:
         self.cache_ttl = search_config.get("cache_ttl_seconds", 300)
         self.per_host_concurrency = search_config.get("per_host_concurrency", 5)
         self._host_semaphores: Dict[str, asyncio.Semaphore] = defaultdict(lambda: asyncio.Semaphore(self.per_host_concurrency))
-        # Choose which external search provider to use. Defaults to Google CSE.
-        self.search_provider = search_config.get("search_provider", "google").lower()
+        # Choose which external search provider to use. Defaults to Serper, with Google CSE as a fallback option.
+        self.search_provider = search_config.get("search_provider", "serper").lower()
 
         self.issue_synonyms: Dict[CanonicalIssue, List[str]] = {
             CanonicalIssue.HEALTHCARE: ["health care", "medical", "medicare", "medicaid"],
