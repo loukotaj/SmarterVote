@@ -204,13 +204,13 @@ WEBHOOK_SECRET=your-webhook-secret
 ### Local Testing
 ```bash
 # Test pipeline logic
-python test_pipeline_logic.py
+python -m pytest pipeline/app/ -v
 
 # Test code quality
-python test_code_quality.py
+python scripts/validate_project.py
 
 # Test integration
-python test_integration.py
+python -m pytest tests/ -v
 
 # Test end-to-end with local race
 python scripts/run_local.py test-race-2024
@@ -220,7 +220,7 @@ python scripts/run_local.py test-race-2024
 ```bash
 # Test with cloud environment variables
 export GOOGLE_CLOUD_PROJECT=test-project
-python test_integration.py
+python -m pytest tests/ -v
 
 # Test races API with cloud fallback
 cd services/races-api

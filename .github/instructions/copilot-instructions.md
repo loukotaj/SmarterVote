@@ -3,17 +3,20 @@
 ## 🏗️ Architecture Overview
 
 SmarterVote is a **corpus-first AI pipeline** for electoral analysis with three main components:
-- **Pipeline** (`pipeline/`): Python-based 7-step processing engine using Pydantic models
+- **Pipeline** (`pipeline/`): Python-based 4-step processing engine using Pydantic models
 - **Services** (`services/`): FastAPI microservices for enqueue-api and races-api
 - **Web** (`web/`): SvelteKit + TypeScript frontend with static site generation
 - **Shared** (`shared/`): Common Pydantic models and schemas used across components
 
 ## 🔄 Core Processing Workflow
 
-The pipeline follows a strict 7-step sequence (see `pipeline/app/__main__.py`):
-1. **DISCOVER** → 2. **FETCH** → 3. **EXTRACT** → 4. **BUILD CORPUS** → 5. **RAG + 3-MODEL SUMMARY** → 6. **ARBITRATE** → 7. **PUBLISH**
+The pipeline follows a 4-step sequence:
+1. **INGEST** – discovery, fetching, and extraction
+2. **CORPUS** – build vector database
+3. **SUMMARIZE** – RAG with 3-model consensus followed by arbitration
+4. **PUBLISH** – output RaceJSON v0.2
 
-Each step has its own service class (e.g., `SourceDiscoveryEngine`, `WebContentFetcher`) and processes data through the `ProcessingJob` schema.
+Each phase has its own service classes (e.g., `SourceDiscoveryEngine`, `WebContentFetcher`) and processes data through the `ProcessingJob` schema.
 
 ## 📊 Data Standards
 
