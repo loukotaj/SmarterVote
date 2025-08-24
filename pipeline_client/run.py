@@ -35,4 +35,7 @@ if __name__ == "__main__":
     logger.info("Starting Enhanced Pipeline Client...")
 
     # Run the application
-    uvicorn.run(app, host="0.0.0.0", port=8001, log_level="info", access_log=True)
+    import os
+
+    port = int(os.getenv("PORT", "8001"))
+    uvicorn.run(app, host="0.0.0.0", port=port, log_level="info", access_log=True)

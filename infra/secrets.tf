@@ -102,6 +102,13 @@ resource "google_service_account" "races_api" {
   description  = "Service account for races API Cloud Run service"
 }
 
+resource "google_service_account" "pipeline_client" {
+  project      = var.project_id
+  account_id   = "pipeline-client-${var.environment}"
+  display_name = "Pipeline Client Service Account"
+  description  = "Service account for pipeline client Cloud Run service"
+}
+
 resource "google_service_account" "pubsub_invoker" {
   project      = var.project_id
   account_id   = "pubsub-invoker-${var.environment}"
@@ -184,6 +191,25 @@ resource "google_project_iam_member" "races_api_artifact_registry" {
   project = var.project_id
   role    = "roles/artifactregistry.writer"
   member  = "serviceAccount:${google_service_account.races_api.email}"
+}
+
+# IAM bindings for pipeline client
+resource "google_project_iam_member" "pipeline_client_storage" {
+  project = var.project_id
+  role    = "roles/storage.objectAdmin"
+  member  = "serviceAccount:${google_service_account.pipeline_client.email}"
+}
+
+resource "google_project_iam_member" "pipeline_client_secrets" {
+  project = var.project_id
+  role    = "roles/secretmanager.secretAccessor"
+  member  = "serviceAccount:${google_service_account.pipeline_client.email}"
+}
+
+resource "google_project_iam_member" "pipeline_client_artifact_registry" {
+  project = var.project_id
+  role    = "roles/artifactregistry.writer"
+  member  = "serviceAccount:${google_service_account.pipeline_client.email}"
 }
 
 # IAM bindings for GitHub Actions deployment service account
