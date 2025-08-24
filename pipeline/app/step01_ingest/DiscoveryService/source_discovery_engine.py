@@ -72,6 +72,8 @@ class SourceDiscoveryEngine:
             # mini-model knobs
             "prefilter_batch_size": 10,  # smaller batches play nicer with mini-models
             "max_concurrency": 5,
+            # SEARCH PROVIDER
+            "search_provider": "serper",
         }
 
         # Initialize search utilities

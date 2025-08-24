@@ -21,7 +21,7 @@ class Step01MetadataHandler:
         logger.info(f"Initializing RaceMetadataService for race_id='{race_id}'")
         try:
             service = self.service_cls(
-                providers=registry, storage_backend=self.storage_backend
+               storage_backend=self.storage_backend
             )
             logger.debug("RaceMetadataService instantiated successfully")
         except Exception as e:

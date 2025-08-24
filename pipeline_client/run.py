@@ -6,10 +6,16 @@ import logging
 import sys
 from pathlib import Path
 
+# Load environment variables from .env
+from dotenv import load_dotenv
+
 # Add the project root to Python path
 root_path = Path(__file__).resolve().parents[1]
 if str(root_path) not in sys.path:
     sys.path.insert(0, str(root_path))
+
+# Load .env from project root
+load_dotenv(dotenv_path=root_path / ".env")
 
 # Configure logging before importing other modules
 logging.basicConfig(

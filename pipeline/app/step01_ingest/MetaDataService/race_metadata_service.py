@@ -26,6 +26,7 @@ from urllib.parse import urlencode
 
 from shared.state_constants import PRIMARY_DATE_BY_STATE, STATE_NAME
 
+from ...providers import registry
 from ...providers.base import ProviderRegistry, TaskType
 from ...schema import Candidate, CanonicalIssue, ConfidenceLevel, FreshSearchQuery, RaceJSON, RaceMetadata, Source, SourceType
 from ...utils.prompt_loader import load_prompt
@@ -50,7 +51,7 @@ def _jlog(level: int, event: str, trace_id: str, **fields: Any) -> None:
         "level": logging.getLevelName(level).lower(),
         "event": event,
         "trace_id": trace_id,
-        "component": "RaceMetadataServiceLLM",
+        "component": "RaceMetadataService",
         **fields,
     }
     try:
@@ -67,10 +68,8 @@ class RaceMetadataService:
 
     def __init__(
         self,
-        providers: Optional[ProviderRegistry] = None,
         storage_backend: Optional[Any] = None,
     ) -> None:
-        self.providers = providers
         self.fetcher = WebContentFetcher()
         self.extractor = ContentExtractor()
         self.search = SearchUtils({"top_results_per_query": 8, "per_host_concurrency": 4})
@@ -328,10 +327,6 @@ class RaceMetadataService:
         if not docs:
             return [], None, []
 
-        if not self.providers:
-            _jlog(logging.WARNING, "providers.none", trace_id)
-            return [], None, []
-
         # Build prompt for strict-JSON extraction
         state_name = STATE_NAME.get(state, state)
         header = (
@@ -423,7 +418,7 @@ class RaceMetadataService:
                 },
             }
 
-            result = await self.providers.generate_json(
+            result = await registry.generate_json(
                 TaskType.EXTRACT,
                 prompt,
                 provider_name="openai",
@@ -434,7 +429,7 @@ class RaceMetadataService:
         except Exception as e:
             _jlog(logging.WARNING, "llm.preferred_failed", trace_id, error=str(e))
             try:
-                result = await self.providers.generate_json(
+                result = await registry.generate_json(
                     TaskType.EXTRACT,
                     prompt,
                     response_format=schema,

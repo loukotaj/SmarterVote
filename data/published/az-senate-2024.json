@@ -1,18 +1,9 @@
 {
-  "id": "mo-senate-2024",
+  "id": "az-senate-2024",
   "election_date": "2024-11-05T00:00:00",
   "candidates": [
     {
-      "name": "Josh Hawley",
-      "party": "Republican",
-      "incumbent": true,
-      "summary": "",
-      "issues": {},
-      "top_donors": [],
-      "social_media": {}
-    },
-    {
-      "name": "Lucas Kunce",
+      "name": "Ruben Gallego",
       "party": "Democratic",
       "incumbent": false,
       "summary": "",
@@ -21,8 +12,8 @@
       "social_media": {}
     },
     {
-      "name": "Nathan Kline",
-      "party": "Green",
+      "name": "Kari Lake",
+      "party": "Republican",
       "incumbent": false,
       "summary": "",
       "issues": {},
@@ -30,8 +21,8 @@
       "social_media": {}
     },
     {
-      "name": "Jared Young",
-      "party": "Independent",
+      "name": "Eduardo Quintana",
+      "party": "Green",
       "incumbent": false,
       "summary": "",
       "issues": {},
@@ -39,27 +30,27 @@
       "social_media": {}
     }
   ],
-  "updated_utc": "2025-08-19T01:11:46.805470",
+  "updated_utc": "2025-08-19T01:12:51.277954",
   "generator": [],
   "race_metadata": {
-    "race_id": "mo-senate-2024",
-    "state": "MO",
+    "race_id": "az-senate-2024",
+    "state": "AZ",
     "office_type": "senate",
     "year": 2024,
     "full_office_name": "U.S. Senate",
-    "jurisdiction": "MO",
+    "jurisdiction": "AZ",
     "election_date": "2024-11-05T00:00:00",
     "race_type": "federal",
     "is_primary": false,
     "is_special_election": false,
     "is_runoff": false,
-    "incumbent_party": "Republican",
+    "incumbent_party": "Independent",
     "major_issues": [],
     "geographic_keywords": [
-      "MO",
-      "Missouri"
+      "AZ",
+      "Arizona"
     ],
-    "extracted_at": "2025-08-19T01:11:46.805470",
+    "extracted_at": "2025-08-19T01:12:51.277954",
     "confidence": "medium"
   }
 }
