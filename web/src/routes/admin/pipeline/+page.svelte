@@ -81,6 +81,13 @@
   let endStep = "";
   let executionMode: "single" | "range" = "single";
 
+  // Auto-refresh and UI optimization
+  let autoRefreshTimer: ReturnType<typeof setInterval> | null = null;
+  let lastRefreshTime = 0;
+  const MIN_REFRESH_INTERVAL = 2000; // Minimum 2 seconds between refreshes
+  let pendingRefresh = false;
+  let isRefreshing = false;
+
   // Modal state
   let showModal = false;
   let modalTitle = "";
@@ -137,6 +144,66 @@
     }
   }
 
+  // Debounced refresh function to prevent excessive API calls
+  const debouncedRefresh = (() => {
+    let timeoutId: ReturnType<typeof setTimeout> | null = null;
+    
+    return async function() {
+      if (pendingRefresh) return;
+      
+      const now = Date.now();
+      const timeSinceLastRefresh = now - lastRefreshTime;
+      
+      if (timeSinceLastRefresh < MIN_REFRESH_INTERVAL) {
+        // Wait for the minimum interval
+        if (timeoutId) clearTimeout(timeoutId);
+        timeoutId = setTimeout(debouncedRefresh, MIN_REFRESH_INTERVAL - timeSinceLastRefresh);
+        return;
+      }
+      
+      pendingRefresh = true;
+      isRefreshing = true;
+      lastRefreshTime = now;
+      
+      try {
+        await Promise.allSettled([loadRunHistory(), loadArtifacts()]);
+        
+        // Update selected run if it exists
+        if (selectedRun && selectedRunId) {
+          const updatedRun = runHistory.find(r => r.run_id === selectedRunId);
+          if (updatedRun) {
+            selectedRun = updatedRun;
+          }
+        }
+      } catch (error) {
+        console.error("Debounced refresh failed:", error);
+      } finally {
+        pendingRefresh = false;
+        isRefreshing = false;
+      }
+    };
+  })();
+
+  // Start auto-refresh for active runs
+  function startAutoRefresh() {
+    if (autoRefreshTimer) return; // Already running
+    
+    autoRefreshTimer = setInterval(async () => {
+      // Only refresh if we have an active run or are currently executing
+      if (isExecuting || (selectedRun && selectedRun.status === "running")) {
+        await debouncedRefresh();
+      }
+    }, 5000); // Check every 5 seconds
+  }
+
+  // Stop auto-refresh
+  function stopAutoRefresh() {
+    if (autoRefreshTimer) {
+      clearInterval(autoRefreshTimer);
+      autoRefreshTimer = null;
+    }
+  }
+
   function connectWebSocket() {
     // Clear any existing reconnect timeout
     if (wsReconnectTimeout) {
@@ -164,7 +231,8 @@
       ws.onmessage = (event) => {
         try {
           const data = JSON.parse(event.data) as PipelineEvent;
-          handleWebSocketMessage(data);
+          // Queue message for throttled processing to prevent UI blocking
+          queueWebSocketMessage(data);
         } catch (e) {
           console.error("Failed to parse WebSocket message:", e);
           addLog("error", "Failed to parse server message");
@@ -247,6 +315,43 @@
     } else {
       logs = [...logs, logEntry];
     }
+    
+    // Request DOM update on next frame to prevent blocking
+    requestAnimationFrame(() => {
+      // Trigger reactivity update if needed
+      logs = logs;
+    });
+  }
+
+  // Throttle WebSocket message processing to prevent UI blocking
+  let wsMessageQueue: PipelineEvent[] = [];
+  let wsProcessingTimer: ReturnType<typeof setTimeout> | null = null;
+  
+  function processMessageQueue() {
+    if (wsMessageQueue.length === 0) return;
+    
+    // Process up to 5 messages at once to prevent blocking
+    const messagesToProcess = wsMessageQueue.splice(0, 5);
+    
+    for (const message of messagesToProcess) {
+      handleWebSocketMessage(message);
+    }
+    
+    // If there are more messages, schedule next batch
+    if (wsMessageQueue.length > 0) {
+      wsProcessingTimer = setTimeout(processMessageQueue, 10);
+    } else {
+      wsProcessingTimer = null;
+    }
+  }
+  
+  function queueWebSocketMessage(message: PipelineEvent) {
+    wsMessageQueue.push(message);
+    
+    // Start processing if not already running
+    if (!wsProcessingTimer) {
+      wsProcessingTimer = setTimeout(processMessageQueue, 10);
+    }
   }
 
   function handleRunStarted(data: { run_id: string; step: string }) {
@@ -256,6 +361,9 @@
     progressMessage = "Initializing...";
     currentStep = data.step;
     updateStepStatus(data.step, "running");
+    
+    // Start auto-refresh when a run starts
+    startAutoRefresh();
   }
 
   function handleRunProgress(data: { progress?: number; message?: string }) {
@@ -285,15 +393,15 @@
       output = data.result;
     }
 
-    // Use Promise.allSettled to prevent one failure from breaking everything
-    Promise.allSettled([loadRunHistory(), loadArtifacts()]).then((results) => {
-      results.forEach((result, index) => {
-        if (result.status === 'rejected') {
-          const operation = index === 0 ? 'load run history' : 'load artifacts';
-          console.error(`Failed to ${operation}:`, result.reason);
-          addLog("warning", `Failed to ${operation} after completion`);
-        }
-      });
+    // Stop auto-refresh and do a final refresh
+    stopAutoRefresh();
+    
+    // Use debounced refresh to prevent overwhelming the UI
+    debouncedRefresh().then(() => {
+      addLog("info", "UI refreshed after successful completion");
+    }).catch((error) => {
+      console.error('Failed to refresh after completion:', error);
+      addLog("warning", "Failed to refresh UI after completion");
     });
   }
 
@@ -306,14 +414,15 @@
     }
     addLog("error", `Run failed: ${data.error || "Unknown error"}`);
 
-    // Use Promise.allSettled to prevent failures from cascading
-    Promise.allSettled([loadRunHistory()]).then((results) => {
-      results.forEach((result) => {
-        if (result.status === 'rejected') {
-          console.error('Failed to load run history after failure:', result.reason);
-          addLog("warning", "Failed to refresh run history after failure");
-        }
-      });
+    // Stop auto-refresh and do a final refresh
+    stopAutoRefresh();
+    
+    // Use debounced refresh for consistent behavior
+    debouncedRefresh().then(() => {
+      addLog("info", "UI refreshed after failure");
+    }).catch((error) => {
+      console.error('Failed to refresh after failure:', error);
+      addLog("warning", "Failed to refresh UI after failure");
     });
   }
 
@@ -555,8 +664,10 @@
       runStartTime = Date.now();
       runStatus = "running";
       startElapsedTimer();
+      startAutoRefresh(); // Start auto-refresh for execution
     } else {
       stopElapsedTimer();
+      stopAutoRefresh(); // Stop auto-refresh when execution ends
       runStartTime = null;
     }
   }
@@ -590,24 +701,28 @@
 
   function useAsInput() {
     if (!output) return;
-    try {
-      const next = (output as any)?.output ?? output;
-      const jsonString = JSON.stringify(next, null, 2);
+    
+    // Use a web worker or defer processing for large outputs
+    requestIdleCallback(() => {
+      try {
+        const next = (output as any)?.output ?? output;
+        const jsonString = JSON.stringify(next, null, 2);
 
-      // Check if the JSON is too large (>100KB)
-      if (jsonString.length > 100000) {
-        addLog("warning", "Output too large for input field. Using summary.");
-        inputJson = JSON.stringify({
-          _note: "Output too large to display in input. Will be handled automatically.",
-          _size: `${(jsonString.length / 1024).toFixed(1)}KB`
-        }, null, 2);
-      } else {
-        inputJson = jsonString;
+        // Check if the JSON is too large (>100KB)
+        if (jsonString.length > 100000) {
+          addLog("warning", "Output too large for input field. Using summary.");
+          inputJson = JSON.stringify({
+            _note: "Output too large to display in input. Will be handled automatically.",
+            _size: `${(jsonString.length / 1024).toFixed(1)}KB`
+          }, null, 2);
+        } else {
+          inputJson = jsonString;
+        }
+      } catch (error) {
+        console.error("Failed to convert output to input:", error);
+        addLog("error", "Failed to convert output to input JSON");
       }
-    } catch (error) {
-      console.error("Failed to convert output to input:", error);
-      addLog("error", "Failed to convert output to input JSON");
-    }
+    }, { timeout: 5000 });
   }
 
   function clearLogs() {
@@ -724,6 +839,15 @@
 
     // Clear timer
     stopElapsedTimer();
+    
+    // Clean up auto-refresh timer
+    stopAutoRefresh();
+    
+    // Clear WebSocket message processing timer
+    if (wsProcessingTimer) {
+      clearTimeout(wsProcessingTimer);
+      wsProcessingTimer = null;
+    }
   });
 
   function openModal(title: string, data: unknown) {
@@ -843,28 +967,32 @@
         }
       }
 
-      try {
-        const jsonString = JSON.stringify(payload, null, 2);
-        if (jsonString.length > 100000) { // 100KB limit
+      // Use requestIdleCallback for non-blocking JSON processing
+      requestIdleCallback(() => {
+        try {
+          const jsonString = JSON.stringify(payload, null, 2);
+          if (jsonString.length > 100000) { // 100KB limit
+            inputJson = JSON.stringify({
+              _note: "Payload too large to display in input editor",
+              _size: `${(jsonString.length / 1024).toFixed(1)}KB`,
+              _artifact_id: (runData as any).artifact_id,
+              _step_name: stepName
+            }, null, 2);
+            addLog("info", `Large payload detected (${(jsonString.length / 1024).toFixed(1)}KB). Using summary in input editor.`);
+          } else {
+            inputJson = jsonString;
+          }
+        } catch (stringifyError) {
+          console.error("Failed to stringify payload:", stringifyError);
           inputJson = JSON.stringify({
-            _note: "Payload too large to display in input editor",
-            _size: `${(jsonString.length / 1024).toFixed(1)}KB`,
-            _artifact_id: (runData as any).artifact_id,
-            _step_name: stepName
+            _note: "Failed to serialize payload - too complex",
+            _error: String(stringifyError),
+            _artifact_id: (runData as any).artifact_id
           }, null, 2);
-          addLog("info", `Large payload detected (${(jsonString.length / 1024).toFixed(1)}KB). Using summary in input editor.`);
-        } else {
-          inputJson = jsonString;
+          addLog("warning", "Payload too complex to display, using reference");
         }
-      } catch (stringifyError) {
-        console.error("Failed to stringify payload:", stringifyError);
-        inputJson = JSON.stringify({
-          _note: "Failed to serialize payload - too complex",
-          _error: String(stringifyError),
-          _artifact_id: (runData as any).artifact_id
-        }, null, 2);
-        addLog("warning", "Payload too complex to display, using reference");
-      }
+      }, { timeout: 3000 });
+      
     } catch (e) {
       console.error("Failed to select run:", e);
     }
@@ -1039,6 +1167,15 @@
       <span class="text-sm text-gray-600"
         >{connected ? "Connected" : "Disconnected"}</span
       >
+      {#if isRefreshing}
+        <div class="flex items-center space-x-1">
+          <svg class="animate-spin h-3 w-3 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          <span class="text-xs text-blue-600">Refreshing...</span>
+        </div>
+      {/if}
     </div>
   </div>
 </div>
@@ -1368,9 +1505,18 @@
       <div class="p-4 border-b border-gray-200 flex items-center justify-between">
         <h3 class="text-lg font-semibold text-gray-900">Recent Runs</h3>
         <button
-          on:click={loadRunHistory}
-          class="text-sm text-blue-600 hover:text-blue-800">Refresh</button
+          on:click={debouncedRefresh}
+          disabled={isRefreshing}
+          class="text-sm text-blue-600 hover:text-blue-800 disabled:text-gray-400 flex items-center space-x-1"
         >
+          {#if isRefreshing}
+            <svg class="animate-spin h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+          {/if}
+          <span>Refresh</span>
+        </button>
       </div>
       <div class="divide-y divide-gray-200 max-h-64 overflow-auto custom-scrollbar">
         {#each runHistory.slice(0, 10) as run}
@@ -1431,8 +1577,17 @@
         <h3 class="text-lg font-semibold text-gray-900">Artifacts</h3>
         <button
           on:click={loadArtifacts}
-          class="text-sm text-blue-600 hover:text-blue-800">Refresh</button
+          disabled={isRefreshing}
+          class="text-sm text-blue-600 hover:text-blue-800 disabled:text-gray-400 flex items-center space-x-1"
         >
+          {#if isRefreshing}
+            <svg class="animate-spin h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+          {/if}
+          <span>Refresh</span>
+        </button>
       </div>
       <ul class="artifacts-list custom-scrollbar">
         {#each artifacts as artifact}
