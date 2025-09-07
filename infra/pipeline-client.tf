@@ -191,7 +191,9 @@ resource "google_cloud_run_v2_service" "pipeline_client" {
   ]
 }
 
-# Public access to pipeline client
+# Public access to pipeline client at Cloud Run level
+# Authentication is enforced at the application level using Auth0 JWT tokens
+# All sensitive endpoints require valid Auth0 authentication via verify_token dependency
 resource "google_cloud_run_v2_service_iam_binding" "pipeline_client_invoker" {
   location = google_cloud_run_v2_service.pipeline_client.location
   name     = google_cloud_run_v2_service.pipeline_client.name
