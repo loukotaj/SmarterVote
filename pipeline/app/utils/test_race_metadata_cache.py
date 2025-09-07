@@ -57,7 +57,7 @@ class TestRaceMetadataCache:
             race_metadata=metadata,
         )
 
-    @pytest.mark.cloud
+    @pytest.mark.unit
     def test_cache_initialization(self):
         """Test cache initialization."""
         cache = RaceMetadataCache(project_id="test-project", collection_name="test_race_cache", default_ttl_hours=6)
@@ -71,7 +71,7 @@ class TestRaceMetadataCache:
         assert default_cache.firestore_cache.collection_name == "race_metadata_cache"
         assert default_cache.default_ttl_hours == 12
 
-    @pytest.mark.cloud
+    @pytest.mark.unit
     @patch("pipeline.app.utils.race_metadata_cache.FirestoreCache._get_client")
     def test_cache_metadata_success(self, mock_get_client):
         """Test successful metadata caching."""
@@ -111,7 +111,7 @@ class TestRaceMetadataCache:
         assert "race_json" in call_args
         assert "cached_at" in call_args
 
-    @pytest.mark.cloud
+    @pytest.mark.unit
     @patch("pipeline.app.utils.race_metadata_cache.FirestoreCache._get_client")
     def test_get_cached_metadata_fresh(self, mock_get_client):
         """Test retrieving fresh cached metadata."""
@@ -153,7 +153,7 @@ class TestRaceMetadataCache:
         assert len(result.candidates) == 2
         mock_collection_ref.document.assert_called_once_with("test-race-2024")
 
-    @pytest.mark.cloud
+    @pytest.mark.unit
     @patch("pipeline.app.utils.race_metadata_cache.FirestoreCache")
     def test_get_cached_metadata_expired(self, mock_firestore_cache_class):
         """Test retrieving expired cached metadata."""
@@ -189,7 +189,7 @@ class TestRaceMetadataCache:
         # Should return None for expired cache
         assert result is None
 
-    @pytest.mark.cloud
+    @pytest.mark.unit
     @patch("pipeline.app.utils.race_metadata_cache.FirestoreCache")
     def test_get_cached_metadata_not_found(self, mock_firestore_cache_class):
         """Test retrieving non-existent cached metadata."""
@@ -217,7 +217,7 @@ class TestRaceMetadataCache:
         # Should return None for non-existent cache
         assert result is None
 
-    @pytest.mark.cloud
+    @pytest.mark.unit
     @patch("pipeline.app.utils.race_metadata_cache.FirestoreCache._get_client")
     def test_invalidate_cache(self, mock_get_client):
         """Test cache invalidation."""
