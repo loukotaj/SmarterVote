@@ -13,6 +13,7 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
+# TODO: Enable when async LLM support and dependencies are available (openai, anthropic, etc.)
 pytest.skip("LLM summarization provider tests require async LLM support", allow_module_level=True)
 
 from shared import ConfidenceLevel, ExtractedContent, Source, SourceType, Summary

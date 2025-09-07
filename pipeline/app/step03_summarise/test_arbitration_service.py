@@ -6,6 +6,7 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
+# TODO: Enable when full async LLM support is available (openai, anthropic, etc.)
 pytest.skip("Consensus arbitration tests require full async LLM support", allow_module_level=True)
 
 from pipeline.app.providers import ModelConfig, ModelTier, TaskType, registry

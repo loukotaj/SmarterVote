@@ -3,6 +3,7 @@
 import pytest
 from fastapi.testclient import TestClient
 
+# TODO: Enable when full service environment is available (fastapi dependencies)
 pytest.skip("Races API tests require full service environment", allow_module_level=True)
 
 
