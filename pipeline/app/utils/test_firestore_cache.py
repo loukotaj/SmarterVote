@@ -46,7 +46,7 @@ class TestFirestoreCache:
             language="en",
         )
 
-    @pytest.mark.cloud
+    @pytest.mark.unit
     def test_cache_initialization(self):
         """Test cache initialization."""
         cache = FirestoreCache(project_id="test-project", collection_name="test_collection")
@@ -58,7 +58,7 @@ class TestFirestoreCache:
         assert default_cache.project_id is None
         assert default_cache.collection_name == "extracted_content_cache"
 
-    @pytest.mark.cloud
+    @pytest.mark.unit
     @patch("pipeline.app.utils.firestore_cache.FirestoreCache._get_client")
     def test_cache_content_success(self, mock_get_client):
         """Test successful content caching."""
@@ -97,7 +97,7 @@ class TestFirestoreCache:
         # Verify batch.set was called for each content item
         assert mock_batch.set.call_count == 2
 
-    @pytest.mark.cloud
+    @pytest.mark.unit
     @patch("pipeline.app.utils.firestore_cache.FirestoreCache._get_client")
     def test_get_cached_content(self, mock_get_client):
         """Test retrieving cached content."""
@@ -135,7 +135,7 @@ class TestFirestoreCache:
         mock_collection_ref.where.assert_called_once_with("race_id", "==", "test-race-2024")
 
     @pytest.mark.asyncio
-    @pytest.mark.cloud
+    @pytest.mark.unit
     @patch("pipeline.app.utils.firestore_cache.FirestoreCache._get_client")
     async def test_clear_cache(self, mock_get_client):
         """Test cache clearing."""
@@ -167,7 +167,7 @@ class TestFirestoreCache:
         mock_batch.commit.assert_called_once()
 
     @pytest.mark.asyncio
-    @pytest.mark.cloud
+    @pytest.mark.unit
     @patch("pipeline.app.utils.firestore_cache.FirestoreCache._get_client")
     async def test_get_cache_stats(self, mock_get_client):
         """Test cache statistics."""

@@ -115,7 +115,7 @@ def test_health_check_pubsub_unhealthy(client, mock_pubsub_publisher):
     assert "timestamp" in data
 
 
-@pytest.mark.cloud
+@pytest.mark.unit
 def test_process_race_success(client, mock_pubsub_publisher):
     """Test successful race processing request."""
     request_data = {
@@ -162,7 +162,7 @@ def test_process_race_success(client, mock_pubsub_publisher):
     assert "enqueued_at" in message_data
 
 
-@pytest.mark.cloud
+@pytest.mark.unit
 def test_process_race_minimal_request(client, mock_pubsub_publisher):
     """Test race processing with minimal required data."""
     request_data = {"race_id": "minimal-race"}
@@ -194,7 +194,7 @@ def test_process_race_missing_race_id(client):
     assert response.status_code == 422  # Validation error
 
 
-@pytest.mark.cloud
+@pytest.mark.unit
 def test_process_race_pubsub_failure(client, mock_pubsub_publisher):
     """Test race processing when Pub/Sub publish fails."""
     # Make publish raise an exception
@@ -209,7 +209,7 @@ def test_process_race_pubsub_failure(client, mock_pubsub_publisher):
     assert "Failed to enqueue race processing" in data["detail"]
 
 
-@pytest.mark.cloud
+@pytest.mark.unit
 def test_process_race_pubsub_timeout(client, mock_pubsub_publisher):
     """Test race processing when Pub/Sub future times out."""
     # Make future.result() raise a timeout exception
@@ -226,7 +226,7 @@ def test_process_race_pubsub_timeout(client, mock_pubsub_publisher):
     assert "Failed to enqueue race processing" in data["detail"]
 
 
-@pytest.mark.cloud
+@pytest.mark.unit
 def test_process_race_custom_priority(client, mock_pubsub_publisher):
     """Test race processing with custom priority."""
     request_data = {

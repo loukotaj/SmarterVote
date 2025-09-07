@@ -7,6 +7,7 @@ from unittest.mock import AsyncMock
 import pytest
 
 # Source discovery relies on networked services and optional deps
+# TODO: Enable when full pipeline dependencies are available (pydantic, httpx, etc.)
 pytest.skip("Discovery service requires full pipeline dependencies", allow_module_level=True)
 
 from ...schema import Source, SourceType

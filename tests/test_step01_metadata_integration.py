@@ -11,6 +11,7 @@ This test focuses on a single, powerful, flexible test of step01_metadata that:
 import pytest
 
 # Skip this integration test in environments without the full metadata service
+# TODO: Enable when full metadata service and external APIs are available
 pytest.skip(
     "step01 metadata integration requires full service and external APIs",
     allow_module_level=True,
