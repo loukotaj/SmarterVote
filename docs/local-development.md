@@ -42,7 +42,10 @@ OPENAI_API_KEY=your_openai_api_key_here
 ANTHROPIC_API_KEY=your_anthropic_api_key_here
 XAI_API_KEY=your_xai_grok_api_key_here
 
-# Google Search API (Required for fresh content discovery)
+# Serper Search API (default web search provider)
+SERPER_API_KEY=your_serper_api_key
+
+# Google Search API (optional fallback)
 GOOGLE_SEARCH_API_KEY=your_google_search_api_key
 GOOGLE_SEARCH_CX=your_custom_search_engine_id
 

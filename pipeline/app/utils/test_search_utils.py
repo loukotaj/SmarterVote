@@ -21,8 +21,8 @@ def test_deduplicate_sources_ignores_query_params():
     assert str(deduped[0].url) == url2
 
 
-def test_serper_mode_returns_mock_when_no_key():
-    utils = SearchUtils({"search_provider": "serper"})
+def test_default_serper_mode_returns_mock_when_no_key():
+    utils = SearchUtils({})
     query = FreshSearchQuery(race_id="tx-sen-2024", text="test")
     results = asyncio.run(utils.search_google_custom(query, CanonicalIssue.ECONOMY))
     assert len(results) == 1
