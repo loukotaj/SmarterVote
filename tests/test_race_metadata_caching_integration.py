@@ -107,13 +107,13 @@ class TestRaceMetadataServiceCaching:
             service = RaceMetadataService(enable_caching=True)
 
             # Mock the internal methods to avoid actual external calls
-            with patch.object(service, "_parse_race_id", return_value=("CA", "senate", 2024, None, None)), patch.object(
-                service, "_seed_urls", return_value=[]
-            ), patch.object(service, "_fetch_and_extract_docs", return_value=[]), patch.object(
-                service, "_llm_candidates", return_value=([], None, [])
-            ), patch.object(
-                service, "_empty_meta"
-            ) as mock_empty_meta:
+            with (
+                patch.object(service, "_parse_race_id", return_value=("CA", "senate", 2024, None, None)),
+                patch.object(service, "_seed_urls", return_value=[]),
+                patch.object(service, "_fetch_and_extract_docs", return_value=[]),
+                patch.object(service, "_llm_candidates", return_value=([], None, [])),
+                patch.object(service, "_empty_meta") as mock_empty_meta,
+            ):
                 mock_empty_meta.return_value = AsyncMock()
 
                 # Call with force_refresh=True

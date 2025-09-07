@@ -9,17 +9,13 @@ from typing import Any, Dict, Protocol, runtime_checkable
 class StorageBackend(Protocol):
     """Protocol for storage backends."""
 
-    def save_artifact(self, artifact_id: str, data: Dict[str, Any]) -> str:
-        ...
+    def save_artifact(self, artifact_id: str, data: Dict[str, Any]) -> str: ...
 
-    def load_artifact(self, artifact_id: str) -> Dict[str, Any]:
-        ...
+    def load_artifact(self, artifact_id: str) -> Dict[str, Any]: ...
 
-    def list_artifacts(self) -> Dict[str, Any]:
-        ...
+    def list_artifacts(self) -> Dict[str, Any]: ...
 
-    def save_race_json(self, race_id: str, data: Dict[str, Any]) -> str:
-        ...
+    def save_race_json(self, race_id: str, data: Dict[str, Any]) -> str: ...
 
     def save_web_content(
         self,
@@ -28,8 +24,7 @@ class StorageBackend(Protocol):
         content: bytes | str,
         content_type: str | None = None,
         kind: str = "raw",
-    ) -> str:
-        ...
+    ) -> str: ...
 
 
 class LocalStorageBackend:
@@ -52,12 +47,12 @@ class LocalStorageBackend:
 
     def save_artifact(self, artifact_id: str, data: Dict[str, Any]) -> str:
         path = self._artifact_path(artifact_id)
-        path.write_text(json.dumps(data, indent=2), encoding='utf-8')
+        path.write_text(json.dumps(data, indent=2), encoding="utf-8")
         return str(path)
 
     def load_artifact(self, artifact_id: str) -> Dict[str, Any]:
         path = self._artifact_path(artifact_id)
-        return json.loads(path.read_text(encoding='utf-8'))
+        return json.loads(path.read_text(encoding="utf-8"))
 
     def list_artifacts(self) -> Dict[str, Any]:
         files = sorted(self.artifacts_dir.glob("*.json"))
@@ -76,7 +71,7 @@ class LocalStorageBackend:
 
     def save_race_json(self, race_id: str, data: Dict[str, Any]) -> str:
         path = self.races_dir / f"{race_id}.json"
-        path.write_text(json.dumps(data, indent=2), encoding='utf-8')
+        path.write_text(json.dumps(data, indent=2), encoding="utf-8")
         return str(path)
 
     def save_web_content(
@@ -99,7 +94,7 @@ class LocalStorageBackend:
         if isinstance(content, bytes):
             path.write_bytes(content)
         else:
-            path.write_text(content, encoding='utf-8')
+            path.write_text(content, encoding="utf-8")
         return str(path)
 
 

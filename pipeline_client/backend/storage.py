@@ -52,45 +52,37 @@ def save_web_content(
     return _backend.save_web_content(race_id, filename, content, content_type)
 
 
-def save_content_collection(
-    race_id: str,
-    content_collection: list,
-    content_type: str,
-    kind: str = "raw"
-) -> list:
+def save_content_collection(race_id: str, content_collection: list, content_type: str, kind: str = "raw") -> list:
     """Save a collection of content items to storage and return references.
-    
+
     Args:
         race_id: The race identifier
         content_collection: List of content items to save
         content_type: Type of content (e.g., 'raw_content', 'processed_content')
         kind: Storage kind/directory (raw, extracted, relevant)
-    
+
     Returns:
         List of references to the saved content
     """
     references = []
-    
+
     for i, item in enumerate(content_collection):
         # Generate a filename for this content item
         filename = f"{content_type}_{i:04d}.json"
-        
+
         # Convert content to JSON string if it's not already
         if isinstance(item, str):
             content_str = item
         else:
             import json
+
             content_str = json.dumps(item, indent=2, default=str)
-        
+
         # Save to storage
         uri = _backend.save_web_content(
-            race_id=race_id,
-            filename=filename,
-            content=content_str,
-            content_type="application/json",
-            kind=kind
+            race_id=race_id, filename=filename, content=content_str, content_type="application/json", kind=kind
         )
-        
+
         # Create reference object
         reference = {
             "type": "content_ref",
@@ -98,48 +90,50 @@ def save_content_collection(
             "filename": filename,
             "content_type": content_type,
             "kind": kind,
-            "index": i
+            "index": i,
         }
         references.append(reference)
-    
+
     return references
 
 
 def load_content_from_references(references: list) -> list:
     """Load content from a list of references.
-    
+
     Args:
         references: List of reference objects
-    
+
     Returns:
         List of loaded content items
     """
     content_items = []
-    
+
     for ref in references:
         if not isinstance(ref, dict) or ref.get("type") != "content_ref":
             # If it's not a reference, return as-is (backward compatibility)
             content_items.append(ref)
             continue
-            
+
         # Load content from storage URI
         try:
             # For now, we'll use a simple file-based approach for local storage
             # In the future, this could be enhanced to handle different URI schemes
             uri = ref["uri"]
-            if hasattr(_backend, 'artifacts_dir'):  # Local storage check
+            if hasattr(_backend, "artifacts_dir"):  # Local storage check
                 from pathlib import Path
+
                 content_path = Path(uri)
                 if content_path.exists():
                     content_str = content_path.read_text()
-                    
+
                     # Try to parse as JSON if it's that content type
-                    if ref.get("content_type") == "application/json" or uri.endswith('.json'):
+                    if ref.get("content_type") == "application/json" or uri.endswith(".json"):
                         import json
+
                         content = json.loads(content_str)
                     else:
                         content = content_str
-                    
+
                     content_items.append(content)
                 else:
                     raise FileNotFoundError(f"Content file not found: {uri}")
@@ -148,37 +142,41 @@ def load_content_from_references(references: list) -> list:
                 if uri.startswith("gs://"):
                     # Parse GCS URI: gs://bucket/path
                     from urllib.parse import urlparse
+
                     parsed = urlparse(uri)
                     bucket_name = parsed.netloc
-                    blob_path = parsed.path.lstrip('/')
-                    
+                    blob_path = parsed.path.lstrip("/")
+
                     try:
                         # Get the blob from GCS
                         from google.cloud import storage
+
                         client = storage.Client()
                         bucket = client.bucket(bucket_name)
                         blob = bucket.blob(blob_path)
-                        
+
                         content_str = blob.download_as_text()
-                        
+
                         # Try to parse as JSON if it's that content type
-                        if ref.get("content_type") == "application/json" or uri.endswith('.json'):
+                        if ref.get("content_type") == "application/json" or uri.endswith(".json"):
                             import json
+
                             content = json.loads(content_str)
                         else:
                             content = content_str
-                        
+
                         content_items.append(content)
                     except Exception as e:
                         raise RuntimeError(f"Failed to load from GCS: {e}")
                 else:
                     raise NotImplementedError(f"URI scheme not supported: {uri}")
-                
+
         except Exception as e:
             # Log error and skip this item
             import logging
+
             logger = logging.getLogger("pipeline")
             logger.error(f"Failed to load content from reference {ref}: {e}")
             continue
-    
+
     return content_items

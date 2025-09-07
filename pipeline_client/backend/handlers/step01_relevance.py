@@ -20,15 +20,15 @@ class Step01RelevanceHandler:
         processed = payload.get("processed_content") or payload.get("raw_content")
         race_id = payload.get("race_id")
         race_json_payload = payload.get("race_json")
-        
+
         if not processed:
             error_msg = "Step01RelevanceHandler: Missing 'processed_content' in payload.\n" f"Payload received: {payload}"
             logger.error(error_msg)
             raise ValueError(error_msg)
-            
+
         # Import storage functions
         from pipeline_client.backend.storage import load_content_from_references, save_content_collection
-        
+
         # Check if processed_content is a reference collection or direct content
         if isinstance(processed, dict) and processed.get("type") == "content_collection_refs":
             logger.info(f"Loading content from {len(processed.get('references', []))} references")
@@ -40,12 +40,12 @@ class Step01RelevanceHandler:
             error_msg = "Step01RelevanceHandler: Invalid 'processed_content' format in payload."
             logger.error(error_msg)
             raise ValueError(error_msg)
-            
+
         if not actual_content:
             error_msg = "Step01RelevanceHandler: No content available after loading references."
             logger.error(error_msg)
             raise ValueError(error_msg)
-            
+
         if not race_id:
             error_msg = "Step01RelevanceHandler: Missing 'race_id' in payload.\n" f"Payload received: {payload}"
             logger.error(error_msg)
@@ -97,8 +97,8 @@ class Step01RelevanceHandler:
             result = await filter_service.filter_content(docs, race_name, candidates)
             duration_ms = int((time.perf_counter() - t0) * 1000)
             logger.info(f"Relevance filtering completed in {duration_ms}ms")
-            
-            # Prepare output and save to storage  
+
+            # Prepare output and save to storage
             output = []
             for i, item in enumerate(result):
                 try:
@@ -110,7 +110,7 @@ class Step01RelevanceHandler:
                         kind="relevant",
                     )
                     item.metadata["storage_uri"] = uri
-             
+
                     # Convert to serializable format
                     if hasattr(item, "model_dump"):
                         output.append(item.model_dump(mode="json", by_alias=True, exclude_none=True))
@@ -127,13 +127,8 @@ class Step01RelevanceHandler:
             logger.debug(f"Relevant content saved, returning {len(references)} references")
             logger.debug(f"Relevance filter conversion completed, items: {len(output)}")
             logger.info("Relevance filtering completed")
-            
-            return {
-                "type": "content_collection_refs",
-                "references": references,
-                "count": len(references),
-                "race_id": race_id
-            }
+
+            return {"type": "content_collection_refs", "references": references, "count": len(references), "race_id": race_id}
 
         except Exception as e:
             error_msg = f"Step01RelevanceHandler: Error filtering relevance: {e}"

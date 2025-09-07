@@ -129,9 +129,9 @@ class RaceMetadataService:
                         trace_id,
                         race_id=race_id,
                         candidates=len(cached_result.candidates),
-                        confidence=str(cached_result.race_metadata.confidence.value)
-                        if cached_result.race_metadata
-                        else "unknown",
+                        confidence=(
+                            str(cached_result.race_metadata.confidence.value) if cached_result.race_metadata else "unknown"
+                        ),
                         total_duration_ms=int((time.perf_counter() - t0) * 1000),
                     )
                     return cached_result

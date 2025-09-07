@@ -82,6 +82,7 @@ def _resolve_artifact_references(state: Dict[str, Any]) -> Dict[str, Any]:
     except Exception as e:
         # If artifact loading fails, log and return original state
         import logging
+
         logger = logging.getLogger("pipeline")
         logger.warning(f"Failed to resolve artifact reference {state.get('_artifact_id')}: {e}")
         return state
