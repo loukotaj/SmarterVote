@@ -125,6 +125,8 @@ class Step01RelevanceHandler:
             logger.info(f"Saving {len(output)} relevant content items to storage")
             references = save_content_collection(race_id, output, "relevant_content", "relevant")
             logger.debug(f"Relevant content saved, returning {len(references)} references")
+            logger.debug(f"Relevance filter conversion completed, items: {len(output)}")
+            logger.info("Relevance filtering completed")
             
             return {
                 "type": "content_collection_refs",
@@ -132,9 +134,6 @@ class Step01RelevanceHandler:
                 "count": len(references),
                 "race_id": race_id
             }
-            logger.debug(f"Relevance filter conversion completed, items: {len(output)}")
-            logger.info("Relevance filtering completed")
-            return output
 
         except Exception as e:
             error_msg = f"Step01RelevanceHandler: Error filtering relevance: {e}"
