@@ -6,9 +6,8 @@ from typing import Any, Dict, List
 
 from pipeline.app.schema import RaceJSON
 from pipeline.app.step01_ingest.RelevanceCheck import AIRelevanceFilter
-from shared.models import ExtractedContent, Source
-
 from pipeline_client.backend.handlers.utils import to_jsonable
+from shared.models import ExtractedContent, Source
 
 
 class Step01RelevanceHandler:
@@ -22,23 +21,15 @@ class Step01RelevanceHandler:
         race_id = payload.get("race_id")
         race_json_payload = payload.get("race_json")
         if not processed or not isinstance(processed, list):
-            error_msg = (
-                "Step01RelevanceHandler: Missing 'processed_content' in payload.\n"
-                f"Payload received: {payload}"
-            )
+            error_msg = "Step01RelevanceHandler: Missing 'processed_content' in payload.\n" f"Payload received: {payload}"
             logger.error(error_msg)
             raise ValueError(error_msg)
         if not race_id:
-            error_msg = (
-                "Step01RelevanceHandler: Missing 'race_id' in payload.\n"
-                f"Payload received: {payload}"
-            )
+            error_msg = "Step01RelevanceHandler: Missing 'race_id' in payload.\n" f"Payload received: {payload}"
             logger.error(error_msg)
             raise ValueError(error_msg)
         if not race_json_payload:
-            error_msg = (
-                "Step01RelevanceHandler: Missing 'race_json' in payload."
-            )
+            error_msg = "Step01RelevanceHandler: Missing 'race_json' in payload."
             logger.error(error_msg)
             raise ValueError(error_msg)
 
@@ -54,11 +45,7 @@ class Step01RelevanceHandler:
             logger.error(error_msg)
             raise ValueError(error_msg)
 
-        race_name = (
-            race_json.race_metadata.full_office_name
-            if race_json.race_metadata
-            else race_id
-        )
+        race_name = race_json.race_metadata.full_office_name if race_json.race_metadata else race_id
         candidates = [c.name for c in race_json.candidates]
 
         docs: List[ExtractedContent] = []
@@ -99,16 +86,12 @@ class Step01RelevanceHandler:
                 )
                 item.metadata["storage_uri"] = uri
                 if hasattr(item, "model_dump"):
-                    output.append(
-                        item.model_dump(mode="json", by_alias=True, exclude_none=True)
-                    )
+                    output.append(item.model_dump(mode="json", by_alias=True, exclude_none=True))
                 elif hasattr(item, "json"):
                     output.append(json.loads(item.json(by_alias=True, exclude_none=True)))
                 else:
                     output.append(to_jsonable(item))
-            logger.debug(
-                f"Relevance filter conversion completed, items: {len(output)}"
-            )
+            logger.debug(f"Relevance filter conversion completed, items: {len(output)}")
             return output
         except Exception as e:
             error_msg = f"Step01RelevanceHandler: Error filtering relevance: {e}"

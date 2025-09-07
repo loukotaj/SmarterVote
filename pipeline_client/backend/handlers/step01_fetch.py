@@ -1,10 +1,12 @@
+import json
 import logging
 import time
-import json
 from typing import Any, Dict
+
 from pipeline.app.schema import Source
 from pipeline.app.step01_ingest.ContentFetcher import WebContentFetcher
 from pipeline_client.backend.handlers.utils import to_jsonable
+
 
 class Step01FetchHandler:
     def __init__(self) -> None:

@@ -284,17 +284,14 @@ class SearchUtils:
                 days = date_param[1:]
                 payload["dateRestrict"] = f"d{days}"
             elif date_param.startswith("y"):
-                # Format like "y2" -> past 2 years  
+                # Format like "y2" -> past 2 years
                 years = date_param[1:]
                 payload["dateRestrict"] = f"y{years}"
             else:
                 # Fallback to original format
                 payload["dateRestrict"] = date_param
 
-        headers = {
-            "X-API-KEY": api_key,
-            "Content-Type": "application/json"
-        }
+        headers = {"X-API-KEY": api_key, "Content-Type": "application/json"}
         host = urlparse(search_url).netloc
         async with self._host_semaphores[host]:
             try:
@@ -302,12 +299,17 @@ class SearchUtils:
                     resp = await client.post(search_url, json=payload, headers=headers)
                     resp.raise_for_status()
                     data = resp.json()
-                    
+
                     # Log successful response for debugging
                     logger.debug("Serper search successful for %s | results=%d", query.text, len(data.get("organic", [])))
-                    
+
             except httpx.HTTPStatusError as e:
-                logger.error("Serper API HTTP error for %s | status=%d | response=%s", query.text, e.response.status_code, e.response.text)
+                logger.error(
+                    "Serper API HTTP error for %s | status=%d | response=%s",
+                    query.text,
+                    e.response.status_code,
+                    e.response.text,
+                )
                 return []
             except httpx.RequestError as e:
                 logger.error("Serper API request error for %s | error=%s", query.text, e)
@@ -317,13 +319,15 @@ class SearchUtils:
                 return []
 
         out: List[Source] = []
-        
+
         # Handle different response structures from Serper API
         organic_results = data.get("organic", [])
         if not organic_results:
-            logger.warning("Serper search returned no organic results for %s | response_keys=%s", query.text, list(data.keys()))
+            logger.warning(
+                "Serper search returned no organic results for %s | response_keys=%s", query.text, list(data.keys())
+            )
             return []
-            
+
         for item in organic_results:
             link = item.get("link")
             if not link:
@@ -332,7 +336,7 @@ class SearchUtils:
             title = item.get("title", "") or ""
             snippet = item.get("snippet", "") or ""
             published_at = None
-            
+
             # Handle different date formats from Serper
             date_str = item.get("date")
             if date_str:
@@ -346,7 +350,7 @@ class SearchUtils:
                         published_at = None
                 except Exception:  # noqa: BLE001
                     published_at = None
-                    
+
             source_type = self._classify_source(link)
             out.append(
                 Source(

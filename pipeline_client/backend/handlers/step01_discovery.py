@@ -1,10 +1,12 @@
+import json
 import logging
 import time
-import json
 from typing import Any, Dict
+
 from pipeline.app.schema import RaceJSON
 from pipeline.app.step01_ingest.DiscoveryService.source_discovery_engine import SourceDiscoveryEngine
 from pipeline_client.backend.handlers.utils import to_jsonable
+
 
 class Step01DiscoveryHandler:
     def __init__(self) -> None:
@@ -19,8 +21,10 @@ class Step01DiscoveryHandler:
             raise ValueError(error_msg)
         race_json_payload = payload.get("race_json")
         if not race_json_payload:
-            error_msg = ("Step01DiscoveryHandler: Missing 'race_json' in payload. "
-                         "This step requires output from the metadata service.")
+            error_msg = (
+                "Step01DiscoveryHandler: Missing 'race_json' in payload. "
+                "This step requires output from the metadata service."
+            )
             logger.error(error_msg)
             raise ValueError(error_msg)
         try:

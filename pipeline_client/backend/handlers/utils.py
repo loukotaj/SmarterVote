@@ -2,6 +2,7 @@ import base64
 import json
 from datetime import date, datetime
 
+
 def to_jsonable(obj):
     if isinstance(obj, dict):
         return {k: to_jsonable(v) for k, v in obj.items()}

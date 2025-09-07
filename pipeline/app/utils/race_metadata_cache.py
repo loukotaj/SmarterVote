@@ -21,9 +21,10 @@ except ImportError:
             def __init__(self, **kwargs):
                 for key, value in kwargs.items():
                     setattr(self, key, value)
-            
+
             def model_dump(self, **kwargs):
                 return self.__dict__
+
 
 logger = logging.getLogger(__name__)
 

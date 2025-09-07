@@ -2,6 +2,7 @@
 
 import asyncio
 from unittest.mock import AsyncMock, patch
+
 import pytest
 
 from pipeline.app.step01_ingest.MetaDataService.race_metadata_service import RaceMetadataService
@@ -17,11 +18,7 @@ class TestRaceMetadataServiceCaching:
             mock_cache = AsyncMock()
             mock_cache_class.return_value = mock_cache
 
-            service = RaceMetadataService(
-                enable_caching=True,
-                cache_ttl_hours=6,
-                cache_project_id="test-project"
-            )
+            service = RaceMetadataService(enable_caching=True, cache_ttl_hours=6, cache_project_id="test-project")
 
             assert service.enable_caching is True
             assert service.cache is not None
@@ -45,7 +42,7 @@ class TestRaceMetadataServiceCaching:
         with patch("pipeline.app.step01_ingest.MetaDataService.race_metadata_service.RaceMetadataCache") as mock_cache_class:
             mock_cache = AsyncMock()
             mock_cache_class.return_value = mock_cache
-            
+
             # Setup mock return values
             mock_cache.invalidate_cache.return_value = True
             mock_cache.bulk_invalidate_cache.return_value = {"race1": True, "race2": True}
@@ -106,16 +103,17 @@ class TestRaceMetadataServiceCaching:
         with patch("pipeline.app.step01_ingest.MetaDataService.race_metadata_service.RaceMetadataCache") as mock_cache_class:
             mock_cache = AsyncMock()
             mock_cache_class.return_value = mock_cache
-            
+
             service = RaceMetadataService(enable_caching=True)
 
             # Mock the internal methods to avoid actual external calls
-            with patch.object(service, '_parse_race_id', return_value=("CA", "senate", 2024, None, None)), \
-                 patch.object(service, '_seed_urls', return_value=[]), \
-                 patch.object(service, '_fetch_and_extract_docs', return_value=[]), \
-                 patch.object(service, '_llm_candidates', return_value=([], None, [])), \
-                 patch.object(service, '_empty_meta') as mock_empty_meta:
-                
+            with patch.object(service, "_parse_race_id", return_value=("CA", "senate", 2024, None, None)), patch.object(
+                service, "_seed_urls", return_value=[]
+            ), patch.object(service, "_fetch_and_extract_docs", return_value=[]), patch.object(
+                service, "_llm_candidates", return_value=([], None, [])
+            ), patch.object(
+                service, "_empty_meta"
+            ) as mock_empty_meta:
                 mock_empty_meta.return_value = AsyncMock()
 
                 # Call with force_refresh=True
@@ -133,17 +131,17 @@ if __name__ == "__main__":
     # Run basic async test
     async def basic_test():
         print("Testing RaceMetadataService caching integration...")
-        
+
         # Test service initialization
         service = RaceMetadataService(enable_caching=True, cache_ttl_hours=6)
         print(f"Caching enabled: {service.enable_caching}")
         print(f"Cache object created: {service.cache is not None}")
-        
+
         # Test disabled caching
         service_no_cache = RaceMetadataService(enable_caching=False)
         print(f"Caching disabled: {not service_no_cache.enable_caching}")
         print(f"No cache object: {service_no_cache.cache is None}")
-        
+
         print("Basic integration test passed!")
 
     asyncio.run(basic_test())

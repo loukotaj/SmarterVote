@@ -1,9 +1,11 @@
+import json
 import logging
 import time
-import json
 from typing import Any, Dict
+
 from pipeline.app.step01_ingest.ContentExtractor.content_extractor import ContentExtractor
 from pipeline_client.backend.handlers.utils import to_jsonable
+
 
 class Step01ExtractHandler:
     def __init__(self) -> None:

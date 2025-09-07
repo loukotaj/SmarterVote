@@ -1,8 +1,10 @@
 import logging
 import time
 from typing import Any, Dict
+
 from pipeline.app.providers import registry
 from pipeline.app.step01_ingest.MetaDataService.race_metadata_service import RaceMetadataService
+
 
 class Step01MetadataHandler:
     def __init__(self, storage_backend) -> None:
@@ -18,9 +20,7 @@ class Step01MetadataHandler:
             raise ValueError(error_msg)
         logger.info(f"Initializing RaceMetadataService for race_id='{race_id}'")
         try:
-            service = self.service_cls(
-               storage_backend=self.storage_backend
-            )
+            service = self.service_cls(storage_backend=self.storage_backend)
             logger.debug("RaceMetadataService instantiated successfully")
         except Exception as e:
             error_msg = f"Step01MetadataHandler: Failed to instantiate RaceMetadataService: {e}"
