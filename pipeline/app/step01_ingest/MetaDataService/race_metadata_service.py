@@ -30,6 +30,7 @@ from ...providers import registry
 from ...providers.base import ProviderRegistry, TaskType
 from ...schema import Candidate, CanonicalIssue, ConfidenceLevel, FreshSearchQuery, RaceJSON, RaceMetadata, Source, SourceType
 from ...utils.prompt_loader import load_prompt
+from ...utils.race_metadata_cache import RaceMetadataCache
 from ...utils.search_utils import SearchUtils
 from ..constants import SLUG_PATTERN
 from ..ContentExtractor import ContentExtractor
@@ -64,17 +65,30 @@ def _jlog(level: int, event: str, trace_id: str, **fields: Any) -> None:
 
 
 class RaceMetadataService:
-    """LLM-first race metadata extractor with optional persistence."""
+    """LLM-first race metadata extractor with optional persistence and caching."""
 
     def __init__(
         self,
         storage_backend: Optional[Any] = None,
+        enable_caching: bool = True,
+        cache_ttl_hours: int = 12,
+        cache_project_id: Optional[str] = None,
     ) -> None:
         self.fetcher = WebContentFetcher()
         self.extractor = ContentExtractor()
         self.search = SearchUtils({"top_results_per_query": 8, "per_host_concurrency": 4})
         self.storage_backend = storage_backend
         self.race_json_uri: Optional[str] = None
+
+        # Initialize caching if enabled
+        self.enable_caching = enable_caching
+        self.cache: Optional[RaceMetadataCache] = None
+        if enable_caching:
+            self.cache = RaceMetadataCache(
+                project_id=cache_project_id,
+                collection_name="race_metadata_cache",
+                default_ttl_hours=cache_ttl_hours,
+            )
 
         self.office_info = {
             "senate": {
@@ -99,10 +113,30 @@ class RaceMetadataService:
 
     # ------------------------------ API ------------------------------ #
 
-    async def extract_race_metadata(self, race_id: str) -> RaceJSON:
+    async def extract_race_metadata(self, race_id: str, force_refresh: bool = False) -> RaceJSON:
         trace_id = uuid.uuid4().hex
         t0 = time.perf_counter()
-        _jlog(logging.INFO, "race_metadata.extract.start", trace_id, race_id=race_id)
+        _jlog(logging.INFO, "race_metadata.extract.start", trace_id, race_id=race_id, force_refresh=force_refresh)
+
+        # Check cache first (unless force_refresh is True)
+        if self.enable_caching and self.cache and not force_refresh:
+            try:
+                cached_result = await self.cache.get_cached_metadata(race_id)
+                if cached_result:
+                    _jlog(
+                        logging.INFO,
+                        "race_metadata.cache.hit",
+                        trace_id,
+                        race_id=race_id,
+                        candidates=len(cached_result.candidates),
+                        confidence=str(cached_result.race_metadata.confidence.value) if cached_result.race_metadata else "unknown",
+                        total_duration_ms=int((time.perf_counter() - t0) * 1000),
+                    )
+                    return cached_result
+                else:
+                    _jlog(logging.INFO, "race_metadata.cache.miss", trace_id, race_id=race_id)
+            except Exception as e:
+                _jlog(logging.WARNING, "race_metadata.cache.error", trace_id, race_id=race_id, error=str(e))
 
         try:
             state, office, year, district, kind = self._parse_race_id(race_id, trace_id)
@@ -209,6 +243,28 @@ class RaceMetadataService:
                         logging.ERROR,
                         "race_metadata.publish.error",
                         trace_id,
+                        error=str(e),
+                    )
+
+            # Cache the result if caching is enabled
+            if self.enable_caching and self.cache:
+                try:
+                    cache_success = await self.cache.cache_metadata(race_id, race_json)
+                    _jlog(
+                        logging.INFO,
+                        "race_metadata.cache.store",
+                        trace_id,
+                        race_id=race_id,
+                        success=cache_success,
+                        candidates=len(candidates),
+                        confidence=str(confidence.value),
+                    )
+                except Exception as e:
+                    _jlog(
+                        logging.WARNING,
+                        "race_metadata.cache.store_error",
+                        trace_id,
+                        race_id=race_id,
                         error=str(e),
                     )
 
@@ -616,3 +672,82 @@ class RaceMetadataService:
             if district and district.isdigit():
                 q["district"] = int(district)
         return f"{base}/{path}?{urlencode(q)}"
+
+    # ------------------------ Cache management ------------------------- #
+
+    async def invalidate_cache(self, race_id: str) -> bool:
+        """
+        Invalidate cached metadata for a specific race.
+
+        Args:
+            race_id: The race identifier to invalidate
+
+        Returns:
+            bool: True if invalidation succeeded or caching is disabled
+        """
+        if not self.enable_caching or not self.cache:
+            return True
+
+        try:
+            return await self.cache.invalidate_cache(race_id)
+        except Exception as e:
+            logger.error(f"Failed to invalidate cache for race {race_id}: {e}")
+            return False
+
+    async def bulk_invalidate_cache(self, race_ids: list[str]) -> Dict[str, bool]:
+        """
+        Invalidate cached metadata for multiple races.
+
+        Args:
+            race_ids: List of race identifiers to invalidate
+
+        Returns:
+            Dict mapping race_id to success status
+        """
+        if not self.enable_caching or not self.cache:
+            return {race_id: True for race_id in race_ids}
+
+        try:
+            return await self.cache.bulk_invalidate_cache(race_ids)
+        except Exception as e:
+            logger.error(f"Failed to bulk invalidate cache: {e}")
+            return {race_id: False for race_id in race_ids}
+
+    async def get_cache_stats(self) -> Dict[str, Any]:
+        """
+        Get cache statistics.
+
+        Returns:
+            Dict with cache statistics or empty dict if caching disabled
+        """
+        if not self.enable_caching or not self.cache:
+            return {"caching_enabled": False}
+
+        try:
+            stats = await self.cache.get_cache_stats()
+            stats["caching_enabled"] = True
+            return stats
+        except Exception as e:
+            logger.error(f"Failed to get cache stats: {e}")
+            return {"caching_enabled": True, "error": str(e)}
+
+    async def cleanup_expired_cache(self) -> int:
+        """
+        Remove expired cache entries.
+
+        Returns:
+            Number of entries removed, or 0 if caching disabled
+        """
+        if not self.enable_caching or not self.cache:
+            return 0
+
+        try:
+            return await self.cache.cleanup_expired_entries()
+        except Exception as e:
+            logger.error(f"Failed to cleanup expired cache: {e}")
+            return 0
+
+    async def close(self):
+        """Close any open connections (cache, etc.)."""
+        if self.cache:
+            await self.cache.close()
