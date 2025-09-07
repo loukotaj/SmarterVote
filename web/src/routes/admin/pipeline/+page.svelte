@@ -17,14 +17,43 @@
   let auth0: Auth0Client;
   let token = "";
 
-  async function fetchWithAuth(url: string, options: RequestInit = {}) {
+  /**
+   * Fetch with authentication and smart timeout handling
+   *
+   * Timeout Strategy:
+   * - Pipeline execution (/run/, /continue): NO TIMEOUT (can take hours)
+   * - Metadata operations (steps, runs): 10-15 seconds
+   * - Artifact loading: 20 seconds (can be large files)
+   * - Default operations: 30 seconds
+   *
+   * @param url - The URL to fetch
+   * @param options - Fetch options
+   * @param timeoutMs - Override timeout in milliseconds, null for no timeout
+   */
+  async function fetchWithAuth(url: string, options: RequestInit = {}, timeoutMs?: number) {
     if (!token) {
       token = await auth0.getTokenSilently();
     }
 
-    // Add timeout to prevent hanging requests
+    // Different timeout strategies based on operation type
+    let defaultTimeout = 30000; // 30 seconds for most operations
+
+    // Determine if this is a long-running operation that shouldn't timeout
+    const isLongRunningOperation =
+      url.includes('/run/') || // Pipeline execution
+      url.includes('/continue') || // Pipeline continuation
+      (options.method === 'POST' && url.includes('/run')); // Any run operation
+
+    // Use provided timeout, or no timeout for long operations, or default
+    const actualTimeout = timeoutMs !== undefined ? timeoutMs :
+      (isLongRunningOperation ? null : defaultTimeout);
+
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+    let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
+    if (actualTimeout !== null) {
+      timeoutId = setTimeout(() => controller.abort(), actualTimeout);
+    }
 
     try {
       const response = await fetch(url, {
@@ -36,12 +65,13 @@
         },
       });
 
-      clearTimeout(timeoutId);
+      if (timeoutId) clearTimeout(timeoutId);
       return response;
     } catch (error) {
-      clearTimeout(timeoutId);
+      if (timeoutId) clearTimeout(timeoutId);
       if (error instanceof Error && error.name === 'AbortError') {
-        throw new Error('Request timed out after 30 seconds');
+        const timeoutText = actualTimeout ? `after ${actualTimeout / 1000} seconds` : 'due to abort signal';
+        throw new Error(`Request timed out ${timeoutText}`);
       }
       throw error;
     }
@@ -96,7 +126,7 @@
 
   async function loadSteps() {
     try {
-      const res = await fetchWithAuth(`${API_BASE}/steps`);
+      const res = await fetchWithAuth(`${API_BASE}/steps`, {}, 10000); // 10 second timeout for metadata
       if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
       const data = await res.json();
       steps = data.steps || [];
@@ -110,7 +140,7 @@
 
   async function loadArtifacts() {
     try {
-      const res = await fetchWithAuth(`${API_BASE}/artifacts`);
+      const res = await fetchWithAuth(`${API_BASE}/artifacts`, {}, 15000); // 15 second timeout for artifacts
       if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
       const data = await res.json();
       artifacts = data.items || [];
@@ -126,7 +156,7 @@
 
   async function loadRunHistory() {
     try {
-      const res = await fetchWithAuth(`${API_BASE}/runs`);
+      const res = await fetchWithAuth(`${API_BASE}/runs`, {}, 10000); // 10 second timeout for run history
       const data: RunsResponse = await res.json();
       const runs = data.runs || [];
       runHistory = runs.map((r: RunInfo, idx: number) => {
@@ -147,27 +177,27 @@
   // Debounced refresh function to prevent excessive API calls
   const debouncedRefresh = (() => {
     let timeoutId: ReturnType<typeof setTimeout> | null = null;
-    
+
     return async function() {
       if (pendingRefresh) return;
-      
+
       const now = Date.now();
       const timeSinceLastRefresh = now - lastRefreshTime;
-      
+
       if (timeSinceLastRefresh < MIN_REFRESH_INTERVAL) {
         // Wait for the minimum interval
         if (timeoutId) clearTimeout(timeoutId);
         timeoutId = setTimeout(debouncedRefresh, MIN_REFRESH_INTERVAL - timeSinceLastRefresh);
         return;
       }
-      
+
       pendingRefresh = true;
       isRefreshing = true;
       lastRefreshTime = now;
-      
+
       try {
         await Promise.allSettled([loadRunHistory(), loadArtifacts()]);
-        
+
         // Update selected run if it exists
         if (selectedRun && selectedRunId) {
           const updatedRun = runHistory.find(r => r.run_id === selectedRunId);
@@ -187,7 +217,7 @@
   // Start auto-refresh for active runs
   function startAutoRefresh() {
     if (autoRefreshTimer) return; // Already running
-    
+
     autoRefreshTimer = setInterval(async () => {
       // Only refresh if we have an active run or are currently executing
       if (isExecuting || (selectedRun && selectedRun.status === "running")) {
@@ -315,7 +345,7 @@
     } else {
       logs = [...logs, logEntry];
     }
-    
+
     // Request DOM update on next frame to prevent blocking
     requestAnimationFrame(() => {
       // Trigger reactivity update if needed
@@ -326,17 +356,17 @@
   // Throttle WebSocket message processing to prevent UI blocking
   let wsMessageQueue: PipelineEvent[] = [];
   let wsProcessingTimer: ReturnType<typeof setTimeout> | null = null;
-  
+
   function processMessageQueue() {
     if (wsMessageQueue.length === 0) return;
-    
+
     // Process up to 5 messages at once to prevent blocking
     const messagesToProcess = wsMessageQueue.splice(0, 5);
-    
+
     for (const message of messagesToProcess) {
       handleWebSocketMessage(message);
     }
-    
+
     // If there are more messages, schedule next batch
     if (wsMessageQueue.length > 0) {
       wsProcessingTimer = setTimeout(processMessageQueue, 10);
@@ -344,10 +374,10 @@
       wsProcessingTimer = null;
     }
   }
-  
+
   function queueWebSocketMessage(message: PipelineEvent) {
     wsMessageQueue.push(message);
-    
+
     // Start processing if not already running
     if (!wsProcessingTimer) {
       wsProcessingTimer = setTimeout(processMessageQueue, 10);
@@ -361,7 +391,7 @@
     progressMessage = "Initializing...";
     currentStep = data.step;
     updateStepStatus(data.step, "running");
-    
+
     // Start auto-refresh when a run starts
     startAutoRefresh();
   }
@@ -395,7 +425,7 @@
 
     // Stop auto-refresh and do a final refresh
     stopAutoRefresh();
-    
+
     // Use debounced refresh to prevent overwhelming the UI
     debouncedRefresh().then(() => {
       addLog("info", "UI refreshed after successful completion");
@@ -416,7 +446,7 @@
 
     // Stop auto-refresh and do a final refresh
     stopAutoRefresh();
-    
+
     // Use debounced refresh for consistent behavior
     debouncedRefresh().then(() => {
       addLog("info", "UI refreshed after failure");
@@ -444,11 +474,12 @@
     };
     const body = { payload, options };
 
+    // No timeout for pipeline execution - it can take a very long time
     const res = await fetchWithAuth(`${API_BASE}/run/${stepName}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
-    });
+    }); // No timeout parameter = no timeout for long-running operations
 
     if (!res.ok) {
       throw new Error(`HTTP ${res.status}: ${res.statusText}`);
@@ -506,7 +537,7 @@
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ steps: stepsToRun, state }),
           }
-        );
+        ); // No timeout for pipeline execution
 
         if (!res.ok) {
           const errorText = await res.text().catch(() => 'Unknown error');
@@ -597,7 +628,7 @@
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ steps: stepsToRun, state }),
           }
-        );
+        ); // No timeout for pipeline execution
 
         if (!res.ok) {
           const errorText = await res.text().catch(() => 'Unknown error');
@@ -701,7 +732,7 @@
 
   function useAsInput() {
     if (!output) return;
-    
+
     // Use a web worker or defer processing for large outputs
     requestIdleCallback(() => {
       try {
@@ -839,10 +870,10 @@
 
     // Clear timer
     stopElapsedTimer();
-    
+
     // Clean up auto-refresh timer
     stopAutoRefresh();
-    
+
     // Clear WebSocket message processing timer
     if (wsProcessingTimer) {
       clearTimeout(wsProcessingTimer);
@@ -881,7 +912,7 @@
     try {
       const runId = run.run_id;
       if (runId) {
-        const res = await fetchWithAuth(`${API_BASE}/run/${runId}`);
+        const res = await fetchWithAuth(`${API_BASE}/run/${runId}`, {}, 15000); // 15 second timeout for run details
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const runData: RunInfo = await res.json();
         modalData = runData;
@@ -902,7 +933,7 @@
     try {
       const artifactId = artifact.id || (artifact as any).artifact_id || (artifact as any)._id;
       if (artifactId) {
-        const res = await fetchWithAuth(`${API_BASE}/artifact/${artifactId}`);
+        const res = await fetchWithAuth(`${API_BASE}/artifact/${artifactId}`, {}, 20000); // 20 second timeout for artifacts (can be large)
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         modalData = await res.json();
       } else {
@@ -918,7 +949,7 @@
     try {
       const runId = run.run_id;
       if (!runId) return;
-      const res = await fetchWithAuth(`${API_BASE}/run/${runId}`);
+      const res = await fetchWithAuth(`${API_BASE}/run/${runId}`, {}, 15000); // 15 second timeout for run selection
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const runData: RunInfo = await res.json();
       const stepsData: RunStep[] = runData.steps || [];
@@ -942,7 +973,7 @@
       let payload: Record<string, unknown> = (runData as any).payload || {};
       if ((runData as any).artifact_id) {
         try {
-          const artRes = await fetchWithAuth(`${API_BASE}/artifact/${(runData as any).artifact_id}`);
+          const artRes = await fetchWithAuth(`${API_BASE}/artifact/${(runData as any).artifact_id}`, {}, 20000); // 20 second timeout for artifacts
           if (artRes.ok) {
             const artifact = await artRes.json();
             payload = { ...payload };
@@ -992,7 +1023,7 @@
           addLog("warning", "Payload too complex to display, using reference");
         }
       }, { timeout: 3000 });
-      
+
     } catch (e) {
       console.error("Failed to select run:", e);
     }
@@ -1019,7 +1050,7 @@
           const prevStep = selectedRun.steps[i];
           if (prevStep.artifact_id) {
             try {
-              const artRes = await fetchWithAuth(`${API_BASE}/artifact/${prevStep.artifact_id}`);
+              const artRes = await fetchWithAuth(`${API_BASE}/artifact/${prevStep.artifact_id}`, {}, 20000); // 20 second timeout for artifacts
               if (artRes.ok) {
                 const artifact = await artRes.json();
                 let payload: Record<string, unknown> = {};
