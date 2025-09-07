@@ -45,6 +45,7 @@
   let logs: LogEntry[] = [];
   let currentRunId: string | null = null;
   let isExecuting = false;
+  let isStepRunning = false; // New granular state for step execution
   let runStartTime: number | null = null;
   let elapsedTime = 0;
   let elapsedTimer: ReturnType<typeof setInterval> | null = null;
@@ -179,6 +180,7 @@
   function handleRunStarted(data: { run_id: string; step: string }) {
     currentRunId = data.run_id;
     runStatus = "running";
+    isStepRunning = true;
     progress = 0;
     progressMessage = "Initializing...";
     currentStep = data.step;
@@ -190,7 +192,7 @@
     progressMessage = data.message ?? progressMessage;
   }
 
-  function handleRunCompleted(data: {
+  async function handleRunCompleted(data: {
     result?: unknown;
     artifact_id?: string;
     duration_ms?: number;
@@ -198,6 +200,7 @@
     runStatus = "completed";
     progress = 100;
     progressMessage = "Completed successfully";
+    isStepRunning = false;
     setExecutionState(false);
 
     if (currentStep) {
@@ -212,12 +215,47 @@
       output = data.result;
     }
 
-    loadRunHistory();
-    loadArtifacts();
+    // Refresh data and automatically update selectedRun to show new step status
+    await loadRunHistory();
+    await loadArtifacts();
+    
+    // Refresh the selected run to show updated step statuses
+    if (selectedRun && currentRunId) {
+      const updatedRun = runHistory.find((r) => r.run_id === currentRunId);
+      if (updatedRun) {
+        await selectRun(updatedRun);
+        // Show next available step suggestion
+        const nextStep = getNextAvailableStep(updatedRun);
+        if (nextStep) {
+          addLog("info", `✅ Step completed! Next available step: ${nextStep}`);
+        }
+      }
+    }
+  }
+
+  // Helper function to find the next available step to run
+  function getNextAvailableStep(run: RunHistoryItem): string | null {
+    if (!run.steps || run.steps.length === 0) return null;
+    
+    // Find the first step that is pending and whose previous step is completed
+    for (let i = 0; i < run.steps.length; i++) {
+      const step = run.steps[i];
+      if (step.status === 'pending') {
+        // First step is always available
+        if (i === 0) return step.name;
+        // Check if previous step is completed
+        const prevStep = run.steps[i - 1];
+        if (prevStep && prevStep.status === 'completed') {
+          return step.name;
+        }
+      }
+    }
+    return null;
   }
 
   function handleRunFailed(data: { error?: string }) {
     runStatus = "failed";
+    isStepRunning = false;
     setExecutionState(false);
     if (currentStep) {
       updateStepStatus(currentStep, "failed");
@@ -273,7 +311,7 @@
   }
 
   async function runFromStep(stepName: string) {
-    if (isExecuting) return;
+    if (isStepRunning) return; // Use granular state instead of isExecuting
 
     if (!ws || ws.readyState === WebSocket.CLOSED) {
       connectWebSocket();
@@ -717,6 +755,7 @@
             {currentStep}
             steps={selectedRun.steps}
             runFromStep={runFromStep}
+            {isStepRunning}
           />
         {/if}
 
