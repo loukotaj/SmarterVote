@@ -100,24 +100,27 @@ class Step01RelevanceHandler:
             
             # Prepare output and save to storage  
             output = []
-            for item in result:
-                # Save the relevant text to storage
-                uri = self.storage_backend.save_web_content(
-                    race_id,
-                    _filename_from_source(item.source),
-                    item.text,
-                    content_type="text/plain",
-                    kind="relevant",
-                )
-                item.metadata["storage_uri"] = uri
-                
-                # Convert to serializable format
-                if hasattr(item, "model_dump"):
-                    output.append(item.model_dump(mode="json", by_alias=True, exclude_none=True))
-                elif hasattr(item, "json"):
-                    output.append(json.loads(item.json(by_alias=True, exclude_none=True)))
-                else:
-                    output.append(to_jsonable(item))
+            for i, item in enumerate(result):
+                try:
+                    # Save the relevant text to storage
+                    uri = self.storage_backend.save_web_content(
+                        race_id,
+                        _filename_from_source(item.source),
+                        item.text,
+                        content_type="text/plain",
+                        kind="relevant",
+                    )
+                    item.metadata["storage_uri"] = uri
+                    
+                    # Convert to serializable format
+                    if hasattr(item, "model_dump"):
+                        output.append(item.model_dump(mode="json", by_alias=True, exclude_none=True))
+                    elif hasattr(item, "json"):
+                        output.append(json.loads(item.json(by_alias=True, exclude_none=True)))
+                    else:
+                        output.append(to_jsonable(item))
+                except Exception as e:
+                    logger.error(f"Error saving item {i+1}: {e}")
             
             # Save relevant content collection as references
             logger.info(f"Saving {len(output)} relevant content items to storage")
