@@ -21,11 +21,30 @@
     if (!token) {
       token = await auth0.getTokenSilently();
     }
-    options.headers = {
-      ...(options.headers || {}),
-      Authorization: `Bearer ${token}`,
-    };
-    return fetch(url, options);
+
+    // Add timeout to prevent hanging requests
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+
+    try {
+      const response = await fetch(url, {
+        ...options,
+        signal: controller.signal,
+        headers: {
+          ...(options.headers || {}),
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      clearTimeout(timeoutId);
+      return response;
+    } catch (error) {
+      clearTimeout(timeoutId);
+      if (error instanceof Error && error.name === 'AbortError') {
+        throw new Error('Request timed out after 30 seconds');
+      }
+      throw error;
+    }
   }
 
   let steps: string[] = [];
@@ -33,11 +52,7 @@
   let output: unknown = null;
   let artifacts: Artifact[] = [];
 
-  let skip_llm_apis = false;
-  let skip_external_apis = false;
-  let skip_network_calls = false;
-  let skip_cloud_services = false;
-  let save_artifact = true;
+  let use_cloud_storage = false;
 
   // Enhanced features
   let ws: WebSocket | null = null;
@@ -54,11 +69,17 @@
   let logFilter: "all" | "debug" | "info" | "warning" | "error" = "all";
   let currentStep: string | null = null;
 
+  // WebSocket reconnection management
+  let wsReconnectAttempts = 0;
+  const MAX_RECONNECT_ATTEMPTS = 5;
+  let wsReconnectTimeout: ReturnType<typeof setTimeout> | null = null;
+
   let runHistory: RunHistoryItem[] = [];
   let selectedRun: RunHistoryItem | null = null;
   let selectedRunId = "";
   let startStep = "";
   let endStep = "";
+  let executionMode: "single" | "range" = "single";
 
   // Modal state
   let showModal = false;
@@ -67,17 +88,29 @@
   let modalLoading = false;
 
   async function loadSteps() {
-    const res = await fetchWithAuth(`${API_BASE}/steps`);
-    const data = await res.json();
-    steps = data.steps || [];
-    startStep = steps[0] || "";
-    endStep = steps[steps.length - 1] || "";
+    try {
+      const res = await fetchWithAuth(`${API_BASE}/steps`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+      const data = await res.json();
+      steps = data.steps || [];
+      startStep = steps[0] || "";
+      endStep = steps[steps.length - 1] || "";
+    } catch (error) {
+      console.error("Failed to load steps:", error);
+      addLog("error", "Failed to load pipeline steps");
+    }
   }
 
   async function loadArtifacts() {
-    const res = await fetchWithAuth(`${API_BASE}/artifacts`);
-    const data = await res.json();
-    artifacts = data.items || [];
+    try {
+      const res = await fetchWithAuth(`${API_BASE}/artifacts`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+      const data = await res.json();
+      artifacts = data.items || [];
+    } catch (error) {
+      console.error("Failed to load artifacts:", error);
+      addLog("error", "Failed to load artifacts");
+    }
   }
 
   interface RunsResponse {
@@ -105,38 +138,71 @@
   }
 
   function connectWebSocket() {
-    const wsUrl =
-      API_BASE.replace(/^http/, "ws") + `/ws/logs?token=${encodeURIComponent(token)}`;
-    ws = new WebSocket(wsUrl);
+    // Clear any existing reconnect timeout
+    if (wsReconnectTimeout) {
+      clearTimeout(wsReconnectTimeout);
+      wsReconnectTimeout = null;
+    }
 
-    ws.onopen = () => {
-      connected = true;
-      addLog("info", "Connected to pipeline server");
-    };
+    // Don't reconnect if we've hit the limit
+    if (wsReconnectAttempts >= MAX_RECONNECT_ATTEMPTS) {
+      addLog("error", "Max WebSocket reconnection attempts reached. Please refresh the page.");
+      return;
+    }
 
-    ws.onmessage = (event) => {
-      try {
-        const data = JSON.parse(event.data) as PipelineEvent;
-        handleWebSocketMessage(data);
-      } catch (e) {
-        console.error("Failed to parse WebSocket message:", e);
-      }
-    };
+    try {
+      const wsUrl =
+        API_BASE.replace(/^http/, "ws") + `/ws/logs?token=${encodeURIComponent(token)}`;
+      ws = new WebSocket(wsUrl);
 
-    ws.onclose = () => {
-      connected = false;
-      addLog("warning", "Disconnected from pipeline server");
-      setTimeout(() => {
-        if (!ws || ws.readyState === WebSocket.CLOSED) {
-          connectWebSocket();
+      ws.onopen = () => {
+        connected = true;
+        wsReconnectAttempts = 0; // Reset attempts on successful connection
+        addLog("info", "Connected to pipeline server");
+      };
+
+      ws.onmessage = (event) => {
+        try {
+          const data = JSON.parse(event.data) as PipelineEvent;
+          handleWebSocketMessage(data);
+        } catch (e) {
+          console.error("Failed to parse WebSocket message:", e);
+          addLog("error", "Failed to parse server message");
         }
-      }, 3000);
-    };
+      };
 
-    ws.onerror = () => {
-      connected = false;
-      addLog("error", "WebSocket connection error");
-    };
+      ws.onclose = (event) => {
+        connected = false;
+        if (event.code === 1000) {
+          // Normal closure, don't reconnect
+          addLog("info", "WebSocket connection closed normally");
+          return;
+        }
+
+        addLog("warning", "Disconnected from pipeline server");
+        wsReconnectAttempts++;
+
+        if (wsReconnectAttempts < MAX_RECONNECT_ATTEMPTS) {
+          const delay = Math.min(1000 * Math.pow(2, wsReconnectAttempts), 10000); // Exponential backoff, max 10s
+          addLog("info", `Attempting to reconnect in ${delay/1000}s... (${wsReconnectAttempts}/${MAX_RECONNECT_ATTEMPTS})`);
+
+          wsReconnectTimeout = setTimeout(() => {
+            if (!ws || ws.readyState === WebSocket.CLOSED) {
+              connectWebSocket();
+            }
+          }, delay);
+        }
+      };
+
+      ws.onerror = (error) => {
+        connected = false;
+        console.error("WebSocket error:", error);
+        addLog("error", "WebSocket connection error");
+      };
+    } catch (error) {
+      console.error("Failed to create WebSocket:", error);
+      addLog("error", "Failed to create WebSocket connection");
+    }
   }
 
   type PipelineEvent =
@@ -173,7 +239,14 @@
       timestamp: timestamp || new Date().toISOString(),
       run_id,
     };
-    logs = [...logs.slice(-999), logEntry]; // Keep last 1000 entries
+
+    // Keep last 500 entries to prevent memory issues (reduced from 1000)
+    // Use slice to prevent the array from growing indefinitely
+    if (logs.length >= 500) {
+      logs = [...logs.slice(-499), logEntry];
+    } else {
+      logs = [...logs, logEntry];
+    }
   }
 
   function handleRunStarted(data: { run_id: string; step: string }) {
@@ -212,8 +285,16 @@
       output = data.result;
     }
 
-    loadRunHistory();
-    loadArtifacts();
+    // Use Promise.allSettled to prevent one failure from breaking everything
+    Promise.allSettled([loadRunHistory(), loadArtifacts()]).then((results) => {
+      results.forEach((result, index) => {
+        if (result.status === 'rejected') {
+          const operation = index === 0 ? 'load run history' : 'load artifacts';
+          console.error(`Failed to ${operation}:`, result.reason);
+          addLog("warning", `Failed to ${operation} after completion`);
+        }
+      });
+    });
   }
 
   function handleRunFailed(data: { error?: string }) {
@@ -224,7 +305,16 @@
       currentStep = null;
     }
     addLog("error", `Run failed: ${data.error || "Unknown error"}`);
-    loadRunHistory();
+
+    // Use Promise.allSettled to prevent failures from cascading
+    Promise.allSettled([loadRunHistory()]).then((results) => {
+      results.forEach((result) => {
+        if (result.status === 'rejected') {
+          console.error('Failed to load run history after failure:', result.reason);
+          addLog("warning", "Failed to refresh run history after failure");
+        }
+      });
+    });
   }
 
   function updateStepStatus(name: string, status: RunStatus, extras: Partial<RunStep> = {}) {
@@ -240,11 +330,8 @@
   async function executeStep(stepName: string) {
     const payload = JSON.parse(inputJson || "{}");
     const options: RunOptions = {
-      skip_llm_apis: skip_llm_apis || undefined,
-      skip_external_apis: skip_external_apis || undefined,
-      skip_network_calls: skip_network_calls || undefined,
-      skip_cloud_services: skip_cloud_services || undefined,
-      save_artifact,
+      skip_cloud_services: !use_cloud_storage || undefined,
+      save_artifact: true,
     };
     const body = { payload, options };
 
@@ -285,9 +372,113 @@
     try {
       if (selectedRun) {
         currentRunId = selectedRun.run_id;
-        const state = JSON.parse(inputJson || "{}");
+        let state;
+
+        try {
+          state = JSON.parse(inputJson || "{}");
+        } catch (parseError) {
+          throw new Error(`Invalid JSON in input: ${parseError}`);
+        }
+
+        // Handle truncated artifacts - if we have an artifact reference, let the backend know
+        if (state._truncated && state._artifact_id) {
+          addLog("info", `Loading full artifact data for execution (artifact: ${state._artifact_id})`);
+          // The backend should handle this automatically when it sees _artifact_id
+        }
+
         const startIdx = Math.max(0, steps.indexOf(stepName));
-        const endIdx = Math.max(startIdx, steps.indexOf(endStep));
+        // Only run the single step, not all steps to the end
+        const stepsToRun = [stepName];
+
+        const res = await fetchWithAuth(
+          `${API_BASE}/runs/${selectedRun.run_id}/continue`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ steps: stepsToRun, state }),
+          }
+        );
+
+        if (!res.ok) {
+          const errorText = await res.text().catch(() => 'Unknown error');
+          throw new Error(`HTTP ${res.status}: ${res.statusText}. ${errorText}`);
+        }
+
+        const result = await res.json();
+        output = result;
+
+        try {
+          inputJson = JSON.stringify(result.state ?? {}, null, 2);
+        } catch (stringifyError) {
+          console.warn("Result too large for JSON display:", stringifyError);
+          inputJson = JSON.stringify({
+            _note: "Result too large to display",
+            _size: JSON.stringify(result.state ?? {}).length
+          }, null, 2);
+        }
+
+        const last = result.runs?.[result.runs.length - 1];
+        if (last) {
+          selectedRunId = last.run_id;
+        }
+
+        // Use Promise.allSettled to prevent cascading failures
+        const [historyResult, artifactsResult] = await Promise.allSettled([
+          loadRunHistory(),
+          loadArtifacts()
+        ]);
+
+        if (historyResult.status === 'rejected') {
+          console.error('Failed to load run history:', historyResult.reason);
+          addLog("warning", "Failed to refresh run history");
+        }
+
+        if (artifactsResult.status === 'rejected') {
+          console.error('Failed to load artifacts:', artifactsResult.reason);
+          addLog("warning", "Failed to refresh artifacts");
+        }
+
+        if (selectedRunId && historyResult.status === 'fulfilled') {
+          const run = runHistory.find((r) => r.run_id === selectedRunId);
+          if (run) {
+            selectedRun = run;
+          }
+        }
+      } else {
+        const step = stepName || steps[0] || "step01a_metadata";
+        await executeStep(step);
+      }
+    } catch (err) {
+      console.error("Execution failed:", err);
+      output = { error: String(err) };
+      addLog("error", `Execution failed: ${err}`);
+      setExecutionState(false);
+    }
+  }
+
+  async function runStepsRange(startStepName: string, endStepName: string) {
+    if (isExecuting) return;
+
+    if (!ws || ws.readyState === WebSocket.CLOSED) {
+      connectWebSocket();
+    }
+
+    setExecutionState(true);
+    output = null;
+
+    try {
+      if (selectedRun) {
+        currentRunId = selectedRun.run_id;
+        let state;
+
+        try {
+          state = JSON.parse(inputJson || "{}");
+        } catch (parseError) {
+          throw new Error(`Invalid JSON in input: ${parseError}`);
+        }
+
+        const startIdx = Math.max(0, steps.indexOf(startStepName));
+        const endIdx = Math.max(startIdx, steps.indexOf(endStepName));
         const stepsToRun = steps.slice(startIdx, endIdx + 1);
 
         const res = await fetchWithAuth(
@@ -300,29 +491,57 @@
         );
 
         if (!res.ok) {
-          throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+          const errorText = await res.text().catch(() => 'Unknown error');
+          throw new Error(`HTTP ${res.status}: ${res.statusText}. ${errorText}`);
         }
 
         const result = await res.json();
         output = result;
-        inputJson = JSON.stringify(result.state ?? {}, null, 2);
+
+        try {
+          inputJson = JSON.stringify(result.state ?? {}, null, 2);
+        } catch (stringifyError) {
+          console.warn("Result too large for JSON display:", stringifyError);
+          inputJson = JSON.stringify({
+            _note: "Result too large to display",
+            _size: JSON.stringify(result.state ?? {}).length
+          }, null, 2);
+        }
+
         const last = result.runs?.[result.runs.length - 1];
         if (last) {
           selectedRunId = last.run_id;
         }
-        await loadRunHistory();
-        await loadArtifacts();
-        if (selectedRunId) {
+
+        // Use Promise.allSettled to prevent cascading failures
+        const [historyResult, artifactsResult] = await Promise.allSettled([
+          loadRunHistory(),
+          loadArtifacts()
+        ]);
+
+        if (historyResult.status === 'rejected') {
+          console.error('Failed to load run history:', historyResult.reason);
+          addLog("warning", "Failed to refresh run history");
+        }
+
+        if (artifactsResult.status === 'rejected') {
+          console.error('Failed to load artifacts:', artifactsResult.reason);
+          addLog("warning", "Failed to refresh artifacts");
+        }
+
+        if (selectedRunId && historyResult.status === 'fulfilled') {
           const run = runHistory.find((r) => r.run_id === selectedRunId);
           if (run) {
             selectedRun = run;
           }
         }
       } else {
-        const step = stepName || steps[0] || "step01a_metadata";
+        // For new runs, start with the first step and run up to end step
+        const step = startStepName || steps[0] || "step01a_metadata";
         await executeStep(step);
       }
     } catch (err) {
+      console.error("Execution failed:", err);
       output = { error: String(err) };
       addLog("error", `Execution failed: ${err}`);
       setExecutionState(false);
@@ -373,8 +592,22 @@
     if (!output) return;
     try {
       const next = (output as any)?.output ?? output;
-      inputJson = JSON.stringify(next, null, 2);
-    } catch {}
+      const jsonString = JSON.stringify(next, null, 2);
+
+      // Check if the JSON is too large (>100KB)
+      if (jsonString.length > 100000) {
+        addLog("warning", "Output too large for input field. Using summary.");
+        inputJson = JSON.stringify({
+          _note: "Output too large to display in input. Will be handled automatically.",
+          _size: `${(jsonString.length / 1024).toFixed(1)}KB`
+        }, null, 2);
+      } else {
+        inputJson = jsonString;
+      }
+    } catch (error) {
+      console.error("Failed to convert output to input:", error);
+      addLog("error", "Failed to convert output to input JSON");
+    }
   }
 
   function clearLogs() {
@@ -440,18 +673,56 @@
   );
 
   onMount(async () => {
-    auth0 = await getAuth0Client();
-    token = await auth0.getTokenSilently();
-    await loadSteps();
-    await loadArtifacts();
-    await loadRunHistory();
-    connectWebSocket();
+    try {
+      auth0 = await getAuth0Client();
+      token = await auth0.getTokenSilently();
+
+      // Load data in parallel but handle failures gracefully
+      const [stepsResult, artifactsResult, historyResult] = await Promise.allSettled([
+        loadSteps(),
+        loadArtifacts(),
+        loadRunHistory()
+      ]);
+
+      // Log any initialization failures
+      if (stepsResult.status === 'rejected') {
+        console.error('Failed to load steps:', stepsResult.reason);
+        addLog("error", "Failed to load pipeline steps during initialization");
+      }
+
+      if (artifactsResult.status === 'rejected') {
+        console.error('Failed to load artifacts:', artifactsResult.reason);
+        addLog("warning", "Failed to load artifacts during initialization");
+      }
+
+      if (historyResult.status === 'rejected') {
+        console.error('Failed to load run history:', historyResult.reason);
+        addLog("warning", "Failed to load run history during initialization");
+      }
+
+      // Always try to connect WebSocket, even if other loading failed
+      connectWebSocket();
+
+      addLog("info", "Pipeline dashboard initialized");
+    } catch (error) {
+      console.error('Failed to initialize pipeline dashboard:', error);
+      addLog("error", `Initialization failed: ${error}`);
+      // Continue anyway - some functionality might still work
+    }
   });
 
   onDestroy(() => {
+    // Clean up WebSocket
     if (ws) {
-      ws.close();
+      ws.close(1000, "Component unmounting"); // Normal closure
     }
+
+    // Clear reconnection timeout
+    if (wsReconnectTimeout) {
+      clearTimeout(wsReconnectTimeout);
+    }
+
+    // Clear timer
     stopElapsedTimer();
   });
 
@@ -467,6 +738,15 @@
     modalData = null;
     modalTitle = "";
     modalLoading = false;
+  }
+
+  async function handleRunListClick(run: RunHistoryItem) {
+    // Select the run for execution
+    selectedRunId = run.run_id;
+    await selectRun(run);
+
+    // Also show the modal for details
+    await handleRunClick(run);
   }
 
   async function handleRunClick(run: RunHistoryItem) {
@@ -544,7 +824,8 @@
             payload = { ...payload };
             switch (stepName) {
               case "step01a_metadata":
-                (payload as any).race_json = artifact.output;
+                // Extract the actual race_json from the artifact output
+                (payload as any).race_json = artifact.output?.race_json || artifact.output;
                 break;
               case "step01b_discovery":
                 (payload as any).sources = artifact.output;
@@ -562,7 +843,28 @@
         }
       }
 
-      inputJson = JSON.stringify(payload, null, 2);
+      try {
+        const jsonString = JSON.stringify(payload, null, 2);
+        if (jsonString.length > 100000) { // 100KB limit
+          inputJson = JSON.stringify({
+            _note: "Payload too large to display in input editor",
+            _size: `${(jsonString.length / 1024).toFixed(1)}KB`,
+            _artifact_id: (runData as any).artifact_id,
+            _step_name: stepName
+          }, null, 2);
+          addLog("info", `Large payload detected (${(jsonString.length / 1024).toFixed(1)}KB). Using summary in input editor.`);
+        } else {
+          inputJson = jsonString;
+        }
+      } catch (stringifyError) {
+        console.error("Failed to stringify payload:", stringifyError);
+        inputJson = JSON.stringify({
+          _note: "Failed to serialize payload - too complex",
+          _error: String(stringifyError),
+          _artifact_id: (runData as any).artifact_id
+        }, null, 2);
+        addLog("warning", "Payload too complex to display, using reference");
+      }
     } catch (e) {
       console.error("Failed to select run:", e);
     }
@@ -576,9 +878,154 @@
       await selectRun(run);
     }
   }
+
+  async function handleSetStartStep(stepName: string) {
+    startStep = stepName;
+
+    // Update input JSON based on the selected step's prerequisites
+    if (selectedRun && selectedRun.steps) {
+      const stepIndex = selectedRun.steps.findIndex(s => s.name === stepName);
+      if (stepIndex > 0) {
+        // Find the previous step that has an artifact
+        for (let i = stepIndex - 1; i >= 0; i--) {
+          const prevStep = selectedRun.steps[i];
+          if (prevStep.artifact_id) {
+            try {
+              const artRes = await fetchWithAuth(`${API_BASE}/artifact/${prevStep.artifact_id}`);
+              if (artRes.ok) {
+                const artifact = await artRes.json();
+                let payload: Record<string, unknown> = {};
+
+                // Check if the artifact output is too large
+                let artifactString: string;
+                try {
+                  artifactString = JSON.stringify(artifact.output);
+                } catch (stringifyError) {
+                  console.warn("Artifact too complex to stringify:", stringifyError);
+                  payload = {
+                    _note: `Artifact too complex to serialize. Will be loaded automatically during execution.`,
+                    _artifact_id: prevStep.artifact_id,
+                    _step_name: prevStep.name,
+                    _truncated: true,
+                    _error: "Serialization failed"
+                  };
+                  inputJson = JSON.stringify(payload, null, 2);
+                  addLog("warning", `Artifact for ${prevStep.name} too complex to display. Using reference.`);
+                  break;
+                }
+
+                const maxSize = 50000; // 50KB limit for JSON editor
+
+                if (artifactString.length > maxSize) {
+                  // For large artifacts, create a summary or reference
+                  payload = {
+                    _note: `Large artifact detected (${(artifactString.length / 1024).toFixed(1)}KB). Artifact will be loaded automatically during execution.`,
+                    _artifact_id: prevStep.artifact_id,
+                    _step_name: prevStep.name,
+                    _truncated: true
+                  };
+
+                  // Add a small sample for some step types
+                  try {
+                    switch (stepName) {
+                      case "step01b_discovery":
+                        if (artifact.output?.race_json) {
+                          payload.race_json = artifact.output.race_json;
+                        }
+                        break;
+                      case "step01c_fetch":
+                        if (Array.isArray(artifact.output) && artifact.output.length > 0) {
+                          payload.sources_sample = artifact.output.slice(0, 2); // First 2 sources
+                          payload.total_sources = artifact.output.length;
+                        }
+                        break;
+                      case "step01d_extract":
+                        if (Array.isArray(artifact.output) && artifact.output.length > 0) {
+                          payload.content_sample = artifact.output.slice(0, 1); // First content item
+                          payload.total_items = artifact.output.length;
+                        }
+                        break;
+                    }
+                  } catch (sampleError) {
+                    console.warn("Failed to create sample from artifact:", sampleError);
+                  }
+                } else {
+                  // Set up the payload based on what this step needs (normal size)
+                  try {
+                    switch (stepName) {
+                      case "step01b_discovery":
+                        payload.race_json = artifact.output?.race_json || artifact.output;
+                        break;
+                      case "step01c_fetch":
+                        payload.sources = artifact.output;
+                        break;
+                      case "step01d_extract":
+                        payload.raw_content = artifact.output;
+                        break;
+                      case "step02a_analyze":
+                        payload.content = artifact.output;
+                        break;
+                      default:
+                        // For other steps, use the artifact output directly
+                        payload = artifact.output || {};
+                    }
+                  } catch (payloadError) {
+                    console.warn("Failed to set up payload:", payloadError);
+                    payload = {
+                      _note: "Failed to process artifact output",
+                      _artifact_id: prevStep.artifact_id,
+                      _step_name: prevStep.name,
+                      _error: String(payloadError)
+                    };
+                  }
+                }
+
+                try {
+                  inputJson = JSON.stringify(payload, null, 2);
+
+                  // Add a log message if we truncated the data
+                  if (artifactString.length > maxSize) {
+                    addLog("info", `Large artifact detected for ${prevStep.name}. Input JSON shows summary only. Full data will be loaded during execution.`);
+                  }
+                } catch (finalStringifyError) {
+                  console.error("Failed to stringify final payload:", finalStringifyError);
+                  inputJson = JSON.stringify({
+                    _note: "Failed to serialize payload",
+                    _artifact_id: prevStep.artifact_id,
+                    _error: String(finalStringifyError)
+                  }, null, 2);
+                  addLog("error", "Failed to serialize payload for input editor");
+                }
+
+                break;
+              }
+            } catch (e) {
+              console.error("Failed to load artifact for step setup", e);
+              addLog("error", `Failed to load artifact for step setup: ${e}`);
+              // Continue to try other steps or fall back
+            }
+          }
+        }
+      } else {
+        // If it's the first step, use the original payload
+        try {
+          const originalPayload = (selectedRun as any).payload || {};
+          inputJson = JSON.stringify(originalPayload, null, 2);
+        } catch (originalError) {
+          console.error("Failed to serialize original payload:", originalError);
+          inputJson = JSON.stringify({
+            _note: "Failed to serialize original payload",
+            _error: String(originalError)
+          }, null, 2);
+          addLog("error", "Failed to serialize original payload");
+        }
+      }
+    }
+  }
 </script>
 
-<div class="mt-2 mb-6 card p-4">
+<div class="container mx-auto px-4 py-6 max-w-7xl">
+  <div class="mt-2 mb-6 card p-4">
   <div class="flex items-center justify-between">
     <div class="flex items-center space-x-4">
       <h2 class="text-lg font-semibold text-gray-900">
@@ -606,43 +1053,65 @@
       </h3>
 
       <div class="mb-4">
-        <label class="block text-sm font-medium text-gray-700 mb-2">Run</label>
-        <div class="flex items-center gap-4">
-          <button
-            class="btn-secondary"
-            on:click={() => {
-              selectedRun = null;
-              selectedRunId = "";
-              inputJson = '{\n  "race_id": "mo-senate-2024"\n}';
-              startStep = steps[0] || "";
-              endStep = steps[steps.length - 1] || "";
-            }}
-          >
-            Start New Run
-          </button>
-          {#if runHistory.length}
-            <select
-              class="px-2 py-1 border border-gray-300 rounded"
-              bind:value={selectedRunId}
-              on:change={handleRunSelect}
+        <div class="block text-sm font-medium text-gray-700 mb-2">Run Selection</div>
+        <div class="space-y-3">
+          <div class="flex items-center gap-4">
+            <button
+              class="btn-secondary"
+              on:click={() => {
+                selectedRun = null;
+                selectedRunId = "";
+                inputJson = '{\n  "race_id": "mo-senate-2024"\n}';
+                startStep = steps[0] || "";
+                endStep = steps[steps.length - 1] || "";
+              }}
             >
-              <option value="" selected>Select run</option>
-              {#each runHistory as run}
-                <option value={run.run_id}>
-                  Run {run.display_id} – {run.last_step || "Unknown Step"} –
-                  {new Date(run.updated_at).toLocaleString()}
-                </option>
-              {/each}
-            </select>
+              Start New Run
+            </button>
+            {#if runHistory.length}
+              <select
+                class="px-3 py-2 border border-gray-300 rounded-md bg-white text-sm min-w-0 flex-1"
+                bind:value={selectedRunId}
+                on:change={handleRunSelect}
+              >
+                <option value="" selected>Select existing run...</option>
+                {#each runHistory as run}
+                  <option value={run.run_id}>
+                    Run {run.display_id} · {run.last_step || "Unknown Step"} ·
+                    {new Date(run.updated_at).toLocaleDateString()} {new Date(run.updated_at).toLocaleTimeString()}
+                  </option>
+                {/each}
+              </select>
+            {:else}
+              <span class="text-sm text-gray-500 italic">No previous runs available</span>
+            {/if}
+          </div>
+          {#if selectedRun}
+            <div class="bg-blue-50 border border-blue-200 rounded-md p-3">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-sm font-medium text-blue-900">
+                    Continuing Run {selectedRun.display_id}
+                  </p>
+                  <p class="text-xs text-blue-700">
+                    Last step: <span class="font-mono">{selectedRun.last_step || "Unknown"}</span>
+                    {#if selectedRun.status}
+                      · Status: <span class="capitalize">{selectedRun.status}</span>
+                    {/if}
+                  </p>
+                </div>
+                <span class="px-2 py-1 rounded-full text-xs font-medium {getStatusClass(selectedRun.status || 'unknown')}">
+                  {(selectedRun.status || "unknown").charAt(0).toUpperCase() + (selectedRun.status || "unknown").slice(1)}
+                </span>
+              </div>
+            </div>
           {:else}
-            <span class="text-sm text-gray-500">No runs yet</span>
+            <div class="bg-green-50 border border-green-200 rounded-md p-3">
+              <p class="text-sm font-medium text-green-900">Ready to start new run</p>
+              <p class="text-xs text-green-700">A fresh pipeline execution will be initiated</p>
+            </div>
           {/if}
         </div>
-        {#if selectedRun}
-          <p class="text-sm text-gray-600 mt-2">
-            Continuing run {selectedRun.display_id}
-          </p>
-        {/if}
       </div>
 
       <div class="space-y-4">
@@ -665,66 +1134,78 @@
         <!-- Options -->
         <details class="options border border-gray-200 rounded-lg p-4">
           <summary class="cursor-pointer font-medium text-gray-700 mb-3"
-            >Execution Options</summary
+            >Storage Options</summary
           >
-          <div class="grid grid-cols-2 gap-3">
-            <label class="flex items-center space-x-2">
-              <input
-                type="checkbox"
-                bind:checked={skip_llm_apis}
-                class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-              />
-              <span class="text-sm text-gray-700">Skip LLM APIs</span>
+          <div class="space-y-3">
+            <label class="flex items-center justify-between">
+              <span class="text-sm text-gray-700">Storage Location</span>
+              <div class="flex items-center space-x-2">
+                <span class="text-xs text-gray-500">Local</span>
+                <input
+                  type="checkbox"
+                  bind:checked={use_cloud_storage}
+                  class="toggle-switch"
+                />
+                <span class="text-xs text-gray-500">Cloud</span>
+              </div>
             </label>
-            <label class="flex items-center space-x-2">
-              <input
-                type="checkbox"
-                bind:checked={skip_external_apis}
-                class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-              />
-              <span class="text-sm text-gray-700">Skip External APIs</span>
-            </label>
-            <label class="flex items-center space-x-2">
-              <input
-                type="checkbox"
-                bind:checked={skip_network_calls}
-                class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-              />
-              <span class="text-sm text-gray-700">Skip Network Calls</span>
-            </label>
-            <label class="flex items-center space-x-2">
-              <input
-                type="checkbox"
-                bind:checked={skip_cloud_services}
-                class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-              />
-              <span class="text-sm text-gray-700">Skip Cloud Services</span>
-            </label>
-            <label class="flex items-center space-x-2 col-span-2">
-              <input
-                type="checkbox"
-                bind:checked={save_artifact}
-                class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-              />
-              <span class="text-sm text-gray-700">Save Artifact</span>
-            </label>
+            <p class="text-xs text-gray-500">
+              {#if use_cloud_storage}
+                Artifacts will be stored in cloud services (GCS, etc.)
+              {:else}
+                Artifacts will be stored locally on the filesystem
+              {/if}
+            </p>
+          </div>
+        </details>
+
+        <!-- Execution Mode Options -->
+        <details class="options border border-gray-200 rounded-lg p-4">
+          <summary class="cursor-pointer font-medium text-gray-700 mb-3"
+            >Execution Mode</summary
+          >
+          <div class="space-y-3">
+            <div class="space-y-2">
+              <label class="flex items-center">
+                <input type="radio" bind:group={executionMode} value="single" class="mr-2" />
+                <span class="text-sm text-gray-700">Run Single Step</span>
+              </label>
+              <label class="flex items-center">
+                <input type="radio" bind:group={executionMode} value="range" class="mr-2" />
+                <span class="text-sm text-gray-700">Run Step Range</span>
+              </label>
+            </div>
+            <div class="text-xs text-gray-500">
+              <p><strong>Single Step:</strong> Executes only the selected step and stops for user approval.</p>
+              <p><strong>Step Range:</strong> Executes from start step to end step continuously.</p>
+            </div>
           </div>
         </details>
 
         {#if selectedRun}
-          <RunStepList
-            {API_BASE}
-            {currentStep}
-            steps={selectedRun.steps}
-            runFromStep={runFromStep}
-          />
+          <div class="mb-4">
+            <h4 class="text-md font-semibold text-gray-900 mb-3 flex items-center">
+              Pipeline Steps
+              {#if currentStep}
+                <span class="ml-2 px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                  Currently at: {currentStep}
+                </span>
+              {/if}
+            </h4>
+            <RunStepList
+              {API_BASE}
+              {currentStep}
+              steps={selectedRun.steps}
+              setStartStep={handleSetStartStep}
+            />
+          </div>
         {/if}
 
         <!-- Action Buttons -->
         <div class="flex space-x-3">
           <button
             disabled={isExecuting}
-            on:click={() => runFromStep(startStep)}
+            on:click={() => executionMode === "single" ? runFromStep(startStep) : runStepsRange(startStep, endStep)}
             class="btn-primary flex-1 flex items-center justify-center"
           >
             {#if isExecuting}
@@ -749,8 +1230,10 @@
                 />
               </svg>
               Executing...
+            {:else if executionMode === "single"}
+              Execute Step {startStep}
             {:else}
-              Execute Pipeline
+              Execute Steps {startStep} → {endStep}
             {/if}
           </button>
           {#if isExecuting}
@@ -891,27 +1374,51 @@
       </div>
       <div class="divide-y divide-gray-200 max-h-64 overflow-auto custom-scrollbar">
         {#each runHistory.slice(0, 10) as run}
-          <div
-            class="p-4 hover:bg-gray-50 cursor-pointer"
-            on:click={() => handleRunClick(run)}
+          <button
+            type="button"
+            class="w-full text-left p-4 transition-colors duration-200 {selectedRun && selectedRun.run_id === run.run_id
+              ? 'bg-blue-50 border-l-4 border-l-blue-500'
+              : 'hover:bg-gray-50'}"
+            on:click={async () => {
+              selectedRunId = run.run_id;
+              await selectRun(run);
+            }}
           >
             <div class="flex items-center justify-between">
-              <div>
-                <div class="text-sm font-medium text-gray-900">
-                  Run {run.display_id} – {run.last_step || "Unknown Step"}
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2">
+                  <div class="text-sm font-medium text-gray-900">
+                    Run {run.display_id}
+                  </div>
+                  {#if selectedRun && selectedRun.run_id === run.run_id}
+                    <div class="w-2 h-2 rounded-full bg-blue-500 flex-shrink-0" title="Currently selected"></div>
+                  {/if}
+                </div>
+                <div class="text-xs text-gray-600 truncate">
+                  {run.last_step || "Unknown Step"}
                 </div>
                 <div class="text-xs text-gray-500">
                   {new Date(run.started_at).toLocaleString()}
                 </div>
               </div>
-              <span
-                class="px-2 py-1 rounded-full text-xs {getStatusClass(run.status || 'unknown')}"
-              >
-                {(run.status || "unknown").charAt(0).toUpperCase() +
-                  (run.status || "unknown").slice(1)}
-              </span>
+              <div class="flex items-center gap-2">
+                <span
+                  class="px-2 py-1 rounded-full text-xs font-medium flex-shrink-0 {getStatusClass(run.status || 'unknown')}"
+                >
+                  {(run.status || "unknown").charAt(0).toUpperCase() +
+                    (run.status || "unknown").slice(1)}
+                </span>
+                <button
+                  type="button"
+                  class="px-2 py-1 text-xs bg-gray-600 text-white rounded hover:bg-gray-700 transition-colors"
+                  on:click|stopPropagation={() => handleRunClick(run)}
+                  title="View run details"
+                >
+                  Details
+                </button>
+              </div>
             </div>
-          </div>
+          </button>
         {:else}
           <div class="p-4 text-center text-gray-500 text-sm">No runs yet</div>
         {/each}
@@ -950,9 +1457,11 @@
     </div>
   </div>
 </div>
+</div>
 
 {#if showModal}
-  <div class="modal-bg" on:click|self={closeModal}>
+  <div class="modal-bg" role="dialog" tabindex="-1">
+    <div class="modal-backdrop" role="button" tabindex="0" on:click={closeModal} on:keydown={(e) => e.key === 'Escape' && closeModal()}></div>
     <div class="modal-content">
       <button class="modal-close" on:click={closeModal} title="Close"
         >&times;</button
@@ -1044,6 +1553,39 @@
 
   .options label { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
 
+  /* Toggle Switch */
+  .toggle-switch {
+    appearance: none;
+    width: 44px;
+    height: 24px;
+    background: #cbd5e1;
+    border-radius: 12px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  .toggle-switch:checked {
+    background: #3b82f6;
+  }
+
+  .toggle-switch::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: white;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.2s;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  }
+
+  .toggle-switch:checked::before {
+    transform: translateX(20px);
+  }
+
   .artifacts-list {
     list-style: none;
     padding: 0;
@@ -1067,9 +1609,12 @@
     position: fixed; inset: 0; background: rgba(0, 0, 0, 0.35);
     z-index: 50; display: flex; align-items: center; justify-content: center;
   }
+  .modal-backdrop {
+    position: absolute; inset: 0; cursor: pointer;
+  }
   .modal-content {
     background: #fff; border-radius: 0.75rem; box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-    max-width: 600px; width: 90vw; max-height: 80vh; overflow-y: auto; padding: 2rem; position: relative;
+    max-width: 600px; width: 90vw; max-height: 80vh; overflow-y: auto; padding: 2rem; position: relative; z-index: 1;
   }
   .modal-close {
     position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.5rem; color: #64748b; cursor: pointer;

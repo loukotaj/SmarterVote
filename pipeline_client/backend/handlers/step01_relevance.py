@@ -102,7 +102,6 @@ class Step01RelevanceHandler:
             output = []
             for i, item in enumerate(result):
                 try:
-                    # Save the relevant text to storage
                     uri = self.storage_backend.save_web_content(
                         race_id,
                         _filename_from_source(item.source),
@@ -111,7 +110,7 @@ class Step01RelevanceHandler:
                         kind="relevant",
                     )
                     item.metadata["storage_uri"] = uri
-                    
+             
                     # Convert to serializable format
                     if hasattr(item, "model_dump"):
                         output.append(item.model_dump(mode="json", by_alias=True, exclude_none=True))
@@ -121,7 +120,7 @@ class Step01RelevanceHandler:
                         output.append(to_jsonable(item))
                 except Exception as e:
                     logger.error(f"Error saving item {i+1}: {e}")
-            
+
             # Save relevant content collection as references
             logger.info(f"Saving {len(output)} relevant content items to storage")
             references = save_content_collection(race_id, output, "relevant_content", "relevant")
@@ -133,6 +132,10 @@ class Step01RelevanceHandler:
                 "count": len(references),
                 "race_id": race_id
             }
+            logger.debug(f"Relevance filter conversion completed, items: {len(output)}")
+            logger.info("Relevance filtering completed")
+            return output
+
         except Exception as e:
             error_msg = f"Step01RelevanceHandler: Error filtering relevance: {e}"
             logger.error(error_msg, exc_info=True)
