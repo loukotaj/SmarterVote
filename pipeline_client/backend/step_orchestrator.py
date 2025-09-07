@@ -110,8 +110,10 @@ def update_state(step: str, state: Dict[str, Any], output: Any) -> Dict[str, Any
     elif step == "step01b_discovery":
         new_state["sources"] = output
     elif step == "step01c_fetch":
+        # Store reference instead of full content
         new_state["raw_content"] = output
     elif step == "step01d_extract":
+        # Store reference instead of full content
         new_state["processed_content"] = output
     elif step == "step01e_relevance":
         new_state["relevant_content"] = output

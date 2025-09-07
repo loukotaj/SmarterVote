@@ -44,14 +44,32 @@ class Step01FetchHandler:
             result = await service.fetch_content(sources)
             duration_ms = int((time.perf_counter() - t0) * 1000)
             logger.info(f"Content fetch completed in {duration_ms}ms")
+            
+            # Instead of returning full content, save to storage and return references
+            race_id = payload.get("race_id", "unknown")
+            
+            # Import storage functions
+            from pipeline_client.backend.storage import save_content_collection
+            
+            # Prepare content for storage
             output = []
             for item in result:
                 src = item.get("source")
                 if hasattr(src, "model_dump"):
                     item["source"] = src.model_dump(mode="json", by_alias=True, exclude_none=True)
                 output.append(to_jsonable(item))
-            logger.debug(f"Fetch conversion completed, items: {len(output)}")
-            return output
+            
+            # Save content to storage and get references
+            logger.info(f"Saving {len(output)} content items to storage")
+            references = save_content_collection(race_id, output, "raw_content", "raw")
+            logger.debug(f"Content saved, returning {len(references)} references")
+            
+            return {
+                "type": "content_collection_refs",
+                "references": references,
+                "count": len(references),
+                "race_id": race_id
+            }
         except Exception as e:
             error_msg = f"Step01FetchHandler: Error fetching content: {e}"
             logger.error(error_msg, exc_info=True)
