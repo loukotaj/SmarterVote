@@ -276,10 +276,25 @@ class SearchUtils:
         num = getattr(query, "max_results", None) or self.search_config.get("top_results_per_query", 5)
 
         payload: Dict[str, Any] = {"q": query.text, "num": num}
+        # Fix date parameter format for Serper API
         if date_param:
-            payload["tbs"] = f"qdr:{date_param}"
+            # Convert Google CSE date format to Serper format
+            if date_param.startswith("d"):
+                # Format like "d30" -> past 30 days
+                days = date_param[1:]
+                payload["dateRestrict"] = f"d{days}"
+            elif date_param.startswith("y"):
+                # Format like "y2" -> past 2 years  
+                years = date_param[1:]
+                payload["dateRestrict"] = f"y{years}"
+            else:
+                # Fallback to original format
+                payload["dateRestrict"] = date_param
 
-        headers = {"X-API-KEY": api_key}
+        headers = {
+            "X-API-KEY": api_key,
+            "Content-Type": "application/json"
+        }
         host = urlparse(search_url).netloc
         async with self._host_semaphores[host]:
             try:
@@ -287,12 +302,29 @@ class SearchUtils:
                     resp = await client.post(search_url, json=payload, headers=headers)
                     resp.raise_for_status()
                     data = resp.json()
+                    
+                    # Log successful response for debugging
+                    logger.debug("Serper search successful for %s | results=%d", query.text, len(data.get("organic", [])))
+                    
+            except httpx.HTTPStatusError as e:
+                logger.error("Serper API HTTP error for %s | status=%d | response=%s", query.text, e.response.status_code, e.response.text)
+                return []
+            except httpx.RequestError as e:
+                logger.error("Serper API request error for %s | error=%s", query.text, e)
+                return []
             except Exception as e:  # noqa: BLE001
                 logger.error("Serper search failed for %s | error=%s", query.text, e)
                 return []
 
         out: List[Source] = []
-        for item in data.get("organic", []) or []:
+        
+        # Handle different response structures from Serper API
+        organic_results = data.get("organic", [])
+        if not organic_results:
+            logger.warning("Serper search returned no organic results for %s | response_keys=%s", query.text, list(data.keys()))
+            return []
+            
+        for item in organic_results:
             link = item.get("link")
             if not link:
                 continue
@@ -300,12 +332,21 @@ class SearchUtils:
             title = item.get("title", "") or ""
             snippet = item.get("snippet", "") or ""
             published_at = None
+            
+            # Handle different date formats from Serper
             date_str = item.get("date")
             if date_str:
                 try:
-                    published_at = datetime.fromisoformat(date_str.replace("Z", "+00:00"))
+                    # Try ISO format first
+                    if "T" in date_str:
+                        published_at = datetime.fromisoformat(date_str.replace("Z", "+00:00"))
+                    else:
+                        # Handle relative dates like "2 days ago", "1 week ago"
+                        # For now, just skip parsing relative dates
+                        published_at = None
                 except Exception:  # noqa: BLE001
                     published_at = None
+                    
             source_type = self._classify_source(link)
             out.append(
                 Source(
