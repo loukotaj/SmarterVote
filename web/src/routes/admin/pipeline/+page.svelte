@@ -1213,13 +1213,29 @@
                         }
                         break;
                       case "step01c_fetch":
-                        if (Array.isArray(artifact.output) && artifact.output.length > 0) {
+                        if (artifact.output?.type === "content_collection_refs") {
+                          // Handle reference collection from step01c_fetch
+                          payload.references_summary = {
+                            type: artifact.output.type,
+                            count: artifact.output.count,
+                            race_id: artifact.output.race_id
+                          };
+                          payload.total_sources = artifact.output.count;
+                        } else if (Array.isArray(artifact.output) && artifact.output.length > 0) {
                           payload.sources_sample = artifact.output.slice(0, 2); // First 2 sources
                           payload.total_sources = artifact.output.length;
                         }
                         break;
                       case "step01d_extract":
-                        if (Array.isArray(artifact.output) && artifact.output.length > 0) {
+                        if (artifact.output?.type === "content_collection_refs") {
+                          // Handle reference collection from step01d_extract
+                          payload.references_summary = {
+                            type: artifact.output.type,
+                            count: artifact.output.count,
+                            race_id: artifact.output.race_id
+                          };
+                          payload.total_items = artifact.output.count;
+                        } else if (Array.isArray(artifact.output) && artifact.output.length > 0) {
                           payload.content_sample = artifact.output.slice(0, 1); // First content item
                           payload.total_items = artifact.output.length;
                         }
