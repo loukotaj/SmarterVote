@@ -32,7 +32,7 @@ def client(tmp_path):
         "candidates": [],
         "generator": ["gpt-4o"],
     }
-    (tmp_path / "race1.json").write_text(json.dumps(race_data))
+    (tmp_path / "race1.json").write_text(json.dumps(race_data), encoding="utf-8")
 
     # Import the app using absolute file import to avoid conflicts
     current_dir = Path(__file__).parent

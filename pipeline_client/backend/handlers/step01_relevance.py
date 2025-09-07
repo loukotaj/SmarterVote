@@ -76,22 +76,26 @@ class Step01RelevanceHandler:
             duration_ms = int((time.perf_counter() - t0) * 1000)
             logger.info(f"Relevance filtering completed in {duration_ms}ms")
             output = []
-            for item in result:
-                uri = self.storage_backend.save_web_content(
-                    race_id,
-                    _filename_from_source(item.source),
-                    item.text,
-                    content_type="text/plain",
-                    kind="relevant",
-                )
-                item.metadata["storage_uri"] = uri
-                if hasattr(item, "model_dump"):
-                    output.append(item.model_dump(mode="json", by_alias=True, exclude_none=True))
-                elif hasattr(item, "json"):
-                    output.append(json.loads(item.json(by_alias=True, exclude_none=True)))
-                else:
-                    output.append(to_jsonable(item))
+            for i, item in enumerate(result):
+                try:
+                    uri = self.storage_backend.save_web_content(
+                        race_id,
+                        _filename_from_source(item.source),
+                        item.text,
+                        content_type="text/plain",
+                        kind="relevant",
+                    )
+                    item.metadata["storage_uri"] = uri
+                    if hasattr(item, "model_dump"):
+                        output.append(item.model_dump(mode="json", by_alias=True, exclude_none=True))
+                    elif hasattr(item, "json"):
+                        output.append(json.loads(item.json(by_alias=True, exclude_none=True)))
+                    else:
+                        output.append(to_jsonable(item))
+                except Exception as e:
+                    logger.error(f"Error saving item {i+1}: {e}")
             logger.debug(f"Relevance filter conversion completed, items: {len(output)}")
+            logger.info("Relevance filtering completed")
             return output
         except Exception as e:
             error_msg = f"Step01RelevanceHandler: Error filtering relevance: {e}"

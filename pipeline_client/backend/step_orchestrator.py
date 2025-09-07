@@ -30,22 +30,67 @@ def state_from_artifact(artifact: Dict[str, Any]) -> Tuple[str, Dict[str, Any]]:
     return step, state
 
 
+def _resolve_artifact_references(state: Dict[str, Any]) -> Dict[str, Any]:
+    """Resolve any artifact references in the state by loading the full artifact data."""
+    if not state.get("_truncated") or not state.get("_artifact_id"):
+        return state
+
+    # Load the full artifact data
+    from .storage import load_artifact
+
+    try:
+        artifact = load_artifact(state["_artifact_id"])
+        step_name = state.get("_step_name", "")
+
+        # Create new state with resolved data based on the step type
+        resolved_state = {k: v for k, v in state.items() if not k.startswith("_")}
+
+        # Map the artifact output to the expected state keys based on step
+        if step_name == "step01a_metadata":
+            resolved_state["race_json"] = artifact["output"].get("race_json", artifact["output"])
+        elif step_name == "step01b_discovery":
+            resolved_state["sources"] = artifact["output"]
+        elif step_name == "step01c_fetch":
+            resolved_state["raw_content"] = artifact["output"]
+        elif step_name == "step01d_extract":
+            resolved_state["content"] = artifact["output"]
+        else:
+            # For unknown steps, try to merge the artifact output
+            if isinstance(artifact["output"], dict):
+                resolved_state.update(artifact["output"])
+            else:
+                # If output is not a dict, put it under a generic key
+                resolved_state["artifact_data"] = artifact["output"]
+
+        return resolved_state
+
+    except Exception as e:
+        # If artifact loading fails, log and return original state
+        import logging
+        logger = logging.getLogger("pipeline")
+        logger.warning(f"Failed to resolve artifact reference {state.get('_artifact_id')}: {e}")
+        return state
+
+
 def build_payload(step: str, state: Dict[str, Any]) -> Dict[str, Any]:
     """Construct the payload required for a given step."""
 
+    # Resolve any artifact references in the state before building the payload
+    resolved_state = _resolve_artifact_references(state)
+
     if step == "step01a_metadata":
-        return {"race_id": state["race_id"]}
+        return {"race_id": resolved_state["race_id"]}
     if step == "step01b_discovery":
-        return {"race_id": state["race_id"], "race_json": state["race_json"]}
+        return {"race_id": resolved_state["race_id"], "race_json": resolved_state["race_json"]}
     if step == "step01c_fetch":
-        return {"race_id": state["race_id"], "sources": state["sources"]}
+        return {"race_id": resolved_state["race_id"], "sources": resolved_state["sources"]}
     if step == "step01d_extract":
-        return {"race_id": state["race_id"], "raw_content": state["raw_content"]}
+        return {"race_id": resolved_state["race_id"], "raw_content": resolved_state["raw_content"]}
     if step == "step01e_relevance":
         return {
-            "race_id": state["race_id"],
-            "processed_content": state["processed_content"],
-            "race_json": state.get("race_json"),
+            "race_id": resolved_state["race_id"],
+            "processed_content": resolved_state["processed_content"],
+            "race_json": resolved_state.get("race_json"),
         }
 
     raise KeyError(f"Unknown step '{step}'")
