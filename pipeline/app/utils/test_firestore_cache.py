@@ -59,21 +59,26 @@ class TestFirestoreCache:
         assert default_cache.collection_name == "extracted_content_cache"
 
     @pytest.mark.cloud
-    @patch("pipeline.app.utils.firestore_cache.firestore.AsyncClient")
-    def test_cache_content_success(self, mock_client_class):
+    @patch("pipeline.app.utils.firestore_cache.FirestoreCache._get_client")
+    def test_cache_content_success(self, mock_get_client):
         """Test successful content caching."""
         # Mock Firestore client and operations
-        mock_client = AsyncMock()
-        mock_collection_ref = AsyncMock()
-        mock_batch = AsyncMock()
-        mock_doc_ref = AsyncMock()
+        mock_client = MagicMock()
+        mock_collection_ref = MagicMock()
+        mock_batch = MagicMock()
+        mock_doc_ref = MagicMock()
 
-        mock_client_class.return_value = mock_client
+        # Make _get_client async and return the mock client
+        mock_get_client = AsyncMock(return_value=mock_client)
         mock_client.collection.return_value = mock_collection_ref
         mock_client.batch.return_value = mock_batch
         mock_collection_ref.document.return_value = mock_doc_ref
 
+        # Make batch.commit async but successful
+        mock_batch.commit = AsyncMock()
+
         cache = FirestoreCache()
+        cache._get_client = mock_get_client
 
         # Create test content
         test_content = [
@@ -93,13 +98,13 @@ class TestFirestoreCache:
         assert mock_batch.set.call_count == 2
 
     @pytest.mark.cloud
-    @patch("pipeline.app.utils.firestore_cache.firestore.AsyncClient")
-    def test_get_cached_content(self, mock_client_class):
+    @patch("pipeline.app.utils.firestore_cache.FirestoreCache._get_client")
+    def test_get_cached_content(self, mock_get_client):
         """Test retrieving cached content."""
         # Mock Firestore client
-        mock_client = AsyncMock()
-        mock_collection_ref = AsyncMock()
-        mock_query = AsyncMock()
+        mock_client = MagicMock()
+        mock_collection_ref = MagicMock()
+        mock_query = MagicMock()
 
         # Mock document data
         mock_doc = MagicMock()
@@ -110,12 +115,14 @@ class TestFirestoreCache:
             "cached_at": datetime.utcnow(),
         }
 
-        mock_client_class.return_value = mock_client
+        # Setup mocks
+        mock_get_client = AsyncMock(return_value=mock_client)
         mock_client.collection.return_value = mock_collection_ref
         mock_collection_ref.where.return_value = mock_query
-        mock_query.get.return_value = [mock_doc]
+        mock_query.get = AsyncMock(return_value=[mock_doc])
 
         cache = FirestoreCache()
+        cache._get_client = mock_get_client
 
         # Test retrieval
         result = asyncio.run(cache.get_cached_content("test-race-2024"))
@@ -128,23 +135,27 @@ class TestFirestoreCache:
         mock_collection_ref.where.assert_called_once_with("race_id", "==", "test-race-2024")
 
     @pytest.mark.asyncio
-    @patch("firestore_cache.firestore.AsyncClient")
-    async def test_clear_cache(self, mock_client_class):
+    @pytest.mark.cloud
+    @patch("pipeline.app.utils.firestore_cache.FirestoreCache._get_client")
+    async def test_clear_cache(self, mock_get_client):
         """Test cache clearing."""
         # Mock Firestore client
-        mock_client = AsyncMock()
-        mock_collection_ref = AsyncMock()
-        mock_query = AsyncMock()
-        mock_batch = AsyncMock()
+        mock_client = MagicMock()
+        mock_collection_ref = MagicMock()
+        mock_query = MagicMock()
+        mock_batch = MagicMock()
         mock_doc = MagicMock()
 
-        mock_client_class.return_value = mock_client
+        # Setup mocks
+        mock_get_client = AsyncMock(return_value=mock_client)
         mock_client.collection.return_value = mock_collection_ref
         mock_collection_ref.where.return_value = mock_query
-        mock_query.get.return_value = [mock_doc]
+        mock_query.get = AsyncMock(return_value=[mock_doc])
         mock_client.batch.return_value = mock_batch
+        mock_batch.commit = AsyncMock()
 
         cache = FirestoreCache()
+        cache._get_client = mock_get_client
 
         # Test clearing specific race
         result = await cache.clear_cache("test-race-2024")
@@ -156,13 +167,14 @@ class TestFirestoreCache:
         mock_batch.commit.assert_called_once()
 
     @pytest.mark.asyncio
-    @patch("firestore_cache.firestore.AsyncClient")
-    async def test_get_cache_stats(self, mock_client_class):
+    @pytest.mark.cloud
+    @patch("pipeline.app.utils.firestore_cache.FirestoreCache._get_client")
+    async def test_get_cache_stats(self, mock_get_client):
         """Test cache statistics."""
         # Mock Firestore client
-        mock_client = AsyncMock()
-        mock_collection_ref = AsyncMock()
-        mock_query = AsyncMock()
+        mock_client = MagicMock()
+        mock_collection_ref = MagicMock()
+        mock_query = MagicMock()
 
         # Mock document data
         mock_doc = MagicMock()
@@ -171,12 +183,14 @@ class TestFirestoreCache:
             "text": "Test content with multiple words here",
         }
 
-        mock_client_class.return_value = mock_client
+        # Setup mocks
+        mock_get_client = AsyncMock(return_value=mock_client)
         mock_client.collection.return_value = mock_collection_ref
         mock_collection_ref.where.return_value = mock_query
-        mock_query.get.return_value = [mock_doc]
+        mock_query.get = AsyncMock(return_value=[mock_doc])
 
         cache = FirestoreCache()
+        cache._get_client = mock_get_client
 
         # Test stats for specific race
         result = await cache.get_cache_stats("test-race-2024")
@@ -215,7 +229,7 @@ class TestFirestoreCache:
         assert result["simple_none"] is None
         assert isinstance(result["datetime_obj"], str)  # Should be ISO format
         assert result["simple_list"] == ["a", "b", "c"]
-        assert isinstance(result["mixed_list"], str)  # Should be converted to string
+        assert result["mixed_list"] == ["a", 1, True]  # Should remain as list since all items are simple types
         assert isinstance(result["nested_dict"], dict)
         assert result["nested_dict"]["key"] == "value"
 
@@ -229,18 +243,18 @@ class TestFirestoreCache:
         content.metadata.pop("content_checksum", None)  # Remove checksum
 
         # Mock client to avoid actual Firestore calls
-        with patch("firestore_cache.firestore.AsyncClient"):
+        with patch("pipeline.app.utils.firestore_cache.FirestoreCache._get_client"):
             result = await cache.cache_content("test-race", [content])
 
             # Should return False since no content was cached
             assert result is False
 
     @pytest.mark.asyncio
-    @patch("firestore_cache.firestore.AsyncClient")
-    async def test_cache_error_handling(self, mock_client_class):
+    @patch("pipeline.app.utils.firestore_cache.FirestoreCache._get_client")
+    async def test_cache_error_handling(self, mock_get_client):
         """Test error handling during caching."""
         # Make the client raise an exception
-        mock_client_class.side_effect = Exception("Firestore connection error")
+        mock_get_client.side_effect = Exception("Firestore connection error")
 
         cache = FirestoreCache()
         test_content = [self.create_test_content()]

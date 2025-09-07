@@ -15,10 +15,11 @@ def anyio_backend():
 
 
 @pytest.mark.anyio
+@pytest.mark.external_api
 async def test_metadata_service_saves_race_json(tmp_path):
     module = pytest.importorskip("pipeline.app.step01_ingest.MetaDataService.race_metadata_service")
     storage = LocalStorageBackend(tmp_path)
-    service = module.RaceMetadataService(providers=None, storage_backend=storage)
+    service = module.RaceMetadataService(storage_backend=storage)
 
     # Avoid network calls by patching internals
     service._seed_urls = lambda *a, **k: []

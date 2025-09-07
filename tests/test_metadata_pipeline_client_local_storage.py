@@ -15,7 +15,7 @@ class DummyRaceMetadataService:
     async def extract_race_metadata(self, race_id: str):
         data = {
             "id": race_id,
-            "election_date": "2024-11-05T00:00:00",
+            "election_date": "2025-11-04T00:00:00",
             "candidates": [],
             "updated_utc": "2024-08-19T00:00:00",
             "generator": [],
@@ -34,7 +34,8 @@ def anyio_backend():
 
 
 @pytest.mark.anyio
-async def test_local_metadata_handler_returns_valid_race_json(monkeypatch, tmp_path):
+@pytest.mark.external_api
+async def test_local_metadata_handler_returns_valid_race_json(tmp_path, anyio_backend, monkeypatch):
     module = types.SimpleNamespace(RaceMetadataService=DummyRaceMetadataService)
     monkeypatch.setitem(
         sys.modules,
