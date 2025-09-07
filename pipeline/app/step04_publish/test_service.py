@@ -15,7 +15,7 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
-# TODO: Enable when async dependencies are available (google-cloud-storage, aiohttp, etc.) 
+# TODO: Enable when async dependencies are available (google-cloud-storage, aiohttp, etc.)
 pytest.skip("Publishing service tests require async dependencies", allow_module_level=True)
 
 from ..schema import CanonicalIssue, ConfidenceLevel, RaceJSON
