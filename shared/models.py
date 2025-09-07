@@ -79,6 +79,7 @@ class Source(BaseModel):
     scoring_reason: Optional[str] = None
     checksum: Optional[str] = None
     is_fresh: bool = False  # Flag for fresh issue search results
+    is_official_campaign: Optional[bool] = None  # Flag for official campaign sources
 
 
 class ChromaChunk(BaseModel):

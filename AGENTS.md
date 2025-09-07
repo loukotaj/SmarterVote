@@ -13,7 +13,6 @@ Use these guardrails when generating or editing code in this repository.
 - Tests: pytest for Python (adjacent unit tests), FastAPI TestClient, Vitest/Playwright for web
 
 ## Development workflow
-- Pipeline quick run: `python scripts/run_local.py <race-id>`
 - Tests: `python -m pytest -v`; web `npm run test`
 - Web dev: `cd web && npm run dev`
 - Infra: `cd infra && terraform plan`

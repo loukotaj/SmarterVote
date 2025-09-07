@@ -16,7 +16,7 @@ The pipeline automatically detects which mode to operate in based on environment
 - Running on local development machine
 - Used for development and testing
 
-### Cloud Mode Indicators  
+### Cloud Mode Indicators
 - `GOOGLE_CLOUD_PROJECT` environment variable set
 - `CLOUD_RUN_SERVICE` environment variable set
 - `K_SERVICE` environment variable set (Cloud Run)
@@ -43,9 +43,6 @@ The pipeline automatically detects which mode to operate in based on environment
 
 ### Example Local Setup
 ```bash
-# Run pipeline locally
-cd /path/to/SmarterVote
-python scripts/run_local.py mo-senate-2024
 
 # Start local races API
 cd services/races-api
@@ -56,7 +53,7 @@ python main.py
 
 ### Data Publishing
 - **Primary Target**: Google Cloud Storage (`gs://bucket/races/`)
-- **Secondary Targets**: 
+- **Secondary Targets**:
   - Database (PostgreSQL via Cloud SQL)
   - Pub/Sub messaging
   - Webhook notifications
@@ -94,7 +91,7 @@ The pipeline now collects sources using search for:
 
 #### Issues (All 11 Canonical Issues)
 - Healthcare
-- Economy  
+- Economy
 - Climate/Energy
 - Reproductive Rights
 - Immigration
@@ -164,7 +161,7 @@ The pipeline generates summaries for:
 DATA_DIR=data/published/
 ```
 
-### Cloud Mode Configuration  
+### Cloud Mode Configuration
 ```env
 # Required for cloud operation
 GOOGLE_CLOUD_PROJECT=your-project-id
@@ -189,7 +186,7 @@ WEBHOOK_SECRET=your-webhook-secret
 
 ### Graceful Degradation
 - Missing API keys → Use mock data
-- Network issues → Retry with exponential backoff  
+- Network issues → Retry with exponential backoff
 - Cloud storage unavailable → Use local files
 - External services down → Continue with available data
 
@@ -211,9 +208,6 @@ python scripts/validate_project.py
 
 # Test integration
 python -m pytest tests/ -v
-
-# Test end-to-end with local race
-python scripts/run_local.py test-race-2024
 ```
 
 ### Cloud Testing

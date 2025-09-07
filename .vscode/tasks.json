@@ -111,7 +111,7 @@
             }
         },
         {
-            "label": "Start Development Environment",
+            "label": "Start Pipeline Client",
             "type": "shell",
             "command": "powershell",
             "args": [
@@ -136,7 +136,7 @@
             "label": "Start All Services",
             "type": "shell",
             "dependsOn": [
-                "Start Development Environment",
+                "Start Pipeline Client",
                 "Start Web Frontend Only",
                 "Start Races API Only"
             ],

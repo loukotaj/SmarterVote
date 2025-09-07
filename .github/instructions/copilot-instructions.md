@@ -46,9 +46,6 @@ All race data follows the standardized schema in `shared/models.py` (imported vi
 # Start development servers (both API and web frontend)
 .\dev-start.ps1
 
-# Pipeline testing (use mini models for faster/cheaper testing)
-python scripts/run_local.py <race-id>
-python scripts/run_local.py mo-senate-2024 --full-models  # Use full models
 
 # Project validation
 python scripts/validate_project.py
@@ -74,9 +71,6 @@ terraform apply
 
 ### Alternative Bash Commands (for reference)
 ```bash
-# Pipeline testing
-python scripts/run_local.py <race-id>
-python scripts/validate_project.py
 
 # Web development
 cd web && npm run dev
@@ -129,7 +123,6 @@ The system uses 3 AI models (GPT-4o, Claude-3.5, grok-3) for consensus:
 - `pipeline/app/schema.py` - Pipeline-specific imports from shared models
 - `pipeline/app/__main__.py` - Pipeline orchestration and workflow
 - `web/src/lib/types.ts` - Frontend type definitions
-- `scripts/run_local.py` - Local development execution
 - `setup-dev.ps1` - Development environment setup (PowerShell)
 - `dev-start.ps1` - Start development servers (PowerShell)
 - `infra/main.tf` - Infrastructure as code patterns
