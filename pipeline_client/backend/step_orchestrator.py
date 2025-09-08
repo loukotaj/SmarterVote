@@ -51,9 +51,24 @@ def _resolve_artifact_references(state: Dict[str, Any]) -> Dict[str, Any]:
         elif step_name == "step01b_discovery":
             resolved_state["sources"] = artifact["output"]
         elif step_name == "step01c_fetch":
-            resolved_state["raw_content"] = artifact["output"]
+            # Handle reference collections from step01c_fetch
+            output = artifact["output"]
+            if isinstance(output, dict) and output.get("type") == "content_collection_refs":
+                # For reference collections, we can pass them through as-is
+                # The next step handler will resolve them when needed
+                resolved_state["raw_content"] = output
+            else:
+                # Legacy case: direct content array
+                resolved_state["raw_content"] = output
         elif step_name == "step01d_extract":
-            resolved_state["content"] = artifact["output"]
+            # Handle reference collections from step01d_extract  
+            output = artifact["output"]
+            if isinstance(output, dict) and output.get("type") == "content_collection_refs":
+                # For reference collections, we can pass them through as-is
+                resolved_state["processed_content"] = output
+            else:
+                # Legacy case: direct content array
+                resolved_state["processed_content"] = output
         else:
             # For unknown steps, try to merge the artifact output
             if isinstance(artifact["output"], dict):
