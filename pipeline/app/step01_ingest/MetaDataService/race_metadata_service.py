@@ -90,7 +90,9 @@ class RaceMetadataService:
                 default_ttl_hours=cache_ttl_hours,
             )
 
+        # Comprehensive office type definitions supporting all election levels
         self.office_info = {
+            # Federal offices
             "senate": {
                 "full": "U.S. Senate",
                 "type": "federal",
@@ -103,11 +105,141 @@ class RaceMetadataService:
                 "term_years": 2,
                 "issues": ["Healthcare", "Economy", "Education", "Immigration"],
             },
+            # State executive offices
             "governor": {
                 "full": "Governor",
                 "type": "state",
                 "term_years": 4,
                 "issues": ["Economy", "Education", "Healthcare", "Climate/Energy"],
+            },
+            "lieutenant-governor": {
+                "full": "Lieutenant Governor",
+                "type": "state",
+                "term_years": 4,
+                "issues": ["Economy", "Education", "Healthcare"],
+            },
+            "attorney-general": {
+                "full": "Attorney General",
+                "type": "state",
+                "term_years": 4,
+                "issues": ["Social Justice", "Guns & Safety", "Immigration"],
+            },
+            "secretary-of-state": {
+                "full": "Secretary of State",
+                "type": "state",
+                "term_years": 4,
+                "issues": ["Election Reform", "Economy"],
+            },
+            "treasurer": {
+                "full": "State Treasurer",
+                "type": "state",
+                "term_years": 4,
+                "issues": ["Economy", "Education"],
+            },
+            "comptroller": {
+                "full": "Comptroller",
+                "type": "state",
+                "term_years": 4,
+                "issues": ["Economy"],
+            },
+            "auditor": {
+                "full": "State Auditor",
+                "type": "state",
+                "term_years": 4,
+                "issues": ["Economy"],
+            },
+            # State legislative offices
+            "state-senate": {
+                "full": "State Senate",
+                "type": "state",
+                "term_years": 4,
+                "issues": ["Economy", "Education", "Healthcare"],
+            },
+            "state-house": {
+                "full": "State House of Representatives",
+                "type": "state",
+                "term_years": 2,
+                "issues": ["Economy", "Education", "Healthcare"],
+            },
+            "state-assembly": {
+                "full": "State Assembly",
+                "type": "state",
+                "term_years": 2,
+                "issues": ["Economy", "Education", "Healthcare"],
+            },
+            # Other statewide offices
+            "railroad-commissioner": {
+                "full": "Railroad Commissioner",
+                "type": "state",
+                "term_years": 6,
+                "issues": ["Climate/Energy", "Economy"],
+            },
+            "agriculture-commissioner": {
+                "full": "Agriculture Commissioner",
+                "type": "state",
+                "term_years": 4,
+                "issues": ["Economy", "Climate/Energy"],
+            },
+            "insurance-commissioner": {
+                "full": "Insurance Commissioner",
+                "type": "state",
+                "term_years": 4,
+                "issues": ["Healthcare", "Economy"],
+            },
+            "superintendent": {
+                "full": "Superintendent of Public Instruction",
+                "type": "state",
+                "term_years": 4,
+                "issues": ["Education"],
+            },
+            # Local/Municipal offices
+            "mayor": {
+                "full": "Mayor",
+                "type": "local",
+                "term_years": 4,
+                "issues": ["Economy", "Education", "Guns & Safety", "Social Justice"],
+            },
+            "city-council": {
+                "full": "City Council",
+                "type": "local",
+                "term_years": 4,
+                "issues": ["Economy", "Education", "Guns & Safety"],
+            },
+            "county-executive": {
+                "full": "County Executive",
+                "type": "local",
+                "term_years": 4,
+                "issues": ["Economy", "Education", "Healthcare"],
+            },
+            "county-commissioner": {
+                "full": "County Commissioner",
+                "type": "local",
+                "term_years": 4,
+                "issues": ["Economy", "Education"],
+            },
+            "school-board": {
+                "full": "School Board",
+                "type": "local",
+                "term_years": 4,
+                "issues": ["Education"],
+            },
+            "sheriff": {
+                "full": "Sheriff",
+                "type": "local",
+                "term_years": 4,
+                "issues": ["Guns & Safety", "Social Justice"],
+            },
+            "district-attorney": {
+                "full": "District Attorney",
+                "type": "local",
+                "term_years": 4,
+                "issues": ["Social Justice", "Guns & Safety"],
+            },
+            "judge": {
+                "full": "Judge",
+                "type": "state",
+                "term_years": 6,
+                "issues": ["Social Justice"],
             },
         }
 
@@ -323,14 +455,18 @@ class RaceMetadataService:
 
     def _seed_urls(self, state: str, office: str, year: int, district: Optional[str]) -> List[str]:
         """
-        Canonical seeds (2–3):
-          - Wikipedia
-          - Ballotpedia (NOTE: year at the end)
-          - FEC list for federal races
+        Generate canonical seed URLs for any election type.
+        Supports federal, state, and local elections.
         """
         state_name = STATE_NAME.get(state, state).replace(" ", "_")
+        state_name_readable = STATE_NAME.get(state, state)
         seeds: List[str] = []
 
+        # Get office info for determining election type
+        office_data = self.office_info.get(office, {"type": "state"})
+        race_type = office_data.get("type", "state")
+
+        # Federal races - U.S. Senate and U.S. House
         if office == "senate":
             wiki = f"https://en.wikipedia.org/wiki/{year}_United_States_Senate_election_in_{state_name}"
             bp = f"https://ballotpedia.org/United_States_Senate_election_in_{state_name},_{year}"
@@ -341,11 +477,102 @@ class RaceMetadataService:
             bp = f"https://ballotpedia.org/United_States_House_of_Representatives_elections_in_{state_name},_{year}"
             fec = self._fec_url("house", state, year, district)
             seeds.extend([wiki, bp, fec])
+        # Statewide executive offices
+        elif office == "governor":
+            wiki = f"https://en.wikipedia.org/wiki/{year}_{state_name}_gubernatorial_election"
+            bp = f"https://ballotpedia.org/{state_name_readable}_gubernatorial_election,_{year}"
+            seeds.extend([wiki, bp])
+        elif office in ("lieutenant-governor", "lieutenant_governor"):
+            bp = f"https://ballotpedia.org/{state_name_readable}_Lieutenant_Governor_election,_{year}"
+            wiki = f"https://en.wikipedia.org/wiki/{year}_{state_name}_elections"
+            seeds.extend([bp, wiki])
+        elif office in ("attorney-general", "attorney_general"):
+            bp = f"https://ballotpedia.org/{state_name_readable}_Attorney_General_election,_{year}"
+            wiki = f"https://en.wikipedia.org/wiki/{year}_{state_name}_elections"
+            seeds.extend([bp, wiki])
+        elif office in ("secretary-of-state", "secretary_of_state"):
+            bp = f"https://ballotpedia.org/{state_name_readable}_Secretary_of_State_election,_{year}"
+            wiki = f"https://en.wikipedia.org/wiki/{year}_{state_name}_elections"
+            seeds.extend([bp, wiki])
+        elif office == "treasurer":
+            bp = f"https://ballotpedia.org/{state_name_readable}_Treasurer_election,_{year}"
+            seeds.append(bp)
+        elif office == "comptroller":
+            bp = f"https://ballotpedia.org/{state_name_readable}_Comptroller_election,_{year}"
+            seeds.append(bp)
+        elif office == "auditor":
+            bp = f"https://ballotpedia.org/{state_name_readable}_State_Auditor_election,_{year}"
+            seeds.append(bp)
+        # State legislative races
+        elif office in ("state-senate", "state_senate"):
+            bp = f"https://ballotpedia.org/{state_name_readable}_State_Senate_elections,_{year}"
+            if district:
+                bp_district = f"https://ballotpedia.org/{state_name_readable}_State_Senate_District_{district}"
+                seeds.extend([bp_district, bp])
+            else:
+                seeds.append(bp)
+        elif office in ("state-house", "state_house", "state-assembly", "state_assembly"):
+            bp = f"https://ballotpedia.org/{state_name_readable}_House_of_Representatives_elections,_{year}"
+            if district:
+                bp_district = f"https://ballotpedia.org/{state_name_readable}_House_of_Representatives_District_{district}"
+                seeds.extend([bp_district, bp])
+            else:
+                seeds.append(bp)
+        # Local races
+        elif office == "mayor":
+            # For mayors, we need a city name which might be in district field
+            if district:
+                city = district.replace("-", "_").replace(" ", "_").title()
+                bp = f"https://ballotpedia.org/{city},_{state_name_readable}_mayoral_election,_{year}"
+                seeds.append(bp)
+            # Fall back to general elections page
+            bp_state = f"https://ballotpedia.org/{state_name}_elections,_{year}"
+            seeds.append(bp_state)
+        elif office in ("city-council", "city_council"):
+            if district:
+                city = district.replace("-", "_").replace(" ", "_").title()
+                bp = f"https://ballotpedia.org/{city},_{state_name_readable}_city_council_election,_{year}"
+                seeds.append(bp)
+            bp_state = f"https://ballotpedia.org/{state_name}_elections,_{year}"
+            seeds.append(bp_state)
+        elif office in ("county-commissioner", "county_commissioner", "county-executive", "county_executive"):
+            if district:
+                county = district.replace("-", "_").replace(" ", "_").title()
+                bp = f"https://ballotpedia.org/{county}_County,_{state_name_readable}"
+                seeds.append(bp)
+            bp_state = f"https://ballotpedia.org/{state_name}_elections,_{year}"
+            seeds.append(bp_state)
+        elif office in ("school-board", "school_board"):
+            bp_state = f"https://ballotpedia.org/{state_name}_school_board_elections,_{year}"
+            seeds.append(bp_state)
+        elif office == "sheriff":
+            if district:
+                county = district.replace("-", "_").replace(" ", "_").title()
+                bp = f"https://ballotpedia.org/{county}_County,_{state_name_readable}_Sheriff_election,_{year}"
+                seeds.append(bp)
+            bp_state = f"https://ballotpedia.org/{state_name}_elections,_{year}"
+            seeds.append(bp_state)
+        elif office in ("district-attorney", "district_attorney"):
+            if district:
+                bp = f"https://ballotpedia.org/{district}_District_Attorney_election,_{year}"
+                seeds.append(bp)
+            bp_state = f"https://ballotpedia.org/{state_name}_elections,_{year}"
+            seeds.append(bp_state)
+        # Other statewide offices (railroad commissioner, agriculture commissioner, etc.)
+        elif race_type == "state":
+            office_formatted = office.replace("-", "_").replace("_", " ").title().replace(" ", "_")
+            bp = f"https://ballotpedia.org/{state_name_readable}_{office_formatted}_election,_{year}"
+            wiki = f"https://en.wikipedia.org/wiki/{year}_{state_name}_elections"
+            seeds.extend([bp, wiki])
+        # Generic fallback for any unrecognized office
         else:
-            # non-federal minimal attempt
-            seeds.append(f"https://ballotpedia.org/{STATE_NAME.get(state, state).replace(' ', '_')}_elections,_" f"{year}")
+            bp_state = f"https://ballotpedia.org/{state_name}_elections,_{year}"
+            wiki = f"https://en.wikipedia.org/wiki/{year}_{state_name}_elections"
+            # Also add Vote411 for local elections
+            vote411 = f"https://www.vote411.org/ballot"
+            seeds.extend([bp_state, wiki, vote411])
 
-        return [u for u in seeds if u][:3]
+        return [u for u in seeds if u][:4]  # Allow up to 4 seeds for better coverage
 
     async def _fetch_and_extract_docs(self, urls: List[str], trace_id: str) -> List[Dict[str, str]]:
         # Fetch

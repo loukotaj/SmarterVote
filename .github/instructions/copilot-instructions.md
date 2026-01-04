@@ -22,7 +22,7 @@ Each phase has its own service classes (e.g., `SourceDiscoveryEngine`, `WebConte
 
 ### RaceJSON v0.2 Format
 All race data follows the standardized schema in `shared/models.py` (imported via `pipeline/app/schema.py`):
-- **11 Canonical Issues**: Healthcare, Economy, Climate/Energy, Reproductive Rights, Immigration, Guns & Safety, Foreign Policy, Social Justice, Education, Tech & AI, Election Reform (see `CanonicalIssue` enum)
+- **12 Canonical Issues**: Healthcare, Economy, Climate/Energy, Reproductive Rights, Immigration, Guns & Safety, Foreign Policy, Social Justice, Education, Tech & AI, Election Reform, Local Issues (see `CanonicalIssue` enum)
 - **Confidence Levels**: `high|medium|low|unknown` based on 2-of-3 LLM consensus
 - **Source Types**: website, pdf, api, social_media, news, government, fresh_search
 
@@ -123,17 +123,14 @@ The system uses 3 AI models (GPT-4o, Claude-3.5, grok-3) for consensus:
 - `pipeline/app/schema.py` - Pipeline-specific imports from shared models
 - `pipeline/app/__main__.py` - Pipeline orchestration and workflow
 - `web/src/lib/types.ts` - Frontend type definitions
-- `setup-dev.ps1` - Development environment setup (PowerShell)
-- `dev-start.ps1` - Start development servers (PowerShell)
 - `infra/main.tf` - Infrastructure as code patterns
 - `docs/architecture.md` - Detailed system design
-- `docs/issues-list.md` - Current development priorities
-- `docs/testing-guide.md` - Testing strategies and conventions
+- `docs/local-development.md` - Development setup guide
+- `AGENTS.md` - AI assistant instructions
 
 ## 🖥️ Windows Development Notes
 
 - **Use PowerShell**: All development scripts are optimized for PowerShell (.ps1 files)
-- **Avoid VS Code Tasks**: Use direct PowerShell commands instead of tasks.json for reliability
 - **Virtual Environment**: Project uses `.venv` directory for Python dependencies
 - **Prerequisites**: Python 3.10+, Node.js 22+, npm 10+
 - **Data Directory**: `data/published/` contains processed race JSON files
@@ -143,6 +140,6 @@ The system uses 3 AI models (GPT-4o, Claude-3.5, grok-3) for consensus:
 
 - **Corpus-First**: Always build vector database before analysis (ChromaDB integration)
 - **Bias Reduction**: Multi-model consensus is core to accuracy - never use single LLM
-- **11 Canonical Issues**: Maintain consistency across all races for comparability
+- **12 Canonical Issues**: Maintain consistency across all races for comparability
 - **Source Attribution**: Track content lineage for transparency and validation
 - **Confidence Scoring**: Include reliability metrics in all analysis outputs

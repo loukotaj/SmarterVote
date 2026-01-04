@@ -1,0 +1,3 @@
+# This directory contains cached Serper API responses for reproducible integration tests.
+# Cache files are JSON with MD5-hashed filenames based on query parameters.
+# These caches never expire to ensure test reproducibility.

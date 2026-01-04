@@ -31,6 +31,9 @@ class ConsensusArbitrationEngine:
         """Initialize the arbitration engine with provider registry."""
         self.cheap_mode = cheap_mode
 
+        # Sync registry's cheap mode with our setting
+        registry.set_cheap_mode(cheap_mode)
+
         # Log available providers for arbitration
         providers = registry.list_providers()
         logger.info(f"⚖️  Available AI providers for arbitration: {', '.join(providers)}")

@@ -8,7 +8,7 @@ This document describes the Auth0 authentication implementation for the SmarterV
 
 ### Security Model
 - **Frontend Authentication**: Auth0 login required for `/admin/*` routes
-- **API Authentication**: JWT token verification for all sensitive pipeline endpoints  
+- **API Authentication**: JWT token verification for all sensitive pipeline endpoints
 - **Cloud Run Access**: Public at infrastructure level, secured at application level
 - **CORS**: Configured to allow credentials for auth headers
 
@@ -20,7 +20,7 @@ This document describes the Auth0 authentication implementation for the SmarterV
 - **Protected Routes**: `/admin` and `/admin/pipeline`
 - **Token Management**: Automatic token refresh with `getTokenSilently()`
 
-#### 2. Pipeline Client (FastAPI Backend)  
+#### 2. Pipeline Client (FastAPI Backend)
 - **Location**: `pipeline_client/backend/main.py`
 - **Implementation**: JWT verification using `python-jose`
 - **Protected Endpoints**: 15 endpoints with `dependencies=[Depends(verify_token)]`
@@ -45,14 +45,14 @@ VITE_API_BASE=https://pipeline-client-dev-ddsvfazica-uc.a.run.app
 ```hcl
 # secrets.tfvars
 auth0_domain   = "your-auth0-domain"
-auth0_audience = "your-auth0-audience"  
+auth0_audience = "your-auth0-audience"
 allowed_origins = ["https://your-frontend-domain.com"]
 ```
 
 ### Pipeline Client Settings
 The pipeline client uses environment variables set by Terraform:
 - `AUTH0_DOMAIN`: Auth0 tenant domain
-- `AUTH0_AUDIENCE`: API audience identifier  
+- `AUTH0_AUDIENCE`: API audience identifier
 - `ALLOWED_ORIGINS`: CORS allowed origins (comma-separated)
 
 ## Authentication Flow
@@ -72,7 +72,7 @@ All sensitive pipeline endpoints require authentication:
 
 ```python
 @app.post("/run/step01", dependencies=[Depends(verify_token)])
-@app.get("/runs", dependencies=[Depends(verify_token)])  
+@app.get("/runs", dependencies=[Depends(verify_token)])
 @app.get("/artifacts", dependencies=[Depends(verify_token)])
 @app.post("/api/execute", dependencies=[Depends(verify_token)])
 # ... and 11 more endpoints
@@ -90,7 +90,7 @@ All sensitive pipeline endpoints require authentication:
 - Allows local development without Auth0 configuration
 - Frontend can still test UI components
 
-### Production Deployment  
+### Production Deployment
 - Auth0 variables set via Terraform
 - JWT verification enforced
 - All admin functionality requires authentication
@@ -123,7 +123,7 @@ Expected output: All tests pass (4/4) ✅
 
 ### Verification Steps
 1. Check Terraform outputs for service URLs
-2. Verify environment variables in Cloud Run console  
+2. Verify environment variables in Cloud Run console
 3. Test API endpoints return 401 without valid token
 4. Confirm frontend redirects to Auth0 login
 

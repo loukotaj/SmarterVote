@@ -17,13 +17,19 @@ export async function getRace(
   } catch (error) {
     // If fallback is enabled and we have sample data for this race, use it
     if (useFallback && sampleRaces[id]) {
-      console.warn(`API request failed for race ${id}, falling back to sample data:`, error);
+      console.warn(
+        `API request failed for race ${id}, falling back to sample data:`,
+        error
+      );
       return sampleRaces[id];
     }
 
     // If no specific sample data exists but fallback is enabled, use generic sample
     if (useFallback) {
-      console.warn(`API request failed for race ${id}, falling back to generic sample data:`, error);
+      console.warn(
+        `API request failed for race ${id}, falling back to generic sample data:`,
+        error
+      );
       return {
         ...sampleRaces["sample-race"],
         id,
@@ -49,19 +55,22 @@ export async function getRaceSummaries(
   } catch (error) {
     // If fallback is enabled, create summaries from sample races
     if (useFallback) {
-      console.warn(`API request failed for race summaries, falling back to sample data:`, error);
-      return Object.values(sampleRaces).map(race => ({
+      console.warn(
+        `API request failed for race summaries, falling back to sample data:`,
+        error
+      );
+      return Object.values(sampleRaces).map((race) => ({
         id: race.id,
         title: race.title,
         office: race.office,
         jurisdiction: race.jurisdiction,
         election_date: race.election_date,
         updated_utc: race.updated_utc,
-        candidates: race.candidates.map(candidate => ({
+        candidates: race.candidates.map((candidate) => ({
           name: candidate.name,
           party: candidate.party,
-          incumbent: candidate.incumbent
-        }))
+          incumbent: candidate.incumbent,
+        })),
       }));
     }
 
@@ -75,7 +84,7 @@ export async function getAllRaces(
   fetchFn: typeof fetch = fetch,
   useFallback: boolean = true
 ): Promise<Race[]> {
-  console.warn('getAllRaces is deprecated, use getRaceSummaries instead');
+  console.warn("getAllRaces is deprecated, use getRaceSummaries instead");
   try {
     const res = await fetchFn(`${API_BASE}/races`);
     if (!res.ok) {
@@ -85,7 +94,10 @@ export async function getAllRaces(
   } catch (error) {
     // If fallback is enabled, return all sample races
     if (useFallback) {
-      console.warn(`API request failed for all races, falling back to sample data:`, error);
+      console.warn(
+        `API request failed for all races, falling back to sample data:`,
+        error
+      );
       return Object.values(sampleRaces);
     }
 

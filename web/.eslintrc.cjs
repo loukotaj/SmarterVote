@@ -8,6 +8,7 @@ module.exports = {
     "prettier",
   ],
   plugins: ["@typescript-eslint"],
+  ignorePatterns: ["build/**", ".svelte-kit/**", "node_modules/**"],
   env: {
     browser: true,
     node: true,
@@ -16,6 +17,14 @@ module.exports = {
   parserOptions: {
     sourceType: "module",
     ecmaVersion: 2020,
+  },
+  rules: {
+    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
+    ],
+    "no-useless-escape": "warn",
   },
   overrides: [
     {
@@ -27,6 +36,12 @@ module.exports = {
     },
     {
       files: ["**/*.d.ts"],
+      rules: {
+        "@typescript-eslint/no-explicit-any": "off",
+      },
+    },
+    {
+      files: ["**/*.test.ts", "**/*.test.js"],
       rules: {
         "@typescript-eslint/no-explicit-any": "off",
       },

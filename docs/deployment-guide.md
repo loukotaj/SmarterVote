@@ -199,10 +199,9 @@ gsutil cp gs://smartervote-terraform-state/terraform/state/default.tfstate.12345
 
 ## 🔗 Related Documentation
 
-- [Architecture Overview](../docs/architecture.md)
-- [Local Development](../docs/local-development.md)
-- [Testing Guide](../docs/testing-guide.md)
-- [Deployment Validation](../infra/DEPLOYMENT-VALIDATION.md)
+- [Architecture Overview](architecture.md)
+- [Local Development](local-development.md)
+- [Infrastructure README](../infra/README.md)
 
 ## 🆘 Support
 
@@ -213,13 +212,7 @@ If you encounter issues:
    .\scripts\validate-infra.ps1 -Environment ENVIRONMENT
    ```
 
-2. **Review GitHub Actions Logs**
+2. **Review Terraform Output**
    ```bash
-   gh run list --workflow=terraform-deploy.yaml
-   gh run view RUN_ID --log
+   terraform plan -var-file=secrets.tfvars
    ```
-
-3. **Emergency Contact**
-   - Slack: `#smartervote-alerts`
-   - Email: `devops@smartervote.example`
-   - On-call: Check PagerDuty rotation

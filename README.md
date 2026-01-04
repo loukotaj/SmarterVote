@@ -1,65 +1,99 @@
 # SmarterVote
 
-AI-powered electoral analysis with a corpus-first pipeline and multi-LLM consensus.
+AI-powered electoral analysis with corpus-first processing and multi-LLM consensus.
 
-## What it is
-- Pipeline Client (FastAPI): official execution engine for the 4-step pipeline producing RaceJSON v0.2
-- Services (FastAPI): enqueue-api (jobs), races-api (serve published data)
-- Web (SvelteKit + TypeScript): static site consuming races-api
-- Infra (Terraform + GCP): Cloud Run, Pub/Sub, Secret Manager, Cloud Storage
+## Overview
 
-See docs for details: `docs/architecture.md` and `docs/issues-list.md`.
+SmarterVote processes electoral data through a 4-step pipeline that builds comprehensive content understanding before generating summaries. Multiple AI models validate each other's output for reliability.
 
-## Quick start
+**Pipeline**: INGEST → CORPUS → SUMMARIZE → PUBLISH
 
-Prereqs
+**Components**:
+- `pipeline_client/`: Local execution engine (FastAPI + CLI)
+- `services/races-api/`: API serving published race data
+- `web/`: SvelteKit static site
+- `infra/`: Terraform for GCP deployment
+
+## Quick Start
+
+### Prerequisites
 - Python 3.10+
 - Node.js 22+
-- Terraform 1.5+ (for infra)
-- Docker (for images)
 
-Setup
-- Copy env file: `.env.example` → `.env` and fill keys (OpenAI/Anthropic/xAI, Google Search)
-- Create venv and install:
-  - Windows PowerShell
-    - `python -m venv .venv`
-    - `.venv\Scripts\Activate.ps1`
-    - `pip install -r pipeline/requirements.txt`
-  - Web: `cd web && npm install`
+### Setup
 
-Dev commands
-- Test vector DB: `python -m pytest pipeline/app/step02_corpus/test_service.py -v`
-- Run all tests: `python -m pytest -v`
-- Start web: `cd web && npm run dev`
-- Start races API: `cd services/races-api && python main.py`
-- Run Step 01 via pipeline client: `python pipeline_client/backend/main.py <race-id>`
+```powershell
+# Create virtual environment
+python -m venv .venv
+.venv\Scripts\Activate.ps1
 
-## Pipeline workflow
-INGEST → CORPUS → SUMMARIZE → PUBLISH
+# Install pipeline dependencies
+pip install -r pipeline/requirements.txt
 
-- Vector DB: ChromaDB (corpus-first)
-- Multi-LLM: GPT-4o, Claude-3.5, grok-3 with 2-of-3 consensus
-- Cheap Mode: GPT-4o-mini, Claude-3-Haiku, Grok-3-mini for cost-effective processing
-- Output: RaceJSON v0.2, with confidence and sources
-
-## Running the Pipeline
-
-Use the pipeline client to execute Step 01 (metadata → ingest):
-
-```bash
-python pipeline_client/backend/main.py mo-senate-2024
+# Copy environment file and add API keys
+copy .env.example .env
+# Edit .env with: OPENAI_API_KEY, ANTHROPIC_API_KEY, XAI_API_KEY, SERPER_API_KEY
 ```
 
-## Docs
-- Architecture: `docs/architecture.md`
-- Local dev: `docs/local-development.md`
-- Testing: `docs/testing-guide.md`
-- Infra: `infra/README.md`
-- Web: `web/README.md`
+### Run Pipeline
 
-## Contributing
-- Run linters/tests before PRs
-- Keep types/models in sync (Python Pydantic ↔ web `src/lib/types.ts`)
+```powershell
+# Run full pipeline for a race
+python pipeline_client/run.py mo-senate-2024
+
+# Or use the start script
+cd pipeline_client
+.\start.ps1 mo-senate-2024
+```
+
+### Run Web UI
+
+```powershell
+# Start races API (serves published data)
+cd services/races-api
+python main.py
+
+# In another terminal, start web
+cd web
+npm install
+npm run dev
+```
+
+## Project Structure
+
+```
+pipeline/app/           # Core pipeline modules (schema, providers, steps)
+pipeline_client/        # Execution engine (backend/, run.py)
+services/races-api/     # REST API for race data
+shared/                 # Pydantic models shared across components
+web/                    # SvelteKit frontend
+infra/                  # Terraform infrastructure (disabled by default)
+data/published/         # Output JSON files
+data/chroma_db/         # Vector database
+```
+
+## Key Concepts
+
+- **12 Canonical Issues**: Healthcare, Economy, Climate/Energy, Reproductive Rights, Immigration, Guns & Safety, Foreign Policy, Social Justice, Education, Tech & AI, Election Reform, Local Issues
+- **Multi-LLM Consensus**: GPT-4o, Claude-3.5, grok-3 (or mini variants in cheap mode)
+- **RaceJSON v0.2**: Output format with candidates, issues, confidence levels, sources
+- **ChromaDB**: Vector corpus for semantic search
+
+## Configuration
+
+Key environment variables (see `.env.example`):
+- `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, `XAI_API_KEY` - LLM providers
+- `SERPER_API_KEY` - Web search
+- `SMARTERVOTE_CHEAP_MODE=true` - Use mini models for cost savings
+- `CHROMA_PERSIST_DIR=./data/chroma_db` - Vector DB location
+
+## Docs
+
+- [Architecture](docs/architecture.md) - System design and pipeline details
+- [Local Development](docs/local-development.md) - Setup and testing
+- [Deployment](docs/deployment-guide.md) - Cloud deployment (GCP)
+- [Infrastructure](infra/README.md) - Terraform modules
 
 ## License
-CC BY-NC-SA 4.0 (see `LICENSE`).
+
+CC BY-NC-SA 4.0 (see LICENSE)

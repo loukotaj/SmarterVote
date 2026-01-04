@@ -16,6 +16,7 @@ from typing import Any, Dict, List, Optional, Set, Tuple
 from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
 
 from ..schema import CanonicalIssue, FreshSearchQuery, RaceMetadata, Source, SourceType
+from .search_cache import SearchCache, get_search_cache
 
 logger = logging.getLogger(__name__)
 
@@ -112,12 +113,18 @@ class SearchUtils:
 
     def __init__(self, search_config: dict):
         self.search_config = search_config
+        # In-memory cache for short-term deduplication within a run
         self.cache: Dict[str, Tuple[datetime, List[Source]]] = {}
         self.cache_ttl = search_config.get("cache_ttl_seconds", 300)
         self.per_host_concurrency = search_config.get("per_host_concurrency", 5)
         self._host_semaphores: Dict[str, asyncio.Semaphore] = defaultdict(lambda: asyncio.Semaphore(self.per_host_concurrency))
         # Choose which external search provider to use. Defaults to Serper, with Google CSE as a fallback option.
         self.search_provider = search_config.get("search_provider", "serper").lower()
+
+        # Persistent search cache for cross-run caching (saves API costs)
+        cache_ttl_hours = search_config.get("persistent_cache_ttl_hours", 168)  # Default 7 days
+        cache_dir = search_config.get("cache_dir")
+        self._persistent_cache: SearchCache = SearchCache(default_ttl_hours=cache_ttl_hours, cache_dir=cache_dir)
 
         self.issue_synonyms: Dict[CanonicalIssue, List[str]] = {
             CanonicalIssue.HEALTHCARE: ["health care", "medical", "medicare", "medicaid"],
@@ -145,20 +152,95 @@ class SearchUtils:
     # ------------------------- public search APIs ------------------------- #
 
     async def search_google_custom(self, query: FreshSearchQuery, issue: CanonicalIssue) -> List[Source]:
-        """Perform a web search using the configured provider and return raw results."""
+        """Perform a web search using the configured provider and return raw results.
+
+        Uses a two-tier caching strategy:
+        1. In-memory cache for short-term deduplication within a pipeline run
+        2. Persistent SQLite cache for cross-run caching (saves API costs in local dev)
+        """
         cache_key = f"{query.race_id}:{query.text}:{getattr(query, 'date_restrict', '')}:{getattr(query, 'max_results', '')}"
         now = datetime.utcnow()
+
+        # Check in-memory cache first (fastest)
         cached = self.cache.get(cache_key)
         if cached and now - cached[0] < timedelta(seconds=self.cache_ttl):
             return cached[1]
 
+        # Check persistent cache (still faster than API call)
+        persistent_cached = self._persistent_cache.get(query_text=query.text, race_id=query.race_id)
+        if persistent_cached:
+            logger.debug("Search cache HIT for query: %s", query.text[:50])
+            # Reconstruct Source objects from cached dicts
+            cached_results = self._sources_from_cache(persistent_cached.get("results", []))
+            # Also store in in-memory cache for this run
+            self.cache[cache_key] = (now, cached_results)
+            return cached_results
+
+        logger.debug("Search cache MISS for query: %s", query.text[:50])
+
+        # Perform actual search
         if self.search_provider == "serper":
             results = await self._search_serper(query, issue, now)
         else:
             results = await self._search_google_cse(query, issue, now)
 
+        # Store in both caches
         self.cache[cache_key] = (datetime.utcnow(), results)
+        # Convert Source objects to dicts for persistent cache
+        self._persistent_cache.set(
+            query_text=query.text,
+            results=self._sources_to_cache(results),
+            race_id=query.race_id,
+            provider=self.search_provider,
+        )
+
         return results
+
+    def _sources_to_cache(self, sources: List[Source]) -> List[Dict[str, Any]]:
+        """Convert Source objects to serializable dicts for caching."""
+        cached = []
+        for src in sources:
+            cached.append(
+                {
+                    "url": src.url,
+                    "type": src.type.value if hasattr(src.type, "value") else str(src.type),
+                    "title": src.title,
+                    "description": src.description,
+                    "last_accessed": src.last_accessed.isoformat() if src.last_accessed else None,
+                    "published_at": src.published_at.isoformat() if src.published_at else None,
+                    "is_fresh": getattr(src, "is_fresh", False),
+                }
+            )
+        return cached
+
+    def _sources_from_cache(self, cached: List[Dict[str, Any]]) -> List[Source]:
+        """Reconstruct Source objects from cached dicts."""
+        sources = []
+        for item in cached:
+            try:
+                source_type = self._choose_type(item.get("type", "WEBSITE"))
+                last_accessed = None
+                if item.get("last_accessed"):
+                    last_accessed = datetime.fromisoformat(item["last_accessed"])
+                published_at = None
+                if item.get("published_at"):
+                    published_at = datetime.fromisoformat(item["published_at"])
+
+                sources.append(
+                    Source(
+                        url=item.get("url", ""),
+                        type=source_type,
+                        title=item.get("title", ""),
+                        description=item.get("description", ""),
+                        last_accessed=last_accessed,
+                        published_at=published_at,
+                        is_fresh=item.get("is_fresh", False),
+                    )
+                )
+            except Exception as e:
+                logger.warning(f"Failed to reconstruct Source from cache: {e}")
+                continue
+        return sources
 
     async def _search_google_cse(self, query: FreshSearchQuery, issue: CanonicalIssue, now: datetime) -> List[Source]:
         """Internal helper for Google Custom Search API."""
@@ -510,28 +592,45 @@ class SearchUtils:
         trusted_only: bool = True,
     ) -> List[FreshSearchQuery]:
         state_part = state
+        state_full = self._STATE_MAP.get(state, state)
         district_text = ""
         if district:
             district_text = " at-large" if str(district).upper() == "AL" else f" district {district}"
 
+        # Classify race type to determine appropriate search targets
+        race_type = self._classify_race_type(office)
+
         if trusted_only:
             targets = [
-                f"site:ballotpedia.org {year} {state_part}{district_text} {office} election",
-                f"site:wikipedia.org {year} {state_part}{district_text} {office} election",
+                f"site:ballotpedia.org {year} {state_full}{district_text} {office.replace('-', ' ')} election",
+                f"site:wikipedia.org {year} {state_full}{district_text} {office.replace('-', ' ')} election",
             ]
-            if office in {"senate", "house"}:
+            # Federal races get FEC
+            if race_type == "federal":
                 targets.append(f"site:fec.gov {year} {state} {office} candidates")
+            # State races get state elections site
+            elif race_type == "state":
+                targets.append(f"site:vote411.org {state_full} {office.replace('-', ' ')} {year}")
+            # Local races get additional sources
+            elif race_type == "local":
+                targets.append(f"site:vote411.org {state_full}{district_text} {office.replace('-', ' ')} {year}")
+                # Add local news searches for local elections
+                targets.append(f"{state_full}{district_text} {office.replace('-', ' ')} election {year} candidates")
         else:
-            base = f"{year} {state_part}{district_text} {office}"
+            base = f"{year} {state_full}{district_text} {office.replace('-', ' ')}"
             targets = [
                 f"{base} candidates",
                 f"{base} candidate list",
                 f"{base} ballotpedia OR wikipedia OR site:.gov",
                 f"{base} official campaign website",
             ]
+            # For local elections, add local news sources
+            if race_type == "local":
+                targets.append(f"{base} local news")
+                targets.append(f"{base} voter guide")
 
         out: List[FreshSearchQuery] = []
-        for t in targets if trusted_only else targets:
+        for t in targets:
             out.append(
                 FreshSearchQuery(
                     text=t,
@@ -544,6 +643,46 @@ class SearchUtils:
                 )
             )
         return out
+
+    def _classify_race_type(self, office_type: str) -> str:
+        """
+        Classify an office type as federal, state, or local.
+
+        Args:
+            office_type: The type of office (e.g., 'senate', 'governor', 'mayor')
+
+        Returns:
+            'federal', 'state', or 'local'
+        """
+        federal_offices = {"senate", "house"}
+        local_offices = {
+            "mayor",
+            "city-council",
+            "city_council",
+            "county-commissioner",
+            "county_commissioner",
+            "county-executive",
+            "county_executive",
+            "school-board",
+            "school_board",
+            "sheriff",
+            "district-attorney",
+            "district_attorney",
+            "alderman",
+            "town-council",
+            "town_council",
+            "supervisor",
+            "selectman",
+        }
+
+        office_lower = office_type.lower().replace("_", "-")
+
+        if office_lower in federal_offices:
+            return "federal"
+        elif office_lower in local_offices:
+            return "local"
+        else:
+            return "state"
 
     # ------------------------- utilities ------------------------- #
 
@@ -646,3 +785,23 @@ class SearchUtils:
             return urlunparse(cleaned)
         except Exception:
             return url
+
+    # ------------------------- cache management ------------------------- #
+
+    def get_cache_stats(self) -> Dict[str, Any]:
+        """Get statistics about the persistent search cache."""
+        return self._persistent_cache.get_stats()
+
+    def clear_cache_for_race(self, race_id: str) -> int:
+        """Clear all cached search results for a specific race.
+
+        Returns the number of entries deleted.
+        """
+        return self._persistent_cache.clear_for_race(race_id)
+
+    def cleanup_expired_cache(self) -> int:
+        """Remove expired entries from the persistent cache.
+
+        Returns the number of entries removed.
+        """
+        return self._persistent_cache.cleanup_expired()

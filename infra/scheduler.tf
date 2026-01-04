@@ -1,5 +1,7 @@
 # Cloud Scheduler for nightly race processing
+# DISABLED by default - set enable_pipeline_client = true in variables to deploy
 resource "google_cloud_scheduler_job" "nightly_processing" {
+  count       = var.enable_pipeline_client ? 1 : 0
   name        = "nightly-race-processing-${var.environment}"
   description = "Trigger nightly processing of all active races"
   schedule    = "0 2 * * *" # 2 AM UTC daily
@@ -8,7 +10,7 @@ resource "google_cloud_scheduler_job" "nightly_processing" {
   project     = var.project_id
 
   pubsub_target {
-    topic_name = google_pubsub_topic.race_jobs.id
+    topic_name = google_pubsub_topic.race_jobs[0].id
     data = base64encode(jsonencode({
       job_type = "batch_process"
       trigger  = "scheduler"
@@ -21,6 +23,7 @@ resource "google_cloud_scheduler_job" "nightly_processing" {
 
 # Weekly full refresh (more comprehensive processing)
 resource "google_cloud_scheduler_job" "weekly_refresh" {
+  count       = var.enable_pipeline_client ? 1 : 0
   name        = "weekly-race-refresh-${var.environment}"
   description = "Weekly full refresh of all race data"
   schedule    = "0 1 * * 0" # 1 AM UTC every Sunday
@@ -29,7 +32,7 @@ resource "google_cloud_scheduler_job" "weekly_refresh" {
   project     = var.project_id
 
   pubsub_target {
-    topic_name = google_pubsub_topic.race_jobs.id
+    topic_name = google_pubsub_topic.race_jobs[0].id
     data = base64encode(jsonencode({
       job_type           = "full_refresh"
       trigger            = "scheduler"

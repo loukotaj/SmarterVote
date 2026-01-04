@@ -148,7 +148,8 @@
           <div>
             <p class="fallback-title">Using Sample Data</p>
             <p class="fallback-text">
-              Live data is currently unavailable. The information shown below is sample data for demonstration purposes.
+              Live data is currently unavailable. The information shown below is
+              sample data for demonstration purposes.
             </p>
           </div>
         </div>
@@ -164,9 +165,13 @@
         <div class="candidate-nav">
           <p class="nav-label">Jump to candidate:</p>
           <div class="nav-links">
-            {#each race.candidates as candidate, index}
+            {#each race.candidates as candidate}
               <a
-                href="#{candidate.name.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')}"
+                href="#{candidate.name
+                  .toLowerCase()
+                  .replace(/[^a-z0-9]/g, '-')
+                  .replace(/-+/g, '-')
+                  .replace(/^-|-$/g, '')}"
                 class="nav-link"
               >
                 {candidate.name}
@@ -178,7 +183,7 @@
 
       <div class="candidate-grid">
         {#each race.candidates as candidate}
-          <CandidateCard {candidate} />
+          <CandidateCard {candidate} raceId={race.id} />
         {/each}
       </div>
     </section>
@@ -186,15 +191,19 @@
     <!-- Data Note -->
     <div class="data-note">
       <p class="data-note-title">
-        {usingFallbackData ? "Sample Data Information" : "Data Analysis Information"}
+        {usingFallbackData
+          ? "Sample Data Information"
+          : "Data Analysis Information"}
       </p>
       <p class="data-note-text">
         {#if usingFallbackData}
-          This is sample data for demonstration purposes. The actual race data is currently unavailable.
+          This is sample data for demonstration purposes. The actual race data
+          is currently unavailable.
         {:else}
           Data compiled from public sources and analyzed using AI. Last updated {new Date(
             race.updated_utc
-          ).toLocaleDateString()}. Visit candidate websites for the most current information.
+          ).toLocaleDateString()}. Visit candidate websites for the most current
+          information.
         {/if}
       </p>
     </div>
@@ -204,10 +213,20 @@
       <div class="back-to-top">
         <button
           class="back-to-top-link"
-          on:click={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          on:click={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         >
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+          <svg
+            class="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M5 10l7-7m0 0l7 7m-7-7v18"
+            />
           </svg>
           Back to Top
         </button>

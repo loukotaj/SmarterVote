@@ -24,7 +24,8 @@ export type CanonicalIssue =
   | "Social Justice"
   | "Education"
   | "Tech & AI"
-  | "Election Reform";
+  | "Election Reform"
+  | "Local Issues";
 
 export interface Source {
   url: string;
@@ -92,6 +93,7 @@ export const CANONICAL_ISSUES: CanonicalIssue[] = [
   "Education",
   "Tech & AI",
   "Election Reform",
+  "Local Issues",
 ];
 
 export interface CandidateSummary {

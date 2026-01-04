@@ -361,16 +361,10 @@ class RacePublishingEngine:
                     if metadata["jurisdiction"] == "Unknown Jurisdiction":
                         metadata["jurisdiction"] = potential_state
 
-                # Extract office type from race ID
-                if "senate" in race_id.lower():
-                    if metadata["office"] == "Unknown Office":
-                        metadata["office"] = "U.S. Senate"
-                elif "house" in race_id.lower():
-                    if metadata["office"] == "Unknown Office":
-                        metadata["office"] = "U.S. House of Representatives"
-                elif "governor" in race_id.lower():
-                    if metadata["office"] == "Unknown Office":
-                        metadata["office"] = "Governor"
+                # Extract office type from race ID using comprehensive mapping
+                office_name = self._infer_office_name(race_id)
+                if office_name and metadata["office"] == "Unknown Office":
+                    metadata["office"] = office_name
 
                 # Extract year from race ID
                 if race_parts[-1].isdigit() and len(race_parts[-1]) == 4:
@@ -576,6 +570,80 @@ class RacePublishingEngine:
         except Exception as e:
             logger.error(f"Failed to get race data for {race_id}: {e}")
             return None
+
+    def _infer_office_name(self, race_id: str) -> Optional[str]:
+        """
+        Infer the office display name from a race ID.
+
+        Args:
+            race_id: Race identifier (e.g., 'mo-senate-2024', 'tx-governor-2024')
+
+        Returns:
+            The full office name or None if not found
+        """
+        # Comprehensive office type to display name mapping
+        office_display_names = {
+            # Federal offices
+            "senate": "U.S. Senate",
+            "house": "U.S. House of Representatives",
+            # State executive offices
+            "governor": "Governor",
+            "lieutenant-governor": "Lieutenant Governor",
+            "lieutenant_governor": "Lieutenant Governor",
+            "attorney-general": "Attorney General",
+            "attorney_general": "Attorney General",
+            "secretary-of-state": "Secretary of State",
+            "secretary_of_state": "Secretary of State",
+            "treasurer": "State Treasurer",
+            "state-treasurer": "State Treasurer",
+            "comptroller": "Comptroller",
+            "auditor": "State Auditor",
+            "state-auditor": "State Auditor",
+            # State legislative offices
+            "state-senate": "State Senate",
+            "state_senate": "State Senate",
+            "state-house": "State House of Representatives",
+            "state_house": "State House of Representatives",
+            "state-assembly": "State Assembly",
+            "state_assembly": "State Assembly",
+            "state-representative": "State Representative",
+            # Other statewide offices
+            "railroad-commissioner": "Railroad Commissioner",
+            "agriculture-commissioner": "Agriculture Commissioner",
+            "insurance-commissioner": "Insurance Commissioner",
+            "superintendent": "Superintendent of Public Instruction",
+            "public-instruction": "Superintendent of Public Instruction",
+            # Local offices
+            "mayor": "Mayor",
+            "city-council": "City Council",
+            "city_council": "City Council",
+            "county-executive": "County Executive",
+            "county_executive": "County Executive",
+            "county-commissioner": "County Commissioner",
+            "county_commissioner": "County Commissioner",
+            "school-board": "School Board",
+            "school_board": "School Board",
+            "sheriff": "Sheriff",
+            "district-attorney": "District Attorney",
+            "district_attorney": "District Attorney",
+            "judge": "Judge",
+            "justice": "Justice",
+        }
+
+        race_lower = race_id.lower()
+
+        # Check direct mappings first
+        for office_key, display_name in office_display_names.items():
+            if office_key in race_lower:
+                return display_name
+
+        # Handle state-specific patterns for state legislature
+        if "state-sen" in race_lower or "statesenate" in race_lower:
+            return "State Senate"
+        if "state-rep" in race_lower or "staterep" in race_lower:
+            return "State House of Representatives"
+
+        return None
 
     async def cleanup_old_publications(self, retention_days: int) -> int:
         """

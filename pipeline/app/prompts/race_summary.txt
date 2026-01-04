@@ -1,17 +1,25 @@
 You are analyzing electoral content to create an overall race summary for {race_id}.
 
+This may be a federal, state, or local race. Identify the office level (federal/state/local) and jurisdiction from the race ID and content.
+
 Please provide a comprehensive race overview that includes:
 
-1. Race basics: Office, jurisdiction, election date, key context
-2. Competitive landscape: Who are the main candidates, their parties
-3. Major themes and issues driving the race
+1. Race basics: Office being contested, jurisdiction, election date, key context
+2. Competitive landscape: Who are the main candidates, their parties/affiliations
+3. Major themes and issues driving the race (focus on issues relevant to this specific office)
 4. Recent developments and key events
 5. Electoral dynamics and what makes this race significant
-6. Historical context and precedent
+6. Historical context and precedent for this office/jurisdiction
 
 Content to analyze:
 {content}
 
 Focus on providing voters with essential information to understand this electoral contest. Be factual, balanced, and comprehensive.
+
+CONFIDENCE: [HIGH|MEDIUM|LOW|UNKNOWN]
+- HIGH: Multiple reliable sources with comprehensive coverage
+- MEDIUM: Some sources available but coverage may be incomplete
+- LOW: Limited source material available
+- UNKNOWN: Insufficient information
 
 Race Summary:

@@ -1,0 +1,73 @@
+name: Missing Candidate Data
+description: Help us improve candidate information by reporting missing or incomplete data
+title: "[Data] Missing data for: "
+labels: ["data-request", "community-contribution"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve SmarterVote! Your contribution helps make political information more accessible.
+
+  - type: input
+    id: race-id
+    attributes:
+      label: Race ID
+      description: The race identifier (e.g., mi-senate-2026)
+      placeholder: mi-senate-2026
+    validations:
+      required: true
+
+  - type: input
+    id: candidate-name
+    attributes:
+      label: Candidate Name
+      description: The name of the candidate with missing data
+      placeholder: Jane Smith
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: data-type
+    attributes:
+      label: What type of data is missing?
+      description: Select all that apply
+      options:
+        - label: Issue stances / positions
+        - label: Donor information
+        - label: Voting record
+        - label: Biographical information
+        - label: Campaign website
+        - label: Other
+
+  - type: textarea
+    id: source-url
+    attributes:
+      label: Source URL(s)
+      description: |
+        Please provide links to reliable sources where we can find this information.
+        Examples: official campaign website, news articles, voting records databases, FEC filings.
+      placeholder: |
+        - https://candidatewebsite.com/issues
+        - https://newssite.com/article-about-candidate
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other information that would help us find and verify this data
+      placeholder: The candidate recently spoke about healthcare policy in a town hall on March 15...
+
+  - type: checkboxes
+    id: verification
+    attributes:
+      label: Verification
+      description: Please confirm the following
+      options:
+        - label: I have verified that this source is reliable (official campaign, established news outlet, government database)
+          required: true
+        - label: The information is current and relevant to the specified race
+          required: true

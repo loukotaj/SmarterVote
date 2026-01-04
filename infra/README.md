@@ -2,56 +2,17 @@
 
 **Cloud-Native Electoral Analysis Platform** ☁️
 
-*Infrastructure as Code for Google Cloud Platform | Updated: August 2025*
+## Overview
 
-## 🎯 Overview
+Terraform configurations for deploying SmarterVote on Google Cloud Platform.
 
-This directory contains Terraform configurations for deploying SmarterVote's infrastructure on Google Cloud Platform.
+**Default deployment**: Lightweight (races-api + storage only)
+**Full deployment**: Enable `enable_pipeline_client = true` for cloud pipeline processing
 
-## 🏗️ Architecture Components
+## Quick Start
 
-- Cloud Storage, Secret Manager, Pub/Sub
-- Cloud Run Services and Jobs, Cloud Scheduler
-- IAM with least-privilege
+### 1. Configure
 
-## 📁 File Structure
-
-```
-infra/
-├── main.tf                    # Core configuration & variables
-├── variables.tf               # Input variable definitions
-├── outputs.tf                 # Infrastructure outputs
-├── bucket.tf                  # Cloud Storage with lifecycle rules
-├── secrets.tf                 # Secret Manager configuration
-├── pubsub.tf                  # Messaging infrastructure
-├── enqueue-api.tf             # Enqueue API service deployment
-├── races-api.tf               # Races API service deployment
-├── pipeline-client.tf         # Pipeline client service deployment
-├── run-job.tf                 # Batch processing workers
-├── scheduler.tf               # Automated job scheduling
-├── deploy.sh                  # Unix deployment script
-├── deploy.ps1                 # Windows PowerShell deployment
-├── validate.sh                # Infrastructure validation
-├── secrets.tfvars.example     # Configuration template
-└── modules/                   # Reusable Terraform modules
-```
-
-## ⚡ Prerequisites
-
-- Google Cloud SDK
-- Terraform v1.5+
-- Docker
-
-Enable GCP APIs (once per project):
-```bash
-gcloud services enable run.googleapis.com cloudbuild.googleapis.com \
-  storage.googleapis.com secretmanager.googleapis.com \
-  pubsub.googleapis.com cloudscheduler.googleapis.com
-```
-
-## 🚀 Quick Deployment
-
-1) Configure secrets
 ```bash
 cp secrets.tfvars.example secrets.tfvars
 ```
@@ -63,75 +24,72 @@ region                = "us-central1"
 openai_api_key        = "sk-your-openai-key"
 anthropic_api_key     = "your-anthropic-key"
 grok_api_key          = "your-grok-key"
-google_search_api_key = "your-google-search-key"
-google_search_cx      = "your-custom-search-engine-id"
+serper_api_key        = "your-serper-key"
+
+# Enable cloud pipeline (disabled by default - run locally instead)
+enable_pipeline_client = false
 ```
 
-2) Deploy
+### 2. Deploy
+
 ```bash
 terraform init
 terraform plan -var-file=secrets.tfvars
 terraform apply -var-file=secrets.tfvars
 ```
 
-3) Build and push images
+### 3. Validate
+
 ```bash
-# Pipeline worker
-cd ../pipeline
-docker build -t gcr.io/YOUR_PROJECT_ID/smartervote-worker:latest .
-docker push gcr.io/YOUR_PROJECT_ID/smartervote-worker:latest
-
-# Pipeline client
-cd ../pipeline_client
-docker build -t gcr.io/YOUR_PROJECT_ID/smartervote-pipeline-client:latest .
-docker push gcr.io/YOUR_PROJECT_ID/smartervote-pipeline-client:latest
-
-# Enqueue API
-cd ../services/enqueue-api
-docker build -t gcr.io/YOUR_PROJECT_ID/smartervote-enqueue-api:latest .
-docker push gcr.io/YOUR_PROJECT_ID/smartervote-enqueue-api:latest
+curl "$(terraform output -raw races_api_url)/health"
 ```
 
-4) Update Cloud Run
-```bash
-gcloud run services update enqueue-api \
-  --image gcr.io/YOUR_PROJECT_ID/smartervote-enqueue-api:latest \
-  --region us-central1
+## Components
 
-gcloud run jobs update race-worker \
-  --image gcr.io/YOUR_PROJECT_ID/smartervote-worker:latest \
-  --region us-central1
+| Component | Default | With enable_pipeline_client |
+|-----------|---------|---------------------------|
+| races-api | ✅ | ✅ |
+| GCS bucket | ✅ | ✅ |
+| chroma-storage | ✅ | ✅ |
+| pipeline-client | ❌ | ✅ |
+| enqueue-api | ❌ | ✅ |
+| Pub/Sub | ❌ | ✅ |
+| Cloud Run Jobs | ❌ | ✅ |
+| Scheduler | ❌ | ✅ |
 
-gcloud run services update pipeline-client \
-  --image gcr.io/YOUR_PROJECT_ID/smartervote-pipeline-client:latest \
-  --region us-central1
+## File Structure
+
+```
+infra/
+├── main.tf              # Provider config
+├── variables.tf         # Input variables (incl. enable_pipeline_client)
+├── outputs.tf           # Terraform outputs
+├── bucket.tf            # GCS storage
+├── chroma-storage.tf    # Vector DB storage
+├── races-api.tf         # Data serving API
+├── secrets.tf           # Secret Manager
+├── pipeline-client.tf   # Pipeline service (conditional)
+├── enqueue-api.tf       # Job queue API (conditional)
+├── pubsub.tf            # Messaging (conditional)
+├── run-job.tf           # Batch workers (conditional)
+├── scheduler.tf         # Cron triggers (conditional)
+└── secrets.tfvars       # Your secrets (gitignored)
 ```
 
-5) Validate
+## Prerequisites
+
+- Google Cloud SDK
+- Terraform 1.5+
+- Docker (for building images)
+
+Enable APIs:
 ```bash
-./validate.sh
-curl "$(terraform output -raw enqueue_api_url)/health"
+gcloud services enable run.googleapis.com cloudbuild.googleapis.com \
+  storage.googleapis.com secretmanager.googleapis.com
 ```
 
-## 🏗️ Components
-
-- Storage: data lake with lifecycle, versioning, IAM
-- Security: service accounts, Secret Manager, IAM policies
-- Compute: Cloud Run services and jobs with sensible defaults
-- Messaging: Pub/Sub topics + DLQ, Cloud Scheduler
-
-## 📊 Monitoring
-
-- Logs: `gcloud logs read` for run revisions and jobs
-- Health: `curl $(terraform output -raw enqueue_api_url)/health`
-- Listing: `gcloud run services list --region=us-central1`
-
-## 🧹 Cleanup
+## Cleanup
 
 ```bash
 terraform destroy -var-file=secrets.tfvars
 ```
-
----
-
-Built with scalability, security, and cost-effectiveness in mind.

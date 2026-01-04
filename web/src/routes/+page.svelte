@@ -13,24 +13,26 @@
       filteredRaces = data.races;
     } else {
       const query = searchQuery.toLowerCase();
-      filteredRaces = data.races.filter(race =>
-        race.title?.toLowerCase().includes(query) ||
-        race.office?.toLowerCase().includes(query) ||
-        race.jurisdiction?.toLowerCase().includes(query) ||
-        race.candidates.some(candidate =>
-          candidate.name.toLowerCase().includes(query) ||
-          candidate.party?.toLowerCase().includes(query)
-        )
+      filteredRaces = data.races.filter(
+        (race) =>
+          race.title?.toLowerCase().includes(query) ||
+          race.office?.toLowerCase().includes(query) ||
+          race.jurisdiction?.toLowerCase().includes(query) ||
+          race.candidates.some(
+            (candidate) =>
+              candidate.name.toLowerCase().includes(query) ||
+              candidate.party?.toLowerCase().includes(query)
+          )
       );
     }
   }
 
   function formatElectionDate(dateString: string): string {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
     });
   }
 
@@ -50,7 +52,9 @@
 <div class="container mx-auto px-4 py-8 sm:py-12 max-w-6xl">
   <!-- Hero Section -->
   <header class="text-center mb-8 sm:mb-12">
-    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Smarter.vote</h1>
+    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+      Smarter.vote
+    </h1>
     <p class="text-lg sm:text-xl text-gray-600 mb-6 sm:mb-8">
       AI-powered candidate comparison on the issues that matter
     </p>
@@ -64,9 +68,21 @@
   <!-- Search Bar -->
   <div class="flex justify-end mb-6">
     <div class="relative w-full max-w-md">
-      <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-        <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+      <div
+        class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+      >
+        <svg
+          class="h-5 w-5 text-gray-400"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+          />
         </svg>
       </div>
       <input
@@ -85,7 +101,9 @@
         Available Races ({filteredRaces.length})
       </h2>
       <p class="text-sm text-gray-600 mt-1">
-        {searchQuery ? `Showing results for "${searchQuery}"` : 'Browse all available race analyses'}
+        {searchQuery
+          ? `Showing results for "${searchQuery}"`
+          : "Browse all available race analyses"}
       </p>
     </div>
 
@@ -93,14 +111,36 @@
       {#if filteredRaces.length === 0}
         <div class="p-8 text-center text-gray-500">
           {#if searchQuery}
-            <svg class="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.47-.881-6.08-2.329C7.76 10.22 9.77 8 12.16 8c1.311 0 2.52.375 3.546 1.022M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            <svg
+              class="mx-auto h-12 w-12 text-gray-400 mb-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.47-.881-6.08-2.329C7.76 10.22 9.77 8 12.16 8c1.311 0 2.52.375 3.546 1.022M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
             </svg>
             <p class="text-lg font-medium">No races found</p>
-            <p class="mt-2">Try adjusting your search terms or browse all available races.</p>
+            <p class="mt-2">
+              Try adjusting your search terms or browse all available races.
+            </p>
           {:else}
-            <svg class="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2h4a1 1 0 110 2h-1v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6H3a1 1 0 010-2h4zM9 6h6v12H9V6z"/>
+            <svg
+              class="mx-auto h-12 w-12 text-gray-400 mb-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2h4a1 1 0 110 2h-1v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6H3a1 1 0 010-2h4zM9 6h6v12H9V6z"
+              />
             </svg>
             <p class="text-lg font-medium">No races available</p>
             <p class="mt-2">Check back later for new race analyses.</p>
@@ -110,34 +150,50 @@
         <div class="divide-y divide-gray-200">
           {#each filteredRaces as race (race.id)}
             <div class="p-4 sm:p-6 hover:bg-gray-50 transition-colors">
-              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+              <div
+                class="flex flex-col sm:flex-row sm:items-center sm:justify-between"
+              >
                 <div class="mb-4 sm:mb-0">
                   <h3 class="text-lg font-semibold text-gray-900 mb-2">
-                    {race.title || `${race.office || 'Race'} - ${race.jurisdiction || 'Unknown'}`}
+                    {race.title ||
+                      `${race.office || "Race"} - ${
+                        race.jurisdiction || "Unknown"
+                      }`}
                   </h3>
                   <div class="flex flex-wrap gap-2 text-sm text-gray-600 mb-2">
                     {#if race.office}
-                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                      <span
+                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800"
+                      >
                         {race.office}
                       </span>
                     {/if}
                     {#if race.jurisdiction}
-                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                      <span
+                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800"
+                      >
                         {race.jurisdiction}
                       </span>
                     {/if}
-                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                    <span
+                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800"
+                    >
                       {formatElectionDate(race.election_date)}
                     </span>
                   </div>
                   <div class="text-sm text-gray-600">
                     <strong>Candidates:</strong>
                     {#each race.candidates as candidate, index}
-                      <span class="font-medium">{candidate.name}</span>{#if candidate.party} ({candidate.party}){/if}{#if index < race.candidates.length - 1}, {/if}
+                      <span class="font-medium">{candidate.name}</span
+                      >{#if candidate.party}
+                        ({candidate.party}){/if}{#if index < race.candidates.length - 1},
+                      {/if}
                     {/each}
                   </div>
                   <div class="text-xs text-gray-500 mt-1">
-                    Last updated: {new Date(race.updated_utc).toLocaleDateString()}
+                    Last updated: {new Date(
+                      race.updated_utc
+                    ).toLocaleDateString()}
                   </div>
                 </div>
                 <div class="flex-shrink-0">
@@ -171,7 +227,9 @@
 
   <!-- How It Works -->
   <section class="mt-12 mb-8 sm:mb-12">
-    <h2 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 text-center">
+    <h2
+      class="text-xl sm:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 text-center"
+    >
       How It Works
     </h2>
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -193,7 +251,9 @@
             />
           </svg>
         </div>
-        <h3 class="font-semibold text-gray-900 mb-2 text-sm sm:text-base">Discover Sources</h3>
+        <h3 class="font-semibold text-gray-900 mb-2 text-sm sm:text-base">
+          Discover Sources
+        </h3>
         <p class="text-gray-600 text-xs sm:text-sm">
           We find and analyze candidate websites, speeches, voting records, and
           public statements.
@@ -217,7 +277,9 @@
             />
           </svg>
         </div>
-        <h3 class="font-semibold text-gray-900 mb-2 text-sm sm:text-base">AI Analysis</h3>
+        <h3 class="font-semibold text-gray-900 mb-2 text-sm sm:text-base">
+          AI Analysis
+        </h3>
         <p class="text-gray-600 text-xs sm:text-sm">
           Multiple AI models analyze the content and extract positions on key
           issues with confidence ratings.
@@ -241,7 +303,9 @@
             />
           </svg>
         </div>
-        <h3 class="font-semibold text-gray-900 mb-2 text-sm sm:text-base">Clear Comparison</h3>
+        <h3 class="font-semibold text-gray-900 mb-2 text-sm sm:text-base">
+          Clear Comparison
+        </h3>
         <p class="text-gray-600 text-xs sm:text-sm">
           Clean, side-by-side comparison of candidate positions with source
           links and confidence indicators.
@@ -252,7 +316,9 @@
 
   <!-- Key Features -->
   <section class="bg-white rounded-lg shadow-sm p-4 sm:p-8">
-    <h2 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 text-center">
+    <h2
+      class="text-xl sm:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 text-center"
+    >
       Why Smarter.vote?
     </h2>
     <div class="grid gap-4 sm:gap-6 sm:grid-cols-2">
@@ -273,7 +339,9 @@
           </svg>
         </div>
         <div>
-          <h3 class="font-semibold text-gray-900 mb-1 text-sm sm:text-base">Unbiased Analysis</h3>
+          <h3 class="font-semibold text-gray-900 mb-1 text-sm sm:text-base">
+            Unbiased Analysis
+          </h3>
           <p class="text-gray-600 text-xs sm:text-sm">
             AI analyzes public sources without political bias, presenting facts
             clearly.
@@ -297,7 +365,9 @@
           </svg>
         </div>
         <div>
-          <h3 class="font-semibold text-gray-900 mb-1 text-sm sm:text-base">Source Transparency</h3>
+          <h3 class="font-semibold text-gray-900 mb-1 text-sm sm:text-base">
+            Source Transparency
+          </h3>
           <p class="text-gray-600 text-xs sm:text-sm">
             Every position includes links to original sources and confidence
             ratings.
@@ -347,7 +417,9 @@
           </svg>
         </div>
         <div>
-          <h3 class="font-semibold text-gray-900 mb-1 text-sm sm:text-base">Always Up-to-Date</h3>
+          <h3 class="font-semibold text-gray-900 mb-1 text-sm sm:text-base">
+            Always Up-to-Date
+          </h3>
           <p class="text-gray-600 text-xs sm:text-sm">
             Information is continuously updated as new public statements emerge.
           </p>

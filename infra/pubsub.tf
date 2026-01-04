@@ -1,5 +1,7 @@
 # Pub/Sub topic for race processing jobs
+# DISABLED by default - set enable_pipeline_client = true in variables to deploy
 resource "google_pubsub_topic" "race_jobs" {
+  count   = var.enable_pipeline_client ? 1 : 0
   name    = "race-jobs-${var.environment}"
   project = var.project_id
 
@@ -10,6 +12,7 @@ resource "google_pubsub_topic" "race_jobs" {
 
 # Dead letter queue for failed jobs
 resource "google_pubsub_topic" "race_jobs_dlq" {
+  count   = var.enable_pipeline_client ? 1 : 0
   name    = "race-jobs-dlq-${var.environment}"
   project = var.project_id
 
@@ -20,8 +23,9 @@ resource "google_pubsub_topic" "race_jobs_dlq" {
 
 # Pub/Sub subscription for race processing
 resource "google_pubsub_subscription" "race_jobs_sub" {
+  count   = var.enable_pipeline_client ? 1 : 0
   name    = "race-jobs-sub-${var.environment}"
-  topic   = google_pubsub_topic.race_jobs.name
+  topic   = google_pubsub_topic.race_jobs[0].name
   project = var.project_id
 
   ack_deadline_seconds = 600 # 10 minutes
@@ -32,7 +36,7 @@ resource "google_pubsub_subscription" "race_jobs_sub" {
   }
 
   dead_letter_policy {
-    dead_letter_topic     = google_pubsub_topic.race_jobs_dlq.id
+    dead_letter_topic     = google_pubsub_topic.race_jobs_dlq[0].id
     max_delivery_attempts = 5
   }
 
@@ -43,8 +47,9 @@ resource "google_pubsub_subscription" "race_jobs_sub" {
 }
 
 resource "google_pubsub_subscription" "race_jobs_dlq_sub" {
+  count   = var.enable_pipeline_client ? 1 : 0
   name    = "race-jobs-dlq-sub-${var.environment}"
-  topic   = google_pubsub_topic.race_jobs_dlq.name
+  topic   = google_pubsub_topic.race_jobs_dlq[0].name
   project = var.project_id
 
   # Manual acknowledgment for investigation

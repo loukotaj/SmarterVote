@@ -1,22 +1,22 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte';
-  import { formatDuration, getStatusClass } from '$lib/utils/pipelineUtils';
-  import type { RunStatus } from '$lib/types';
-  
+  import { createEventDispatcher } from "svelte";
+  import { formatDuration, getStatusClass } from "$lib/utils/pipelineUtils";
+  import type { RunStatus } from "$lib/types";
+
   export let isExecuting = false;
-  export let runStatus: RunStatus | 'idle' = 'idle';
+  export let runStatus: RunStatus | "idle" = "idle";
   export let progress = 0;
-  export let progressMessage = '';
+  export let progressMessage = "";
   export let elapsedTime = 0;
   export let currentRunId: string | null = null;
   export let errorCount = 0;
-  
+
   const dispatch = createEventDispatcher<{
-    'stop-execution': void;
+    "stop-execution": void;
   }>();
-  
+
   function stopExecution() {
-    dispatch('stop-execution');
+    dispatch("stop-execution");
   }
 </script>
 
@@ -26,7 +26,9 @@
       <h3 class="text-lg font-semibold text-gray-900">Current Run</h3>
       <div class="flex items-center space-x-2">
         <span
-          class="px-3 py-1 rounded-full text-xs font-medium border {getStatusClass(runStatus)}"
+          class="px-3 py-1 rounded-full text-xs font-medium border {getStatusClass(
+            runStatus
+          )}"
         >
           {runStatus.charAt(0).toUpperCase() + runStatus.slice(1)}
         </span>

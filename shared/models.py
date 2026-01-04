@@ -51,7 +51,7 @@ class ProcessingStatus(str, Enum):
 
 
 class CanonicalIssue(str, Enum):
-    """The 11 canonical issues for consistent comparison across races."""
+    """The 12 canonical issues for consistent comparison across races."""
 
     HEALTHCARE = "Healthcare"
     ECONOMY = "Economy"
@@ -64,6 +64,7 @@ class CanonicalIssue(str, Enum):
     EDUCATION = "Education"
     TECH_AI = "Tech & AI"
     ELECTION_REFORM = "Election Reform"
+    LOCAL_ISSUES = "Local Issues"  # Housing, transportation, zoning for local races
 
 
 class Source(BaseModel):

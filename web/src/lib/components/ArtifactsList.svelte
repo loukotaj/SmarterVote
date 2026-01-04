@@ -1,21 +1,21 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte';
-  import type { Artifact } from '$lib/types';
-  
+  import { createEventDispatcher } from "svelte";
+  import type { Artifact } from "$lib/types";
+
   export let artifacts: Artifact[] = [];
   export let isRefreshing = false;
-  
+
   const dispatch = createEventDispatcher<{
-    'artifact-click': Artifact;
-    'refresh': void;
+    "artifact-click": Artifact;
+    refresh: void;
   }>();
-  
+
   function handleArtifactClick(artifact: Artifact) {
-    dispatch('artifact-click', artifact);
+    dispatch("artifact-click", artifact);
   }
-  
+
   function handleRefresh() {
-    dispatch('refresh');
+    dispatch("refresh");
   }
 </script>
 
@@ -28,15 +28,31 @@
       class="text-sm text-blue-600 hover:text-blue-800 disabled:text-gray-400 flex items-center space-x-1"
     >
       {#if isRefreshing}
-        <svg class="animate-spin h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-          <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        <svg
+          class="animate-spin h-3 w-3"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            class="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            stroke-width="4"
+          />
+          <path
+            class="opacity-75"
+            fill="currentColor"
+            d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+          />
         </svg>
       {/if}
       <span>Refresh</span>
     </button>
   </div>
-  
+
   <ul class="artifacts-list custom-scrollbar">
     {#each artifacts as artifact}
       <li>
@@ -52,9 +68,7 @@
         </button>
       </li>
     {:else}
-      <li class="text-center text-gray-500 text-sm py-4">
-        No artifacts yet
-      </li>
+      <li class="text-center text-gray-500 text-sm py-4">No artifacts yet</li>
     {/each}
   </ul>
 </div>
@@ -76,25 +90,25 @@
     align-items: center;
   }
 
-  .artifacts-list li:hover { 
-    background-color: #f8fafc; 
+  .artifacts-list li:hover {
+    background-color: #f8fafc;
   }
 
-  .custom-scrollbar::-webkit-scrollbar { 
-    width: 6px; 
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
   }
-  
+
   .custom-scrollbar::-webkit-scrollbar-track {
     background: #f1f5f9;
     border-radius: 3px;
   }
-  
+
   .custom-scrollbar::-webkit-scrollbar-thumb {
     background: #cbd5e1;
     border-radius: 3px;
   }
-  
-  .custom-scrollbar::-webkit-scrollbar-thumb:hover { 
-    background: #94a3b8; 
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
   }
 </style>

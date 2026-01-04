@@ -20,7 +20,7 @@ try:
 except ImportError:
     pass
 
-from ..providers import SummaryOutput, TaskType, registry
+from ..providers import ModelConfig, SummaryOutput, TaskType, registry
 from ..providers.prompt_templates import PromptTemplates
 from ..schema import CanonicalIssue, ConfidenceLevel, ExtractedContent, Summary
 from .api_errors import LLMAPIError, RateLimitError
@@ -36,6 +36,9 @@ class LLMSummarizationEngine:
     def __init__(self, cheap_mode: bool = True):
         """Initialize the summarization engine with provider registry."""
         self.cheap_mode = cheap_mode
+
+        # Sync registry's cheap mode with our setting
+        registry.set_cheap_mode(cheap_mode)
 
         # Log available providers
         providers = registry.list_providers()
@@ -57,6 +60,7 @@ class LLMSummarizationEngine:
         self.prompts = {
             "candidate_summary": self.prompt_templates.get_candidate_summary_prompt(),
             "issue_stance": self.prompt_templates.get_issue_stance_prompt(),
+            "issue_stances_structured": self.prompt_templates.get_issue_stances_structured_prompt(),
             "general_summary": self.prompt_templates.get_general_summary_prompt(),
             "race_summary": self.prompt_templates.get_race_summary_prompt(),
             "issue_summary": self.prompt_templates.get_issue_summary_prompt(),
@@ -296,10 +300,9 @@ class LLMSummarizationEngine:
         return await self._generate_summaries_for_prompt(race_id, content, prompt_template, "candidate_summary")
 
     async def _generate_issue_summaries(self, race_id: str, content: List[ExtractedContent]) -> List[Summary]:
-        """Generate issue-specific summaries."""
-        # Generate summaries for key canonical issues
-        # TODO: Dynamically determine relevant issues from content
-        prompt_template = self.prompts["issue_summary"]
+        """Generate issue-specific summaries with structured stance extraction."""
+        # Use the structured issue stances prompt for JSON output
+        prompt_template = self.prompts.get("issue_stances_structured", self.prompts["issue_stance"])
         return await self._generate_summaries_for_prompt(race_id, content, prompt_template, "issue_summary")
 
     async def _generate_summaries_for_prompt(
@@ -350,7 +353,7 @@ class LLMSummarizationEngine:
         return summaries
 
     async def _generate_single_summary_with_provider(
-        self, race_id: str, content: str, prompt_template: str, summary_type: str, model
+        self, race_id: str, content: str, prompt_template: str, summary_type: str, model: "ModelConfig"
     ) -> Optional[Summary]:
         """Generate a single summary using a specific provider."""
         try:
@@ -363,28 +366,30 @@ class LLMSummarizationEngine:
                 logger.error(f"Provider {model.provider} not available")
                 return None
 
-            # Generate summary
-            result: SummaryOutput = await provider.generate_summary(model.model_id, formatted_prompt, max_tokens=2000)
+            # Generate summary - pass the model config, not just model_id
+            result: SummaryOutput = await provider.generate_summary(formatted_prompt, model, max_tokens=2000)
 
-            if not result or not result.summary:
+            if not result or not result.content:
                 logger.warning(f"Empty result from {model.provider}")
                 return None
 
             # Parse confidence from response
-            confidence = self.content_processor.parse_ai_confidence(result.summary)
+            confidence = self.content_processor.parse_ai_confidence(result.content)
 
             # Extract sources
-            sources = self.content_processor.extract_cited_sources(result.summary, [])
+            sources = self.content_processor.extract_cited_sources(result.content, [])
 
-            # Create Summary object
+            # Create Summary object matching shared.models.Summary schema
+            # Use display name which maps to the Literal type
+            display_model = self._get_display_model_name(model.model_id)
+
             summary = Summary(
-                generator=self._get_display_model_name(model.model_id),
-                summary_text=result.summary,
+                content=result.content,
+                model=display_model,  # type: ignore - display name matches Literal
                 confidence=confidence,
-                sources=sources,
+                tokens_used=None,  # Not tracked at this level
                 created_at=datetime.utcnow(),
-                race_id=race_id,
-                summary_type=summary_type,
+                source_ids=sources,
             )
 
             return summary

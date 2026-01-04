@@ -1,15 +1,18 @@
 <script lang="ts">
   import type { VotingRecord } from "$lib/types";
   import SourceLink from "./SourceLink.svelte";
+  import NoDataFallback from "./NoDataFallback.svelte";
 
   export let votingRecord: VotingRecord[] = [];
+  export let raceId: string = "";
+  export let candidateName: string = "";
 
   function formatDate(dateString: string): string {
     try {
-      return new Date(dateString).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric'
+      return new Date(dateString).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
       });
     } catch {
       return dateString;
@@ -18,43 +21,38 @@
 
   function getVoteClass(vote: string): string {
     switch (vote.toLowerCase()) {
-      case 'yes':
-        return 'vote-yes';
-      case 'no':
-        return 'vote-no';
-      case 'abstain':
-        return 'vote-abstain';
-      case 'absent':
-        return 'vote-absent';
+      case "yes":
+        return "vote-yes";
+      case "no":
+        return "vote-no";
+      case "abstain":
+        return "vote-abstain";
+      case "absent":
+        return "vote-absent";
       default:
-        return 'vote-unknown';
+        return "vote-unknown";
     }
   }
 
   function getVoteIcon(vote: string): string {
     switch (vote.toLowerCase()) {
-      case 'yes':
-        return '✓';
-      case 'no':
-        return '✗';
-      case 'abstain':
-        return '—';
-      case 'absent':
-        return '?';
+      case "yes":
+        return "✓";
+      case "no":
+        return "✗";
+      case "abstain":
+        return "—";
+      case "absent":
+        return "?";
       default:
-        return '—';
+        return "—";
     }
   }
 </script>
 
 <div class="voting-container">
   {#if votingRecord.length === 0}
-    <div class="no-data">
-      <p class="text-gray-500 text-sm">No voting record available</p>
-      <p class="text-gray-400 text-xs mt-2">
-        Voting records are only available for incumbent candidates with legislative history.
-      </p>
-    </div>
+    <NoDataFallback dataType="voting" {raceId} {candidateName} />
   {:else}
     <div class="voting-list">
       {#each votingRecord as record}
@@ -84,10 +82,6 @@
 <style lang="postcss">
   .voting-container {
     @apply space-y-4;
-  }
-
-  .no-data {
-    @apply text-center py-8;
   }
 
   .voting-list {

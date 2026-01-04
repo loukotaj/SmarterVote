@@ -2,7 +2,6 @@ import logging
 import time
 from typing import Any, Dict
 
-from pipeline.app.providers import registry
 from pipeline.app.step01_ingest.MetaDataService.race_metadata_service import RaceMetadataService
 
 

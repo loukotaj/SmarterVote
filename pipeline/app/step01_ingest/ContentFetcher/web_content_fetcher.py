@@ -42,13 +42,26 @@ except ImportError:
     # Fallback for direct imports
     from shared.models import Source, SourceType
 
+# Import persistent content cache
+try:
+    from ...utils.content_cache import ContentCache, get_content_cache
+except ImportError:
+    from pipeline.app.utils.content_cache import ContentCache, get_content_cache
+
 logger = logging.getLogger(__name__)
 
 
 class WebContentFetcher:
     """Service for fetching content from various web sources with robust error handling and metadata capture."""
 
-    def __init__(self):
+    def __init__(self, use_persistent_cache: bool = True, cache_ttl_hours: int = 24):
+        """
+        Initialize the web content fetcher.
+
+        Args:
+            use_persistent_cache: Whether to use SQLite-based persistent cache (survives restarts)
+            cache_ttl_hours: Time-to-live for persistent cache entries in hours
+        """
         self.session = None
         self.selenium_driver = None
         self.executor = ThreadPoolExecutor(max_workers=2)  # For non-blocking Selenium
@@ -60,15 +73,27 @@ class WebContentFetcher:
             "max_retries": 3,
             "base_retry_delay": 1.0,  # Base delay for exponential backoff
             "selenium_wait_time": 10,  # Smart wait timeout
-            "cache_ttl_minutes": 15,  # Short TTL cache
+            "cache_ttl_minutes": 15,  # Short TTL for in-memory cache
+            "persistent_cache_ttl_hours": cache_ttl_hours,  # TTL for persistent cache
             "max_content_size": 50 * 1024 * 1024,  # 50MB limit
             "rate_limit_per_host": 5,  # Max concurrent requests per host
         }
 
-        # Internal state
+        # Internal state (in-memory cache for same-session dedup)
         self._cache: Dict[str, Dict[str, Any]] = {}
         self._host_semaphores: Dict[str, asyncio.Semaphore] = {}
         self._seen_checksums: Set[str] = set()
+
+        # Persistent cache (SQLite-based, survives restarts)
+        self._use_persistent_cache = use_persistent_cache
+        self._persistent_cache: Optional[ContentCache] = None
+        if use_persistent_cache:
+            try:
+                self._persistent_cache = get_content_cache()
+                logger.info(f"Persistent content cache enabled (TTL: {cache_ttl_hours}h)")
+            except Exception as e:
+                logger.warning(f"Failed to initialize persistent cache: {e}")
+                self._persistent_cache = None
 
         # Tracking parameters to remove from URLs
         self._tracking_params = {
@@ -190,7 +215,7 @@ class WebContentFetcher:
 
     async def _fetch_single_source_with_retry(self, source: Source, canonical_url: str) -> Optional[Dict[str, Any]]:
         """
-        Fetch a single source with retry logic and caching.
+        Fetch a single source with retry logic and caching (both in-memory and persistent).
 
         Args:
             source: Source object to fetch
@@ -201,15 +226,26 @@ class WebContentFetcher:
         """
         cache_key = hashlib.sha256(canonical_url.encode()).hexdigest()
 
-        # Check cache first
+        # Check in-memory cache first (fastest, for same-session dedup)
         if cache_key in self._cache:
             cached_item = self._cache[cache_key]
             cache_time = cached_item.get("cached_at", datetime.min)
             ttl = timedelta(minutes=self.config["cache_ttl_minutes"])
 
             if datetime.utcnow() - cache_time < ttl:
-                logger.debug(f"Using cached content for {canonical_url}")
+                logger.debug(f"Using in-memory cached content for {canonical_url}")
                 return cached_item["data"]
+
+        # Check persistent cache (SQLite, survives restarts)
+        if self._persistent_cache:
+            cached = self._persistent_cache.get(canonical_url)
+            if cached:
+                logger.info(f"Using persistent cached content for {canonical_url[:80]}...")
+                # Convert cached format to expected result format
+                result = self._cached_to_result(source, cached)
+                # Also store in in-memory cache for faster subsequent access
+                self._cache[cache_key] = {"data": result, "cached_at": datetime.utcnow()}
+                return result
 
         # Attempt fetch with retries
         last_exception = None
@@ -223,8 +259,13 @@ class WebContentFetcher:
                 result = await self._fetch_single_source(source, canonical_url)
 
                 if result:
-                    # Cache successful result
+                    # Store in in-memory cache
                     self._cache[cache_key] = {"data": result, "cached_at": datetime.utcnow()}
+
+                    # Store in persistent cache
+                    if self._persistent_cache:
+                        self._store_in_persistent_cache(canonical_url, result)
+
                     return result
 
             except Exception as e:
@@ -233,6 +274,38 @@ class WebContentFetcher:
 
         logger.error(f"All {self.config['max_retries']} attempts failed for {canonical_url}: {last_exception}")
         return None
+
+    def _cached_to_result(self, source: Source, cached: Dict[str, Any]) -> Dict[str, Any]:
+        """Convert persistent cache format to fetch result format."""
+        return {
+            "source": source,
+            "content": cached.get("content", ""),
+            "content_type": cached.get("content_type", "text/html"),
+            "status_code": cached.get("status_code", 200),
+            "headers": cached.get("headers", {}),
+            "fetched_at": cached.get("fetched_at", datetime.utcnow().isoformat()),
+            "from_cache": True,
+            "metadata": cached.get("metadata", {}),
+        }
+
+    def _store_in_persistent_cache(self, url: str, result: Dict[str, Any]) -> None:
+        """Store fetch result in persistent cache."""
+        try:
+            content = result.get("content", "")
+            if isinstance(content, bytes):
+                content = content.decode("utf-8", errors="replace")
+
+            self._persistent_cache.set(
+                url=url,
+                content=content,
+                content_type=result.get("content_type", "text/html"),
+                status_code=result.get("status_code", 200),
+                headers=result.get("headers"),
+                metadata=result.get("metadata"),
+                ttl_hours=self.config["persistent_cache_ttl_hours"],
+            )
+        except Exception as e:
+            logger.warning(f"Failed to store in persistent cache: {e}")
 
     async def _fetch_single_source(self, source: Source, canonical_url: str) -> Optional[Dict[str, Any]]:
         """
@@ -631,3 +704,90 @@ class WebContentFetcher:
                 self.selenium_driver.quit()
             except:
                 pass
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # Cache Management Methods
+    # ─────────────────────────────────────────────────────────────────────────
+
+    def get_cache_stats(self) -> Dict[str, Any]:
+        """
+        Get statistics about both in-memory and persistent caches.
+
+        Returns:
+            Dictionary with cache statistics
+        """
+        stats = {
+            "in_memory": {
+                "entries": len(self._cache),
+                "ttl_minutes": self.config["cache_ttl_minutes"],
+            },
+            "persistent": None,
+        }
+
+        if self._persistent_cache:
+            stats["persistent"] = self._persistent_cache.get_stats()
+
+        return stats
+
+    def clear_in_memory_cache(self) -> int:
+        """
+        Clear the in-memory cache.
+
+        Returns:
+            Number of entries cleared
+        """
+        count = len(self._cache)
+        self._cache.clear()
+        logger.info(f"Cleared {count} entries from in-memory cache")
+        return count
+
+    def clear_persistent_cache(self) -> int:
+        """
+        Clear the persistent cache.
+
+        Returns:
+            Number of entries cleared
+        """
+        if not self._persistent_cache:
+            return 0
+        count = self._persistent_cache.clear()
+        logger.info(f"Cleared {count} entries from persistent cache")
+        return count
+
+    def cleanup_expired_cache(self) -> int:
+        """
+        Remove expired entries from the persistent cache.
+
+        Returns:
+            Number of entries removed
+        """
+        if not self._persistent_cache:
+            return 0
+        count = self._persistent_cache.cleanup_expired()
+        logger.info(f"Cleaned up {count} expired entries from persistent cache")
+        return count
+
+    def invalidate_url(self, url: str) -> bool:
+        """
+        Invalidate cache entries for a specific URL.
+
+        Args:
+            url: URL to invalidate
+
+        Returns:
+            True if any entries were invalidated
+        """
+        canonical_url = self._canonicalize_url(url)
+        cache_key = hashlib.sha256(canonical_url.encode()).hexdigest()
+
+        # Clear from in-memory cache
+        in_memory_cleared = cache_key in self._cache
+        if in_memory_cleared:
+            del self._cache[cache_key]
+
+        # Clear from persistent cache
+        persistent_cleared = False
+        if self._persistent_cache:
+            persistent_cleared = self._persistent_cache.invalidate(canonical_url)
+
+        return in_memory_cleared or persistent_cleared

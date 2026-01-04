@@ -120,3 +120,11 @@ variable "allowed_origins" {
   type        = list(string)
   default     = ["*"]
 }
+
+# Pipeline Client Deployment Toggle
+# Set to true when ready to deploy pipeline processing to cloud
+variable "enable_pipeline_client" {
+  description = "Enable pipeline client cloud deployment (expensive - runs AI processing)"
+  type        = bool
+  default     = false
+}

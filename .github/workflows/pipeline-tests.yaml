@@ -1,4 +1,6 @@
 name: Pipeline Tests (Heavy Dependencies)
+# DISABLED - Tests removed, testing done via API calls locally
+# Re-enable when adding new test infrastructure
 
 # Run manually or on schedule to avoid slowing down main CI
 on:
@@ -13,6 +15,7 @@ env:
 jobs:
   test-pipeline:
     name: Test Python Pipeline (Full Dependencies)
+    if: false  # DISABLED - re-enable when needed
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4

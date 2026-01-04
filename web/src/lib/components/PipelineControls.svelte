@@ -1,78 +1,78 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte';
-  import RunStepList from '$lib/components/RunStepList.svelte';
-  import { getStatusClass } from '$lib/utils/pipelineUtils';
-  import type { RunHistoryItem } from '$lib/types';
-  
-  // Note: steps prop is passed to RunStepList component when selectedRun is available
+  import { createEventDispatcher } from "svelte";
+  import RunStepList from "$lib/components/RunStepList.svelte";
+  import { getStatusClass } from "$lib/utils/pipelineUtils";
+  import type { RunHistoryItem } from "$lib/types";
+
+  // Note: steps prop received from parent but used from selectedRun.steps instead
+  // svelte-ignore unused-export-let
   export let steps: string[] = [];
-  export let inputJson = '';
+  export let inputJson = "";
   export let useCloudStorage = false;
-  export let executionMode: 'single' | 'range' = 'single';
-  export let startStep = '';
-  export let endStep = '';
+  export let executionMode: "single" | "range" = "single";
+  export let startStep = "";
+  export let endStep = "";
   export let selectedRun: RunHistoryItem | null = null;
-  export let selectedRunId = '';
+  export let selectedRunId = "";
   export let runHistory: RunHistoryItem[] = [];
   export let isExecuting = false;
   export let currentStep: string | null = null;
-  export let API_BASE = '';
-  
+  export let API_BASE = "";
+
   const dispatch = createEventDispatcher<{
-    'new-run': void;
-    'run-select': { target: { value: string } };
-    'input-change': string;
-    'cloud-storage-change': boolean;
-    'execution-mode-change': 'single' | 'range';
-    'step-range-change': { start: string; end: string };
-    'execute': { mode: 'single' | 'range'; startStep: string; endStep: string };
-    'set-start-step': string;
+    "new-run": void;
+    "run-select": { target: { value: string } };
+    "input-change": string;
+    "cloud-storage-change": boolean;
+    "execution-mode-change": "single" | "range";
+    "step-range-change": { start: string; end: string };
+    execute: { mode: "single" | "range"; startStep: string; endStep: string };
+    "set-start-step": string;
   }>();
-  
+
   function handleNewRun() {
-    dispatch('new-run');
+    dispatch("new-run");
   }
-  
+
   function handleRunSelect(event: Event) {
-    dispatch('run-select', { target: { value: (event.target as HTMLSelectElement).value } });
+    dispatch("run-select", {
+      target: { value: (event.target as HTMLSelectElement).value },
+    });
   }
-  
+
   function handleInputChange(event: Event) {
     const value = (event.target as HTMLTextAreaElement).value;
-    dispatch('input-change', value);
+    dispatch("input-change", value);
   }
-  
+
   function handleCloudStorageChange(event: Event) {
     const checked = (event.target as HTMLInputElement).checked;
-    dispatch('cloud-storage-change', checked);
+    dispatch("cloud-storage-change", checked);
   }
-  
-  function handleExecutionModeChange(mode: 'single' | 'range') {
-    dispatch('execution-mode-change', mode);
+
+  function handleExecutionModeChange(mode: "single" | "range") {
+    dispatch("execution-mode-change", mode);
   }
-  
+
   function handleExecute() {
-    dispatch('execute', { mode: executionMode, startStep, endStep });
+    dispatch("execute", { mode: executionMode, startStep, endStep });
   }
-  
+
   function handleSetStartStep(stepName: string) {
-    dispatch('set-start-step', stepName);
+    dispatch("set-start-step", stepName);
   }
 </script>
 
 <div class="card p-6">
-  <h3 class="text-lg font-semibold text-gray-900 mb-4">
-    Pipeline Execution
-  </h3>
+  <h3 class="text-lg font-semibold text-gray-900 mb-4">Pipeline Execution</h3>
 
   <div class="mb-4">
-    <div class="block text-sm font-medium text-gray-700 mb-2">Run Selection</div>
+    <div class="block text-sm font-medium text-gray-700 mb-2">
+      Run Selection
+    </div>
     <div class="space-y-3">
       <div class="flex items-center gap-4">
-        <button
-          class="btn-secondary"
-          on:click={handleNewRun}
-        >
+        <button class="btn-secondary" on:click={handleNewRun}>
           Start New Run
         </button>
         {#if runHistory.length}
@@ -85,15 +85,18 @@
             {#each runHistory as run}
               <option value={run.run_id}>
                 Run {run.display_id} · {run.last_step || "Unknown Step"} ·
-                {new Date(run.updated_at).toLocaleDateString()} {new Date(run.updated_at).toLocaleTimeString()}
+                {new Date(run.updated_at).toLocaleDateString()}
+                {new Date(run.updated_at).toLocaleTimeString()}
               </option>
             {/each}
           </select>
         {:else}
-          <span class="text-sm text-gray-500 italic">No previous runs available</span>
+          <span class="text-sm text-gray-500 italic"
+            >No previous runs available</span
+          >
         {/if}
       </div>
-      
+
       {#if selectedRun}
         <div class="bg-blue-50 border border-blue-200 rounded-md p-3">
           <div class="flex items-center justify-between">
@@ -102,21 +105,32 @@
                 Continuing Run {selectedRun.display_id}
               </p>
               <p class="text-xs text-blue-700">
-                Last step: <span class="font-mono">{selectedRun.last_step || "Unknown"}</span>
+                Last step: <span class="font-mono"
+                  >{selectedRun.last_step || "Unknown"}</span
+                >
                 {#if selectedRun.status}
                   · Status: <span class="capitalize">{selectedRun.status}</span>
                 {/if}
               </p>
             </div>
-            <span class="px-2 py-1 rounded-full text-xs font-medium {getStatusClass(selectedRun.status || 'unknown')}">
-              {(selectedRun.status || "unknown").charAt(0).toUpperCase() + (selectedRun.status || "unknown").slice(1)}
+            <span
+              class="px-2 py-1 rounded-full text-xs font-medium {getStatusClass(
+                selectedRun.status || 'unknown'
+              )}"
+            >
+              {(selectedRun.status || "unknown").charAt(0).toUpperCase() +
+                (selectedRun.status || "unknown").slice(1)}
             </span>
           </div>
         </div>
       {:else}
         <div class="bg-green-50 border border-green-200 rounded-md p-3">
-          <p class="text-sm font-medium text-green-900">Ready to start new run</p>
-          <p class="text-xs text-green-700">A fresh pipeline execution will be initiated</p>
+          <p class="text-sm font-medium text-green-900">
+            Ready to start new run
+          </p>
+          <p class="text-xs text-green-700">
+            A fresh pipeline execution will be initiated
+          </p>
         </div>
       {/if}
     </div>
@@ -127,15 +141,15 @@
     <div>
       <label
         for="inputJson"
-        class="block text-sm font-medium text-gray-700 mb-2"
-      >Input JSON</label>
+        class="block text-sm font-medium text-gray-700 mb-2">Input JSON</label
+      >
       <textarea
         id="inputJson"
         value={inputJson}
         on:input={handleInputChange}
         class="json-editor"
         spellcheck="false"
-        placeholder="{`{\"race_id\": \"example_race_2024\"}`}"
+        placeholder={'{"race_id": "example_race_2024"}'}
       />
     </div>
 
@@ -176,27 +190,32 @@
       <div class="space-y-3">
         <div class="space-y-2">
           <label class="flex items-center">
-            <input 
-              type="radio" 
-              checked={executionMode === 'single'}
-              on:change={() => handleExecutionModeChange('single')}
-              class="mr-2" 
+            <input
+              type="radio"
+              checked={executionMode === "single"}
+              on:change={() => handleExecutionModeChange("single")}
+              class="mr-2"
             />
             <span class="text-sm text-gray-700">Run Single Step</span>
           </label>
           <label class="flex items-center">
-            <input 
-              type="radio" 
-              checked={executionMode === 'range'}
-              on:change={() => handleExecutionModeChange('range')}
-              class="mr-2" 
+            <input
+              type="radio"
+              checked={executionMode === "range"}
+              on:change={() => handleExecutionModeChange("range")}
+              class="mr-2"
             />
             <span class="text-sm text-gray-700">Run Step Range</span>
           </label>
         </div>
         <div class="text-xs text-gray-500">
-          <p><strong>Single Step:</strong> Executes only the selected step and stops for user approval.</p>
-          <p><strong>Step Range:</strong> Executes from start step to end step continuously.</p>
+          <p>
+            <strong>Single Step:</strong> Executes only the selected step and stops
+            for user approval.
+          </p>
+          <p>
+            <strong>Step Range:</strong> Executes from start step to end step continuously.
+          </p>
         </div>
       </div>
     </details>
@@ -206,7 +225,9 @@
         <h4 class="text-md font-semibold text-gray-900 mb-3 flex items-center">
           Pipeline Steps
           {#if currentStep}
-            <span class="ml-2 px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+            <span
+              class="ml-2 px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800"
+            >
               Currently at: {currentStep}
             </span>
           {/if}
@@ -276,11 +297,11 @@
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
   }
 
-  .options label { 
-    display: flex; 
-    align-items: center; 
-    gap: 0.5rem; 
-    margin-bottom: 0.5rem; 
+  .options label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
   }
 
   /* Toggle Switch */
@@ -300,7 +321,7 @@
   }
 
   .toggle-switch::before {
-    content: '';
+    content: "";
     position: absolute;
     width: 20px;
     height: 20px;

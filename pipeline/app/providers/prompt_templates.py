@@ -17,6 +17,11 @@ class PromptTemplates:
         return load_prompt("issue_stance")
 
     @staticmethod
+    def get_issue_stances_structured_prompt() -> str:
+        """Get structured JSON prompt for extracting issue stances."""
+        return load_prompt("issue_stances_structured")
+
+    @staticmethod
     def get_general_summary_prompt() -> str:
         """Get prompt template for general content summarization."""
         return load_prompt("general_summary")

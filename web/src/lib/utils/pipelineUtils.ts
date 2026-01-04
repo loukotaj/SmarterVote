@@ -1,7 +1,7 @@
 /**
  * Pipeline utility functions
  */
-import type { RunStatus } from '$lib/types';
+import type { RunStatus } from "$lib/types";
 
 /**
  * Format duration in seconds to human readable format
@@ -50,22 +50,24 @@ export function getLogClass(level: string): string {
  * Safely stringify JSON with size limits and error handling
  */
 export function safeJsonStringify(
-  data: unknown, 
+  data: unknown,
   maxSize: number = 500000,
   indent: number = 2
 ): { content: string; truncated: boolean; error?: string } {
   if (data === null || data === undefined) {
-    return { content: '', truncated: false };
+    return { content: "", truncated: false };
   }
 
   try {
     // Quick size check for objects
-    if (typeof data === 'object' && data !== null) {
+    if (typeof data === "object" && data !== null) {
       const keys = Object.keys(data);
       if (keys.length > 1000) {
         return {
-          content: `[LARGE OBJECT DETECTED]\nObject has ${keys.length} top-level keys\nType: ${typeof data}`,
-          truncated: true
+          content: `[LARGE OBJECT DETECTED]\nObject has ${
+            keys.length
+          } top-level keys\nType: ${typeof data}`,
+          truncated: true,
         };
       }
     }
@@ -77,28 +79,32 @@ export function safeJsonStringify(
       const sizeMB = (jsonString.length / 1024 / 1024).toFixed(1);
       return {
         content: `${truncated}\n\n... [TRUNCATED - Content too large]\n... Full size: ${sizeMB}MB`,
-        truncated: true
+        truncated: true,
       };
     }
 
     return { content: jsonString, truncated: false };
   } catch (error) {
-    console.error('Failed to stringify data:', error);
+    console.error("Failed to stringify data:", error);
 
     // Provide helpful info about the object
-    if (typeof data === 'object' && data !== null) {
+    if (typeof data === "object" && data !== null) {
       const keys = Object.keys(data);
       return {
-        content: `[ERROR: Unable to display content]\nReason: ${error}\nType: ${typeof data}\nKeys: ${keys.length > 10 ? keys.slice(0, 10).join(', ') + '...' : keys.join(', ')}`,
+        content: `[ERROR: Unable to display content]\nReason: ${error}\nType: ${typeof data}\nKeys: ${
+          keys.length > 10
+            ? keys.slice(0, 10).join(", ") + "..."
+            : keys.join(", ")
+        }`,
         truncated: false,
-        error: String(error)
+        error: String(error),
       };
     }
 
     return {
       content: `[ERROR: Unable to display content]\nReason: ${error}\nType: ${typeof data}`,
       truncated: false,
-      error: String(error)
+      error: String(error),
     };
   }
 }
@@ -106,18 +112,25 @@ export function safeJsonStringify(
 /**
  * Copy text to clipboard with size validation
  */
-export async function copyToClipboard(text: string, maxSize: number = 5000000): Promise<boolean> {
+export async function copyToClipboard(
+  text: string,
+  maxSize: number = 5000000
+): Promise<boolean> {
   try {
     // Check size before copying (Chrome has ~5MB clipboard limit)
     if (text.length > maxSize) {
-      console.warn(`Content too large to copy (${(text.length / 1024 / 1024).toFixed(1)}MB)`);
+      console.warn(
+        `Content too large to copy (${(text.length / 1024 / 1024).toFixed(
+          1
+        )}MB)`
+      );
       return false;
     }
 
     await navigator.clipboard.writeText(text);
     return true;
   } catch (error) {
-    console.error('Failed to copy to clipboard:', error);
+    console.error("Failed to copy to clipboard:", error);
     return false;
   }
 }
@@ -128,18 +141,18 @@ export async function copyToClipboard(text: string, maxSize: number = 5000000): 
 export function downloadAsJson(data: unknown, filename?: string): boolean {
   try {
     const jsonString = JSON.stringify(data, null, 2);
-    const blob = new Blob([jsonString], { type: 'application/json' });
-    
+    const blob = new Blob([jsonString], { type: "application/json" });
+
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
+    const a = document.createElement("a");
     a.href = url;
     a.download = filename || `pipeline-result-${Date.now()}.json`;
     a.click();
     URL.revokeObjectURL(url);
-    
+
     return true;
   } catch (error) {
-    console.error('Failed to download file:', error);
+    console.error("Failed to download file:", error);
     return false;
   }
 }
@@ -147,7 +160,11 @@ export function downloadAsJson(data: unknown, filename?: string): boolean {
 /**
  * Validate JSON string
  */
-export function validateJson(jsonString: string): { valid: boolean; error?: string; data?: unknown } {
+export function validateJson(jsonString: string): {
+  valid: boolean;
+  error?: string;
+  data?: unknown;
+} {
   try {
     const data = JSON.parse(jsonString);
     return { valid: true, data };
@@ -164,7 +181,7 @@ export function debounce<T extends (...args: any[]) => any>(
   wait: number
 ): (...args: Parameters<T>) => void {
   let timeoutId: ReturnType<typeof setTimeout> | null = null;
-  
+
   return (...args: Parameters<T>) => {
     if (timeoutId) clearTimeout(timeoutId);
     timeoutId = setTimeout(() => func(...args), wait);
@@ -179,12 +196,12 @@ export function throttle<T extends (...args: any[]) => any>(
   limit: number
 ): (...args: Parameters<T>) => void {
   let inThrottle = false;
-  
+
   return (...args: Parameters<T>) => {
     if (!inThrottle) {
       func(...args);
       inThrottle = true;
-      setTimeout(() => inThrottle = false, limit);
+      setTimeout(() => (inThrottle = false), limit);
     }
   };
 }

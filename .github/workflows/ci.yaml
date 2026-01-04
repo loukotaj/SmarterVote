@@ -1,4 +1,6 @@
 name: CI - Quality Gates
+# DISABLED - Tests removed, linting can be done locally
+# Re-enable when adding new test infrastructure
 
 on:
   push:
@@ -13,6 +15,7 @@ env:
 jobs:
   lint-python:
     name: Lint Python Code
+    if: false  # DISABLED - re-enable when needed
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4

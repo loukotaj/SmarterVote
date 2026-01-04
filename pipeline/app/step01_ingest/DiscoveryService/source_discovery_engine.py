@@ -250,7 +250,8 @@ class SourceDiscoveryEngine:
                 office_type = race_parts[1]
                 year = int(race_parts[2]) if race_parts[2].isdigit() else int(race_parts[-1])
                 district = race_parts[2] if len(race_parts) == 4 and race_parts[2].isdigit() else None
-                race_type = "federal" if office_type in ["senate", "house"] else "state"
+                # Classify race type based on office
+                race_type = self._classify_race_type(office_type)
             else:
                 logger.warning("Could not parse race_id %s, using minimal sources", race_id)
                 return sources
@@ -309,8 +310,8 @@ class SourceDiscoveryEngine:
                     score=0.7,
                 )
             )
-        else:
-            # State-level SoS seed via generic domain pattern (not guaranteed)
+        elif race_type == "state":
+            # State-level elections: SoS + state election board
             sos_url = f"https://www.sos.{state.lower()}.gov"
             sources.append(
                 Source(
@@ -323,9 +324,89 @@ class SourceDiscoveryEngine:
                     score=0.6,
                 )
             )
+            # Add Vote411 for state races
+            vote411_url = f"https://www.vote411.org/ballot"
+            sources.append(
+                Source(
+                    url=vote411_url,
+                    type=SourceType.WEBSITE,
+                    title="Vote411 - League of Women Voters",
+                    description="Candidate comparison and voter guide",
+                    last_accessed=datetime.utcnow(),
+                    is_fresh=False,
+                    score=0.6,
+                )
+            )
+        else:
+            # Local elections: local government sites, news, Vote411
+            vote411_url = f"https://www.vote411.org/ballot"
+            sources.append(
+                Source(
+                    url=vote411_url,
+                    type=SourceType.WEBSITE,
+                    title="Vote411 - League of Women Voters",
+                    description="Local candidate comparison and voter guide",
+                    last_accessed=datetime.utcnow(),
+                    is_fresh=False,
+                    score=0.7,
+                )
+            )
+            # Add state Ballotpedia for local election context
+            ballotpedia_state_url = f"https://ballotpedia.org/{state}_elections,_{year}"
+            sources.append(
+                Source(
+                    url=ballotpedia_state_url,
+                    type=SourceType.WEBSITE,
+                    title=f"Ballotpedia - {state} Elections {year}",
+                    description=f"Overview of {state} elections",
+                    last_accessed=datetime.utcnow(),
+                    is_fresh=False,
+                    score=0.6,
+                )
+            )
 
         logger.info("Generated %d seed sources for %s", len(sources), race_id)
         return sources
+
+    def _classify_race_type(self, office_type: str) -> str:
+        """
+        Classify an office type as federal, state, or local.
+
+        Args:
+            office_type: The type of office (e.g., 'senate', 'governor', 'mayor')
+
+        Returns:
+            'federal', 'state', or 'local'
+        """
+        federal_offices = {"senate", "house"}
+        local_offices = {
+            "mayor",
+            "city-council",
+            "city_council",
+            "county-commissioner",
+            "county_commissioner",
+            "county-executive",
+            "county_executive",
+            "school-board",
+            "school_board",
+            "sheriff",
+            "district-attorney",
+            "district_attorney",
+            "alderman",
+            "town-council",
+            "town_council",
+            "supervisor",
+            "selectman",
+        }
+
+        office_lower = office_type.lower().replace("_", "-")
+
+        if office_lower in federal_offices:
+            return "federal"
+        elif office_lower in local_offices:
+            return "local"
+        else:
+            return "state"
 
     # ----------------------------- Internal (fresh) --------------------------- #
 

@@ -1,5 +1,7 @@
 # Cloud Run Job for race processing pipeline
+# DISABLED by default - set enable_pipeline_client = true in variables to deploy
 resource "google_cloud_run_v2_job" "race_worker" {
+  count    = var.enable_pipeline_client ? 1 : 0
   name     = "race-worker-${var.environment}"
   location = var.region
   project  = var.project_id

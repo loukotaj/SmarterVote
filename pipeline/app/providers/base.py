@@ -163,6 +163,17 @@ class ProviderRegistry:
     def list_providers(self) -> List[str]:
         return list(self._providers.keys())
 
+    # ---------- cheap mode control ----------
+
+    def set_cheap_mode(self, enabled: bool) -> None:
+        """Set cheap mode dynamically (affects tier preference and cost sorting)."""
+        self._cheap_mode = enabled
+        logger.info(f"Set cheap mode: {enabled}")
+
+    def is_cheap_mode(self) -> bool:
+        """Check if cheap mode is enabled."""
+        return self._cheap_mode
+
     # ---------- model pinning API ----------
 
     def set_preferred_model(self, provider: str, model_id: str, task_type: Optional[TaskType] = None) -> None:

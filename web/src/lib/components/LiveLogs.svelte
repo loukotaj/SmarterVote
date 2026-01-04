@@ -1,28 +1,28 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte';
-  import type { LogEntry } from '$lib/types';
-  import { getLogClass } from '$lib/utils/pipelineUtils';
-  
+  import { createEventDispatcher } from "svelte";
+  import type { LogEntry } from "$lib/types";
+  import { getLogClass } from "$lib/utils/pipelineUtils";
+
   export let logs: LogEntry[] = [];
-  export let logFilter: 'all' | 'debug' | 'info' | 'warning' | 'error' = 'all';
+  export let logFilter: "all" | "debug" | "info" | "warning" | "error" = "all";
   export let connected = false;
-  
+
   const dispatch = createEventDispatcher<{
-    'filter-change': 'all' | 'debug' | 'info' | 'warning' | 'error';
-    'clear-logs': void;
+    "filter-change": "all" | "debug" | "info" | "warning" | "error";
+    "clear-logs": void;
   }>();
-  
+
   $: filteredLogs = logs.filter(
-    (log) => logFilter === 'all' || log.level === logFilter
+    (log) => logFilter === "all" || log.level === logFilter
   );
-  
+
   function handleFilterChange(event: Event) {
     const value = (event.target as HTMLSelectElement).value as typeof logFilter;
-    dispatch('filter-change', value);
+    dispatch("filter-change", value);
   }
-  
+
   function clearLogs() {
-    dispatch('clear-logs');
+    dispatch("clear-logs");
   }
 </script>
 
@@ -31,8 +31,14 @@
     <div class="flex items-center space-x-3">
       <h3 class="text-lg font-semibold text-gray-900">Live Logs</h3>
       <div class="flex items-center space-x-2">
-        <div class="w-2 h-2 rounded-full {connected ? 'bg-green-500' : 'bg-red-500'} pulse-dot" />
-        <span class="text-xs text-gray-500">{connected ? 'Live' : 'Disconnected'}</span>
+        <div
+          class="w-2 h-2 rounded-full {connected
+            ? 'bg-green-500'
+            : 'bg-red-500'} pulse-dot"
+        />
+        <span class="text-xs text-gray-500"
+          >{connected ? "Live" : "Disconnected"}</span
+        >
       </div>
     </div>
     <div class="flex space-x-2">
@@ -55,7 +61,7 @@
       </button>
     </div>
   </div>
-  
+
   <div class="flex-1 overflow-auto custom-scrollbar bg-gray-50">
     <div class="min-h-full">
       {#each filteredLogs as log}
@@ -90,25 +96,30 @@
   }
 
   @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
   }
 
-  .custom-scrollbar::-webkit-scrollbar { 
-    width: 6px; 
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
   }
-  
+
   .custom-scrollbar::-webkit-scrollbar-track {
     background: #f1f5f9;
     border-radius: 3px;
   }
-  
+
   .custom-scrollbar::-webkit-scrollbar-thumb {
     background: #cbd5e1;
     border-radius: 3px;
   }
-  
-  .custom-scrollbar::-webkit-scrollbar-thumb:hover { 
-    background: #94a3b8; 
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
   }
 </style>

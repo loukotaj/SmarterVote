@@ -17,6 +17,9 @@ PIPELINE_ORDER = [
     "step01c_fetch",
     "step01d_extract",
     "step01e_relevance",
+    "step02_corpus",
+    "step03_summarise",
+    "step04_publish",
 ]
 
 
@@ -61,7 +64,7 @@ def _resolve_artifact_references(state: Dict[str, Any]) -> Dict[str, Any]:
                 # Legacy case: direct content array
                 resolved_state["raw_content"] = output
         elif step_name == "step01d_extract":
-            # Handle reference collections from step01d_extract  
+            # Handle reference collections from step01d_extract
             output = artifact["output"]
             if isinstance(output, dict) and output.get("type") == "content_collection_refs":
                 # For reference collections, we can pass them through as-is
@@ -108,6 +111,24 @@ def build_payload(step: str, state: Dict[str, Any]) -> Dict[str, Any]:
             "processed_content": resolved_state["processed_content"],
             "race_json": resolved_state.get("race_json"),
         }
+    if step == "step02_corpus":
+        return {
+            "race_id": resolved_state["race_id"],
+            "relevant_content": resolved_state.get("relevant_content") or resolved_state.get("processed_content"),
+            "race_json": resolved_state.get("race_json"),
+        }
+    if step == "step03_summarise":
+        return {
+            "race_id": resolved_state["race_id"],
+            "race_json": resolved_state.get("race_json"),
+            "corpus_stats": resolved_state.get("corpus_stats", {}),
+        }
+    if step == "step04_publish":
+        return {
+            "race_id": resolved_state["race_id"],
+            "race_json": resolved_state.get("race_json"),
+            "summaries": resolved_state.get("summaries", {}),
+        }
 
     raise KeyError(f"Unknown step '{step}'")
 
@@ -133,6 +154,12 @@ def update_state(step: str, state: Dict[str, Any], output: Any) -> Dict[str, Any
         new_state["processed_content"] = output
     elif step == "step01e_relevance":
         new_state["relevant_content"] = output
+    elif step == "step02_corpus":
+        new_state["corpus_stats"] = output.get("corpus_stats", output) if isinstance(output, dict) else output
+    elif step == "step03_summarise":
+        new_state["summaries"] = output.get("summaries", output) if isinstance(output, dict) else output
+    elif step == "step04_publish":
+        new_state["published"] = output
 
     return new_state
 

@@ -1,8 +1,8 @@
 /**
  * Pipeline API service for handling server communication
  */
-import { fetchWithAuth } from '$lib/stores/apiStore';
-import type { RunInfo, Artifact, RunOptions, RunHistoryItem } from '$lib/types';
+import { fetchWithAuth } from "$lib/stores/apiStore";
+import type { RunInfo, Artifact, RunOptions, RunHistoryItem } from "$lib/types";
 
 interface RunsResponse {
   runs: RunInfo[];
@@ -47,7 +47,7 @@ export class PipelineApiService {
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
     const data: RunsResponse = await res.json();
     const runs = data.runs || [];
-    
+
     return runs.map((r: RunInfo, idx: number) => {
       const lastStep = r.steps?.at(-1)?.name || (r as any).step;
       return {
@@ -73,7 +73,11 @@ export class PipelineApiService {
    * Get artifact data
    */
   async getArtifact(artifactId: string): Promise<any> {
-    const res = await fetchWithAuth(`${this.apiBase}/artifact/${artifactId}`, {}, 20000);
+    const res = await fetchWithAuth(
+      `${this.apiBase}/artifact/${artifactId}`,
+      {},
+      20000
+    );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
     return await res.json();
   }
@@ -81,11 +85,15 @@ export class PipelineApiService {
   /**
    * Execute a single step
    */
-  async executeStep(stepName: string, payload: any, options: RunOptions): Promise<any> {
+  async executeStep(
+    stepName: string,
+    payload: any,
+    options: RunOptions
+  ): Promise<any> {
     const body = { payload, options };
     const res = await fetchWithAuth(`${this.apiBase}/run/${stepName}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     });
 
@@ -100,17 +108,14 @@ export class PipelineApiService {
    * Continue run with specific steps
    */
   async continueRun(runId: string, steps: string[], state: any): Promise<any> {
-    const res = await fetchWithAuth(
-      `${this.apiBase}/runs/${runId}/continue`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ steps, state }),
-      }
-    );
+    const res = await fetchWithAuth(`${this.apiBase}/runs/${runId}/continue`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ steps, state }),
+    });
 
     if (!res.ok) {
-      const errorText = await res.text().catch(() => 'Unknown error');
+      const errorText = await res.text().catch(() => "Unknown error");
       throw new Error(`HTTP ${res.status}: ${res.statusText}. ${errorText}`);
     }
 

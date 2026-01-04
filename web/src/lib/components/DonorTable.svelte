@@ -1,25 +1,26 @@
 <script lang="ts">
   import type { TopDonor } from "$lib/types";
   import SourceLink from "./SourceLink.svelte";
+  import NoDataFallback from "./NoDataFallback.svelte";
 
   export let donors: TopDonor[];
+  export let raceId: string = "";
+  export let candidateName: string = "";
 
   function formatAmount(amount?: number): string {
     if (!amount) return "Amount not disclosed";
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
       minimumFractionDigits: 0,
-      maximumFractionDigits: 0
+      maximumFractionDigits: 0,
     }).format(amount);
   }
 </script>
 
 <div class="donors-container">
   {#if donors.length === 0}
-    <div class="no-data">
-      <p class="text-gray-500 text-sm">No donor information available</p>
-    </div>
+    <NoDataFallback dataType="donors" {raceId} {candidateName} />
   {:else}
     <div class="donors-list">
       {#each donors as donor}
@@ -43,10 +44,6 @@
 <style lang="postcss">
   .donors-container {
     @apply space-y-4;
-  }
-
-  .no-data {
-    @apply text-center py-8;
   }
 
   .donors-list {

@@ -275,9 +275,11 @@ terraform_*.zip
 # Pre-commit
 .pre-commit-cache/
 data/chroma_db/
+data/cache/
 test_enhanced_fetcher_extractor.py
 test_backward_compatibility.py
 pipeline_client/artifacts/*
 pipeline_client/runs/*
 pipeline_client/pipeline_client/runs/*
+pipeline_client/data/
 web/vite.config.js.timestamp-*

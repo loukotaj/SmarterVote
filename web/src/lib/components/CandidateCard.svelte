@@ -7,21 +7,26 @@
   import type { Candidate } from "$lib/types";
 
   export let candidate: Candidate;
+  export let raceId: string = "";
 
   let expanded = false;
-  let activeTab: 'issues' | 'donors' | 'voting' = 'issues';
+  let activeTab: "issues" | "donors" | "voting" = "issues";
 
   function toggleExpanded() {
     expanded = !expanded;
   }
 
-  function setActiveTab(tab: 'issues' | 'donors' | 'voting') {
+  function setActiveTab(tab: "issues" | "donors" | "voting") {
     activeTab = tab;
   }
 
   // Generate a URL-safe ID from candidate name
   function generateCandidateId(name: string): string {
-    return name.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+    return name
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, "-")
+      .replace(/-+/g, "-")
+      .replace(/^-|-$/g, "");
   }
 </script>
 
@@ -38,8 +43,18 @@
           aria-label="Link to {candidate.name}"
           title="Link to this candidate"
         >
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+          <svg
+            class="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+            />
           </svg>
         </a>
       </h3>
@@ -55,7 +70,10 @@
 
     <!-- Summary -->
     <p class="summary">
-      {expanded ? candidate.summary : candidate.summary.slice(0, 150) + (candidate.summary.length > 150 ? '...' : '')}
+      {expanded
+        ? candidate.summary
+        : candidate.summary.slice(0, 150) +
+          (candidate.summary.length > 150 ? "..." : "")}
     </p>
 
     <!-- Website Link - Only show when expanded -->
@@ -91,10 +109,12 @@
         class="expand-button"
         on:click={toggleExpanded}
         aria-expanded={expanded}
-        aria-label={expanded ? 'Collapse candidate details' : 'Expand candidate details'}
+        aria-label={expanded
+          ? "Collapse candidate details"
+          : "Expand candidate details"}
       >
         <span class="expand-text">
-          {expanded ? 'Show Less' : 'Show More'}
+          {expanded ? "Show Less" : "Show More"}
         </span>
         <svg
           class="expand-icon"
@@ -120,21 +140,22 @@
       <!-- Tab Navigation -->
       <div class="tab-navigation">
         <TabButton
-          active={activeTab === 'issues'}
-          onClick={() => setActiveTab('issues')}
+          active={activeTab === "issues"}
+          onClick={() => setActiveTab("issues")}
         >
           Key Issues
         </TabButton>
         <TabButton
-          active={activeTab === 'donors'}
-          onClick={() => setActiveTab('donors')}
+          active={activeTab === "donors"}
+          onClick={() => setActiveTab("donors")}
         >
           Top Donors ({candidate.top_donors.length})
         </TabButton>
         <TabButton
-          active={activeTab === 'voting'}
-          onClick={() => setActiveTab('voting')}
-          disabled={!candidate.voting_record || candidate.voting_record.length === 0}
+          active={activeTab === "voting"}
+          onClick={() => setActiveTab("voting")}
+          disabled={!candidate.voting_record ||
+            candidate.voting_record.length === 0}
         >
           Voting Record
           {#if candidate.voting_record && candidate.voting_record.length > 0}
@@ -145,12 +166,24 @@
 
       <!-- Tab Content -->
       <div class="tab-content">
-        {#if activeTab === 'issues'}
-          <IssueTable issues={candidate.issues} />
-        {:else if activeTab === 'donors'}
-          <DonorTable donors={candidate.top_donors} />
-        {:else if activeTab === 'voting'}
-          <VotingRecordTable votingRecord={candidate.voting_record || []} />
+        {#if activeTab === "issues"}
+          <IssueTable
+            issues={candidate.issues}
+            {raceId}
+            candidateName={candidate.name}
+          />
+        {:else if activeTab === "donors"}
+          <DonorTable
+            donors={candidate.top_donors}
+            {raceId}
+            candidateName={candidate.name}
+          />
+        {:else if activeTab === "voting"}
+          <VotingRecordTable
+            votingRecord={candidate.voting_record || []}
+            {raceId}
+            candidateName={candidate.name}
+          />
         {/if}
       </div>
     </div>
@@ -163,7 +196,9 @@
           <span class="issue-tag">{issue}</span>
         {/each}
         {#if Object.keys(candidate.issues).length > 4}
-          <span class="issue-tag more-tag">+{Object.keys(candidate.issues).length - 4} more</span>
+          <span class="issue-tag more-tag"
+            >+{Object.keys(candidate.issues).length - 4} more</span
+          >
         {/if}
       </div>
     </div>

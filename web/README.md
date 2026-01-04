@@ -25,7 +25,7 @@ A responsive, accessible web application that transforms complex electoral data 
 
 ### Core Functionality
 
-- **🤖 AI-Powered Analysis**: Candidate comparisons across 11 canonical political issues
+- **🤖 AI-Powered Analysis**: Candidate comparisons across 12 canonical political issues
 - **📱 Responsive Design**: Mobile-first approach with Tailwind CSS
 - **⚡ Static Site Generation**: Optimized for GitHub Pages deployment
 - **🔍 SEO Optimized**: Proper meta tags, structured data, and social media cards

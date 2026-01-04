@@ -1,8 +1,13 @@
 # SmarterVote Development Server Launcher
-# This script starts both the races API and the web frontend
+# This script starts the pipeline client, races API, and web frontend
 
-Write-Host "Starting SmarterVote Development Environment" -ForegroundColor Green
-Write-Host "=============================================" -ForegroundColor Green
+Write-Host @"
+
+╔═══════════════════════════════════════════════════════════════╗
+║              🗳️  SmarterVote Local Development                 ║
+╚═══════════════════════════════════════════════════════════════╝
+
+"@ -ForegroundColor Cyan
 
 # Function to check if a command exists
 function Test-Command($command) {
@@ -29,69 +34,92 @@ if (-not (Test-Command "npm")) {
     exit 1
 }
 
-Write-Host "Prerequisites check passed!" -ForegroundColor Green
+Write-Host "✅ Prerequisites check passed!" -ForegroundColor Green
 
 # Check if data files exist
 if (-not (Test-Path "data\published\*.json")) {
-    Write-Host "WARNING: No race data files found in data\published\. Creating demo data..." -ForegroundColor Yellow
+    Write-Host "WARNING: No race data files found in data\published\." -ForegroundColor Yellow
     if (-not (Test-Path "data\published")) {
         New-Item -ItemType Directory -Path "data\published" -Force | Out-Null
     }
-    Write-Host "Demo data should be available. If races API shows no data, check data\published\ directory." -ForegroundColor Yellow
+}
+
+# Create necessary directories
+$directories = @("data\published", "data\chroma_db", "pipeline_client\artifacts", "pipeline_client\runs")
+foreach ($dir in $directories) {
+    if (-not (Test-Path $dir)) {
+        New-Item -ItemType Directory -Path $dir -Force | Out-Null
+    }
 }
 
 Write-Host ""
 Write-Host "Starting services..." -ForegroundColor Yellow
 
-# Function to start races API
+# Set common environment
+$env:PYTHONPATH = $PWD
+
+# Start Pipeline Client API (port 8001)
+$pipelineJob = Start-Job -ScriptBlock {
+    Set-Location $using:PWD
+    $env:PYTHONPATH = $using:PWD
+    Set-Location "pipeline_client"
+    & "$using:PWD\.venv\Scripts\python.exe" -m uvicorn backend.main:app --host 127.0.0.1 --port 8001 --reload
+}
+
+# Start Races API (port 8080)
 $apiJob = Start-Job -ScriptBlock {
     Set-Location $using:PWD
-    Set-Location "services\races-api"
-    Write-Host "Starting Races API on http://localhost:8080" -ForegroundColor Cyan
     $env:PYTHONPATH = $using:PWD
-    $env:DATA_DIR = "../../data/published"
-    & "$using:PWD\.venv\Scripts\python.exe" main.py
+    Set-Location "services\races-api"
+    & "$using:PWD\.venv\Scripts\python.exe" -m uvicorn main:app --host 127.0.0.1 --port 8080 --reload
 }
 
 # Function to start web frontend
 $webJob = Start-Job -ScriptBlock {
     Set-Location $using:PWD
     Set-Location "web"
-    Write-Host "Installing npm dependencies..." -ForegroundColor Cyan
-    npm install --silent
-    Write-Host "Starting Web Frontend on http://localhost:3000" -ForegroundColor Cyan
-    npm run dev
+    npm install --silent 2>$null
+    npm run dev -- --host
 }
 
-Write-Host ""
-Write-Host "Services are starting up..." -ForegroundColor Green
-Write-Host "Races API: http://localhost:8080" -ForegroundColor Cyan
-Write-Host "Web Frontend: http://localhost:3000" -ForegroundColor Cyan
-Write-Host ""
-Write-Host "Please wait 10-15 seconds for services to fully start..." -ForegroundColor Yellow
-Write-Host ""
-Write-Host "Available API endpoints:" -ForegroundColor White
-Write-Host "  GET http://localhost:8080/races - List all races" -ForegroundColor Gray
-Write-Host "  GET http://localhost:8080/races/tx-governor-2024 - Get specific race" -ForegroundColor Gray
-Write-Host ""
-Write-Host "Press Ctrl+C to stop both services" -ForegroundColor Red
+# Wait for services to start
+Start-Sleep -Seconds 3
+
+Write-Host @"
+
+╔═══════════════════════════════════════════════════════════════╗
+║                   🚀 Services Running                         ║
+╠═══════════════════════════════════════════════════════════════╣
+║  Web Dashboard:       http://localhost:5173                   ║
+║  Pipeline Admin:      http://localhost:5173/admin/pipeline    ║
+║  Pipeline API Docs:   http://localhost:8001/docs              ║
+║  Races API Docs:      http://localhost:8080/docs              ║
+╠═══════════════════════════════════════════════════════════════╣
+║  Press Ctrl+C to stop all services                            ║
+╚═══════════════════════════════════════════════════════════════╝
+
+"@ -ForegroundColor Green
+
+Write-Host "Waiting for services to fully initialize..." -ForegroundColor Yellow
 Write-Host ""
 
 try {
-    # Wait for both jobs to complete or user interruption
-    while ($apiJob.State -eq 'Running' -or $webJob.State -eq 'Running') {
+    # Wait for all jobs to complete or user interruption
+    while ($pipelineJob.State -eq 'Running' -or $apiJob.State -eq 'Running' -or $webJob.State -eq 'Running') {
         Start-Sleep -Seconds 2
 
-        # Check if either job failed
+        # Check if any job failed
+        if ($pipelineJob.State -eq 'Failed') {
+            Write-Host "ERROR: Pipeline API failed to start:" -ForegroundColor Red
+            Receive-Job $pipelineJob
+        }
         if ($apiJob.State -eq 'Failed') {
-            Write-Host "ERROR: Races API failed to start. Check error below:" -ForegroundColor Red
+            Write-Host "ERROR: Races API failed to start:" -ForegroundColor Red
             Receive-Job $apiJob
-            break
         }
         if ($webJob.State -eq 'Failed') {
-            Write-Host "ERROR: Web Frontend failed to start. Check error below:" -ForegroundColor Red
+            Write-Host "ERROR: Web Frontend failed to start:" -ForegroundColor Red
             Receive-Job $webJob
-            break
         }
     }
 } catch {
@@ -99,11 +127,17 @@ try {
     Write-Host "Shutting down services..." -ForegroundColor Yellow
 } finally {
     # Clean up jobs
+    if ($pipelineJob) {
+        Stop-Job $pipelineJob -ErrorAction SilentlyContinue
+        Remove-Job $pipelineJob -Force -ErrorAction SilentlyContinue
+    }
     if ($apiJob) {
-        Stop-Job $apiJob -PassThru | Remove-Job
+        Stop-Job $apiJob -ErrorAction SilentlyContinue
+        Remove-Job $apiJob -Force -ErrorAction SilentlyContinue
     }
     if ($webJob) {
-        Stop-Job $webJob -PassThru | Remove-Job
+        Stop-Job $webJob -ErrorAction SilentlyContinue
+        Remove-Job $webJob -Force -ErrorAction SilentlyContinue
     }
     Write-Host "All services stopped." -ForegroundColor Green
 }

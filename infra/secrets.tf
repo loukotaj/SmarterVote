@@ -82,6 +82,7 @@ resource "google_secret_manager_secret_version" "google_search_cx" {
 
 # Service accounts for the same project
 resource "google_service_account" "race_worker" {
+  count        = var.enable_pipeline_client ? 1 : 0
   project      = var.project_id
   account_id   = "race-worker-${var.environment}"
   display_name = "Race Worker Service Account"
@@ -89,6 +90,7 @@ resource "google_service_account" "race_worker" {
 }
 
 resource "google_service_account" "enqueue_api" {
+  count        = var.enable_pipeline_client ? 1 : 0
   project      = var.project_id
   account_id   = "enqueue-api-${var.environment}"
   display_name = "Enqueue API Service Account"
@@ -103,6 +105,7 @@ resource "google_service_account" "races_api" {
 }
 
 resource "google_service_account" "pipeline_client" {
+  count        = var.enable_pipeline_client ? 1 : 0
   project      = var.project_id
   account_id   = "pipeline-client-${var.environment}"
   display_name = "Pipeline Client Service Account"
@@ -110,6 +113,7 @@ resource "google_service_account" "pipeline_client" {
 }
 
 resource "google_service_account" "pubsub_invoker" {
+  count        = var.enable_pipeline_client ? 1 : 0
   project      = var.project_id
   account_id   = "pubsub-invoker-${var.environment}"
   display_name = "Pub/Sub Invoker Service Account"
@@ -124,60 +128,69 @@ resource "google_service_account" "github_actions" {
   description  = "Service account for GitHub Actions to deploy infrastructure and services"
 }
 
-# IAM bindings for race worker - all within same project
+# IAM bindings for race worker - all within same project (only when pipeline enabled)
 resource "google_project_iam_member" "race_worker_storage" {
+  count   = var.enable_pipeline_client ? 1 : 0
   project = var.project_id
   role    = "roles/storage.objectAdmin"
-  member  = "serviceAccount:${google_service_account.race_worker.email}"
+  member  = "serviceAccount:${google_service_account.race_worker[0].email}"
 }
 
 resource "google_project_iam_member" "race_worker_secrets" {
+  count   = var.enable_pipeline_client ? 1 : 0
   project = var.project_id
   role    = "roles/secretmanager.secretAccessor"
-  member  = "serviceAccount:${google_service_account.race_worker.email}"
+  member  = "serviceAccount:${google_service_account.race_worker[0].email}"
 }
 
 resource "google_project_iam_member" "race_worker_run_jobs" {
+  count   = var.enable_pipeline_client ? 1 : 0
   project = var.project_id
   role    = "roles/run.developer"
-  member  = "serviceAccount:${google_service_account.race_worker.email}"
+  member  = "serviceAccount:${google_service_account.race_worker[0].email}"
 }
 
 resource "google_project_iam_member" "race_worker_pubsub" {
+  count   = var.enable_pipeline_client ? 1 : 0
   project = var.project_id
   role    = "roles/pubsub.subscriber"
-  member  = "serviceAccount:${google_service_account.race_worker.email}"
+  member  = "serviceAccount:${google_service_account.race_worker[0].email}"
 }
 
 resource "google_project_iam_member" "race_worker_artifact_registry" {
+  count   = var.enable_pipeline_client ? 1 : 0
   project = var.project_id
   role    = "roles/artifactregistry.writer"
-  member  = "serviceAccount:${google_service_account.race_worker.email}"
+  member  = "serviceAccount:${google_service_account.race_worker[0].email}"
 }
 
-# IAM bindings for enqueue API
+# IAM bindings for enqueue API (only when pipeline enabled)
 resource "google_project_iam_member" "enqueue_api_pubsub" {
+  count   = var.enable_pipeline_client ? 1 : 0
   project = var.project_id
   role    = "roles/pubsub.publisher"
-  member  = "serviceAccount:${google_service_account.enqueue_api.email}"
+  member  = "serviceAccount:${google_service_account.enqueue_api[0].email}"
 }
 
 resource "google_project_iam_member" "enqueue_api_run_invoker" {
+  count   = var.enable_pipeline_client ? 1 : 0
   project = var.project_id
   role    = "roles/run.invoker"
-  member  = "serviceAccount:${google_service_account.enqueue_api.email}"
+  member  = "serviceAccount:${google_service_account.enqueue_api[0].email}"
 }
 
 resource "google_project_iam_member" "enqueue_api_run_developer" {
+  count   = var.enable_pipeline_client ? 1 : 0
   project = var.project_id
   role    = "roles/run.developer"
-  member  = "serviceAccount:${google_service_account.enqueue_api.email}"
+  member  = "serviceAccount:${google_service_account.enqueue_api[0].email}"
 }
 
 resource "google_project_iam_member" "enqueue_api_artifact_registry" {
+  count   = var.enable_pipeline_client ? 1 : 0
   project = var.project_id
   role    = "roles/artifactregistry.writer"
-  member  = "serviceAccount:${google_service_account.enqueue_api.email}"
+  member  = "serviceAccount:${google_service_account.enqueue_api[0].email}"
 }
 
 # IAM bindings for races API
@@ -193,23 +206,26 @@ resource "google_project_iam_member" "races_api_artifact_registry" {
   member  = "serviceAccount:${google_service_account.races_api.email}"
 }
 
-# IAM bindings for pipeline client
+# IAM bindings for pipeline client (only when pipeline enabled)
 resource "google_project_iam_member" "pipeline_client_storage" {
+  count   = var.enable_pipeline_client ? 1 : 0
   project = var.project_id
   role    = "roles/storage.objectAdmin"
-  member  = "serviceAccount:${google_service_account.pipeline_client.email}"
+  member  = "serviceAccount:${google_service_account.pipeline_client[0].email}"
 }
 
 resource "google_project_iam_member" "pipeline_client_secrets" {
+  count   = var.enable_pipeline_client ? 1 : 0
   project = var.project_id
   role    = "roles/secretmanager.secretAccessor"
-  member  = "serviceAccount:${google_service_account.pipeline_client.email}"
+  member  = "serviceAccount:${google_service_account.pipeline_client[0].email}"
 }
 
 resource "google_project_iam_member" "pipeline_client_artifact_registry" {
+  count   = var.enable_pipeline_client ? 1 : 0
   project = var.project_id
   role    = "roles/artifactregistry.writer"
-  member  = "serviceAccount:${google_service_account.pipeline_client.email}"
+  member  = "serviceAccount:${google_service_account.pipeline_client[0].email}"
 }
 
 # IAM bindings for GitHub Actions deployment service account
@@ -237,9 +253,10 @@ resource "google_project_iam_member" "github_actions_iam" {
   member  = "serviceAccount:${google_service_account.github_actions.email}"
 }
 
-# IAM bindings for Pub/Sub invoker
+# IAM bindings for Pub/Sub invoker (only when pipeline enabled)
 resource "google_project_iam_member" "pubsub_invoker_run" {
+  count   = var.enable_pipeline_client ? 1 : 0
   project = var.project_id
   role    = "roles/run.invoker"
-  member  = "serviceAccount:${google_service_account.pubsub_invoker.email}"
+  member  = "serviceAccount:${google_service_account.pubsub_invoker[0].email}"
 }

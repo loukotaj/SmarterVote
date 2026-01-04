@@ -1,367 +1,140 @@
-# SmarterVote Architecture v1.1
+# SmarterVote Architecture
 
-**Corpus-First AI Pipeline for Electoral Analysis** 🏗️
+**Corpus-First AI Pipeline for Electoral Analysis**
 
-*Last updated: August 2025*
+## Overview
 
-## 🎯 Overview
+SmarterVote processes electoral data through a 4-stage pipeline that builds semantic understanding before generating summaries. Multiple AI models validate outputs for reliability.
 
-SmarterVote implements a sophisticated **corpus-first architecture** that prioritizes content comprehension and semantic understanding over simple aggregation. Our system processes electoral data through a multi-stage AI pipeline designed for accuracy, bias reduction, and scalable analysis.
-
-The **pipeline client** (`pipeline_client/backend`) serves as the official execution engine, providing HTTP endpoints and a CLI for orchestrating pipeline steps.
-
-## 🧭 Pipeline Flow
-
-The pipeline runs four sequential stages: **INGEST → CORPUS → SUMMARIZE → PUBLISH**.
-
-## 🔧 System Architecture
-
-### Core Design Principles
-
-1. **Corpus-First Processing**: Build comprehensive content understanding before analysis
-2. **Multi-Model Consensus**: Triangulate across multiple AI models for reliability
-3. **Confidence Scoring**: Quantify certainty in analysis results
-4. **Semantic Indexing**: Vector-based content search and retrieval
-5. **Modular Pipeline**: Independent, testable processing stages
-
-### Architecture Diagram
-
-```mermaid
-graph TB
-    subgraph "Data Sources"
-        A[Campaign Websites]
-        B[Government APIs]
-        C[News Sources]
-        D[Social Media]
-        E[Fresh Issue Search]
-    end
-
-    subgraph "Processing Pipeline"
-        F[Discovery Engine] --> G[Content Fetcher]
-        G --> H[Content Extractor]
-        H --> I[Vector Corpus]
-        I --> J[LLM Summarization]
-        J --> K[Arbitration Engine]
-        K --> L[Publishing Engine]
-    end
-
-    subgraph "AI Models"
-        M[GPT-4o]
-        N[Claude-3.5]
-        O[grok-3]
-    end
-
-    subgraph "Storage & APIs"
-        P[ChromaDB]
-        Q[Cloud Storage]
-        R[Race API]
-        S[Enqueue API]
-    end
-
-    subgraph "Frontend"
-        T[SvelteKit Web App]
-        U[Static Site Generator]
-    end
-
-    A --> F
-    B --> F
-    C --> F
-    D --> F
-    E --> F
-
-    J --> M
-    J --> N
-    J --> O
-
-    I --> P
-    L --> Q
-    L --> R
-
-    R --> T
-    T --> U
-```
-
-## 🚀 Pipeline Components (v1.1)
-
-### 1. Discovery Service (`pipeline/app/step01_ingest/DiscoveryService/`)
-**Purpose**: Intelligent content source identification
-
-**Capabilities**:
-- Seed URL expansion from candidate websites
-- Google Search API integration with specialized dorks
-- Fresh issue-specific search for current positions
-- Social media and news source detection
-- Source quality scoring and prioritization
-
-**Output**: Validated source list with metadata
-
-### 2. Content Fetcher (`pipeline/app/step01_ingest/ContentFetcher/`)
-**Purpose**: Robust content acquisition with error handling
-
-**Capabilities**:
-- Multi-protocol support (HTTP/HTTPS, APIs)
-- Rate limiting and respectful crawling
-- Content type detection and handling
-- Retry logic with exponential backoff
-- Content integrity verification (checksums)
-
-**Output**: Raw content with metadata
-
-### 3. Content Extractor (`pipeline/app/step01_ingest/ContentExtractor/`)
-**Purpose**: Transform raw content into structured text
-
-**Capabilities**:
-- HTML parsing with semantic awareness
-- PDF text extraction with layout preservation
-- JSON/XML structured data processing
-- Image OCR for embedded text
-- Content cleaning and normalization
-
-**Output**: Clean, searchable text content
-
-### 4. Vector Corpus (`pipeline/app/step02_corpus/`)
-**Purpose**: Semantic content indexing and retrieval
-
-**Technology**: ChromaDB vector database
-**Capabilities**:
-- Embedding generation for semantic search
-- Multi-dimensional content indexing
-- Similarity-based content retrieval
-- Context-aware content clustering
-- Efficient vector similarity queries
-
-**Output**: Indexed content corpus with semantic search
-
-### 5. LLM Summarization Engine (`pipeline/app/step03_summarise/`)
-**Purpose**: Multi-model content analysis and summarization
-
-**AI Models (Cheap Mode - Default)**:
-- **GPT-4o-mini**: Cost-effective general analysis
-- **Claude-3-Haiku**: Fast structured content analysis
-- **Grok-3-mini**: Alternative perspective on a budget
-
-**AI Models (Standard Mode)**:
-- **GPT-4o**: General analysis and reasoning
-- **Claude-3.5**: Structured content analysis
-- **grok-3**: Alternative perspective and fact-checking
-
-**Mode Selection**:
-- Cheap mode (default): Cost-effective processing with mini models
-- Standard mode: High-quality analysis with premium models
-- Configurable via `--full-models` flag or `SMARTERVOTE_CHEAP_MODE=false` environment variable
-
-**Process**:
-1. RAG (Retrieval-Augmented Generation) query preparation
-2. Parallel analysis across all models
-3. Issue-specific position extraction
-4. Evidence citation and sourcing
-
-**Output**: Structured candidate positions per canonical issue
-
-### 6. Consensus Arbitration Engine (`pipeline/app/step03_summarise/consensus_arbitration_engine.py`)
-**Purpose**: Consensus-building and confidence scoring using AI analysis
-
-**AI Models**: Inherits mode setting from summarization engine
-- Cheap (default): Uses GPT-4o-mini, Claude-3-Haiku, Grok-3-mini for arbitration
-- Standard: Uses GPT-4o, Claude-3.5, grok-3 for arbitration
-
-**Arbitration Logic**:
-- **AI-Driven Analysis**: Uses LLMs for bias detection and consensus generation
-- **2-of-3 Consensus**: Majority agreement for high confidence
-- **Partial Consensus**: Single agreement for medium confidence
-- **No Consensus**: Store all perspectives with low confidence
-- **Evidence Weighting**: Source quality affects final scoring
-
-**Confidence Levels**:
-- **HIGH**: 85%+ model agreement with quality sources
-- **MEDIUM**: 60-84% agreement or limited sources
-- **LOW**: <60% agreement or contradictory information
-
-**Output**: Arbitrated positions with confidence metrics
-
-### 7. Race Publishing Engine (`pipeline/app/step04_publish/race_publishing_engine.py`)
-**Purpose**: Generate standardized output formats
-
-**Capabilities**:
-- RaceJSON v0.2 format generation
-- Multi-destination publishing (Cloud Storage, APIs)
-- Data validation and quality checks
-- Versioning and audit trails
-- Webhook notifications
-
-**Output**: Published race data in standardized format
-
-## 🌐 Services Architecture
-
-### Enqueue API (`services/enqueue-api/`)
-**Technology**: FastAPI + Cloud Run
-**Purpose**: Public API for triggering race processing
-
-**Endpoints**:
-- `POST /enqueue`: Submit race for processing
-- `GET /health`: Service health check
-- `GET /metrics`: Processing metrics
-
-**Features**:
-- Pub/Sub integration for async processing
-- Request validation and sanitization
-- Rate limiting and authentication
-- CORS configuration for web access
-
-### Races API (`services/races-api/`)
-**Technology**: FastAPI + Cloud Run
-**Purpose**: Serve processed race data
-
-**Endpoints**:
-- `GET /races`: List available races
-- `GET /races/{race_id}`: Get specific race data
-- `GET /races/{race_id}/candidates`: Get candidate details
-- `POST /webhook`: Handle processing completion
-
-**Features**:
-- Data caching and optimization
-- Version management
-- Content delivery optimization
-
-## 💻 Web Frontend Architecture
-
-### SvelteKit Application (`web/`)
-**Technology**: SvelteKit + TypeScript + Tailwind CSS
-
-**Architecture Features**:
-- **Static Site Generation**: Pre-built pages for optimal performance
-- **Component-Based Design**: Reusable UI components
-- **Type Safety**: Full TypeScript integration
-- **Responsive Design**: Mobile-first approach
-- **SEO Optimization**: Structured data and meta tags
-
-**Key Routes**:
-- `/`: Homepage with featured races
-- `/about`: Platform information and methodology
-- `/races/[slug]`: Dynamic race-specific pages
-- `/api/`: Client-side API integration
-
-**Performance Optimizations**:
-- Code splitting and lazy loading
-- Image optimization and CDN delivery
-- Minimal JavaScript footprint
-- Progressive enhancement approach
-
-## ☁️ Cloud Infrastructure
-
-### Google Cloud Platform Architecture
-
-**Compute Services**:
-- **Cloud Run Services**: Auto-scaling API endpoints
-- **Cloud Run Jobs**: Batch processing workers
-- **Cloud Scheduler**: Automated pipeline triggers
-
-**Storage Services**:
-- **Cloud Storage**: File storage with lifecycle management
-- **Secret Manager**: Encrypted API key storage
-- **Firestore**: Metadata and configuration storage
-
-**Messaging & Events**:
-- **Pub/Sub**: Async job queuing and event handling
-- **Dead Letter Queues**: Failed job recovery
-- **Cloud Scheduler**: Automated daily processing
-
-**Security & Monitoring**:
-- **IAM**: Principle of least privilege access
-- **Cloud Logging**: Centralized log aggregation
-- **Error Reporting**: Automated error tracking
-- **Cloud Monitoring**: Performance and health metrics
-
-## 📊 Data Flow Architecture
-
-### End-to-End Processing Flow
+## Pipeline Flow
 
 ```
-Electoral Race Input
-        ↓
-1. Discovery Phase
-   - Seed URLs → Google Search → Fresh Issue Search
-   - Source validation and scoring
-        ↓
-2. Content Acquisition
-   - Parallel fetching with rate limiting
-   - Content type detection and processing
-        ↓
-3. Content Processing
-   - HTML/PDF extraction → Plain text
-   - Content cleaning and normalization
-        ↓
-4. Corpus Building
-   - Vector embedding generation
-   - ChromaDB indexing and storage
-        ↓
-5. AI Analysis Phase
-   - RAG query preparation
-   - Parallel LLM processing (GPT-4o, Claude-3.5, grok-3)
-   - Issue-specific position extraction
-        ↓
-6. Consensus & Arbitration
-   - Cross-model comparison
-   - Confidence scoring calculation
-   - Evidence validation
-        ↓
-7. Publication
-   - RaceJSON v0.2 generation
-   - Multi-destination publishing
-   - Web frontend update
-        ↓
-Voter-Ready Analysis
+INGEST → CORPUS → SUMMARIZE → PUBLISH
 ```
 
-## 🔧 Technology Stack
+### Stage 1: INGEST (`step01_*`)
+- **Discovery**: Find candidate websites, news, social media via Serper/Google Search
+- **Fetch**: Download content with rate limiting and retries
+- **Extract**: Parse HTML/PDF to clean text
+- **Metadata**: Build race structure (candidates, office, jurisdiction)
 
-### Backend Technologies
-| Component | Technology | Version | Purpose |
-|-----------|------------|---------|---------|
-| Pipeline Runtime | Python | 3.10+ | Core processing logic |
-| Data Validation | Pydantic | 2.5+ | Schema validation |
-| Vector Database | ChromaDB | 0.4+ | Semantic search |
-| API Framework | FastAPI | 0.104+ | REST API services |
-| Task Queue | Pub/Sub | GCP | Async processing |
+### Stage 2: CORPUS (`step02_corpus`)
+- **Embedding**: Generate vectors for all extracted content
+- **Storage**: Index in ChromaDB for semantic search
+- **Retrieval**: Support RAG queries for summarization
 
-### Frontend Technologies
-| Component | Technology | Version | Purpose |
-|-----------|------------|---------|---------|
-| Framework | SvelteKit | 2.x | Web application |
-| Language | TypeScript | 5.x | Type safety |
-| Styling | Tailwind CSS | 3.x | Responsive design |
-| Build Tool | Vite | 5.x | Development & bundling |
-| Runtime | Node.js | 22+ | JavaScript execution |
+### Stage 3: SUMMARIZE (`step03_summarise`)
+- **Multi-LLM Query**: Send prompts to GPT-4o, Claude-3.5, grok-3
+- **Issue Extraction**: Get positions on 12 canonical issues per candidate
+- **Consensus**: 2-of-3 agreement for confidence scoring
+- **Arbitration**: Resolve conflicts, assign confidence levels
 
-### Infrastructure Technologies
-| Component | Technology | Version | Purpose |
-|-----------|------------|---------|---------|
-| IaC | Terraform | 1.5+ | Resource management |
-| Container Runtime | Docker | Latest | Application packaging |
-| Cloud Platform | Google Cloud | Current | Hosting & services |
-| CI/CD | GitHub Actions | Current | Automation pipeline |
-| Monitoring | Cloud Logging | GCP | Log aggregation and analysis |
+### Stage 4: PUBLISH (`step04_publish`)
+- **Format**: Generate RaceJSON v0.2
+- **Store**: Write to local files or GCS
+- **Validate**: Check schema compliance
 
-## 🎯 Quality Assurance
+## Components
 
-### Testing Strategy
-- **Unit Tests**: Individual component testing (adjacent to source code)
-- **Integration Tests**: Service interaction testing (in `tests/` directory)
-- **End-to-End Tests**: Full workflow validation
-- **Performance Tests**: Load and latency testing
+```
+pipeline/app/           # Core modules
+├── providers/          # AI provider abstraction (OpenAI, Anthropic, xAI)
+├── schema.py           # Pipeline data models
+├── step01_ingest/      # Discovery, fetching, extraction
+├── step02_corpus/      # Vector database operations
+├── step03_summarise/   # LLM summarization + consensus
+└── step04_publish/     # Output generation
 
-### Code Quality
-- **Static Analysis**: ESLint, Black, isort
-- **Type Checking**: TypeScript, mypy (planned)
-- **Security Scanning**: Dependency vulnerability checks
-- **Documentation**: Automated doc generation and validation
+pipeline_client/        # Execution engine
+├── backend/
+│   ├── handlers/       # Step handlers
+│   └── main.py         # CLI entry point
+└── run.py              # Main runner script
 
-### Monitoring & Observability
-- **Application Metrics**: Performance and usage tracking
-- **Error Tracking**: Automated error reporting and alerting
-- **Log Aggregation**: Centralized logging with search
-- **Health Checks**: Service availability monitoring
+services/
+├── races-api/          # REST API serving published data
+└── enqueue-api/        # Job queue API (cloud mode)
 
----
+shared/                 # Common models
+└── models.py           # Pydantic models (Candidate, Race, CanonicalIssue)
 
-*This architecture supports democratic values through transparent, accountable, and accurate electoral information processing.*
+web/                    # SvelteKit frontend
+└── src/lib/types.ts    # TypeScript types (must sync with shared/models.py)
+```
+
+## AI Models
+
+| Mode | Provider | Model | Use Case |
+|------|----------|-------|----------|
+| Local | Local | (configurable) | Free, offline testing |
+| Cheap (default) | OpenAI | gpt-4o-mini | Fast, low-cost |
+| Cheap | Anthropic | claude-3-haiku | Structured output |
+| Cheap | xAI | grok-3-mini | Alternative view |
+| Standard | OpenAI | gpt-4o | Higher quality |
+| Standard | Anthropic | claude-3.5 | Best structure |
+| Standard | xAI | grok-3 | Alternative view |
+
+**Configuration**:
+- `SMARTERVOTE_CHEAP_MODE=true` (default) - Use mini/cheap models
+- `LOCAL_LLM_ENABLED=true` - Enable local LLM (Ollama, LM Studio)
+- `LOCAL_LLM_BASE_URL=http://localhost:11434/v1` - Local server URL
+- `LOCAL_LLM_MODEL=llama3.2:3b` - Model name
+
+## Confidence Levels
+
+| Level | Criteria |
+|-------|----------|
+| HIGH | 2+ models agree, quality sources |
+| MEDIUM | Partial agreement or limited sources |
+| LOW | Disagreement or contradictory info |
+
+## Data Flow
+
+```
+Race ID (e.g., mo-senate-2024)
+    ↓
+Step 01: Discover sources, fetch content, extract text
+    ↓
+Step 02: Build vector corpus in ChromaDB
+    ↓
+Step 03: Query 3 LLMs, build consensus, assign confidence
+    ↓
+Step 04: Publish RaceJSON to data/published/
+    ↓
+Races API serves data to web frontend
+```
+
+## Storage
+
+| Backend | Location | Use |
+|---------|----------|-----|
+| Local | `data/published/` | Development |
+| Local | `data/chroma_db/` | Vector DB |
+| GCS | `gs://bucket/races/` | Production |
+
+## Infrastructure (Terraform)
+
+Located in `infra/`. Disabled by default (`enable_pipeline_client = false`).
+
+When enabled:
+- Cloud Run: races-api, enqueue-api, pipeline-client
+- Pub/Sub: Job queuing
+- GCS: Data storage
+- Secret Manager: API keys
+
+## 12 Canonical Issues
+
+1. Healthcare
+2. Economy
+3. Climate/Energy
+4. Reproductive Rights
+5. Immigration
+6. Guns & Safety
+7. Foreign Policy
+8. Social Justice
+9. Education
+10. Tech & AI
+11. Election Reform
+12. Local Issues
+
+Defined in `shared/models.py` as `CanonicalIssue` enum.

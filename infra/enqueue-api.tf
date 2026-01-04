@@ -1,5 +1,7 @@
 # Cloud Run Service for enqueue API
+# DISABLED by default - set enable_pipeline_client = true in variables to deploy
 resource "google_cloud_run_v2_service" "enqueue_api" {
+  count    = var.enable_pipeline_client ? 1 : 0
   name     = "enqueue-api-${var.environment}"
   location = var.region
   project  = var.project_id
@@ -15,12 +17,12 @@ resource "google_cloud_run_v2_service" "enqueue_api" {
 
       env {
         name  = "PUBSUB_TOPIC"
-        value = google_pubsub_topic.race_jobs.name
+        value = google_pubsub_topic.race_jobs[0].name
       }
 
       env {
         name  = "CLOUD_RUN_JOB_NAME"
-        value = google_cloud_run_v2_job.race_worker.name
+        value = google_cloud_run_v2_job.race_worker[0].name
       }
 
       env {
@@ -45,7 +47,7 @@ resource "google_cloud_run_v2_service" "enqueue_api" {
       max_instance_count = 10
     }
 
-    service_account = google_service_account.enqueue_api.email
+    service_account = google_service_account.enqueue_api[0].email
   }
 
   traffic {
@@ -69,16 +71,18 @@ resource "google_cloud_run_v2_service" "enqueue_api" {
 
 # IAM for public access to enqueue API
 resource "google_cloud_run_v2_service_iam_binding" "enqueue_api_invoker" {
-  location = google_cloud_run_v2_service.enqueue_api.location
-  name     = google_cloud_run_v2_service.enqueue_api.name
+  count    = var.enable_pipeline_client ? 1 : 0
+  location = google_cloud_run_v2_service.enqueue_api[0].location
+  name     = google_cloud_run_v2_service.enqueue_api[0].name
   role     = "roles/run.invoker"
   members  = ["allUsers"]
 }
 
 # Update the original Pub/Sub subscription with push config after Cloud Run service exists
 resource "null_resource" "configure_pubsub_push" {
+  count = var.enable_pipeline_client ? 1 : 0
   provisioner "local-exec" {
-    command = "gcloud pubsub subscriptions update race-jobs-sub-${var.environment} --push-endpoint=${google_cloud_run_v2_service.enqueue_api.uri}/webhook --push-auth-service-account=${google_service_account.pubsub_invoker.email} --project=${var.project_id}"
+    command = "gcloud pubsub subscriptions update race-jobs-sub-${var.environment} --push-endpoint=${google_cloud_run_v2_service.enqueue_api[0].uri}/webhook --push-auth-service-account=${google_service_account.pubsub_invoker[0].email} --project=${var.project_id}"
   }
 
   depends_on = [
