@@ -234,11 +234,11 @@ async def run_agent(
 
         # Normalise the output
         race_json.setdefault("id", race_id)
-        race_json.setdefault("updated_utc", datetime.now(timezone.utc).isoformat())
+        now_iso = datetime.now(timezone.utc).isoformat()
+        race_json.setdefault("updated_utc", now_iso)
         race_json.setdefault("generator", ["pipeline-v2-agent"])
 
         # Add last_accessed timestamps to sources that lack them
-        now_iso = datetime.now(timezone.utc).isoformat()
         for candidate in race_json.get("candidates", []):
             for issue_data in candidate.get("issues", {}).values():
                 if isinstance(issue_data, dict):
