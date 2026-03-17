@@ -561,6 +561,43 @@
     pipelineActions.setSelectedRun(pipeline.selectedRun, runId);
   }
 
+  /**
+   * Handle v2 agent execution
+   */
+  async function handleV2Execute() {
+    const raceId = pipeline.v2RaceId.trim();
+    if (!raceId) {
+      addLog("error", "Please enter a race ID");
+      return;
+    }
+    if (pipeline.isExecuting) return;
+
+    if (!websocket.connected) {
+      websocketActions.connect(API_BASE, api.token);
+    }
+
+    pipelineActions.setExecutionState(true);
+    pipelineActions.setOutput(null);
+    pipelineActions.clearLogs();
+    startElapsedTimer();
+
+    try {
+      addLog("info", `Starting v2 agent for race: ${raceId}`);
+      const result = await apiService.runV2Agent(raceId, {
+        save_artifact: true,
+      });
+      pipelineActions.setCurrentRun(result.run_id, "v2_agent");
+      addLog("info", `v2 agent run started (run_id: ${result.run_id})`);
+      startAutoRefresh();
+    } catch (err) {
+      console.error("V2 agent execution failed:", err);
+      pipelineActions.setOutput({ error: String(err) });
+      addLog("error", `V2 agent failed: ${err}`);
+      pipelineActions.setExecutionState(false);
+      stopElapsedTimer();
+    }
+  }
+
   function handleStopExecution() {
     if (
       pipeline.currentRunId &&
@@ -793,8 +830,20 @@
     <div class="flex items-center justify-between">
       <div class="flex items-center space-x-4">
         <h1 class="text-xl font-bold text-gray-900">Pipeline Dashboard</h1>
-        <div class="text-sm text-gray-500">
-          Advanced pipeline execution and monitoring
+        <!-- Mode Toggle -->
+        <div class="flex bg-gray-100 rounded-lg p-0.5">
+          <button
+            class="px-3 py-1.5 text-sm font-medium rounded-md transition-colors {pipeline.pipelineMode === 'v2' ? 'bg-white text-blue-700 shadow-sm' : 'text-gray-600 hover:text-gray-800'}"
+            on:click={() => pipelineActions.setPipelineMode("v2")}
+          >
+            V2 Agent
+          </button>
+          <button
+            class="px-3 py-1.5 text-sm font-medium rounded-md transition-colors {pipeline.pipelineMode === 'v1' ? 'bg-white text-blue-700 shadow-sm' : 'text-gray-600 hover:text-gray-800'}"
+            on:click={() => pipelineActions.setPipelineMode("v1")}
+          >
+            V1 Advanced
+          </button>
         </div>
       </div>
       <div class="flex items-center space-x-2">
@@ -838,29 +887,73 @@
   <div class="dashboard-grid">
     <!-- Left Panel: Controls & Progress -->
     <div class="space-y-6">
-      <!-- Pipeline Controls -->
-      <PipelineControls
-        steps={pipeline.steps}
-        inputJson={pipeline.inputJson}
-        useCloudStorage={pipeline.useCloudStorage}
-        executionMode={pipeline.executionMode}
-        startStep={pipeline.startStep}
-        endStep={pipeline.endStep}
-        selectedRun={pipeline.selectedRun}
-        selectedRunId={pipeline.selectedRunId}
-        runHistory={pipeline.runHistory}
-        isExecuting={pipeline.isExecuting}
-        currentStep={pipeline.currentStep}
-        {API_BASE}
-        on:new-run={handleNewRun}
-        on:run-select={handleRunSelect}
-        on:input-change={handleInputChange}
-        on:cloud-storage-change={handleCloudStorageChange}
-        on:execution-mode-change={handleExecutionModeChange}
-        on:step-range-change={handleStepRangeChange}
-        on:execute={handleExecute}
-        on:set-start-step={handleSetStartStep}
-      />
+      {#if pipeline.pipelineMode === "v2"}
+        <!-- V2 Agent Controls -->
+        <div class="card p-6">
+          <h3 class="text-lg font-semibold text-gray-900 mb-1">AI Agent Research</h3>
+          <p class="text-sm text-gray-500 mb-4">
+            A single AI agent searches the web and assembles candidate profiles with sources.
+          </p>
+          <div class="space-y-4">
+            <div>
+              <label for="v2RaceId" class="block text-sm font-medium text-gray-700 mb-1">
+                Race ID
+              </label>
+              <input
+                id="v2RaceId"
+                type="text"
+                value={pipeline.v2RaceId}
+                on:input={(e) => pipelineActions.setV2RaceId(e.currentTarget.value)}
+                placeholder="e.g. mo-senate-2024"
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm font-mono focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+              />
+              <p class="mt-1 text-xs text-gray-400">
+                Format: state-office-year (e.g. tx-governor-2026, ca-house-12-2024)
+              </p>
+            </div>
+
+            <button
+              disabled={pipeline.isExecuting || !pipeline.v2RaceId.trim()}
+              on:click={handleV2Execute}
+              class="btn-primary w-full flex items-center justify-center py-2.5"
+            >
+              {#if pipeline.isExecuting}
+                <svg class="animate-spin h-4 w-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
+                  <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                </svg>
+                Researching...
+              {:else}
+                🔍 Research Race
+              {/if}
+            </button>
+          </div>
+        </div>
+      {:else}
+        <!-- V1 Pipeline Controls -->
+        <PipelineControls
+          steps={pipeline.steps}
+          inputJson={pipeline.inputJson}
+          useCloudStorage={pipeline.useCloudStorage}
+          executionMode={pipeline.executionMode}
+          startStep={pipeline.startStep}
+          endStep={pipeline.endStep}
+          selectedRun={pipeline.selectedRun}
+          selectedRunId={pipeline.selectedRunId}
+          runHistory={pipeline.runHistory}
+          isExecuting={pipeline.isExecuting}
+          currentStep={pipeline.currentStep}
+          {API_BASE}
+          on:new-run={handleNewRun}
+          on:run-select={handleRunSelect}
+          on:input-change={handleInputChange}
+          on:cloud-storage-change={handleCloudStorageChange}
+          on:execution-mode-change={handleExecutionModeChange}
+          on:step-range-change={handleStepRangeChange}
+          on:execute={handleExecute}
+          on:set-start-step={handleSetStartStep}
+        />
+      {/if}
 
       <!-- Run Progress -->
       <RunProgress

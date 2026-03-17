@@ -93,6 +93,13 @@ class Step01Request(BaseModel):
     options: RunOptions | None = None
 
 
+class V2AgentRequest(BaseModel):
+    """Request body for the v2 agent endpoint."""
+
+    race_id: str
+    options: RunOptions | None = None
+
+
 async def _run_step01_sequence(race_id: str, options: RunOptions | None = None) -> Dict[str, Any]:
     """Run metadata through ingest using the step orchestrator."""
     run_req = RunRequest(payload={"race_id": race_id}, options=options)
@@ -119,6 +126,26 @@ async def run_step01(request: Step01Request) -> Dict[str, Any]:
         return await _run_step01_sequence(request.race_id, request.options)
     except RuntimeError as exc:  # pragma: no cover - surface pipeline error
         raise HTTPException(status_code=500, detail=str(exc)) from exc
+
+
+# V2 Agent endpoint - single-step agent-based pipeline
+@app.post("/api/v2/run", dependencies=[Depends(verify_token)])
+async def run_v2_agent(request: V2AgentRequest) -> Dict[str, Any]:
+    """Run the v2 agent pipeline for a race.
+
+    The v2 agent uses a single AI agent with web search to research
+    candidates and produce a complete RaceJSON profile in one step.
+    """
+    run_request = RunRequest(
+        payload={"race_id": request.race_id},
+        options=request.options,
+    )
+    run_info = run_manager.create_run(["v2_agent"], run_request)
+
+    # Start execution in background
+    asyncio.create_task(_execute_run_async("v2_agent", run_request, run_info.run_id))
+
+    return {"run_id": run_info.run_id, "status": "started", "step": "v2_agent"}
 
 
 # New endpoints for frontend modal details

@@ -16,6 +16,7 @@ from .handlers.step01_relevance import Step01RelevanceHandler  # noqa: F401
 from .handlers.step02_corpus import Step02CorpusHandler
 from .handlers.step03_summarise import Step03SummariseHandler
 from .handlers.step04_publish import Step04PublishHandler
+from .handlers.v2_agent import V2AgentHandler
 
 from .settings import settings
 from .storage_backend import GCPStorageBackend, LocalStorageBackend, StorageBackend
@@ -50,6 +51,7 @@ REGISTRY: Dict[str, StepHandler] = {
     "step02_corpus": Step02CorpusHandler(),
     "step03_summarise": Step03SummariseHandler(),
     "step04_publish": Step04PublishHandler(_STORAGE_BACKEND),
+    "v2_agent": V2AgentHandler(_STORAGE_BACKEND),
 }
 
 

@@ -11,6 +11,9 @@ import type {
 } from "$lib/types";
 
 interface PipelineState {
+  // Pipeline mode
+  pipelineMode: "v1" | "v2";
+
   // Pipeline configuration
   steps: string[];
   inputJson: string;
@@ -18,6 +21,9 @@ interface PipelineState {
   executionMode: "single" | "range";
   startStep: string;
   endStep: string;
+
+  // V2 agent configuration
+  v2RaceId: string;
 
   // Current execution state
   isExecuting: boolean;
@@ -44,12 +50,15 @@ interface PipelineState {
 }
 
 const initialState: PipelineState = {
+  pipelineMode: "v2",
   steps: [],
   inputJson: '{\n  "race_id": "mo-senate-2024"\n}',
   useCloudStorage: false,
   executionMode: "single",
   startStep: "",
   endStep: "",
+
+  v2RaceId: "mo-senate-2024",
 
   isExecuting: false,
   currentRunId: null,
@@ -135,6 +144,14 @@ export const safeOutputDisplay = derived(pipelineStore, ($pipeline) => {
 
 // Action creators
 export const pipelineActions = {
+  setPipelineMode: (mode: "v1" | "v2") => {
+    pipelineStore.update((state) => ({ ...state, pipelineMode: mode }));
+  },
+
+  setV2RaceId: (raceId: string) => {
+    pipelineStore.update((state) => ({ ...state, v2RaceId: raceId }));
+  },
+
   setSteps: (steps: string[]) => {
     pipelineStore.update((state) => ({
       ...state,

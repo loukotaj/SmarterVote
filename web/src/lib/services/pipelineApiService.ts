@@ -121,4 +121,25 @@ export class PipelineApiService {
 
     return await res.json();
   }
+
+  /**
+   * Run the v2 agent pipeline for a race
+   */
+  async runV2Agent(
+    raceId: string,
+    options: RunOptions = {}
+  ): Promise<{ run_id: string; status: string; step: string }> {
+    const res = await fetchWithAuth(`${this.apiBase}/api/v2/run`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ race_id: raceId, options }),
+    });
+
+    if (!res.ok) {
+      const errorText = await res.text().catch(() => "Unknown error");
+      throw new Error(`HTTP ${res.status}: ${res.statusText}. ${errorText}`);
+    }
+
+    return await res.json();
+  }
 }
