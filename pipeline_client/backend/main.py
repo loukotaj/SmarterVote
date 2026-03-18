@@ -16,11 +16,10 @@ from jose import JWTError, jwt
 from pydantic import BaseModel
 
 from .logging_manager import logging_manager
-from .models import BatchRunRequest, BatchRunResponse, ContinueRunRequest, RunInfo, RunOptions, RunRequest, RunResponse
+from .models import RunInfo, RunOptions, RunRequest, RunResponse
 from .pipeline_runner import run_step_async
 from .run_manager import run_manager
 from .settings import settings
-from .step_orchestrator import continue_run as continue_pipeline
 from .step_registry import REGISTRY
 from .storage import list_artifacts, load_artifact
 
@@ -32,16 +31,14 @@ if str(ROOT) not in sys.path:  # pragma: no cover
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Startup and shutdown events."""
-    # Startup
     import asyncio
 
     loop = asyncio.get_running_loop()
     logging_manager.set_main_loop(loop)
     yield
-    # Shutdown
 
 
-app = FastAPI(title=settings.app_name, description="Enhanced Pipeline Client with Live Logging", lifespan=lifespan)
+app = FastAPI(title=settings.app_name, description="SmarterVote Pipeline V2 API", lifespan=lifespan)
 
 http_bearer = HTTPBearer(auto_error=False)
 
@@ -87,10 +84,9 @@ async def verify_token_ws(token: str | None) -> Dict[str, Any]:
         raise HTTPException(status_code=401, detail="Invalid authentication") from exc
 
 
-# Request model for running the full Step 01 sequence
-class Step01Request(BaseModel):
-    race_id: str
-    options: RunOptions | None = None
+# ---------------------------------------------------------------------------
+# V2 Agent endpoint
+# ---------------------------------------------------------------------------
 
 
 class V2AgentRequest(BaseModel):
@@ -100,41 +96,13 @@ class V2AgentRequest(BaseModel):
     options: RunOptions | None = None
 
 
-async def _run_step01_sequence(race_id: str, options: RunOptions | None = None) -> Dict[str, Any]:
-    """Run metadata through ingest using the step orchestrator."""
-    run_req = RunRequest(payload={"race_id": race_id}, options=options)
-    first = await run_step_async("step01a_metadata", run_req)
-    if not first.ok:
-        raise RuntimeError(first.error or "metadata step failed")
-    cont = await continue_pipeline(first.meta["run_id"], steps=["all"])
-    cont["runs"].insert(
-        0,
-        {
-            "step": "step01a_metadata",
-            "run_id": first.meta["run_id"],
-            "artifact_id": first.artifact_id,
-        },
-    )
-    cont["run_id"] = first.meta["run_id"]
-    return cont
-
-
-# Endpoint to run the full Step 01 sequence
-@app.post("/run/step01", dependencies=[Depends(verify_token)])
-async def run_step01(request: Step01Request) -> Dict[str, Any]:
-    try:
-        return await _run_step01_sequence(request.race_id, request.options)
-    except RuntimeError as exc:  # pragma: no cover - surface pipeline error
-        raise HTTPException(status_code=500, detail=str(exc)) from exc
-
-
-# V2 Agent endpoint - single-step agent-based pipeline
 @app.post("/api/v2/run", dependencies=[Depends(verify_token)])
 async def run_v2_agent(request: V2AgentRequest) -> Dict[str, Any]:
     """Run the v2 agent pipeline for a race.
 
-    The v2 agent uses a single AI agent with web search to research
-    candidates and produce a complete RaceJSON profile in one step.
+    The v2 agent uses a multi-phase AI agent with web search to research
+    candidates and produce a complete RaceJSON profile. If a published
+    profile already exists for this race, the agent will update it.
     """
     run_request = RunRequest(
         payload={"race_id": request.race_id},
@@ -148,23 +116,25 @@ async def run_v2_agent(request: V2AgentRequest) -> Dict[str, Any]:
     return {"run_id": run_info.run_id, "status": "started", "step": "v2_agent"}
 
 
-# New endpoints for frontend modal details
+# ---------------------------------------------------------------------------
+# Run & artifact inspection endpoints
+# ---------------------------------------------------------------------------
+
+
 @app.get("/run/{run_id}", dependencies=[Depends(verify_token)])
 async def get_run_details(run_id: str) -> Dict[str, Any]:
-    """Get full details of a specific run as dict (for modal view)."""
+    """Get full details of a specific run."""
     run_info = run_manager.get_run(run_id)
     if not run_info:
         raise HTTPException(status_code=404, detail="Run not found")
-    # Return as dict for frontend
     return run_info.model_dump(mode="json")
 
 
 @app.get("/artifact/{artifact_id}", dependencies=[Depends(verify_token)])
 async def get_artifact_details(artifact_id: str) -> Dict[str, Any]:
-    """Get full details of a specific artifact as dict (for modal view)."""
+    """Get full details of a specific artifact."""
     try:
-        artifact = load_artifact(artifact_id)
-        return artifact
+        return load_artifact(artifact_id)
     except FileNotFoundError:
         raise HTTPException(status_code=404, detail="artifact not found")
 
@@ -200,78 +170,12 @@ async def run(step: str, request: RunRequest) -> RunResponse:
     return await run_step_async(step, request)
 
 
-# Enhanced API endpoint for frontend
-@app.post("/api/execute", dependencies=[Depends(verify_token)])
-async def api_execute(request: Dict[str, Any]) -> Dict[str, Any]:
-    """Enhanced execute endpoint for the frontend dashboard"""
-    step = request.get("step")
-    payload = request.get("payload", {})
-    options = request.get("options", {})
-
-    if not step:
-        raise HTTPException(status_code=400, detail="Missing 'step' parameter")
-
-    if step not in REGISTRY:
-        raise HTTPException(status_code=404, detail=f"Unknown step '{step}'")
-
-    # Create run request
-    run_request = RunRequest(payload=payload, options=options)
-    run_info = run_manager.create_run([step], run_request)
-
-    # Start execution in background
-    asyncio.create_task(_execute_run_async(step, run_request, run_info.run_id))
-
-    return {"run_id": run_info.run_id, "status": "started", "step": step}
-
-
-@app.post("/api/continue", dependencies=[Depends(verify_token)])
-async def api_continue(request: ContinueRunRequest) -> Dict[str, Any]:
-    """Enhanced continue endpoint for the frontend dashboard."""
-
-    try:
-        return await continue_pipeline(request.run_id, steps=request.steps, state=request.state)
-    except ValueError as e:
-        raise HTTPException(status_code=404, detail=str(e))
-    except KeyError as e:
-        raise HTTPException(status_code=400, detail=str(e))
-
-
 async def _execute_run_async(step: str, request: RunRequest, run_id: str):
     """Execute a single run asynchronously."""
     try:
         await run_step_async(step, request, run_id)
     except Exception:
         logging.exception("Unexpected error during async run %s", run_id)
-
-
-@app.post("/batch/{step}", response_model=BatchRunResponse, dependencies=[Depends(verify_token)])
-async def batch_run(step: str, request: BatchRunRequest) -> BatchRunResponse:
-    """Run a step for multiple race IDs."""
-    if step not in REGISTRY:
-        raise HTTPException(status_code=404, detail=f"Unknown step '{step}'")
-
-    batch_id = str(uuid.uuid4())
-    runs = []
-
-    for race_id in request.race_ids:
-        run_request = RunRequest(payload={"race_id": race_id}, options=request.options)
-        run_info = run_manager.create_run([step], run_request)
-        runs.append(run_info)
-
-    # Start batch execution in background
-    asyncio.create_task(_execute_batch(step, runs, request.options))
-
-    return BatchRunResponse(batch_id=batch_id, total_runs=len(runs), runs=runs)
-
-
-async def _execute_batch(step: str, runs: List[RunInfo], options):
-    """Execute batch runs in background."""
-    for run_info in runs:
-        try:
-            request = RunRequest(payload=run_info.payload, options=options)
-            await run_step_async(step, request, run_info.run_id)
-        except Exception:
-            logging.exception("Run %s failed during batch execution", run_info.run_id)
 
 
 @app.get("/runs", dependencies=[Depends(verify_token)])
@@ -317,28 +221,6 @@ async def cancel_run(run_id: str) -> Dict[str, Any]:
     return {"message": "Run cancelled", "run_id": run_id}
 
 
-@app.post("/runs/{run_id}/continue", dependencies=[Depends(verify_token)])
-async def continue_run_endpoint(run_id: str, request: Dict[str, Any]) -> Dict[str, Any]:
-    """Continue a pipeline run by executing subsequent steps.
-
-    The request body may include:
-
-    - ``steps``: list of steps to execute. ``["all"]`` runs all remaining steps.
-      Omitted or empty runs only the next step.
-    - ``state``: optional JSON object allowing edits before execution.
-    """
-
-    steps = request.get("steps")
-    state = request.get("state")
-
-    try:
-        return await continue_pipeline(run_id, steps=steps, state=state)
-    except ValueError as e:
-        raise HTTPException(status_code=404, detail=str(e))
-    except KeyError as e:
-        raise HTTPException(status_code=400, detail=str(e))
-
-
 @app.get("/artifacts", dependencies=[Depends(verify_token)])
 async def artifacts() -> Dict[str, Any]:
     return list_artifacts()
@@ -352,7 +234,11 @@ async def artifact(artifact_id: str) -> Dict[str, Any]:
         raise HTTPException(status_code=404, detail="artifact not found")
 
 
+# ---------------------------------------------------------------------------
 # WebSocket endpoints for live logging
+# ---------------------------------------------------------------------------
+
+
 @app.websocket("/ws/logs")
 async def websocket_logs_all(websocket: WebSocket):
     """WebSocket endpoint for all logs."""
@@ -367,13 +253,10 @@ async def websocket_logs_all(websocket: WebSocket):
     try:
         await logging_manager.connect_websocket(websocket, connection_id)
 
-        # Keep connection alive
         while True:
-            # Wait for client messages (like ping/pong)
             try:
                 await asyncio.wait_for(websocket.receive_text(), timeout=30.0)
             except asyncio.TimeoutError:
-                # Send ping to keep connection alive
                 await websocket.send_text('{"type": "ping"}')
 
     except WebSocketDisconnect:
@@ -396,7 +279,6 @@ async def websocket_logs_run(websocket: WebSocket, run_id: str):
     try:
         await logging_manager.connect_websocket(websocket, connection_id, run_id)
 
-        # Keep connection alive
         while True:
             try:
                 await asyncio.wait_for(websocket.receive_text(), timeout=30.0)
@@ -409,10 +291,14 @@ async def websocket_logs_run(websocket: WebSocket, run_id: str):
         logging_manager.disconnect_websocket(connection_id)
 
 
-# Root endpoint serves basic frontend
+# ---------------------------------------------------------------------------
+# Root
+# ---------------------------------------------------------------------------
+
+
 @app.get("/", response_class=HTMLResponse)
 async def root():
-    """Serve the basic dashboard (enhanced dashboard is now in the web project)"""
+    """Serve the basic dashboard."""
     basic_frontend = Path(__file__).parent.parent / "frontend" / "index.html"
     if basic_frontend.exists():
         with open(basic_frontend, "r", encoding="utf-8") as f:
@@ -420,21 +306,9 @@ async def root():
 
     return HTMLResponse(
         content="""
-        <h1>Pipeline Client API</h1>
-        <p>Enhanced dashboard is available in the web project at: <a href="http://localhost:5173/admin/pipeline">/admin/pipeline</a></p>
-        <p><a href="/docs">View API docs</a></p>
+        <h1>SmarterVote Pipeline V2 API</h1>
+        <p>Dashboard: <a href="http://localhost:5173/admin/pipeline">/admin/pipeline</a></p>
+        <p><a href="/docs">API docs</a></p>
     """,
         status_code=200,
     )
-
-
-if __name__ == "__main__":  # pragma: no cover - CLI utility
-    import argparse
-    import json
-
-    parser = argparse.ArgumentParser(description="Run Step 01 pipeline sequence")
-    parser.add_argument("race_id", help="Race identifier to process")
-    args = parser.parse_args()
-
-    result = asyncio.run(_run_step01_sequence(args.race_id))
-    print(json.dumps(result, indent=2))

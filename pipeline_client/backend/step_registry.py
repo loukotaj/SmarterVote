@@ -1,23 +1,9 @@
 # step_registry.py
 
-import logging
 from pathlib import Path
 from typing import Any, Dict, Protocol, runtime_checkable
 
-from .handlers.step01_discovery import Step01DiscoveryHandler
-from .handlers.step01_extract import Step01ExtractHandler
-from .handlers.step01_fetch import Step01FetchHandler
-
-# Handlers that match your uploaded files
-from .handlers.step01_metadata import Step01MetadataHandler  # requires storage backend
-from .handlers.step01_relevance import Step01RelevanceHandler  # noqa: F401
-
-# New pipeline steps for corpus, summarization, and publishing
-from .handlers.step02_corpus import Step02CorpusHandler
-from .handlers.step03_summarise import Step03SummariseHandler
-from .handlers.step04_publish import Step04PublishHandler
 from .handlers.v2_agent import V2AgentHandler
-
 from .settings import settings
 from .storage_backend import GCPStorageBackend, LocalStorageBackend, StorageBackend
 
@@ -43,14 +29,6 @@ _STORAGE_BACKEND = _init_storage_backend()
 
 
 REGISTRY: Dict[str, StepHandler] = {
-    "step01a_metadata": Step01MetadataHandler(_STORAGE_BACKEND),
-    "step01b_discovery": Step01DiscoveryHandler(),
-    "step01c_fetch": Step01FetchHandler(),
-    "step01d_extract": Step01ExtractHandler(),
-    "step01e_relevance": Step01RelevanceHandler(_STORAGE_BACKEND),
-    "step02_corpus": Step02CorpusHandler(),
-    "step03_summarise": Step03SummariseHandler(),
-    "step04_publish": Step04PublishHandler(_STORAGE_BACKEND),
     "v2_agent": V2AgentHandler(_STORAGE_BACKEND),
 }
 

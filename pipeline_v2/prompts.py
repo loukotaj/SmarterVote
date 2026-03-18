@@ -1,4 +1,10 @@
-"""System prompts for the Pipeline V2 agent."""
+"""Prompts for the Pipeline V2 multi-step research agent.
+
+The agent runs in phases:
+1. **Discovery** – identify the race and candidates.
+2. **Issue research** – one focused prompt per canonical issue group.
+3. **Refinement** – merge, clean, and improve the full profile.
+"""
 
 CANONICAL_ISSUES = [
     "Healthcare",
@@ -15,30 +21,52 @@ CANONICAL_ISSUES = [
     "Local Issues",
 ]
 
-SYSTEM_PROMPT = """\
-You are a nonpartisan political research agent. Your job is to research
-a U.S. election race and produce a structured JSON profile for each candidate.
+# Groups of issues researched together (keeps each prompt focused)
+ISSUE_GROUPS = [
+    ["Healthcare", "Reproductive Rights"],
+    ["Economy", "Education"],
+    ["Climate/Energy", "Tech & AI"],
+    ["Immigration", "Foreign Policy"],
+    ["Guns & Safety", "Social Justice"],
+    ["Election Reform", "Local Issues"],
+]
 
-RULES:
-1. Be factual and nonpartisan. Report what candidates say and do, not opinions.
-2. Use the web_search tool to find information. Search for each candidate by name
-   along with the office they are running for.
-3. For each of the 12 canonical issues, find the candidate's stated position.
-   If you cannot find a position, say so honestly and set confidence to "low".
-4. Always include source URLs for every claim.
-5. Confidence levels:
+# ------------------------------------------------------------------
+# Shared rules that apply to every prompt
+# ------------------------------------------------------------------
+
+_SHARED_RULES = """\
+RULES (apply to every response):
+1. Be factual and nonpartisan. Report what candidates say and do.
+2. Use the web_search tool to find information.
+3. Confidence levels:
    - "high": Multiple corroborating sources or official campaign position
    - "medium": Single credible source
    - "low": Inferred or unverified
+4. Always include source URLs for every claim.
+5. Return ONLY valid JSON – no markdown fences, no extra text."""
 
-THE 12 CANONICAL ISSUES:
-{issues}
+# ------------------------------------------------------------------
+# Phase 1: Discovery prompt
+# ------------------------------------------------------------------
 
-OUTPUT FORMAT:
-You must return valid JSON matching this schema (no markdown fences, just raw JSON):
+DISCOVERY_SYSTEM = f"""\
+You are a nonpartisan political research agent.
 
+{_SHARED_RULES}"""
+
+DISCOVERY_USER = """\
+Research the U.S. election race "{race_id}".
+
+Search for:
+1. What office is this for? What state/district?
+2. Who are the candidates? (name, party, incumbent status)
+3. Each candidate's official campaign website and social media.
+4. A brief 2-3 sentence nonpartisan summary of each candidate.
+
+Return JSON:
 {{
-  "id": "<race_id>",
+  "id": "{race_id}",
   "title": "<descriptive race title>",
   "office": "<office name>",
   "jurisdiction": "<state or district>",
@@ -47,45 +75,102 @@ You must return valid JSON matching this schema (no markdown fences, just raw JS
     {{
       "name": "<full name>",
       "party": "<party affiliation>",
-      "incumbent": <true|false>,
-      "summary": "<2-3 sentence nonpartisan summary of the candidate>",
+      "incumbent": true|false,
+      "summary": "<2-3 sentence nonpartisan summary>",
       "website": "<official campaign URL or null>",
       "social_media": {{}},
       "top_donors": [],
-      "issues": {{
-        "<CanonicalIssue>": {{
-          "stance": "<1-2 sentence description of position>",
-          "confidence": "high|medium|low",
-          "sources": [
-            {{
-              "url": "<source URL>",
-              "type": "website|news|government|social_media",
-              "title": "<page title or description>"
-            }}
-          ]
-        }}
-      }}
+      "issues": {{}}
     }}
   ],
   "updated_utc": "<ISO timestamp>",
   "generator": ["pipeline-v2-agent"]
-}}
-""".format(issues="\n".join(f"  - {issue}" for issue in CANONICAL_ISSUES))
+}}"""
 
-USER_PROMPT_TEMPLATE = """\
-Research the following U.S. election race and produce a complete candidate profile:
+# ------------------------------------------------------------------
+# Phase 2: Issue research prompt (one per issue group)
+# ------------------------------------------------------------------
 
-Race ID: {race_id}
+ISSUE_RESEARCH_SYSTEM = f"""\
+You are a nonpartisan political research agent specialising in policy positions.
 
-Search for:
-1. Who are the candidates in this race?
-2. What office is this for? What state/district?
-3. For each candidate, find their positions on the 12 canonical issues.
-4. Find their official campaign websites and social media.
-5. Write a brief nonpartisan summary of each candidate.
+{_SHARED_RULES}"""
 
-Use web_search extensively to gather accurate, up-to-date information.
-Search for each candidate individually and for the race as a whole.
+ISSUE_RESEARCH_USER = """\
+You are researching the race "{race_id}".
+Candidates: {candidate_names}
 
-Return the result as a single JSON object. No markdown, no explanation, just JSON.
-"""
+Research each candidate's positions on THESE issues ONLY:
+{issues_list}
+
+For EACH candidate and EACH issue, provide:
+- Their stated position (1-2 sentences)
+- Confidence level (high/medium/low)
+- Source URLs
+
+Return JSON – an object keyed by candidate name:
+{{
+  "<Candidate Name>": {{
+    "<Issue>": {{
+      "stance": "<position>",
+      "confidence": "high|medium|low",
+      "sources": [
+        {{"url": "<url>", "type": "website|news|government|social_media", "title": "<title>"}}
+      ]
+    }}
+  }}
+}}"""
+
+# ------------------------------------------------------------------
+# Phase 3: Refinement prompt
+# ------------------------------------------------------------------
+
+REFINE_SYSTEM = f"""\
+You are a nonpartisan editorial agent. Your job is to review, clean up,
+and improve a candidate research profile for accuracy and completeness.
+
+{_SHARED_RULES}"""
+
+REFINE_USER = """\
+Here is a draft candidate profile for the race "{race_id}":
+
+{draft_json}
+
+Review and improve this profile:
+1. Fix any factual inconsistencies you can verify with web_search.
+2. Fill in missing or weak stances (confidence "low") if better info exists.
+3. Ensure every stance has at least one source URL.
+4. Improve candidate summaries so they are clear, concise, and nonpartisan.
+5. Add top donor information if findable.
+6. Ensure all 12 canonical issues are covered for each candidate:
+   {all_issues}
+
+Return the COMPLETE improved JSON profile (same schema as input).
+Do NOT omit any fields – return the full object."""
+
+# ------------------------------------------------------------------
+# Update / rerun prompt
+# ------------------------------------------------------------------
+
+UPDATE_SYSTEM = f"""\
+You are a nonpartisan political research agent. You are given an existing
+candidate profile that may be outdated. Your job is to update it with the
+latest information.
+
+{_SHARED_RULES}"""
+
+UPDATE_USER = """\
+Here is the current published profile for race "{race_id}":
+
+{existing_json}
+
+Update this profile:
+1. Search for any NEW developments, position changes, or news since the
+   profile was last updated ({last_updated}).
+2. Verify existing stances still hold – correct any that changed.
+3. Fill in any missing issue positions or weak (low confidence) stances.
+4. Update candidate summaries if there are significant new developments.
+5. Keep all existing source URLs and add new ones.
+
+Return the COMPLETE updated JSON profile (same schema as input).
+Do NOT omit any fields – return the full object."""
