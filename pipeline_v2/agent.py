@@ -81,9 +81,9 @@ def _get_search_cache():
 
             _search_cache = SearchCache()
         except Exception:
-            # If the v1 cache module isn't available, disable caching
-            _search_cache = False
-    return _search_cache if _search_cache else None
+            # Sentinel: cache unavailable; don't retry on every call
+            _search_cache = "unavailable"
+    return _search_cache if _search_cache != "unavailable" else None
 
 
 # ---------------------------------------------------------------------------
@@ -308,8 +308,11 @@ async def run_agent(
     max_iterations : int
         Safety limit on each phase's tool-call loop.
     existing_data : dict, optional
-        An existing RaceJSON to update/improve. If *None*, the agent
-        will check ``data/published/{race_id}.json`` automatically.
+        An existing RaceJSON to update/improve. When *None* (default),
+        the agent checks ``data/published/{race_id}.json`` for a
+        previously published profile and enters update mode if found.
+        Pass an empty dict to force a fresh research run even when a
+        published profile exists.
 
     Returns
     -------

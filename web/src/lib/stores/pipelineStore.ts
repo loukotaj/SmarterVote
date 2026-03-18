@@ -114,10 +114,6 @@ export const pipelineActions = {
     pipelineStore.update((state) => ({ ...state, v2RaceId: raceId }));
   },
 
-  setSteps: (steps: string[]) => {
-    pipelineStore.update((state) => ({ ...state }));
-  },
-
   setExecutionState: (isExecuting: boolean) => {
     pipelineStore.update((state) => ({
       ...state,

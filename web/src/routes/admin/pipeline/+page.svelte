@@ -395,7 +395,6 @@
       <OutputResults
         output={pipeline.output}
         onAddLog={addLog}
-        on:use-as-input={() => {}}
       />
     </div>
 
