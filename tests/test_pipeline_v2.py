@@ -1,18 +1,44 @@
-"""Tests for the pipeline v2 agent module."""
+"""Tests for the pipeline v2 agent module.
+
+Covers:
+- Prompt templates and formatting
+- Issue group coverage
+- JSON extraction from LLM output
+- Agent loop (direct answers, tool calls, retries)
+- Multi-phase fresh run orchestration
+- Update/rerun mode
+- Output normalization and defaults
+- Search caching integration
+- Serper search function
+- Handler integration
+- Load existing data helper
+"""
 
 import json
-from unittest.mock import AsyncMock, patch
+import os
+import tempfile
+from pathlib import Path
+from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
-from pipeline_v2.agent import _extract_json, run_agent, _agent_loop
+from pipeline_v2.agent import (
+    _extract_json,
+    _load_existing,
+    _serper_search,
+    run_agent,
+    _agent_loop,
+    SEARCH_TOOL,
+)
 from pipeline_v2.prompts import (
     CANONICAL_ISSUES,
     DISCOVERY_SYSTEM,
     DISCOVERY_USER,
     ISSUE_GROUPS,
     ISSUE_RESEARCH_SYSTEM,
+    ISSUE_RESEARCH_USER,
     REFINE_SYSTEM,
+    REFINE_USER,
     UPDATE_SYSTEM,
     UPDATE_USER,
 )
@@ -26,6 +52,11 @@ from pipeline_v2.prompts import (
 def test_canonical_issues_count():
     """All 12 canonical issues are defined."""
     assert len(CANONICAL_ISSUES) == 12
+
+
+def test_canonical_issues_no_duplicates():
+    """No duplicate canonical issues."""
+    assert len(CANONICAL_ISSUES) == len(set(CANONICAL_ISSUES))
 
 
 def test_all_issues_in_groups():
@@ -42,10 +73,43 @@ def test_issue_groups_cover_all():
     assert total == 12
 
 
+def test_issue_groups_no_overlaps():
+    """No issue appears in more than one group."""
+    seen = set()
+    for group in ISSUE_GROUPS:
+        for issue in group:
+            assert issue not in seen, f"Issue {issue!r} in multiple groups"
+            seen.add(issue)
+
+
 def test_discovery_user_formats():
     """Discovery user prompt accepts race_id."""
     result = DISCOVERY_USER.format(race_id="mo-senate-2024")
     assert "mo-senate-2024" in result
+
+
+def test_issue_research_user_formats():
+    """Issue research user prompt accepts all required variables."""
+    result = ISSUE_RESEARCH_USER.format(
+        race_id="mo-senate-2024",
+        candidate_names="Alice, Bob",
+        issues_list="  - Healthcare\n  - Education",
+    )
+    assert "mo-senate-2024" in result
+    assert "Alice, Bob" in result
+    assert "Healthcare" in result
+
+
+def test_refine_user_formats():
+    """Refine user prompt accepts race_id, draft_json, all_issues."""
+    result = REFINE_USER.format(
+        race_id="mo-senate-2024",
+        draft_json='{"id": "test"}',
+        all_issues="Healthcare, Economy",
+    )
+    assert "mo-senate-2024" in result
+    assert '{"id": "test"}' in result
+    assert "Healthcare, Economy" in result
 
 
 def test_update_user_formats():
@@ -64,6 +128,14 @@ def test_prompts_contain_rules():
     for prompt in [DISCOVERY_SYSTEM, ISSUE_RESEARCH_SYSTEM, REFINE_SYSTEM, UPDATE_SYSTEM]:
         assert "nonpartisan" in prompt.lower()
         assert "web_search" in prompt
+
+
+def test_prompts_mention_confidence_levels():
+    """All system prompts describe the confidence levels."""
+    for prompt in [DISCOVERY_SYSTEM, ISSUE_RESEARCH_SYSTEM, REFINE_SYSTEM, UPDATE_SYSTEM]:
+        assert "high" in prompt.lower()
+        assert "medium" in prompt.lower()
+        assert "low" in prompt.lower()
 
 
 # ---------------------------------------------------------------------------
@@ -91,10 +163,36 @@ def test_extract_json_fenced_no_lang():
     assert data == {"id": "test"}
 
 
+def test_extract_json_with_whitespace():
+    """JSON with leading/trailing whitespace is parsed."""
+    data = _extract_json('  \n {"id": "test"} \n  ')
+    assert data == {"id": "test"}
+
+
+def test_extract_json_nested():
+    """Nested JSON objects are parsed correctly."""
+    nested = json.dumps({"a": {"b": {"c": [1, 2, 3]}}})
+    data = _extract_json(nested)
+    assert data["a"]["b"]["c"] == [1, 2, 3]
+
+
 def test_extract_json_invalid():
     """Invalid JSON raises an error."""
     with pytest.raises(json.JSONDecodeError):
         _extract_json("not json at all")
+
+
+# ---------------------------------------------------------------------------
+# Search tool definition tests
+# ---------------------------------------------------------------------------
+
+
+def test_search_tool_schema():
+    """SEARCH_TOOL has the expected structure for OpenAI function calling."""
+    assert SEARCH_TOOL["type"] == "function"
+    assert SEARCH_TOOL["function"]["name"] == "web_search"
+    assert "query" in SEARCH_TOOL["function"]["parameters"]["properties"]
+    assert "query" in SEARCH_TOOL["function"]["parameters"]["required"]
 
 
 # ---------------------------------------------------------------------------
@@ -191,6 +289,53 @@ async def test_agent_loop_handles_tool_calls():
 
 
 @pytest.mark.asyncio
+async def test_agent_loop_handles_multiple_tool_calls():
+    """_agent_loop handles multiple tool calls in a single response."""
+    tool_response = {
+        "choices": [
+            {
+                "message": {
+                    "tool_calls": [
+                        {
+                            "id": "call_1",
+                            "function": {
+                                "name": "web_search",
+                                "arguments": json.dumps({"query": "query 1"}),
+                            },
+                        },
+                        {
+                            "id": "call_2",
+                            "function": {
+                                "name": "web_search",
+                                "arguments": json.dumps({"query": "query 2"}),
+                            },
+                        },
+                    ],
+                    "content": None,
+                }
+            }
+        ]
+    }
+    final_response = {
+        "choices": [{"message": {"content": json.dumps({"done": True})}}]
+    }
+
+    with (
+        patch("pipeline_v2.agent._call_openai", new_callable=AsyncMock) as mock_call,
+        patch("pipeline_v2.agent._serper_search", new_callable=AsyncMock) as mock_search,
+    ):
+        mock_call.side_effect = [tool_response, final_response]
+        mock_search.return_value = [{"title": "R", "snippet": "...", "url": "https://r.com"}]
+
+        result = await _agent_loop(
+            "system", "user", model="gpt-4o-mini", phase_name="test"
+        )
+
+    assert result == {"done": True}
+    assert mock_search.call_count == 2
+
+
+@pytest.mark.asyncio
 async def test_agent_loop_retries_bad_json():
     """_agent_loop asks model to fix output when JSON is invalid."""
     bad = {"choices": [{"message": {"content": "not json"}}]}
@@ -204,6 +349,117 @@ async def test_agent_loop_retries_bad_json():
 
     assert result == {"ok": True}
     assert mock.call_count == 2
+
+
+@pytest.mark.asyncio
+async def test_agent_loop_raises_on_max_iterations():
+    """_agent_loop raises RuntimeError when max iterations reached."""
+    bad = {"choices": [{"message": {"content": "still not json"}}]}
+
+    with patch("pipeline_v2.agent._call_openai", new_callable=AsyncMock) as mock:
+        mock.return_value = bad
+        with pytest.raises(RuntimeError, match="did not produce output"):
+            await _agent_loop(
+                "system", "user", model="gpt-4o-mini", phase_name="test",
+                max_iterations=2,
+            )
+
+
+@pytest.mark.asyncio
+async def test_agent_loop_passes_race_id_to_search():
+    """_agent_loop passes race_id to _serper_search for cache scoping."""
+    tool_response = {
+        "choices": [
+            {
+                "message": {
+                    "tool_calls": [
+                        {
+                            "id": "call_1",
+                            "function": {
+                                "name": "web_search",
+                                "arguments": json.dumps({"query": "test"}),
+                            },
+                        }
+                    ],
+                    "content": None,
+                }
+            }
+        ]
+    }
+    final_response = {
+        "choices": [{"message": {"content": json.dumps({"ok": True})}}]
+    }
+
+    with (
+        patch("pipeline_v2.agent._call_openai", new_callable=AsyncMock) as mock_call,
+        patch("pipeline_v2.agent._serper_search", new_callable=AsyncMock) as mock_search,
+    ):
+        mock_call.side_effect = [tool_response, final_response]
+        mock_search.return_value = []
+
+        await _agent_loop(
+            "system", "user", model="gpt-4o-mini", phase_name="test",
+            race_id="my-race-2024",
+        )
+
+    mock_search.assert_called_once_with("test", race_id="my-race-2024")
+
+
+# ---------------------------------------------------------------------------
+# Serper search tests
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.asyncio
+async def test_serper_search_no_api_key():
+    """_serper_search returns error when SERPER_API_KEY is not set."""
+    with patch.dict(os.environ, {"SERPER_API_KEY": ""}, clear=False):
+        # Reset cache so it doesn't interfere
+        with patch("pipeline_v2.agent._get_search_cache", return_value=None):
+            results = await _serper_search("test query")
+    assert len(results) == 1
+    assert "error" in results[0]
+
+
+@pytest.mark.asyncio
+async def test_serper_search_uses_cache():
+    """_serper_search returns cached results when available."""
+    mock_cache = MagicMock()
+    mock_cache.get.return_value = {"results": [{"title": "Cached", "snippet": "...", "url": "https://cached.com"}]}
+
+    with patch("pipeline_v2.agent._get_search_cache", return_value=mock_cache):
+        results = await _serper_search("test query", race_id="my-race")
+
+    assert results == [{"title": "Cached", "snippet": "...", "url": "https://cached.com"}]
+    mock_cache.get.assert_called_once_with("test query", "my-race")
+
+
+# ---------------------------------------------------------------------------
+# Load existing data tests
+# ---------------------------------------------------------------------------
+
+
+def test_load_existing_returns_none_for_missing():
+    """_load_existing returns None when no published file exists."""
+    result = _load_existing("nonexistent-race-9999")
+    assert result is None
+
+
+def test_load_existing_reads_file():
+    """_load_existing reads and parses a published JSON file."""
+    test_data = {"id": "test-race", "candidates": []}
+    published_dir = Path(__file__).resolve().parents[1] / "data" / "published"
+    published_dir.mkdir(parents=True, exist_ok=True)
+    test_file = published_dir / "test-load-existing.json"
+
+    try:
+        with test_file.open("w") as f:
+            json.dump(test_data, f)
+        result = _load_existing("test-load-existing")
+        assert result is not None
+        assert result["id"] == "test-race"
+    finally:
+        test_file.unlink(missing_ok=True)
 
 
 # ---------------------------------------------------------------------------
@@ -265,6 +521,27 @@ async def test_run_agent_fresh():
 
 
 @pytest.mark.asyncio
+async def test_run_agent_fresh_no_candidates():
+    """run_agent returns early when discovery finds no candidates."""
+    discovery_result = {
+        "id": "empty-2024",
+        "candidates": [],
+    }
+
+    with (
+        patch("pipeline_v2.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_v2.agent._load_existing", return_value=None),
+    ):
+        mock_loop.return_value = discovery_result
+        result = await run_agent("empty-2024", cheap_mode=True)
+
+    assert result["id"] == "empty-2024"
+    assert result["candidates"] == []
+    # Only 1 call (discovery), no issue research or refinement
+    assert mock_loop.call_count == 1
+
+
+@pytest.mark.asyncio
 async def test_run_agent_update_mode():
     """run_agent with existing data runs in update mode."""
     existing = {"id": "test-2024", "candidates": [], "updated_utc": "2024-01-01"}
@@ -283,6 +560,25 @@ async def test_run_agent_update_mode():
 
 
 @pytest.mark.asyncio
+async def test_run_agent_force_fresh_with_empty_dict():
+    """run_agent with existing_data={} forces fresh run."""
+    discovery_result = {
+        "id": "test-2024",
+        "candidates": [],
+    }
+
+    with (
+        patch("pipeline_v2.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_v2.agent._load_existing", return_value=None),
+    ):
+        mock_loop.return_value = discovery_result
+        result = await run_agent("test-2024", cheap_mode=True, existing_data={})
+
+    # Empty dict is falsy, so it should run fresh (not update)
+    assert result["id"] == "test-2024"
+
+
+@pytest.mark.asyncio
 async def test_run_agent_normalizes_output():
     """run_agent sets defaults even when agent returns minimal JSON."""
     minimal = {"candidates": []}
@@ -297,3 +593,115 @@ async def test_run_agent_normalizes_output():
     assert result["id"] == "race-2024"
     assert "updated_utc" in result
     assert result["generator"] == ["pipeline-v2-agent"]
+
+
+@pytest.mark.asyncio
+async def test_run_agent_adds_source_timestamps():
+    """run_agent adds last_accessed to sources that lack it."""
+    discovery_result = {
+        "id": "ts-2024",
+        "candidates": [
+            {
+                "name": "Alice",
+                "issues": {
+                    "Healthcare": {
+                        "stance": "Supports ACA.",
+                        "confidence": "high",
+                        "sources": [
+                            {"url": "https://example.com", "type": "news", "title": "Article"}
+                        ],
+                    }
+                },
+            }
+        ],
+    }
+
+    with (
+        patch("pipeline_v2.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_v2.agent._load_existing", return_value=None),
+    ):
+        mock_loop.return_value = discovery_result
+        result = await run_agent("ts-2024", cheap_mode=True, existing_data={})
+
+    source = result["candidates"][0]["issues"]["Healthcare"]["sources"][0]
+    assert "last_accessed" in source
+
+
+@pytest.mark.asyncio
+async def test_run_agent_model_selection():
+    """run_agent selects gpt-4o-mini in cheap mode and gpt-4o otherwise."""
+    discovery_result = {"id": "m-2024", "candidates": []}
+
+    for cheap_mode, expected_model in [(True, "gpt-4o-mini"), (False, "gpt-4o")]:
+        with (
+            patch("pipeline_v2.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
+            patch("pipeline_v2.agent._load_existing", return_value=None),
+        ):
+            mock_loop.return_value = discovery_result
+            await run_agent("m-2024", cheap_mode=cheap_mode, existing_data={})
+
+            # The first call to _agent_loop should use the correct model
+            call_kwargs = mock_loop.call_args_list[0]
+            assert call_kwargs.kwargs["model"] == expected_model
+
+
+@pytest.mark.asyncio
+async def test_run_agent_on_log_callback():
+    """run_agent passes logs to the on_log callback."""
+    discovery_result = {"id": "log-2024", "candidates": []}
+    log_messages = []
+
+    def on_log(level, msg):
+        log_messages.append((level, msg))
+
+    with (
+        patch("pipeline_v2.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_v2.agent._load_existing", return_value=None),
+    ):
+        mock_loop.return_value = discovery_result
+        await run_agent("log-2024", cheap_mode=True, existing_data={}, on_log=on_log)
+
+    # Should have at least "New research" and "Agent finished" messages
+    assert len(log_messages) >= 2
+    assert any("New research" in msg for _, msg in log_messages)
+    assert any("finished" in msg for _, msg in log_messages)
+
+
+# ---------------------------------------------------------------------------
+# Handler tests
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.asyncio
+async def test_v2_handler_raises_on_missing_race_id():
+    """V2AgentHandler raises ValueError when race_id is missing."""
+    from pipeline_client.backend.handlers.v2_agent import V2AgentHandler
+
+    handler = V2AgentHandler()
+    with pytest.raises(ValueError, match="Missing 'race_id'"):
+        await handler.handle({}, {})
+
+
+@pytest.mark.asyncio
+async def test_v2_handler_runs_agent_and_publishes():
+    """V2AgentHandler calls run_agent and publishes the result."""
+    from pipeline_client.backend.handlers.v2_agent import V2AgentHandler
+
+    handler = V2AgentHandler()
+    fake_result = {"id": "test-race", "candidates": []}
+
+    with (
+        patch("pipeline_v2.agent.run_agent", new_callable=AsyncMock) as mock_agent,
+        patch.object(handler, "_publish", new_callable=AsyncMock) as mock_publish,
+    ):
+        mock_agent.return_value = fake_result
+        mock_publish.return_value = Path("/tmp/test-race.json")
+
+        result = await handler.handle(
+            {"race_id": "test-race"},
+            {"cheap_mode": True},
+        )
+
+    assert result["race_id"] == "test-race"
+    assert result["status"] == "published"
+    mock_agent.assert_called_once()
