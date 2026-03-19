@@ -413,10 +413,13 @@ async def test_agent_loop_passes_race_id_to_search():
 @pytest.mark.asyncio
 async def test_serper_search_no_api_key():
     """_serper_search returns error when SERPER_API_KEY is not set."""
-    with patch.dict(os.environ, {"SERPER_API_KEY": ""}, clear=False):
-        # Reset cache so it doesn't interfere
-        with patch("pipeline_v2.agent._get_search_cache", return_value=None):
-            results = await _serper_search("test query")
+    env = os.environ.copy()
+    env.pop("SERPER_API_KEY", None)
+    with (
+        patch.dict(os.environ, env, clear=True),
+        patch("pipeline_v2.agent._get_search_cache", return_value=None),
+    ):
+        results = await _serper_search("test query")
     assert len(results) == 1
     assert "error" in results[0]
 
@@ -448,14 +451,15 @@ def test_load_existing_returns_none_for_missing():
 def test_load_existing_reads_file():
     """_load_existing reads and parses a published JSON file."""
     test_data = {"id": "test-race", "candidates": []}
+    # Use a clearly-test-only filename to avoid collisions
     published_dir = Path(__file__).resolve().parents[1] / "data" / "published"
     published_dir.mkdir(parents=True, exist_ok=True)
-    test_file = published_dir / "test-load-existing.json"
+    test_file = published_dir / "__test_tmp_load_existing__.json"
 
     try:
         with test_file.open("w") as f:
             json.dump(test_data, f)
-        result = _load_existing("test-load-existing")
+        result = _load_existing("__test_tmp_load_existing__")
         assert result is not None
         assert result["id"] == "test-race"
     finally:
