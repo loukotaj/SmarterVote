@@ -21,12 +21,14 @@ variable "openai_api_key" {
   description = "OpenAI API key for GPT-4o/mini"
   type        = string
   sensitive   = true
+  default     = ""
 }
 
 variable "serper_api_key" {
   description = "Serper.dev API key for web search"
   type        = string
   sensitive   = true
+  default     = ""
 }
 
 # Deployment and versioning variables
