@@ -10,6 +10,8 @@ jobs:
   test-pipeline-v2:
     name: Test Pipeline V2 Agent
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
     - uses: actions/checkout@v4
 

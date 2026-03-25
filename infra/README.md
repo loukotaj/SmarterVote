@@ -49,7 +49,6 @@ curl "$(terraform output -raw races_api_url)/health"
 | races-api | ✅ | ✅ |
 | GCS bucket | ✅ | ✅ |
 | pipeline-client | ❌ | ✅ |
-| enqueue-api | ❌ | ✅ |
 | Pub/Sub | ❌ | ✅ |
 | Cloud Run Jobs | ❌ | ✅ |
 | Scheduler | ❌ | ✅ |
@@ -65,7 +64,6 @@ infra/
 ├── races-api.tf         # Data serving API
 ├── secrets.tf           # Secret Manager (OpenAI + Serper keys)
 ├── pipeline-client.tf   # Pipeline service (conditional)
-├── enqueue-api.tf       # Job queue API (conditional)
 ├── pubsub.tf            # Messaging (conditional)
 ├── run-job.tf           # Batch workers (conditional)
 ├── scheduler.tf         # Cron triggers (conditional)
