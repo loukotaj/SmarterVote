@@ -9,7 +9,7 @@ Phases:
 Supports **rerun/update** mode: pass an existing RaceJSON and the agent
 will search for new developments and improve the profile.
 
-Uses a SQLite search cache (``pipeline.app.utils.search_cache``) to avoid
+Uses a SQLite search cache (``pipeline_v2.search_cache``) to avoid
 redundant Serper API calls across runs.
 """
 
@@ -84,7 +84,7 @@ def _get_search_cache():
     global _search_cache
     if _search_cache is None:
         try:
-            from pipeline.app.utils.search_cache import SearchCache
+            from pipeline_v2.search_cache import SearchCache
 
             _search_cache = SearchCache()
         except Exception:

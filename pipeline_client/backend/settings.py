@@ -13,12 +13,6 @@ class Settings(BaseSettings):
     auth0_domain: str | None = None
     auth0_audience: str | None = None
 
-    # Legacy skip flags (kept for backwards compatibility)
-    skip_llm_apis: bool = False
-    skip_external_apis: bool = False
-    skip_network_calls: bool = False
-    skip_cloud_services: bool = False
-
     class Config:
         env_prefix = ""
         env_file = ".env"

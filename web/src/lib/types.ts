@@ -157,10 +157,6 @@ export type RunStatus =
   | "cancelled";
 
 export interface RunOptions {
-  skip_llm_apis?: boolean;
-  skip_external_apis?: boolean;
-  skip_network_calls?: boolean;
-  skip_cloud_services?: boolean;
   save_artifact?: boolean;
   note?: string;
   enable_review?: boolean;

@@ -21,11 +21,11 @@ Defined in `shared/models.py` as `CanonicalIssue` enum and `pipeline_v2/prompts.
 |---------|----------|
 | Agent loop + caching | `pipeline_v2/agent.py` |
 | Prompt templates | `pipeline_v2/prompts.py` |
+| Search cache | `pipeline_v2/search_cache.py` |
 | Agent handler | `pipeline_client/backend/handlers/v2_agent.py` |
 | API endpoints | `pipeline_client/backend/main.py` |
-| Schema models | `shared/models.py`, `pipeline/app/schema.py` |
+| Schema models | `shared/models.py` |
 | TypeScript types | `web/src/lib/types.ts` |
-| Search cache | `pipeline/app/utils/search_cache.py` |
 | API services | `services/races-api/` |
 | Infrastructure | `infra/*.tf` |
 

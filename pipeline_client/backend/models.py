@@ -14,10 +14,6 @@ class RunStatus(str, Enum):
 
 
 class RunOptions(BaseModel):
-    skip_llm_apis: Optional[bool] = None
-    skip_external_apis: Optional[bool] = None
-    skip_network_calls: Optional[bool] = None
-    skip_cloud_services: Optional[bool] = None
     cheap_mode: bool = True  # Use mini models by default for cost-effective processing
     save_artifact: bool = True
     enable_review: bool = False  # Send to Claude/Gemini for fact-checking

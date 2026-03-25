@@ -18,8 +18,6 @@ RUN pip install --no-cache-dir -r /tmp/requirements.txt \
 
 # Copy application code
 COPY pipeline_v2 ./pipeline_v2
-COPY pipeline/app/utils ./pipeline/app/utils
-COPY pipeline/app/__init__.py ./pipeline/app/__init__.py
 COPY pipeline_client/backend ./pipeline_client/backend
 COPY pipeline_client/run.py ./run.py
 COPY shared ./shared

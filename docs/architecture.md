@@ -66,9 +66,6 @@ pipeline_client/          # Execution engine
 │   └── storage_backend.py  # Local/GCP storage abstraction
 └── run.py                # CLI entry point
 
-pipeline/app/utils/       # Shared utilities
-└── search_cache.py       # SQLite search cache (7-day TTL)
-
 services/
 └── races-api/            # REST API serving published data
 

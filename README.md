@@ -78,7 +78,7 @@ pipeline_client/        # Execution engine
     main.py               # FastAPI endpoints
     pipeline_runner.py    # Step execution + logging
     step_registry.py      # Handler registry
-pipeline/app/utils/     # Shared utilities (search cache, etc.)
+pipeline_v2/            # AI agent (prompts, search cache, LLM calls)
 services/races-api/     # REST API for race data
 shared/                 # Pydantic models shared across components
 web/                    # SvelteKit frontend
