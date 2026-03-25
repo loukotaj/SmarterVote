@@ -189,9 +189,9 @@ class RaceJSON(BaseModel):
     """RaceJSON v0.3 — Final output format."""
 
     id: str = Field(..., description="Race slug like 'mo-senate-2024'")
-    election_date: datetime
+    election_date: str = Field(..., description="Election date in YYYY-MM-DD or ISO format")
     candidates: List[Candidate]
-    updated_utc: datetime
+    updated_utc: str = Field(..., description="Last updated timestamp in ISO format")
     generator: List[str] = Field(default_factory=list)
 
     # Metadata
