@@ -633,10 +633,10 @@ async def test_run_agent_adds_source_timestamps():
 
 @pytest.mark.asyncio
 async def test_run_agent_model_selection():
-    """run_agent selects gpt-4o-mini in cheap mode and gpt-4o otherwise."""
+    """run_agent selects gpt-4.1-mini in cheap mode and gpt-4.1 otherwise."""
     discovery_result = {"id": "m-2024", "candidates": []}
 
-    for cheap_mode, expected_model in [(True, "gpt-4o-mini"), (False, "gpt-4o")]:
+    for cheap_mode, expected_model in [(True, "gpt-4.1-mini"), (False, "gpt-4.1")]:
         with (
             patch("pipeline_v2.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
             patch("pipeline_v2.agent._load_existing", return_value=None),

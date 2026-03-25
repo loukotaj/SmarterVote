@@ -125,7 +125,7 @@ Key environment variables:
 |----------|---------|---------|
 | `OPENAI_API_KEY` | GPT models | Required |
 | `SERPER_API_KEY` | Web search | Required |
-| `SMARTERVOTE_CHEAP_MODE` | Use gpt-4o-mini | `true` |
+| `SMARTERVOTE_CHEAP_MODE` | Use gpt-4.1-mini | `true` |
 | `SEARCH_CACHE_TTL_HOURS` | Search cache TTL | `168` (7 days) |
 
 ## Troubleshooting

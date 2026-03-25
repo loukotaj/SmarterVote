@@ -98,9 +98,9 @@ data/cache/             # SQLite search cache
 ## Configuration
 
 Key environment variables (see `.env.example`):
-- `OPENAI_API_KEY` - Required for GPT-4o/mini
+- `OPENAI_API_KEY` - Required for GPT-4.1/mini
 - `SERPER_API_KEY` - Required for web search
-- `SMARTERVOTE_CHEAP_MODE=true` - Use gpt-4o-mini (default) vs gpt-4o
+- `SMARTERVOTE_CHEAP_MODE=true` - Use gpt-4.1-mini (default) vs gpt-4.1
 
 ## Docs
 
