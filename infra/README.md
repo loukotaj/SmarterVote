@@ -1,6 +1,6 @@
 # SmarterVote Infrastructure
 
-**Cloud-Native Electoral Analysis Platform** ☁️
+**Cloud deployment for the AI agent electoral analysis pipeline** ☁️
 
 ## Overview
 
@@ -19,12 +19,10 @@ cp secrets.tfvars.example secrets.tfvars
 
 Edit `secrets.tfvars`:
 ```hcl
-project_id            = "your-gcp-project-id"
-region                = "us-central1"
-openai_api_key        = "sk-your-openai-key"
-anthropic_api_key     = "your-anthropic-key"
-grok_api_key          = "your-grok-key"
-serper_api_key        = "your-serper-key"
+project_id     = "your-gcp-project-id"
+region         = "us-central1"
+openai_api_key = "sk-your-openai-key"
+serper_api_key = "your-serper-key"
 
 # Enable cloud pipeline (disabled by default - run locally instead)
 enable_pipeline_client = false
@@ -50,7 +48,6 @@ curl "$(terraform output -raw races_api_url)/health"
 |-----------|---------|---------------------------|
 | races-api | ✅ | ✅ |
 | GCS bucket | ✅ | ✅ |
-| chroma-storage | ✅ | ✅ |
 | pipeline-client | ❌ | ✅ |
 | enqueue-api | ❌ | ✅ |
 | Pub/Sub | ❌ | ✅ |
@@ -65,9 +62,8 @@ infra/
 ├── variables.tf         # Input variables (incl. enable_pipeline_client)
 ├── outputs.tf           # Terraform outputs
 ├── bucket.tf            # GCS storage
-├── chroma-storage.tf    # Vector DB storage
 ├── races-api.tf         # Data serving API
-├── secrets.tf           # Secret Manager
+├── secrets.tf           # Secret Manager (OpenAI + Serper keys)
 ├── pipeline-client.tf   # Pipeline service (conditional)
 ├── enqueue-api.tf       # Job queue API (conditional)
 ├── pubsub.tf            # Messaging (conditional)

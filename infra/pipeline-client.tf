@@ -1,4 +1,4 @@
-# Cloud Run Service for pipeline client
+# Cloud Run Service for pipeline client (V2 agent)
 # DISABLED by default - set enable_pipeline_client = true in variables to deploy
 # Run pipeline locally until ready to scale to cloud
 resource "google_cloud_run_v2_service" "pipeline_client" {
@@ -42,79 +42,13 @@ resource "google_cloud_run_v2_service" "pipeline_client" {
       }
 
       env {
-        name = "ANTHROPIC_API_KEY"
+        name = "SERPER_API_KEY"
         value_source {
           secret_key_ref {
-            secret  = google_secret_manager_secret.anthropic_key.secret_id
+            secret  = google_secret_manager_secret.serper_key.secret_id
             version = "latest"
           }
         }
-      }
-
-      env {
-        name = "GROK_API_KEY"
-        value_source {
-          secret_key_ref {
-            secret  = google_secret_manager_secret.grok_key.secret_id
-            version = "latest"
-          }
-        }
-      }
-
-      env {
-        name = "GOOGLE_SEARCH_API_KEY"
-        value_source {
-          secret_key_ref {
-            secret  = google_secret_manager_secret.google_search_key.secret_id
-            version = "latest"
-          }
-        }
-      }
-
-      env {
-        name = "GOOGLE_SEARCH_CX"
-        value_source {
-          secret_key_ref {
-            secret  = google_secret_manager_secret.google_search_cx.secret_id
-            version = "latest"
-          }
-        }
-      }
-
-      # ChromaDB configuration
-      env {
-        name  = "CHROMA_CHUNK_SIZE"
-        value = tostring(var.chroma_chunk_size)
-      }
-
-      env {
-        name  = "CHROMA_CHUNK_OVERLAP"
-        value = tostring(var.chroma_chunk_overlap)
-      }
-
-      env {
-        name  = "CHROMA_EMBEDDING_MODEL"
-        value = var.chroma_embedding_model
-      }
-
-      env {
-        name  = "CHROMA_SIMILARITY_THRESHOLD"
-        value = tostring(var.chroma_similarity_threshold)
-      }
-
-      env {
-        name  = "CHROMA_MAX_RESULTS"
-        value = tostring(var.chroma_max_results)
-      }
-
-      env {
-        name  = "CHROMA_PERSIST_DIR"
-        value = var.chroma_persist_dir
-      }
-
-      env {
-        name  = "CHROMA_BUCKET_NAME"
-        value = google_storage_bucket.chroma_storage.name
       }
 
       # Pipeline client configuration
@@ -151,7 +85,7 @@ resource "google_cloud_run_v2_service" "pipeline_client" {
       resources {
         limits = {
           cpu    = "2"
-          memory = "4Gi"
+          memory = "2Gi"
         }
       }
 
@@ -165,7 +99,7 @@ resource "google_cloud_run_v2_service" "pipeline_client" {
       max_instance_count = 1
     }
 
-    service_account = google_service_account.pipeline_client.email
+    service_account = google_service_account.pipeline_client[0].email
   }
 
   traffic {
@@ -186,11 +120,7 @@ resource "google_cloud_run_v2_service" "pipeline_client" {
   depends_on = [
     google_project_service.apis,
     google_secret_manager_secret_version.openai_key,
-    google_secret_manager_secret_version.anthropic_key,
-    google_secret_manager_secret_version.grok_key,
-    google_secret_manager_secret_version.google_search_key,
-    google_secret_manager_secret_version.google_search_cx,
-    google_storage_bucket.chroma_storage
+    google_secret_manager_secret_version.serper_key,
   ]
 }
 

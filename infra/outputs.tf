@@ -32,16 +32,6 @@ output "bucket_name" {
   value       = google_storage_bucket.sv_data.name
 }
 
-output "chroma_bucket_name" {
-  description = "Name of the ChromaDB storage bucket"
-  value       = google_storage_bucket.chroma_storage.name
-}
-
-output "chroma_disk_name" {
-  description = "Name of the ChromaDB persistent disk"
-  value       = google_compute_disk.chroma_disk.name
-}
-
 output "artifact_registry_repository" {
   description = "Artifact Registry repository for container images"
   value       = google_artifact_registry_repository.smartervote.name

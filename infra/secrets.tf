@@ -15,9 +15,9 @@ resource "google_secret_manager_secret_version" "openai_key" {
   secret_data = var.openai_api_key
 }
 
-resource "google_secret_manager_secret" "anthropic_key" {
+resource "google_secret_manager_secret" "serper_key" {
   project   = var.project_id
-  secret_id = "anthropic-api-key-${var.environment}"
+  secret_id = "serper-api-key-${var.environment}"
 
   replication {
     auto {}
@@ -26,58 +26,9 @@ resource "google_secret_manager_secret" "anthropic_key" {
   depends_on = [google_project_service.apis]
 }
 
-resource "google_secret_manager_secret_version" "anthropic_key" {
-  secret      = google_secret_manager_secret.anthropic_key.id
-  secret_data = var.anthropic_api_key
-}
-
-resource "google_secret_manager_secret" "grok_key" {
-  project   = var.project_id
-  secret_id = "grok-api-key-${var.environment}"
-
-  replication {
-    auto {}
-  }
-
-  depends_on = [google_project_service.apis]
-}
-
-resource "google_secret_manager_secret_version" "grok_key" {
-  secret      = google_secret_manager_secret.grok_key.id
-  secret_data = var.grok_api_key
-}
-
-# Google Custom Search API credentials
-resource "google_secret_manager_secret" "google_search_key" {
-  project   = var.project_id
-  secret_id = "google-search-api-key-${var.environment}"
-
-  replication {
-    auto {}
-  }
-
-  depends_on = [google_project_service.apis]
-}
-
-resource "google_secret_manager_secret_version" "google_search_key" {
-  secret      = google_secret_manager_secret.google_search_key.id
-  secret_data = var.google_search_api_key
-}
-
-resource "google_secret_manager_secret" "google_search_cx" {
-  project   = var.project_id
-  secret_id = "google-search-cx-${var.environment}"
-
-  replication {
-    auto {}
-  }
-
-  depends_on = [google_project_service.apis]
-}
-
-resource "google_secret_manager_secret_version" "google_search_cx" {
-  secret      = google_secret_manager_secret.google_search_cx.id
-  secret_data = var.google_search_cx
+resource "google_secret_manager_secret_version" "serper_key" {
+  secret      = google_secret_manager_secret.serper_key.id
+  secret_data = var.serper_api_key
 }
 
 # Service accounts for the same project

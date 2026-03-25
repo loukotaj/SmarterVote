@@ -1,5 +1,5 @@
 # SmarterVote Infrastructure - Main Configuration
-# Complete infrastructure deployment for corpus-first AI electoral analysis pipeline
+# Infrastructure deployment for AI agent electoral analysis pipeline (V2)
 
 terraform {
   required_version = ">= 1.0"
@@ -99,7 +99,6 @@ resource "google_project_service" "apis" {
     "cloudscheduler.googleapis.com",
     "containerregistry.googleapis.com",
     "artifactregistry.googleapis.com",
-    "customsearch.googleapis.com",
     "iam.googleapis.com"
   ])
 
