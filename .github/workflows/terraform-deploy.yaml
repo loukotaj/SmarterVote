@@ -54,7 +54,7 @@ jobs:
             context: .
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
 
     - name: Authenticate to Google Cloud
       uses: google-github-actions/auth@v2
@@ -100,7 +100,7 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && contains(github.event.head_commit.modified, 'infra/')) }}
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
@@ -164,7 +164,7 @@ jobs:
 
     - name: Upload Plan Artifact
       if: env.ACTION == 'plan'
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: terraform-plan-${{ env.ENVIRONMENT }}
         path: terraform-plan.json
@@ -207,7 +207,7 @@ jobs:
 
     - name: Upload State Backup
       if: always()
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: terraform-state-backup-${{ env.ENVIRONMENT }}-${{ github.sha }}
         path: terraform-state-backup-*.json

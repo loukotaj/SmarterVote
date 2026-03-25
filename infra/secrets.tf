@@ -11,6 +11,7 @@ resource "google_secret_manager_secret" "openai_key" {
 }
 
 resource "google_secret_manager_secret_version" "openai_key" {
+  count       = var.openai_api_key != "" ? 1 : 0
   secret      = google_secret_manager_secret.openai_key.id
   secret_data = var.openai_api_key
 }
@@ -27,6 +28,7 @@ resource "google_secret_manager_secret" "serper_key" {
 }
 
 resource "google_secret_manager_secret_version" "serper_key" {
+  count       = var.serper_api_key != "" ? 1 : 0
   secret      = google_secret_manager_secret.serper_key.id
   secret_data = var.serper_api_key
 }
@@ -201,6 +203,28 @@ resource "google_project_iam_member" "github_actions_storage" {
 resource "google_project_iam_member" "github_actions_iam" {
   project = var.project_id
   role    = "roles/iam.serviceAccountUser"
+  member  = "serviceAccount:${google_service_account.github_actions.email}"
+}
+
+# Custom role granting only the permissions needed to create/delete service accounts
+# during Terraform apply (e.g., when enable_pipeline_client toggles between true/false)
+resource "google_project_iam_custom_role" "sa_manager" {
+  project     = var.project_id
+  role_id     = "saManager_${var.environment}"
+  title       = "Service Account Manager (${var.environment})"
+  description = "Minimal role to create and delete service accounts for infrastructure management"
+  permissions = [
+    "iam.serviceAccounts.create",
+    "iam.serviceAccounts.delete",
+    "iam.serviceAccounts.get",
+    "iam.serviceAccounts.list",
+    "iam.serviceAccounts.update",
+  ]
+}
+
+resource "google_project_iam_member" "github_actions_sa_admin" {
+  project = var.project_id
+  role    = google_project_iam_custom_role.sa_manager.id
   member  = "serviceAccount:${google_service_account.github_actions.email}"
 }
 
