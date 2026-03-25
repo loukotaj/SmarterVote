@@ -25,18 +25,7 @@ resource "google_cloud_run_v2_service" "races_api" {
 
       env {
         name  = "PUBLISHED_DATA_PATH"
-        value = "out/"
-      }
-
-      # ChromaDB Configuration for races API
-      env {
-        name  = "CHROMA_PERSIST_DIR"
-        value = "/app/data/chroma_db"
-      }
-
-      env {
-        name  = "CHROMA_BUCKET_NAME"
-        value = google_storage_bucket.chroma_storage.name
+        value = "published/"
       }
 
       env {

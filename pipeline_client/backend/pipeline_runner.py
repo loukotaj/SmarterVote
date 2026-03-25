@@ -6,17 +6,17 @@ from typing import Any, Dict, Optional
 from .logging_manager import logging_manager
 from .models import RunRequest, RunResponse, RunStatus
 from .run_manager import run_manager
-from .settings import settings
 from .step_registry import get_handler
 from .storage import new_artifact_id, save_artifact
 
 
 def _merge_options(req_opts) -> Dict[str, Any]:
+    """Merge RunOptions from the RunRequest with defaults.
+
+    Returns a flat dict of option key/value pairs used by the pipeline runner
+    and passed through to the step handler.
+    """
     base = {
-        "skip_llm_apis": settings.skip_llm_apis,
-        "skip_external_apis": settings.skip_external_apis,
-        "skip_network_calls": settings.skip_network_calls,
-        "skip_cloud_services": settings.skip_cloud_services,
         "save_artifact": True,
     }
     if req_opts is None:

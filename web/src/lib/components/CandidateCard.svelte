@@ -10,13 +10,13 @@
   export let raceId: string = "";
 
   let expanded = false;
-  let activeTab: "issues" | "donors" | "voting" = "issues";
+  let activeTab: "issues" | "background" | "donors" | "voting" = "issues";
 
   function toggleExpanded() {
     expanded = !expanded;
   }
 
-  function setActiveTab(tab: "issues" | "donors" | "voting") {
+  function setActiveTab(tab: "issues" | "background" | "donors" | "voting") {
     activeTab = tab;
   }
 
@@ -28,43 +28,80 @@
       .replace(/-+/g, "-")
       .replace(/^-|-$/g, "");
   }
+
+  $: hasCareer =
+    candidate.career_history && candidate.career_history.length > 0;
+  $: hasEducation = candidate.education && candidate.education.length > 0;
+  $: hasBackground = hasCareer || hasEducation;
+  $: hasVoting =
+    candidate.voting_record && candidate.voting_record.length > 0;
 </script>
 
 <Card class="candidate-card group" id={generateCandidateId(candidate.name)}>
   <!-- Candidate Header -->
   <div class="mb-6">
     <div class="flex items-start justify-between mb-3">
-      <h3 class="candidate-name">
-        {candidate.name}
-        <!-- Permalink anchor -->
-        <a
-          href="#{generateCandidateId(candidate.name)}"
-          class="permalink-anchor"
-          aria-label="Link to {candidate.name}"
-          title="Link to this candidate"
-        >
-          <svg
-            class="w-4 h-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
-            />
-          </svg>
-        </a>
-      </h3>
-      <div class="flex flex-col items-end gap-1">
-        {#if candidate.party}
-          <span class="badge party-badge">{candidate.party}</span>
+      <div class="flex items-start gap-4">
+        <!-- Candidate Image -->
+        {#if candidate.image_url}
+          <img
+            src={candidate.image_url}
+            alt={candidate.name}
+            class="candidate-image"
+            on:error={(e) => {
+              const target = e.currentTarget;
+              if (target instanceof HTMLImageElement) {
+                target.style.display = "none";
+              }
+            }}
+          />
+        {:else}
+          <div class="candidate-image-placeholder">
+            <svg
+              class="w-8 h-8 text-gray-400"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+              />
+            </svg>
+          </div>
         {/if}
-        {#if candidate.incumbent}
-          <span class="badge incumbent-badge">Incumbent</span>
-        {/if}
+        <div>
+          <h3 class="candidate-name">
+            {candidate.name}
+            <!-- Permalink anchor -->
+            <a
+              href="#{generateCandidateId(candidate.name)}"
+              class="permalink-anchor"
+              aria-label="Link to {candidate.name}"
+              title="Link to this candidate"
+            >
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+                />
+              </svg>
+            </a>
+          </h3>
+          <div class="flex flex-wrap items-center gap-1 mt-1">
+            {#if candidate.party}
+              <span class="badge party-badge">{candidate.party}</span>
+            {/if}
+            {#if candidate.incumbent}
+              <span class="badge incumbent-badge">Incumbent</span>
+            {/if}
+          </div>
+        </div>
       </div>
     </div>
 
@@ -146,19 +183,25 @@
           Key Issues
         </TabButton>
         <TabButton
+          active={activeTab === "background"}
+          onClick={() => setActiveTab("background")}
+          disabled={!hasBackground}
+        >
+          Background
+        </TabButton>
+        <TabButton
           active={activeTab === "donors"}
           onClick={() => setActiveTab("donors")}
         >
-          Top Donors ({candidate.top_donors.length})
+          Top Donors ({candidate.top_donors?.length ?? 0})
         </TabButton>
         <TabButton
           active={activeTab === "voting"}
           onClick={() => setActiveTab("voting")}
-          disabled={!candidate.voting_record ||
-            candidate.voting_record.length === 0}
+          disabled={!hasVoting}
         >
           Voting Record
-          {#if candidate.voting_record && candidate.voting_record.length > 0}
+          {#if hasVoting}
             ({candidate.voting_record.length})
           {/if}
         </TabButton>
@@ -172,6 +215,63 @@
             {raceId}
             candidateName={candidate.name}
           />
+        {:else if activeTab === "background"}
+          <div class="background-section">
+            {#if hasCareer}
+              <div class="mb-6">
+                <h4 class="section-title">Career History</h4>
+                <div class="timeline">
+                  {#each candidate.career_history as entry}
+                    <div class="timeline-entry">
+                      <div class="timeline-header">
+                        <span class="timeline-title">{entry.title}</span>
+                        {#if entry.start_year}
+                          <span class="timeline-years">
+                            {entry.start_year}{entry.end_year
+                              ? ` – ${entry.end_year}`
+                              : " – Present"}
+                          </span>
+                        {/if}
+                      </div>
+                      {#if entry.organization}
+                        <span class="timeline-org">{entry.organization}</span>
+                      {/if}
+                      {#if entry.description}
+                        <p class="timeline-desc">{entry.description}</p>
+                      {/if}
+                    </div>
+                  {/each}
+                </div>
+              </div>
+            {/if}
+            {#if hasEducation}
+              <div>
+                <h4 class="section-title">Education</h4>
+                <div class="education-list">
+                  {#each candidate.education as edu}
+                    <div class="education-entry">
+                      <span class="edu-institution">{edu.institution}</span>
+                      {#if edu.degree || edu.field}
+                        <span class="edu-degree">
+                          {[edu.degree, edu.field]
+                            .filter(Boolean)
+                            .join(" in ")}
+                          {#if edu.year}
+                            ({edu.year})
+                          {/if}
+                        </span>
+                      {/if}
+                    </div>
+                  {/each}
+                </div>
+              </div>
+            {/if}
+            {#if !hasBackground}
+              <p class="text-gray-500 text-sm">
+                No background information available yet.
+              </p>
+            {/if}
+          </div>
         {:else if activeTab === "donors"}
           <DonorTable
             donors={candidate.top_donors}
@@ -208,6 +308,14 @@
 <style lang="postcss">
   :global(.candidate-card) {
     @apply p-3 sm:p-4 lg:p-6 h-full w-full mx-auto shadow-lg;
+  }
+
+  .candidate-image {
+    @apply w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-2 border-gray-200 flex-shrink-0;
+  }
+
+  .candidate-image-placeholder {
+    @apply w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gray-100 border-2 border-gray-200 flex items-center justify-center flex-shrink-0;
   }
 
   .candidate-name {
@@ -281,7 +389,7 @@
   }
 
   .tab-navigation {
-    @apply flex border-b border-gray-200 mb-6;
+    @apply flex border-b border-gray-200 mb-6 overflow-x-auto;
   }
 
   .tab-content {
@@ -303,5 +411,54 @@
 
   .more-tag {
     @apply bg-blue-100 text-blue-700;
+  }
+
+  /* Background / Career / Education styles */
+  .background-section {
+    @apply space-y-4;
+  }
+
+  .timeline {
+    @apply space-y-3;
+  }
+
+  .timeline-entry {
+    @apply border-l-2 border-blue-200 pl-4 py-1;
+  }
+
+  .timeline-header {
+    @apply flex flex-wrap items-baseline gap-2;
+  }
+
+  .timeline-title {
+    @apply font-medium text-gray-900 text-sm;
+  }
+
+  .timeline-years {
+    @apply text-xs text-gray-500;
+  }
+
+  .timeline-org {
+    @apply text-sm text-gray-600 block;
+  }
+
+  .timeline-desc {
+    @apply text-xs text-gray-500 mt-1;
+  }
+
+  .education-list {
+    @apply space-y-2;
+  }
+
+  .education-entry {
+    @apply flex flex-col;
+  }
+
+  .edu-institution {
+    @apply font-medium text-gray-900 text-sm;
+  }
+
+  .edu-degree {
+    @apply text-xs text-gray-600;
   }
 </style>

@@ -46,12 +46,9 @@ jobs:
     strategy:
       matrix:
         container:
-          - name: pipeline
-            dockerfile: pipeline/Dockerfile
+          - name: pipeline-client
+            dockerfile: pipeline_client/Dockerfile
             context: .
-          - name: enqueue-api
-            dockerfile: services/enqueue-api/Dockerfile
-            context: services/enqueue-api
           - name: races-api
             dockerfile: services/races-api/Dockerfile
             context: .
@@ -112,18 +109,7 @@ jobs:
         environment = "${{ env.ENVIRONMENT }}"
         app_version = "${{ env.TF_VAR_app_version }}"
         openai_api_key = "${{ secrets.OPENAI_API_KEY }}"
-        anthropic_api_key = "${{ secrets.ANTHROPIC_API_KEY }}"
-        grok_api_key = "${{ secrets.GROK_API_KEY }}"
-        google_search_api_key = "${{ secrets.GOOGLE_SEARCH_API_KEY }}"
-        google_search_cx = "${{ secrets.GOOGLE_SEARCH_CX }}"
-
-        # ChromaDB Configuration
-        chroma_chunk_size = 500
-        chroma_chunk_overlap = 50
-        chroma_embedding_model = "all-MiniLM-L6-v2"
-        chroma_similarity_threshold = 0.7
-        chroma_max_results = 100
-        chroma_persist_dir = "/app/data/chroma_db"
+        serper_api_key = "${{ secrets.SERPER_API_KEY }}"
         EOF
 
     - name: Check if state bucket exists

@@ -1,4 +1,4 @@
-# Cloud Run Job for race processing pipeline
+# Cloud Run Job for race processing pipeline (V2 agent)
 # DISABLED by default - set enable_pipeline_client = true in variables to deploy
 resource "google_cloud_run_v2_job" "race_worker" {
   count    = var.enable_pipeline_client ? 1 : 0
@@ -32,79 +32,13 @@ resource "google_cloud_run_v2_job" "race_worker" {
         }
 
         env {
-          name = "ANTHROPIC_API_KEY"
+          name = "SERPER_API_KEY"
           value_source {
             secret_key_ref {
-              secret  = google_secret_manager_secret.anthropic_key.secret_id
+              secret  = google_secret_manager_secret.serper_key.secret_id
               version = "latest"
             }
           }
-        }
-
-        env {
-          name = "GROK_API_KEY"
-          value_source {
-            secret_key_ref {
-              secret  = google_secret_manager_secret.grok_key.secret_id
-              version = "latest"
-            }
-          }
-        }
-
-        env {
-          name = "GOOGLE_SEARCH_API_KEY"
-          value_source {
-            secret_key_ref {
-              secret  = google_secret_manager_secret.google_search_key.secret_id
-              version = "latest"
-            }
-          }
-        }
-
-        env {
-          name = "GOOGLE_SEARCH_CX"
-          value_source {
-            secret_key_ref {
-              secret  = google_secret_manager_secret.google_search_cx.secret_id
-              version = "latest"
-            }
-          }
-        }
-
-        # ChromaDB Vector Database Configuration
-        env {
-          name  = "CHROMA_CHUNK_SIZE"
-          value = tostring(var.chroma_chunk_size)
-        }
-
-        env {
-          name  = "CHROMA_CHUNK_OVERLAP"
-          value = tostring(var.chroma_chunk_overlap)
-        }
-
-        env {
-          name  = "CHROMA_EMBEDDING_MODEL"
-          value = var.chroma_embedding_model
-        }
-
-        env {
-          name  = "CHROMA_SIMILARITY_THRESHOLD"
-          value = tostring(var.chroma_similarity_threshold)
-        }
-
-        env {
-          name  = "CHROMA_MAX_RESULTS"
-          value = tostring(var.chroma_max_results)
-        }
-
-        env {
-          name  = "CHROMA_PERSIST_DIR"
-          value = var.chroma_persist_dir
-        }
-
-        env {
-          name  = "CHROMA_BUCKET_NAME"
-          value = google_storage_bucket.chroma_storage.name
         }
 
         # System Configuration
@@ -121,7 +55,7 @@ resource "google_cloud_run_v2_job" "race_worker" {
         resources {
           limits = {
             cpu    = "2"
-            memory = "4Gi"
+            memory = "2Gi"
           }
         }
       }
@@ -129,7 +63,7 @@ resource "google_cloud_run_v2_job" "race_worker" {
       timeout     = "3600s" # 1 hour timeout
       max_retries = 3
 
-      service_account = google_service_account.race_worker.email
+      service_account = google_service_account.race_worker[0].email
     }
   }
 
@@ -146,10 +80,6 @@ resource "google_cloud_run_v2_job" "race_worker" {
   depends_on = [
     google_project_service.apis,
     google_secret_manager_secret_version.openai_key,
-    google_secret_manager_secret_version.anthropic_key,
-    google_secret_manager_secret_version.grok_key,
-    google_secret_manager_secret_version.google_search_key,
-    google_secret_manager_secret_version.google_search_cx,
-    google_storage_bucket.chroma_storage
+    google_secret_manager_secret_version.serper_key,
   ]
 }

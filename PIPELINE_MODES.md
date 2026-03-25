@@ -7,10 +7,10 @@ The SmarterVote pipeline supports local and cloud operation modes.
 Best for development and small-scale use.
 
 **How it works**:
-- Pipeline runs on your machine via `pipeline_client/run.py`
-- Data publishes to `data/published/` as JSON files
+- Agent runs via `pipeline_client/backend/main.py` (FastAPI)
+- Web search results cached in SQLite (`data/cache/`)
+- Published profiles written to `data/published/` as JSON files
 - Races API reads directly from local files
-- ChromaDB stores vectors in `data/chroma_db/`
 
 **Setup**:
 ```powershell
@@ -18,10 +18,16 @@ Best for development and small-scale use.
 pip install -r pipeline/requirements.txt
 
 # Set API keys in .env
-# OPENAI_API_KEY, ANTHROPIC_API_KEY, XAI_API_KEY, SERPER_API_KEY
+# OPENAI_API_KEY, SERPER_API_KEY
 
-# Run pipeline
-python pipeline_client/run.py mo-senate-2024
+# Start the pipeline backend
+cd pipeline_client
+uvicorn backend.main:app --port 8001
+
+# Research a race via the dashboard or API
+curl -X POST http://localhost:8001/api/v2/run \
+  -H "Content-Type: application/json" \
+  -d '{"race_id": "mo-senate-2024"}'
 
 # Serve data
 cd services/races-api && python main.py
@@ -32,10 +38,9 @@ cd services/races-api && python main.py
 For production scaling. Enable via Terraform.
 
 **How it works**:
-- Pipeline runs on Cloud Run (triggered via Pub/Sub or enqueue-api)
+- Pipeline runs on Cloud Run
 - Data publishes to Google Cloud Storage (`gs://bucket/races/`)
 - Races API reads from GCS with local caching
-- ChromaDB stored in GCS-backed volume
 
 **Setup**:
 ```bash
@@ -73,9 +78,16 @@ storage = GCPStorageBackend(bucket_name="sv-data")
 
 Switch by setting `STORAGE_BACKEND=gcp` environment variable.
 
+## Search Caching
+
+Web search results are cached in SQLite to avoid redundant Serper API calls:
+- **TTL**: 7 days (configurable via `SEARCH_CACHE_TTL_HOURS`)
+- **Location**: `data/cache/search_cache.db`
+- **Scope**: Works in both local and cloud modes
+
 ## Output
 
 Both modes produce identical RaceJSON v0.2 files:
 - `{race-id}.json` with candidates, issues, sources
 - 12 canonical issues per candidate
-- Confidence levels (high/medium/low) from multi-LLM consensus
+- Confidence levels (high/medium/low) per issue stance

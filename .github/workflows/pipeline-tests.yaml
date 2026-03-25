@@ -1,22 +1,17 @@
-name: Pipeline Tests (Heavy Dependencies)
-# DISABLED - Tests removed, testing done via API calls locally
-# Re-enable when adding new test infrastructure
+name: Pipeline V2 Tests
 
-# Run manually or on schedule to avoid slowing down main CI
+# Run manually or on schedule
 on:
   workflow_dispatch:  # Manual trigger
   schedule:
     - cron: '0 2 * * 1'  # Weekly on Mondays at 2 AM UTC
 
-env:
-  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-  REGION: us-central1
-
 jobs:
-  test-pipeline:
-    name: Test Python Pipeline (Full Dependencies)
-    if: false  # DISABLED - re-enable when needed
+  test-pipeline-v2:
+    name: Test Pipeline V2 Agent
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
     - uses: actions/checkout@v4
 
@@ -29,28 +24,21 @@ jobs:
       uses: actions/cache@v3
       with:
         path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('pipeline/requirements.txt') }}
+        key: ${{ runner.os }}-pip-${{ hashFiles('pipeline_client/backend/requirements.txt') }}
         restore-keys: |
           ${{ runner.os }}-pip-
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        cd pipeline && pip install -r requirements.txt
+        pip install -r pipeline_client/backend/requirements.txt
+        pip install pytest pytest-asyncio httpx
 
-    - name: Run pipeline tests
+    - name: Run pipeline V2 tests
       run: |
-        python -m pytest pipeline/ tests/ --cov=pipeline --cov-report=xml --cov-report=term
-
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
-      with:
-        file: ./coverage.xml
-        flags: pipeline
-        name: pipeline-coverage
+        PYTHONPATH=. python -m pytest tests/test_pipeline_v2.py -v --tb=short
 
     - name: Test summary
       run: |
-        echo "✅ Pipeline tests completed"
-        echo "📊 Coverage report uploaded"
-        echo "🧪 Full dependency test suite passed"
+        echo "✅ Pipeline V2 tests completed"
+        echo "🧪 Agent loop, prompts, JSON extraction, multi-phase orchestration tested"

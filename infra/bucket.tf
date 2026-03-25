@@ -44,13 +44,10 @@ resource "google_storage_bucket" "sv_data" {
   depends_on = [google_project_service.apis]
 }
 
-# Create folder structure (objects with trailing slashes)
+# Create folder structure for published data
 resource "google_storage_bucket_object" "folders" {
   for_each = toset([
-    "raw/",
-    "norm/",
-    "out/",
-    "arb/"
+    "published/",
   ])
 
   name    = each.value

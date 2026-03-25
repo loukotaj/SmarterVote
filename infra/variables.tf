@@ -18,70 +18,15 @@ variable "environment" {
 
 # API Keys for AI Services
 variable "openai_api_key" {
-  description = "OpenAI API key for GPT-4o"
+  description = "OpenAI API key for GPT-4o/mini"
   type        = string
   sensitive   = true
 }
 
-variable "anthropic_api_key" {
-  description = "Anthropic API key for Claude-3.5"
+variable "serper_api_key" {
+  description = "Serper.dev API key for web search"
   type        = string
   sensitive   = true
-}
-
-variable "grok_api_key" {
-  description = "Grok API key for X.AI"
-  type        = string
-  sensitive   = true
-}
-
-variable "google_search_api_key" {
-  description = "Google Custom Search API key"
-  type        = string
-  sensitive   = true
-}
-
-variable "google_search_cx" {
-  description = "Google Custom Search Engine ID"
-  type        = string
-  sensitive   = true
-}
-
-# ChromaDB Vector Database Configuration
-variable "chroma_chunk_size" {
-  description = "Word count per chunk for vector database"
-  type        = number
-  default     = 500
-}
-
-variable "chroma_chunk_overlap" {
-  description = "Word overlap between chunks"
-  type        = number
-  default     = 50
-}
-
-variable "chroma_embedding_model" {
-  description = "Sentence transformer model for embeddings"
-  type        = string
-  default     = "all-MiniLM-L6-v2"
-}
-
-variable "chroma_similarity_threshold" {
-  description = "Minimum similarity score for search results"
-  type        = number
-  default     = 0.7
-}
-
-variable "chroma_max_results" {
-  description = "Maximum search results to return"
-  type        = number
-  default     = 100
-}
-
-variable "chroma_persist_dir" {
-  description = "Directory for ChromaDB persistence in containers"
-  type        = string
-  default     = "/app/data/chroma_db"
 }
 
 # Deployment and versioning variables

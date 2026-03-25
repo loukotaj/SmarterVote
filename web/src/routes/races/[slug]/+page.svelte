@@ -2,6 +2,7 @@
   import { page } from "$app/stores";
   import { onMount } from "svelte";
   import CandidateCard from "$lib/components/CandidateCard.svelte";
+  import ReviewPanel from "$lib/components/ReviewPanel.svelte";
   import Card from "$lib/components/Card.svelte";
   import type { Race } from "$lib/types";
   import { getRace } from "$lib/api";
@@ -154,6 +155,11 @@
           </div>
         </div>
       </div>
+    {/if}
+
+    <!-- AI Review Status -->
+    {#if race.reviews && race.reviews.length > 0}
+      <ReviewPanel reviews={race.reviews} />
     {/if}
 
     <!-- Candidates Section -->

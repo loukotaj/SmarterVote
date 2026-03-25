@@ -4,26 +4,29 @@ Guidelines for generating and editing code in this repository.
 
 ## Project Overview
 
-Corpus-first AI pipeline for electoral analysis:
-- **4-Step Pipeline**: INGEST → CORPUS → SUMMARIZE → PUBLISH
+Multi-phase AI agent for electoral analysis:
+- **Agent Pipeline**: DISCOVER → RESEARCH (×6 issue groups) → REFINE
 - **Output**: RaceJSON v0.2 with 12 canonical issues, confidence levels, and sources
-- **Local-first**: Run pipeline locally, deploy races-api for serving data
+- **Local-first**: Run agent locally, deploy races-api for serving data
 
 ## Canonical Issues (12)
 
 Healthcare, Economy, Climate/Energy, Reproductive Rights, Immigration, Guns & Safety, Foreign Policy, Social Justice, Education, Tech & AI, Election Reform, Local Issues
 
-Defined in `shared/models.py` as `CanonicalIssue` enum.
+Defined in `shared/models.py` as `CanonicalIssue` enum and `pipeline_v2/prompts.py`.
 
 ## Key Files
 
 | Purpose | Location |
 |---------|----------|
-| Schema models | `shared/models.py`, `pipeline/app/schema.py` |
+| Agent loop + caching | `pipeline_v2/agent.py` |
+| Prompt templates | `pipeline_v2/prompts.py` |
+| Search cache | `pipeline_v2/search_cache.py` |
+| Agent handler | `pipeline_client/backend/handlers/v2_agent.py` |
+| API endpoints | `pipeline_client/backend/main.py` |
+| Schema models | `shared/models.py` |
 | TypeScript types | `web/src/lib/types.ts` |
-| Pipeline handlers | `pipeline_client/backend/handlers/` |
-| Provider registry | `pipeline/app/providers/` |
-| API services | `services/races-api/`, `services/enqueue-api/` |
+| API services | `services/races-api/` |
 | Infrastructure | `infra/*.tf` |
 
 ## Coding Conventions
@@ -38,17 +41,19 @@ Defined in `shared/models.py` as `CanonicalIssue` enum.
 - Types in `web/src/lib/types.ts`
 - Components in `web/src/lib/components/`
 
-## Running the Pipeline Locally
+## Running the Agent
 
-```powershell
-# Full pipeline run
-python pipeline_client/run.py mo-senate-2024
+```bash
+# Start the pipeline backend
+cd pipeline_client
+uvicorn backend.main:app --port 8001
 
-# Individual steps (via CLI)
-python pipeline_client/run.py mo-senate-2024 --step step01_metadata
-python pipeline_client/run.py mo-senate-2024 --step step02_corpus
-python pipeline_client/run.py mo-senate-2024 --step step03_summarise
-python pipeline_client/run.py mo-senate-2024 --step step04_publish
+# Trigger a research run via API
+curl -X POST http://localhost:8001/api/v2/run \
+  -H "Content-Type: application/json" \
+  -d '{"race_id": "mo-senate-2024"}'
+
+# Or use the web dashboard at http://localhost:5173/admin/pipeline
 ```
 
 ## Testing APIs with curl
@@ -60,17 +65,36 @@ curl http://localhost:8000/races
 # Get specific race
 curl http://localhost:8000/races/mo-senate-2024
 
-# Pipeline status (if running pipeline_client server)
-curl http://localhost:8080/api/runs
+# Run agent
+curl -X POST http://localhost:8001/api/v2/run \
+  -H "Content-Type: application/json" \
+  -d '{"race_id": "mo-senate-2024"}'
+
+# Check run status
+curl http://localhost:8001/runs
+```
+
+## Running Tests
+
+```bash
+# Python tests
+python -m pytest tests/test_pipeline_v2.py -v
+
+# Frontend tests
+cd web && npx vitest run
+
+# TypeScript check
+cd web && npx svelte-check --tsconfig ./tsconfig.json
 ```
 
 ## Project Rules
 
-1. **Corpus-first**: Always build/query vector DB before summarization
-2. **Multi-LLM**: Use triangulation, never single-model summaries
-3. **12 Canonical Issues**: Keep consistent across all outputs
-4. **Source Attribution**: Preserve confidence scoring and sources
-5. **Type Sync**: Keep Python models and TypeScript types aligned
+1. **Multi-Phase Agent**: Discovery → Issue Research (6 groups) → Refinement
+2. **12 Canonical Issues**: Keep consistent across all outputs
+3. **Source Attribution**: Preserve confidence scoring and sources
+4. **Search Caching**: Use SQLite cache for Serper searches (7-day TTL)
+5. **Rerun Support**: Re-running a race updates the existing profile
+6. **Type Sync**: Keep Python models and TypeScript types aligned
 
 ## Storage Abstraction
 

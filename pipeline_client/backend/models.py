@@ -14,12 +14,9 @@ class RunStatus(str, Enum):
 
 
 class RunOptions(BaseModel):
-    skip_llm_apis: Optional[bool] = None
-    skip_external_apis: Optional[bool] = None
-    skip_network_calls: Optional[bool] = None
-    skip_cloud_services: Optional[bool] = None
     cheap_mode: bool = True  # Use mini models by default for cost-effective processing
     save_artifact: bool = True
+    enable_review: bool = False  # Send to Claude/Gemini for fact-checking
     note: Optional[str] = None
 
 
@@ -77,27 +74,3 @@ class LogEntry(BaseModel):
     race_id: Optional[str] = None
     duration_ms: Optional[int] = None
     extra: Optional[Dict[str, Any]] = None
-
-
-class BatchRunRequest(BaseModel):
-    """Request to run multiple race IDs."""
-
-    step: str
-    race_ids: List[str]
-    options: Optional[RunOptions] = None
-
-
-class BatchRunResponse(BaseModel):
-    """Response for batch run."""
-
-    batch_id: str
-    total_runs: int
-    runs: List[RunInfo]
-
-
-class ContinueRunRequest(BaseModel):
-    """Request to continue a pipeline run."""
-
-    run_id: str
-    steps: Optional[List[str]] = None
-    state: Optional[Dict[str, Any]] = None

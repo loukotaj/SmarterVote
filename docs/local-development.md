@@ -23,12 +23,9 @@ copy .env.example .env
 Edit `.env` with your API keys:
 ```env
 OPENAI_API_KEY=your_key
-ANTHROPIC_API_KEY=your_key
-XAI_API_KEY=your_key
 SERPER_API_KEY=your_key
 
 # Optional
-CHROMA_PERSIST_DIR=./data/chroma_db
 SMARTERVOTE_CHEAP_MODE=true
 ```
 
@@ -47,23 +44,26 @@ cd web
 npm install
 ```
 
-## Running the Pipeline
+## Running the Agent
 
-### Full Pipeline
-
-```powershell
-# Run all 4 steps for a race
-python pipeline_client/run.py mo-senate-2024
-```
-
-### Individual Steps
+### Via API
 
 ```powershell
-python pipeline_client/run.py mo-senate-2024 --step step01_metadata
-python pipeline_client/run.py mo-senate-2024 --step step02_corpus
-python pipeline_client/run.py mo-senate-2024 --step step03_summarise
-python pipeline_client/run.py mo-senate-2024 --step step04_publish
+# Start the pipeline backend
+cd pipeline_client
+uvicorn backend.main:app --port 8001
+
+# Trigger a research run
+curl -X POST http://localhost:8001/api/v2/run \
+  -H "Content-Type: application/json" \
+  -d '{"race_id": "mo-senate-2024"}'
 ```
+
+### Via Web Dashboard
+
+Start the backend and web frontend, then navigate to `http://localhost:5173/admin/pipeline`. Enter a race ID and click "Research Race".
+
+Re-running the same race automatically enters update mode, improving the existing profile with new information.
 
 ## Running Services
 
@@ -83,19 +83,33 @@ npm run dev
 # Runs on http://localhost:5173
 ```
 
+## Running Tests
+
+```bash
+# Python unit tests
+python -m pytest tests/test_pipeline_v2.py -v
+
+# Frontend tests
+cd web && npx vitest run
+
+# TypeScript check
+cd web && npx svelte-check --tsconfig ./tsconfig.json
+```
+
 ## Project Structure
 
 ```
 data/
-├── chroma_db/      # Vector database
+├── cache/          # SQLite search cache
 └── published/      # Output JSON files
 
-pipeline/
-└── app/            # Core pipeline modules
+pipeline_v2/
+├── agent.py        # Multi-phase agent loop
+└── prompts.py      # Prompt templates
 
 pipeline_client/
-├── backend/        # Step handlers
-└── run.py          # Main entry point
+├── backend/        # API + step handler
+└── run.py          # CLI entry point
 
 services/
 └── races-api/      # REST API
@@ -110,18 +124,16 @@ Key environment variables:
 | Variable | Purpose | Default |
 |----------|---------|---------|
 | `OPENAI_API_KEY` | GPT models | Required |
-| `ANTHROPIC_API_KEY` | Claude models | Required |
-| `XAI_API_KEY` | Grok models | Required |
 | `SERPER_API_KEY` | Web search | Required |
-| `SMARTERVOTE_CHEAP_MODE` | Use mini models | `true` |
-| `CHROMA_PERSIST_DIR` | Vector DB path | `./data/chroma_db` |
+| `SMARTERVOTE_CHEAP_MODE` | Use gpt-4o-mini | `true` |
+| `SEARCH_CACHE_TTL_HOURS` | Search cache TTL | `168` (7 days) |
 
 ## Troubleshooting
 
-**ChromaDB errors**: Ensure `data/chroma_db/` exists and is writable.
-
 **API key errors**: Check `.env` file exists and keys are valid.
 
-**Port conflicts**: Default ports are 8000 (API) and 5173 (web).
+**Port conflicts**: Default ports are 8000 (races API), 8001 (pipeline API), and 5173 (web).
 
 **Import errors**: Ensure you're in the virtual environment (`.venv\Scripts\Activate.ps1`).
+
+**Search cache**: Cached search results are stored in `data/cache/`. Delete the cache directory to force fresh searches.

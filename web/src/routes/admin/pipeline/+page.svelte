@@ -16,7 +16,6 @@
   import { PipelineApiService } from "$lib/services/pipelineApiService";
 
   // Components
-  import PipelineControls from "$lib/components/PipelineControls.svelte";
   import RunProgress from "$lib/components/RunProgress.svelte";
   import OutputResults from "$lib/components/OutputResults.svelte";
   import LiveLogs from "$lib/components/LiveLogs.svelte";
@@ -25,18 +24,8 @@
   import PipelineModal from "$lib/components/PipelineModal.svelte";
 
   // Utilities
-  import {
-    validateJson,
-    debounce,
-    safeJsonStringify,
-  } from "$lib/utils/pipelineUtils";
-  import type {
-    RunHistoryItem,
-    RunInfo,
-    Artifact,
-    RunStep,
-    RunOptions,
-  } from "$lib/types";
+  import { debounce, safeJsonStringify } from "$lib/utils/pipelineUtils";
+  import type { RunHistoryItem, Artifact } from "$lib/types";
 
   const API_BASE = import.meta.env.VITE_API_BASE || "http://127.0.0.1:8001";
 
@@ -50,6 +39,9 @@
   let modalData: unknown = null;
   let modalLoading = false;
 
+  // Review toggle
+  let enableReview = false;
+
   // Auto-refresh management
   const MIN_REFRESH_INTERVAL = 2000;
   let pendingRefresh = false;
@@ -59,27 +51,22 @@
   $: websocket = $websocketStore;
   $: api = $apiStore;
   $: logs = $filteredLogs;
-  // safeOutputDisplay available for future use but currently using pipeline.output directly
   $: _outputDisplay = $safeOutputDisplay;
 
   onMount(async () => {
     if (!browser) return;
 
     try {
-      // Initialize authentication and API service
       await initializeAuth();
       apiService = new PipelineApiService(API_BASE);
 
-      // Set up WebSocket handlers
       websocketActions.setHandlers({
         onMessage: handleWebSocketMessage,
         onLog: addLog,
       });
 
-      // Load initial data
       await loadInitialData();
 
-      // Connect WebSocket
       if (api.token) {
         websocketActions.connect(API_BASE, api.token);
       }
@@ -92,43 +79,24 @@
   });
 
   onDestroy(() => {
-    // Clean up timers and connections
     stopElapsedTimer();
     stopAutoRefresh();
     websocketActions.disconnect();
   });
 
-  /**
-   * Load initial application data
-   */
   async function loadInitialData() {
     try {
-      const [stepsResult, artifactsResult, historyResult] =
-        await Promise.allSettled([
-          apiService.loadSteps(),
-          apiService.loadArtifacts(),
-          apiService.loadRunHistory(),
-        ]);
-
-      if (stepsResult.status === "fulfilled") {
-        pipelineActions.setSteps(stepsResult.value);
-      } else {
-        console.error("Failed to load steps:", stepsResult.reason);
-        addLog("error", "Failed to load pipeline steps");
-      }
+      const [artifactsResult, historyResult] = await Promise.allSettled([
+        apiService.loadArtifacts(),
+        apiService.loadRunHistory(),
+      ]);
 
       if (artifactsResult.status === "fulfilled") {
         pipelineActions.setArtifacts(artifactsResult.value);
-      } else {
-        console.error("Failed to load artifacts:", artifactsResult.reason);
-        addLog("warning", "Failed to load artifacts");
       }
 
       if (historyResult.status === "fulfilled") {
         pipelineActions.setRunHistory(historyResult.value);
-      } else {
-        console.error("Failed to load run history:", historyResult.reason);
-        addLog("warning", "Failed to load run history");
       }
     } catch (error) {
       console.error("Failed to load initial data:", error);
@@ -136,15 +104,9 @@
     }
   }
 
-  /**
-   * Debounced refresh function
-   */
   const debouncedRefresh = debounce(async () => {
     if (pendingRefresh) return;
-
-    const now = Date.now();
-    const timeSinceLastRefresh = now - pipeline.lastRefreshTime;
-
+    const timeSinceLastRefresh = Date.now() - pipeline.lastRefreshTime;
     if (timeSinceLastRefresh < MIN_REFRESH_INTERVAL) return;
 
     pendingRefresh = true;
@@ -158,48 +120,27 @@
 
       if (historyResult.status === "fulfilled") {
         pipelineActions.setRunHistory(historyResult.value);
-
-        // Update selected run if it exists
-        if (pipeline.selectedRun && pipeline.selectedRunId) {
-          const updatedRun = historyResult.value.find(
-            (r) => r.run_id === pipeline.selectedRunId
-          );
-          if (updatedRun) {
-            pipelineActions.setSelectedRun(updatedRun, pipeline.selectedRunId);
-          }
-        }
       }
-
       if (artifactsResult.status === "fulfilled") {
         pipelineActions.setArtifacts(artifactsResult.value);
       }
     } catch (error) {
-      console.error("Debounced refresh failed:", error);
+      console.error("Refresh failed:", error);
     } finally {
       pendingRefresh = false;
       pipelineActions.setRefreshing(false);
     }
   }, 1000);
 
-  /**
-   * Start auto-refresh for active runs
-   */
   function startAutoRefresh() {
     if (autoRefreshTimer) return;
-
     autoRefreshTimer = setInterval(async () => {
-      if (
-        pipeline.isExecuting ||
-        (pipeline.selectedRun && pipeline.selectedRun.status === "running")
-      ) {
+      if (pipeline.isExecuting) {
         await debouncedRefresh();
       }
     }, 5000);
   }
 
-  /**
-   * Stop auto-refresh
-   */
   function stopAutoRefresh() {
     if (autoRefreshTimer) {
       clearInterval(autoRefreshTimer);
@@ -207,9 +148,6 @@
     }
   }
 
-  /**
-   * Start elapsed time timer
-   */
   function startElapsedTimer() {
     elapsedTimer = setInterval(() => {
       if (pipeline.runStartTime) {
@@ -219,9 +157,6 @@
     }, 1000);
   }
 
-  /**
-   * Stop elapsed time timer
-   */
   function stopElapsedTimer() {
     if (elapsedTimer) {
       clearInterval(elapsedTimer);
@@ -229,15 +164,7 @@
     }
   }
 
-  /**
-   * Add log entry
-   */
-  function addLog(
-    level: string,
-    message: string,
-    timestamp?: string,
-    run_id?: string
-  ) {
+  function addLog(level: string, message: string, timestamp?: string, run_id?: string) {
     pipelineActions.addLog({
       level,
       message,
@@ -246,203 +173,45 @@
     });
   }
 
-  /**
-   * Handle WebSocket messages
-   */
+  // WebSocket message handling
   function handleWebSocketMessage(data: any) {
     switch (data.type) {
       case "run_started":
-        handleRunStarted(data);
+        pipelineActions.setCurrentRun(data.run_id, data.step);
+        pipelineActions.setRunStatus("running");
+        pipelineActions.updateRunProgress(0, "Initializing...");
+        startAutoRefresh();
         break;
       case "run_progress":
-        handleRunProgress(data);
+        pipelineActions.updateRunProgress(
+          data.progress ?? pipeline.progress,
+          data.message ?? pipeline.progressMessage
+        );
         break;
       case "run_completed":
-        handleRunCompleted(data);
+        pipelineActions.setRunStatus("completed");
+        pipelineActions.updateRunProgress(100, "Completed successfully");
+        pipelineActions.setExecutionState(false);
+        if (data.result !== undefined) pipelineActions.setOutput(data.result);
+        stopAutoRefresh();
+        stopElapsedTimer();
+        debouncedRefresh();
         break;
       case "run_failed":
-        handleRunFailed(data);
+        pipelineActions.setRunStatus("failed");
+        pipelineActions.setExecutionState(false);
+        addLog("error", `Run failed: ${data.error || "Unknown error"}`);
+        stopAutoRefresh();
+        stopElapsedTimer();
+        debouncedRefresh();
         break;
-      case "run_status":
-        // Handle additional run status updates
-        break;
     }
   }
 
-  function handleRunStarted(data: { run_id: string; step: string }) {
-    pipelineActions.setCurrentRun(data.run_id, data.step);
-    pipelineActions.setRunStatus("running");
-    pipelineActions.updateRunProgress(0, "Initializing...");
-    pipelineActions.updateStepStatus(data.step, "running");
-    startAutoRefresh();
-  }
-
-  function handleRunProgress(data: { progress?: number; message?: string }) {
-    pipelineActions.updateRunProgress(
-      data.progress ?? pipeline.progress,
-      data.message ?? pipeline.progressMessage
-    );
-  }
-
-  function handleRunCompleted(data: {
-    result?: unknown;
-    artifact_id?: string;
-    duration_ms?: number;
-  }) {
-    pipelineActions.setRunStatus("completed");
-    pipelineActions.updateRunProgress(100, "Completed successfully");
-    pipelineActions.setExecutionState(false);
-
-    if (pipeline.currentStep) {
-      pipelineActions.updateStepStatus(pipeline.currentStep, "completed", {
-        artifact_id: data.artifact_id,
-        duration_ms: data.duration_ms,
-      });
-      pipelineActions.setCurrentRun(pipeline.currentRunId, null);
-    }
-
-    if (data.result !== undefined) {
-      pipelineActions.setOutput(data.result);
-    }
-
-    stopAutoRefresh();
-    debouncedRefresh();
-  }
-
-  function handleRunFailed(data: { error?: string }) {
-    pipelineActions.setRunStatus("failed");
-    pipelineActions.setExecutionState(false);
-
-    if (pipeline.currentStep) {
-      pipelineActions.updateStepStatus(pipeline.currentStep, "failed");
-      pipelineActions.setCurrentRun(pipeline.currentRunId, null);
-    }
-
-    addLog("error", `Run failed: ${data.error || "Unknown error"}`);
-    stopAutoRefresh();
-    debouncedRefresh();
-  }
-
-  // Event handlers for components
-  async function handleNewRun() {
-    pipelineActions.setSelectedRun(null, "");
-    pipelineActions.setInputJson('{\n  "race_id": "mo-senate-2024"\n}');
-    pipelineActions.setStepRange(
-      pipeline.steps[0] || "",
-      pipeline.steps[pipeline.steps.length - 1] || ""
-    );
-  }
-
-  async function handleRunSelect(
-    event: CustomEvent<{ target: { value: string } }>
-  ) {
-    const runId = event.detail.target.value;
-    pipelineActions.setSelectedRun(null, runId);
-
-    const run = pipeline.runHistory.find((r) => r.run_id === runId);
-    if (run) {
-      await selectRun(run);
-    }
-  }
-
-  async function selectRun(run: RunHistoryItem) {
-    try {
-      const runData = await apiService.getRunDetails(run.run_id);
-      const stepsData: RunStep[] = runData.steps || [];
-      const stepName = stepsData[stepsData.length - 1]?.name || "";
-
-      const selectedRunData = {
-        ...(runData as any),
-        display_id: (run as any).display_id,
-        updated_at:
-          (runData as any).completed_at ?? (runData as any).started_at,
-        step: stepName,
-        steps: stepsData,
-      } as RunHistoryItem;
-
-      pipelineActions.setSelectedRun(selectedRunData, run.run_id);
-
-      const currentStepName =
-        stepsData.find((s) => s.status === "running")?.name || null;
-      pipelineActions.setCurrentRun(pipeline.currentRunId, currentStepName);
-
-      const lastIdx = Math.max(0, pipeline.steps.indexOf(stepName));
-      const nextIndex = Math.min(
-        lastIdx + 1,
-        Math.max(0, pipeline.steps.length - 1)
-      );
-      pipelineActions.setStepRange(
-        pipeline.steps[nextIndex] || pipeline.steps[0] || "",
-        pipeline.steps[pipeline.steps.length - 1] || ""
-      );
-
-      // Load payload data
-      await loadRunPayload(runData, stepName);
-    } catch (e) {
-      console.error("Failed to select run:", e);
-      addLog("error", "Failed to select run");
-    }
-  }
-
-  async function loadRunPayload(runData: RunInfo, stepName: string) {
-    let payload: Record<string, unknown> = (runData as any).payload || {};
-
-    if ((runData as any).artifact_id) {
-      try {
-        const artifact = await apiService.getArtifact(
-          (runData as any).artifact_id
-        );
-        payload = { ...payload };
-
-        // Set payload based on step type
-        switch (stepName) {
-          case "step01a_metadata":
-            (payload as any).race_json =
-              artifact.output?.race_json || artifact.output;
-            break;
-          case "step01b_discovery":
-            (payload as any).sources = artifact.output;
-            break;
-          case "step01c_fetch":
-            (payload as any).raw_content = artifact.output;
-            break;
-          case "step01d_extract":
-            (payload as any).content = artifact.output;
-            break;
-        }
-      } catch (e) {
-        console.error("Failed to load artifact for run", e);
-      }
-    }
-
-    // Update input JSON safely
-    const payloadResult = safeJsonStringify(payload, 100000);
-
-    if (payloadResult.truncated) {
-      pipelineActions.setInputJson(
-        JSON.stringify(
-          {
-            _note: "Payload too large to display in input editor",
-            _size: `${(JSON.stringify(payload).length / 1024).toFixed(1)}KB`,
-            _artifact_id: (runData as any).artifact_id,
-            _step_name: stepName,
-          },
-          null,
-          2
-        )
-      );
-      addLog("info", `Large payload detected. Using summary in input editor.`);
-    } else {
-      pipelineActions.setInputJson(payloadResult.content);
-    }
-  }
-
-  async function handleExecute(event: {
-    detail: { mode: "single" | "range"; startStep: string; endStep: string };
-  }) {
-    const { mode, startStep, endStep } = event.detail;
-
-    if (pipeline.isExecuting) return;
+  // V2 Agent execution
+  async function handleRunAgent() {
+    const raceId = pipeline.v2RaceId.trim();
+    if (!raceId || pipeline.isExecuting) return;
 
     if (!websocket.connected) {
       websocketActions.connect(API_BASE, api.token);
@@ -450,266 +219,36 @@
 
     pipelineActions.setExecutionState(true);
     pipelineActions.setOutput(null);
+    pipelineActions.clearLogs();
     startElapsedTimer();
 
     try {
-      if (pipeline.selectedRun) {
-        await continueExistingRun(mode, startStep, endStep);
-      } else {
-        await startNewRun(startStep);
-      }
+      addLog("info", `Starting agent research for: ${raceId}`);
+      const result = await apiService.runV2Agent(raceId, {
+        save_artifact: true,
+        enable_review: enableReview,
+      });
+      pipelineActions.setCurrentRun(result.run_id, "v2_agent");
+      addLog("info", `Agent run started (run_id: ${result.run_id})`);
+      startAutoRefresh();
     } catch (err) {
-      console.error("Execution failed:", err);
+      console.error("Agent execution failed:", err);
       pipelineActions.setOutput({ error: String(err) });
-      addLog("error", `Execution failed: ${err}`);
+      addLog("error", `Agent failed: ${err}`);
       pipelineActions.setExecutionState(false);
       stopElapsedTimer();
     }
   }
 
-  async function continueExistingRun(
-    mode: "single" | "range",
-    startStep: string,
-    endStep: string
-  ) {
-    const validation = validateJson(pipeline.inputJson || "{}");
-    if (!validation.valid) {
-      throw new Error(`Invalid JSON in input: ${validation.error}`);
-    }
-
-    pipelineActions.setCurrentRun(pipeline.selectedRun!.run_id);
-
-    // Handle truncated artifacts
-    if (
-      validation.data &&
-      (validation.data as any)._truncated &&
-      (validation.data as any)._artifact_id
-    ) {
-      addLog(
-        "info",
-        `Loading full artifact data for execution (artifact: ${
-          (validation.data as any)._artifact_id
-        })`
-      );
-    }
-
-    const stepsToRun =
-      mode === "single"
-        ? [startStep]
-        : pipeline.steps.slice(
-            Math.max(0, pipeline.steps.indexOf(startStep)),
-            pipeline.steps.indexOf(endStep) + 1
-          );
-
-    const result = await apiService.continueRun(
-      pipeline.selectedRun!.run_id,
-      stepsToRun,
-      validation.data
-    );
-    pipelineActions.setOutput(result);
-
-    const resultJson = safeJsonStringify(result.state ?? {}, 100000);
-    if (resultJson.truncated) {
-      pipelineActions.setInputJson(
-        JSON.stringify(
-          {
-            _note: "Result too large to display",
-            _size: JSON.stringify(result.state ?? {}).length,
-          },
-          null,
-          2
-        )
-      );
-    } else {
-      pipelineActions.setInputJson(resultJson.content);
-    }
-
-    const last = result.runs?.[result.runs.length - 1];
-    if (last) {
-      pipelineActions.setSelectedRun(pipeline.selectedRun, last.run_id);
-    }
-
-    await debouncedRefresh();
-  }
-
-  async function startNewRun(stepName: string) {
-    const validation = validateJson(pipeline.inputJson || "{}");
-    if (!validation.valid) {
-      throw new Error(`Invalid JSON in input: ${validation.error}`);
-    }
-
-    const options: RunOptions = {
-      skip_cloud_services: !pipeline.useCloudStorage || undefined,
-      save_artifact: true,
-    };
-
-    const result = await apiService.executeStep(
-      stepName,
-      validation.data,
-      options
-    );
-    pipelineActions.setCurrentRun(result.run_id);
-    addLog("info", `Started execution: ${stepName}`);
-
-    await debouncedRefresh();
-
-    const runId = result.meta?.run_id || result.run_id;
-    const run = pipeline.runHistory.find((r) => r.run_id === runId);
-    if (run) {
-      await selectRun(run);
-    }
-    pipelineActions.setSelectedRun(pipeline.selectedRun, runId);
-  }
-
   function handleStopExecution() {
-    if (
-      pipeline.currentRunId &&
-      websocket.ws &&
-      websocket.ws.readyState === WebSocket.OPEN
-    ) {
-      websocketActions.send({
-        type: "stop_run",
-        run_id: pipeline.currentRunId,
-      });
+    if (pipeline.currentRunId && websocket.ws && websocket.ws.readyState === WebSocket.OPEN) {
+      websocketActions.send({ type: "stop_run", run_id: pipeline.currentRunId });
     }
     pipelineActions.setExecutionState(false);
     stopElapsedTimer();
   }
 
-  function handleInputChange(event: { detail: string }) {
-    pipelineActions.setInputJson(event.detail);
-  }
-
-  function handleCloudStorageChange(event: { detail: boolean }) {
-    pipelineStore.update((state) => ({
-      ...state,
-      useCloudStorage: event.detail,
-    }));
-  }
-
-  function handleExecutionModeChange(event: { detail: "single" | "range" }) {
-    pipelineActions.setExecutionMode(event.detail);
-  }
-
-  function handleStepRangeChange(event: {
-    detail: { start: string; end: string };
-  }) {
-    pipelineActions.setStepRange(event.detail.start, event.detail.end);
-  }
-
-  async function handleSetStartStep(event: { detail: string }) {
-    const stepName = event.detail;
-    pipelineActions.setStepRange(stepName, pipeline.endStep);
-
-    // Update input JSON based on the selected step's prerequisites
-    if (pipeline.selectedRun && pipeline.selectedRun.steps) {
-      await updateInputForStep(stepName);
-    }
-  }
-
-  async function updateInputForStep(stepName: string) {
-    const stepIndex = pipeline.selectedRun!.steps.findIndex(
-      (s) => s.name === stepName
-    );
-    if (stepIndex <= 0) {
-      // If it's the first step, use the original payload
-      try {
-        const originalPayload = (pipeline.selectedRun as any).payload || {};
-        pipelineActions.setInputJson(JSON.stringify(originalPayload, null, 2));
-      } catch (error) {
-        console.error("Failed to serialize original payload:", error);
-        addLog("error", "Failed to serialize original payload");
-      }
-      return;
-    }
-
-    // Find the previous step that has an artifact
-    for (let i = stepIndex - 1; i >= 0; i--) {
-      const prevStep = pipeline.selectedRun!.steps[i];
-      if (prevStep.artifact_id) {
-        try {
-          const artifact = await apiService.getArtifact(prevStep.artifact_id);
-          const payloadResult = safeJsonStringify(artifact.output, 50000);
-
-          if (payloadResult.truncated) {
-            const summaryPayload = {
-              _note: `Large artifact detected. Artifact will be loaded automatically during execution.`,
-              _artifact_id: prevStep.artifact_id,
-              _step_name: prevStep.name,
-              _truncated: true,
-            };
-            pipelineActions.setInputJson(
-              JSON.stringify(summaryPayload, null, 2)
-            );
-            addLog(
-              "info",
-              `Large artifact detected for ${prevStep.name}. Input JSON shows summary only.`
-            );
-          } else {
-            let payload: Record<string, unknown> = {};
-
-            // Set up the payload based on what this step needs
-            switch (stepName) {
-              case "step01b_discovery":
-                payload.race_json =
-                  artifact.output?.race_json || artifact.output;
-                break;
-              case "step01c_fetch":
-                payload.sources = artifact.output;
-                break;
-              case "step01d_extract":
-                payload.raw_content = artifact.output;
-                break;
-              case "step02a_analyze":
-                payload.content = artifact.output;
-                break;
-              default:
-                payload = artifact.output || {};
-            }
-
-            pipelineActions.setInputJson(JSON.stringify(payload, null, 2));
-          }
-          break;
-        } catch (e) {
-          console.error("Failed to load artifact for step setup", e);
-          addLog("error", `Failed to load artifact for step setup: ${e}`);
-        }
-      }
-    }
-  }
-
-  function handleUseAsInput() {
-    if (!pipeline.output) return;
-
-    try {
-      const next = (pipeline.output as any)?.output ?? pipeline.output;
-      const result = safeJsonStringify(next, 100000);
-
-      if (result.truncated) {
-        addLog("warning", "Output too large for input field. Using summary.");
-        pipelineActions.setInputJson(
-          JSON.stringify(
-            {
-              _note:
-                "Output too large to display in input. Will be handled automatically.",
-              _size: `${(JSON.stringify(next).length / 1024).toFixed(1)}KB`,
-            },
-            null,
-            2
-          )
-        );
-      } else {
-        pipelineActions.setInputJson(result.content);
-      }
-    } catch (error) {
-      console.error("Failed to convert output to input:", error);
-      addLog("error", "Failed to convert output to input JSON");
-    }
-  }
-
-  function handleLogFilterChange(event: {
-    detail: "all" | "debug" | "info" | "warning" | "error";
-  }) {
+  function handleLogFilterChange(event: { detail: "all" | "debug" | "info" | "warning" | "error" }) {
     pipelineActions.setLogFilter(event.detail);
   }
 
@@ -725,13 +264,8 @@
     modalData = null;
 
     try {
-      const artifactId =
-        artifact.id || (artifact as any).artifact_id || (artifact as any)._id;
-      if (artifactId) {
-        modalData = await apiService.getArtifact(artifactId);
-      } else {
-        modalData = artifact;
-      }
+      const artifactId = artifact.id || (artifact as any).artifact_id || (artifact as any)._id;
+      modalData = artifactId ? await apiService.getArtifact(artifactId) : artifact;
     } catch (e) {
       modalData = { error: String(e), ...artifact };
     }
@@ -746,12 +280,7 @@
     modalData = null;
 
     try {
-      const runId = run.run_id;
-      if (runId) {
-        modalData = await apiService.getRunDetails(runId);
-      } else {
-        modalData = run;
-      }
+      modalData = run.run_id ? await apiService.getRunDetails(run.run_id) : run;
     } catch (e) {
       modalData = { error: String(e), ...run };
     }
@@ -765,12 +294,10 @@
     modalLoading = false;
   }
 
-  // Modal data safety check
   $: modalDataTooLarge = (() => {
     if (!modalData) return false;
     try {
-      const jsonString = JSON.stringify(modalData, null, 2);
-      return jsonString.length > 200000; // 200KB threshold for modal
+      return JSON.stringify(modalData, null, 2).length > 200000;
     } catch {
       return true;
     }
@@ -778,8 +305,7 @@
 
   $: safeModalDisplay = (() => {
     if (!modalData) return "";
-    const result = safeJsonStringify(modalData, 200000);
-    return result.content;
+    return safeJsonStringify(modalData, 200000).content;
   })();
 </script>
 
@@ -793,40 +319,18 @@
     <div class="flex items-center justify-between">
       <div class="flex items-center space-x-4">
         <h1 class="text-xl font-bold text-gray-900">Pipeline Dashboard</h1>
-        <div class="text-sm text-gray-500">
-          Advanced pipeline execution and monitoring
-        </div>
+        <span class="text-sm text-gray-500">AI Agent Research</span>
       </div>
       <div class="flex items-center space-x-2">
-        <div
-          class="w-3 h-3 rounded-full {websocket.connected
-            ? 'bg-green-500'
-            : 'bg-red-500'}"
-        />
+        <div class="w-3 h-3 rounded-full {websocket.connected ? 'bg-green-500' : 'bg-red-500'}" />
         <span class="text-sm text-gray-600">
           {websocket.connected ? "Connected" : "Disconnected"}
         </span>
         {#if pipeline.isRefreshing}
           <div class="flex items-center space-x-1">
-            <svg
-              class="animate-spin h-3 w-3 text-blue-500"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                class="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                stroke-width="4"
-              />
-              <path
-                class="opacity-75"
-                fill="currentColor"
-                d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-              />
+            <svg class="animate-spin h-3 w-3 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
+              <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
             </svg>
             <span class="text-xs text-blue-600">Refreshing...</span>
           </div>
@@ -836,31 +340,61 @@
   </div>
 
   <div class="dashboard-grid">
-    <!-- Left Panel: Controls & Progress -->
+    <!-- Left Panel -->
     <div class="space-y-6">
-      <!-- Pipeline Controls -->
-      <PipelineControls
-        steps={pipeline.steps}
-        inputJson={pipeline.inputJson}
-        useCloudStorage={pipeline.useCloudStorage}
-        executionMode={pipeline.executionMode}
-        startStep={pipeline.startStep}
-        endStep={pipeline.endStep}
-        selectedRun={pipeline.selectedRun}
-        selectedRunId={pipeline.selectedRunId}
-        runHistory={pipeline.runHistory}
-        isExecuting={pipeline.isExecuting}
-        currentStep={pipeline.currentStep}
-        {API_BASE}
-        on:new-run={handleNewRun}
-        on:run-select={handleRunSelect}
-        on:input-change={handleInputChange}
-        on:cloud-storage-change={handleCloudStorageChange}
-        on:execution-mode-change={handleExecutionModeChange}
-        on:step-range-change={handleStepRangeChange}
-        on:execute={handleExecute}
-        on:set-start-step={handleSetStartStep}
-      />
+      <!-- Agent Controls -->
+      <div class="card p-6">
+        <h3 class="text-lg font-semibold text-gray-900 mb-1">Research a Race</h3>
+        <p class="text-sm text-gray-500 mb-4">
+          The AI agent will search the web, research candidates, and produce
+          a structured profile with sources. Re-running an existing race updates it.
+        </p>
+        <div class="space-y-4">
+          <div>
+            <label for="v2RaceId" class="block text-sm font-medium text-gray-700 mb-1">
+              Race ID
+            </label>
+            <input
+              id="v2RaceId"
+              type="text"
+              value={pipeline.v2RaceId}
+              on:input={(e) => pipelineActions.setV2RaceId(e.currentTarget.value)}
+              placeholder="e.g. mo-senate-2024"
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm font-mono focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+            />
+            <p class="mt-1 text-xs text-gray-400">
+              Format: state-office-year (e.g. tx-governor-2026, ca-house-12-2024)
+            </p>
+          </div>
+
+          <!-- Review Toggle -->
+          <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
+            <input
+              type="checkbox"
+              bind:checked={enableReview}
+              class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+            />
+            <span>Enable AI Review</span>
+            <span class="text-xs text-gray-400">(Claude + Gemini fact-check)</span>
+          </label>
+
+          <button
+            disabled={pipeline.isExecuting || !pipeline.v2RaceId.trim()}
+            on:click={handleRunAgent}
+            class="btn-primary w-full flex items-center justify-center py-2.5"
+          >
+            {#if pipeline.isExecuting}
+              <svg class="animate-spin h-4 w-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
+                <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+              </svg>
+              Researching...
+            {:else}
+              🔍 Research Race
+            {/if}
+          </button>
+        </div>
+      </div>
 
       <!-- Run Progress -->
       <RunProgress
@@ -878,11 +412,10 @@
       <OutputResults
         output={pipeline.output}
         onAddLog={addLog}
-        on:use-as-input={handleUseAsInput}
       />
     </div>
 
-    <!-- Right Panel: Logs & History -->
+    <!-- Right Panel -->
     <div class="space-y-6">
       <!-- Live Logs -->
       <LiveLogs
@@ -898,7 +431,7 @@
         runHistory={pipeline.runHistory}
         selectedRunId={pipeline.selectedRunId}
         isRefreshing={pipeline.isRefreshing}
-        on:run-select={({ detail }) => selectRun(detail)}
+        on:run-select={({ detail }) => handleRunDetails({ detail })}
         on:run-details={handleRunDetails}
         on:refresh={debouncedRefresh}
       />

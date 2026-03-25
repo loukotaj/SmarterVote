@@ -8,26 +8,12 @@ interface RunsResponse {
   runs: RunInfo[];
 }
 
-interface StepsResponse {
-  steps: string[];
-}
-
 interface ArtifactsResponse {
   items: Artifact[];
 }
 
 export class PipelineApiService {
   constructor(private apiBase: string) {}
-
-  /**
-   * Load available pipeline steps
-   */
-  async loadSteps(): Promise<string[]> {
-    const res = await fetchWithAuth(`${this.apiBase}/steps`, {}, 10000);
-    if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
-    const data: StepsResponse = await res.json();
-    return data.steps || [];
-  }
 
   /**
    * Load artifacts
@@ -83,35 +69,16 @@ export class PipelineApiService {
   }
 
   /**
-   * Execute a single step
+   * Run the v2 agent pipeline for a race
    */
-  async executeStep(
-    stepName: string,
-    payload: any,
-    options: RunOptions
-  ): Promise<any> {
-    const body = { payload, options };
-    const res = await fetchWithAuth(`${this.apiBase}/run/${stepName}`, {
+  async runV2Agent(
+    raceId: string,
+    options: RunOptions = {}
+  ): Promise<{ run_id: string; status: string; step: string }> {
+    const res = await fetchWithAuth(`${this.apiBase}/api/v2/run`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    });
-
-    if (!res.ok) {
-      throw new Error(`HTTP ${res.status}: ${res.statusText}`);
-    }
-
-    return await res.json();
-  }
-
-  /**
-   * Continue run with specific steps
-   */
-  async continueRun(runId: string, steps: string[], state: any): Promise<any> {
-    const res = await fetchWithAuth(`${this.apiBase}/runs/${runId}/continue`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ steps, state }),
+      body: JSON.stringify({ race_id: raceId, options }),
     });
 
     if (!res.ok) {
