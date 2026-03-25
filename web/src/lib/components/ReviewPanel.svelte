@@ -87,7 +87,14 @@
             </details>
           {/if}
           <span class="review-date">
-            Reviewed: {new Date(review.reviewed_at).toLocaleDateString()}
+            Reviewed: {(() => {
+              try {
+                const d = new Date(review.reviewed_at);
+                return isNaN(d.getTime()) ? review.reviewed_at : d.toLocaleDateString();
+              } catch {
+                return review.reviewed_at;
+              }
+            })()}
           </span>
         </div>
       {/each}

@@ -41,6 +41,10 @@ from .prompts import (
 
 logger = logging.getLogger("pipeline")
 
+# Default review models (used by _run_single_review)
+DEFAULT_CLAUDE_MODEL = "claude-3-5-sonnet-20241022"
+DEFAULT_GEMINI_MODEL = "gemini-2.0-flash"
+
 # ---------------------------------------------------------------------------
 # Web search tool definition for OpenAI function calling
 # ---------------------------------------------------------------------------
@@ -515,7 +519,7 @@ async def _call_anthropic(
     system: str,
     user: str,
     *,
-    model: str = "claude-3-5-sonnet-20241022",
+    model: str = DEFAULT_CLAUDE_MODEL,
 ) -> str:
     """Call the Anthropic Messages API and return the text response."""
     api_key = os.environ.get("ANTHROPIC_API_KEY", "")
@@ -550,7 +554,7 @@ async def _call_gemini(
     system: str,
     user: str,
     *,
-    model: str = "gemini-2.0-flash",
+    model: str = DEFAULT_GEMINI_MODEL,
 ) -> str:
     """Call the Google Gemini (Generative Language) API and return the text."""
     api_key = os.environ.get("GEMINI_API_KEY", "")
@@ -604,11 +608,11 @@ async def _run_single_review(
     model_name = ""
     try:
         if provider == "claude":
-            model_name = "claude-3-5-sonnet-20241022"
+            model_name = DEFAULT_CLAUDE_MODEL
             log("info", f"  📋 Reviewing with {model_name}...")
             raw = await _call_anthropic(REVIEW_SYSTEM, user_prompt, model=model_name)
         elif provider == "gemini":
-            model_name = "gemini-2.0-flash"
+            model_name = DEFAULT_GEMINI_MODEL
             log("info", f"  📋 Reviewing with {model_name}...")
             raw = await _call_gemini(REVIEW_SYSTEM, user_prompt, model=model_name)
         else:

@@ -868,7 +868,7 @@ async def test_run_agent_enable_review_skips_without_keys():
 @pytest.mark.asyncio
 async def test_run_single_review_claude():
     """_run_single_review with claude returns structured review."""
-    from pipeline_v2.agent import _run_single_review
+    from pipeline_v2.agent import _run_single_review, DEFAULT_CLAUDE_MODEL
 
     review_response = json.dumps({
         "verdict": "approved",
@@ -885,13 +885,13 @@ async def test_run_single_review_claude():
 
     assert result is not None
     assert result["verdict"] == "approved"
-    assert result["model"] == "claude-3-5-sonnet-20241022"
+    assert result["model"] == DEFAULT_CLAUDE_MODEL
 
 
 @pytest.mark.asyncio
 async def test_run_single_review_gemini():
     """_run_single_review with gemini returns structured review."""
-    from pipeline_v2.agent import _run_single_review
+    from pipeline_v2.agent import _run_single_review, DEFAULT_GEMINI_MODEL
 
     review_response = json.dumps({
         "verdict": "flagged",
