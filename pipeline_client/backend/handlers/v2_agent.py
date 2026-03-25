@@ -25,7 +25,7 @@ class V2AgentHandler:
             - race_id: str (e.g. "mo-senate-2024")
 
         Options:
-            - cheap_mode: bool (default True, uses gpt-4.1-mini)
+            - cheap_mode: bool (default True, uses gpt-5-mini)
             - enable_review: bool (default False, send to Claude/Gemini)
 
         Returns:

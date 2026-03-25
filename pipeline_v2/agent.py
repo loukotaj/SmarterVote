@@ -42,8 +42,8 @@ from .prompts import (
 logger = logging.getLogger("pipeline")
 
 # Default review models (used by _run_single_review)
-DEFAULT_CLAUDE_MODEL = "claude-3-7-sonnet-20250219"
-DEFAULT_GEMINI_MODEL = "gemini-2.5-flash"
+DEFAULT_CLAUDE_MODEL = "claude-sonnet-4-6"
+DEFAULT_GEMINI_MODEL = "gemini-3.0-flash"
 
 # ---------------------------------------------------------------------------
 # Web search tool definition for OpenAI function calling
@@ -312,7 +312,7 @@ async def run_agent(
     on_log : callable, optional
         ``(level, message) -> None`` callback for streaming logs.
     cheap_mode : bool
-        When *True*, use ``gpt-4.1-mini``; otherwise ``gpt-4.1``.
+        When *True*, use ``gpt-5-mini``; otherwise ``gpt-5.4``.
     max_iterations : int
         Safety limit on each phase's tool-call loop.
     existing_data : dict, optional
@@ -331,7 +331,7 @@ async def run_agent(
         The completed RaceJSON output.
     """
 
-    model = "gpt-4.1-mini" if cheap_mode else "gpt-4.1"
+    model = "gpt-5-mini" if cheap_mode else "gpt-5.4"
 
     def log(level: str, msg: str) -> None:
         logger.log(getattr(logging, level.upper(), logging.INFO), msg)
