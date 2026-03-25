@@ -11,7 +11,11 @@ from .storage import new_artifact_id, save_artifact
 
 
 def _merge_options(req_opts) -> Dict[str, Any]:
-    """Merge request-level options with defaults."""
+    """Merge RunOptions from the RunRequest with defaults.
+
+    Returns a flat dict of option key/value pairs used by the pipeline runner
+    and passed through to the step handler.
+    """
     base = {
         "save_artifact": True,
     }
