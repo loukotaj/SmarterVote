@@ -339,6 +339,15 @@ export const sampleRace: Race = {
             "src:interview:election-security",
           ]),
         },
+        "Local Issues": {
+          stance:
+            "Focuses on state-level energy and agriculture policy. Advocates for rural broadband expansion, water rights protections, and local law enforcement funding. Strong supporter of property rights and local government autonomy.",
+          confidence: "medium",
+          sources: createSources([
+            "src:website:local-issues",
+            "src:campaign-event:rural-outreach-2024",
+          ]),
+        },
       },
       top_donors: [
         {
@@ -372,6 +381,9 @@ export const sampleRace: Race = {
           source: createSource("src:fec:2024-q2-report"),
         },
       ],
+      career_history: [],
+      education: [],
+      voting_record: [],
     },
     {
       name: "Representative Maria Rodriguez",
@@ -497,6 +509,15 @@ export const sampleRace: Race = {
             "src:rally:democracy-reform-2024",
           ]),
         },
+        "Local Issues": {
+          stance:
+            "Champions affordable housing, public transit, and local environmental protections. Advocates for community land trusts, tenant protections, and neighborhood investment. Supports local workforce development and community college partnerships.",
+          confidence: "medium",
+          sources: createSources([
+            "src:website:local-issues",
+            "src:town-hall:community-investments-2024",
+          ]),
+        },
       },
       top_donors: [
         {
@@ -536,6 +557,9 @@ export const sampleRace: Race = {
           source: createSource("src:fec:2024-q3-report"),
         },
       ],
+      career_history: [],
+      education: [],
+      voting_record: [],
     },
     {
       name: "Michael Thompson",
@@ -659,6 +683,15 @@ export const sampleRace: Race = {
             "src:endorsement:good-government-groups",
           ]),
         },
+        "Local Issues": {
+          stance:
+            "Prioritizes veterans' services, small business support, and infrastructure improvement in rural communities. Advocates for bipartisan cooperation on local water, roads, and broadband access. Supports community-driven solutions over federal mandates.",
+          confidence: "medium",
+          sources: createSources([
+            "src:website:local-issues",
+            "src:campaign-event:veterans-roundtable-2024",
+          ]),
+        },
       },
       top_donors: [
         {
@@ -686,6 +719,9 @@ export const sampleRace: Race = {
           source: createSource("src:fec:2024-q1-report"),
         },
       ],
+      career_history: [],
+      education: [],
+      voting_record: [],
     },
   ],
 };

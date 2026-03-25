@@ -68,6 +68,21 @@ jobs:
       if: env.ACTION == 'apply' || github.event_name != 'workflow_dispatch'
       run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev
 
+    - name: Ensure Artifact Registry repository exists
+      if: env.ACTION == 'apply' || github.event_name != 'workflow_dispatch'
+      run: |
+        if ! gcloud artifacts repositories describe smartervote-${{ env.ENVIRONMENT }} \
+             --location=${{ env.REGION }} --project=${{ env.PROJECT_ID }} > /dev/null 2>&1; then
+          echo "Creating Artifact Registry repository smartervote-${{ env.ENVIRONMENT }}..."
+          gcloud artifacts repositories create smartervote-${{ env.ENVIRONMENT }} \
+            --repository-format=docker \
+            --location=${{ env.REGION }} \
+            --project=${{ env.PROJECT_ID }} \
+            --description="SmarterVote container images for ${{ env.ENVIRONMENT }} environment"
+        else
+          echo "Artifact Registry repository smartervote-${{ env.ENVIRONMENT }} already exists."
+        fi
+
     - name: Build and Push ${{ matrix.container.name }}
       if: env.ACTION == 'apply' || github.event_name != 'workflow_dispatch'
       run: |

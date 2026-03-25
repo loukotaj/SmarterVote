@@ -33,7 +33,9 @@
             <div class="donor-amount">{formatAmount(donor.amount)}</div>
           </div>
           <div class="donor-source">
-            <SourceLink source={donor.source} />
+            {#if donor.source}
+              <SourceLink source={donor.source} />
+            {/if}
           </div>
         </div>
       {/each}

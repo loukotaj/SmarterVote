@@ -70,8 +70,10 @@
           {/if}
 
           <div class="vote-footer">
-            <div class="vote-date">{formatDate(record.date)}</div>
-            <SourceLink source={record.source} />
+            <div class="vote-date">{record.date ? formatDate(record.date) : ""}</div>
+            {#if record.source}
+              <SourceLink source={record.source} />
+            {/if}
           </div>
         </div>
       {/each}
