@@ -1,9 +1,11 @@
 """Prompts for the Pipeline V2 multi-step research agent.
 
 The agent runs in phases:
-1. **Discovery** – identify the race and candidates.
+1. **Discovery** – identify the race, candidates, background, and images.
 2. **Issue research** – one focused prompt per canonical issue group.
 3. **Refinement** – merge, clean, and improve the full profile.
+
+Optionally followed by multi-LLM **review** (Claude / Gemini).
 """
 
 CANONICAL_ISSUES = [
@@ -47,7 +49,7 @@ RULES (apply to every response):
 5. Return ONLY valid JSON – no markdown fences, no extra text."""
 
 # ------------------------------------------------------------------
-# Phase 1: Discovery prompt
+# Phase 1: Discovery prompt (enhanced with career & images)
 # ------------------------------------------------------------------
 
 DISCOVERY_SYSTEM = f"""\
@@ -63,6 +65,11 @@ Search for:
 2. Who are the candidates? (name, party, incumbent status)
 3. Each candidate's official campaign website and social media.
 4. A brief 2-3 sentence nonpartisan summary of each candidate.
+5. Each candidate's career history (political offices held, major jobs).
+6. Each candidate's education (degrees, institutions).
+7. Notable voting record items (for incumbents or former legislators).
+8. A publicly available headshot or official photo URL for each candidate.
+   Search "<candidate name> official photo" or look on their campaign site.
 
 Return JSON:
 {{
@@ -77,8 +84,35 @@ Return JSON:
       "party": "<party affiliation>",
       "incumbent": true|false,
       "summary": "<2-3 sentence nonpartisan summary>",
+      "image_url": "<URL to a publicly available headshot or null>",
       "website": "<official campaign URL or null>",
       "social_media": {{}},
+      "career_history": [
+        {{
+          "title": "<role/position>",
+          "organization": "<employer or body>",
+          "start_year": 2020,
+          "end_year": null,
+          "description": "<brief note>"
+        }}
+      ],
+      "education": [
+        {{
+          "institution": "<school name>",
+          "degree": "<degree type>",
+          "field": "<major/field>",
+          "year": 2005
+        }}
+      ],
+      "voting_record": [
+        {{
+          "bill_name": "<bill>",
+          "bill_description": "<short desc>",
+          "vote": "yes|no|abstain|absent",
+          "date": "<YYYY-MM-DD>",
+          "source": {{"url": "<url>", "type": "government", "title": "<title>"}}
+        }}
+      ],
       "top_donors": [],
       "issues": {{}}
     }}
@@ -106,7 +140,7 @@ Research each candidate's positions on THESE issues ONLY:
 For EACH candidate and EACH issue, provide:
 - Their stated position (1-2 sentences)
 - Confidence level (high/medium/low)
-- Source URLs
+- Source URLs with titles
 
 Return JSON – an object keyed by candidate name:
 {{
@@ -122,7 +156,7 @@ Return JSON – an object keyed by candidate name:
 }}"""
 
 # ------------------------------------------------------------------
-# Phase 3: Refinement prompt
+# Phase 3: Refinement prompt (enhanced)
 # ------------------------------------------------------------------
 
 REFINE_SYSTEM = f"""\
@@ -144,6 +178,9 @@ Review and improve this profile:
 5. Add top donor information if findable.
 6. Ensure all 12 canonical issues are covered for each candidate:
    {all_issues}
+7. Fill gaps in career_history and education if you find better data.
+8. Search for an official headshot for any candidate missing image_url.
+9. Verify voting record entries are accurate.
 
 Return the COMPLETE improved JSON profile (same schema as input).
 Do NOT omit any fields – return the full object."""
@@ -171,6 +208,46 @@ Update this profile:
 3. Fill in any missing issue positions or weak (low confidence) stances.
 4. Update candidate summaries if there are significant new developments.
 5. Keep all existing source URLs and add new ones.
+6. Update career_history and education if new information is available.
+7. Search for an official headshot for any candidate missing image_url.
+8. Add or update voting record entries.
 
 Return the COMPLETE updated JSON profile (same schema as input).
 Do NOT omit any fields – return the full object."""
+
+# ------------------------------------------------------------------
+# Multi-LLM review prompts (Claude / Gemini)
+# ------------------------------------------------------------------
+
+REVIEW_SYSTEM = """\
+You are a fact-checking review agent. You are given a candidate research
+profile in JSON format. Your job is to review it for accuracy, bias,
+completeness, and source quality.
+
+Be thorough but fair. Flag specific problems with field paths."""
+
+REVIEW_USER = """\
+Review this candidate profile for the race "{race_id}":
+
+{profile_json}
+
+Check for:
+1. Factual accuracy – are stated positions consistent with sources?
+2. Bias – is the language neutral and nonpartisan?
+3. Completeness – are there missing issues, weak sources, or gaps?
+4. Source quality – are sources credible and current?
+5. Candidate background – is career history and education reasonable?
+
+Return JSON:
+{{
+  "verdict": "approved|needs_revision|flagged",
+  "summary": "<1-2 sentence overall assessment>",
+  "flags": [
+    {{
+      "field": "<dot-path to field, e.g. candidates[0].issues.Healthcare.stance>",
+      "concern": "<what is wrong>",
+      "suggestion": "<how to fix it or null>",
+      "severity": "info|warning|error"
+    }}
+  ]
+}}"""

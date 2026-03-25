@@ -1,7 +1,6 @@
 """
 Core Pydantic models for SmarterVote data structures.
-Extracted from pipeline for shared use across services.
-RaceJSON v0.2 - Corpus-First Design
+RaceJSON v0.3 — Multi-phase AI Agent Design
 """
 
 from datetime import datetime
@@ -11,13 +10,9 @@ from typing import Any, Dict, List, Literal, Optional
 from pydantic import BaseModel, Field, HttpUrl
 
 
-class DiscoveredCandidate(BaseModel):
-    """Structured candidate information discovered during metadata extraction."""
-
-    name: str
-    party: Optional[str] = None  # 'Democratic', 'Republican', 'Independent', etc.
-    incumbent: bool = False
-    sources: List[HttpUrl] = Field(default_factory=list)
+# ---------------------------------------------------------------------------
+# Enums
+# ---------------------------------------------------------------------------
 
 
 class SourceType(str, Enum):
@@ -29,25 +24,16 @@ class SourceType(str, Enum):
     SOCIAL_MEDIA = "social_media"
     NEWS = "news"
     GOVERNMENT = "government"
-    FRESH_SEARCH = "fresh_search"  # From issue-specific Google searches
+    FRESH_SEARCH = "fresh_search"
 
 
 class ConfidenceLevel(str, Enum):
     """Confidence levels for processed data."""
 
-    HIGH = "high"  # 2-of-3 LLM agreement
-    MEDIUM = "medium"  # Partial consensus
-    LOW = "low"  # No consensus, minority view stored
+    HIGH = "high"
+    MEDIUM = "medium"
+    LOW = "low"
     UNKNOWN = "unknown"
-
-
-class ProcessingStatus(str, Enum):
-    """Status of data processing."""
-
-    PENDING = "pending"
-    PROCESSING = "processing"
-    COMPLETED = "completed"
-    FAILED = "failed"
 
 
 class CanonicalIssue(str, Enum):
@@ -64,7 +50,12 @@ class CanonicalIssue(str, Enum):
     EDUCATION = "Education"
     TECH_AI = "Tech & AI"
     ELECTION_REFORM = "Election Reform"
-    LOCAL_ISSUES = "Local Issues"  # Housing, transportation, zoning for local races
+    LOCAL_ISSUES = "Local Issues"
+
+
+# ---------------------------------------------------------------------------
+# Source & Issue models
+# ---------------------------------------------------------------------------
 
 
 class Source(BaseModel):
@@ -76,76 +67,9 @@ class Source(BaseModel):
     description: Optional[str] = None
     last_accessed: datetime
     published_at: Optional[datetime] = None
-    score: Optional[float] = None
-    scoring_reason: Optional[str] = None
     checksum: Optional[str] = None
-    is_fresh: bool = False  # Flag for fresh issue search results
-    is_official_campaign: Optional[bool] = None  # Flag for official campaign sources
-
-
-class ChromaChunk(BaseModel):
-    """Document chunk stored in ChromaDB corpus."""
-
-    id: str
-    race_id: str
-    candidate_name: Optional[str] = None
-    issue_tag: Optional[CanonicalIssue] = None
-    content: str
-    metadata: Dict[str, Any] = Field(default_factory=dict)
-    source: Source
-    created_at: datetime
-    is_fresh: bool = False  # From fresh issue search
-
-
-class ExtractedContent(BaseModel):
-    """Content extracted from a source."""
-
-    source: Source
-    text: str
-    metadata: Dict[str, Any] = Field(default_factory=dict)
-    extraction_timestamp: datetime
-    word_count: int
-    language: Optional[str] = None
-
-
-class VectorDocument(BaseModel):
-    """Document retrieved from vector search."""
-
-    id: str
-    content: str
-    metadata: Dict[str, Any] = Field(default_factory=dict)
-    similarity_score: Optional[float] = None
-    source: Source
-
-
-class Summary(BaseModel):
-    """AI-generated summary of content."""
-
-    content: str
-    model: Literal["gpt-4o", "claude-3.5", "grok-3", "gpt-4o-mini", "claude-3-haiku", "grok-3-mini"]
-    confidence: ConfidenceLevel
-    tokens_used: Optional[int] = None
-    created_at: datetime
-    source_ids: List[str] = Field(default_factory=list)
-
-
-class LLMResponse(BaseModel):
-    """Response from a single LLM."""
-
-    model: Literal["gpt-4o", "claude-3.5", "grok-3", "gpt-4o-mini", "claude-3-haiku", "grok-3-mini"]
-    content: str
-    tokens_used: Optional[int] = None
-    created_at: datetime
-
-
-class TriangulatedSummary(BaseModel):
-    """Summary triangulated from 3 LLMs."""
-
-    final_content: str
-    confidence: ConfidenceLevel
-    llm_responses: List[LLMResponse]
-    consensus_method: str  # "2-of-3" or "minority_view"
-    arbitration_notes: Optional[str] = None
+    is_fresh: bool = False
+    is_official_campaign: Optional[bool] = None
 
 
 class IssueStance(BaseModel):
@@ -154,7 +78,7 @@ class IssueStance(BaseModel):
     issue: CanonicalIssue
     stance: str
     confidence: ConfidenceLevel
-    sources: List[Source] = Field(default_factory=list)  # Source objects with detailed information
+    sources: List[Source] = Field(default_factory=list)
 
 
 class TopDonor(BaseModel):
@@ -163,141 +87,117 @@ class TopDonor(BaseModel):
     name: str
     amount: Optional[float] = None
     organization: Optional[str] = None
-    source: Source  # Source object with detailed information
+    source: Optional[Source] = None
+
+
+# ---------------------------------------------------------------------------
+# Career & record models (new in v0.3)
+# ---------------------------------------------------------------------------
+
+
+class CareerEntry(BaseModel):
+    """A single entry in a candidate's career history."""
+
+    title: str
+    organization: Optional[str] = None
+    start_year: Optional[int] = None
+    end_year: Optional[int] = None
+    description: Optional[str] = None
+    source: Optional[Source] = None
+
+
+class EducationEntry(BaseModel):
+    """A single education credential."""
+
+    institution: str
+    degree: Optional[str] = None
+    field: Optional[str] = None
+    year: Optional[int] = None
+    source: Optional[Source] = None
+
+
+class VotingRecord(BaseModel):
+    """A notable vote cast by the candidate."""
+
+    bill_name: str
+    bill_description: Optional[str] = None
+    vote: Literal["yes", "no", "abstain", "absent"]
+    date: Optional[str] = None
+    source: Optional[Source] = None
+
+
+# ---------------------------------------------------------------------------
+# Multi-LLM review (new in v0.3)
+# ---------------------------------------------------------------------------
+
+
+class ReviewFlag(BaseModel):
+    """A single flag raised by a review agent."""
+
+    field: str
+    concern: str
+    suggestion: Optional[str] = None
+    severity: Literal["info", "warning", "error"] = "warning"
+
+
+class AgentReview(BaseModel):
+    """Result from a secondary review agent (Claude / Gemini)."""
+
+    model: str
+    reviewed_at: datetime
+    verdict: Literal["approved", "needs_revision", "flagged"]
+    flags: List[ReviewFlag] = Field(default_factory=list)
+    summary: str = ""
+
+
+# ---------------------------------------------------------------------------
+# Candidate
+# ---------------------------------------------------------------------------
 
 
 class Candidate(BaseModel):
-    """Candidate information for RaceJSON v0.2."""
+    """Candidate information for RaceJSON v0.3."""
 
     name: str
     party: Optional[str] = None
     incumbent: bool = False
-    summary: str = ""  # Triangulated summary from 3 LLMs
+    summary: str = ""
+    image_url: Optional[str] = None
+
+    # Policy positions
     issues: Dict[CanonicalIssue, IssueStance] = Field(default_factory=dict)
+
+    # Background
+    career_history: List[CareerEntry] = Field(default_factory=list)
+    education: List[EducationEntry] = Field(default_factory=list)
+    voting_record: List[VotingRecord] = Field(default_factory=list)
+
+    # Financial
     top_donors: List[TopDonor] = Field(default_factory=list)
+
+    # Web presence
     website: Optional[HttpUrl] = None
     social_media: Dict[str, HttpUrl] = Field(default_factory=dict)
 
 
-class RaceMetadata(BaseModel):
-    """High-level race details extracted early in pipeline for search optimization."""
-
-    # Core identifiers
-    race_id: str = Field(..., description="Race slug like 'mo-senate-2024'")
-    state: str = Field(..., description="Two-letter state code (e.g., 'MO', 'CA')")
-    office_type: str = Field(..., description="Type of office (senate, house, governor, etc.)")
-    year: int = Field(..., description="Election year")
-
-    # Detailed race information
-    full_office_name: str = Field(..., description="Full office name (e.g., 'U.S. Senate', 'Governor')")
-    jurisdiction: str = Field(..., description="Jurisdiction (state code, district, etc.)")
-    district: Optional[str] = None  # For House races, state legislature, etc.
-    election_date: datetime = Field(..., description="Official election date")
-
-    # Race context
-    race_type: str = Field(..., description="federal, state, local")
-    is_primary: bool = False
-    primary_date: Optional[datetime] = None
-    is_special_election: bool = False
-    is_runoff: bool = False
-
-    incumbent_party: Optional[str] = None
-    competitive_rating: Optional[str] = None  # safe, lean, toss-up, etc.
-
-    # Search optimization hints
-    major_issues: List[str] = Field(default_factory=list, description="Key issues likely relevant to this race")
-    geographic_keywords: List[str] = Field(default_factory=list, description="Location-specific search terms")
-
-    # Metadata
-    extracted_at: datetime = Field(default_factory=lambda: datetime.utcnow())
-    confidence: ConfidenceLevel = ConfidenceLevel.MEDIUM
+# ---------------------------------------------------------------------------
+# Race (top-level output)
+# ---------------------------------------------------------------------------
 
 
 class RaceJSON(BaseModel):
-    """RaceJSON v0.2 - Final output format."""
+    """RaceJSON v0.3 — Final output format."""
 
     id: str = Field(..., description="Race slug like 'mo-senate-2024'")
     election_date: datetime
     candidates: List[Candidate]
     updated_utc: datetime
-    generator: List[Literal["gpt-4o", "claude-3.5", "grok-3"]] = Field(default_factory=list)
+    generator: List[str] = Field(default_factory=list)
 
-    # Enhanced metadata (now populated from RaceMetadata)
+    # Metadata
     title: Optional[str] = None
     office: Optional[str] = None
     jurisdiction: Optional[str] = None
-    race_metadata: Optional[RaceMetadata] = None
 
-
-class ProcessingJob(BaseModel):
-    """Job for processing a race through the corpus-first pipeline."""
-
-    job_id: str
-    race_id: str
-    status: ProcessingStatus
-    created_at: datetime
-    started_at: Optional[datetime] = None
-    completed_at: Optional[datetime] = None
-    error_message: Optional[str] = None
-    retry_count: int = 0
-    max_retries: int = 3
-
-    # Pipeline step tracking
-    step_metadata: bool = False
-    step_discover: bool = False
-    step_fetch: bool = False
-    step_extract: bool = False
-    step_corpus: bool = False
-    step_fresh_search: bool = False
-    step_rag_summary: bool = False
-    step_arbitrate: bool = False
-    step_publish: bool = False
-
-
-class FreshSearchQuery(BaseModel):
-    """Query for fresh issue-specific Google searches."""
-
-    race_id: str
-    text: str
-    issue: Optional[CanonicalIssue] = None
-    max_results: int = 5
-    date_restrict: Optional[str] = None  # Format like "d30" for last 30 days
-
-
-class RAGQuery(BaseModel):
-    """Query for RAG-based summary generation."""
-
-    race_id: str
-    query_type: Literal["candidate_summary", "issue_stance"]
-    candidate_name: Optional[str] = None
-    issue: Optional[CanonicalIssue] = None
-    max_chunks: int = 25  # 25 for candidate summary, 12 for issue stance
-
-
-class ArbitrationResult(BaseModel):
-    """Result of LLM triangulation and arbitration."""
-
-    content: str
-    confidence: ConfidenceLevel
-    consensus_method: str
-    llm_responses: List[LLMResponse]
-    minority_view: Optional[str] = None  # Stored when confidence is LOW
-
-
-class AIAnnotations(BaseModel):
-    """AI enrichment annotations for content chunks before indexing."""
-
-    issues: List[str] = Field(default_factory=list, description="Canonical issues detected with confidence")
-    candidates: List[str] = Field(default_factory=list, description="Canonical candidate names linked with confidence")
-    stance: List[Dict[str, Any]] = Field(
-        default_factory=list,
-        description="Per (candidate, issue): {position: pro/con/mixed/unknown, evidence_snippets[], rationale}",
-    )
-    index_summary: str = Field("", description="120-180 word evidence-grounded abstract per chunk")
-    claims: List[Dict[str, Any]] = Field(
-        default_factory=list, description="Claims with quote, normalized_claim, location (start, end), support_urls"
-    )
-    qa_pairs: List[Dict[str, Any]] = Field(
-        default_factory=list, description="2-5 synthetic (query, grounded_answer, evidence_offsets[]) per chunk"
-    )
-    usefulness: Dict[str, Any] = Field(default_factory=dict, description="Usefulness score 0-1 and reasons list")
+    # Multi-LLM reviews
+    reviews: List[AgentReview] = Field(default_factory=list)

@@ -39,6 +39,9 @@
   let modalData: unknown = null;
   let modalLoading = false;
 
+  // Review toggle
+  let enableReview = false;
+
   // Auto-refresh management
   const MIN_REFRESH_INTERVAL = 2000;
   let pendingRefresh = false;
@@ -221,7 +224,10 @@
 
     try {
       addLog("info", `Starting agent research for: ${raceId}`);
-      const result = await apiService.runV2Agent(raceId, { save_artifact: true });
+      const result = await apiService.runV2Agent(raceId, {
+        save_artifact: true,
+        enable_review: enableReview,
+      });
       pipelineActions.setCurrentRun(result.run_id, "v2_agent");
       addLog("info", `Agent run started (run_id: ${result.run_id})`);
       startAutoRefresh();
@@ -360,6 +366,17 @@
               Format: state-office-year (e.g. tx-governor-2026, ca-house-12-2024)
             </p>
           </div>
+
+          <!-- Review Toggle -->
+          <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
+            <input
+              type="checkbox"
+              bind:checked={enableReview}
+              class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+            />
+            <span>Enable AI Review</span>
+            <span class="text-xs text-gray-400">(Claude + Gemini fact-check)</span>
+          </label>
 
           <button
             disabled={pipeline.isExecuting || !pipeline.v2RaceId.trim()}

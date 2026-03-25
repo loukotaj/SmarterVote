@@ -1,1 +1,0 @@
-Normalize table headers to plain English, keep data as-is. Return JSON {tables:[{headers:[], sample_data:[]}]} with the same row counts as input.

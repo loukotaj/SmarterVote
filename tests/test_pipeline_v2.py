@@ -709,3 +709,243 @@ async def test_v2_handler_runs_agent_and_publishes():
     assert result["race_id"] == "test-race"
     assert result["status"] == "published"
     mock_agent.assert_called_once()
+
+
+# ---------------------------------------------------------------------------
+# New feature tests: review prompts, career/image fields, multi-LLM review
+# ---------------------------------------------------------------------------
+
+
+def test_review_prompt_exists():
+    """Review prompts are defined and contain expected content."""
+    from pipeline_v2.prompts import REVIEW_SYSTEM, REVIEW_USER
+
+    assert "fact-checking" in REVIEW_SYSTEM.lower()
+    assert "{race_id}" in REVIEW_USER
+    assert "{profile_json}" in REVIEW_USER
+    assert "verdict" in REVIEW_USER
+
+
+def test_discovery_prompt_asks_for_career():
+    """Discovery prompt includes career history request."""
+    assert "career" in DISCOVERY_USER.lower()
+    assert "career_history" in DISCOVERY_USER
+
+
+def test_discovery_prompt_asks_for_education():
+    """Discovery prompt includes education request."""
+    assert "education" in DISCOVERY_USER.lower()
+
+
+def test_discovery_prompt_asks_for_image():
+    """Discovery prompt includes image/headshot request."""
+    assert "image_url" in DISCOVERY_USER or "photo" in DISCOVERY_USER.lower()
+
+
+def test_refine_prompt_asks_for_image():
+    """Refine prompt includes image filling."""
+    assert "image_url" in REFINE_USER or "headshot" in REFINE_USER.lower()
+
+
+def test_shared_models_have_new_fields():
+    """shared/models.py has CareerEntry, EducationEntry, VotingRecord, AgentReview."""
+    from shared.models import (
+        CareerEntry,
+        EducationEntry,
+        VotingRecord,
+        AgentReview,
+        ReviewFlag,
+        Candidate,
+        RaceJSON,
+    )
+
+    # CareerEntry
+    entry = CareerEntry(title="Senator")
+    assert entry.title == "Senator"
+    assert entry.organization is None
+
+    # EducationEntry
+    edu = EducationEntry(institution="MIT", degree="BS")
+    assert edu.institution == "MIT"
+
+    # VotingRecord
+    vr = VotingRecord(bill_name="HR-1", vote="yes")
+    assert vr.vote == "yes"
+
+    # Candidate has new fields
+    c = Candidate(name="Test")
+    assert c.career_history == []
+    assert c.education == []
+    assert c.voting_record == []
+    assert c.image_url is None
+
+    # AgentReview
+    review = AgentReview(
+        model="claude-3-5-sonnet",
+        reviewed_at="2024-01-01T00:00:00",
+        verdict="approved",
+    )
+    assert review.verdict == "approved"
+    assert review.flags == []
+
+    # ReviewFlag
+    flag = ReviewFlag(field="test.field", concern="inaccurate")
+    assert flag.severity == "warning"
+
+    # RaceJSON has reviews
+    race = RaceJSON(
+        id="test",
+        election_date="2024-11-05",
+        candidates=[],
+        updated_utc="2024-01-01T00:00:00",
+    )
+    assert race.reviews == []
+
+
+@pytest.mark.asyncio
+async def test_run_agent_normalizes_new_fields():
+    """run_agent sets defaults for image_url, career_history, education, voting_record."""
+    discovery_result = {
+        "id": "new-fields-2024",
+        "candidates": [
+            {
+                "name": "Alice",
+                "issues": {},
+            }
+        ],
+    }
+
+    with (
+        patch("pipeline_v2.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_v2.agent._load_existing", return_value=None),
+    ):
+        mock_loop.return_value = discovery_result
+        result = await run_agent("new-fields-2024", cheap_mode=True, existing_data={})
+
+    candidate = result["candidates"][0]
+    assert candidate["image_url"] is None
+    assert candidate["career_history"] == []
+    assert candidate["education"] == []
+    assert candidate["voting_record"] == []
+
+
+@pytest.mark.asyncio
+async def test_run_agent_enable_review_false():
+    """run_agent with enable_review=False skips reviews."""
+    discovery_result = {"id": "no-review-2024", "candidates": []}
+
+    with (
+        patch("pipeline_v2.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_v2.agent._load_existing", return_value=None),
+    ):
+        mock_loop.return_value = discovery_result
+        result = await run_agent("no-review-2024", cheap_mode=True, existing_data={}, enable_review=False)
+
+    assert result.get("reviews") == []
+
+
+@pytest.mark.asyncio
+async def test_run_agent_enable_review_skips_without_keys():
+    """run_agent with enable_review=True skips providers without API keys."""
+    discovery_result = {"id": "review-2024", "candidates": []}
+
+    env = os.environ.copy()
+    env.pop("ANTHROPIC_API_KEY", None)
+    env.pop("GEMINI_API_KEY", None)
+
+    with (
+        patch("pipeline_v2.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_v2.agent._load_existing", return_value=None),
+        patch.dict(os.environ, env, clear=True),
+    ):
+        mock_loop.return_value = discovery_result
+        result = await run_agent("review-2024", cheap_mode=True, existing_data={}, enable_review=True)
+
+    # No reviews because no API keys are set
+    assert result.get("reviews") == []
+
+
+@pytest.mark.asyncio
+async def test_run_single_review_claude():
+    """_run_single_review with claude returns structured review."""
+    from pipeline_v2.agent import _run_single_review
+
+    review_response = json.dumps({
+        "verdict": "approved",
+        "summary": "Looks good.",
+        "flags": [],
+    })
+
+    with (
+        patch("pipeline_v2.agent._call_anthropic", new_callable=AsyncMock) as mock_claude,
+        patch.dict(os.environ, {"ANTHROPIC_API_KEY": "test-key"}),
+    ):
+        mock_claude.return_value = review_response
+        result = await _run_single_review("test-2024", '{"id": "test"}', provider="claude")
+
+    assert result is not None
+    assert result["verdict"] == "approved"
+    assert result["model"] == "claude-3-5-sonnet-20241022"
+
+
+@pytest.mark.asyncio
+async def test_run_single_review_gemini():
+    """_run_single_review with gemini returns structured review."""
+    from pipeline_v2.agent import _run_single_review
+
+    review_response = json.dumps({
+        "verdict": "flagged",
+        "summary": "Found issues.",
+        "flags": [{"field": "test", "concern": "bad", "severity": "warning"}],
+    })
+
+    with (
+        patch("pipeline_v2.agent._call_gemini", new_callable=AsyncMock) as mock_gemini,
+        patch.dict(os.environ, {"GEMINI_API_KEY": "test-key"}),
+    ):
+        mock_gemini.return_value = review_response
+        result = await _run_single_review("test-2024", '{"id": "test"}', provider="gemini")
+
+    assert result is not None
+    assert result["verdict"] == "flagged"
+    assert len(result["flags"]) == 1
+
+
+@pytest.mark.asyncio
+async def test_run_single_review_handles_failure():
+    """_run_single_review returns None on failure."""
+    from pipeline_v2.agent import _run_single_review
+
+    with (
+        patch("pipeline_v2.agent._call_anthropic", new_callable=AsyncMock) as mock_claude,
+        patch.dict(os.environ, {"ANTHROPIC_API_KEY": "test-key"}),
+    ):
+        mock_claude.side_effect = RuntimeError("API down")
+        result = await _run_single_review("test-2024", '{"id": "test"}', provider="claude")
+
+    assert result is None
+
+
+@pytest.mark.asyncio
+async def test_v2_handler_passes_enable_review():
+    """V2AgentHandler passes enable_review option to run_agent."""
+    from pipeline_client.backend.handlers.v2_agent import V2AgentHandler
+
+    handler = V2AgentHandler()
+    fake_result = {"id": "test-race", "candidates": []}
+
+    with (
+        patch("pipeline_v2.agent.run_agent", new_callable=AsyncMock) as mock_agent,
+        patch.object(handler, "_publish", new_callable=AsyncMock) as mock_publish,
+    ):
+        mock_agent.return_value = fake_result
+        mock_publish.return_value = Path("/tmp/test-race.json")
+
+        await handler.handle(
+            {"race_id": "test-race"},
+            {"cheap_mode": True, "enable_review": True},
+        )
+
+    mock_agent.assert_called_once()
+    call_kwargs = mock_agent.call_args
+    assert call_kwargs.kwargs["enable_review"] is True

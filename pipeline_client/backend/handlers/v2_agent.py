@@ -26,9 +26,10 @@ class V2AgentHandler:
 
         Options:
             - cheap_mode: bool (default True, uses gpt-4o-mini)
+            - enable_review: bool (default False, send to Claude/Gemini)
 
         Returns:
-            dict with race_id, race_json, published_path, duration_ms, search_count
+            dict with race_id, race_json, published_path, duration_ms
         """
         from pipeline_v2.agent import run_agent
 
@@ -38,9 +39,10 @@ class V2AgentHandler:
             raise ValueError("V2AgentHandler: Missing 'race_id' in payload")
 
         cheap_mode = options.get("cheap_mode", True)
+        enable_review = options.get("enable_review", False)
         t0 = time.perf_counter()
 
-        logger.info(f"V2 Agent: researching race {race_id} (cheap_mode={cheap_mode})")
+        logger.info(f"V2 Agent: researching race {race_id} (cheap_mode={cheap_mode}, review={enable_review})")
 
         # Collect logs from the agent
         agent_logs: list[Dict[str, Any]] = []
@@ -59,6 +61,7 @@ class V2AgentHandler:
             race_id,
             on_log=on_log,
             cheap_mode=cheap_mode,
+            enable_review=enable_review,
         )
 
         # Publish to local filesystem

@@ -1,9 +1,10 @@
 """Pipeline V2 agent: multi-phase candidate research with web search & caching.
 
 Phases:
-1. **Discovery** – identify the race and candidates via web search.
+1. **Discovery** – identify the race, candidates, career history, images.
 2. **Issue research** – one focused call per issue group (6 calls).
 3. **Refinement** – merge, clean, and improve the full profile.
+4. **Review** (optional) – send to Claude and/or Gemini for fact-checking.
 
 Supports **rerun/update** mode: pass an existing RaceJSON and the agent
 will search for new developments and improve the profile.
@@ -32,6 +33,8 @@ from .prompts import (
     ISSUE_RESEARCH_USER,
     REFINE_SYSTEM,
     REFINE_USER,
+    REVIEW_SYSTEM,
+    REVIEW_USER,
     UPDATE_SYSTEM,
     UPDATE_USER,
 )
@@ -294,6 +297,7 @@ async def run_agent(
     cheap_mode: bool = True,
     max_iterations: int = 15,
     existing_data: Optional[Dict[str, Any]] = None,
+    enable_review: bool = False,
 ) -> Dict[str, Any]:
     """Run the multi-phase research agent for a given race_id.
 
@@ -313,6 +317,9 @@ async def run_agent(
         previously published profile and enters update mode if found.
         Pass an empty dict to force a fresh research run even when a
         published profile exists.
+    enable_review : bool
+        When *True*, send the final profile to Claude and Gemini for
+        independent fact-checking. Results are stored in ``reviews``.
 
     Returns
     -------
@@ -357,13 +364,25 @@ async def run_agent(
     race_json["updated_utc"] = now_iso  # Always update timestamp
     race_json.setdefault("generator", ["pipeline-v2-agent"])
 
-    # Add last_accessed timestamps to sources that lack them
+    # Ensure new fields have defaults
     for candidate in race_json.get("candidates", []):
+        candidate.setdefault("image_url", None)
+        candidate.setdefault("career_history", [])
+        candidate.setdefault("education", [])
+        candidate.setdefault("voting_record", [])
         for issue_data in candidate.get("issues", {}).values():
             if isinstance(issue_data, dict):
                 for src in issue_data.get("sources", []):
                     if isinstance(src, dict):
                         src.setdefault("last_accessed", now_iso)
+
+    # --- Optional Phase 4: Multi-LLM review ---
+    if enable_review:
+        log("info", "Phase 4: Sending to review agents (Claude, Gemini)...")
+        reviews = await _run_reviews(race_id, race_json, on_log=on_log)
+        race_json["reviews"] = reviews
+    else:
+        race_json.setdefault("reviews", [])
 
     elapsed = time.perf_counter() - t0
     log("info", f"✅ Agent finished in {elapsed:.1f}s")
@@ -485,3 +504,153 @@ async def _run_update(
         max_iterations=max_iterations,
         phase_name="update",
     )
+
+
+# ---------------------------------------------------------------------------
+# Multi-LLM review (Claude / Gemini)
+# ---------------------------------------------------------------------------
+
+
+async def _call_anthropic(
+    system: str,
+    user: str,
+    *,
+    model: str = "claude-3-5-sonnet-20241022",
+) -> str:
+    """Call the Anthropic Messages API and return the text response."""
+    api_key = os.environ.get("ANTHROPIC_API_KEY", "")
+    if not api_key:
+        raise RuntimeError("ANTHROPIC_API_KEY is not set")
+
+    async with httpx.AsyncClient(timeout=120) as client:
+        resp = await client.post(
+            "https://api.anthropic.com/v1/messages",
+            headers={
+                "x-api-key": api_key,
+                "anthropic-version": "2023-06-01",
+                "Content-Type": "application/json",
+            },
+            json={
+                "model": model,
+                "max_tokens": 4096,
+                "system": system,
+                "messages": [{"role": "user", "content": user}],
+            },
+        )
+        resp.raise_for_status()
+        data = resp.json()
+    # Extract text from content blocks
+    for block in data.get("content", []):
+        if block.get("type") == "text":
+            return block["text"]
+    return ""
+
+
+async def _call_gemini(
+    system: str,
+    user: str,
+    *,
+    model: str = "gemini-2.0-flash",
+) -> str:
+    """Call the Google Gemini (Generative Language) API and return the text."""
+    api_key = os.environ.get("GEMINI_API_KEY", "")
+    if not api_key:
+        raise RuntimeError("GEMINI_API_KEY is not set")
+
+    url = (
+        f"https://generativelanguage.googleapis.com/v1beta/models/{model}"
+        f":generateContent?key={api_key}"
+    )
+    async with httpx.AsyncClient(timeout=120) as client:
+        resp = await client.post(
+            url,
+            headers={"Content-Type": "application/json"},
+            json={
+                "system_instruction": {"parts": [{"text": system}]},
+                "contents": [{"parts": [{"text": user}]}],
+            },
+        )
+        resp.raise_for_status()
+        data = resp.json()
+
+    # Extract text from first candidate
+    for candidate in data.get("candidates", []):
+        content = candidate.get("content", {})
+        for part in content.get("parts", []):
+            if "text" in part:
+                return part["text"]
+    return ""
+
+
+async def _run_single_review(
+    race_id: str,
+    profile_json: str,
+    *,
+    provider: str,
+    on_log: Any | None = None,
+) -> Optional[Dict[str, Any]]:
+    """Run a single review agent (Claude or Gemini)."""
+
+    def log(level: str, msg: str) -> None:
+        logger.log(getattr(logging, level.upper(), logging.INFO), msg)
+        if on_log:
+            on_log(level, msg)
+
+    user_prompt = REVIEW_USER.format(
+        race_id=race_id,
+        profile_json=profile_json,
+    )
+
+    model_name = ""
+    try:
+        if provider == "claude":
+            model_name = "claude-3-5-sonnet-20241022"
+            log("info", f"  📋 Reviewing with {model_name}...")
+            raw = await _call_anthropic(REVIEW_SYSTEM, user_prompt, model=model_name)
+        elif provider == "gemini":
+            model_name = "gemini-2.0-flash"
+            log("info", f"  📋 Reviewing with {model_name}...")
+            raw = await _call_gemini(REVIEW_SYSTEM, user_prompt, model=model_name)
+        else:
+            return None
+
+        review_data = _extract_json(raw)
+        return {
+            "model": model_name,
+            "reviewed_at": datetime.now(timezone.utc).isoformat(),
+            "verdict": review_data.get("verdict", "flagged"),
+            "flags": review_data.get("flags", []),
+            "summary": review_data.get("summary", ""),
+        }
+    except Exception as exc:
+        log("warning", f"  ⚠️ {provider} review failed: {exc}")
+        return None
+
+
+async def _run_reviews(
+    race_id: str,
+    race_json: Dict[str, Any],
+    *,
+    on_log: Any | None = None,
+) -> List[Dict[str, Any]]:
+    """Run reviews with available LLM providers (Claude, Gemini)."""
+    profile_json = json.dumps(race_json, indent=2, default=str)
+    reviews: List[Dict[str, Any]] = []
+
+    for provider in ("claude", "gemini"):
+        env_key = "ANTHROPIC_API_KEY" if provider == "claude" else "GEMINI_API_KEY"
+        if not os.environ.get(env_key):
+            if on_log:
+                on_log("info", f"  ⏭️ Skipping {provider} review ({env_key} not set)")
+            continue
+
+        result = await _run_single_review(
+            race_id,
+            profile_json,
+            provider=provider,
+            on_log=on_log,
+        )
+        if result:
+            reviews.append(result)
+
+    return reviews

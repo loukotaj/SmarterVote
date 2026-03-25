@@ -1,5 +1,5 @@
 /**
- * TypeScript definitions for SmarterVote RaceJSON v0.2
+ * TypeScript definitions for SmarterVote RaceJSON v0.3
  */
 
 export type ConfidenceLevel = "high" | "medium" | "low" | "unknown";
@@ -47,15 +47,47 @@ export interface TopDonor {
   name: string;
   amount?: number;
   organization?: string;
-  source: Source;
+  source?: Source;
+}
+
+export interface CareerEntry {
+  title: string;
+  organization?: string;
+  start_year?: number;
+  end_year?: number;
+  description?: string;
+  source?: Source;
+}
+
+export interface EducationEntry {
+  institution: string;
+  degree?: string;
+  field?: string;
+  year?: number;
+  source?: Source;
 }
 
 export interface VotingRecord {
   bill_name: string;
   bill_description?: string;
   vote: "yes" | "no" | "abstain" | "absent";
-  date: string;
-  source: Source;
+  date?: string;
+  source?: Source;
+}
+
+export interface ReviewFlag {
+  field: string;
+  concern: string;
+  suggestion?: string;
+  severity: "info" | "warning" | "error";
+}
+
+export interface AgentReview {
+  model: string;
+  reviewed_at: string;
+  verdict: "approved" | "needs_revision" | "flagged";
+  flags: ReviewFlag[];
+  summary: string;
 }
 
 export interface Candidate {
@@ -63,9 +95,12 @@ export interface Candidate {
   party?: string;
   incumbent: boolean;
   summary: string;
+  image_url?: string;
   issues: Record<CanonicalIssue, IssueStance>;
+  career_history: CareerEntry[];
+  education: EducationEntry[];
+  voting_record: VotingRecord[];
   top_donors: TopDonor[];
-  voting_record?: VotingRecord[];
   website?: string;
   social_media: Record<string, string>;
 }
@@ -79,6 +114,7 @@ export interface Race {
   title?: string;
   office?: string;
   jurisdiction?: string;
+  reviews?: AgentReview[];
 }
 
 export const CANONICAL_ISSUES: CanonicalIssue[] = [
@@ -127,6 +163,7 @@ export interface RunOptions {
   skip_cloud_services?: boolean;
   save_artifact?: boolean;
   note?: string;
+  enable_review?: boolean;
 }
 
 export interface RunStep {
