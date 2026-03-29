@@ -88,6 +88,9 @@ Search for:
    The URL MUST end in .jpg, .jpeg, .png, .gif, or .webp, or be from a known image CDN.
    Do NOT use a Wikipedia/Commons page URL (commons.wikimedia.org/wiki/File:...) — that is a
    gallery page, not an image file. Set to null if you cannot confirm a direct image file URL.
+9. A 2-3 sentence nonpartisan description of this race — what office is being
+   contested, why this race matters (e.g. open seat, competitive, national
+   implications), and the key themes or contrasts between the candidates.
 """ + _DONOR_SCHEMA_NOTE + """
 
 Return JSON:
@@ -97,6 +100,7 @@ Return JSON:
   "office": "<office name>",
   "jurisdiction": "<state or district>",
   "election_date": "<YYYY-MM-DD or best estimate>",
+  "description": "<2-3 sentence nonpartisan overview of the race>",
   "candidates": [
     {{
       "name": "<full name>",
@@ -213,6 +217,9 @@ Review and improve this profile:
    - Official government sites that serve .jpg files directly.
    Only set image_url if you find a URL that directly serves an image file.
 9. Verify voting record entries are accurate.
+10. Write or improve the top-level 'description' field: 2-3 sentences
+    describing the office being contested, why this race matters, and key
+    contrasts between the candidates.
 
 Return the COMPLETE improved JSON profile (same schema as input).
 Do NOT omit any fields – return the full object."""
@@ -250,6 +257,9 @@ Update this profile:
    Only set image_url if you find a URL that directly serves an image file.
 8. Add or update voting record entries.
 9. Add or update top_donors entries, and include a source object on every donor item.
+10. Write or improve the top-level 'description' field: 2-3 sentences
+    describing the office being contested, why this race matters, and key
+    contrasts between the candidates.
 
 Return the COMPLETE updated JSON profile (same schema as input).
 Do NOT omit any fields – return the full object."""

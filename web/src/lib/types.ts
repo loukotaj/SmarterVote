@@ -116,6 +116,7 @@ export interface Race {
   title?: string;
   office?: string;
   jurisdiction?: string;
+  description?: string;
   reviews?: AgentReview[];
 }
 

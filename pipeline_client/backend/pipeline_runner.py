@@ -145,7 +145,7 @@ async def run_step_async(step: str, request: RunRequest, run_id: Optional[str] =
 
     except Exception as e:
         duration_ms = int((time.perf_counter() - t0) * 1000)
-        error_msg = str(e)
+        error_msg = str(e) or f"{type(e).__name__}: (no message)"
 
         context_logger.error(f"Pipeline step '{step}' failed: {error_msg}", exc_info=True)
 

@@ -45,7 +45,7 @@
   <meta
     name="description"
     content="Compare candidates for {race?.title ||
-      'this election'} on key issues with AI-powered analysis."
+      'this election'} on key issues using analysis from traceable public sources."
   />
 </svelte:head>
 
@@ -101,25 +101,9 @@
 
     <!-- Race Overview -->
     <Card class="overview-card">
-      <h2 class="overview-title">Race Overview</h2>
-      <div class="overview-grid">
-        <div class="overview-stat">
-          <span class="stat-number">{candidateCount}</span>
-          <span class="stat-label">Candidate{candidateCount !== 1 ? 's' : ''}</span>
-        </div>
-        <div class="overview-stat">
-          <span class="stat-number">{parties.length}</span>
-          <span class="stat-label">{parties.length === 1 ? 'Party' : 'Parties'}</span>
-        </div>
-        <div class="overview-stat">
-          <span class="stat-number">{incumbents.length}</span>
-          <span class="stat-label">Incumbent{incumbents.length !== 1 ? 's' : ''}</span>
-        </div>
-        <div class="overview-stat">
-          <span class="stat-number">{Object.keys(race.candidates?.[0]?.issues ?? {}).length}</span>
-          <span class="stat-label">Issues Analyzed</span>
-        </div>
-      </div>
+      {#if race.description}
+        <p class="overview-description">{race.description}</p>
+      {/if}
       <div class="overview-candidates">
         {#each (race.candidates ?? []) as candidate}
           <a href="/races/{race.id}/{candidateSlug(candidate.name)}" class="overview-candidate-chip">
@@ -287,24 +271,8 @@
     @apply p-4 sm:p-6 mb-6 sm:mb-8 shadow-sm;
   }
 
-  .overview-title {
-    @apply text-lg sm:text-xl font-semibold text-gray-900 mb-4;
-  }
-
-  .overview-grid {
-    @apply grid grid-cols-2 sm:grid-cols-4 gap-4 mb-5;
-  }
-
-  .overview-stat {
-    @apply flex flex-col items-center p-3 bg-gray-50 rounded-lg;
-  }
-
-  .stat-number {
-    @apply text-2xl font-bold text-blue-600;
-  }
-
-  .stat-label {
-    @apply text-xs text-gray-500 mt-1;
+  .overview-description {
+    @apply text-gray-700 text-sm sm:text-base leading-relaxed mb-4;
   }
 
   .overview-candidates {

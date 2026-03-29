@@ -198,7 +198,7 @@ async def _call_openai(
     import asyncio
 
     for attempt in range(max_retries):
-        async with httpx.AsyncClient(timeout=120) as client:
+        async with httpx.AsyncClient(timeout=300) as client:
             resp = await client.post(
                 "https://api.openai.com/v1/chat/completions",
                 headers={

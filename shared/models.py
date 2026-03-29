@@ -198,6 +198,7 @@ class RaceJSON(BaseModel):
     title: Optional[str] = None
     office: Optional[str] = None
     jurisdiction: Optional[str] = None
+    description: Optional[str] = None
 
     # Multi-LLM reviews
     reviews: List[AgentReview] = Field(default_factory=list)

@@ -2,7 +2,7 @@
   <title>About | Smarter.vote</title>
   <meta
     name="description"
-    content="Learn about Smarter.vote's mission to provide unbiased, AI-powered candidate analysis to help voters make informed decisions."
+    content="Learn about Smarter.vote's mission to provide unbiased candidate analysis from public, traceable sources to help voters make informed decisions."
   />
 </svelte:head>
 
@@ -21,9 +21,10 @@
       <p class="text-gray-700 leading-relaxed text-sm sm:text-base">
         Democracy works best when voters have access to clear, unbiased
         information about candidates and their positions. Smarter.vote uses
-        artificial intelligence to analyze public sources and present candidate
-        positions in an easy-to-understand format, helping voters make informed
-        decisions based on the issues that matter most to them.
+        automated research from public sources and presents candidate
+        positions in an easy-to-understand format with traceable citations,
+        helping voters make informed decisions based on the issues that
+        matter most to them.
       </p>
     </div>
 
@@ -47,7 +48,7 @@
             AI Analysis
           </h3>
           <p class="text-gray-700 text-sm sm:text-base">
-            Multiple AI models (including GPT-4 and Claude) independently
+            Research agents (including GPT-4 and Claude) independently
             analyze the collected information to extract candidate positions on
             key issues. This multi-model approach helps ensure accuracy and
             reduce bias.

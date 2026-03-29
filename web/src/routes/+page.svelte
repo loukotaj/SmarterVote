@@ -42,10 +42,10 @@
 </script>
 
 <svelte:head>
-  <title>Smarter.vote - AI-Powered Election Information</title>
+  <title>Smarter.vote - Clear Election Information</title>
   <meta
     name="description"
-    content="Compare candidates on key issues with AI-powered analysis from public sources."
+    content="Compare candidates on key issues with clear analysis from publicly available sources."
   />
 </svelte:head>
 
@@ -278,11 +278,11 @@
           </svg>
         </div>
         <h3 class="font-semibold text-gray-900 mb-2 text-sm sm:text-base">
-          AI Analysis
+          Research & Verify
         </h3>
         <p class="text-gray-600 text-xs sm:text-sm">
-          Multiple AI models analyze the content and extract positions on key
-          issues with confidence ratings.
+          Candidate positions are researched from public sources and rated by
+          confidence based on source quality.
         </p>
       </div>
       <div class="text-center sm:col-span-2 lg:col-span-1">

@@ -11,6 +11,7 @@
   export let raceId: string = "";
 
   let expanded = false;
+  let imageError = false;
   let activeTab: "issues" | "background" | "donors" | "voting" = "issues";
 
   function toggleExpanded() {
@@ -44,29 +45,18 @@
     <div class="flex items-start justify-between mb-3">
       <div class="flex items-start gap-4">
         <!-- Candidate Image -->
-        {#if candidate.image_url}
+        {#if candidate.image_url && !imageError}
           <img
             src={candidate.image_url}
             alt={candidate.name}
             class="candidate-image"
-            on:error={(e) => {
-              const target = e.currentTarget;
-              if (target instanceof HTMLImageElement) {
-                target.style.display = "none";
-              }
-            }}
+            on:error={() => { imageError = true; }}
           />
         {:else}
           <div class="candidate-image-placeholder">
-            <svg
-              class="w-8 h-8 text-gray-400"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
-              />
-            </svg>
+            <span class="candidate-initials">
+              {candidate.name.split(' ').filter(n => n.length > 0).map(n => n[0].toUpperCase()).slice(0, 2).join('')}
+            </span>
           </div>
         {/if}
         <div>
@@ -300,7 +290,11 @@
   }
 
   .candidate-image-placeholder {
-    @apply w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gray-100 border-2 border-gray-200 flex items-center justify-center flex-shrink-0;
+    @apply w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-blue-100 border-2 border-blue-200 flex items-center justify-center flex-shrink-0;
+  }
+
+  .candidate-initials {
+    @apply text-blue-700 font-bold text-lg sm:text-xl select-none;
   }
 
   .candidate-name {
