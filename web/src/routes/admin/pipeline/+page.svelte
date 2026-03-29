@@ -413,20 +413,6 @@
     }
   }
 
-  async function handleIterateRace(race: PublishedRaceSummary) {
-    try {
-      const result = await apiService.iterateRace(race.id, {
-        cheap_mode: cheapMode,
-        enable_review: true,
-      });
-      addLog("info", `Iteration started for ${race.id} (run_id: ${result.run_id})`);
-      await debouncedRefresh();
-    } catch (e) {
-      console.error("Failed to start iteration:", e);
-      addLog("error", `Failed to iterate race ${race.id}: ${e}`);
-    }
-  }
-
   function handleStopExecution() {
     if (pipeline.currentRunId && websocket.ws && websocket.ws.readyState === WebSocket.OPEN) {
       websocketActions.send({ type: "stop_run", run_id: pipeline.currentRunId });
@@ -772,15 +758,6 @@
                     class="text-xs px-2.5 py-1.5 rounded bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                   >
                     {queueItems.some((q) => q.race_id === race.id && (q.status === 'pending' || q.status === 'running')) ? 'Queued' : 'Update'}
-                  </button>
-                  <button
-                    type="button"
-                    on:click={() => handleIterateRace(race)}
-                    disabled={pipeline.isExecuting}
-                    title="Run review-feedback iteration to improve this profile"
-                    class="text-xs px-2.5 py-1.5 rounded bg-amber-600 text-white hover:bg-amber-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                  >
-                    Iterate
                   </button>
                   <button
                     type="button"

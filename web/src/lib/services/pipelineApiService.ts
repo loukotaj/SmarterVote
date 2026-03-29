@@ -217,24 +217,4 @@ export class PipelineApiService {
     return await res.json();
   }
 
-  // -- Iteration API ------------------------------------------------------
-
-  /**
-   * Run a review-feedback iteration pass on an existing race profile
-   */
-  async iterateRace(
-    raceId: string,
-    options: RunOptions = {}
-  ): Promise<{ run_id: string; status: string; step: string }> {
-    const res = await fetchWithAuth(`${this.apiBase}/api/iterate`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ race_id: raceId, options }),
-    });
-    if (!res.ok) {
-      const errorText = await res.text().catch(() => "Unknown error");
-      throw new Error(`HTTP ${res.status}: ${res.statusText}. ${errorText}`);
-    }
-    return await res.json();
-  }
 }

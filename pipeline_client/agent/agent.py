@@ -605,6 +605,34 @@ async def run_agent(
             grok_model=grok_model,
         )
         race_json["reviews"] = reviews
+
+        # --- Phase 5 (update only): Iterate on review feedback ---
+        if existing_data and _has_actionable_flags(reviews):
+            log("info", "Phase 5: Iterating on review feedback...")
+            improved = await _run_iteration_pass(
+                race_id, race_json, reviews,
+                model=model, on_log=on_log, max_iterations=max_iterations,
+            )
+            if improved is not None:
+                race_json = improved
+                # Re-normalize after iteration
+                now_iso = datetime.now(timezone.utc).isoformat()
+                race_json["updated_utc"] = now_iso
+                for candidate in race_json.get("candidates", []):
+                    if isinstance(candidate, dict):
+                        _normalize_candidate(candidate, now_iso)
+                race_json["generator"] = generators
+
+                log("info", "Post-iteration: Re-running reviews...")
+                reviews = await run_reviews(
+                    race_id, race_json,
+                    on_log=on_log,
+                    cheap_mode=cheap_mode,
+                    claude_model=claude_model,
+                    gemini_model=gemini_model,
+                    grok_model=grok_model,
+                )
+                race_json["reviews"] = reviews
     else:
         race_json.setdefault("reviews", [])
 
@@ -1003,91 +1031,44 @@ def _format_review_flags(reviews: List[Dict[str, Any]]) -> str:
     return "\n".join(lines) if lines else "  (no specific flags)"
 
 
-async def run_iteration(
+def _has_actionable_flags(reviews: List[Dict[str, Any]]) -> bool:
+    """Return True if any review has warning or error severity flags."""
+    for review in reviews:
+        for flag in review.get("flags", []):
+            if flag.get("severity") in ("warning", "error"):
+                return True
+    return False
+
+
+async def _run_iteration_pass(
     race_id: str,
+    race_json: Dict[str, Any],
+    reviews: List[Dict[str, Any]],
     *,
+    model: str,
     on_log: Any | None = None,
-    cheap_mode: bool = True,
     max_iterations: int = 20,
-    existing_data: Optional[Dict[str, Any]] = None,
-    review_flags: Optional[List[Dict[str, Any]]] = None,
-    enable_review: bool = True,
-    research_model: Optional[str] = None,
-    claude_model: Optional[str] = None,
-    gemini_model: Optional[str] = None,
-    grok_model: Optional[str] = None,
-) -> Dict[str, Any]:
-    """Run a targeted iteration pass on an existing profile using review feedback.
+) -> Optional[Dict[str, Any]]:
+    """Run a single iteration pass addressing review flags.
 
-    This loads the current published profile, formats review flags as
-    instructions, and sends the profile through a focused improvement
-    loop that addresses each flag. Optionally re-runs review afterwards.
-
-    Parameters
-    ----------
-    race_id : str
-        Race slug, e.g. ``"mo-senate-2024"``.
-    on_log : callable, optional
-        ``(level, message) -> None`` callback for streaming logs.
-    cheap_mode : bool
-        Use cheaper models when *True*.
-    max_iterations : int
-        Safety limit on the iteration loop.
-    existing_data : dict, optional
-        The profile to iterate on. Loaded from disk/GCS if None.
-    review_flags : list, optional
-        Review results to use as feedback. If None, uses the reviews
-        stored in the existing profile.
-    enable_review : bool
-        Re-run review after iteration.
+    Returns the improved race_json, or None if iteration fails or
+    produces a worse result (e.g. drops candidates).
     """
-    from .review import (
-        DEFAULT_CLAUDE_MODEL, CHEAP_CLAUDE_MODEL,
-        DEFAULT_GEMINI_MODEL, CHEAP_GEMINI_MODEL,
-        DEFAULT_GROK_MODEL, CHEAP_GROK_MODEL,
-    )
-
-    model = research_model or (CHEAP_MODEL if cheap_mode else DEFAULT_MODEL)
     log = make_logger(on_log)
-    t0 = time.perf_counter()
 
-    # Load existing profile
-    if existing_data is None:
-        existing_data = _load_existing(race_id)
-    if not existing_data:
-        raise ValueError(f"No existing profile found for {race_id} — run the agent first")
-
-    # Get review flags
-    if review_flags is None:
-        review_flags = existing_data.get("reviews", [])
-    if not review_flags:
-        log("warning", "No review flags available — running review first to generate feedback")
-        review_flags = await run_reviews(
-            race_id, existing_data,
-            on_log=on_log,
-            cheap_mode=cheap_mode,
-            claude_model=claude_model,
-            gemini_model=gemini_model,
-            grok_model=grok_model,
-        )
-        if not review_flags:
-            log("info", "No review feedback generated — nothing to iterate on")
-            return existing_data
-
-    flags_text = _format_review_flags(review_flags)
-    candidate_names = [c["name"] for c in existing_data.get("candidates", [])]
+    flags_text = _format_review_flags(reviews)
+    candidate_names = [c["name"] for c in race_json.get("candidates", [])]
     n = len(candidate_names)
     iterate_iters = _scale_iterations(max_iterations, n, per_candidate=3, minimum=15)
 
-    log("info", f"🔄 Iteration pass for {race_id} — {len(review_flags)} reviews, {n} candidates")
+    log("info", f"  Iteration: addressing review flags for {n} candidates")
 
-    # --- Iteration: address review feedback ---
     try:
-        race_json = _ensure_dict(await _agent_loop(
+        improved = _ensure_dict(await _agent_loop(
             ITERATE_SYSTEM,
             ITERATE_USER.format(
                 race_id=race_id,
-                profile_json=json.dumps(existing_data, indent=2, default=str),
+                profile_json=json.dumps(race_json, indent=2, default=str),
                 review_flags=flags_text,
                 all_issues=", ".join(CANONICAL_ISSUES),
             ),
@@ -1099,50 +1080,17 @@ async def run_iteration(
             max_tokens=32768,
         ), "iterate", log)
     except (RuntimeError, ValueError) as exc:
-        log("warning", f"  Iteration failed: {exc} — returning original profile")
-        return existing_data
+        log("warning", f"  Iteration failed: {exc} — keeping original")
+        return None
 
     # Unwrap if wrapped
-    if "race_json" in race_json and isinstance(race_json.get("race_json"), dict):
-        race_json = race_json["race_json"]
+    if "race_json" in improved and isinstance(improved.get("race_json"), dict):
+        improved = improved["race_json"]
 
     # Safety: never let iteration wipe candidates
-    if not race_json.get("candidates") or len(race_json.get("candidates", [])) < n:
-        log("warning", "  Iteration dropped candidates — keeping original profile")
-        return existing_data
+    if not improved.get("candidates") or len(improved.get("candidates", [])) < n:
+        log("warning", "  Iteration dropped candidates — keeping original")
+        return None
 
-    race_json.setdefault("id", race_id)
-    now_iso = datetime.now(timezone.utc).isoformat()
-    race_json["updated_utc"] = now_iso
-
-    # Record generators
-    generators = [model]
-    if enable_review:
-        if os.getenv("ANTHROPIC_API_KEY"):
-            generators.append(claude_model or (CHEAP_CLAUDE_MODEL if cheap_mode else DEFAULT_CLAUDE_MODEL))
-        if os.getenv("GEMINI_API_KEY"):
-            generators.append(gemini_model or (CHEAP_GEMINI_MODEL if cheap_mode else DEFAULT_GEMINI_MODEL))
-        if os.getenv("XAI_API_KEY"):
-            generators.append(grok_model or (CHEAP_GROK_MODEL if cheap_mode else DEFAULT_GROK_MODEL))
-    race_json["generator"] = generators
-
-    for candidate in race_json.get("candidates", []):
-        if isinstance(candidate, dict):
-            _normalize_candidate(candidate, now_iso)
-
-    # Re-run review if enabled
-    if enable_review:
-        log("info", "Post-iteration: Re-running reviews...")
-        reviews = await run_reviews(
-            race_id, race_json,
-            on_log=on_log,
-            cheap_mode=cheap_mode,
-            claude_model=claude_model,
-            gemini_model=gemini_model,
-            grok_model=grok_model,
-        )
-        race_json["reviews"] = reviews
-
-    elapsed = time.perf_counter() - t0
-    log("info", f"✅ Iteration finished in {elapsed:.1f}s")
-    return race_json
+    improved.setdefault("id", race_id)
+    return improved
