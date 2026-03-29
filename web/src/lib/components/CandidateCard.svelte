@@ -47,7 +47,7 @@
   $: hasEducation = candidate.education && candidate.education.length > 0;
   $: hasBackground = hasCareer || hasEducation;
   $: hasVoting =
-    candidate.voting_record && candidate.voting_record.length > 0;
+    (candidate.voting_record && candidate.voting_record.length > 0) || !!candidate.voting_summary;
 </script>
 
 <Card class="candidate-card group" id={generateCandidateId(candidate.name)}>
@@ -264,12 +264,15 @@
         {:else if activeTab === "donors"}
           <DonorTable
             donors={candidate.top_donors}
+            donorSourceUrl={candidate.donor_source_url || ''}
             {raceId}
             candidateName={candidate.name}
           />
         {:else if activeTab === "voting"}
           <VotingRecordTable
             votingRecord={candidate.voting_record || []}
+            votingSummary={candidate.voting_summary || ''}
+            votingSourceUrl={candidate.voting_source_url || ''}
             {raceId}
             candidateName={candidate.name}
           />

@@ -1,5 +1,6 @@
 import type { Race, RaceSummary } from "./types";
 import { sampleRaces } from "./sampleData";
+import { logger } from "./utils/logger";
 
 const API_BASE = import.meta.env.VITE_RACES_API_URL || "http://localhost:8080";
 
@@ -17,7 +18,7 @@ export async function getRace(
   } catch (error) {
     // If fallback is enabled and we have sample data for this race, use it
     if (useFallback && sampleRaces[id]) {
-      console.warn(
+      logger.warn(
         `API request failed for race ${id}, falling back to sample data:`,
         error
       );
@@ -26,7 +27,7 @@ export async function getRace(
 
     // If no specific sample data exists but fallback is enabled, use generic sample
     if (useFallback) {
-      console.warn(
+      logger.warn(
         `API request failed for race ${id}, falling back to generic sample data:`,
         error
       );
@@ -55,7 +56,7 @@ export async function getRaceSummaries(
   } catch (error) {
     // If fallback is enabled, create summaries from sample races
     if (useFallback) {
-      console.warn(
+      logger.warn(
         `API request failed for race summaries, falling back to sample data:`,
         error
       );
@@ -84,7 +85,7 @@ export async function getAllRaces(
   fetchFn: typeof fetch = fetch,
   useFallback: boolean = true
 ): Promise<Race[]> {
-  console.warn("getAllRaces is deprecated, use getRaceSummaries instead");
+  logger.warn("getAllRaces is deprecated, use getRaceSummaries instead");
   try {
     const res = await fetchFn(`${API_BASE}/races`);
     if (!res.ok) {
@@ -94,7 +95,7 @@ export async function getAllRaces(
   } catch (error) {
     // If fallback is enabled, return all sample races
     if (useFallback) {
-      console.warn(
+      logger.warn(
         `API request failed for all races, falling back to sample data:`,
         error
       );

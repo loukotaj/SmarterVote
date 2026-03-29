@@ -4,6 +4,7 @@
   import NoDataFallback from "./NoDataFallback.svelte";
 
   export let donors: TopDonor[];
+  export let donorSourceUrl: string = "";
   export let raceId: string = "";
   export let candidateName: string = "";
 
@@ -19,6 +20,12 @@
 </script>
 
 <div class="donors-container">
+  {#if donorSourceUrl}
+    <a href={donorSourceUrl} target="_blank" rel="noopener noreferrer" class="donor-source-btn">
+      View all campaign donors →
+    </a>
+  {/if}
+
   {#if donors.length === 0}
     <NoDataFallback dataType="donors" {raceId} {candidateName} />
   {:else}
@@ -31,9 +38,14 @@
             {#if donor.organization && donor.organization !== donor.name}
               <div class="donor-org">{donor.organization}</div>
             {/if}
-            {#if amount}
-              <div class="donor-amount">{amount}</div>
-            {/if}
+            <div class="donor-meta">
+              {#if amount}
+                <span class="donor-amount">{amount}</span>
+              {/if}
+              {#if donor.donation_year}
+                <span class="donor-year">({donor.donation_year})</span>
+              {/if}
+            </div>
           </div>
           <div class="donor-source">
             {#if donor.source}
@@ -49,6 +61,16 @@
 <style lang="postcss">
   .donors-container { @apply space-y-4; }
   .donors-list { @apply space-y-3; }
+
+  .donor-source-btn {
+    @apply inline-flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-medium transition-colors;
+    background-color: rgb(var(--sv-primary) / 0.1);
+    color: rgb(var(--sv-primary));
+    border: 1px solid rgb(var(--sv-primary) / 0.3);
+  }
+  .donor-source-btn:hover {
+    background-color: rgb(var(--sv-primary) / 0.2);
+  }
 
   .donor-item {
     background-color: rgb(var(--sv-surface-alt));
@@ -68,8 +90,17 @@
     @apply text-xs mt-1;
   }
 
+  .donor-meta {
+    @apply flex items-center gap-2 mt-1;
+  }
+
   .donor-amount {
-    @apply text-green-600 dark:text-green-400 font-medium text-sm mt-1;
+    @apply text-green-600 dark:text-green-400 font-medium text-sm;
+  }
+
+  .donor-year {
+    color: rgb(var(--sv-text-muted));
+    @apply text-xs;
   }
 
   .donor-source { @apply ml-4 flex-shrink-0; }

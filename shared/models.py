@@ -87,6 +87,7 @@ class TopDonor(BaseModel):
     name: str
     amount: Optional[float] = None
     organization: Optional[str] = None
+    donation_year: Optional[str] = None
     source: Optional[Source] = None
 
 
@@ -173,8 +174,13 @@ class Candidate(BaseModel):
     education: List[EducationEntry] = Field(default_factory=list)
     voting_record: List[VotingRecord] = Field(default_factory=list)
 
+    # Voting summary
+    voting_summary: Optional[str] = None
+    voting_source_url: Optional[str] = None
+
     # Financial
     top_donors: List[TopDonor] = Field(default_factory=list)
+    donor_source_url: Optional[str] = None
 
     # Web presence
     website: Optional[HttpUrl] = None

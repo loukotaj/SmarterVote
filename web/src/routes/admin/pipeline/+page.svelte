@@ -26,6 +26,7 @@
 
   // Utilities
   import { debounce, safeJsonStringify, downloadAsJson } from "$lib/utils/pipelineUtils";
+  import { logger } from "$lib/utils/logger";
   import type { RunHistoryItem, Artifact } from "$lib/types";
 
   const API_BASE = import.meta.env.VITE_API_BASE || "http://127.0.0.1:8001";
@@ -106,7 +107,7 @@
 
       addLog("info", "Pipeline dashboard initialized");
     } catch (error) {
-      console.error("Failed to initialize pipeline dashboard:", error);
+      logger.error("Failed to initialize pipeline dashboard:", error);
       addLog("error", `Initialization failed: ${error}`);
     }
   });
@@ -164,7 +165,7 @@
         }
       }
     } catch (error) {
-      console.error("Failed to load initial data:", error);
+      logger.error("Failed to load initial data:", error);
       addLog("error", "Failed to load initial data");
     }
   }
@@ -219,7 +220,7 @@
         pipelineActions.setArtifacts(artifactsResult.value);
       }
     } catch (error) {
-      console.error("Refresh failed:", error);
+      logger.error("Refresh failed:", error);
     } finally {
       pendingRefresh = false;
       pipelineActions.setRefreshing(false);
@@ -310,7 +311,7 @@
     try {
       publishedRaces = await apiService.loadPublishedRaces();
     } catch (e) {
-      console.error("Failed to refresh published races:", e);
+      logger.error("Failed to refresh published races:", e);
     } finally {
       racesLoading = false;
     }
@@ -397,7 +398,7 @@
       addLog("info", `Deleted race: ${race.id}`);
       await refreshPublishedRaces();
     } catch (e) {
-      console.error("Failed to delete race:", e);
+      logger.error("Failed to delete race:", e);
       addLog("error", `Failed to delete race ${race.id}: ${e}`);
     }
   }
@@ -408,7 +409,7 @@
       downloadAsJson(data, `${race.id}.json`);
       addLog("info", `Exported race: ${race.id}`);
     } catch (e) {
-      console.error("Failed to export race:", e);
+      logger.error("Failed to export race:", e);
       addLog("error", `Failed to export race ${race.id}: ${e}`);
     }
   }

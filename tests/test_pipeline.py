@@ -95,14 +95,17 @@ def test_issue_research_user_formats():
 
 
 def test_refine_user_formats():
-    """Refine user prompt accepts race_id, draft_json, all_issues."""
+    """Refine user prompt accepts race_id, candidate_name, candidate_json, and other params."""
     result = REFINE_USER.format(
         race_id="mo-senate-2024",
-        draft_json='{"id": "test"}',
+        candidate_name="Jane Doe",
+        candidate_json='{"name": "Jane Doe"}',
+        race_description="A senate race.",
+        other_candidates="John Smith",
         all_issues="Healthcare, Economy",
     )
     assert "mo-senate-2024" in result
-    assert '{"id": "test"}' in result
+    assert "Jane Doe" in result
     assert "Healthcare, Economy" in result
 
 
@@ -128,10 +131,13 @@ def test_refine_prompt_mentions_donor_sources():
     """Refine prompt requires source objects on donor entries."""
     result = REFINE_USER.format(
         race_id="mo-senate-2024",
-        draft_json='{"id": "test"}',
+        candidate_name="Jane Doe",
+        candidate_json='{"name": "Jane Doe"}',
+        race_description="A senate race.",
+        other_candidates="John Smith",
         all_issues="Healthcare, Economy",
     )
-    assert "source object on every donor entry" in result
+    assert "donor entry must follow this shape" in result
 
 
 def test_update_prompt_mentions_donor_sources():
@@ -255,10 +261,46 @@ FAKE_RACE_JSON = {
 }
 
 
+def _mock_openai_response(content=None, tool_calls=None, finish_reason="stop"):
+    """Build a mock object mimicking the OpenAI SDK ChatCompletion response."""
+    fn_mocks = []
+    if tool_calls:
+        for tc in tool_calls:
+            fn_mock = MagicMock()
+            fn_mock.name = tc["function"]["name"]
+            fn_mock.arguments = tc["function"]["arguments"]
+            tc_mock = MagicMock()
+            tc_mock.id = tc["id"]
+            tc_mock.function = fn_mock
+            fn_mocks.append(tc_mock)
+
+    message = MagicMock()
+    message.content = content
+    message.tool_calls = fn_mocks or None
+    message.model_dump.return_value = {
+        "role": "assistant",
+        "content": content,
+        "tool_calls": tool_calls,
+    }
+
+    choice = MagicMock()
+    choice.message = message
+    choice.finish_reason = finish_reason
+
+    usage = MagicMock()
+    usage.prompt_tokens = 100
+    usage.completion_tokens = 50
+
+    response = MagicMock()
+    response.choices = [choice]
+    response.usage = usage
+    return response
+
+
 @pytest.mark.asyncio
 async def test_agent_loop_produces_json():
     """_agent_loop returns parsed JSON when model gives a direct answer."""
-    response = {"choices": [{"message": {"content": json.dumps({"result": "ok"})}}]}
+    response = _mock_openai_response(content=json.dumps({"result": "ok"}))
     with patch("pipeline_client.agent.agent._call_openai", new_callable=AsyncMock) as mock:
         mock.return_value = response
         result = await _agent_loop("system", "user", model="gpt-5.4-mini", phase_name="test")
@@ -268,25 +310,18 @@ async def test_agent_loop_produces_json():
 @pytest.mark.asyncio
 async def test_agent_loop_handles_tool_calls():
     """_agent_loop executes tool calls then returns final JSON."""
-    tool_response = {
-        "choices": [
+    tool_response = _mock_openai_response(
+        tool_calls=[
             {
-                "message": {
-                    "tool_calls": [
-                        {
-                            "id": "call_1",
-                            "function": {
-                                "name": "web_search",
-                                "arguments": json.dumps({"query": "test"}),
-                            },
-                        }
-                    ],
-                    "content": None,
-                }
+                "id": "call_1",
+                "function": {
+                    "name": "web_search",
+                    "arguments": json.dumps({"query": "test"}),
+                },
             }
-        ]
-    }
-    final_response = {"choices": [{"message": {"content": json.dumps({"done": True})}}]}
+        ],
+    )
+    final_response = _mock_openai_response(content=json.dumps({"done": True}))
 
     with (
         patch("pipeline_client.agent.agent._call_openai", new_callable=AsyncMock) as mock_call,
@@ -304,32 +339,25 @@ async def test_agent_loop_handles_tool_calls():
 @pytest.mark.asyncio
 async def test_agent_loop_handles_multiple_tool_calls():
     """_agent_loop handles multiple tool calls in a single response."""
-    tool_response = {
-        "choices": [
+    tool_response = _mock_openai_response(
+        tool_calls=[
             {
-                "message": {
-                    "tool_calls": [
-                        {
-                            "id": "call_1",
-                            "function": {
-                                "name": "web_search",
-                                "arguments": json.dumps({"query": "query 1"}),
-                            },
-                        },
-                        {
-                            "id": "call_2",
-                            "function": {
-                                "name": "web_search",
-                                "arguments": json.dumps({"query": "query 2"}),
-                            },
-                        },
-                    ],
-                    "content": None,
-                }
-            }
-        ]
-    }
-    final_response = {"choices": [{"message": {"content": json.dumps({"done": True})}}]}
+                "id": "call_1",
+                "function": {
+                    "name": "web_search",
+                    "arguments": json.dumps({"query": "query 1"}),
+                },
+            },
+            {
+                "id": "call_2",
+                "function": {
+                    "name": "web_search",
+                    "arguments": json.dumps({"query": "query 2"}),
+                },
+            },
+        ],
+    )
+    final_response = _mock_openai_response(content=json.dumps({"done": True}))
 
     with (
         patch("pipeline_client.agent.agent._call_openai", new_callable=AsyncMock) as mock_call,
@@ -347,8 +375,8 @@ async def test_agent_loop_handles_multiple_tool_calls():
 @pytest.mark.asyncio
 async def test_agent_loop_retries_bad_json():
     """_agent_loop asks model to fix output when JSON is invalid."""
-    bad = {"choices": [{"message": {"content": "not json"}}]}
-    good = {"choices": [{"message": {"content": json.dumps({"ok": True})}}]}
+    bad = _mock_openai_response(content="not json")
+    good = _mock_openai_response(content=json.dumps({"ok": True}))
 
     with patch("pipeline_client.agent.agent._call_openai", new_callable=AsyncMock) as mock:
         mock.side_effect = [bad, good]
@@ -361,7 +389,7 @@ async def test_agent_loop_retries_bad_json():
 @pytest.mark.asyncio
 async def test_agent_loop_raises_on_max_iterations():
     """_agent_loop raises RuntimeError when max iterations reached."""
-    bad = {"choices": [{"message": {"content": "still not json"}}]}
+    bad = _mock_openai_response(content="still not json")
 
     with patch("pipeline_client.agent.agent._call_openai", new_callable=AsyncMock) as mock:
         mock.return_value = bad
@@ -378,25 +406,18 @@ async def test_agent_loop_raises_on_max_iterations():
 @pytest.mark.asyncio
 async def test_agent_loop_passes_race_id_to_search():
     """_agent_loop passes race_id to _serper_search for cache scoping."""
-    tool_response = {
-        "choices": [
+    tool_response = _mock_openai_response(
+        tool_calls=[
             {
-                "message": {
-                    "tool_calls": [
-                        {
-                            "id": "call_1",
-                            "function": {
-                                "name": "web_search",
-                                "arguments": json.dumps({"query": "test"}),
-                            },
-                        }
-                    ],
-                    "content": None,
-                }
+                "id": "call_1",
+                "function": {
+                    "name": "web_search",
+                    "arguments": json.dumps({"query": "test"}),
+                },
             }
-        ]
-    }
-    final_response = {"choices": [{"message": {"content": json.dumps({"ok": True})}}]}
+        ],
+    )
+    final_response = _mock_openai_response(content=json.dumps({"ok": True}))
 
     with (
         patch("pipeline_client.agent.agent._call_openai", new_callable=AsyncMock) as mock_call,
@@ -514,7 +535,8 @@ async def test_run_agent_fresh():
         patch("pipeline_client.agent.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
         patch("pipeline_client.agent.agent._load_existing", return_value=None),
     ):
-        # discovery, image resolution (1 candidate), 6 issue groups, finance/voting, refine = 10 total calls
+        # discovery, image resolution (1 candidate), 6 issue groups, finance/voting,
+        # per-candidate refine (1), meta refine = 11 total calls
         mock_loop.side_effect = [
             discovery_result,  # discovery
             {"image_url": None},  # image resolution for Alice
@@ -525,16 +547,17 @@ async def test_run_agent_fresh():
             issue_result,  # issue group 5
             issue_result,  # issue group 6
             {"Alice": {"top_donors": [], "voting_record": []}},  # finance/voting
-            refined_result,  # refine
+            refined_result,  # per-candidate refine (Alice)
+            {},  # meta refine (description/polling)
         ]
 
-        result = await run_agent("test-2024", cheap_mode=True)
+        result = await run_agent("test-2024", cheap_mode=True, enable_review=False)
 
     assert result["id"] == "test-2024"
     assert "updated_utc" in result
     assert result["generator"] == ["gpt-5.4-mini"]
-    # discovery + image resolution + 6 issue groups + finance/voting + refine = 10
-    assert mock_loop.call_count == 10
+    # discovery + image resolution + 6 issue groups + finance/voting + candidate refine + meta refine = 11
+    assert mock_loop.call_count == 11
 
 
 @pytest.mark.asyncio
@@ -569,12 +592,12 @@ async def test_run_agent_update_mode():
         patch("pipeline_client.agent.agent._load_existing", return_value=existing),
     ):
         mock_loop.return_value = updated
-        result = await run_agent("test-2024", cheap_mode=True)
+        result = await run_agent("test-2024", cheap_mode=True, enable_review=False)
 
     assert result["id"] == "test-2024"
     # existing has no candidates → falls back to _run_fresh:
-    # discovery + image (Bob) + 6 issue groups + finance/voting + refinement = 10 calls
-    assert mock_loop.call_count == 10
+    # discovery + image (Bob) + 6 issue groups + finance/voting + candidate refine + meta refine = 11 calls
+    assert mock_loop.call_count == 11
 
 
 @pytest.mark.asyncio

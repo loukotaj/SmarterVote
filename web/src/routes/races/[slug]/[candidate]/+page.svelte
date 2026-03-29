@@ -53,7 +53,7 @@
   $: hasEducation =
     candidate && candidate.education && candidate.education.length > 0;
   $: hasVoting =
-    candidate && candidate.voting_record && candidate.voting_record.length > 0;
+    (candidate && candidate.voting_record && candidate.voting_record.length > 0) || !!(candidate && candidate.voting_summary);
   $: hasDonors =
     candidate && candidate.top_donors && candidate.top_donors.length > 0;
 </script>
@@ -263,7 +263,12 @@
       <section class="detail-section">
         <h2 class="section-heading">Top Donors</h2>
         <Card class="section-card">
-          <DonorTable donors={candidate.top_donors} raceId={race.id} candidateName={candidate.name} />
+          <DonorTable
+            donors={candidate.top_donors}
+            donorSourceUrl={candidate.donor_source_url || ''}
+            raceId={race.id}
+            candidateName={candidate.name}
+          />
         </Card>
       </section>
     {/if}
@@ -273,7 +278,13 @@
       <section class="detail-section">
         <h2 class="section-heading">Voting Record</h2>
         <Card class="section-card">
-          <VotingRecordTable votingRecord={candidate.voting_record} raceId={race.id} candidateName={candidate.name} />
+          <VotingRecordTable
+            votingRecord={candidate.voting_record}
+            votingSummary={candidate.voting_summary || ''}
+            votingSourceUrl={candidate.voting_source_url || ''}
+            raceId={race.id}
+            candidateName={candidate.name}
+          />
         </Card>
       </section>
     {/if}

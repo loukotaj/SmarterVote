@@ -621,15 +621,35 @@ async def run_agent(
         )
         race_json["reviews"] = reviews
 
-        # --- Phase 5 (update only): Iterate on review feedback ---
-        if existing_data and _has_actionable_flags(reviews):
-            log("info", "Phase 5: Iterating on review feedback...")
+        # --- Phase 5: Iterate on review feedback (up to 2 cycles) ---
+        max_review_cycles = 2
+        dismissed_fields: set[str] = set()  # track flags dismissed by source verification
+        for cycle in range(1, max_review_cycles + 1):
+            # Cycle 2+: only iterate on error-severity flags to break subjective loops
+            min_severity = "error" if cycle > 1 else "warning"
+            if not _has_actionable_flags(reviews, min_severity=min_severity, exclude_fields=dismissed_fields):
+                if cycle == 1:
+                    log("info", "  No actionable review flags — skipping iteration")
+                else:
+                    log("info", f"  Cycle {cycle}: no remaining {min_severity}+ flags — done")
+                break
+
+            log("info", f"Phase 5 (cycle {cycle}/{max_review_cycles}): Iterating on review feedback...")
+            # Split iteration budget: 60% cycle 1, 40% cycle 2
+            cycle_budget = int(max_iterations * (0.6 if cycle == 1 else 0.4))
             improved = await _run_iteration_pass(
                 race_id, race_json, reviews,
-                model=model, on_log=on_log, max_iterations=max_iterations,
+                model=model, on_log=on_log, max_iterations=max(cycle_budget, 8),
             )
             if improved is not None:
                 race_json = improved
+                # Collect dismissed flags from this cycle
+                for note in race_json.get("iteration_notes", []):
+                    if isinstance(note, str) and note.startswith("DISMISSED:"):
+                        # Format: "DISMISSED:field_path — reason"
+                        field = note.split("DISMISSED:", 1)[1].split(" \u2014 ", 1)[0].strip()
+                        if field:
+                            dismissed_fields.add(field)
                 # Re-normalize after iteration
                 now_iso = datetime.now(timezone.utc).isoformat()
                 race_json["updated_utc"] = now_iso
@@ -638,7 +658,7 @@ async def run_agent(
                         _normalize_candidate(candidate, now_iso)
                 race_json["generator"] = generators
 
-                log("info", "Post-iteration: Re-running reviews...")
+                log("info", f"  Cycle {cycle}: Re-running reviews...")
                 reviews = await run_reviews(
                     race_id, race_json,
                     on_log=on_log,
@@ -648,6 +668,11 @@ async def run_agent(
                     grok_model=grok_model,
                 )
                 race_json["reviews"] = reviews
+            else:
+                log("warning", f"  Cycle {cycle}: iteration failed — stopping")
+                break
+        if dismissed_fields:
+            log("info", f"  {len(dismissed_fields)} reviewer flag(s) dismissed via source verification")
     else:
         race_json.setdefault("reviews", [])
 
@@ -656,7 +681,7 @@ async def run_agent(
 
     # Sanity-check: reject partial LLM output (e.g. a stray polling entry)
     _candidates = race_json.get("candidates")
-    if not isinstance(_candidates, list) or len(_candidates) == 0:
+    if not isinstance(_candidates, list):
         raise ValueError(
             f"Agent output for '{race_id}' has no 'candidates' — looks like a partial "
             f"LLM response was returned instead of the full race profile. "
@@ -1115,7 +1140,7 @@ def _apply_finance_patch(race_json: Dict[str, Any], patch: Dict[str, Any], log: 
             continue
         candidate = candidates_by_name[cand_name]
 
-        # Merge donors — replace if the new data has more entries
+        # Merge donors — replace if the new data has more entries, then deduplicate
         new_donors = data.get("top_donors", [])
         if isinstance(new_donors, list) and new_donors:
             existing_donors = candidate.get("top_donors", [])
@@ -1128,6 +1153,8 @@ def _apply_finance_patch(race_json: Dict[str, Any], patch: Dict[str, Any], log: 
                     if d.get("name", "").lower() not in existing_names:
                         existing_donors.append(d)
                 candidate["top_donors"] = existing_donors
+            # Deduplicate donors by name (keep highest amount)
+            candidate["top_donors"] = _deduplicate_donors(candidate["top_donors"])
 
         # Merge voting records — deduplicate by bill_name
         new_votes = data.get("voting_record", [])
@@ -1137,8 +1164,35 @@ def _apply_finance_patch(race_json: Dict[str, Any], patch: Dict[str, Any], log: 
                 existing_vr[vote.get("bill_name", "")] = vote
             candidate["voting_record"] = list(existing_vr.values())
 
+        # Merge new scalar fields
+        if data.get("voting_summary"):
+            candidate["voting_summary"] = data["voting_summary"]
+        if data.get("voting_source_url"):
+            candidate["voting_source_url"] = data["voting_source_url"]
+        if data.get("donor_source_url"):
+            candidate["donor_source_url"] = data["donor_source_url"]
+
         updated += 1
     log("info", f"  Finance/voting patch applied — {updated} candidates updated")
+
+
+def _deduplicate_donors(donors: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Deduplicate donors by lowercased name, keeping the entry with the highest amount."""
+    best: Dict[str, Dict[str, Any]] = {}
+    for d in donors:
+        key = d.get("name", "").strip().lower()
+        if not key:
+            continue
+        existing = best.get(key)
+        if existing is None:
+            best[key] = d
+        else:
+            # Keep whichever has the higher amount (treat None as 0)
+            new_amt = d.get("amount") or 0
+            old_amt = existing.get("amount") or 0
+            if new_amt > old_amt:
+                best[key] = d
+    return list(best.values())
 
 
 def _format_review_flags(reviews: List[Dict[str, Any]]) -> str:
@@ -1161,11 +1215,22 @@ def _format_review_flags(reviews: List[Dict[str, Any]]) -> str:
     return "\n".join(lines) if lines else "  (no specific flags)"
 
 
-def _has_actionable_flags(reviews: List[Dict[str, Any]]) -> bool:
-    """Return True if any review has warning or error severity flags."""
+def _has_actionable_flags(
+    reviews: List[Dict[str, Any]],
+    min_severity: str = "warning",
+    exclude_fields: set | None = None,
+) -> bool:
+    """Return True if any review has actionable flags at or above *min_severity*.
+
+    *exclude_fields* is a set of field paths to skip (already dismissed).
+    """
+    severity_rank = {"info": 0, "warning": 1, "error": 2}
+    threshold = severity_rank.get(min_severity, 1)
+    _excluded = exclude_fields or set()
     for review in reviews:
         for flag in review.get("flags", []):
-            if flag.get("severity") in ("warning", "error"):
+            rank = severity_rank.get(flag.get("severity", "info"), 0)
+            if rank >= threshold and flag.get("field", "") not in _excluded:
                 return True
     return False
 

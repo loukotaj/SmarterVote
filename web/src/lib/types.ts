@@ -49,6 +49,7 @@ export interface TopDonor {
   name: string;
   amount?: number;
   organization?: string;
+  donation_year?: string;
   source?: Source;
 }
 
@@ -103,7 +104,10 @@ export interface Candidate {
   career_history: CareerEntry[];
   education: EducationEntry[];
   voting_record: VotingRecord[];
+  voting_summary?: string;
+  voting_source_url?: string;
   top_donors: TopDonor[];
+  donor_source_url?: string;
   website?: string;
   social_media: Record<string, string>;
 }

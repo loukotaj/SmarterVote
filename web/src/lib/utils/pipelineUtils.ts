@@ -2,6 +2,7 @@
  * Pipeline utility functions
  */
 import type { RunStatus } from "$lib/types";
+import { logger } from "$lib/utils/logger";
 
 /**
  * Format duration in seconds to human readable format
@@ -85,7 +86,7 @@ export function safeJsonStringify(
 
     return { content: jsonString, truncated: false };
   } catch (error) {
-    console.error("Failed to stringify data:", error);
+    logger.error("Failed to stringify data:", error);
 
     // Provide helpful info about the object
     if (typeof data === "object" && data !== null) {
@@ -119,7 +120,7 @@ export async function copyToClipboard(
   try {
     // Check size before copying (Chrome has ~5MB clipboard limit)
     if (text.length > maxSize) {
-      console.warn(
+      logger.warn(
         `Content too large to copy (${(text.length / 1024 / 1024).toFixed(
           1
         )}MB)`
@@ -130,7 +131,7 @@ export async function copyToClipboard(
     await navigator.clipboard.writeText(text);
     return true;
   } catch (error) {
-    console.error("Failed to copy to clipboard:", error);
+    logger.error("Failed to copy to clipboard:", error);
     return false;
   }
 }
@@ -152,7 +153,7 @@ export function downloadAsJson(data: unknown, filename?: string): boolean {
 
     return true;
   } catch (error) {
-    console.error("Failed to download file:", error);
+    logger.error("Failed to download file:", error);
     return false;
   }
 }
