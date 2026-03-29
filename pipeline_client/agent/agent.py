@@ -473,6 +473,21 @@ async def _agent_loop(
 
         # No tool calls – parse the answer
         content = message.get("content", "")
+        if finish_reason == "length":
+            log("warning", f"  [{phase_name}] response truncated (finish_reason=length) — retrying with brevity prompt")
+            messages.append(message)
+            messages.append(
+                {
+                    "role": "user",
+                    "content": (
+                        "Your previous response was cut off because it was too long. "
+                        "Please return a shorter JSON object. Use concise string values "
+                        "(under 200 characters each), omit any optional or redundant fields, "
+                        "and return ONLY the JSON with no markdown fences or extra text."
+                    ),
+                }
+            )
+            continue
         try:
             parsed = _extract_json(content)
             log("info", f"  [{phase_name}] JSON parsed OK")

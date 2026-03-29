@@ -1,9 +1,9 @@
 {
   "race_id": "ga-senate-2026",
   "race_json": {
-    "id": "georgia-senate-2026",
+    "id": "ga-senate-2026",
     "title": "Georgia U.S. Senate Election 2026",
-    "description": "Georgia\u2019s 2026 U.S. Senate race is one of the most competitive Senate contests in the country and could help determine control of the chamber. The state has been closely divided in recent statewide elections, and Democrats are defending an incumbent seat while Republicans are still sorting through a crowded primary field. Jon Ossoff is running for reelection with a large fundraising advantage and a message centered on affordability and healthcare, while Buddy Carter and Mike Collins are running as conservative Republicans emphasizing immigration enforcement, energy, and opposition to Ossoff\u2019s agenda.",
+    "description": "Georgia\u2019s 2026 U.S. Senate race is one of the most closely watched contests on the Senate map because Democrats are defending an incumbent seat in a state that has been highly competitive in recent statewide elections. Jon Ossoff is seeking reelection, while Republicans are contesting the seat in a crowded field that includes Reps. Buddy Carter and Mike Collins, with Georgia GOP chair Josh McKoon also listed in the published profile. The race is likely to turn on turnout, suburban and exurban margins, and whether Republicans can unify behind a single challenger against Ossoff\u2019s fundraising advantage and incumbency.",
     "office": "U.S. Senate",
     "jurisdiction": "Georgia",
     "election_date": "2026-11-03",
@@ -12,8 +12,8 @@
         "name": "Jon Ossoff",
         "party": "Democrat",
         "incumbent": true,
-        "summary": "Jon Ossoff is the incumbent U.S. Senator from Georgia, first elected in the January 2021 special election. He is running for reelection in 2026 and has emphasized affordability, healthcare costs, reproductive rights, and opposition to Trump-era policies. He also reported a large fundraising haul heading into 2026 and officially qualified for reelection.",
-        "image_url": "",
+        "summary": "Jon Ossoff is the incumbent U.S. Senator from Georgia, first elected in the January 2021 special election. He is running for reelection in 2026 and has emphasized affordability, healthcare costs, reproductive rights, and opposition to Trump-era policies.",
+        "image_url": "https://www.ossoff.senate.gov/wp-content/uploads/2021/01/Official-Photo-of-Senator-Jon-Ossoff.jpg",
         "website": "https://electjon.com/",
         "social_media": {
           "facebook": "https://www.facebook.com/jonossoff/",
@@ -45,9 +45,9 @@
         ],
         "voting_record": [
           {
-            "bill_name": "S.5, Laken Riley Act",
-            "vote": "no",
             "date": "2025-01-23",
+            "bill": "S.5, Laken Riley Act",
+            "position": "voted against",
             "source": {
               "url": "https://www.congress.gov/bill/119th-congress/senate-bill/5",
               "type": "government",
@@ -55,9 +55,9 @@
             }
           },
           {
-            "bill_name": "Continuing resolution to fund the government",
-            "vote": "yes",
             "date": "2025-03-14",
+            "bill": "Continuing resolution to fund the government",
+            "position": "voted for",
             "source": {
               "url": "https://www.congress.gov/",
               "type": "government",
@@ -65,9 +65,9 @@
             }
           },
           {
-            "bill_name": "Senate budget resolution",
-            "vote": "no",
             "date": "2025-04-03",
+            "bill": "Senate budget resolution",
+            "position": "voted against",
             "source": {
               "url": "https://www.congress.gov/",
               "type": "government",
@@ -318,7 +318,7 @@
         "name": "Buddy Carter",
         "party": "Republican",
         "incumbent": false,
-        "summary": "Buddy Carter is a U.S. Representative for Georgia's 1st congressional district and a 2026 U.S. Senate candidate. He has emphasized healthcare access, economic growth, conservative values, and strict immigration enforcement. Carter launched his Senate campaign in 2025 and has framed the race around support for President Donald Trump and opposition to Ossoff.",
+        "summary": "Buddy Carter is a U.S. Representative for Georgia's 1st congressional district and a 2026 U.S. Senate candidate. He has emphasized healthcare access, economic growth, conservative values, and strict immigration enforcement.",
         "image_url": "https://buddycarter.house.gov/photos/",
         "website": "https://buddycarter.house.gov/",
         "social_media": {
@@ -351,9 +351,9 @@
         ],
         "voting_record": [
           {
-            "bill_name": "S.5, Laken Riley Act",
-            "vote": "yes",
             "date": "2025-01-23",
+            "bill": "S.5, Laken Riley Act",
+            "position": "voted for",
             "source": {
               "url": "https://www.congress.gov/bill/119th-congress/senate-bill/5",
               "type": "government",
@@ -361,9 +361,9 @@
             }
           },
           {
-            "bill_name": "Continuing resolution to fund the government",
-            "vote": "yes",
             "date": "2025-03-14",
+            "bill": "Continuing resolution to fund the government",
+            "position": "voted for",
             "source": {
               "url": "https://www.congress.gov/",
               "type": "government",
@@ -371,9 +371,9 @@
             }
           },
           {
-            "bill_name": "Senate budget resolution",
-            "vote": "no",
             "date": "2025-04-03",
+            "bill": "Senate budget resolution",
+            "position": "voted against",
             "source": {
               "url": "https://www.congress.gov/",
               "type": "government",
@@ -586,7 +586,7 @@
         "name": "Mike Collins",
         "party": "Republican",
         "incumbent": false,
-        "summary": "Mike Collins is a U.S. Representative for Georgia's 10th congressional district and a 2026 U.S. Senate candidate. He has emphasized conservative policies, business growth, immigration enforcement, and energy production. Collins entered the Senate race in 2025 and has run as a pro-Trump candidate.",
+        "summary": "Mike Collins is a U.S. Representative for Georgia's 10th congressional district and a 2026 U.S. Senate candidate. He has emphasized conservative policies, business growth, immigration enforcement, and energy production.",
         "image_url": "https://commons.wikimedia.org/wiki/File:Rep._Mike_Collins_official_photo,_118th_Congress.jpg",
         "website": "http://collins.house.gov/",
         "social_media": {
@@ -612,9 +612,9 @@
         ],
         "voting_record": [
           {
-            "bill_name": "S.5, Laken Riley Act",
-            "vote": "yes",
             "date": "2025-01-23",
+            "bill": "S.5, Laken Riley Act",
+            "position": "voted for",
             "source": {
               "url": "https://www.congress.gov/bill/119th-congress/senate-bill/5",
               "type": "government",
@@ -622,9 +622,9 @@
             }
           },
           {
-            "bill_name": "Continuing resolution to fund the government",
-            "vote": "yes",
             "date": "2025-03-14",
+            "bill": "Continuing resolution to fund the government",
+            "position": "voted for",
             "source": {
               "url": "https://www.congress.gov/",
               "type": "government",
@@ -632,9 +632,9 @@
             }
           },
           {
-            "bill_name": "Senate budget resolution",
-            "vote": "no",
             "date": "2025-04-03",
+            "bill": "Senate budget resolution",
+            "position": "voted against",
             "source": {
               "url": "https://www.congress.gov/",
               "type": "government",
@@ -847,7 +847,7 @@
         "name": "Josh McKoon",
         "party": "Republican",
         "incumbent": false,
-        "summary": "Josh McKoon is the Georgia Republican Party chair and a former Georgia state senator. He has not been a major fundraising contender in the race, but has emphasized election integrity and party unity. As of the latest reporting, he remains a party leader rather than a formally organized Senate campaign with a major fundraising operation.",
+        "summary": "Josh McKoon is the Georgia Republican Party chair and a former Georgia state senator. He has not been a major fundraising contender in the race, but has emphasized election integrity and party unity.",
         "image_url": "https://commons.wikimedia.org/wiki/File:Josh_McKoon_at_Secretary_of_State_Candidates_Forum_(cropped).jpg",
         "website": "https://mckoonforchairman.com/",
         "social_media": {
@@ -1019,11 +1019,67 @@
         }
       }
     ],
-    "updated_utc": "2026-03-29T06:36:57.552249+00:00",
+    "updated_utc": "2026-03-29T04:47:33.689940+00:00",
     "generator": [
-      "gpt-5.4-mini",
-      "claude-haiku-4-5-20251001",
-      "grok-3-mini"
+      "pipeline-agent"
+    ],
+    "reviews": [
+      {
+        "model": "grok-3-mini",
+        "reviewed_at": "2026-03-29T04:48:00.571357+00:00",
+        "verdict": "needs_revision",
+        "flags": [
+          {
+            "field": "candidates[0].issues.Healthcare.sources[0].last_accessed",
+            "concern": "The source last accessed date is set to 2026-03-29, which is in the future and indicates potential simulation error, making the source quality unreliable.",
+            "suggestion": "Update the date to a realistic past or current date based on actual access, and verify the source's timeliness.",
+            "severity": "warning"
+          },
+          {
+            "field": "candidates[0].voting_record",
+            "concern": "The voting record array is empty, indicating a gap in completeness for Jon Ossoff's profile.",
+            "suggestion": "Research and add relevant voting history data from credible sources like GovTrack or FEC.",
+            "severity": "warning"
+          },
+          {
+            "field": "candidates[0].top_donors[0].amount",
+            "concern": "Amounts for top donors are null, which suggests incomplete data and affects the accuracy of financial information.",
+            "suggestion": "Obtain and include specific donation amounts from reliable sources like FEC filings.",
+            "severity": "info"
+          },
+          {
+            "field": "candidates[2].education",
+            "concern": "The education array is empty for Mike Collins, indicating a gap in candidate background information.",
+            "suggestion": "Add verified education details from sources like official biographies or university records.",
+            "severity": "warning"
+          },
+          {
+            "field": "candidates[3].top_donors",
+            "concern": "The top_donors array is empty for Josh McKoon, leading to incompleteness in financial background.",
+            "suggestion": "Research and populate with data from campaign finance sources like FEC.",
+            "severity": "warning"
+          },
+          {
+            "field": "candidates[3].website",
+            "concern": "The website field is null for Josh McKoon, which creates a gap in accessibility and completeness of candidate information.",
+            "suggestion": "Add a verified website URL if available, or note its absence from reliable sources.",
+            "severity": "info"
+          },
+          {
+            "field": "candidates[1].issues.Tech & AI.stance",
+            "concern": "The stance for Buddy Carter on Tech & AI has low confidence and relies on a single, indirectly related source, potentially indicating incompleteness.",
+            "suggestion": "Strengthen with more direct sources or higher-confidence evidence from official statements or legislative records.",
+            "severity": "info"
+          },
+          {
+            "field": "candidates[2].issues.Foreign Policy.sources",
+            "concern": "The sources array is empty for Mike Collins' Foreign Policy, affecting source quality and completeness.",
+            "suggestion": "Add credible sources to support or elaborate on the stance.",
+            "severity": "warning"
+          }
+        ],
+        "summary": "The profile is generally accurate and unbiased, with neutral language throughout, but it suffers from future-dated sources, incomplete data in areas like voting records and education, and some gaps in issue coverage, which affect overall completeness and source quality."
+      }
     ],
     "polling": [
       {
@@ -1072,11 +1128,10 @@
         ],
         "source_url": "https://www.realclearpolling.com/polls/senate/general/2026/georgia/ossoff-vs-carter"
       }
-    ],
-    "reviews": []
+    ]
   },
   "id": "georgia-senate-2026",
-  "updated_utc": "2026-03-29T06:45:55.911843+00:00",
+  "updated_utc": "2026-03-29T05:56:35.444102+00:00",
   "generator": [
     "gpt-5.4-mini"
   ],

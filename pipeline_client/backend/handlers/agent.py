@@ -6,6 +6,7 @@ the pipeline_client execution engine, storage, and logging.
 
 import json
 import logging
+import os
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -88,7 +89,8 @@ class AgentHandler:
         }
 
     async def _publish(self, race_id: str, race_json: Dict[str, Any]) -> Path:
-        """Write RaceJSON to the published data directory."""
+        """Write RaceJSON to the published data directory and optionally to GCS."""
+        logger = logging.getLogger("pipeline")
         published_dir = Path(__file__).resolve().parents[3] / "data" / "published"
         published_dir.mkdir(parents=True, exist_ok=True)
 
@@ -101,7 +103,40 @@ class AgentHandler:
             )
             output_path.rename(backup_path)
 
+        json_str = json.dumps(race_json, indent=2, default=str)
         with output_path.open("w", encoding="utf-8") as f:
-            json.dump(race_json, f, indent=2, default=str)
+            f.write(json_str)
+
+        # Also publish to GCS when running in cloud environment
+        await self._publish_to_gcs(race_id, json_str)
 
         return output_path
+
+    async def _publish_to_gcs(self, race_id: str, json_str: str) -> None:
+        """Upload race JSON to Google Cloud Storage if configured."""
+        logger = logging.getLogger("pipeline")
+        gcs_bucket = os.getenv("GCS_BUCKET_NAME")
+        if not gcs_bucket:
+            return
+
+        cloud_indicators = [
+            os.getenv("GOOGLE_CLOUD_PROJECT"),
+            os.getenv("CLOUD_RUN_SERVICE"),
+            os.getenv("K_SERVICE"),
+            os.getenv("GAE_APPLICATION"),
+        ]
+        if not any(cloud_indicators):
+            return
+
+        try:
+            from google.cloud import storage  # type: ignore
+
+            client = storage.Client()
+            bucket = client.bucket(gcs_bucket)
+            blob = bucket.blob(f"races/{race_id}.json")
+            blob.upload_from_string(json_str, content_type="application/json")
+            logger.info(f"Published {race_id} to GCS: gs://{gcs_bucket}/races/{race_id}.json")
+        except ImportError:
+            logger.warning("google-cloud-storage not installed; skipping GCS upload")
+        except Exception as e:
+            logger.warning(f"Failed to upload {race_id} to GCS: {e}")

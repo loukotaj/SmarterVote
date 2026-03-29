@@ -49,6 +49,62 @@
   let geminiModel = "";
   let grokModel = "";
 
+  // Race queue
+  type QueueStatus = "pending" | "running" | "completed" | "failed";
+  type QueueItem = { id: string; status: QueueStatus };
+  let raceQueue: Array<QueueItem> = [];
+  let isQueueMode = false;
+
+  function addToQueue() {
+    const id = pipeline.raceId.trim();
+    if (!id) return;
+    if (raceQueue.some((r: QueueItem) => r.id === id)) {
+      addLog("warning", `Race "${id}" is already in the queue`);
+      return;
+    }
+    raceQueue = [...raceQueue, { id, status: "pending" as QueueStatus }];
+    pipelineActions.setRaceId("");
+  }
+
+  function removeFromQueue(id: string) {
+    raceQueue = raceQueue.filter((r: QueueItem) => r.id !== id);
+  }
+
+  function clearQueue() {
+    raceQueue = raceQueue.filter((r: QueueItem) => r.status === "running");
+  }
+
+  async function runQueue() {
+    if (pipeline.isExecuting) return;
+    isQueueMode = true;
+    await processNextQueueItem();
+  }
+
+  async function processNextQueueItem() {
+    const next = raceQueue.find((r: QueueItem) => r.status === "pending");
+    if (!next) {
+      isQueueMode = false;
+      addLog("info", "Queue complete — all races processed");
+      return;
+    }
+    raceQueue = raceQueue.map((r: QueueItem) =>
+      r.id === next.id ? { ...r, status: "running" as QueueStatus } : r
+    );
+    pipelineActions.setRaceId(next.id);
+    await handleRunAgent();
+  }
+
+  $: pendingCount = raceQueue.filter((r: QueueItem) => r.status === "pending").length;
+  $: completedCount = raceQueue.filter((r: QueueItem) => r.status === "completed").length;
+
+  function handleRaceIdInput(e: Event) {
+    pipelineActions.setRaceId((e.currentTarget as HTMLInputElement).value);
+  }
+
+  function handleRaceIdKeydown(e: KeyboardEvent) {
+    if (e.key === "Enter") addToQueue();
+  }
+
   // Published races
   let publishedRaces: PublishedRaceSummary[] = [];
   let racesLoading = false;
@@ -213,6 +269,12 @@
         stopElapsedTimer();
         debouncedRefresh();
         refreshPublishedRaces();
+        if (isQueueMode) {
+          raceQueue = raceQueue.map((r: QueueItem) =>
+            r.status === "running" ? { ...r, status: "completed" as QueueStatus } : r
+          );
+          setTimeout(() => processNextQueueItem(), 800);
+        }
         break;
       case "run_failed":
         pipelineActions.setRunStatus("failed");
@@ -221,6 +283,12 @@
         stopAutoRefresh();
         stopElapsedTimer();
         debouncedRefresh();
+        if (isQueueMode) {
+          raceQueue = raceQueue.map((r: QueueItem) =>
+            r.status === "running" ? { ...r, status: "failed" as QueueStatus } : r
+          );
+          setTimeout(() => processNextQueueItem(), 800);
+        }
         break;
     }
   }
@@ -394,18 +462,81 @@
             <label for="raceId" class="block text-sm font-medium text-gray-700 mb-1">
               Race ID
             </label>
-            <input
-              id="raceId"
-              type="text"
-              value={pipeline.raceId}
-              on:input={(e) => pipelineActions.setRaceId(e.currentTarget.value)}
-              placeholder="e.g. mo-senate-2024"
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm font-mono focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-            />
+            <div class="flex gap-2">
+              <input
+                id="raceId"
+                type="text"
+                value={pipeline.raceId}
+                on:input={handleRaceIdInput}
+                on:keydown={handleRaceIdKeydown}
+                placeholder="e.g. georgia-senate-2026"
+                class="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm font-mono focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+              />
+              <button
+                type="button"
+                on:click={addToQueue}
+                disabled={!pipeline.raceId.trim()}
+                title="Add to queue (run multiple races sequentially)"
+                class="px-3 py-2 text-sm border border-blue-300 text-blue-600 rounded-lg hover:bg-blue-50 disabled:opacity-40 disabled:cursor-not-allowed whitespace-nowrap"
+              >
+                + Queue
+              </button>
+            </div>
             <p class="mt-1 text-xs text-gray-400">
-              Format: state-office-year (e.g. tx-governor-2026, ca-house-12-2024)
+              Format: state-office-year · Press <kbd class="px-1 py-0.5 bg-gray-100 rounded text-xs">Enter</kbd> or click + Queue to batch
             </p>
           </div>
+
+          <!-- Race Queue -->
+          {#if raceQueue.length > 0}
+            <div class="border border-gray-200 rounded-lg p-3">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-medium text-gray-600">
+                  Queue — {completedCount}/{raceQueue.length} done
+                  {#if isQueueMode && pendingCount > 0}
+                    <span class="ml-1 text-blue-600">({pendingCount} remaining)</span>
+                  {/if}
+                </span>
+                <button
+                  type="button"
+                  on:click={clearQueue}
+                  disabled={pipeline.isExecuting}
+                  class="text-xs text-red-500 hover:text-red-700 disabled:opacity-40"
+                >
+                  Clear
+                </button>
+              </div>
+              <div class="space-y-1.5 max-h-48 overflow-y-auto">
+                {#each raceQueue as item (item.id)}
+                  <div class="flex items-center gap-2">
+                    <span class="text-xs font-mono text-gray-700 flex-1 truncate">{item.id}</span>
+                    <span class="text-xs px-1.5 py-0.5 rounded flex-shrink-0 {
+                      item.status === 'completed' ? 'bg-green-100 text-green-700' :
+                      item.status === 'failed' ? 'bg-red-100 text-red-700' :
+                      item.status === 'running' ? 'bg-blue-100 text-blue-700 animate-pulse' :
+                      'bg-gray-100 text-gray-500'
+                    }">
+                      {item.status}
+                    </span>
+                    {#if item.status === 'pending'}
+                      <button
+                        type="button"
+                        on:click={() => removeFromQueue(item.id)}
+                        class="flex-shrink-0 text-gray-400 hover:text-red-500"
+                        title="Remove"
+                      >
+                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                      </button>
+                    {:else}
+                      <div class="w-3.5 h-3.5 flex-shrink-0" />
+                    {/if}
+                  </div>
+                {/each}
+              </div>
+            </div>
+          {/if}
 
           <!-- Mode Toggles -->
           <div class="flex flex-wrap gap-x-6 gap-y-2">
@@ -472,21 +603,40 @@
             </div>
           {/if}
 
-          <button
-            disabled={pipeline.isExecuting || !pipeline.raceId.trim()}
-            on:click={handleRunAgent}
-            class="btn-primary w-full flex items-center justify-center py-2.5"
-          >
-            {#if pipeline.isExecuting}
-              <svg class="animate-spin h-4 w-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
-                <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-              </svg>
-              Researching...
-            {:else}
-              🔍 Research Race
+          <div class="flex gap-2">
+            <button
+              disabled={pipeline.isExecuting || !pipeline.raceId.trim()}
+              on:click={handleRunAgent}
+              class="btn-primary flex-1 flex items-center justify-center py-2.5"
+            >
+              {#if pipeline.isExecuting && !isQueueMode}
+                <svg class="animate-spin h-4 w-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
+                  <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                </svg>
+                Researching...
+              {:else}
+                🔍 Research Race
+              {/if}
+            </button>
+            {#if pendingCount > 0}
+              <button
+                disabled={pipeline.isExecuting}
+                on:click={runQueue}
+                class="flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed text-sm font-medium whitespace-nowrap"
+              >
+                {#if isQueueMode && pipeline.isExecuting}
+                  <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
+                    <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                  </svg>
+                  {completedCount}/{raceQueue.length}
+                {:else}
+                  ▶ Run {pendingCount}
+                {/if}
+              </button>
             {/if}
-          </button>
+          </div>
         </div>
       </div>
 

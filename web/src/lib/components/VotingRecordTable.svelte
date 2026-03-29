@@ -45,6 +45,10 @@
     }
   }
 
+  function billDescription(r: any): string | null {
+    return r.bill_description ?? null;
+  }
+
   function formatDate(dateString: string): string {
     try {
       return new Date(dateString).toLocaleDateString("en-US", {
@@ -72,8 +76,8 @@
             </div>
           </div>
 
-          {#if (record as any).bill_description}
-            <div class="bill-description">{(record as any).bill_description}</div>
+          {#if billDescription(record)}
+            <div class="bill-description">{billDescription(record)}</div>
           {/if}
 
           <div class="vote-footer">
