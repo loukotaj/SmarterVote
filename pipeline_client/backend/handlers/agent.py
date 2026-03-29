@@ -150,6 +150,15 @@ class AgentHandler:
             )
             output_path.rename(backup_path)
 
+        # Guard against publishing a partial/corrupted LLM response
+        candidates = race_json.get("candidates")
+        if not isinstance(candidates, list) or len(candidates) == 0:
+            raise ValueError(
+                f"Refusing to publish '{race_id}': 'candidates' is missing or empty. "
+                f"Top-level keys present: {list(race_json.keys())}. "
+                "This usually means the LLM returned a partial object. Re-queue the race."
+            )
+
         json_str = json.dumps(race_json, indent=2, default=str)
         with output_path.open("w", encoding="utf-8") as f:
             f.write(json_str)

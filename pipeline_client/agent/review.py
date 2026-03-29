@@ -16,12 +16,12 @@ logger = logging.getLogger("pipeline")
 
 # Review models (full quality)
 DEFAULT_CLAUDE_MODEL = "claude-sonnet-4-6"
-DEFAULT_GEMINI_MODEL = "gemini-2.0-flash"
+DEFAULT_GEMINI_MODEL = "gemini-3-flash-preview"
 DEFAULT_GROK_MODEL = "grok-3"
 
 # Review models (cheap mode)
 CHEAP_CLAUDE_MODEL = "claude-haiku-4-5-20251001"
-CHEAP_GEMINI_MODEL = "gemini-2.0-flash"
+CHEAP_GEMINI_MODEL = "gemini-3.1-flash-lite-preview"
 CHEAP_GROK_MODEL = "grok-3-mini"
 
 _REVIEW_PROVIDERS = {
@@ -61,31 +61,23 @@ async def _call_anthropic(system: str, user: str, *, model: str = DEFAULT_CLAUDE
 
 
 async def _call_gemini(system: str, user: str, *, model: str = DEFAULT_GEMINI_MODEL) -> str:
-    """Call the Google Gemini API and return the text response."""
+    """Call the Google Gemini API via the google-genai client and return the text response."""
     api_key = os.environ.get("GEMINI_API_KEY", "")
     if not api_key:
         raise RuntimeError("GEMINI_API_KEY is not set")
 
-    url = (
-        f"https://generativelanguage.googleapis.com/v1beta/models/{model}"
-        f":generateContent?key={api_key}"
+    from google import genai  # type: ignore
+
+    client = genai.Client(api_key=api_key)
+    loop = asyncio.get_running_loop()
+    response = await loop.run_in_executor(
+        None,
+        lambda: client.models.generate_content(
+            model=model,
+            contents=f"{system}\n\n{user}",
+        ),
     )
-    async with httpx.AsyncClient(timeout=120) as client:
-        resp = await client.post(
-            url,
-            headers={"Content-Type": "application/json"},
-            json={
-                "system_instruction": {"parts": [{"text": system}]},
-                "contents": [{"parts": [{"text": user}]}],
-            },
-        )
-        resp.raise_for_status()
-        data = resp.json()
-    for candidate in data.get("candidates", []):
-        for part in candidate.get("content", {}).get("parts", []):
-            if "text" in part:
-                return part["text"]
-    return ""
+    return response.text or ""
 
 
 async def _call_grok(system: str, user: str, *, model: str = DEFAULT_GROK_MODEL) -> str:

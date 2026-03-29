@@ -649,6 +649,16 @@ async def run_agent(
 
     elapsed = time.perf_counter() - t0
     log("info", f"✅ Agent finished in {elapsed:.1f}s")
+
+    # Sanity-check: reject partial LLM output (e.g. a stray polling entry)
+    _candidates = race_json.get("candidates")
+    if not isinstance(_candidates, list) or len(_candidates) == 0:
+        raise ValueError(
+            f"Agent output for '{race_id}' has no 'candidates' — looks like a partial "
+            f"LLM response was returned instead of the full race profile. "
+            f"Top-level keys present: {list(race_json.keys())}. Re-queue the race to retry."
+        )
+
     return race_json
 
 

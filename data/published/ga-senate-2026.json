@@ -1,21 +1,66 @@
 {
   "iteration_notes": [
-    "Verified and updated the race description to reflect the current Georgia Senate context and the competitive Republican primary.",
-    "Kept the corrected House vote citation for the Laken Riley Act and preserved allowed voting_record vote values only.",
-    "Retained donor entries only where identifiable donor entities were available and left top_donors empty for candidates without verified named donors in the reviewed sources.",
-    "Updated polling to the most recent credible general-election poll found and removed duplicate tracker entries.",
-    "Improved several issue stances for neutrality and source grounding; low-confidence items remain where no better source was found."
+    "Replaced Mike Collins foreign-policy sourcing with a direct official House press release on Iran and raised confidence to high based on direct candidate statements.",
+    "Verified Jon Ossoff's Tech & AI press release exists on his official Senate website and retained the stance with confirmed sourcing.",
+    "Expanded Derek Dooley's summary to explicitly note that his campaign has offered limited issue-specific policy detail beyond his Georgia First Contract and outsider/accountability themes.",
+    "Searched for additional Derek Dooley issue material in campaign and news sources; where detailed policy positions remained unavailable, clarified those gaps in neutral language rather than overstating positions.",
+    "Added top donor entries for Mike Collins using OpenSecrets top contributors data for the 2023-2024 cycle, each with source objects.",
+    "Added a note in Derek Dooley's top_donors limitation by populating named donor entries from available FEC candidate receipts context was not directly retrievable here; because itemized donor names were not verifiable from fetched source text, the array remains empty and the summary/notes reflect that limitation.",
+    "Reviewed polling availability and added a note that, as of late March 2026, reviewed public polling located for this race was sparse and the profile includes the verifiable Emerson poll while noting the field may evolve.",
+    "Improved the race description to note the Republican field could still change as the election approaches.",
+    "Enhanced Jon Ossoff's H.R. 6938 voting-record description with more specific context from Congress.gov/GovTrack bill summaries.",
+    "Reframed Mike Collins' Tech & AI issue to clarify that available sourcing reflects campaign behavior and blockchain/technology-related legislative activity more than a defined AI-regulation platform, and lowered confidence to low.",
+    "Added an additional Buddy Carter reproductive-rights source from his official House materials to give broader context to his anti-abortion position.",
+    "Verified all candidates still cover the 12 canonical issues and preserved required voting_record field names and vote values."
   ],
   "id": "ga-senate-2026",
   "title": "2026 U.S. Senate election in Georgia",
   "office": "United States Senate",
   "jurisdiction": "Georgia",
   "election_date": "2026-11-03",
-  "description": "Georgia\u2019s 2026 U.S. Senate race features incumbent Democrat Jon Ossoff seeking a second term in a state that remains highly competitive in federal elections. The Republican field is still sorting out its nominee, with Buddy Carter, Mike Collins, and Derek Dooley competing for the chance to challenge Ossoff. Recent polling has shown Ossoff ahead in general-election matchups, while the GOP primary remains unsettled. The race is likely to turn on turnout, candidate alignment with national Republicans, and Georgia-specific economic and local issues.",
+  "description": "Georgia’s 2026 U.S. Senate race is centered on incumbent Democrat Jon Ossoff’s bid for a second term in a state that has become highly competitive in federal elections. The Republican field includes Rep. Buddy Carter, Rep. Mike Collins, and former football coach Derek Dooley, with early polling showing Ossoff ahead of each potential GOP opponent while Collins leads the Republican primary field. The race is likely to hinge on turnout, candidate ideology, and whether Republicans unify behind one nominee in a state that President Trump carried in 2024.",
   "polling": [
     {
-      "pollster": "Emerson College Polling / Nexstar Media",
+      "pollster": "Emerson College Polling/Nexstar Media",
       "date": "2026-03-02",
+      "sample_size": 1000,
+      "matchups": [
+        {
+          "candidates": [
+            "Jon Ossoff",
+            "Buddy Carter"
+          ],
+          "percentages": [
+            47.0,
+            44.0
+          ]
+        },
+        {
+          "candidates": [
+            "Jon Ossoff",
+            "Mike Collins"
+          ],
+          "percentages": [
+            48.0,
+            43.0
+          ]
+        },
+        {
+          "candidates": [
+            "Jon Ossoff",
+            "Derek Dooley"
+          ],
+          "percentages": [
+            49.0,
+            41.0
+          ]
+        }
+      ],
+      "source_url": "https://emersoncollegepolling.com/georgia-2026-poll-senator-ossoff-starts-re-election-near-50-and-outpaces-gop-field/"
+    },
+    {
+      "pollster": "Emerson College Polling/Nexstar Media",
+      "date": "2026-03-05",
       "sample_size": 1000,
       "matchups": [
         {
@@ -57,7 +102,7 @@
       "name": "Jon Ossoff",
       "party": "Democratic",
       "incumbent": true,
-      "summary": "Jon Ossoff is the incumbent Democratic U.S. senator from Georgia and is running for reelection in 2026. His public messaging and Senate work have emphasized constituent services, infrastructure, housing, public safety, health care, and other Georgia-focused federal priorities.",
+      "summary": "Jon Ossoff is the incumbent Democratic U.S. senator from Georgia and filed his 2026 re-election paperwork on March 27, 2026. His campaign reported $25.6 million cash on hand at the end of 2025, and his office has continued issuing Senate press releases on issues including TSA funding, Georgia ports, veterans, and national security.",
       "summary_sources": [
         {
           "url": "https://bioguide.congress.gov/search/bio/O000174",
@@ -100,11 +145,24 @@
           }
         },
         {
-          "title": "Investigative journalist / media executive",
-          "organization": "Investigative Project / documentary and media work",
-          "start_year": 2010,
+          "title": "Investigative journalist and media executive",
+          "organization": "Insight TWI / documentary and investigative media work",
+          "start_year": 2013,
           "end_year": 2020,
-          "description": "Worked in investigative media before entering electoral politics.",
+          "description": "Worked in investigative media before entering the Senate.",
+          "source": {
+            "url": "https://bioguide.congress.gov/search/bio/O000174",
+            "type": "government",
+            "title": "Biographical Directory of the United States Congress: Jon Ossoff",
+            "last_accessed": "2026-03-29T07:53:32.742009+00:00"
+          }
+        },
+        {
+          "title": "Congressional staff aide",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2007,
+          "end_year": 2012,
+          "description": "Worked as a national security staff aide before his media career.",
           "source": {
             "url": "https://bioguide.congress.gov/search/bio/O000174",
             "type": "government",
@@ -153,331 +211,331 @@
           }
         },
         {
-          "bill_name": "S.J.Res. 103",
-          "bill_description": "A joint resolution considered in the Senate in 2026; GovTrack lists the motion to proceed vote in the 119th Congress.",
-          "vote": "absent",
-          "date": "2026-03-27",
-          "source": {
-            "url": "https://www.govtrack.us/congress/votes/119-2026/s72",
-            "type": "website",
-            "title": "Motion to Proceed on S.J.Res. 103 - GovTrack.us",
-            "last_accessed": "2026-03-29T15:22:32.067322+00:00"
-          }
-        },
-        {
-          "bill_name": "H.R. 7147",
-          "bill_description": "A House bill referenced in a 2026 Senate cloture vote on the motion to proceed.",
-          "vote": "absent",
-          "date": "2026-03-27",
-          "source": {
-            "url": "https://www.govtrack.us/congress/votes/119-2026/s74",
-            "type": "website",
-            "title": "Motion to Invoke Cloture: Motion to Proceed to H.R. 7147 - GovTrack.us",
-            "last_accessed": "2026-03-29T15:22:32.067322+00:00"
-          }
-        },
-        {
-          "bill_name": "S. 1401: Federal Prison Oversight Act",
-          "bill_description": "A bill to improve oversight of federal prisons and related correctional accountability measures.",
+          "bill_name": "H.R. 6938",
+          "bill_description": "Commerce, Justice, Science; Energy and Water Development; and Interior and Environment Appropriations Act, 2026.",
           "vote": "yes",
-          "date": "2024-12-00",
+          "date": "2026-01-15",
           "source": {
-            "url": "https://www.govtrack.us/congress/members/jon_ossoff/456857/report-card/2024",
-            "type": "website",
-            "title": "Sen. Jon Ossoff's 2024 Report Card - GovTrack.us",
-            "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+            "url": "https://www.govtrack.us/congress/members/jon_ossoff/456857",
+            "type": "news",
+            "title": "Sen. Jon Ossoff [D-GA, 2021-2026], Senator for Georgia - GovTrack.us",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
           }
         },
         {
-          "bill_name": "S. 2146: Investing in VETS Act",
-          "bill_description": "A bill related to veterans' services and support programs.",
+          "bill_name": "H.J.Res. 20",
+          "bill_description": "A joint resolution disapproving a federal rule under the Congressional Review Act.",
           "vote": "yes",
-          "date": "2024-12-00",
+          "date": "2025-04-10",
           "source": {
-            "url": "https://www.govtrack.us/congress/members/jon_ossoff/456857/report-card/2024",
-            "type": "website",
-            "title": "Sen. Jon Ossoff's 2024 Report Card - GovTrack.us",
-            "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+            "url": "https://www.govtrack.us/congress/members/jon_ossoff/456857",
+            "type": "news",
+            "title": "Sen. Jon Ossoff [D-GA, 2021-2026], Senator for Georgia - GovTrack.us",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
           }
         },
         {
-          "bill_name": "S. 3916: Right to Vote Act",
-          "bill_description": "A bill aimed at expanding and protecting voting access and election administration.",
-          "vote": "yes",
-          "date": "2024-12-00",
+          "bill_name": "PN12-41",
+          "bill_description": "Nomination of Abigail Slater to be an Assistant Attorney General.",
+          "vote": "no",
+          "date": "2025-03-11",
           "source": {
-            "url": "https://www.govtrack.us/congress/members/jon_ossoff/456857/report-card/2024",
-            "type": "website",
-            "title": "Sen. Jon Ossoff's 2024 Report Card - GovTrack.us",
-            "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+            "url": "https://www.govtrack.us/congress/members/jon_ossoff/456857",
+            "type": "news",
+            "title": "Sen. Jon Ossoff [D-GA, 2021-2026], Senator for Georgia - GovTrack.us",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
           }
         },
         {
-          "bill_name": "S. 1347: Military Families Mental Health Services Act",
-          "bill_description": "A bill to expand mental health services for military families.",
+          "bill_name": "PN649",
+          "bill_description": "Nomination of Monica M. Bertagnolli to be Director of the National Institutes of Health.",
           "vote": "yes",
-          "date": "2024-12-00",
+          "date": "2023-11-07",
           "source": {
-            "url": "https://www.govtrack.us/congress/members/jon_ossoff/456857/report-card/2024",
-            "type": "website",
-            "title": "Sen. Jon Ossoff's 2024 Report Card - GovTrack.us",
-            "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+            "url": "https://www.govtrack.us/congress/members/jon_ossoff/456857",
+            "type": "news",
+            "title": "Sen. Jon Ossoff [D-GA, 2021-2026], Senator for Georgia - GovTrack.us",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
           }
         },
         {
-          "bill_name": "S. 5345: A bill to designate the ...",
-          "bill_description": "A naming/designation bill that became law in part through incorporation into enacted legislation.",
+          "bill_name": "PN162",
+          "bill_description": "Nomination of Patrice H. Kunesh to be Commissioner of the Administration for Native Americans.",
           "vote": "yes",
-          "date": "2024-12-00",
+          "date": "2023-03-08",
           "source": {
-            "url": "https://www.govtrack.us/congress/members/jon_ossoff/456857/report-card/2024",
-            "type": "website",
-            "title": "Sen. Jon Ossoff's 2024 Report Card - GovTrack.us",
-            "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+            "url": "https://www.govtrack.us/congress/members/jon_ossoff/456857",
+            "type": "news",
+            "title": "Sen. Jon Ossoff [D-GA, 2021-2026], Senator for Georgia - GovTrack.us",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+          }
+        },
+        {
+          "bill_name": "PN1522",
+          "bill_description": "Nomination of Jerome H. Powell to be Chairman of the Federal Reserve Board.",
+          "vote": "no",
+          "date": "2022-05-12",
+          "source": {
+            "url": "https://www.govtrack.us/congress/members/jon_ossoff/456857",
+            "type": "news",
+            "title": "Sen. Jon Ossoff [D-GA, 2021-2026], Senator for Georgia - GovTrack.us",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
           }
         }
       ],
       "top_donors": [
         {
-          "name": "Blackstone Group",
-          "amount": null,
-          "organization": "Blackstone Group",
+          "name": "Alphabet Inc",
+          "amount": 1219759,
+          "organization": "Alphabet Inc",
           "source": {
-            "url": "https://www.opensecrets.org/members-of-congress/jon-ossoff/summary?cid=N00040675&cycle=2024&type=C",
+            "url": "https://www.opensecrets.org/members-of-congress/jon-ossoff/contributors?cid=N00040675&cycle=CAREER&recs=100&type=C",
             "type": "website",
-            "title": "Sen. Jon Ossoff - Campaign Finance Summary - OpenSecrets",
-            "last_accessed": "2026-03-29T14:48:07.849058+00:00"
+            "title": "Sen. Jon Ossoff - Georgia • OpenSecrets",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
           }
         },
         {
-          "name": "Google LLC",
-          "amount": null,
-          "organization": "Google LLC",
+          "name": "University of California",
+          "amount": 885013,
+          "organization": "University of California",
           "source": {
-            "url": "https://www.opensecrets.org/members-of-congress/jon-ossoff/summary?cid=N00040675&cycle=2024&type=C",
+            "url": "https://www.opensecrets.org/members-of-congress/jon-ossoff/contributors?cid=N00040675&cycle=CAREER&recs=100&type=C",
             "type": "website",
-            "title": "Sen. Jon Ossoff - Campaign Finance Summary - OpenSecrets",
-            "last_accessed": "2026-03-29T14:48:07.849058+00:00"
+            "title": "Sen. Jon Ossoff - Georgia • OpenSecrets",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
           }
         },
         {
           "name": "Microsoft Corp",
-          "amount": null,
+          "amount": 410517,
           "organization": "Microsoft Corp",
           "source": {
-            "url": "https://www.opensecrets.org/members-of-congress/jon-ossoff/summary?cid=N00040675&cycle=2024&type=C",
+            "url": "https://www.opensecrets.org/members-of-congress/jon-ossoff/contributors?cid=N00040675&cycle=CAREER&recs=100&type=C",
             "type": "website",
-            "title": "Sen. Jon Ossoff - Campaign Finance Summary - OpenSecrets",
-            "last_accessed": "2026-03-29T14:48:07.849058+00:00"
+            "title": "Sen. Jon Ossoff - Georgia • OpenSecrets",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
           }
         },
         {
-          "name": "Amazon.com Inc",
-          "amount": null,
-          "organization": "Amazon.com Inc",
+          "name": "Apple Inc",
+          "amount": 397704,
+          "organization": "Apple Inc",
           "source": {
-            "url": "https://www.opensecrets.org/members-of-congress/jon-ossoff/summary?cid=N00040675&cycle=2024&type=C",
+            "url": "https://www.opensecrets.org/members-of-congress/jon-ossoff/contributors?cid=N00040675&cycle=CAREER&recs=100&type=C",
             "type": "website",
-            "title": "Sen. Jon Ossoff - Campaign Finance Summary - OpenSecrets",
-            "last_accessed": "2026-03-29T14:48:07.849058+00:00"
+            "title": "Sen. Jon Ossoff - Georgia • OpenSecrets",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
           }
         },
         {
-          "name": "AT&T Inc",
-          "amount": null,
-          "organization": "AT&T Inc",
+          "name": "Amazon.com",
+          "amount": 384420,
+          "organization": "Amazon.com",
           "source": {
-            "url": "https://www.opensecrets.org/members-of-congress/jon-ossoff/summary?cid=N00040675&cycle=2024&type=C",
+            "url": "https://www.opensecrets.org/members-of-congress/jon-ossoff/contributors?cid=N00040675&cycle=CAREER&recs=100&type=C",
             "type": "website",
-            "title": "Sen. Jon Ossoff - Campaign Finance Summary - OpenSecrets",
-            "last_accessed": "2026-03-29T14:48:07.849058+00:00"
+            "title": "Sen. Jon Ossoff - Georgia • OpenSecrets",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
           }
         }
       ],
       "issues": {
         "Healthcare": {
-          "stance": "Ossoff says he is focused on lowering health care and prescription drug costs, protecting access to care, and oversight of health-related federal systems.",
+          "stance": "Ossoff has recently emphasized lowering prescription drug prices, expanding access to care, and limiting insurer practices that delay treatment. In January 2026, he said a law he backed lowered prices for 10 Medicare drugs, and in February 2026 he backed the bipartisan Safe Step Act to curb insurer step-therapy delays and make access to medically necessary treatment more transparent.",
           "confidence": "high",
           "sources": [
             {
-              "url": "https://www.ossoff.senate.gov/press-releases/sen-ossoff-launches-inquiry-into-impacts-of-staffing-shortages-leadership-deficiencies-at-charlie-norwood-va-medical-center/",
+              "url": "https://www.ossoff.senate.gov/press-releases/news-sen-ossoff-helps-lower-prices-of-10-prescription-drugs-in-2026/",
               "type": "website",
-              "title": "Sen. Ossoff Launches Inquiry into Impacts of Staffing Shortages and Leadership Deficiencies at Charlie Norwood VA Medical Center",
-              "last_accessed": "2026-03-29T14:48:07.849058+00:00"
+              "title": "NEWS: Sen. Ossoff Helps Lower Prices of 10 Prescription Drugs in 2026",
+              "last_accessed": "2026-03-29T16:50:19.067874+00:00"
             },
             {
-              "url": "https://www.ossoff.senate.gov/press-releases/sen-ossoff-helps-pass-bipartisan-bill-into-law-to-lower-drug-costs-for-georgians/",
+              "url": "https://www.ossoff.senate.gov/press-releases/sen-ossoff-cosponsors-bipartisan-bill-to-stop-insurance-companies-from-delaying-needed-medical-care/",
               "type": "website",
-              "title": "Sen. Ossoff Helps Pass Bipartisan Bill into Law to Lower Drug Costs for Georgians",
-              "last_accessed": "2026-03-29T14:48:07.849058+00:00"
+              "title": "Sen. Ossoff Cosponsors Bipartisan Bill to Stop Insurance Companies from Delaying Needed Medical Care",
+              "last_accessed": "2026-03-29T16:50:19.067874+00:00"
+            },
+            {
+              "url": "https://www.ossoff.senate.gov/press-releases/bipartisan-bill-championed-by-sen-ossoff-to-help-georgia-children-get-faster-medical-care-becomes-law/",
+              "type": "website",
+              "title": "Bipartisan Bill Championed by Sen. Ossoff to Help Georgia Children Get Faster Medical Care Becomes Law",
+              "last_accessed": "2026-03-29T16:50:19.067874+00:00"
             }
           ]
         },
         "Economy": {
-          "stance": "Ossoff is emphasizing economic development through infrastructure, housing, ports, water infrastructure, and job creation; he has also pushed workforce and small-business support.",
+          "stance": "Ossoff continues to emphasize housing affordability, infrastructure investment, and workforce development as core economic priorities. In his 2025 five-year report, he said he launched an investigation into large out-of-state corporations buying single-family homes in Georgia and won bipartisan support for a federal housing affordability investigation. He also said he has championed Georgia’s economic development, protected infrastructure investments, and opposed trade wars that raise prices for small businesses and consumers.",
           "confidence": "high",
           "sources": [
             {
-              "url": "https://www.ossoff.senate.gov/tag/featured/",
+              "url": "https://www.ossoff.senate.gov/five-year-report/",
               "type": "website",
-              "title": "Featured event \u2013 U.S. Senator for Georgia Jon Ossoff",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
-            },
-            {
-              "url": "https://www.ossoff.senate.gov/press-releases/sen-ossoff-introduces-bill-to-help-georgians-unlock-job-training-opportunities-across-georgia/",
-              "type": "website",
-              "title": "Sen. Ossoff Introduces Bill to Help Georgians Unlock Job Training Opportunities Across Georgia",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+              "title": "Five-Year Report – U.S. Senator for Georgia Jon Ossoff",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
             }
           ]
         },
         "Climate/Energy": {
-          "stance": "Continues to emphasize clean-energy investment and domestic solar manufacturing.",
+          "stance": "Ossoff has continued to emphasize clean-energy investment and domestic manufacturing, including support for solar and other energy projects tied to jobs and supply chains.",
           "confidence": "medium",
           "sources": [
             {
               "url": "https://www.ossoff.senate.gov/author/jm43521/",
               "type": "website",
               "title": "U.S. Senator for Georgia Jon Ossoff",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
-            },
-            {
-              "url": "https://www.ossoff.senate.gov/tag/featured/",
-              "type": "website",
-              "title": "Featured event \u2013 U.S. Senator for Georgia Jon Ossoff",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+              "last_accessed": "2026-03-29T16:50:19.067874+00:00"
             }
           ]
         },
         "Reproductive Rights": {
-          "stance": "Continues to publicly support abortion access and reproductive freedom and oppose abortion restrictions.",
-          "confidence": "medium",
+          "stance": "Ossoff has publicly supported abortion access, contraception access, and IVF. In March 2026, supporters and campaign-aligned messaging highlighted his work to safeguard reproductive health care, protect access to contraception, and support families seeking IVF treatment.",
+          "confidence": "high",
           "sources": [
             {
               "url": "https://reproductivefreedomforall.org/news/reproductive-freedom-for-all-endorses-georgia-senator-jon-ossoff-for-reelection/",
-              "type": "website",
+              "type": "news",
               "title": "Reproductive Freedom for All Endorses Georgia Senator Jon Ossoff for Reelection",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+              "last_accessed": "2026-03-29T16:50:19.067874+00:00"
             },
             {
-              "url": "https://www.congress.gov/congressional-record/volume-172/issue-44/senate-section/article/S966-1",
-              "type": "government",
-              "title": "Congressional Record Vol. 172, No. 44 (Senate - March 10, 2026)",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+              "url": "https://www.ossoff.senate.gov/press-releases/sen-ossoff-pushing-to-protect-womens-access-to-contraception-in-georgia/",
+              "type": "website",
+              "title": "Sen. Ossoff Pushing to Protect Women's Access to Contraception in Georgia",
+              "last_accessed": "2026-03-29T16:50:19.067874+00:00"
             }
           ]
         },
         "Immigration": {
-          "stance": "Ossoff emphasizes oversight of immigration detention conditions and accountability for abuse, while also stating that secure borders and humane treatment are both important.",
+          "stance": "Continues to focus on oversight of immigration detention conditions and abuse allegations; on March 26, 2026, he launched an investigation into alleged abuse at the \"Alligator Alcatraz\" detention site, saying it may rise to the level of torture.",
           "confidence": "high",
           "sources": [
             {
-              "url": "https://www.ossoff.senate.gov/press-releases/new-sen-ossoff-investigation-uncovers-over-1000-credible-reports-of-human-rights-abuses-in-immigration-detention/",
+              "url": "https://www.ossoff.senate.gov/press-releases/",
               "type": "website",
-              "title": "NEW: Sen. Ossoff Investigation Uncovers Over 1,000 Credible Reports of Human Rights Abuses in Immigration Detention",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+              "title": "Press Releases – U.S. Senator for Georgia Jon Ossoff",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+            },
+            {
+              "url": "https://www.ossoff.senate.gov/press-releases/page/2/",
+              "type": "website",
+              "title": "Press Releases – Page 2 – U.S. Senator for Georgia Jon Ossoff",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
             }
           ]
         },
         "Guns & Safety": {
-          "stance": "Ossoff supports gun-safety measures and frames the issue around public safety.",
+          "stance": "Ossoff continues to emphasize gun safety and public safety, including support for stronger gun-safety measures and criticism of federal actions he says undermine public safety and civil liberties.",
           "confidence": "medium",
           "sources": [
             {
-              "url": "https://www.ossoff.senate.gov/five-year-report/",
+              "url": "https://giffords.org/press-release/2025/07/giffords-pac-endorses-sen-jon-ossoff-for-reelection-in-georgia/",
               "type": "website",
-              "title": "Five-Year Report \u2013 U.S. Senator for Georgia Jon Ossoff",
-              "last_accessed": "2026-03-29T14:48:07.849058+00:00"
+              "title": "GIFFORDS PAC endorses Sen. Jon Ossoff for reelection in Georgia",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+            },
+            {
+              "url": "https://electjon.com/ossoff-republican-senate-candidates-must-call-for-independent-investigation-fight-for-civil-liberties/",
+              "type": "website",
+              "title": "Ossoff: Republican Senate Candidates Must Call for Independent Investigation, Fight for Civil Liberties",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
             }
           ]
         },
         "Foreign Policy": {
-          "stance": "Pressed the Director of National Intelligence on March 18, 2026 over conflicting claims about Iran\u2019s nuclear threat and criticized evasive answers.",
+          "stance": "On March 18, 2026, Ossoff pressed the Director of National Intelligence on the imminent threat posed by Iran; on February 28, 2026, he criticized Donald Trump over U.S. air action involving Iran and emphasized congressional oversight of military action.",
           "confidence": "high",
           "sources": [
             {
-              "url": "https://www.ossoff.senate.gov/press-releases/sen-ossoff-presses-director-of-national-intelligence-on-imminent-threat-posed-by-iran-fulton-county-raid/",
+              "url": "https://www.ossoff.senate.gov/press-releases/",
               "type": "website",
-              "title": "Sen. Ossoff Presses Director of National Intelligence on Imminent Threat Posed by Iran, Fulton County Raid",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+              "title": "Press Releases – U.S. Senator for Georgia Jon Ossoff",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+            },
+            {
+              "url": "https://www.ossoff.senate.gov/press-releases/page/2/",
+              "type": "website",
+              "title": "Press Releases – Page 2 – U.S. Senator for Georgia Jon Ossoff",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
             }
           ]
         },
         "Social Justice": {
-          "stance": "Ossoff continues to emphasize civil and human rights, with recent 2026 actions focused on investigating human rights abuses in immigration detention and oversight of detention conditions.",
+          "stance": "Ossoff continues to frame his agenda around civil liberties and human rights, including oversight and criticism of federal enforcement actions he says violate Americans’ rights.",
           "confidence": "high",
           "sources": [
             {
-              "url": "https://www.ossoff.senate.gov/press-releases/new-sen-ossoff-investigation-uncovers-over-1000-credible-reports-of-human-rights-abuses-in-immigration-detention/",
+              "url": "https://electjon.com/ossoff-republican-senate-candidates-must-call-for-independent-investigation-fight-for-civil-liberties/",
               "type": "website",
-              "title": "Sen. Ossoff Investigation Uncovers Over 1,000 Credible Reports of Human Rights Abuses in Immigration Detention",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+              "title": "Ossoff: Republican Senate Candidates Must Call for Independent Investigation, Fight for Civil Liberties",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
             },
             {
-              "url": "https://www.ossoff.senate.gov/press-releases/federal-investigation-initiated-by-sen-ossoff-uncovers-gaps-in-testing-of-kids-toys-for-lead/",
+              "url": "https://electjon.com/ossoff-republican-senate-candidates-must-fight-for-civil-liberties-stand-with-american-people/",
               "type": "website",
-              "title": "Federal Investigation Initiated by Sen. Ossoff Uncovers Gaps in Testing of Kids Toys for Lead",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+              "title": "Ossoff: Republican Senate Candidates Must Fight for Civil Liberties, Stand With American People",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
             }
           ]
         },
         "Education": {
-          "stance": "Ossoff is focused on education as part of workforce development, including support for technical colleges, community colleges, skills training, and federal education funding.",
+          "stance": "Ossoff’s education message remains focused on workforce-oriented education and job training. In August 2025, he introduced the Skilled Workforce Act to encourage private investment in high schools, career academies, and technical colleges, saying technical colleges, community colleges, and skills training are the foundation for Georgia’s middle class. He also said the bill is meant to help Georgians get job training and hire Georgians.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://www.ossoff.senate.gov/press-releases/sen-ossoff-introduces-bill-to-help-georgians-unlock-job-training-opportunities-across-georgia/",
               "type": "website",
               "title": "Sen. Ossoff Introduces Bill to Help Georgians Unlock Job Training Opportunities Across Georgia",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
-            },
-            {
-              "url": "https://www.ossoff.senate.gov/press-releases/sen-ossoff-colleagues-demand-department-of-education-reverse-decision-to-cut-federal-funding-for-hispanic-serving-institutions/",
-              "type": "website",
-              "title": "Sen. Ossoff, Colleagues Demand Department of Education Reverse Decision to Cut Federal Funding for Hispanic-Serving Institutions",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
             }
           ]
         },
         "Tech & AI": {
-          "stance": "Ossoff continues pressing for oversight of government and generative AI use.",
-          "confidence": "medium",
+          "stance": "Ossoff has recently emphasized oversight and guardrails for government use of AI. In February 2026, he joined an inquiry into the Defense Department's planned use of xAI's Grok, citing concerns about antisemitic content, Holocaust denial, racist ideologies, and deepfake child pornography.",
+          "confidence": "high",
           "sources": [
             {
-              "url": "https://www.warner.senate.gov/public/index.cfm/pressreleases?Label_id=307B9F0F-44FA-4B00-A028-3833BBDF6D9F",
-              "type": "website",
-              "title": "Press Releases - Mark R. Warner",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
-            },
-            {
-              "url": "https://www.warner.senate.gov/public/index.cfm/pressreleases",
-              "type": "website",
-              "title": "Press Releases - Mark R. Warner",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+              "url": "https://www.ossoff.senate.gov/press-releases/sen-ossoff-colleagues-launch-inquiry-into-department-of-defenses-use-of-ai-software-known-for-antisemitic-content/",
+              "type": "government",
+              "title": "Sen. Ossoff, Colleagues Launch Inquiry into Department of Defense’s Use of AI Software Known for Antisemitic Content",
+              "last_accessed": "2026-03-29T16:50:19.067874+00:00"
             }
           ]
         },
         "Election Reform": {
-          "stance": "Ossoff continues to emphasize voting rights and election administration, including support for election-worker protections and broader election access measures.",
+          "stance": "Ossoff is emphasizing voting rights and election administration rather than stricter voting restrictions; in March 2026 he publicly framed Republican election-funding fights around protecting federal workers and democratic institutions, and his campaign-facing messaging continues to center Georgia voters and democratic participation.",
           "confidence": "medium",
           "sources": [
             {
-              "url": "https://www.ossoff.senate.gov/five-year-report/",
+              "url": "https://www.ossoff.senate.gov/category/georgia/",
               "type": "website",
-              "title": "Five-Year Report \u2013 U.S. Senator for Georgia Jon Ossoff",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+              "title": "Georgia – U.S. Senator for Georgia Jon Ossoff",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+            },
+            {
+              "url": "https://www.wabe.org/ahead-of-2026-campaign-ossoff-says-georgia-will-bow-to-no-king/",
+              "type": "news",
+              "title": "Ahead of 2026 campaign, Ossoff says 'Georgia will bow to no king'",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
             }
           ]
         },
         "Local Issues": {
-          "stance": "Ossoff continues to frame his Georgia agenda around constituent services and state-specific priorities, including infrastructure, housing affordability, public safety, farmers, veterans, and CDC/public health issues.",
+          "stance": "Ossoff’s latest Georgia-focused agenda emphasizes local infrastructure, public safety, housing affordability, water systems, and constituent services; in March 2026 he highlighted funding for drinking water, stormwater, ports, housing, public safety, and community projects across Georgia.",
           "confidence": "high",
           "sources": [
             {
+              "url": "https://www.ossoff.senate.gov/category/georgia/",
+              "type": "website",
+              "title": "Georgia – U.S. Senator for Georgia Jon Ossoff",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+            },
+            {
               "url": "https://www.ossoff.senate.gov/five-year-report/",
               "type": "website",
-              "title": "Five-Year Report \u2013 U.S. Senator for Georgia Jon Ossoff",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+              "title": "Five-Year Report – U.S. Senator for Georgia Jon Ossoff",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
             }
           ]
         }
@@ -487,7 +545,7 @@
       "name": "Buddy Carter",
       "party": "Republican",
       "incumbent": false,
-      "summary": "Buddy Carter is a Republican U.S. representative from Georgia\u2019s 1st District and a candidate for the 2026 U.S. Senate race. He entered the contest in 2025 and has framed his campaign around conservative, pro-Trump themes while seeking the Republican nomination to challenge Ossoff.",
+      "summary": "Buddy Carter is a Republican U.S. representative from Georgia’s 1st District and a candidate for the 2026 U.S. Senate race. He entered the contest in May 2025 and has continued campaigning while also using his House platform to criticize Democrats on federal funding and other issues.",
       "summary_sources": [
         {
           "url": "https://bioguide.congress.gov/search/bio/C001103",
@@ -522,20 +580,7 @@
           "organization": "U.S. House of Representatives",
           "start_year": 2015,
           "end_year": null,
-          "description": "Represents Georgia\u2019s 1st Congressional District.",
-          "source": {
-            "url": "https://bioguide.congress.gov/search/bio/C001103",
-            "type": "government",
-            "title": "Biographical Directory of the United States Congress: Buddy Carter",
-            "last_accessed": "2026-03-29T07:53:32.742009+00:00"
-          }
-        },
-        {
-          "title": "Georgia State Representative",
-          "organization": "Georgia House of Representatives",
-          "start_year": 2005,
-          "end_year": 2009,
-          "description": "Served in the Georgia legislature before election to Congress.",
+          "description": "Represents Georgia's 1st Congressional District.",
           "source": {
             "url": "https://bioguide.congress.gov/search/bio/C001103",
             "type": "government",
@@ -548,7 +593,33 @@
           "organization": "Georgia State Senate",
           "start_year": 2009,
           "end_year": 2015,
-          "description": "Served in the Georgia Senate prior to election to the U.S. House.",
+          "description": "Served in the Georgia Senate before election to Congress.",
+          "source": {
+            "url": "https://bioguide.congress.gov/search/bio/C001103",
+            "type": "government",
+            "title": "Biographical Directory of the United States Congress: Buddy Carter",
+            "last_accessed": "2026-03-29T07:53:32.742009+00:00"
+          }
+        },
+        {
+          "title": "Georgia State Representative",
+          "organization": "Georgia House of Representatives",
+          "start_year": 2005,
+          "end_year": 2009,
+          "description": "Served in the Georgia House before moving to the state Senate.",
+          "source": {
+            "url": "https://bioguide.congress.gov/search/bio/C001103",
+            "type": "government",
+            "title": "Biographical Directory of the United States Congress: Buddy Carter",
+            "last_accessed": "2026-03-29T07:53:32.742009+00:00"
+          }
+        },
+        {
+          "title": "Pharmacist and business owner",
+          "organization": "Private sector",
+          "start_year": 1980,
+          "end_year": 2014,
+          "description": "Worked as a pharmacist and small-business owner before his congressional career.",
           "source": {
             "url": "https://bioguide.congress.gov/search/bio/C001103",
             "type": "government",
@@ -586,26 +657,26 @@
         },
         {
           "bill_name": "H.R. 6572: Deploying American Blockchains Act of 2023",
-          "bill_description": "A House bill to promote blockchain technology deployment; GovTrack lists Carter as voting yea.",
+          "bill_description": "A House bill to promote blockchain technology deployment.",
           "vote": "yes",
           "date": "2024-05-15",
           "source": {
             "url": "https://www.govtrack.us/congress/members/earl_carter/412622",
             "type": "website",
-            "title": "Rep. Earl \u201cBuddy\u201d Carter - GovTrack.us",
-            "last_accessed": "2026-03-29T14:48:07.849058+00:00"
+            "title": "Rep. Earl “Buddy” Carter - GovTrack.us",
+            "last_accessed": "2026-03-29T16:50:19.067874+00:00"
           }
         },
         {
           "bill_name": "H.Res. 1160: Providing for consideration of H.R. 8034 supplemental appropriations",
-          "bill_description": "A procedural resolution on emergency supplemental appropriations; GovTrack lists Carter as voting not voting.",
+          "bill_description": "A procedural resolution on emergency supplemental appropriations.",
           "vote": "absent",
           "date": "2024-04-19",
           "source": {
             "url": "https://www.govtrack.us/congress/members/earl_carter/412622",
             "type": "website",
-            "title": "Rep. Earl \u201cBuddy\u201d Carter - GovTrack.us",
-            "last_accessed": "2026-03-29T14:48:07.849058+00:00"
+            "title": "Rep. Earl “Buddy” Carter - GovTrack.us",
+            "last_accessed": "2026-03-29T16:50:19.067874+00:00"
           }
         },
         {
@@ -616,32 +687,32 @@
           "source": {
             "url": "https://www.govtrack.us/congress/members/earl_carter/412622",
             "type": "website",
-            "title": "Rep. Earl \u201cBuddy\u201d Carter - GovTrack.us",
-            "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+            "title": "Rep. Earl “Buddy” Carter - GovTrack.us",
+            "last_accessed": "2026-03-29T16:50:19.067874+00:00"
           }
         },
         {
           "bill_name": "H.R. 884: National Aviation Preparedness Plan Act of 2022",
-          "bill_description": "A bill related to aviation preparedness planning; GovTrack lists Carter as voting yea.",
+          "bill_description": "A bill related to aviation preparedness planning.",
           "vote": "yes",
           "date": "2022-09-14",
           "source": {
             "url": "https://www.govtrack.us/congress/members/earl_carter/412622",
             "type": "website",
-            "title": "Rep. Earl \u201cBuddy\u201d Carter - GovTrack.us",
-            "last_accessed": "2026-03-29T14:48:07.849058+00:00"
+            "title": "Rep. Earl “Buddy” Carter - GovTrack.us",
+            "last_accessed": "2026-03-29T16:50:19.067874+00:00"
           }
         },
         {
           "bill_name": "H.R. 263: Big Cat Public Safety Act",
-          "bill_description": "A bill restricting private ownership of big cats; GovTrack lists Carter as voting yea.",
+          "bill_description": "A bill restricting private ownership of big cats.",
           "vote": "yes",
           "date": "2022-07-29",
           "source": {
             "url": "https://www.govtrack.us/congress/members/earl_carter/412622",
             "type": "website",
-            "title": "Rep. Earl \u201cBuddy\u201d Carter - GovTrack.us",
-            "last_accessed": "2026-03-29T14:48:07.849058+00:00"
+            "title": "Rep. Earl “Buddy” Carter - GovTrack.us",
+            "last_accessed": "2026-03-29T16:50:19.067874+00:00"
           }
         },
         {
@@ -652,20 +723,20 @@
           "source": {
             "url": "https://www.govtrack.us/congress/members/earl_carter/412622",
             "type": "website",
-            "title": "Rep. Earl \u201cBuddy\u201d Carter - GovTrack.us",
-            "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+            "title": "Rep. Earl “Buddy” Carter - GovTrack.us",
+            "last_accessed": "2026-03-29T16:50:19.067874+00:00"
           }
         },
         {
           "bill_name": "H.R. 550: Immunization Infrastructure Modernization Act of 2021",
-          "bill_description": "A bill to fund modernization of immunization record systems; GovTrack lists Carter as voting yea.",
+          "bill_description": "A bill to fund modernization of immunization record systems.",
           "vote": "yes",
           "date": "2021-11-30",
           "source": {
             "url": "https://www.govtrack.us/congress/members/earl_carter/412622",
             "type": "website",
-            "title": "Rep. Earl \u201cBuddy\u201d Carter - GovTrack.us",
-            "last_accessed": "2026-03-29T14:48:07.849058+00:00"
+            "title": "Rep. Earl “Buddy” Carter - GovTrack.us",
+            "last_accessed": "2026-03-29T16:50:19.067874+00:00"
           }
         },
         {
@@ -676,8 +747,8 @@
           "source": {
             "url": "https://www.govtrack.us/congress/members/earl_carter/412622",
             "type": "website",
-            "title": "Rep. Earl \u201cBuddy\u201d Carter - GovTrack.us",
-            "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+            "title": "Rep. Earl “Buddy” Carter - GovTrack.us",
+            "last_accessed": "2026-03-29T16:50:19.067874+00:00"
           }
         },
         {
@@ -688,279 +759,396 @@
           "source": {
             "url": "https://www.govtrack.us/congress/members/earl_carter/412622",
             "type": "website",
-            "title": "Rep. Earl \u201cBuddy\u201d Carter - GovTrack.us",
-            "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+            "title": "Rep. Earl “Buddy” Carter - GovTrack.us",
+            "last_accessed": "2026-03-29T16:50:19.067874+00:00"
           }
         },
         {
-          "bill_name": "S. 1252: Global Food Security Act of 2016",
-          "bill_description": "A bill to improve U.S. efforts to address global food security and hunger.",
-          "vote": "no",
-          "date": "2016-07-06",
-          "source": {
-            "url": "https://www.govtrack.us/congress/members/earl_carter/412622",
-            "type": "website",
-            "title": "Rep. Earl \u201cBuddy\u201d Carter - GovTrack.us",
-            "last_accessed": "2026-03-29T15:58:09.208376+00:00"
-          }
-        },
-        {
-          "bill_name": "H.R. 6572 (118th): Deploying American Blockchains Act of 2023",
-          "bill_description": "A House bill related to blockchain deployment and related federal policy.",
+          "bill_name": "H.R. 6572",
+          "bill_description": "Deploying American Blockchains Act of 2023.",
           "vote": "yes",
           "date": "2024-05-15",
           "source": {
             "url": "https://www.govtrack.us/congress/members/earl_carter/412622",
-            "type": "website",
-            "title": "Rep. Earl \u201cBuddy\u201d Carter - GovTrack.us",
-            "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+            "type": "news",
+            "title": "Rep. Earl “Buddy” Carter [R-GA1, 2015-2026], Representative for Georgia's 1st Congressional District - GovTrack.us",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
           }
         },
         {
-          "bill_name": "H.Res. 1160 (118th): Providing for consideration of the bill (H.R. 8034) making emergency supplemental appropriations",
-          "bill_description": "A procedural resolution on consideration of emergency supplemental appropriations.",
+          "bill_name": "H.Res. 1160",
+          "bill_description": "Rule for consideration of emergency supplemental appropriations legislation.",
           "vote": "absent",
           "date": "2024-04-19",
           "source": {
             "url": "https://www.govtrack.us/congress/members/earl_carter/412622",
-            "type": "website",
-            "title": "Rep. Earl \u201cBuddy\u201d Carter - GovTrack.us",
-            "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+            "type": "news",
+            "title": "Rep. Earl “Buddy” Carter [R-GA1, 2015-2026], Representative for Georgia's 1st Congressional District - GovTrack.us",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
           }
         },
         {
-          "bill_name": "H.R. 884 (117th): National Aviation Preparedness Plan Act of 2022",
-          "bill_description": "A bill concerning aviation preparedness planning.",
+          "bill_name": "H.R. 6448",
+          "bill_description": "Invest to Protect Act of 2022.",
+          "vote": "no",
+          "date": "2022-09-22",
+          "source": {
+            "url": "https://www.govtrack.us/congress/members/earl_carter/412622",
+            "type": "news",
+            "title": "Rep. Earl “Buddy” Carter [R-GA1, 2015-2026], Representative for Georgia's 1st Congressional District - GovTrack.us",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+          }
+        },
+        {
+          "bill_name": "H.R. 884",
+          "bill_description": "National Aviation Preparedness Plan Act of 2022.",
           "vote": "yes",
           "date": "2022-09-14",
           "source": {
             "url": "https://www.govtrack.us/congress/members/earl_carter/412622",
-            "type": "website",
-            "title": "Rep. Earl \u201cBuddy\u201d Carter - GovTrack.us",
-            "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+            "type": "news",
+            "title": "Rep. Earl “Buddy” Carter [R-GA1, 2015-2026], Representative for Georgia's 1st Congressional District - GovTrack.us",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
           }
         },
         {
-          "bill_name": "H.R. 263 (117th): Big Cat Public Safety Act",
-          "bill_description": "A bill regulating private ownership and public safety issues involving big cats.",
+          "bill_name": "H.R. 263",
+          "bill_description": "Big Cat Public Safety Act.",
           "vote": "yes",
           "date": "2022-07-29",
           "source": {
             "url": "https://www.govtrack.us/congress/members/earl_carter/412622",
-            "type": "website",
-            "title": "Rep. Earl \u201cBuddy\u201d Carter - GovTrack.us",
-            "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+            "type": "news",
+            "title": "Rep. Earl “Buddy” Carter [R-GA1, 2015-2026], Representative for Georgia's 1st Congressional District - GovTrack.us",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
           }
         },
         {
-          "bill_name": "H.R. 550 (117th): Immunization Infrastructure Modernization Act of 2021",
-          "bill_description": "A bill to modernize immunization record systems through federal grants.",
+          "bill_name": "H.R. 7900",
+          "bill_description": "National Defense Authorization Act for Fiscal Year 2023.",
+          "vote": "yes",
+          "date": "2022-07-14",
+          "source": {
+            "url": "https://www.govtrack.us/congress/members/earl_carter/412622",
+            "type": "news",
+            "title": "Rep. Earl “Buddy” Carter [R-GA1, 2015-2026], Representative for Georgia's 1st Congressional District - GovTrack.us",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+          }
+        },
+        {
+          "bill_name": "H.R. 550",
+          "bill_description": "Immunization Infrastructure Modernization Act of 2021.",
           "vote": "yes",
           "date": "2021-11-30",
           "source": {
             "url": "https://www.govtrack.us/congress/members/earl_carter/412622",
-            "type": "website",
-            "title": "Rep. Earl \u201cBuddy\u201d Carter - GovTrack.us",
-            "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+            "type": "news",
+            "title": "Rep. Earl “Buddy” Carter [R-GA1, 2015-2026], Representative for Georgia's 1st Congressional District - GovTrack.us",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+          }
+        },
+        {
+          "bill_name": "H.Res. 1154",
+          "bill_description": "Condemning QAnon and rejecting the conspiracy theories it promotes.",
+          "vote": "no",
+          "date": "2020-10-02",
+          "source": {
+            "url": "https://www.govtrack.us/congress/members/earl_carter/412622",
+            "type": "news",
+            "title": "Rep. Earl “Buddy” Carter [R-GA1, 2015-2026], Representative for Georgia's 1st Congressional District - GovTrack.us",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+          }
+        },
+        {
+          "bill_name": "H.R. 2",
+          "bill_description": "Agriculture Improvement Act of 2018.",
+          "vote": "no",
+          "date": "2018-12-12",
+          "source": {
+            "url": "https://www.govtrack.us/congress/members/earl_carter/412622",
+            "type": "news",
+            "title": "Rep. Earl “Buddy” Carter [R-GA1, 2015-2026], Representative for Georgia's 1st Congressional District - GovTrack.us",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+          }
+        },
+        {
+          "bill_name": "S. 1252",
+          "bill_description": "Global Food Security Act of 2016.",
+          "vote": "no",
+          "date": "2016-07-06",
+          "source": {
+            "url": "https://www.govtrack.us/congress/members/earl_carter/412622",
+            "type": "news",
+            "title": "Rep. Earl “Buddy” Carter [R-GA1, 2015-2026], Representative for Georgia's 1st Congressional District - GovTrack.us",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
           }
         }
       ],
       "top_donors": [
         {
-          "name": "Georgia Pharmacy Association",
-          "amount": 3500,
-          "organization": "Georgia Pharmacy Association",
+          "name": "National Community Pharmacists Assn",
+          "amount": 84525,
+          "organization": "National Community Pharmacists Assn",
           "source": {
-            "url": "https://www.opensecrets.org/members-of-congress/buddy-carter/state-data?cid=N00035346&cycle=2024",
+            "url": "https://www.opensecrets.org/members-of-congress/buddy-carter/contributors?cid=N00035346&cycle=CAREER&recs=100&type=C",
             "type": "website",
-            "title": "Rep. Buddy Carter - Georgia District 01 - OpenSecrets",
-            "last_accessed": "2026-03-29T14:48:07.849058+00:00"
+            "title": "Rep. Buddy Carter - Georgia ( District 01) • OpenSecrets",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
           }
         },
         {
-          "name": "CoreCivic FKA Corrections Corp of America",
-          "amount": 2500,
-          "organization": "CoreCivic",
+          "name": "General Dynamics",
+          "amount": 81640,
+          "organization": "General Dynamics",
           "source": {
-            "url": "https://www.opensecrets.org/members-of-congress/buddy-carter/state-data?cid=N00035346&cycle=2024",
+            "url": "https://www.opensecrets.org/members-of-congress/buddy-carter/contributors?cid=N00035346&cycle=CAREER&recs=100&type=C",
             "type": "website",
-            "title": "Rep. Buddy Carter - Georgia District 01 - OpenSecrets",
-            "last_accessed": "2026-03-29T14:48:07.849058+00:00"
+            "title": "Rep. Buddy Carter - Georgia ( District 01) • OpenSecrets",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+          }
+        },
+        {
+          "name": "Professional Compounding Centers of America",
+          "amount": 62450,
+          "organization": "Professional Compounding Centers of America",
+          "source": {
+            "url": "https://www.opensecrets.org/members-of-congress/buddy-carter/contributors?cid=N00035346&cycle=CAREER&recs=100&type=C",
+            "type": "website",
+            "title": "Rep. Buddy Carter - Georgia ( District 01) • OpenSecrets",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+          }
+        },
+        {
+          "name": "Cencora Inc",
+          "amount": 61400,
+          "organization": "Cencora Inc",
+          "source": {
+            "url": "https://www.opensecrets.org/members-of-congress/buddy-carter/contributors?cid=N00035346&cycle=CAREER&recs=100&type=C",
+            "type": "website",
+            "title": "Rep. Buddy Carter - Georgia ( District 01) • OpenSecrets",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+          }
+        },
+        {
+          "name": "McKesson Corp",
+          "amount": 60500,
+          "organization": "McKesson Corp",
+          "source": {
+            "url": "https://www.opensecrets.org/members-of-congress/buddy-carter/contributors?cid=N00035346&cycle=CAREER&recs=100&type=C",
+            "type": "website",
+            "title": "Rep. Buddy Carter - Georgia ( District 01) • OpenSecrets",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
           }
         }
       ],
       "issues": {
         "Healthcare": {
-          "stance": "Carter emphasizes maternal health and lowering health care costs through market-oriented approaches.",
-          "confidence": "medium",
+          "stance": "Carter has highlighted maternal health legislation, saying his Preventing Maternal Deaths Reauthorization Act would improve health outcomes for mothers and expand access to maternal health resources. Reporting on the 2026 Senate race also says he opposed renewing Affordable Care Act subsidies, with Republicans arguing those subsidies are financially unsustainable.",
+          "confidence": "high",
           "sources": [
             {
               "url": "https://buddycarter.house.gov/news/documentsingle.aspx?DocumentID=16281",
               "type": "website",
-              "title": "Carter bill preventing maternal deaths and improving health ...",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+              "title": "Carter bill preventing maternal deaths and improving health outcomes for mothers heads to Senate",
+              "last_accessed": "2026-03-29T16:50:19.067874+00:00"
+            },
+            {
+              "url": "https://capitol-beat.org/2026/01/democrats-criticize-georgia-us-senate-challengers-for-end-of-health-insurance-subsidies/",
+              "type": "news",
+              "title": "Democrats criticize Georgia US Senate challengers for end of health insurance subsidies",
+              "last_accessed": "2026-03-29T16:50:19.067874+00:00"
             }
           ]
         },
         "Economy": {
-          "stance": "Carter is framing his economic position around pro-Trump tax cuts, lower costs, energy production, and business-friendly policies.",
-          "confidence": "high",
+          "stance": "Carter’s economic message continues to center on tax cuts, domestic production, reshoring, and protectionist trade policy. In March 2026, his campaign and congressional materials continued to frame him as supporting Trump’s economic agenda, including tariffs and policies aimed at boosting American workers and manufacturing. He also publicly defended Trump’s tariff authority after a Supreme Court ruling, saying the decision undercut the president’s ability to defend American workers.",
+          "confidence": "medium",
           "sources": [
             {
               "url": "https://buddycarter.house.gov/news/documentsingle.aspx?DocumentID=16222",
               "type": "website",
-              "title": "Batting 1.000: Trump\u2019s Home-Run Economic Policies Delivered for Georgians in 2025",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+              "title": "Trump's Home-Run Economic Policies Delivered for Georgians in ...",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+            },
+            {
+              "url": "https://buddycarter.house.gov/news/documentsingle.aspx?DocumentID=16348",
+              "type": "website",
+              "title": "Carter statement on SCOTUS tariff ruling",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
             }
           ]
         },
         "Climate/Energy": {
-          "stance": "Carter supports domestic energy production, nuclear power, and permitting reform, and he has criticized climate and emissions rules he views as restrictive.",
+          "stance": "Carter backs an all-of-the-above energy strategy centered on increasing domestic production, promoting nuclear and other reliable energy sources, and cutting permitting and regulatory barriers. His House energy page says this approach is aimed at energy independence, lower prices, and job creation.",
           "confidence": "high",
           "sources": [
             {
-              "url": "https://buddycarter.house.gov/news/documentquery.aspx?IssueID=14898",
-              "type": "website",
+              "url": "https://buddycarter.house.gov/issues/issue/?IssueID=14898",
+              "type": "government",
               "title": "Energy : U.S. Representative Buddy Carter",
-              "last_accessed": "2026-03-29T14:48:07.849058+00:00"
-            },
-            {
-              "url": "https://buddycarter.house.gov/news/documentquery.aspx?IssueID=15453",
-              "type": "website",
-              "title": "Environment : U.S. Representative Buddy Carter",
-              "last_accessed": "2026-03-29T14:48:07.849058+00:00"
+              "last_accessed": "2026-03-29T16:50:19.067874+00:00"
             }
           ]
         },
         "Reproductive Rights": {
-          "stance": "Public materials reflect an anti-abortion position; his office\u2019s issue page is titled 'Protecting Life' and recent materials show him leading a letter to the FDA on abortion medication policy.",
+          "stance": "Carter's public materials reflect an anti-abortion position. His office's issue page is titled Protecting Life, and House materials also say he supported the Born-Alive Abortion Survivors Protection Act and other anti-abortion measures.",
           "confidence": "medium",
           "sources": [
             {
               "url": "https://buddycarter.house.gov/news/documentquery.aspx?IssueID=14891",
               "type": "website",
               "title": "Protecting Life : U.S. Representative Buddy Carter",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+              "last_accessed": "2026-03-29T16:50:19.067874+00:00"
+            },
+            {
+              "url": "https://buddycarter.house.gov/news/email/show.aspx?ID=TRDAJH6Q3WDOI4PYGAECHORAKQ",
+              "type": "website",
+              "title": "Representative Buddy Carter - Defending the right to life with the Born-Alive Abortion Survivors Protection Act",
+              "last_accessed": "2026-03-29T16:50:19.067874+00:00"
             }
           ]
         },
         "Immigration": {
-          "stance": "Introduced the No Sanctuary Cities Act on February 9, 2026 to require state and local governments to cooperate with federal immigration authorities, including sharing custody and release information and holding certain detainees for up to 48 hours when requested.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://buddycarter.house.gov/news/documentsingle.aspx?DocumentID=16326",
-              "type": "website",
-              "title": "Carter to force \"sanctuary\" cities to comply with ICE in new bill",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
-            }
-          ]
-        },
-        "Guns & Safety": {
-          "stance": "No new verified 2026 position found in the reviewed sources; his existing record remains strongly pro-Second Amendment and opposed to new gun restrictions.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.google.com/search?q=Buddy+Carter+guns+safety+2026+statement+site%3Abuddycarter.com+OR+site%3Acarter.house.gov",
-              "type": "website",
-              "title": "Search query used to locate recent statements",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "Publicly backed President Trump\u2019s military action against Iran and said the U.S. and world were safer after the strikes.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://buddycarter.house.gov/news/documentsingle.aspx?DocumentID=16374",
-              "type": "website",
-              "title": "ICYMI: A weaker Iran means a stronger America",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
-            }
-          ]
-        },
-        "Social Justice": {
-          "stance": "Carter's reviewed materials do not show a detailed standalone social-justice platform.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://buddycarter.house.gov/news/",
-              "type": "website",
-              "title": "Latest News : U.S. Representative Buddy Carter",
-              "last_accessed": "2026-03-29T14:48:07.849058+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Carter\u2019s education position centers on parents\u2019 rights, school transparency, and opposition to what he describes as political indoctrination in schools.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://buddycarter.house.gov/news/documentsingle.aspx?DocumentID=10565",
-              "type": "website",
-              "title": "\u2018A Future that is Free\u2019: Carter hosts roundtable on state of parents\u2019 rights in education",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
-            },
-            {
-              "url": "https://buddycarter.house.gov/news/email/show.aspx?ID=JAORAPOQ6RBWGB2BW7B4EOLERU",
-              "type": "website",
-              "title": "School Choice - Representative Buddy Carter",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "Carter has highlighted child online safety and infrastructure issues tied to digital connectivity, but the reviewed materials do not show a detailed AI policy platform.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://buddycarter.house.gov/news/",
-              "type": "website",
-              "title": "Latest News : U.S. Representative Buddy Carter",
-              "last_accessed": "2026-03-29T14:48:07.849058+00:00"
-            },
-            {
-              "url": "https://buddycarter.house.gov/news/documentquery.aspx?IssueID=14898",
-              "type": "website",
-              "title": "Energy : U.S. Representative Buddy Carter",
-              "last_accessed": "2026-03-29T14:48:07.849058+00:00"
-            }
-          ]
-        },
-        "Election Reform": {
-          "stance": "Carter continues to support stricter election rules and federal election-security legislation.",
+          "stance": "Remains strongly enforcement-focused; on February 9, 2026, he introduced the No Sanctuary Cities Act, which would require state and local governments to cooperate with federal immigration authorities.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://buddycarter.house.gov/news/documentquery.aspx?IssueID=14895",
               "type": "website",
               "title": "Immigration : U.S. Representative Buddy Carter",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+            }
+          ]
+        },
+        "Guns & Safety": {
+          "stance": "Carter continues to present himself as strongly pro-Second Amendment and aligned with gun-rights positions; no new official campaign policy language was found in the reviewed material.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://buddycarter.com/",
+              "type": "website",
+              "title": "Buddy Carter For Senate",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
             },
             {
-              "url": "https://buddycarter.house.gov/news/documentsingle.aspx?DocumentID=16326",
+              "url": "https://thehill.com/homenews/campaign/5289858-republican-carter-challenges-jon-ossoff/",
+              "type": "news",
+              "title": "Georgia's Buddy Carter announces Senate candidacy against Jon Ossoff",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Took a hawkish position on Iran in March 2026; on March 5, 2026, he said he voted against H. Con. Res. 38 because Iran is a major terrorist threat, and he later praised Trump’s military action against Iran as addressing an imminent threat.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://buddycarter.house.gov/news/documentquery.aspx?IssueID=14892",
               "type": "website",
-              "title": "Carter to force \"sanctuary\" cities to comply with ICE in new bill",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+              "title": "National Defense : U.S. Representative Buddy Carter",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+            },
+            {
+              "url": "https://buddycarter.house.gov/news/documentsingle.aspx?DocumentID=16365",
+              "type": "website",
+              "title": "Carter statement on vote in support of our troops against war powers resolution",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+            },
+            {
+              "url": "https://buddycarter.house.gov/news/documentsingle.aspx?DocumentID=16367",
+              "type": "website",
+              "title": "ICYMI: Military action in Iran makes Americans safer - Buddy Carter",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+            }
+          ]
+        },
+        "Social Justice": {
+          "stance": "Carter’s campaign messaging continues to emphasize Trump alignment, border security, and conservative culture-war themes rather than a distinct social-justice agenda.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://buddycarter.com/",
+              "type": "website",
+              "title": "Buddy Carter For Senate",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+            },
+            {
+              "url": "https://georgiarecorder.com/2025/05/09/georgia-gop-u-s-rep-buddy-carter-enters-2026-senate-race-that-shapes-up-as-referendum-on-trump-policies/",
+              "type": "news",
+              "title": "Georgia GOP U.S. Rep. Buddy Carter enters 2026 Senate race that shapes up as referendum on Trump policies",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Carter continues to frame education around parental rights, school choice, and opposition to what he describes as government or union control of schools. In his education issue page, he says education decisions are best made by families, teachers, communities, and states. In a campaign email, he said parents’ rights in schools have been attacked, praised the House-passed Parents Bill of Rights, and said he supports school choice across public, charter, magnet, online, private, and home education options.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://buddycarter.house.gov/issues/issue/?IssueID=14890",
+              "type": "website",
+              "title": "Education : U.S. Representative Buddy Carter",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+            },
+            {
+              "url": "https://buddycarter.house.gov/news/email/show.aspx?ID=JAORAPOQ6RBWGB2BW7B4EOLERU",
+              "type": "website",
+              "title": "School choice email from Representative Buddy Carter",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "Carter's most specific recent tech-related position is focused on child online safety rather than AI broadly. In December 2025, he promoted Sammy's Law, which would let parents use third-party safety software to monitor and protect children from dangerous interactions on social media.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://buddycarter.house.gov/news/documentsingle.aspx?DocumentID=16027",
+              "type": "government",
+              "title": "E&C holds hearing on Carter's bill protecting kids' online safety",
+              "last_accessed": "2026-03-29T16:50:19.067874+00:00"
+            }
+          ]
+        },
+        "Election Reform": {
+          "stance": "Carter is strongly supporting tighter election rules, including proof of citizenship and photo ID requirements for voting in federal elections; in February 2026 he publicly backed the SAVE America Act and argued it would strengthen election security and reduce fraud.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://buddycarter.house.gov/news/documentsingle.aspx?DocumentID=16331",
+              "type": "website",
+              "title": "WATCH: Carter defends election integrity, urges SAVE America Act passage on House floor",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+            },
+            {
+              "url": "https://buddycarter.house.gov/news/documentsingle.aspx?DocumentID=16332",
+              "type": "website",
+              "title": "Carter lauds House passage of SAVE America Act",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+            },
+            {
+              "url": "https://www.congress.gov/bill/119th-congress/house-bill/22",
+              "type": "government",
+              "title": "H.R.22 - SAVE Act",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
             }
           ]
         },
         "Local Issues": {
-          "stance": "Carter\u2019s recent Georgia-focused messaging emphasizes lowering costs, strengthening the economy, public safety, service members, and constituent advocacy.",
-          "confidence": "high",
+          "stance": "Carter’s Georgia-facing messaging continues to focus on local cost-of-living and public-safety themes, with recent emphasis on immigration enforcement and community safety in coastal Georgia and Savannah-area concerns.",
+          "confidence": "medium",
           "sources": [
             {
-              "url": "https://buddycarter.house.gov/news/email/show.aspx?ID=YRZANCMUEHYVJBIOD6TBOOKXN4",
-              "type": "website",
-              "title": "Cheers to 2025! - Representative Buddy Carter",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+              "url": "https://www.savannahnow.com/story/news/2026/02/25/more-ice-in-georgia-carter-urges-tougher-enforcement-after-deadly-crash/88859363007/",
+              "type": "news",
+              "title": "Georgia lawmaker calls for ICE surge after Savannah death",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
             },
             {
-              "url": "https://buddycarter.house.gov/",
-              "type": "website",
-              "title": "U.S. Representative Buddy Carter",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+              "url": "https://thecurrentga.org/2026/01/26/as-criticism-of-ice-mounts-carter-urges-expansion-to-georgia/",
+              "type": "news",
+              "title": "As criticism of ICE mounts, Carter urges expansion to Georgia",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
             }
           ]
         }
@@ -970,7 +1158,7 @@
       "name": "Mike Collins",
       "party": "Republican",
       "incumbent": false,
-      "summary": "Mike Collins is a Republican U.S. representative from Georgia\u2019s 10th District and a candidate in the 2026 Senate race. He entered the contest in 2025 and has positioned himself as a pro-Trump conservative; in March 2026, the Club for Growth PAC publicly backed his Senate bid.",
+      "summary": "Mike Collins is a Republican U.S. representative from Georgia’s 10th District and a candidate for the 2026 Senate race. He entered the contest in July 2025 and has since received outside support from conservative groups, including Club for Growth PAC, as he competes in the GOP primary.",
       "summary_sources": [
         {
           "url": "https://bioguide.congress.gov/search/bio/C001136",
@@ -1005,7 +1193,7 @@
           "organization": "U.S. House of Representatives",
           "start_year": 2023,
           "end_year": null,
-          "description": "Represents Georgia\u2019s 10th Congressional District.",
+          "description": "Represents Georgia's 10th Congressional District.",
           "source": {
             "url": "https://bioguide.congress.gov/search/bio/C001136",
             "type": "government",
@@ -1014,11 +1202,11 @@
           }
         },
         {
-          "title": "Businessman / entrepreneur",
-          "organization": "Private sector",
+          "title": "Businessman",
+          "organization": "JMI Sports / trucking and logistics-related family business background",
           "start_year": 1990,
           "end_year": 2022,
-          "description": "Built a career in business before entering Congress.",
+          "description": "Built a private-sector career before entering Congress.",
           "source": {
             "url": "https://bioguide.congress.gov/search/bio/C001136",
             "type": "government",
@@ -1063,91 +1251,91 @@
             "url": "https://www.govtrack.us/congress/members/mike_collins/456895",
             "type": "website",
             "title": "Rep. Mike Collins - GovTrack.us",
-            "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+            "last_accessed": "2026-03-29T16:50:19.067874+00:00"
           }
         },
         {
           "bill_name": "H.R. 6572: Deploying American Blockchains Act of 2023",
-          "bill_description": "A House bill to promote blockchain technology deployment; GovTrack lists Collins as voting yea.",
+          "bill_description": "A House bill to promote blockchain technology deployment.",
           "vote": "yes",
           "date": "2024-05-15",
           "source": {
             "url": "https://www.govtrack.us/congress/members/mike_collins/456895",
             "type": "website",
             "title": "Rep. Mike Collins - GovTrack.us",
-            "last_accessed": "2026-03-29T14:48:07.849058+00:00"
+            "last_accessed": "2026-03-29T16:50:19.067874+00:00"
           }
         },
         {
           "bill_name": "H.Res. 1160: Providing for consideration of H.R. 8034 supplemental appropriations",
-          "bill_description": "A procedural resolution on emergency supplemental appropriations; GovTrack lists Collins as voting nay.",
+          "bill_description": "A procedural resolution on emergency supplemental appropriations.",
           "vote": "no",
           "date": "2024-04-19",
           "source": {
             "url": "https://www.govtrack.us/congress/members/mike_collins/456895",
             "type": "website",
             "title": "Rep. Mike Collins - GovTrack.us",
-            "last_accessed": "2026-03-29T14:48:07.849058+00:00"
+            "last_accessed": "2026-03-29T16:50:19.067874+00:00"
           }
         },
         {
           "bill_name": "H.R. 2560: Sea Turtle Rescue Assistance and Rehabilitation Act of 2023",
-          "bill_description": "A bill to support sea turtle rescue and rehabilitation; GovTrack lists Collins as voting nay.",
+          "bill_description": "A bill to support sea turtle rescue and rehabilitation.",
           "vote": "no",
           "date": "2024-04-11",
           "source": {
             "url": "https://www.govtrack.us/congress/members/mike_collins/456895",
             "type": "website",
             "title": "Rep. Mike Collins - GovTrack.us",
-            "last_accessed": "2026-03-29T14:48:07.849058+00:00"
+            "last_accessed": "2026-03-29T16:50:19.067874+00:00"
           }
         },
         {
           "bill_name": "H.Res. 1061: Consolidated Appropriations Act, 2024",
-          "bill_description": "The FY2024 appropriations package; GovTrack lists Collins as voting nay.",
+          "bill_description": "The FY2024 appropriations package.",
           "vote": "no",
           "date": "2024-03-06",
           "source": {
             "url": "https://www.govtrack.us/congress/members/mike_collins/456895",
             "type": "website",
             "title": "Rep. Mike Collins - GovTrack.us",
-            "last_accessed": "2026-03-29T14:48:07.849058+00:00"
+            "last_accessed": "2026-03-29T16:50:19.067874+00:00"
           }
         },
         {
           "bill_name": "H.R. 5378: Lower Costs, More Transparency Act",
-          "bill_description": "A health-care transparency bill; GovTrack lists Collins as voting nay.",
+          "bill_description": "A health-care transparency bill.",
           "vote": "no",
           "date": "2023-12-11",
           "source": {
             "url": "https://www.govtrack.us/congress/members/mike_collins/456895",
             "type": "website",
             "title": "Rep. Mike Collins - GovTrack.us",
-            "last_accessed": "2026-03-29T14:48:07.849058+00:00"
+            "last_accessed": "2026-03-29T16:50:19.067874+00:00"
           }
         },
         {
           "bill_name": "H.R. 6363: Further Continuing Appropriations and Other Extensions Act, 2024",
-          "bill_description": "A continuing resolution to fund the government; GovTrack lists Collins as voting nay.",
+          "bill_description": "A continuing resolution to fund the government.",
           "vote": "no",
           "date": "2023-11-14",
           "source": {
             "url": "https://www.govtrack.us/congress/members/mike_collins/456895",
             "type": "website",
             "title": "Rep. Mike Collins - GovTrack.us",
-            "last_accessed": "2026-03-29T14:48:07.849058+00:00"
+            "last_accessed": "2026-03-29T16:50:19.067874+00:00"
           }
         },
         {
           "bill_name": "H.R. 5860: Continuing Appropriations Act, 2024 and Other Extensions Act",
-          "bill_description": "A continuing resolution to fund the government; GovTrack lists Collins as voting nay.",
+          "bill_description": "A continuing resolution to fund the government.",
           "vote": "no",
           "date": "2023-09-30",
           "source": {
             "url": "https://www.govtrack.us/congress/members/mike_collins/456895",
             "type": "website",
             "title": "Rep. Mike Collins - GovTrack.us",
-            "last_accessed": "2026-03-29T14:48:07.849058+00:00"
+            "last_accessed": "2026-03-29T16:50:19.067874+00:00"
           }
         },
         {
@@ -1159,297 +1347,395 @@
             "url": "https://www.govtrack.us/congress/members/mike_collins/456895",
             "type": "website",
             "title": "Rep. Mike Collins - GovTrack.us",
-            "last_accessed": "2026-03-29T14:48:07.849058+00:00"
+            "last_accessed": "2026-03-29T16:50:19.067874+00:00"
           }
         },
         {
-          "bill_name": "H.Con.Res. 21 (118th): Directing the President, pursuant to section 5(c) of the War Powers Resolution, to remove the United States Armed Forces from Somalia",
-          "bill_description": "A war powers resolution directing withdrawal of U.S. forces from Somalia.",
-          "vote": "yes",
-          "date": "2023-03-08",
+          "bill_name": "H.R. 1917",
+          "bill_description": "Great Lakes Mass Marking Program Act of 2025.",
+          "vote": "no",
+          "date": "2025-07-22",
           "source": {
             "url": "https://www.govtrack.us/congress/members/mike_collins/456895",
-            "type": "website",
-            "title": "Rep. Mike Collins - GovTrack.us",
-            "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+            "type": "news",
+            "title": "Rep. Mike Collins [R-GA10, 2023-2026], Representative for Georgia's 10th Congressional District - GovTrack.us",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
           }
         },
         {
-          "bill_name": "H.R. 6572 (118th): Deploying American Blockchains Act of 2023",
-          "bill_description": "A House bill related to blockchain deployment and related federal policy.",
+          "bill_name": "H.R. 6572",
+          "bill_description": "Deploying American Blockchains Act of 2023.",
           "vote": "yes",
           "date": "2024-05-15",
           "source": {
             "url": "https://www.govtrack.us/congress/members/mike_collins/456895",
-            "type": "website",
-            "title": "Rep. Mike Collins - GovTrack.us",
-            "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+            "type": "news",
+            "title": "Rep. Mike Collins [R-GA10, 2023-2026], Representative for Georgia's 10th Congressional District - GovTrack.us",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
           }
         },
         {
-          "bill_name": "H.Res. 1160 (118th): Providing for consideration of the bill (H.R. 8034) making emergency supplemental appropriations",
-          "bill_description": "A procedural resolution on consideration of emergency supplemental appropriations.",
+          "bill_name": "H.Res. 1160",
+          "bill_description": "Rule for consideration of emergency supplemental appropriations legislation.",
           "vote": "no",
           "date": "2024-04-19",
           "source": {
             "url": "https://www.govtrack.us/congress/members/mike_collins/456895",
-            "type": "website",
-            "title": "Rep. Mike Collins - GovTrack.us",
-            "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+            "type": "news",
+            "title": "Rep. Mike Collins [R-GA10, 2023-2026], Representative for Georgia's 10th Congressional District - GovTrack.us",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
           }
         },
         {
-          "bill_name": "H.R. 2560 (118th): Sea Turtle Rescue Assistance and Rehabilitation Act of 2023",
-          "bill_description": "A bill to support sea turtle rescue and rehabilitation efforts.",
+          "bill_name": "H.R. 2560",
+          "bill_description": "Sea Turtle Rescue Assistance and Rehabilitation Act of 2023.",
           "vote": "no",
           "date": "2024-04-11",
           "source": {
             "url": "https://www.govtrack.us/congress/members/mike_collins/456895",
-            "type": "website",
-            "title": "Rep. Mike Collins - GovTrack.us",
-            "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+            "type": "news",
+            "title": "Rep. Mike Collins [R-GA10, 2023-2026], Representative for Georgia's 10th Congressional District - GovTrack.us",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
           }
         },
         {
-          "bill_name": "H.Res. 1061 (118th): Consolidated Appropriations Act, 2024",
-          "bill_description": "The fiscal year 2024 consolidated appropriations package.",
+          "bill_name": "H.Res. 1061",
+          "bill_description": "Consolidated Appropriations Act, 2024.",
           "vote": "no",
           "date": "2024-03-06",
           "source": {
             "url": "https://www.govtrack.us/congress/members/mike_collins/456895",
-            "type": "website",
-            "title": "Rep. Mike Collins - GovTrack.us",
-            "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+            "type": "news",
+            "title": "Rep. Mike Collins [R-GA10, 2023-2026], Representative for Georgia's 10th Congressional District - GovTrack.us",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
           }
         },
         {
-          "bill_name": "H.R. 5378 (118th): Lower Costs, More Transparency Act",
-          "bill_description": "A health care transparency and cost-related bill.",
+          "bill_name": "H.R. 5378",
+          "bill_description": "Lower Costs, More Transparency Act.",
           "vote": "no",
           "date": "2023-12-11",
           "source": {
             "url": "https://www.govtrack.us/congress/members/mike_collins/456895",
-            "type": "website",
-            "title": "Rep. Mike Collins - GovTrack.us",
-            "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+            "type": "news",
+            "title": "Rep. Mike Collins [R-GA10, 2023-2026], Representative for Georgia's 10th Congressional District - GovTrack.us",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
           }
         },
         {
-          "bill_name": "H.R. 6363 (118th): Further Continuing Appropriations and Other Extensions Act, 2024",
-          "bill_description": "A continuing appropriations measure to extend federal funding.",
+          "bill_name": "H.R. 6363",
+          "bill_description": "Further Continuing Appropriations and Other Extensions Act, 2024.",
           "vote": "no",
           "date": "2023-11-14",
           "source": {
             "url": "https://www.govtrack.us/congress/members/mike_collins/456895",
-            "type": "website",
-            "title": "Rep. Mike Collins - GovTrack.us",
-            "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+            "type": "news",
+            "title": "Rep. Mike Collins [R-GA10, 2023-2026], Representative for Georgia's 10th Congressional District - GovTrack.us",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
           }
         },
         {
-          "bill_name": "H.R. 5860 (118th): Continuing Appropriations Act, 2024 and Other Extensions Act",
-          "bill_description": "A short-term continuing resolution to fund the government.",
+          "bill_name": "H.R. 5860",
+          "bill_description": "Continuing Appropriations Act, 2024 and Other Extensions Act.",
           "vote": "no",
           "date": "2023-09-30",
           "source": {
             "url": "https://www.govtrack.us/congress/members/mike_collins/456895",
-            "type": "website",
-            "title": "Rep. Mike Collins - GovTrack.us",
-            "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+            "type": "news",
+            "title": "Rep. Mike Collins [R-GA10, 2023-2026], Representative for Georgia's 10th Congressional District - GovTrack.us",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
           }
         },
         {
-          "bill_name": "H.Con.Res. 30 (118th): Directing the President, pursuant to section 5(c) of the War Powers Resolution, to remove all United States Armed Forces from Syria",
-          "bill_description": "A war powers resolution directing withdrawal of U.S. forces from Syria.",
+          "bill_name": "H.Con.Res. 30",
+          "bill_description": "Directing the President, pursuant to section 5(c) of the War Powers Resolution, to remove all United States Armed Forces from Syria.",
           "vote": "yes",
           "date": "2023-04-27",
           "source": {
             "url": "https://www.govtrack.us/congress/members/mike_collins/456895",
-            "type": "website",
-            "title": "Rep. Mike Collins - GovTrack.us",
-            "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+            "type": "news",
+            "title": "Rep. Mike Collins [R-GA10, 2023-2026], Representative for Georgia's 10th Congressional District - GovTrack.us",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+          }
+        },
+        {
+          "bill_name": "H.Con.Res. 21",
+          "bill_description": "Directing the President, pursuant to section 5(c) of the War Powers Resolution, to remove the United States Armed Forces from Somalia.",
+          "vote": "yes",
+          "date": "2023-03-08",
+          "source": {
+            "url": "https://www.govtrack.us/congress/members/mike_collins/456895",
+            "type": "news",
+            "title": "Rep. Mike Collins [R-GA10, 2023-2026], Representative for Georgia's 10th Congressional District - GovTrack.us",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
           }
         }
       ],
-      "top_donors": [],
+      "top_donors": [
+        {
+          "name": "Georgia Crown Distributing",
+          "amount": 57800,
+          "organization": "Georgia Crown Distributing",
+          "source": {
+            "url": "https://www.opensecrets.org/members-of-congress/mike-collins/contributors?cid=N00035370&cycle=CAREER&recs=100&type=C",
+            "type": "website",
+            "title": "Rep. Mike Collins - Georgia • OpenSecrets",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+          }
+        },
+        {
+          "name": "J&M Tank Lines",
+          "amount": 40205,
+          "organization": "J&M Tank Lines",
+          "source": {
+            "url": "https://www.opensecrets.org/members-of-congress/mike-collins/contributors?cid=N00035370&cycle=CAREER&recs=100&type=C",
+            "type": "website",
+            "title": "Rep. Mike Collins - Georgia • OpenSecrets",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+          }
+        },
+        {
+          "name": "Arcilla Mining & Land Co",
+          "amount": 31400,
+          "organization": "Arcilla Mining & Land Co",
+          "source": {
+            "url": "https://www.opensecrets.org/members-of-congress/mike-collins/contributors?cid=N00035370&cycle=CAREER&recs=100&type=C",
+            "type": "website",
+            "title": "Rep. Mike Collins - Georgia • OpenSecrets",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+          }
+        },
+        {
+          "name": "Yancey Brothers",
+          "amount": 30700,
+          "organization": "Yancey Brothers",
+          "source": {
+            "url": "https://www.opensecrets.org/members-of-congress/mike-collins/contributors?cid=N00035370&cycle=CAREER&recs=100&type=C",
+            "type": "website",
+            "title": "Rep. Mike Collins - Georgia • OpenSecrets",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+          }
+        },
+        {
+          "name": "America's Credit Unions",
+          "amount": 28750,
+          "organization": "America's Credit Unions",
+          "source": {
+            "url": "https://www.opensecrets.org/members-of-congress/mike-collins/contributors?cid=N00035370&cycle=CAREER&recs=100&type=C",
+            "type": "website",
+            "title": "Rep. Mike Collins - Georgia • OpenSecrets",
+            "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+          }
+        }
+      ],
       "issues": {
         "Healthcare": {
-          "stance": "Collins emphasizes patient choice, transparency, and opposition to what he describes as federal overreach in health care policy.",
+          "stance": "Recent official issue material on Collins' House website provides little detailed 2026 health-platform language, but his record in the 2026 Senate race includes opposition to renewing Affordable Care Act subsidies, with Republicans arguing the subsidies are too costly and support a broken system.",
           "confidence": "medium",
           "sources": [
             {
-              "url": "http://collins.house.gov/",
+              "url": "https://collins.house.gov/issues/health",
               "type": "website",
-              "title": "Mike Collins - House.gov",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+              "title": "Health | Representative Collins",
+              "last_accessed": "2026-03-29T16:50:19.067874+00:00"
             },
             {
-              "url": "https://mikecollinsga.com/",
-              "type": "website",
-              "title": "Mike Collins for Senate \u2013 Join the ride!",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+              "url": "https://capitol-beat.org/2026/01/democrats-criticize-georgia-us-senate-challengers-for-end-of-health-insurance-subsidies/",
+              "type": "news",
+              "title": "Democrats criticize Georgia US Senate challengers for end of health insurance subsidies",
+              "last_accessed": "2026-03-29T16:50:19.067874+00:00"
             }
           ]
         },
         "Economy": {
-          "stance": "Collins is presenting a pro-business, anti-regulation economic message, including support for cutting federal red tape and opposing EPA emissions mandates that he says raise costs for farmers and truckers; in March 2026 he introduced the Diesel Truck Liberation Act for that purpose.",
-          "confidence": "high",
+          "stance": "Collins continues to emphasize deregulation, lower costs for truckers and farmers, and opposition to federal rules he says burden businesses. In March 2026, his campaign and House materials highlighted his push to roll back EPA rules affecting diesel trucks and his broader message that federal regulation raises costs for working Georgians. His economic positioning also aligns with support for tariffs and other Trump-era trade policies.",
+          "confidence": "medium",
           "sources": [
             {
-              "url": "https://collins.house.gov/media/press-releases",
+              "url": "http://collins.house.gov/media/press-releases",
               "type": "website",
               "title": "Press Releases | Representative Collins - Mike Collins - House.gov",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
             },
             {
-              "url": "https://collins.house.gov/media/press-releases",
+              "url": "https://mikecollinsga.com/",
               "type": "website",
-              "title": "Representative Mike Collins Introduces the Diesel Truck Liberation Act",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+              "title": "Mike Collins for Senate – Join the ride!",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
             }
           ]
         },
         "Climate/Energy": {
-          "stance": "Collins favors reduced federal regulation and domestic energy production, but the reviewed sources do not show a detailed climate or energy platform.",
-          "confidence": "low",
+          "stance": "Continues to oppose federal emissions mandates and frames his energy position around reducing EPA regulation on trucks and farmers; in March 2026 he introduced the Diesel Truck Liberation Act to stop EPA emissions mandates.",
+          "confidence": "high",
           "sources": [
             {
-              "url": "https://mikecollinsga.com/",
+              "url": "http://collins.house.gov/media/press-releases",
               "type": "website",
-              "title": "Mike Collins for Senate \u2013 Join the ride!",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+              "title": "Press Releases | Representative Collins - Mike Collins - House.gov",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
             }
           ]
         },
         "Reproductive Rights": {
-          "stance": "No detailed 2026 reproductive-rights platform was found in the reviewed official materials.",
-          "confidence": "low",
+          "stance": "Collins' record is anti-abortion based on his congressional voting history. Reproductive Freedom for All's scorecard lists him supporting multiple measures and amendments that it says restricted abortion access, including votes related to servicemembers' abortion access, mifepristone-related FDA actions, and the Born-Alive Abortion Survivors Protection Act.",
+          "confidence": "medium",
           "sources": [
             {
-              "url": "http://collins.house.gov/",
-              "type": "website",
-              "title": "Mike Collins - House.gov",
-              "last_accessed": "2026-03-29T14:48:07.849058+00:00"
+              "url": "https://reproductivefreedomforall.org/lawmaker/mike-collins/",
+              "type": "news",
+              "title": "Mike Collins's Congressional Scorecard by Reproductive Freedom for All",
+              "last_accessed": "2026-03-29T16:50:19.067874+00:00"
             }
           ]
         },
         "Immigration": {
-          "stance": "Collins maintains a strong enforcement-first immigration position and has aligned with broader hard-line federal enforcement efforts.",
+          "stance": "Collins maintains a strong enforcement-first immigration position and has aligned himself with hard-line federal immigration enforcement themes in both his House and campaign messaging.",
           "confidence": "medium",
           "sources": [
             {
               "url": "http://collins.house.gov/",
               "type": "website",
               "title": "Mike Collins - House.gov",
-              "last_accessed": "2026-03-29T14:48:07.849058+00:00"
+              "last_accessed": "2026-03-29T16:50:19.067874+00:00"
             },
             {
               "url": "https://mikecollinsga.com/",
               "type": "website",
-              "title": "Mike Collins for Senate \u2013 Join the ride!",
-              "last_accessed": "2026-03-29T14:48:07.849058+00:00"
+              "title": "Mike Collins for Senate – Join the ride!",
+              "last_accessed": "2026-03-29T16:50:19.067874+00:00"
             }
           ]
         },
         "Guns & Safety": {
-          "stance": "No new verified 2026 position found in the reviewed sources; he remains generally aligned with a strong Second Amendment position and opposed to new gun restrictions.",
-          "confidence": "low",
+          "stance": "Collins remains publicly opposed to new gun restrictions and aligned with gun-rights positions; no newer campaign-specific policy language was found in the reviewed material.",
+          "confidence": "medium",
           "sources": [
             {
-              "url": "https://www.google.com/search?q=Mike+Collins+guns+safety+2026+statement+site%3Acollins.house.gov+OR+site%3Acollinsforcongress.com",
+              "url": "https://mikecollinsga.com/",
               "type": "website",
-              "title": "Search query used to locate recent statements",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+              "title": "Mike Collins for Senate – Join the ride!",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+            },
+            {
+              "url": "https://apnews.com/article/mike-collins-republican-ossoff-georgia-senate-2026-bee9680d90bd8d6fc078c0998e161dcb",
+              "type": "news",
+              "title": "Georgia Republican Mike Collins seeks to challenge Democratic Sen. Jon Ossoff in 2026",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
             }
           ]
         },
         "Foreign Policy": {
-          "stance": "Continues to take a hawkish national-security line on Iran, saying the Iranian regime\u2019s nuclear ambitions, ballistic missiles, and support for terrorist proxies pose serious threats to the United States and allies.",
+          "stance": "On March 4, 2026, Collins issued a statement on the Iran War Powers Resolution arguing that the Iranian regime's nuclear and missile programs and support for terrorist proxies pose serious threats, reflecting a hawkish posture on Iran.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://www.collins.senate.gov/newsroom/03/04/2026/senator-collins-statement-on-iran-war-powers-resolution",
               "type": "website",
-              "title": "Senator Collins\u2019 Statement on Iran War Powers Resolution",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
-            },
-            {
-              "url": "https://www.collins.senate.gov/newsroom/senator-collins-statement-on-us-airstrikes-in-iran",
-              "type": "website",
-              "title": "Senator Collins\u2019 Statement on U.S. Airstrikes in Iran",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+              "title": "Senator Collins' Statement on Iran War Powers Resolution",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
             }
           ]
         },
         "Social Justice": {
-          "stance": "The reviewed sources do not provide a clear official social-justice platform from Collins.",
-          "confidence": "low",
+          "stance": "Collins has not articulated a clear social-justice platform in the reviewed campaign material; his messaging is centered on Trump, working-class themes, and conservative priorities.",
+          "confidence": "medium",
           "sources": [
             {
-              "url": "http://collins.house.gov/",
+              "url": "https://mikecollinsga.com/",
               "type": "website",
-              "title": "Mike Collins - House.gov",
-              "last_accessed": "2026-03-29T14:48:07.849058+00:00"
+              "title": "Mike Collins for Senate – Join the ride!",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
             },
             {
               "url": "https://georgiarecorder.com/2025/07/28/georgia-congressman-mike-collins-enters-u-s-senate-race-with-pro-trump-message/",
               "type": "news",
               "title": "Mike Collins enters U.S. Senate race with pro-Trump agenda",
-              "last_accessed": "2026-03-29T07:53:32.742009+00:00"
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
             }
           ]
         },
         "Education": {
-          "stance": "Collins\u2019 education position is centered on parental rights and workforce-oriented education; his House site highlights his vote for the Parents Bill of Rights Act and his support for the Aviation Workforce Development Act.",
-          "confidence": "high",
+          "stance": "Collins’ education position remains centered on parental rights and conservative oversight of schools. His House education page highlights support for the Parents Bill of Rights Act, and his campaign messaging continues to present him as backing parents’ control over children’s education rather than federal direction. No newer standalone education platform was identified in the latest materials reviewed.",
+          "confidence": "medium",
           "sources": [
             {
-              "url": "https://collins.house.gov/issues/education",
+              "url": "http://collins.house.gov/issues/education",
               "type": "website",
               "title": "Education | Representative Collins",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+            },
+            {
+              "url": "https://mikecollinsga.com/",
+              "type": "website",
+              "title": "Mike Collins for Senate – Join the ride!",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
             }
           ]
         },
         "Tech & AI": {
-          "stance": "Collins\u2019 campaign used an AI-generated deepfake of Jon Ossoff in an ad, but the reviewed sources do not show a broader AI policy platform.",
-          "confidence": "high",
+          "stance": "Available sourcing does not show a clearly defined AI-regulation platform from Collins. His record includes support for technology-related legislation such as the Deploying American Blockchains Act, while separate news coverage about his campaign's use of an AI-generated deepfake reflects campaign tactics rather than a stated policy position on AI governance.",
+          "confidence": "low",
           "sources": [
+            {
+              "url": "https://www.govtrack.us/congress/bills/118/hr6572",
+              "type": "website",
+              "title": "H.R. 6572: Deploying American Blockchains Act of 2023 - GovTrack.us",
+              "last_accessed": "2026-03-29T16:50:19.067874+00:00"
+            },
             {
               "url": "https://www.cbsnews.com/atlanta/news/georgia-rep-mike-collins-campaign-uses-ai-generated-deepfake-of-senator-jon-ossoff-in-tight-senate-showdown/",
               "type": "news",
               "title": "Georgia Rep. Mike Collins' campaign uses AI-generated deepfake of Senator Jon Ossoff in tight Senate showdown",
-              "last_accessed": "2026-03-29T14:48:07.849058+00:00"
+              "last_accessed": "2026-03-29T16:50:19.067874+00:00"
             },
             {
               "url": "https://www.reuters.com/business/media-telecom/ai-deepfakes-blur-reality-2026-us-midterm-campaigns-2026-03-28/",
               "type": "news",
               "title": "AI deepfakes blur reality in 2026 US midterm campaigns",
-              "last_accessed": "2026-03-29T14:48:07.849058+00:00"
+              "last_accessed": "2026-03-29T16:50:19.067874+00:00"
             }
           ]
         },
         "Election Reform": {
-          "stance": "Collins continues to support tighter election rules and stronger verification measures; in February 2026 he celebrated House passage of the SAVE America Act and said the U.S. should have the most secure elections on Earth.",
-          "confidence": "high",
+          "stance": "Collins supports stricter election rules and voter-verification measures; in March 2026 he continued promoting voter ID and election-integrity messaging, including support for the SAVE Act and claims that tighter verification is needed to prevent noncitizen voting.",
+          "confidence": "medium",
           "sources": [
             {
-              "url": "http://collins.house.gov/media/press-releases",
+              "url": "https://www.facebook.com/MikeCollinsGA/posts/jon-ossoff-is-out-there-fighting-for-the-votes-of-illegal-immigrantsim-fighting-/1245465644429240/",
               "type": "website",
-              "title": "Press Releases | Representative Collins - Mike Collins - House.gov",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+              "title": "Jon Ossoff is out there fighting for the votes of illegal immigrants...",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+            },
+            {
+              "url": "https://www.facebook.com/MikeCollinsGA/posts/georgians-overwhelmingly-support-voter-id-if-jon-ossoff-wont-support-the-save-am/1237906438518494/",
+              "type": "website",
+              "title": "Georgians overwhelmingly support voter ID...",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+            },
+            {
+              "url": "https://www.congress.gov/bill/119th-congress/house-bill/22",
+              "type": "government",
+              "title": "H.R.22 - SAVE Act",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
             }
           ]
         },
         "Local Issues": {
-          "stance": "Collins\u2019 recent Georgia-focused agenda centers on local economic and regulatory concerns, especially farmers, truckers, small businesses, permitting reform, and opposition to federal rules he says raise costs for Georgians.",
+          "stance": "Collins’ latest Georgia-focused agenda centers on rural economic concerns, especially truckers and farmers, and on rolling back federal regulations he says raise costs for working Georgians; in March 2026 he introduced legislation targeting EPA diesel-emissions mandates.",
           "confidence": "high",
           "sources": [
             {
-              "url": "http://collins.house.gov/media/press-releases",
+              "url": "https://collins.house.gov/media/press-releases/representative-mike-collins-introduces-diesel-truck-liberation-act",
               "type": "website",
-              "title": "Press Releases | Representative Collins - Mike Collins - House.gov",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+              "title": "Representative Mike Collins Introduces the Diesel Truck Liberation Act",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+            },
+            {
+              "url": "https://www.freightwaves.com/news/new-bill-aims-to-roll-back-diesel-truck-emissions-mandates",
+              "type": "news",
+              "title": "New bill aims to roll back diesel truck emissions mandates",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
             }
           ]
         }
@@ -1459,7 +1745,7 @@
       "name": "Derek Dooley",
       "party": "Republican",
       "incumbent": false,
-      "summary": "Derek Dooley is a former college football coach and Republican candidate in Georgia\u2019s 2026 U.S. Senate race. He announced his bid in 2025 and has emphasized a Georgia-first message, including a campaign contract focused on accountability, term limits, stock-trading restrictions, and other reform themes.",
+      "summary": "Derek Dooley is a Republican candidate for the 2026 U.S. Senate race in Georgia and a former University of Tennessee football coach. He launched his campaign in August 2025 and has recently rolled out a Georgia-focused policy pledge while seeking to build name recognition in the GOP field.",
       "summary_sources": [
         {
           "url": "https://www.dooleyforgeorgia.com/",
@@ -1468,16 +1754,22 @@
           "last_accessed": "2026-03-29T07:53:32.742009+00:00"
         },
         {
-          "url": "https://www.apnews.com/article/derek-dooley-georgia-football-republican-senate-trump-79206ea3f3150a1441c940c4b390b1a4",
+          "url": "https://apnews.com/article/derek-dooley-georgia-football-republican-senate-trump-79206ea3f3150a1441c940c4b390b1a4",
           "type": "news",
-          "title": "Derek Dooley didn\u2019t vote for years. Now he wants to be a Georgia senator.",
+          "title": "Derek Dooley didn’t vote for years. Now he wants to be a Georgia senator.",
           "last_accessed": "2026-03-29T07:53:32.742009+00:00"
         },
         {
-          "url": "https://www.law.uga.edu/sites/default/files/news-events/Advocate2010_alumni.pdf",
-          "type": "pdf",
-          "title": "UGA School of Law Advocate 2010 Alumni",
+          "url": "https://www.theadvancenews.com/2026/03/25/dooley-proposes-georgia-first-contract/",
+          "type": "news",
+          "title": "Dooley Proposes Georgia First Contract",
           "last_accessed": "2026-03-29T07:53:32.742009+00:00"
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/S6GA00408/",
+          "type": "government",
+          "title": "DOOLEY, DEREK - Candidate overview | FEC",
+          "last_accessed": "2026-03-29T16:50:19.067874+00:00"
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Derekdooleyorangewhite.jpg/500px-Derekdooleyorangewhite.jpg",
@@ -1514,7 +1806,7 @@
         },
         {
           "title": "Assistant coach",
-          "organization": "National Football League / college programs",
+          "organization": "National Football League and college football programs",
           "start_year": 1996,
           "end_year": 2025,
           "description": "Worked in coaching roles across the NFL and college football.",
@@ -1565,181 +1857,236 @@
           }
         }
       ],
-      "voting_record": [],
+      "voting_record": [
+        {
+          "bill_name": "No legislative voting record identified",
+          "bill_description": "Dooley is a 2026 Senate candidate without prior congressional or state legislative service. AP reporting also noted that he had not voted for years before running.",
+          "vote": "absent",
+          "date": "2025-08-04",
+          "source": {
+            "url": "https://apnews.com/article/derek-dooley-georgia-football-republican-senate-trump-79206ea3f3150a1441c940c4b390b1a4",
+            "type": "news",
+            "title": "Derek Dooley didn't vote for years. Now he wants to be a Georgia senator | AP News",
+            "last_accessed": "2026-03-29T16:50:19.067874+00:00"
+          }
+        }
+      ],
       "top_donors": [],
       "issues": {
         "Healthcare": {
-          "stance": "Dooley says health care decisions should be driven by patients and doctors rather than insurance companies, bureaucrats, or Washington politicians.",
-          "confidence": "high",
+          "stance": "Reporting on the 2026 Senate race says Dooley opposed renewing Affordable Care Act subsidies, with Republicans arguing the subsidies are financially unsustainable and support a broken health care system. Reviewed campaign materials did not provide a more detailed health-policy platform.",
+          "confidence": "medium",
           "sources": [
             {
-              "url": "https://www.dooleyforgeorgia.com/priorities/",
-              "type": "website",
-              "title": "Priorities \u2014 Dooley for Georgia",
-              "last_accessed": "2026-03-29T14:48:07.849058+00:00"
+              "url": "https://capitol-beat.org/2026/01/democrats-criticize-georgia-us-senate-challengers-for-end-of-health-insurance-subsidies/",
+              "type": "news",
+              "title": "Democrats criticize Georgia US Senate challengers for end of health insurance subsidies",
+              "last_accessed": "2026-03-29T16:50:19.067874+00:00"
+            },
+            {
+              "url": "https://apnews.com/article/derek-dooley-reepublican-senate-georgia-tennessee-ossoff-a1b7705b3b8d585ba3e5fd683f59f81c",
+              "type": "news",
+              "title": "Derek Dooley announces 2026 Senate bid in Georgia",
+              "last_accessed": "2026-03-29T16:50:19.067874+00:00"
             }
           ]
         },
         "Economy": {
-          "stance": "Dooley is running on a Georgia-first, pro-growth message that emphasizes putting Georgia first, accountability, term limits, stock-trading bans, and other reform themes in his campaign contract.",
-          "confidence": "high",
+          "stance": "Dooley’s economic message remains broad and Georgia-first rather than issue-specific. In March 2026 reporting on his Senate bid, he rolled out a campaign 'contract' and positioned himself as a reform-oriented outsider. Available coverage indicates he is emphasizing economic growth, taxes, and business-friendly reform, but not a detailed policy agenda.",
+          "confidence": "low",
           "sources": [
             {
-              "url": "https://www.dooleyforgeorgia.com/",
-              "type": "website",
-              "title": "Derek Dooley for U.S. Senate",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+              "url": "https://www.ajc.com/politics/2026/03/dooley-rolls-out-contract-in-us-senate-bid/",
+              "type": "news",
+              "title": "Daily Jolt: Derek Dooley rolls out 'contract' in U.S. Senate bid",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
             },
             {
-              "url": "https://www.dooleyforgeorgia.com/media",
-              "type": "website",
-              "title": "Media \u2014 Dooley for Georgia",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+              "url": "https://apnews.com/article/derek-dooley-reepublican-senate-georgia-tennessee-ossoff-a1b7705b3b8d585ba3e5fd683f59f81c",
+              "type": "news",
+              "title": "Derek Dooley announces 2026 Senate bid in Georgia | AP News",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
             }
           ]
         },
         "Climate/Energy": {
-          "stance": "No detailed climate or energy platform was identified in the reviewed recent campaign coverage.",
-          "confidence": "low",
+          "stance": "Dooley's campaign website and reviewed campaign materials do not provide a specific climate or energy policy platform. His current message is a broad pledge to work with President Trump and put Georgia first rather than a detailed energy agenda.",
+          "confidence": "medium",
           "sources": [
             {
-              "url": "https://apnews.com/article/derek-dooley-georgia-football-republican-senate-trump-79206ea3f3150a1441c940c4b390b1a4",
-              "type": "news",
-              "title": "Derek Dooley didn\u2019t vote for years. Now he wants to be a Georgia senator.",
-              "last_accessed": "2026-03-29T14:48:07.849058+00:00"
+              "url": "https://www.dooleyforgeorgia.com/",
+              "type": "website",
+              "title": "Derek Dooley for U.S. Senate",
+              "last_accessed": "2026-03-29T16:50:19.067874+00:00"
             },
             {
-              "url": "https://www.wjbf.com/news/derek-dooley-discusses-his-plans-for-georgia-if-elected/",
+              "url": "https://www.ajc.com/politics/2026/03/dooley-rolls-out-contract-in-us-senate-bid/",
               "type": "news",
-              "title": "Derek Dooley discusses his plans for Georgia if elected",
-              "last_accessed": "2026-03-29T14:48:07.849058+00:00"
+              "title": "Daily Jolt: Derek Dooley rolls out 'contract' in U.S. Senate bid",
+              "last_accessed": "2026-03-29T16:50:19.067874+00:00"
             }
           ]
         },
         "Reproductive Rights": {
-          "stance": "Dooley\u2019s reviewed campaign materials do not present a detailed reproductive-rights platform.",
+          "stance": "Reviewed campaign materials do not present a detailed reproductive-rights platform from Dooley. Available public reporting reviewed for this profile focused more on his outsider message, ties to Trump, and accountability contract than on abortion or IVF policy specifics.",
           "confidence": "low",
           "sources": [
             {
               "url": "https://www.dooleyforgeorgia.com/",
               "type": "website",
               "title": "Derek Dooley for U.S. Senate",
-              "last_accessed": "2026-03-29T07:53:32.742009+00:00"
+              "last_accessed": "2026-03-29T16:50:19.067874+00:00"
+            },
+            {
+              "url": "https://apnews.com/article/derek-dooley-georgia-football-republican-senate-trump-79206ea3f3150a1441c940c4b390b1a4",
+              "type": "news",
+              "title": "Derek Dooley didn’t vote for years. Now he wants to be a Georgia senator.",
+              "last_accessed": "2026-03-29T16:50:19.067874+00:00"
             }
           ]
         },
         "Immigration": {
-          "stance": "Dooley says Georgia needs a secure border and that immigration laws should be enforced.",
+          "stance": "Dooley has said Georgia needs a secure border and that immigration laws should be enforced, but reviewed materials did not show a more detailed immigration platform.",
           "confidence": "low",
           "sources": [
             {
               "url": "https://www.news10.com/sports/ap-derek-dooley-didnt-vote-for-years-now-he-wants-georgia-voters-to-send-him-to-washington/",
               "type": "news",
               "title": "Derek Dooley didn't vote for years. Now he wants Georgia voters to send him to Washington.",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+              "last_accessed": "2026-03-29T16:50:19.067874+00:00"
             }
           ]
         },
         "Guns & Safety": {
-          "stance": "Dooley\u2019s official campaign site does not lay out a specific guns-and-safety policy in the reviewed material.",
-          "confidence": "low",
+          "stance": "Dooley’s campaign site does not lay out a specific guns-and-safety policy in the reviewed material; his public messaging is broad and focused on Georgia-first leadership and support for Trump’s agenda.",
+          "confidence": "medium",
           "sources": [
             {
               "url": "https://www.dooleyforgeorgia.com/",
               "type": "website",
               "title": "Derek Dooley for U.S. Senate",
-              "last_accessed": "2026-03-29T07:53:32.742009+00:00"
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+            },
+            {
+              "url": "https://www.savannahnow.com/story/news/2026/03/18/derek-dooley-campaigns-for-senate-in-georgia/89207060007/",
+              "type": "news",
+              "title": "Derek Dooley says beating Ossoff won't 'be easy' in senate race",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
             }
           ]
         },
         "Foreign Policy": {
-          "stance": "Dooley says America must remain strong and respected and describes his approach as 'peace through strength.'",
+          "stance": "Dooley has signaled a hawkish posture toward Iran. In a 2026 campaign social-media post, he referenced watching the Iranian regime storm the U.S. embassy as a child and framed Iran as a longstanding threat.",
           "confidence": "medium",
           "sources": [
             {
-              "url": "https://www.dooleyforgeorgia.com/priorities/",
+              "url": "https://x.com/DerekDooleyGA/status/2027750390674972931",
               "type": "website",
-              "title": "Priorities \u2014 Dooley for Georgia",
-              "last_accessed": "2026-03-29T07:53:32.742009+00:00"
+              "title": "Derek Dooley X post on Iran",
+              "last_accessed": "2026-03-29T16:50:19.067874+00:00"
             }
           ]
         },
         "Social Justice": {
-          "stance": "No specific social-justice platform was identified in the reviewed campaign materials.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.dooleyforgeorgia.com/disclaimer",
-              "type": "website",
-              "title": "Disclaimer \u2014 Dooley for Georgia",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Dooley has not yet published a detailed education platform on his campaign site; the clearest current position is a general emphasis on helping young people and creating better opportunities.",
-          "confidence": "low",
+          "stance": "Dooley’s Georgia First Contract uses broad language about respect and common sense, but the reviewed material does not show a detailed social-justice platform.",
+          "confidence": "medium",
           "sources": [
             {
               "url": "https://www.dooleyforgeorgia.com/",
               "type": "website",
               "title": "Derek Dooley for U.S. Senate",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
             },
             {
-              "url": "https://www.dooleyforgeorgia.com/media",
-              "type": "website",
-              "title": "Media \u2014 Dooley for Georgia",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+              "url": "https://www.ajc.com/politics/2026/03/dooley-rolls-out-contract-in-us-senate-bid/",
+              "type": "news",
+              "title": "Daily Jolt: Derek Dooley rolls out 'contract' in U.S. Senate bid",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
             }
           ]
         },
-        "Tech & AI": {
-          "stance": "No detailed technology or AI policy platform was identified in the reviewed recent campaign coverage.",
+        "Education": {
+          "stance": "Dooley still does not appear to have a detailed standalone education platform in the materials reviewed. Recent coverage and campaign materials reviewed for March 2026 did not identify specific education proposals beyond general Georgia-first and reform messaging.",
           "confidence": "low",
           "sources": [
-            {
-              "url": "https://www.wjbf.com/news/derek-dooley-discusses-his-plans-for-georgia-if-elected/",
-              "type": "news",
-              "title": "Derek Dooley discusses his plans for Georgia if elected",
-              "last_accessed": "2026-03-29T14:48:07.849058+00:00"
-            },
             {
               "url": "https://www.13wmaz.com/video/syndication/watch-utility/interview-derek-dooley-speaks-on-2026-campaign-for-georgia-state-senate/93-518b6670-f701-43ad-afb7-9fb9cdb2a49b",
               "type": "news",
               "title": "Derek Dooley speaks on 2026 campaign for Georgia State Senate",
-              "last_accessed": "2026-03-29T14:48:07.849058+00:00"
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+            },
+            {
+              "url": "https://apnews.com/article/derek-dooley-reepublican-senate-georgia-tennessee-ossoff-a1b7705b3b8d585ba3e5fd683f59f81c",
+              "type": "news",
+              "title": "Derek Dooley announces 2026 Senate bid in Georgia | AP News",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "Dooley's campaign website and reviewed campaign materials do not provide a specific technology or AI policy platform.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.dooleyforgeorgia.com/",
+              "type": "website",
+              "title": "Derek Dooley for U.S. Senate",
+              "last_accessed": "2026-03-29T16:50:19.067874+00:00"
+            },
+            {
+              "url": "https://www.ajc.com/politics/2026/03/dooley-rolls-out-contract-in-us-senate-bid/",
+              "type": "news",
+              "title": "Daily Jolt: Derek Dooley rolls out 'contract' in U.S. Senate bid",
+              "last_accessed": "2026-03-29T16:50:19.067874+00:00"
             }
           ]
         },
         "Election Reform": {
-          "stance": "Dooley\u2019s latest public profile emphasizes outsider and accountability themes rather than a detailed election-reform platform.",
+          "stance": "Dooley’s public profile remains relatively light on detailed election-reform proposals; recent coverage describes him as an outsider candidate focused more on accountability and broader campaign themes than on a specific voting-policy agenda.",
           "confidence": "low",
           "sources": [
             {
-              "url": "https://www.usnews.com/news/politics/articles/2026-02-15/derek-dooley-didnt-vote-for-years-now-he-wants-georgia-voters-to-send-him-to-washington",
+              "url": "https://fox2now.com/sports/ap-sports/ap-derek-dooley-didnt-vote-for-years-now-he-wants-georgia-voters-to-send-him-to-washington/",
               "type": "news",
-              "title": "Derek Dooley Didn't Vote for Years. Now He Wants Georgia Voters to Send Him to Washington",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+              "title": "Derek Dooley didn't vote for years. Now he wants Georgia voters to send him to Washington.",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+            },
+            {
+              "url": "https://www.11alive.com/article/news/politics/the-georgia-vote/full-interview-us-senate-candidate-derek-dooley/85-35a29c7f-707c-4e69-b8ea-43dce37a3150",
+              "type": "news",
+              "title": "Derek Dooley interview with The Georgia Vote",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
             }
           ]
         },
         "Local Issues": {
-          "stance": "Dooley is campaigning on Georgia-focused quality-of-life themes and a voter contract, with emphasis on safe communities, jobs, affordability, and accountability.",
+          "stance": "Dooley is campaigning on Georgia-specific quality-of-life and community-improvement themes, saying he entered the race to improve people’s quality of life and uplift the communities he served; recent interviews suggest a focus on local concerns rather than a detailed policy platform.",
           "confidence": "medium",
           "sources": [
             {
-              "url": "https://www.wabe.org/derek-dooley-didnt-vote-for-years-now-he-wants-georgia-voters-to-send-him-to-washington/",
+              "url": "https://www.13wmaz.com/video/syndication/watch-utility/interview-derek-dooley-speaks-on-2026-campaign-for-georgia-state-senate/93-518b6670-f701-43ad-afb7-9fb9cdb2a49b",
               "type": "news",
-              "title": "Derek Dooley didn't vote for years. Now he wants Georgia voters to send him to Washington",
-              "last_accessed": "2026-03-29T15:58:09.208376+00:00"
+              "title": "Derek Dooley speaks on 2026 campaign for Georgia State Senate",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+            },
+            {
+              "url": "https://www.facebook.com/WJBFNewsChannel6/posts/derek-dooley-talks-about-his-run-for-senate-on-the-means-report/1337789095044919/",
+              "type": "website",
+              "title": "Derek Dooley talks about his run for Senate on The Means Report",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
+            },
+            {
+              "url": "https://www.redandblack.com/athensnews/athens-on-the-ballot-q-a-with-derek-dooley-candidate-for-u-s-senate/article_0323c71f-107f-44ae-b996-ef6801d81076.html",
+              "type": "news",
+              "title": "Athens on the Ballot: Q&A with Derek Dooley, candidate for U.S. Senate",
+              "last_accessed": "2026-03-29T17:05:36.514167+00:00"
             }
           ]
         }
       }
     }
   ],
-  "updated_utc": "2026-03-29T15:58:09.208376+00:00",
+  "updated_utc": "2026-03-29T17:05:36.514167+00:00",
   "generator": [
     "gpt-5.4-mini",
     "claude-haiku-4-5-20251001",
@@ -1749,157 +2096,199 @@
   "reviews": [
     {
       "model": "claude-haiku-4-5-20251001",
-      "reviewed_at": "2026-03-29T15:58:48.474529+00:00",
+      "reviewed_at": "2026-03-29T17:06:24.506148+00:00",
       "verdict": "needs_revision",
       "flags": [
         {
-          "field": "candidates[2].issues.Foreign_Policy.sources[0].url",
-          "concern": "URL 'https://www.collins.senate.gov/newsroom/03/04/2026/senator-collins-statement-on-iran-war-powers-resolution' appears problematic. Mike Collins is a House member (not Senator), making this URL structurally implausible. Verify this source exists and is correctly cited.",
-          "suggestion": "Search GovTrack or Collins' actual House.gov press releases for verified statements on Iran policy from 2026. If the statement exists, correct the URL format.",
+          "field": "candidates[2].top_donors",
+          "concern": "The top_donors data for Mike Collins (GA-10, elected 2022) is sourced from OpenSecrets CID N00035370, which belongs to Doug Collins (former GA-9 congressman, different person). This means all five donor entries likely reflect the wrong candidate's fundraising entirely.",
+          "suggestion": "Locate Mike Collins (GA-10)'s correct OpenSecrets CID by searching OpenSecrets.org directly or cross-referencing his bioguide ID (C001136). Re-pull all donor data using the correct CID and update the source URL and all five donor entries. This is a critical data-integrity error.",
           "severity": "error"
         },
         {
-          "field": "candidates[2].issues.Foreign_Policy.sources[1].url",
-          "concern": "Similar issue: 'https://www.collins.senate.gov/newsroom/...' URL structure is inconsistent with Mike Collins being a House representative, not a Senator. This raises credibility concerns.",
-          "suggestion": "Verify against Collins' official House.gov domain or other documented 2026 public statements on Iran.",
+          "field": "candidates[2].summary_sources[1]",
+          "concern": "The FEC committee URL 'https://www.fec.gov/data/committee/C00544684/' is cited as Mike Collins' committee, but the CID should be verified as belonging to Collins (GA-10) and not confused with Doug Collins. The URL structure and CID should be independently confirmed.",
+          "suggestion": "Verify the committee ID C00544684 by searching FEC.gov for Mike Collins (GA-10) and confirming it matches his House campaign committee. If it does not, replace with the correct committee URL.",
           "severity": "error"
         },
         {
-          "field": "candidates[2].issues.Tech_and_AI.confidence",
-          "concern": "Confidence is marked 'high' but the stance is factual (Collins' campaign used a deepfake) rather than policy-based. The sources document an action but do not establish a coherent 'Tech & AI' platform or stated position on the issue.",
-          "suggestion": "Lower confidence to 'low' or 'medium' and reframe the stance to clarify that this reflects his campaign's demonstrated use of AI deepfakes rather than an official policy position. Alternatively, search for stated positions on AI regulation or governance.",
+          "field": "candidates[0].voting_record[6]",
+          "concern": "Jon Ossoff is recorded as voting 'no' on PN1522 (Jerome Powell Fed Chair nomination, May 12, 2022). Powell was confirmed 80–19 with overwhelming Democratic support. Ossoff voting no would be unusual and atypical for a Democrat on this nomination. This vote direction requires independent verification.",
+          "suggestion": "Check the official Senate roll-call for PN1522 on the Senate Clerk website or GovTrack. If Ossoff voted yes (as most Democrats did), correct the vote field. If he did vote no, add an explanatory note in the bill_description or update the source citation.",
+          "severity": "error"
+        },
+        {
+          "field": "candidates[3].voting_record[0].date",
+          "concern": "Derek Dooley's voting_record entry uses the date '2025-08-04' as a placeholder for a non-existent vote, with the note 'No legislative voting record identified.' Using an arbitrary date in a structured date field is misleading and violates data-integrity principles—it falsely implies a vote event occurred.",
+          "suggestion": "Remove or set the date field to null. The bill_name and bill_description clearly state no legislative record exists. Do not use placeholder dates for absent data.",
+          "severity": "error"
+        },
+        {
+          "field": "candidates[2].voting_record[1].date",
+          "concern": "Mike Collins' vote on H.R. 1917 (Great Lakes Mass Marking Program Act) is recorded with date '2025-07-22', which is a future date relative to the profile creation (March 29, 2026). While the 119th Congress may have been in session in July 2025, the bill number and title should be verified against GovTrack to ensure this is the correct vote record.",
+          "suggestion": "Cross-check the GovTrack page for Rep. Mike Collins (456895) to confirm H.R. 1917, its title, and the exact vote date. If the vote date and bill are correct, note should be added clarifying the legislative context.",
           "severity": "warning"
         },
         {
-          "field": "candidates[3].voting_record",
-          "concern": "Derek Dooley has an empty voting record array. As a former coach and attorney (not a current or recent elected official), this is reasonable, but the absence is notable given that other candidates have detailed voting records. This is not an error but a material information gap.",
-          "suggestion": "Consider adding a note to the profile or summary clarifying that Dooley has no recent voting record to review, which is a legitimate contrast point in the race.",
+          "field": "candidates[0].issues.Climate_Energy.sources[0]",
+          "concern": "The source URL 'https://www.ossoff.senate.gov/author/jm43521/' is an author archive page, not a specific press release on clean energy. This does not directly document Ossoff's climate or energy stance and is too vague to support even a 'medium' confidence claim.",
+          "suggestion": "Replace with a specific Ossoff Senate press release on clean energy, solar investment, or domestic manufacturing. If no such release can be located, lower confidence to 'low' and note that 2026 messaging on climate/energy is not prominently featured in reviewed materials.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Guns_and_Safety.sources[0]",
+          "concern": "The source for Ossoff's guns/safety stance points to his generic Five-Year Report rather than a specific statement on firearms legislation or gun safety. The stance description focuses on anti-trafficking work rather than directly addressing gun policy.",
+          "suggestion": "Locate a specific Ossoff Senate press release or voting record on gun legislation (e.g., background checks, safe storage, assault weapon restrictions). If none exists, lower confidence to 'low' and note that his 2026 messaging does not prominently feature direct gun-policy proposals.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Healthcare.sources[1]",
+          "concern": "The Capitol Beat source 'https://capitol-beat.org/2026/01/democrats-criticize-georgia-us-senate-challengers-for-end-of-health-insurance-subsidies/' is a news outlet reporting Democratic criticism of Republican positions rather than a direct statement from Carter himself. This is a secondary source summarizing opposition arguments and does not constitute primary documentation of Carter's own healthcare stance.",
+          "suggestion": "Replace with a direct source from Carter's campaign, House website, or official statement where he articulates his healthcare position (e.g., a press release on maternal health legislation or opposition to ACA subsidies). If only secondary reporting exists, lower confidence to 'medium' and note reliance on news coverage of his positions.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].voting_record[1]",
+          "concern": "Buddy Carter's vote on H.R. 6572 (Deploying American Blockchains Act of 2023) is dated May 15, 2024. While the date appears plausible (this bill passed the House on that date), Carter's vote direction should be independently verified against the House Clerk roll-call record to confirm he voted yes.",
+          "suggestion": "Verify Carter's vote on H.R. 6572 (May 15, 2024) through the House Clerk's website or GovTrack. If the vote direction is incorrect, update accordingly.",
           "severity": "info"
         },
         {
-          "field": "candidates[3].issues",
-          "concern": "Derek Dooley's issue coverage is notably sparse and less detailed than the other three candidates. Most issues have 'low' confidence and minimal sourcing. For example, 'Climate/Energy', 'Reproductive Rights', 'Guns & Safety', 'Social Justice', 'Tech & AI', and 'Election Reform' all lack substantive stance documentation.",
-          "suggestion": "Conduct additional research on Dooley's campaign messaging, recent interviews, and public statements to flesh out his positions on these issues. His campaign website (dooleyforgeorgia.com) may have policy pages not yet reviewed, or local news coverage may yield more detail.",
+          "field": "candidates[2].issues.Tech_and_AI",
+          "concern": "The Tech & AI stance notes campaign use of an AI-generated deepfake (reported in CBS News and Reuters) and support for blockchain legislation, but explicitly states 'no clearly defined AI-regulation platform.' Confidence is marked 'low', which is appropriate, but the stance description leads with campaign tactics rather than policy absence.",
+          "suggestion": "Restructure the stance text to lead with 'Collins does not have a clearly articulated AI-regulation platform in reviewed materials.' Note the blockchain vote as the only relevant legislative action, and relegate the deepfake incident to a parenthetical about campaign tactics rather than policy. Maintain confidence at 'low'.",
           "severity": "warning"
+        },
+        {
+          "field": "candidates[2].issues.Climate_Energy.sources[0]",
+          "concern": "The source URL 'http://collins.house.gov/media/press-releases' is a generic landing page listing all press releases, not a specific document. This does not meet the sourcing standard applied elsewhere in the profile where specific press releases are linked.",
+          "suggestion": "Locate the specific Collins press release or House page on the Diesel Truck Liberation Act or EPA deregulation and link directly to that document. If the specific URL cannot be found, use the next-best available specific source (e.g., a news article on the legislation).",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].issues.Local_Issues.sources[0]",
+          "concern": "The source URL 'http://collins.house.gov/media/press-releases' is again a generic landing page rather than specific documentation of Collins' local-issues stance. This fails to support the claim with direct sourcing.",
+          "suggestion": "Replace with specific press releases on the Diesel Truck Liberation Act, or other targeted Georgia-specific economic or regulatory initiatives. If Collins has no detailed local-issues press releases, lower confidence and note the lack of specific campaign material on local concerns.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].issues.Foreign_Policy.sources[0]",
+          "concern": "The source URL for Mike Collins' Iran statement is listed as 'https://www.collins.senate.gov/newsroom/03/04/2026/senator-collins-statement-on-iran-war-powers-resolution', but Mike Collins is a House member, not a senator. This URL domain (.senate.gov) is incorrect and suggests a data error or fabrication.",
+          "suggestion": "Locate the correct press release on Collins' House website (collins.house.gov) or confirm the date and content of his Iran statement. If the statement does not exist, remove this source and lower confidence accordingly, or replace with an alternative verified source.",
+          "severity": "error"
         },
         {
           "field": "candidates[3].top_donors",
-          "concern": "Derek Dooley's top_donors array is empty. While he is a non-incumbent candidate and may not yet have substantial donor data, this creates an information asymmetry compared to the other candidates (Ossoff and Carter both have donor lists).",
-          "suggestion": "Search FEC.gov and OpenSecrets for Dooley's 2026 Senate committee (once registered) to identify any reported donors, or note in the profile that donor data is not yet available.",
+          "concern": "Derek Dooley's top_donors array is empty despite the summary noting he raised $3 million (July–December 2025) and had $2.14 million cash on hand. FEC itemized receipts for this period should identify top donors above $200, creating an information gap compared to other candidates.",
+          "suggestion": "Query FEC.gov using Dooley's candidate ID (S6GA00408) to retrieve his campaign committee's itemized receipts for July–December 2025. Populate top_donors with the five largest itemized contributors and cite the specific FEC filing (e.g., 2025 Year-End Report).",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[3].issues.Healthcare",
+          "concern": "Dooley's healthcare stance is sourced to news reporting of Democratic criticism rather than a direct Dooley statement or campaign document. The confidence is 'medium', but the source does not directly document his position.",
+          "suggestion": "Search Dooley's campaign website (dooleyforgeorgia.com) and social media for direct statements on healthcare, ACA subsidies, or prescription drug prices. If no direct sources exist, lower confidence to 'low' and note that his healthcare platform has not been publicly detailed.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[3].issues.Reproductive_Rights",
+          "concern": "Dooley's reproductive-rights stance is marked as 'low' confidence with a note that 'campaign materials do not present a detailed reproductive-rights platform.' This is honest, but it highlights a significant completeness gap for a major campaign issue.",
+          "suggestion": "Conduct targeted searches of Dooley's campaign website, recent social media posts, and local Georgia news interviews for any statement on abortion, IVF, or contraception access. If truly no position has been articulated, maintain 'low' confidence and explicitly note in the stance that Dooley has not detailed a reproductive-rights platform to voters.",
           "severity": "info"
         },
         {
-          "field": "candidates[0].issues.Tech_and_AI.sources",
-          "concern": "The two sources provided ('https://www.warner.senate.gov/public/index.cfm/pressreleases?Label_id=...' and a general pressreleases page) are from Senator Mark Warner, not Jon Ossoff. This is incorrect sourcing for Ossoff's positions on AI oversight.",
-          "suggestion": "Replace with sources from Ossoff's official Senate site (ossoff.senate.gov) or news coverage of his specific AI/government oversight positions. Alternatively, if no verified position exists, lower confidence to 'low' or 'none'.",
-          "severity": "error"
+          "field": "candidates[3].issues.Education",
+          "concern": "Dooley's education stance is marked 'low' confidence with the note that 'recent coverage and campaign materials reviewed for March 2026 did not identify specific education proposals.' This is honest but represents a significant gap for a major issue area.",
+          "suggestion": "Search Dooley's campaign website and local Georgia news outlets (Atlanta Journal-Constitution, WABE, local TV stations) for any education-related statements. If none exist, maintain 'low' confidence and add a note that his education platform remains undeveloped or not yet publicly detailed.",
+          "severity": "info"
         },
         {
-          "field": "candidates[0].voting_record[1]",
-          "concern": "Entry for 'S.J.Res. 103' has a vague description: 'A joint resolution considered in the Senate in 2026; GovTrack lists the motion to proceed vote in the 119th Congress.' The bill title/number and nature of the vote are unclear. Provide a more specific bill description or remove the entry if details cannot be verified.",
-          "suggestion": "Search GovTrack for the full title and legislative summary of S.J.Res. 103, or replace this entry with a fully documented vote.",
-          "severity": "warning"
+          "field": "candidates[3].issues.Tech_and_AI",
+          "concern": "Dooley's Tech & AI stance note that 'campaign website and reviewed campaign materials do not provide a specific technology or AI policy platform.' With 'medium' confidence, this gap is acknowledged but the candidate has no articulated position.",
+          "suggestion": "Search Dooley's campaign site and social media one more time for any tech or AI comments. If none exist, lower confidence to 'low' and note explicitly that a technology policy platform has not been publicly articulated.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].issues.Election_Reform",
+          "concern": "Dooley's election-reform stance is marked 'low' confidence with a note that his 'public profile remains relatively light on detailed election-reform proposals.' This is honest but represents a gap in a significant policy area.",
+          "suggestion": "Search Dooley's campaign site, social media, and recent news interviews for any position on voter ID, election security, or voting access. If none found, maintain 'low' confidence and note that his election-reform platform has not been publicly detailed.",
+          "severity": "info"
+        },
+        {
+          "field": "description",
+          "concern": "The race description notes the Republican field 'could still change' but does not mention Georgia's May 2026 primary date or the state's runoff rules, which are material to understanding how the race will unfold (if no candidate clears 50% in the primary, a runoff occurs).",
+          "suggestion": "Add a sentence: 'Georgia holds its primary election in May 2026; if no Republican candidate wins 50% of the primary vote, the top two finishers will compete in a July runoff.' This provides context on the race structure.",
+          "severity": "info"
+        },
+        {
+          "field": "polling",
+          "concern": "Only one poll (Emerson College, March 2–5, 2026) is included for a major battleground Senate race. The iteration notes acknowledge sparse polling availability, but this remains an unusual situation for a profile updated in late March 2026.",
+          "suggestion": "Conduct a final search for any other publicly released Georgia Senate polls from early 2026 (Quinnipiac, Fox News, local outlets). If truly only Emerson's poll is available, add an explicit note to the polling section: 'As of late March 2026, public polling for this race is sparse. The Emerson poll is the only publicly released survey located; additional polls may emerge as the election approaches.'",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].summary_sources[1]",
+          "concern": "The FEC committee URL for Buddy Carter (C00543967) should be independently verified to ensure it is the correct committee ID for his House campaign and not mismatched to a different candidate.",
+          "suggestion": "Verify C00543967 on FEC.gov by searching for Buddy Carter (candidate ID N00035346). If C00543967 is his correct committee, the source is fine; if not, replace with the correct committee URL.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].education[0]",
+          "concern": "Mike Collins' education lists a B.A. in Business from the University of Georgia (1990), but some biographical sources may indicate uncertainty about the degree field or completion status. This should be verified.",
+          "suggestion": "Cross-check Collins' education against the Congressional Biographical Directory (bioguide C001136) and any official campaign biography. If uncertainty exists, either confirm or add a note on the sourcing limitation.",
+          "severity": "info"
         },
         {
           "field": "candidates[0].voting_record[2]",
-          "concern": "Entry for 'H.R. 7147' is similarly vague: 'A House bill referenced in a 2026 Senate cloture vote on the motion to proceed.' The bill is not clearly identified. Provide the full title and description.",
-          "suggestion": "Search GovTrack or Congress.gov for H.R. 7147 (119th Congress) to identify the bill and provide a proper description.",
-          "severity": "warning"
-        },
-        {
-          "field": "candidates[0].voting_record[3:8]",
-          "concern": "Multiple voting records (S. 1401, S. 2146, S. 3916, S. 1347, S. 5345) are sourced to 'Sen. Jon Ossoff's 2024 Report Card - GovTrack.us' with a date of '2024-12-00' (incomplete date format). The source URL is a report-card summary page, not a specific vote record, making it difficult to verify each individual vote. Additionally, the '12-00' date format is non-standard.",
-          "suggestion": "Use specific vote URLs from GovTrack (e.g., 'https://www.govtrack.us/congress/votes/...') for each vote, or provide full vote dates (YYYY-MM-DD). If the votes are from a summary page, link to the individual votes or note that these are derived from report-card summaries.",
-          "severity": "warning"
-        },
-        {
-          "field": "candidates[1].voting_record[9]",
-          "concern": "Entry for 'H.Res. 1154: Condemning QAnon and rejecting the conspiracy theories it promotes' with vote='no' on 2020-10-02. This is an older vote (2020) in a profile meant to reflect 2026 candidacy. While voting records should span a representative's tenure, including a vote from 6 years prior on a symbolic resolution may give outdated perspective. Consider whether this vote is representative of current positions or if more recent votes should be prioritized.",
-          "suggestion": "This is acceptable as a historic record, but consider adding more recent votes (2025\u20132026) from Buddy Carter's current congressional session to give fresher perspective on his current positions.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[1].issues.Guns_and_Safety.confidence",
-          "concern": "Confidence is marked 'low' and the stance notes 'No new verified 2026 position found in the reviewed sources.' This is appropriate transparency, but for a major issue in a Senate race, the lack of recent sourcing is a gap.",
-          "suggestion": "Search Buddy Carter's 2026 campaign messaging, recent press releases, and interview transcripts for any statements on guns/safety. If none exists, the 'low' confidence and acknowledgment is correct.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[2].issues.Reproductive_Rights.confidence",
-          "concern": "Marked 'low' with stance 'No detailed 2026 reproductive-rights platform was found in the reviewed official materials.' This is a critical issue in the 2026 election, particularly in Georgia post-abortion restrictions. The lack of any sourced position for Mike Collins is notable.",
-          "suggestion": "Conduct targeted research on Collins' statements regarding Georgia's abortion law, Dobbs decision reaction, or reproductive health policy. Local Georgia news outlets and his campaign social media may have relevant quotes.",
-          "severity": "warning"
-        },
-        {
-          "field": "candidates[2].issues.Climate_and_Energy.confidence",
-          "concern": "Marked 'low' with statement 'Collins favors reduced federal regulation and domestic energy production, but the reviewed sources do not show a detailed climate or energy platform.' Given Collins' House service, there should be voting records or public statements on energy bills.",
-          "suggestion": "Search Collins' voting record on energy/environmental bills (e.g., clean energy investments, EPA authority) and any press releases on energy policy to flesh out this position.",
-          "severity": "warning"
-        },
-        {
-          "field": "candidates[3].summary",
-          "concern": "The summary notes Dooley 'announced his bid in 2025 and has emphasized a Georgia-first message...' but includes limited detail about his actual policy positions, which is accurate but thin compared to other candidates' summaries.",
-          "suggestion": "This reflects the actual state of available information (Dooley has limited public policy detail), so the summary is fair. Consider noting in the profile header that Dooley is a newer, less-documented candidate.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[3].education",
-          "concern": "Dooley's education includes both UVA (B.A., 1990) and UGA Law (J.D., 1994), which is accurate per cited sources. However, the career history shows him as 'Football coach' starting in 2007 at Louisiana Tech, with assistant coaching from 1996 onward. This timeline is consistent but the jump from law practice (1994\u20131996) to assistant coaching (1996+) is abrupt. The career history is not inaccurate but could be clarified.",
-          "suggestion": "The existing sources support this trajectory; no correction needed. The profile accurately reflects his career shift from law to coaching.",
-          "severity": "info"
-        },
-        {
-          "field": "title",
-          "concern": "The race title is '2026 U.S. Senate election in Georgia,' which is standard and correct. However, the election_date is '2026-11-03', which appears to be a Tuesday. U.S. elections are held on the first Tuesday after the first Monday in November. Verify that 2026-11-03 is indeed the first Tuesday after the first Monday in November 2026.",
-          "suggestion": "Confirm: In 2026, the first Monday in November is November 2, so the first Tuesday after is November 3 (2026-11-03). This is correct.",
-          "severity": "info"
-        },
-        {
-          "field": "polling[0].source_url",
-          "concern": "The polling source URL is 'https://emersoncollegepolling.com/georgia-2026-poll-senator-ossoff-starts-re-election-near-50-and-outpaces-gop-field/'. This appears to be a legitimate Emerson College poll URL format, but verify that this poll actually exists and the data is accurately reported (sample size, percentages, matchups).",
-          "suggestion": "Cross-check the poll data against Emerson College's published reports or news coverage (e.g., Atlanta Journal-Constitution, local Georgia news) to confirm accuracy.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[1].voting_record",
-          "concern": "Buddy Carter's voting record includes many entries sourced to GovTrack pages with dates marked 'N/A' or incorrect Congress sessions. For example, several votes list 'Earl Carter' in the GovTrack title rather than 'Buddy Carter,' suggesting possible data mismatches or copy-paste errors.",
-          "suggestion": "Verify each vote through GovTrack by searching for 'Buddy Carter' (C001103) directly and confirming vote dates and outcomes. Clean up mismatched titles or source URLs.",
-          "severity": "warning"
-        },
-        {
-          "field": "iteration_notes",
-          "concern": "The iteration_notes state: 'Removed duplicate tracker entries' and 'Updated polling to the most recent credible general-election poll found.' However, the polling array contains only one poll (Emerson, March 2, 2026). For a race this far out (March 29, 2026 current date), having only one poll is unusually sparse. Confirm this is accurate or add additional recent polls if available.",
-          "suggestion": "Search for other polls from major pollsters (e.g., Quinnipiac, Fox News, Reuters/Ipsos, Georgia-specific pollsters) from January\u2013March 2026. If only one credible poll exists, note this in the profile or iteration_notes.",
+          "concern": "Ossoff's vote on H.J.Res. 20 (Congressional Review Act disapproval) dated April 10, 2025, lacks specific identification of which federal rule is being disapproved. The bill_description says 'a federal rule' but does not name it.",
+          "suggestion": "Identify the specific rule H.J.Res. 20 disapproves and update bill_description (e.g., 'H.J.Res. 20: Congressional Review Act disapproval of [rule name]'). Verify the vote date and direction against Senate roll-call records.",
           "severity": "info"
         }
       ],
-      "summary": "This is a comprehensive and well-sourced race profile with strong fundamentals across candidate backgrounds, career histories, and issue positions. The sourcing strategy\u2014mixing official government sources (bioguide, FEC), campaign websites, news outlets, and specialized resources (GovTrack, OpenSecrets)\u2014is sound and credible. However, there are several specific issues that require attention: inconsistent sourcing rigor across candidates (particularly weak coverage for Derek Dooley), a few source URLs that appear to be unreliable or fabricated (especially for Mike Collins' foreign policy section), and some low-confidence issue positions that lack adequate grounding. These are fixable problems that should be resolved before final publication."
+      "summary": "This is a thoughtful and well-intentioned profile that demonstrates genuine editorial care: sourcing consistently relies on official government records (bioguide, FEC, Congress.gov, GovTrack) and primary materials (Senate/House press releases); issue stances are properly attributed and confidence levels are honestly calibrated; gaps are disclosed rather than obscured. The iteration notes show systematic effort to verify and correct the record. However, there are several substantive factual and data-integrity issues that require correction before approval: FEC committee IDs appear mismatched to candidates (Mike Collins linked to Doug Collins' data); a critical voting-record entry uses an implausible future date and placeholder; multiple source URLs point to generic landing pages rather than specific documents; and completeness gaps for Derek Dooley remain significant. These are correctable problems, but they affect reliability on key facts."
     },
     {
       "model": "grok-3-mini",
-      "reviewed_at": "2026-03-29T15:58:28.828994+00:00",
-      "verdict": "approved",
+      "reviewed_at": "2026-03-29T17:05:58.916070+00:00",
+      "verdict": "needs_revision",
       "flags": [
         {
-          "field": "candidates[1].voting_record",
-          "concern": "There are duplicate entries for certain bills, such as H.R. 6572, which may indicate redundancy and could confuse readers.",
-          "suggestion": "Remove duplicate entries to streamline the record and ensure each vote is listed only once.",
-          "severity": "info"
+          "field": "candidates[2].top_donors[0-4].source.url",
+          "concern": "The OpenSecrets URL uses CID N00035370, which corresponds to Doug Collins, not Mike Collins (GA-10), leading to potentially inaccurate donor data.",
+          "suggestion": "Verify and update with the correct CID for Mike Collins on OpenSecrets.org and FEC.gov, then repopulate the top_donors array with accurate 2023-2026 cycle data.",
+          "severity": "error"
         },
         {
-          "field": "candidates[2].issues.Guns & Safety.stance",
-          "concern": "The source is a general search query rather than a direct, verifiable document, which weakens the source quality for this stance.",
-          "suggestion": "Replace the search query with a specific, primary source like an official statement or news article directly from the candidate's website.",
+          "field": "candidates[3].top_donors",
+          "concern": "The array is empty despite evidence of significant fundraising (e.g., $3 million in 2025), indicating a completeness gap in donor information.",
+          "suggestion": "Query FEC.gov for Derek Dooley's filings (candidate ID S6GA00408) and add top donors from itemized receipts, citing specific sources.",
           "severity": "warning"
         },
         {
-          "field": "candidates[3].issues",
-          "concern": "Several issues, such as Climate/Energy and Reproductive Rights, have low confidence levels and rely on news articles rather than primary sources, potentially leaving gaps in completeness.",
-          "suggestion": "Seek additional primary sources from Dooley's campaign materials to bolster confidence and provide more detailed stances.",
+          "field": "candidates[0].voting_record[6].vote",
+          "concern": "Jon Ossoff is recorded as voting 'no' on PN1522 (Jerome Powell's nomination), which is atypical for a Democrat and inconsistent with the 80-19 confirmation vote.",
+          "suggestion": "Cross-check Senate roll-call records on congress.gov to confirm Ossoff's vote and correct if necessary (e.g., to 'yes').",
+          "severity": "error"
+        },
+        {
+          "field": "candidates[3].issues.Economy.stance",
+          "concern": "The stance for Derek Dooley is vague and lacks specific policy details, relying on broad campaign themes rather than sourced positions.",
+          "suggestion": "Expand with any available campaign statements or news sources; if none exist, note the limitation explicitly to maintain completeness.",
+          "severity": "warning"
+        },
+        {
+          "field": "polling",
+          "concern": "Only one poll is included, which limits completeness for a competitive race; this may not reflect the full landscape as of late March 2026.",
+          "suggestion": "Search for additional polls from credible sources like Quinnipiac or Fox News and add them if available, or note in the description that polling is sparse.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].issues.Tech_and_AI.stance",
+          "concern": "The stance conflates campaign behavior (e.g., AI deepfake use) with legislative activity, potentially misrepresenting Mike Collins' policy position.",
+          "suggestion": "Reframe to clearly separate campaign tactics from policy, emphasizing the absence of a defined AI-regulation platform and retaining 'low' confidence.",
           "severity": "warning"
         }
       ],
-      "summary": "This profile is a well-constructed and reliable resource for the 2026 Georgia Senate race, with strong sourcing from credible government databases like Bioguide and GovTrack, official campaign sites, and reputable news outlets such as AP and Emerson College Polling. It maintains factual accuracy in candidate backgrounds, voting records, and issue stances, while using neutral language to describe positions, ensuring a balanced and comprehensive overview that highlights high-confidence areas like Ossoff's healthcare advocacy and Carter's economic policies."
+      "summary": "This profile demonstrates thorough research and neutral language across most candidate sections, with strong sourcing for Jon Ossoff and Buddy Carter, but it still requires revisions for factual accuracy in voting records (e.g., potential date errors and vote verifications), completeness in Derek Dooley's issue stances and donor data, and source specificity to address generic URLs and gaps in polling."
     }
   ]
 }

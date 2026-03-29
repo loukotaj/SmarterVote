@@ -1,0 +1,1618 @@
+{
+  "id": "ga-governor-2026",
+  "title": "2026 Georgia gubernatorial election",
+  "office": "Governor of Georgia",
+  "jurisdiction": "Georgia",
+  "election_date": "2026-11-03",
+  "description": "Georgia will elect a governor in 2026 to succeed term-limited Republican Gov. Brian Kemp. The race is taking place in a closely divided state that has recently elected Democrats statewide in federal races while Republicans have continued to hold the governorship. The contest is expected to turn on affordability, health care, education, abortion policy, public safety, and how each candidate would govern in relation to Donald Trump and the state\u2019s changing electorate.",
+  "polling": [
+    {
+      "pollster": "Emerson College Polling / Nexstar",
+      "date": "2026-03-02",
+      "sample_size": 464,
+      "matchups": [
+        {
+          "candidates": [
+            "Keisha Lance Bottoms",
+            "Geoff Duncan",
+            "Jason Esteves",
+            "Michael Thurmond",
+            "Derrick Jackson",
+            "Ruwa Romman"
+          ],
+          "percentages": [
+            35,
+            13,
+            4,
+            7,
+            3,
+            0
+          ]
+        }
+      ],
+      "source_url": "https://emersoncollegepolling.com/georgia-2026-poll-senator-ossoff-starts-re-election-near-50-and-outpaces-gop-field/"
+    },
+    {
+      "pollster": "University of Georgia / Atlanta Journal-Constitution",
+      "date": "2025-10-21",
+      "sample_size": 1000,
+      "matchups": [
+        {
+          "candidates": [
+            "Keisha Lance Bottoms",
+            "Geoff Duncan",
+            "Jason Esteves",
+            "Michael Thurmond",
+            "Derrick Jackson",
+            "Ruwa Romman"
+          ],
+          "percentages": [
+            40,
+            5,
+            3,
+            11,
+            1,
+            1
+          ]
+        }
+      ],
+      "source_url": "https://ballotpedia.org/Georgia_gubernatorial_election,_2026_(May_19_Democratic_primary)"
+    },
+    {
+      "pollster": "Frederick Polls / Center for Strong Public Schools",
+      "date": "2025-09-25",
+      "sample_size": 1513,
+      "matchups": [
+        {
+          "candidates": [
+            "Keisha Lance Bottoms",
+            "Geoff Duncan",
+            "Jason Esteves",
+            "Michael Thurmond",
+            "Derrick Jackson"
+          ],
+          "percentages": [
+            43,
+            17,
+            10,
+            25,
+            2
+          ]
+        }
+      ],
+      "source_url": "https://ballotpedia.org/Georgia_gubernatorial_election,_2026_(May_19_Democratic_primary)"
+    },
+    {
+      "pollster": "Public Policy Polling / Keisha Bottoms",
+      "date": "2025-09-16",
+      "sample_size": 620,
+      "matchups": [
+        {
+          "candidates": [
+            "Keisha Lance Bottoms",
+            "Geoff Duncan",
+            "Jason Esteves",
+            "Michael Thurmond",
+            "Derrick Jackson"
+          ],
+          "percentages": [
+            38,
+            9,
+            4,
+            12,
+            2
+          ]
+        }
+      ],
+      "source_url": "https://ballotpedia.org/Georgia_gubernatorial_election,_2026_(May_19_Democratic_primary)"
+    }
+  ],
+  "candidates": [
+    {
+      "name": "Chris Carr",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Chris Carr is Georgia\u2019s attorney general and a Republican candidate for governor. His campaign emphasizes public safety, affordability, and conservative governance, and he is running on his statewide executive experience.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Chris_Carr_(Georgia)",
+          "type": "website",
+          "title": "Chris Carr (Georgia) - Ballotpedia",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        },
+        {
+          "url": "https://carrforgeorgia.com/",
+          "type": "website",
+          "title": "Homepage - Chris Carr for Governor",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        },
+        {
+          "url": "https://law.georgia.gov/biography-attorney-general",
+          "type": "government",
+          "title": "Chris Carr - Georgia Attorney General's Office",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://carrforgeorgia.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/attorneygeneralchriscarr/",
+        "instagram": "https://www.instagram.com/chriscarrga/",
+        "x": "https://x.com/attorneygeneralchriscarr",
+        "youtube": "https://www.youtube.com/@ChrisCarrforGovernor"
+      },
+      "career_history": [
+        {
+          "title": "Attorney General",
+          "organization": "State of Georgia",
+          "start_year": 2016,
+          "end_year": null,
+          "description": "Serves as Georgia\u2019s attorney general; first appointed in 2016 and later elected statewide."
+        },
+        {
+          "title": "Commissioner, Department of Economic Development",
+          "organization": "State of Georgia",
+          "start_year": 2013,
+          "end_year": 2016,
+          "description": "Led the state economic development agency before becoming attorney general."
+        },
+        {
+          "title": "Chief of Staff / Deputy Chief of Staff",
+          "organization": "Office of U.S. Sen. Johnny Isakson",
+          "start_year": 2004,
+          "end_year": 2013,
+          "description": "Worked in senior staff roles after managing Isakson\u2019s campaign."
+        },
+        {
+          "title": "Private practice attorney",
+          "organization": "Atlanta law practice",
+          "start_year": 1999,
+          "end_year": 2003,
+          "description": "Practiced law after graduating from law school."
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Georgia",
+          "degree": "Bachelor's degree",
+          "field": "unknown",
+          "year": 1995
+        },
+        {
+          "institution": "University of Georgia / Lumpkin School of Law",
+          "degree": "Juris Doctor",
+          "field": "law",
+          "year": 1999
+        }
+      ],
+      "voting_record": [
+        {
+          "bill_name": "Georgia election-related litigation over SB 202",
+          "vote": "absent",
+          "date": "2026-01-27",
+          "source": {
+            "url": "https://law.georgia.gov/press-releases/2026-01-27/carr-secures-another-victory-defense-georgias-election-integrity-act",
+            "type": "government",
+            "title": "Carr Secures Another Victory in Defense of Georgia\u2019s Election Integrity Act",
+            "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+          }
+        },
+        {
+          "bill_name": "Georgia Attorney General officeholder status",
+          "vote": "absent",
+          "date": "2026-03-29",
+          "source": {
+            "url": "https://ballotpedia.org/Chris_Carr_(Georgia)",
+            "type": "website",
+            "title": "Chris Carr (Georgia) - Ballotpedia",
+            "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+          }
+        }
+      ],
+      "top_donors": [
+        {
+          "name": "Organization unavailable for these records",
+          "amount": 97324,
+          "organization": null,
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/chris-carr/contributors?cycle=2024&id=43587403",
+            "type": "website",
+            "title": "Chris Carr Top Contributors - OpenSecrets",
+            "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+          }
+        },
+        {
+          "name": "Synovus Financial Corp",
+          "amount": 18000,
+          "organization": "Synovus Financial Corp",
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/chris-carr/contributors?cycle=2024&id=43587403",
+            "type": "website",
+            "title": "Chris Carr Top Contributors - OpenSecrets",
+            "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+          }
+        },
+        {
+          "name": "Teramore Development",
+          "amount": 16800,
+          "organization": "Teramore Development",
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/chris-carr/contributors?cycle=2024&id=43587403",
+            "type": "website",
+            "title": "Chris Carr Top Contributors - OpenSecrets",
+            "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+          }
+        },
+        {
+          "name": "Self",
+          "amount": 10451,
+          "organization": null,
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/chris-carr/contributors?cycle=2024&id=43587403",
+            "type": "website",
+            "title": "Chris Carr Top Contributors - OpenSecrets",
+            "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+          }
+        },
+        {
+          "name": "Southeastern Gin & Peanut",
+          "amount": 10000,
+          "organization": "Southeastern Gin & Peanut",
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/chris-carr/contributors?cycle=2024&id=43587403",
+            "type": "website",
+            "title": "Chris Carr Top Contributors - OpenSecrets",
+            "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+          }
+        }
+      ],
+      "issues": {
+        "Healthcare": {
+          "stance": "Carr\u2019s campaign site does not present a detailed health care platform on its homepage, but his public actions as attorney general show opposition to federal funding for child gender-affirming care.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://carrforgeorgia.com/",
+              "type": "website",
+              "title": "Homepage - Chris Carr for Governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://law.georgia.gov/press-releases/2026-02-20/carr-pushes-permanent-halt-medicare-and-medicaid-funding-child-sex-change",
+              "type": "government",
+              "title": "Carr Pushes for Permanent Halt of Medicare and Medicaid Funding for Child Sex Change",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Carr says he is running on lower taxes, business growth, and affordability, and his campaign messaging emphasizes jobs and a pro-business approach.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://carrforgeorgia.com/",
+              "type": "website",
+              "title": "Homepage - Chris Carr for Governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://www.mdjonline.com/elections/q-a-chris-carr-discusses-run-for-governor-public-safety-and-tax-cuts/article_f9a1d853-69c4-44c9-ae13-f409086bb9a4.html",
+              "type": "news",
+              "title": "Q&A: Chris Carr discusses run for governor, public safety and tax cuts",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Carr has said communities should not be forced to accept data centers, but the state should not block communities that want them, indicating a generally pro-development stance with local discretion.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.yahoo.com/news/videos/georgia-governor-chris-carr-candidate-171751024.html",
+              "type": "news",
+              "title": "Georgia governor Chris Carr candidate weighs in on data centers",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://www.facebook.com/attorneygeneralchriscarr/videos/workforce-shortages-are-real-and-ai-is-changing-the-game-we-can-lead-or-get-run-/1197340209145074/",
+              "type": "social_media",
+              "title": "Workforce shortages are real, and AI is changing the game",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Reproductive Rights": {
+          "stance": "Carr has defended Georgia\u2019s abortion restrictions as attorney general, and available reporting indicates he supports maintaining the state\u2019s restrictive abortion law.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://lawandcrime.com/high-profile/georgia-ag-abortion-does-not-constitute-medical-care-or-health-care/",
+              "type": "news",
+              "title": "Georgia AG Chris Carr: Abortion Is Not 'Health Care' - Law & Crime",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://georgiademocrat.org/race-to-the-right-chris-carr-doubles-down-on-support-for-georgias-extreme-abortion-ban/",
+              "type": "website",
+              "title": "RACE TO THE RIGHT: Chris Carr Doubles Down on Support for Georgia's Extreme Abortion Ban",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Carr has not released a detailed immigration platform in the sources reviewed. Reporting on his campaign emphasizes public safety and alignment with Republican priorities, but does not provide a specific immigration proposal.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.ajc.com/politics/2025/06/chris-carr-looks-to-california-for-his-pitch-to-be-georgias-next-governor/",
+              "type": "news",
+              "title": "Chris Carr targets \u2018Gavin Newsom-like\u2019 Democrats amid LA unrest",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://carrforgeorgia.com/",
+              "type": "website",
+              "title": "Homepage - Chris Carr for Governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Guns & Safety": {
+          "stance": "Carr emphasizes a law-and-order approach, including prosecuting violent criminals, supporting law enforcement, and focusing on gangs, human trafficking, and online predators.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://carrforgeorgia.com/",
+              "type": "website",
+              "title": "Homepage - Chris Carr for Governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://carrforgeorgia.com/carr-campaign-launches-seven-figure-media-buy-highlighting-chris-carrs-record-taking-on-antifa-gangs-human-traffickers/",
+              "type": "website",
+              "title": "Carr Campaign Launches Seven-Figure Media Buy Highlighting Chris Carr\u2019s Record Taking On Antifa, Gangs & Human Traffickers",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://carrforgeorgia.com/carr-drug-trafficking-investigation-nets-11-arrests-in-macon/",
+              "type": "website",
+              "title": "Carr: Drug Trafficking Investigation Nets 11 Arrests in Macon",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Carr\u2019s public messaging in the reviewed sources focuses on domestic issues, and no detailed foreign policy agenda was identified.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.ajc.com/politics/2025/07/chris-carr-says-georgia-wont-join-lawsuit-against-trump-administration/",
+              "type": "news",
+              "title": "Chris Carr says Georgia won't join lawsuit against Trump administration",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://www.ajc.com/politics/2025/06/chris-carr-looks-to-california-for-his-pitch-to-be-georgias-next-governor/",
+              "type": "news",
+              "title": "Chris Carr targets \u2018Gavin Newsom-like\u2019 Democrats amid LA unrest",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Social Justice": {
+          "stance": "Carr\u2019s campaign messaging centers on conservative governance, election integrity, and public safety rather than social-justice reforms.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://carrforgeorgia.com/",
+              "type": "website",
+              "title": "Homepage - Chris Carr for Governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://ballotpedia.org/Chris_Carr_(Georgia)",
+              "type": "website",
+              "title": "Chris Carr (Georgia) - Ballotpedia",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Carr\u2019s campaign materials reviewed here do not lay out a detailed education plan.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://carrforgeorgia.com/",
+              "type": "website",
+              "title": "Homepage - Chris Carr for Governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://www.mdjonline.com/elections/q-a-chris-carr-discusses-run-for-governor-public-safety-and-tax-cuts/article_f9a1d853-69c4-44c9-ae13-f409086bb9a4.html",
+              "type": "news",
+              "title": "Q&A: Chris Carr discusses run for governor, public safety and tax cuts",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "Carr has framed AI as a workforce and competitiveness issue and said Georgia should invest in technical colleges and apprenticeships so residents are ready for future jobs.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.facebook.com/attorneygeneralchriscarr/videos/workforce-shortages-are-real-and-ai-is-changing-the-game-we-can-lead-or-get-run-/1197340209145074/",
+              "type": "social_media",
+              "title": "Workforce shortages are real, and AI is changing the game",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://www.yahoo.com/news/videos/georgia-governor-chris-carr-candidate-171751024.html",
+              "type": "news",
+              "title": "Georgia governor Chris Carr candidate weighs in on data centers",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Election Reform": {
+          "stance": "Carr says Georgia should keep and defend its election integrity law and restore trust in elections through stronger campaign-finance disclosure and anti-corruption rules.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://law.georgia.gov/press-releases/2026-01-27/carr-secures-another-victory-defense-georgias-election-integrity-act",
+              "type": "government",
+              "title": "Carr Secures Another Victory in Defense of Georgia\u2019s Election Integrity Act",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://carrforgeorgia.com/chris-carr-rolls-out-toughest-public-corruption-reforms-in-the-country/",
+              "type": "website",
+              "title": "Chris Carr Rolls Out Toughest Public Corruption Reforms in the Country",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://carrforgeorgia.com/issues/keep-georgia-working/",
+              "type": "website",
+              "title": "END PUBLIC CORRUPTION - Chris Carr for Governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Carr\u2019s campaign says he wants to expand accountability to the local level by giving the attorney general clearer authority to prosecute corruption involving local governments when local systems fail.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://carrforgeorgia.com/chris-carr-rolls-out-toughest-public-corruption-reforms-in-the-country/",
+              "type": "website",
+              "title": "Chris Carr Rolls Out Toughest Public Corruption Reforms in the Country",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://carrforgeorgia.com/issues/keep-georgia-working/",
+              "type": "website",
+              "title": "END PUBLIC CORRUPTION - Chris Carr for Governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Keisha Lance Bottoms",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Keisha Lance Bottoms is the former mayor of Atlanta and a Democratic candidate for governor. Her campaign focuses on working families, public education, health care, and affordability.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Keisha_Lance_Bottoms",
+          "type": "website",
+          "title": "Keisha Lance Bottoms - Ballotpedia",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        },
+        {
+          "url": "https://www.keishaforgovernor.com/",
+          "type": "website",
+          "title": "Keisha Lance Bottoms for Georgia Governor",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Keisha_Lance_Bottoms.jpg/500px-Keisha_Lance_Bottoms.jpg",
+      "website": "https://www.keishaforgovernor.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/keisha.bottoms/",
+        "instagram": "https://www.instagram.com/keishabottoms/",
+        "x": "https://x.com/KeishaBottoms"
+      },
+      "career_history": [
+        {
+          "title": "Mayor",
+          "organization": "City of Atlanta",
+          "start_year": 2018,
+          "end_year": 2022,
+          "description": "Led Atlanta during the pandemic and other major city crises."
+        },
+        {
+          "title": "Atlanta City Councilmember",
+          "organization": "City of Atlanta",
+          "start_year": 2010,
+          "end_year": 2017,
+          "description": "Served on the city council before becoming mayor."
+        },
+        {
+          "title": "Senior adviser",
+          "organization": "White House",
+          "start_year": 2022,
+          "end_year": 2023,
+          "description": "Served as a senior adviser to President Joe Biden."
+        },
+        {
+          "title": "Attorney",
+          "organization": "Private practice",
+          "start_year": 1994,
+          "end_year": 2010,
+          "description": "Worked as an attorney before entering elected office."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Florida A&M University",
+          "degree": "Bachelor's degree",
+          "field": "journalism",
+          "year": 1991
+        },
+        {
+          "institution": "Georgia State University",
+          "degree": "Juris Doctor",
+          "field": "law",
+          "year": 1994
+        }
+      ],
+      "voting_record": [
+        {
+          "bill_name": "Georgia City Council / Atlanta Mayor legislative roll calls",
+          "vote": "absent",
+          "date": "2026-03-29",
+          "source": {
+            "url": "https://ballotpedia.org/Keisha_Lance_Bottoms",
+            "type": "website",
+            "title": "Keisha Lance Bottoms - Ballotpedia",
+            "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+          }
+        },
+        {
+          "bill_name": "Atlanta mayoral officeholder record",
+          "vote": "absent",
+          "date": "2026-03-29",
+          "source": {
+            "url": "https://www.npr.org/2020/11/06/932214967/atlanta-mayor-on-election-results-in-georgia",
+            "type": "news",
+            "title": "Atlanta Mayor On Election Results In Georgia - NPR",
+            "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+          }
+        }
+      ],
+      "top_donors": [],
+      "issues": {
+        "Healthcare": {
+          "stance": "Bottoms\u2019 campaign says she would expand Medicaid and improve access to care for working families.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.keishaforgovernor.com/",
+              "type": "website",
+              "title": "Keisha Lance Bottoms for Georgia Governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://www.41nbc.com/keisha-lance-bottoms-launches-bid-for-georgia-governor-outlines-vision-and-defends-record/",
+              "type": "news",
+              "title": "Keisha Lance Bottoms Georgia governor campaign | 2026 election",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Bottoms says she would focus on affordability, housing costs, and support for working families, and her campaign points to her record in Atlanta on economic development.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.keishaforgovernor.com/about",
+              "type": "website",
+              "title": "About \u2014 Keisha for Governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://thesoutherneronline.com/103343/news/former-atlanta-mayor-bottoms-launches-campaign-for-governor/",
+              "type": "news",
+              "title": "Former Atlanta Mayor Bottoms launches campaign for governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://www.41nbc.com/keisha-lance-bottoms-launches-bid-for-georgia-governor-outlines-vision-and-defends-record/",
+              "type": "news",
+              "title": "Keisha Lance Bottoms Georgia governor campaign | 2026 election",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Bottoms\u2019 campaign materials reviewed here do not include a detailed climate or energy plan.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.keishaforgovernor.com/",
+              "type": "website",
+              "title": "Keisha Lance Bottoms for Georgia Governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Reproductive Rights": {
+          "stance": "Bottoms is running as a Democrat aligned with protecting reproductive rights and opposing Georgia\u2019s abortion restrictions, though the reviewed campaign page does not spell out a detailed abortion policy.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://19thnews.org/2025/05/keisha-lance-bottoms-georgia-governor-race/",
+              "type": "news",
+              "title": "Keisha Lance Bottoms enters Georgia governor's race",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://emilyslist.org/news/emilys-list-endorses-keisha-lance-bottoms-for-governor-of-georgia-2/",
+              "type": "website",
+              "title": "EMILYs List Endorses Keisha Lance Bottoms for Governor of Georgia",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Bottoms has not been found in the reviewed sources laying out a detailed immigration platform.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.ajc.com/politics/2025/05/will-keisha-lance-bottoms-ties-to-joe-biden-hurt-her-campaign-for-governor/",
+              "type": "news",
+              "title": "Will Keisha Lance Bottoms\u2019 ties to Joe Biden hurt her campaign for governor?",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://www.keishaforgovernor.com/",
+              "type": "website",
+              "title": "Keisha Lance Bottoms for Georgia Governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Guns & Safety": {
+          "stance": "Bottoms has publicly tied gun violence to public safety and has criticized permissive gun policies, including open-carry laws.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://1009magic.com/video/rsms/mayor-keisha-lance-bottoms-discusses-gun-violence-open-carry-laws-exclusive-audio/",
+              "type": "news",
+              "title": "Mayor Keisha Lance Bottoms Discusses Gun Violence & Open Carry Laws [EXCLUSIVE AUDIO]",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://www.atlantaga.gov/Home/Components/News/News/13551/672",
+              "type": "government",
+              "title": "Mayor Keisha Lance Bottoms Takes Further Actions on Criminal Justice Reform",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://www.41nbc.com/keisha-lance-bottoms-launches-bid-for-georgia-governor-outlines-vision-and-defends-record/",
+              "type": "news",
+              "title": "Keisha Lance Bottoms Georgia governor campaign | 2026 election",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Bottoms\u2019 reviewed campaign sources do not present a specific foreign policy agenda.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.ajc.com/politics/2025/05/will-keisha-lance-bottoms-ties-to-joe-biden-hurt-her-campaign-for-governor/",
+              "type": "news",
+              "title": "Will Keisha Lance Bottoms\u2019 ties to Joe Biden hurt her campaign for governor?",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://www.keishaforgovernor.com/",
+              "type": "website",
+              "title": "Keisha Lance Bottoms for Georgia Governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Social Justice": {
+          "stance": "Bottoms presents herself as a candidate focused on equity, civil rights, and criminal-justice reform.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.keishaforgovernor.com/",
+              "type": "website",
+              "title": "Keisha Lance Bottoms for Georgia Governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://www.atlantaga.gov/Home/Components/News/News/13551/672",
+              "type": "government",
+              "title": "Mayor Keisha Lance Bottoms Takes Further Actions on Criminal Justice Reform",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://flagpole.com/news/city-dope/2026/03/04/former-atlanta-mayor-keisha-lance-bottoms-campaigns-for-governor-in-athens/",
+              "type": "news",
+              "title": "Former Atlanta Mayor Keisha Lance Bottoms Campaigns for Governor in Athens",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Bottoms says she will invest in education, expand pathways to college and career training, and support teachers.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.keishaforgovernor.com/about",
+              "type": "website",
+              "title": "About \u2014 Keisha for Governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://www.41nbc.com/keisha-lance-bottoms-launches-bid-for-georgia-governor-outlines-vision-and-defends-record/",
+              "type": "news",
+              "title": "Keisha Lance Bottoms Georgia governor campaign | 2026 election",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://www.facebook.com/KeishaForGA/posts/icymi-earlier-this-month-keisha-lance-bottoms-shared-her-vision-for-the-future-o/122163515774877000/",
+              "type": "social_media",
+              "title": "Keisha for GA Facebook post on campaign vision",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "No specific, detailed AI policy was found in the reviewed campaign materials.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.keishaforgovernor.com/",
+              "type": "website",
+              "title": "Keisha Lance Bottoms for Georgia Governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Election Reform": {
+          "stance": "Bottoms has criticized election-obsession politics and emphasized moving past the 2020 election fight, but the reviewed sources do not show a detailed election-reform agenda.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.nbcnews.com/politics/2026-election/amid-fbi-investigation-trump-s-2020-election-obsession-is-still-shaping-georgia-politics-rcna191234",
+              "type": "news",
+              "title": "Amid FBI investigation, Trump's 2020 election obsession is still shaping Georgia politics",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Bottoms\u2019 campaign emphasizes affordability, jobs, housing costs, and household bills rather than a detailed local-government reform agenda.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.keishaforgovernor.com/",
+              "type": "website",
+              "title": "Keisha Lance Bottoms for Georgia Governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://flagpole.com/news/city-dope/2026/03/04/former-atlanta-mayor-keisha-lance-bottoms-campaigns-for-governor-in-athens/",
+              "type": "news",
+              "title": "Former Atlanta Mayor Keisha Lance Bottoms Campaigns for Governor in Athens",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://www.nbcnews.com/politics/2026-election/amid-fbi-investigation-trump-s-2020-election-obsession-is-still-shaping-georgia-politics-rcna191234",
+              "type": "news",
+              "title": "Amid FBI investigation, Trump's 2020 election obsession is still shaping Georgia politics",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Jason Esteves",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Jason Esteves is a former Georgia state senator, Atlanta school board member, teacher, and lawyer running for governor. His campaign centers on affordability, public education, health care access, and support for small businesses.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Jason_Esteves",
+          "type": "website",
+          "title": "Jason Esteves - Ballotpedia",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        },
+        {
+          "url": "https://www.jasonesteves.com/",
+          "type": "website",
+          "title": "Jason Esteves for Governor",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Jason_Esteves_Headshot.jpg/500px-Jason_Esteves_Headshot.jpg",
+      "website": "https://www.jasonesteves.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/jasonestevesforgovernor/",
+        "instagram": "https://www.instagram.com/jasonesteves/",
+        "x": "https://x.com/jasonesteves"
+      },
+      "career_history": [
+        {
+          "title": "State Senator",
+          "organization": "Georgia State Senate",
+          "start_year": 2023,
+          "end_year": 2025,
+          "description": "Represented Senate District 6 and later District 35."
+        },
+        {
+          "title": "School board member",
+          "organization": "Atlanta Public Schools",
+          "start_year": 2013,
+          "end_year": 2022,
+          "description": "Served on the Atlanta Public Schools board."
+        },
+        {
+          "title": "Middle school social studies teacher",
+          "organization": "Houston Independent School District",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked as a public school teacher early in his career."
+        },
+        {
+          "title": "Vice president of legal / assistant general counsel",
+          "organization": "Equifax",
+          "start_year": null,
+          "end_year": null,
+          "description": "Held senior legal roles at Equifax."
+        },
+        {
+          "title": "Associate attorney",
+          "organization": "McKenna Long & Aldridge LLP",
+          "start_year": null,
+          "end_year": null,
+          "description": "Practiced law at the firm."
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Miami",
+          "degree": "Bachelor's degree",
+          "field": "psychology",
+          "year": 2005
+        },
+        {
+          "institution": "Emory University",
+          "degree": "Juris Doctor",
+          "field": "law",
+          "year": 2010
+        }
+      ],
+      "voting_record": [
+        {
+          "bill_name": "Georgia Senate roll-call record",
+          "vote": "absent",
+          "date": "2026-03-29",
+          "source": {
+            "url": "https://ballotpedia.org/Jason_Esteves",
+            "type": "website",
+            "title": "Jason Esteves - Ballotpedia",
+            "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+          }
+        },
+        {
+          "bill_name": "SB 368",
+          "vote": "absent",
+          "date": "2026-03-29",
+          "source": {
+            "url": "https://legiscan.com/GA/rollcall/SB368/id/1396992",
+            "type": "government",
+            "title": "Roll Call: GA SB368 | 2023-2024 | Regular Session | LegiScan",
+            "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+          }
+        },
+        {
+          "bill_name": "SB 79",
+          "vote": "absent",
+          "date": "2026-03-29",
+          "source": {
+            "url": "https://legiscan.com/GA/rollcall/SB79/id/1530581",
+            "type": "government",
+            "title": "Roll Call: GA SB79 | 2025-2026 | Regular Session | LegiScan",
+            "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+          }
+        }
+      ],
+      "top_donors": [],
+      "issues": {
+        "Healthcare": {
+          "stance": "Esteves says he will expand Medicaid, lower prescription drug costs, and strengthen rural hospitals and clinics.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.jasonesteves.com/priorities/",
+              "type": "website",
+              "title": "Priorities | Jason Esteves for Governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Reproductive Rights": {
+          "stance": "Esteves says he will overturn Georgia\u2019s abortion ban and restore reproductive freedom.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.jasonesteves.com/priorities/",
+              "type": "website",
+              "title": "Priorities | Jason Esteves for Governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://www.facebook.com/jasonestevesforgovernor/videos/day-one-as-governor-we-get-to-workhealth-lift-georgias-abortion-ban-and-restore-/769602949233899/",
+              "type": "social_media",
+              "title": "Day one as governor, we get to work: Health: Lift Georgia\u2019s abortion ban and restore reproductive freedom.",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Esteves says he wants to lower the cost of living, make housing more affordable, and help small businesses access capital and build wealth.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.jasonesteves.com/priorities/",
+              "type": "website",
+              "title": "Priorities | Jason Esteves for Governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://theatlantavoice.com/esteves-education-governor-georgia/",
+              "type": "news",
+              "title": "Jason Esteves rally draws Georgians despite snowstorm",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://www.11alive.com/article/news/local/democrat-jason-esteves-unveils-new-education-plan-in-bid-for-georgia-governor/85-a7e83fca-b0af-40a5-be9f-ee4a199c7693",
+              "type": "news",
+              "title": "Democrat Jason Esteves unveils new education plan in bid for Georgia governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Esteves says Georgia should fully fund public schools, modernize the school funding formula, raise teacher pay, and expand early learning.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.jasonesteves.com/priorities/",
+              "type": "website",
+              "title": "Priorities | Jason Esteves for Governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://www.11alive.com/article/news/local/democrat-jason-esteves-unveils-new-education-plan-in-bid-for-georgia-governor/85-a7e83fca-b0af-40a5-be9f-ee4a199c7693",
+              "type": "news",
+              "title": "Democrat Jason Esteves unveils new education plan in bid for Georgia governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://theatlantavoice.com/esteves-education-governor-georgia/",
+              "type": "news",
+              "title": "Jason Esteves rally draws Georgians despite snowstorm",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Esteves has tied data centers to higher utility and infrastructure costs and said they should pay their fair share for grid upgrades, water, and power.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.yahoo.com/news/articles/democratic-governor-candidate-calls-end-093000675.html",
+              "type": "news",
+              "title": "Democratic governor candidate calls to end data center tax breaks in Macon stop",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://www.jasonesteves.com/",
+              "type": "website",
+              "title": "Jason Esteves for Governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "Esteves has addressed AI-adjacent data center growth by arguing that the state should not subsidize it and that companies should cover related infrastructure costs.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.yahoo.com/news/articles/democratic-governor-candidate-calls-end-093000675.html",
+              "type": "news",
+              "title": "Democratic governor candidate calls to end data center tax breaks in Macon stop",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://www.jasonesteves.com/",
+              "type": "website",
+              "title": "Jason Esteves for Governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Esteves has not been found in the reviewed sources with a detailed immigration platform.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.ajc.com/politics/2026/03/jason-esteves-jolts-democratic-race-for-governor-with-first-major-ad-buy/",
+              "type": "news",
+              "title": "Jason Esteves jolts Democratic race for governor with first major ad buy",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://www.jasonesteves.com/",
+              "type": "website",
+              "title": "Jason Esteves for Governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Esteves\u2019 reviewed campaign materials do not lay out a specific foreign policy agenda.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.ajc.com/politics/2026/03/jason-esteves-jolts-democratic-race-for-governor-with-first-major-ad-buy/",
+              "type": "news",
+              "title": "Jason Esteves jolts Democratic race for governor with first major ad buy",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://www.jasonesteves.com/priorities/",
+              "type": "website",
+              "title": "Priorities | Jason Esteves for Governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Guns & Safety": {
+          "stance": "Esteves says he supports violence prevention and community-based safety strategies, and his Black Men\u2019s Agenda calls for investing in violence prevention and gun safety.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.jasonesteves.com/priorities/",
+              "type": "website",
+              "title": "Priorities | Jason Esteves for Governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://www.jasonesteves.com/wp-content/uploads/2026/02/JasonEsteves_Black_Men_s_Agenda.pdf",
+              "type": "website",
+              "title": "[PDF] GEORGIA FOR JASON",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Social Justice": {
+          "stance": "Esteves frames his campaign around opportunity and says Black men face systemic barriers that state leaders have neglected.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.jasonesteves.com/priorities/",
+              "type": "website",
+              "title": "Priorities | Jason Esteves for Governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://www.jasonesteves.com/wp-content/uploads/2026/02/JasonEsteves_Black_Men_s_Agenda.pdf",
+              "type": "website",
+              "title": "[PDF] GEORGIA FOR JASON",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://www.jasonesteves.com/news/amid-fbi-investigation-trumps-2020-election-obsession-is-still-shaping-georgia-politics/",
+              "type": "website",
+              "title": "Amid FBI investigation, Trump's 2020 election obsession is still shaping Georgia politics",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Election Reform": {
+          "stance": "Esteves has criticized Trump\u2019s election-obsession politics and positioned himself as opposing efforts to undermine Georgia elections.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.nbcnews.com/politics/2026-election/amid-fbi-investigation-trump-s-2020-election-obsession-is-still-shaping-georgia-politics-rcna191234",
+              "type": "news",
+              "title": "Amid FBI investigation, Trump's 2020 election obsession is still shaping Georgia politics",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://www.jasonesteves.com/news/amid-fbi-investigation-trumps-2020-election-obsession-is-still-shaping-georgia-politics/",
+              "type": "website",
+              "title": "Amid FBI investigation, Trump's 2020 election obsession is still shaping Georgia politics",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Esteves\u2019 priorities page focuses on child care, housing costs, renters, healthcare access, small businesses, and public schools.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.jasonesteves.com/priorities/",
+              "type": "website",
+              "title": "Priorities | Jason Esteves for Governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Michael Thurmond",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Michael Thurmond is the former DeKalb County executive and a longtime Georgia public official running for governor. His campaign emphasizes working families, health care access, education, and a record of public service across county and state government.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Michael_Thurmond",
+          "type": "website",
+          "title": "Michael Thurmond - Ballotpedia",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        },
+        {
+          "url": "https://www.mikethurmond.com/",
+          "type": "website",
+          "title": "Mike Thurmond | Official Campaign Website",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/01/Michael_Thurmond.jpg",
+      "website": "https://www.mikethurmond.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/mike.thurmond1/",
+        "instagram": "https://www.instagram.com/mikethurmondga/"
+      },
+      "career_history": [
+        {
+          "title": "DeKalb County Executive",
+          "organization": "DeKalb County, Georgia",
+          "start_year": 2016,
+          "end_year": 2025,
+          "description": "Led one of Georgia's largest counties."
+        },
+        {
+          "title": "Georgia Labor Commissioner",
+          "organization": "State of Georgia",
+          "start_year": 1998,
+          "end_year": 2011,
+          "description": "Served as statewide labor commissioner."
+        },
+        {
+          "title": "State Representative",
+          "organization": "Georgia House of Representatives",
+          "start_year": 1987,
+          "end_year": 1991,
+          "description": "Served in the Georgia legislature."
+        },
+        {
+          "title": "Interim superintendent",
+          "organization": "DeKalb County School District",
+          "start_year": 2019,
+          "end_year": 2020,
+          "description": "Served as interim school district superintendent."
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Georgia",
+          "degree": "Bachelor's degree",
+          "field": "unknown",
+          "year": null
+        },
+        {
+          "institution": "University of South Carolina",
+          "degree": "Juris Doctor",
+          "field": "law",
+          "year": null
+        }
+      ],
+      "voting_record": [
+        {
+          "bill_name": "Georgia legislative roll-call record",
+          "vote": "absent",
+          "date": "2026-03-29",
+          "source": {
+            "url": "https://ballotpedia.org/Michael_Thurmond",
+            "type": "website",
+            "title": "Michael Thurmond - Ballotpedia",
+            "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+          }
+        }
+      ],
+      "top_donors": [],
+      "issues": {
+        "Healthcare": {
+          "stance": "Thurmond says he wants to expand Medicaid and improve access to medical care, with a focus on maternal and infant health.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://thecurrentga.org/2025/08/08/michael-thurmond-enters-georgia-governor-race-focusing-on-education-healthcare/",
+              "type": "news",
+              "title": "Michael Thurmond enters Georgia governor race, focusing on education, healthcare",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://apnews.com/article/mike-thurmond-governor-georgia-democrat-333e82505c2eb7ede947d0de5120f92c",
+              "type": "news",
+              "title": "Democrat Michael Thurmond launches 2026 run for Georgia governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Reproductive Rights": {
+          "stance": "Thurmond\u2019s reviewed launch coverage does not include a direct, detailed abortion or reproductive-rights platform.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://thecurrentga.org/2025/08/08/michael-thurmond-enters-georgia-governor-race-focusing-on-education-healthcare/",
+              "type": "news",
+              "title": "Michael Thurmond enters Georgia governor race, focusing on education, healthcare",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://apnews.com/article/mike-thurmond-governor-georgia-democrat-333e82505c2eb7ede947d0de5120f92c",
+              "type": "news",
+              "title": "Democrat Michael Thurmond launches 2026 run for Georgia governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Thurmond says he is running to improve everyday lives and focus on the cost of living and working families.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://apnews.com/article/mike-thurmond-governor-georgia-democrat-333e82505c2eb7ede947d0de5120f92c",
+              "type": "news",
+              "title": "Democrat Michael Thurmond is running for Georgia governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://thecurrentga.org/2025/08/08/michael-thurmond-enters-georgia-governor-race-focusing-on-education-healthcare/",
+              "type": "news",
+              "title": "Michael Thurmond enters Georgia governor race, focusing on education, healthcare",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://www.usnews.com/news/us/articles/2025-08-06/democrat-michael-thurmond-is-running-for-georgia-governor-pledging-to-improve-everyday-lives",
+              "type": "news",
+              "title": "Democrat Michael Thurmond Launches 2026 Run for Georgia Governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Thurmond says he wants to build an education system that creates opportunity and improve everyday lives.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.facebook.com/mike.thurmond1/posts/im-running-for-governor-to-fight-for-working-families-protect-and-expand-access-/1149944723611601/",
+              "type": "social_media",
+              "title": "Michael Thurmond Facebook post on campaign launch",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://thecurrentga.org/2025/08/08/michael-thurmond-enters-georgia-governor-race-focusing-on-education-healthcare/",
+              "type": "news",
+              "title": "Michael Thurmond enters Georgia governor race, focusing on education, healthcare",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://www.usnews.com/news/us/articles/2025-08-06/democrat-michael-thurmond-is-running-for-georgia-governor-pledging-to-improve-everyday-lives",
+              "type": "news",
+              "title": "Democrat Michael Thurmond Launches 2026 Run for Georgia Governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "No specific climate or energy platform was identified in the sources reviewed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.atlantanewsfirst.com/2025/08/06/michael-thurmond-announces-2026-georgia-governors-bid/",
+              "type": "news",
+              "title": "Michael Thurmond announces 2026 Georgia governor\u2019s bid",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "No specific AI or technology policy was identified in the sources reviewed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.atlantanewsfirst.com/2025/08/06/michael-thurmond-announces-2026-georgia-governors-bid/",
+              "type": "news",
+              "title": "Michael Thurmond announces 2026 Georgia governor\u2019s bid",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Thurmond has not been found in the reviewed sources with a detailed immigration platform.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.ajc.com/politics/2025/08/michael-thurmond-enters-ga-governors-race-pledging-to-be-bridge-builder/",
+              "type": "news",
+              "title": "Michael Thurmond vows to be \u2018bridge builder\u2019 in Georgia governor bid",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://www.gpb.org/news/2025/08/06/democrat-michael-thurmond-launches-2026-run-for-georgia-governor",
+              "type": "news",
+              "title": "Democrat Michael Thurmond launches 2026 run for Georgia governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Thurmond\u2019s reviewed campaign coverage does not present a detailed foreign policy platform.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.ajc.com/politics/2025/08/michael-thurmond-enters-ga-governors-race-pledging-to-be-bridge-builder/",
+              "type": "news",
+              "title": "Michael Thurmond vows to be \u2018bridge builder\u2019 in Georgia governor bid",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://www.gpb.org/news/2025/08/06/democrat-michael-thurmond-launches-2026-run-for-georgia-governor",
+              "type": "news",
+              "title": "Democrat Michael Thurmond launches 2026 run for Georgia governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Guns & Safety": {
+          "stance": "Thurmond\u2019s launch coverage focuses on public safety and quality-of-life concerns, but the reviewed sources do not show a specific gun-policy proposal.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.gpb.org/news/2025/08/06/democrat-michael-thurmond-launches-2026-run-for-georgia-governor",
+              "type": "news",
+              "title": "Democrat Michael Thurmond launches 2026 run for Georgia governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://www.atlantanewsfirst.com/2025/08/06/michael-thurmond-announces-2026-georgia-governors-bid/",
+              "type": "news",
+              "title": "Michael Thurmond announces 2026 Georgia governor's bid",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Social Justice": {
+          "stance": "Thurmond says he wants to bridge racial and political divides and present himself as a unifier.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.gpb.org/news/2025/08/06/democrat-michael-thurmond-launches-2026-run-for-georgia-governor",
+              "type": "news",
+              "title": "Democrat Michael Thurmond launches 2026 run for Georgia governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://www.atlantanewsfirst.com/2025/08/06/michael-thurmond-announces-2026-georgia-governors-bid/",
+              "type": "news",
+              "title": "Michael Thurmond announces 2026 Georgia governor's bid",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Election Reform": {
+          "stance": "Thurmond has criticized Trump and Georgia Republicans over the 2020 election fight and says Georgia needs a governor who fights for families rather than Trump\u2019s election claims.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.nbcnews.com/politics/2026-election/amid-fbi-investigation-trump-s-2020-election-obsession-is-still-shaping-georgia-politics-rcna191234",
+              "type": "news",
+              "title": "Amid FBI investigation, Trump's 2020 election obsession is still shaping Georgia politics",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://apnews.com/article/mike-thurmond-governor-georgia-democrat-333e82505c2eb7ede947d0de5120f92c",
+              "type": "news",
+              "title": "Democrat Michael Thurmond is running for Georgia governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Thurmond\u2019s campaign emphasizes the cost of living, working families, health care access, and education rather than a specific local-government reform agenda.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://apnews.com/article/mike-thurmond-governor-georgia-democrat-333e82505c2eb7ede947d0de5120f92c",
+              "type": "news",
+              "title": "Democrat Michael Thurmond is running for Georgia governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://www.redandblack.com/athensnews/athens-on-the-ballot-q-a-with-michael-thurmond-candidate-for-georgia-governor/article_3c3825e5-3b75-46b0-96e8-760c13dd2c40.html",
+              "type": "news",
+              "title": "Athens on the ballot: Q&A with Michael Thurmond, candidate for Georgia governor",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            },
+            {
+              "url": "https://www.nbcnews.com/politics/2026-election/amid-fbi-investigation-trump-s-2020-election-obsession-is-still-shaping-georgia-politics-rcna191234",
+              "type": "news",
+              "title": "Amid FBI investigation, Trump's 2020 election obsession is still shaping Georgia politics",
+              "last_accessed": "2026-03-29T17:35:55.887920+00:00"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "updated_utc": "2026-03-29T17:35:55.887920+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "claude-haiku-4-5-20251001",
+    "gemini-2.0-flash",
+    "grok-3-mini"
+  ],
+  "reviews": [
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "reviewed_at": "2026-03-29T17:36:27.472707+00:00",
+      "verdict": "needs_revision",
+      "flags": [
+        {
+          "field": "polling[0].matchups[0].candidates",
+          "concern": "Ruwa Romman appears in the Emerson College poll (2026-03-02) matchup with 0% support, but this is a very unusual data point. Either she was tested and received zero support (suggesting methodological oddity) or she shouldn't be in this matchup. The URL references a Ossoff re-election poll, not a gubernatorial poll, raising questions about whether this polling data is correctly sourced.",
+          "suggestion": "Verify the Emerson source URL and confirm Ruwa Romman's actual inclusion and polling performance in the gubernatorial matchup, or remove if the source is about a different race.",
+          "severity": "error"
+        },
+        {
+          "field": "polling[1] and polling[2] and polling[3]",
+          "concern": "Three of the four polling entries cite Ballotpedia as a source URL, but Ballotpedia is an aggregator/archive, not the original polling source. For the University of Georgia poll, the actual source should be the UGA or AJC directly. For Frederick Polls, this may be misattributed. For Public Policy Polling, the source note mentions the pollster was 'Keisha Bottoms' (a candidate), suggesting possible bias or a campaign poll.",
+          "suggestion": "Replace Ballotpedia URLs with direct links to original polling organizations or news outlets that published the polls. Clarify whether PPP was an independent poll or a campaign poll, and flag accordingly.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].top_donors",
+          "concern": "The first donor entry lists 'Organization unavailable for these records' with $97,324 \u2014 this is placeholder text, not actual information. It suggests incomplete data entry or a data collection error.",
+          "suggestion": "Either complete the donor information or remove placeholder entries entirely. If donor data is incomplete, indicate this transparently in the candidate record rather than listing incomplete entries.",
+          "severity": "error"
+        },
+        {
+          "field": "candidates[1].top_donors and candidates[2].top_donors and candidates[3].top_donors",
+          "concern": "Three Democratic candidates (Bottoms, Esteves, Thurmond) have empty top_donors arrays, while Republican Chris Carr has a populated list. This creates an appearance of imbalance, even if the underlying data is simply unavailable. For Bottoms especially, as a leading candidate, donation data should be easier to find.",
+          "suggestion": "For each candidate with empty donor arrays, include a note explaining why (e.g., 'Campaign finance filings not yet available' or 'Donations below reporting threshold'). If possible, source FEC or state-level campaign finance data for Democratic candidates.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Healthcare.confidence and sources",
+          "concern": "Healthcare stance confidence is marked 'medium,' but one source is a government press release from Carr's AG office defending a stance on gender-affirming care, which is effectively campaign messaging from a state official. The confidence rating should reflect the source quality issue.",
+          "suggestion": "Lower confidence to 'medium-low' or add a note that one source is from Carr's official office and therefore not independent verification. Include a neutral news source reporting on his healthcare positions.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Healthcare.sources[1]",
+          "concern": "The source URL is titled 'Carr Pushes for Permanent Halt of Medicare and Medicaid Funding for Child Sex Change' \u2014 this language uses terminology ('sex change') that is charged and not medically standard. While it may be Carr's own framing, the source title should be reported more neutrally to avoid bias creep.",
+          "suggestion": "Verify the actual press release title and consider paraphrasing the source description more neutrally, e.g., 'Carr Opposes Federal Funding for Gender-Affirming Care for Minors'.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues",
+          "concern": "Keisha Lance Bottoms has lower confidence ratings and fewer substantive sources on several issues (Climate/Energy: low, Tech & AI: low, Election Reform: medium, Local Issues: medium). For the frontrunner in the Democratic primary (leading all polls), the profile should have more comprehensive issue coverage.",
+          "suggestion": "Expand coverage of Bottoms' positions on climate/energy, AI, and election reform through additional news interviews or campaign material. If these positions genuinely haven't been articulated, note that explicitly.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].voting_record",
+          "concern": "Jason Esteves' voting record lists three bills with 'absent' votes. These are marked as 'absent' from 2026-03-29, which is the profile's access date \u2014 not actual votes. This is a data entry error; voting records should list actual votes cast, not absence data.",
+          "suggestion": "Replace with specific votes Esteves actually cast during his Georgia Senate tenure (2023-2025). If detailed voting records aren't available, remove this section or note the limitation transparently.",
+          "severity": "error"
+        },
+        {
+          "field": "candidates[3].education",
+          "concern": "Michael Thurmond's bachelor's degree field is listed as 'unknown,' and both his bachelor's and JD years are null. For a candidate with a long public service record, this is a notable gap.",
+          "suggestion": "Research and populate Thurmond's actual graduation years and field of study. This information should be available from University of Georgia and University of South Carolina records or biographical sources.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[3].issues.Reproductive Rights",
+          "concern": "Thurmond's reproductive rights stance is marked 'low' confidence because launch coverage didn't mention abortion directly. However, as a Democratic candidate in 2026 Georgia, his position on this major issue should be clarified through campaign materials or recent statements, not left blank.",
+          "suggestion": "Actively seek Thurmond's stated position on abortion/reproductive rights through his campaign website, recent interviews, or candidate forums. If he genuinely hasn't taken a public position, note this as a gap.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[3].issues.Guns & Safety",
+          "concern": "Thurmond's guns & safety stance is low confidence because 'launch coverage focuses on public safety but shows no specific gun-policy proposal.' For a Democratic candidate, this is a notable omission. Other Dem candidates have clearer positions.",
+          "suggestion": "Search for Thurmond statements on gun violence, Second Amendment policy, or specific gun regulations. Include any available positions or note that he has not publicly detailed a guns policy.",
+          "severity": "warning"
+        },
+        {
+          "field": "race-level description",
+          "concern": "The description mentions Kemp as 'term-limited Republican Gov.' \u2014 verify this is accurate for 2026. As of the profile's March 2026 date, Kemp would indeed be term-limited (term ends January 2027), so this is correct. However, note that Kemp himself is not a candidate.",
+          "suggestion": "No change needed, but confirming: the statement is accurate as of the profile date.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].summary_sources and candidates[1].summary_sources",
+          "concern": "Candidate summaries are well-sourced for Carr and Bottoms, but both rely heavily on candidate websites and Ballotpedia rather than independent news verification. For candidates running for statewide office, at least one source should be from a neutral news organization.",
+          "suggestion": "Add independent news sources (e.g., AJC, GPB, NPR) to candidate summary citations to improve credibility.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].social_media.x",
+          "concern": "Chris Carr's X handle is 'attorneygeneralchriscarr' \u2014 verify this is still his official campaign handle as of March 2026 and that the URL is correctly formatted.",
+          "suggestion": "Spot-check the social media links (especially X/Twitter) to ensure they are current and point to official accounts, not archived or outdated handles.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].career_history",
+          "concern": "Bottoms' White House role (2022-2023) as 'senior adviser' is vague. What was her specific portfolio or title? This is important context for understanding her recent experience.",
+          "suggestion": "Clarify Bottoms' White House role, title, and policy area(s). Was she a Senior Adviser for Urban Policy? Public Engagement? Include a more specific job description.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].career_history",
+          "concern": "Esteves' career history shows a gap: he is described as having worked as a teacher, lawyer, and school board member, but the dates for some roles (e.g., Equifax, McKenna Long) are marked null without start/end years, making the timeline unclear.",
+          "suggestion": "Add start and end years for Esteves' private sector roles (Equifax, McKenna Long) and clarify when he was a teacher (which appears to be early career but lacks dates).",
+          "severity": "warning"
+        },
+        {
+          "field": "generator",
+          "concern": "The profile lists four LLM generators (gpt-5.4-mini, claude-haiku, gemini-2.0-flash, grok-3-mini), but 'gpt-5.4-mini' doesn't exist (OpenAI's latest model is GPT-4). This suggests the generator list may contain fabricated or placeholder names, raising questions about the data's provenance.",
+          "suggestion": "Verify the actual list of models used to generate this profile. If it was human-researched, remove or clarify the generator field. If it was AI-assisted, ensure model names are accurate.",
+          "severity": "warning"
+        }
+      ],
+      "summary": "This profile has strong foundational sourcing and generally accurate candidate backgrounds, but contains several material issues that require correction: (1) a critical factual error in the polling section where candidates appear in matchups despite being listed in different candidate lists, suggesting data integrity problems; (2) inconsistent confidence levels that don't match source quality; (3) significant gaps in issue coverage, particularly for several candidates on major topics; and (4) some sources that appear to be campaign-generated content rather than independent verification. The profile would benefit from source cleanup, verification of polling data integrity, and more balanced issue coverage across all candidates."
+    },
+    {
+      "model": "grok-3-mini",
+      "reviewed_at": "2026-03-29T17:36:12.300445+00:00",
+      "verdict": "approved",
+      "flags": [
+        {
+          "field": "polling[3].pollster",
+          "concern": "The pollster 'Public Policy Polling / Keisha Bottoms' appears to be associated with a candidate, which could introduce potential bias in the polling data.",
+          "suggestion": "Verify the pollster's independence and consider cross-referencing with non-partisan sources for balance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].top_donors",
+          "concern": "The top_donors array is empty, which may indicate a gap in completeness for Jason Esteves' financial backing.",
+          "suggestion": "Add available donor data from reliable sources like OpenSecrets if it exists, or note the absence explicitly.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].top_donors",
+          "concern": "The top_donors array is empty, potentially leaving a gap in completeness for Michael Thurmond's financial information.",
+          "suggestion": "Incorporate donor data from credible sources if available to enhance the profile's depth.",
+          "severity": "info"
+        }
+      ],
+      "summary": "This profile is a well-constructed and balanced overview of the 2026 Georgia gubernatorial race, with accurate representations of candidate positions drawn directly from credible sources like Ballotpedia, official campaign websites, and reputable news outlets such as the AJC and AP News. Candidate backgrounds are thoroughly documented with reasonable career histories and education details, and the inclusion of confidence levels for issues adds transparency and completeness."
+    }
+  ]
+}
