@@ -25,7 +25,7 @@ class AgentHandler:
             - race_id: str (e.g. "mo-senate-2024")
 
         Options:
-            - cheap_mode: bool (default True, uses cheaper model variants)
+            - cheap_mode: bool (default True, uses gpt-5-mini in cheap, gpt-5.4 in full)
             - enable_review: bool (default False, send to Claude/Gemini/Grok)
             - research_model: str (override OpenAI research model)
             - claude_model: str (override Claude review model)

@@ -139,8 +139,10 @@ You can use any race ID — if no published data exists, the pipeline runs a ful
 |----------|---------|---------|
 | `OPENAI_API_KEY` | GPT models (required) | — |
 | `SERPER_API_KEY` | Web search (required) | — |
-| `ANTHROPIC_API_KEY` | Claude review (optional) | — || `GEMINI_API_KEY` | Gemini review (optional) | — |
-| `XAI_API_KEY` | Grok review (optional) | — || `SEARCH_CACHE_TTL_HOURS` | Search cache TTL | `168` (7 days) |
+| `ANTHROPIC_API_KEY` | Claude review (optional) | — |
+| `GEMINI_API_KEY` | Gemini review (optional) | — |
+| `XAI_API_KEY` | Grok review (optional) | — |
+| `SEARCH_CACHE_TTL_HOURS` | Search cache TTL | `168` (7 days) |
 
 ### Pipeline Options
 
@@ -160,9 +162,9 @@ When triggering a run, the `options` object supports:
 
 | Phase | Cheap Mode (default) | Full Mode |
 |-------|---------------------|----------|
-| Research (OpenAI) | gpt-4o-mini | gpt-4o |
-| Review: Claude | claude-haiku-4-20250514 | claude-sonnet-4-20250514 |
-| Review: Gemini | gemini-2.0-flash-lite | gemini-2.0-flash |
+| Research (OpenAI) | gpt-5-mini | gpt-5.4 |
+| Review: Claude | claude-haiku-4-20250514 | claude-sonnet-4-6 |
+| Review: Gemini | gemini-3.0-flash-lite | gemini-3.0-flash |
 | Review: Grok | grok-3-mini | grok-3 |
 
 You can override any model from the admin dashboard's "Advanced Model Settings" panel, or by passing the option in the API request body.
