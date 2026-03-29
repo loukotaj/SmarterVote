@@ -50,7 +50,7 @@ logger = logging.getLogger("pipeline")
 
 # Primary research models
 DEFAULT_MODEL = "gpt-5.4"
-CHEAP_MODEL = "gpt-5-mini"
+CHEAP_MODEL = "gpt-5.4-mini"
 
 # Review models (full quality)
 DEFAULT_CLAUDE_MODEL = "claude-sonnet-4-6"

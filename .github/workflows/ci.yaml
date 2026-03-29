@@ -104,7 +104,7 @@ jobs:
     name: CI Summary
     runs-on: ubuntu-latest
     needs: [test-pipeline, test-apis, test-web, terraform-validate]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: always()
 
     steps:
     - uses: actions/checkout@v6
