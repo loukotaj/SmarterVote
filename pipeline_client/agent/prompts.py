@@ -79,8 +79,11 @@ Search for:
 5. Each candidate's career history (political offices held, major jobs).
 6. Each candidate's education (degrees, institutions).
 7. Notable voting record items (for incumbents or former legislators).
-8. A publicly available headshot or official photo URL for each candidate.
-   Search "<candidate name> official photo" or look on their campaign site.
+8. A direct image URL (ending in .jpg, .jpeg, .png, .gif, or .webp) for each candidate's headshot.
+   Search "<candidate name> headshot site:wikipedia.org" or check their campaign site's /media or /photos page.
+   Only include the URL if it directly serves an image file — not a gallery or web page URL.
+   Good sources: Wikipedia commons images, official Senate/House photo pages (which serve .jpg files),
+   campaign site image files. Set to null if you cannot find a direct image file URL.
 """ + _DONOR_SCHEMA_NOTE + """
 
 Return JSON:
@@ -96,7 +99,7 @@ Return JSON:
       "party": "<party affiliation>",
       "incumbent": true|false,
       "summary": "<2-3 sentence nonpartisan summary>",
-      "image_url": "<URL to a publicly available headshot or null>",
+      "image_url": "<direct image file URL ending in .jpg/.png/.gif/.webp, or null if not found>",
       "website": "<official campaign URL or null>",
       "social_media": {{}},
       "career_history": [
@@ -199,7 +202,9 @@ Review and improve this profile:
 6. Ensure all 12 canonical issues are covered for each candidate:
    {all_issues}
 7. Fill gaps in career_history and education if you find better data.
-8. Search for an official headshot for any candidate missing image_url.
+8. Search for a direct image file URL (ending in .jpg, .jpeg, .png, .gif, or .webp) for any candidate missing image_url.
+   Use Wikipedia commons, official Senate/House photo pages, or campaign site image files.
+   Only set image_url if you find a URL that directly serves an image — not a gallery or page URL.
 9. Verify voting record entries are accurate.
 
 Return the COMPLETE improved JSON profile (same schema as input).
@@ -230,7 +235,9 @@ Update this profile:
 4. Update candidate summaries if there are significant new developments.
 5. Keep all existing source URLs and add new ones.
 6. Update career_history and education if new information is available.
-7. Search for an official headshot for any candidate missing image_url.
+7. Search for a direct image file URL (ending in .jpg, .jpeg, .png, .gif, or .webp) for any candidate missing image_url.
+   Use Wikipedia commons, official Senate/House photo pages, or campaign site image files.
+   Only set image_url if you find a URL that directly serves an image — not a gallery or page URL.
 8. Add or update voting record entries.
 9. Add or update top_donors entries, and include a source object on every donor item.
 

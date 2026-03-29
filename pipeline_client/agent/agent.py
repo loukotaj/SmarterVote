@@ -228,6 +228,33 @@ def _normalize_source(source: Any, now_iso: str) -> None:
         source.setdefault("last_accessed", now_iso)
 
 
+_IMAGE_EXTENSIONS = frozenset({".jpg", ".jpeg", ".png", ".gif", ".webp", ".avif", ".svg"})
+_IMAGE_URL_PATTERNS = re.compile(r"/(photo|headshot|portrait|profile[_\-]?pic|image|img|photos?)/", re.IGNORECASE)
+
+
+def _is_valid_image_url(url: Any) -> bool:
+    """Return True only if the URL looks like a direct image, not a web page."""
+    if not isinstance(url, str) or not url.startswith(("http://", "https://")):
+        return False
+    try:
+        from urllib.parse import urlparse
+        parsed = urlparse(url)
+        path = parsed.path.lower().rstrip("/")
+        if any(path.endswith(ext) for ext in _IMAGE_EXTENSIONS):
+            return True
+        if _IMAGE_URL_PATTERNS.search(parsed.path):
+            return True
+        # Wikipedia/Wikimedia direct image URLs lack extensions but have /Special:FilePath or /thumb/
+        if "wikimedia.org" in parsed.netloc or "wikipedia.org" in parsed.netloc:
+            return True
+        # Some CDN/image service patterns
+        if any(host in parsed.netloc for host in ("cloudfront.net", "githubusercontent.com", "twimg.com", "fbcdn.net")):
+            return True
+    except Exception:
+        return False
+    return False
+
+
 def _normalize_candidate(candidate: Dict[str, Any], now_iso: str) -> None:
     """Apply output defaults and source normalization to a candidate."""
     candidate.setdefault("image_url", None)
@@ -235,6 +262,11 @@ def _normalize_candidate(candidate: Dict[str, Any], now_iso: str) -> None:
     candidate.setdefault("education", [])
     candidate.setdefault("voting_record", [])
     candidate.setdefault("top_donors", [])
+
+    # Validate image_url — reject page URLs that aren't direct images
+    if candidate.get("image_url") and not _is_valid_image_url(candidate["image_url"]):
+        logger.debug(f"Clearing invalid image_url: {candidate['image_url']}")
+        candidate["image_url"] = None
 
     for issue_data in candidate.get("issues", {}).values():
         if isinstance(issue_data, dict):
