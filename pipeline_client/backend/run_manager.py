@@ -4,6 +4,8 @@ Run management service for tracking pipeline executions.
 
 import json
 import logging
+import sys
+import traceback
 import uuid
 from datetime import datetime, timezone
 from pathlib import Path
@@ -27,18 +29,26 @@ class RunManager:
             super().__init__()
             self.run_manager = run_manager
             self.run_id = run_id
+            self._emitting = False  # re-entrancy guard
 
         def emit(self, record):
-            log_entry = {
-                "level": record.levelname,
-                "message": record.getMessage(),
-                "time": datetime.fromtimestamp(record.created).isoformat(),
-                "logger": record.name,
-                "filename": record.filename,
-                "funcName": record.funcName,
-                "lineno": record.lineno,
-            }
-            self.run_manager.add_run_log(self.run_id, log_entry)
+            # Guard against recursive calls (e.g. _save_run failing and logging the error)
+            if self._emitting:
+                return
+            self._emitting = True
+            try:
+                log_entry = {
+                    "level": record.levelname,
+                    "message": record.getMessage(),
+                    "time": datetime.fromtimestamp(record.created).isoformat(),
+                    "logger": record.name,
+                    "filename": record.filename,
+                    "funcName": record.funcName,
+                    "lineno": record.lineno,
+                }
+                self.run_manager.add_run_log(self.run_id, log_entry)
+            finally:
+                self._emitting = False
 
     def attach_run_logger(self, run_id: str, logger_name: Optional[str] = None):
         """Attach a logging handler to capture logs for this run."""
@@ -240,17 +250,12 @@ class RunManager:
         return runs[:limit]
 
     def add_run_log(self, run_id: str, log: dict):
-        """Add a log entry to a run and persist it."""
-        # Try active first
+        """Add a log entry to a run (in-memory only; disk flush happens on status changes)."""
         run_info = self.active_runs.get(run_id)
-        if not run_info:
-            # Try loading from disk
-            run_info = self.get_run(run_id)
         if run_info:
             if not hasattr(run_info, "logs") or run_info.logs is None:
                 run_info.logs = []
             run_info.logs.append(log)
-            self._save_run(run_info)
 
     def get_run_logs(self, run_id: str):
         run_info = self.get_run(run_id)
@@ -269,7 +274,9 @@ class RunManager:
             with open(run_file, "w") as f:
                 json.dump(data, f, indent=2, default=str)
         except OSError:
-            logging.exception("Failed to save run %s", run_info.run_id)
+            # Do NOT use logging.exception here — it would re-enter the RunLogHandler
+            # and cause infinite recursion. Write directly to stderr instead.
+            print(f"Failed to save run {run_info.run_id}: {traceback.format_exc()}", file=sys.stderr)
 
 
 # Global run manager instance
