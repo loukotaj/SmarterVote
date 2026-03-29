@@ -200,7 +200,8 @@ class IterateHandler:
             raise ValueError("IterateHandler: Missing 'race_id' in payload")
 
         cheap_mode = options.get("cheap_mode", True)
-        enable_review = options.get("enable_review", True)
+        # Iteration always re-runs review to validate improvements
+        enable_review = True
         review_flags = payload.get("review_flags")
         t0 = time.perf_counter()
 

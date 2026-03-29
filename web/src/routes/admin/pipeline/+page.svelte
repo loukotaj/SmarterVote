@@ -416,7 +416,7 @@
   async function handleIterateRace(race: PublishedRaceSummary) {
     try {
       const result = await apiService.iterateRace(race.id, {
-        cheap_mode: true,
+        cheap_mode: cheapMode,
         enable_review: true,
       });
       addLog("info", `Iteration started for ${race.id} (run_id: ${result.run_id})`);
