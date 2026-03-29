@@ -22,7 +22,8 @@ describe("CandidateCard", () => {
     const { container } = render(CandidateCard, { candidate });
     const text = container.textContent || "";
     expect(text).toContain("Jane Doe");
-    expect(text).toContain("Independent");
+    // Party is abbreviated in the card (e.g. "Independent" → "I")
+    expect(text).toMatch(/Independent|I\b/);
     expect(text).toContain("Incumbent");
   });
 });
