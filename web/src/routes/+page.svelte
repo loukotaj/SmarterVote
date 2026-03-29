@@ -56,7 +56,7 @@
       Smarter.vote
     </h1>
     <p class="text-lg sm:text-xl text-gray-600 mb-6 sm:mb-8">
-      AI-powered candidate comparison on the issues that matter
+    One place to find clear, unbiased information on where candidates stand on the issues that matter to you.
     </p>
     <p class="text-sm sm:text-base text-gray-500 max-w-2xl mx-auto px-4">
       We analyze candidates' positions from public sources using multiple AI

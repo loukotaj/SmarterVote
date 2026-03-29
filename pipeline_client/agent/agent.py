@@ -28,6 +28,8 @@ from .prompts import (
     CANONICAL_ISSUES,
     DISCOVERY_SYSTEM,
     DISCOVERY_USER,
+    IMAGE_SEARCH_SYSTEM,
+    IMAGE_SEARCH_USER,
     ISSUE_GROUPS,
     ISSUE_RESEARCH_SYSTEM,
     ISSUE_RESEARCH_USER,
@@ -291,6 +293,87 @@ def _normalize_candidate(candidate: Dict[str, Any], now_iso: str) -> None:
 
 
 # ---------------------------------------------------------------------------
+# Image URL verification & resolution
+# ---------------------------------------------------------------------------
+
+
+async def _check_url_accessible(url: str) -> bool:
+    """Return True if a HEAD request to *url* returns a 2xx status within 8 s."""
+    try:
+        async with httpx.AsyncClient(timeout=8, follow_redirects=True) as client:
+            resp = await client.head(url, headers={"User-Agent": "SmarterVote/1.0"})
+            return resp.status_code < 400
+    except Exception:
+        return False
+
+
+async def _resolve_candidate_images(
+    race_json: Dict[str, Any],
+    *,
+    model: str,
+    on_log: Any | None = None,
+    race_id: Optional[str] = None,
+    max_iterations: int = 10,
+) -> None:
+    """Validate each candidate's image_url and fix broken ones in-place.
+
+    For each candidate:
+    1. If image_url is set, do a HEAD request to verify it's live.
+    2. If missing or dead, run a mini agent loop using IMAGE_SEARCH_USER
+       to find a working direct image URL.
+    """
+
+    def log(level: str, msg: str) -> None:
+        logger.log(getattr(logging, level.upper(), logging.INFO), msg)
+        if on_log:
+            on_log(level, msg)
+
+    for candidate in race_json.get("candidates", []):
+        if not isinstance(candidate, dict):
+            continue
+        name = candidate.get("name", "unknown")
+        current_url = candidate.get("image_url")
+
+        # Step 1: verify existing URL
+        if current_url and _is_valid_image_url(current_url):
+            if await _check_url_accessible(current_url):
+                log("info", f"  🖼  {name}: image OK ({current_url[:60]}...)")
+                continue
+            else:
+                log("info", f"  🖼  {name}: image URL is dead — searching for replacement")
+                candidate["image_url"] = None
+        else:
+            if current_url:
+                log("info", f"  🖼  {name}: image_url looks like a page URL — searching for direct image")
+                candidate["image_url"] = None
+            else:
+                log("info", f"  🖼  {name}: no image_url — searching")
+
+        # Step 2: run mini agent loop to find a working image URL
+        try:
+            result = await _agent_loop(
+                IMAGE_SEARCH_SYSTEM,
+                IMAGE_SEARCH_USER.format(candidate_name=name),
+                model=model,
+                on_log=on_log,
+                race_id=race_id,
+                max_iterations=max_iterations,
+                phase_name=f"image-{name[:20]}",
+            )
+            found_url = result.get("image_url")
+            if found_url and _is_valid_image_url(found_url):
+                if await _check_url_accessible(found_url):
+                    candidate["image_url"] = found_url
+                    log("info", f"  🖼  {name}: resolved image → {found_url[:80]}")
+                else:
+                    log("info", f"  🖼  {name}: agent found URL but it's dead: {found_url}")
+            else:
+                log("info", f"  🖼  {name}: no working image found")
+        except Exception as exc:
+            log("warning", f"  🖼  {name}: image resolution error: {exc}")
+
+
+# ---------------------------------------------------------------------------
 # Generic agent loop used by each phase
 # ---------------------------------------------------------------------------
 
@@ -470,7 +553,16 @@ async def run_agent(
     race_json.setdefault("id", race_id)
     now_iso = datetime.now(timezone.utc).isoformat()
     race_json["updated_utc"] = now_iso  # Always update timestamp
-    race_json.setdefault("generator", ["pipeline-agent"])
+    # Record the models actually used for transparency
+    generators = [model]
+    if enable_review:
+        if os.getenv("ANTHROPIC_API_KEY"):
+            generators.append(claude_model or (CHEAP_CLAUDE_MODEL if cheap_mode else DEFAULT_CLAUDE_MODEL))
+        if os.getenv("GEMINI_API_KEY"):
+            generators.append(gemini_model or (CHEAP_GEMINI_MODEL if cheap_mode else DEFAULT_GEMINI_MODEL))
+        if os.getenv("XAI_API_KEY"):
+            generators.append(grok_model or (CHEAP_GROK_MODEL if cheap_mode else DEFAULT_GROK_MODEL))
+    race_json["generator"] = generators
 
     # Ensure new fields have defaults
     for candidate in race_json.get("candidates", []):
@@ -528,6 +620,16 @@ async def _run_fresh(
     if not candidate_names:
         log("warning", "No candidates found in discovery phase")
         return race_json
+
+    # --- Phase 1b: Image URL verification & resolution ---
+    log("info", "Phase 1b/3: Verifying and resolving candidate image URLs...")
+    await _resolve_candidate_images(
+        race_json,
+        model=model,
+        on_log=on_log,
+        race_id=race_id,
+        max_iterations=max_iterations,
+    )
 
     # --- Phase 2: Issue research (one call per group) ---
     log("info", f"Phase 2/3: Researching issues for {len(candidate_names)} candidates...")
@@ -594,8 +696,13 @@ async def _run_update(
 ) -> Dict[str, Any]:
     """Run an update/rerun pass on an existing profile."""
 
+    def log(level: str, msg: str) -> None:
+        logger.log(getattr(logging, level.upper(), logging.INFO), msg)
+        if on_log:
+            on_log(level, msg)
+
     last_updated = existing.get("updated_utc", "unknown")
-    return await _agent_loop(
+    race_json = await _agent_loop(
         UPDATE_SYSTEM,
         UPDATE_USER.format(
             race_id=race_id,
@@ -608,6 +715,18 @@ async def _run_update(
         max_iterations=max_iterations,
         phase_name="update",
     )
+
+    # Verify and fix image URLs after update
+    log("info", "Post-update: Verifying and resolving candidate image URLs...")
+    await _resolve_candidate_images(
+        race_json,
+        model=model,
+        on_log=on_log,
+        race_id=race_id,
+        max_iterations=max_iterations,
+    )
+
+    return race_json
 
 
 # ---------------------------------------------------------------------------

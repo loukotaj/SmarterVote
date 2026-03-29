@@ -6,6 +6,7 @@
   import Card from "$lib/components/Card.svelte";
   import type { Race } from "$lib/types";
   import { getRace } from "$lib/api";
+  import { formatModelName, candidateSlug } from "$lib/utils/format";
 
   let race: Race | null = null;
   let loading = true;
@@ -33,6 +34,11 @@
       loading = false;
     }
   });
+
+  $: candidateCount = race?.candidates?.length ?? 0;
+  $: incumbents = race?.candidates?.filter(c => c.incumbent) ?? [];
+  $: challengers = race?.candidates?.filter(c => !c.incumbent) ?? [];
+  $: parties = [...new Set(race?.candidates?.map(c => c.party).filter(Boolean))];
 </script>
 
 <svelte:head>
@@ -64,67 +70,71 @@
       <h1 class="header-title">{race.title}</h1>
       <div class="header-meta">
         <div class="info-row">
-          <svg
-            class="w-5 h-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-            />
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
           </svg>
-          <span
-            >Election: {new Date(race.election_date).toLocaleDateString()}</span
-          >
+          <span>Election: {new Date(race.election_date).toLocaleDateString()}</span>
         </div>
         <div class="info-row">
-          <svg
-            class="w-5 h-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-            />
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-            />
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
           </svg>
-          <span>{race.office} • {race.jurisdiction}</span>
+          <span>{race.office} &bull; {race.jurisdiction}</span>
         </div>
         <div class="info-row">
-          <svg
-            class="w-5 h-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          <span>Updated: {new Date(race.updated_utc).toLocaleDateString()}</span
-          >
+          <span>Updated: {new Date(race.updated_utc).toLocaleDateString()}</span>
         </div>
       </div>
       <div class="model-label">
-        <span>Analysis by:</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+        <span>Models:</span>
         {#each (race.generator ?? []) as model}
-          <span class="model-tag">{model}</span>
+          <span class="model-tag">{formatModelName(model)}</span>
+        {/each}
+      </div>
+    </Card>
+
+    <!-- Race Overview -->
+    <Card class="overview-card">
+      <h2 class="overview-title">Race Overview</h2>
+      <div class="overview-grid">
+        <div class="overview-stat">
+          <span class="stat-number">{candidateCount}</span>
+          <span class="stat-label">Candidate{candidateCount !== 1 ? 's' : ''}</span>
+        </div>
+        <div class="overview-stat">
+          <span class="stat-number">{parties.length}</span>
+          <span class="stat-label">{parties.length === 1 ? 'Party' : 'Parties'}</span>
+        </div>
+        <div class="overview-stat">
+          <span class="stat-number">{incumbents.length}</span>
+          <span class="stat-label">Incumbent{incumbents.length !== 1 ? 's' : ''}</span>
+        </div>
+        <div class="overview-stat">
+          <span class="stat-number">{Object.keys(race.candidates?.[0]?.issues ?? {}).length}</span>
+          <span class="stat-label">Issues Analyzed</span>
+        </div>
+      </div>
+      <div class="overview-candidates">
+        {#each (race.candidates ?? []) as candidate}
+          <a href="/races/{race.id}/{candidateSlug(candidate.name)}" class="overview-candidate-chip">
+            {#if candidate.image_url}
+              <img src={candidate.image_url} alt="" class="chip-avatar" on:error={(e) => { if (e.currentTarget instanceof HTMLImageElement) e.currentTarget.style.display = 'none'; }} />
+            {/if}
+            <span class="chip-name">{candidate.name}</span>
+            {#if candidate.party}
+              <span class="chip-party">({candidate.party})</span>
+            {/if}
+            {#if candidate.incumbent}
+              <span class="chip-incumbent">Incumbent</span>
+            {/if}
+          </a>
         {/each}
       </div>
     </Card>
@@ -165,27 +175,6 @@
     <!-- Candidates Section -->
     <section>
       <h2 class="candidates-title">Candidates</h2>
-
-      <!-- Candidate Navigation -->
-      {#if (race.candidates?.length ?? 0) > 1}
-        <div class="candidate-nav">
-          <p class="nav-label">Jump to candidate:</p>
-          <div class="nav-links">
-            {#each (race.candidates ?? []) as candidate}
-              <a
-                href="#{candidate.name
-                  .toLowerCase()
-                  .replace(/[^a-z0-9]/g, '-')
-                  .replace(/-+/g, '-')
-                  .replace(/^-|-$/g, '')}"
-                class="nav-link"
-              >
-                {candidate.name}
-              </a>
-            {/each}
-          </div>
-        </div>
-      {/if}
 
       <div class="candidate-grid">
         {#each (race.candidates ?? []) as candidate}
@@ -283,31 +272,65 @@
   }
 
   .model-label {
-    @apply mt-4 flex items-center gap-2 text-sm text-gray-500;
+    @apply mt-4 flex flex-wrap items-center gap-2 text-sm text-gray-500;
   }
 
   .model-tag {
-    @apply bg-gray-100 px-2 py-1 rounded;
+    @apply bg-gray-100 px-2 py-1 rounded text-xs font-mono;
   }
 
   .candidates-title {
     @apply text-xl sm:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6;
   }
 
-  .candidate-nav {
-    @apply mb-6 sm:mb-8 p-3 sm:p-4 bg-gray-50 rounded-lg border border-gray-200;
+  /* Race Overview */
+  :global(.overview-card) {
+    @apply p-4 sm:p-6 mb-6 sm:mb-8 shadow-sm;
   }
 
-  .nav-label {
-    @apply text-xs sm:text-sm font-medium text-gray-700 mb-2 sm:mb-3;
+  .overview-title {
+    @apply text-lg sm:text-xl font-semibold text-gray-900 mb-4;
   }
 
-  .nav-links {
-    @apply flex flex-wrap gap-1 sm:gap-2;
+  .overview-grid {
+    @apply grid grid-cols-2 sm:grid-cols-4 gap-4 mb-5;
   }
 
-  .nav-link {
-    @apply px-2 sm:px-3 py-1 sm:py-2 bg-white border border-gray-300 rounded-md text-xs sm:text-sm font-medium text-gray-700 hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 transition-colors duration-200;
+  .overview-stat {
+    @apply flex flex-col items-center p-3 bg-gray-50 rounded-lg;
+  }
+
+  .stat-number {
+    @apply text-2xl font-bold text-blue-600;
+  }
+
+  .stat-label {
+    @apply text-xs text-gray-500 mt-1;
+  }
+
+  .overview-candidates {
+    @apply flex flex-wrap gap-3;
+  }
+
+  .overview-candidate-chip {
+    @apply flex items-center gap-2 px-3 py-2 bg-white border border-gray-200 rounded-full
+           hover:border-blue-300 hover:bg-blue-50 transition-colors duration-200 text-sm no-underline text-gray-700;
+  }
+
+  .chip-avatar {
+    @apply w-6 h-6 rounded-full object-cover;
+  }
+
+  .chip-name {
+    @apply font-medium text-gray-900;
+  }
+
+  .chip-party {
+    @apply text-gray-500 text-xs;
+  }
+
+  .chip-incumbent {
+    @apply bg-green-100 text-green-700 text-xs px-1.5 py-0.5 rounded-full;
   }
 
   .candidate-grid {

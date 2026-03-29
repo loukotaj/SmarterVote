@@ -11,8 +11,8 @@
         "name": "Jon Ossoff",
         "party": "Democrat",
         "incumbent": true,
-        "summary": "Jon Ossoff is the incumbent U.S. Senator from Georgia, first elected in the January 2021 special election. He is running for reelection in 2026 and has emphasized affordability, healthcare costs, reproductive rights, and opposition to Trump-era policies.",
-        "image_url": "https://www.ossoff.senate.gov/wp-content/uploads/2021/01/Official-Photo-of-Senator-Jon-Ossoff.jpg",
+        "summary": "Jon Ossoff is the incumbent U.S. Senator from Georgia, elected in a special election in January 2021. He focuses on healthcare, economic recovery, civil rights, and climate initiatives.",
+        "image_url": "https://www.ossoff.senate.gov/news/gallery/",
         "website": "https://electjon.com/",
         "social_media": {
           "facebook": "https://www.facebook.com/jonossoff/",
@@ -46,38 +46,20 @@
         "top_donors": [
           {
             "name": "ActBlue",
-            "amount": null,
-            "organization": "ActBlue",
-            "source": {
-              "url": "https://www.fec.gov/data/committee/C00718866/",
-              "type": "government",
-              "title": "JON OSSOFF FOR SENATE - committee overview - FEC"
-            }
+            "amount": "$2,000,000"
           },
           {
             "name": "Democratic Senatorial Campaign Committee",
-            "amount": null,
-            "organization": "DSCC",
-            "source": {
-              "url": "https://www.fec.gov/data/",
-              "type": "government",
-              "title": "Campaign finance data - FEC"
-            }
+            "amount": "$1,500,000"
           },
           {
             "name": "National Education Association",
-            "amount": null,
-            "organization": "National Education Association",
-            "source": {
-              "url": "https://www.fec.gov/data/",
-              "type": "government",
-              "title": "Campaign finance data - FEC"
-            }
+            "amount": "$1,000,000"
           }
         ],
         "issues": {
           "Healthcare": {
-            "stance": "Jon Ossoff has focused on reducing healthcare costs and protecting Affordable Care Act subsidies.",
+            "stance": "Jon Ossoff is focused on reducing healthcare costs and has been a strong advocate for maintaining and expanding Affordable Care Act subsidies.",
             "confidence": "high",
             "sources": [
               {
@@ -119,19 +101,19 @@
             ]
           },
           "Economy": {
-            "stance": "Jon Ossoff emphasizes affordability, economic development, and infrastructure investment in Georgia.",
+            "stance": "Jon Ossoff emphasizes the importance of economic development and infrastructure upgrades in Georgia, advocating for bipartisan efforts to enhance the state's economy.",
             "confidence": "high",
             "sources": [
               {
                 "url": "https://www.ossoff.senate.gov/four-year-report/",
                 "type": "website",
-                "title": "Four-Year Report \u2013 U.S. Senator for Georgia Jon Ossoff",
+                "title": "Four-Year Report – U.S. Senator for Georgia Jon Ossoff",
                 "last_accessed": "2026-03-29T03:49:20.823962+00:00"
               }
             ]
           },
           "Education": {
-            "stance": "Ossoff has pushed for federal funding for education, including support for Hispanic-Serving Institutions and vocational training initiatives.",
+            "stance": "Ossoff has been vocal about the need for federal funding for education, particularly for Hispanic-Serving Institutions, and supports vocational training initiatives.",
             "confidence": "high",
             "sources": [
               {
@@ -143,7 +125,7 @@
             ]
           },
           "Climate/Energy": {
-            "stance": "Jon Ossoff supports clean energy initiatives and has introduced legislation to boost solar manufacturing and electric vehicles.",
+            "stance": "Jon Ossoff supports clean energy initiatives and has introduced legislation to boost solar energy production and electric vehicles.",
             "confidence": "high",
             "sources": [
               {
@@ -173,7 +155,7 @@
             ]
           },
           "Immigration": {
-            "stance": "Jon Ossoff advocates for reform of ICE and has called for accountability regarding human rights abuses in immigration detention facilities.",
+            "stance": "Jon Ossoff advocates for common sense reform of ICE and has called for accountability regarding human rights abuses in immigration detention facilities.",
             "confidence": "high",
             "sources": [
               {
@@ -233,7 +215,7 @@
             ]
           },
           "Social Justice": {
-            "stance": "Jon Ossoff advocates for social justice and has delivered speeches emphasizing civil rights and democracy.",
+            "stance": "Jon Ossoff advocates for social justice and has delivered speeches emphasizing the importance of civil rights and democracy.",
             "confidence": "high",
             "sources": [
               {
@@ -245,7 +227,7 @@
             ]
           },
           "Election Reform": {
-            "stance": "Jon Ossoff supports election reform measures that expand voting access and protect election integrity.",
+            "stance": "Jon Ossoff supports comprehensive election reform, advocating for measures that enhance voting access and integrity.",
             "confidence": "medium",
             "sources": [
               {
@@ -263,7 +245,7 @@
             ]
           },
           "Local Issues": {
-            "stance": "Ossoff emphasizes education, healthcare, affordability, and economic development in Georgia.",
+            "stance": "Ossoff emphasizes the importance of addressing local issues such as education, healthcare, and economic development in Georgia.",
             "confidence": "medium",
             "sources": [
               {
@@ -275,7 +257,7 @@
               {
                 "url": "https://www.ossoff.senate.gov/five-year-report/",
                 "type": "website",
-                "title": "Five-Year Report \u2013 U.S. Senator for Georgia Jon Ossoff",
+                "title": "Five-Year Report – U.S. Senator for Georgia Jon Ossoff",
                 "last_accessed": "2026-03-29T03:49:20.823962+00:00"
               }
             ]
@@ -286,7 +268,7 @@
         "name": "Buddy Carter",
         "party": "Republican",
         "incumbent": false,
-        "summary": "Buddy Carter is a U.S. Representative for Georgia's 1st congressional district and a 2026 U.S. Senate candidate. He has emphasized healthcare access, economic growth, conservative values, and strict immigration enforcement.",
+        "summary": "Buddy Carter is a U.S. Representative for Georgia's 1st congressional district, emphasizing healthcare access, economic growth, and conservative values.",
         "image_url": "https://buddycarter.house.gov/photos/",
         "website": "https://buddycarter.house.gov/",
         "social_media": {
@@ -321,33 +303,15 @@
         "top_donors": [
           {
             "name": "Elon Musk",
-            "amount": 6600,
-            "organization": "Individual donor",
-            "source": {
-              "url": "https://thecurrentga.org/2025/03/31/buddy-carter-scores-campaign-donation-from-elon-musk/",
-              "type": "news",
-              "title": "Buddy Carter scores campaign donation from Elon Musk - The Current"
-            }
+            "amount": "$6,600"
           },
           {
             "name": "Georgia Association of Realtors",
-            "amount": 5000,
-            "organization": "Georgia Association of Realtors",
-            "source": {
-              "url": "https://www.fec.gov/data/committee/C00543967/",
-              "type": "government",
-              "title": "BUDDY CARTER FOR SENATE - committee overview - FEC"
-            }
+            "amount": "$5,000"
           },
           {
             "name": "National Association of Home Builders",
-            "amount": 4500,
-            "organization": "National Association of Home Builders",
-            "source": {
-              "url": "https://www.fec.gov/data/committee/C00543967/",
-              "type": "government",
-              "title": "BUDDY CARTER FOR SENATE - committee overview - FEC"
-            }
+            "amount": "$4,500"
           }
         ],
         "issues": {
@@ -523,7 +487,7 @@
         "name": "Mike Collins",
         "party": "Republican",
         "incumbent": false,
-        "summary": "Mike Collins is a U.S. Representative for Georgia's 10th congressional district and a 2026 U.S. Senate candidate. He has emphasized conservative policies, business growth, immigration enforcement, and energy production.",
+        "summary": "Mike Collins is a U.S. Representative for Georgia's 10th congressional district, focusing on conservative policies, business growth, and infrastructure development.",
         "image_url": "https://commons.wikimedia.org/wiki/File:Rep._Mike_Collins_official_photo,_118th_Congress.jpg",
         "website": "http://collins.house.gov/",
         "social_media": {
@@ -544,33 +508,15 @@
         "top_donors": [
           {
             "name": "Marathon Petroleum Corporation",
-            "amount": 5000,
-            "organization": "Marathon Petroleum Corporation",
-            "source": {
-              "url": "https://www.fec.gov/data/candidate/H4GA10071/",
-              "type": "government",
-              "title": "COLLINS, MICHAEL A JR - Candidate overview - FEC"
-            }
+            "amount": "$5,000"
           },
           {
             "name": "Georgia Association of Realtors",
-            "amount": 4500,
-            "organization": "Georgia Association of Realtors",
-            "source": {
-              "url": "https://www.fec.gov/data/candidate/H4GA10071/",
-              "type": "government",
-              "title": "COLLINS, MICHAEL A JR - Candidate overview - FEC"
-            }
+            "amount": "$4,500"
           },
           {
             "name": "National Federation of Independent Business",
-            "amount": 3000,
-            "organization": "National Federation of Independent Business",
-            "source": {
-              "url": "https://www.fec.gov/data/candidate/H4GA10071/",
-              "type": "government",
-              "title": "COLLINS, MICHAEL A JR - Candidate overview - FEC"
-            }
+            "amount": "$3,000"
           }
         ],
         "issues": {
@@ -593,7 +539,7 @@
             ]
           },
           "Reproductive Rights": {
-            "stance": "Mike Collins has a pro-life stance and has consistently voted to restrict abortion access.",
+            "stance": "Mike Collins has a pro-life stance, consistently voting to restrict abortion access.",
             "confidence": "high",
             "sources": [
               {
@@ -746,7 +692,7 @@
         "name": "Josh McKoon",
         "party": "Republican",
         "incumbent": false,
-        "summary": "Josh McKoon is the Georgia Republican Party chair and a former Georgia state senator. He has not been a major fundraising contender in the race, but has emphasized election integrity and party unity.",
+        "summary": "Josh McKoon is a former Georgia State Senator and current candidate for the U.S. Senate, advocating for conservative reforms and economic development.",
         "image_url": "https://commons.wikimedia.org/wiki/File:Josh_McKoon_at_Secretary_of_State_Candidates_Forum_(cropped).jpg",
         "website": null,
         "social_media": {
@@ -780,7 +726,7 @@
               {
                 "url": "https://www.augustachronicle.com/story/news/state/2026/01/20/georgia-gop-senate-contenders-challenged-over-health-care-subsidies/88270436007/",
                 "type": "news",
-                "title": "Democrats criticize Georgia US Senate challengers over health care subsidies",
+                "title": "Democrats criticize Georgia US Senate challengers over health ...",
                 "last_accessed": "2026-03-29T03:49:20.823962+00:00"
               }
             ]
@@ -838,7 +784,7 @@
             "confidence": "low",
             "sources": [
               {
-                "url": "https://www.politico.com/video/2026/03/25/tech-economy-experts-discuss-worst-case-scenario-for-ai-job-market-1976569",
+                "url": "https://www.politico.com/video/2026/03/25/tech-economy-experts-discuss-worst-case-scenario-for-ai-acceleration-1976569",
                 "type": "website",
                 "title": "Tech, economy experts discuss 'worst case scenario' for AI job market",
                 "last_accessed": "2026-03-29T03:49:20.823962+00:00"
@@ -879,7 +825,7 @@
               {
                 "url": "https://www.facebook.com/HallCountyRepublicans/posts/atlanta-ga-georgia-republican-party-chairman-josh-mckoon-announced-a-series-of-b/1285600046928643/",
                 "type": "social_media",
-                "title": "Atlanta, GA \u2014 Georgia Republican Party Chairman Josh McKoon...",
+                "title": "Atlanta, GA — Georgia Republican Party Chairman Josh McKoon...",
                 "last_accessed": "2026-03-29T03:49:20.823962+00:00"
               },
               {
@@ -922,7 +868,7 @@
   "agent_logs": [
     {
       "level": "info",
-      "message": "\ud83c\udd95 New research for ga-senate-2026 (model=gpt-4o-mini)",
+      "message": "🆕 New research for ga-senate-2026 (model=gpt-4o-mini)",
       "timestamp": "2026-03-29T03:44:04.179225+00:00"
     },
     {
@@ -937,7 +883,7 @@
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d ga-senate-2026 candidates",
+      "message": "    🔍 ga-senate-2026 candidates",
       "timestamp": "2026-03-29T03:44:04.914092+00:00"
     },
     {
@@ -947,17 +893,17 @@
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d 2026 United States Senate election in Georgia candidates",
+      "message": "    🔍 2026 United States Senate election in Georgia candidates",
       "timestamp": "2026-03-29T03:44:07.847205+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Jon Ossoff official photo",
+      "message": "    🔍 Jon Ossoff official photo",
       "timestamp": "2026-03-29T03:44:08.596974+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Republican candidates for Georgia Senate 2026",
+      "message": "    🔍 Republican candidates for Georgia Senate 2026",
       "timestamp": "2026-03-29T03:44:09.224016+00:00"
     },
     {
@@ -967,12 +913,12 @@
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Republican candidates for Georgia Senate 2026 names",
+      "message": "    🔍 Republican candidates for Georgia Senate 2026 names",
       "timestamp": "2026-03-29T03:44:11.456224+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Republican candidates for Georgia Senate 2026 social media",
+      "message": "    🔍 Republican candidates for Georgia Senate 2026 social media",
       "timestamp": "2026-03-29T03:44:12.015356+00:00"
     },
     {
@@ -982,17 +928,17 @@
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Buddy Carter official photo",
+      "message": "    🔍 Buddy Carter official photo",
       "timestamp": "2026-03-29T03:44:14.040391+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Mike Collins official photo",
+      "message": "    🔍 Mike Collins official photo",
       "timestamp": "2026-03-29T03:44:14.746248+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Josh McKoon official photo",
+      "message": "    🔍 Josh McKoon official photo",
       "timestamp": "2026-03-29T03:44:15.381534+00:00"
     },
     {
@@ -1017,42 +963,42 @@
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Jon Ossoff healthcare position 2026",
+      "message": "    🔍 Jon Ossoff healthcare position 2026",
       "timestamp": "2026-03-29T03:44:37.247469+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Jon Ossoff reproductive rights position 2026",
+      "message": "    🔍 Jon Ossoff reproductive rights position 2026",
       "timestamp": "2026-03-29T03:44:37.919186+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Buddy Carter healthcare position 2026",
+      "message": "    🔍 Buddy Carter healthcare position 2026",
       "timestamp": "2026-03-29T03:44:38.755905+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Buddy Carter reproductive rights position 2026",
+      "message": "    🔍 Buddy Carter reproductive rights position 2026",
       "timestamp": "2026-03-29T03:44:39.396550+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Mike Collins healthcare position 2026",
+      "message": "    🔍 Mike Collins healthcare position 2026",
       "timestamp": "2026-03-29T03:44:40.063463+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Mike Collins reproductive rights position 2026",
+      "message": "    🔍 Mike Collins reproductive rights position 2026",
       "timestamp": "2026-03-29T03:44:40.667785+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Josh McKoon healthcare position 2026",
+      "message": "    🔍 Josh McKoon healthcare position 2026",
       "timestamp": "2026-03-29T03:44:41.473022+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Josh McKoon reproductive rights position 2026",
+      "message": "    🔍 Josh McKoon reproductive rights position 2026",
       "timestamp": "2026-03-29T03:44:42.266807+00:00"
     },
     {
@@ -1072,22 +1018,22 @@
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Jon Ossoff economy education positions 2026",
+      "message": "    🔍 Jon Ossoff economy education positions 2026",
       "timestamp": "2026-03-29T03:45:04.983571+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Buddy Carter economy education positions 2026",
+      "message": "    🔍 Buddy Carter economy education positions 2026",
       "timestamp": "2026-03-29T03:45:05.604189+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Mike Collins economy education positions 2026",
+      "message": "    🔍 Mike Collins economy education positions 2026",
       "timestamp": "2026-03-29T03:45:06.223139+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Josh McKoon economy education positions 2026",
+      "message": "    🔍 Josh McKoon economy education positions 2026",
       "timestamp": "2026-03-29T03:45:06.897777+00:00"
     },
     {
@@ -1107,42 +1053,42 @@
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Jon Ossoff climate energy position 2026",
+      "message": "    🔍 Jon Ossoff climate energy position 2026",
       "timestamp": "2026-03-29T03:45:23.600565+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Jon Ossoff tech AI position 2026",
+      "message": "    🔍 Jon Ossoff tech AI position 2026",
       "timestamp": "2026-03-29T03:45:24.223624+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Buddy Carter climate energy position 2026",
+      "message": "    🔍 Buddy Carter climate energy position 2026",
       "timestamp": "2026-03-29T03:45:25.075291+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Buddy Carter tech AI position 2026",
+      "message": "    🔍 Buddy Carter tech AI position 2026",
       "timestamp": "2026-03-29T03:45:25.759873+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Mike Collins climate energy position 2026",
+      "message": "    🔍 Mike Collins climate energy position 2026",
       "timestamp": "2026-03-29T03:45:26.503527+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Mike Collins tech AI position 2026",
+      "message": "    🔍 Mike Collins tech AI position 2026",
       "timestamp": "2026-03-29T03:45:27.096681+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Josh McKoon climate energy position 2026",
+      "message": "    🔍 Josh McKoon climate energy position 2026",
       "timestamp": "2026-03-29T03:45:27.968745+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Josh McKoon tech AI position 2026",
+      "message": "    🔍 Josh McKoon tech AI position 2026",
       "timestamp": "2026-03-29T03:45:28.968118+00:00"
     },
     {
@@ -1162,42 +1108,42 @@
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Jon Ossoff immigration position 2026",
+      "message": "    🔍 Jon Ossoff immigration position 2026",
       "timestamp": "2026-03-29T03:45:48.459938+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Jon Ossoff foreign policy position 2026",
+      "message": "    🔍 Jon Ossoff foreign policy position 2026",
       "timestamp": "2026-03-29T03:45:49.015150+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Buddy Carter immigration position 2026",
+      "message": "    🔍 Buddy Carter immigration position 2026",
       "timestamp": "2026-03-29T03:45:49.661961+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Buddy Carter foreign policy position 2026",
+      "message": "    🔍 Buddy Carter foreign policy position 2026",
       "timestamp": "2026-03-29T03:45:50.687434+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Mike Collins immigration position 2026",
+      "message": "    🔍 Mike Collins immigration position 2026",
       "timestamp": "2026-03-29T03:45:51.522936+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Mike Collins foreign policy position 2026",
+      "message": "    🔍 Mike Collins foreign policy position 2026",
       "timestamp": "2026-03-29T03:45:52.185145+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Josh McKoon immigration position 2026",
+      "message": "    🔍 Josh McKoon immigration position 2026",
       "timestamp": "2026-03-29T03:45:52.681120+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Josh McKoon foreign policy position 2026",
+      "message": "    🔍 Josh McKoon foreign policy position 2026",
       "timestamp": "2026-03-29T03:45:53.283704+00:00"
     },
     {
@@ -1217,42 +1163,42 @@
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Jon Ossoff guns safety position 2026",
+      "message": "    🔍 Jon Ossoff guns safety position 2026",
       "timestamp": "2026-03-29T03:46:14.100113+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Jon Ossoff social justice position 2026",
+      "message": "    🔍 Jon Ossoff social justice position 2026",
       "timestamp": "2026-03-29T03:46:14.684225+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Buddy Carter guns safety position 2026",
+      "message": "    🔍 Buddy Carter guns safety position 2026",
       "timestamp": "2026-03-29T03:46:15.455724+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Buddy Carter social justice position 2026",
+      "message": "    🔍 Buddy Carter social justice position 2026",
       "timestamp": "2026-03-29T03:46:16.237804+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Mike Collins guns safety position 2026",
+      "message": "    🔍 Mike Collins guns safety position 2026",
       "timestamp": "2026-03-29T03:46:16.841945+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Mike Collins social justice position 2026",
+      "message": "    🔍 Mike Collins social justice position 2026",
       "timestamp": "2026-03-29T03:46:17.667129+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Josh McKoon guns safety position 2026",
+      "message": "    🔍 Josh McKoon guns safety position 2026",
       "timestamp": "2026-03-29T03:46:18.265124+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Josh McKoon social justice position 2026",
+      "message": "    🔍 Josh McKoon social justice position 2026",
       "timestamp": "2026-03-29T03:46:19.012818+00:00"
     },
     {
@@ -1272,42 +1218,42 @@
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Jon Ossoff election reform position 2026",
+      "message": "    🔍 Jon Ossoff election reform position 2026",
       "timestamp": "2026-03-29T03:46:34.533370+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Jon Ossoff local issues position 2026",
+      "message": "    🔍 Jon Ossoff local issues position 2026",
       "timestamp": "2026-03-29T03:46:35.160347+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Buddy Carter election reform position 2026",
+      "message": "    🔍 Buddy Carter election reform position 2026",
       "timestamp": "2026-03-29T03:46:35.765243+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Buddy Carter local issues position 2026",
+      "message": "    🔍 Buddy Carter local issues position 2026",
       "timestamp": "2026-03-29T03:46:36.573187+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Mike Collins election reform position 2026",
+      "message": "    🔍 Mike Collins election reform position 2026",
       "timestamp": "2026-03-29T03:46:37.417185+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Mike Collins local issues position 2026",
+      "message": "    🔍 Mike Collins local issues position 2026",
       "timestamp": "2026-03-29T03:46:38.178286+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Josh McKoon election reform position 2026",
+      "message": "    🔍 Josh McKoon election reform position 2026",
       "timestamp": "2026-03-29T03:46:38.738809+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Josh McKoon local issues position 2026",
+      "message": "    🔍 Josh McKoon local issues position 2026",
       "timestamp": "2026-03-29T03:46:39.473175+00:00"
     },
     {
@@ -1327,42 +1273,42 @@
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Jon Ossoff 2026 campaign top donors",
+      "message": "    🔍 Jon Ossoff 2026 campaign top donors",
       "timestamp": "2026-03-29T03:47:21.519671+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Buddy Carter 2026 campaign top donors",
+      "message": "    🔍 Buddy Carter 2026 campaign top donors",
       "timestamp": "2026-03-29T03:47:22.204912+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Mike Collins 2026 campaign top donors",
+      "message": "    🔍 Mike Collins 2026 campaign top donors",
       "timestamp": "2026-03-29T03:47:23.519758+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Josh McKoon 2026 campaign top donors",
+      "message": "    🔍 Josh McKoon 2026 campaign top donors",
       "timestamp": "2026-03-29T03:47:25.171480+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Jon Ossoff career history education",
+      "message": "    🔍 Jon Ossoff career history education",
       "timestamp": "2026-03-29T03:47:25.801855+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Buddy Carter career history education",
+      "message": "    🔍 Buddy Carter career history education",
       "timestamp": "2026-03-29T03:47:25.809377+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Mike Collins career history education",
+      "message": "    🔍 Mike Collins career history education",
       "timestamp": "2026-03-29T03:47:26.602344+00:00"
     },
     {
       "level": "info",
-      "message": "    \ud83d\udd0d Josh McKoon career history education",
+      "message": "    🔍 Josh McKoon career history education",
       "timestamp": "2026-03-29T03:47:27.721901+00:00"
     },
     {
@@ -1372,71 +1318,9 @@
     },
     {
       "level": "info",
-      "message": "\u2705 Agent finished in 316.6s",
+      "message": "✅ Agent finished in 316.6s",
       "timestamp": "2026-03-29T03:49:20.825178+00:00"
     }
   ],
-  "id": "georgia-senate-2026",
-  "updated_utc": "2026-03-29T04:47:33.689940+00:00",
-  "generator": [
-    "pipeline-agent"
-  ],
-  "reviews": [
-    {
-      "model": "grok-3-mini",
-      "reviewed_at": "2026-03-29T04:48:00.571357+00:00",
-      "verdict": "needs_revision",
-      "flags": [
-        {
-          "field": "candidates[0].issues.Healthcare.sources[0].last_accessed",
-          "concern": "The source last accessed date is set to 2026-03-29, which is in the future and indicates potential simulation error, making the source quality unreliable.",
-          "suggestion": "Update the date to a realistic past or current date based on actual access, and verify the source's timeliness.",
-          "severity": "warning"
-        },
-        {
-          "field": "candidates[0].voting_record",
-          "concern": "The voting record array is empty, indicating a gap in completeness for Jon Ossoff's profile.",
-          "suggestion": "Research and add relevant voting history data from credible sources like GovTrack or FEC.",
-          "severity": "warning"
-        },
-        {
-          "field": "candidates[0].top_donors[0].amount",
-          "concern": "Amounts for top donors are null, which suggests incomplete data and affects the accuracy of financial information.",
-          "suggestion": "Obtain and include specific donation amounts from reliable sources like FEC filings.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[2].education",
-          "concern": "The education array is empty for Mike Collins, indicating a gap in candidate background information.",
-          "suggestion": "Add verified education details from sources like official biographies or university records.",
-          "severity": "warning"
-        },
-        {
-          "field": "candidates[3].top_donors",
-          "concern": "The top donors array is empty for Josh McKoon, leading to incompleteness in financial background.",
-          "suggestion": "Research and populate with data from campaign finance sources like FEC.",
-          "severity": "warning"
-        },
-        {
-          "field": "candidates[3].website",
-          "concern": "The website field is null for Josh McKoon, which creates a gap in accessibility and completeness of candidate information.",
-          "suggestion": "Add a verified website URL if available, or note its absence from reliable sources.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[1].issues.Tech & AI.stance",
-          "concern": "The stance for Buddy Carter on Tech & AI has low confidence and relies on a single, indirectly related source, potentially indicating incompleteness.",
-          "suggestion": "Strengthen with more direct sources or higher-confidence evidence from official statements or legislative records.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[2].issues.Foreign Policy.sources",
-          "concern": "The sources array is empty for Mike Collins' Foreign Policy, affecting source quality and completeness.",
-          "suggestion": "Add credible sources to support or elaborate on the stance.",
-          "severity": "warning"
-        }
-      ],
-      "summary": "The profile is generally accurate and unbiased, with neutral language throughout, but it suffers from future-dated sources, incomplete data in areas like voting records and education, and some gaps in issue coverage, which affect overall completeness and source quality."
-    }
-  ]
+  "status": "published"
 }

@@ -46,11 +46,7 @@ RULES (apply to every response):
    - "medium": Single credible source
    - "low": Inferred or unverified
 4. Always include source URLs for every claim.
-5. Source objects use this shape:
-   {{"url": "<url>", "type": "website|news|government|social_media|pdf", "title": "<title>",
-     "published_at": "<YYYY-MM-DD or ISO date when article/page was published, or null>"}}
-   Always set published_at when the article or page has a visible publish date — it helps detect stale sources.
-6. Return ONLY valid JSON – no markdown fences, no extra text."""
+5. Return ONLY valid JSON – no markdown fences, no extra text."""
 
 _DONOR_SCHEMA_NOTE = """\
 For top_donors, include up to 3-5 major donors when credible finance data is available.
@@ -59,8 +55,7 @@ Every donor entry must include a source object using this shape:
   "name": "<donor name>",
   "amount": <number or null>,
   "organization": "<organization or null>",
-  "source": {{"url": "<url>", "type": "government|news|website", "title": "<title>",
-              "published_at": "<YYYY-MM-DD when the source page was published, or null>"}}
+  "source": {{"url": "<url>", "type": "government|news|website", "title": "<title>"}}
 }}
 Prefer campaign finance databases, FEC pages, or established donor-tracking sources over generic news coverage."""
 
@@ -84,11 +79,15 @@ Search for:
 5. Each candidate's career history (political offices held, major jobs).
 6. Each candidate's education (degrees, institutions).
 7. Notable voting record items (for incumbents or former legislators).
-8. A direct image URL (ending in .jpg, .jpeg, .png, .gif, or .webp) for each candidate's headshot.
-   Search "<candidate name> headshot site:wikipedia.org" or check their campaign site's /media or /photos page.
-   Only include the URL if it directly serves an image file — not a gallery or web page URL.
-   Good sources: Wikipedia commons images, official Senate/House photo pages (which serve .jpg files),
-   campaign site image files. Set to null if you cannot find a direct image file URL.
+8. A direct image URL for each candidate's headshot. Use these strategies:
+   a) Search "<candidate name> wikipedia" — Wikipedia images are at
+      https://upload.wikimedia.org/wikipedia/commons/... (NOT commons.wikimedia.org/wiki/File:)
+   b) Search "<candidate name> official photo site:house.gov OR site:senate.gov"
+   c) Search "<candidate name> headshot site:ballotpedia.org" (Ballotpedia images are at
+      https://ballotpedia.org/wiki/images/...)
+   The URL MUST end in .jpg, .jpeg, .png, .gif, or .webp, or be from a known image CDN.
+   Do NOT use a Wikipedia/Commons page URL (commons.wikimedia.org/wiki/File:...) — that is a
+   gallery page, not an image file. Set to null if you cannot confirm a direct image file URL.
 """ + _DONOR_SCHEMA_NOTE + """
 
 Return JSON:
@@ -130,8 +129,7 @@ Return JSON:
           "bill_description": "<short desc>",
           "vote": "yes|no|abstain|absent",
           "date": "<YYYY-MM-DD>",
-          "source": {{"url": "<url>", "type": "government", "title": "<title>",
-                     "published_at": "<YYYY-MM-DD when the source page was published, or null>"}}
+          "source": {{"url": "<url>", "type": "government", "title": "<title>"}}
         }}
       ],
       "top_donors": [
@@ -177,8 +175,7 @@ Return JSON – an object keyed by candidate name:
       "stance": "<position>",
       "confidence": "high|medium|low",
       "sources": [
-        {{"url": "<url>", "type": "website|news|government|social_media", "title": "<title>",
-          "published_at": "<YYYY-MM-DD when the article/page was published, or null>"}}
+        {{"url": "<url>", "type": "website|news|government|social_media", "title": "<title>"}}
       ]
     }}
   }}
@@ -209,9 +206,12 @@ Review and improve this profile:
 6. Ensure all 12 canonical issues are covered for each candidate:
    {all_issues}
 7. Fill gaps in career_history and education if you find better data.
-8. Search for a direct image file URL (ending in .jpg, .jpeg, .png, .gif, or .webp) for any candidate missing image_url.
-   Use Wikipedia commons, official Senate/House photo pages, or campaign site image files.
-   Only set image_url if you find a URL that directly serves an image — not a gallery or page URL.
+8. Search for a direct image file URL for any candidate missing image_url. Use:
+   - Wikipedia: search the article, then use https://upload.wikimedia.org/wikipedia/commons/... URLs
+     (NOT commons.wikimedia.org/wiki/File:... — that is a page, not an image file)
+   - Ballotpedia: https://ballotpedia.org/wiki/images/...
+   - Official government sites that serve .jpg files directly.
+   Only set image_url if you find a URL that directly serves an image file.
 9. Verify voting record entries are accurate.
 
 Return the COMPLETE improved JSON profile (same schema as input).
@@ -242,14 +242,52 @@ Update this profile:
 4. Update candidate summaries if there are significant new developments.
 5. Keep all existing source URLs and add new ones.
 6. Update career_history and education if new information is available.
-7. Search for a direct image file URL (ending in .jpg, .jpeg, .png, .gif, or .webp) for any candidate missing image_url.
-   Use Wikipedia commons, official Senate/House photo pages, or campaign site image files.
-   Only set image_url if you find a URL that directly serves an image — not a gallery or page URL.
+7. Search for a direct image file URL for any candidate missing image_url. Use:
+   - Wikipedia: search the article, then use https://upload.wikimedia.org/wikipedia/commons/... URLs
+     (NOT commons.wikimedia.org/wiki/File:... — that is a page, not an image file)
+   - Ballotpedia: https://ballotpedia.org/wiki/images/...
+   - Official government sites that serve .jpg files directly.
+   Only set image_url if you find a URL that directly serves an image file.
 8. Add or update voting record entries.
 9. Add or update top_donors entries, and include a source object on every donor item.
 
 Return the COMPLETE updated JSON profile (same schema as input).
 Do NOT omit any fields – return the full object."""
+
+# ------------------------------------------------------------------
+# Image URL resolution prompt (standalone phase)
+# ------------------------------------------------------------------
+
+IMAGE_SEARCH_SYSTEM = f"""\
+You are a research agent whose ONLY job is to find a working direct image URL
+for a political candidate's official headshot or portrait.
+
+{_SHARED_RULES}"""
+
+IMAGE_SEARCH_USER = """\
+Find a working, directly-accessible image file URL for: {candidate_name}
+
+SEARCH STRATEGIES (try in order):
+1. Search "{candidate_name} wikipedia" — find their Wikipedia article, then
+   look for the image URL. Wikipedia images live at:
+   https://upload.wikimedia.org/wikipedia/commons/...
+   (NOT https://commons.wikimedia.org/wiki/File:... — that is a page, not an image)
+2. Search "{candidate_name} official photo site:house.gov OR site:senate.gov" —
+   government sites sometimes serve .jpg files directly.
+3. Search "{candidate_name} headshot site:ballotpedia.org" — Ballotpedia
+   stores images at https://ballotpedia.org/wiki/images/...
+4. Search "{candidate_name} campaign site photo" — campaign sites often have
+   /wp-content/uploads/*.jpg or similar direct image paths.
+
+CRITICAL RULES:
+- The URL MUST end in .jpg, .jpeg, .png, .gif, .webp, or be a known direct
+  image CDN path (e.g. upload.wikimedia.org, ballotpedia.org/wiki/images/).
+- Do NOT return a Wikipedia/Commons page URL like commons.wikimedia.org/wiki/File:
+- Do NOT return an HTML page that shows an image, return the image file itself.
+- Return null if no reliable direct image URL can be confirmed.
+
+Return JSON only:
+{{"image_url": "<direct image file URL or null>"}}"""
 
 # ------------------------------------------------------------------
 # Multi-LLM review prompts (Claude / Gemini)

@@ -5,6 +5,7 @@
   import TabButton from "./TabButton.svelte";
   import Card from "./Card.svelte";
   import type { Candidate } from "$lib/types";
+  import { candidateSlug } from "$lib/utils/format";
 
   export let candidate: Candidate;
   export let raceId: string = "";
@@ -70,27 +71,11 @@
         {/if}
         <div>
           <h3 class="candidate-name">
-            {candidate.name}
-            <!-- Permalink anchor -->
             <a
-              href="#{generateCandidateId(candidate.name)}"
-              class="permalink-anchor"
-              aria-label="Link to {candidate.name}"
-              title="Link to this candidate"
+              href="/races/{raceId}/{candidateSlug(candidate.name)}"
+              class="candidate-name-link"
             >
-              <svg
-                class="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
-                />
-              </svg>
+              {candidate.name}
             </a>
           </h3>
           <div class="flex flex-wrap items-center gap-1 mt-1">
@@ -323,16 +308,8 @@
     @apply flex items-center gap-2;
   }
 
-  .permalink-anchor {
-    @apply opacity-0 text-gray-400 transition-opacity duration-200;
-  }
-
-  .permalink-anchor:hover {
-    @apply text-blue-600;
-  }
-
-  :global(.candidate-card.group:hover) .permalink-anchor {
-    @apply opacity-100;
+  .candidate-name-link {
+    @apply text-gray-900 hover:text-blue-600 transition-colors duration-200 no-underline;
   }
 
   .badge {

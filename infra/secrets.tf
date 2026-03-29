@@ -311,6 +311,27 @@ resource "google_project_iam_member" "github_actions_secret_manager" {
   member  = "serviceAccount:${google_service_account.github_actions.email}"
 }
 
+# Allow terraform plan to refresh google_project_service resources
+resource "google_project_iam_member" "github_actions_service_usage_viewer" {
+  project = var.project_id
+  role    = "roles/serviceusage.serviceUsageViewer"
+  member  = "serviceAccount:${google_service_account.github_actions.email}"
+}
+
+# Allow terraform plan to refresh google_project_iam_member resources
+resource "google_project_iam_member" "github_actions_iam_viewer" {
+  project = var.project_id
+  role    = "roles/iam.securityReviewer"
+  member  = "serviceAccount:${google_service_account.github_actions.email}"
+}
+
+# Allow terraform plan to refresh google_project_iam_custom_role resources
+resource "google_project_iam_member" "github_actions_role_viewer" {
+  project = var.project_id
+  role    = "roles/iam.roleViewer"
+  member  = "serviceAccount:${google_service_account.github_actions.email}"
+}
+
 # IAM bindings for Pub/Sub invoker (only when pipeline enabled)
 resource "google_project_iam_member" "pubsub_invoker_run" {
   count   = var.enable_pipeline_client ? 1 : 0
