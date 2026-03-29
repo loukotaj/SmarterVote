@@ -227,8 +227,16 @@ class RunManager:
         except OSError:
             logging.exception("Failed to list recent runs from storage")
 
-        # Sort by start time, most recent first
-        runs.sort(key=lambda r: r.started_at, reverse=True)
+        # Sort by start time, most recent first (normalize tz-awareness for comparison)
+        def _sort_key(r):
+            dt = r.started_at
+            if dt is None:
+                return datetime.min.replace(tzinfo=timezone.utc)
+            if dt.tzinfo is None:
+                return dt.replace(tzinfo=timezone.utc)
+            return dt
+
+        runs.sort(key=_sort_key, reverse=True)
         return runs[:limit]
 
     def add_run_log(self, run_id: str, log: dict):
