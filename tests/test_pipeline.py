@@ -32,8 +32,10 @@ from pipeline_client.agent.prompts import (
     ISSUE_RESEARCH_USER,
     REFINE_SYSTEM,
     REFINE_USER,
-    UPDATE_SYSTEM,
-    UPDATE_USER,
+    UPDATE_ISSUE_SYSTEM,
+    UPDATE_ISSUE_USER,
+    UPDATE_META_SYSTEM,
+    UPDATE_META_USER,
 )
 
 # ---------------------------------------------------------------------------
@@ -104,11 +106,11 @@ def test_refine_user_formats():
     assert "Healthcare, Economy" in result
 
 
-def test_update_user_formats():
-    """Update user prompt accepts race_id, existing_json, and last_updated."""
-    result = UPDATE_USER.format(
+def test_update_meta_user_formats():
+    """Update meta prompt accepts race_id, candidate_names, and last_updated."""
+    result = UPDATE_META_USER.format(
         race_id="mo-senate-2024",
-        existing_json='{"id": "test"}',
+        candidate_names="Alice, Bob",
         last_updated="2024-01-01T00:00:00Z",
     )
     assert "mo-senate-2024" in result
@@ -133,26 +135,25 @@ def test_refine_prompt_mentions_donor_sources():
 
 
 def test_update_prompt_mentions_donor_sources():
-    """Update prompt requires donor source objects during reruns."""
-    result = UPDATE_USER.format(
+    """Update meta prompt requires donor source objects during reruns."""
+    result = UPDATE_META_USER.format(
         race_id="mo-senate-2024",
-        existing_json='{"id": "test"}',
+        candidate_names="Alice, Bob",
         last_updated="2024-01-01T00:00:00Z",
     )
     assert "top_donors" in result
-    assert "source object on every donor item" in result
 
 
 def test_prompts_contain_rules():
     """All system prompts include shared rules."""
-    for prompt in [DISCOVERY_SYSTEM, ISSUE_RESEARCH_SYSTEM, REFINE_SYSTEM, UPDATE_SYSTEM]:
+    for prompt in [DISCOVERY_SYSTEM, ISSUE_RESEARCH_SYSTEM, REFINE_SYSTEM, UPDATE_META_SYSTEM, UPDATE_ISSUE_SYSTEM]:
         assert "nonpartisan" in prompt.lower()
         assert "web_search" in prompt
 
 
 def test_prompts_mention_confidence_levels():
     """All system prompts describe the confidence levels."""
-    for prompt in [DISCOVERY_SYSTEM, ISSUE_RESEARCH_SYSTEM, REFINE_SYSTEM, UPDATE_SYSTEM]:
+    for prompt in [DISCOVERY_SYSTEM, ISSUE_RESEARCH_SYSTEM, REFINE_SYSTEM, UPDATE_META_SYSTEM, UPDATE_ISSUE_SYSTEM]:
         assert "high" in prompt.lower()
         assert "medium" in prompt.lower()
         assert "low" in prompt.lower()
