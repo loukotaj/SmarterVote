@@ -4,7 +4,7 @@
   "office": "United States Senate",
   "jurisdiction": "Georgia",
   "election_date": "2026-11-03",
-  "description": "Georgia\u2019s 2026 U.S. Senate election will decide the state\u2019s Class II seat and is one of the most closely watched Senate contests in the country. The race matters because Georgia has been highly competitive in recent statewide elections and could help determine control of the U.S. Senate. Incumbent Democrat Jon Ossoff is seeking reelection, while Republicans Buddy Carter, Mike Collins, and Derek Dooley are competing for the chance to challenge him. The contest features a contrast between Ossoff\u2019s record and campaign emphasis on health care, voting rights, and federal investment, and the Republicans\u2019 emphasis on border security, conservative governance, and limiting Washington\u2019s role.",
+  "description": "Georgia\u2019s 2026 U.S. Senate election will decide the state\u2019s Class II seat. The race is expected to be highly competitive in a closely divided state that has recently elected candidates from both parties in statewide contests. Incumbent Democrat Jon Ossoff is seeking reelection against a Republican field that includes U.S. Representatives Buddy Carter and Mike Collins, along with former football coach Derek Dooley. The outcome could affect control of the U.S. Senate.",
   "polling": [
     {
       "pollster": "Emerson College Polling / Nexstar Media",
@@ -126,19 +126,7 @@
           }
         }
       ],
-      "top_donors": [
-        {
-          "name": "None identified in the provided sources",
-          "amount": null,
-          "organization": null,
-          "source": {
-            "url": "https://www.fec.gov/data/candidate/S8GA00180/",
-            "type": "government",
-            "title": "OSSOFF, T. JONATHAN - Candidate overview - FEC",
-            "last_accessed": "2026-03-29T08:18:58.289361+00:00"
-          }
-        }
-      ],
+      "top_donors": [],
       "issues": {
         "Healthcare": {
           "stance": "Ossoff says he is working to lower health care costs, protect access to care, and stop insurance companies from delaying needed treatment. His Senate office has highlighted efforts on drug costs, cancer screening access, and health care services in Georgia.",
@@ -473,23 +461,11 @@
           }
         }
       ],
-      "top_donors": [
-        {
-          "name": "Elon Musk",
-          "amount": 6600,
-          "organization": null,
-          "source": {
-            "url": "https://thecurrentga.org/2025/03/31/buddy-carter-scores-campaign-donation-from-elon-musk/",
-            "type": "news",
-            "title": "Buddy Carter scores campaign donation from Elon Musk",
-            "last_accessed": "2026-03-29T08:18:58.289361+00:00"
-          }
-        }
-      ],
+      "top_donors": [],
       "issues": {
         "Healthcare": {
           "stance": "Carter\u2019s official materials emphasize market-oriented health care policy and opposition to government overregulation. His congressional biography says he wants federal policy to create conditions that improve access and affordability, but the reviewed sources do not show a detailed standalone health-care plan.",
-          "confidence": "low",
+          "confidence": "medium",
           "sources": [
             {
               "url": "https://buddycarter.house.gov/about/",
@@ -749,19 +725,7 @@
           }
         }
       ],
-      "top_donors": [
-        {
-          "name": "None identified in the provided sources",
-          "amount": null,
-          "organization": null,
-          "source": {
-            "url": "https://www.fec.gov/data/candidate/H4GA10071/",
-            "type": "government",
-            "title": "COLLINS, MICHAEL A JR - Candidate overview - FEC",
-            "last_accessed": "2026-03-29T08:18:58.289361+00:00"
-          }
-        }
-      ],
+      "top_donors": [],
       "issues": {
         "Healthcare": {
           "stance": "The reviewed campaign materials do not provide a detailed health-care platform. Collins\u2019 public messaging emphasizes conservative governance and working-class economics rather than a specific health-care proposal.",
@@ -1036,19 +1000,7 @@
         }
       ],
       "voting_record": [],
-      "top_donors": [
-        {
-          "name": "None identified in the provided sources",
-          "amount": null,
-          "organization": null,
-          "source": {
-            "url": "https://www.fec.gov/data/candidate/S6GA00408/",
-            "type": "government",
-            "title": "DOOLEY, DEREK - Candidate overview - FEC",
-            "last_accessed": "2026-03-29T08:18:58.289361+00:00"
-          }
-        }
-      ],
+      "top_donors": [],
       "issues": {
         "Healthcare": {
           "stance": "Dooley says health care decisions should be driven by patients and doctors rather than insurance companies, bureaucrats, or Washington politicians. He frames his position around transparency, choice, and access to quality care.",
@@ -1227,137 +1179,106 @@
       }
     }
   ],
-  "updated_utc": "2026-03-29T08:18:58.289361+00:00",
+  "updated_utc": "2026-03-29T07:53:32.742009+00:00",
   "generator": [
     "gpt-5.4-mini",
     "claude-haiku-4-5-20251001",
-    "gemini-3.0-flash-lite",
     "grok-3-mini"
   ],
   "reviews": [
     {
       "model": "claude-haiku-4-5-20251001",
-      "reviewed_at": "2026-03-29T08:19:25.321697+00:00",
+      "reviewed_at": "2026-03-29T07:53:51.418735+00:00",
       "verdict": "approved",
       "flags": [
         {
-          "field": "candidates[3].career_history[source]",
-          "concern": "Derek Dooley's career history relies primarily on Wikipedia as the source, which is user-edited and less authoritative than primary sources (official university records, NFL archives, news archives).",
-          "suggestion": "Supplement Wikipedia entries with verified sources such as official Tennessee/Louisiana Tech athletic department biographies, NFL historical records, or Dooley's campaign biography.",
-          "severity": "warning"
-        },
-        {
-          "field": "candidates[3].education[source]",
-          "concern": "Education credentials sourced from Wikipedia rather than primary institutional records. While likely accurate, this reduces evidentiary strength for a candidate profile.",
-          "suggestion": "Cross-reference with University of Virginia and University of Georgia School of Law official records or degree verification services.",
-          "severity": "warning"
+          "field": "candidates[1].issues.Healthcare.confidence",
+          "concern": "Confidence marked 'medium' but sources are limited and do not provide substantive policy detail. The stance description relies heavily on inference from 'market-oriented' language rather than direct policy statements from Carter.",
+          "suggestion": "Consider lowering confidence to 'low' to align with the thinness of source material, or add more specific Carter statements on healthcare regulation/reform.",
+          "severity": "info"
         },
         {
           "field": "candidates[1].social_media",
-          "concern": "Buddy Carter's social media links include only Facebook. Given his prominence as a sitting U.S. Representative, he almost certainly maintains X/Twitter and possibly Instagram or YouTube accounts that are absent from the profile.",
-          "suggestion": "Add Carter's X, Instagram, YouTube, and any other active social media accounts to match completeness shown for other candidates.",
+          "concern": "Only Facebook listed for Buddy Carter. Carter likely has X/Twitter and possibly other social accounts that are absent.",
+          "suggestion": "Add missing social media links if available (X, Instagram, YouTube, etc.) to match the completeness shown for other candidates.",
           "severity": "info"
         },
         {
           "field": "candidates[2].social_media",
-          "concern": "Mike Collins' social media is missing X/Twitter, which is the primary platform for political communications and would be expected for an active member of Congress.",
-          "suggestion": "Add Collins' X handle.",
+          "concern": "X/Twitter account appears to be missing for Mike Collins, though he is active on other platforms.",
+          "suggestion": "Add Collins' X handle if available.",
           "severity": "info"
         },
         {
-          "field": "polling[0]",
-          "concern": "Only one polling entry (Emerson College, March 2, 2026) is included. For a competitive statewide Senate race, a single poll provides limited temporal and methodological perspective. The profile would benefit from additional polls spanning different timeframes and pollsters to show trend data.",
-          "suggestion": "Add polls from other reputable firms (e.g., University of Georgia, Public Opinion Strategies, Quinnipiac, etc.) across different dates if available. This would strengthen the 'most closely watched Senate contests' claim in the description.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[1].top_donors",
-          "concern": "Listed as 'None identified in the provided sources' with FEC source. This may reflect genuine early-stage fundraising data (as of March 2026), but it's worth verifying whether FEC filings were actually checked for reportable donors above threshold, or if the candidate simply had no qualifying donors at update time.",
-          "suggestion": "Clarify in a note whether no major donors existed, or if FEC data was unavailable/incomplete at time of profile generation.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[2].top_donors",
-          "concern": "Same as Ossoff and Dooley: listed as 'None identified.' This is consistent across multiple candidates and likely reflects genuine low early fundraising, but warrants a brief note explaining the FEC data state as of March 2026.",
-          "suggestion": "If this is an early-stage race, consider adding a note that donor data reflects FEC disclosures as of the profile date and may be incomplete for recent donations.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[1].issues.Climate/Energy, candidates[1].issues.Foreign_Policy, candidates[1].issues.Reproductive_Rights, candidates[1].issues.Social_Justice",
-          "concern": "Buddy Carter's Climate/Energy and Foreign Policy stance are marked 'low' confidence and rely on generic House website pages without substantive direct quotes or specific policy positions. Reproductive Rights and Social Justice are similarly thin.",
-          "suggestion": "For Carter specifically: source more detailed statements (e.g., floor speeches, committee testimony, news interviews) or acknowledge clearly that Carter has not articulated detailed public positions on these issues. This is honest but could be strengthened with 1-2 additional targeted sources per issue.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[2].issues.Healthcare, candidates[2].issues.Climate/Energy, candidates[2].issues.Reproductive_Rights, candidates[2].issues.Guns_Safety, candidates[2].issues.Foreign_Policy, candidates[2].issues.Social_Justice, candidates[2].issues.Education, candidates[2].issues.Tech_AI",
-          "concern": "Mike Collins shows pervasively low confidence across 8 of 12 issues. While honesty about source limitations is commendable, this suggests the profile may lack sufficient depth on his stated positions. His campaign site (mikecollinsga.com) may have been underutilized, or his detailed platform may genuinely not be publicly available yet.",
-          "suggestion": "Either (a) conduct a deeper review of Collins' campaign materials, House press releases, and news coverage to surface more detailed positions, or (b) add a note in the candidate summary explaining that Collins is early in his campaign and has not yet articulated detailed positions on most policy areas.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[3].issues.Climate/Energy, candidates[3].issues.Reproductive_Rights, candidates[3].issues.Guns_Safety, candidates[3].issues.Social_Justice, candidates[3].issues.Tech_AI",
-          "concern": "Derek Dooley similarly shows low confidence on 5 of 12 issues. As a political newcomer/outsider, this may be accurate, but the profile could benefit from indicating whether Dooley has deliberately avoided detailed policy positions or simply hasn't published them yet.",
-          "suggestion": "Add a note to Dooley's candidate summary: 'As a non-incumbent political outsider, Dooley's platform emphasizes broad reform themes and Georgia-first priorities but has not articulated detailed positions on many traditional issue areas as of the profile date.'",
-          "severity": "info"
-        },
-        {
-          "field": "description",
-          "concern": "The race description accurately reflects the key contenders and stakes but does not mention polling or relative candidate viability, which could be useful context given that only one early poll is included.",
-          "suggestion": "Optional: Add a sentence noting early polling trends (e.g., 'Early polling shows Ossoff leading most primary matchups') to contextualize the Emerson data.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[*].image_url",
-          "concern": "All image URLs are valid Wikimedia Commons links. No issues detected, but good to note that reliance on Wikimedia ensures stable long-term URL persistence.",
-          "suggestion": "No action needed.",
-          "severity": "info"
-        }
-      ],
-      "summary": "This is a comprehensive, well-sourced candidate profile for a highly competitive 2026 Senate race. Jon Ossoff's section is exemplary\u201411 detailed issue positions with consistently high-confidence citations spanning his official Senate office releases, campaign materials, and credible third-party validators (Giffords, GovTrack). All four candidates' career histories and education are accurately documented via Congressional Bioguide and verified sources. The Republican candidates' platforms are appropriately documented with confidence levels that honestly reflect source availability: Carter, Collins, and Dooley all show lower confidence on issues where public detail is sparse, and the profile resists speculation by flagging these gaps explicitly. Polling data is current and properly sourced. Language throughout is neutral and nonpartisan\u2014no promotional framing or implied endorsements. The profile demonstrates strong journalistic discipline by distinguishing between high-confidence stances (backed by multiple concrete sources) and medium/low-confidence positions (where information is limited or inferred)."
-    },
-    {
-      "model": "grok-3-mini",
-      "reviewed_at": "2026-03-29T08:19:27.141336+00:00",
-      "verdict": "needs_revision",
-      "flags": [
-        {
-          "field": "candidates[3].career_history.source.url",
-          "concern": "Career history for Derek Dooley is primarily sourced from Wikipedia, which is user-edited and may contain unverifiable or outdated information, potentially compromising factual accuracy.",
-          "suggestion": "Replace Wikipedia sources with primary or official documents, such as university records, NFL archives, or Dooley's campaign materials, to enhance credibility and reliability.",
-          "severity": "warning"
-        },
-        {
-          "field": "candidates[3].education.source.url",
-          "concern": "Education details for Derek Dooley are also sourced from Wikipedia, which lacks the rigor of official transcripts or institutional records, risking incompleteness or bias.",
-          "suggestion": "Verify and update with direct sources from the University of Virginia and University of Georgia School of Law, such as alumni records or official biographies.",
-          "severity": "warning"
-        },
-        {
-          "field": "candidates[1].issues.Climate/Energy.stance",
-          "concern": "The stance for Buddy Carter has low confidence and relies on general campaign pages without specific policy details, leading to potential gaps in completeness and accuracy.",
-          "suggestion": "Incorporate more detailed sources, such as congressional voting records or direct statements from Carter, to provide a fuller picture and raise confidence.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[2].issues.Healthcare.stance",
-          "concern": "Mike Collins' healthcare stance has low confidence and is based mainly on his campaign site, which may not fully capture his positions, resulting in incomplete representation.",
-          "suggestion": "Add external credible sources, like news articles or congressional testimonies, to balance and substantiate the stance for better accuracy and completeness.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[1].issues.Reproductive_Rights.stance",
-          "concern": "The stance for Buddy Carter is inferred from general conservative alignment without direct sourcing, which could introduce bias or inaccuracy in portraying his specific views.",
-          "suggestion": "Include specific votes, statements, or official records to ensure neutrality and factual precision.",
+          "field": "candidates[3].voting_record",
+          "concern": "Derek Dooley's voting_record array is empty. This is appropriate for a non-incumbent, but it creates asymmetry with other candidates. No issue.",
+          "suggestion": "None required\u2014this is correct for a non-elected candidate.",
           "severity": "info"
         },
         {
           "field": "polling",
-          "concern": "Only one polling source is provided, limiting completeness for a competitive race and potentially skewing perceptions of candidate standings.",
-          "suggestion": "Add polls from additional reputable firms, such as the University of Georgia or Public Opinion Strategies, to improve data diversity and accuracy.",
+          "concern": "Only one polling entry provided (Emerson College, 2026-03-02). For a competitive race, multiple pollsters and timepoints would strengthen the polling section.",
+          "suggestion": "Consider adding additional polls from other firms (e.g., University of Georgia, Public Opinion Strategies, etc.) if available at the time of update.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Foreign_Policy.sources",
+          "concern": "Foreign Policy confidence is 'low' for Buddy Carter, and sources are minimal. House website is generic; no concrete statements about foreign policy are cited.",
+          "suggestion": "Either expand with specific statements on Iran, China, NATO, or similar topics, or acknowledge that Carter's detailed foreign policy agenda is not publicly available.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Guns_Safety.confidence",
+          "concern": "Confidence is 'low' but the stance description is fairly direct ('hard-line position'). The single source (Georgia Recorder news story) doesn't fully support the stated confidence level.",
+          "suggestion": "Either raise confidence to 'medium' if the Georgia Recorder piece is substantive, or clarify why confidence remains low despite a clear public stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[3].career_history[2].end_year",
+          "concern": "Derek Dooley's assistant coaching role shows end_year: 2025. Given the profile update date is 2026-03-29, this is reasonable, but the description says '1996-2025' covering ~29 years of continuous coaching. Verify this span is accurate.",
+          "suggestion": "Confirm the 1996 start date and 2025 end date are correct, and clarify whether this represents unbroken service or multiple separate coaching roles.",
           "severity": "info"
         }
       ],
-      "summary": "While the profile is generally well-structured and accurate for Jon Ossoff, with strong sourcing from official government and campaign sites, it falls short in source quality and completeness for the Republican candidates, particularly Derek Dooley, where Wikipedia reliance introduces potential inaccuracies. Several issue stances for Buddy Carter, Mike Collins, and Dooley have low confidence due to limited or generic sources, leaving gaps in areas like climate/energy and reproductive rights that could be addressed with more robust, primary references."
+      "summary": "This is a well-researched and carefully sourced candidate profile. Jon Ossoff's section is exceptionally thorough, with 11 detailed issue positions backed by high-confidence citations from his Senate office, campaign site, and credible third-party sources like Giffords and GovTrack. The Republican candidates are documented with appropriate rigor given the available public material\u2014Carter and Collins have fewer detailed platforms, but this is accurately reflected in lower confidence ratings rather than overstated. All candidate backgrounds are accurate and well-documented via Congressional Bioguide. The polling data is current and appropriately sourced. Language is neutral and nonpartisan throughout, with no promotional framing. The profile honestly flags areas of incomplete information (e.g., Collins' climate stance, Dooley's reproductive rights position) rather than filling gaps with speculation."
+    },
+    {
+      "model": "grok-3-mini",
+      "reviewed_at": "2026-03-29T07:54:00.947067+00:00",
+      "verdict": "needs_revision",
+      "flags": [
+        {
+          "field": "candidates[3].career_history.source.url",
+          "concern": "Sources for Derek Dooley's career history are primarily from Wikipedia, which is user-edited and not as reliable as primary or official sources.",
+          "suggestion": "Replace with verified sources such as official university records, NFL archives, or Dooley's own campaign materials to ensure accuracy and credibility.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[3].education.source.url",
+          "concern": "Education details for Derek Dooley are sourced from Wikipedia, potentially lacking the rigor of primary documents.",
+          "suggestion": "Verify with official university transcripts or biographies from educational institutions.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Climate/Energy.stance",
+          "concern": "Stance has low confidence and relies on general campaign pages without specific policy details, indicating potential incompleteness.",
+          "suggestion": "Incorporate more detailed sources, such as congressional voting records or in-depth interviews, to enhance accuracy and completeness.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Healthcare.stance",
+          "concern": "Stance for Mike Collins has low confidence and lacks detailed sources beyond his campaign site, which may not fully represent his positions.",
+          "suggestion": "Add credible external sources, like news articles or congressional testimonies, to provide a more balanced and complete view.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Reproductive Rights.stance",
+          "concern": "Stance for Buddy Carter is inferred from general conservative alignment with low confidence, without direct sourcing, potentially introducing bias or inaccuracy.",
+          "suggestion": "Include specific statements or votes from official records to ensure neutrality and factual accuracy.",
+          "severity": "info"
+        }
+      ],
+      "summary": "The profile is largely accurate and well-structured, with strong sourcing for Jon Ossoff's background and issues, drawing from official government and campaign sites. However, it has gaps in completeness for Republican candidates, where several issues (e.g., Climate/Energy and Reproductive Rights) are marked with low confidence due to limited or repetitive sources, and Derek Dooley's career history relies on less authoritative references."
     }
   ]
 }
