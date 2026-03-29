@@ -595,7 +595,7 @@
                 <div>
                   <label for="geminiModel" class="block text-xs font-medium text-gray-600">Gemini (Review)</label>
                   <input id="geminiModel" type="text" bind:value={geminiModel}
-                    placeholder={cheapMode ? "gemini-3.0-flash-lite" : "gemini-3.0-flash"}
+                    placeholder={cheapMode ? "gemini-3.0-flash" : "gemini-3.0-flash"}
                     class="w-full px-2 py-1.5 border border-gray-300 rounded text-xs font-mono focus:outline-none focus:border-blue-500" />
                 </div>
                 <div>

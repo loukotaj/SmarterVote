@@ -257,47 +257,79 @@ Return the COMPLETE improved JSON profile (same schema as input).
 Do NOT omit any fields – return the full object."""
 
 # ------------------------------------------------------------------
-# Update / rerun prompt
+# Update prompts — phase-based (mirrors fresh run)
 # ------------------------------------------------------------------
 
-UPDATE_SYSTEM = f"""\
-You are a nonpartisan political research agent. You are given an existing
-candidate profile that may be outdated. Your job is to update it with the
-latest information.
+UPDATE_META_SYSTEM = f"""\
+You are a nonpartisan political research agent updating an existing race profile.
 
 {_SHARED_RULES}"""
 
-UPDATE_USER = """\
-Here is the current published profile for race "{race_id}":
+UPDATE_META_USER = """\
+Race: "{race_id}" — last updated {last_updated}
+Candidates: {candidate_names}
 
-{existing_json}
+Search for NEW information since {last_updated}:
+1. Any major news, announcements, or developments for each candidate.
+2. Updated or corrected candidate summaries (keep them 2-3 sentences, nonpartisan).
+3. Recent polls (last 90 days). Include pollster, date, sample size, percentages, source URL.
+4. Updated race description (office context, why it matters, key contrasts).
 """ + _DONOR_SCHEMA_NOTE + """
 
-Update this profile:
-1. Search for any NEW developments, position changes, or news since the
-   profile was last updated ({last_updated}).
-2. Verify existing stances still hold – correct any that changed.
-3. Fill in any missing issue positions or weak (low confidence) stances.
-4. Update candidate summaries if there are significant new developments.
-5. Keep all existing source URLs and add new ones.
-6. Update career_history and education if new information is available.
-7. Search for a direct image file URL for any candidate missing image_url. Use:
-   - Wikipedia: search the article, then use https://upload.wikimedia.org/wikipedia/commons/... URLs
-     (NOT commons.wikimedia.org/wiki/File:... — that is a page, not an image file)
-   - Ballotpedia: https://ballotpedia.org/wiki/images/...
-   - Official government sites that serve .jpg files directly.
-   Only set image_url if you find a URL that directly serves an image file.
-8. Add or update voting record entries.
-9. Add or update top_donors entries, and include a source object on every donor item.
-10. Write or improve the top-level 'description' field: 3-4 sentences
-    describing the office, why this race matters, the political context
-    (partisan lean, recent election history), and key contrasts between candidates.
-11. Search for new polls since the last update and add/update the 'polling' array.
-    Include up to 5 most recent polls with pollster, date, sample size, candidate
-    percentages, and source URL. Keep existing polls; add newer ones at the front.
+Return JSON:
+{{
+  "description": "<updated 3-4 sentence race description>",
+  "polling": [
+    {{
+      "pollster": "<name>", "date": "<YYYY-MM-DD>", "sample_size": 600,
+      "matchups": [{{"candidates": ["A", "B"], "percentages": [48.0, 41.0]}}],
+      "source_url": "<url>"
+    }}
+  ],
+  "candidates": [
+    {{
+      "name": "<exact name>",
+      "summary": "<updated 2-3 sentence summary>",
+      "top_donors": [
+        {{"name": "<donor>", "amount": 50000, "organization": "<org or null>",
+          "source": {{"url": "<url>", "type": "government|news|website", "title": "<title>"}}}}
+      ],
+      "voting_record": [
+        {{"bill_name": "<bill>", "bill_description": "<desc>", "vote": "yes|no|abstain|absent",
+          "date": "<YYYY-MM-DD>", "source": {{"url": "<url>", "type": "government", "title": "<title>"}}}}
+      ]
+    }}
+  ]
+}}"""
 
-Return the COMPLETE updated JSON profile (same schema as input).
-Do NOT omit any fields – return the full object."""
+UPDATE_ISSUE_SYSTEM = f"""\
+You are a nonpartisan political research agent updating issue positions in an existing profile.
+
+{_SHARED_RULES}"""
+
+UPDATE_ISSUE_USER = """\
+Race: "{race_id}" — updating since {last_updated}
+Candidates: {candidate_names}
+
+Issues to update: {issues_list}
+
+Existing stances (for reference — only return better/corrected data):
+{existing_stances}
+
+Search for the LATEST positions on these issues. Focus on:
+- Statements, votes, or actions since {last_updated}
+- Filling any gaps where confidence is "low" or stance is missing
+
+Return JSON keyed by candidate name (only include candidates/issues where you have new or better data):
+{{
+  "<Candidate Name>": {{
+    "<Issue>": {{
+      "stance": "<updated position>",
+      "confidence": "high|medium|low",
+      "sources": [{{"url": "<url>", "type": "website|news|government", "title": "<title>"}}]
+    }}
+  }}
+}}"""
 
 # ------------------------------------------------------------------
 # Image URL resolution prompt (standalone phase)

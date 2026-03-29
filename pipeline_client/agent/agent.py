@@ -35,8 +35,10 @@ from .prompts import (
     ISSUE_RESEARCH_USER,
     REFINE_SYSTEM,
     REFINE_USER,
-    UPDATE_SYSTEM,
-    UPDATE_USER,
+    UPDATE_META_SYSTEM,
+    UPDATE_META_USER,
+    UPDATE_ISSUE_SYSTEM,
+    UPDATE_ISSUE_USER,
 )
 from .review import run_reviews
 from .utils import _extract_json, make_logger
@@ -727,34 +729,104 @@ async def _run_update(
     on_log: Any | None = None,
     max_iterations: int = 15,
 ) -> Dict[str, Any]:
-    """Run an update/rerun pass on an existing profile."""
+    """Phase-based update mirroring _run_fresh but starting from existing data."""
     log = make_logger(on_log)
 
-    n = len(existing.get("candidates", []))
-    update_iters = _scale_iterations(max_iterations, n, per_candidate=4, minimum=15)
-    log("info", f"  Update iteration budget: {update_iters} (n={n} candidates)")
+    # Start from a deep copy of existing so we never mutate the original
+    import copy
+    race_json: Dict[str, Any] = copy.deepcopy(existing)
 
+    existing_candidates = existing.get("candidates", [])
+    candidate_names = [c["name"] for c in existing_candidates]
+    n = len(candidate_names)
     last_updated = existing.get("updated_utc", "unknown")
+
+    if not candidate_names:
+        log("warning", "No candidates in existing data — falling back to fresh run")
+        return await _run_fresh(race_id, model=model, on_log=on_log, max_iterations=max_iterations)
+
+    meta_iters = _scale_iterations(max_iterations, n, per_candidate=2, minimum=10)
+    issue_iters = _scale_iterations(max_iterations, n, per_candidate=2, minimum=10)
+    refine_iters = _scale_iterations(max_iterations, n, per_candidate=2, minimum=12)
+
+    # --- Phase 1: Meta update (summaries, donors, polls, voting record) ---
+    log("info", "Update Phase 1: Searching for new summaries, donors, polls, voting records...")
     try:
-        race_json = _ensure_dict(await _agent_loop(
-            UPDATE_SYSTEM,
-            UPDATE_USER.format(
+        meta_patch = _ensure_dict(await _agent_loop(
+            UPDATE_META_SYSTEM,
+            UPDATE_META_USER.format(
                 race_id=race_id,
-                existing_json=json.dumps(existing, indent=2, default=str),
                 last_updated=last_updated,
+                candidate_names=", ".join(candidate_names),
             ),
             model=model,
             on_log=on_log,
             race_id=race_id,
-            max_iterations=update_iters,
-            phase_name="update",
-            max_tokens=32768,
-        ), "update", log)
+            max_iterations=meta_iters,
+            phase_name="update-meta",
+            max_tokens=16384,
+        ), "update-meta", log)
+        _apply_meta_patch(race_json, meta_patch, log)
     except (RuntimeError, ValueError) as exc:
-        log("warning", f"  Update phase failed: {exc} — returning existing data unchanged")
-        race_json = existing
+        log("warning", f"  Update meta phase failed: {exc} — keeping existing meta")
 
-    # Verify and fix image URLs after update (parallel)
+    # --- Phase 2: Issue updates (one call per group) ---
+    log("info", f"Update Phase 2: Refreshing issue positions for {n} candidates...")
+    for group_idx, issues in enumerate(ISSUE_GROUPS):
+        log("info", f"  Issue group {group_idx + 1}/{len(ISSUE_GROUPS)}: {', '.join(issues)}")
+        try:
+            # Build a summary of existing stances for this group
+            existing_stances = _summarize_existing_stances(existing_candidates, issues)
+            issues_result = await _agent_loop(
+                UPDATE_ISSUE_SYSTEM,
+                UPDATE_ISSUE_USER.format(
+                    race_id=race_id,
+                    last_updated=last_updated,
+                    candidate_names=", ".join(candidate_names),
+                    issues_list="\n".join(f"  - {i}" for i in issues),
+                    existing_stances=existing_stances,
+                ),
+                model=model,
+                on_log=on_log,
+                race_id=race_id,
+                max_iterations=issue_iters,
+                phase_name=f"update-issues-{group_idx + 1}",
+                max_tokens=8192,
+            )
+            if not isinstance(issues_result, dict):
+                log("warning", f"  Issue group {group_idx + 1} returned non-dict — skipping")
+            else:
+                _apply_issue_patch(race_json, issues_result, log)
+        except (RuntimeError, ValueError) as exc:
+            log("warning", f"  Issue group {group_idx + 1} failed: {exc} — keeping existing")
+
+    # --- Phase 3: Refinement (same as fresh run) ---
+    log("info", "Update Phase 3: Refining updated profile...")
+    try:
+        refined = _ensure_dict(await _agent_loop(
+            REFINE_SYSTEM,
+            REFINE_USER.format(
+                race_id=race_id,
+                draft_json=json.dumps(race_json, indent=2, default=str),
+                all_issues=", ".join(CANONICAL_ISSUES),
+            ),
+            model=model,
+            on_log=on_log,
+            race_id=race_id,
+            max_iterations=refine_iters,
+            phase_name="update-refine",
+            max_tokens=32768,
+        ), "update-refine", log)
+
+        # Safety: never let refine wipe candidates
+        if refined.get("candidates") and len(refined["candidates"]) >= n:
+            race_json = refined
+        else:
+            log("warning", "  Refine dropped candidates — keeping pre-refine version")
+    except (RuntimeError, ValueError) as exc:
+        log("warning", f"  Refine phase failed: {exc} — keeping unrefined update")
+
+    # --- Post-update: image URL verification ---
     log("info", "Post-update: Verifying and resolving candidate image URLs...")
     await resolve_candidate_images(
         race_json,
@@ -766,3 +838,59 @@ async def _run_update(
     )
 
     return race_json
+
+
+def _apply_meta_patch(race_json: Dict[str, Any], patch: Dict[str, Any], log: Any) -> None:
+    """Merge a meta patch (summaries, donors, polls, voting record) into race_json in-place."""
+    if "description" in patch and patch["description"]:
+        race_json["description"] = patch["description"]
+
+    if "polling" in patch and isinstance(patch["polling"], list) and patch["polling"]:
+        existing_polls = race_json.get("polling", [])
+        race_json["polling"] = patch["polling"] + existing_polls
+
+    patch_candidates = {c["name"]: c for c in patch.get("candidates", []) if isinstance(c, dict)}
+    for candidate in race_json.get("candidates", []):
+        name = candidate.get("name")
+        pc = patch_candidates.get(name)
+        if not pc:
+            continue
+        if pc.get("summary"):
+            candidate["summary"] = pc["summary"]
+        if pc.get("top_donors"):
+            candidate["top_donors"] = pc["top_donors"]
+        if pc.get("voting_record"):
+            existing_vr = {v.get("bill_name"): v for v in candidate.get("voting_record", [])}
+            for vote in pc["voting_record"]:
+                existing_vr[vote.get("bill_name", "")] = vote
+            candidate["voting_record"] = list(existing_vr.values())
+    log("info", f"  Meta patch applied — {len(patch_candidates)} candidates updated")
+
+
+def _apply_issue_patch(race_json: Dict[str, Any], patch: Dict[str, Any], log: Any) -> None:
+    """Merge an issue patch into race_json candidates in-place."""
+    updated = 0
+    candidates_by_name = {c["name"]: c for c in race_json.get("candidates", [])}
+    for cand_name, issues in patch.items():
+        if not isinstance(issues, dict) or cand_name not in candidates_by_name:
+            continue
+        candidate = candidates_by_name[cand_name]
+        candidate.setdefault("issues", {}).update(issues)
+        updated += 1
+    log("info", f"  Issue patch applied — {updated} candidates updated")
+
+
+def _summarize_existing_stances(candidates: List[Dict[str, Any]], issues: List[str]) -> str:
+    """Format existing stances for a set of issues as compact text for the prompt."""
+    lines = []
+    for c in candidates:
+        name = c.get("name", "?")
+        for issue in issues:
+            stance_data = c.get("issues", {}).get(issue)
+            if stance_data and isinstance(stance_data, dict):
+                stance = stance_data.get("stance", "")
+                conf = stance_data.get("confidence", "low")
+                lines.append(f"  {name} / {issue} [{conf}]: {stance[:120]}")
+            else:
+                lines.append(f"  {name} / {issue}: MISSING")
+    return "\n".join(lines) if lines else "  (no existing stances)"
