@@ -90,6 +90,24 @@ class SearchCache:
                 CREATE INDEX IF NOT EXISTS idx_search_race ON search_cache(race_id)
             """
             )
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS page_cache (
+                    url_hash TEXT PRIMARY KEY,
+                    url TEXT NOT NULL,
+                    content TEXT NOT NULL,
+                    content_length INTEGER,
+                    fetched_at TEXT NOT NULL,
+                    expires_at TEXT NOT NULL,
+                    hit_count INTEGER DEFAULT 0
+                )
+            """
+            )
+            conn.execute(
+                """
+                CREATE INDEX IF NOT EXISTS idx_page_expires ON page_cache(expires_at)
+            """
+            )
             conn.commit()
 
     def _query_hash(self, query_text: str, race_id: Optional[str] = None) -> str:
@@ -201,6 +219,48 @@ class SearchCache:
 
         except sqlite3.Error as e:
             logger.error(f"Failed to cache search results: {e}")
+            return False
+
+    def get_page(self, url: str) -> Optional[str]:
+        """Return cached page text content, or None if not found/expired."""
+        url_hash = hashlib.sha256(url.encode()).hexdigest()
+        with sqlite3.connect(self.db_path) as conn:
+            conn.row_factory = sqlite3.Row
+            row = conn.execute(
+                "SELECT content FROM page_cache WHERE url_hash = ? AND expires_at > ?",
+                (url_hash, datetime.utcnow().isoformat()),
+            ).fetchone()
+            if row:
+                conn.execute(
+                    "UPDATE page_cache SET hit_count = hit_count + 1 WHERE url_hash = ?",
+                    (url_hash,),
+                )
+                conn.commit()
+                logger.debug(f"Page cache HIT: {url[:60]}")
+                return row["content"]
+        logger.debug(f"Page cache MISS: {url[:60]}")
+        return None
+
+    def set_page(self, url: str, content: str, ttl_hours: int = 24) -> bool:
+        """Cache stripped page text content. TTL defaults to 24h (pages change faster than searches)."""
+        url_hash = hashlib.sha256(url.encode()).hexdigest()
+        now = datetime.utcnow()
+        expires_at = now + timedelta(hours=ttl_hours)
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                conn.execute(
+                    """
+                    INSERT OR REPLACE INTO page_cache
+                    (url_hash, url, content, content_length, fetched_at, expires_at, hit_count)
+                    VALUES (?, ?, ?, ?, ?, ?, 0)
+                    """,
+                    (url_hash, url, content, len(content), now.isoformat(), expires_at.isoformat()),
+                )
+                conn.commit()
+            logger.debug(f"Page cached: {url[:60]} ({len(content)} chars, TTL: {ttl_hours}h)")
+            return True
+        except sqlite3.Error as e:
+            logger.error(f"Failed to cache page {url[:60]}: {e}")
             return False
 
     def get_stats(self) -> Dict[str, Any]:

@@ -17,6 +17,7 @@ import asyncio
 import json
 import logging
 import os
+import re
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -75,6 +76,30 @@ SEARCH_TOOL = {
     },
 }
 
+FETCH_TOOL = {
+    "type": "function",
+    "function": {
+        "name": "fetch_page",
+        "description": (
+            "Fetch the full text content of a web page. Use this when a search "
+            "result URL looks promising but you need more detail than the snippet "
+            "provides — e.g. to read a full article, find an image URL embedded "
+            "in a page, or extract specific data from a government site. "
+            "Returns the page's readable text (HTML stripped), truncated to ~8000 characters."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "url": {
+                    "type": "string",
+                    "description": "The full URL to fetch.",
+                }
+            },
+            "required": ["url"],
+        },
+    },
+}
+
 
 # ---------------------------------------------------------------------------
 # Search cache
@@ -93,6 +118,70 @@ def _get_search_cache():
 # ---------------------------------------------------------------------------
 # Serper web search implementation (with caching)
 # ---------------------------------------------------------------------------
+
+
+def _strip_html(html: str) -> str:
+    """Strip HTML tags and collapse whitespace to get readable page text."""
+    # Remove script/style blocks entirely
+    text = re.sub(r"<(script|style|noscript)[^>]*>.*?</\1>", "", html, flags=re.DOTALL | re.IGNORECASE)
+    # Remove HTML comments
+    text = re.sub(r"<!--.*?-->", "", text, flags=re.DOTALL)
+    # Replace block-level tags with newlines so paragraphs stay readable
+    text = re.sub(r"</(p|div|li|h[1-6]|tr|br)[^>]*>", "\n", text, flags=re.IGNORECASE)
+    # Remove all remaining tags
+    text = re.sub(r"<[^>]+>", " ", text)
+    # Decode common HTML entities
+    for entity, char in [
+        ("&amp;", "&"), ("&lt;", "<"), ("&gt;", ">"),
+        ("&nbsp;", " "), ("&quot;", '"'), ("&#39;", "'"),
+    ]:
+        text = text.replace(entity, char)
+    # Collapse whitespace
+    text = re.sub(r"[ \t]+", " ", text)
+    text = re.sub(r"\n{3,}", "\n\n", text)
+    return text.strip()
+
+
+_PAGE_MAX_CHARS = 8000
+_BROWSER_UA = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+    "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+)
+
+
+async def _fetch_page(url: str) -> str:
+    """Fetch a URL and return stripped text content, with caching."""
+    cache = _get_search_cache()
+    if cache:
+        cached = cache.get_page(url)
+        if cached:
+            logger.debug(f"Page cache HIT: {url[:60]}")
+            return cached
+
+    try:
+        async with httpx.AsyncClient(
+            timeout=20,
+            follow_redirects=True,
+            headers={"User-Agent": _BROWSER_UA},
+        ) as client:
+            resp = await client.get(url)
+            resp.raise_for_status()
+            content_type = resp.headers.get("content-type", "")
+            if "html" in content_type or "text" in content_type:
+                text = _strip_html(resp.text)
+            else:
+                text = f"[Non-text content: {content_type}]"
+    except Exception as exc:
+        return f"[Failed to fetch {url}: {exc}]"
+
+    # Truncate and add a note if we cut it
+    if len(text) > _PAGE_MAX_CHARS:
+        text = text[:_PAGE_MAX_CHARS] + f"\n\n[...truncated at {_PAGE_MAX_CHARS} chars]"
+
+    if cache:
+        cache.set_page(url, text)
+
+    return text
 
 
 async def _serper_search(
@@ -263,12 +352,12 @@ async def _agent_loop(
         {"role": "user", "content": user},
     ]
 
-    nudge_at = max(max_iterations // 2, 3)
+    nudge_at = max(int(max_iterations / 1.5), 3)
 
     for iteration in range(max_iterations):
         log("info", f"  [{phase_name}] iteration {iteration + 1}/{max_iterations} — calling {model}...")
 
-        # After half the budget is spent, stop offering the search tool and
+        # After a significant portion of the budget is spent, stop offering the search tool and
         # tell the model to produce its final JSON answer now.
         if iteration == nudge_at and len(messages) > 2:
             messages.append({
@@ -280,7 +369,7 @@ async def _agent_loop(
             })
             log("info", f"  [{phase_name}] nudging model to produce output (iteration {iteration + 1})")
 
-        tools_for_call = [SEARCH_TOOL] if iteration < nudge_at else None
+        tools_for_call = [SEARCH_TOOL, FETCH_TOOL] if iteration < nudge_at else None
 
         t_call = time.perf_counter()
         result = await _call_openai(
@@ -314,6 +403,17 @@ async def _agent_loop(
                         "role": "tool",
                         "tool_call_id": tool_call["id"],
                         "content": json.dumps(search_results),
+                    })
+                elif fn["name"] == "fetch_page":
+                    args = json.loads(fn["arguments"])
+                    url = args.get("url", "")
+                    log("info", f"    📄 fetching {url[:80]}")
+                    page_text = await _fetch_page(url)
+                    log("debug", f"    📄 got {len(page_text)} chars")
+                    messages.append({
+                        "role": "tool",
+                        "tool_call_id": tool_call["id"],
+                        "content": page_text,
                     })
             continue
 
