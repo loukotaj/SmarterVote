@@ -385,4 +385,86 @@
   .back-to-top-link {
     @apply inline-flex items-center gap-2 text-gray-600 hover:text-blue-600 font-medium transition-colors duration-200 border-none bg-transparent cursor-pointer;
   }
+
+  /* Polling */
+  :global(.polling-card) {
+    @apply p-4 sm:p-6 mb-6 sm:mb-8 shadow-sm;
+  }
+
+  .polling-title {
+    @apply text-lg sm:text-xl font-semibold text-gray-900 mb-4;
+  }
+
+  .polling-list {
+    @apply space-y-4;
+  }
+
+  .poll-entry {
+    @apply border border-gray-200 rounded-lg p-3 sm:p-4;
+  }
+
+  .poll-header {
+    @apply flex flex-wrap items-center gap-2 mb-3;
+  }
+
+  .poll-pollster {
+    @apply font-semibold text-gray-900 text-sm;
+  }
+
+  .poll-date {
+    @apply text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded;
+  }
+
+  .poll-sample {
+    @apply text-xs text-gray-400;
+  }
+
+  .poll-results {
+    @apply space-y-2;
+  }
+
+  .poll-result-row {
+    @apply flex items-center gap-2;
+  }
+
+  .poll-candidate-name {
+    @apply text-sm font-medium text-gray-800 w-32 sm:w-40 shrink-0 truncate;
+  }
+
+  .poll-party-badge {
+    @apply text-xs px-1.5 py-0.5 rounded font-medium shrink-0;
+    @apply bg-gray-100 text-gray-600;
+  }
+
+  .poll-party-badge.dem {
+    @apply bg-blue-100 text-blue-700;
+  }
+
+  .poll-party-badge.rep {
+    @apply bg-red-100 text-red-700;
+  }
+
+  .poll-bar-wrapper {
+    @apply flex-1 bg-gray-100 rounded-full h-3 overflow-hidden;
+  }
+
+  .poll-bar {
+    @apply h-full rounded-full bg-gray-400 transition-all duration-300;
+  }
+
+  .poll-bar.dem-bar {
+    @apply bg-blue-500;
+  }
+
+  .poll-bar.rep-bar {
+    @apply bg-red-500;
+  }
+
+  .poll-pct {
+    @apply text-sm font-semibold text-gray-700 w-10 text-right shrink-0;
+  }
+
+  .poll-source-link {
+    @apply text-xs text-blue-500 hover:text-blue-700 mt-2 inline-block;
+  }
 </style>

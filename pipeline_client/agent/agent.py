@@ -568,6 +568,8 @@ async def run_agent(
         if isinstance(candidate, dict):
             _normalize_candidate(candidate, now_iso)
 
+    race_json.setdefault("polling", [])
+
     # --- Optional Phase 4: Multi-LLM review ---
     if enable_review:
         log("info", "Phase 4: Sending to review agents (Claude, Gemini, Grok)...")
