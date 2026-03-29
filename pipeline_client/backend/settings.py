@@ -1,10 +1,12 @@
 from pathlib import Path
 
 from pydantic import Field
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
+    model_config = SettingsConfigDict(env_prefix="", env_file=".env", extra="allow")
+
     app_name: str = "SmarterVote Pipeline Client"
     artifacts_dir: Path = Path(__file__).resolve().parents[1] / "artifacts"
     storage_mode: str = "local"  # "local" or "gcp"
@@ -13,11 +15,6 @@ class Settings(BaseSettings):
     allowed_origins: list[str] = Field(default_factory=lambda: ["*"])
     auth0_domain: str | None = None
     auth0_audience: str | None = None
-
-    class Config:
-        env_prefix = ""
-        env_file = ".env"
-        extra = "allow"
 
 
 settings = Settings()

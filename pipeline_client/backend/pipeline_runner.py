@@ -34,8 +34,6 @@ def _safe_broadcast(message_data):
         if main_loop and not main_loop.is_closed():
 
             def schedule_broadcast():
-                import asyncio
-
                 asyncio.create_task(logging_manager.broadcast_message(message_data))
 
             main_loop.call_soon_threadsafe(schedule_broadcast)
