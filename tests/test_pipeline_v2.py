@@ -243,7 +243,7 @@ async def test_agent_loop_produces_json():
     with patch("pipeline_v2.agent._call_openai", new_callable=AsyncMock) as mock:
         mock.return_value = response
         result = await _agent_loop(
-            "system", "user", model="gpt-4o-mini", phase_name="test"
+            "system", "user", model="gpt-5-mini", phase_name="test"
         )
     assert result == {"result": "ok"}
 
@@ -281,7 +281,7 @@ async def test_agent_loop_handles_tool_calls():
         mock_search.return_value = [{"title": "Test", "snippet": "...", "url": "https://test.com"}]
 
         result = await _agent_loop(
-            "system", "user", model="gpt-4o-mini", phase_name="test"
+            "system", "user", model="gpt-5-mini", phase_name="test"
         )
 
     assert result == {"done": True}
@@ -328,7 +328,7 @@ async def test_agent_loop_handles_multiple_tool_calls():
         mock_search.return_value = [{"title": "R", "snippet": "...", "url": "https://r.com"}]
 
         result = await _agent_loop(
-            "system", "user", model="gpt-4o-mini", phase_name="test"
+            "system", "user", model="gpt-5-mini", phase_name="test"
         )
 
     assert result == {"done": True}
@@ -344,7 +344,7 @@ async def test_agent_loop_retries_bad_json():
     with patch("pipeline_v2.agent._call_openai", new_callable=AsyncMock) as mock:
         mock.side_effect = [bad, good]
         result = await _agent_loop(
-            "system", "user", model="gpt-4o-mini", phase_name="test"
+            "system", "user", model="gpt-5-mini", phase_name="test"
         )
 
     assert result == {"ok": True}
@@ -360,7 +360,7 @@ async def test_agent_loop_raises_on_max_iterations():
         mock.return_value = bad
         with pytest.raises(RuntimeError, match="did not produce output"):
             await _agent_loop(
-                "system", "user", model="gpt-4o-mini", phase_name="test",
+                "system", "user", model="gpt-5-mini", phase_name="test",
                 max_iterations=2,
             )
 
@@ -398,7 +398,7 @@ async def test_agent_loop_passes_race_id_to_search():
         mock_search.return_value = []
 
         await _agent_loop(
-            "system", "user", model="gpt-4o-mini", phase_name="test",
+            "system", "user", model="gpt-5-mini", phase_name="test",
             race_id="my-race-2024",
         )
 
@@ -781,7 +781,7 @@ def test_shared_models_have_new_fields():
 
     # AgentReview
     review = AgentReview(
-        model="claude-3-5-sonnet",
+        model="claude-sonnet-4-6",
         reviewed_at="2024-01-01T00:00:00",
         verdict="approved",
     )
