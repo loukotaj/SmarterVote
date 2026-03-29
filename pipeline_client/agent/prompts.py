@@ -51,15 +51,21 @@ RULES (apply to every response):
 6. Return ONLY valid JSON – no markdown fences, no extra text."""
 
 _DONOR_SCHEMA_NOTE = """\
-For top_donors, include up to 3-5 major donors when credible finance data is available.
-Every donor entry must include a source object using this shape:
+For top_donors, include up to 5 real named donors with amounts.
+Search in this order — stop when you have real names:
+  1. Search "<candidate name> top donors opensecrets" → opensecrets.org/candidates has a "Top Contributors" section
+  2. Search "<candidate name> campaign finance followthemoney" → followthemoney.org
+  3. FEC receipts (NOT the overview page): https://www.fec.gov/data/candidate/<ID>/?tab=raising
+     or search "<candidate name> FEC top contributors site:fec.gov"
+  4. News articles: "<candidate name> biggest donors 2026"
+Do NOT record "None identified" as a donor — if you cannot find real names leave top_donors as [].
+Every donor entry must follow this shape exactly:
 {{
-  "name": "<donor name>",
-  "amount": <number or null>,
-  "organization": "<organization or null>",
-  "source": {{"url": "<url>", "type": "government|news|website", "title": "<title>"}}
-}}
-Prefer campaign finance databases, FEC pages, or established donor-tracking sources over generic news coverage."""
+  "name": "<donor full name>",
+  "amount": <dollar amount as number or null>,
+  "organization": "<employer or organization or null>",
+  "source": {{"url": "<direct url to the page showing this donor>", "type": "government|news|website", "title": "<page title>"}}
+}}"""
 
 # ------------------------------------------------------------------
 # Phase 1: Discovery prompt (enhanced with career & images)

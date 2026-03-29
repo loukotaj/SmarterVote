@@ -460,6 +460,25 @@ async def _agent_loop(
     )
 
 
+def _ensure_dict(result: Any, phase_name: str, log: Any) -> Dict[str, Any]:
+    """Unwrap a single-element list or raise if the result is not a dict."""
+    if isinstance(result, dict):
+        return result
+    if isinstance(result, list):
+        # Model sometimes wraps the object in an array — unwrap if unambiguous
+        dicts = [item for item in result if isinstance(item, dict)]
+        if len(dicts) == 1:
+            log("warning", f"  [{phase_name}] returned a list — unwrapping single dict")
+            return dicts[0]
+        if dicts:
+            log("warning", f"  [{phase_name}] returned a list of {len(dicts)} dicts — merging")
+            merged: Dict[str, Any] = {}
+            for d in dicts:
+                merged.update(d)
+            return merged
+    raise ValueError(f"[{phase_name}] expected dict, got {type(result).__name__}")
+
+
 # ---------------------------------------------------------------------------
 # Load existing published data for rerun/update mode
 # ---------------------------------------------------------------------------
@@ -605,7 +624,7 @@ async def _run_fresh(
 
     # --- Phase 1: Discovery ---
     log("info", "Phase 1/3: Discovering race and candidates...")
-    race_json = await _agent_loop(
+    race_json = _ensure_dict(await _agent_loop(
         DISCOVERY_SYSTEM,
         DISCOVERY_USER.format(race_id=race_id),
         model=model,
@@ -614,7 +633,7 @@ async def _run_fresh(
         max_iterations=max_iterations,
         phase_name="discovery",
         max_tokens=16384,
-    )
+    ), "discovery", log)
 
     candidate_names = [c["name"] for c in race_json.get("candidates", [])]
     n = len(candidate_names)
@@ -675,7 +694,7 @@ async def _run_fresh(
     # --- Phase 3: Refinement ---
     log("info", "Phase 3/3: Refining and improving profile...")
     try:
-        race_json = await _agent_loop(
+        race_json = _ensure_dict(await _agent_loop(
             REFINE_SYSTEM,
             REFINE_USER.format(
                 race_id=race_id,
@@ -688,8 +707,8 @@ async def _run_fresh(
             max_iterations=refine_iters,
             phase_name="refine",
             max_tokens=32768,
-        )
-    except RuntimeError as exc:
+        ), "refine", log)
+    except (RuntimeError, ValueError) as exc:
         log("warning", f"  Refine phase failed: {exc} — returning unrefined draft")
 
     return race_json
@@ -717,7 +736,7 @@ async def _run_update(
 
     last_updated = existing.get("updated_utc", "unknown")
     try:
-        race_json = await _agent_loop(
+        race_json = _ensure_dict(await _agent_loop(
             UPDATE_SYSTEM,
             UPDATE_USER.format(
                 race_id=race_id,
@@ -730,8 +749,8 @@ async def _run_update(
             max_iterations=update_iters,
             phase_name="update",
             max_tokens=32768,
-        )
-    except RuntimeError as exc:
+        ), "update", log)
+    except (RuntimeError, ValueError) as exc:
         log("warning", f"  Update phase failed: {exc} — returning existing data unchanged")
         race_json = existing
 

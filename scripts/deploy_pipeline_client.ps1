@@ -31,9 +31,11 @@ if (-not $NoBuild) {
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 }
 
-# Check if service already exists
+# Check if service already exists (suppress error — non-zero exit is expected when service is new)
+$ErrorActionPreference = "Continue"
 $existsOutput = gcloud run services describe $Service --region $Region --project $ProjectId --format 'value(name)' 2>&1
 $serviceExists = ($LASTEXITCODE -eq 0) -and ($existsOutput -notmatch "ERROR")
+$ErrorActionPreference = "Stop"
 
 $envVars = "PROJECT_ID=$ProjectId,ENVIRONMENT=$Environment,LOG_LEVEL=DEBUG,STORAGE_MODE=gcp,GCS_BUCKET_NAME=smartervote-sv-data-$Environment"
 $secrets  = "OPENAI_API_KEY=openai-api-key-${Environment}:latest,SERPER_API_KEY=serper-api-key-${Environment}:latest,ANTHROPIC_API_KEY=anthropic-api-key-${Environment}:latest,GEMINI_API_KEY=gemini-api-key-${Environment}:latest,XAI_API_KEY=xai-api-key-${Environment}:latest"

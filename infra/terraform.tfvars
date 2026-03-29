@@ -10,8 +10,9 @@ region      = "us-central1"
 app_version = "latest"
 
 # Development Settings
-force_update         = false
-prevent_destroy_prod = true
+force_update            = false
+prevent_destroy_prod    = true
+enable_pipeline_client  = true
 
 # Note: project_id and API keys are set in secrets.tfvars
 # Copy secrets.tfvars.example to secrets.tfvars and fill in your values
