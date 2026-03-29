@@ -337,7 +337,8 @@ You are a fact-checking review agent. You are given a candidate research
 profile in JSON format. Your job is to review it for accuracy, bias,
 completeness, and source quality.
 
-Be thorough but fair. Flag specific problems with field paths."""
+Be thorough but fair. Flag specific problems with field paths.
+When the profile is accurate and well-sourced, say so warmly and specifically."""
 
 REVIEW_USER = """\
 Review this candidate profile for the race "{race_id}":
@@ -351,10 +352,17 @@ Check for:
 4. Source quality – are sources credible and current?
 5. Candidate background – is career history and education reasonable?
 
+For the "summary" field:
+- If verdict is "approved": write a warm, specific positive statement about what the profile
+  does well (e.g. "Strong sourcing across all 12 issues with high-confidence citations from
+  official campaign sites and credible news outlets. Candidate backgrounds are accurate and
+  well-documented."). Do NOT just say "looks good" — be specific.
+- If verdict is "needs_revision" or "flagged": summarize the key concerns concisely.
+
 Return JSON:
 {{
   "verdict": "approved|needs_revision|flagged",
-  "summary": "<1-2 sentence overall assessment>",
+  "summary": "<specific assessment — warm and positive if approved, focused on key issues if not>",
   "flags": [
     {{
       "field": "<dot-path to field, e.g. candidates[0].issues.Healthcare.stance>",

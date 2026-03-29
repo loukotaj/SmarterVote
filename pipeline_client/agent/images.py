@@ -168,46 +168,54 @@ async def _resolve_single_image(
 
     # Commons file-page URL: resolve via Special:FilePath redirect
     if current_url and "commons.wikimedia.org/wiki/File:" in current_url:
+        log("info", f"  [{name}] Commons page URL detected — resolving via Special:FilePath")
         direct = await _resolve_wikimedia_commons(current_url)
         if direct:
             candidate["image_url"] = direct
-            log("info", f"  Resolved Commons URL for {name}: {direct[:80]}")
+            log("info", f"  [{name}] Commons resolved → {direct[:80]}")
             return
-        log("info", f"  Could not resolve Commons URL for {name} — searching for replacement")
+        log("info", f"  [{name}] Commons resolution failed — will search for replacement")
         candidate["image_url"] = None
         current_url = None
 
     # Validate existing URL (extension / host check + live HEAD request)
     if current_url:
         if _is_valid_image_url(current_url):
+            log("info", f"  [{name}] Checking URL accessibility: {current_url[:80]}")
             accessible, final_url = await _check_url_accessible(current_url)
             if accessible:
-                # If redirect gave us a better URL, store that
                 if final_url != current_url and _is_valid_image_url(final_url):
                     candidate["image_url"] = final_url
-                log("info", f"  Image OK for {name}")
+                    log("info", f"  [{name}] URL redirected to better form → {final_url[:80]}")
+                else:
+                    log("info", f"  [{name}] URL OK — keeping existing image")
                 return
-            log("info", f"  Dead image URL for {name} — searching for replacement")
+            log("info", f"  [{name}] URL is dead (HTTP error or timeout) — searching for replacement")
         else:
-            log("info", f"  Invalid image URL for {name} (not a direct image file) — searching")
+            log("info", f"  [{name}] URL failed validation (not a direct image file): {current_url[:80]}")
         candidate["image_url"] = None
 
     else:
-        log("info", f"  No image URL for {name} — searching")
+        log("info", f"  [{name}] No image URL — starting search")
 
     # Fast path: query Wikipedia API directly (no LLM call needed)
+    log("info", f"  [{name}] Trying Wikipedia API lookup...")
     wiki_url = await _lookup_wikipedia_image(name)
     if wiki_url:
+        log("info", f"  [{name}] Wikipedia API returned: {wiki_url[:80]}")
         accessible, final_url = await _check_url_accessible(wiki_url)
         if accessible:
             store_url = final_url if _is_valid_image_url(final_url) else wiki_url
             candidate["image_url"] = store_url
-            log("info", f"  Wikipedia API found image for {name}: {store_url[:80]}")
+            log("info", f"  [{name}] Wikipedia image confirmed → {store_url[:80]}")
             return
-        log("info", f"  Wikipedia API URL not accessible for {name} — falling back to agent search")
+        log("info", f"  [{name}] Wikipedia URL not accessible — falling back to agent search")
+    else:
+        log("info", f"  [{name}] Wikipedia API found no image — falling back to agent search")
 
     # Ask the agent to find a working image URL
     from .prompts import IMAGE_SEARCH_SYSTEM, IMAGE_SEARCH_USER
+    log("info", f"  [{name}] Running agent image search...")
     try:
         result = await agent_loop_fn(
             IMAGE_SEARCH_SYSTEM,
@@ -221,17 +229,20 @@ async def _resolve_single_image(
         )
         found_url = result.get("image_url")
         if not found_url:
-            log("info", f"  No working image found for {name}")
+            log("info", f"  [{name}] Agent returned null — no image found")
             return
+
+        log("info", f"  [{name}] Agent returned: {found_url[:80]}")
 
         # Agent returned a Commons page URL — resolve it
         if "commons.wikimedia.org/wiki/File:" in found_url:
+            log("info", f"  [{name}] Agent URL is Commons page — resolving via Special:FilePath")
             direct = await _resolve_wikimedia_commons(found_url)
             if direct:
                 candidate["image_url"] = direct
-                log("info", f"  Agent found + resolved Commons image for {name}: {direct[:80]}")
+                log("info", f"  [{name}] Commons resolved → {direct[:80]}")
                 return
-            log("info", f"  Agent found Commons URL for {name} but resolution failed")
+            log("info", f"  [{name}] Agent Commons URL resolution failed — no image stored")
             return
 
         # Validate and check accessibility
@@ -240,13 +251,14 @@ async def _resolve_single_image(
             if accessible:
                 store_url = final_url if _is_valid_image_url(final_url) else found_url
                 candidate["image_url"] = store_url
-                log("info", f"  Agent found image for {name}: {store_url[:80]}")
+                log("info", f"  [{name}] Agent image confirmed → {store_url[:80]}")
                 return
-
-        log("info", f"  Agent returned unusable URL for {name}: {found_url[:80]}")
+            log("info", f"  [{name}] Agent URL is not accessible — no image stored")
+        else:
+            log("info", f"  [{name}] Agent URL failed validation (not a direct image file) — no image stored")
 
     except Exception as exc:
-        log("warning", f"  Image resolution error for {name}: {exc}")
+        log("warning", f"  [{name}] Image resolution error: {exc}")
 
 
 async def resolve_candidate_images(

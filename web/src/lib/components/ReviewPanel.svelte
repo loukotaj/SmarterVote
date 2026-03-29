@@ -28,25 +28,22 @@
   }
 </script>
 
-{#if reviews && reviews.length > 0}
-  <div class="review-panel">
-    <h3 class="review-title">
-      <svg
-        class="w-5 h-5"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-        />
-      </svg>
-      AI Review Status
-    </h3>
+<div class="review-panel">
+  <h3 class="review-title">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+      />
+    </svg>
+    AI Review Status
+  </h3>
 
+  {#if !reviews || reviews.length === 0}
+    <p class="review-empty">No AI review has been run for this race yet.</p>
+  {:else}
     <div class="review-cards">
       {#each reviews as review}
         <div class="review-card">
@@ -62,29 +59,25 @@
           {#if review.flags && review.flags.length > 0}
             <details class="review-flags">
               <summary class="flags-toggle">
-                {review.flags.length} flag{review.flags.length !== 1
-                  ? "s"
-                  : ""}
+                {review.flags.length} flag{review.flags.length !== 1 ? "s" : ""}
               </summary>
               <ul class="flags-list">
                 {#each review.flags as flag}
                   <li class="flag-item">
-                    <span class="flag-severity"
-                      >{severityIcon(flag.severity)}</span
-                    >
+                    <span class="flag-severity">{severityIcon(flag.severity)}</span>
                     <div>
                       <span class="flag-field">{flag.field}</span>
                       <span class="flag-concern">{flag.concern}</span>
                       {#if flag.suggestion}
-                        <span class="flag-suggestion"
-                          >💡 {flag.suggestion}</span
-                        >
+                        <span class="flag-suggestion">💡 {flag.suggestion}</span>
                       {/if}
                     </div>
                   </li>
                 {/each}
               </ul>
             </details>
+          {:else}
+            <p class="review-all-clear">No issues found — profile looks good.</p>
           {/if}
           <span class="review-date">
             Reviewed: {(() => {
@@ -99,8 +92,8 @@
         </div>
       {/each}
     </div>
-  </div>
-{/if}
+  {/if}
+</div>
 
 <style lang="postcss">
   .review-panel {
@@ -169,5 +162,13 @@
 
   .review-date {
     @apply text-xs text-content-faint;
+  }
+
+  .review-empty {
+    @apply text-sm text-content-subtle italic;
+  }
+
+  .review-all-clear {
+    @apply text-sm text-green-600 font-medium mb-2;
   }
 </style>

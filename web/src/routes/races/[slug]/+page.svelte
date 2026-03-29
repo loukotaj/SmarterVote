@@ -256,9 +256,7 @@
     </div>
 
     <!-- AI Review Status (bottom) -->
-    {#if race.reviews && race.reviews.length > 0}
-      <ReviewPanel reviews={race.reviews} />
-    {/if}
+    <ReviewPanel reviews={race.reviews ?? []} />
 
     <!-- Back to Top -->
     <div class="back-to-top">

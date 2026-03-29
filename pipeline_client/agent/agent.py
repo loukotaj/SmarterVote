@@ -442,6 +442,12 @@ async def run_agent(
         log("info", f"🆕 New research for {race_id} (model={model})")
         race_json = await _run_fresh(race_id, model=model, on_log=on_log, max_iterations=max_iterations)
 
+    # LLMs sometimes wrap their output in {"race_json": {...}} — unwrap it so
+    # metadata we add below lands at the top level, not buried inside a key.
+    if "race_json" in race_json and isinstance(race_json.get("race_json"), dict):
+        log("warning", "LLM wrapped output in 'race_json' key — unwrapping")
+        race_json = race_json["race_json"]
+
     race_json.setdefault("id", race_id)
     now_iso = datetime.now(timezone.utc).isoformat()
     race_json["updated_utc"] = now_iso
@@ -552,9 +558,12 @@ async def _run_fresh(
                 phase_name=f"issues-{group_idx + 1}",
                 max_tokens=16384,
             )
-            for cand_name, cand_issues in issues_result.items():
-                if cand_name in all_issues and isinstance(cand_issues, dict):
-                    all_issues[cand_name].update(cand_issues)
+            if not isinstance(issues_result, dict):
+                log("warning", f"  Issue group {group_idx + 1} returned non-dict ({type(issues_result).__name__}) — skipping")
+            else:
+                for cand_name, cand_issues in issues_result.items():
+                    if cand_name in all_issues and isinstance(cand_issues, dict):
+                        all_issues[cand_name].update(cand_issues)
         except RuntimeError as exc:
             log("warning", f"  Issue group {group_idx + 1} failed after all retries: {exc} — skipping group")
 
