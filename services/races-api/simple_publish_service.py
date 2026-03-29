@@ -68,8 +68,16 @@ class SimplePublishService:
         # Get from local files
         if self.data_directory.exists():
             for file_path in self.data_directory.glob("*.json"):
-                race_id = file_path.stem
-                race_ids.add(race_id)
+                try:
+                    with open(file_path, "r", encoding="utf-8") as f:
+                        data = json.load(f)
+                    # Unwrap pipeline-result wrapper files to get the real race ID
+                    if "race_json" in data and "race_id" in data:
+                        race_ids.add(data["race_id"])
+                    else:
+                        race_ids.add(file_path.stem)
+                except (json.JSONDecodeError, IOError):
+                    race_ids.add(file_path.stem)
 
         # Get from cloud storage if available
         if self.cloud_enabled and self.gcs_client:
@@ -109,17 +117,32 @@ class SimplePublishService:
     def _get_race_data_local(self, race_id: str) -> Optional[Dict]:
         """Get race data from local file."""
         file_path = self.data_directory / f"{race_id}.json"
-        if not file_path.exists():
-            return None
+        if file_path.exists():
+            try:
+                with open(file_path, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                # Unwrap pipeline-result wrapper files
+                if "race_json" in data:
+                    data = data["race_json"]
+                logger.debug(f"Loaded race {race_id} from local file")
+                return data
+            except (json.JSONDecodeError, IOError) as e:
+                logger.warning(f"Error reading local file for race {race_id}: {e}")
+                return None
 
-        try:
-            with open(file_path, "r", encoding="utf-8") as f:
-                data = json.load(f)
-            logger.debug(f"Loaded race {race_id} from local file")
-            return data
-        except (json.JSONDecodeError, IOError) as e:
-            logger.warning(f"Error reading local file for race {race_id}: {e}")
-            return None
+        # File not found by direct ID — scan for a pipeline-result wrapper containing this race_id
+        if self.data_directory.exists():
+            for candidate_path in self.data_directory.glob("*.json"):
+                try:
+                    with open(candidate_path, "r", encoding="utf-8") as f:
+                        data = json.load(f)
+                    if "race_json" in data and data.get("race_id") == race_id:
+                        logger.debug(f"Loaded race {race_id} from wrapper file {candidate_path.name}")
+                        return data["race_json"]
+                except (json.JSONDecodeError, IOError):
+                    continue
+
+        return None
 
     def _get_race_data_cloud(self, race_id: str) -> Optional[Dict]:
         """Get race data from cloud storage."""

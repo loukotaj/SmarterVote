@@ -39,8 +39,14 @@
   let modalData: unknown = null;
   let modalLoading = false;
 
-  // Review toggle
+  // Pipeline options
   let enableReview = false;
+  let cheapMode = true;
+  let showAdvanced = false;
+  let researchModel = "";
+  let claudeModel = "";
+  let geminiModel = "";
+  let grokModel = "";
 
   // Auto-refresh management
   const MIN_REFRESH_INTERVAL = 2000;
@@ -224,10 +230,16 @@
 
     try {
       addLog("info", `Starting agent research for: ${raceId}`);
-      const result = await apiService.runV2Agent(raceId, {
+      const opts: Record<string, any> = {
         save_artifact: true,
         enable_review: enableReview,
-      });
+        cheap_mode: cheapMode,
+      };
+      if (researchModel) opts.research_model = researchModel;
+      if (claudeModel) opts.claude_model = claudeModel;
+      if (geminiModel) opts.gemini_model = geminiModel;
+      if (grokModel) opts.grok_model = grokModel;
+      const result = await apiService.runV2Agent(raceId, opts);
       pipelineActions.setCurrentRun(result.run_id, "v2_agent");
       addLog("info", `Agent run started (run_id: ${result.run_id})`);
       startAutoRefresh();
@@ -367,16 +379,70 @@
             </p>
           </div>
 
-          <!-- Review Toggle -->
-          <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
-            <input
-              type="checkbox"
-              bind:checked={enableReview}
-              class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-            />
-            <span>Enable AI Review</span>
-            <span class="text-xs text-gray-400">(Claude + Gemini fact-check)</span>
-          </label>
+          <!-- Mode Toggles -->
+          <div class="flex flex-wrap gap-x-6 gap-y-2">
+            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
+              <input
+                type="checkbox"
+                bind:checked={cheapMode}
+                class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              />
+              <span>Cheap Mode</span>
+              <span class="text-xs text-gray-400">(faster, lower cost)</span>
+            </label>
+            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
+              <input
+                type="checkbox"
+                bind:checked={enableReview}
+                class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              />
+              <span>AI Review</span>
+              <span class="text-xs text-gray-400">(Claude + Gemini + Grok)</span>
+            </label>
+          </div>
+
+          <!-- Advanced Model Config -->
+          <button
+            type="button"
+            on:click={() => (showAdvanced = !showAdvanced)}
+            class="text-xs text-blue-600 hover:text-blue-800 flex items-center gap-1"
+          >
+            <svg class="w-3 h-3 transition-transform {showAdvanced ? 'rotate-90' : ''}" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+            </svg>
+            Advanced Model Settings
+          </button>
+          {#if showAdvanced}
+            <div class="space-y-3 border-t border-gray-200 pt-3">
+              <p class="text-xs text-gray-500">Leave blank for defaults. Cheap mode selects lighter variants automatically.</p>
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label for="researchModel" class="block text-xs font-medium text-gray-600">Research (OpenAI)</label>
+                  <input id="researchModel" type="text" bind:value={researchModel}
+                    placeholder={cheapMode ? "gpt-4o-mini" : "gpt-4o"}
+                    class="w-full px-2 py-1.5 border border-gray-300 rounded text-xs font-mono focus:outline-none focus:border-blue-500" />
+                </div>
+                <div>
+                  <label for="claudeModel" class="block text-xs font-medium text-gray-600">Claude (Review)</label>
+                  <input id="claudeModel" type="text" bind:value={claudeModel}
+                    placeholder={cheapMode ? "claude-haiku-4-20250514" : "claude-sonnet-4-20250514"}
+                    class="w-full px-2 py-1.5 border border-gray-300 rounded text-xs font-mono focus:outline-none focus:border-blue-500" />
+                </div>
+                <div>
+                  <label for="geminiModel" class="block text-xs font-medium text-gray-600">Gemini (Review)</label>
+                  <input id="geminiModel" type="text" bind:value={geminiModel}
+                    placeholder={cheapMode ? "gemini-2.0-flash-lite" : "gemini-2.0-flash"}
+                    class="w-full px-2 py-1.5 border border-gray-300 rounded text-xs font-mono focus:outline-none focus:border-blue-500" />
+                </div>
+                <div>
+                  <label for="grokModel" class="block text-xs font-medium text-gray-600">Grok (Review)</label>
+                  <input id="grokModel" type="text" bind:value={grokModel}
+                    placeholder={cheapMode ? "grok-3-mini" : "grok-3"}
+                    class="w-full px-2 py-1.5 border border-gray-300 rounded text-xs font-mono focus:outline-none focus:border-blue-500" />
+                </div>
+              </div>
+            </div>
+          {/if}
 
           <button
             disabled={pipeline.isExecuting || !pipeline.v2RaceId.trim()}

@@ -14,10 +14,15 @@ class RunStatus(str, Enum):
 
 
 class RunOptions(BaseModel):
-    cheap_mode: bool = True  # Use mini models by default for cost-effective processing
+    cheap_mode: bool = True  # Use cheaper/faster model variants
     save_artifact: bool = True
-    enable_review: bool = False  # Send to Claude/Gemini for fact-checking
+    enable_review: bool = False  # Send to Claude/Gemini/Grok for fact-checking
     note: Optional[str] = None
+    # Model overrides (None = use default based on cheap_mode)
+    research_model: Optional[str] = None   # OpenAI model for research phases
+    claude_model: Optional[str] = None     # Claude model for review
+    gemini_model: Optional[str] = None     # Gemini model for review
+    grok_model: Optional[str] = None       # Grok model for review
 
 
 class RunRequest(BaseModel):

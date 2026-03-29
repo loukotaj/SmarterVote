@@ -123,7 +123,7 @@
       </div>
       <div class="model-label">
         <span>Analysis by:</span>
-        {#each race.generator as model}
+        {#each (race.generator ?? []) as model}
           <span class="model-tag">{model}</span>
         {/each}
       </div>

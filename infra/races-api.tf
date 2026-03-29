@@ -9,7 +9,7 @@ resource "google_cloud_run_v2_service" "races_api" {
       image = "${var.region}-docker.pkg.dev/${var.project_id}/smartervote-${var.environment}/races-api:latest"
 
       env {
-        name  = "BUCKET_NAME"
+        name  = "GCS_BUCKET_NAME"
         value = google_storage_bucket.sv_data.name
       }
 
@@ -20,12 +20,7 @@ resource "google_cloud_run_v2_service" "races_api" {
 
       env {
         name  = "DATA_DIR"
-        value = "/app/data"
-      }
-
-      env {
-        name  = "PUBLISHED_DATA_PATH"
-        value = "published/"
+        value = "/app/data/published/"
       }
 
       env {

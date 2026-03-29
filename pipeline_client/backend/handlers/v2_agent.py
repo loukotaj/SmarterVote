@@ -25,8 +25,12 @@ class V2AgentHandler:
             - race_id: str (e.g. "mo-senate-2024")
 
         Options:
-            - cheap_mode: bool (default True, uses gpt-4o-mini)
-            - enable_review: bool (default False, send to Claude/Gemini)
+            - cheap_mode: bool (default True, uses cheaper model variants)
+            - enable_review: bool (default False, send to Claude/Gemini/Grok)
+            - research_model: str (override OpenAI research model)
+            - claude_model: str (override Claude review model)
+            - gemini_model: str (override Gemini review model)
+            - grok_model: str (override Grok review model)
 
         Returns:
             dict with race_id, race_json, published_path, duration_ms
@@ -62,6 +66,10 @@ class V2AgentHandler:
             on_log=on_log,
             cheap_mode=cheap_mode,
             enable_review=enable_review,
+            research_model=options.get("research_model"),
+            claude_model=options.get("claude_model"),
+            gemini_model=options.get("gemini_model"),
+            grok_model=options.get("grok_model"),
         )
 
         # Publish to local filesystem
@@ -81,7 +89,7 @@ class V2AgentHandler:
 
     async def _publish(self, race_id: str, race_json: Dict[str, Any]) -> Path:
         """Write RaceJSON to the published data directory."""
-        published_dir = Path(__file__).resolve().parents[2] / "data" / "published"
+        published_dir = Path(__file__).resolve().parents[3] / "data" / "published"
         published_dir.mkdir(parents=True, exist_ok=True)
 
         output_path = published_dir / f"{race_id}.json"

@@ -160,6 +160,11 @@ export interface RunOptions {
   save_artifact?: boolean;
   note?: string;
   enable_review?: boolean;
+  cheap_mode?: boolean;
+  research_model?: string;
+  claude_model?: string;
+  gemini_model?: string;
+  grok_model?: string;
 }
 
 export interface RunStep {

@@ -1,4 +1,4 @@
-FROM python:3.9-slim
+FROM python:3.10-slim
 
 WORKDIR /app
 
@@ -6,6 +6,9 @@ COPY services/races-api/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY services/races-api/main.py .
+COPY services/races-api/config.py .
+COPY services/races-api/constants.py .
+COPY services/races-api/schemas.py .
 COPY services/races-api/simple_publish_service.py .
 COPY shared /app/shared
 COPY data/published /app/data/published
@@ -15,4 +18,4 @@ ENV PYTHONUNBUFFERED=1 \
 
 EXPOSE 8080
 
-CMD ["python", "main.py"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]

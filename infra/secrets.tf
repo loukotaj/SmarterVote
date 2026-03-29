@@ -33,6 +33,61 @@ resource "google_secret_manager_secret_version" "serper_key" {
   secret_data = var.serper_api_key
 }
 
+# Optional review provider secrets
+resource "google_secret_manager_secret" "anthropic_key" {
+  count     = var.enable_pipeline_client ? 1 : 0
+  project   = var.project_id
+  secret_id = "anthropic-api-key-${var.environment}"
+
+  replication {
+    auto {}
+  }
+
+  depends_on = [google_project_service.apis]
+}
+
+resource "google_secret_manager_secret_version" "anthropic_key" {
+  count       = var.enable_pipeline_client && var.anthropic_api_key != "" ? 1 : 0
+  secret      = google_secret_manager_secret.anthropic_key[0].id
+  secret_data = var.anthropic_api_key
+}
+
+resource "google_secret_manager_secret" "gemini_key" {
+  count     = var.enable_pipeline_client ? 1 : 0
+  project   = var.project_id
+  secret_id = "gemini-api-key-${var.environment}"
+
+  replication {
+    auto {}
+  }
+
+  depends_on = [google_project_service.apis]
+}
+
+resource "google_secret_manager_secret_version" "gemini_key" {
+  count       = var.enable_pipeline_client && var.gemini_api_key != "" ? 1 : 0
+  secret      = google_secret_manager_secret.gemini_key[0].id
+  secret_data = var.gemini_api_key
+}
+
+resource "google_secret_manager_secret" "xai_key" {
+  count     = var.enable_pipeline_client ? 1 : 0
+  project   = var.project_id
+  secret_id = "xai-api-key-${var.environment}"
+
+  replication {
+    auto {}
+  }
+
+  depends_on = [google_project_service.apis]
+}
+
+resource "google_secret_manager_secret_version" "xai_key" {
+  count       = var.enable_pipeline_client && var.xai_api_key != "" ? 1 : 0
+  secret      = google_secret_manager_secret.xai_key[0].id
+  secret_data = var.xai_api_key
+}
+
 # Service accounts for the same project
 resource "google_service_account" "race_worker" {
   count        = var.enable_pipeline_client ? 1 : 0

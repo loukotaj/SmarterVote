@@ -6,6 +6,11 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Any, Dict, List
 
+from dotenv import load_dotenv
+
+# Load .env from project root so agent can read API keys via os.environ
+load_dotenv(dotenv_path=Path(__file__).resolve().parents[2] / ".env")
+
 import httpx
 from fastapi import Depends, FastAPI, HTTPException, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware

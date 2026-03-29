@@ -56,30 +56,29 @@ Write-Host ""
 Write-Host "Starting services..." -ForegroundColor Yellow
 
 # Set common environment
-$env:PYTHONPATH = $PWD
+$projectRoot = $PWD.Path
+$env:PYTHONPATH = $projectRoot
+$pythonExe = Join-Path $projectRoot ".venv\Scripts\python.exe"
 
 # Start Pipeline Client API (port 8001)
 $pipelineJob = Start-Job -ScriptBlock {
-    Set-Location $using:PWD
-    $env:PYTHONPATH = $using:PWD
-    Set-Location "pipeline_client"
-    & "$using:PWD\.venv\Scripts\python.exe" -m uvicorn backend.main:app --host 127.0.0.1 --port 8001 --reload
+    Set-Location $using:projectRoot
+    $env:PYTHONPATH = $using:projectRoot
+    & $using:pythonExe -m uvicorn pipeline_client.backend.main:app --host 127.0.0.1 --port 8001 --reload
 }
 
 # Start Races API (port 8080)
 $apiJob = Start-Job -ScriptBlock {
-    Set-Location $using:PWD
-    $env:PYTHONPATH = $using:PWD
-    Set-Location "services\races-api"
-    & "$using:PWD\.venv\Scripts\python.exe" -m uvicorn main:app --host 127.0.0.1 --port 8080 --reload
+    Set-Location (Join-Path $using:projectRoot "services\races-api")
+    $env:PYTHONPATH = $using:projectRoot
+    & $using:pythonExe -m uvicorn main:app --host 127.0.0.1 --port 8080 --reload
 }
 
 # Function to start web frontend
 $webJob = Start-Job -ScriptBlock {
-    Set-Location $using:PWD
-    Set-Location "web"
+    Set-Location (Join-Path $using:projectRoot "web")
     npm install --silent 2>$null
-    npm run dev -- --host
+    npx vite dev --port 5173 --host
 }
 
 # Wait for services to start
