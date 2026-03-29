@@ -490,7 +490,7 @@ async def run_agent(
     on_log : callable, optional
         ``(level, message) -> None`` callback for streaming logs.
     cheap_mode : bool
-        When *True*, use cheaper/faster model variants (``gpt-5-mini`` instead of ``gpt-5.4``).
+        When *True*, use cheaper/faster model variants (``gpt-5.4-mini`` instead of ``gpt-5.4``).
     max_iterations : int
         Safety limit on each phase's tool-call loop.
     existing_data : dict, optional

@@ -260,7 +260,7 @@ async def test_agent_loop_produces_json():
     response = {"choices": [{"message": {"content": json.dumps({"result": "ok"})}}]}
     with patch("pipeline_client.agent.agent._call_openai", new_callable=AsyncMock) as mock:
         mock.return_value = response
-        result = await _agent_loop("system", "user", model="gpt-5-mini", phase_name="test")
+        result = await _agent_loop("system", "user", model="gpt-5.4-mini", phase_name="test")
     assert result == {"result": "ok"}
 
 
@@ -294,7 +294,7 @@ async def test_agent_loop_handles_tool_calls():
         mock_call.side_effect = [tool_response, final_response]
         mock_search.return_value = [{"title": "Test", "snippet": "...", "url": "https://test.com"}]
 
-        result = await _agent_loop("system", "user", model="gpt-5-mini", phase_name="test")
+        result = await _agent_loop("system", "user", model="gpt-5.4-mini", phase_name="test")
 
     assert result == {"done": True}
     assert mock_search.call_count == 1
@@ -337,7 +337,7 @@ async def test_agent_loop_handles_multiple_tool_calls():
         mock_call.side_effect = [tool_response, final_response]
         mock_search.return_value = [{"title": "R", "snippet": "...", "url": "https://r.com"}]
 
-        result = await _agent_loop("system", "user", model="gpt-5-mini", phase_name="test")
+        result = await _agent_loop("system", "user", model="gpt-5.4-mini", phase_name="test")
 
     assert result == {"done": True}
     assert mock_search.call_count == 2
@@ -351,7 +351,7 @@ async def test_agent_loop_retries_bad_json():
 
     with patch("pipeline_client.agent.agent._call_openai", new_callable=AsyncMock) as mock:
         mock.side_effect = [bad, good]
-        result = await _agent_loop("system", "user", model="gpt-5-mini", phase_name="test")
+        result = await _agent_loop("system", "user", model="gpt-5.4-mini", phase_name="test")
 
     assert result == {"ok": True}
     assert mock.call_count == 2
@@ -366,7 +366,10 @@ async def test_agent_loop_raises_on_max_iterations():
         mock.return_value = bad
         with pytest.raises(RuntimeError, match="did not produce output"):
             await _agent_loop(
-                "system", "user", model="gpt-5-mini", phase_name="test",
+                "system",
+                "user",
+                model="gpt-5.4-mini",
+                phase_name="test",
                 max_iterations=2,
             )
 
@@ -402,7 +405,10 @@ async def test_agent_loop_passes_race_id_to_search():
         mock_search.return_value = []
 
         await _agent_loop(
-            "system", "user", model="gpt-5-mini", phase_name="test",
+            "system",
+            "user",
+            model="gpt-5.4-mini",
+            phase_name="test",
             race_id="my-race-2024",
         )
 
@@ -524,7 +530,7 @@ async def test_run_agent_fresh():
 
     assert result["id"] == "test-2024"
     assert "updated_utc" in result
-    assert result["generator"] == ["gpt-5-mini"]
+    assert result["generator"] == ["gpt-5.4-mini"]
     # discovery + image resolution + 6 issue groups + refine = 9
     assert mock_loop.call_count == 9
 
@@ -601,7 +607,7 @@ async def test_run_agent_normalizes_output():
 
     assert result["id"] == "race-2024"
     assert "updated_utc" in result
-    assert result["generator"] == ["gpt-5-mini"]
+    assert result["generator"] == ["gpt-5.4-mini"]
 
 
 @pytest.mark.asyncio
@@ -671,10 +677,10 @@ async def test_run_agent_adds_donor_source_timestamps():
 
 @pytest.mark.asyncio
 async def test_run_agent_model_selection():
-    """run_agent selects gpt-5-mini in cheap mode and gpt-5.4 otherwise."""
+    """run_agent selects gpt-5.4-mini in cheap mode and gpt-5.4 otherwise."""
     discovery_result = {"id": "m-2024", "candidates": []}
 
-    for cheap_mode, expected_model in [(True, "gpt-5-mini"), (False, "gpt-5.4")]:
+    for cheap_mode, expected_model in [(True, "gpt-5.4-mini"), (False, "gpt-5.4")]:
         with (
             patch("pipeline_client.agent.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
             patch("pipeline_client.agent.agent._load_existing", return_value=None),

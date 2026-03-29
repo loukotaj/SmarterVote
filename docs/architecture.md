@@ -80,11 +80,11 @@ web/                      # SvelteKit frontend
 
 | Mode | Model | Use Case |
 |------|-------|----------|
-| Cheap (default) | gpt-5-mini | Fast, low-cost research |
+| Cheap (default) | gpt-5.4-mini | Fast, low-cost research |
 | Standard | gpt-5.4 | Higher quality research |
 
 **Configuration**:
-- `SMARTERVOTE_CHEAP_MODE=true` (default) — Use gpt-5-mini
+- `SMARTERVOTE_CHEAP_MODE=true` (default) — Use gpt-5.4-mini
 - Set to `false` for gpt-5.4
 
 ## Confidence Levels

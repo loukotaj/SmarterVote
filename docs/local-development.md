@@ -162,7 +162,7 @@ When triggering a run, the `options` object supports:
 
 | Phase | Cheap Mode (default) | Full Mode |
 |-------|---------------------|----------|
-| Research (OpenAI) | gpt-5-mini | gpt-5.4 |
+| Research (OpenAI) | gpt-5.4-mini | gpt-5.4 |
 | Review: Claude | claude-haiku-4-20250514 | claude-sonnet-4-6 |
 | Review: Gemini | gemini-3.0-flash-lite | gemini-3.0-flash |
 | Review: Grok | grok-3-mini | grok-3 |
