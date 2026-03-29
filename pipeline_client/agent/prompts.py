@@ -46,7 +46,9 @@ RULES (apply to every response):
    - "medium": Single credible source
    - "low": Inferred or unverified
 4. Always include source URLs for every claim.
-5. Return ONLY valid JSON – no markdown fences, no extra text."""
+5. voting_record entries MUST use field names "bill_name" and "vote".
+   "vote" MUST be exactly one of: "yes", "no", "abstain", "absent" — never free text like "voted against".
+6. Return ONLY valid JSON – no markdown fences, no extra text."""
 
 _DONOR_SCHEMA_NOTE = """\
 For top_donors, include up to 3-5 major donors when credible finance data is available.
