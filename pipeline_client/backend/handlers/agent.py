@@ -7,10 +7,36 @@ the pipeline_client execution engine, storage, and logging.
 import json
 import logging
 import os
+import re
 import time
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict
+
+# Maps log message patterns → (progress %, label).
+# Checked in order — first match wins.
+_PROGRESS_PATTERNS: list[tuple[re.Pattern, int, str]] = [
+    (re.compile(r"Phase 1/3|Phase 1b/3|Discovering race"),         5,  "Discovering race & candidates..."),
+    (re.compile(r"Verifying and resolving candidate image"),        10, "Verifying candidate images..."),
+    (re.compile(r"Phase 2/3|Researching issues"),                   15, "Researching issues..."),
+    (re.compile(r"Issue group 1/"),                                 20, "Issues: group 1/6..."),
+    (re.compile(r"Issue group 2/"),                                 30, "Issues: group 2/6..."),
+    (re.compile(r"Issue group 3/"),                                 40, "Issues: group 3/6..."),
+    (re.compile(r"Issue group 4/"),                                 50, "Issues: group 4/6..."),
+    (re.compile(r"Issue group 5/"),                                 58, "Issues: group 5/6..."),
+    (re.compile(r"Issue group 6/"),                                 65, "Issues: group 6/6..."),
+    (re.compile(r"Phase 3/3|Refining and validating"),             72, "Refining & validating..."),
+    (re.compile(r"Phase 4:|Sending to review agents"),             82, "Sending to review agents..."),
+    (re.compile(r"Phase 5:|Iterating on review feedback"),         90, "Iterating on review feedback..."),
+    (re.compile(r"✅ Agent finished|Agent finished"),              98, "Finalising..."),
+]
+
+
+def _detect_progress(message: str) -> tuple[int, str] | None:
+    for pattern, pct, label in _PROGRESS_PATTERNS:
+        if pattern.search(message):
+            return pct, label
+    return None
 
 
 class AgentHandler:
@@ -53,8 +79,16 @@ class AgentHandler:
         # may be ephemeral, so _load_existing() won't find local files from previous runs).
         existing_data = await self._load_existing_from_gcs(race_id)
 
-        # Collect logs from the agent
+        # Collect logs from the agent and broadcast progress via WebSocket
         agent_logs: list[Dict[str, Any]] = []
+        run_id: str | None = None
+        try:
+            from pipeline_client.backend.pipeline_runner import _safe_broadcast
+            from pipeline_client.backend.run_manager import run_manager
+            active = next(iter(run_manager.list_active_runs()), None)
+            run_id = active.run_id if active else None
+        except Exception:
+            pass
 
         def on_log(level: str, message: str) -> None:
             agent_logs.append(
@@ -64,6 +98,14 @@ class AgentHandler:
                     "timestamp": datetime.now(timezone.utc).isoformat(),
                 }
             )
+            progress_hit = _detect_progress(message)
+            if progress_hit and run_id:
+                pct, label = progress_hit
+                try:
+                    _safe_broadcast({"type": "run_progress", "run_id": run_id, "progress": pct, "message": label})
+                except Exception:
+                    pass
+
 
         # Run the agent
         race_json = await run_agent(

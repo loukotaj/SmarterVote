@@ -99,37 +99,46 @@ class LocalStorageBackend:
 
 
 class GCPStorageBackend:
-    """GCP storage using Firestore and GCS."""
+    """GCP storage using GCS for all data (artifacts, race JSON, and web content)."""
 
     def __init__(self, bucket: str, firestore_project: str | None = None) -> None:
         try:
-            from google.cloud import firestore, storage
+            from google.cloud import storage
         except Exception as e:  # pragma: no cover - import guard
-            raise RuntimeError("google-cloud libraries are required for GCP storage") from e
+            raise RuntimeError("google-cloud-storage is required for GCP storage") from e
 
-        self.firestore_client = firestore.Client(project=firestore_project)
-        self.bucket = storage.Client().bucket(bucket)
+        self._storage_client = storage.Client()
+        self.bucket = self._storage_client.bucket(bucket)
 
     def save_artifact(self, artifact_id: str, data: Dict[str, Any]) -> str:
-        doc = self.firestore_client.collection("artifacts").document(artifact_id)
-        doc.set(data)
-        return f"firestore://{self.firestore_client.project}/artifacts/{artifact_id}"
+        blob = self.bucket.blob(f"artifacts/{artifact_id}.json")
+        blob.upload_from_string(json.dumps(data, indent=2), content_type="application/json")
+        return f"gs://{self.bucket.name}/artifacts/{artifact_id}.json"
 
     def load_artifact(self, artifact_id: str) -> Dict[str, Any]:
-        doc = self.firestore_client.collection("artifacts").document(artifact_id).get()
-        if not doc.exists:
+        blob = self.bucket.blob(f"artifacts/{artifact_id}.json")
+        if not blob.exists():
             raise FileNotFoundError(artifact_id)
-        return doc.to_dict() or {}
+        return json.loads(blob.download_as_text())
 
-    def list_artifacts(self) -> Dict[str, Any]:  # pragma: no cover - simple wrapper
-        docs = list(self.firestore_client.collection("artifacts").stream())
-        items = [{"id": d.id} for d in docs]
+    def list_artifacts(self) -> Dict[str, Any]:
+        blobs = list(self._storage_client.list_blobs(self.bucket.name, prefix="artifacts/"))
+        items = [
+            {
+                "id": b.name.removeprefix("artifacts/").removesuffix(".json"),
+                "path": f"gs://{self.bucket.name}/{b.name}",
+                "size": b.size,
+                "modified": b.updated.timestamp() if b.updated else None,
+            }
+            for b in blobs
+            if b.name.endswith(".json")
+        ]
         return {"count": len(items), "items": items}
 
     def save_race_json(self, race_id: str, data: Dict[str, Any]) -> str:
-        doc = self.firestore_client.collection("races").document(race_id)
-        doc.set(data)
-        return f"firestore://{self.firestore_client.project}/races/{race_id}"
+        blob = self.bucket.blob(f"races/{race_id}.json")
+        blob.upload_from_string(json.dumps(data, indent=2), content_type="application/json")
+        return f"gs://{self.bucket.name}/races/{race_id}.json"
 
     def save_web_content(
         self,

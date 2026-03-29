@@ -114,6 +114,37 @@ jobs:
     - name: Setup Google Cloud SDK
       uses: google-github-actions/setup-gcloud@v2
 
+    - name: Sync API keys to Secret Manager
+      if: env.ACTION == 'apply' || github.event_name != 'workflow_dispatch'
+      env:
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        SERPER_API_KEY: ${{ secrets.SERPER_API_KEY }}
+        ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
+      run: |
+        sync_secret() {
+          local name="$1"
+          local value="$2"
+          if [ -z "$value" ]; then
+            echo "Skipping $name (not set)"
+            return
+          fi
+          # Get the current latest value and compare
+          current=$(gcloud secrets versions access latest --secret="$name" --project=${{ env.PROJECT_ID }} 2>/dev/null || echo "")
+          if [ "$current" = "$value" ]; then
+            echo "$name is already up to date"
+          else
+            echo "Updating $name..."
+            echo -n "$value" | gcloud secrets versions add "$name" --data-file=- --project=${{ env.PROJECT_ID }}
+          fi
+        }
+        sync_secret "openai-api-key-${{ env.ENVIRONMENT }}"   "$OPENAI_API_KEY"
+        sync_secret "serper-api-key-${{ env.ENVIRONMENT }}"   "$SERPER_API_KEY"
+        sync_secret "anthropic-api-key-${{ env.ENVIRONMENT }}" "$ANTHROPIC_API_KEY"
+        sync_secret "gemini-api-key-${{ env.ENVIRONMENT }}"   "$GEMINI_API_KEY"
+        sync_secret "xai-api-key-${{ env.ENVIRONMENT }}"      "$XAI_API_KEY"
+
     - name: Create Terraform variables file
       run: |
         cd infra

@@ -98,12 +98,12 @@
     <p class="summary">
       {expanded
         ? candidate.summary
-        : candidate.summary.slice(0, 150) +
-          (candidate.summary.length > 150 ? "..." : "")}
+        : candidate.summary.slice(0, 300) +
+          (candidate.summary.length > 300 ? "..." : "")}
     </p>
 
-    <!-- Website Link - Only show when expanded -->
-    {#if expanded && candidate.website}
+    <!-- Website Link -->
+    {#if candidate.website}
       <div class="mt-3">
         <a
           href={candidate.website}
@@ -273,21 +273,6 @@
             {raceId}
             candidateName={candidate.name}
           />
-        {/if}
-      </div>
-    </div>
-  {:else}
-    <!-- Condensed Issues Preview -->
-    <div class="issues-preview">
-      <h4 class="section-title">Key Issues Preview</h4>
-      <div class="issues-tags">
-        {#each Object.keys(candidate.issues).slice(0, 4) as issue}
-          <span class="issue-tag">{issue}</span>
-        {/each}
-        {#if Object.keys(candidate.issues).length > 4}
-          <span class="issue-tag more-tag"
-            >+{Object.keys(candidate.issues).length - 4} more</span
-          >
         {/if}
       </div>
     </div>
