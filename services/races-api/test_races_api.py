@@ -35,7 +35,7 @@ def sample_race():
         "jurisdiction": "Missouri",
         "election_date": "2024-11-05",
         "updated_utc": "2024-06-01T12:00:00Z",
-        "generator": ["pipeline-v2-agent"],
+        "generator": ["pipeline-agent"],
         "candidates": [
             {
                 "name": "Jane Doe",

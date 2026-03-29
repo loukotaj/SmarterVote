@@ -1,10 +1,13 @@
 # SmarterVote Development Server Launcher
 # This script starts the pipeline client, races API, and web frontend
 
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+$OutputEncoding = [System.Text.Encoding]::UTF8
+
 Write-Host @"
 
 ╔═══════════════════════════════════════════════════════════════╗
-║              🗳️  SmarterVote Local Development                 ║
+║            SmarterVote Local Development                      ║
 ╚═══════════════════════════════════════════════════════════════╝
 
 "@ -ForegroundColor Cyan
@@ -34,7 +37,7 @@ if (-not (Test-Command "npm")) {
     exit 1
 }
 
-Write-Host "✅ Prerequisites check passed!" -ForegroundColor Green
+Write-Host "OK  Prerequisites check passed!" -ForegroundColor Green
 
 # Check if data files exist
 if (-not (Test-Path "data\published\*.json")) {
@@ -56,39 +59,39 @@ Write-Host ""
 Write-Host "Starting services..." -ForegroundColor Yellow
 
 # Set common environment
-$env:PYTHONPATH = $PWD
+$projectRoot = $PWD.Path
+$env:PYTHONPATH = $projectRoot
+$pythonExe = Join-Path $projectRoot ".venv\Scripts\python.exe"
 
-# Start Pipeline Client API (port 8001)
-$pipelineJob = Start-Job -ScriptBlock {
-    Set-Location $using:PWD
-    $env:PYTHONPATH = $using:PWD
-    Set-Location "pipeline_client"
-    & "$using:PWD\.venv\Scripts\python.exe" -m uvicorn backend.main:app --host 127.0.0.1 --port 8001 --reload
+# Helper: launch a service in a new titled window, return the process handle
+function Start-Service {
+    param([string]$Label, [string]$Command, [string]$WorkDir = $projectRoot)
+    $proc = Start-Process powershell `
+        -ArgumentList "-NoExit", "-Command", $Command `
+        -WorkingDirectory $WorkDir `
+        -PassThru
+    Write-Host "  Started: $Label  (PID $($proc.Id))" -ForegroundColor DarkGreen
+    return $proc
 }
 
-# Start Races API (port 8080)
-$apiJob = Start-Job -ScriptBlock {
-    Set-Location $using:PWD
-    $env:PYTHONPATH = $using:PWD
-    Set-Location "services\races-api"
-    & "$using:PWD\.venv\Scripts\python.exe" -m uvicorn main:app --host 127.0.0.1 --port 8080 --reload
-}
+$pipelineProc = Start-Service "Pipeline API  :8001" `
+    "[Console]::Title='Pipeline API :8001'; [Console]::OutputEncoding=[Text.Encoding]::UTF8; `$env:PYTHONPATH='$projectRoot'; & '$pythonExe' -m uvicorn pipeline_client.backend.main:app --host 127.0.0.1 --port 8001 --reload"
 
-# Function to start web frontend
-$webJob = Start-Job -ScriptBlock {
-    Set-Location $using:PWD
-    Set-Location "web"
-    npm install --silent 2>$null
-    npm run dev -- --host
-}
+$apiProc = Start-Service "Races API     :8080" `
+    "[Console]::Title='Races API :8080'; [Console]::OutputEncoding=[Text.Encoding]::UTF8; `$env:PYTHONPATH='$projectRoot'; & '$pythonExe' -m uvicorn main:app --host 127.0.0.1 --port 8080 --reload" `
+    (Join-Path $projectRoot "services\races-api")
 
-# Wait for services to start
+$webProc = Start-Service "Web Frontend  :5173" `
+    "[Console]::Title='Web Frontend :5173'; npm run dev" `
+    (Join-Path $projectRoot "web")
+
+# Wait briefly for services to bind their ports
 Start-Sleep -Seconds 3
 
 Write-Host @"
 
 ╔═══════════════════════════════════════════════════════════════╗
-║                   🚀 Services Running                         ║
+║                    Services Running                           ║
 ╠═══════════════════════════════════════════════════════════════╣
 ║  Web Dashboard:       http://localhost:5173                   ║
 ║  Pipeline Admin:      http://localhost:5173/admin/pipeline    ║
@@ -100,44 +103,16 @@ Write-Host @"
 
 "@ -ForegroundColor Green
 
-Write-Host "Waiting for services to fully initialize..." -ForegroundColor Yellow
-Write-Host ""
-
 try {
-    # Wait for all jobs to complete or user interruption
-    while ($pipelineJob.State -eq 'Running' -or $apiJob.State -eq 'Running' -or $webJob.State -eq 'Running') {
-        Start-Sleep -Seconds 2
-
-        # Check if any job failed
-        if ($pipelineJob.State -eq 'Failed') {
-            Write-Host "ERROR: Pipeline API failed to start:" -ForegroundColor Red
-            Receive-Job $pipelineJob
-        }
-        if ($apiJob.State -eq 'Failed') {
-            Write-Host "ERROR: Races API failed to start:" -ForegroundColor Red
-            Receive-Job $apiJob
-        }
-        if ($webJob.State -eq 'Failed') {
-            Write-Host "ERROR: Web Frontend failed to start:" -ForegroundColor Red
-            Receive-Job $webJob
-        }
-    }
-} catch {
+    while ($true) { Start-Sleep -Seconds 1 }
+} finally {
     Write-Host ""
     Write-Host "Shutting down services..." -ForegroundColor Yellow
-} finally {
-    # Clean up jobs
-    if ($pipelineJob) {
-        Stop-Job $pipelineJob -ErrorAction SilentlyContinue
-        Remove-Job $pipelineJob -Force -ErrorAction SilentlyContinue
-    }
-    if ($apiJob) {
-        Stop-Job $apiJob -ErrorAction SilentlyContinue
-        Remove-Job $apiJob -Force -ErrorAction SilentlyContinue
-    }
-    if ($webJob) {
-        Stop-Job $webJob -ErrorAction SilentlyContinue
-        Remove-Job $webJob -Force -ErrorAction SilentlyContinue
+    foreach ($proc in @($pipelineProc, $apiProc, $webProc)) {
+        if ($proc -and -not $proc.HasExited) {
+            # /T kills the entire process tree (window + uvicorn/node children)
+            taskkill /F /T /PID $proc.Id 2>$null
+        }
     }
     Write-Host "All services stopped." -ForegroundColor Green
 }

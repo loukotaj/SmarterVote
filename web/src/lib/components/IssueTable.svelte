@@ -10,6 +10,18 @@
 
   $: issueEntries = Object.entries(issues) as [CanonicalIssue, IssueStance][];
   $: hasIssues = issueEntries.length > 0;
+
+  let expandedSources: Set<string> = new Set();
+
+  function toggleSources(issue: string) {
+    const next = new Set(expandedSources);
+    if (next.has(issue)) {
+      next.delete(issue);
+    } else {
+      next.add(issue);
+    }
+    expandedSources = next;
+  }
 </script>
 
 {#if !hasIssues}
@@ -45,13 +57,20 @@
               {#if stance.sources.length > 0}
                 <button
                   class="text-blue-600 hover:text-blue-800 text-sm underline"
-                  title="View {stance.sources.length} source{stance.sources
-                    .length > 1
-                    ? 's'
-                    : ''}"
+                  title="{expandedSources.has(issue) ? 'Hide' : 'View'} {stance.sources.length} source{stance.sources.length > 1 ? 's' : ''}"
+                  on:click={() => toggleSources(issue)}
                 >
-                  View Sources ({stance.sources.length})
+                  {expandedSources.has(issue) ? "Hide" : "View"} Sources ({stance.sources.length})
                 </button>
+                {#if expandedSources.has(issue)}
+                  <div class="mt-2 text-left space-y-1">
+                    {#each stance.sources as source}
+                      <div>
+                        <SourceLink {source} />
+                      </div>
+                    {/each}
+                  </div>
+                {/if}
               {:else}
                 <span class="text-gray-400 text-sm">No sources</span>
               {/if}

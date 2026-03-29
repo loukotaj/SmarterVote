@@ -74,13 +74,13 @@ def get_race_summaries() -> List[RaceSummary]:
     return summaries
 
 
-@app.get("/races/{race_id}", response_model=Race)
-def get_race(race_id: str) -> Race:
+@app.get("/races/{race_id}")
+def get_race(race_id: str):
     """Retrieve race data by ID."""
     race_data = publish_service.get_race_data(race_id)
     if not race_data:
         raise HTTPException(status_code=404, detail="Race not found")
-    return Race(**race_data)
+    return race_data
 
 
 if __name__ == "__main__":

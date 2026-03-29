@@ -9,7 +9,7 @@ SmarterVote uses an AI agent to research U.S. election races, producing structur
 **Agent Phases**: DISCOVER → RESEARCH (×6 issue groups) → REFINE
 
 **Components**:
-- `pipeline_v2/`: Multi-phase AI agent (OpenAI + Serper web search)
+- `pipeline_client/agent/`: Multi-phase AI agent (OpenAI + Serper web search)
 - `pipeline_client/`: Execution engine (FastAPI backend, run manager, storage)
 - `services/races-api/`: API serving published race data
 - `web/`: SvelteKit frontend with pipeline dashboard
@@ -29,7 +29,7 @@ python -m venv .venv
 .venv\Scripts\Activate.ps1
 
 # Install dependencies
-pip install -r pipeline/requirements.txt
+pip install -r requirements.txt
 
 # Copy environment file and add API keys
 copy .env.example .env
@@ -46,7 +46,7 @@ cd pipeline_client
 uvicorn backend.main:app --port 8001
 
 # In another terminal, trigger a research run
-curl -X POST http://localhost:8001/api/v2/run \
+curl -X POST http://localhost:8001/api/run \
   -H "Content-Type: application/json" \
   -d '{"race_id": "mo-senate-2024"}'
 ```
@@ -69,22 +69,22 @@ npm run dev
 ## Project Structure
 
 ```
-pipeline_v2/            # AI research agent
-  agent.py              # Multi-phase agent loop with search caching
-  prompts.py            # Phase-specific prompt templates
-pipeline_client/        # Execution engine
+pipeline_client/            # Agent + execution engine
+  agent/
+    agent.py                # Multi-phase research agent with search caching
+    prompts.py              # Phase-specific prompt templates
+    search_cache.py         # SQLite search result cache
   backend/
-    handlers/v2_agent.py  # Agent step handler
-    main.py               # FastAPI endpoints
-    pipeline_runner.py    # Step execution + logging
-    step_registry.py      # Handler registry
-pipeline_v2/            # AI agent (prompts, search cache, LLM calls)
-services/races-api/     # REST API for race data
-shared/                 # Pydantic models shared across components
-web/                    # SvelteKit frontend
-infra/                  # Terraform infrastructure (disabled by default)
-data/published/         # Output JSON files
-data/cache/             # SQLite search cache
+    handlers/agent.py       # Agent step handler
+    main.py                 # FastAPI endpoints
+    pipeline_runner.py      # Step execution + logging
+    step_registry.py        # Handler registry
+services/races-api/         # REST API for race data
+shared/                     # Pydantic models shared across components
+web/                        # SvelteKit frontend
+infra/                      # Terraform infrastructure (disabled by default)
+data/published/             # Output JSON files
+data/cache/                 # SQLite search cache
 ```
 
 ## Key Concepts

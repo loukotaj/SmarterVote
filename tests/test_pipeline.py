@@ -22,15 +22,8 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
-from pipeline_v2.agent import (
-    _extract_json,
-    _load_existing,
-    _serper_search,
-    run_agent,
-    _agent_loop,
-    SEARCH_TOOL,
-)
-from pipeline_v2.prompts import (
+from pipeline_client.agent.agent import SEARCH_TOOL, _agent_loop, _extract_json, _load_existing, _serper_search, run_agent
+from pipeline_client.agent.prompts import (
     CANONICAL_ISSUES,
     DISCOVERY_SYSTEM,
     DISCOVERY_USER,
@@ -42,7 +35,6 @@ from pipeline_v2.prompts import (
     UPDATE_SYSTEM,
     UPDATE_USER,
 )
-
 
 # ---------------------------------------------------------------------------
 # Prompt tests
@@ -121,6 +113,34 @@ def test_update_user_formats():
     )
     assert "mo-senate-2024" in result
     assert "2024-01-01" in result
+
+
+def test_discovery_prompt_mentions_donor_sources():
+    """Discovery prompt tells the model to include donor sources."""
+    result = DISCOVERY_USER.format(race_id="mo-senate-2024")
+    assert "top_donors" in result
+    assert '"source": {"url": "<url>"' in result
+
+
+def test_refine_prompt_mentions_donor_sources():
+    """Refine prompt requires source objects on donor entries."""
+    result = REFINE_USER.format(
+        race_id="mo-senate-2024",
+        draft_json='{"id": "test"}',
+        all_issues="Healthcare, Economy",
+    )
+    assert "source object on every donor entry" in result
+
+
+def test_update_prompt_mentions_donor_sources():
+    """Update prompt requires donor source objects during reruns."""
+    result = UPDATE_USER.format(
+        race_id="mo-senate-2024",
+        existing_json='{"id": "test"}',
+        last_updated="2024-01-01T00:00:00Z",
+    )
+    assert "top_donors" in result
+    assert "source object on every donor item" in result
 
 
 def test_prompts_contain_rules():
@@ -230,21 +250,17 @@ FAKE_RACE_JSON = {
         }
     ],
     "updated_utc": "2024-01-01T00:00:00Z",
-    "generator": ["pipeline-v2-agent"],
+    "generator": ["pipeline-agent"],
 }
 
 
 @pytest.mark.asyncio
 async def test_agent_loop_produces_json():
     """_agent_loop returns parsed JSON when model gives a direct answer."""
-    response = {
-        "choices": [{"message": {"content": json.dumps({"result": "ok"})}}]
-    }
-    with patch("pipeline_v2.agent._call_openai", new_callable=AsyncMock) as mock:
+    response = {"choices": [{"message": {"content": json.dumps({"result": "ok"})}}]}
+    with patch("pipeline_client.agent.agent._call_openai", new_callable=AsyncMock) as mock:
         mock.return_value = response
-        result = await _agent_loop(
-            "system", "user", model="gpt-5-mini", phase_name="test"
-        )
+        result = await _agent_loop("system", "user", model="gpt-5-mini", phase_name="test")
     assert result == {"result": "ok"}
 
 
@@ -269,20 +285,16 @@ async def test_agent_loop_handles_tool_calls():
             }
         ]
     }
-    final_response = {
-        "choices": [{"message": {"content": json.dumps({"done": True})}}]
-    }
+    final_response = {"choices": [{"message": {"content": json.dumps({"done": True})}}]}
 
     with (
-        patch("pipeline_v2.agent._call_openai", new_callable=AsyncMock) as mock_call,
-        patch("pipeline_v2.agent._serper_search", new_callable=AsyncMock) as mock_search,
+        patch("pipeline_client.agent.agent._call_openai", new_callable=AsyncMock) as mock_call,
+        patch("pipeline_client.agent.agent._serper_search", new_callable=AsyncMock) as mock_search,
     ):
         mock_call.side_effect = [tool_response, final_response]
         mock_search.return_value = [{"title": "Test", "snippet": "...", "url": "https://test.com"}]
 
-        result = await _agent_loop(
-            "system", "user", model="gpt-5-mini", phase_name="test"
-        )
+        result = await _agent_loop("system", "user", model="gpt-5-mini", phase_name="test")
 
     assert result == {"done": True}
     assert mock_search.call_count == 1
@@ -316,20 +328,16 @@ async def test_agent_loop_handles_multiple_tool_calls():
             }
         ]
     }
-    final_response = {
-        "choices": [{"message": {"content": json.dumps({"done": True})}}]
-    }
+    final_response = {"choices": [{"message": {"content": json.dumps({"done": True})}}]}
 
     with (
-        patch("pipeline_v2.agent._call_openai", new_callable=AsyncMock) as mock_call,
-        patch("pipeline_v2.agent._serper_search", new_callable=AsyncMock) as mock_search,
+        patch("pipeline_client.agent.agent._call_openai", new_callable=AsyncMock) as mock_call,
+        patch("pipeline_client.agent.agent._serper_search", new_callable=AsyncMock) as mock_search,
     ):
         mock_call.side_effect = [tool_response, final_response]
         mock_search.return_value = [{"title": "R", "snippet": "...", "url": "https://r.com"}]
 
-        result = await _agent_loop(
-            "system", "user", model="gpt-5-mini", phase_name="test"
-        )
+        result = await _agent_loop("system", "user", model="gpt-5-mini", phase_name="test")
 
     assert result == {"done": True}
     assert mock_search.call_count == 2
@@ -341,11 +349,9 @@ async def test_agent_loop_retries_bad_json():
     bad = {"choices": [{"message": {"content": "not json"}}]}
     good = {"choices": [{"message": {"content": json.dumps({"ok": True})}}]}
 
-    with patch("pipeline_v2.agent._call_openai", new_callable=AsyncMock) as mock:
+    with patch("pipeline_client.agent.agent._call_openai", new_callable=AsyncMock) as mock:
         mock.side_effect = [bad, good]
-        result = await _agent_loop(
-            "system", "user", model="gpt-5-mini", phase_name="test"
-        )
+        result = await _agent_loop("system", "user", model="gpt-5-mini", phase_name="test")
 
     assert result == {"ok": True}
     assert mock.call_count == 2
@@ -356,7 +362,7 @@ async def test_agent_loop_raises_on_max_iterations():
     """_agent_loop raises RuntimeError when max iterations reached."""
     bad = {"choices": [{"message": {"content": "still not json"}}]}
 
-    with patch("pipeline_v2.agent._call_openai", new_callable=AsyncMock) as mock:
+    with patch("pipeline_client.agent.agent._call_openai", new_callable=AsyncMock) as mock:
         mock.return_value = bad
         with pytest.raises(RuntimeError, match="did not produce output"):
             await _agent_loop(
@@ -386,13 +392,11 @@ async def test_agent_loop_passes_race_id_to_search():
             }
         ]
     }
-    final_response = {
-        "choices": [{"message": {"content": json.dumps({"ok": True})}}]
-    }
+    final_response = {"choices": [{"message": {"content": json.dumps({"ok": True})}}]}
 
     with (
-        patch("pipeline_v2.agent._call_openai", new_callable=AsyncMock) as mock_call,
-        patch("pipeline_v2.agent._serper_search", new_callable=AsyncMock) as mock_search,
+        patch("pipeline_client.agent.agent._call_openai", new_callable=AsyncMock) as mock_call,
+        patch("pipeline_client.agent.agent._serper_search", new_callable=AsyncMock) as mock_search,
     ):
         mock_call.side_effect = [tool_response, final_response]
         mock_search.return_value = []
@@ -417,7 +421,7 @@ async def test_serper_search_no_api_key():
     env.pop("SERPER_API_KEY", None)
     with (
         patch.dict(os.environ, env, clear=True),
-        patch("pipeline_v2.agent._get_search_cache", return_value=None),
+        patch("pipeline_client.agent.agent._get_search_cache", return_value=None),
     ):
         results = await _serper_search("test query")
     assert len(results) == 1
@@ -430,7 +434,7 @@ async def test_serper_search_uses_cache():
     mock_cache = MagicMock()
     mock_cache.get.return_value = {"results": [{"title": "Cached", "snippet": "...", "url": "https://cached.com"}]}
 
-    with patch("pipeline_v2.agent._get_search_cache", return_value=mock_cache):
+    with patch("pipeline_client.agent.agent._get_search_cache", return_value=mock_cache):
         results = await _serper_search("test query", race_id="my-race")
 
     assert results == [{"title": "Cached", "snippet": "...", "url": "https://cached.com"}]
@@ -500,8 +504,8 @@ async def test_run_agent_fresh():
     }
 
     with (
-        patch("pipeline_v2.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
-        patch("pipeline_v2.agent._load_existing", return_value=None),
+        patch("pipeline_client.agent.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.agent._load_existing", return_value=None),
     ):
         # discovery, 6 issue groups, refine = 8 total calls
         mock_loop.side_effect = [
@@ -519,7 +523,7 @@ async def test_run_agent_fresh():
 
     assert result["id"] == "test-2024"
     assert "updated_utc" in result
-    assert result["generator"] == ["pipeline-v2-agent"]
+    assert result["generator"] == ["pipeline-agent"]
     # discovery + 6 issue groups + refine = 8
     assert mock_loop.call_count == 8
 
@@ -533,8 +537,8 @@ async def test_run_agent_fresh_no_candidates():
     }
 
     with (
-        patch("pipeline_v2.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
-        patch("pipeline_v2.agent._load_existing", return_value=None),
+        patch("pipeline_client.agent.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.agent._load_existing", return_value=None),
     ):
         mock_loop.return_value = discovery_result
         result = await run_agent("empty-2024", cheap_mode=True)
@@ -552,8 +556,8 @@ async def test_run_agent_update_mode():
     updated = {"id": "test-2024", "candidates": [{"name": "Bob", "issues": {}}]}
 
     with (
-        patch("pipeline_v2.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
-        patch("pipeline_v2.agent._load_existing", return_value=existing),
+        patch("pipeline_client.agent.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.agent._load_existing", return_value=existing),
     ):
         mock_loop.return_value = updated
         result = await run_agent("test-2024", cheap_mode=True)
@@ -572,8 +576,8 @@ async def test_run_agent_force_fresh_with_empty_dict():
     }
 
     with (
-        patch("pipeline_v2.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
-        patch("pipeline_v2.agent._load_existing", return_value=None),
+        patch("pipeline_client.agent.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.agent._load_existing", return_value=None),
     ):
         mock_loop.return_value = discovery_result
         result = await run_agent("test-2024", cheap_mode=True, existing_data={})
@@ -588,15 +592,15 @@ async def test_run_agent_normalizes_output():
     minimal = {"candidates": []}
 
     with (
-        patch("pipeline_v2.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
-        patch("pipeline_v2.agent._load_existing", return_value=None),
+        patch("pipeline_client.agent.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.agent._load_existing", return_value=None),
     ):
         mock_loop.return_value = minimal
         result = await run_agent("race-2024", cheap_mode=True, existing_data={})
 
     assert result["id"] == "race-2024"
     assert "updated_utc" in result
-    assert result["generator"] == ["pipeline-v2-agent"]
+    assert result["generator"] == ["pipeline-agent"]
 
 
 @pytest.mark.asyncio
@@ -611,9 +615,7 @@ async def test_run_agent_adds_source_timestamps():
                     "Healthcare": {
                         "stance": "Supports ACA.",
                         "confidence": "high",
-                        "sources": [
-                            {"url": "https://example.com", "type": "news", "title": "Article"}
-                        ],
+                        "sources": [{"url": "https://example.com", "type": "news", "title": "Article"}],
                     }
                 },
             }
@@ -621,8 +623,8 @@ async def test_run_agent_adds_source_timestamps():
     }
 
     with (
-        patch("pipeline_v2.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
-        patch("pipeline_v2.agent._load_existing", return_value=None),
+        patch("pipeline_client.agent.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.agent._load_existing", return_value=None),
     ):
         mock_loop.return_value = discovery_result
         result = await run_agent("ts-2024", cheap_mode=True, existing_data={})
@@ -632,14 +634,49 @@ async def test_run_agent_adds_source_timestamps():
 
 
 @pytest.mark.asyncio
+async def test_run_agent_adds_donor_source_timestamps():
+    """run_agent adds last_accessed to donor sources that lack it."""
+    discovery_result = {
+        "id": "donors-2024",
+        "candidates": [
+            {
+                "name": "Alice",
+                "issues": {},
+                "top_donors": [
+                    {
+                        "name": "Example PAC",
+                        "amount": 5000,
+                        "source": {
+                            "url": "https://example.com/donors",
+                            "type": "news",
+                            "title": "Donor report",
+                        },
+                    }
+                ],
+            }
+        ],
+    }
+
+    with (
+        patch("pipeline_client.agent.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.agent._load_existing", return_value=None),
+    ):
+        mock_loop.return_value = discovery_result
+        result = await run_agent("donors-2024", cheap_mode=True, existing_data={})
+
+    donor_source = result["candidates"][0]["top_donors"][0]["source"]
+    assert "last_accessed" in donor_source
+
+
+@pytest.mark.asyncio
 async def test_run_agent_model_selection():
     """run_agent selects gpt-5-mini in cheap mode and gpt-5.4 otherwise."""
     discovery_result = {"id": "m-2024", "candidates": []}
 
     for cheap_mode, expected_model in [(True, "gpt-5-mini"), (False, "gpt-5.4")]:
         with (
-            patch("pipeline_v2.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
-            patch("pipeline_v2.agent._load_existing", return_value=None),
+            patch("pipeline_client.agent.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
+            patch("pipeline_client.agent.agent._load_existing", return_value=None),
         ):
             mock_loop.return_value = discovery_result
             await run_agent("m-2024", cheap_mode=cheap_mode, existing_data={})
@@ -659,8 +696,8 @@ async def test_run_agent_on_log_callback():
         log_messages.append((level, msg))
 
     with (
-        patch("pipeline_v2.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
-        patch("pipeline_v2.agent._load_existing", return_value=None),
+        patch("pipeline_client.agent.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.agent._load_existing", return_value=None),
     ):
         mock_loop.return_value = discovery_result
         await run_agent("log-2024", cheap_mode=True, existing_data={}, on_log=on_log)
@@ -678,24 +715,24 @@ async def test_run_agent_on_log_callback():
 
 @pytest.mark.asyncio
 async def test_v2_handler_raises_on_missing_race_id():
-    """V2AgentHandler raises ValueError when race_id is missing."""
-    from pipeline_client.backend.handlers.v2_agent import V2AgentHandler
+    """AgentHandler raises ValueError when race_id is missing."""
+    from pipeline_client.backend.handlers.agent import AgentHandler
 
-    handler = V2AgentHandler()
+    handler = AgentHandler()
     with pytest.raises(ValueError, match="Missing 'race_id'"):
         await handler.handle({}, {})
 
 
 @pytest.mark.asyncio
 async def test_v2_handler_runs_agent_and_publishes():
-    """V2AgentHandler calls run_agent and publishes the result."""
-    from pipeline_client.backend.handlers.v2_agent import V2AgentHandler
+    """AgentHandler calls run_agent and publishes the result."""
+    from pipeline_client.backend.handlers.agent import AgentHandler
 
-    handler = V2AgentHandler()
+    handler = AgentHandler()
     fake_result = {"id": "test-race", "candidates": []}
 
     with (
-        patch("pipeline_v2.agent.run_agent", new_callable=AsyncMock) as mock_agent,
+        patch("pipeline_client.agent.agent.run_agent", new_callable=AsyncMock) as mock_agent,
         patch.object(handler, "_publish", new_callable=AsyncMock) as mock_publish,
     ):
         mock_agent.return_value = fake_result
@@ -718,7 +755,7 @@ async def test_v2_handler_runs_agent_and_publishes():
 
 def test_review_prompt_exists():
     """Review prompts are defined and contain expected content."""
-    from pipeline_v2.prompts import REVIEW_SYSTEM, REVIEW_USER
+    from pipeline_client.agent.prompts import REVIEW_SYSTEM, REVIEW_USER
 
     assert "fact-checking" in REVIEW_SYSTEM.lower()
     assert "{race_id}" in REVIEW_USER
@@ -749,15 +786,7 @@ def test_refine_prompt_asks_for_image():
 
 def test_shared_models_have_new_fields():
     """shared/models.py has CareerEntry, EducationEntry, VotingRecord, AgentReview."""
-    from shared.models import (
-        CareerEntry,
-        EducationEntry,
-        VotingRecord,
-        AgentReview,
-        ReviewFlag,
-        Candidate,
-        RaceJSON,
-    )
+    from shared.models import AgentReview, Candidate, CareerEntry, EducationEntry, RaceJSON, ReviewFlag, VotingRecord
 
     # CareerEntry
     entry = CareerEntry(title="Senator")
@@ -816,8 +845,8 @@ async def test_run_agent_normalizes_new_fields():
     }
 
     with (
-        patch("pipeline_v2.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
-        patch("pipeline_v2.agent._load_existing", return_value=None),
+        patch("pipeline_client.agent.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.agent._load_existing", return_value=None),
     ):
         mock_loop.return_value = discovery_result
         result = await run_agent("new-fields-2024", cheap_mode=True, existing_data={})
@@ -827,6 +856,7 @@ async def test_run_agent_normalizes_new_fields():
     assert candidate["career_history"] == []
     assert candidate["education"] == []
     assert candidate["voting_record"] == []
+    assert candidate["top_donors"] == []
 
 
 @pytest.mark.asyncio
@@ -835,8 +865,8 @@ async def test_run_agent_enable_review_false():
     discovery_result = {"id": "no-review-2024", "candidates": []}
 
     with (
-        patch("pipeline_v2.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
-        patch("pipeline_v2.agent._load_existing", return_value=None),
+        patch("pipeline_client.agent.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.agent._load_existing", return_value=None),
     ):
         mock_loop.return_value = discovery_result
         result = await run_agent("no-review-2024", cheap_mode=True, existing_data={}, enable_review=False)
@@ -854,8 +884,8 @@ async def test_run_agent_enable_review_skips_without_keys():
     env.pop("GEMINI_API_KEY", None)
 
     with (
-        patch("pipeline_v2.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
-        patch("pipeline_v2.agent._load_existing", return_value=None),
+        patch("pipeline_client.agent.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.agent._load_existing", return_value=None),
         patch.dict(os.environ, env, clear=True),
     ):
         mock_loop.return_value = discovery_result
@@ -868,16 +898,18 @@ async def test_run_agent_enable_review_skips_without_keys():
 @pytest.mark.asyncio
 async def test_run_single_review_claude():
     """_run_single_review with claude returns structured review."""
-    from pipeline_v2.agent import _run_single_review, DEFAULT_CLAUDE_MODEL
+    from pipeline_client.agent.agent import DEFAULT_CLAUDE_MODEL, _run_single_review
 
-    review_response = json.dumps({
-        "verdict": "approved",
-        "summary": "Looks good.",
-        "flags": [],
-    })
+    review_response = json.dumps(
+        {
+            "verdict": "approved",
+            "summary": "Looks good.",
+            "flags": [],
+        }
+    )
 
     with (
-        patch("pipeline_v2.agent._call_anthropic", new_callable=AsyncMock) as mock_claude,
+        patch("pipeline_client.agent.agent._call_anthropic", new_callable=AsyncMock) as mock_claude,
         patch.dict(os.environ, {"ANTHROPIC_API_KEY": "test-key"}),
     ):
         mock_claude.return_value = review_response
@@ -891,16 +923,18 @@ async def test_run_single_review_claude():
 @pytest.mark.asyncio
 async def test_run_single_review_gemini():
     """_run_single_review with gemini returns structured review."""
-    from pipeline_v2.agent import _run_single_review, DEFAULT_GEMINI_MODEL
+    from pipeline_client.agent.agent import DEFAULT_GEMINI_MODEL, _run_single_review
 
-    review_response = json.dumps({
-        "verdict": "flagged",
-        "summary": "Found issues.",
-        "flags": [{"field": "test", "concern": "bad", "severity": "warning"}],
-    })
+    review_response = json.dumps(
+        {
+            "verdict": "flagged",
+            "summary": "Found issues.",
+            "flags": [{"field": "test", "concern": "bad", "severity": "warning"}],
+        }
+    )
 
     with (
-        patch("pipeline_v2.agent._call_gemini", new_callable=AsyncMock) as mock_gemini,
+        patch("pipeline_client.agent.agent._call_gemini", new_callable=AsyncMock) as mock_gemini,
         patch.dict(os.environ, {"GEMINI_API_KEY": "test-key"}),
     ):
         mock_gemini.return_value = review_response
@@ -914,10 +948,10 @@ async def test_run_single_review_gemini():
 @pytest.mark.asyncio
 async def test_run_single_review_handles_failure():
     """_run_single_review returns None on failure."""
-    from pipeline_v2.agent import _run_single_review
+    from pipeline_client.agent.agent import _run_single_review
 
     with (
-        patch("pipeline_v2.agent._call_anthropic", new_callable=AsyncMock) as mock_claude,
+        patch("pipeline_client.agent.agent._call_anthropic", new_callable=AsyncMock) as mock_claude,
         patch.dict(os.environ, {"ANTHROPIC_API_KEY": "test-key"}),
     ):
         mock_claude.side_effect = RuntimeError("API down")
@@ -928,14 +962,14 @@ async def test_run_single_review_handles_failure():
 
 @pytest.mark.asyncio
 async def test_v2_handler_passes_enable_review():
-    """V2AgentHandler passes enable_review option to run_agent."""
-    from pipeline_client.backend.handlers.v2_agent import V2AgentHandler
+    """AgentHandler passes enable_review option to run_agent."""
+    from pipeline_client.backend.handlers.agent import AgentHandler
 
-    handler = V2AgentHandler()
+    handler = AgentHandler()
     fake_result = {"id": "test-race", "candidates": []}
 
     with (
-        patch("pipeline_v2.agent.run_agent", new_callable=AsyncMock) as mock_agent,
+        patch("pipeline_client.agent.agent.run_agent", new_callable=AsyncMock) as mock_agent,
         patch.object(handler, "_publish", new_callable=AsyncMock) as mock_publish,
     ):
         mock_agent.return_value = fake_result

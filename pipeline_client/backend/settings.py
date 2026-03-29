@@ -9,6 +9,7 @@ class Settings(BaseSettings):
     artifacts_dir: Path = Path(__file__).resolve().parents[1] / "artifacts"
     storage_mode: str = "local"  # "local" or "gcp"
     gcs_bucket: str | None = None
+    firestore_project: str | None = None
     allowed_origins: list[str] = Field(default_factory=lambda: ["*"])
     auth0_domain: str | None = None
     auth0_audience: str | None = None

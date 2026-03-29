@@ -1,10 +1,16 @@
 import asyncio
+import json
 import logging
 import sys
 import uuid
 from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Any, Dict, List
+
+from dotenv import load_dotenv
+
+# Load .env from project root so agent can read API keys via os.environ
+load_dotenv(dotenv_path=Path(__file__).resolve().parents[2] / ".env")
 
 import httpx
 from fastapi import Depends, FastAPI, HTTPException, WebSocket, WebSocketDisconnect
@@ -38,7 +44,7 @@ async def lifespan(app: FastAPI):
     yield
 
 
-app = FastAPI(title=settings.app_name, description="SmarterVote Pipeline V2 API", lifespan=lifespan)
+app = FastAPI(title=settings.app_name, description="SmarterVote Pipeline API", lifespan=lifespan)
 
 http_bearer = HTTPBearer(auto_error=False)
 
@@ -85,22 +91,48 @@ async def verify_token_ws(token: str | None) -> Dict[str, Any]:
 
 
 # ---------------------------------------------------------------------------
-# V2 Agent endpoint
+# Agent endpoint
 # ---------------------------------------------------------------------------
 
 
-class V2AgentRequest(BaseModel):
-    """Request body for the v2 agent endpoint."""
+class AgentRequest(BaseModel):
+    """Request body for the agent endpoint."""
 
     race_id: str
     options: RunOptions | None = None
 
 
-@app.post("/api/v2/run", dependencies=[Depends(verify_token)])
-async def run_v2_agent(request: V2AgentRequest) -> Dict[str, Any]:
-    """Run the v2 agent pipeline for a race.
+@app.get("/races", dependencies=[Depends(verify_token)])
+async def list_published_races() -> Dict[str, Any]:
+    """List all published race summaries from data/published/."""
+    published_dir = ROOT / "data" / "published"
+    races = []
+    if published_dir.exists():
+        for path in sorted(published_dir.glob("*.json")):
+            try:
+                with path.open("r", encoding="utf-8") as f:
+                    data = json.load(f)
+                races.append(
+                    {
+                        "id": data.get("id", path.stem),
+                        "title": data.get("title"),
+                        "office": data.get("office"),
+                        "jurisdiction": data.get("jurisdiction"),
+                        "election_date": data.get("election_date", ""),
+                        "updated_utc": data.get("updated_utc", ""),
+                        "candidates": [{"name": c.get("name", ""), "party": c.get("party")} for c in data.get("candidates", [])],
+                    }
+                )
+            except Exception:
+                pass
+    return {"races": races}
 
-    The v2 agent uses a multi-phase AI agent with web search to research
+
+@app.post("/api/run", dependencies=[Depends(verify_token)])
+async def run_agent_endpoint(request: AgentRequest) -> Dict[str, Any]:
+    """Run the agent pipeline for a race.
+
+    The agent uses a multi-phase AI agent with web search to research
     candidates and produce a complete RaceJSON profile. If a published
     profile already exists for this race, the agent will update it.
     """
@@ -108,12 +140,12 @@ async def run_v2_agent(request: V2AgentRequest) -> Dict[str, Any]:
         payload={"race_id": request.race_id},
         options=request.options,
     )
-    run_info = run_manager.create_run(["v2_agent"], run_request)
+    run_info = run_manager.create_run(["agent"], run_request)
 
     # Start execution in background
-    asyncio.create_task(_execute_run_async("v2_agent", run_request, run_info.run_id))
+    asyncio.create_task(_execute_run_async("agent", run_request, run_info.run_id))
 
-    return {"run_id": run_info.run_id, "status": "started", "step": "v2_agent"}
+    return {"run_id": run_info.run_id, "status": "started", "step": "agent"}
 
 
 # ---------------------------------------------------------------------------
@@ -306,7 +338,7 @@ async def root():
 
     return HTMLResponse(
         content="""
-        <h1>SmarterVote Pipeline V2 API</h1>
+        <h1>SmarterVote Pipeline API</h1>
         <p>Dashboard: <a href="http://localhost:5173/admin/pipeline">/admin/pipeline</a></p>
         <p><a href="/docs">API docs</a></p>
     """,

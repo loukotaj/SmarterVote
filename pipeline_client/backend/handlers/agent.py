@@ -1,7 +1,7 @@
-"""Pipeline V2 handler: single-step agent-based candidate research.
+"""Agent handler: single-step agent-based candidate research.
 
-Wraps the v2 agent as a pipeline step handler so it integrates with
-the existing pipeline_client execution engine, storage, and logging.
+Wraps the research agent as a pipeline step handler so it integrates with
+the pipeline_client execution engine, storage, and logging.
 """
 
 import json
@@ -12,37 +12,41 @@ from pathlib import Path
 from typing import Any, Dict
 
 
-class V2AgentHandler:
-    """Handler that runs the v2 research agent and publishes RaceJSON."""
+class AgentHandler:
+    """Handler that runs the research agent and publishes RaceJSON."""
 
     def __init__(self, storage_backend=None):
         self.storage_backend = storage_backend
 
     async def handle(self, payload: Dict[str, Any], options: Dict[str, Any]) -> Any:
-        """Run the v2 agent for a race_id and publish the result.
+        """Run the agent for a race_id and publish the result.
 
         Payload expected:
             - race_id: str (e.g. "mo-senate-2024")
 
         Options:
-            - cheap_mode: bool (default True, uses gpt-5-mini)
-            - enable_review: bool (default False, send to Claude/Gemini)
+            - cheap_mode: bool (default True, uses gpt-5-mini in cheap, gpt-5.4 in full)
+            - enable_review: bool (default False, send to Claude/Gemini/Grok)
+            - research_model: str (override OpenAI research model)
+            - claude_model: str (override Claude review model)
+            - gemini_model: str (override Gemini review model)
+            - grok_model: str (override Grok review model)
 
         Returns:
             dict with race_id, race_json, published_path, duration_ms
         """
-        from pipeline_v2.agent import run_agent
+        from pipeline_client.agent.agent import run_agent
 
         logger = logging.getLogger("pipeline")
         race_id = payload.get("race_id")
         if not race_id:
-            raise ValueError("V2AgentHandler: Missing 'race_id' in payload")
+            raise ValueError("AgentHandler: Missing 'race_id' in payload")
 
         cheap_mode = options.get("cheap_mode", True)
         enable_review = options.get("enable_review", False)
         t0 = time.perf_counter()
 
-        logger.info(f"V2 Agent: researching race {race_id} (cheap_mode={cheap_mode}, review={enable_review})")
+        logger.info(f"Agent: researching race {race_id} (cheap_mode={cheap_mode}, review={enable_review})")
 
         # Collect logs from the agent
         agent_logs: list[Dict[str, Any]] = []
@@ -62,13 +66,17 @@ class V2AgentHandler:
             on_log=on_log,
             cheap_mode=cheap_mode,
             enable_review=enable_review,
+            research_model=options.get("research_model"),
+            claude_model=options.get("claude_model"),
+            gemini_model=options.get("gemini_model"),
+            grok_model=options.get("grok_model"),
         )
 
         # Publish to local filesystem
         published_path = await self._publish(race_id, race_json)
 
         duration_ms = int((time.perf_counter() - t0) * 1000)
-        logger.info(f"V2 Agent: published {race_id} to {published_path} in {duration_ms}ms")
+        logger.info(f"Agent: published {race_id} to {published_path} in {duration_ms}ms")
 
         return {
             "race_id": race_id,
@@ -81,7 +89,7 @@ class V2AgentHandler:
 
     async def _publish(self, race_id: str, race_json: Dict[str, Any]) -> Path:
         """Write RaceJSON to the published data directory."""
-        published_dir = Path(__file__).resolve().parents[2] / "data" / "published"
+        published_dir = Path(__file__).resolve().parents[3] / "data" / "published"
         published_dir.mkdir(parents=True, exist_ok=True)
 
         output_path = published_dir / f"{race_id}.json"

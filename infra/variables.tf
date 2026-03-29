@@ -31,6 +31,27 @@ variable "serper_api_key" {
   default     = ""
 }
 
+variable "anthropic_api_key" {
+  description = "Anthropic API key for Claude review"
+  type        = string
+  sensitive   = true
+  default     = ""
+}
+
+variable "gemini_api_key" {
+  description = "Google Gemini API key for review"
+  type        = string
+  sensitive   = true
+  default     = ""
+}
+
+variable "xai_api_key" {
+  description = "xAI API key for Grok review"
+  type        = string
+  sensitive   = true
+  default     = ""
+}
+
 # Deployment and versioning variables
 variable "app_version" {
   description = "Application version for tracking updates"

@@ -1,4 +1,4 @@
-# Cloud Run Job for race processing pipeline (V2 agent)
+# Cloud Run Job for race processing pipeline
 # DISABLED by default - set enable_pipeline_client = true in variables to deploy
 resource "google_cloud_run_v2_job" "race_worker" {
   count    = var.enable_pipeline_client ? 1 : 0
@@ -36,6 +36,36 @@ resource "google_cloud_run_v2_job" "race_worker" {
           value_source {
             secret_key_ref {
               secret  = google_secret_manager_secret.serper_key.secret_id
+              version = "latest"
+            }
+          }
+        }
+
+        env {
+          name = "ANTHROPIC_API_KEY"
+          value_source {
+            secret_key_ref {
+              secret  = google_secret_manager_secret.anthropic_key[0].secret_id
+              version = "latest"
+            }
+          }
+        }
+
+        env {
+          name = "GEMINI_API_KEY"
+          value_source {
+            secret_key_ref {
+              secret  = google_secret_manager_secret.gemini_key[0].secret_id
+              version = "latest"
+            }
+          }
+        }
+
+        env {
+          name = "XAI_API_KEY"
+          value_source {
+            secret_key_ref {
+              secret  = google_secret_manager_secret.xai_key[0].secret_id
               version = "latest"
             }
           }
@@ -81,5 +111,8 @@ resource "google_cloud_run_v2_job" "race_worker" {
     google_project_service.apis,
     google_secret_manager_secret_version.openai_key,
     google_secret_manager_secret_version.serper_key,
+    google_secret_manager_secret_version.anthropic_key,
+    google_secret_manager_secret_version.gemini_key,
+    google_secret_manager_secret_version.xai_key,
   ]
 }

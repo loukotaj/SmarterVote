@@ -33,8 +33,10 @@ export interface Source {
   title?: string;
   description?: string;
   last_accessed: string;
+  published_at?: string;
   checksum?: string;
   is_fresh?: boolean;
+  is_official_campaign?: boolean;
 }
 
 export interface IssueStance {
@@ -160,6 +162,11 @@ export interface RunOptions {
   save_artifact?: boolean;
   note?: string;
   enable_review?: boolean;
+  cheap_mode?: boolean;
+  research_model?: string;
+  claude_model?: string;
+  gemini_model?: string;
+  grok_model?: string;
 }
 
 export interface RunStep {

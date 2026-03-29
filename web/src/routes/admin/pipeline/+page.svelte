@@ -14,6 +14,7 @@
 
   // Services
   import { PipelineApiService } from "$lib/services/pipelineApiService";
+  import type { PublishedRaceSummary } from "$lib/services/pipelineApiService";
 
   // Components
   import RunProgress from "$lib/components/RunProgress.svelte";
@@ -39,8 +40,18 @@
   let modalData: unknown = null;
   let modalLoading = false;
 
-  // Review toggle
+  // Pipeline options
   let enableReview = false;
+  let cheapMode = true;
+  let showAdvanced = false;
+  let researchModel = "";
+  let claudeModel = "";
+  let geminiModel = "";
+  let grokModel = "";
+
+  // Published races
+  let publishedRaces: PublishedRaceSummary[] = [];
+  let racesLoading = false;
 
   // Auto-refresh management
   const MIN_REFRESH_INTERVAL = 2000;
@@ -86,9 +97,10 @@
 
   async function loadInitialData() {
     try {
-      const [artifactsResult, historyResult] = await Promise.allSettled([
+      const [artifactsResult, historyResult, racesResult] = await Promise.allSettled([
         apiService.loadArtifacts(),
         apiService.loadRunHistory(),
+        apiService.loadPublishedRaces(),
       ]);
 
       if (artifactsResult.status === "fulfilled") {
@@ -97,6 +109,10 @@
 
       if (historyResult.status === "fulfilled") {
         pipelineActions.setRunHistory(historyResult.value);
+      }
+
+      if (racesResult.status === "fulfilled") {
+        publishedRaces = racesResult.value;
       }
     } catch (error) {
       console.error("Failed to load initial data:", error);
@@ -196,6 +212,7 @@
         stopAutoRefresh();
         stopElapsedTimer();
         debouncedRefresh();
+        refreshPublishedRaces();
         break;
       case "run_failed":
         pipelineActions.setRunStatus("failed");
@@ -208,9 +225,26 @@
     }
   }
 
-  // V2 Agent execution
+  async function refreshPublishedRaces() {
+    racesLoading = true;
+    try {
+      publishedRaces = await apiService.loadPublishedRaces();
+    } catch (e) {
+      console.error("Failed to refresh published races:", e);
+    } finally {
+      racesLoading = false;
+    }
+  }
+
+  function handleUpdateRace(race: PublishedRaceSummary) {
+    pipelineActions.setRaceId(race.id);
+    // Scroll to top of left panel so the run button is visible
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  // Agent execution
   async function handleRunAgent() {
-    const raceId = pipeline.v2RaceId.trim();
+    const raceId = pipeline.raceId.trim();
     if (!raceId || pipeline.isExecuting) return;
 
     if (!websocket.connected) {
@@ -224,11 +258,17 @@
 
     try {
       addLog("info", `Starting agent research for: ${raceId}`);
-      const result = await apiService.runV2Agent(raceId, {
+      const opts: Record<string, any> = {
         save_artifact: true,
         enable_review: enableReview,
-      });
-      pipelineActions.setCurrentRun(result.run_id, "v2_agent");
+        cheap_mode: cheapMode,
+      };
+      if (researchModel) opts.research_model = researchModel;
+      if (claudeModel) opts.claude_model = claudeModel;
+      if (geminiModel) opts.gemini_model = geminiModel;
+      if (grokModel) opts.grok_model = grokModel;
+      const result = await apiService.runAgent(raceId, opts);
+      pipelineActions.setCurrentRun(result.run_id, "agent");
       addLog("info", `Agent run started (run_id: ${result.run_id})`);
       startAutoRefresh();
     } catch (err) {
@@ -351,14 +391,14 @@
         </p>
         <div class="space-y-4">
           <div>
-            <label for="v2RaceId" class="block text-sm font-medium text-gray-700 mb-1">
+            <label for="raceId" class="block text-sm font-medium text-gray-700 mb-1">
               Race ID
             </label>
             <input
-              id="v2RaceId"
+              id="raceId"
               type="text"
-              value={pipeline.v2RaceId}
-              on:input={(e) => pipelineActions.setV2RaceId(e.currentTarget.value)}
+              value={pipeline.raceId}
+              on:input={(e) => pipelineActions.setRaceId(e.currentTarget.value)}
               placeholder="e.g. mo-senate-2024"
               class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm font-mono focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
             />
@@ -367,19 +407,73 @@
             </p>
           </div>
 
-          <!-- Review Toggle -->
-          <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
-            <input
-              type="checkbox"
-              bind:checked={enableReview}
-              class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-            />
-            <span>Enable AI Review</span>
-            <span class="text-xs text-gray-400">(Claude + Gemini fact-check)</span>
-          </label>
+          <!-- Mode Toggles -->
+          <div class="flex flex-wrap gap-x-6 gap-y-2">
+            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
+              <input
+                type="checkbox"
+                bind:checked={cheapMode}
+                class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              />
+              <span>Cheap Mode</span>
+              <span class="text-xs text-gray-400">(faster, lower cost)</span>
+            </label>
+            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
+              <input
+                type="checkbox"
+                bind:checked={enableReview}
+                class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              />
+              <span>AI Review</span>
+              <span class="text-xs text-gray-400">(Claude + Gemini + Grok)</span>
+            </label>
+          </div>
+
+          <!-- Advanced Model Config -->
+          <button
+            type="button"
+            on:click={() => (showAdvanced = !showAdvanced)}
+            class="text-xs text-blue-600 hover:text-blue-800 flex items-center gap-1"
+          >
+            <svg class="w-3 h-3 transition-transform {showAdvanced ? 'rotate-90' : ''}" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+            </svg>
+            Advanced Model Settings
+          </button>
+          {#if showAdvanced}
+            <div class="space-y-3 border-t border-gray-200 pt-3">
+              <p class="text-xs text-gray-500">Leave blank for defaults. Cheap mode selects lighter variants automatically.</p>
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label for="researchModel" class="block text-xs font-medium text-gray-600">Research (OpenAI)</label>
+                  <input id="researchModel" type="text" bind:value={researchModel}
+                    placeholder={cheapMode ? "gpt-4o-mini" : "gpt-4o"}
+                    class="w-full px-2 py-1.5 border border-gray-300 rounded text-xs font-mono focus:outline-none focus:border-blue-500" />
+                </div>
+                <div>
+                  <label for="claudeModel" class="block text-xs font-medium text-gray-600">Claude (Review)</label>
+                  <input id="claudeModel" type="text" bind:value={claudeModel}
+                    placeholder={cheapMode ? "claude-haiku-4-20250514" : "claude-sonnet-4-20250514"}
+                    class="w-full px-2 py-1.5 border border-gray-300 rounded text-xs font-mono focus:outline-none focus:border-blue-500" />
+                </div>
+                <div>
+                  <label for="geminiModel" class="block text-xs font-medium text-gray-600">Gemini (Review)</label>
+                  <input id="geminiModel" type="text" bind:value={geminiModel}
+                    placeholder={cheapMode ? "gemini-2.0-flash-lite" : "gemini-2.0-flash"}
+                    class="w-full px-2 py-1.5 border border-gray-300 rounded text-xs font-mono focus:outline-none focus:border-blue-500" />
+                </div>
+                <div>
+                  <label for="grokModel" class="block text-xs font-medium text-gray-600">Grok (Review)</label>
+                  <input id="grokModel" type="text" bind:value={grokModel}
+                    placeholder={cheapMode ? "grok-3-mini" : "grok-3"}
+                    class="w-full px-2 py-1.5 border border-gray-300 rounded text-xs font-mono focus:outline-none focus:border-blue-500" />
+                </div>
+              </div>
+            </div>
+          {/if}
 
           <button
-            disabled={pipeline.isExecuting || !pipeline.v2RaceId.trim()}
+            disabled={pipeline.isExecuting || !pipeline.raceId.trim()}
             on:click={handleRunAgent}
             class="btn-primary w-full flex items-center justify-center py-2.5"
           >
@@ -396,9 +490,67 @@
         </div>
       </div>
 
+      <!-- Existing Races -->
+      <div class="card p-6">
+        <div class="flex items-center justify-between mb-3">
+          <div>
+            <h3 class="text-lg font-semibold text-gray-900">Existing Races</h3>
+            <p class="text-sm text-gray-500">Click Update to re-run research on a published race.</p>
+          </div>
+          <button
+            type="button"
+            on:click={refreshPublishedRaces}
+            disabled={racesLoading}
+            class="text-xs text-blue-600 hover:text-blue-800 flex items-center gap-1 disabled:opacity-50"
+            title="Refresh list"
+          >
+            <svg class="w-3.5 h-3.5 {racesLoading ? 'animate-spin' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+            Refresh
+          </button>
+        </div>
+
+        {#if publishedRaces.length === 0}
+          <p class="text-sm text-gray-400 text-center py-4">No published races found.</p>
+        {:else}
+          <div class="space-y-2 max-h-72 overflow-y-auto">
+            {#each publishedRaces as race (race.id)}
+              {@const updatedDate = race.updated_utc ? new Date(race.updated_utc) : null}
+              {@const daysSinceUpdate = updatedDate ? Math.floor((Date.now() - updatedDate.getTime()) / 86400000) : null}
+              <div class="flex items-start justify-between gap-3 p-3 rounded-lg border border-gray-200 hover:border-blue-200 hover:bg-blue-50 transition-colors">
+                <div class="min-w-0 flex-1">
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <span class="text-sm font-medium text-gray-900 font-mono">{race.id}</span>
+                    {#if daysSinceUpdate !== null}
+                      <span class="text-xs px-1.5 py-0.5 rounded {daysSinceUpdate > 90 ? 'bg-red-100 text-red-700' : daysSinceUpdate > 30 ? 'bg-yellow-100 text-yellow-700' : 'bg-green-100 text-green-700'}">
+                        {daysSinceUpdate === 0 ? 'today' : daysSinceUpdate === 1 ? '1d ago' : `${daysSinceUpdate}d ago`}
+                      </span>
+                    {/if}
+                  </div>
+                  {#if race.title}
+                    <p class="text-xs text-gray-500 mt-0.5 truncate">{race.title}</p>
+                  {/if}
+                  <p class="text-xs text-gray-400 mt-0.5">
+                    {race.candidates.map((c) => `${c.name}${c.party ? ` (${c.party})` : ""}`).join(" · ")}
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  on:click={() => handleUpdateRace(race)}
+                  disabled={pipeline.isExecuting}
+                  class="flex-shrink-0 text-xs px-2.5 py-1.5 rounded bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                >
+                  Update
+                </button>
+              </div>
+            {/each}
+          </div>
+        {/if}
+      </div>
+
       <!-- Run Progress -->
-      <RunProgress
-        isExecuting={pipeline.isExecuting}
+      <RunProgress        isExecuting={pipeline.isExecuting}
         runStatus={pipeline.runStatus}
         progress={pipeline.progress}
         progressMessage={pipeline.progressMessage}

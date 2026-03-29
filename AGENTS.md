@@ -13,16 +13,16 @@ Multi-phase AI agent for electoral analysis:
 
 Healthcare, Economy, Climate/Energy, Reproductive Rights, Immigration, Guns & Safety, Foreign Policy, Social Justice, Education, Tech & AI, Election Reform, Local Issues
 
-Defined in `shared/models.py` as `CanonicalIssue` enum and `pipeline_v2/prompts.py`.
+Defined in `shared/models.py` as `CanonicalIssue` enum and `pipeline_client/agent/prompts.py`.
 
 ## Key Files
 
 | Purpose | Location |
 |---------|----------|
-| Agent loop + caching | `pipeline_v2/agent.py` |
-| Prompt templates | `pipeline_v2/prompts.py` |
-| Search cache | `pipeline_v2/search_cache.py` |
-| Agent handler | `pipeline_client/backend/handlers/v2_agent.py` |
+| Agent loop + caching | `pipeline_client/agent/agent.py` |
+| Prompt templates | `pipeline_client/agent/prompts.py` |
+| Search cache | `pipeline_client/agent/search_cache.py` |
+| Agent handler | `pipeline_client/backend/handlers/agent.py` |
 | API endpoints | `pipeline_client/backend/main.py` |
 | Schema models | `shared/models.py` |
 | TypeScript types | `web/src/lib/types.ts` |
@@ -49,7 +49,7 @@ cd pipeline_client
 uvicorn backend.main:app --port 8001
 
 # Trigger a research run via API
-curl -X POST http://localhost:8001/api/v2/run \
+curl -X POST http://localhost:8001/api/run \
   -H "Content-Type: application/json" \
   -d '{"race_id": "mo-senate-2024"}'
 
@@ -66,7 +66,7 @@ curl http://localhost:8000/races
 curl http://localhost:8000/races/mo-senate-2024
 
 # Run agent
-curl -X POST http://localhost:8001/api/v2/run \
+curl -X POST http://localhost:8001/api/run \
   -H "Content-Type: application/json" \
   -d '{"race_id": "mo-senate-2024"}'
 
@@ -78,7 +78,7 @@ curl http://localhost:8001/runs
 
 ```bash
 # Python tests
-python -m pytest tests/test_pipeline_v2.py -v
+python -m pytest tests/test_pipeline.py -v
 
 # Frontend tests
 cd web && npx vitest run

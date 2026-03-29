@@ -49,15 +49,15 @@ When a published profile already exists for a race (`data/published/{race_id}.js
 ## Components
 
 ```
-pipeline_v2/              # AI research agent
+pipeline_client/agent/              # AI research agent
 ├── agent.py              # Agent loop, search caching, multi-phase orchestration
 └── prompts.py            # Phase-specific prompt templates
 
 pipeline_client/          # Execution engine
 ├── backend/
 │   ├── handlers/
-│   │   └── v2_agent.py   # Agent step handler
-│   ├── main.py           # FastAPI API (POST /api/v2/run)
+│   │   └── agent.py   # Agent step handler
+│   ├── main.py           # FastAPI API (POST /api/run)
 │   ├── pipeline_runner.py  # Step execution + logging
 │   ├── step_registry.py  # Handler registry
 │   ├── run_manager.py    # Run lifecycle management
@@ -132,7 +132,7 @@ Races API serves data to web frontend
 
 | Method | Path | Description |
 |--------|------|-------------|
-| POST | `/api/v2/run` | Start agent research for a race |
+| POST | `/api/run` | Start agent research for a race |
 | GET | `/runs` | List recent runs |
 | GET | `/runs/{run_id}` | Get run details |
 | DELETE | `/runs/{run_id}` | Cancel a run |
@@ -164,4 +164,4 @@ When enabled:
 11. Election Reform
 12. Local Issues
 
-Defined in `shared/models.py` as `CanonicalIssue` enum and `pipeline_v2/prompts.py`.
+Defined in `shared/models.py` as `CanonicalIssue` enum and `pipeline_client/agent/prompts.py`.

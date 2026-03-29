@@ -3,7 +3,7 @@
 from pathlib import Path
 from typing import Any, Dict, Protocol, runtime_checkable
 
-from .handlers.v2_agent import V2AgentHandler
+from .handlers.agent import AgentHandler
 from .settings import settings
 from .storage_backend import GCPStorageBackend, LocalStorageBackend, StorageBackend
 
@@ -29,7 +29,7 @@ _STORAGE_BACKEND = _init_storage_backend()
 
 
 REGISTRY: Dict[str, StepHandler] = {
-    "v2_agent": V2AgentHandler(_STORAGE_BACKEND),
+    "agent": AgentHandler(_STORAGE_BACKEND),
 }
 
 

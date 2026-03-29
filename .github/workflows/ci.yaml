@@ -12,7 +12,7 @@ env:
 
 jobs:
   test-pipeline:
-    name: Test Pipeline V2
+    name: Test Pipeline
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -30,9 +30,9 @@ jobs:
         pip install -r pipeline_client/backend/requirements.txt
         pip install pytest pytest-asyncio httpx
 
-    - name: Run pipeline V2 tests
+    - name: Run pipeline tests
       run: |
-        PYTHONPATH=. python -m pytest tests/test_pipeline_v2.py -v
+        PYTHONPATH=. python -m pytest tests/test_pipeline.py -v
 
   test-apis:
     name: Test API Services
@@ -87,7 +87,7 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
       with:
-        terraform_version: 1.5.0
+        terraform_version: 1.9.0
 
     - name: Terraform Format Check
       run: |
@@ -111,7 +111,7 @@ jobs:
 
     - name: Summary
       run: |
-        echo "✅ Pipeline V2 tests passed"
+        echo "✅ Pipeline tests passed"
         echo "✅ API tests passed"
         echo "✅ Web tests passed"
         echo "✅ Terraform configuration validated"
