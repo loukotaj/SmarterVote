@@ -774,8 +774,9 @@ async def _run_fresh(
 
     # --- Phase 3: Refinement ---
     log("info", "Phase 3/3: Refining and improving profile...")
+    pre_refine = race_json
     try:
-        race_json = _ensure_dict(await _agent_loop(
+        refined = _ensure_dict(await _agent_loop(
             REFINE_SYSTEM,
             REFINE_USER.format(
                 race_id=race_id,
@@ -789,6 +790,12 @@ async def _run_fresh(
             phase_name="refine",
             max_tokens=32768,
         ), "refine", log)
+
+        # Safety: never let refine wipe out candidates
+        if refined.get("candidates") and len(refined["candidates"]) >= len(pre_refine.get("candidates", [])):
+            race_json = refined
+        else:
+            log("warning", "  Refine returned fewer/no candidates — keeping pre-refine draft")
     except (RuntimeError, ValueError) as exc:
         log("warning", f"  Refine phase failed: {exc} — returning unrefined draft")
 

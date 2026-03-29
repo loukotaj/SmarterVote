@@ -217,6 +217,13 @@ class AgentHandler:
             if not blob.exists():
                 return None
             data = json.loads(blob.download_as_text())
+            # Sanity-check: reject corrupt/partial files (e.g. a stray polling entry)
+            if not isinstance(data.get("candidates"), list) or len(data["candidates"]) == 0:
+                logger.warning(
+                    f"Existing GCS file for '{race_id}' has no candidates "
+                    f"(keys: {list(data.keys())}) — treating as new race"
+                )
+                return None
             logger.info(f"Loaded existing {race_id} from GCS for update mode")
             return data
         except ImportError:
