@@ -247,10 +247,15 @@ async def _call_openai(
     *,
     model: str,
     tools: List[Dict[str, Any]] | None = None,
-    max_retries: int = 5,
+    max_retries: int = 12,
     max_tokens: int = 16384,
 ) -> Dict[str, Any]:
-    """Call the OpenAI Chat Completions API with retry on transient errors."""
+    """Call the OpenAI Chat Completions API with retry on transient errors.
+
+    429 rate-limit: exponential backoff starting at 30 s, capped at 10 min.
+    5xx transient errors: shorter exponential backoff (2, 4, 8 … s).
+    The Retry-After response header always takes precedence.
+    """
     api_key = os.environ.get("OPENAI_API_KEY", "")
     if not api_key:
         raise RuntimeError("OPENAI_API_KEY is not set")
@@ -278,7 +283,13 @@ async def _call_openai(
             )
             if resp.status_code in (429, 500, 502, 503) and attempt < max_retries - 1:
                 retry_after = int(resp.headers.get("retry-after", 0))
-                wait = max(retry_after, 2 ** (attempt + 1))
+                if resp.status_code == 429:
+                    # Rate-limited: start at 30 s, double each attempt, cap at 10 min
+                    backoff = min(600, 30 * (2 ** attempt))
+                else:
+                    # Transient server error: shorter backoff
+                    backoff = 2 ** (attempt + 1)
+                wait = max(retry_after, backoff)
                 logger.warning(
                     f"OpenAI {resp.status_code}, retrying in {wait}s "
                     f"(attempt {attempt + 1}/{max_retries})"

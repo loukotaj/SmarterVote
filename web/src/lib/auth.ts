@@ -6,8 +6,10 @@ let clientPromise: Promise<Auth0Client> | null = null;
 /**
  * Returns true when Auth0 should be skipped (local development).
  * Set VITE_SKIP_AUTH=true in web/.env to bypass authentication locally.
+ * Always false in production builds.
  */
 export function isAuthSkipped(): boolean {
+  if (import.meta.env.PROD) return false;
   return import.meta.env.VITE_SKIP_AUTH === "true";
 }
 
@@ -26,7 +28,6 @@ export function getAuth0Client(): Promise<Auth0Client> {
   if (isAuthSkipped()) {
     return Promise.resolve(createMockClient());
   }
-  console.log(`${window.location.origin}/admin`);
   if (!clientPromise) {
     // Only call this on the client (not during SSR)
     clientPromise = createAuth0Client({

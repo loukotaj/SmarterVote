@@ -1,11 +1,20 @@
 import asyncio
 import json
 import logging
+import re
 import sys
 import uuid
 from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Any, Dict, List
+
+_RACE_ID_RE = re.compile(r"^[a-z0-9][a-z0-9_-]{0,99}$")
+
+
+def _validate_race_id(race_id: str) -> None:
+    """Raise 400 if race_id contains path-traversal characters or is malformed."""
+    if not _RACE_ID_RE.match(race_id):
+        raise HTTPException(status_code=400, detail="Invalid race_id format")
 
 from dotenv import load_dotenv
 
@@ -113,9 +122,44 @@ class QueueAddRequest(BaseModel):
 
 @app.get("/races", dependencies=[Depends(verify_token)])
 async def list_published_races() -> Dict[str, Any]:
-    """List all published race summaries from data/published/."""
-    published_dir = ROOT / "data" / "published"
+    """List all published race summaries from GCS (cloud) or data/published/ (local)."""
+    import os
+
     races = []
+    gcs_bucket = os.getenv("GCS_BUCKET_NAME")
+    # In Cloud Run, GCS is the source of truth — local filesystem is ephemeral
+    if gcs_bucket and (os.getenv("K_SERVICE") or os.getenv("CLOUD_RUN_SERVICE") or os.getenv("GOOGLE_CLOUD_PROJECT")):
+        try:
+            from google.cloud import storage as gcs  # type: ignore
+
+            client = gcs.Client()
+            bucket = client.bucket(gcs_bucket)
+            for blob in bucket.list_blobs(prefix="races/"):
+                if not blob.name.endswith(".json"):
+                    continue
+                try:
+                    data = json.loads(blob.download_as_text())
+                    races.append(
+                        {
+                            "id": data.get("id", blob.name[len("races/") : -len(".json")]),
+                            "title": data.get("title"),
+                            "office": data.get("office"),
+                            "jurisdiction": data.get("jurisdiction"),
+                            "election_date": data.get("election_date", ""),
+                            "updated_utc": data.get("updated_utc", ""),
+                            "candidates": [{"name": c.get("name", ""), "party": c.get("party")} for c in data.get("candidates", [])],
+                        }
+                    )
+                except Exception:
+                    logging.exception("Failed to read race blob %s from GCS", blob.name)
+            return {"races": sorted(races, key=lambda r: r.get("id", ""))}
+        except ImportError:
+            logging.warning("google-cloud-storage not installed; falling back to local filesystem")
+        except Exception:
+            logging.exception("Failed to list races from GCS; falling back to local filesystem")
+
+    # Local filesystem (development or GCS fallback)
+    published_dir = ROOT / "data" / "published"
     if published_dir.exists():
         for path in sorted(published_dir.glob("*.json")):
             try:
@@ -140,41 +184,67 @@ async def list_published_races() -> Dict[str, Any]:
 @app.get("/races/{race_id}", dependencies=[Depends(verify_token)])
 async def get_published_race(race_id: str) -> Dict[str, Any]:
     """Get full published race data for export/download."""
+    import os
+
+    _validate_race_id(race_id)
     published_dir = ROOT / "data" / "published"
     path = published_dir / f"{race_id}.json"
-    if not path.exists():
-        raise HTTPException(status_code=404, detail="Race not found")
-    with path.open("r", encoding="utf-8") as f:
-        return json.load(f)
+    if path.exists():
+        with path.open("r", encoding="utf-8") as f:
+            return json.load(f)
+
+    # Fall back to GCS when local file is absent (always the case on Cloud Run)
+    gcs_bucket = os.getenv("GCS_BUCKET_NAME")
+    if gcs_bucket:
+        try:
+            from google.cloud import storage as gcs  # type: ignore
+
+            client = gcs.Client()
+            blob = client.bucket(gcs_bucket).blob(f"races/{race_id}.json")
+            if blob.exists():
+                return json.loads(blob.download_as_text())
+        except ImportError:
+            logging.warning("google-cloud-storage not installed; cannot read from GCS")
+        except Exception:
+            logging.exception("Failed to fetch race %s from GCS", race_id)
+
+    raise HTTPException(status_code=404, detail="Race not found")
 
 
 @app.delete("/races/{race_id}", dependencies=[Depends(verify_token)])
 async def delete_published_race(race_id: str) -> Dict[str, Any]:
-    """Delete a published race file and optionally remove from GCS."""
+    """Delete a published race file locally and/or from GCS."""
     import os
 
+    _validate_race_id(race_id)
+    deleted = False
+
+    # Delete local file if present
     published_dir = ROOT / "data" / "published"
     path = published_dir / f"{race_id}.json"
-    if not path.exists():
-        raise HTTPException(status_code=404, detail="Race not found")
+    if path.exists():
+        path.unlink()
+        deleted = True
 
-    path.unlink()
-
-    # Also remove from GCS if configured
+    # Delete from GCS if configured
     gcs_bucket = os.getenv("GCS_BUCKET_NAME")
     if gcs_bucket:
         try:
-            from google.cloud import storage  # type: ignore
+            from google.cloud import storage as gcs  # type: ignore
 
-            client = storage.Client()
-            bucket = client.bucket(gcs_bucket)
-            blob = bucket.blob(f"races/{race_id}.json")
-            blob.delete()
-            logging.info("Deleted %s from GCS: gs://%s/races/%s.json", race_id, gcs_bucket, race_id)
+            client = gcs.Client()
+            blob = client.bucket(gcs_bucket).blob(f"races/{race_id}.json")
+            if blob.exists():
+                blob.delete()
+                deleted = True
+                logging.info("Deleted %s from GCS: gs://%s/races/%s.json", race_id, gcs_bucket, race_id)
         except ImportError:
             logging.warning("google-cloud-storage not installed; skipping GCS delete")
         except Exception as e:
             logging.warning("Failed to delete %s from GCS: %s", race_id, e)
+
+    if not deleted:
+        raise HTTPException(status_code=404, detail="Race not found")
 
     return {"message": f"Race {race_id} deleted", "id": race_id}
 

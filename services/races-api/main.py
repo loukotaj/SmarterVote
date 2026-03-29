@@ -29,12 +29,12 @@ publish_service = SimplePublishService(data_directory=DATA_DIR)
 # Initialize FastAPI app
 app = FastAPI(title="SmarterVote Races API")
 
-# Enable CORS
+# Enable CORS — public read-only API; credentials not needed
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
+    allow_credentials=False,
+    allow_methods=["GET"],
     allow_headers=["*"],
 )
 

@@ -1,1 +1,40 @@
-[]
+[
+  {
+    "id": "37cb19e7",
+    "race_id": "ga-senate-2026",
+    "status": "failed",
+    "options": {
+      "cheap_mode": false,
+      "enable_review": true,
+      "save_artifact": true,
+      "research_model": null,
+      "claude_model": null,
+      "gemini_model": null,
+      "grok_model": null
+    },
+    "run_id": "982e6045-5fd3-42b1-b5af-ac7971993029",
+    "created_at": "2026-03-29T15:41:08.090814+00:00",
+    "started_at": "2026-03-29T15:41:08.094901+00:00",
+    "completed_at": "2026-03-29T15:49:30.006416+00:00",
+    "error": "Server restarted during processing"
+  },
+  {
+    "id": "20ebed4e",
+    "race_id": "ga-senate-2026",
+    "status": "completed",
+    "options": {
+      "cheap_mode": true,
+      "enable_review": true,
+      "save_artifact": true,
+      "research_model": null,
+      "claude_model": null,
+      "gemini_model": null,
+      "grok_model": null
+    },
+    "run_id": "c9d3a1d5-a10e-455a-9987-5c5d3d766f54",
+    "created_at": "2026-03-29T15:53:48.189220+00:00",
+    "started_at": "2026-03-29T15:53:48.193730+00:00",
+    "completed_at": "2026-03-29T16:00:13.485690+00:00",
+    "error": null
+  }
+]
