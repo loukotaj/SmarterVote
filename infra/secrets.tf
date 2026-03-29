@@ -303,10 +303,11 @@ resource "google_project_iam_member" "github_actions_sa_admin" {
   member  = "serviceAccount:${google_service_account.github_actions.email}"
 }
 
-# Allow GitHub Actions SA to read Secret Manager metadata for terraform plan/apply
+# Allow GitHub Actions SA to read Secret Manager metadata and values for terraform plan/apply
+# (The secret values are already accessible via the terraform state in GCS, which this SA can also read)
 resource "google_project_iam_member" "github_actions_secret_manager" {
   project = var.project_id
-  role    = "roles/secretmanager.viewer"
+  role    = "roles/secretmanager.secretAccessor"
   member  = "serviceAccount:${google_service_account.github_actions.email}"
 }
 
