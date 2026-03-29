@@ -9,7 +9,7 @@ resource "google_cloud_run_v2_service" "pipeline_client" {
 
   template {
     containers {
-      image = "${var.region}-docker.pkg.dev/${var.project_id}/smartervote-${var.environment}/pipeline-client:latest"
+      image = "${var.region}-docker.pkg.dev/${var.project_id}/smartervote-${var.environment}/pipeline-client:${var.app_version}"
 
       env {
         name  = "PROJECT_ID"

@@ -49,6 +49,10 @@ class AgentHandler:
 
         logger.info(f"Agent: researching race {race_id} (cheap_mode={cheap_mode}, review={enable_review})")
 
+        # Pre-load existing data from GCS if running in cloud (container filesystem
+        # may be ephemeral, so _load_existing() won't find local files from previous runs).
+        existing_data = await self._load_existing_from_gcs(race_id)
+
         # Collect logs from the agent
         agent_logs: list[Dict[str, Any]] = []
 
@@ -67,6 +71,7 @@ class AgentHandler:
             on_log=on_log,
             cheap_mode=cheap_mode,
             enable_review=enable_review,
+            existing_data=existing_data,
             research_model=options.get("research_model"),
             claude_model=options.get("claude_model"),
             gemini_model=options.get("gemini_model"),
@@ -136,3 +141,36 @@ class AgentHandler:
             logger.warning("google-cloud-storage not installed; skipping GCS upload")
         except Exception as e:
             logger.warning(f"Failed to upload {race_id} to GCS: {e}")
+
+    async def _load_existing_from_gcs(self, race_id: str) -> Dict[str, Any] | None:
+        """Load existing race data from GCS so deployed containers use update mode.
+
+        On Cloud Run the local filesystem is ephemeral, so ``_load_existing``
+        in the agent module won't find previous runs. This method fetches the
+        current published version from GCS to hand to the agent as
+        ``existing_data``, ensuring the agent enters update mode rather than
+        creating a duplicate fresh profile.  Returns *None* when GCS is not
+        configured or the race doesn't exist yet.
+        """
+        logger = logging.getLogger("pipeline")
+        gcs_bucket = os.getenv("GCS_BUCKET_NAME")
+        if not gcs_bucket:
+            return None
+
+        try:
+            from google.cloud import storage  # type: ignore
+
+            client = storage.Client()
+            bucket = client.bucket(gcs_bucket)
+            blob = bucket.blob(f"races/{race_id}.json")
+            if not blob.exists():
+                return None
+            data = json.loads(blob.download_as_text())
+            logger.info(f"Loaded existing {race_id} from GCS for update mode")
+            return data
+        except ImportError:
+            logger.warning("google-cloud-storage not installed; cannot load existing race from GCS")
+            return None
+        except Exception as e:
+            logger.warning(f"Failed to load existing {race_id} from GCS: {e}")
+            return None

@@ -144,7 +144,7 @@ def _strip_html(html: str) -> str:
     return text.strip()
 
 
-_PAGE_MAX_CHARS = 8000
+_PAGE_MAX_CHARS = 16000
 _BROWSER_UA = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"

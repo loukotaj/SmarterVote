@@ -14,7 +14,7 @@
 
   // Services
   import { PipelineApiService } from "$lib/services/pipelineApiService";
-  import type { PublishedRaceSummary } from "$lib/services/pipelineApiService";
+  import type { PublishedRaceSummary, QueueItem } from "$lib/services/pipelineApiService";
 
   // Components
   import RunProgress from "$lib/components/RunProgress.svelte";
@@ -25,7 +25,7 @@
   import PipelineModal from "$lib/components/PipelineModal.svelte";
 
   // Utilities
-  import { debounce, safeJsonStringify } from "$lib/utils/pipelineUtils";
+  import { debounce, safeJsonStringify, downloadAsJson } from "$lib/utils/pipelineUtils";
   import type { RunHistoryItem, Artifact } from "$lib/types";
 
   const API_BASE = import.meta.env.VITE_API_BASE || "http://127.0.0.1:8001";
@@ -33,6 +33,7 @@
   let apiService: PipelineApiService;
   let elapsedTimer: ReturnType<typeof setInterval> | null = null;
   let autoRefreshTimer: ReturnType<typeof setInterval> | null = null;
+  let queuePollTimer: ReturnType<typeof setInterval> | null = null;
 
   // Modal state
   let showModal = false;
@@ -49,65 +50,22 @@
   let geminiModel = "";
   let grokModel = "";
 
-  // Race queue
-  type QueueStatus = "pending" | "running" | "completed" | "failed";
-  type QueueItem = { id: string; status: QueueStatus };
-  let raceQueue: Array<QueueItem> = [];
-  let isQueueMode = false;
+  // Server-side queue state
+  let queueItems: QueueItem[] = [];
+  let queueLoading = false;
 
-  function addToQueue() {
-    const raw = pipeline.raceId.trim();
-    if (!raw) return;
-    const ids = raw.split(",").map((s) => s.trim()).filter(Boolean);
-    let added = 0;
-    for (const id of ids) {
-      if (raceQueue.some((r: QueueItem) => r.id === id)) {
-        addLog("warning", `Race "${id}" is already in the queue — skipped`);
-        continue;
-      }
-      raceQueue = [...raceQueue, { id, status: "pending" as QueueStatus }];
-      added++;
-    }
-    if (added > 0) pipelineActions.setRaceId("");
-  }
-
-  function removeFromQueue(id: string) {
-    raceQueue = raceQueue.filter((r: QueueItem) => r.id !== id);
-  }
-
-  function clearQueue() {
-    raceQueue = raceQueue.filter((r: QueueItem) => r.status === "running");
-  }
-
-  async function runQueue() {
-    if (pipeline.isExecuting) return;
-    isQueueMode = true;
-    await processNextQueueItem();
-  }
-
-  async function processNextQueueItem() {
-    const next = raceQueue.find((r: QueueItem) => r.status === "pending");
-    if (!next) {
-      isQueueMode = false;
-      addLog("info", "Queue complete — all races processed");
-      return;
-    }
-    raceQueue = raceQueue.map((r: QueueItem) =>
-      r.id === next.id ? { ...r, status: "running" as QueueStatus } : r
-    );
-    pipelineActions.setRaceId(next.id);
-    await handleRunAgent();
-  }
-
-  $: pendingCount = raceQueue.filter((r: QueueItem) => r.status === "pending").length;
-  $: completedCount = raceQueue.filter((r: QueueItem) => r.status === "completed").length;
+  // Reactive computed
+  $: queueRunning = queueItems.find((i) => i.status === "running");
+  $: queuePending = queueItems.filter((i) => i.status === "pending").length;
+  $: queueFinished = queueItems.filter((i) => ["completed", "failed", "cancelled"].includes(i.status)).length;
+  $: queueHasActive = !!queueRunning || queuePending > 0;
 
   function handleRaceIdInput(e: Event) {
     pipelineActions.setRaceId((e.currentTarget as HTMLInputElement).value);
   }
 
   function handleRaceIdKeydown(e: KeyboardEvent) {
-    if (e.key === "Enter") addToQueue();
+    if (e.key === "Enter") handleAddToQueue();
   }
 
   // Published races
@@ -143,6 +101,9 @@
         websocketActions.connect(API_BASE, api.token);
       }
 
+      // Start polling queue state every 4s
+      queuePollTimer = setInterval(refreshQueue, 4000);
+
       addLog("info", "Pipeline dashboard initialized");
     } catch (error) {
       console.error("Failed to initialize pipeline dashboard:", error);
@@ -153,15 +114,17 @@
   onDestroy(() => {
     stopElapsedTimer();
     stopAutoRefresh();
+    if (queuePollTimer) clearInterval(queuePollTimer);
     websocketActions.disconnect();
   });
 
   async function loadInitialData() {
     try {
-      const [artifactsResult, historyResult, racesResult] = await Promise.allSettled([
+      const [artifactsResult, historyResult, racesResult, queueResult] = await Promise.allSettled([
         apiService.loadArtifacts(),
         apiService.loadRunHistory(),
         apiService.loadPublishedRaces(),
+        apiService.loadQueue(),
       ]);
 
       if (artifactsResult.status === "fulfilled") {
@@ -187,9 +150,51 @@
       if (racesResult.status === "fulfilled") {
         publishedRaces = racesResult.value;
       }
+
+      if (queueResult.status === "fulfilled") {
+        queueItems = queueResult.value.items;
+        // If the server has a running item, sync our execution state
+        const running = queueItems.find((i) => i.status === "running");
+        if (running && running.run_id && !pipeline.isExecuting) {
+          pipelineActions.setCurrentRun(running.run_id, "agent");
+          pipelineActions.setExecutionState(true);
+          pipelineActions.setRunStatus("running");
+          startAutoRefresh();
+          startElapsedTimer();
+        }
+      }
     } catch (error) {
       console.error("Failed to load initial data:", error);
       addLog("error", "Failed to load initial data");
+    }
+  }
+
+  async function refreshQueue() {
+    if (!apiService) return;
+    try {
+      const data = await apiService.loadQueue();
+      const wasRunning = !!queueItems.find((i) => i.status === "running");
+      queueItems = data.items;
+      const nowRunning = queueItems.find((i) => i.status === "running");
+
+      // Sync execution state with server queue
+      if (nowRunning && nowRunning.run_id && !pipeline.isExecuting) {
+        pipelineActions.setCurrentRun(nowRunning.run_id, "agent");
+        pipelineActions.setExecutionState(true);
+        pipelineActions.setRunStatus("running");
+        startAutoRefresh();
+        startElapsedTimer();
+      }
+
+      // If was running but now finished, refresh other data
+      if (wasRunning && !nowRunning) {
+        pipelineActions.setExecutionState(false);
+        stopElapsedTimer();
+        debouncedRefresh();
+        refreshPublishedRaces();
+      }
+    } catch (e) {
+      // Silently ignore poll failures
     }
   }
 
@@ -286,12 +291,7 @@
         stopElapsedTimer();
         debouncedRefresh();
         refreshPublishedRaces();
-        if (isQueueMode) {
-          raceQueue = raceQueue.map((r: QueueItem) =>
-            r.status === "running" ? { ...r, status: "completed" as QueueStatus } : r
-          );
-          setTimeout(() => processNextQueueItem(), 800);
-        }
+        refreshQueue();
         break;
       case "run_failed":
         pipelineActions.setRunStatus("failed");
@@ -300,12 +300,7 @@
         stopAutoRefresh();
         stopElapsedTimer();
         debouncedRefresh();
-        if (isQueueMode) {
-          raceQueue = raceQueue.map((r: QueueItem) =>
-            r.status === "running" ? { ...r, status: "failed" as QueueStatus } : r
-          );
-          setTimeout(() => processNextQueueItem(), 800);
-        }
+        refreshQueue();
         break;
     }
   }
@@ -321,47 +316,100 @@
     }
   }
 
-  function handleUpdateRace(race: PublishedRaceSummary) {
-    pipelineActions.setRaceId(race.id);
-    // Scroll to top of left panel so the run button is visible
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  // -- Queue Operations (server-side) --
+
+  function buildOptions(): Record<string, any> {
+    const opts: Record<string, any> = {
+      save_artifact: true,
+      enable_review: enableReview,
+      cheap_mode: cheapMode,
+    };
+    if (researchModel) opts.research_model = researchModel;
+    if (claudeModel) opts.claude_model = claudeModel;
+    if (geminiModel) opts.gemini_model = geminiModel;
+    if (grokModel) opts.grok_model = grokModel;
+    return opts;
   }
 
-  // Agent execution
-  async function handleRunAgent() {
-    const raceId = pipeline.raceId.trim();
-    if (!raceId || pipeline.isExecuting) return;
-
-    if (!websocket.connected) {
-      websocketActions.connect(API_BASE, api.token);
-    }
-
-    pipelineActions.setExecutionState(true);
-    pipelineActions.setOutput(null);
-    pipelineActions.clearLogs();
-    startElapsedTimer();
+  async function handleAddToQueue() {
+    const raw = pipeline.raceId.trim();
+    if (!raw) return;
+    const ids = raw.split(",").map((s) => s.trim()).filter(Boolean);
+    if (ids.length === 0) return;
 
     try {
-      addLog("info", `Starting agent research for: ${raceId}`);
-      const opts: Record<string, any> = {
-        save_artifact: true,
-        enable_review: enableReview,
-        cheap_mode: cheapMode,
-      };
-      if (researchModel) opts.research_model = researchModel;
-      if (claudeModel) opts.claude_model = claudeModel;
-      if (geminiModel) opts.gemini_model = geminiModel;
-      if (grokModel) opts.grok_model = grokModel;
-      const result = await apiService.runAgent(raceId, opts);
-      pipelineActions.setCurrentRun(result.run_id, "agent");
-      addLog("info", `Agent run started (run_id: ${result.run_id})`);
-      startAutoRefresh();
-    } catch (err) {
-      console.error("Agent execution failed:", err);
-      pipelineActions.setOutput({ error: String(err) });
-      addLog("error", `Agent failed: ${err}`);
-      pipelineActions.setExecutionState(false);
-      stopElapsedTimer();
+      const result = await apiService.addToQueue(ids, buildOptions());
+      if (result.added.length > 0) {
+        addLog("info", `Queued ${result.added.length} race(s): ${result.added.map((a) => a.race_id).join(", ")}`);
+        pipelineActions.setRaceId("");
+      }
+      for (const err of result.errors) {
+        addLog("warning", `${err.race_id}: ${err.error}`);
+      }
+      await refreshQueue();
+    } catch (e) {
+      addLog("error", `Failed to queue: ${e}`);
+    }
+  }
+
+  async function handleQueueRace(race: PublishedRaceSummary) {
+    try {
+      const result = await apiService.addToQueue([race.id], buildOptions());
+      if (result.added.length > 0) {
+        addLog("info", `Queued update for ${race.id}`);
+      }
+      for (const err of result.errors) {
+        addLog("warning", `${err.race_id}: ${err.error}`);
+      }
+      await refreshQueue();
+    } catch (e) {
+      addLog("error", `Failed to queue ${race.id}: ${e}`);
+    }
+  }
+
+  async function handleRemoveQueueItem(item: QueueItem) {
+    try {
+      await apiService.removeQueueItem(item.id);
+      await refreshQueue();
+    } catch (e) {
+      addLog("error", `Failed to remove queue item: ${e}`);
+    }
+  }
+
+  async function handleClearFinishedQueue() {
+    try {
+      const result = await apiService.clearFinishedQueue();
+      if (result.removed > 0) {
+        addLog("info", `Cleared ${result.removed} finished queue items`);
+      }
+      await refreshQueue();
+    } catch (e) {
+      addLog("error", `Failed to clear queue: ${e}`);
+    }
+  }
+
+  async function handleDeleteRace(race: PublishedRaceSummary) {
+    if (!confirm(`Delete race "${race.id}"? This removes the published data and cannot be undone.`)) {
+      return;
+    }
+    try {
+      await apiService.deletePublishedRace(race.id);
+      addLog("info", `Deleted race: ${race.id}`);
+      await refreshPublishedRaces();
+    } catch (e) {
+      console.error("Failed to delete race:", e);
+      addLog("error", `Failed to delete race ${race.id}: ${e}`);
+    }
+  }
+
+  async function handleExportRace(race: PublishedRaceSummary) {
+    try {
+      const data = await apiService.getPublishedRace(race.id);
+      downloadAsJson(data, `${race.id}.json`);
+      addLog("info", `Exported race: ${race.id}`);
+    } catch (e) {
+      console.error("Failed to export race:", e);
+      addLog("error", `Failed to export race ${race.id}: ${e}`);
     }
   }
 
@@ -491,10 +539,10 @@
               />
               <button
                 type="button"
-                on:click={addToQueue}
+                on:click={handleAddToQueue}
                 disabled={!pipeline.raceId.trim()}
-                title="Add to queue (run multiple races sequentially)"
-                class="px-3 py-2 text-sm border border-blue-300 text-blue-600 rounded-lg hover:bg-blue-50 disabled:opacity-40 disabled:cursor-not-allowed whitespace-nowrap"
+                title="Add to server queue (processes sequentially)"
+                class="btn-primary px-4 py-2 text-sm rounded-lg whitespace-nowrap disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 + Queue
               </button>
@@ -504,48 +552,55 @@
             </p>
           </div>
 
-          <!-- Race Queue -->
-          {#if raceQueue.length > 0}
+          <!-- Server Queue -->
+          {#if queueItems.length > 0}
             <div class="border border-gray-200 rounded-lg p-3">
               <div class="flex items-center justify-between mb-2">
                 <span class="text-xs font-medium text-gray-600">
-                  Queue — {completedCount}/{raceQueue.length} done
-                  {#if isQueueMode && pendingCount > 0}
-                    <span class="ml-1 text-blue-600">({pendingCount} remaining)</span>
+                  Queue — {queueFinished}/{queueItems.length} done
+                  {#if queuePending > 0}
+                    <span class="ml-1 text-blue-600">({queuePending} pending)</span>
+                  {/if}
+                  {#if queueRunning}
+                    <span class="ml-1 text-green-600 animate-pulse">● processing</span>
                   {/if}
                 </span>
-                <button
-                  type="button"
-                  on:click={clearQueue}
-                  disabled={pipeline.isExecuting}
-                  class="text-xs text-red-500 hover:text-red-700 disabled:opacity-40"
-                >
-                  Clear
-                </button>
+                {#if queueFinished > 0}
+                  <button
+                    type="button"
+                    on:click={handleClearFinishedQueue}
+                    class="text-xs text-red-500 hover:text-red-700"
+                  >
+                    Clear finished
+                  </button>
+                {/if}
               </div>
               <div class="space-y-1.5 max-h-48 overflow-y-auto">
-                {#each raceQueue as item (item.id)}
+                {#each queueItems as item (item.id)}
                   <div class="flex items-center gap-2">
-                    <span class="text-xs font-mono text-gray-700 flex-1 truncate">{item.id}</span>
+                    <span class="text-xs font-mono text-gray-700 flex-1 truncate">{item.race_id}</span>
                     <span class="text-xs px-1.5 py-0.5 rounded flex-shrink-0 {
                       item.status === 'completed' ? 'bg-green-100 text-green-700' :
                       item.status === 'failed' ? 'bg-red-100 text-red-700' :
+                      item.status === 'cancelled' ? 'bg-yellow-100 text-yellow-700' :
                       item.status === 'running' ? 'bg-blue-100 text-blue-700 animate-pulse' :
                       'bg-gray-100 text-gray-500'
                     }">
                       {item.status}
                     </span>
-                    {#if item.status === 'pending'}
+                    {#if item.status === 'pending' || item.status === 'running'}
                       <button
                         type="button"
-                        on:click={() => removeFromQueue(item.id)}
+                        on:click={() => handleRemoveQueueItem(item)}
                         class="flex-shrink-0 text-gray-400 hover:text-red-500"
-                        title="Remove"
+                        title="Remove / Cancel"
                       >
                         <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
                           <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
                         </svg>
                       </button>
+                    {:else if item.status === 'failed' && item.error}
+                      <span class="text-xs text-red-400 truncate max-w-[8rem]" title={item.error}>{item.error}</span>
                     {:else}
                       <div class="w-3.5 h-3.5 flex-shrink-0" />
                     {/if}
@@ -620,40 +675,21 @@
             </div>
           {/if}
 
-          <div class="flex gap-2">
+          {#if pipeline.isExecuting}
             <button
-              disabled={pipeline.isExecuting || !pipeline.raceId.trim()}
-              on:click={handleRunAgent}
-              class="btn-primary flex-1 flex items-center justify-center py-2.5"
+              on:click={handleStopExecution}
+              class="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg bg-red-600 text-white hover:bg-red-700 text-sm font-medium"
             >
-              {#if pipeline.isExecuting && !isQueueMode}
-                <svg class="animate-spin h-4 w-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
-                  <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                </svg>
-                Researching...
-              {:else}
-                🔍 Research Race
+              <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
+                <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+              </svg>
+              Researching{queueRunning ? ` ${queueRunning.race_id}` : ''}...
+              {#if queuePending > 0}
+                <span class="text-xs opacity-75">({queuePending} more queued)</span>
               {/if}
             </button>
-            {#if pendingCount > 0}
-              <button
-                disabled={pipeline.isExecuting}
-                on:click={runQueue}
-                class="flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed text-sm font-medium whitespace-nowrap"
-              >
-                {#if isQueueMode && pipeline.isExecuting}
-                  <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
-                    <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                  </svg>
-                  {completedCount}/{raceQueue.length}
-                {:else}
-                  ▶ Run {pendingCount}
-                {/if}
-              </button>
-            {/if}
-          </div>
+          {/if}
         </div>
       </div>
 
@@ -661,8 +697,11 @@
       <div class="card p-6">
         <div class="flex items-center justify-between mb-3">
           <div>
-            <h3 class="text-lg font-semibold text-gray-900">Existing Races</h3>
-            <p class="text-sm text-gray-500">Click Update to re-run research on a published race.</p>
+            <h3 class="text-lg font-semibold text-gray-900">Published Races</h3>
+            <p class="text-sm text-gray-500">
+              {publishedRaces.length} race{publishedRaces.length !== 1 ? 's' : ''} published.
+              Update, export, or delete.
+            </p>
           </div>
           <button
             type="button"
@@ -681,11 +720,11 @@
         {#if publishedRaces.length === 0}
           <p class="text-sm text-gray-400 text-center py-4">No published races found.</p>
         {:else}
-          <div class="space-y-2 max-h-72 overflow-y-auto">
+          <div class="space-y-2 max-h-[28rem] overflow-y-auto">
             {#each publishedRaces as race (race.id)}
               {@const updatedDate = race.updated_utc ? new Date(race.updated_utc) : null}
               {@const daysSinceUpdate = updatedDate ? Math.floor((Date.now() - updatedDate.getTime()) / 86400000) : null}
-              <div class="flex items-start justify-between gap-3 p-3 rounded-lg border border-gray-200 hover:border-blue-200 hover:bg-blue-50 transition-colors">
+              <div class="flex items-start justify-between gap-3 p-3 rounded-lg border border-gray-200 hover:border-blue-200 hover:bg-blue-50/50 transition-colors">
                 <div class="min-w-0 flex-1">
                   <div class="flex items-center gap-2 flex-wrap">
                     <span class="text-sm font-medium text-gray-900 font-mono">{race.id}</span>
@@ -702,14 +741,34 @@
                     {race.candidates.map((c) => `${c.name}${c.party ? ` (${c.party})` : ""}`).join(" · ")}
                   </p>
                 </div>
-                <button
-                  type="button"
-                  on:click={() => handleUpdateRace(race)}
-                  disabled={pipeline.isExecuting}
-                  class="flex-shrink-0 text-xs px-2.5 py-1.5 rounded bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                >
-                  Update
-                </button>
+                <div class="flex items-center gap-1.5 flex-shrink-0">
+                  <button
+                    type="button"
+                    on:click={() => handleExportRace(race)}
+                    title="Download race JSON"
+                    class="text-xs px-2 py-1.5 rounded border border-gray-300 text-gray-600 hover:bg-gray-100 transition-colors"
+                  >
+                    ↓
+                  </button>
+                  <button
+                    type="button"
+                    on:click={() => handleQueueRace(race)}
+                    disabled={queueItems.some((q) => q.race_id === race.id && (q.status === 'pending' || q.status === 'running'))}
+                    title="Queue re-research"
+                    class="text-xs px-2.5 py-1.5 rounded bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  >
+                    {queueItems.some((q) => q.race_id === race.id && (q.status === 'pending' || q.status === 'running')) ? 'Queued' : 'Update'}
+                  </button>
+                  <button
+                    type="button"
+                    on:click={() => handleDeleteRace(race)}
+                    disabled={pipeline.isExecuting}
+                    title="Delete race"
+                    class="text-xs px-2 py-1.5 rounded border border-red-300 text-red-600 hover:bg-red-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  >
+                    ✕
+                  </button>
+                </div>
               </div>
             {/each}
           </div>

@@ -60,14 +60,17 @@ class RunManager:
         """Load existing runs from storage."""
         try:
             for run_file in self.storage_dir.glob("*.json"):
-                with open(run_file, "r") as f:
-                    data = json.load(f)
-                    run_info = RunInfo(**data)
-                    if run_info.status in [RunStatus.PENDING, RunStatus.RUNNING]:
-                        # Mark incomplete runs as failed on startup
-                        run_info.status = RunStatus.FAILED
-                        run_info.error = "Process interrupted"
-                        self._save_run(run_info)
+                try:
+                    with open(run_file, "r") as f:
+                        data = json.load(f)
+                        run_info = RunInfo(**data)
+                        if run_info.status in [RunStatus.PENDING, RunStatus.RUNNING]:
+                            # Mark incomplete runs as failed on startup
+                            run_info.status = RunStatus.FAILED
+                            run_info.error = "Process interrupted"
+                            self._save_run(run_info)
+                except Exception:
+                    logging.exception("Failed to load run file %s, skipping", run_file)
                     # Don't load completed runs into active_runs to save memory
         except (OSError, json.JSONDecodeError, ValueError):
             logging.exception("Failed to load existing runs from storage")

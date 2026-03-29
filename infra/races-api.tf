@@ -6,7 +6,7 @@ resource "google_cloud_run_v2_service" "races_api" {
 
   template {
     containers {
-      image = "${var.region}-docker.pkg.dev/${var.project_id}/smartervote-${var.environment}/races-api:latest"
+      image = "${var.region}-docker.pkg.dev/${var.project_id}/smartervote-${var.environment}/races-api:${var.app_version}"
 
       env {
         name  = "GCS_BUCKET_NAME"

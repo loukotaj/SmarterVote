@@ -24,6 +24,7 @@ from pydantic import BaseModel
 from .logging_manager import logging_manager
 from .models import RunInfo, RunOptions, RunRequest, RunResponse
 from .pipeline_runner import run_step_async
+from .queue_manager import queue_manager
 from .run_manager import run_manager
 from .settings import settings
 from .step_registry import REGISTRY
@@ -39,6 +40,9 @@ async def lifespan(app: FastAPI):
     """Startup and shutdown events."""
     loop = asyncio.get_running_loop()
     logging_manager.set_main_loop(loop)
+    # Resume queue processing if there are pending items from before restart
+    if queue_manager.get_next_pending():
+        asyncio.create_task(queue_manager.process_next())
     yield
 
 
@@ -100,6 +104,13 @@ class AgentRequest(BaseModel):
     options: RunOptions | None = None
 
 
+class QueueAddRequest(BaseModel):
+    """Request body for adding races to the queue."""
+
+    race_ids: List[str]
+    options: RunOptions | None = None
+
+
 @app.get("/races", dependencies=[Depends(verify_token)])
 async def list_published_races() -> Dict[str, Any]:
     """List all published race summaries from data/published/."""
@@ -126,6 +137,48 @@ async def list_published_races() -> Dict[str, Any]:
     return {"races": races}
 
 
+@app.get("/races/{race_id}", dependencies=[Depends(verify_token)])
+async def get_published_race(race_id: str) -> Dict[str, Any]:
+    """Get full published race data for export/download."""
+    published_dir = ROOT / "data" / "published"
+    path = published_dir / f"{race_id}.json"
+    if not path.exists():
+        raise HTTPException(status_code=404, detail="Race not found")
+    with path.open("r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+@app.delete("/races/{race_id}", dependencies=[Depends(verify_token)])
+async def delete_published_race(race_id: str) -> Dict[str, Any]:
+    """Delete a published race file and optionally remove from GCS."""
+    import os
+
+    published_dir = ROOT / "data" / "published"
+    path = published_dir / f"{race_id}.json"
+    if not path.exists():
+        raise HTTPException(status_code=404, detail="Race not found")
+
+    path.unlink()
+
+    # Also remove from GCS if configured
+    gcs_bucket = os.getenv("GCS_BUCKET_NAME")
+    if gcs_bucket:
+        try:
+            from google.cloud import storage  # type: ignore
+
+            client = storage.Client()
+            bucket = client.bucket(gcs_bucket)
+            blob = bucket.blob(f"races/{race_id}.json")
+            blob.delete()
+            logging.info("Deleted %s from GCS: gs://%s/races/%s.json", race_id, gcs_bucket, race_id)
+        except ImportError:
+            logging.warning("google-cloud-storage not installed; skipping GCS delete")
+        except Exception as e:
+            logging.warning("Failed to delete %s from GCS: %s", race_id, e)
+
+    return {"message": f"Race {race_id} deleted", "id": race_id}
+
+
 @app.post("/api/run", dependencies=[Depends(verify_token)])
 async def run_agent_endpoint(request: AgentRequest) -> Dict[str, Any]:
     """Run the agent pipeline for a race.
@@ -144,6 +197,62 @@ async def run_agent_endpoint(request: AgentRequest) -> Dict[str, Any]:
     asyncio.create_task(_execute_run_async("agent", run_request, run_info.run_id))
 
     return {"run_id": run_info.run_id, "status": "started", "step": "agent"}
+
+
+# ---------------------------------------------------------------------------
+# Queue endpoints
+# ---------------------------------------------------------------------------
+
+
+@app.get("/queue", dependencies=[Depends(verify_token)])
+async def get_queue() -> Dict[str, Any]:
+    """Get all queue items with their status."""
+    items = queue_manager.get_all()
+    return {
+        "items": [item.model_dump(mode="json") for item in items],
+        "running": queue_manager.has_running(),
+        "pending": queue_manager.pending_count(),
+    }
+
+
+@app.post("/queue", dependencies=[Depends(verify_token)])
+async def add_to_queue(request: QueueAddRequest) -> Dict[str, Any]:
+    """Add one or more races to the processing queue."""
+    added = []
+    errors = []
+    options = request.options.model_dump(exclude_unset=True) if request.options else {}
+
+    for race_id in request.race_ids:
+        race_id = race_id.strip()
+        if not race_id:
+            continue
+        try:
+            item = queue_manager.add(race_id, options)
+            added.append(item.model_dump(mode="json"))
+        except ValueError as e:
+            errors.append({"race_id": race_id, "error": str(e)})
+
+    # Start processing if not already running
+    asyncio.create_task(queue_manager.process_next())
+
+    return {"added": added, "errors": errors}
+
+
+@app.delete("/queue/finished", dependencies=[Depends(verify_token)])
+async def clear_finished_queue() -> Dict[str, Any]:
+    """Remove completed/failed/cancelled items from the queue."""
+    removed = queue_manager.clear_finished()
+    return {"removed": removed}
+
+
+@app.delete("/queue/{item_id}", dependencies=[Depends(verify_token)])
+async def remove_queue_item(item_id: str) -> Dict[str, Any]:
+    """Remove or cancel a queue item."""
+    if queue_manager.remove(item_id):
+        return {"ok": True, "action": "removed"}
+    if queue_manager.cancel(item_id):
+        return {"ok": True, "action": "cancelled"}
+    raise HTTPException(status_code=404, detail="Queue item not found or cannot be removed")
 
 
 # ---------------------------------------------------------------------------
@@ -169,13 +278,13 @@ async def get_artifact_details(artifact_id: str) -> Dict[str, Any]:
         raise HTTPException(status_code=404, detail="artifact not found")
 
 
-_cors_origins = settings.allowed_origins
+_cors_origins = settings.allowed_origins_list
 # credentials=True is incompatible with wildcard origin — use explicit list or drop credentials
 _use_credentials = "*" not in _cors_origins
 app.add_middleware(
     CORSMiddleware,
     allow_origins=_cors_origins if _use_credentials else ["*"],
-    allow_origin_regex=r"https://.*\.smarter\.vote" if not _use_credentials else None,
+    allow_origin_regex=r"https://(.*\.)?smarter\.vote" if not _use_credentials else None,
     allow_credentials=_use_credentials,
     allow_methods=["*"],
     allow_headers=["*"],

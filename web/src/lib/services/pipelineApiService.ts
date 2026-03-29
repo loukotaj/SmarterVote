@@ -26,6 +26,29 @@ interface PublishedRacesResponse {
   races: PublishedRaceSummary[];
 }
 
+export interface QueueItem {
+  id: string;
+  race_id: string;
+  status: "pending" | "running" | "completed" | "failed" | "cancelled";
+  options: Record<string, unknown>;
+  run_id?: string;
+  created_at: string;
+  started_at?: string;
+  completed_at?: string;
+  error?: string;
+}
+
+interface QueueResponse {
+  items: QueueItem[];
+  running: boolean;
+  pending: number;
+}
+
+interface QueueAddResponse {
+  added: QueueItem[];
+  errors: Array<{ race_id: string; error: string }>;
+}
+
 export class PipelineApiService {
   constructor(private apiBase: string) {}
 
@@ -110,6 +133,87 @@ export class PipelineApiService {
       throw new Error(`HTTP ${res.status}: ${res.statusText}. ${errorText}`);
     }
 
+    return await res.json();
+  }
+
+  /**
+   * Get full published race data (for export/download)
+   */
+  async getPublishedRace(raceId: string): Promise<Record<string, unknown>> {
+    const res = await fetchWithAuth(
+      `${this.apiBase}/races/${encodeURIComponent(raceId)}`,
+      {},
+      15000
+    );
+    if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+    return await res.json();
+  }
+
+  /**
+   * Delete a published race
+   */
+  async deletePublishedRace(raceId: string): Promise<void> {
+    const res = await fetchWithAuth(
+      `${this.apiBase}/races/${encodeURIComponent(raceId)}`,
+      { method: "DELETE" },
+      15000
+    );
+    if (!res.ok) {
+      const errorText = await res.text().catch(() => "Unknown error");
+      throw new Error(`HTTP ${res.status}: ${res.statusText}. ${errorText}`);
+    }
+  }
+
+  // -- Queue API ----------------------------------------------------------
+
+  /**
+   * Get current queue state
+   */
+  async loadQueue(): Promise<QueueResponse> {
+    const res = await fetchWithAuth(`${this.apiBase}/queue`, {}, 10000);
+    if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+    return await res.json();
+  }
+
+  /**
+   * Add races to the processing queue
+   */
+  async addToQueue(
+    raceIds: string[],
+    options: RunOptions = {}
+  ): Promise<QueueAddResponse> {
+    const res = await fetchWithAuth(`${this.apiBase}/queue`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ race_ids: raceIds, options }),
+    });
+    if (!res.ok) {
+      const errorText = await res.text().catch(() => "Unknown error");
+      throw new Error(`HTTP ${res.status}: ${res.statusText}. ${errorText}`);
+    }
+    return await res.json();
+  }
+
+  /**
+   * Remove or cancel a queue item
+   */
+  async removeQueueItem(itemId: string): Promise<void> {
+    const res = await fetchWithAuth(
+      `${this.apiBase}/queue/${encodeURIComponent(itemId)}`,
+      { method: "DELETE" },
+      10000
+    );
+    if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+  }
+
+  /**
+   * Clear completed/failed items from queue
+   */
+  async clearFinishedQueue(): Promise<{ removed: number }> {
+    const res = await fetchWithAuth(`${this.apiBase}/queue/finished`, {
+      method: "DELETE",
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
     return await res.json();
   }
 }
