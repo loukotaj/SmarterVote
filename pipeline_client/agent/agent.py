@@ -48,17 +48,17 @@ logger = logging.getLogger("pipeline")
 # ---------------------------------------------------------------------------
 
 # Primary research models
-DEFAULT_MODEL = "gpt-4o"
-CHEAP_MODEL = "gpt-4o-mini"
+DEFAULT_MODEL = "gpt-5.4"
+CHEAP_MODEL = "gpt-5-mini"
 
 # Review models (full quality)
-DEFAULT_CLAUDE_MODEL = "claude-sonnet-4-20250514"
-DEFAULT_GEMINI_MODEL = "gemini-2.0-flash"
+DEFAULT_CLAUDE_MODEL = "claude-sonnet-4-6"
+DEFAULT_GEMINI_MODEL = "gemini-3.0-flash"
 DEFAULT_GROK_MODEL = "grok-3"
 
 # Review models (cheap mode)
 CHEAP_CLAUDE_MODEL = "claude-haiku-4-20250514"
-CHEAP_GEMINI_MODEL = "gemini-2.0-flash-lite"
+CHEAP_GEMINI_MODEL = "gemini-3.0-flash-lite"
 CHEAP_GROK_MODEL = "grok-3-mini"
 
 # ---------------------------------------------------------------------------
@@ -491,7 +491,7 @@ async def run_agent(
     on_log : callable, optional
         ``(level, message) -> None`` callback for streaming logs.
     cheap_mode : bool
-        When *True*, use cheaper/faster model variants.
+        When *True*, use cheaper/faster model variants (``gpt-5-mini`` instead of ``gpt-5.4``).
     max_iterations : int
         Safety limit on each phase's tool-call loop.
     existing_data : dict, optional
