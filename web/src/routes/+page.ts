@@ -1,4 +1,5 @@
 import { getRaceSummaries } from "$lib/api";
+import { logger } from "$lib/utils/logger";
 import type { PageLoad } from "./$types";
 
 export const load: PageLoad = async ({ fetch }) => {
@@ -8,7 +9,7 @@ export const load: PageLoad = async ({ fetch }) => {
       races,
     };
   } catch (error) {
-    console.error("Failed to load race summaries:", error);
+    logger.error("Failed to load race summaries:", error);
     return {
       races: [],
     };

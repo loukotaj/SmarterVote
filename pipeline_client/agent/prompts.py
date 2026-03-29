@@ -504,6 +504,11 @@ For non-incumbents or candidates with no legislative history, search for any pub
 statements about how they WOULD have voted on key bills (note these as "stated
 position" not a vote).
 
+IMPORTANT — DEDUPLICATION:
+- If the same donor name appears multiple times, consolidate into ONE entry
+  with the highest amount (or most recent cycle). Do NOT list the same
+  person/organization more than once.
+
 """ + _DONOR_SCHEMA_NOTE + """
 
 Return JSON keyed by candidate name:
@@ -514,9 +519,11 @@ Return JSON keyed by candidate name:
         "name": "<donor full name>",
         "amount": <dollar amount or null>,
         "organization": "<employer/org or null>",
+        "donation_year": "<election cycle e.g. 2025-2026, or year e.g. 2026>",
         "source": {{"url": "<url>", "type": "government|news|website", "title": "<page title>"}}
       }}
     ],
+    "donor_source_url": "<best URL where users can browse the full donor list, e.g. OpenSecrets candidate page, FEC candidate page>",
     "voting_record": [
       {{
         "bill_name": "<bill name or number>",
@@ -525,7 +532,9 @@ Return JSON keyed by candidate name:
         "date": "<YYYY-MM-DD>",
         "source": {{"url": "<url>", "type": "government|news", "title": "<title>"}}
       }}
-    ]
+    ],
+    "voting_summary": "<2-3 sentences summarizing the candidate's voting patterns, e.g. 'Consistently voted for environmental protections and gun safety measures. Sponsored 3 education funding bills.'>",
+    "voting_source_url": "<best URL where users can browse the full voting record — prefer VoteSmart > GovTrack > Congress.gov > state legislature site>"
   }}
 }}"""
 
@@ -537,6 +546,19 @@ ITERATE_SYSTEM = f"""\
 You are a nonpartisan editorial agent. You are given a candidate research
 profile and specific review feedback (flags) from fact-checking reviewers.
 Your job is to address each flag by researching and fixing the issues.
+
+CRITICAL — SOURCE-VERIFICATION RULE:
+Before changing ANY factual claim (a vote, a donor amount, a stated position),
+you MUST first verify the flag by searching the original source cited in the
+profile. If the source confirms the original data is correct, REJECT the
+reviewer's flag — do NOT change accurate data to satisfy a mistaken reviewer.
+When you reject a flag, add an entry to "dismissed_flags" in your output
+explaining why (e.g. "Source confirms the vote was real").
+
+Only modify data when:
+- The source contradicts the profile, OR
+- The source is unavailable/broken, OR
+- Additional sources disprove the claim.
 
 {_SHARED_RULES}"""
 
@@ -571,8 +593,14 @@ Shape:
   "issues": {{"<Issue>": {{"stance": "...", "confidence": "...", "sources": [...]}}}},
   "voting_record": [...],
   "top_donors": [...],
-  "iteration_notes": ["Fixed X for {candidate_name}", "Added Y"]
-}}"""
+  "iteration_notes": ["Fixed X for {candidate_name}", "Added Y"],
+  "dismissed_flags": [
+    {{"field": "<dot-path from flag>", "reason": "DISMISSED:<field> \u2014 <why the original data is correct>"}}
+  ]
+}}
+
+IMPORTANT: For each dismissed flag, prefix the reason with "DISMISSED:<field> \u2014 "
+so the system can track which flags were verified as correct."""
 
 ITERATE_META_USER = """\
 Race "{race_id}" — addressing review flags for race-level metadata.

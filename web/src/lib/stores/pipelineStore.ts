@@ -2,6 +2,7 @@
  * Pipeline execution state management store
  */
 import { writable, derived } from "svelte/store";
+import { logger } from "$lib/utils/logger";
 import type {
   RunStatus,
   RunStep,
@@ -103,7 +104,7 @@ export const safeOutputDisplay = derived(pipelineStore, ($pipeline) => {
 
     return jsonString;
   } catch (error) {
-    console.error("Failed to stringify output:", error);
+    logger.error("Failed to stringify output:", error);
     return `[ERROR: Unable to display output]\nReason: ${error}`;
   }
 });

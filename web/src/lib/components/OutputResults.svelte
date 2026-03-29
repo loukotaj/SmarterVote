@@ -1,5 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
+  import { logger } from "$lib/utils/logger";
   import {
     copyToClipboard,
     downloadAsJson,
@@ -45,7 +46,7 @@
           );
         }
       } catch (error) {
-        console.error("Failed to copy output:", error);
+        logger.error("Failed to copy output:", error);
         onAddLog("error", "Failed to copy output to clipboard");
       }
     }

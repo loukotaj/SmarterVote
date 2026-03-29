@@ -138,3 +138,17 @@ def test_list_races_empty():
         resp = test_client.get("/races")
         assert resp.status_code == 200
         assert resp.json() == []
+
+
+def test_rate_limit_exceeded(client):
+    """Exceeding the rate limit returns 429 Too Many Requests."""
+    import main as main_mod
+
+    main_mod.limiter.reset()
+
+    for _ in range(60):
+        resp = client.get("/races")
+        assert resp.status_code == 200
+
+    resp = client.get("/races")
+    assert resp.status_code == 429

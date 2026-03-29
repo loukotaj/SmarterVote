@@ -2,6 +2,7 @@
  * WebSocket connection and message handling store
  */
 import { writable } from "svelte/store";
+import { logger } from "$lib/utils/logger";
 import type { LogEntry } from "$lib/types";
 
 type PipelineEvent =
@@ -116,7 +117,7 @@ export const websocketActions = {
             const data = JSON.parse(event.data) as PipelineEvent;
             queueMessage(data);
           } catch (e) {
-            console.error("Failed to parse WebSocket message:", e);
+            logger.error("Failed to parse WebSocket message:", e);
             onLog?.("error", "Failed to parse server message");
           }
         };
@@ -155,13 +156,13 @@ export const websocketActions = {
 
         ws.onerror = (error) => {
           websocketStore.update((s) => ({ ...s, connected: false }));
-          console.error("WebSocket error:", error);
+          logger.error("WebSocket error:", error);
           onLog?.("error", "WebSocket connection error");
         };
 
         return { ...state, ws };
       } catch (error) {
-        console.error("Failed to create WebSocket:", error);
+        logger.error("Failed to create WebSocket:", error);
         onLog?.("error", "Failed to create WebSocket connection");
         return state;
       }

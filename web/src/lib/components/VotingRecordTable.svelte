@@ -4,8 +4,12 @@
   import NoDataFallback from "./NoDataFallback.svelte";
 
   export let votingRecord: VotingRecord[] = [];
+  export let votingSummary: string = "";
+  export let votingSourceUrl: string = "";
   export let raceId: string = "";
   export let candidateName: string = "";
+
+  let showIndividualVotes = false;
 
   // The agent sometimes produces {bill, position} instead of {bill_name, vote}
   function billName(r: any): string {
@@ -22,7 +26,7 @@
     if (v.includes("for") && !v.includes("before")) return "yes";
     if (v.includes("abstain") || v.includes("present")) return "abstain";
     if (v.includes("absent") || v.includes("not voting") || v.includes("did not")) return "absent";
-    return raw; // return original text if we can't normalize
+    return raw;
   }
 
   function getVoteClass(vote: string): string {
@@ -58,43 +62,100 @@
       return dateString;
     }
   }
+
+  $: hasData = votingSummary || votingRecord.length > 0;
 </script>
 
 <div class="voting-container">
-  {#if votingRecord.length === 0}
+  {#if !hasData}
     <NoDataFallback dataType="voting" {raceId} {candidateName} />
   {:else}
-    <div class="voting-list">
-      {#each votingRecord as record}
-        {@const vote = normalizeVote(record)}
-        <div class="voting-item">
-          <div class="vote-header">
-            <div class="bill-name">{billName(record)}</div>
-            <div class="vote-badge {getVoteClass(vote)}">
-              <span class="vote-icon">{getVoteIcon(vote)}</span>
-              <span class="vote-text">{vote.toUpperCase()}</span>
+    <!-- Summary + source link (primary display) -->
+    {#if votingSummary}
+      <div class="voting-summary">
+        <p class="summary-text">{votingSummary}</p>
+      </div>
+    {/if}
+
+    {#if votingSourceUrl}
+      <a href={votingSourceUrl} target="_blank" rel="noopener noreferrer" class="source-link-btn">
+        View full voting record →
+      </a>
+    {/if}
+
+    <!-- Expandable individual votes -->
+    {#if votingRecord.length > 0}
+      <button
+        class="expand-toggle"
+        on:click={() => (showIndividualVotes = !showIndividualVotes)}
+      >
+        {showIndividualVotes ? "Hide" : "Show"} individual votes ({votingRecord.length})
+      </button>
+
+      {#if showIndividualVotes}
+        <div class="voting-list">
+          {#each votingRecord as record}
+            {@const vote = normalizeVote(record)}
+            <div class="voting-item">
+              <div class="vote-header">
+                <div class="bill-name">{billName(record)}</div>
+                <div class="vote-badge {getVoteClass(vote)}">
+                  <span class="vote-icon">{getVoteIcon(vote)}</span>
+                  <span class="vote-text">{vote.toUpperCase()}</span>
+                </div>
+              </div>
+
+              {#if billDescription(record)}
+                <div class="bill-description">{billDescription(record)}</div>
+              {/if}
+
+              <div class="vote-footer">
+                <div class="vote-date">{record.date ? formatDate(record.date) : ""}</div>
+                {#if record.source}
+                  <SourceLink source={record.source} />
+                {/if}
+              </div>
             </div>
-          </div>
-
-          {#if billDescription(record)}
-            <div class="bill-description">{billDescription(record)}</div>
-          {/if}
-
-          <div class="vote-footer">
-            <div class="vote-date">{record.date ? formatDate(record.date) : ""}</div>
-            {#if record.source}
-              <SourceLink source={record.source} />
-            {/if}
-          </div>
+          {/each}
         </div>
-      {/each}
-    </div>
+      {/if}
+    {/if}
   {/if}
 </div>
 
 <style lang="postcss">
   .voting-container { @apply space-y-4; }
-  .voting-list { @apply space-y-4; }
+
+  .voting-summary {
+    background-color: rgb(var(--sv-surface-alt));
+    border: 1px solid rgb(var(--sv-border));
+    @apply rounded-lg p-4;
+  }
+
+  .summary-text {
+    color: rgb(var(--sv-text));
+    @apply text-sm leading-relaxed;
+  }
+
+  .source-link-btn {
+    @apply inline-flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-medium transition-colors;
+    background-color: rgb(var(--sv-primary) / 0.1);
+    color: rgb(var(--sv-primary));
+    border: 1px solid rgb(var(--sv-primary) / 0.3);
+  }
+  .source-link-btn:hover {
+    background-color: rgb(var(--sv-primary) / 0.2);
+  }
+
+  .expand-toggle {
+    color: rgb(var(--sv-text-muted));
+    @apply text-xs underline cursor-pointer bg-transparent border-0 p-0;
+  }
+  .expand-toggle:hover {
+    color: rgb(var(--sv-text));
+  }
+
+  .voting-list { @apply space-y-4 mt-2; }
 
   .voting-item {
     background-color: rgb(var(--sv-surface-alt));

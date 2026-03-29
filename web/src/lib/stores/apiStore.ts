@@ -3,6 +3,7 @@
  */
 import { writable } from "svelte/store";
 import { getAuth0Client } from "$lib/auth";
+import { logger } from "$lib/utils/logger";
 import type { Auth0Client } from "@auth0/auth0-spa-js";
 
 interface ApiState {
@@ -36,7 +37,7 @@ export async function initializeAuth() {
 
     return { auth0, token };
   } catch (error) {
-    console.error("Failed to initialize auth:", error);
+    logger.error("Failed to initialize auth:", error);
     throw error;
   }
 }
@@ -66,7 +67,7 @@ export async function fetchWithAuth(
       currentToken = await auth0Client.getTokenSilently();
       apiStore.update((state) => ({ ...state, token: currentToken }));
     } catch (error) {
-      console.error("Failed to refresh token:", error);
+      logger.error("Failed to refresh token:", error);
       throw new Error("Authentication token refresh failed");
     }
   }

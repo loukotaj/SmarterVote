@@ -16,18 +16,27 @@ logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s %(message
 sys.path.append(os.path.join(os.path.dirname(__file__), "..", ".."))
 
 from config import DATA_DIR
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from schemas import CandidateSummary, RaceSummary
 from simple_publish_service import SimplePublishService
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.errors import RateLimitExceeded
+from slowapi.util import get_remote_address
 
 from shared.models import RaceJSON as Race
 
 # Initialize simple publish service
 publish_service = SimplePublishService(data_directory=DATA_DIR)
 
+# Rate limiter (keyed by client IP)
+limiter = Limiter(key_func=get_remote_address)
+
 # Initialize FastAPI app
 app = FastAPI(title="SmarterVote Races API")
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 # Enable CORS — public read-only API; credentials not needed
 app.add_middleware(
@@ -40,13 +49,15 @@ app.add_middleware(
 
 
 @app.get("/races", response_model=List[str])
-def list_races() -> List[str]:
+@limiter.limit("60/minute")
+def list_races(request: Request) -> List[str]:
     """List available race IDs."""
     return publish_service.get_published_races()
 
 
 @app.get("/races/summaries", response_model=List[RaceSummary])
-def get_race_summaries() -> List[RaceSummary]:
+@limiter.limit("30/minute")
+def get_race_summaries(request: Request) -> List[RaceSummary]:
     """Get summaries of all races for search and listing."""
     race_ids = publish_service.get_published_races()
     summaries = []
@@ -78,7 +89,8 @@ def get_race_summaries() -> List[RaceSummary]:
 
 
 @app.get("/races/{race_id}")
-def get_race(race_id: str):
+@limiter.limit("60/minute")
+def get_race(request: Request, race_id: str):
     """Retrieve race data by ID."""
     race_data = publish_service.get_race_data(race_id)
     if not race_data:
