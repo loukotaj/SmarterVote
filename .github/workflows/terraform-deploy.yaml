@@ -52,10 +52,6 @@ jobs:
           - name: races-api
             dockerfile: services/races-api/Dockerfile
             context: .
-          - name: enqueue-api
-            dockerfile: services/enqueue-api/Dockerfile
-            context: .
-
     steps:
     - uses: actions/checkout@v6
 

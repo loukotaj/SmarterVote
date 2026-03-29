@@ -78,8 +78,6 @@ Write-Host "   - cd ../pipeline && docker build -t $region-docker.pkg.dev/$proje
 Write-Host "   - docker push $region-docker.pkg.dev/$projectId/smartervote-dev/pipeline:latest" -ForegroundColor Gray
 Write-Host "   - cd ../pipeline_client && docker build -t $region-docker.pkg.dev/$projectId/smartervote-dev/pipeline-client:latest ." -ForegroundColor Gray
 Write-Host "   - docker push $region-docker.pkg.dev/$projectId/smartervote-dev/pipeline-client:latest" -ForegroundColor Gray
-Write-Host "   - cd ../services/enqueue-api && docker build -t $region-docker.pkg.dev/$projectId/smartervote-dev/enqueue-api:latest ." -ForegroundColor Gray
-Write-Host "   - docker push $region-docker.pkg.dev/$projectId/smartervote-dev/enqueue-api:latest" -ForegroundColor Gray
 Write-Host "   - cd ../services/races-api && docker build -t $region-docker.pkg.dev/$projectId/smartervote-dev/races-api:latest ." -ForegroundColor Gray
 Write-Host "   - docker push $region-docker.pkg.dev/$projectId/smartervote-dev/races-api:latest" -ForegroundColor Gray
 Write-Host ""

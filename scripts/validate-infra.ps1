@@ -54,25 +54,13 @@ function Test-Resource {
 
 # Test Cloud Run services
 Write-Host "Validating Cloud Run Services" -ForegroundColor Cyan
-Test-Resource "Enqueue API" "gcloud run services describe enqueue-api-$Environment --region=us-central1 --format='value(status.url)'"
 Test-Resource "Races API" "gcloud run services describe races-api-$Environment --region=us-central1 --format='value(status.url)'"
-
-# Test Cloud Run Job
-Write-Host ""
-Write-Host "Validating Cloud Run Jobs" -ForegroundColor Cyan
-Test-Resource "Race Worker Job" "gcloud run jobs describe race-worker-$Environment --region=us-central1 --format='value(metadata.name)'"
 
 # Test Storage Buckets
 Write-Host ""
 Write-Host "Validating Storage Buckets" -ForegroundColor Cyan
 Test-Resource "Data Bucket" "gsutil ls gs://$projectId-sv-data-$Environment"
 Test-Resource "ChromaDB Bucket" "gsutil ls gs://$projectId-chroma-storage-$Environment"
-
-# Test Pub/Sub
-Write-Host ""
-Write-Host "Validating Pub/Sub" -ForegroundColor Cyan
-Test-Resource "Race Jobs Topic" "gcloud pubsub topics describe race-jobs-$Environment"
-Test-Resource "Race Jobs Subscription" "gcloud pubsub subscriptions describe race-jobs-sub-$Environment"
 
 # Test Secret Manager
 Write-Host ""
@@ -84,20 +72,6 @@ Test-Resource "Grok API Key" "gcloud secrets describe grok-api-key-$Environment"
 # Test API endpoints if services are running
 Write-Host ""
 Write-Host "Testing API Endpoints" -ForegroundColor Cyan
-
-$enqueueUrl = gcloud run services describe "enqueue-api-$Environment" --region=us-central1 --format='value(status.url)' 2>$null
-if ($enqueueUrl) {
-    try {
-        $response = Invoke-WebRequest -Uri "$enqueueUrl/health" -Method GET -TimeoutSec 30 -UseBasicParsing
-        if ($response.StatusCode -eq 200) {
-            Write-Host "  Enqueue API Health: OK" -ForegroundColor Green
-        } else {
-            Write-Host "  Enqueue API Health: HTTP $($response.StatusCode)" -ForegroundColor Red
-        }
-    } catch {
-        Write-Host "  Enqueue API Health: UNREACHABLE" -ForegroundColor Red
-    }
-}
 
 $racesUrl = gcloud run services describe "races-api-$Environment" --region=us-central1 --format='value(status.url)' 2>$null
 if ($racesUrl) {

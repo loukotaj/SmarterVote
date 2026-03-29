@@ -49,19 +49,6 @@
             "stopOnEntry": false
         },
         {
-            "name": "Debug Enqueue API",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "${workspaceFolder}/services/enqueue-api/main.py",
-            "console": "integratedTerminal",
-            "cwd": "${workspaceFolder}/services/enqueue-api",
-            "env": {
-                "PYTHONPATH": "${workspaceFolder}"
-            },
-            "justMyCode": false,
-            "stopOnEntry": false
-        },
-        {
             "name": "Debug Tests",
             "type": "debugpy",
             "request": "launch",

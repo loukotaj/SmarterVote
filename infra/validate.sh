@@ -41,34 +41,6 @@ else
     echo "❌ MISSING"
 fi
 
-# Check Pub/Sub topic
-echo -n "📨 Pub/Sub topic: "
-if gcloud pubsub topics describe race-jobs-$ENVIRONMENT --project=$PROJECT_ID >/dev/null 2>&1; then
-    echo "✅ EXISTS"
-else
-    echo "❌ NOT FOUND"
-fi
-
-# Check Cloud Run service
-echo -n "🏃 Cloud Run service (enqueue-api): "
-SERVICE_NAME=enqueue-api-$ENVIRONMENT
-if gcloud run services describe $SERVICE_NAME --region=$REGION --project=$PROJECT_ID >/dev/null 2>&1; then
-    echo "✅ EXISTS"
-    SERVICE_URL=$(gcloud run services describe $SERVICE_NAME --region=$REGION --project=$PROJECT_ID --format="value(status.url)")
-    echo "   URL: $SERVICE_URL"
-else
-    echo "❌ NOT FOUND"
-fi
-
-# Check Cloud Run job
-echo -n "⚙️  Cloud Run job (race-worker): "
-JOB_NAME=race-worker-$ENVIRONMENT
-if gcloud run jobs describe $JOB_NAME --region=$REGION --project=$PROJECT_ID >/dev/null 2>&1; then
-    echo "✅ EXISTS"
-else
-    echo "❌ NOT FOUND"
-fi
-
 # Check Secret Manager secrets
 echo -n "🔐 Secret Manager: "
 SECRET_COUNT=$(gcloud secrets list --project=$PROJECT_ID --format="value(name)" | wc -l)
@@ -79,26 +51,12 @@ else
 fi
 
 # Check Cloud Scheduler jobs
-echo -n "⏰ Cloud Scheduler (nightly): "
-NIGHTLY_JOB=nightly-race-processing-$ENVIRONMENT
-if gcloud scheduler jobs describe $NIGHTLY_JOB --location=$REGION --project=$PROJECT_ID >/dev/null 2>&1; then
-    echo "✅ EXISTS"
-else
-    echo "❌ NOT FOUND"
-fi
-
-echo -n "⏰ Cloud Scheduler (weekly refresh): "
-WEEKLY_JOB=weekly-race-refresh-$ENVIRONMENT
-if gcloud scheduler jobs describe $WEEKLY_JOB --location=$REGION --project=$PROJECT_ID >/dev/null 2>&1; then
-    echo "✅ EXISTS"
-else
-    echo "❌ NOT FOUND"
-fi
 
 echo ""
 echo "🧪 Testing API endpoint (if available)..."
-if [ ! -z "$SERVICE_URL" ]; then
-    HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$SERVICE_URL/health" || echo "000")
+RACES_URL=$(gcloud run services describe "races-api-$ENVIRONMENT" --region=$REGION --project=$PROJECT_ID --format="value(status.url)" 2>/dev/null || echo "")
+if [ ! -z "$RACES_URL" ]; then
+    HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$RACES_URL/health" || echo "000")
     if [ "$HTTP_STATUS" = "200" ]; then
         echo "✅ API endpoint is responding"
     else
