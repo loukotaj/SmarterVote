@@ -14,6 +14,10 @@ resource "google_secret_manager_secret_version" "openai_key" {
   count       = var.openai_api_key != "" ? 1 : 0
   secret      = google_secret_manager_secret.openai_key.id
   secret_data = var.openai_api_key
+
+  lifecycle {
+    ignore_changes = [secret_data]
+  }
 }
 
 resource "google_secret_manager_secret" "serper_key" {
@@ -31,6 +35,10 @@ resource "google_secret_manager_secret_version" "serper_key" {
   count       = var.serper_api_key != "" ? 1 : 0
   secret      = google_secret_manager_secret.serper_key.id
   secret_data = var.serper_api_key
+
+  lifecycle {
+    ignore_changes = [secret_data]
+  }
 }
 
 # Optional review provider secrets
@@ -50,6 +58,10 @@ resource "google_secret_manager_secret_version" "anthropic_key" {
   count       = var.enable_pipeline_client && var.anthropic_api_key != "" ? 1 : 0
   secret      = google_secret_manager_secret.anthropic_key[0].id
   secret_data = var.anthropic_api_key
+
+  lifecycle {
+    ignore_changes = [secret_data]
+  }
 }
 
 resource "google_secret_manager_secret" "gemini_key" {
@@ -68,6 +80,10 @@ resource "google_secret_manager_secret_version" "gemini_key" {
   count       = var.enable_pipeline_client && var.gemini_api_key != "" ? 1 : 0
   secret      = google_secret_manager_secret.gemini_key[0].id
   secret_data = var.gemini_api_key
+
+  lifecycle {
+    ignore_changes = [secret_data]
+  }
 }
 
 resource "google_secret_manager_secret" "xai_key" {
@@ -86,6 +102,10 @@ resource "google_secret_manager_secret_version" "xai_key" {
   count       = var.enable_pipeline_client && var.xai_api_key != "" ? 1 : 0
   secret      = google_secret_manager_secret.xai_key[0].id
   secret_data = var.xai_api_key
+
+  lifecycle {
+    ignore_changes = [secret_data]
+  }
 }
 
 # Service accounts for the same project
@@ -280,6 +300,13 @@ resource "google_project_iam_custom_role" "sa_manager" {
 resource "google_project_iam_member" "github_actions_sa_admin" {
   project = var.project_id
   role    = google_project_iam_custom_role.sa_manager.id
+  member  = "serviceAccount:${google_service_account.github_actions.email}"
+}
+
+# Allow GitHub Actions SA to read Secret Manager metadata for terraform plan/apply
+resource "google_project_iam_member" "github_actions_secret_manager" {
+  project = var.project_id
+  role    = "roles/secretmanager.viewer"
   member  = "serviceAccount:${google_service_account.github_actions.email}"
 }
 
