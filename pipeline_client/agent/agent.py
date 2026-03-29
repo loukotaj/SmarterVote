@@ -249,55 +249,57 @@ async def _call_openai(
     tools: List[Dict[str, Any]] | None = None,
     max_retries: int = 12,
     max_tokens: int = 16384,
-) -> Dict[str, Any]:
+):
     """Call the OpenAI Chat Completions API with retry on transient errors.
 
     429 rate-limit: exponential backoff starting at 30 s, capped at 10 min.
     5xx transient errors: shorter exponential backoff (2, 4, 8 … s).
     The Retry-After response header always takes precedence.
+
+    Returns an ``openai.types.chat.ChatCompletion`` object.
     """
+    from openai import AsyncOpenAI, RateLimitError, APIStatusError
+
     api_key = os.environ.get("OPENAI_API_KEY", "")
     if not api_key:
         raise RuntimeError("OPENAI_API_KEY is not set")
 
-    payload: Dict[str, Any] = {
+    client = AsyncOpenAI(api_key=api_key, max_retries=0, timeout=300)
+
+    kwargs: Dict[str, Any] = {
         "model": model,
         "messages": messages,
         "temperature": 0.2,
         "max_completion_tokens": max_tokens,
     }
     if tools:
-        payload["tools"] = tools
-        payload["tool_choice"] = "auto"
+        kwargs["tools"] = tools
+        kwargs["tool_choice"] = "auto"
 
-    # Reuse one client across all retry attempts
-    async with httpx.AsyncClient(timeout=300) as client:
-        for attempt in range(max_retries):
-            resp = await client.post(
-                "https://api.openai.com/v1/chat/completions",
-                headers={
-                    "Authorization": f"Bearer {api_key}",
-                    "Content-Type": "application/json",
-                },
-                json=payload,
+    for attempt in range(max_retries):
+        try:
+            return await client.chat.completions.create(**kwargs)
+        except RateLimitError as exc:
+            if attempt >= max_retries - 1:
+                raise
+            retry_after = 0
+            if exc.response is not None:
+                retry_after = int(exc.response.headers.get("retry-after", 0))
+            backoff = min(600, 30 * (2 ** attempt))
+            wait = max(retry_after, backoff)
+            logger.warning(f"OpenAI 429, retrying in {wait}s (attempt {attempt + 1}/{max_retries})")
+            await asyncio.sleep(wait)
+        except APIStatusError as exc:
+            if attempt >= max_retries - 1 or exc.status_code < 500:
+                raise
+            backoff = 2 ** (attempt + 1)
+            logger.warning(
+                f"OpenAI {exc.status_code}, retrying in {backoff}s "
+                f"(attempt {attempt + 1}/{max_retries})"
             )
-            if resp.status_code in (429, 500, 502, 503) and attempt < max_retries - 1:
-                retry_after = int(resp.headers.get("retry-after", 0))
-                if resp.status_code == 429:
-                    # Rate-limited: start at 30 s, double each attempt, cap at 10 min
-                    backoff = min(600, 30 * (2 ** attempt))
-                else:
-                    # Transient server error: shorter backoff
-                    backoff = 2 ** (attempt + 1)
-                wait = max(retry_after, backoff)
-                logger.warning(
-                    f"OpenAI {resp.status_code}, retrying in {wait}s "
-                    f"(attempt {attempt + 1}/{max_retries})"
-                )
-                await asyncio.sleep(wait)
-                continue
-            resp.raise_for_status()
-            return resp.json()
+            await asyncio.sleep(backoff)
+
+    raise RuntimeError("OpenAI: max retries exceeded")
 
 
 # ---------------------------------------------------------------------------
@@ -394,53 +396,53 @@ async def _agent_loop(
         )
         elapsed_call = time.perf_counter() - t_call
 
-        choice = result["choices"][0]
-        message = choice["message"]
-        finish_reason = choice.get("finish_reason", "?")
-        usage = result.get("usage", {})
+        choice = result.choices[0]
+        message = choice.message
+        finish_reason = choice.finish_reason or "?"
+        usage = result.usage
         log(
             "info",
             f"  [{phase_name}] response in {elapsed_call:.1f}s — "
             f"finish={finish_reason} "
-            f"tokens={usage.get('prompt_tokens', '?')}→{usage.get('completion_tokens', '?')}",
+            f"tokens={getattr(usage, 'prompt_tokens', '?')}→{getattr(usage, 'completion_tokens', '?')}",
         )
 
         # If the model wants to call tools, execute them (only when tools were offered)
-        if message.get("tool_calls") and tools_for_call:
-            messages.append(message)
-            for tool_call in message["tool_calls"]:
-                fn = tool_call["function"]
-                if fn["name"] == "web_search":
-                    args = json.loads(fn["arguments"])
+        if message.tool_calls and tools_for_call:
+            messages.append(message.model_dump())
+            for tool_call in message.tool_calls:
+                fn = tool_call.function
+                if fn.name == "web_search":
+                    args = json.loads(fn.arguments)
                     query = args.get("query", "")
                     log("info", f"    🔍 {query}")
                     search_results = await _serper_search(query, race_id=race_id)
                     log("debug", f"    🔍 got {len(search_results)} results")
                     messages.append({
                         "role": "tool",
-                        "tool_call_id": tool_call["id"],
+                        "tool_call_id": tool_call.id,
                         "content": json.dumps(search_results),
                     })
-                elif fn["name"] == "fetch_page":
-                    args = json.loads(fn["arguments"])
+                elif fn.name == "fetch_page":
+                    args = json.loads(fn.arguments)
                     url = args.get("url", "")
                     log("info", f"    📄 fetching {url[:80]}")
                     page_text = await _fetch_page(url)
                     log("debug", f"    📄 got {len(page_text)} chars")
                     messages.append({
                         "role": "tool",
-                        "tool_call_id": tool_call["id"],
+                        "tool_call_id": tool_call.id,
                         "content": page_text,
                     })
             continue
 
         # No tool calls — try to parse the answer
-        content = message.get("content", "")
+        content = message.content or ""
 
         # Response was truncated: ask for a more concise answer
         if finish_reason == "length":
             log("warning", f"  [{phase_name}] response truncated (finish_reason=length) — retrying with brevity prompt")
-            messages.append(message)
+            messages.append(message.model_dump())
             messages.append({
                 "role": "user",
                 "content": (
@@ -458,7 +460,7 @@ async def _agent_loop(
             return parsed
         except (json.JSONDecodeError, ValueError) as exc:
             log("warning", f"  [{phase_name}] bad JSON ({exc}) — retrying")
-            messages.append(message)
+            messages.append(message.model_dump())
             messages.append({
                 "role": "user",
                 "content": (

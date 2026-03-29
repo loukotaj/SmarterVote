@@ -7,8 +7,6 @@ import os
 from datetime import datetime, timezone
 from typing import Any, Callable, Dict, List, Optional
 
-import httpx
-
 from .prompts import REVIEW_SYSTEM, REVIEW_USER
 from .utils import _extract_json, make_logger
 
@@ -33,30 +31,22 @@ _REVIEW_PROVIDERS = {
 
 async def _call_anthropic(system: str, user: str, *, model: str = DEFAULT_CLAUDE_MODEL) -> str:
     """Call the Anthropic Messages API and return the text response."""
+    from anthropic import AsyncAnthropic
+
     api_key = os.environ.get("ANTHROPIC_API_KEY", "")
     if not api_key:
         raise RuntimeError("ANTHROPIC_API_KEY is not set")
 
-    async with httpx.AsyncClient(timeout=120) as client:
-        resp = await client.post(
-            "https://api.anthropic.com/v1/messages",
-            headers={
-                "x-api-key": api_key,
-                "anthropic-version": "2023-06-01",
-                "Content-Type": "application/json",
-            },
-            json={
-                "model": model,
-                "max_tokens": 8192,
-                "system": system,
-                "messages": [{"role": "user", "content": user}],
-            },
-        )
-        resp.raise_for_status()
-        data = resp.json()
-    for block in data.get("content", []):
-        if block.get("type") == "text":
-            return block["text"]
+    client = AsyncAnthropic(api_key=api_key)
+    response = await client.messages.create(
+        model=model,
+        max_tokens=8192,
+        system=system,
+        messages=[{"role": "user", "content": user}],
+    )
+    for block in response.content:
+        if block.type == "text":
+            return block.text
     return ""
 
 
@@ -82,29 +72,22 @@ async def _call_gemini(system: str, user: str, *, model: str = DEFAULT_GEMINI_MO
 
 async def _call_grok(system: str, user: str, *, model: str = DEFAULT_GROK_MODEL) -> str:
     """Call the xAI Grok API (OpenAI-compatible) and return the text response."""
+    from openai import AsyncOpenAI
+
     api_key = os.environ.get("XAI_API_KEY", "")
     if not api_key:
         raise RuntimeError("XAI_API_KEY is not set")
 
-    async with httpx.AsyncClient(timeout=120) as client:
-        resp = await client.post(
-            "https://api.x.ai/v1/chat/completions",
-            headers={
-                "Authorization": f"Bearer {api_key}",
-                "Content-Type": "application/json",
-            },
-            json={
-                "model": model,
-                "messages": [
-                    {"role": "system", "content": system},
-                    {"role": "user", "content": user},
-                ],
-                "temperature": 0.2,
-            },
-        )
-        resp.raise_for_status()
-        data = resp.json()
-    return data["choices"][0]["message"]["content"]
+    client = AsyncOpenAI(api_key=api_key, base_url="https://api.x.ai/v1", timeout=120)
+    response = await client.chat.completions.create(
+        model=model,
+        messages=[
+            {"role": "system", "content": system},
+            {"role": "user", "content": user},
+        ],
+        temperature=0.2,
+    )
+    return response.choices[0].message.content or ""
 
 
 async def _run_single_review(
