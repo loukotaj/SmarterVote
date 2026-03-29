@@ -97,7 +97,7 @@ class AgentHandler:
         # Backup existing file if present
         if output_path.exists():
             backup_path = output_path.with_suffix(
-                f".json.backup.{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+                f".json.backup.{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}"
             )
             output_path.rename(backup_path)
 
