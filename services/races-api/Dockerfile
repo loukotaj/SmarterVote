@@ -11,7 +11,9 @@ COPY services/races-api/constants.py .
 COPY services/races-api/schemas.py .
 COPY services/races-api/simple_publish_service.py .
 COPY shared /app/shared
-COPY data/published /app/data/published
+# data/published is NOT baked into the image — deployed instances read from GCS.
+# For local dev, mount or copy data/published manually.
+RUN mkdir -p /app/data/published
 
 ENV PYTHONUNBUFFERED=1 \
     DATA_DIR=/app/data/published/

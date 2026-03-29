@@ -474,7 +474,7 @@
                 value={pipeline.raceId}
                 on:input={handleRaceIdInput}
                 on:keydown={handleRaceIdKeydown}
-                placeholder="e.g. georgia-senate-2026, tx-governor-2026"
+                placeholder="e.g. ga-senate-2026, tx-governor-2026"
                 class="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm font-mono focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
               />
               <button

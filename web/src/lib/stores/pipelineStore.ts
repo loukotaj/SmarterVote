@@ -39,7 +39,7 @@ interface PipelineState {
 }
 
 const initialState: PipelineState = {
-  raceId: "georgia-senate-2026",
+  raceId: "ga-senate-2026",
 
   isExecuting: false,
   currentRunId: null,

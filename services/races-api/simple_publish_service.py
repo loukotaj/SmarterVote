@@ -62,16 +62,30 @@ class SimplePublishService:
             self.cloud_enabled = False
 
     def get_published_races(self) -> List[str]:
-        """List available race IDs from both local files and cloud storage."""
+        """List available race IDs.
+
+        In cloud mode, GCS is the source of truth.
+        In local mode, scan the local published directory.
+        """
         race_ids = set()
 
-        # Get from local files
+        if self.cloud_enabled and self.gcs_client:
+            try:
+                bucket = self.gcs_client.bucket(self.gcs_bucket_name)
+                for blob in bucket.list_blobs(prefix="races/"):
+                    if blob.name.endswith(".json"):
+                        race_ids.add(blob.name[len("races/") : -len(".json")])
+                logger.info(f"Listed {len(race_ids)} races from GCS")
+                return sorted(race_ids)
+            except Exception as e:
+                logger.warning(f"Error listing races from GCS, falling back to local: {e}")
+
+        # Local mode (or GCS list failed)
         if self.data_directory.exists():
             for file_path in self.data_directory.glob("*.json"):
                 try:
                     with open(file_path, "r", encoding="utf-8") as f:
                         data = json.load(f)
-                    # Unwrap pipeline-result wrapper files to get the real race ID
                     if "race_json" in data and "race_id" in data:
                         race_ids.add(data["race_id"])
                     else:
@@ -79,40 +93,23 @@ class SimplePublishService:
                 except (json.JSONDecodeError, IOError):
                     race_ids.add(file_path.stem)
 
-        # Get from cloud storage if available
-        if self.cloud_enabled and self.gcs_client:
-            try:
-                bucket = self.gcs_client.bucket(self.gcs_bucket_name)
-                blobs = bucket.list_blobs(prefix="races/")
-
-                for blob in blobs:
-                    if blob.name.endswith(".json"):
-                        # Extract race ID from "races/race-id.json"
-                        race_id = blob.name.replace("races/", "").replace(".json", "")
-                        race_ids.add(race_id)
-
-                logger.info(f"Found {len(race_ids)} total races across local and cloud sources")
-            except Exception as e:
-                logger.warning(f"Error listing races from cloud storage: {e}")
-
-        return sorted(list(race_ids))
+        return sorted(race_ids)
 
     def get_race_data(self, race_id: str) -> Optional[Dict]:
-        """Retrieve race data by ID from local files or cloud storage."""
-        # Try local file first (faster)
-        data = self._get_race_data_local(race_id)
-        if data:
-            return data
+        """Retrieve race data by ID from local files or cloud storage.
 
-        # Fall back to cloud storage
+        Priority:
+        - Cloud mode: GCS first (always fresh), local as fallback
+        - Local mode: local files only
+        """
         if self.cloud_enabled:
             data = self._get_race_data_cloud(race_id)
             if data:
-                # Cache locally for future requests
-                self._cache_race_data_locally(race_id, data)
                 return data
+            # GCS miss — fall back to local (e.g. bootstrap data baked into image)
+            logger.debug(f"GCS miss for {race_id}, falling back to local")
 
-        return None
+        return self._get_race_data_local(race_id)
 
     def _get_race_data_local(self, race_id: str) -> Optional[Dict]:
         """Get race data from local file."""
