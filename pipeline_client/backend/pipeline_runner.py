@@ -1,6 +1,7 @@
 import asyncio
 import logging
 import time
+import traceback
 from typing import Any, Dict, Optional
 
 from .logging_manager import logging_manager
@@ -45,10 +46,11 @@ def _safe_broadcast(message_data):
 async def run_step_async(step: str, request: RunRequest, run_id: Optional[str] = None) -> RunResponse:
     """Run a pipeline step with comprehensive logging and run tracking."""
     if run_id:
-        # Append to existing run
+        # Step was already added by create_run in the caller; just start the run
+        # (which attaches the log handler so logs are captured in run_info.logs)
         if not run_manager.get_run(run_id):
             raise ValueError("Run not found")
-        run_manager.add_step(run_id, step)
+        run_manager.start_run(run_id)
     else:
         run_info = run_manager.create_run([step], request)
         run_id = run_info.run_id
@@ -143,9 +145,10 @@ async def run_step_async(step: str, request: RunRequest, run_id: Optional[str] =
 
     except Exception as e:
         duration_ms = int((time.perf_counter() - t0) * 1000)
-        error_msg = str(e) or f"{type(e).__name__}: (no message)"
+        error_msg = f"{type(e).__name__}: {e}" if str(e) else type(e).__name__
+        tb = traceback.format_exc()
 
-        context_logger.error(f"Pipeline step '{step}' failed: {error_msg}", exc_info=True)
+        context_logger.error(f"Pipeline step '{step}' failed: {error_msg}\n{tb}")
 
         # Mark step and run as failed
         run_manager.update_step_status(run_id, step, RunStatus.FAILED, error=error_msg, duration_ms=duration_ms)

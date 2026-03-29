@@ -228,6 +228,7 @@ export const sampleRace: Race = {
       },
       summary:
         "Three-term incumbent Senator with a focus on fiscal conservatism, national security, and energy independence. Former state attorney general with 15 years of public service. Strong advocate for small businesses and rural communities. Sits on Armed Services and Energy committees.",
+      summary_sources: [],
       issues: {
         Healthcare: {
           stance:
@@ -398,6 +399,7 @@ export const sampleRace: Race = {
       },
       summary:
         "Five-term House Representative and former public school teacher. First Latina to represent the state in Congress. Champion of working families, climate action, and healthcare access. Serves on Education and Healthcare committees. Former union organizer and civil rights attorney.",
+      summary_sources: [],
       issues: {
         Healthcare: {
           stance:
@@ -572,6 +574,7 @@ export const sampleRace: Race = {
       },
       summary:
         "Former military officer and small business owner running as an independent. Purple Heart veteran with two tours in Afghanistan. Advocates for pragmatic, bipartisan solutions. Owns a renewable energy consulting firm. Focuses on fiscal responsibility and governmental reform.",
+      summary_sources: [],
       issues: {
         Healthcare: {
           stance:
