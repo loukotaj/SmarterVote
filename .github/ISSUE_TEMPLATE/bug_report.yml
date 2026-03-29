@@ -6,16 +6,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to fill out this bug report!
-
-  - type: input
-    id: contact
-    attributes:
-      label: Contact Details
-      description: How can we get in touch with you if we need more info?
-      placeholder: ex. email@example.com
-    validations:
-      required: false
+        Thanks for taking the time to fill out this bug report! Please [search existing issues](https://github.com/loukotaj/SmarterVote/issues?q=label%3Abug) first to avoid duplicates.
 
   - type: textarea
     id: what-happened
@@ -49,10 +40,9 @@ body:
       render: shell
 
   - type: checkboxes
-    id: terms
+    id: checklist
     attributes:
-      label: Code of Conduct
-      description: By submitting this issue, you agree to follow our [Code of Conduct](https://example.com)
+      label: Before you submit
       options:
-        - label: I agree to follow this project's Code of Conduct
+        - label: I searched existing issues and this bug hasn't been reported yet
           required: true
