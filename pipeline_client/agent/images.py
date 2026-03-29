@@ -3,7 +3,7 @@
 import asyncio
 import logging
 from typing import Any, Callable, Dict, List, Optional, Tuple
-from urllib.parse import urlparse
+from urllib.parse import urlparse, quote
 
 import httpx
 
@@ -82,6 +82,56 @@ async def _check_url_accessible(url: str) -> Tuple[bool, str]:
         return False, url
 
 
+async def _lookup_wikipedia_image(candidate_name: str) -> Optional[str]:
+    """Query the Wikipedia API to get a candidate's headshot URL.
+
+    Uses opensearch to find the best matching page, then pageimages to get the
+    image. Returns a direct upload.wikimedia.org URL, or None if not found.
+    """
+    try:
+        async with httpx.AsyncClient(timeout=10, follow_redirects=True) as client:
+            # Step 1: find the most likely Wikipedia page title
+            search_resp = await client.get(
+                "https://en.wikipedia.org/w/api.php",
+                params={
+                    "action": "opensearch",
+                    "search": candidate_name,
+                    "limit": "3",
+                    "format": "json",
+                },
+                headers={"User-Agent": _BROWSER_UA},
+            )
+            search_resp.raise_for_status()
+            search_data = search_resp.json()
+            titles = search_data[1] if len(search_data) > 1 else []
+            if not titles:
+                return None
+
+            # Step 2: for each candidate title, try to fetch a pageimage
+            for title in titles:
+                img_resp = await client.get(
+                    "https://en.wikipedia.org/w/api.php",
+                    params={
+                        "action": "query",
+                        "titles": title,
+                        "prop": "pageimages",
+                        "pithumbsize": "400",
+                        "format": "json",
+                        "redirects": "1",
+                    },
+                    headers={"User-Agent": _BROWSER_UA},
+                )
+                img_resp.raise_for_status()
+                data = img_resp.json()
+                for page in data.get("query", {}).get("pages", {}).values():
+                    thumb = page.get("thumbnail", {}).get("source", "")
+                    if thumb and "upload.wikimedia.org" in thumb:
+                        return thumb
+    except Exception:
+        pass
+    return None
+
+
 async def _resolve_wikimedia_commons(url: str) -> Optional[str]:
     """Convert a commons.wikimedia.org/wiki/File: URL to a direct upload URL.
 
@@ -145,6 +195,17 @@ async def _resolve_single_image(
     else:
         log("info", f"  No image URL for {name} — searching")
 
+    # Fast path: query Wikipedia API directly (no LLM call needed)
+    wiki_url = await _lookup_wikipedia_image(name)
+    if wiki_url:
+        accessible, final_url = await _check_url_accessible(wiki_url)
+        if accessible:
+            store_url = final_url if _is_valid_image_url(final_url) else wiki_url
+            candidate["image_url"] = store_url
+            log("info", f"  Wikipedia API found image for {name}: {store_url[:80]}")
+            return
+        log("info", f"  Wikipedia API URL not accessible for {name} — falling back to agent search")
+
     # Ask the agent to find a working image URL
     from .prompts import IMAGE_SEARCH_SYSTEM, IMAGE_SEARCH_USER
     try:
@@ -156,7 +217,7 @@ async def _resolve_single_image(
             race_id=race_id,
             max_iterations=max_iterations,
             phase_name=f"image-{name[:20]}",
-            max_tokens=512,
+            max_tokens=2048,
         )
         found_url = result.get("image_url")
         if not found_url:
