@@ -33,8 +33,10 @@ export interface Source {
   title?: string;
   description?: string;
   last_accessed: string;
+  published_at?: string;
   checksum?: string;
   is_fresh?: boolean;
+  is_official_campaign?: boolean;
 }
 
 export interface IssueStance {

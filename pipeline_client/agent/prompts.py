@@ -46,7 +46,11 @@ RULES (apply to every response):
    - "medium": Single credible source
    - "low": Inferred or unverified
 4. Always include source URLs for every claim.
-5. Return ONLY valid JSON – no markdown fences, no extra text."""
+5. Source objects use this shape:
+   {{"url": "<url>", "type": "website|news|government|social_media|pdf", "title": "<title>",
+     "published_at": "<YYYY-MM-DD or ISO date when article/page was published, or null>"}}
+   Always set published_at when the article or page has a visible publish date — it helps detect stale sources.
+6. Return ONLY valid JSON – no markdown fences, no extra text."""
 
 _DONOR_SCHEMA_NOTE = """\
 For top_donors, include up to 3-5 major donors when credible finance data is available.
@@ -55,7 +59,8 @@ Every donor entry must include a source object using this shape:
   "name": "<donor name>",
   "amount": <number or null>,
   "organization": "<organization or null>",
-  "source": {{"url": "<url>", "type": "government|news|website", "title": "<title>"}}
+  "source": {{"url": "<url>", "type": "government|news|website", "title": "<title>",
+              "published_at": "<YYYY-MM-DD when the source page was published, or null>"}}
 }}
 Prefer campaign finance databases, FEC pages, or established donor-tracking sources over generic news coverage."""
 
@@ -125,7 +130,8 @@ Return JSON:
           "bill_description": "<short desc>",
           "vote": "yes|no|abstain|absent",
           "date": "<YYYY-MM-DD>",
-          "source": {{"url": "<url>", "type": "government", "title": "<title>"}}
+          "source": {{"url": "<url>", "type": "government", "title": "<title>",
+                     "published_at": "<YYYY-MM-DD when the source page was published, or null>"}}
         }}
       ],
       "top_donors": [
@@ -171,7 +177,8 @@ Return JSON – an object keyed by candidate name:
       "stance": "<position>",
       "confidence": "high|medium|low",
       "sources": [
-        {{"url": "<url>", "type": "website|news|government|social_media", "title": "<title>"}}
+        {{"url": "<url>", "type": "website|news|government|social_media", "title": "<title>",
+          "published_at": "<YYYY-MM-DD when the article/page was published, or null>"}}
       ]
     }}
   }}

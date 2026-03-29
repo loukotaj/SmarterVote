@@ -12,6 +12,20 @@ interface ArtifactsResponse {
   items: Artifact[];
 }
 
+export interface PublishedRaceSummary {
+  id: string;
+  title?: string;
+  office?: string;
+  jurisdiction?: string;
+  election_date: string;
+  updated_utc: string;
+  candidates: { name: string; party?: string }[];
+}
+
+interface PublishedRacesResponse {
+  races: PublishedRaceSummary[];
+}
+
 export class PipelineApiService {
   constructor(private apiBase: string) {}
 
@@ -66,6 +80,16 @@ export class PipelineApiService {
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
     return await res.json();
+  }
+
+  /**
+   * Load published race summaries
+   */
+  async loadPublishedRaces(): Promise<PublishedRaceSummary[]> {
+    const res = await fetchWithAuth(`${this.apiBase}/races`, {}, 10000);
+    if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+    const data: PublishedRacesResponse = await res.json();
+    return data.races || [];
   }
 
   /**

@@ -1,4 +1,5 @@
 import asyncio
+import json
 import logging
 import sys
 import uuid
@@ -99,6 +100,32 @@ class AgentRequest(BaseModel):
 
     race_id: str
     options: RunOptions | None = None
+
+
+@app.get("/races", dependencies=[Depends(verify_token)])
+async def list_published_races() -> Dict[str, Any]:
+    """List all published race summaries from data/published/."""
+    published_dir = ROOT / "data" / "published"
+    races = []
+    if published_dir.exists():
+        for path in sorted(published_dir.glob("*.json")):
+            try:
+                with path.open("r", encoding="utf-8") as f:
+                    data = json.load(f)
+                races.append(
+                    {
+                        "id": data.get("id", path.stem),
+                        "title": data.get("title"),
+                        "office": data.get("office"),
+                        "jurisdiction": data.get("jurisdiction"),
+                        "election_date": data.get("election_date", ""),
+                        "updated_utc": data.get("updated_utc", ""),
+                        "candidates": [{"name": c.get("name", ""), "party": c.get("party")} for c in data.get("candidates", [])],
+                    }
+                )
+            except Exception:
+                pass
+    return {"races": races}
 
 
 @app.post("/api/run", dependencies=[Depends(verify_token)])

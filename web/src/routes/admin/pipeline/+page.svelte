@@ -14,6 +14,7 @@
 
   // Services
   import { PipelineApiService } from "$lib/services/pipelineApiService";
+  import type { PublishedRaceSummary } from "$lib/services/pipelineApiService";
 
   // Components
   import RunProgress from "$lib/components/RunProgress.svelte";
@@ -47,6 +48,10 @@
   let claudeModel = "";
   let geminiModel = "";
   let grokModel = "";
+
+  // Published races
+  let publishedRaces: PublishedRaceSummary[] = [];
+  let racesLoading = false;
 
   // Auto-refresh management
   const MIN_REFRESH_INTERVAL = 2000;
@@ -92,9 +97,10 @@
 
   async function loadInitialData() {
     try {
-      const [artifactsResult, historyResult] = await Promise.allSettled([
+      const [artifactsResult, historyResult, racesResult] = await Promise.allSettled([
         apiService.loadArtifacts(),
         apiService.loadRunHistory(),
+        apiService.loadPublishedRaces(),
       ]);
 
       if (artifactsResult.status === "fulfilled") {
@@ -103,6 +109,10 @@
 
       if (historyResult.status === "fulfilled") {
         pipelineActions.setRunHistory(historyResult.value);
+      }
+
+      if (racesResult.status === "fulfilled") {
+        publishedRaces = racesResult.value;
       }
     } catch (error) {
       console.error("Failed to load initial data:", error);
@@ -202,6 +212,7 @@
         stopAutoRefresh();
         stopElapsedTimer();
         debouncedRefresh();
+        refreshPublishedRaces();
         break;
       case "run_failed":
         pipelineActions.setRunStatus("failed");
@@ -212,6 +223,23 @@
         debouncedRefresh();
         break;
     }
+  }
+
+  async function refreshPublishedRaces() {
+    racesLoading = true;
+    try {
+      publishedRaces = await apiService.loadPublishedRaces();
+    } catch (e) {
+      console.error("Failed to refresh published races:", e);
+    } finally {
+      racesLoading = false;
+    }
+  }
+
+  function handleUpdateRace(race: PublishedRaceSummary) {
+    pipelineActions.setRaceId(race.id);
+    // Scroll to top of left panel so the run button is visible
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   // Agent execution
@@ -462,9 +490,67 @@
         </div>
       </div>
 
+      <!-- Existing Races -->
+      <div class="card p-6">
+        <div class="flex items-center justify-between mb-3">
+          <div>
+            <h3 class="text-lg font-semibold text-gray-900">Existing Races</h3>
+            <p class="text-sm text-gray-500">Click Update to re-run research on a published race.</p>
+          </div>
+          <button
+            type="button"
+            on:click={refreshPublishedRaces}
+            disabled={racesLoading}
+            class="text-xs text-blue-600 hover:text-blue-800 flex items-center gap-1 disabled:opacity-50"
+            title="Refresh list"
+          >
+            <svg class="w-3.5 h-3.5 {racesLoading ? 'animate-spin' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+            Refresh
+          </button>
+        </div>
+
+        {#if publishedRaces.length === 0}
+          <p class="text-sm text-gray-400 text-center py-4">No published races found.</p>
+        {:else}
+          <div class="space-y-2 max-h-72 overflow-y-auto">
+            {#each publishedRaces as race (race.id)}
+              {@const updatedDate = race.updated_utc ? new Date(race.updated_utc) : null}
+              {@const daysSinceUpdate = updatedDate ? Math.floor((Date.now() - updatedDate.getTime()) / 86400000) : null}
+              <div class="flex items-start justify-between gap-3 p-3 rounded-lg border border-gray-200 hover:border-blue-200 hover:bg-blue-50 transition-colors">
+                <div class="min-w-0 flex-1">
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <span class="text-sm font-medium text-gray-900 font-mono">{race.id}</span>
+                    {#if daysSinceUpdate !== null}
+                      <span class="text-xs px-1.5 py-0.5 rounded {daysSinceUpdate > 90 ? 'bg-red-100 text-red-700' : daysSinceUpdate > 30 ? 'bg-yellow-100 text-yellow-700' : 'bg-green-100 text-green-700'}">
+                        {daysSinceUpdate === 0 ? 'today' : daysSinceUpdate === 1 ? '1d ago' : `${daysSinceUpdate}d ago`}
+                      </span>
+                    {/if}
+                  </div>
+                  {#if race.title}
+                    <p class="text-xs text-gray-500 mt-0.5 truncate">{race.title}</p>
+                  {/if}
+                  <p class="text-xs text-gray-400 mt-0.5">
+                    {race.candidates.map((c) => `${c.name}${c.party ? ` (${c.party})` : ""}`).join(" · ")}
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  on:click={() => handleUpdateRace(race)}
+                  disabled={pipeline.isExecuting}
+                  class="flex-shrink-0 text-xs px-2.5 py-1.5 rounded bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                >
+                  Update
+                </button>
+              </div>
+            {/each}
+          </div>
+        {/if}
+      </div>
+
       <!-- Run Progress -->
-      <RunProgress
-        isExecuting={pipeline.isExecuting}
+      <RunProgress        isExecuting={pipeline.isExecuting}
         runStatus={pipeline.runStatus}
         progress={pipeline.progress}
         progressMessage={pipeline.progressMessage}
