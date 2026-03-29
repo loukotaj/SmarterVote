@@ -13,7 +13,7 @@ SmarterVote is an AI-powered electoral analysis platform. A multi-phase research
 ## Project Layout
 
 ```
-pipeline_v2/          # AI research agent (agent.py, prompts.py, search_cache.py)
+pipeline_client/agent/          # AI research agent (agent.py, prompts.py, search_cache.py)
 pipeline_client/      # FastAPI backend that runs the agent (backend/main.py, handlers/)
 services/races-api/   # REST API serving published race JSON
 web/                  # SvelteKit frontend (static site, GitHub Pages)
@@ -29,10 +29,10 @@ docs/                 # Architecture, deployment, local-dev guides
 
 | Purpose | Path |
 |---------|------|
-| Agent loop + caching | `pipeline_v2/agent.py` |
-| Prompt templates | `pipeline_v2/prompts.py` |
-| Search cache (SQLite) | `pipeline_v2/search_cache.py` |
-| Agent run handler | `pipeline_client/backend/handlers/v2_agent.py` |
+| Agent loop + caching | `pipeline_client/agent/agent.py` |
+| Prompt templates | `pipeline_client/agent/prompts.py` |
+| Search cache (SQLite) | `pipeline_client/agent/search_cache.py` |
+| Agent run handler | `pipeline_client/backend/handlers/agent.py` |
 | Pipeline API endpoints | `pipeline_client/backend/main.py` |
 | Pydantic models (v0.3) | `shared/models.py` |
 | TypeScript types | `web/src/lib/types.ts` |
@@ -48,7 +48,7 @@ pip install -r pipeline_client/backend/requirements.txt
 pip install pytest pytest-asyncio httpx
 
 # Run pipeline tests (always set PYTHONPATH)
-PYTHONPATH=. python -m pytest tests/test_pipeline_v2.py -v
+PYTHONPATH=. python -m pytest tests/test_pipeline.py -v
 
 # Run races-api tests
 cd services/races-api
@@ -83,7 +83,7 @@ terraform init -backend=false && terraform validate
 
 Every PR to `main` runs these jobs — all must pass:
 
-1. **test-pipeline** — `PYTHONPATH=. python -m pytest tests/test_pipeline_v2.py -v`
+1. **test-pipeline** — `PYTHONPATH=. python -m pytest tests/test_pipeline.py -v`
 2. **test-apis** — races-api pytest
 3. **test-web** — `npm run build` then `npm run test:unit`
 4. **terraform-validate** — `terraform fmt -check` and `terraform validate`
@@ -106,8 +106,8 @@ Every PR to `main` runs these jobs — all must pass:
 ## Architecture Notes
 
 - **Agent phases**: DISCOVER → RESEARCH (×6 issue groups) → REFINE (8 LLM calls total)
-- **12 Canonical Issues**: Healthcare, Economy, Climate/Energy, Reproductive Rights, Immigration, Guns & Safety, Foreign Policy, Social Justice, Education, Tech & AI, Election Reform, Local Issues — defined in `shared/models.py` (`CanonicalIssue` enum) and `pipeline_v2/prompts.py`
-- **Search caching**: SQLite with 7-day TTL (`pipeline_v2/search_cache.py`)
+- **12 Canonical Issues**: Healthcare, Economy, Climate/Energy, Reproductive Rights, Immigration, Guns & Safety, Foreign Policy, Social Justice, Education, Tech & AI, Election Reform, Local Issues — defined in `shared/models.py` (`CanonicalIssue` enum) and `pipeline_client/agent/prompts.py`
+- **Search caching**: SQLite with 7-day TTL (`pipeline_client/agent/search_cache.py`)
 - **Storage backends**: `LocalStorageBackend` (default) and `GCPStorageBackend`
 - **Required API keys**: `OPENAI_API_KEY`, `SERPER_API_KEY` (see `.env.example`)
 - **Optional review**: `ANTHROPIC_API_KEY`, `GEMINI_API_KEY` for multi-LLM review
