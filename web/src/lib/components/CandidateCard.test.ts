@@ -15,6 +15,7 @@ const candidate: Candidate = {
   top_donors: [],
   website: "https://example.com",
   social_media: {},
+  summary_sources: [],
 };
 
 describe("CandidateCard", () => {
