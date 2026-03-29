@@ -7,8 +7,8 @@
   export let raceId: string = "";
   export let candidateName: string = "";
 
-  function formatAmount(amount?: number): string {
-    if (!amount) return "Amount not disclosed";
+  function formatAmount(amount?: number | null): string | null {
+    if (!amount) return null;
     return new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: "USD",
@@ -24,13 +24,16 @@
   {:else}
     <div class="donors-list">
       {#each donors as donor}
+        {@const amount = formatAmount(donor.amount)}
         <div class="donor-item">
           <div class="donor-info">
             <div class="donor-name">{donor.name}</div>
-            {#if donor.organization}
+            {#if donor.organization && donor.organization !== donor.name}
               <div class="donor-org">{donor.organization}</div>
             {/if}
-            <div class="donor-amount">{formatAmount(donor.amount)}</div>
+            {#if amount}
+              <div class="donor-amount">{amount}</div>
+            {/if}
           </div>
           <div class="donor-source">
             {#if donor.source}
@@ -44,35 +47,30 @@
 </div>
 
 <style lang="postcss">
-  .donors-container {
-    @apply space-y-4;
-  }
-
-  .donors-list {
-    @apply space-y-3;
-  }
+  .donors-container { @apply space-y-4; }
+  .donors-list { @apply space-y-3; }
 
   .donor-item {
-    @apply bg-gray-50 rounded-lg p-4 flex justify-between items-start;
+    background-color: rgb(var(--sv-surface-alt));
+    border: 1px solid rgb(var(--sv-border));
+    @apply rounded-lg p-4 flex justify-between items-start;
   }
 
-  .donor-info {
-    @apply flex-1;
-  }
+  .donor-info { @apply flex-1; }
 
   .donor-name {
-    @apply font-semibold text-gray-900 text-sm;
+    color: rgb(var(--sv-text));
+    @apply font-semibold text-sm;
   }
 
   .donor-org {
-    @apply text-gray-600 text-xs mt-1;
+    color: rgb(var(--sv-text-muted));
+    @apply text-xs mt-1;
   }
 
   .donor-amount {
-    @apply text-green-600 font-medium text-sm mt-1;
+    @apply text-green-600 dark:text-green-400 font-medium text-sm mt-1;
   }
 
-  .donor-source {
-    @apply ml-4 flex-shrink-0;
-  }
+  .donor-source { @apply ml-4 flex-shrink-0; }
 </style>

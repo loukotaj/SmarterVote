@@ -296,44 +296,25 @@ def _normalize_candidate(candidate: Dict[str, Any], now_iso: str) -> None:
 # ---------------------------------------------------------------------------
 
 
-_TRUSTED_IMAGE_DOMAINS = frozenset({
-    "senate.gov",
-    "house.gov",
-    "ballotpedia.org",
-    "upload.wikimedia.org",
-    "wikimedia.org",
-    "wikipedia.org",
-    "cloudfront.net",
-    "githubusercontent.com",
-    "twimg.com",
-    "fbcdn.net",
-})
+_BROWSER_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
 
 
 async def _check_url_accessible(url: str) -> bool:
-    """Return True if the URL is reachable.
+    """Return True if a URL serves an accessible image.
 
-    Trusted government/wiki/CDN domains are accepted without a network check
-    since they often block HEAD requests but serve images fine in browsers.
-    Falls back from HEAD → GET (range) on 4xx/5xx to handle servers that
-    don't support HEAD.
+    Strategy (in order):
+    1. HEAD with browser User-Agent — fast, most servers support it.
+    2. If HEAD returns 405/501 (method not allowed), fall back to GET with
+       a byte-range header so we only fetch 1 byte.
+    3. Any 2xx → accessible.  Any 4xx/5xx → dead.
     """
+    headers = {"User-Agent": _BROWSER_UA}
     try:
-        from urllib.parse import urlparse
-        host = urlparse(url).netloc.lower()
-        if any(host == d or host.endswith("." + d) for d in _TRUSTED_IMAGE_DOMAINS):
-            return True
-    except Exception:
-        pass
-
-    headers = {"User-Agent": "Mozilla/5.0 (compatible; SmarterVote/1.0)"}
-    try:
-        async with httpx.AsyncClient(timeout=8, follow_redirects=True) as client:
+        async with httpx.AsyncClient(timeout=10, follow_redirects=True) as client:
             resp = await client.head(url, headers=headers)
             if resp.status_code < 400:
                 return True
             if resp.status_code in (405, 501):
-                # Server doesn't support HEAD — try a byte-range GET
                 resp2 = await client.get(url, headers={**headers, "Range": "bytes=0-0"})
                 return resp2.status_code in (200, 206)
             return False

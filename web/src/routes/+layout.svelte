@@ -24,25 +24,25 @@
   }
 </script>
 
-<div class="min-h-screen bg-gray-50">
+<div class="min-h-screen bg-page">
   <!-- Navigation -->
-  <nav class="bg-white shadow-sm border-b border-gray-200">
+  <nav class="bg-surface shadow-sm border-b border-stroke">
     <div class="container mx-auto px-4 py-3 max-w-7xl">
       <div class="flex items-center justify-between">
         <a href="/" class="text-xl sm:text-2xl font-bold text-blue-600 hover:text-blue-700">
           Smarter.vote
         </a>
         <div class="flex items-center gap-4 sm:gap-6 text-sm">
-          <a href="/" class="text-gray-600 hover:text-gray-900 {$page.url.pathname === '/' ? 'font-semibold text-gray-900' : ''}">
+          <a href="/" class="text-content-muted hover:text-content {$page.url.pathname === '/' ? 'font-semibold text-content' : ''}">
             Home
           </a>
-          <a href="/about" class="text-gray-600 hover:text-gray-900 {$page.url.pathname === '/about' ? 'font-semibold text-gray-900' : ''}">
+          <a href="/about" class="text-content-muted hover:text-content {$page.url.pathname === '/about' ? 'font-semibold text-content' : ''}">
             About
           </a>
           <!-- Dark mode toggle -->
           <button
             on:click={toggleDark}
-            class="p-2 rounded-lg text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+            class="p-2 rounded-lg text-content-subtle hover:text-content hover:bg-surface-alt transition-colors"
             aria-label="Toggle dark mode"
             title={$darkMode ? "Switch to light mode" : "Switch to dark mode"}
           >
@@ -69,11 +69,11 @@
   </main>
 
   <!-- Footer -->
-  <footer class="bg-white border-t border-gray-200 mt-12 sm:mt-16">
+  <footer class="bg-surface border-t border-stroke mt-12 sm:mt-16">
     <div class="container mx-auto px-4 py-6 sm:py-8 max-w-7xl">
-      <div class="text-center text-gray-600 text-sm">
+      <div class="text-center text-content-muted text-sm">
         <p class="mb-2">© 2025 Smarter.vote. Analyzing public information to help voters make informed decisions.</p>
-        <p class="text-xs text-gray-500">Always verify information by visiting candidate websites directly. This tool provides analysis for informational purposes only.</p>
+        <p class="text-xs text-content-subtle">Always verify information by visiting candidate websites directly. This tool provides analysis for informational purposes only.</p>
       </div>
     </div>
   </footer>

@@ -52,13 +52,13 @@
 <div class="container mx-auto px-4 py-8 sm:py-12 max-w-6xl">
   <!-- Hero Section -->
   <header class="text-center mb-8 sm:mb-12">
-    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-content mb-4">
       Smarter.vote
     </h1>
-    <p class="text-lg sm:text-xl text-gray-600 mb-6 sm:mb-8">
+    <p class="text-lg sm:text-xl text-content-muted mb-6 sm:mb-8">
     One place to find clear, unbiased information on where candidates stand on the issues that matter to you.
     </p>
-    <p class="text-sm sm:text-base text-gray-500 max-w-2xl mx-auto px-4">
+    <p class="text-sm sm:text-base text-content-subtle max-w-2xl mx-auto px-4">
       We analyze candidates' positions from public sources using multiple AI
       models to provide clear, unbiased comparisons of where they stand on key
       issues.
@@ -72,7 +72,7 @@
         class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
       >
         <svg
-          class="h-5 w-5 text-gray-400"
+          class="h-5 w-5 text-content-faint"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -89,18 +89,18 @@
         type="text"
         bind:value={searchQuery}
         placeholder="Search races, candidates, or locations..."
-        class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+        class="block w-full pl-10 pr-3 py-2 border border-stroke rounded-lg leading-5 bg-surface placeholder-content-subtle focus:outline-none focus:placeholder-content-faint focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-content"
       />
     </div>
   </div>
 
   <!-- All Races Section -->
-  <section class="bg-white rounded-lg shadow-sm">
-    <div class="p-4 sm:p-6 border-b border-gray-200">
-      <h2 class="text-xl sm:text-2xl font-semibold text-gray-900">
+  <section class="bg-surface rounded-lg shadow-sm">
+    <div class="p-4 sm:p-6 border-b border-stroke">
+      <h2 class="text-xl sm:text-2xl font-semibold text-content">
         Available Races ({filteredRaces.length})
       </h2>
-      <p class="text-sm text-gray-600 mt-1">
+      <p class="text-sm text-content-muted mt-1">
         {searchQuery
           ? `Showing results for "${searchQuery}"`
           : "Browse all available race analyses"}
@@ -109,10 +109,10 @@
 
     <div class="h-96 overflow-y-auto">
       {#if filteredRaces.length === 0}
-        <div class="p-8 text-center text-gray-500">
+        <div class="p-8 text-center text-content-subtle">
           {#if searchQuery}
             <svg
-              class="mx-auto h-12 w-12 text-gray-400 mb-4"
+              class="mx-auto h-12 w-12 text-content-faint mb-4"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -130,7 +130,7 @@
             </p>
           {:else}
             <svg
-              class="mx-auto h-12 w-12 text-gray-400 mb-4"
+              class="mx-auto h-12 w-12 text-content-faint mb-4"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -147,20 +147,20 @@
           {/if}
         </div>
       {:else}
-        <div class="divide-y divide-gray-200">
+        <div class="divide-y divide-stroke">
           {#each filteredRaces as race (race.id)}
-            <div class="p-4 sm:p-6 hover:bg-gray-50 transition-colors">
+            <div class="p-4 sm:p-6 hover:bg-page transition-colors">
               <div
                 class="flex flex-col sm:flex-row sm:items-center sm:justify-between"
               >
                 <div class="mb-4 sm:mb-0">
-                  <h3 class="text-lg font-semibold text-gray-900 mb-2">
+                  <h3 class="text-lg font-semibold text-content mb-2">
                     {race.title ||
                       `${race.office || "Race"} - ${
                         race.jurisdiction || "Unknown"
                       }`}
                   </h3>
-                  <div class="flex flex-wrap gap-2 text-sm text-gray-600 mb-2">
+                  <div class="flex flex-wrap gap-2 text-sm text-content-muted mb-2">
                     {#if race.office}
                       <span
                         class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800"
@@ -176,18 +176,18 @@
                       </span>
                     {/if}
                     <span
-                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800"
+                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-surface-alt text-content"
                     >
                       {formatElectionDate(race.election_date)}
                     </span>
                   </div>
-                  <div class="text-sm text-gray-600">
+                  <div class="text-sm text-content-muted">
                     <strong>Candidates:</strong>
                     {#each race.candidates as candidate, index}
                       <span class="font-medium">{candidate.name}</span>{#if candidate.party}<span class="party-abbr" class:dem={candidate.party.toLowerCase().includes('democrat')} class:rep={candidate.party.toLowerCase().includes('republican')}>{candidate.party.toLowerCase().includes('democrat') ? 'D' : candidate.party.toLowerCase().includes('republican') ? 'R' : candidate.party[0]}</span>{/if}{#if index < race.candidates.length - 1}, {/if}
                     {/each}
                   </div>
-                  <div class="text-xs text-gray-500 mt-1">
+                  <div class="text-xs text-content-subtle mt-1">
                     Last updated: {new Date(
                       race.updated_utc
                     ).toLocaleDateString()}
@@ -225,7 +225,7 @@
   <!-- How It Works -->
   <section class="mt-12 mb-8 sm:mb-12">
     <h2
-      class="text-xl sm:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 text-center"
+      class="text-xl sm:text-2xl font-semibold text-content mb-4 sm:mb-6 text-center"
     >
       How It Works
     </h2>
@@ -248,10 +248,10 @@
             />
           </svg>
         </div>
-        <h3 class="font-semibold text-gray-900 mb-2 text-sm sm:text-base">
+        <h3 class="font-semibold text-content mb-2 text-sm sm:text-base">
           Discover Sources
         </h3>
-        <p class="text-gray-600 text-xs sm:text-sm">
+        <p class="text-content-muted text-xs sm:text-sm">
           We find and analyze candidate websites, speeches, voting records, and
           public statements.
         </p>
@@ -274,10 +274,10 @@
             />
           </svg>
         </div>
-        <h3 class="font-semibold text-gray-900 mb-2 text-sm sm:text-base">
+        <h3 class="font-semibold text-content mb-2 text-sm sm:text-base">
           Research & Verify
         </h3>
-        <p class="text-gray-600 text-xs sm:text-sm">
+        <p class="text-content-muted text-xs sm:text-sm">
           Candidate positions are researched from public sources and rated by
           confidence based on source quality.
         </p>
@@ -300,10 +300,10 @@
             />
           </svg>
         </div>
-        <h3 class="font-semibold text-gray-900 mb-2 text-sm sm:text-base">
+        <h3 class="font-semibold text-content mb-2 text-sm sm:text-base">
           Clear Comparison
         </h3>
-        <p class="text-gray-600 text-xs sm:text-sm">
+        <p class="text-content-muted text-xs sm:text-sm">
           Clean, side-by-side comparison of candidate positions with source
           links and confidence indicators.
         </p>
@@ -312,9 +312,9 @@
   </section>
 
   <!-- Key Features -->
-  <section class="bg-white rounded-lg shadow-sm p-4 sm:p-8">
+  <section class="bg-surface rounded-lg shadow-sm p-4 sm:p-8">
     <h2
-      class="text-xl sm:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 text-center"
+      class="text-xl sm:text-2xl font-semibold text-content mb-4 sm:mb-6 text-center"
     >
       Why Smarter.vote?
     </h2>
@@ -336,10 +336,10 @@
           </svg>
         </div>
         <div>
-          <h3 class="font-semibold text-gray-900 mb-1 text-sm sm:text-base">
+          <h3 class="font-semibold text-content mb-1 text-sm sm:text-base">
             Unbiased Analysis
           </h3>
-          <p class="text-gray-600 text-xs sm:text-sm">
+          <p class="text-content-muted text-xs sm:text-sm">
             AI analyzes public sources without political bias, presenting facts
             clearly.
           </p>
@@ -362,10 +362,10 @@
           </svg>
         </div>
         <div>
-          <h3 class="font-semibold text-gray-900 mb-1 text-sm sm:text-base">
+          <h3 class="font-semibold text-content mb-1 text-sm sm:text-base">
             Source Transparency
           </h3>
-          <p class="text-gray-600 text-xs sm:text-sm">
+          <p class="text-content-muted text-xs sm:text-sm">
             Every position includes links to original sources and confidence
             ratings.
           </p>
@@ -388,10 +388,10 @@
           </svg>
         </div>
         <div>
-          <h3 class="font-semibold text-gray-900 mb-1 text-sm sm:text-base">
+          <h3 class="font-semibold text-content mb-1 text-sm sm:text-base">
             Comprehensive Coverage
           </h3>
-          <p class="text-gray-600 text-xs sm:text-sm">
+          <p class="text-content-muted text-xs sm:text-sm">
             Analysis covers 12 key issue areas
             policy.
           </p>
@@ -414,10 +414,10 @@
           </svg>
         </div>
         <div>
-          <h3 class="font-semibold text-gray-900 mb-1 text-sm sm:text-base">
+          <h3 class="font-semibold text-content mb-1 text-sm sm:text-base">
             Always Up-to-Date
           </h3>
-          <p class="text-gray-600 text-xs sm:text-sm">
+          <p class="text-content-muted text-xs sm:text-sm">
             Information is continuously updated as new public statements emerge.
           </p>
         </div>
@@ -428,7 +428,7 @@
 
 <style lang="postcss">
   .party-abbr {
-    @apply ml-0.5 text-xs font-semibold text-gray-500;
+    @apply ml-0.5 text-xs font-semibold text-content-subtle;
   }
   .party-abbr.dem {
     @apply text-blue-600;

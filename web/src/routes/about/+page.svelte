@@ -8,17 +8,17 @@
 
 <div class="container mx-auto px-4 py-8 sm:py-12 max-w-4xl">
   <h1
-    class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-6 sm:mb-8"
+    class="text-2xl sm:text-3xl lg:text-4xl font-bold text-content mb-6 sm:mb-8"
   >
     About Smarter.vote
   </h1>
 
   <div class="prose prose-lg max-w-none">
-    <div class="bg-white rounded-lg shadow-sm p-4 sm:p-8 mb-6 sm:mb-8">
-      <h2 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-3 sm:mb-4">
+    <div class="bg-surface rounded-lg shadow-sm p-4 sm:p-8 mb-6 sm:mb-8">
+      <h2 class="text-xl sm:text-2xl font-semibold text-content mb-3 sm:mb-4">
         Our Mission
       </h2>
-      <p class="text-gray-700 leading-relaxed text-sm sm:text-base">
+      <p class="text-content-muted leading-relaxed text-sm sm:text-base">
         Democracy works best when voters have access to clear, unbiased
         information about candidates and their positions. Smarter.vote uses
         automated research from public sources and presents candidate
@@ -28,26 +28,26 @@
       </p>
     </div>
 
-    <div class="bg-white rounded-lg shadow-sm p-4 sm:p-8 mb-6 sm:mb-8">
-      <h2 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-3 sm:mb-4">
+    <div class="bg-surface rounded-lg shadow-sm p-4 sm:p-8 mb-6 sm:mb-8">
+      <h2 class="text-xl sm:text-2xl font-semibold text-content mb-3 sm:mb-4">
         How We Work
       </h2>
       <div class="space-y-3 sm:space-y-4">
         <div>
-          <h3 class="text-base sm:text-lg font-semibold text-gray-900 mb-2">
+          <h3 class="text-base sm:text-lg font-semibold text-content mb-2">
             Source Discovery
           </h3>
-          <p class="text-gray-700 text-sm sm:text-base">
+          <p class="text-content-muted text-sm sm:text-base">
             We automatically discover and collect information from candidate
             websites, voting records, public speeches, position papers, and
             other publicly available sources.
           </p>
         </div>
         <div>
-          <h3 class="text-base sm:text-lg font-semibold text-gray-900 mb-2">
+          <h3 class="text-base sm:text-lg font-semibold text-content mb-2">
             AI Analysis
           </h3>
-          <p class="text-gray-700 text-sm sm:text-base">
+          <p class="text-content-muted text-sm sm:text-base">
             Research agents (including GPT-4 and Claude) independently
             analyze the collected information to extract candidate positions on
             key issues. This multi-model approach helps ensure accuracy and
@@ -55,10 +55,10 @@
           </p>
         </div>
         <div>
-          <h3 class="text-base sm:text-lg font-semibold text-gray-900 mb-2">
+          <h3 class="text-base sm:text-lg font-semibold text-content mb-2">
             Transparency
           </h3>
-          <p class="text-gray-700 text-sm sm:text-base">
+          <p class="text-content-muted text-sm sm:text-base">
             Every position includes confidence ratings and links to the original
             sources, so you can verify the information yourself and understand
             how certain we are about each stance.
@@ -67,12 +67,12 @@
       </div>
     </div>
 
-    <div class="bg-white rounded-lg shadow-sm p-4 sm:p-8 mb-6 sm:mb-8">
-      <h2 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-3 sm:mb-4">
+    <div class="bg-surface rounded-lg shadow-sm p-4 sm:p-8 mb-6 sm:mb-8">
+      <h2 class="text-xl sm:text-2xl font-semibold text-content mb-3 sm:mb-4">
         Key Issues We Cover
       </h2>
       <div class="grid gap-3 sm:gap-4 sm:grid-cols-2">
-        <ul class="space-y-1 sm:space-y-2 text-gray-700 text-sm sm:text-base">
+        <ul class="space-y-1 sm:space-y-2 text-content-muted text-sm sm:text-base">
           <li>• Healthcare</li>
           <li>• Economy</li>
           <li>• Climate/Energy</li>
@@ -80,7 +80,7 @@
           <li>• Immigration</li>
           <li>• Guns & Safety</li>
         </ul>
-        <ul class="space-y-1 sm:space-y-2 text-gray-700 text-sm sm:text-base">
+        <ul class="space-y-1 sm:space-y-2 text-content-muted text-sm sm:text-base">
           <li>• Foreign Policy</li>
           <li>• Social Justice</li>
           <li>• Education</li>
@@ -91,11 +91,11 @@
       </div>
     </div>
 
-    <div class="bg-white rounded-lg shadow-sm p-4 sm:p-8 mb-6 sm:mb-8">
-      <h2 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-3 sm:mb-4">
+    <div class="bg-surface rounded-lg shadow-sm p-4 sm:p-8 mb-6 sm:mb-8">
+      <h2 class="text-xl sm:text-2xl font-semibold text-content mb-3 sm:mb-4">
         Important Disclaimers
       </h2>
-      <div class="space-y-3 text-gray-700 text-sm sm:text-base">
+      <div class="space-y-3 text-content-muted text-sm sm:text-base">
         <p>
           <strong>Verify Information:</strong> While we strive for accuracy, always
           verify information by visiting candidate websites directly. Candidate positions
@@ -120,17 +120,17 @@
       </div>
     </div>
 
-    <div class="bg-white rounded-lg shadow-sm p-4 sm:p-8 mb-6 sm:mb-8">
-      <h2 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-3 sm:mb-4">
+    <div class="bg-surface rounded-lg shadow-sm p-4 sm:p-8 mb-6 sm:mb-8">
+      <h2 class="text-xl sm:text-2xl font-semibold text-content mb-3 sm:mb-4">
         Who's Behind This?
       </h2>
-      <p class="text-gray-700 leading-relaxed text-sm sm:text-base mb-3">
+      <p class="text-content-muted leading-relaxed text-sm sm:text-base mb-3">
         Smarter.vote is currently an independent, self-funded project — built,
         maintained, and paid for by one person. Every dollar that goes toward
         hosting, AI API usage, and development comes directly out of my own
         pocket.
       </p>
-      <p class="text-gray-700 leading-relaxed text-sm sm:text-base">
+      <p class="text-content-muted leading-relaxed text-sm sm:text-base">
         The long-term vision is to grow this into a larger, formally organized
         non-profit that can sustain broader coverage, more races, and a team of
         contributors dedicated to keeping voters informed. Until then, community
@@ -138,11 +138,11 @@
       </p>
     </div>
 
-    <div class="bg-white rounded-lg shadow-sm p-4 sm:p-8 mb-6 sm:mb-8 text-center">
-      <h2 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-3 sm:mb-4">
+    <div class="bg-surface rounded-lg shadow-sm p-4 sm:p-8 mb-6 sm:mb-8 text-center">
+      <h2 class="text-xl sm:text-2xl font-semibold text-content mb-3 sm:mb-4">
         Support This Project
       </h2>
-      <p class="text-gray-700 text-sm sm:text-base mb-4">
+      <p class="text-content-muted text-sm sm:text-base mb-4">
         Smarter.vote is free and open-source. If you find it useful, sponsoring
         development helps cover API and hosting costs — and brings the non-profit
         vision one step closer to reality.

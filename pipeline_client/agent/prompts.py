@@ -150,9 +150,9 @@ Return JSON:
       ],
       "voting_record": [
         {{
-          "bill_name": "<bill>",
-          "bill_description": "<short desc>",
-          "vote": "yes|no|abstain|absent",
+          "bill_name": "<bill name or number, e.g. S.5 Laken Riley Act>",
+          "bill_description": "<one sentence description>",
+          "vote": "yes",
           "date": "<YYYY-MM-DD>",
           "source": {{"url": "<url>", "type": "government", "title": "<title>"}}
         }}

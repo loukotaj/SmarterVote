@@ -256,7 +256,7 @@
               </div>
             {/if}
             {#if !hasBackground}
-              <p class="text-gray-500 text-sm">
+              <p class="text-content-subtle text-sm">
                 No background information available yet.
               </p>
             {/if}
@@ -300,7 +300,7 @@
   }
 
   .candidate-image {
-    @apply w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-2 border-gray-200 flex-shrink-0;
+    @apply w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-2 border-stroke flex-shrink-0;
   }
 
   .candidate-image-placeholder {
@@ -312,7 +312,7 @@
   }
 
   .candidate-name {
-    @apply text-lg sm:text-xl lg:text-2xl font-bold text-gray-900;
+    @apply text-lg sm:text-xl lg:text-2xl font-bold text-content;
     @apply flex items-center gap-2;
   }
 
@@ -333,7 +333,7 @@
   }
 
   .summary {
-    @apply text-gray-700 leading-relaxed text-xs sm:text-sm lg:text-base;
+    @apply text-content-muted leading-relaxed text-xs sm:text-sm lg:text-base;
   }
 
   .website-link {
@@ -345,7 +345,7 @@
   }
 
   .section-title {
-    @apply text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4;
+    @apply text-base sm:text-lg font-semibold text-content mb-3 sm:mb-4;
   }
 
   .expand-button {
@@ -370,11 +370,11 @@
   }
 
   .expanded-content {
-    @apply border-t border-gray-200 pt-4 sm:pt-6;
+    @apply border-t border-stroke pt-4 sm:pt-6;
   }
 
   .tab-navigation {
-    @apply flex border-b border-gray-200 mb-6 overflow-x-auto;
+    @apply flex border-b border-stroke mb-6 overflow-x-auto;
   }
 
   .tab-content {
@@ -382,7 +382,7 @@
   }
 
   .issues-preview {
-    @apply border-t border-gray-200 pt-4 sm:pt-6;
+    @apply border-t border-stroke pt-4 sm:pt-6;
   }
 
   .issues-tags {
@@ -390,7 +390,7 @@
   }
 
   .issue-tag {
-    @apply bg-gray-100 text-gray-700 px-2 sm:px-3 py-1 rounded-full;
+    @apply bg-surface-alt text-content-muted px-2 sm:px-3 py-1 rounded-full;
     @apply text-xs sm:text-sm font-medium;
   }
 
@@ -416,19 +416,19 @@
   }
 
   .timeline-title {
-    @apply font-medium text-gray-900 text-sm;
+    @apply font-medium text-content text-sm;
   }
 
   .timeline-years {
-    @apply text-xs text-gray-500;
+    @apply text-xs text-content-subtle;
   }
 
   .timeline-org {
-    @apply text-sm text-gray-600 block;
+    @apply text-sm text-content-muted block;
   }
 
   .timeline-desc {
-    @apply text-xs text-gray-500 mt-1;
+    @apply text-xs text-content-subtle mt-1;
   }
 
   .education-list {
@@ -440,10 +440,10 @@
   }
 
   .edu-institution {
-    @apply font-medium text-gray-900 text-sm;
+    @apply font-medium text-content text-sm;
   }
 
   .edu-degree {
-    @apply text-xs text-gray-600;
+    @apply text-xs text-content-muted;
   }
 </style>

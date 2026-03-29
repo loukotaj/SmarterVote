@@ -12,7 +12,7 @@
       case "flagged":
         return "bg-red-100 text-red-800";
       default:
-        return "bg-gray-100 text-gray-800";
+        return "bg-surface-alt text-content";
     }
   }
 
@@ -104,11 +104,11 @@
 
 <style lang="postcss">
   .review-panel {
-    @apply bg-gray-50 border border-gray-200 rounded-lg p-4 sm:p-6 mb-6;
+    @apply bg-page border border-stroke rounded-lg p-4 sm:p-6 mb-6;
   }
 
   .review-title {
-    @apply flex items-center gap-2 text-lg font-semibold text-gray-900 mb-4;
+    @apply flex items-center gap-2 text-lg font-semibold text-content mb-4;
   }
 
   .review-cards {
@@ -116,7 +116,7 @@
   }
 
   .review-card {
-    @apply bg-white rounded-lg border border-gray-200 p-4;
+    @apply bg-surface rounded-lg border border-stroke p-4;
   }
 
   .review-header {
@@ -124,7 +124,7 @@
   }
 
   .review-model {
-    @apply text-sm font-medium text-gray-700;
+    @apply text-sm font-medium text-content-muted;
   }
 
   .review-verdict {
@@ -132,7 +132,7 @@
   }
 
   .review-summary {
-    @apply text-sm text-gray-600 mb-3;
+    @apply text-sm text-content-muted mb-3;
   }
 
   .review-flags {
@@ -140,7 +140,7 @@
   }
 
   .flags-toggle {
-    @apply text-xs font-medium text-gray-500 cursor-pointer hover:text-gray-700;
+    @apply text-xs font-medium text-content-subtle cursor-pointer hover:text-content-muted;
   }
 
   .flags-list {
@@ -156,11 +156,11 @@
   }
 
   .flag-field {
-    @apply font-mono text-gray-500 block;
+    @apply font-mono text-content-subtle block;
   }
 
   .flag-concern {
-    @apply text-gray-700 block;
+    @apply text-content-muted block;
   }
 
   .flag-suggestion {
@@ -168,6 +168,6 @@
   }
 
   .review-date {
-    @apply text-xs text-gray-400;
+    @apply text-xs text-content-faint;
   }
 </style>

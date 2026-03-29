@@ -282,7 +282,7 @@
   }
 
   .loading-text {
-    @apply ml-3 text-lg text-gray-600;
+    @apply ml-3 text-lg text-content-muted;
   }
 
   .error-box {
@@ -302,11 +302,11 @@
   }
 
   .header-title {
-    @apply text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4;
+    @apply text-2xl sm:text-3xl lg:text-4xl font-bold text-content mb-4;
   }
 
   .header-meta {
-    @apply flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center gap-3 sm:gap-6 text-gray-600;
+    @apply flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center gap-3 sm:gap-6 text-content-muted;
   }
 
   .info-row {
@@ -314,15 +314,15 @@
   }
 
   .model-label {
-    @apply mt-4 flex flex-wrap items-center gap-2 text-sm text-gray-500;
+    @apply mt-4 flex flex-wrap items-center gap-2 text-sm text-content-subtle;
   }
 
   .model-tag {
-    @apply bg-gray-100 px-2 py-1 rounded text-xs font-mono;
+    @apply bg-surface-alt px-2 py-1 rounded text-xs font-mono;
   }
 
   .candidates-title {
-    @apply text-xl sm:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6;
+    @apply text-xl sm:text-2xl font-semibold text-content mb-4 sm:mb-6;
   }
 
   /* Race Overview */
@@ -339,7 +339,7 @@
   }
 
   .overview-description {
-    @apply text-gray-700 text-sm sm:text-base leading-relaxed mb-4;
+    @apply text-content-muted text-sm sm:text-base leading-relaxed mb-4;
   }
 
   .overview-candidates {
@@ -347,8 +347,8 @@
   }
 
   .overview-candidate-chip {
-    @apply flex items-center gap-1.5 px-3 py-1.5 bg-white border border-gray-200 rounded-full
-           hover:border-blue-300 hover:bg-blue-50 transition-colors duration-200 text-sm no-underline text-gray-700;
+    @apply flex items-center gap-1.5 px-3 py-1.5 bg-surface border border-stroke rounded-full
+           hover:border-blue-300 hover:bg-blue-50 transition-colors duration-200 text-sm no-underline text-content-muted;
   }
 
   .chip-avatar {
@@ -356,7 +356,7 @@
   }
 
   .chip-name {
-    @apply font-medium text-gray-900 text-sm;
+    @apply font-medium text-content text-sm;
   }
 
   .chip-party {
@@ -371,7 +371,7 @@
 
   /* Poll Snapshot Widget */
   .poll-snapshot {
-    @apply flex flex-col gap-2 p-4 bg-gray-50 border border-gray-200 rounded-xl
+    @apply flex flex-col gap-2 p-4 bg-page border border-stroke rounded-xl
            hover:border-blue-300 hover:bg-blue-50 transition-colors no-underline
            lg:w-64 lg:shrink-0 cursor-pointer;
   }
@@ -381,11 +381,11 @@
   }
 
   .poll-snapshot-title {
-    @apply text-sm font-semibold text-gray-900;
+    @apply text-sm font-semibold text-content;
   }
 
   .poll-snapshot-meta {
-    @apply text-xs text-gray-500;
+    @apply text-xs text-content-subtle;
   }
 
   .poll-snapshot-bars {
@@ -397,21 +397,21 @@
   }
 
   .poll-snap-name {
-    @apply text-xs font-medium text-gray-700 w-16 shrink-0 truncate;
+    @apply text-xs font-medium text-content-muted w-16 shrink-0 truncate;
   }
 
   .poll-snap-bar-wrap {
-    @apply flex-1 bg-gray-200 rounded-full h-2 overflow-hidden;
+    @apply flex-1 bg-surface-alt rounded-full h-2 overflow-hidden;
   }
 
   .poll-snap-bar {
-    @apply h-full rounded-full bg-gray-400;
+    @apply h-full rounded-full bg-content-faint;
   }
   .poll-snap-bar.dem { @apply bg-blue-500; }
   .poll-snap-bar.rep { @apply bg-red-500; }
 
   .poll-snap-pct {
-    @apply text-xs font-bold text-gray-700 w-8 text-right shrink-0;
+    @apply text-xs font-bold text-content-muted w-8 text-right shrink-0;
   }
 
   .poll-snapshot-more {
@@ -420,7 +420,7 @@
 
   /* Candidates */
   .candidates-title {
-    @apply text-xl sm:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6;
+    @apply text-xl sm:text-2xl font-semibold text-content mb-4 sm:mb-6;
   }
 
   .candidate-grid {
@@ -433,7 +433,7 @@
   }
 
   .section-heading {
-    @apply text-xl sm:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6;
+    @apply text-xl sm:text-2xl font-semibold text-content mb-4 sm:mb-6;
   }
 
   .polls-grid {
@@ -441,7 +441,7 @@
   }
 
   .poll-card {
-    @apply bg-white border border-gray-200 rounded-xl p-4 shadow-sm flex flex-col gap-3;
+    @apply bg-surface border border-stroke rounded-xl p-4 shadow-sm flex flex-col gap-3;
   }
 
   .poll-card-header {
@@ -449,19 +449,19 @@
   }
 
   .poll-card-pollster {
-    @apply text-sm font-semibold text-gray-900 block;
+    @apply text-sm font-semibold text-content block;
   }
 
   .poll-card-date {
-    @apply text-xs text-gray-500 block mt-0.5;
+    @apply text-xs text-content-subtle block mt-0.5;
   }
 
   .poll-card-sample {
-    @apply text-xs text-gray-400 shrink-0;
+    @apply text-xs text-content-faint shrink-0;
   }
 
   .poll-matchup-divider {
-    @apply border-t border-dashed border-gray-200;
+    @apply border-t border-dashed border-stroke;
   }
 
   .poll-matchup {
@@ -473,15 +473,15 @@
   }
 
   .poll-bar-name {
-    @apply text-xs font-medium text-gray-700 w-28 shrink-0 truncate;
+    @apply text-xs font-medium text-content-muted w-28 shrink-0 truncate;
   }
 
   .poll-bar-track {
-    @apply flex-1 bg-gray-100 rounded-full h-6 overflow-hidden;
+    @apply flex-1 bg-surface-alt rounded-full h-6 overflow-hidden;
   }
 
   .poll-bar-fill {
-    @apply h-full rounded-full bg-gray-400 flex items-center justify-end pr-2 min-w-[2rem] transition-all duration-300;
+    @apply h-full rounded-full bg-content-faint flex items-center justify-end pr-2 min-w-[2rem] transition-all duration-300;
   }
   .poll-bar-fill.dem { @apply bg-blue-500; }
   .poll-bar-fill.rep { @apply bg-red-500; }
@@ -528,6 +528,6 @@
   }
 
   .back-to-top-link {
-    @apply inline-flex items-center gap-2 text-gray-600 hover:text-blue-600 font-medium transition-colors duration-200 border-none bg-transparent cursor-pointer;
+    @apply inline-flex items-center gap-2 text-content-muted hover:text-blue-600 font-medium transition-colors duration-200 border-none bg-transparent cursor-pointer;
   }
 </style>

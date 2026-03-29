@@ -10,6 +10,6 @@
 
 <style lang="postcss">
   .card {
-    @apply bg-white rounded-lg shadow dark:bg-gray-800 dark:shadow-gray-900;
+    @apply bg-surface rounded-lg shadow;
   }
 </style>
