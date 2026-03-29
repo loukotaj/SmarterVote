@@ -1,4 +1,4 @@
-"""Prompts for the Pipeline V2 multi-step research agent.
+"""Prompts for the multi-step research agent.
 
 The agent runs in phases:
 1. **Discovery** – identify the race, candidates, background, and images.
@@ -51,12 +51,12 @@ RULES (apply to every response):
 _DONOR_SCHEMA_NOTE = """\
 For top_donors, include up to 3-5 major donors when credible finance data is available.
 Every donor entry must include a source object using this shape:
-{
+{{
   "name": "<donor name>",
   "amount": <number or null>,
   "organization": "<organization or null>",
-  "source": {"url": "<url>", "type": "government|news|website", "title": "<title>"}
-}
+  "source": {{"url": "<url>", "type": "government|news|website", "title": "<title>"}}
+}}
 Prefer campaign finance databases, FEC pages, or established donor-tracking sources over generic news coverage."""
 
 # ------------------------------------------------------------------
@@ -68,7 +68,7 @@ You are a nonpartisan political research agent.
 
 {_SHARED_RULES}"""
 
-DISCOVERY_USER = f"""\
+DISCOVERY_USER = """\
 Research the U.S. election race "{race_id}".
 
 Search for:
@@ -81,8 +81,7 @@ Search for:
 7. Notable voting record items (for incumbents or former legislators).
 8. A publicly available headshot or official photo URL for each candidate.
    Search "<candidate name> official photo" or look on their campaign site.
-
-{_DONOR_SCHEMA_NOTE}
+""" + _DONOR_SCHEMA_NOTE + """
 
 Return JSON:
 {{
@@ -138,7 +137,7 @@ Return JSON:
     }}
   ],
   "updated_utc": "<ISO timestamp>",
-  "generator": ["pipeline-v2-agent"]
+  "generator": ["pipeline-agent"]
 }}"""
 
 # ------------------------------------------------------------------
@@ -185,12 +184,11 @@ and improve a candidate research profile for accuracy and completeness.
 
 {_SHARED_RULES}"""
 
-REFINE_USER = f"""\
+REFINE_USER = """\
 Here is a draft candidate profile for the race "{race_id}":
 
 {draft_json}
-
-{_DONOR_SCHEMA_NOTE}
+""" + _DONOR_SCHEMA_NOTE + """
 
 Review and improve this profile:
 1. Fix any factual inconsistencies you can verify with web_search.
@@ -218,12 +216,11 @@ latest information.
 
 {_SHARED_RULES}"""
 
-UPDATE_USER = f"""\
+UPDATE_USER = """\
 Here is the current published profile for race "{race_id}":
 
 {existing_json}
-
-{_DONOR_SCHEMA_NOTE}
+""" + _DONOR_SCHEMA_NOTE + """
 
 Update this profile:
 1. Search for any NEW developments, position changes, or news since the

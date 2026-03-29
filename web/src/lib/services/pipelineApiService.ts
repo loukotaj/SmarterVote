@@ -69,13 +69,13 @@ export class PipelineApiService {
   }
 
   /**
-   * Run the v2 agent pipeline for a race
+   * Run the agent pipeline for a race
    */
-  async runV2Agent(
+  async runAgent(
     raceId: string,
     options: RunOptions = {}
   ): Promise<{ run_id: string; status: string; step: string }> {
-    const res = await fetchWithAuth(`${this.apiBase}/api/v2/run`, {
+    const res = await fetchWithAuth(`${this.apiBase}/api/run`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ race_id: raceId, options }),

@@ -1,10 +1,13 @@
 # SmarterVote Development Server Launcher
 # This script starts the pipeline client, races API, and web frontend
 
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+$OutputEncoding = [System.Text.Encoding]::UTF8
+
 Write-Host @"
 
 ╔═══════════════════════════════════════════════════════════════╗
-║              🗳️  SmarterVote Local Development                 ║
+║            SmarterVote Local Development                      ║
 ╚═══════════════════════════════════════════════════════════════╝
 
 "@ -ForegroundColor Cyan
@@ -34,7 +37,7 @@ if (-not (Test-Command "npm")) {
     exit 1
 }
 
-Write-Host "✅ Prerequisites check passed!" -ForegroundColor Green
+Write-Host "OK  Prerequisites check passed!" -ForegroundColor Green
 
 # Check if data files exist
 if (-not (Test-Path "data\published\*.json")) {
@@ -87,7 +90,7 @@ Start-Sleep -Seconds 3
 Write-Host @"
 
 ╔═══════════════════════════════════════════════════════════════╗
-║                   🚀 Services Running                         ║
+║                    Services Running                           ║
 ╠═══════════════════════════════════════════════════════════════╣
 ║  Web Dashboard:       http://localhost:5173                   ║
 ║  Pipeline Admin:      http://localhost:5173/admin/pipeline    ║

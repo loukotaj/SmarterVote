@@ -71,7 +71,7 @@ The pipeline client uses environment variables set by Terraform:
 All sensitive pipeline endpoints require authentication:
 
 ```python
-@app.post("/api/v2/run", dependencies=[Depends(verify_token)])
+@app.post("/api/run", dependencies=[Depends(verify_token)])
 @app.get("/runs", dependencies=[Depends(verify_token)])
 @app.get("/artifacts", dependencies=[Depends(verify_token)])
 # ... and more endpoints

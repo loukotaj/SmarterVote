@@ -116,7 +116,7 @@ npx vite dev --port 5173 --host
 **Via curl/API**:
 ```powershell
 $body = '{"race_id": "pa-senate-2024", "options": {"save_artifact": true}}'
-Invoke-WebRequest -Uri "http://localhost:8001/api/v2/run" `
+Invoke-WebRequest -Uri "http://localhost:8001/api/run" `
     -Method POST `
     -Headers @{"Content-Type"="application/json"} `
     -Body $body
@@ -190,15 +190,14 @@ data/
 ├── cache/          # SQLite search cache (auto-created)
 └── published/      # Output JSON files (served by races API)
 
-pipeline_v2/
-├── agent.py        # Multi-phase agent loop with web search
-├── prompts.py      # Prompt templates for each phase
-└── search_cache.py # SQLite-backed search result cache
-
 pipeline_client/
+├── agent/          # AI research agent
+│   ├── agent.py    # Multi-phase agent loop with web search
+│   ├── prompts.py  # Prompt templates for each phase
+│   └── search_cache.py # SQLite-backed search result cache
 ├── backend/        # FastAPI app, WebSocket logging, run management
 │   ├── main.py     # API endpoints
-│   ├── handlers/   # Pipeline step handlers (v2_agent.py)
+│   ├── handlers/   # Pipeline step handlers (agent.py)
 │   └── ...
 └── run.py          # CLI entry point
 

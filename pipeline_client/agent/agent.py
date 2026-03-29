@@ -1,4 +1,4 @@
-"""Pipeline V2 agent: multi-phase candidate research with web search & caching.
+"""Multi-phase candidate research agent with web search & caching.
 
 Phases:
 1. **Discovery** – identify the race, candidates, career history, images.
@@ -9,7 +9,7 @@ Phases:
 Supports **rerun/update** mode: pass an existing RaceJSON and the agent
 will search for new developments and improve the profile.
 
-Uses a SQLite search cache (``pipeline_v2.search_cache``) to avoid
+Uses a SQLite search cache (``pipeline_client.agent.search_cache``) to avoid
 redundant Serper API calls across runs.
 """
 
@@ -98,7 +98,7 @@ def _get_search_cache():
     global _search_cache
     if _search_cache is None:
         try:
-            from pipeline_v2.search_cache import SearchCache
+            from pipeline_client.agent.search_cache import SearchCache
 
             _search_cache = SearchCache()
         except Exception:
@@ -341,7 +341,7 @@ async def _agent_loop(
 
 def _load_existing(race_id: str) -> Optional[Dict[str, Any]]:
     """Load an existing published RaceJSON if it exists."""
-    published_dir = Path(__file__).resolve().parents[1] / "data" / "published"
+    published_dir = Path(__file__).resolve().parents[2] / "data" / "published"
     path = published_dir / f"{race_id}.json"
     if path.exists():
         with path.open("r", encoding="utf-8") as f:
@@ -438,7 +438,7 @@ async def run_agent(
     race_json.setdefault("id", race_id)
     now_iso = datetime.now(timezone.utc).isoformat()
     race_json["updated_utc"] = now_iso  # Always update timestamp
-    race_json.setdefault("generator", ["pipeline-v2-agent"])
+    race_json.setdefault("generator", ["pipeline-agent"])
 
     # Ensure new fields have defaults
     for candidate in race_json.get("candidates", []):

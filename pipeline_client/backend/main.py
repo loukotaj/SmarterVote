@@ -43,7 +43,7 @@ async def lifespan(app: FastAPI):
     yield
 
 
-app = FastAPI(title=settings.app_name, description="SmarterVote Pipeline V2 API", lifespan=lifespan)
+app = FastAPI(title=settings.app_name, description="SmarterVote Pipeline API", lifespan=lifespan)
 
 http_bearer = HTTPBearer(auto_error=False)
 
@@ -90,22 +90,22 @@ async def verify_token_ws(token: str | None) -> Dict[str, Any]:
 
 
 # ---------------------------------------------------------------------------
-# V2 Agent endpoint
+# Agent endpoint
 # ---------------------------------------------------------------------------
 
 
-class V2AgentRequest(BaseModel):
-    """Request body for the v2 agent endpoint."""
+class AgentRequest(BaseModel):
+    """Request body for the agent endpoint."""
 
     race_id: str
     options: RunOptions | None = None
 
 
-@app.post("/api/v2/run", dependencies=[Depends(verify_token)])
-async def run_v2_agent(request: V2AgentRequest) -> Dict[str, Any]:
-    """Run the v2 agent pipeline for a race.
+@app.post("/api/run", dependencies=[Depends(verify_token)])
+async def run_agent_endpoint(request: AgentRequest) -> Dict[str, Any]:
+    """Run the agent pipeline for a race.
 
-    The v2 agent uses a multi-phase AI agent with web search to research
+    The agent uses a multi-phase AI agent with web search to research
     candidates and produce a complete RaceJSON profile. If a published
     profile already exists for this race, the agent will update it.
     """
@@ -113,12 +113,12 @@ async def run_v2_agent(request: V2AgentRequest) -> Dict[str, Any]:
         payload={"race_id": request.race_id},
         options=request.options,
     )
-    run_info = run_manager.create_run(["v2_agent"], run_request)
+    run_info = run_manager.create_run(["agent"], run_request)
 
     # Start execution in background
-    asyncio.create_task(_execute_run_async("v2_agent", run_request, run_info.run_id))
+    asyncio.create_task(_execute_run_async("agent", run_request, run_info.run_id))
 
-    return {"run_id": run_info.run_id, "status": "started", "step": "v2_agent"}
+    return {"run_id": run_info.run_id, "status": "started", "step": "agent"}
 
 
 # ---------------------------------------------------------------------------
@@ -311,7 +311,7 @@ async def root():
 
     return HTMLResponse(
         content="""
-        <h1>SmarterVote Pipeline V2 API</h1>
+        <h1>SmarterVote Pipeline API</h1>
         <p>Dashboard: <a href="http://localhost:5173/admin/pipeline">/admin/pipeline</a></p>
         <p><a href="/docs">API docs</a></p>
     """,

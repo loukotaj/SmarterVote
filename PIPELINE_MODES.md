@@ -15,7 +15,7 @@ Best for development and small-scale use.
 **Setup**:
 ```powershell
 # Install dependencies
-pip install -r pipeline/requirements.txt
+pip install -r requirements.txt
 
 # Set API keys in .env
 # OPENAI_API_KEY, SERPER_API_KEY
@@ -25,7 +25,7 @@ cd pipeline_client
 uvicorn backend.main:app --port 8001
 
 # Research a race via the dashboard or API
-curl -X POST http://localhost:8001/api/v2/run \
+curl -X POST http://localhost:8001/api/run \
   -H "Content-Type: application/json" \
   -d '{"race_id": "mo-senate-2024"}'
 

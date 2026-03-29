@@ -214,9 +214,9 @@
     }
   }
 
-  // V2 Agent execution
+  // Agent execution
   async function handleRunAgent() {
-    const raceId = pipeline.v2RaceId.trim();
+    const raceId = pipeline.raceId.trim();
     if (!raceId || pipeline.isExecuting) return;
 
     if (!websocket.connected) {
@@ -239,8 +239,8 @@
       if (claudeModel) opts.claude_model = claudeModel;
       if (geminiModel) opts.gemini_model = geminiModel;
       if (grokModel) opts.grok_model = grokModel;
-      const result = await apiService.runV2Agent(raceId, opts);
-      pipelineActions.setCurrentRun(result.run_id, "v2_agent");
+      const result = await apiService.runAgent(raceId, opts);
+      pipelineActions.setCurrentRun(result.run_id, "agent");
       addLog("info", `Agent run started (run_id: ${result.run_id})`);
       startAutoRefresh();
     } catch (err) {
@@ -363,14 +363,14 @@
         </p>
         <div class="space-y-4">
           <div>
-            <label for="v2RaceId" class="block text-sm font-medium text-gray-700 mb-1">
+            <label for="raceId" class="block text-sm font-medium text-gray-700 mb-1">
               Race ID
             </label>
             <input
-              id="v2RaceId"
+              id="raceId"
               type="text"
-              value={pipeline.v2RaceId}
-              on:input={(e) => pipelineActions.setV2RaceId(e.currentTarget.value)}
+              value={pipeline.raceId}
+              on:input={(e) => pipelineActions.setRaceId(e.currentTarget.value)}
               placeholder="e.g. mo-senate-2024"
               class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm font-mono focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
             />
@@ -445,7 +445,7 @@
           {/if}
 
           <button
-            disabled={pipeline.isExecuting || !pipeline.v2RaceId.trim()}
+            disabled={pipeline.isExecuting || !pipeline.raceId.trim()}
             on:click={handleRunAgent}
             class="btn-primary w-full flex items-center justify-center py-2.5"
           >

@@ -167,11 +167,11 @@
       <h2 class="candidates-title">Candidates</h2>
 
       <!-- Candidate Navigation -->
-      {#if race.candidates.length > 1}
+      {#if (race.candidates?.length ?? 0) > 1}
         <div class="candidate-nav">
           <p class="nav-label">Jump to candidate:</p>
           <div class="nav-links">
-            {#each race.candidates as candidate}
+            {#each (race.candidates ?? []) as candidate}
               <a
                 href="#{candidate.name
                   .toLowerCase()
@@ -188,7 +188,7 @@
       {/if}
 
       <div class="candidate-grid">
-        {#each race.candidates as candidate}
+        {#each (race.candidates ?? []) as candidate}
           <CandidateCard {candidate} raceId={race.id} />
         {/each}
       </div>
@@ -215,7 +215,7 @@
     </div>
 
     <!-- Back to Top Link -->
-    {#if race.candidates.length > 2}
+    {#if (race.candidates?.length ?? 0) > 2}
       <div class="back-to-top">
         <button
           class="back-to-top-link"

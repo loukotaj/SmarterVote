@@ -1,4 +1,4 @@
-# Cloud Run Service for pipeline client (V2 agent)
+# Cloud Run Service for pipeline client
 # DISABLED by default - set enable_pipeline_client = true in variables to deploy
 # Run pipeline locally until ready to scale to cloud
 resource "google_cloud_run_v2_service" "pipeline_client" {

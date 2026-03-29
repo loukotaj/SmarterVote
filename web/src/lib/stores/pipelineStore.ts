@@ -11,8 +11,8 @@ import type {
 } from "$lib/types";
 
 interface PipelineState {
-  // V2 agent configuration
-  v2RaceId: string;
+  // Agent configuration
+  raceId: string;
 
   // Current execution state
   isExecuting: boolean;
@@ -39,7 +39,7 @@ interface PipelineState {
 }
 
 const initialState: PipelineState = {
-  v2RaceId: "mo-senate-2024",
+  raceId: "mo-senate-2024",
 
   isExecuting: false,
   currentRunId: null,
@@ -110,8 +110,8 @@ export const safeOutputDisplay = derived(pipelineStore, ($pipeline) => {
 
 // Action creators
 export const pipelineActions = {
-  setV2RaceId: (raceId: string) => {
-    pipelineStore.update((state) => ({ ...state, v2RaceId: raceId }));
+  setRaceId: (raceId: string) => {
+    pipelineStore.update((state) => ({ ...state, raceId: raceId }));
   },
 
   setExecutionState: (isExecuting: boolean) => {

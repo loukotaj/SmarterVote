@@ -22,8 +22,8 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
-from pipeline_v2.agent import SEARCH_TOOL, _agent_loop, _extract_json, _load_existing, _serper_search, run_agent
-from pipeline_v2.prompts import (
+from pipeline_client.agent.agent import SEARCH_TOOL, _agent_loop, _extract_json, _load_existing, _serper_search, run_agent
+from pipeline_client.agent.prompts import (
     CANONICAL_ISSUES,
     DISCOVERY_SYSTEM,
     DISCOVERY_USER,
@@ -250,7 +250,7 @@ FAKE_RACE_JSON = {
         }
     ],
     "updated_utc": "2024-01-01T00:00:00Z",
-    "generator": ["pipeline-v2-agent"],
+    "generator": ["pipeline-agent"],
 }
 
 
@@ -258,7 +258,7 @@ FAKE_RACE_JSON = {
 async def test_agent_loop_produces_json():
     """_agent_loop returns parsed JSON when model gives a direct answer."""
     response = {"choices": [{"message": {"content": json.dumps({"result": "ok"})}}]}
-    with patch("pipeline_v2.agent._call_openai", new_callable=AsyncMock) as mock:
+    with patch("pipeline_client.agent.agent._call_openai", new_callable=AsyncMock) as mock:
         mock.return_value = response
         result = await _agent_loop("system", "user", model="gpt-4o-mini", phase_name="test")
     assert result == {"result": "ok"}
@@ -288,8 +288,8 @@ async def test_agent_loop_handles_tool_calls():
     final_response = {"choices": [{"message": {"content": json.dumps({"done": True})}}]}
 
     with (
-        patch("pipeline_v2.agent._call_openai", new_callable=AsyncMock) as mock_call,
-        patch("pipeline_v2.agent._serper_search", new_callable=AsyncMock) as mock_search,
+        patch("pipeline_client.agent.agent._call_openai", new_callable=AsyncMock) as mock_call,
+        patch("pipeline_client.agent.agent._serper_search", new_callable=AsyncMock) as mock_search,
     ):
         mock_call.side_effect = [tool_response, final_response]
         mock_search.return_value = [{"title": "Test", "snippet": "...", "url": "https://test.com"}]
@@ -331,8 +331,8 @@ async def test_agent_loop_handles_multiple_tool_calls():
     final_response = {"choices": [{"message": {"content": json.dumps({"done": True})}}]}
 
     with (
-        patch("pipeline_v2.agent._call_openai", new_callable=AsyncMock) as mock_call,
-        patch("pipeline_v2.agent._serper_search", new_callable=AsyncMock) as mock_search,
+        patch("pipeline_client.agent.agent._call_openai", new_callable=AsyncMock) as mock_call,
+        patch("pipeline_client.agent.agent._serper_search", new_callable=AsyncMock) as mock_search,
     ):
         mock_call.side_effect = [tool_response, final_response]
         mock_search.return_value = [{"title": "R", "snippet": "...", "url": "https://r.com"}]
@@ -349,7 +349,7 @@ async def test_agent_loop_retries_bad_json():
     bad = {"choices": [{"message": {"content": "not json"}}]}
     good = {"choices": [{"message": {"content": json.dumps({"ok": True})}}]}
 
-    with patch("pipeline_v2.agent._call_openai", new_callable=AsyncMock) as mock:
+    with patch("pipeline_client.agent.agent._call_openai", new_callable=AsyncMock) as mock:
         mock.side_effect = [bad, good]
         result = await _agent_loop("system", "user", model="gpt-4o-mini", phase_name="test")
 
@@ -362,7 +362,7 @@ async def test_agent_loop_raises_on_max_iterations():
     """_agent_loop raises RuntimeError when max iterations reached."""
     bad = {"choices": [{"message": {"content": "still not json"}}]}
 
-    with patch("pipeline_v2.agent._call_openai", new_callable=AsyncMock) as mock:
+    with patch("pipeline_client.agent.agent._call_openai", new_callable=AsyncMock) as mock:
         mock.return_value = bad
         with pytest.raises(RuntimeError, match="did not produce output"):
             await _agent_loop(
@@ -398,8 +398,8 @@ async def test_agent_loop_passes_race_id_to_search():
     final_response = {"choices": [{"message": {"content": json.dumps({"ok": True})}}]}
 
     with (
-        patch("pipeline_v2.agent._call_openai", new_callable=AsyncMock) as mock_call,
-        patch("pipeline_v2.agent._serper_search", new_callable=AsyncMock) as mock_search,
+        patch("pipeline_client.agent.agent._call_openai", new_callable=AsyncMock) as mock_call,
+        patch("pipeline_client.agent.agent._serper_search", new_callable=AsyncMock) as mock_search,
     ):
         mock_call.side_effect = [tool_response, final_response]
         mock_search.return_value = []
@@ -427,7 +427,7 @@ async def test_serper_search_no_api_key():
     env.pop("SERPER_API_KEY", None)
     with (
         patch.dict(os.environ, env, clear=True),
-        patch("pipeline_v2.agent._get_search_cache", return_value=None),
+        patch("pipeline_client.agent.agent._get_search_cache", return_value=None),
     ):
         results = await _serper_search("test query")
     assert len(results) == 1
@@ -440,7 +440,7 @@ async def test_serper_search_uses_cache():
     mock_cache = MagicMock()
     mock_cache.get.return_value = {"results": [{"title": "Cached", "snippet": "...", "url": "https://cached.com"}]}
 
-    with patch("pipeline_v2.agent._get_search_cache", return_value=mock_cache):
+    with patch("pipeline_client.agent.agent._get_search_cache", return_value=mock_cache):
         results = await _serper_search("test query", race_id="my-race")
 
     assert results == [{"title": "Cached", "snippet": "...", "url": "https://cached.com"}]
@@ -510,8 +510,8 @@ async def test_run_agent_fresh():
     }
 
     with (
-        patch("pipeline_v2.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
-        patch("pipeline_v2.agent._load_existing", return_value=None),
+        patch("pipeline_client.agent.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.agent._load_existing", return_value=None),
     ):
         # discovery, 6 issue groups, refine = 8 total calls
         mock_loop.side_effect = [
@@ -529,7 +529,7 @@ async def test_run_agent_fresh():
 
     assert result["id"] == "test-2024"
     assert "updated_utc" in result
-    assert result["generator"] == ["pipeline-v2-agent"]
+    assert result["generator"] == ["pipeline-agent"]
     # discovery + 6 issue groups + refine = 8
     assert mock_loop.call_count == 8
 
@@ -543,8 +543,8 @@ async def test_run_agent_fresh_no_candidates():
     }
 
     with (
-        patch("pipeline_v2.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
-        patch("pipeline_v2.agent._load_existing", return_value=None),
+        patch("pipeline_client.agent.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.agent._load_existing", return_value=None),
     ):
         mock_loop.return_value = discovery_result
         result = await run_agent("empty-2024", cheap_mode=True)
@@ -562,8 +562,8 @@ async def test_run_agent_update_mode():
     updated = {"id": "test-2024", "candidates": [{"name": "Bob", "issues": {}}]}
 
     with (
-        patch("pipeline_v2.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
-        patch("pipeline_v2.agent._load_existing", return_value=existing),
+        patch("pipeline_client.agent.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.agent._load_existing", return_value=existing),
     ):
         mock_loop.return_value = updated
         result = await run_agent("test-2024", cheap_mode=True)
@@ -582,8 +582,8 @@ async def test_run_agent_force_fresh_with_empty_dict():
     }
 
     with (
-        patch("pipeline_v2.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
-        patch("pipeline_v2.agent._load_existing", return_value=None),
+        patch("pipeline_client.agent.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.agent._load_existing", return_value=None),
     ):
         mock_loop.return_value = discovery_result
         result = await run_agent("test-2024", cheap_mode=True, existing_data={})
@@ -598,15 +598,15 @@ async def test_run_agent_normalizes_output():
     minimal = {"candidates": []}
 
     with (
-        patch("pipeline_v2.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
-        patch("pipeline_v2.agent._load_existing", return_value=None),
+        patch("pipeline_client.agent.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.agent._load_existing", return_value=None),
     ):
         mock_loop.return_value = minimal
         result = await run_agent("race-2024", cheap_mode=True, existing_data={})
 
     assert result["id"] == "race-2024"
     assert "updated_utc" in result
-    assert result["generator"] == ["pipeline-v2-agent"]
+    assert result["generator"] == ["pipeline-agent"]
 
 
 @pytest.mark.asyncio
@@ -629,8 +629,8 @@ async def test_run_agent_adds_source_timestamps():
     }
 
     with (
-        patch("pipeline_v2.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
-        patch("pipeline_v2.agent._load_existing", return_value=None),
+        patch("pipeline_client.agent.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.agent._load_existing", return_value=None),
     ):
         mock_loop.return_value = discovery_result
         result = await run_agent("ts-2024", cheap_mode=True, existing_data={})
@@ -664,8 +664,8 @@ async def test_run_agent_adds_donor_source_timestamps():
     }
 
     with (
-        patch("pipeline_v2.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
-        patch("pipeline_v2.agent._load_existing", return_value=None),
+        patch("pipeline_client.agent.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.agent._load_existing", return_value=None),
     ):
         mock_loop.return_value = discovery_result
         result = await run_agent("donors-2024", cheap_mode=True, existing_data={})
@@ -681,8 +681,8 @@ async def test_run_agent_model_selection():
 
     for cheap_mode, expected_model in [(True, "gpt-4o-mini"), (False, "gpt-4o")]:
         with (
-            patch("pipeline_v2.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
-            patch("pipeline_v2.agent._load_existing", return_value=None),
+            patch("pipeline_client.agent.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
+            patch("pipeline_client.agent.agent._load_existing", return_value=None),
         ):
             mock_loop.return_value = discovery_result
             await run_agent("m-2024", cheap_mode=cheap_mode, existing_data={})
@@ -702,8 +702,8 @@ async def test_run_agent_on_log_callback():
         log_messages.append((level, msg))
 
     with (
-        patch("pipeline_v2.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
-        patch("pipeline_v2.agent._load_existing", return_value=None),
+        patch("pipeline_client.agent.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.agent._load_existing", return_value=None),
     ):
         mock_loop.return_value = discovery_result
         await run_agent("log-2024", cheap_mode=True, existing_data={}, on_log=on_log)
@@ -721,24 +721,24 @@ async def test_run_agent_on_log_callback():
 
 @pytest.mark.asyncio
 async def test_v2_handler_raises_on_missing_race_id():
-    """V2AgentHandler raises ValueError when race_id is missing."""
-    from pipeline_client.backend.handlers.v2_agent import V2AgentHandler
+    """AgentHandler raises ValueError when race_id is missing."""
+    from pipeline_client.backend.handlers.agent import AgentHandler
 
-    handler = V2AgentHandler()
+    handler = AgentHandler()
     with pytest.raises(ValueError, match="Missing 'race_id'"):
         await handler.handle({}, {})
 
 
 @pytest.mark.asyncio
 async def test_v2_handler_runs_agent_and_publishes():
-    """V2AgentHandler calls run_agent and publishes the result."""
-    from pipeline_client.backend.handlers.v2_agent import V2AgentHandler
+    """AgentHandler calls run_agent and publishes the result."""
+    from pipeline_client.backend.handlers.agent import AgentHandler
 
-    handler = V2AgentHandler()
+    handler = AgentHandler()
     fake_result = {"id": "test-race", "candidates": []}
 
     with (
-        patch("pipeline_v2.agent.run_agent", new_callable=AsyncMock) as mock_agent,
+        patch("pipeline_client.agent.agent.run_agent", new_callable=AsyncMock) as mock_agent,
         patch.object(handler, "_publish", new_callable=AsyncMock) as mock_publish,
     ):
         mock_agent.return_value = fake_result
@@ -761,7 +761,7 @@ async def test_v2_handler_runs_agent_and_publishes():
 
 def test_review_prompt_exists():
     """Review prompts are defined and contain expected content."""
-    from pipeline_v2.prompts import REVIEW_SYSTEM, REVIEW_USER
+    from pipeline_client.agent.prompts import REVIEW_SYSTEM, REVIEW_USER
 
     assert "fact-checking" in REVIEW_SYSTEM.lower()
     assert "{race_id}" in REVIEW_USER
@@ -851,8 +851,8 @@ async def test_run_agent_normalizes_new_fields():
     }
 
     with (
-        patch("pipeline_v2.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
-        patch("pipeline_v2.agent._load_existing", return_value=None),
+        patch("pipeline_client.agent.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.agent._load_existing", return_value=None),
     ):
         mock_loop.return_value = discovery_result
         result = await run_agent("new-fields-2024", cheap_mode=True, existing_data={})
@@ -871,8 +871,8 @@ async def test_run_agent_enable_review_false():
     discovery_result = {"id": "no-review-2024", "candidates": []}
 
     with (
-        patch("pipeline_v2.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
-        patch("pipeline_v2.agent._load_existing", return_value=None),
+        patch("pipeline_client.agent.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.agent._load_existing", return_value=None),
     ):
         mock_loop.return_value = discovery_result
         result = await run_agent("no-review-2024", cheap_mode=True, existing_data={}, enable_review=False)
@@ -890,8 +890,8 @@ async def test_run_agent_enable_review_skips_without_keys():
     env.pop("GEMINI_API_KEY", None)
 
     with (
-        patch("pipeline_v2.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
-        patch("pipeline_v2.agent._load_existing", return_value=None),
+        patch("pipeline_client.agent.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.agent._load_existing", return_value=None),
         patch.dict(os.environ, env, clear=True),
     ):
         mock_loop.return_value = discovery_result
@@ -904,7 +904,7 @@ async def test_run_agent_enable_review_skips_without_keys():
 @pytest.mark.asyncio
 async def test_run_single_review_claude():
     """_run_single_review with claude returns structured review."""
-    from pipeline_v2.agent import DEFAULT_CLAUDE_MODEL, _run_single_review
+    from pipeline_client.agent.agent import DEFAULT_CLAUDE_MODEL, _run_single_review
 
     review_response = json.dumps(
         {
@@ -915,7 +915,7 @@ async def test_run_single_review_claude():
     )
 
     with (
-        patch("pipeline_v2.agent._call_anthropic", new_callable=AsyncMock) as mock_claude,
+        patch("pipeline_client.agent.agent._call_anthropic", new_callable=AsyncMock) as mock_claude,
         patch.dict(os.environ, {"ANTHROPIC_API_KEY": "test-key"}),
     ):
         mock_claude.return_value = review_response
@@ -929,7 +929,7 @@ async def test_run_single_review_claude():
 @pytest.mark.asyncio
 async def test_run_single_review_gemini():
     """_run_single_review with gemini returns structured review."""
-    from pipeline_v2.agent import DEFAULT_GEMINI_MODEL, _run_single_review
+    from pipeline_client.agent.agent import DEFAULT_GEMINI_MODEL, _run_single_review
 
     review_response = json.dumps(
         {
@@ -940,7 +940,7 @@ async def test_run_single_review_gemini():
     )
 
     with (
-        patch("pipeline_v2.agent._call_gemini", new_callable=AsyncMock) as mock_gemini,
+        patch("pipeline_client.agent.agent._call_gemini", new_callable=AsyncMock) as mock_gemini,
         patch.dict(os.environ, {"GEMINI_API_KEY": "test-key"}),
     ):
         mock_gemini.return_value = review_response
@@ -954,10 +954,10 @@ async def test_run_single_review_gemini():
 @pytest.mark.asyncio
 async def test_run_single_review_handles_failure():
     """_run_single_review returns None on failure."""
-    from pipeline_v2.agent import _run_single_review
+    from pipeline_client.agent.agent import _run_single_review
 
     with (
-        patch("pipeline_v2.agent._call_anthropic", new_callable=AsyncMock) as mock_claude,
+        patch("pipeline_client.agent.agent._call_anthropic", new_callable=AsyncMock) as mock_claude,
         patch.dict(os.environ, {"ANTHROPIC_API_KEY": "test-key"}),
     ):
         mock_claude.side_effect = RuntimeError("API down")
@@ -968,14 +968,14 @@ async def test_run_single_review_handles_failure():
 
 @pytest.mark.asyncio
 async def test_v2_handler_passes_enable_review():
-    """V2AgentHandler passes enable_review option to run_agent."""
-    from pipeline_client.backend.handlers.v2_agent import V2AgentHandler
+    """AgentHandler passes enable_review option to run_agent."""
+    from pipeline_client.backend.handlers.agent import AgentHandler
 
-    handler = V2AgentHandler()
+    handler = AgentHandler()
     fake_result = {"id": "test-race", "candidates": []}
 
     with (
-        patch("pipeline_v2.agent.run_agent", new_callable=AsyncMock) as mock_agent,
+        patch("pipeline_client.agent.agent.run_agent", new_callable=AsyncMock) as mock_agent,
         patch.object(handler, "_publish", new_callable=AsyncMock) as mock_publish,
     ):
         mock_agent.return_value = fake_result

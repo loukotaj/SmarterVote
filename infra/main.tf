@@ -1,5 +1,5 @@
 # SmarterVote Infrastructure - Main Configuration
-# Infrastructure deployment for AI agent electoral analysis pipeline (V2)
+# Infrastructure deployment for AI agent electoral analysis pipeline
 
 terraform {
   required_version = ">= 1.0"
