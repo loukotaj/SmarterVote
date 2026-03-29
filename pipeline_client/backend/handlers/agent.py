@@ -44,7 +44,7 @@ class AgentHandler:
             raise ValueError("AgentHandler: Missing 'race_id' in payload")
 
         cheap_mode = options.get("cheap_mode", True)
-        enable_review = options.get("enable_review", False)
+        enable_review = options.get("enable_review", True)
         t0 = time.perf_counter()
 
         logger.info(f"Agent: researching race {race_id} (cheap_mode={cheap_mode}, review={enable_review})")

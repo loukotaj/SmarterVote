@@ -47,7 +47,7 @@ async def _call_anthropic(system: str, user: str, *, model: str = DEFAULT_CLAUDE
             },
             json={
                 "model": model,
-                "max_tokens": 4096,
+                "max_tokens": 8192,
                 "system": system,
                 "messages": [{"role": "user", "content": user}],
             },

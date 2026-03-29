@@ -153,7 +153,7 @@ async def _call_openai(
     model: str,
     tools: List[Dict[str, Any]] | None = None,
     max_retries: int = 5,
-    max_tokens: int = 4096,
+    max_tokens: int = 16384,
 ) -> Dict[str, Any]:
     """Call the OpenAI Chat Completions API with retry on transient errors."""
     api_key = os.environ.get("OPENAI_API_KEY", "")
@@ -253,7 +253,7 @@ async def _agent_loop(
     race_id: Optional[str] = None,
     max_iterations: int = 15,
     phase_name: str = "",
-    max_tokens: int = 4096,
+    max_tokens: int = 16384,
 ) -> Dict[str, Any]:
     """Run a single agent loop (search → answer → parse JSON)."""
     log = make_logger(on_log)
@@ -388,7 +388,7 @@ async def run_agent(
     cheap_mode: bool = True,
     max_iterations: int = 20,
     existing_data: Optional[Dict[str, Any]] = None,
-    enable_review: bool = False,
+    enable_review: bool = True,
     research_model: Optional[str] = None,
     claude_model: Optional[str] = None,
     gemini_model: Optional[str] = None,
@@ -503,7 +503,7 @@ async def _run_fresh(
         race_id=race_id,
         max_iterations=max_iterations,
         phase_name="discovery",
-        max_tokens=4096,
+        max_tokens=16384,
     )
 
     candidate_names = [c["name"] for c in race_json.get("candidates", [])]
@@ -545,7 +545,7 @@ async def _run_fresh(
             race_id=race_id,
             max_iterations=issue_iters,
             phase_name=f"issues-{group_idx + 1}",
-            max_tokens=4096,
+            max_tokens=16384,
         )
         for cand_name, cand_issues in issues_result.items():
             if cand_name in all_issues and isinstance(cand_issues, dict):
@@ -570,7 +570,7 @@ async def _run_fresh(
         race_id=race_id,
         max_iterations=refine_iters,
         phase_name="refine",
-        max_tokens=8192,
+        max_tokens=32768,
     )
 
     return race_json
@@ -609,7 +609,7 @@ async def _run_update(
         race_id=race_id,
         max_iterations=update_iters,
         phase_name="update",
-        max_tokens=8192,
+        max_tokens=32768,
     )
 
     # Verify and fix image URLs after update (parallel)

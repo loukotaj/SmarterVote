@@ -41,7 +41,7 @@
   let modalLoading = false;
 
   // Pipeline options
-  let enableReview = false;
+  let enableReview = true;
   let cheapMode = true;
   let showAdvanced = false;
   let researchModel = "";
