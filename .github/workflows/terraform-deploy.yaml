@@ -52,6 +52,9 @@ jobs:
           - name: races-api
             dockerfile: services/races-api/Dockerfile
             context: .
+          - name: enqueue-api
+            dockerfile: services/enqueue-api/Dockerfile
+            context: .
 
     steps:
     - uses: actions/checkout@v6
@@ -125,6 +128,9 @@ jobs:
         app_version = "${{ env.TF_VAR_app_version }}"
         openai_api_key = "${{ secrets.OPENAI_API_KEY }}"
         serper_api_key = "${{ secrets.SERPER_API_KEY }}"
+        anthropic_api_key = "${{ secrets.ANTHROPIC_API_KEY }}"
+        gemini_api_key = "${{ secrets.GEMINI_API_KEY }}"
+        xai_api_key = "${{ secrets.XAI_API_KEY }}"
         EOF
 
     - name: Check if state bucket exists

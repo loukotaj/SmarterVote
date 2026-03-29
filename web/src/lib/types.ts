@@ -97,6 +97,7 @@ export interface Candidate {
   party?: string;
   incumbent: boolean;
   summary: string;
+  summary_sources: Source[];
   image_url?: string;
   issues: Record<CanonicalIssue, IssueStance>;
   career_history: CareerEntry[];

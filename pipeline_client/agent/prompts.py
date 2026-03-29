@@ -83,7 +83,7 @@ Search for:
 1. What office is this for? What state/district?
 2. Who are the candidates? (name, party, incumbent status)
 3. Each candidate's official campaign website and social media.
-4. A brief 2-3 sentence nonpartisan summary of each candidate.
+4. A brief 2-3 sentence nonpartisan summary of each candidate. Do NOT append inline "Sources: ..." text to the summary — put sources in the summary_sources array instead.
 5. Each candidate's career history (political offices held, major jobs).
 6. Each candidate's education (degrees, institutions).
 7. Notable voting record items (for incumbents or former legislators).
@@ -135,7 +135,10 @@ Return JSON:
       "name": "<full name>",
       "party": "<party affiliation>",
       "incumbent": true|false,
-      "summary": "<2-3 sentence nonpartisan summary>",
+      "summary": "<2-3 sentence nonpartisan summary — plain prose only, no 'Sources:' appended>",
+      "summary_sources": [
+        {{"url": "<url>", "type": "government|news|website", "title": "<page title>", "last_accessed": "<ISO timestamp>"}}
+      ],
       "image_url": "<direct image file URL ending in .jpg/.png/.gif/.webp, or null if not found>",
       "website": "<official campaign URL or null>",
       "social_media": {{}},
@@ -234,7 +237,7 @@ Review and improve this profile:
 1. Fix any factual inconsistencies you can verify with web_search.
 2. Fill in missing or weak stances (confidence "low") if better info exists.
 3. Ensure every stance has at least one source URL.
-4. Improve candidate summaries so they are clear, concise, and nonpartisan.
+4. Improve candidate summaries so they are clear, concise, and nonpartisan. The summary field must be plain prose only — do NOT append "Sources: ..." inline. All summary sources belong in the summary_sources array (same Source shape as other source fields).
 5. Add top donor information if findable, and include a source object on every donor entry.
 6. Ensure all 12 canonical issues are covered for each candidate:
    {all_issues}
@@ -289,7 +292,10 @@ Return JSON:
   "candidates": [
     {{
       "name": "<exact name>",
-      "summary": "<updated 2-3 sentence summary>",
+      "summary": "<updated 2-3 sentence summary — plain prose only, no 'Sources:' appended>",
+      "summary_sources": [
+        {{"url": "<url>", "type": "government|news|website", "title": "<page title>", "last_accessed": "<ISO timestamp>"}}
+      ],
       "top_donors": [
         {{"name": "<donor>", "amount": 50000, "organization": "<org or null>",
           "source": {{"url": "<url>", "type": "government|news|website", "title": "<title>"}}}}

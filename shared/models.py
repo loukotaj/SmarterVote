@@ -162,6 +162,7 @@ class Candidate(BaseModel):
     party: Optional[str] = None
     incumbent: bool = False
     summary: str = ""
+    summary_sources: List[Source] = Field(default_factory=list)
     image_url: Optional[str] = None
 
     # Policy positions

@@ -1,0 +1,21 @@
+[
+  {
+    "id": "132c1560",
+    "race_id": "ga-senate-2026",
+    "status": "completed",
+    "options": {
+      "cheap_mode": true,
+      "enable_review": true,
+      "save_artifact": true,
+      "research_model": null,
+      "claude_model": null,
+      "gemini_model": null,
+      "grok_model": null
+    },
+    "run_id": "7ea64c70-a8ef-4331-938c-6111cd76a239",
+    "created_at": "2026-03-29T14:44:18.972571+00:00",
+    "started_at": "2026-03-29T14:44:18.975571+00:00",
+    "completed_at": "2026-03-29T14:50:35.314234+00:00",
+    "error": null
+  }
+]
