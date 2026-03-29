@@ -345,8 +345,12 @@ async def _agent_loop(
             messages.append({
                 "role": "user",
                 "content": (
-                    "Your response was not valid JSON. Please return ONLY "
-                    "the JSON object with no markdown fences or extra text."
+                    f"Your response was not valid JSON. Parse error: {exc}. "
+                    "Common causes: using None/True/False instead of null/true/false, "
+                    "unescaped quotes or backslashes inside string values, or text "
+                    "appended after the closing brace. "
+                    "Return ONLY the raw JSON object — no markdown, no explanation, "
+                    "no trailing text whatsoever."
                 ),
             })
             continue
@@ -533,23 +537,26 @@ async def _run_fresh(
 
     for group_idx, issues in enumerate(ISSUE_GROUPS):
         log("info", f"  Issue group {group_idx + 1}/{len(ISSUE_GROUPS)}: {', '.join(issues)}")
-        issues_result = await _agent_loop(
-            ISSUE_RESEARCH_SYSTEM,
-            ISSUE_RESEARCH_USER.format(
+        try:
+            issues_result = await _agent_loop(
+                ISSUE_RESEARCH_SYSTEM,
+                ISSUE_RESEARCH_USER.format(
+                    race_id=race_id,
+                    candidate_names=", ".join(candidate_names),
+                    issues_list="\n".join(f"  - {i}" for i in issues),
+                ),
+                model=model,
+                on_log=on_log,
                 race_id=race_id,
-                candidate_names=", ".join(candidate_names),
-                issues_list="\n".join(f"  - {i}" for i in issues),
-            ),
-            model=model,
-            on_log=on_log,
-            race_id=race_id,
-            max_iterations=issue_iters,
-            phase_name=f"issues-{group_idx + 1}",
-            max_tokens=16384,
-        )
-        for cand_name, cand_issues in issues_result.items():
-            if cand_name in all_issues and isinstance(cand_issues, dict):
-                all_issues[cand_name].update(cand_issues)
+                max_iterations=issue_iters,
+                phase_name=f"issues-{group_idx + 1}",
+                max_tokens=16384,
+            )
+            for cand_name, cand_issues in issues_result.items():
+                if cand_name in all_issues and isinstance(cand_issues, dict):
+                    all_issues[cand_name].update(cand_issues)
+        except RuntimeError as exc:
+            log("warning", f"  Issue group {group_idx + 1} failed after all retries: {exc} — skipping group")
 
     for candidate in race_json.get("candidates", []):
         name = candidate["name"]
@@ -558,20 +565,23 @@ async def _run_fresh(
 
     # --- Phase 3: Refinement ---
     log("info", "Phase 3/3: Refining and improving profile...")
-    race_json = await _agent_loop(
-        REFINE_SYSTEM,
-        REFINE_USER.format(
+    try:
+        race_json = await _agent_loop(
+            REFINE_SYSTEM,
+            REFINE_USER.format(
+                race_id=race_id,
+                draft_json=json.dumps(race_json, indent=2, default=str),
+                all_issues=", ".join(CANONICAL_ISSUES),
+            ),
+            model=model,
+            on_log=on_log,
             race_id=race_id,
-            draft_json=json.dumps(race_json, indent=2, default=str),
-            all_issues=", ".join(CANONICAL_ISSUES),
-        ),
-        model=model,
-        on_log=on_log,
-        race_id=race_id,
-        max_iterations=refine_iters,
-        phase_name="refine",
-        max_tokens=32768,
-    )
+            max_iterations=refine_iters,
+            phase_name="refine",
+            max_tokens=32768,
+        )
+    except RuntimeError as exc:
+        log("warning", f"  Refine phase failed: {exc} — returning unrefined draft")
 
     return race_json
 
@@ -597,20 +607,24 @@ async def _run_update(
     log("info", f"  Update iteration budget: {update_iters} (n={n} candidates)")
 
     last_updated = existing.get("updated_utc", "unknown")
-    race_json = await _agent_loop(
-        UPDATE_SYSTEM,
-        UPDATE_USER.format(
+    try:
+        race_json = await _agent_loop(
+            UPDATE_SYSTEM,
+            UPDATE_USER.format(
+                race_id=race_id,
+                existing_json=json.dumps(existing, indent=2, default=str),
+                last_updated=last_updated,
+            ),
+            model=model,
+            on_log=on_log,
             race_id=race_id,
-            existing_json=json.dumps(existing, indent=2, default=str),
-            last_updated=last_updated,
-        ),
-        model=model,
-        on_log=on_log,
-        race_id=race_id,
-        max_iterations=update_iters,
-        phase_name="update",
-        max_tokens=32768,
-    )
+            max_iterations=update_iters,
+            phase_name="update",
+            max_tokens=32768,
+        )
+    except RuntimeError as exc:
+        log("warning", f"  Update phase failed: {exc} — returning existing data unchanged")
+        race_json = existing
 
     # Verify and fix image URLs after update (parallel)
     log("info", "Post-update: Verifying and resolving candidate image URLs...")

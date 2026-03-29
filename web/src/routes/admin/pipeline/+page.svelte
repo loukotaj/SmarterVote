@@ -56,14 +56,19 @@
   let isQueueMode = false;
 
   function addToQueue() {
-    const id = pipeline.raceId.trim();
-    if (!id) return;
-    if (raceQueue.some((r: QueueItem) => r.id === id)) {
-      addLog("warning", `Race "${id}" is already in the queue`);
-      return;
+    const raw = pipeline.raceId.trim();
+    if (!raw) return;
+    const ids = raw.split(",").map((s) => s.trim()).filter(Boolean);
+    let added = 0;
+    for (const id of ids) {
+      if (raceQueue.some((r: QueueItem) => r.id === id)) {
+        addLog("warning", `Race "${id}" is already in the queue — skipped`);
+        continue;
+      }
+      raceQueue = [...raceQueue, { id, status: "pending" as QueueStatus }];
+      added++;
     }
-    raceQueue = [...raceQueue, { id, status: "pending" as QueueStatus }];
-    pipelineActions.setRaceId("");
+    if (added > 0) pipelineActions.setRaceId("");
   }
 
   function removeFromQueue(id: string) {
@@ -469,7 +474,7 @@
                 value={pipeline.raceId}
                 on:input={handleRaceIdInput}
                 on:keydown={handleRaceIdKeydown}
-                placeholder="e.g. georgia-senate-2026"
+                placeholder="e.g. georgia-senate-2026, tx-governor-2026"
                 class="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm font-mono focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
               />
               <button
@@ -483,7 +488,7 @@
               </button>
             </div>
             <p class="mt-1 text-xs text-gray-400">
-              Format: state-office-year · Press <kbd class="px-1 py-0.5 bg-gray-100 rounded text-xs">Enter</kbd> or click + Queue to batch
+              Comma-separate multiple IDs · Press <kbd class="px-1 py-0.5 bg-gray-100 rounded text-xs">Enter</kbd> or + Queue to add all
             </p>
           </div>
 
@@ -578,19 +583,19 @@
                 <div>
                   <label for="researchModel" class="block text-xs font-medium text-gray-600">Research (OpenAI)</label>
                   <input id="researchModel" type="text" bind:value={researchModel}
-                    placeholder={cheapMode ? "gpt-4o-mini" : "gpt-4o"}
+                    placeholder={cheapMode ? "gpt-5.4-mini" : "gpt-5.4"}
                     class="w-full px-2 py-1.5 border border-gray-300 rounded text-xs font-mono focus:outline-none focus:border-blue-500" />
                 </div>
                 <div>
                   <label for="claudeModel" class="block text-xs font-medium text-gray-600">Claude (Review)</label>
                   <input id="claudeModel" type="text" bind:value={claudeModel}
-                    placeholder={cheapMode ? "claude-haiku-4-20250514" : "claude-sonnet-4-20250514"}
+                    placeholder={cheapMode ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-6"}
                     class="w-full px-2 py-1.5 border border-gray-300 rounded text-xs font-mono focus:outline-none focus:border-blue-500" />
                 </div>
                 <div>
                   <label for="geminiModel" class="block text-xs font-medium text-gray-600">Gemini (Review)</label>
                   <input id="geminiModel" type="text" bind:value={geminiModel}
-                    placeholder={cheapMode ? "gemini-2.0-flash-lite" : "gemini-2.0-flash"}
+                    placeholder={cheapMode ? "gemini-3.0-flash-lite" : "gemini-3.0-flash"}
                     class="w-full px-2 py-1.5 border border-gray-300 rounded text-xs font-mono focus:outline-none focus:border-blue-500" />
                 </div>
                 <div>
