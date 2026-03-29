@@ -184,10 +184,7 @@
                   <div class="text-sm text-gray-600">
                     <strong>Candidates:</strong>
                     {#each race.candidates as candidate, index}
-                      <span class="font-medium">{candidate.name}</span
-                      >{#if candidate.party}
-                        ({candidate.party}){/if}{#if index < race.candidates.length - 1},
-                      {/if}
+                      <span class="font-medium">{candidate.name}</span>{#if candidate.party}<span class="party-abbr" class:dem={candidate.party.toLowerCase().includes('democrat')} class:rep={candidate.party.toLowerCase().includes('republican')}>{candidate.party.toLowerCase().includes('democrat') ? 'D' : candidate.party.toLowerCase().includes('republican') ? 'R' : candidate.party[0]}</span>{/if}{#if index < race.candidates.length - 1}, {/if}
                     {/each}
                   </div>
                   <div class="text-xs text-gray-500 mt-1">
@@ -428,3 +425,15 @@
     </div>
   </section>
 </div>
+
+<style lang="postcss">
+  .party-abbr {
+    @apply ml-0.5 text-xs font-semibold text-gray-500;
+  }
+  .party-abbr.dem {
+    @apply text-blue-600;
+  }
+  .party-abbr.rep {
+    @apply text-red-600;
+  }
+</style>

@@ -10,6 +10,17 @@
   export let candidate: Candidate;
   export let raceId: string = "";
 
+  function partyAbbr(party: string | undefined): string {
+    if (!party) return "";
+    const p = party.toLowerCase();
+    if (p.includes("democrat")) return "D";
+    if (p.includes("republican")) return "R";
+    if (p.includes("independent")) return "I";
+    if (p.includes("libertarian")) return "L";
+    if (p.includes("green")) return "G";
+    return party[0].toUpperCase();
+  }
+
   let expanded = false;
   let imageError = false;
   let activeTab: "issues" | "background" | "donors" | "voting" = "issues";
@@ -66,11 +77,14 @@
               class="candidate-name-link"
             >
               {candidate.name}
+              <svg class="inline w-4 h-4 ml-1 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
             </a>
           </h3>
           <div class="flex flex-wrap items-center gap-1 mt-1">
             {#if candidate.party}
-              <span class="badge party-badge">{candidate.party}</span>
+              <span class="badge party-badge" title={candidate.party}>{partyAbbr(candidate.party)}</span>
             {/if}
             {#if candidate.incumbent}
               <span class="badge incumbent-badge">Incumbent</span>
@@ -303,7 +317,7 @@
   }
 
   .candidate-name-link {
-    @apply text-gray-900 hover:text-blue-600 transition-colors duration-200 no-underline;
+    @apply text-blue-600 hover:text-blue-800 hover:underline transition-colors duration-200 no-underline;
   }
 
   .badge {

@@ -107,17 +107,17 @@ export interface Candidate {
   social_media: Record<string, string>;
 }
 
-export interface PollResult {
-  candidate: string;
-  percentage?: number;
+export interface PollMatchup {
+  candidates: string[];
+  percentages: number[];
 }
 
 export interface PollEntry {
   pollster: string;
   date?: string;
   sample_size?: number;
-  results: PollResult[];
-  source?: Source;
+  matchups: PollMatchup[];
+  source_url?: string;
 }
 
 export interface Race {

@@ -113,10 +113,13 @@ Return JSON:
       "pollster": "<polling organization>",
       "date": "<YYYY-MM-DD>",
       "sample_size": 600,
-      "results": [
-        {{"candidate": "<name>", "percentage": 48.5}}
+      "matchups": [
+        {{
+          "candidates": ["<Candidate A>", "<Candidate B>"],
+          "percentages": [48.5, 41.0]
+        }}
       ],
-      "source": {{"url": "<url>", "type": "news|website", "title": "<title>"}}
+      "source_url": "<direct URL to poll or article>"
     }}
   ],
   "candidates": [

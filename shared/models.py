@@ -185,11 +185,11 @@ class Candidate(BaseModel):
 # ---------------------------------------------------------------------------
 
 
-class PollResult(BaseModel):
-    """A single candidate's result in a poll."""
+class PollMatchup(BaseModel):
+    """A head-to-head matchup within a poll."""
 
-    candidate: str
-    percentage: Optional[float] = None
+    candidates: List[str] = Field(default_factory=list)
+    percentages: List[float] = Field(default_factory=list)
 
 
 class PollEntry(BaseModel):
@@ -198,8 +198,8 @@ class PollEntry(BaseModel):
     pollster: str
     date: Optional[str] = None
     sample_size: Optional[int] = None
-    results: List[PollResult] = Field(default_factory=list)
-    source: Optional[Source] = None
+    matchups: List[PollMatchup] = Field(default_factory=list)
+    source_url: Optional[str] = None
 
 
 # ---------------------------------------------------------------------------

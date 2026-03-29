@@ -19,7 +19,8 @@
     }
   }
 
-  function getVoteClass(vote: string): string {
+  function getVoteClass(vote: string | undefined | null): string {
+    if (!vote) return "vote-unknown";
     switch (vote.toLowerCase()) {
       case "yes":
         return "vote-yes";
@@ -34,7 +35,8 @@
     }
   }
 
-  function getVoteIcon(vote: string): string {
+  function getVoteIcon(vote: string | undefined | null): string {
+    if (!vote) return "—";
     switch (vote.toLowerCase()) {
       case "yes":
         return "✓";
@@ -61,7 +63,7 @@
             <div class="bill-name">{record.bill_name}</div>
             <div class="vote-badge {getVoteClass(record.vote)}">
               <span class="vote-icon">{getVoteIcon(record.vote)}</span>
-              <span class="vote-text">{record.vote.toUpperCase()}</span>
+              <span class="vote-text">{record.vote?.toUpperCase() ?? '—'}</span>
             </div>
           </div>
 

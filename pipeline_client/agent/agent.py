@@ -296,12 +296,47 @@ def _normalize_candidate(candidate: Dict[str, Any], now_iso: str) -> None:
 # ---------------------------------------------------------------------------
 
 
+_TRUSTED_IMAGE_DOMAINS = frozenset({
+    "senate.gov",
+    "house.gov",
+    "ballotpedia.org",
+    "upload.wikimedia.org",
+    "wikimedia.org",
+    "wikipedia.org",
+    "cloudfront.net",
+    "githubusercontent.com",
+    "twimg.com",
+    "fbcdn.net",
+})
+
+
 async def _check_url_accessible(url: str) -> bool:
-    """Return True if a HEAD request to *url* returns a 2xx status within 8 s."""
+    """Return True if the URL is reachable.
+
+    Trusted government/wiki/CDN domains are accepted without a network check
+    since they often block HEAD requests but serve images fine in browsers.
+    Falls back from HEAD → GET (range) on 4xx/5xx to handle servers that
+    don't support HEAD.
+    """
+    try:
+        from urllib.parse import urlparse
+        host = urlparse(url).netloc.lower()
+        if any(host == d or host.endswith("." + d) for d in _TRUSTED_IMAGE_DOMAINS):
+            return True
+    except Exception:
+        pass
+
+    headers = {"User-Agent": "Mozilla/5.0 (compatible; SmarterVote/1.0)"}
     try:
         async with httpx.AsyncClient(timeout=8, follow_redirects=True) as client:
-            resp = await client.head(url, headers={"User-Agent": "SmarterVote/1.0"})
-            return resp.status_code < 400
+            resp = await client.head(url, headers=headers)
+            if resp.status_code < 400:
+                return True
+            if resp.status_code in (405, 501):
+                # Server doesn't support HEAD — try a byte-range GET
+                resp2 = await client.get(url, headers={**headers, "Range": "bytes=0-0"})
+                return resp2.status_code in (200, 206)
+            return False
     except Exception:
         return False
 
@@ -399,11 +434,27 @@ async def _agent_loop(
         {"role": "user", "content": user},
     ]
 
+    nudge_at = max(max_iterations // 2, 3)
+
     for iteration in range(max_iterations):
         log("info", f"  [{phase_name}] iteration {iteration + 1}/{max_iterations} — calling {model}...")
 
+        # After half the budget is spent, stop offering the search tool and
+        # tell the model to produce its final JSON answer now.
+        if iteration == nudge_at and len(messages) > 2:
+            messages.append({
+                "role": "user",
+                "content": (
+                    "You have used several searches. Please now compile your findings "
+                    "and return ONLY the final JSON response. No more searches."
+                ),
+            })
+            log("info", f"  [{phase_name}] nudging model to produce output (iteration {iteration + 1})")
+
+        tools_for_call = [SEARCH_TOOL] if iteration < nudge_at else None
+
         t_call = time.perf_counter()
-        result = await _call_openai(messages, model=model, tools=[SEARCH_TOOL])
+        result = await _call_openai(messages, model=model, tools=tools_for_call)
         elapsed_call = time.perf_counter() - t_call
 
         choice = result["choices"][0]
@@ -417,8 +468,8 @@ async def _agent_loop(
             f"tokens={usage.get('prompt_tokens', '?')}→{usage.get('completion_tokens', '?')}",
         )
 
-        # If the model wants to call tools, execute them
-        if message.get("tool_calls"):
+        # If the model wants to call tools, execute them (only when tools were offered)
+        if message.get("tool_calls") and tools_for_call:
             messages.append(message)
             for tool_call in message["tool_calls"]:
                 fn = tool_call["function"]
@@ -482,12 +533,17 @@ def _load_existing(race_id: str) -> Optional[Dict[str, Any]]:
 # ---------------------------------------------------------------------------
 
 
+def _scale_iterations(base: int, n_candidates: int, per_candidate: int, minimum: int = 12) -> int:
+    """Return an iteration budget scaled to the number of candidates."""
+    return max(base, n_candidates * per_candidate + minimum)
+
+
 async def run_agent(
     race_id: str,
     *,
     on_log: Any | None = None,
     cheap_mode: bool = True,
-    max_iterations: int = 15,
+    max_iterations: int = 20,
     existing_data: Optional[Dict[str, Any]] = None,
     enable_review: bool = False,
     research_model: Optional[str] = None,
@@ -632,9 +688,17 @@ async def _run_fresh(
     )
 
     candidate_names = [c["name"] for c in race_json.get("candidates", [])]
+    n = len(candidate_names)
     if not candidate_names:
         log("warning", "No candidates found in discovery phase")
         return race_json
+
+    # Scale iteration budgets to candidate count:
+    #   issue research: ~3 searches per candidate per group + overhead
+    #   refinement: ~2 searches per candidate + overhead
+    issue_iters = _scale_iterations(max_iterations, n, per_candidate=3, minimum=12)
+    refine_iters = _scale_iterations(max_iterations, n, per_candidate=2, minimum=12)
+    log("info", f"  Iteration budgets — issue:{issue_iters}  refine:{refine_iters}  (n={n} candidates)")
 
     # --- Phase 1b: Image URL verification & resolution ---
     log("info", "Phase 1b/3: Verifying and resolving candidate image URLs...")
@@ -647,7 +711,7 @@ async def _run_fresh(
     )
 
     # --- Phase 2: Issue research (one call per group) ---
-    log("info", f"Phase 2/3: Researching issues for {len(candidate_names)} candidates...")
+    log("info", f"Phase 2/3: Researching issues for {n} candidates...")
     all_issues: Dict[str, Dict[str, Any]] = {name: {} for name in candidate_names}
 
     for group_idx, issues in enumerate(ISSUE_GROUPS):
@@ -662,7 +726,7 @@ async def _run_fresh(
             model=model,
             on_log=on_log,
             race_id=race_id,
-            max_iterations=max_iterations,
+            max_iterations=issue_iters,
             phase_name=f"issues-{group_idx + 1}",
         )
 
@@ -689,7 +753,7 @@ async def _run_fresh(
         model=model,
         on_log=on_log,
         race_id=race_id,
-        max_iterations=max_iterations,
+        max_iterations=refine_iters,
         phase_name="refine",
     )
 
@@ -716,6 +780,11 @@ async def _run_update(
         if on_log:
             on_log(level, msg)
 
+    n = len(existing.get("candidates", []))
+    # Update does everything in one pass: ~4 searches per candidate + overhead
+    update_iters = _scale_iterations(max_iterations, n, per_candidate=4, minimum=15)
+    log("info", f"  Update iteration budget: {update_iters} (n={n} candidates)")
+
     last_updated = existing.get("updated_utc", "unknown")
     race_json = await _agent_loop(
         UPDATE_SYSTEM,
@@ -727,7 +796,7 @@ async def _run_update(
         model=model,
         on_log=on_log,
         race_id=race_id,
-        max_iterations=max_iterations,
+        max_iterations=update_iters,
         phase_name="update",
     )
 

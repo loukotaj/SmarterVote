@@ -4,7 +4,7 @@
   import CandidateCard from "$lib/components/CandidateCard.svelte";
   import ReviewPanel from "$lib/components/ReviewPanel.svelte";
   import Card from "$lib/components/Card.svelte";
-  import type { Race, PollEntry } from "$lib/types";
+  import type { Race } from "$lib/types";
   import { getRace } from "$lib/api";
   import { formatModelName, candidateSlug } from "$lib/utils/format";
 
@@ -38,6 +38,18 @@
   $: candidateCount = race?.candidates?.length ?? 0;
   $: incumbents = race?.candidates?.filter(c => c.incumbent) ?? [];
   $: parties = [...new Set(race?.candidates?.map(c => c.party).filter(Boolean))];
+  $: polls = race?.polling ?? [];
+  $: latestPoll = polls.length > 0 ? polls[0] : null;
+  $: latestMatchup = latestPoll?.matchups?.[0] ?? null;
+
+  function partyClass(name: string): string {
+    const candidate = race?.candidates?.find(c => c.name === name);
+    if (!candidate?.party) return "";
+    const p = candidate.party.toLowerCase();
+    if (p.includes("democrat")) return "dem";
+    if (p.includes("republican")) return "rep";
+    return "";
+  }
 </script>
 
 <svelte:head>
@@ -101,110 +113,79 @@
 
     <!-- Race Overview -->
     <Card class="overview-card">
-      {#if race.description}
-        <p class="overview-description">{race.description}</p>
-      {/if}
-      <div class="overview-candidates">
-        {#each (race.candidates ?? []) as candidate}
-          <a href="/races/{race.id}/{candidateSlug(candidate.name)}" class="overview-candidate-chip">
-            {#if candidate.image_url}
-              <img src={candidate.image_url} alt="" class="chip-avatar" on:error={(e) => { if (e.currentTarget instanceof HTMLImageElement) e.currentTarget.style.display = 'none'; }} />
-            {/if}
-            <span class="chip-name">{candidate.name}</span>
-            {#if candidate.party}
-              <span class="chip-party">({candidate.party})</span>
-            {/if}
-            {#if candidate.incumbent}
-              <span class="chip-incumbent">Incumbent</span>
+      <div class="overview-layout">
+        <!-- Left: description + candidate chips -->
+        <div class="overview-main">
+          {#if race.description}
+            <p class="overview-description">{race.description}</p>
+          {/if}
+          <div class="overview-candidates">
+            {#each (race.candidates ?? []) as candidate}
+              <a href="/races/{race.id}/{candidateSlug(candidate.name)}" class="overview-candidate-chip">
+                {#if candidate.image_url}
+                  <img src={candidate.image_url} alt="" class="chip-avatar" on:error={(e) => { if (e.currentTarget instanceof HTMLImageElement) e.currentTarget.style.display = 'none'; }} />
+                {/if}
+                <span class="chip-name">{candidate.name}</span>
+                {#if candidate.party}
+                  <span class="chip-party chip-party-{partyClass(candidate.name)}">{candidate.party.toLowerCase().includes('democrat') ? 'D' : candidate.party.toLowerCase().includes('republican') ? 'R' : candidate.party[0]}</span>
+                {/if}
+                {#if candidate.incumbent}
+                  <span class="chip-incumbent">Incumbent</span>
+                {/if}
+              </a>
+            {/each}
+          </div>
+        </div>
+
+        <!-- Right: poll snapshot widget -->
+        {#if latestPoll && latestMatchup}
+          <a href="#polls" class="poll-snapshot">
+            <div class="poll-snapshot-header">
+              <svg class="w-4 h-4 text-blue-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+              <span class="poll-snapshot-title">Latest Poll</span>
+            </div>
+            <p class="poll-snapshot-meta">{latestPoll.pollster}{latestPoll.date ? ` · ${new Date(latestPoll.date).toLocaleDateString('en-US', {month:'short', day:'numeric'})}` : ''}</p>
+            <div class="poll-snapshot-bars">
+              {#each latestMatchup.candidates as name, i}
+                <div class="poll-snap-row">
+                  <span class="poll-snap-name">{name.split(' ').pop()}</span>
+                  <div class="poll-snap-bar-wrap">
+                    <div class="poll-snap-bar {partyClass(name)}" style="width:{Math.min(latestMatchup.percentages[i] ?? 0, 100)}%"></div>
+                  </div>
+                  <span class="poll-snap-pct">{latestMatchup.percentages[i]}%</span>
+                </div>
+              {/each}
+            </div>
+            {#if polls.length > 1}
+              <span class="poll-snapshot-more">{polls.length} polls total — view all ↓</span>
+            {:else}
+              <span class="poll-snapshot-more">View detailed results ↓</span>
             {/if}
           </a>
-        {/each}
+        {/if}
       </div>
     </Card>
-
-    <!-- Polling Section -->
-    {#if race.polling && race.polling.length > 0}
-      <Card class="polling-card">
-        <h2 class="polling-title">Recent Polls</h2>
-        <div class="polling-list">
-          {#each race.polling as poll}
-            <div class="poll-entry">
-              <div class="poll-header">
-                <span class="poll-pollster">{poll.pollster}</span>
-                {#if poll.date}
-                  <span class="poll-date">{new Date(poll.date).toLocaleDateString()}</span>
-                {/if}
-                {#if poll.sample_size}
-                  <span class="poll-sample">n={poll.sample_size.toLocaleString()}</span>
-                {/if}
-              </div>
-              <div class="poll-results">
-                {#each poll.results as result}
-                  {@const candidate = race.candidates?.find(c => c.name === result.candidate)}
-                  <div class="poll-result-row">
-                    <span class="poll-candidate-name">{result.candidate}</span>
-                    {#if candidate?.party}
-                      <span class="poll-party-badge" class:dem={candidate.party.toLowerCase().includes('democrat')} class:rep={candidate.party.toLowerCase().includes('republican')}>
-                        {candidate.party}
-                      </span>
-                    {/if}
-                    {#if result.percentage != null}
-                      <div class="poll-bar-wrapper">
-                        <div class="poll-bar" style="width: {Math.min(result.percentage, 100)}%" class:dem-bar={candidate?.party?.toLowerCase().includes('democrat')} class:rep-bar={candidate?.party?.toLowerCase().includes('republican')}></div>
-                      </div>
-                      <span class="poll-pct">{result.percentage}%</span>
-                    {/if}
-                  </div>
-                {/each}
-              </div>
-              {#if poll.source?.url}
-                <a href={poll.source.url} target="_blank" rel="noopener noreferrer" class="poll-source-link">
-                  {poll.source.title || 'Source'}
-                </a>
-              {/if}
-            </div>
-          {/each}
-        </div>
-      </Card>
-    {/if}
 
     <!-- Fallback Data Notice -->
     {#if usingFallbackData}
       <div class="fallback-notice">
         <div class="fallback-content">
-          <svg
-            class="w-5 h-5 text-yellow-600"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"
-            />
+          <svg class="w-5 h-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
           </svg>
           <div>
             <p class="fallback-title">Using Sample Data</p>
-            <p class="fallback-text">
-              Live data is currently unavailable. The information shown below is
-              sample data for demonstration purposes.
-            </p>
+            <p class="fallback-text">Live data is currently unavailable. The information shown below is sample data for demonstration purposes.</p>
           </div>
         </div>
       </div>
     {/if}
 
-    <!-- AI Review Status -->
-    {#if race.reviews && race.reviews.length > 0}
-      <ReviewPanel reviews={race.reviews} />
-    {/if}
-
     <!-- Candidates Section -->
     <section>
       <h2 class="candidates-title">Candidates</h2>
-
       <div class="candidate-grid">
         {#each (race.candidates ?? []) as candidate}
           <CandidateCard {candidate} raceId={race.id} />
@@ -212,50 +193,82 @@
       </div>
     </section>
 
+    <!-- Detailed Polls Section -->
+    {#if polls.length > 0}
+      <section id="polls" class="polls-section">
+        <h2 class="section-heading">Polling</h2>
+        <div class="polls-grid">
+          {#each polls as poll}
+            <div class="poll-card">
+              <div class="poll-card-header">
+                <div>
+                  <span class="poll-card-pollster">{poll.pollster}</span>
+                  {#if poll.date}
+                    <span class="poll-card-date">{new Date(poll.date).toLocaleDateString('en-US', {year:'numeric', month:'short', day:'numeric'})}</span>
+                  {/if}
+                </div>
+                {#if poll.sample_size}
+                  <span class="poll-card-sample">n={poll.sample_size.toLocaleString()}</span>
+                {/if}
+              </div>
+
+              {#each (poll.matchups ?? []) as matchup, mi}
+                {#if mi > 0}<div class="poll-matchup-divider"></div>{/if}
+                <div class="poll-matchup">
+                  {#each matchup.candidates as name, i}
+                    {@const pc = partyClass(name)}
+                    <div class="poll-bar-row">
+                      <span class="poll-bar-name">{name}</span>
+                      <div class="poll-bar-track">
+                        <div class="poll-bar-fill {pc}" style="width:{Math.min(matchup.percentages[i] ?? 0, 100)}%">
+                          <span class="poll-bar-label">{matchup.percentages[i]}%</span>
+                        </div>
+                      </div>
+                    </div>
+                  {/each}
+                </div>
+              {/each}
+
+              {#if poll.source_url}
+                <a href={poll.source_url} target="_blank" rel="noopener noreferrer" class="poll-card-source">
+                  <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                  Source
+                </a>
+              {/if}
+            </div>
+          {/each}
+        </div>
+      </section>
+    {/if}
+
     <!-- Data Note -->
     <div class="data-note">
-      <p class="data-note-title">
-        {usingFallbackData
-          ? "Sample Data Information"
-          : "Data Analysis Information"}
-      </p>
+      <p class="data-note-title">{usingFallbackData ? "Sample Data Information" : "Data Analysis Information"}</p>
       <p class="data-note-text">
         {#if usingFallbackData}
-          This is sample data for demonstration purposes. The actual race data
-          is currently unavailable.
+          This is sample data for demonstration purposes. The actual race data is currently unavailable.
         {:else}
-          Data compiled from public sources and analyzed using AI. Last updated {new Date(
-            race.updated_utc
-          ).toLocaleDateString()}. Visit candidate websites for the most current
-          information.
+          Data compiled from public sources and analyzed using AI. Last updated {new Date(race.updated_utc).toLocaleDateString()}. Visit candidate websites for the most current information.
         {/if}
       </p>
     </div>
 
-    <!-- Back to Top Link -->
-    {#if (race.candidates?.length ?? 0) > 2}
-      <div class="back-to-top">
-        <button
-          class="back-to-top-link"
-          on:click={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        >
-          <svg
-            class="w-4 h-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M5 10l7-7m0 0l7 7m-7-7v18"
-            />
-          </svg>
-          Back to Top
-        </button>
-      </div>
+    <!-- AI Review Status (bottom) -->
+    {#if race.reviews && race.reviews.length > 0}
+      <ReviewPanel reviews={race.reviews} />
     {/if}
+
+    <!-- Back to Top -->
+    <div class="back-to-top">
+      <button class="back-to-top-link" on:click={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+        Back to Top
+      </button>
+    </div>
   {/if}
 </div>
 
@@ -317,41 +330,173 @@
     @apply p-4 sm:p-6 mb-6 sm:mb-8 shadow-sm;
   }
 
+  .overview-layout {
+    @apply flex flex-col lg:flex-row gap-6;
+  }
+
+  .overview-main {
+    @apply flex-1 min-w-0;
+  }
+
   .overview-description {
     @apply text-gray-700 text-sm sm:text-base leading-relaxed mb-4;
   }
 
   .overview-candidates {
-    @apply flex flex-wrap gap-3;
+    @apply flex flex-wrap gap-2;
   }
 
   .overview-candidate-chip {
-    @apply flex items-center gap-2 px-3 py-2 bg-white border border-gray-200 rounded-full
+    @apply flex items-center gap-1.5 px-3 py-1.5 bg-white border border-gray-200 rounded-full
            hover:border-blue-300 hover:bg-blue-50 transition-colors duration-200 text-sm no-underline text-gray-700;
   }
 
   .chip-avatar {
-    @apply w-6 h-6 rounded-full object-cover;
+    @apply w-5 h-5 rounded-full object-cover;
   }
 
   .chip-name {
-    @apply font-medium text-gray-900;
+    @apply font-medium text-gray-900 text-sm;
   }
 
   .chip-party {
-    @apply text-gray-500 text-xs;
+    @apply text-xs font-semibold;
   }
+  .chip-party-dem { @apply text-blue-600; }
+  .chip-party-rep { @apply text-red-600; }
 
   .chip-incumbent {
     @apply bg-green-100 text-green-700 text-xs px-1.5 py-0.5 rounded-full;
+  }
+
+  /* Poll Snapshot Widget */
+  .poll-snapshot {
+    @apply flex flex-col gap-2 p-4 bg-gray-50 border border-gray-200 rounded-xl
+           hover:border-blue-300 hover:bg-blue-50 transition-colors no-underline
+           lg:w-64 lg:shrink-0 cursor-pointer;
+  }
+
+  .poll-snapshot-header {
+    @apply flex items-center gap-1.5;
+  }
+
+  .poll-snapshot-title {
+    @apply text-sm font-semibold text-gray-900;
+  }
+
+  .poll-snapshot-meta {
+    @apply text-xs text-gray-500;
+  }
+
+  .poll-snapshot-bars {
+    @apply space-y-1.5 my-1;
+  }
+
+  .poll-snap-row {
+    @apply flex items-center gap-2;
+  }
+
+  .poll-snap-name {
+    @apply text-xs font-medium text-gray-700 w-16 shrink-0 truncate;
+  }
+
+  .poll-snap-bar-wrap {
+    @apply flex-1 bg-gray-200 rounded-full h-2 overflow-hidden;
+  }
+
+  .poll-snap-bar {
+    @apply h-full rounded-full bg-gray-400;
+  }
+  .poll-snap-bar.dem { @apply bg-blue-500; }
+  .poll-snap-bar.rep { @apply bg-red-500; }
+
+  .poll-snap-pct {
+    @apply text-xs font-bold text-gray-700 w-8 text-right shrink-0;
+  }
+
+  .poll-snapshot-more {
+    @apply text-xs text-blue-600 font-medium mt-1;
+  }
+
+  /* Candidates */
+  .candidates-title {
+    @apply text-xl sm:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6;
   }
 
   .candidate-grid {
     @apply grid gap-6 sm:gap-8 justify-items-stretch;
   }
 
+  /* Detailed Polls Section */
+  .polls-section {
+    @apply mt-10 mb-8;
+  }
+
+  .section-heading {
+    @apply text-xl sm:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6;
+  }
+
+  .polls-grid {
+    @apply grid gap-4 sm:grid-cols-2 lg:grid-cols-3;
+  }
+
+  .poll-card {
+    @apply bg-white border border-gray-200 rounded-xl p-4 shadow-sm flex flex-col gap-3;
+  }
+
+  .poll-card-header {
+    @apply flex items-start justify-between gap-2;
+  }
+
+  .poll-card-pollster {
+    @apply text-sm font-semibold text-gray-900 block;
+  }
+
+  .poll-card-date {
+    @apply text-xs text-gray-500 block mt-0.5;
+  }
+
+  .poll-card-sample {
+    @apply text-xs text-gray-400 shrink-0;
+  }
+
+  .poll-matchup-divider {
+    @apply border-t border-dashed border-gray-200;
+  }
+
+  .poll-matchup {
+    @apply space-y-2;
+  }
+
+  .poll-bar-row {
+    @apply flex items-center gap-2;
+  }
+
+  .poll-bar-name {
+    @apply text-xs font-medium text-gray-700 w-28 shrink-0 truncate;
+  }
+
+  .poll-bar-track {
+    @apply flex-1 bg-gray-100 rounded-full h-6 overflow-hidden;
+  }
+
+  .poll-bar-fill {
+    @apply h-full rounded-full bg-gray-400 flex items-center justify-end pr-2 min-w-[2rem] transition-all duration-300;
+  }
+  .poll-bar-fill.dem { @apply bg-blue-500; }
+  .poll-bar-fill.rep { @apply bg-red-500; }
+
+  .poll-bar-label {
+    @apply text-xs font-bold text-white;
+  }
+
+  .poll-card-source {
+    @apply inline-flex items-center gap-1 text-xs text-blue-500 hover:text-blue-700 mt-auto;
+  }
+
+  /* Misc */
   .data-note {
-    @apply mt-8 sm:mt-12 bg-blue-50 border border-blue-200 rounded-lg p-4 sm:p-6 text-center;
+    @apply mt-8 sm:mt-10 bg-blue-50 border border-blue-200 rounded-lg p-4 sm:p-6 text-center;
   }
 
   .data-note-title {
@@ -384,87 +529,5 @@
 
   .back-to-top-link {
     @apply inline-flex items-center gap-2 text-gray-600 hover:text-blue-600 font-medium transition-colors duration-200 border-none bg-transparent cursor-pointer;
-  }
-
-  /* Polling */
-  :global(.polling-card) {
-    @apply p-4 sm:p-6 mb-6 sm:mb-8 shadow-sm;
-  }
-
-  .polling-title {
-    @apply text-lg sm:text-xl font-semibold text-gray-900 mb-4;
-  }
-
-  .polling-list {
-    @apply space-y-4;
-  }
-
-  .poll-entry {
-    @apply border border-gray-200 rounded-lg p-3 sm:p-4;
-  }
-
-  .poll-header {
-    @apply flex flex-wrap items-center gap-2 mb-3;
-  }
-
-  .poll-pollster {
-    @apply font-semibold text-gray-900 text-sm;
-  }
-
-  .poll-date {
-    @apply text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded;
-  }
-
-  .poll-sample {
-    @apply text-xs text-gray-400;
-  }
-
-  .poll-results {
-    @apply space-y-2;
-  }
-
-  .poll-result-row {
-    @apply flex items-center gap-2;
-  }
-
-  .poll-candidate-name {
-    @apply text-sm font-medium text-gray-800 w-32 sm:w-40 shrink-0 truncate;
-  }
-
-  .poll-party-badge {
-    @apply text-xs px-1.5 py-0.5 rounded font-medium shrink-0;
-    @apply bg-gray-100 text-gray-600;
-  }
-
-  .poll-party-badge.dem {
-    @apply bg-blue-100 text-blue-700;
-  }
-
-  .poll-party-badge.rep {
-    @apply bg-red-100 text-red-700;
-  }
-
-  .poll-bar-wrapper {
-    @apply flex-1 bg-gray-100 rounded-full h-3 overflow-hidden;
-  }
-
-  .poll-bar {
-    @apply h-full rounded-full bg-gray-400 transition-all duration-300;
-  }
-
-  .poll-bar.dem-bar {
-    @apply bg-blue-500;
-  }
-
-  .poll-bar.rep-bar {
-    @apply bg-red-500;
-  }
-
-  .poll-pct {
-    @apply text-sm font-semibold text-gray-700 w-10 text-right shrink-0;
-  }
-
-  .poll-source-link {
-    @apply text-xs text-blue-500 hover:text-blue-700 mt-2 inline-block;
   }
 </style>
