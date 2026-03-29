@@ -199,6 +199,37 @@ async def run_agent_endpoint(request: AgentRequest) -> Dict[str, Any]:
     return {"run_id": run_info.run_id, "status": "started", "step": "agent"}
 
 
+class IterateRequest(BaseModel):
+    """Request body for the iterate endpoint."""
+
+    race_id: str
+    options: RunOptions | None = None
+    review_flags: List[Dict[str, Any]] | None = None
+
+
+@app.post("/api/iterate", dependencies=[Depends(verify_token)])
+async def iterate_agent_endpoint(request: IterateRequest) -> Dict[str, Any]:
+    """Run a review-feedback iteration pass on an existing race profile.
+
+    Takes the current published profile, applies review feedback to fix
+    flagged issues, and re-publishes. If no review_flags are provided,
+    uses the reviews stored in the existing profile (or runs review first).
+    """
+    payload: Dict[str, Any] = {"race_id": request.race_id}
+    if request.review_flags:
+        payload["review_flags"] = request.review_flags
+
+    run_request = RunRequest(
+        payload=payload,
+        options=request.options,
+    )
+    run_info = run_manager.create_run(["iterate"], run_request)
+
+    asyncio.create_task(_execute_run_async("iterate", run_request, run_info.run_id))
+
+    return {"run_id": run_info.run_id, "status": "started", "step": "iterate"}
+
+
 # ---------------------------------------------------------------------------
 # Queue endpoints
 # ---------------------------------------------------------------------------

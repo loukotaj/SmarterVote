@@ -30,9 +30,13 @@ from .prompts import (
     CANONICAL_ISSUES,
     DISCOVERY_SYSTEM,
     DISCOVERY_USER,
+    FINANCE_VOTING_SYSTEM,
+    FINANCE_VOTING_USER,
     ISSUE_GROUPS,
     ISSUE_RESEARCH_SYSTEM,
     ISSUE_RESEARCH_USER,
+    ITERATE_SYSTEM,
+    ITERATE_USER,
     REFINE_SYSTEM,
     REFINE_USER,
     UPDATE_META_SYSTEM,
@@ -693,6 +697,30 @@ async def _run_fresh(
         if name in all_issues:
             candidate.setdefault("issues", {}).update(all_issues[name])
 
+    # --- Phase 2b: Dedicated finance & voting record research ---
+    finance_iters = _scale_iterations(max_iterations, n, per_candidate=4, minimum=15)
+    log("info", f"Phase 2b: Researching donors & voting records for {n} candidates...")
+    try:
+        finance_result = await _agent_loop(
+            FINANCE_VOTING_SYSTEM,
+            FINANCE_VOTING_USER.format(
+                race_id=race_id,
+                candidate_names=", ".join(candidate_names),
+            ),
+            model=model,
+            on_log=on_log,
+            race_id=race_id,
+            max_iterations=finance_iters,
+            phase_name="finance-voting",
+            max_tokens=16384,
+        )
+        if isinstance(finance_result, dict):
+            _apply_finance_patch(race_json, finance_result, log)
+        else:
+            log("warning", "  Finance/voting phase returned non-dict — skipping")
+    except (RuntimeError, ValueError) as exc:
+        log("warning", f"  Finance/voting phase failed: {exc} — continuing without")
+
     # --- Phase 3: Refinement ---
     log("info", "Phase 3/3: Refining and improving profile...")
     try:
@@ -800,6 +828,30 @@ async def _run_update(
         except (RuntimeError, ValueError) as exc:
             log("warning", f"  Issue group {group_idx + 1} failed: {exc} — keeping existing")
 
+    # --- Phase 2b: Dedicated finance & voting record refresh ---
+    finance_iters = _scale_iterations(max_iterations, n, per_candidate=4, minimum=15)
+    log("info", f"Update Phase 2b: Refreshing donors & voting records for {n} candidates...")
+    try:
+        finance_result = await _agent_loop(
+            FINANCE_VOTING_SYSTEM,
+            FINANCE_VOTING_USER.format(
+                race_id=race_id,
+                candidate_names=", ".join(candidate_names),
+            ),
+            model=model,
+            on_log=on_log,
+            race_id=race_id,
+            max_iterations=finance_iters,
+            phase_name="update-finance-voting",
+            max_tokens=16384,
+        )
+        if isinstance(finance_result, dict):
+            _apply_finance_patch(race_json, finance_result, log)
+        else:
+            log("warning", "  Finance/voting phase returned non-dict — skipping")
+    except (RuntimeError, ValueError) as exc:
+        log("warning", f"  Finance/voting phase failed: {exc} — continuing without")
+
     # --- Phase 3: Refinement (same as fresh run) ---
     log("info", "Update Phase 3: Refining updated profile...")
     try:
@@ -894,3 +946,203 @@ def _summarize_existing_stances(candidates: List[Dict[str, Any]], issues: List[s
             else:
                 lines.append(f"  {name} / {issue}: MISSING")
     return "\n".join(lines) if lines else "  (no existing stances)"
+
+
+def _apply_finance_patch(race_json: Dict[str, Any], patch: Dict[str, Any], log: Any) -> None:
+    """Merge finance/voting research results into race_json candidates in-place."""
+    candidates_by_name = {c["name"]: c for c in race_json.get("candidates", [])}
+    updated = 0
+    for cand_name, data in patch.items():
+        if not isinstance(data, dict) or cand_name not in candidates_by_name:
+            continue
+        candidate = candidates_by_name[cand_name]
+
+        # Merge donors — replace if the new data has more entries
+        new_donors = data.get("top_donors", [])
+        if isinstance(new_donors, list) and new_donors:
+            existing_donors = candidate.get("top_donors", [])
+            if len(new_donors) >= len(existing_donors):
+                candidate["top_donors"] = new_donors
+            else:
+                # Append new ones not already present
+                existing_names = {d.get("name", "").lower() for d in existing_donors}
+                for d in new_donors:
+                    if d.get("name", "").lower() not in existing_names:
+                        existing_donors.append(d)
+                candidate["top_donors"] = existing_donors
+
+        # Merge voting records — deduplicate by bill_name
+        new_votes = data.get("voting_record", [])
+        if isinstance(new_votes, list) and new_votes:
+            existing_vr = {v.get("bill_name"): v for v in candidate.get("voting_record", [])}
+            for vote in new_votes:
+                existing_vr[vote.get("bill_name", "")] = vote
+            candidate["voting_record"] = list(existing_vr.values())
+
+        updated += 1
+    log("info", f"  Finance/voting patch applied — {updated} candidates updated")
+
+
+def _format_review_flags(reviews: List[Dict[str, Any]]) -> str:
+    """Format review flags into a readable text block for the iteration prompt."""
+    lines = []
+    for review in reviews:
+        model = review.get("model", "unknown")
+        verdict = review.get("verdict", "unknown")
+        lines.append(f"\n--- Review by {model} (verdict: {verdict}) ---")
+        if review.get("summary"):
+            lines.append(f"Summary: {review['summary']}")
+        for flag in review.get("flags", []):
+            severity = flag.get("severity", "info").upper()
+            field = flag.get("field", "?")
+            concern = flag.get("concern", "")
+            suggestion = flag.get("suggestion", "")
+            lines.append(f"  [{severity}] {field}: {concern}")
+            if suggestion:
+                lines.append(f"    Suggestion: {suggestion}")
+    return "\n".join(lines) if lines else "  (no specific flags)"
+
+
+async def run_iteration(
+    race_id: str,
+    *,
+    on_log: Any | None = None,
+    cheap_mode: bool = True,
+    max_iterations: int = 20,
+    existing_data: Optional[Dict[str, Any]] = None,
+    review_flags: Optional[List[Dict[str, Any]]] = None,
+    enable_review: bool = True,
+    research_model: Optional[str] = None,
+    claude_model: Optional[str] = None,
+    gemini_model: Optional[str] = None,
+    grok_model: Optional[str] = None,
+) -> Dict[str, Any]:
+    """Run a targeted iteration pass on an existing profile using review feedback.
+
+    This loads the current published profile, formats review flags as
+    instructions, and sends the profile through a focused improvement
+    loop that addresses each flag. Optionally re-runs review afterwards.
+
+    Parameters
+    ----------
+    race_id : str
+        Race slug, e.g. ``"mo-senate-2024"``.
+    on_log : callable, optional
+        ``(level, message) -> None`` callback for streaming logs.
+    cheap_mode : bool
+        Use cheaper models when *True*.
+    max_iterations : int
+        Safety limit on the iteration loop.
+    existing_data : dict, optional
+        The profile to iterate on. Loaded from disk/GCS if None.
+    review_flags : list, optional
+        Review results to use as feedback. If None, uses the reviews
+        stored in the existing profile.
+    enable_review : bool
+        Re-run review after iteration.
+    """
+    from .review import (
+        DEFAULT_CLAUDE_MODEL, CHEAP_CLAUDE_MODEL,
+        DEFAULT_GEMINI_MODEL, CHEAP_GEMINI_MODEL,
+        DEFAULT_GROK_MODEL, CHEAP_GROK_MODEL,
+    )
+
+    model = research_model or (CHEAP_MODEL if cheap_mode else DEFAULT_MODEL)
+    log = make_logger(on_log)
+    t0 = time.perf_counter()
+
+    # Load existing profile
+    if existing_data is None:
+        existing_data = _load_existing(race_id)
+    if not existing_data:
+        raise ValueError(f"No existing profile found for {race_id} — run the agent first")
+
+    # Get review flags
+    if review_flags is None:
+        review_flags = existing_data.get("reviews", [])
+    if not review_flags:
+        log("warning", "No review flags available — running review first to generate feedback")
+        review_flags = await run_reviews(
+            race_id, existing_data,
+            on_log=on_log,
+            cheap_mode=cheap_mode,
+            claude_model=claude_model,
+            gemini_model=gemini_model,
+            grok_model=grok_model,
+        )
+        if not review_flags:
+            log("info", "No review feedback generated — nothing to iterate on")
+            return existing_data
+
+    flags_text = _format_review_flags(review_flags)
+    candidate_names = [c["name"] for c in existing_data.get("candidates", [])]
+    n = len(candidate_names)
+    iterate_iters = _scale_iterations(max_iterations, n, per_candidate=3, minimum=15)
+
+    log("info", f"🔄 Iteration pass for {race_id} — {len(review_flags)} reviews, {n} candidates")
+
+    # --- Iteration: address review feedback ---
+    try:
+        race_json = _ensure_dict(await _agent_loop(
+            ITERATE_SYSTEM,
+            ITERATE_USER.format(
+                race_id=race_id,
+                profile_json=json.dumps(existing_data, indent=2, default=str),
+                review_flags=flags_text,
+                all_issues=", ".join(CANONICAL_ISSUES),
+            ),
+            model=model,
+            on_log=on_log,
+            race_id=race_id,
+            max_iterations=iterate_iters,
+            phase_name="iterate",
+            max_tokens=32768,
+        ), "iterate", log)
+    except (RuntimeError, ValueError) as exc:
+        log("warning", f"  Iteration failed: {exc} — returning original profile")
+        return existing_data
+
+    # Unwrap if wrapped
+    if "race_json" in race_json and isinstance(race_json.get("race_json"), dict):
+        race_json = race_json["race_json"]
+
+    # Safety: never let iteration wipe candidates
+    if not race_json.get("candidates") or len(race_json.get("candidates", [])) < n:
+        log("warning", "  Iteration dropped candidates — keeping original profile")
+        return existing_data
+
+    race_json.setdefault("id", race_id)
+    now_iso = datetime.now(timezone.utc).isoformat()
+    race_json["updated_utc"] = now_iso
+
+    # Record generators
+    generators = [model]
+    if enable_review:
+        if os.getenv("ANTHROPIC_API_KEY"):
+            generators.append(claude_model or (CHEAP_CLAUDE_MODEL if cheap_mode else DEFAULT_CLAUDE_MODEL))
+        if os.getenv("GEMINI_API_KEY"):
+            generators.append(gemini_model or (CHEAP_GEMINI_MODEL if cheap_mode else DEFAULT_GEMINI_MODEL))
+        if os.getenv("XAI_API_KEY"):
+            generators.append(grok_model or (CHEAP_GROK_MODEL if cheap_mode else DEFAULT_GROK_MODEL))
+    race_json["generator"] = generators
+
+    for candidate in race_json.get("candidates", []):
+        if isinstance(candidate, dict):
+            _normalize_candidate(candidate, now_iso)
+
+    # Re-run review if enabled
+    if enable_review:
+        log("info", "Post-iteration: Re-running reviews...")
+        reviews = await run_reviews(
+            race_id, race_json,
+            on_log=on_log,
+            cheap_mode=cheap_mode,
+            claude_model=claude_model,
+            gemini_model=gemini_model,
+            grok_model=grok_model,
+        )
+        race_json["reviews"] = reviews
+
+    elapsed = time.perf_counter() - t0
+    log("info", f"✅ Iteration finished in {elapsed:.1f}s")
+    return race_json

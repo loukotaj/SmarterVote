@@ -410,3 +410,122 @@ Return JSON:
     }}
   ]
 }}"""
+
+# ------------------------------------------------------------------
+# Phase 2b: Dedicated finance & voting record research
+# ------------------------------------------------------------------
+
+FINANCE_VOTING_SYSTEM = f"""\
+You are a nonpartisan political research agent specializing in campaign
+finance data and legislative voting records.
+
+{_SHARED_RULES}"""
+
+FINANCE_VOTING_USER = """\
+You are researching campaign finance and voting records for the race "{race_id}".
+Candidates: {candidate_names}
+
+PART 1 — TOP DONORS (for each candidate):
+Search aggressively using ALL of these strategies — do NOT stop after one attempt:
+  1. OpenSecrets: search "<candidate name> top donors opensecrets" or
+     "<candidate name> contributors opensecrets.org". Fetch the page and look for
+     the "Top Contributors" table. Extract real names and dollar amounts.
+  2. FollowTheMoney: search "<candidate name> campaign finance followthemoney"
+     Look for top individual and organizational contributors.
+  3. FEC: search "<candidate name> FEC individual contributions" or go to
+     https://www.fec.gov/data/receipts/?data_type=processed&committee_id=<ID>
+     Sort by amount descending. Also try: "<candidate name> top contributors site:fec.gov"
+  4. News articles: search "<candidate name> biggest donors 2026" or
+     "<candidate name> campaign fundraising donors"
+  5. State-level: search "<candidate name> campaign contributions state"
+     (for state/local races, OpenSecrets may not have data — use state disclosures)
+
+You MUST attempt at least 3 different search queries per candidate for donors.
+Include up to 5 real named donors per candidate with actual dollar amounts.
+Do NOT fabricate names. If you genuinely cannot find donor data after multiple
+searches, return an empty array — but try hard first.
+
+PART 2 — VOTING RECORD (for each candidate, especially incumbents):
+Search for actual roll-call votes and bill sponsorships:
+  1. Congress.gov: search "<candidate name> votes site:congress.gov" or
+     "<candidate name> sponsored bills congress.gov"
+  2. GovTrack: search "<candidate name> voting record govtrack.us"
+  3. VoteSmart: search "<candidate name> voting record votesmart.org"
+  4. State legislature: for state-level candidates, search
+     "<candidate name> voting record [state] legislature" or
+     "<candidate name> bills [state]"
+  5. News: search "<candidate name> voted against" or "<candidate name> key votes 2025 2026"
+
+You MUST attempt at least 3 different search queries per candidate for voting records.
+Include up to 10 notable votes per candidate. For each vote include the exact bill
+name/number, a one-sentence description, how they voted (yes/no/abstain/absent),
+the date, and a source URL.
+
+For non-incumbents or candidates with no legislative history, search for any public
+statements about how they WOULD have voted on key bills (note these as "stated
+position" not a vote).
+
+""" + _DONOR_SCHEMA_NOTE + """
+
+Return JSON keyed by candidate name:
+{{
+  "<Candidate Name>": {{
+    "top_donors": [
+      {{
+        "name": "<donor full name>",
+        "amount": <dollar amount or null>,
+        "organization": "<employer/org or null>",
+        "source": {{"url": "<url>", "type": "government|news|website", "title": "<page title>"}}
+      }}
+    ],
+    "voting_record": [
+      {{
+        "bill_name": "<bill name or number>",
+        "bill_description": "<one sentence>",
+        "vote": "yes|no|abstain|absent",
+        "date": "<YYYY-MM-DD>",
+        "source": {{"url": "<url>", "type": "government|news", "title": "<title>"}}
+      }}
+    ]
+  }}
+}}"""
+
+# ------------------------------------------------------------------
+# Iteration prompt — apply review feedback to improve a profile
+# ------------------------------------------------------------------
+
+ITERATE_SYSTEM = f"""\
+You are a nonpartisan editorial agent. You are given a candidate research
+profile and specific review feedback (flags) from fact-checking reviewers.
+Your job is to address each flag by researching and fixing the issues.
+
+{_SHARED_RULES}"""
+
+ITERATE_USER = """\
+Here is the current candidate profile for "{race_id}":
+
+{profile_json}
+
+Review feedback to address:
+{review_flags}
+
+For EACH flag above:
+1. If the flag identifies a factual error, use web_search to verify the correct info and fix it.
+2. If the flag identifies missing data, search for it and add it.
+3. If the flag identifies weak sourcing, find better/additional sources.
+4. If the flag identifies bias, rewrite the text to be neutral and nonpartisan.
+5. If the flag is informational only (severity "info"), address it if easily fixable.
+
+After addressing the flags, also:
+- Ensure all 12 canonical issues are covered: {all_issues}
+- Verify source URLs are real and current
+- Ensure voting_record entries use "bill_name" and "vote" fields correctly
+- Ensure top_donors have source objects
+
+Return the COMPLETE improved JSON profile (same schema as input).
+Do NOT omit any fields – return the full object.
+Include an "iteration_notes" field at the top level listing what you changed:
+{{
+  "iteration_notes": ["Fixed Healthcare stance for ...", "Added missing donors for ..."],
+  ...rest of profile...
+}}"""

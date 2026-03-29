@@ -174,3 +174,76 @@ class AgentHandler:
         except Exception as e:
             logger.warning(f"Failed to load existing {race_id} from GCS: {e}")
             return None
+
+
+class IterateHandler:
+    """Handler that runs a review-feedback iteration pass on an existing profile."""
+
+    def __init__(self, storage_backend=None):
+        self.storage_backend = storage_backend
+
+    async def handle(self, payload: Dict[str, Any], options: Dict[str, Any]) -> Any:
+        """Run iteration for a race_id using review feedback.
+
+        Payload expected:
+            - race_id: str
+            - review_flags: list (optional, uses stored reviews if missing)
+
+        Returns:
+            dict with race_id, race_json, published_path, duration_ms
+        """
+        from pipeline_client.agent.agent import run_iteration
+
+        logger = logging.getLogger("pipeline")
+        race_id = payload.get("race_id")
+        if not race_id:
+            raise ValueError("IterateHandler: Missing 'race_id' in payload")
+
+        cheap_mode = options.get("cheap_mode", True)
+        enable_review = options.get("enable_review", True)
+        review_flags = payload.get("review_flags")
+        t0 = time.perf_counter()
+
+        logger.info(f"Iterate: improving race {race_id} (cheap_mode={cheap_mode}, review={enable_review})")
+
+        # Load existing data from GCS if in cloud
+        existing_data = await AgentHandler(self.storage_backend)._load_existing_from_gcs(race_id)
+
+        agent_logs: list[Dict[str, Any]] = []
+
+        def on_log(level: str, message: str) -> None:
+            agent_logs.append({
+                "level": level,
+                "message": message,
+                "timestamp": datetime.now(timezone.utc).isoformat(),
+            })
+
+        race_json = await run_iteration(
+            race_id,
+            on_log=on_log,
+            cheap_mode=cheap_mode,
+            enable_review=enable_review,
+            existing_data=existing_data,
+            review_flags=review_flags,
+            research_model=options.get("research_model"),
+            claude_model=options.get("claude_model"),
+            gemini_model=options.get("gemini_model"),
+            grok_model=options.get("grok_model"),
+        )
+
+        # Publish (reuse AgentHandler's publish method)
+        agent_handler = AgentHandler(self.storage_backend)
+        published_path = await agent_handler._publish(race_id, race_json)
+
+        duration_ms = int((time.perf_counter() - t0) * 1000)
+        logger.info(f"Iterate: published {race_id} to {published_path} in {duration_ms}ms")
+
+        return {
+            "race_id": race_id,
+            "race_json": race_json,
+            "published_path": str(published_path),
+            "duration_ms": duration_ms,
+            "agent_logs": agent_logs,
+            "status": "published",
+            "iteration_notes": race_json.get("iteration_notes", []),
+        }

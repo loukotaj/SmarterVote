@@ -571,8 +571,9 @@ async def test_run_agent_update_mode():
         result = await run_agent("test-2024", cheap_mode=True)
 
     assert result["id"] == "test-2024"
-    # update call + image resolution for Bob = 2 calls
-    assert mock_loop.call_count == 2
+    # existing has no candidates → falls back to _run_fresh:
+    # discovery + image (Bob) + 6 issue groups + refinement = 9 calls
+    assert mock_loop.call_count == 9
 
 
 @pytest.mark.asyncio
