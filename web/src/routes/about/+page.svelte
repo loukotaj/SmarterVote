@@ -48,7 +48,7 @@
             AI Analysis
           </h3>
           <p class="text-content-muted text-sm sm:text-base">
-            Research agents (including GPT-4 and Claude) independently
+            Research agents (Claude, GPT, Gemini, Grok) independently
             analyze the collected information to extract candidate positions on
             key issues. This multi-model approach helps ensure accuracy and
             reduce bias.
@@ -125,89 +125,63 @@
         Who's Behind This?
       </h2>
       <p class="text-content-muted leading-relaxed text-sm sm:text-base mb-3">
-        Smarter.vote is currently an independent, self-funded project — built,
-        maintained, and paid for by one person. Every dollar that goes toward
-        hosting, AI API usage, and development comes directly out of my own
+        Smarter.vote is an independent, self-funded project — built and
+        maintained by one person. Hosting and AI API costs come entirely out of
         pocket.
       </p>
       <p class="text-content-muted leading-relaxed text-sm sm:text-base">
-        The long-term vision is to grow this into a larger, formally organized
-        non-profit that can sustain broader coverage, more races, and a team of
-        contributors dedicated to keeping voters informed. Until then, community
-        support makes a real difference in keeping the lights on.
+        The long-term goal is to grow this into a non-profit with broader
+        coverage and a team of contributors. Until then, it runs lean and stays
+        free.
       </p>
     </div>
 
-    <div class="bg-surface rounded-lg shadow-sm p-4 sm:p-8 mb-6 sm:mb-8 text-center">
+    <div class="bg-surface rounded-lg shadow-sm p-4 sm:p-8 mb-6 sm:mb-8">
       <h2 class="text-xl sm:text-2xl font-semibold text-content mb-3 sm:mb-4">
-        Support This Project
+        Get Involved
       </h2>
-      <p class="text-content-muted text-sm sm:text-base mb-4">
-        Smarter.vote is free and open-source. If you find it useful, sponsoring
-        development helps cover API and hosting costs — and brings the non-profit
-        vision one step closer to reality.
-      </p>
-      <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6 text-left">
-        <h3 class="text-base font-semibold text-amber-900 mb-1">
-          🗳️ Want a specific race covered?
-        </h3>
-        <p class="text-amber-800 text-sm">
-          Sponsoring the project is the best way to request coverage of a race
-          that isn't listed yet. Reach out via the GitHub repository after
-          sponsoring and mention the race (office, jurisdiction, and election
-          date) — I'll prioritize getting it added.
-        </p>
-      </div>
-      <div class="flex justify-center">
-        <iframe
-          src="https://github.com/sponsors/loukotaj/card"
-          title="Sponsor loukotaj"
-          height="225"
-          width="600"
-          style="border: 0; max-width: 100%;"
-        ></iframe>
-      </div>
-    </div>
+      <div class="space-y-4">
+        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+          <h3 class="text-base font-semibold text-blue-900 mb-1">
+            🗳️ Request a race or report an issue
+          </h3>
+          <p class="text-blue-800 text-sm mb-3">
+            Want a race added? Spotted something inaccurate? Open a GitHub issue
+            — no sponsoring required. The project is open source and community
+            input is always welcome.
+          </p>
+          <a
+            href="https://github.com/loukotaj/SmarterVote/issues/new/choose"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 text-sm"
+          >
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd" />
+            </svg>
+            Open an Issue
+          </a>
+        </div>
 
-    <div
-      class="bg-blue-50 border border-blue-200 rounded-lg p-4 sm:p-6 text-center"
-    >
-      <h3 class="text-base sm:text-lg font-semibold text-blue-900 mb-2">
-        Questions or Concerns?
-      </h3>
-      <p class="text-blue-800 text-sm sm:text-base mb-3">
-        If you notice any inaccuracies or have questions about our methodology,
-        please contact us through our GitHub repository where this project is
-        developed openly.
-      </p>
-      <a
-        href="https://github.com/loukotaj/SmarterVote"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200"
-      >
-        <svg
-          class="w-5 h-5"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z"
-            clip-rule="evenodd"
-          />
-        </svg>
-        View on GitHub
-      </a>
-      <div class="mt-4">
-        <iframe
-          src="https://github.com/sponsors/loukotaj/button"
-          title="Sponsor loukotaj"
-          height="32"
-          width="114"
-          style="border: 0; border-radius: 6px;"
-        ></iframe>
+        <div class="bg-amber-50 border border-amber-200 rounded-lg p-4">
+          <h3 class="text-base font-semibold text-amber-900 mb-1">
+            ❤️ Support development
+          </h3>
+          <p class="text-amber-800 text-sm mb-4">
+            Smarter.vote is free and open-source. If you find it useful,
+            sponsoring helps cover API and hosting costs and keeps the project
+            running.
+          </p>
+          <div class="flex justify-center">
+            <iframe
+              src="https://github.com/sponsors/loukotaj/card"
+              title="Sponsor loukotaj"
+              height="225"
+              width="600"
+              style="border: 0; max-width: 100%;"
+            ></iframe>
+          </div>
+        </div>
       </div>
     </div>
   </div>

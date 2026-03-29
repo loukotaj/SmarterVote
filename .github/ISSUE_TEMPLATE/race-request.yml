@@ -1,0 +1,71 @@
+name: Race Request
+description: Request coverage of a U.S. election race not yet listed on Smarter.vote
+title: "[Race Request] "
+labels: ["race-request"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping expand Smarter.vote's coverage! Please search [existing issues](https://github.com/loukotaj/SmarterVote/issues?q=label%3Arace-request) before submitting to avoid duplicates.
+
+  - type: input
+    id: race-id
+    attributes:
+      label: Race ID
+      description: >
+        Use the format `state-office-year`. For U.S. House races include the district number.
+      placeholder: "e.g. tx-governor-2026  |  ca-house-12-2026  |  pa-senate-2026"
+    validations:
+      required: true
+
+  - type: input
+    id: office
+    attributes:
+      label: Office
+      description: The specific office being contested
+      placeholder: "e.g. U.S. Senate, Governor, U.S. House District 5"
+    validations:
+      required: true
+
+  - type: input
+    id: state
+    attributes:
+      label: State / Jurisdiction
+      placeholder: "e.g. Texas"
+    validations:
+      required: true
+
+  - type: input
+    id: election-date
+    attributes:
+      label: Election Date
+      placeholder: "YYYY-MM-DD or approximate (e.g. November 2026)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: candidates
+    attributes:
+      label: Known Candidates
+      description: List any confirmed candidates, one per line. Leave blank if unknown.
+      placeholder: |
+        Jane Smith (Democrat)
+        John Doe (Republican)
+
+  - type: textarea
+    id: why
+    attributes:
+      label: Why does this race matter? (optional)
+      description: Any context about why this race is notable or competitive — helps with prioritization.
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Before you submit
+      options:
+        - label: I searched existing issues and this race hasn't been requested yet
+          required: true
+        - label: The election date is 2025 or later
+          required: true

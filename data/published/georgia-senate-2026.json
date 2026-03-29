@@ -13,7 +13,7 @@
         "party": "Democrat",
         "incumbent": true,
         "summary": "Jon Ossoff is the incumbent U.S. Senator from Georgia, first elected in the January 2021 special election. He is running for reelection in 2026 and has emphasized affordability, healthcare costs, reproductive rights, and opposition to Trump-era policies. He also reported a large fundraising haul heading into 2026 and officially qualified for reelection.",
-        "image_url": "",
+        "image_url": null,
         "website": "https://electjon.com/",
         "social_media": {
           "facebook": "https://www.facebook.com/jonossoff/",
@@ -319,7 +319,7 @@
         "party": "Republican",
         "incumbent": false,
         "summary": "Buddy Carter is a U.S. Representative for Georgia's 1st congressional district and a 2026 U.S. Senate candidate. He has emphasized healthcare access, economic growth, conservative values, and strict immigration enforcement. Carter launched his Senate campaign in 2025 and has framed the race around support for President Donald Trump and opposition to Ossoff.",
-        "image_url": "https://buddycarter.house.gov/photos/",
+        "image_url": null,
         "website": "https://buddycarter.house.gov/",
         "social_media": {
           "facebook": "https://www.facebook.com/CongressmanBuddyCarter/",

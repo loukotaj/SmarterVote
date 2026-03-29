@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Contributing Guidelines
+    url: https://github.com/loukotaj/SmarterVote/blob/main/CONTRIBUTING.md
+    about: Read the issue rules before opening an issue — especially the no-duplicates policy.
