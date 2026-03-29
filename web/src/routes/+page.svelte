@@ -395,7 +395,7 @@
             Comprehensive Coverage
           </h3>
           <p class="text-gray-600 text-xs sm:text-sm">
-            Analysis covers 11 key issue areas from healthcare to climate
+            Analysis covers 12 key issue areas
             policy.
           </p>
         </div>

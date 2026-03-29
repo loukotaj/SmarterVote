@@ -37,7 +37,6 @@
 
   $: candidateCount = race?.candidates?.length ?? 0;
   $: incumbents = race?.candidates?.filter(c => c.incumbent) ?? [];
-  $: challengers = race?.candidates?.filter(c => !c.incumbent) ?? [];
   $: parties = [...new Set(race?.candidates?.map(c => c.party).filter(Boolean))];
 </script>
 

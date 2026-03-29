@@ -85,6 +85,7 @@
           <li>• Education</li>
           <li>• Tech & AI</li>
           <li>• Election Reform</li>
+          <li>• Local Issues</li>
         </ul>
       </div>
     </div>
@@ -115,6 +116,55 @@
           information. Private communications, internal documents, or off-the-record
           statements are not included in our analysis.
         </p>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow-sm p-4 sm:p-8 mb-6 sm:mb-8">
+      <h2 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-3 sm:mb-4">
+        Who's Behind This?
+      </h2>
+      <p class="text-gray-700 leading-relaxed text-sm sm:text-base mb-3">
+        Smarter.vote is currently an independent, self-funded project — built,
+        maintained, and paid for by one person. Every dollar that goes toward
+        hosting, AI API usage, and development comes directly out of my own
+        pocket.
+      </p>
+      <p class="text-gray-700 leading-relaxed text-sm sm:text-base">
+        The long-term vision is to grow this into a larger, formally organized
+        non-profit that can sustain broader coverage, more races, and a team of
+        contributors dedicated to keeping voters informed. Until then, community
+        support makes a real difference in keeping the lights on.
+      </p>
+    </div>
+
+    <div class="bg-white rounded-lg shadow-sm p-4 sm:p-8 mb-6 sm:mb-8 text-center">
+      <h2 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-3 sm:mb-4">
+        Support This Project
+      </h2>
+      <p class="text-gray-700 text-sm sm:text-base mb-4">
+        Smarter.vote is free and open-source. If you find it useful, sponsoring
+        development helps cover API and hosting costs — and brings the non-profit
+        vision one step closer to reality.
+      </p>
+      <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6 text-left">
+        <h3 class="text-base font-semibold text-amber-900 mb-1">
+          🗳️ Want a specific race covered?
+        </h3>
+        <p class="text-amber-800 text-sm">
+          Sponsoring the project is the best way to request coverage of a race
+          that isn't listed yet. Reach out via the GitHub repository after
+          sponsoring and mention the race (office, jurisdiction, and election
+          date) — I'll prioritize getting it added.
+        </p>
+      </div>
+      <div class="flex justify-center">
+        <iframe
+          src="https://github.com/sponsors/loukotaj/card"
+          title="Sponsor loukotaj"
+          height="225"
+          width="600"
+          style="border: 0; max-width: 100%;"
+        ></iframe>
       </div>
     </div>
 
@@ -149,6 +199,15 @@
         </svg>
         View on GitHub
       </a>
+      <div class="mt-4">
+        <iframe
+          src="https://github.com/sponsors/loukotaj/button"
+          title="Sponsor loukotaj"
+          height="32"
+          width="114"
+          style="border: 0; border-radius: 6px;"
+        ></iframe>
+      </div>
     </div>
   </div>
 </div>
