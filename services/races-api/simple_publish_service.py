@@ -39,13 +39,18 @@ class SimplePublishService:
 
     def _detect_cloud_environment(self) -> bool:
         """Detect if we're running in a cloud environment."""
-        cloud_indicators = [
-            os.getenv("GOOGLE_CLOUD_PROJECT"),
-            os.getenv("CLOUD_RUN_SERVICE"),
-            os.getenv("K_SERVICE"),
-            os.getenv("GAE_APPLICATION"),
-        ]
-        return any(cloud_indicators) and os.getenv("GCS_BUCKET_NAME")
+        cloud_indicators = {
+            "GOOGLE_CLOUD_PROJECT": os.getenv("GOOGLE_CLOUD_PROJECT"),
+            "CLOUD_RUN_SERVICE": os.getenv("CLOUD_RUN_SERVICE"),
+            "K_SERVICE": os.getenv("K_SERVICE"),
+            "GAE_APPLICATION": os.getenv("GAE_APPLICATION"),
+        }
+        found = {k: v for k, v in cloud_indicators.items() if v}
+        bucket = os.getenv("GCS_BUCKET_NAME")
+        logger.info(f"Cloud detection: indicators={found}, GCS_BUCKET_NAME={bucket!r}")
+        result = bool(found) and bool(bucket)
+        logger.info(f"Cloud mode: {result}")
+        return result
 
     def _initialize_cloud_client(self):
         """Initialize Google Cloud Storage client if available."""
@@ -55,10 +60,10 @@ class SimplePublishService:
             self.gcs_client = storage.Client()
             logger.info(f"Initialized GCS client for bucket: {self.gcs_bucket_name}")
         except ImportError:
-            logger.warning("Google Cloud Storage client not available")
+            logger.warning("Google Cloud Storage client not available — install google-cloud-storage")
             self.cloud_enabled = False
         except Exception as e:
-            logger.warning(f"Failed to initialize GCS client: {e}")
+            logger.warning(f"Failed to initialize GCS client: {e}", exc_info=True)
             self.cloud_enabled = False
 
     def get_published_races(self) -> List[str]:
@@ -71,14 +76,16 @@ class SimplePublishService:
 
         if self.cloud_enabled and self.gcs_client:
             try:
+                logger.info(f"Listing races from GCS bucket: {self.gcs_bucket_name}")
                 bucket = self.gcs_client.bucket(self.gcs_bucket_name)
                 for blob in bucket.list_blobs(prefix="races/"):
+                    logger.debug(f"  GCS blob: {blob.name}")
                     if blob.name.endswith(".json"):
                         race_ids.add(blob.name[len("races/") : -len(".json")])
-                logger.info(f"Listed {len(race_ids)} races from GCS")
+                logger.info(f"Listed {len(race_ids)} races from GCS: {sorted(race_ids)}")
                 return sorted(race_ids)
             except Exception as e:
-                logger.warning(f"Error listing races from GCS, falling back to local: {e}")
+                logger.warning(f"Error listing races from GCS, falling back to local: {e}", exc_info=True)
 
         # Local mode (or GCS list failed)
         if self.data_directory.exists():

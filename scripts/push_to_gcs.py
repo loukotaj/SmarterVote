@@ -2,11 +2,15 @@
 
 Usage:
     python scripts/push_to_gcs.py                     # upload all races
-    python scripts/push_to_gcs.py ga-senate-2026 # upload one race
+    python scripts/push_to_gcs.py ga-senate-2026      # upload one race
     python scripts/push_to_gcs.py --dry-run            # preview without uploading
 
+Bucket name resolution (first match wins):
+    1. --bucket flag
+    2. GCS_BUCKET_NAME env var (or .env file)
+    3. `terraform output -raw bucket_name` (run from infra/ directory)
+
 Requires:
-    - GCS_BUCKET_NAME env var (or set in .env)
     - google-cloud-storage: pip install google-cloud-storage
     - GCP credentials (Application Default Credentials or GOOGLE_APPLICATION_CREDENTIALS)
 """
@@ -14,6 +18,7 @@ Requires:
 import argparse
 import json
 import os
+import subprocess
 import sys
 from pathlib import Path
 
@@ -26,6 +31,27 @@ except ImportError:
     pass
 
 PUBLISHED_DIR = Path(__file__).resolve().parents[1] / "data" / "published"
+INFRA_DIR = Path(__file__).resolve().parents[1] / "infra"
+
+
+def _bucket_from_terraform() -> str | None:
+    """Try to get bucket name from `terraform output -raw bucket_name`."""
+    if not INFRA_DIR.exists():
+        return None
+    try:
+        result = subprocess.run(
+            ["terraform", "output", "-raw", "bucket_name"],
+            cwd=INFRA_DIR,
+            capture_output=True,
+            text=True,
+            timeout=15,
+        )
+        name = result.stdout.strip()
+        if result.returncode == 0 and name:
+            return name
+    except (FileNotFoundError, subprocess.TimeoutExpired):
+        pass
+    return None
 
 
 def get_races(race_ids: list[str]) -> list[Path]:
@@ -84,7 +110,17 @@ def main() -> None:
 
     bucket_name = args.bucket or os.getenv("GCS_BUCKET_NAME")
     if not bucket_name:
-        print("Error: set GCS_BUCKET_NAME in your environment or .env, or pass --bucket", file=sys.stderr)
+        print("GCS_BUCKET_NAME not set — trying terraform output...", file=sys.stderr)
+        bucket_name = _bucket_from_terraform()
+        if bucket_name:
+            print(f"  Using bucket from Terraform: {bucket_name}", file=sys.stderr)
+    if not bucket_name:
+        print(
+            "Error: could not determine bucket name.\n"
+            "  Set GCS_BUCKET_NAME in your environment/.env, pass --bucket, "
+            "or run this from a directory where `terraform output bucket_name` works.",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
     paths = get_races(args.race_ids)

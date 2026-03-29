@@ -5,9 +5,12 @@ This service exposes endpoints for listing available races and retrieving
 individual race data stored as JSON files.
 """
 
+import logging
 import os
 import sys
 from typing import List
+
+logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s %(message)s")
 
 # Add parent directories to path to import shared modules
 sys.path.append(os.path.join(os.path.dirname(__file__), "..", ".."))
