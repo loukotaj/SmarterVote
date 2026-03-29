@@ -37,8 +37,6 @@ if str(ROOT) not in sys.path:  # pragma: no cover
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Startup and shutdown events."""
-    import asyncio
-
     loop = asyncio.get_running_loop()
     logging_manager.set_main_loop(loop)
     yield
@@ -124,7 +122,7 @@ async def list_published_races() -> Dict[str, Any]:
                     }
                 )
             except Exception:
-                pass
+                logging.exception("Failed to read race file %s", path)
     return {"races": races}
 
 

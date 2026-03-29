@@ -5,7 +5,7 @@ Run management service for tracking pipeline executions.
 import json
 import logging
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, List, Optional
 
@@ -40,7 +40,7 @@ class RunManager:
             }
             self.run_manager.add_run_log(self.run_id, log_entry)
 
-    def attach_run_logger(self, run_id: str, logger_name: str = None):
+    def attach_run_logger(self, run_id: str, logger_name: Optional[str] = None):
         """Attach a logging handler to capture logs for this run."""
         if run_id in self._log_handlers:
             return  # Already attached
@@ -86,7 +86,7 @@ class RunManager:
             status=RunStatus.PENDING,
             payload=request.payload,
             options=options,
-            started_at=datetime.now(),
+            started_at=datetime.now(timezone.utc),
             steps=[RunStep(name=s) for s in steps],
         )
 
@@ -123,9 +123,9 @@ class RunManager:
             if step_info.name == step:
                 step_info.status = status
                 if status == RunStatus.RUNNING:
-                    step_info.started_at = datetime.now()
+                    step_info.started_at = datetime.now(timezone.utc)
                 if status in [RunStatus.COMPLETED, RunStatus.FAILED]:
-                    step_info.completed_at = datetime.now()
+                    step_info.completed_at = datetime.now(timezone.utc)
                     step_info.duration_ms = duration_ms
                     step_info.artifact_id = artifact_id
                     step_info.error = error
@@ -146,7 +146,7 @@ class RunManager:
         if run_id in self.active_runs:
             run_info = self.active_runs[run_id]
             run_info.status = RunStatus.COMPLETED
-            run_info.completed_at = datetime.now()
+            run_info.completed_at = datetime.now(timezone.utc)
             run_info.artifact_id = artifact_id
             run_info.duration_ms = duration_ms
             self._save_run(run_info)
@@ -159,7 +159,7 @@ class RunManager:
         if run_id in self.active_runs:
             run_info = self.active_runs[run_id]
             run_info.status = RunStatus.FAILED
-            run_info.completed_at = datetime.now()
+            run_info.completed_at = datetime.now(timezone.utc)
             run_info.error = error
             run_info.duration_ms = duration_ms
             self._save_run(run_info)
@@ -172,7 +172,7 @@ class RunManager:
         if run_id in self.active_runs:
             run_info = self.active_runs[run_id]
             run_info.status = RunStatus.CANCELLED
-            run_info.completed_at = datetime.now()
+            run_info.completed_at = datetime.now(timezone.utc)
             self._save_run(run_info)
             # Remove from active runs
             del self.active_runs[run_id]

@@ -15,6 +15,8 @@ from typing import Any, Dict, List, Optional, Set
 
 from fastapi import WebSocket
 
+logger = logging.getLogger(__name__)
+
 
 @dataclass
 class LogEntry:
@@ -108,16 +110,12 @@ class LoggingManager:
             if main_loop and not main_loop.is_closed():
                 # Schedule broadcast on main loop (thread-safe)
                 def schedule_broadcast():
-                    import asyncio
-
                     asyncio.create_task(self.broadcast_log(log_entry))
 
                 main_loop.call_soon_threadsafe(schedule_broadcast)
             else:
                 # Try to get current loop (might be main loop)
                 try:
-                    import asyncio
-
                     loop = asyncio.get_running_loop()
                     if loop.is_running():
                         asyncio.create_task(self.broadcast_log(log_entry))
@@ -196,7 +194,7 @@ class LoggingManager:
                     try:
                         await websocket.send_text(message)
                     except Exception as e:
-                        print(f"WebSocket send failed for {conn_id}: {e}")
+                        logger.warning("WebSocket send failed for %s: %s", conn_id, e)
                         disconnected.append(conn_id)
 
             # Clean up disconnected connections
@@ -230,7 +228,7 @@ class LoggingManager:
             try:
                 await websocket.send_text(message)
             except Exception as e:
-                print(f"WebSocket send failed for {conn_id}: {e}")
+                logger.warning("WebSocket send failed for %s: %s", conn_id, e)
                 disconnected.append(conn_id)
 
         # Clean up disconnected connections

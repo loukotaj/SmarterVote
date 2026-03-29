@@ -13,6 +13,7 @@ Uses a SQLite search cache (``pipeline_client.agent.search_cache``) to avoid
 redundant Serper API calls across runs.
 """
 
+import asyncio
 import json
 import logging
 import os
@@ -194,8 +195,6 @@ async def _call_openai(
     if tools:
         payload["tools"] = tools
         payload["tool_choice"] = "auto"
-
-    import asyncio
 
     for attempt in range(max_retries):
         async with httpx.AsyncClient(timeout=120) as client:
@@ -891,7 +890,7 @@ async def _run_single_review(
 _REVIEW_PROVIDERS = {
     "claude": ("ANTHROPIC_API_KEY", DEFAULT_CLAUDE_MODEL, CHEAP_CLAUDE_MODEL),
     "gemini": ("GEMINI_API_KEY", DEFAULT_GEMINI_MODEL, CHEAP_GEMINI_MODEL),
-    "grok":   ("XAI_API_KEY", DEFAULT_GROK_MODEL, CHEAP_GROK_MODEL),
+    "grok": ("XAI_API_KEY", DEFAULT_GROK_MODEL, CHEAP_GROK_MODEL),
 }
 
 
