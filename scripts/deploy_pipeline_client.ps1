@@ -37,7 +37,8 @@ $existsOutput = gcloud run services describe $Service --region $Region --project
 $serviceExists = ($LASTEXITCODE -eq 0) -and ($existsOutput -notmatch "ERROR")
 $ErrorActionPreference = "Stop"
 
-$envVars = "PROJECT_ID=$ProjectId,ENVIRONMENT=$Environment,LOG_LEVEL=DEBUG,STORAGE_MODE=gcp,GCS_BUCKET_NAME=smartervote-sv-data-$Environment"
+$Bucket  = "smartervote-sv-data-$Environment"
+$envVars = "PROJECT_ID=$ProjectId,ENVIRONMENT=$Environment,LOG_LEVEL=DEBUG,STORAGE_MODE=gcp,GCS_BUCKET=$Bucket,GCS_BUCKET_NAME=$Bucket,BUCKET_NAME=$Bucket"
 $secrets  = "OPENAI_API_KEY=openai-api-key-${Environment}:latest,SERPER_API_KEY=serper-api-key-${Environment}:latest,ANTHROPIC_API_KEY=anthropic-api-key-${Environment}:latest,GEMINI_API_KEY=gemini-api-key-${Environment}:latest,XAI_API_KEY=xai-api-key-${Environment}:latest"
 
 if (-not $serviceExists) {
