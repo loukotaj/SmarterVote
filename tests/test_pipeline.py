@@ -513,9 +513,10 @@ async def test_run_agent_fresh():
         patch("pipeline_client.agent.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
         patch("pipeline_client.agent.agent._load_existing", return_value=None),
     ):
-        # discovery, 6 issue groups, refine = 8 total calls
+        # discovery, image resolution (1 candidate), 6 issue groups, refine = 9 total calls
         mock_loop.side_effect = [
             discovery_result,  # discovery
+            {"image_url": None},  # image resolution for Alice
             issue_result,  # issue group 1
             issue_result,  # issue group 2
             issue_result,  # issue group 3
@@ -529,9 +530,9 @@ async def test_run_agent_fresh():
 
     assert result["id"] == "test-2024"
     assert "updated_utc" in result
-    assert result["generator"] == ["pipeline-agent"]
-    # discovery + 6 issue groups + refine = 8
-    assert mock_loop.call_count == 8
+    assert result["generator"] == ["gpt-4o-mini"]
+    # discovery + image resolution + 6 issue groups + refine = 9
+    assert mock_loop.call_count == 9
 
 
 @pytest.mark.asyncio
@@ -569,8 +570,8 @@ async def test_run_agent_update_mode():
         result = await run_agent("test-2024", cheap_mode=True)
 
     assert result["id"] == "test-2024"
-    # Only 1 call in update mode
-    assert mock_loop.call_count == 1
+    # update call + image resolution for Bob = 2 calls
+    assert mock_loop.call_count == 2
 
 
 @pytest.mark.asyncio
@@ -606,7 +607,7 @@ async def test_run_agent_normalizes_output():
 
     assert result["id"] == "race-2024"
     assert "updated_utc" in result
-    assert result["generator"] == ["pipeline-agent"]
+    assert result["generator"] == ["gpt-4o-mini"]
 
 
 @pytest.mark.asyncio
