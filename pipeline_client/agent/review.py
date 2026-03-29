@@ -16,12 +16,12 @@ logger = logging.getLogger("pipeline")
 
 # Review models (full quality)
 DEFAULT_CLAUDE_MODEL = "claude-sonnet-4-6"
-DEFAULT_GEMINI_MODEL = "gemini-3.0-flash"
+DEFAULT_GEMINI_MODEL = "gemini-2.5-flash-preview-04-17"
 DEFAULT_GROK_MODEL = "grok-3"
 
 # Review models (cheap mode)
 CHEAP_CLAUDE_MODEL = "claude-haiku-4-5-20251001"
-CHEAP_GEMINI_MODEL = "gemini-3.0-flash"
+CHEAP_GEMINI_MODEL = "gemini-2.0-flash"
 CHEAP_GROK_MODEL = "grok-3-mini"
 
 _REVIEW_PROVIDERS = {
