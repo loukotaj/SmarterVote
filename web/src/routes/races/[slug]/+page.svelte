@@ -4,7 +4,7 @@
   import CandidateCard from "$lib/components/CandidateCard.svelte";
   import ReviewPanel from "$lib/components/ReviewPanel.svelte";
   import Card from "$lib/components/Card.svelte";
-  import type { Race } from "$lib/types";
+  import type { Race, PollEntry } from "$lib/types";
   import { getRace } from "$lib/api";
   import { formatModelName, candidateSlug } from "$lib/utils/format";
 
@@ -121,6 +121,52 @@
         {/each}
       </div>
     </Card>
+
+    <!-- Polling Section -->
+    {#if race.polling && race.polling.length > 0}
+      <Card class="polling-card">
+        <h2 class="polling-title">Recent Polls</h2>
+        <div class="polling-list">
+          {#each race.polling as poll}
+            <div class="poll-entry">
+              <div class="poll-header">
+                <span class="poll-pollster">{poll.pollster}</span>
+                {#if poll.date}
+                  <span class="poll-date">{new Date(poll.date).toLocaleDateString()}</span>
+                {/if}
+                {#if poll.sample_size}
+                  <span class="poll-sample">n={poll.sample_size.toLocaleString()}</span>
+                {/if}
+              </div>
+              <div class="poll-results">
+                {#each poll.results as result}
+                  {@const candidate = race.candidates?.find(c => c.name === result.candidate)}
+                  <div class="poll-result-row">
+                    <span class="poll-candidate-name">{result.candidate}</span>
+                    {#if candidate?.party}
+                      <span class="poll-party-badge" class:dem={candidate.party.toLowerCase().includes('democrat')} class:rep={candidate.party.toLowerCase().includes('republican')}>
+                        {candidate.party}
+                      </span>
+                    {/if}
+                    {#if result.percentage != null}
+                      <div class="poll-bar-wrapper">
+                        <div class="poll-bar" style="width: {Math.min(result.percentage, 100)}%" class:dem-bar={candidate?.party?.toLowerCase().includes('democrat')} class:rep-bar={candidate?.party?.toLowerCase().includes('republican')}></div>
+                      </div>
+                      <span class="poll-pct">{result.percentage}%</span>
+                    {/if}
+                  </div>
+                {/each}
+              </div>
+              {#if poll.source?.url}
+                <a href={poll.source.url} target="_blank" rel="noopener noreferrer" class="poll-source-link">
+                  {poll.source.title || 'Source'}
+                </a>
+              {/if}
+            </div>
+          {/each}
+        </div>
+      </Card>
+    {/if}
 
     <!-- Fallback Data Notice -->
     {#if usingFallbackData}

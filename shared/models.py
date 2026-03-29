@@ -181,6 +181,28 @@ class Candidate(BaseModel):
 
 
 # ---------------------------------------------------------------------------
+# Polling
+# ---------------------------------------------------------------------------
+
+
+class PollResult(BaseModel):
+    """A single candidate's result in a poll."""
+
+    candidate: str
+    percentage: Optional[float] = None
+
+
+class PollEntry(BaseModel):
+    """A single opinion poll for a race."""
+
+    pollster: str
+    date: Optional[str] = None
+    sample_size: Optional[int] = None
+    results: List[PollResult] = Field(default_factory=list)
+    source: Optional[Source] = None
+
+
+# ---------------------------------------------------------------------------
 # Race (top-level output)
 # ---------------------------------------------------------------------------
 
@@ -199,6 +221,9 @@ class RaceJSON(BaseModel):
     office: Optional[str] = None
     jurisdiction: Optional[str] = None
     description: Optional[str] = None
+
+    # Polling data
+    polling: List[PollEntry] = Field(default_factory=list)
 
     # Multi-LLM reviews
     reviews: List[AgentReview] = Field(default_factory=list)

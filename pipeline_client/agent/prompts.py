@@ -88,9 +88,16 @@ Search for:
    The URL MUST end in .jpg, .jpeg, .png, .gif, or .webp, or be from a known image CDN.
    Do NOT use a Wikipedia/Commons page URL (commons.wikimedia.org/wiki/File:...) — that is a
    gallery page, not an image file. Set to null if you cannot confirm a direct image file URL.
-9. A 2-3 sentence nonpartisan description of this race — what office is being
+9. A 3-4 sentence nonpartisan description of this race — what office is being
    contested, why this race matters (e.g. open seat, competitive, national
-   implications), and the key themes or contrasts between the candidates.
+   implications), the political context (partisan lean, recent election history),
+   and the key themes or contrasts between the candidates.
+10. Recent opinion polls for this race. Search for "[state] [office] poll 2026"
+    or "[candidates] poll". Include up to 5 of the most recent polls with:
+    - Pollster name, date conducted, sample size
+    - Each candidate's percentage
+    - Source URL
+    Only include real polls from credible pollsters. Set polling to [] if none found.
 """ + _DONOR_SCHEMA_NOTE + """
 
 Return JSON:
@@ -100,7 +107,18 @@ Return JSON:
   "office": "<office name>",
   "jurisdiction": "<state or district>",
   "election_date": "<YYYY-MM-DD or best estimate>",
-  "description": "<2-3 sentence nonpartisan overview of the race>",
+  "description": "<3-4 sentence nonpartisan overview of the race>",
+  "polling": [
+    {{
+      "pollster": "<polling organization>",
+      "date": "<YYYY-MM-DD>",
+      "sample_size": 600,
+      "results": [
+        {{"candidate": "<name>", "percentage": 48.5}}
+      ],
+      "source": {{"url": "<url>", "type": "news|website", "title": "<title>"}}
+    }}
+  ],
   "candidates": [
     {{
       "name": "<full name>",
@@ -217,9 +235,12 @@ Review and improve this profile:
    - Official government sites that serve .jpg files directly.
    Only set image_url if you find a URL that directly serves an image file.
 9. Verify voting record entries are accurate.
-10. Write or improve the top-level 'description' field: 2-3 sentences
-    describing the office being contested, why this race matters, and key
-    contrasts between the candidates.
+10. Write or improve the top-level 'description' field: 3-4 sentences
+    describing the office, why this race matters, the political context
+    (partisan lean, recent election history), and key contrasts between candidates.
+11. Search for any recent polls for this race and add/update the 'polling' array.
+    Include up to 5 most recent polls with pollster, date, sample size, candidate
+    percentages, and source URL. Set to [] if no credible polls found.
 
 Return the COMPLETE improved JSON profile (same schema as input).
 Do NOT omit any fields – return the full object."""
@@ -257,9 +278,12 @@ Update this profile:
    Only set image_url if you find a URL that directly serves an image file.
 8. Add or update voting record entries.
 9. Add or update top_donors entries, and include a source object on every donor item.
-10. Write or improve the top-level 'description' field: 2-3 sentences
-    describing the office being contested, why this race matters, and key
-    contrasts between the candidates.
+10. Write or improve the top-level 'description' field: 3-4 sentences
+    describing the office, why this race matters, the political context
+    (partisan lean, recent election history), and key contrasts between candidates.
+11. Search for new polls since the last update and add/update the 'polling' array.
+    Include up to 5 most recent polls with pollster, date, sample size, candidate
+    percentages, and source URL. Keep existing polls; add newer ones at the front.
 
 Return the COMPLETE updated JSON profile (same schema as input).
 Do NOT omit any fields – return the full object."""

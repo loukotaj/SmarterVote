@@ -107,6 +107,19 @@ export interface Candidate {
   social_media: Record<string, string>;
 }
 
+export interface PollResult {
+  candidate: string;
+  percentage?: number;
+}
+
+export interface PollEntry {
+  pollster: string;
+  date?: string;
+  sample_size?: number;
+  results: PollResult[];
+  source?: Source;
+}
+
 export interface Race {
   id: string;
   election_date: string;
@@ -117,6 +130,7 @@ export interface Race {
   office?: string;
   jurisdiction?: string;
   description?: string;
+  polling?: PollEntry[];
   reviews?: AgentReview[];
 }
 

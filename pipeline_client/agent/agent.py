@@ -58,7 +58,7 @@ DEFAULT_GEMINI_MODEL = "gemini-3.0-flash"
 DEFAULT_GROK_MODEL = "grok-3"
 
 # Review models (cheap mode)
-CHEAP_CLAUDE_MODEL = "claude-haiku-4-20250514"
+CHEAP_CLAUDE_MODEL = "claude-haiku-4-5-20251001"
 CHEAP_GEMINI_MODEL = "gemini-3.0-flash-lite"
 CHEAP_GROK_MODEL = "grok-3-mini"
 
