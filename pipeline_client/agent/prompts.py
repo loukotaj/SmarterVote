@@ -228,36 +228,69 @@ and improve a candidate research profile for accuracy and completeness.
 {_SHARED_RULES}"""
 
 REFINE_USER = """\
-Here is a draft candidate profile for the race "{race_id}":
+Here is a draft candidate profile for the race "{race_id}".
+You are improving ONE candidate at a time to keep responses small.
 
-{draft_json}
+Candidate name: {candidate_name}
+Candidate data:
+{candidate_json}
+
+Race-level context:
+- Race description: {race_description}
+- Other candidates in this race: {other_candidates}
+- All canonical issues that must be covered: {all_issues}
 """ + _DONOR_SCHEMA_NOTE + """
 
-Review and improve this profile:
-1. Fix any factual inconsistencies you can verify with web_search.
-2. Fill in missing or weak stances (confidence "low") if better info exists.
+Research and improve this ONE candidate:
+1. Fix factual inconsistencies you can verify with web_search.
+2. Fill missing or low-confidence stances with better sourced data.
 3. Ensure every stance has at least one source URL.
-4. Improve candidate summaries so they are clear, concise, and nonpartisan. The summary field must be plain prose only — do NOT append "Sources: ..." inline. All summary sources belong in the summary_sources array (same Source shape as other source fields).
-5. Add top donor information if findable, and include a source object on every donor entry.
-6. Ensure all 12 canonical issues are covered for each candidate:
-   {all_issues}
-7. Fill gaps in career_history and education if you find better data.
-8. Search for a direct image file URL for any candidate missing image_url. Use:
-   - Wikipedia: search the article, then use https://upload.wikimedia.org/wikipedia/commons/... URLs
-     (NOT commons.wikimedia.org/wiki/File:... — that is a page, not an image file)
+4. Improve the summary — plain prose, nonpartisan, 2-3 sentences. No inline "Sources:". Sources go in summary_sources.
+5. Add real named top donors if findable (source object required on each).
+6. Ensure all 12 canonical issues are covered: {all_issues}
+7. Fill gaps in career_history and education if better data exists.
+8. If image_url is missing or null, search for a direct image file URL:
+   - Wikipedia: use https://upload.wikimedia.org/wikipedia/commons/... (NOT commons.wikimedia.org/wiki/File:)
    - Ballotpedia: https://ballotpedia.org/wiki/images/...
-   - Official government sites that serve .jpg files directly.
-   Only set image_url if you find a URL that directly serves an image file.
-9. Verify voting record entries are accurate.
-10. Write or improve the top-level 'description' field: 3-4 sentences
-    describing the office, why this race matters, the political context
-    (partisan lean, recent election history), and key contrasts between candidates.
-11. Search for any recent polls for this race and add/update the 'polling' array.
-    Include up to 5 most recent polls with pollster, date, sample size, candidate
-    percentages, and source URL. Set to [] if no credible polls found.
+   Only set image_url if the URL directly serves an image file.
+9. Verify voting_record entries — each must have "bill_name" and "vote" (yes/no/abstain/absent).
 
-Return the COMPLETE improved JSON profile (same schema as input).
-Do NOT omit any fields – return the full object."""
+Return ONLY a JSON patch for this candidate — the fields you changed or improved.
+Omit fields you did not change. Do NOT return the full profile.
+Shape:
+{{
+  "name": "{candidate_name}",
+  "summary": "<improved summary or omit if unchanged>",
+  "summary_sources": [...],
+  "image_url": "<url or null or omit if unchanged>",
+  "career_history": [...],
+  "education": [...],
+  "voting_record": [...],
+  "top_donors": [...],
+  "issues": {{
+    "<Issue>": {{"stance": "...", "confidence": "high|medium|low", "sources": [...]}}
+  }}
+}}"""
+
+REFINE_META_USER = """\
+Here is the top-level metadata for race "{race_id}".
+
+Current description: {race_description}
+Current polling: {polling_json}
+
+Search for:
+1. Any better or more accurate race description (3-4 sentences: office, why it matters, partisan context, key contrasts).
+2. Recent polls (last 90 days). Include pollster, date, sample_size, matchups, source_url.
+
+Return ONLY a JSON patch with the fields you improved (omit fields you did not change):
+{{
+  "description": "<improved description or omit if unchanged>",
+  "polling": [
+    {{"pollster": "<name>", "date": "<YYYY-MM-DD>", "sample_size": 600,
+      "matchups": [{{"candidates": ["A", "B"], "percentages": [48.0, 41.0]}}],
+      "source_url": "<url>"}}
+  ]
+}}"""
 
 # ------------------------------------------------------------------
 # Update prompts — phase-based (mirrors fresh run)
@@ -508,30 +541,53 @@ Your job is to address each flag by researching and fixing the issues.
 {_SHARED_RULES}"""
 
 ITERATE_USER = """\
-Here is the current candidate profile for "{race_id}":
+Race "{race_id}" — addressing review flags for ONE candidate at a time.
 
-{profile_json}
+Candidate name: {candidate_name}
+Candidate data:
+{candidate_json}
 
-Review feedback to address:
+Review flags to address for this candidate:
 {review_flags}
 
 For EACH flag above:
-1. If the flag identifies a factual error, use web_search to verify the correct info and fix it.
+1. If the flag identifies a factual error, use web_search to verify and fix it.
 2. If the flag identifies missing data, search for it and add it.
 3. If the flag identifies weak sourcing, find better/additional sources.
-4. If the flag identifies bias, rewrite the text to be neutral and nonpartisan.
-5. If the flag is informational only (severity "info"), address it if easily fixable.
+4. If the flag identifies bias, rewrite the text to be neutral.
+5. If the flag is informational only (severity "info"), address if easily fixable.
 
-After addressing the flags, also:
-- Ensure all 12 canonical issues are covered: {all_issues}
-- Verify source URLs are real and current
-- Ensure voting_record entries use "bill_name" and "vote" fields correctly
-- Ensure top_donors have source objects
+Also ensure:
+- All 12 canonical issues covered: {all_issues}
+- voting_record uses "bill_name" and "vote" (yes/no/abstain/absent)
+- top_donors have source objects
 
-Return the COMPLETE improved JSON profile (same schema as input).
-Do NOT omit any fields – return the full object.
-Include an "iteration_notes" field at the top level listing what you changed:
+Return ONLY a JSON patch for this candidate with the fields you changed.
+Do NOT return the full profile. Omit unchanged fields.
+Shape:
 {{
-  "iteration_notes": ["Fixed Healthcare stance for ...", "Added missing donors for ..."],
-  ...rest of profile...
+  "name": "{candidate_name}",
+  "summary": "<if changed>",
+  "issues": {{"<Issue>": {{"stance": "...", "confidence": "...", "sources": [...]}}}},
+  "voting_record": [...],
+  "top_donors": [...],
+  "iteration_notes": ["Fixed X for {candidate_name}", "Added Y"]
+}}"""
+
+ITERATE_META_USER = """\
+Race "{race_id}" — addressing review flags for race-level metadata.
+
+Current description: {race_description}
+Current polling: {polling_json}
+
+Review flags to address:
+{review_flags}
+
+Search and fix any flagged issues with the description or polling.
+
+Return ONLY a JSON patch with the fields you changed:
+{{
+  "description": "<if changed>",
+  "polling": [...],
+  "iteration_notes": ["<what changed>"]
 }}"""

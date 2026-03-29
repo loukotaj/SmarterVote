@@ -37,8 +37,10 @@ from .prompts import (
     ISSUE_RESEARCH_USER,
     ITERATE_SYSTEM,
     ITERATE_USER,
+    ITERATE_META_USER,
     REFINE_SYSTEM,
     REFINE_USER,
+    REFINE_META_USER,
     UPDATE_META_SYSTEM,
     UPDATE_META_USER,
     UPDATE_ISSUE_SYSTEM,
@@ -772,32 +774,57 @@ async def _run_fresh(
     except (RuntimeError, ValueError) as exc:
         log("warning", f"  Finance/voting phase failed: {exc} — continuing without")
 
-    # --- Phase 3: Refinement ---
-    log("info", "Phase 3/3: Refining and improving profile...")
-    pre_refine = race_json
-    try:
-        refined = _ensure_dict(await _agent_loop(
-            REFINE_SYSTEM,
-            REFINE_USER.format(
+    # --- Phase 3: Refinement (per-candidate + meta, patched in) ---
+    log("info", "Phase 3/3: Refining profile (one candidate at a time)...")
+    candidate_names_in_json = [c["name"] for c in race_json.get("candidates", [])]
+    other_names_str = ", ".join(candidate_names_in_json)
+    candidate_patches: List[Dict[str, Any]] = []
+    for candidate in race_json.get("candidates", []):
+        cname = candidate["name"]
+        log("info", f"  Refining {cname}...")
+        try:
+            patch = _ensure_dict(await _agent_loop(
+                REFINE_SYSTEM,
+                REFINE_USER.format(
+                    race_id=race_id,
+                    candidate_name=cname,
+                    candidate_json=json.dumps(candidate, indent=2, default=str),
+                    race_description=race_json.get("description", ""),
+                    other_candidates=", ".join(n for n in candidate_names_in_json if n != cname),
+                    all_issues=", ".join(CANONICAL_ISSUES),
+                ),
+                model=model,
+                on_log=on_log,
                 race_id=race_id,
-                draft_json=json.dumps(race_json, indent=2, default=str),
-                all_issues=", ".join(CANONICAL_ISSUES),
+                max_iterations=max(8, refine_iters // max(len(candidate_names_in_json), 1)),
+                phase_name=f"refine-{cname[:20]}",
+                max_tokens=8192,
+            ), f"refine-{cname[:20]}", log)
+            patch["name"] = cname
+            candidate_patches.append(patch)
+        except (RuntimeError, ValueError) as exc:
+            log("warning", f"  Refine patch failed for {cname}: {exc} — keeping existing")
+    # Meta patch (description + polling)
+    log("info", "  Refining race metadata...")
+    meta_patch: Dict[str, Any] = {}
+    try:
+        meta_patch = _ensure_dict(await _agent_loop(
+            REFINE_SYSTEM,
+            REFINE_META_USER.format(
+                race_id=race_id,
+                race_description=race_json.get("description", ""),
+                polling_json=json.dumps(race_json.get("polling", []), indent=2, default=str),
             ),
             model=model,
             on_log=on_log,
             race_id=race_id,
-            max_iterations=refine_iters,
-            phase_name="refine",
-            max_tokens=32768,
-        ), "refine", log)
-
-        # Safety: never let refine wipe out candidates
-        if refined.get("candidates") and len(refined["candidates"]) >= len(pre_refine.get("candidates", [])):
-            race_json = refined
-        else:
-            log("warning", "  Refine returned fewer/no candidates — keeping pre-refine draft")
+            max_iterations=max(6, refine_iters // 3),
+            phase_name="refine-meta",
+            max_tokens=4096,
+        ), "refine-meta", log)
     except (RuntimeError, ValueError) as exc:
-        log("warning", f"  Refine phase failed: {exc} — returning unrefined draft")
+        log("warning", f"  Refine meta patch failed: {exc} — keeping existing meta")
+    _apply_refine_patch(race_json, meta_patch, candidate_patches, log, [])
 
     return race_json
 
@@ -910,31 +937,55 @@ async def _run_update(
     except (RuntimeError, ValueError) as exc:
         log("warning", f"  Finance/voting phase failed: {exc} — continuing without")
 
-    # --- Phase 3: Refinement (same as fresh run) ---
-    log("info", "Update Phase 3: Refining updated profile...")
-    try:
-        refined = _ensure_dict(await _agent_loop(
-            REFINE_SYSTEM,
-            REFINE_USER.format(
+    # --- Phase 3: Refinement (per-candidate + meta, patched in) ---
+    log("info", "Update Phase 3: Refining updated profile (one candidate at a time)...")
+    cand_list = race_json.get("candidates", [])
+    candidate_patches_upd: List[Dict[str, Any]] = []
+    for candidate in cand_list:
+        cname = candidate["name"]
+        log("info", f"  Refining {cname}...")
+        try:
+            patch = _ensure_dict(await _agent_loop(
+                REFINE_SYSTEM,
+                REFINE_USER.format(
+                    race_id=race_id,
+                    candidate_name=cname,
+                    candidate_json=json.dumps(candidate, indent=2, default=str),
+                    race_description=race_json.get("description", ""),
+                    other_candidates=", ".join(c["name"] for c in cand_list if c["name"] != cname),
+                    all_issues=", ".join(CANONICAL_ISSUES),
+                ),
+                model=model,
+                on_log=on_log,
                 race_id=race_id,
-                draft_json=json.dumps(race_json, indent=2, default=str),
-                all_issues=", ".join(CANONICAL_ISSUES),
+                max_iterations=max(8, refine_iters // max(len(cand_list), 1)),
+                phase_name=f"upd-refine-{cname[:20]}",
+                max_tokens=8192,
+            ), f"upd-refine-{cname[:20]}", log)
+            patch["name"] = cname
+            candidate_patches_upd.append(patch)
+        except (RuntimeError, ValueError) as exc:
+            log("warning", f"  Refine patch failed for {cname}: {exc} — keeping existing")
+    log("info", "  Refining race metadata...")
+    meta_patch_upd: Dict[str, Any] = {}
+    try:
+        meta_patch_upd = _ensure_dict(await _agent_loop(
+            REFINE_SYSTEM,
+            REFINE_META_USER.format(
+                race_id=race_id,
+                race_description=race_json.get("description", ""),
+                polling_json=json.dumps(race_json.get("polling", []), indent=2, default=str),
             ),
             model=model,
             on_log=on_log,
             race_id=race_id,
-            max_iterations=refine_iters,
-            phase_name="update-refine",
-            max_tokens=32768,
-        ), "update-refine", log)
-
-        # Safety: never let refine wipe candidates
-        if refined.get("candidates") and len(refined["candidates"]) >= n:
-            race_json = refined
-        else:
-            log("warning", "  Refine dropped candidates — keeping pre-refine version")
+            max_iterations=max(6, refine_iters // 3),
+            phase_name="upd-refine-meta",
+            max_tokens=4096,
+        ), "upd-refine-meta", log)
     except (RuntimeError, ValueError) as exc:
-        log("warning", f"  Refine phase failed: {exc} — keeping unrefined update")
+        log("warning", f"  Refine meta patch failed: {exc} — keeping existing meta")
+    _apply_refine_patch(race_json, meta_patch_upd, candidate_patches_upd, log, [])
 
     # --- Post-update: image URL verification ---
     log("info", "Post-update: Verifying and resolving candidate image URLs...")
@@ -1004,6 +1055,55 @@ def _summarize_existing_stances(candidates: List[Dict[str, Any]], issues: List[s
             else:
                 lines.append(f"  {name} / {issue}: MISSING")
     return "\n".join(lines) if lines else "  (no existing stances)"
+
+
+def _apply_candidate_patch(candidate: Dict[str, Any], patch: Dict[str, Any], log: Any) -> None:
+    """Merge a per-candidate patch dict into the candidate in-place.
+
+    Simple fields (summary, image_url, website) are overwritten.
+    List fields (career_history, education, voting_record, top_donors) replace
+    the existing list only when the patch list is non-empty.
+    Issues are merged key-by-key.
+    summary_sources replaces the existing array when non-empty.
+    """
+    cname = candidate.get("name", "?")
+    for key in ("summary", "image_url", "website", "incumbent", "party"):
+        if key in patch:
+            candidate[key] = patch[key]
+    for key in ("summary_sources", "career_history", "education", "top_donors"):
+        val = patch.get(key)
+        if isinstance(val, list) and val:
+            candidate[key] = val
+    # voting_record — deduplicate by bill_name
+    new_votes = patch.get("voting_record")
+    if isinstance(new_votes, list) and new_votes:
+        existing_vr = {v.get("bill_name"): v for v in candidate.get("voting_record", [])}
+        for vote in new_votes:
+            existing_vr[vote.get("bill_name", "")] = vote
+        candidate["voting_record"] = list(existing_vr.values())
+    # Issues — merge key-by-key
+    new_issues = patch.get("issues")
+    if isinstance(new_issues, dict) and new_issues:
+        candidate.setdefault("issues", {}).update(new_issues)
+    log("debug", f"  Candidate patch applied for {cname}")
+
+
+def _apply_refine_patch(race_json: Dict[str, Any], meta_patch: Dict[str, Any],
+                        candidate_patches: List[Dict[str, Any]], log: Any,
+                        iteration_notes: List[str]) -> None:
+    """Apply refine meta + per-candidate patches to race_json in-place."""
+    if meta_patch.get("description"):
+        race_json["description"] = meta_patch["description"]
+    if isinstance(meta_patch.get("polling"), list) and meta_patch["polling"]:
+        race_json["polling"] = meta_patch["polling"]
+    candidates_by_name = {c["name"]: c for c in race_json.get("candidates", [])}
+    for patch in candidate_patches:
+        name = patch.get("name")
+        if name and name in candidates_by_name:
+            _apply_candidate_patch(candidates_by_name[name], patch, log)
+            notes = patch.get("iteration_notes", [])
+            if isinstance(notes, list):
+                iteration_notes.extend(notes)
 
 
 def _apply_finance_patch(race_json: Dict[str, Any], patch: Dict[str, Any], log: Any) -> None:
@@ -1079,48 +1179,92 @@ async def _run_iteration_pass(
     on_log: Any | None = None,
     max_iterations: int = 20,
 ) -> Optional[Dict[str, Any]]:
-    """Run a single iteration pass addressing review flags.
+    """Run a single iteration pass addressing review flags (per-candidate patches).
 
-    Returns the improved race_json, or None if iteration fails or
-    produces a worse result (e.g. drops candidates).
+    Returns the improved race_json in-place (same object, modified), or None if
+    every patch call fails.
     """
+    import copy
     log = make_logger(on_log)
 
     flags_text = _format_review_flags(reviews)
-    candidate_names = [c["name"] for c in race_json.get("candidates", [])]
-    n = len(candidate_names)
-    iterate_iters = _scale_iterations(max_iterations, n, per_candidate=3, minimum=15)
+    candidates = race_json.get("candidates", [])
+    n = len(candidates)
+    iterate_iters = _scale_iterations(max_iterations, n, per_candidate=3, minimum=12)
+    iters_per_cand = max(6, iterate_iters // max(n, 1))
 
-    log("info", f"  Iteration: addressing review flags for {n} candidates")
+    log("info", f"  Iteration: addressing review flags for {n} candidates (per-candidate patches)")
 
-    try:
-        improved = _ensure_dict(await _agent_loop(
-            ITERATE_SYSTEM,
-            ITERATE_USER.format(
+    working = copy.deepcopy(race_json)
+    all_iteration_notes: List[str] = []
+    any_success = False
+
+    # Per-candidate patches
+    for candidate in working.get("candidates", []):
+        cname = candidate["name"]
+        log("info", f"  Iterating on {cname}...")
+        try:
+            patch = _ensure_dict(await _agent_loop(
+                ITERATE_SYSTEM,
+                ITERATE_USER.format(
+                    race_id=race_id,
+                    candidate_name=cname,
+                    candidate_json=json.dumps(candidate, indent=2, default=str),
+                    review_flags=flags_text,
+                    all_issues=", ".join(CANONICAL_ISSUES),
+                ),
+                model=model,
+                on_log=on_log,
                 race_id=race_id,
-                profile_json=json.dumps(race_json, indent=2, default=str),
+                max_iterations=iters_per_cand,
+                phase_name=f"iterate-{cname[:20]}",
+                max_tokens=8192,
+            ), f"iterate-{cname[:20]}", log)
+            patch["name"] = cname
+            _apply_candidate_patch(candidate, patch, log)
+            notes = patch.get("iteration_notes", [])
+            if isinstance(notes, list):
+                all_iteration_notes.extend(notes)
+            any_success = True
+        except (RuntimeError, ValueError) as exc:
+            log("warning", f"  Iteration patch failed for {cname}: {exc} — keeping existing")
+
+    # Meta patch (description + polling flags)
+    log("info", "  Iterating on race metadata...")
+    try:
+        meta_patch = _ensure_dict(await _agent_loop(
+            ITERATE_SYSTEM,
+            ITERATE_META_USER.format(
+                race_id=race_id,
+                race_description=working.get("description", ""),
+                polling_json=json.dumps(working.get("polling", []), indent=2, default=str),
                 review_flags=flags_text,
-                all_issues=", ".join(CANONICAL_ISSUES),
             ),
             model=model,
             on_log=on_log,
             race_id=race_id,
-            max_iterations=iterate_iters,
-            phase_name="iterate",
-            max_tokens=32768,
-        ), "iterate", log)
+            max_iterations=max(5, iters_per_cand // 2),
+            phase_name="iterate-meta",
+            max_tokens=4096,
+        ), "iterate-meta", log)
+        if meta_patch.get("description"):
+            working["description"] = meta_patch["description"]
+        if isinstance(meta_patch.get("polling"), list) and meta_patch["polling"]:
+            working["polling"] = meta_patch["polling"]
+        notes = meta_patch.get("iteration_notes", [])
+        if isinstance(notes, list):
+            all_iteration_notes.extend(notes)
+        any_success = True
     except (RuntimeError, ValueError) as exc:
-        log("warning", f"  Iteration failed: {exc} — keeping original")
+        log("warning", f"  Iteration meta patch failed: {exc} — keeping existing meta")
+
+    if not any_success:
+        log("warning", "  All iteration patches failed — keeping original")
         return None
 
-    # Unwrap if wrapped
-    if "race_json" in improved and isinstance(improved.get("race_json"), dict):
-        improved = improved["race_json"]
+    if all_iteration_notes:
+        existing_notes = working.get("iteration_notes", [])
+        working["iteration_notes"] = existing_notes + all_iteration_notes
 
-    # Safety: never let iteration wipe candidates
-    if not improved.get("candidates") or len(improved.get("candidates", [])) < n:
-        log("warning", "  Iteration dropped candidates — keeping original")
-        return None
-
-    improved.setdefault("id", race_id)
-    return improved
+    working.setdefault("id", race_id)
+    return working
