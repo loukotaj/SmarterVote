@@ -400,11 +400,22 @@ async def _agent_loop(
     ]
 
     for iteration in range(max_iterations):
-        log("info", f"  [{phase_name}] iteration {iteration + 1}/{max_iterations}")
+        log("info", f"  [{phase_name}] iteration {iteration + 1}/{max_iterations} — calling {model}...")
 
+        t_call = time.perf_counter()
         result = await _call_openai(messages, model=model, tools=[SEARCH_TOOL])
+        elapsed_call = time.perf_counter() - t_call
+
         choice = result["choices"][0]
         message = choice["message"]
+        finish_reason = choice.get("finish_reason", "?")
+        usage = result.get("usage", {})
+        log(
+            "info",
+            f"  [{phase_name}] response in {elapsed_call:.1f}s — "
+            f"finish={finish_reason} "
+            f"tokens={usage.get('prompt_tokens', '?')}→{usage.get('completion_tokens', '?')}",
+        )
 
         # If the model wants to call tools, execute them
         if message.get("tool_calls"):
@@ -418,6 +429,7 @@ async def _agent_loop(
                     search_results = await _serper_search(
                         query, race_id=race_id
                     )
+                    log("debug", f"    🔍 got {len(search_results)} results")
                     messages.append(
                         {
                             "role": "tool",
@@ -430,9 +442,11 @@ async def _agent_loop(
         # No tool calls – parse the answer
         content = message.get("content", "")
         try:
-            return _extract_json(content)
+            parsed = _extract_json(content)
+            log("info", f"  [{phase_name}] JSON parsed OK")
+            return parsed
         except (json.JSONDecodeError, ValueError) as exc:
-            log("warning", f"  [{phase_name}] bad JSON: {exc}")
+            log("warning", f"  [{phase_name}] bad JSON ({exc}) — retrying")
             messages.append(message)
             messages.append(
                 {
