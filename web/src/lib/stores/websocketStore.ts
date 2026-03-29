@@ -38,7 +38,7 @@ const initialState: WebSocketState = {
   ws: null,
   connected: false,
   reconnectAttempts: 0,
-  maxReconnectAttempts: 5,
+  maxReconnectAttempts: 20,
 };
 
 export const websocketStore = writable<WebSocketState>(initialState);
@@ -146,7 +146,7 @@ export const websocketActions = {
 
               reconnectTimeout = setTimeout(() => {
                 websocketActions.connect(apiBase, token);
-              }, delay);
+              }, Math.min(delay, 30000));
             }
 
             return { ...s, reconnectAttempts: newAttempts };
