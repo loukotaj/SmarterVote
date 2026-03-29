@@ -169,10 +169,14 @@ async def get_artifact_details(artifact_id: str) -> Dict[str, Any]:
         raise HTTPException(status_code=404, detail="artifact not found")
 
 
+_cors_origins = settings.allowed_origins
+# credentials=True is incompatible with wildcard origin — use explicit list or drop credentials
+_use_credentials = "*" not in _cors_origins
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.allowed_origins,
-    allow_credentials=True,
+    allow_origins=_cors_origins if _use_credentials else ["*"],
+    allow_origin_regex=r"https://.*\.smarter\.vote" if not _use_credentials else None,
+    allow_credentials=_use_credentials,
     allow_methods=["*"],
     allow_headers=["*"],
 )

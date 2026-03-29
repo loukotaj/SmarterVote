@@ -169,7 +169,19 @@
       }
 
       if (historyResult.status === "fulfilled") {
-        pipelineActions.setRunHistory(historyResult.value);
+        const history = historyResult.value;
+        pipelineActions.setRunHistory(history);
+
+        // Restore executing state if a run is still active (e.g. after page refresh)
+        const activeRun = history.find((r: RunHistoryItem) => r.status === "running" || r.status === "pending");
+        if (activeRun) {
+          addLog("info", `Resuming monitoring of active run ${activeRun.run_id}`);
+          pipelineActions.setCurrentRun(activeRun.run_id, activeRun.last_step ?? null);
+          pipelineActions.setExecutionState(true);
+          pipelineActions.setRunStatus("running");
+          startAutoRefresh();
+          startElapsedTimer();
+        }
       }
 
       if (racesResult.status === "fulfilled") {
