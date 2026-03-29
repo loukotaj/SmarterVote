@@ -514,7 +514,7 @@ async def test_run_agent_fresh():
         patch("pipeline_client.agent.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
         patch("pipeline_client.agent.agent._load_existing", return_value=None),
     ):
-        # discovery, image resolution (1 candidate), 6 issue groups, refine = 9 total calls
+        # discovery, image resolution (1 candidate), 6 issue groups, finance/voting, refine = 10 total calls
         mock_loop.side_effect = [
             discovery_result,  # discovery
             {"image_url": None},  # image resolution for Alice
@@ -524,6 +524,7 @@ async def test_run_agent_fresh():
             issue_result,  # issue group 4
             issue_result,  # issue group 5
             issue_result,  # issue group 6
+            {"Alice": {"top_donors": [], "voting_record": []}},  # finance/voting
             refined_result,  # refine
         ]
 
@@ -532,8 +533,8 @@ async def test_run_agent_fresh():
     assert result["id"] == "test-2024"
     assert "updated_utc" in result
     assert result["generator"] == ["gpt-5.4-mini"]
-    # discovery + image resolution + 6 issue groups + refine = 9
-    assert mock_loop.call_count == 9
+    # discovery + image resolution + 6 issue groups + finance/voting + refine = 10
+    assert mock_loop.call_count == 10
 
 
 @pytest.mark.asyncio
@@ -572,8 +573,8 @@ async def test_run_agent_update_mode():
 
     assert result["id"] == "test-2024"
     # existing has no candidates → falls back to _run_fresh:
-    # discovery + image (Bob) + 6 issue groups + refinement = 9 calls
-    assert mock_loop.call_count == 9
+    # discovery + image (Bob) + 6 issue groups + finance/voting + refinement = 10 calls
+    assert mock_loop.call_count == 10
 
 
 @pytest.mark.asyncio
