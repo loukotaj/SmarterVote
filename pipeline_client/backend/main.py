@@ -1,6 +1,7 @@
 import asyncio
 import json
 import logging
+import os
 import re
 import sys
 import uuid
@@ -525,3 +526,83 @@ async def root():
     """,
         status_code=200,
     )
+
+
+# ---------------------------------------------------------------------------
+# Alerts endpoints
+# ---------------------------------------------------------------------------
+
+from .alerts import acknowledge_alert, evaluate_all  # noqa: E402
+
+
+@app.get("/alerts", dependencies=[Depends(verify_token)])
+async def get_alerts() -> Dict[str, Any]:
+    """Evaluate all domain-aware alert rules and return the result list."""
+    # Optionally pass analytics overview for API-health alerts
+    overview = None
+    races_api_url = os.getenv("RACES_API_URL", "http://localhost:8080")
+    admin_key = os.getenv("ADMIN_API_KEY", "")
+    if races_api_url and admin_key:
+        try:
+            async with httpx.AsyncClient(timeout=5) as client:
+                resp = await client.get(f"{races_api_url}/analytics/overview", headers={"X-Admin-Key": admin_key})
+                if resp.status_code == 200:
+                    overview = resp.json()
+        except Exception:
+            pass  # Analytics unavailable — skip health alert
+
+    alerts = evaluate_all(run_manager, overview=overview)
+    unacknowledged = sum(1 for a in alerts if not a.acknowledged)
+    return {
+        "alerts": [a.to_dict() for a in alerts],
+        "total": len(alerts),
+        "unacknowledged": unacknowledged,
+    }
+
+
+@app.post("/alerts/{alert_id}/acknowledge", dependencies=[Depends(verify_token)])
+async def ack_alert(alert_id: str) -> Dict[str, Any]:
+    """Acknowledge an alert by ID."""
+    acknowledge_alert(alert_id)
+    return {"ok": True, "alert_id": alert_id}
+
+
+# ---------------------------------------------------------------------------
+# Analytics proxy (keeps ADMIN_API_KEY server-side)
+# ---------------------------------------------------------------------------
+
+
+@app.get("/analytics/overview", dependencies=[Depends(verify_token)])
+async def proxy_analytics_overview(hours: int = 24) -> Dict[str, Any]:
+    """Proxy GET /analytics/overview from the races-api."""
+    return await _proxy_analytics("/analytics/overview", params={"hours": hours})
+
+
+@app.get("/analytics/races", dependencies=[Depends(verify_token)])
+async def proxy_analytics_races(hours: int = 24) -> Dict[str, Any]:
+    """Proxy GET /analytics/races from the races-api."""
+    return await _proxy_analytics("/analytics/races", params={"hours": hours})
+
+
+@app.get("/analytics/timeseries", dependencies=[Depends(verify_token)])
+async def proxy_analytics_timeseries(hours: int = 24, bucket: int = 60) -> Dict[str, Any]:
+    """Proxy GET /analytics/timeseries from the races-api."""
+    return await _proxy_analytics("/analytics/timeseries", params={"hours": hours, "bucket": bucket})
+
+
+async def _proxy_analytics(path: str, params: Dict[str, Any]) -> Dict[str, Any]:
+    races_api_url = os.getenv("RACES_API_URL", "http://localhost:8080")
+    admin_key = os.getenv("ADMIN_API_KEY", "")
+    if not admin_key:
+        # No key configured — local dev, call directly without auth
+        pass
+    url = races_api_url.rstrip("/") + path
+    try:
+        async with httpx.AsyncClient(timeout=10) as client:
+            resp = await client.get(url, params=params, headers={"X-Admin-Key": admin_key})
+            resp.raise_for_status()
+            return resp.json()
+    except httpx.HTTPStatusError as exc:
+        raise HTTPException(status_code=exc.response.status_code, detail="Analytics unavailable") from exc
+    except Exception as exc:
+        raise HTTPException(status_code=503, detail="Analytics service unreachable") from exc
