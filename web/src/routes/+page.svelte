@@ -50,6 +50,17 @@
 </svelte:head>
 
 <div class="container mx-auto px-4 py-8 sm:py-12 max-w-6xl">
+  <!-- Alpha Notice -->
+  <div class="bg-amber-50 border border-amber-300 rounded-lg px-4 py-3 mb-6 sm:mb-8 flex items-start gap-3">
+    <svg class="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+      <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+    </svg>
+    <div>
+      <p class="text-amber-800 font-semibold text-sm">This project is in alpha and actively under development.</p>
+      <p class="text-amber-700 text-sm mt-0.5">AI-generated summaries can be wrong or out of date. Always follow the source links and apply your own critical judgment before relying on anything here.</p>
+    </div>
+  </div>
+
   <!-- Hero Section -->
   <header class="text-center mb-8 sm:mb-12">
     <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-content mb-4">
