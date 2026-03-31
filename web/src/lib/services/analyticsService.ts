@@ -4,22 +4,17 @@
  * so the ADMIN_API_KEY never reaches the browser.
  */
 
-import { apiStore } from "$lib/stores/apiStore";
+import { fetchWithAuth } from "$lib/stores/apiStore";
 import type { Alert, AnalyticsOverview, PipelineMetricsSummary, PipelineRunRecord, RaceAnalytics } from "$lib/types";
-import { get } from "svelte/store";
 
 const API_BASE = import.meta.env.VITE_API_BASE || "http://127.0.0.1:8001";
 
 async function fetchAdmin<T>(path: string, params?: Record<string, string | number>): Promise<T> {
-  const store = get(apiStore);
   const url = new URL(`${API_BASE}${path}`);
   if (params) {
     Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, String(v)));
   }
-  const headers: Record<string, string> = { "Content-Type": "application/json" };
-  if (store.token) headers["Authorization"] = `Bearer ${store.token}`;
-
-  const resp = await fetch(url.toString(), { headers });
+  const resp = await fetchWithAuth(url.toString(), { headers: { "Content-Type": "application/json" } });
   if (!resp.ok) {
     throw new Error(`Analytics API error ${resp.status}: ${await resp.text()}`);
   }
@@ -44,12 +39,9 @@ export const analyticsService = {
   },
 
   async acknowledgeAlert(alertId: string): Promise<void> {
-    const store = get(apiStore);
-    const headers: Record<string, string> = { "Content-Type": "application/json" };
-    if (store.token) headers["Authorization"] = `Bearer ${store.token}`;
-    await fetch(`${API_BASE}/alerts/${encodeURIComponent(alertId)}/acknowledge`, {
+    await fetchWithAuth(`${API_BASE}/alerts/${encodeURIComponent(alertId)}/acknowledge`, {
       method: "POST",
-      headers,
+      headers: { "Content-Type": "application/json" },
     });
   },
 
