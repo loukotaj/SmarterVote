@@ -169,7 +169,7 @@ resource "google_project_iam_member" "races_api_storage" {
 
 resource "google_project_iam_member" "races_api_artifact_registry" {
   project = var.project_id
-  role    = "roles/artifactregistry.writer"
+  role    = "roles/artifactregistry.reader" # read-only; writer was unnecessarily permissive
   member  = "serviceAccount:${google_service_account.races_api.email}"
 }
 

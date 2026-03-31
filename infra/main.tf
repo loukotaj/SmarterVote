@@ -114,5 +114,22 @@ resource "google_artifact_registry_repository" "smartervote" {
   description   = "SmarterVote container images for ${var.environment} environment"
   format        = "DOCKER"
 
+  # Keep only the 5 most recent versions of each image; delete anything older than 30 days
+  cleanup_policies {
+    id     = "keep-minimum-versions"
+    action = "KEEP"
+    most_recent_versions {
+      keep_count = 5
+    }
+  }
+
+  cleanup_policies {
+    id     = "delete-old-versions"
+    action = "DELETE"
+    condition {
+      older_than = "720h" # 30 days
+    }
+  }
+
   depends_on = [google_project_service.apis]
 }

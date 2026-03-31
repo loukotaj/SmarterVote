@@ -97,6 +97,19 @@ jobs:
     runs-on: ubuntu-latest
     needs: build-containers
     if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && contains(github.event.head_commit.modified, 'infra/')) }}
+    # Pass all Terraform variables as TF_VAR_* env vars to avoid writing secrets into a
+    # shell heredoc (backticks/special chars in secret values cause bad-substitution errors).
+    env:
+      TF_VAR_project_id: ${{ secrets.GCP_PROJECT_ID }}
+      TF_VAR_region: us-central1
+      TF_VAR_environment: ${{ github.event.inputs.environment || 'dev' }}
+      TF_VAR_app_version: ${{ github.sha }}
+      TF_VAR_openai_api_key: ${{ secrets.OPENAI_API_KEY }}
+      TF_VAR_serper_api_key: ${{ secrets.SERPER_API_KEY }}
+      TF_VAR_anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+      TF_VAR_gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+      TF_VAR_xai_api_key: ${{ secrets.XAI_API_KEY }}
+      TF_VAR_admin_api_key: ${{ secrets.ADMIN_API_KEY }}
 
     steps:
     - uses: actions/checkout@v6
@@ -146,22 +159,6 @@ jobs:
         sync_secret "gemini-api-key-${{ env.ENVIRONMENT }}"   "$GEMINI_API_KEY"
         sync_secret "xai-api-key-${{ env.ENVIRONMENT }}"      "$XAI_API_KEY"
 
-    - name: Create Terraform variables file
-      run: |
-        cd infra
-        cat > github-actions.tfvars << EOF
-        project_id = "${{ env.PROJECT_ID }}"
-        region = "${{ env.REGION }}"
-        environment = "${{ env.ENVIRONMENT }}"
-        app_version = "${{ env.TF_VAR_app_version }}"
-        openai_api_key = "${{ secrets.OPENAI_API_KEY }}"
-        serper_api_key = "${{ secrets.SERPER_API_KEY }}"
-        anthropic_api_key = "${{ secrets.ANTHROPIC_API_KEY }}"
-        gemini_api_key = "${{ secrets.GEMINI_API_KEY }}"
-        xai_api_key = "${{ secrets.XAI_API_KEY }}"
-        admin_api_key = "${{ secrets.ADMIN_API_KEY }}"
-        EOF
-
     - name: Check if state bucket exists
       run: |
         if ! gsutil ls -b gs://smartervote-terraform-state >/dev/null 2>&1; then
@@ -173,7 +170,7 @@ jobs:
     - name: Terraform Init
       run: |
         cd infra
-        terraform init
+        terraform init -reconfigure
 
     - name: Store Current State (for rollback)
       if: env.ACTION == 'apply' && github.ref == 'refs/heads/main'
@@ -194,7 +191,7 @@ jobs:
       if: env.ACTION != 'rollback'
       run: |
         cd infra
-        terraform plan -var-file=github-actions.tfvars -out=tfplan
+        terraform plan -out=tfplan
         terraform show -json tfplan > ../terraform-plan.json
 
     - name: Upload Plan Artifact
@@ -221,8 +218,8 @@ jobs:
 
           echo "🔄 Rolling back to commit: $PREV_COMMIT"
           git checkout $PREV_COMMIT -- .
-          terraform init
-          terraform plan -var-file=github-actions.tfvars -out=rollback-plan
+          terraform init -reconfigure
+          terraform plan -out=rollback-plan
           terraform apply -auto-approve rollback-plan
 
           echo "::error::Terraform apply failed and rollback attempted"
@@ -236,8 +233,8 @@ jobs:
         echo "🔄 Performing manual rollback..."
         PREV_COMMIT=$(git log --oneline -n 2 --format="%H" -- . | tail -n 1)
         git checkout $PREV_COMMIT -- .
-        terraform init
-        terraform plan -var-file=github-actions.tfvars -out=rollback-plan
+        terraform init -reconfigure
+        terraform plan -out=rollback-plan
         terraform apply -auto-approve rollback-plan
 
     - name: Upload State Backup

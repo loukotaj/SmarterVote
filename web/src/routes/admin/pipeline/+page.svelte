@@ -511,7 +511,7 @@
   <title>Admin Console - SmarterVote</title>
 </svelte:head>
 
-<div class="container mx-auto px-4 py-6 max-w-7xl">
+<div class="w-full px-4 py-6 max-w-[1600px] mx-auto">
   <!-- Header -->
   <div class="mt-2 mb-6 card p-4">
     <div class="flex items-center justify-between">
@@ -881,7 +881,7 @@
     grid-template-columns: 360px 1fr;
   }
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1280px) {
     .pipeline-top-grid {
       grid-template-columns: 1fr;
     }
