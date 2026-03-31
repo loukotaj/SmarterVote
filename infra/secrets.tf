@@ -271,10 +271,11 @@ resource "google_project_iam_member" "github_actions_role_viewer" {
   member  = "serviceAccount:${google_service_account.github_actions.email}"
 }
 
-# Allow terraform to manage google_logging_metric resources (requires logging.logMetrics.*)
+# Allow terraform to manage google_logging_metric resources (requires logging.logMetrics.get/create/update/delete)
+# logging.configWriter omits logMetrics.get; logging.admin is required for full CRUD + refresh
 resource "google_project_iam_member" "github_actions_logging_config" {
   project = var.project_id
-  role    = "roles/logging.configWriter"
+  role    = "roles/logging.admin"
   member  = "serviceAccount:${google_service_account.github_actions.email}"
 }
 
