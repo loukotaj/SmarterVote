@@ -431,6 +431,23 @@
     }
   }
 
+  async function handleDeleteRun(run: RunHistoryItem) {
+    if (run.status === "running" || run.status === "pending") {
+      if (!confirm(`Cancel this active run for "${(run.payload?.race_id) ?? run.run_id}"?`)) return;
+    } else {
+      if (!confirm(`Delete run history for "${(run.payload?.race_id) ?? run.run_id}"? This cannot be undone.`)) return;
+    }
+    try {
+      await apiService.deleteRun(run.run_id);
+      addLog("info", `Deleted run: ${run.run_id.substring(0, 8)}`);
+      if (detailRunId === run.run_id) detailRunId = null;
+      await debouncedRefresh();
+    } catch (e) {
+      logger.error("Failed to delete run:", e);
+      addLog("error", `Failed to delete run: ${e}`);
+    }
+  }
+
   async function handleDeleteRace(race: PublishedRaceSummary) {
     if (!confirm(`Delete race "${race.id}"? This removes the published data and cannot be undone.`)) {
       return;
@@ -524,12 +541,12 @@
   <div class="mt-2 mb-6 card p-4">
     <div class="flex items-center justify-between">
       <div class="flex items-center space-x-4">
-        <h1 class="text-xl font-bold text-gray-900">Admin Console</h1>
-        <span class="text-sm text-gray-500">SmarterVote</span>
+        <h1 class="text-xl font-bold text-content">Admin Console</h1>
+        <span class="text-sm text-content-subtle">SmarterVote</span>
       </div>
       <div class="flex items-center space-x-2">
         <div class="w-3 h-3 rounded-full {websocket.connected ? 'bg-green-500' : 'bg-red-500'}" />
-        <span class="text-sm text-gray-600">
+        <span class="text-sm text-content-muted">
           {websocket.connected ? "Connected" : "Disconnected"}
         </span>
         {#if pipeline.isRefreshing}
@@ -584,7 +601,7 @@
         <div class="space-y-4">
           <!-- Research a Race -->
           <div class="card p-4">
-            <h3 class="text-base font-semibold text-gray-900 mb-3">Research a Race</h3>
+            <h3 class="text-base font-semibold text-content mb-3">Research a Race</h3>
             <div class="space-y-3">
               <div>
                 <div class="flex gap-2">
@@ -595,7 +612,7 @@
                     on:input={handleRaceIdInput}
                     on:keydown={handleRaceIdKeydown}
                     placeholder="e.g. ga-senate-2026, tx-governor-2026"
-                    class="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm font-mono focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                    class="flex-1 px-3 py-2 border border-stroke rounded-lg text-sm font-mono bg-surface text-content focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                   />
                   <button
                     type="button"
@@ -615,21 +632,21 @@
                     {/if}
                   </button>
                 </div>
-                <p class="mt-1 text-xs text-gray-400">
-                  Comma-separate multiple IDs · <kbd class="px-1 py-0.5 bg-gray-100 rounded text-xs">Enter</kbd> to add
+                <p class="mt-1 text-xs text-content-faint">
+                  Comma-separate multiple IDs · <kbd class="px-1 py-0.5 bg-surface-alt rounded text-xs">Enter</kbd> to add
                 </p>
               </div>
 
               <!-- Mode Toggles -->
               <div class="flex items-center gap-5">
-                <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
-                  <input type="checkbox" bind:checked={cheapMode} class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
+                <label class="flex items-center gap-2 text-sm text-content-muted cursor-pointer">
+                  <input type="checkbox" bind:checked={cheapMode} class="rounded border-stroke text-blue-600 focus:ring-blue-500" />
                   <span>Cheap Mode</span>
                 </label>
-                <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
-                  <input type="checkbox" bind:checked={enableReview} class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
+                <label class="flex items-center gap-2 text-sm text-content-muted cursor-pointer">
+                  <input type="checkbox" bind:checked={enableReview} class="rounded border-stroke text-blue-600 focus:ring-blue-500" />
                   <span>AI Review</span>
-                  <span class="text-xs text-gray-400">✦</span>
+                  <span class="text-xs text-content-faint">✶</span>
                 </label>
               </div>
 
@@ -645,12 +662,12 @@
                 Advanced Model Settings
               </button>
               {#if showAdvanced}
-                <div class="space-y-2.5 border-t border-gray-200 pt-2.5">
-                  <p class="text-xs text-gray-400">Leave on default, or override for this run.</p>
+                <div class="space-y-2.5 border-t border-stroke pt-2.5">
+                  <p class="text-xs text-content-faint">Leave on default, or override for this run.</p>
                   <div>
-                    <label for="researchModel" class="block text-xs font-medium text-gray-600 mb-1">Research (OpenAI)</label>
+                    <label for="researchModel" class="block text-xs font-medium text-content-muted mb-1">Research (OpenAI)</label>
                     <select id="researchModel" bind:value={researchModel}
-                      class="w-full px-2 py-1.5 border border-gray-300 rounded text-xs focus:outline-none focus:border-blue-500 bg-white">
+                      class="w-full px-2 py-1.5 border border-stroke rounded text-xs bg-surface text-content focus:outline-none focus:border-blue-500">
                       <option value="">Default — {cheapMode ? 'gpt-5.4-mini' : 'gpt-5.4'}</option>
                       <option value="gpt-5.4">gpt-5.4 · best quality</option>
                       <option value="gpt-5.4-mini">gpt-5.4-mini · fast & smart</option>
@@ -659,27 +676,27 @@
                   </div>
                   <div class="grid grid-cols-3 gap-2">
                     <div>
-                      <label for="claudeModel" class="block text-xs font-medium text-gray-600 mb-1">Claude</label>
+                      <label for="claudeModel" class="block text-xs font-medium text-content-muted mb-1">Claude</label>
                       <select id="claudeModel" bind:value={claudeModel}
-                        class="w-full px-2 py-1.5 border border-gray-300 rounded text-xs focus:outline-none focus:border-blue-500 bg-white">
+                        class="w-full px-2 py-1.5 border border-stroke rounded text-xs bg-surface text-content focus:outline-none focus:border-blue-500">
                         <option value="">Default</option>
                         <option value="claude-sonnet-4-6">Sonnet 4.6</option>
                         <option value="claude-haiku-4-5-20251001">Haiku 4.5</option>
                       </select>
                     </div>
                     <div>
-                      <label for="geminiModel" class="block text-xs font-medium text-gray-600 mb-1">Gemini</label>
+                      <label for="geminiModel" class="block text-xs font-medium text-content-muted mb-1">Gemini</label>
                       <select id="geminiModel" bind:value={geminiModel}
-                        class="w-full px-2 py-1.5 border border-gray-300 rounded text-xs focus:outline-none focus:border-blue-500 bg-white">
+                        class="w-full px-2 py-1.5 border border-stroke rounded text-xs bg-surface text-content focus:outline-none focus:border-blue-500">
                         <option value="">Default</option>
                         <option value="gemini-3-flash-preview">3 Flash</option>
                         <option value="gemini-3.1-flash-lite-preview">3.1 Lite</option>
                       </select>
                     </div>
                     <div>
-                      <label for="grokModel" class="block text-xs font-medium text-gray-600 mb-1">Grok</label>
+                      <label for="grokModel" class="block text-xs font-medium text-content-muted mb-1">Grok</label>
                       <select id="grokModel" bind:value={grokModel}
-                        class="w-full px-2 py-1.5 border border-gray-300 rounded text-xs focus:outline-none focus:border-blue-500 bg-white">
+                        class="w-full px-2 py-1.5 border border-stroke rounded text-xs bg-surface text-content focus:outline-none focus:border-blue-500">
                         <option value="">Default</option>
                         <option value="grok-3">Grok 3</option>
                         <option value="grok-3-mini">Grok Mini</option>
@@ -726,7 +743,7 @@
           {#if queueItems.length > 0}
             <div class="card p-3">
               <div class="flex items-center justify-between mb-2">
-                <span class="text-xs font-semibold text-gray-700">
+                <span class="text-xs font-semibold text-content-muted">
                   Queue — {queueFinished}/{queueItems.length} done
                   {#if queuePending > 0}
                     <span class="ml-1 text-blue-600">({queuePending} pending)</span>
@@ -741,13 +758,13 @@
               <div class="space-y-1 max-h-48 overflow-y-auto">
                 {#each queueItems as item (item.id)}
                   <div class="flex items-center gap-2 py-1">
-                    <span class="text-xs font-mono text-gray-700 flex-1 truncate">{item.race_id}</span>
+                    <span class="text-xs font-mono text-content-muted flex-1 truncate">{item.race_id}</span>
                     <span class="text-xs px-1.5 py-0.5 rounded flex-shrink-0 {
-                      item.status === 'completed' ? 'bg-green-100 text-green-700' :
-                      item.status === 'failed' ? 'bg-red-100 text-red-700' :
-                      item.status === 'cancelled' ? 'bg-yellow-100 text-yellow-700' :
-                      item.status === 'running' ? 'bg-blue-100 text-blue-700 animate-pulse' :
-                      'bg-gray-100 text-gray-500'}">
+                      item.status === 'completed' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300' :
+                      item.status === 'failed' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300' :
+                      item.status === 'cancelled' ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300' :
+                      item.status === 'running' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 animate-pulse' :
+                      'bg-surface-alt text-content-subtle'}">
                       {item.status}
                     </span>
                     {#if item.status === 'pending' || item.status === 'running'}
@@ -778,8 +795,8 @@
         <!-- Right: Run History -->
         <div class="space-y-4">
           <div class="card p-0">
-            <div class="px-4 py-3 border-b border-gray-200 flex items-center justify-between">
-              <h3 class="text-sm font-semibold text-gray-900">All Runs</h3>
+            <div class="px-4 py-3 border-b border-stroke flex items-center justify-between">
+              <h3 class="text-sm font-semibold text-content">All Runs</h3>
               <button
                 on:click={debouncedRefresh}
                 disabled={pipeline.isRefreshing}
@@ -796,51 +813,63 @@
             </div>
 
             {#if pipeline.runHistory.length === 0}
-              <div class="p-8 text-center text-gray-400 text-sm">No runs yet — queue a race to get started</div>
+              <div class="p-8 text-center text-content-faint text-sm">No runs yet — queue a race to get started</div>
             {:else}
-              <div class="divide-y divide-gray-100 max-h-[calc(100vh-300px)] overflow-auto">
+              <div class="divide-y divide-stroke max-h-[calc(100vh-300px)] overflow-auto">
                 {#each pipeline.runHistory as run (run.run_id)}
                   {@const rId = (run.payload?.race_id) ?? `run-${run.display_id}`}
                   {@const isActive = run.status === "running"}
-                  <button
-                    type="button"
-                    class="w-full text-left px-4 py-3 transition-colors hover:bg-gray-50 {isActive ? 'bg-blue-50 border-l-2 border-l-blue-500' : ''}"
-                    on:click={() => (detailRunId = run.run_id)}
-                  >
-                    <div class="flex items-center gap-2">
-                      {#if isActive}
-                        <svg class="animate-spin h-3.5 w-3.5 text-blue-500 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
-                          <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                        </svg>
+                  <div class="relative group {isActive ? 'bg-blue-50 dark:bg-blue-900/20 border-l-2 border-l-blue-500' : ''}">
+                    <button
+                      type="button"
+                      class="w-full text-left px-4 py-3 pr-10 transition-colors hover:bg-surface-alt"
+                      on:click={() => (detailRunId = run.run_id)}
+                    >
+                      <div class="flex items-center gap-2">
+                        {#if isActive}
+                          <svg class="animate-spin h-3.5 w-3.5 text-blue-500 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
+                            <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                          </svg>
+                        {/if}
+                        <span class="text-sm font-mono font-medium text-content flex-1 truncate">{rId}</span>
+                        <span class="text-xs px-2 py-0.5 rounded-full shrink-0 {
+                          run.status === 'completed' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300' :
+                          run.status === 'failed' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300' :
+                          run.status === 'running' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300' :
+                          run.status === 'cancelled' ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300' :
+                          'bg-surface-alt text-content-subtle'}">
+                          {run.status ?? "unknown"}
+                        </span>
+                      </div>
+                      <div class="flex items-center gap-3 mt-1 text-xs text-content-faint">
+                        <span>{new Date(run.started_at).toLocaleString(undefined, { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })}</span>
+                        {#if run.duration_ms}
+                          {@const dur = run.duration_ms}
+                          <span>· {dur < 60000 ? `${Math.round(dur / 1000)}s` : `${Math.floor(dur / 60000)}m ${Math.round((dur % 60000) / 1000)}s`}</span>
+                        {/if}
+                        {#if run.options?.research_model}
+                          <span class="ml-auto font-mono">{run.options.research_model}</span>
+                        {/if}
+                        {#if run.options?.enable_review}
+                          <span title="AI review enabled" class="text-purple-400">✦</span>
+                        {/if}
+                      </div>
+                      {#if run.error}
+                        <p class="text-xs text-red-500 mt-1 truncate">{run.error}</p>
                       {/if}
-                      <span class="text-sm font-mono font-medium text-gray-900 flex-1 truncate">{rId}</span>
-                      <span class="text-xs px-2 py-0.5 rounded-full shrink-0 {
-                        run.status === 'completed' ? 'bg-green-100 text-green-700' :
-                        run.status === 'failed' ? 'bg-red-100 text-red-700' :
-                        run.status === 'running' ? 'bg-blue-100 text-blue-700' :
-                        run.status === 'cancelled' ? 'bg-yellow-100 text-yellow-700' :
-                        'bg-gray-100 text-gray-600'}">
-                        {run.status ?? "unknown"}
-                      </span>
-                    </div>
-                    <div class="flex items-center gap-3 mt-1 text-xs text-gray-400">
-                      <span>{new Date(run.started_at).toLocaleString(undefined, { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })}</span>
-                      {#if run.duration_ms}
-                        {@const dur = run.duration_ms}
-                        <span>· {dur < 60000 ? `${Math.round(dur / 1000)}s` : `${Math.floor(dur / 60000)}m ${Math.round((dur % 60000) / 1000)}s`}</span>
-                      {/if}
-                      {#if run.options?.research_model}
-                        <span class="ml-auto font-mono">{run.options.research_model}</span>
-                      {/if}
-                      {#if run.options?.enable_review}
-                        <span title="AI review enabled" class="text-purple-400">✦</span>
-                      {/if}
-                    </div>
-                    {#if run.error}
-                      <p class="text-xs text-red-500 mt-1 truncate">{run.error}</p>
-                    {/if}
-                  </button>
+                    </button>
+                    <button
+                      type="button"
+                      class="absolute top-1/2 -translate-y-1/2 right-2 p-1 rounded opacity-0 group-hover:opacity-100 text-content-faint hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all"
+                      on:click={() => handleDeleteRun(run)}
+                      title={run.status === 'running' || run.status === 'pending' ? 'Cancel run' : 'Delete run'}
+                    >
+                      <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                      </svg>
+                    </button>
+                  </div>
                 {/each}
               </div>
             {/if}

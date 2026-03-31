@@ -177,6 +177,10 @@ async def _serper_search(
     query: str, *, num_results: int = 8, race_id: Optional[str] = None
 ) -> List[Dict[str, Any]]:
     """Execute a web search via the Serper API, with caching."""
+    if not query or not query.strip():
+        logger.warning("_serper_search called with empty query — skipping")
+        return []
+
     cache = _get_search_cache()
     if cache:
         cached = cache.get(query, race_id)

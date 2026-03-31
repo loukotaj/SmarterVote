@@ -194,6 +194,16 @@ class RunManager:
             del self.active_runs[run_id]
             self.detach_run_logger(run_id)
 
+    def delete_run(self, run_id: str) -> bool:
+        """Delete a completed/failed/cancelled run from history. Returns True if deleted."""
+        if run_id in self.active_runs:
+            return False  # Cannot delete an active run; cancel it first
+        run_file = self.storage_dir / f"{run_id}.json"
+        if run_file.exists():
+            run_file.unlink()
+            return True
+        return False
+
     def get_run(self, run_id: str) -> Optional[RunInfo]:
         """Get run information."""
         # Check active runs first

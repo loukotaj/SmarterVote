@@ -427,19 +427,21 @@ async def get_run(run_id: str) -> RunInfo:
 
 
 @app.delete("/runs/{run_id}", dependencies=[Depends(verify_token)])
-async def cancel_run(run_id: str) -> Dict[str, Any]:
-    """Cancel a running process."""
+async def cancel_or_delete_run(run_id: str) -> Dict[str, Any]:
+    """Cancel an active run or delete a completed/failed/cancelled run from history."""
     run_info = run_manager.get_run(run_id)
     if not run_info:
         raise HTTPException(status_code=404, detail="Run not found")
 
-    if run_info.status not in ["pending", "running"]:
-        raise HTTPException(status_code=400, detail="Run is not active")
-
-    run_manager.cancel_run(run_id)
-    await logging_manager.send_run_status(run_id, "cancelled")
-
-    return {"message": "Run cancelled", "run_id": run_id}
+    if run_info.status in ["pending", "running"]:
+        run_manager.cancel_run(run_id)
+        await logging_manager.send_run_status(run_id, "cancelled")
+        return {"message": "Run cancelled", "run_id": run_id}
+    else:
+        deleted = run_manager.delete_run(run_id)
+        if not deleted:
+            raise HTTPException(status_code=500, detail="Failed to delete run")
+        return {"message": "Run deleted", "run_id": run_id}
 
 
 @app.get("/artifacts", dependencies=[Depends(verify_token)])

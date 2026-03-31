@@ -85,6 +85,21 @@ export class PipelineApiService {
   }
 
   /**
+   * Delete a run from history (or cancel if still active)
+   */
+  async deleteRun(runId: string): Promise<void> {
+    const res = await fetchWithAuth(
+      `${this.apiBase}/runs/${encodeURIComponent(runId)}`,
+      { method: "DELETE" },
+      10000
+    );
+    if (!res.ok) {
+      const errorText = await res.text().catch(() => "Unknown error");
+      throw new Error(`HTTP ${res.status}: ${res.statusText}. ${errorText}`);
+    }
+  }
+
+  /**
    * Get run details
    */
   async getRunDetails(runId: string): Promise<RunInfo> {
