@@ -400,7 +400,12 @@
                       {rec.status}
                     </span>
                   </td>
-                  <td class="px-3 py-2 text-gray-600 max-w-28 truncate">{rec.model || "—"}</td>
+                  <td class="px-3 py-2 text-gray-600 max-w-36">
+                    <span class="truncate block font-mono text-xs" title={rec.model}>{rec.model || "—"}</span>
+                    {#if rec.model_breakdown && Object.keys(rec.model_breakdown).length > 1}
+                      <span class="text-gray-400 text-xs">+{Object.keys(rec.model_breakdown).length - 1} model{Object.keys(rec.model_breakdown).length > 2 ? "s" : ""}</span>
+                    {/if}
+                  </td>
                   <td class="px-3 py-2 text-right text-gray-700">{formatTokens(rec.total_tokens)}</td>
                   <td class="px-3 py-2 text-right font-medium text-gray-900">{formatUsd(rec.estimated_usd)}</td>
                   <td class="px-3 py-2 text-right text-gray-600">{rec.duration_s ? `${rec.duration_s}s` : "—"}</td>

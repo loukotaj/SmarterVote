@@ -24,6 +24,11 @@ resource "google_cloud_run_v2_service" "races_api" {
       }
 
       env {
+        name  = "CACHE_TTL_SECONDS"
+        value = "300"
+      }
+
+      env {
         name  = "ENVIRONMENT"
         value = var.environment
       }

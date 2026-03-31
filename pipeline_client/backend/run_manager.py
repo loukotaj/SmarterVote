@@ -9,7 +9,7 @@ import traceback
 import uuid
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 
 from .models import RunInfo, RunOptions, RunRequest, RunStatus, RunStep
 
@@ -22,7 +22,7 @@ class RunManager:
         self.storage_dir.mkdir(parents=True, exist_ok=True)
         self.active_runs: Dict[str, RunInfo] = {}
         self._load_runs()
-        self._log_handlers: Dict[str, logging.Handler] = {}
+        self._log_handlers: Dict[str, Any] = {}
 
     class RunLogHandler(logging.Handler):
         def __init__(self, run_manager, run_id):
@@ -38,9 +38,9 @@ class RunManager:
             self._emitting = True
             try:
                 log_entry = {
-                    "level": record.levelname,
+                    "level": record.levelname.lower(),
                     "message": record.getMessage(),
-                    "time": datetime.fromtimestamp(record.created).isoformat(),
+                    "timestamp": datetime.fromtimestamp(record.created, tz=timezone.utc).isoformat(),
                     "logger": record.name,
                     "filename": record.filename,
                     "funcName": record.funcName,
@@ -163,6 +163,7 @@ class RunManager:
             run_info.artifact_id = artifact_id
             run_info.duration_ms = duration_ms
             self._save_run(run_info)
+            self._upload_run_to_gcs_background(run_info)
             # Remove from active runs
             del self.active_runs[run_id]
             self.detach_run_logger(run_id)
@@ -176,6 +177,7 @@ class RunManager:
             run_info.error = error
             run_info.duration_ms = duration_ms
             self._save_run(run_info)
+            self._upload_run_to_gcs_background(run_info)
             # Remove from active runs
             del self.active_runs[run_id]
             self.detach_run_logger(run_id)
@@ -187,6 +189,7 @@ class RunManager:
             run_info.status = RunStatus.CANCELLED
             run_info.completed_at = datetime.now(timezone.utc)
             self._save_run(run_info)
+            self._upload_run_to_gcs_background(run_info)
             # Remove from active runs
             del self.active_runs[run_id]
             self.detach_run_logger(run_id)
@@ -277,6 +280,71 @@ class RunManager:
             # Do NOT use logging.exception here — it would re-enter the RunLogHandler
             # and cause infinite recursion. Write directly to stderr instead.
             print(f"Failed to save run {run_info.run_id}: {traceback.format_exc()}", file=sys.stderr)
+
+    def _upload_run_to_gcs_background(self, run_info: RunInfo) -> None:
+        """Fire-and-forget GCS upload in a daemon thread."""
+        import threading
+        threading.Thread(
+            target=self._upload_run_to_gcs,
+            args=(run_info,),
+            daemon=True,
+            name=f"gcs-upload-run-{run_info.run_id[:8]}",
+        ).start()
+
+    def _upload_run_to_gcs(self, run_info: RunInfo) -> None:
+        """Upload run metadata to GCS so history survives container restarts.
+
+        Logs are stripped to keep the payload small — the full log history lives
+        in the local filesystem copy, which is already written before this runs.
+        """
+        try:
+            from .settings import settings
+            if not settings.gcs_bucket:
+                return
+            from google.cloud import storage  # type: ignore
+            client = storage.Client()
+            bucket = client.bucket(settings.gcs_bucket)
+            blob = bucket.blob(f"runs/{run_info.run_id}.json")
+            data = run_info.model_dump(mode="json")
+            data.pop("logs", None)  # logs can be very large; kept local only
+            blob.upload_from_string(json.dumps(data, indent=2, default=str), content_type="application/json")
+        except ImportError:
+            pass  # google-cloud-storage not installed
+        except Exception:
+            print(f"GCS upload failed for run {run_info.run_id}: {traceback.format_exc()}", file=sys.stderr)
+
+    def sync_from_gcs(self) -> int:
+        """Download run records from GCS into local storage (best-effort).
+
+        Called on startup in cloud environments so that run history from previous
+        container instances is visible in the admin UI. Returns number of runs synced.
+        """
+        try:
+            from .settings import settings
+            if not settings.gcs_bucket:
+                return 0
+            from google.cloud import storage  # type: ignore
+            client = storage.Client()
+            bucket = client.bucket(settings.gcs_bucket)
+            count = 0
+            for blob in bucket.list_blobs(prefix="runs/"):
+                if not blob.name.endswith(".json"):
+                    continue
+                run_id = blob.name[len("runs/"):-len(".json")]
+                local_file = self.storage_dir / f"{run_id}.json"
+                if local_file.exists():
+                    continue  # Already have a local copy
+                try:
+                    local_file.write_text(blob.download_as_text(), encoding="utf-8")
+                    count += 1
+                except Exception:
+                    print(f"Failed to sync run {run_id} from GCS: {traceback.format_exc()}", file=sys.stderr)
+            return count
+        except ImportError:
+            return 0
+        except Exception:
+            print(f"Failed to sync runs from GCS: {traceback.format_exc()}", file=sys.stderr)
+            return 0
 
 
 # Global run manager instance

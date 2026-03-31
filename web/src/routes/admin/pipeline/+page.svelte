@@ -70,6 +70,11 @@
   $: queuePending = queueItems.filter((i) => i.status === "pending").length;
   $: queueFinished = queueItems.filter((i) => ["completed", "failed", "cancelled"].includes(i.status)).length;
   $: queueHasActive = !!queueRunning || queuePending > 0;
+  $: activeQueuedRaceIds = new Map<string, "pending" | "running">(
+    queueItems
+      .filter((i) => i.status === "running" || i.status === "pending")
+      .map((i) => [i.race_id, i.status as "pending" | "running"])
+  );
 
   function handleRaceIdInput(e: Event) {
     pipelineActions.setRaceId((e.currentTarget as HTMLInputElement).value);
@@ -164,14 +169,20 @@
 
       if (queueResult.status === "fulfilled") {
         queueItems = queueResult.value.items;
-        // If the server has a running item, sync our execution state
         const running = queueItems.find((i) => i.status === "running");
-        if (running && running.run_id && !pipeline.isExecuting) {
+        if (running && running.run_id) {
+          // Queue has an active run — this is the ground truth
           pipelineActions.setCurrentRun(running.run_id, "agent");
           pipelineActions.setExecutionState(true);
           pipelineActions.setRunStatus("running");
           startAutoRefresh();
           startElapsedTimer();
+        } else {
+          // Queue has no running item — clear any execution state set by run history
+          pipelineActions.setExecutionState(false);
+          pipelineActions.setRunStatus("idle");
+          stopElapsedTimer();
+          stopAutoRefresh();
         }
       }
     } catch (error) {
@@ -184,25 +195,26 @@
     if (!apiService) return;
     try {
       const data = await apiService.loadQueue();
-      const wasRunning = !!queueItems.find((i) => i.status === "running");
       queueItems = data.items;
       const nowRunning = queueItems.find((i) => i.status === "running");
 
-      // Sync execution state with server queue
-      if (nowRunning && nowRunning.run_id && !pipeline.isExecuting) {
-        pipelineActions.setCurrentRun(nowRunning.run_id, "agent");
-        pipelineActions.setExecutionState(true);
-        pipelineActions.setRunStatus("running");
-        startAutoRefresh();
-        startElapsedTimer();
-      }
-
-      // If was running but now finished, refresh other data
-      if (wasRunning && !nowRunning) {
-        pipelineActions.setExecutionState(false);
-        stopElapsedTimer();
-        debouncedRefresh();
-        racesTabRef?.refresh();
+      if (nowRunning && nowRunning.run_id) {
+        // A job is actively running — sync execution state if not already set
+        if (!pipeline.isExecuting) {
+          pipelineActions.setCurrentRun(nowRunning.run_id, "agent");
+          pipelineActions.setExecutionState(true);
+          pipelineActions.setRunStatus("running");
+          startAutoRefresh();
+          startElapsedTimer();
+        }
+      } else {
+        // Nothing running — clear execution state if UI thinks otherwise
+        if (pipeline.isExecuting) {
+          pipelineActions.setExecutionState(false);
+          stopElapsedTimer();
+          debouncedRefresh();
+          racesTabRef?.refresh();
+        }
       }
     } catch (e) {
       // Silently ignore poll failures
@@ -546,7 +558,11 @@
 
   <!-- Races tab -->
   {#if activeTab === "races"}
-    <RacesTab bind:this={racesTabRef} onUpdateRace={handleQueueRaceById} />
+    <RacesTab
+      bind:this={racesTabRef}
+      onUpdateRace={handleQueueRaceById}
+      activeRaceIds={activeQueuedRaceIds}
+    />
   {/if}
 
   <!-- Pipeline tab -->

@@ -127,6 +127,19 @@ def get_race(request: Request, race_id: str):
 # ---------------------------------------------------------------------------
 
 
+@app.post("/cache/clear")
+@limiter.limit("10/minute")
+def clear_cache(request: Request, x_admin_key: str = Header(default="")):
+    """Clear the in-memory GCS response cache so the next request re-fetches fresh data.
+
+    Call this after pushing new race data to GCS so the API reflects the update
+    without waiting for the TTL to expire.
+    """
+    _require_admin_key(x_admin_key)
+    publish_service.clear_cache()
+    return {"message": "Cache cleared", "cache_ttl_seconds": publish_service.cache_ttl}
+
+
 @app.get("/analytics/overview")
 async def analytics_overview(request: Request, hours: int = 24, x_admin_key: str = Header(default="")):
     """Summary stats: total requests, unique visitors, avg latency, error rate, timeseries."""

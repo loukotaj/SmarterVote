@@ -7,6 +7,7 @@
   import type { RaceAnalytics } from "$lib/types";
 
   export let onUpdateRace: (raceId: string) => void = () => {};
+  export let activeRaceIds: Map<string, "pending" | "running"> = new Map();
   export async function refresh() {
     loading = true;
     await loadData();
@@ -258,6 +259,7 @@
           </thead>
           <tbody class="divide-y divide-gray-100">
             {#each filteredRows as row (row.race_id)}
+              {@const runStatus = activeRaceIds.get(row.race_id)}
               <tr class="hover:bg-gray-50 {selected.has(row.race_id) ? 'bg-blue-50' : ''}">
                 <td class="pl-4 pr-2 py-3">
                   <input
@@ -267,7 +269,22 @@
                     class="rounded border-gray-300"
                   />
                 </td>
-                <td class="px-3 py-3 font-mono text-xs text-gray-800 whitespace-nowrap">{row.race_id}</td>
+                <td class="px-3 py-3 font-mono text-xs text-gray-800 whitespace-nowrap">
+                  <span>{row.race_id}</span>
+                  {#if runStatus === "running"}
+                    <span class="ml-1.5 inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-700">
+                      <svg class="animate-spin h-2.5 w-2.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
+                        <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                      </svg>
+                      running
+                    </span>
+                  {:else if runStatus === "pending"}
+                    <span class="ml-1.5 inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-yellow-100 text-yellow-700">
+                      queued
+                    </span>
+                  {/if}
+                </td>
                 <td class="px-3 py-3 text-gray-700 max-w-32 truncate">{row.jurisdiction ?? "—"}</td>
                 <td class="px-3 py-3 text-gray-600 max-w-40">
                   <span class="truncate block" title={row.candidates.join(", ")}>{row.candidates.join(", ") || "—"}</span>
@@ -286,10 +303,12 @@
                   <div class="flex items-center space-x-1">
                     <button
                       type="button"
-                      class="px-2 py-1 text-xs border border-gray-300 rounded hover:bg-gray-50"
+                      class="px-2 py-1 text-xs border border-gray-300 rounded hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed"
+                      disabled={!!runStatus}
+                      title={runStatus ? `${runStatus === 'running' ? 'Currently running' : 'Queued for update'}` : undefined}
                       on:click={() => onUpdateRace(row.race_id)}
                     >
-                      Update
+                      {runStatus === "running" ? "Running…" : runStatus === "pending" ? "Queued" : "Update"}
                     </button>
                   </div>
                 </td>

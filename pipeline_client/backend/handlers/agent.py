@@ -83,22 +83,34 @@ class AgentHandler:
         # Collect logs from the agent and broadcast progress via WebSocket
         agent_logs: list[Dict[str, Any]] = []
         run_id: str | None = None
+        _safe_broadcast: Any = None
+        _run_manager: Any = None
         try:
             from pipeline_client.backend.pipeline_runner import _safe_broadcast
-            from pipeline_client.backend.run_manager import run_manager
-            active = next(iter(run_manager.list_active_runs()), None)
+            from pipeline_client.backend.run_manager import run_manager as _run_manager
+            active = next(iter(_run_manager.list_active_runs()), None)
             run_id = active.run_id if active else None
         except Exception:
             pass
 
+        # Phase sub-step tracking (list cells allow mutation inside the closure)
+        _cur_step: list[str | None] = [None]
+        _step_t0: list[float] = [0.0]
+
         def on_log(level: str, message: str) -> None:
-            agent_logs.append(
-                {
-                    "level": level,
-                    "message": message,
-                    "timestamp": datetime.now(timezone.utc).isoformat(),
-                }
-            )
+            log_entry = {
+                "level": level,
+                "message": message,
+                "timestamp": datetime.now(timezone.utc).isoformat(),
+            }
+            agent_logs.append(log_entry)
+            # Mirror agent-internal messages into run_info.logs so the Logs tab
+            # shows full verbosity for both live and historical runs.
+            if run_id and _run_manager:
+                try:
+                    _run_manager.add_run_log(run_id, log_entry)
+                except Exception:
+                    pass
             progress_hit = _detect_progress(message)
             if progress_hit and run_id:
                 pct, label = progress_hit
@@ -106,6 +118,20 @@ class AgentHandler:
                     _safe_broadcast({"type": "run_progress", "run_id": run_id, "progress": pct, "message": label})
                 except Exception:
                     pass
+                # Reflect phase transitions as discrete RunManager sub-steps so the
+                # Steps tab in the admin UI shows granular progress.
+                if label != _cur_step[0]:
+                    try:
+                        from pipeline_client.backend.models import RunStatus
+                        if _cur_step[0]:
+                            dur = int((time.perf_counter() - _step_t0[0]) * 1000)
+                            _run_manager.update_step_status(run_id, _cur_step[0], RunStatus.COMPLETED, duration_ms=dur)
+                        _cur_step[0] = label
+                        _step_t0[0] = time.perf_counter()
+                        _run_manager.add_step(run_id, label)
+                        _run_manager.update_step_status(run_id, label, RunStatus.RUNNING)
+                    except Exception:
+                        pass
 
 
         # Run the agent
@@ -120,6 +146,15 @@ class AgentHandler:
             gemini_model=options.get("gemini_model"),
             grok_model=options.get("grok_model"),
         )
+
+        # Complete the last active phase sub-step
+        if run_id and _cur_step[0]:
+            try:
+                from pipeline_client.backend.models import RunStatus
+                dur = int((time.perf_counter() - _step_t0[0]) * 1000)
+                _run_manager.update_step_status(run_id, _cur_step[0], RunStatus.COMPLETED, duration_ms=dur)
+            except Exception:
+                pass
 
         # Publish to local filesystem
         published_path = await self._publish(race_id, race_json)

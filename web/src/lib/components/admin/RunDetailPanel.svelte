@@ -101,6 +101,11 @@
     }
   }
 
+  function breakdownTokens(counts: unknown): number {
+    const c = counts as { prompt_tokens?: number; completion_tokens?: number };
+    return (c?.prompt_tokens ?? 0) + (c?.completion_tokens ?? 0);
+  }
+
   async function loadRun() {
     try {
       error = "";
@@ -182,8 +187,9 @@
           {/if}
           {#if run.options?.research_model}
             <span class="font-mono">{run.options.research_model}</span>
-          {/if}
-        {/if}
+          {/if}          {#if run.options?.note}
+            <span class="italic text-gray-400">"{run.options.note}"</span>
+          {/if}        {/if}
       </div>
     </div>
   </div>
@@ -349,6 +355,7 @@
               <div class="space-y-4">
                 <!-- Quick summary if it looks like RaceJSON -->
                 {#if Array.isArray(d.candidates)}
+                  {@const metrics = d.agent_metrics ?? d.output?.race_json?.agent_metrics ?? d.output?.agent_metrics ?? null}
                   <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
                     <div class="bg-gray-50 rounded-lg p-3">
                       <p class="text-xs text-gray-500">Race</p>
@@ -367,6 +374,43 @@
                       <p class="text-sm font-semibold">{d.updated_utc ? new Date(d.updated_utc).toLocaleDateString() : "—"}</p>
                     </div>
                   </div>
+                  {#if metrics}
+                    <!-- Agent metrics card -->
+                    <div class="border border-gray-200 rounded-lg p-4 bg-gray-50">
+                      <h4 class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Agent Metrics</h4>
+                      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-3">
+                        <div>
+                          <p class="text-xs text-gray-400">Total Tokens</p>
+                          <p class="text-sm font-semibold text-gray-800">{(metrics.total_tokens ?? 0).toLocaleString()}</p>
+                        </div>
+                        <div>
+                          <p class="text-xs text-gray-400">Est. Cost</p>
+                          <p class="text-sm font-semibold text-gray-800">{metrics.estimated_usd != null ? (metrics.estimated_usd < 0.001 ? '<$0.001' : `$${metrics.estimated_usd.toFixed(4)}`) : '—'}</p>
+                        </div>
+                        <div>
+                          <p class="text-xs text-gray-400">Duration</p>
+                          <p class="text-sm font-semibold text-gray-800">{metrics.duration_s != null ? `${Math.round(metrics.duration_s)}s` : '—'}</p>
+                        </div>
+                        <div>
+                          <p class="text-xs text-gray-400">Primary Model</p>
+                          <p class="text-sm font-semibold text-gray-800 truncate">{metrics.model ?? '—'}</p>
+                        </div>
+                      </div>
+                      {#if metrics.model_breakdown && Object.keys(metrics.model_breakdown).length > 1}
+                        <div class="border-t border-gray-200 pt-2">
+                          <p class="text-xs text-gray-400 mb-1.5">Model Breakdown</p>
+                          <div class="space-y-1">
+                            {#each Object.entries(metrics.model_breakdown) as [model, counts]}
+                              <div class="flex items-center justify-between text-xs">
+                                <span class="font-mono text-gray-600 truncate max-w-48">{model}</span>
+                                <span class="text-gray-500 shrink-0 ml-2">{breakdownTokens(counts).toLocaleString()} tok</span>
+                              </div>
+                            {/each}
+                          </div>
+                        </div>
+                      {/if}
+                    </div>
+                  {/if}
                   <!-- Candidate cards -->
                   {#each d.candidates as candidate}
                     <div class="border border-gray-200 rounded-lg p-4">

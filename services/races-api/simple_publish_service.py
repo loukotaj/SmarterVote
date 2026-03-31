@@ -8,8 +8,10 @@ import json
 import logging
 import os
 import sys
+import threading
+import time
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Tuple
 
 # Add project root to path for shared imports
 sys.path.append(os.path.join(os.path.dirname(__file__), "..", ".."))
@@ -17,6 +19,9 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "..", ".."))
 from shared.models import RaceJSON
 
 logger = logging.getLogger(__name__)
+
+# Default TTL for in-memory GCS response cache. Set CACHE_TTL_SECONDS=0 to disable.
+_DEFAULT_CACHE_TTL = 300
 
 
 class SimplePublishService:
@@ -28,14 +33,33 @@ class SimplePublishService:
             self.data_directory.mkdir(parents=True, exist_ok=True)
 
         # Cloud storage configuration
-        self.cloud_enabled = self._detect_cloud_environment()
         self.gcs_bucket_name = os.getenv("GCS_BUCKET_NAME")
+        # cloud_configured = env vars are present (doesn't change after startup)
+        self.cloud_configured = self._detect_cloud_environment()
         self.gcs_client = None
 
-        if self.cloud_enabled:
+        if self.cloud_configured:
             self._initialize_cloud_client()
 
-        logger.info(f"Initialized SimplePublishService: local={self.data_directory}, cloud_enabled={self.cloud_enabled}")
+        # In-memory TTL cache so repeated requests don't hammer GCS.
+        # Disabled when CACHE_TTL_SECONDS=0. Cache is cleared via clear_cache().
+        self.cache_ttl = int(os.getenv("CACHE_TTL_SECONDS", str(_DEFAULT_CACHE_TTL)))
+        self._race_list_cache: Optional[Tuple[List[str], float]] = None
+        self._race_data_cache: Dict[str, Tuple[Dict, float]] = {}
+        self._cache_lock = threading.Lock()
+
+        logger.info(
+            "Initialized SimplePublishService: local=%s, cloud_configured=%s, " "gcs_client_ok=%s, cache_ttl=%ds",
+            self.data_directory,
+            self.cloud_configured,
+            self.gcs_client is not None,
+            self.cache_ttl,
+        )
+
+    @property
+    def cloud_enabled(self) -> bool:
+        """True when cloud is configured AND a GCS client is available."""
+        return self.cloud_configured and self.gcs_client is not None
 
     def _detect_cloud_environment(self) -> bool:
         """Detect if we're running in a cloud environment."""
@@ -46,25 +70,83 @@ class SimplePublishService:
             "GAE_APPLICATION": os.getenv("GAE_APPLICATION"),
         }
         found = {k: v for k, v in cloud_indicators.items() if v}
-        bucket = os.getenv("GCS_BUCKET_NAME")
-        logger.info(f"Cloud detection: indicators={found}, GCS_BUCKET_NAME={bucket!r}")
+        bucket = self.gcs_bucket_name
+        logger.info("Cloud detection: indicators=%s, GCS_BUCKET_NAME=%r", found, bucket)
         result = bool(found) and bool(bucket)
-        logger.info(f"Cloud mode: {result}")
+        logger.info("Cloud configured: %s", result)
         return result
 
-    def _initialize_cloud_client(self):
-        """Initialize Google Cloud Storage client if available."""
+    def _initialize_cloud_client(self) -> None:
+        """Try to initialize the GCS client.
+
+        On a transient failure (e.g. ADC not ready at cold start) gcs_client stays
+        None but cloud_configured remains True so the *next* request retries.
+        Only permanently disables cloud when the library is not installed.
+        """
         try:
             from google.cloud import storage
 
             self.gcs_client = storage.Client()
-            logger.info(f"Initialized GCS client for bucket: {self.gcs_bucket_name}")
+            logger.info("Initialized GCS client for bucket: %s", self.gcs_bucket_name)
         except ImportError:
-            logger.warning("Google Cloud Storage client not available — install google-cloud-storage")
-            self.cloud_enabled = False
+            logger.warning("google-cloud-storage not installed — disabling cloud mode")
+            self.cloud_configured = False  # permanent: package missing
         except Exception as e:
-            logger.warning(f"Failed to initialize GCS client: {e}", exc_info=True)
-            self.cloud_enabled = False
+            logger.warning("GCS client init failed (will retry on next request): %s", e, exc_info=True)
+            # Leave cloud_configured=True so the next request calls _initialize_cloud_client again
+
+    def _get_gcs_client(self):
+        """Return the GCS client, lazily re-initializing if a previous attempt failed."""
+        if self.gcs_client is not None:
+            return self.gcs_client
+        if not self.cloud_configured:
+            return None
+        self._initialize_cloud_client()
+        return self.gcs_client
+
+    # ------------------------------------------------------------------
+    # Cache helpers
+    # ------------------------------------------------------------------
+
+    def clear_cache(self) -> None:
+        """Discard all in-memory cached race data; next request re-fetches from GCS."""
+        with self._cache_lock:
+            self._race_list_cache = None
+            self._race_data_cache.clear()
+        logger.info("In-memory cache cleared")
+
+    def _cache_get_race_list(self) -> Optional[List[str]]:
+        with self._cache_lock:
+            if self._race_list_cache is None:
+                return None
+            data, expiry = self._race_list_cache
+            if time.monotonic() < expiry:
+                return data
+            self._race_list_cache = None
+            return None
+
+    def _cache_set_race_list(self, data: List[str]) -> None:
+        if self.cache_ttl <= 0:
+            return
+        with self._cache_lock:
+            self._race_list_cache = (data, time.monotonic() + self.cache_ttl)
+
+    def _cache_get_race(self, race_id: str) -> Optional[Dict]:
+        with self._cache_lock:
+            entry = self._race_data_cache.get(race_id)
+            if entry is None:
+                return None
+            data, expiry = entry
+            if time.monotonic() < expiry:
+                return data
+            del self._race_data_cache[race_id]
+            return None
+
+    def _cache_set_race(self, race_id: str, data: Dict) -> None:
+        if self.cache_ttl <= 0:
+            return
+        with self._cache_lock:
+            self._race_data_cache[race_id] = (data, time.monotonic() + self.cache_ttl)
 
     def get_published_races(self) -> List[str]:
         """List available race IDs.
@@ -72,20 +154,27 @@ class SimplePublishService:
         In cloud mode, GCS is the source of truth.
         In local mode, scan the local published directory.
         """
-        race_ids = set()
+        cached = self._cache_get_race_list()
+        if cached is not None:
+            return cached
 
-        if self.cloud_enabled and self.gcs_client:
+        race_ids = set()
+        client = self._get_gcs_client()
+
+        if client:
             try:
-                logger.info(f"Listing races from GCS bucket: {self.gcs_bucket_name}")
-                bucket = self.gcs_client.bucket(self.gcs_bucket_name)
+                logger.info("Listing races from GCS bucket: %s", self.gcs_bucket_name)
+                bucket = client.bucket(self.gcs_bucket_name)
                 for blob in bucket.list_blobs(prefix="races/"):
-                    logger.debug(f"  GCS blob: {blob.name}")
+                    logger.debug("  GCS blob: %s", blob.name)
                     if blob.name.endswith(".json"):
                         race_ids.add(blob.name[len("races/") : -len(".json")])
-                logger.info(f"Listed {len(race_ids)} races from GCS: {sorted(race_ids)}")
-                return sorted(race_ids)
+                logger.info("Listed %d races from GCS: %s", len(race_ids), sorted(race_ids))
+                result = sorted(race_ids)
+                self._cache_set_race_list(result)
+                return result
             except Exception as e:
-                logger.warning(f"Error listing races from GCS, falling back to local: {e}", exc_info=True)
+                logger.warning("Error listing races from GCS, falling back to local: %s", e, exc_info=True)
 
         # Local mode (or GCS list failed)
         if self.data_directory.exists():
@@ -106,15 +195,21 @@ class SimplePublishService:
         """Retrieve race data by ID from local files or cloud storage.
 
         Priority:
-        - Cloud mode: GCS first (always fresh), local as fallback
+        - Cloud mode: GCS first (TTL-cached), local as fallback
         - Local mode: local files only
         """
-        if self.cloud_enabled:
-            data = self._get_race_data_cloud(race_id)
+        cached = self._cache_get_race(race_id)
+        if cached is not None:
+            return cached
+
+        client = self._get_gcs_client()
+        if client:
+            data = self._get_race_data_cloud(race_id, client)
             if data:
+                self._cache_set_race(race_id, data)
                 return data
             # GCS miss — fall back to local (e.g. bootstrap data baked into image)
-            logger.debug(f"GCS miss for {race_id}, falling back to local")
+            logger.debug("GCS miss for %s, falling back to local", race_id)
 
         return self._get_race_data_local(race_id)
 
@@ -148,13 +243,15 @@ class SimplePublishService:
 
         return None
 
-    def _get_race_data_cloud(self, race_id: str) -> Optional[Dict]:
+    def _get_race_data_cloud(self, race_id: str, client=None) -> Optional[Dict]:
         """Get race data from cloud storage."""
-        if not self.cloud_enabled or not self.gcs_client:
+        if client is None:
+            client = self._get_gcs_client()
+        if not client:
             return None
 
         try:
-            bucket = self.gcs_client.bucket(self.gcs_bucket_name)
+            bucket = client.bucket(self.gcs_bucket_name)
             blob_name = f"races/{race_id}.json"
             blob = bucket.blob(blob_name)
 
@@ -163,22 +260,12 @@ class SimplePublishService:
 
             data_str = blob.download_as_text()
             data = json.loads(data_str)
-            logger.debug(f"Loaded race {race_id} from cloud storage")
+            logger.debug("Loaded race %s from cloud storage", race_id)
             return data
 
         except Exception as e:
-            logger.warning(f"Error reading from cloud storage for race {race_id}: {e}")
+            logger.warning("Error reading from cloud storage for race %s: %s", race_id, e)
             return None
-
-    def _cache_race_data_locally(self, race_id: str, data: Dict):
-        """Cache race data locally for faster future access."""
-        try:
-            file_path = self.data_directory / f"{race_id}.json"
-            with open(file_path, "w", encoding="utf-8") as f:
-                json.dump(data, f, indent=2, ensure_ascii=False, default=str)
-            logger.debug(f"Cached race {race_id} locally")
-        except Exception as e:
-            logger.warning(f"Failed to cache race {race_id} locally: {e}")
 
     def get_race(self, race_id: str) -> Optional[RaceJSON]:
         """Retrieve race data as RaceJSON model."""

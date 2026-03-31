@@ -32,7 +32,11 @@ class AnalyticsMiddleware(BaseHTTPMiddleware):
 
         store = getattr(request.app.state, "analytics", None)
         if store is not None:
-            client_ip = request.client.host if request.client else None
+            # Cloud Run (and most reverse proxies) forward the real client IP in
+            # X-Forwarded-For. The header may contain a comma-separated chain of
+            # IPs; the leftmost value is the original caller.
+            xff = request.headers.get("x-forwarded-for")
+            client_ip = xff.split(",")[0].strip() if xff else (request.client.host if request.client else None)
             referer = request.headers.get("referer")
             # Fire-and-forget — never delay the response
             asyncio.create_task(
