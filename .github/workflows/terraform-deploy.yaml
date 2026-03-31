@@ -127,27 +127,6 @@ jobs:
     - name: Setup Google Cloud SDK
       uses: google-github-actions/setup-gcloud@v2
 
-    - name: Diagnose IAM identity and permissions
-      run: |
-        echo "=== Active identity ==="
-        gcloud auth list
-
-        ACTIVE=$(gcloud auth list --filter=status:ACTIVE --format="value(account)")
-        echo "Active account: $ACTIVE"
-
-        echo ""
-        echo "=== IAM roles bound to active account ==="
-        gcloud projects get-iam-policy ${{ env.PROJECT_ID }} \
-          --flatten="bindings[].members" \
-          --filter="bindings.members:$ACTIVE" \
-          --format="table(bindings.role)"
-
-        echo ""
-        echo "=== Test specific failing permissions ==="
-        gcloud projects test-iam-permissions ${{ env.PROJECT_ID }} \
-          --permissions="logging.logMetrics.get,logging.logMetrics.create,datastore.databases.get,firebase.projects.get" \
-          --format=json
-
     - name: Sync API keys to Secret Manager
       if: env.ACTION == 'apply' || github.event_name != 'workflow_dispatch'
       env:
