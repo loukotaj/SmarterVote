@@ -62,7 +62,8 @@ logger = logging.getLogger("pipeline")
 # ---------------------------------------------------------------------------
 
 DEFAULT_MODEL = "gpt-5.4"
-CHEAP_MODEL = "gpt-5.4-mini"
+CHEAP_MODEL  = "gpt-5.4-mini"
+NANO_MODEL   = "gpt-5-nano"   # fastest/cheapest — used for focused sub-tasks in cheap mode
 
 # ---------------------------------------------------------------------------
 # Web search tool definition for OpenAI function calling
@@ -917,6 +918,9 @@ async def run_agent(
     )
 
     model = research_model or (CHEAP_MODEL if cheap_mode else DEFAULT_MODEL)
+    # Nano handles focused sub-tasks (issue sub-agents, image resolution, roster sync)
+    # in cheap mode; falls back to the same model in full mode.
+    small_model = NANO_MODEL if cheap_mode else model
     log = make_logger(on_log)
     t0 = time.perf_counter()
 
@@ -928,11 +932,11 @@ async def run_agent(
         existing_data = _load_existing(race_id)
 
     if existing_data:
-        log("info", f"🔄 Update mode for {race_id} (model={model})")
-        race_json = await _run_update(race_id, existing_data, model=model, on_log=on_log, max_iterations=max_iterations)
+        log("info", f"🔄 Update mode for {race_id} (model={model}, small_model={small_model})")
+        race_json = await _run_update(race_id, existing_data, model=model, small_model=small_model, on_log=on_log, max_iterations=max_iterations)
     else:
-        log("info", f"🆕 New research for {race_id} (model={model})")
-        race_json = await _run_fresh(race_id, model=model, on_log=on_log, max_iterations=max_iterations)
+        log("info", f"🆕 New research for {race_id} (model={model}, small_model={small_model})")
+        race_json = await _run_fresh(race_id, model=model, small_model=small_model, on_log=on_log, max_iterations=max_iterations)
 
     # LLMs sometimes wrap their output in {"race_json": {...}} — unwrap it so
     # metadata we add below lands at the top level, not buried inside a key.
@@ -944,8 +948,8 @@ async def run_agent(
     now_iso = datetime.now(timezone.utc).isoformat()
     race_json["updated_utc"] = now_iso
 
-    # Record the models actually used
-    generators = [model]
+    # Record the models actually used (deduplicated — nano == model in full mode)
+    generators = list(dict.fromkeys([model, small_model]))  # preserves order, drops duplicates
     if enable_review:
         if os.getenv("ANTHROPIC_API_KEY"):
             generators.append(claude_model or (CHEAP_CLAUDE_MODEL if cheap_mode else DEFAULT_CLAUDE_MODEL))
@@ -1209,10 +1213,15 @@ async def _run_fresh(
     race_id: str,
     *,
     model: str,
+    small_model: str,
     on_log: Any | None = None,
     max_iterations: int = 15,
 ) -> Dict[str, Any]:
-    """Phase 1 → 2 → 3: Discovery → Issue research → Refinement."""
+    """Phase 1 → 2 → 3: Discovery → Issue research → Refinement.
+
+    *model* is used for complex phases (discovery, finance, refinement).
+    *small_model* is used for focused sub-tasks (image resolution, per-issue sub-agents).
+    """
     log = make_logger(on_log)
 
     # --- Phase 1: Discovery ---
@@ -1242,7 +1251,7 @@ async def _run_fresh(
     await resolve_candidate_images(
         race_json,
         agent_loop_fn=_agent_loop,
-        model=model,
+        model=small_model,
         on_log=on_log,
         race_id=race_id,
         max_iterations=min(max_iterations, 10),
@@ -1256,7 +1265,7 @@ async def _run_fresh(
             cand_name,
             race_json,
             race_id=race_id,
-            model=model,
+            model=small_model,
             on_log=on_log,
             max_iterations=max_iterations,
             is_update=False,
@@ -1353,10 +1362,15 @@ async def _run_update(
     existing: Dict[str, Any],
     *,
     model: str,
+    small_model: str,
     on_log: Any | None = None,
     max_iterations: int = 15,
 ) -> Dict[str, Any]:
-    """Phase-based update mirroring _run_fresh but starting from existing data."""
+    """Phase-based update mirroring _run_fresh but starting from existing data.
+
+    *model* is used for complex phases (meta update, finance, refinement).
+    *small_model* is used for focused sub-tasks (roster sync, per-issue sub-agents, images).
+    """
     log = make_logger(on_log)
 
     # Start from a deep copy of existing so we never mutate the original
@@ -1370,7 +1384,7 @@ async def _run_update(
 
     if not candidate_names:
         log("warning", "No candidates in existing data — falling back to fresh run")
-        return await _run_fresh(race_id, model=model, on_log=on_log, max_iterations=max_iterations)
+        return await _run_fresh(race_id, model=model, small_model=small_model, on_log=on_log, max_iterations=max_iterations)
 
     refine_iters = _scale_iterations(max_iterations, n, per_candidate=2, minimum=12)
     handlers = _make_editing_handlers(race_json, log)
@@ -1385,7 +1399,7 @@ async def _run_update(
                 last_updated=last_updated,
                 candidate_names=", ".join(candidate_names),
             ),
-            model=model,
+            model=small_model,
             on_log=on_log,
             race_id=race_id,
             max_iterations=max(8, max_iterations // 2),
@@ -1404,7 +1418,7 @@ async def _run_update(
 
     if not candidate_names:
         log("warning", "No candidates after roster sync — falling back to fresh run")
-        return await _run_fresh(race_id, model=model, on_log=on_log, max_iterations=max_iterations)
+        return await _run_fresh(race_id, model=model, small_model=small_model, on_log=on_log, max_iterations=max_iterations)
 
     # --- Phase 1: Meta update (tools mode — summaries, polls, race fields) ---
     meta_iters = _scale_iterations(max_iterations, n, per_candidate=2, minimum=10)
@@ -1438,7 +1452,7 @@ async def _run_update(
             cand_name,
             race_json,
             race_id=race_id,
-            model=model,
+            model=small_model,
             on_log=on_log,
             max_iterations=max_iterations,
             is_update=True,
@@ -1527,7 +1541,7 @@ async def _run_update(
     await resolve_candidate_images(
         race_json,
         agent_loop_fn=_agent_loop,
-        model=model,
+        model=small_model,
         on_log=on_log,
         race_id=race_id,
         max_iterations=min(max_iterations, 10),
