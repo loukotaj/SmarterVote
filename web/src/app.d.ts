@@ -10,4 +10,10 @@ declare global {
   }
 }
 
+declare module 'topojson-client' {
+  import type { GeoJSON } from 'geojson';
+  export function feature(topology: object, object: object): GeoJSON.FeatureCollection;
+  export function mesh(topology: object, object?: object, filter?: (a: object, b: object) => boolean): GeoJSON.MultiLineString;
+}
+
 export {};
