@@ -35,15 +35,15 @@
   }
 </script>
 
-<div class="border-b border-gray-200 mb-6">
+<div class="border-b border-stroke mb-6">
   <nav class="-mb-px flex space-x-1" aria-label="Admin tabs">
     {#each tabs as tab}
       <button
         type="button"
         class="relative px-5 py-3 text-sm font-medium transition-colors rounded-t-lg focus:outline-none
           {activeTab === tab.id
-            ? 'border-b-2 border-blue-600 text-blue-700 bg-blue-50'
-            : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'}"
+            ? 'border-b-2 border-blue-600 dark:border-blue-400 text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-900/20'
+            : 'text-content-subtle hover:text-content-muted hover:bg-surface-alt'}"
         on:click={() => selectTab(tab.id)}
         aria-selected={activeTab === tab.id}
         role="tab"

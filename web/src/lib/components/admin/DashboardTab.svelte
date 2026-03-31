@@ -147,10 +147,10 @@
 
   function severityClass(s: string) {
     return s === "critical"
-      ? "bg-red-50 border-red-200 text-red-800"
+      ? "bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-700 text-red-800 dark:text-red-200"
       : s === "warning"
-        ? "bg-yellow-50 border-yellow-200 text-yellow-800"
-        : "bg-blue-50 border-blue-200 text-blue-800";
+        ? "bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-700 text-yellow-800 dark:text-yellow-200"
+        : "bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-700 text-blue-800 dark:text-blue-200";
   }
 
   function severityBadge(s: string) {
@@ -177,14 +177,14 @@
 
 <!-- Time range selector -->
 <div class="flex items-center justify-between mb-4">
-  <div class="flex items-center gap-1 bg-gray-100 rounded-lg p-1">
+  <div class="flex items-center gap-1 bg-surface-alt rounded-lg p-1">
     {#each TIME_RANGES as range}
       <button
         type="button"
         class="px-3 py-1 rounded-md text-sm font-medium transition-colors
           {selectedHours === range.value
-            ? 'bg-white text-gray-900 shadow-sm'
-            : 'text-gray-500 hover:text-gray-700'}"
+            ? 'bg-surface text-content shadow-sm'
+            : 'text-content-subtle hover:text-content-muted'}"
         on:click={() => handleRangeChange(range.value)}
       >
         {range.label}
@@ -196,7 +196,7 @@
 
 {#if loading}
   <div class="flex items-center justify-center py-16">
-    <div class="flex items-center space-x-3 text-gray-500">
+    <div class="flex items-center space-x-3 text-content-subtle">
       <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
         <path
@@ -212,20 +212,20 @@
   <!-- Stat cards -->
   <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
     <div class="card p-4">
-      <p class="text-xs font-medium text-gray-500 uppercase tracking-wide">Requests ({rangeLabel})</p>
-      <p class="mt-1 text-2xl font-bold text-gray-900">{(overview?.total_requests ?? 0).toLocaleString()}</p>
+      <p class="text-xs font-medium text-content-subtle uppercase tracking-wide">Requests ({rangeLabel})</p>
+      <p class="mt-1 text-2xl font-bold text-content">{(overview?.total_requests ?? 0).toLocaleString()}</p>
     </div>
     <div class="card p-4">
-      <p class="text-xs font-medium text-gray-500 uppercase tracking-wide">Unique Visitors</p>
-      <p class="mt-1 text-2xl font-bold text-gray-900">{(overview?.unique_visitors ?? 0).toLocaleString()}</p>
+      <p class="text-xs font-medium text-content-subtle uppercase tracking-wide">Unique Visitors</p>
+      <p class="mt-1 text-2xl font-bold text-content">{(overview?.unique_visitors ?? 0).toLocaleString()}</p>
     </div>
     <div class="card p-4">
-      <p class="text-xs font-medium text-gray-500 uppercase tracking-wide">Avg Latency</p>
-      <p class="mt-1 text-2xl font-bold text-gray-900">{overview?.avg_latency_ms ?? 0}<span class="text-sm font-normal text-gray-500 ml-1">ms</span></p>
+      <p class="text-xs font-medium text-content-subtle uppercase tracking-wide">Avg Latency</p>
+      <p class="mt-1 text-2xl font-bold text-content">{overview?.avg_latency_ms ?? 0}<span class="text-sm font-normal text-content-subtle ml-1">ms</span></p>
     </div>
     <div class="card p-4">
-      <p class="text-xs font-medium text-gray-500 uppercase tracking-wide">Error Rate</p>
-      <p class="mt-1 text-2xl font-bold {(overview?.error_rate ?? 0) > 5 ? 'text-red-600' : 'text-gray-900'}">
+      <p class="text-xs font-medium text-content-subtle uppercase tracking-wide">Error Rate</p>
+      <p class="mt-1 text-2xl font-bold {(overview?.error_rate ?? 0) > 5 ? 'text-red-600' : 'text-content'}">
         {overview?.error_rate ?? 0}%
       </p>
     </div>
@@ -235,24 +235,24 @@
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
     <!-- Requests over time -->
     <div class="card p-4 lg:col-span-2">
-      <h3 class="text-sm font-semibold text-gray-700 mb-3">Requests over Time ({rangeLabel})</h3>
+      <h3 class="text-sm font-semibold text-content-muted mb-3">Requests over Time ({rangeLabel})</h3>
       {#if (overview?.timeseries?.length ?? 0) > 0}
         <div class="h-40">
           <Line data={lineData} options={lineOptions} />
         </div>
       {:else}
-        <div class="h-40 flex items-center justify-center text-gray-400 text-sm">No data yet</div>
+        <div class="h-40 flex items-center justify-center text-content-faint text-sm">No data yet</div>
       {/if}
     </div>
     <!-- By race -->
     <div class="card p-4">
-      <h3 class="text-sm font-semibold text-gray-700 mb-3">Requests by Race ({rangeLabel})</h3>
+      <h3 class="text-sm font-semibold text-content-muted mb-3">Requests by Race ({rangeLabel})</h3>
       {#if raceRequests.length > 0}
         <div class="h-40">
           <Doughnut data={donutData} options={donutOptions} />
         </div>
       {:else}
-        <div class="h-40 flex items-center justify-center text-gray-400 text-sm">No data yet</div>
+        <div class="h-40 flex items-center justify-center text-content-faint text-sm">No data yet</div>
       {/if}
     </div>
   </div>
@@ -262,7 +262,7 @@
     <!-- Alerts panel -->
     <div class="card p-4">
       <div class="flex items-center justify-between mb-3">
-        <h3 class="text-sm font-semibold text-gray-700">Alerts</h3>
+        <h3 class="text-sm font-semibold text-content-muted">Alerts</h3>
         <div class="flex items-center space-x-2">
           {#if unacknowledgedAlerts.length > 0}
             <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-red-500 text-white">
@@ -280,7 +280,7 @@
       {#if error}
         <p class="text-xs text-red-500">{error}</p>
       {:else if alerts.filter((a) => !a.acknowledged).length === 0}
-        <p class="text-sm text-gray-400 py-4 text-center">No active alerts ✓</p>
+        <p class="text-sm text-content-faint py-4 text-center">No active alerts ✓</p>
       {:else}
         <div class="space-y-2 max-h-64 overflow-y-auto pr-1">
           {#each alerts.filter((a) => !a.acknowledged) as alert (alert.id)}
@@ -312,23 +312,23 @@
 
     <!-- Recent pipeline runs -->
     <div class="card p-4">
-      <h3 class="text-sm font-semibold text-gray-700 mb-3">Recent Pipeline Runs</h3>
+      <h3 class="text-sm font-semibold text-content-muted mb-3">Recent Pipeline Runs</h3>
       {#if recentRuns.length === 0}
-        <p class="text-sm text-gray-400 py-4 text-center">No recent runs</p>
+        <p class="text-sm text-content-faint py-4 text-center">No recent runs</p>
       {:else}
         <div class="space-y-1 max-h-64 overflow-y-auto">
           {#each recentRuns.slice(0, 10) as run (run.run_id)}
             {@const race_id = run.payload?.race_id ?? "—"}
-            <div class="flex items-center justify-between text-xs py-1 border-b border-gray-100 last:border-0">
-              <span class="font-mono text-gray-700 truncate max-w-40">{race_id}</span>
+            <div class="flex items-center justify-between text-xs py-1 border-b border-stroke last:border-0">
+              <span class="font-mono text-content-muted truncate max-w-40">{race_id}</span>
               <div class="flex items-center space-x-2 shrink-0">
                 <span
                   class="px-1.5 py-0.5 rounded text-xs font-medium
-                    {run.status === 'completed' ? 'bg-green-100 text-green-700' : run.status === 'failed' ? 'bg-red-100 text-red-700' : run.status === 'running' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-600'}"
+                    {run.status === 'completed' ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-200' : run.status === 'failed' ? 'bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-200' : run.status === 'running' ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-200' : 'bg-surface-alt text-content-muted'}"
                 >
                   {run.status}
                 </span>
-                <span class="text-gray-400">{formatDate(run.started_at)}</span>
+                <span class="text-content-faint">{formatDate(run.started_at)}</span>
               </div>
             </div>
           {/each}
@@ -339,29 +339,29 @@
 
   <!-- Pipeline Cost Metrics -->
   <div class="mt-6">
-    <h2 class="text-base font-semibold text-gray-800 mb-3">Pipeline Cost & Usage</h2>
+    <h2 class="text-base font-semibold text-content mb-3">Pipeline Cost & Usage</h2>
 
     <!-- Summary stat cards -->
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
       <div class="card p-4">
-        <p class="text-xs font-medium text-gray-500 uppercase tracking-wide">Total Runs</p>
-        <p class="mt-1 text-2xl font-bold text-gray-900">{pipelineSummary?.total_runs ?? "—"}</p>
+        <p class="text-xs font-medium text-content-subtle uppercase tracking-wide">Total Runs</p>
+        <p class="mt-1 text-2xl font-bold text-content">{pipelineSummary?.total_runs ?? "—"}</p>
       </div>
       <div class="card p-4">
-        <p class="text-xs font-medium text-gray-500 uppercase tracking-wide">Total Spend</p>
-        <p class="mt-1 text-2xl font-bold text-gray-900">
+        <p class="text-xs font-medium text-content-subtle uppercase tracking-wide">Total Spend</p>
+        <p class="mt-1 text-2xl font-bold text-content">
           {pipelineSummary ? formatUsd(pipelineSummary.total_usd) : "—"}
         </p>
       </div>
       <div class="card p-4">
-        <p class="text-xs font-medium text-gray-500 uppercase tracking-wide">Avg / Run</p>
-        <p class="mt-1 text-2xl font-bold text-gray-900">
+        <p class="text-xs font-medium text-content-subtle uppercase tracking-wide">Avg / Run</p>
+        <p class="mt-1 text-2xl font-bold text-content">
           {pipelineSummary ? formatUsd(pipelineSummary.avg_usd) : "—"}
         </p>
       </div>
       <div class="card p-4">
-        <p class="text-xs font-medium text-gray-500 uppercase tracking-wide">Last 30 Days</p>
-        <p class="mt-1 text-2xl font-bold text-gray-900">
+        <p class="text-xs font-medium text-content-subtle uppercase tracking-wide">Last 30 Days</p>
+        <p class="mt-1 text-2xl font-bold text-content">
           {pipelineSummary ? formatUsd(pipelineSummary.recent_30d_usd) : "—"}
         </p>
       </div>
@@ -369,47 +369,47 @@
 
     <!-- Per-run table -->
     <div class="card overflow-hidden">
-      <div class="px-4 py-3 border-b border-gray-100">
-        <h3 class="text-sm font-semibold text-gray-700">Recent Runs</h3>
+      <div class="px-4 py-3 border-b border-stroke">
+        <h3 class="text-sm font-semibold text-content-muted">Recent Runs</h3>
       </div>
       {#if pipelineRecords.length === 0}
-        <p class="text-sm text-gray-400 py-6 text-center">No pipeline metrics recorded yet</p>
+        <p class="text-sm text-content-faint py-6 text-center">No pipeline metrics recorded yet</p>
       {:else}
         <div class="overflow-x-auto">
           <table class="min-w-full text-xs">
-            <thead class="bg-gray-50">
+            <thead class="bg-surface-alt">
               <tr>
-                <th class="px-3 py-2 text-left font-medium text-gray-500">Race</th>
-                <th class="px-3 py-2 text-left font-medium text-gray-500">Status</th>
-                <th class="px-3 py-2 text-left font-medium text-gray-500">Model</th>
-                <th class="px-3 py-2 text-right font-medium text-gray-500">Tokens</th>
-                <th class="px-3 py-2 text-right font-medium text-gray-500">Cost</th>
-                <th class="px-3 py-2 text-right font-medium text-gray-500">Duration</th>
-                <th class="px-3 py-2 text-left font-medium text-gray-500">Time</th>
+                <th class="px-3 py-2 text-left font-medium text-content-subtle">Race</th>
+                <th class="px-3 py-2 text-left font-medium text-content-subtle">Status</th>
+                <th class="px-3 py-2 text-left font-medium text-content-subtle">Model</th>
+                <th class="px-3 py-2 text-right font-medium text-content-subtle">Tokens</th>
+                <th class="px-3 py-2 text-right font-medium text-content-subtle">Cost</th>
+                <th class="px-3 py-2 text-right font-medium text-content-subtle">Duration</th>
+                <th class="px-3 py-2 text-left font-medium text-content-subtle">Time</th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-gray-100">
+            <tbody class="divide-y divide-stroke">
               {#each pipelineRecords as rec (rec.run_id)}
-                <tr class="hover:bg-gray-50">
-                  <td class="px-3 py-2 font-mono text-gray-700 max-w-32 truncate">{rec.race_id}</td>
+                <tr class="hover:bg-surface-alt">
+                  <td class="px-3 py-2 font-mono text-content-muted max-w-32 truncate">{rec.race_id}</td>
                   <td class="px-3 py-2">
                     <span class="px-1.5 py-0.5 rounded font-medium
-                      {rec.status === 'completed' ? 'bg-green-100 text-green-700'
-                        : rec.status === 'failed' ? 'bg-red-100 text-red-700'
-                        : 'bg-gray-100 text-gray-600'}">
+                      {rec.status === 'completed' ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-200'
+                        : rec.status === 'failed' ? 'bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-200'
+                        : 'bg-surface-alt text-content-muted'}">
                       {rec.status}
                     </span>
                   </td>
-                  <td class="px-3 py-2 text-gray-600 max-w-36">
+                  <td class="px-3 py-2 text-content-muted max-w-36">
                     <span class="truncate block font-mono text-xs" title={rec.model}>{rec.model || "—"}</span>
                     {#if rec.model_breakdown && Object.keys(rec.model_breakdown).length > 1}
-                      <span class="text-gray-400 text-xs">+{Object.keys(rec.model_breakdown).length - 1} model{Object.keys(rec.model_breakdown).length > 2 ? "s" : ""}</span>
+                      <span class="text-content-faint text-xs">+{Object.keys(rec.model_breakdown).length - 1} model{Object.keys(rec.model_breakdown).length > 2 ? "s" : ""}</span>
                     {/if}
                   </td>
-                  <td class="px-3 py-2 text-right text-gray-700">{formatTokens(rec.total_tokens)}</td>
-                  <td class="px-3 py-2 text-right font-medium text-gray-900">{formatUsd(rec.estimated_usd)}</td>
-                  <td class="px-3 py-2 text-right text-gray-600">{rec.duration_s ? `${rec.duration_s}s` : "—"}</td>
-                  <td class="px-3 py-2 text-gray-400">{formatDate(rec.timestamp)}</td>
+                  <td class="px-3 py-2 text-right text-content-muted">{formatTokens(rec.total_tokens)}</td>
+                  <td class="px-3 py-2 text-right font-medium text-content">{formatUsd(rec.estimated_usd)}</td>
+                  <td class="px-3 py-2 text-right text-content-muted">{rec.duration_s ? `${rec.duration_s}s` : "—"}</td>
+                  <td class="px-3 py-2 text-content-faint">{formatDate(rec.timestamp)}</td>
                 </tr>
               {/each}
             </tbody>

@@ -159,15 +159,15 @@
   function freshnessBadgeClass(f: string) {
     switch (f) {
       case "fresh":
-        return "bg-green-100 text-green-800";
+        return "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200";
       case "recent":
-        return "bg-yellow-100 text-yellow-800";
+        return "bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200";
       case "aging":
-        return "bg-orange-100 text-orange-800";
+        return "bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200";
       case "stale":
-        return "bg-red-100 text-red-800";
+        return "bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200";
       default:
-        return "bg-gray-100 text-gray-600";
+        return "bg-surface-alt text-content-muted";
     }
   }
 
@@ -192,7 +192,7 @@
         type="search"
         bind:value={search}
         placeholder="Search by race ID, jurisdiction…"
-        class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+        class="w-full px-3 py-2 text-sm border border-stroke rounded-lg bg-surface text-content focus:outline-none focus:border-blue-500"
       />
     </div>
     <div class="flex items-center space-x-2">
@@ -208,7 +208,7 @@
       {/if}
       <button
         type="button"
-        class="px-3 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700"
+        class="px-3 py-2 text-sm border border-stroke rounded-lg hover:bg-surface-alt text-content"
         on:click={loadData}
       >
         Refresh
@@ -219,14 +219,14 @@
   {#if error}
     <div class="card p-4 text-sm text-red-600">{error}</div>
   {:else if loading}
-    <div class="card p-8 text-center text-gray-400 text-sm">Loading races…</div>
+    <div class="card p-8 text-center text-content-faint text-sm">Loading races…</div>
   {:else if filteredRows.length === 0}
-    <div class="card p-8 text-center text-gray-400 text-sm">No races found</div>
+    <div class="card p-8 text-center text-content-faint text-sm">No races found</div>
   {:else}
     <div class="card overflow-hidden">
       <div class="overflow-x-auto">
         <table class="min-w-full text-sm">
-          <thead class="bg-gray-50 border-b border-gray-200">
+          <thead class="bg-surface-alt border-b border-stroke">
             <tr>
               <th class="pl-4 pr-2 py-3 text-left">
                 <input
@@ -234,45 +234,45 @@
                   checked={selected.size === filteredRows.length && filteredRows.length > 0}
                   indeterminate={selected.size > 0 && selected.size < filteredRows.length}
                   on:change={toggleAll}
-                  class="rounded border-gray-300"
+                  class="rounded border-stroke"
                 />
               </th>
-              <th class="px-3 py-3 text-left font-medium text-gray-600 cursor-pointer hover:text-gray-900 whitespace-nowrap" on:click={() => toggleSort("race_id")}>
+              <th class="px-3 py-3 text-left font-medium text-content-muted cursor-pointer hover:text-content whitespace-nowrap" on:click={() => toggleSort("race_id")}>
                 Race ID {sortIcon("race_id")}
               </th>
-              <th class="px-3 py-3 text-left font-medium text-gray-600 cursor-pointer hover:text-gray-900" on:click={() => toggleSort("jurisdiction")}>
+              <th class="px-3 py-3 text-left font-medium text-content-muted cursor-pointer hover:text-content" on:click={() => toggleSort("jurisdiction")}>
                 Jurisdiction {sortIcon("jurisdiction")}
               </th>
-              <th class="px-3 py-3 text-left font-medium text-gray-600">Candidates</th>
-              <th class="px-3 py-3 text-left font-medium text-gray-600 cursor-pointer hover:text-gray-900 whitespace-nowrap" on:click={() => toggleSort("age_days")}>
+              <th class="px-3 py-3 text-left font-medium text-content-muted">Candidates</th>
+              <th class="px-3 py-3 text-left font-medium text-content-muted cursor-pointer hover:text-content whitespace-nowrap" on:click={() => toggleSort("age_days")}>
                 Updated {sortIcon("age_days")}
               </th>
-              <th class="px-3 py-3 text-left font-medium text-gray-600 whitespace-nowrap">Freshness</th>
-              <th class="px-3 py-3 text-left font-medium text-gray-600 cursor-pointer hover:text-gray-900 whitespace-nowrap" on:click={() => toggleSort("requests_24h")}>
+              <th class="px-3 py-3 text-left font-medium text-content-muted whitespace-nowrap">Freshness</th>
+              <th class="px-3 py-3 text-left font-medium text-content-muted cursor-pointer hover:text-content whitespace-nowrap" on:click={() => toggleSort("requests_24h")}>
                 Reqs 24h {sortIcon("requests_24h")}
               </th>
-              <th class="px-3 py-3 text-left font-medium text-gray-600 cursor-pointer hover:text-gray-900 whitespace-nowrap" on:click={() => toggleSort("quality_score")}>
+              <th class="px-3 py-3 text-left font-medium text-content-muted cursor-pointer hover:text-content whitespace-nowrap" on:click={() => toggleSort("quality_score")}>
                 Quality {sortIcon("quality_score")}
               </th>
-              <th class="px-3 py-3 text-left font-medium text-gray-600">Actions</th>
+              <th class="px-3 py-3 text-left font-medium text-content-muted">Actions</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-gray-100">
+          <tbody class="divide-y divide-stroke">
             {#each filteredRows as row (row.race_id)}
               {@const runStatus = activeRaceIds.get(row.race_id)}
-              <tr class="hover:bg-gray-50 {selected.has(row.race_id) ? 'bg-blue-50' : ''}">
+              <tr class="hover:bg-surface-alt {selected.has(row.race_id) ? 'bg-blue-50 dark:bg-blue-900/20' : ''}">
                 <td class="pl-4 pr-2 py-3">
                   <input
                     type="checkbox"
                     checked={selected.has(row.race_id)}
                     on:change={() => toggleSelect(row.race_id)}
-                    class="rounded border-gray-300"
+                    class="rounded border-stroke"
                   />
                 </td>
-                <td class="px-3 py-3 font-mono text-xs text-gray-800 whitespace-nowrap">
+                <td class="px-3 py-3 font-mono text-xs text-content whitespace-nowrap">
                   <span>{row.race_id}</span>
                   {#if runStatus === "running"}
-                    <span class="ml-1.5 inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-700">
+                    <span class="ml-1.5 inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-xs font-medium bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-200">
                       <svg class="animate-spin h-2.5 w-2.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
                         <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
@@ -280,22 +280,22 @@
                       running
                     </span>
                   {:else if runStatus === "pending"}
-                    <span class="ml-1.5 inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-yellow-100 text-yellow-700">
+                    <span class="ml-1.5 inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-200">
                       queued
                     </span>
                   {/if}
                 </td>
-                <td class="px-3 py-3 text-gray-700 max-w-32 truncate">{row.jurisdiction ?? "—"}</td>
-                <td class="px-3 py-3 text-gray-600 max-w-40">
+                <td class="px-3 py-3 text-content-muted max-w-32 truncate">{row.jurisdiction ?? "—"}</td>
+                <td class="px-3 py-3 text-content-muted max-w-40">
                   <span class="truncate block" title={row.candidates.join(", ")}>{row.candidates.join(", ") || "—"}</span>
                 </td>
-                <td class="px-3 py-3 text-gray-600 whitespace-nowrap">{formatDate(row.updated_utc)}</td>
+                <td class="px-3 py-3 text-content-muted whitespace-nowrap">{formatDate(row.updated_utc)}</td>
                 <td class="px-3 py-3">
                   <span class="px-2 py-0.5 rounded-full text-xs font-medium {freshnessBadgeClass(row.freshness)}">
                     {row.freshness}
                   </span>
                 </td>
-                <td class="px-3 py-3 text-gray-700 text-right font-mono">{row.requests_24h}</td>
+                <td class="px-3 py-3 text-content-muted text-right font-mono">{row.requests_24h}</td>
                 <td class="px-3 py-3">
                   <QualityBadge score={row.quality_score} />
                 </td>
@@ -303,7 +303,7 @@
                   <div class="flex items-center space-x-1">
                     <button
                       type="button"
-                      class="px-2 py-1 text-xs border border-gray-300 rounded hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed"
+                      class="px-2 py-1 text-xs border border-stroke rounded hover:bg-surface-alt disabled:opacity-40 disabled:cursor-not-allowed"
                       disabled={!!runStatus}
                       title={runStatus ? `${runStatus === 'running' ? 'Currently running' : 'Queued for update'}` : undefined}
                       on:click={() => onUpdateRace(row.race_id)}
@@ -317,7 +317,7 @@
           </tbody>
         </table>
       </div>
-      <div class="px-4 py-2 bg-gray-50 border-t border-gray-200 text-xs text-gray-500">
+      <div class="px-4 py-2 bg-surface-alt border-t border-stroke text-xs text-content-subtle">
         {filteredRows.length} race{filteredRows.length !== 1 ? "s" : ""}
         {#if search} matching "{search}"{/if}
       </div>

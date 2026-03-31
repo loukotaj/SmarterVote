@@ -23,7 +23,7 @@
 {#if isExecuting || runStatus !== "idle"}
   <div class="card p-6">
     <div class="flex items-center justify-between mb-4">
-      <h3 class="text-lg font-semibold text-gray-900">Current Run</h3>
+      <h3 class="text-lg font-semibold text-content">Current Run</h3>
       <div class="flex items-center space-x-2">
         <span
           class="px-3 py-1 rounded-full text-xs font-medium border {getStatusClass(
@@ -42,11 +42,11 @@
 
     <!-- Progress Bar -->
     <div class="mb-4">
-      <div class="flex justify-between text-sm text-gray-600 mb-2">
+      <div class="flex justify-between text-sm text-content-muted mb-2">
         <span>{progressMessage}</span>
         <span>{Math.round(progress)}%</span>
       </div>
-      <div class="w-full bg-gray-200 rounded-full h-2">
+      <div class="w-full bg-surface-alt rounded-full h-2">
         <div
           class="progress-bar bg-blue-600 h-2 rounded-full"
           style="width: {progress}%"
@@ -60,19 +60,19 @@
         <div class="text-lg font-semibold text-blue-600">
           {formatDuration(elapsedTime)}
         </div>
-        <div class="text-gray-600">Elapsed</div>
+        <div class="text-content-muted">Elapsed</div>
       </div>
       <div class="text-center">
         <div class="text-lg font-semibold text-green-600">
           {currentRunId ? "1" : "0"}
         </div>
-        <div class="text-gray-600">Active</div>
+        <div class="text-content-muted">Active</div>
       </div>
       <div class="text-center">
-        <div class="text-lg font-semibold text-gray-600">
+        <div class="text-lg font-semibold text-content-muted">
           {errorCount}
         </div>
-        <div class="text-gray-600">Errors</div>
+        <div class="text-content-muted">Errors</div>
       </div>
     </div>
   </div>

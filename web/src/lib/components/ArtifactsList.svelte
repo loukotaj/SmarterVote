@@ -20,12 +20,12 @@
 </script>
 
 <div class="card p-0">
-  <div class="p-4 border-b border-gray-200 flex items-center justify-between">
-    <h3 class="text-lg font-semibold text-gray-900">Artifacts</h3>
+  <div class="p-4 border-b border-stroke flex items-center justify-between">
+    <h3 class="text-lg font-semibold text-content">Artifacts</h3>
     <button
       on:click={handleRefresh}
       disabled={isRefreshing}
-      class="text-sm text-blue-600 hover:text-blue-800 disabled:text-gray-400 flex items-center space-x-1"
+      class="text-sm text-blue-600 hover:text-blue-500 disabled:text-content-faint flex items-center space-x-1"
     >
       {#if isRefreshing}
         <svg
@@ -62,13 +62,13 @@
           on:click={() => handleArtifactClick(artifact)}
         >
           <span class="font-mono text-sm">{artifact.id}</span>
-          <span class="text-xs text-gray-500">
+          <span class="text-xs text-content-subtle">
             {artifact.size ? `${(artifact.size / 1024).toFixed(1)} KB` : "—"}
           </span>
         </button>
       </li>
     {:else}
-      <li class="text-center text-gray-500 text-sm py-4">No artifacts yet</li>
+      <li class="text-center text-content-subtle text-sm py-4">No artifacts yet</li>
     {/each}
   </ul>
 </div>
@@ -84,14 +84,14 @@
   .artifacts-list li {
     font-size: 0.875rem;
     padding: 8px 12px;
-    border-bottom: 1px solid #f1f5f9;
+    border-bottom: 1px solid rgb(var(--sv-border));
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
 
   .artifacts-list li:hover {
-    background-color: #f8fafc;
+    background-color: rgb(var(--sv-surface-alt));
   }
 
   .custom-scrollbar::-webkit-scrollbar {
@@ -99,16 +99,16 @@
   }
 
   .custom-scrollbar::-webkit-scrollbar-track {
-    background: #f1f5f9;
+    background: rgb(var(--sv-surface-alt));
     border-radius: 3px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
+    background: rgb(var(--sv-border));
     border-radius: 3px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #94a3b8;
+    background: rgb(var(--sv-text-faint));
   }
 </style>

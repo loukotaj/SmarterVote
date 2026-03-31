@@ -19,13 +19,13 @@ export function formatDuration(seconds: number): string {
 export function getStatusClass(status: RunStatus | string): string {
   switch (status) {
     case "running":
-      return "bg-blue-100 text-blue-800 border-blue-200";
+      return "bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 border-blue-200 dark:border-blue-700";
     case "completed":
-      return "bg-green-100 text-green-800 border-green-200";
+      return "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 border-green-200 dark:border-green-700";
     case "failed":
-      return "bg-red-100 text-red-800 border-red-200";
+      return "bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 border-red-200 dark:border-red-700";
     default:
-      return "bg-gray-100 text-gray-800 border-gray-200";
+      return "bg-surface-alt text-content border-stroke";
   }
 }
 
@@ -35,15 +35,15 @@ export function getStatusClass(status: RunStatus | string): string {
 export function getLogClass(level: string): string {
   switch (level) {
     case "error":
-      return "bg-red-50 text-red-800 border-l-red-500";
+      return "bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-200 border-l-red-500";
     case "warning":
-      return "bg-yellow-50 text-yellow-800 border-l-yellow-500";
+      return "bg-yellow-50 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-200 border-l-yellow-500";
     case "info":
-      return "bg-blue-50 text-blue-800 border-l-blue-500";
+      return "bg-blue-50 dark:bg-blue-900/20 text-blue-800 dark:text-blue-200 border-l-blue-500";
     case "debug":
-      return "bg-gray-50 text-gray-600 border-l-gray-400";
+      return "bg-surface-alt text-content-muted border-l-stroke";
     default:
-      return "bg-gray-50 text-gray-600 border-l-gray-400";
+      return "bg-surface-alt text-content-muted border-l-stroke";
   }
 }
 

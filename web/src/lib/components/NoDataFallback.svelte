@@ -84,7 +84,7 @@
 <style lang="postcss">
   .no-data-fallback {
     @apply flex flex-col items-center justify-center py-8 px-4 text-center;
-    @apply bg-gray-50 rounded-lg border border-gray-200;
+    @apply bg-surface-alt rounded-lg border border-stroke;
   }
 
   .icon-container {
@@ -92,11 +92,11 @@
   }
 
   .icon {
-    @apply w-12 h-12 text-gray-400;
+    @apply w-12 h-12 text-content-faint;
   }
 
   .message {
-    @apply text-gray-600 text-sm sm:text-base mb-4 max-w-md;
+    @apply text-content-muted text-sm sm:text-base mb-4 max-w-md;
   }
 
   .help-button {
@@ -111,6 +111,6 @@
   }
 
   .help-text {
-    @apply text-gray-500 text-xs sm:text-sm mt-3 max-w-sm;
+    @apply text-content-subtle text-xs sm:text-sm mt-3 max-w-sm;
   }
 </style>

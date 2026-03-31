@@ -21,7 +21,7 @@
   href={source.url}
   target="_blank"
   rel="noopener noreferrer"
-  class="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-xs sm:text-sm underline"
+  class="inline-flex items-center gap-1 text-blue-600 hover:text-blue-500 dark:hover:text-blue-400 text-xs sm:text-sm underline"
   title="{source.title || text || domain} - Open in new tab"
 >
   <span>{text || source.title || domain}</span>

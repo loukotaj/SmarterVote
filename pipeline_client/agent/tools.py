@@ -1,8 +1,7 @@
-"""OpenAI tool-call schemas for the agent pipeline.
+"""OpenAI function-calling tool schemas for the research agent.
 
-This module owns every tool schema (SEARCH_TOOL, FETCH_TOOL, and all
-editing tools) plus the convenience group lists used when building
-``extra_tools`` lists in ``_agent_loop`` calls.
+All editing-tool JSON schemas live here so that ``agent.py`` stays focused on
+orchestration logic.  Import the individual constants or the aggregate lists.
 """
 
 from typing import Dict, List
@@ -128,11 +127,8 @@ SET_CANDIDATE_FIELD_TOOL: Dict = {
             "type": "object",
             "properties": {
                 "candidate_name": {"type": "string", "description": "Exact candidate name."},
-                "field": {
-                    "type": "string",
-                    "enum": ["party", "incumbent", "website", "image_url"],
-                    "description": "Field to update.",
-                },
+                "field": {"type": "string", "enum": ["party", "incumbent", "website", "image_url"],
+                          "description": "Field to update."},
                 "value": {"description": "New value for the field."},
             },
             "required": ["candidate_name", "field", "value"],
@@ -185,11 +181,8 @@ SET_ISSUE_STANCE_TOOL: Dict = {
                 "candidate_name": {"type": "string", "description": "Exact candidate name."},
                 "issue": {"type": "string", "description": "Canonical issue name (e.g. 'Healthcare')."},
                 "stance": {"type": "string", "description": "1-2 sentence position description."},
-                "confidence": {
-                    "type": "string",
-                    "enum": ["high", "medium", "low"],
-                    "description": "Confidence level.",
-                },
+                "confidence": {"type": "string", "enum": ["high", "medium", "low"],
+                               "description": "Confidence level."},
                 "sources": {
                     "type": "array",
                     "description": "Source URLs supporting this stance.",
@@ -211,69 +204,66 @@ SET_ISSUE_STANCE_TOOL: Dict = {
 ISSUE_TOOLS: List[Dict] = [SET_ISSUE_STANCE_TOOL]
 
 # ---------------------------------------------------------------------------
-# Record tools (bulk-replace operations)
+# Record tools (summary setters + links)
 # ---------------------------------------------------------------------------
 
-SET_VOTING_RECORDS_TOOL: Dict = {
+SET_DONOR_SUMMARY_TOOL: Dict = {
     "type": "function",
     "function": {
-        "name": "set_voting_records",
-        "description": "Replace a candidate's entire voting record list.",
+        "name": "set_donor_summary",
+        "description": "Set a candidate's campaign finance summary text and source link.",
         "parameters": {
             "type": "object",
             "properties": {
                 "candidate_name": {"type": "string", "description": "Exact candidate name."},
-                "records": {
-                    "type": "array",
-                    "description": "Full voting record list.",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "bill_name": {"type": "string"},
-                            "bill_description": {"type": "string"},
-                            "vote": {"type": "string", "enum": ["yes", "no", "abstain", "absent"]},
-                            "date": {"type": "string"},
-                            "source": {"type": "object"},
-                        },
-                        "required": ["bill_name", "vote"],
-                    },
-                },
+                "summary": {"type": "string", "description": "2-3 sentence summary of who funds the candidate."},
+                "source_url": {"type": "string", "description": "URL to full donor data (OpenSecrets, FEC, state portal, etc.)."},
             },
-            "required": ["candidate_name", "records"],
+            "required": ["candidate_name", "summary"],
         },
     },
 }
 
-SET_DONORS_TOOL: Dict = {
+SET_VOTING_SUMMARY_TOOL: Dict = {
     "type": "function",
     "function": {
-        "name": "set_donors",
-        "description": "Replace a candidate's entire top donors list.",
+        "name": "set_voting_summary",
+        "description": "Set a candidate's voting record summary text and source link.",
         "parameters": {
             "type": "object",
             "properties": {
                 "candidate_name": {"type": "string", "description": "Exact candidate name."},
-                "donors": {
-                    "type": "array",
-                    "description": "Full top donors list.",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "name": {"type": "string"},
-                            "amount": {"type": "number"},
-                            "organization": {"type": "string"},
-                            "source": {"type": "object"},
-                        },
-                        "required": ["name"],
-                    },
-                },
+                "summary": {"type": "string", "description": "2-3 sentence summary of the candidate's voting patterns."},
+                "source_url": {"type": "string", "description": "URL to full voting record (VoteSmart, GovTrack, legislature, etc.)."},
             },
-            "required": ["candidate_name", "donors"],
+            "required": ["candidate_name", "summary"],
         },
     },
 }
 
-RECORD_TOOLS: List[Dict] = [SET_VOTING_RECORDS_TOOL, SET_DONORS_TOOL]
+ADD_LINK_TOOL: Dict = {
+    "type": "function",
+    "function": {
+        "name": "add_candidate_link",
+        "description": "Add a high-value reference link to a candidate's profile (Ballotpedia, Wikipedia, OpenSecrets, etc.).",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "candidate_name": {"type": "string", "description": "Exact candidate name."},
+                "url": {"type": "string", "description": "Full URL."},
+                "title": {"type": "string", "description": "Human-readable page title."},
+                "type": {
+                    "type": "string",
+                    "enum": ["finance", "ballotpedia", "wiki", "official", "legislature", "votesmart", "govtrack", "news", "other"],
+                    "description": "Link category.",
+                },
+            },
+            "required": ["candidate_name", "url", "title", "type"],
+        },
+    },
+}
+
+RECORD_TOOLS: List[Dict] = [SET_DONOR_SUMMARY_TOOL, SET_VOTING_SUMMARY_TOOL, ADD_LINK_TOOL]
 
 # ---------------------------------------------------------------------------
 # Race-level tools
@@ -311,15 +301,12 @@ UPDATE_RACE_FIELD_TOOL: Dict = {
     "type": "function",
     "function": {
         "name": "update_race_field",
-        "description": "Update a race-level field. Allowed fields: description, office, election_date.",
+        "description": "Update a race-level field. Allowed fields: description, office, election_date, polling_note.",
         "parameters": {
             "type": "object",
             "properties": {
-                "field": {
-                    "type": "string",
-                    "enum": ["description", "office", "election_date"],
-                    "description": "Field to update.",
-                },
+                "field": {"type": "string", "enum": ["description", "office", "election_date", "polling_note"],
+                          "description": "Field to update."},
                 "value": {"type": "string", "description": "New value."},
             },
             "required": ["field", "value"],

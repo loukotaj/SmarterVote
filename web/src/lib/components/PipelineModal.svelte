@@ -40,16 +40,16 @@
       <div class="modal-title">{title}</div>
 
       {#if loading}
-        <div class="text-gray-500 text-center py-8">Loading...</div>
+        <div class="text-content-subtle text-center py-8">Loading...</div>
       {:else}
         <!-- Warning for large content -->
         {#if contentTooLarge}
           <div
-            class="mb-4 bg-yellow-50 border border-yellow-200 rounded-md p-3"
+            class="mb-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700 rounded-md p-3"
           >
             <div class="flex items-start">
               <svg
-                class="w-4 h-4 text-yellow-600 mt-0.5 mr-2 flex-shrink-0"
+                class="w-4 h-4 text-yellow-600 dark:text-yellow-400 mt-0.5 mr-2 flex-shrink-0"
                 fill="currentColor"
                 viewBox="0 0 20 20"
               >
@@ -60,10 +60,10 @@
                 />
               </svg>
               <div>
-                <h4 class="text-xs font-medium text-yellow-800">
+                <h4 class="text-xs font-medium text-yellow-800 dark:text-yellow-200">
                   Large Content
                 </h4>
-                <p class="text-xs text-yellow-700 mt-1">
+                <p class="text-xs text-yellow-700 dark:text-yellow-300 mt-1">
                   Content has been truncated for display.
                 </p>
               </div>
@@ -98,9 +98,9 @@
   }
 
   .modal-content {
-    background: #fff;
+    background: rgb(var(--sv-surface));
     border-radius: 0.75rem;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
     max-width: 600px;
     width: 90vw;
     max-height: 80vh;
@@ -117,7 +117,7 @@
     background: none;
     border: none;
     font-size: 1.5rem;
-    color: #64748b;
+    color: rgb(var(--sv-text-subtle));
     cursor: pointer;
   }
 
@@ -125,14 +125,14 @@
     font-size: 1.25rem;
     font-weight: 600;
     margin-bottom: 1rem;
-    color: #1e293b;
+    color: rgb(var(--sv-text));
   }
 
   .modal-json {
     font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
     font-size: 13px;
-    background: #f8fafc;
-    color: #334155;
+    background: rgb(var(--sv-surface-alt));
+    color: rgb(var(--sv-text-muted));
     border-radius: 0.5rem;
     padding: 1rem;
     white-space: pre-wrap;

@@ -229,7 +229,8 @@ FAKE_RACE_JSON = {
             "summary": "Runs on healthcare reform.",
             "website": "https://janedoe.com",
             "social_media": {},
-            "top_donors": [],
+            "donor_summary": None,
+            "links": [],
             "issues": {
                 "Healthcare": {
                     "stance": "Supports universal coverage.",

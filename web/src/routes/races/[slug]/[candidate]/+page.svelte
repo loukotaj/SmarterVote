@@ -52,10 +52,8 @@
     candidate && candidate.career_history && candidate.career_history.length > 0;
   $: hasEducation =
     candidate && candidate.education && candidate.education.length > 0;
-  $: hasVoting =
-    (candidate && candidate.voting_record && candidate.voting_record.length > 0) || !!(candidate && candidate.voting_summary);
-  $: hasDonors =
-    candidate && candidate.top_donors && candidate.top_donors.length > 0;
+  $: hasVoting = !!(candidate && candidate.voting_summary);
+  $: hasDonors = !!(candidate && candidate.donor_summary);
 </script>
 
 <svelte:head>
@@ -264,7 +262,7 @@
         <h2 class="section-heading">Top Donors</h2>
         <Card class="section-card">
           <DonorTable
-            donors={candidate.top_donors}
+            donorSummary={candidate.donor_summary || ''}
             donorSourceUrl={candidate.donor_source_url || ''}
             raceId={race.id}
             candidateName={candidate.name}
@@ -279,7 +277,6 @@
         <h2 class="section-heading">Voting Record</h2>
         <Card class="section-card">
           <VotingRecordTable
-            votingRecord={candidate.voting_record}
             votingSummary={candidate.voting_summary || ''}
             votingSourceUrl={candidate.voting_source_url || ''}
             raceId={race.id}

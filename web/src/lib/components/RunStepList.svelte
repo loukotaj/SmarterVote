@@ -7,17 +7,17 @@
 
   function getStepStatusClass(step: RunStep): string {
     if (step.name === currentStep || step.status === "running") {
-      return "bg-blue-50 border-blue-200 border-l-4 border-l-blue-500";
+      return "bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-700 border-l-4 border-l-blue-500";
     }
     switch (step.status) {
       case "completed":
-        return "bg-green-50 border-green-200";
+        return "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-700";
       case "failed":
-        return "bg-red-50 border-red-200";
+        return "bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-700";
       case "pending":
-        return "bg-gray-50 border-gray-200";
+        return "bg-surface-alt border-stroke";
       default:
-        return "bg-white border-gray-200";
+        return "bg-surface border-stroke";
     }
   }
 
@@ -38,7 +38,7 @@
   }
 </script>
 
-<ul class="divide-y divide-gray-200 border border-gray-200 rounded-lg">
+<ul class="divide-y divide-stroke border border-stroke rounded-lg">
   {#each steps as step}
     <li
       class="p-3 flex items-center justify-between transition-colors duration-200 {getStepStatusClass(
@@ -51,18 +51,18 @@
         >
         <div class="flex flex-col min-w-0 flex-1">
           <div class="flex items-center space-x-2">
-            <span class="font-medium text-sm text-gray-900 truncate"
+            <span class="font-medium text-sm text-content truncate"
               >{step.name}</span
             >
             {#if step.name === currentStep}
               <span
-                class="px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 flex-shrink-0"
+                class="px-2 py-1 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 flex-shrink-0"
               >
                 Current
               </span>
             {/if}
           </div>
-          <div class="text-xs text-gray-600 flex items-center space-x-2">
+          <div class="text-xs text-content-muted flex items-center space-x-2">
             <span class="capitalize">{step.status}</span>
             {#if step.duration_ms}
               <span>•</span>

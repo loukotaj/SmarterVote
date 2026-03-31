@@ -45,8 +45,8 @@ def sample_race():
                 "issues": {},
                 "career_history": [],
                 "education": [],
-                "voting_record": [],
-                "top_donors": [],
+                "donor_summary": None,
+                "links": [],
                 "social_media": {},
             }
         ],

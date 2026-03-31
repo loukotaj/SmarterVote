@@ -27,16 +27,16 @@
 </script>
 
 <div class="card p-0 flex flex-col h-96">
-  <div class="p-4 border-b border-gray-200 flex items-center justify-between">
+  <div class="p-4 border-b border-stroke flex items-center justify-between">
     <div class="flex items-center space-x-3">
-      <h3 class="text-lg font-semibold text-gray-900">Live Logs</h3>
+      <h3 class="text-lg font-semibold text-content">Live Logs</h3>
       <div class="flex items-center space-x-2">
         <div
           class="w-2 h-2 rounded-full {connected
             ? 'bg-green-500'
             : 'bg-red-500'} pulse-dot"
         />
-        <span class="text-xs text-gray-500"
+        <span class="text-xs text-content-subtle"
           >{connected ? "Live" : "Disconnected"}</span
         >
       </div>
@@ -45,7 +45,7 @@
       <select
         bind:value={logFilter}
         on:change={handleFilterChange}
-        class="text-xs px-2 py-1 border border-gray-300 rounded"
+        class="text-xs px-2 py-1 border border-stroke rounded bg-surface text-content"
       >
         <option value="all">All Levels</option>
         <option value="debug">Debug</option>
@@ -55,18 +55,18 @@
       </select>
       <button
         on:click={clearLogs}
-        class="text-xs px-2 py-1 text-gray-600 hover:text-gray-800"
+        class="text-xs px-2 py-1 text-content-muted hover:text-content"
       >
         Clear
       </button>
     </div>
   </div>
 
-  <div class="flex-1 overflow-auto custom-scrollbar bg-gray-50">
+  <div class="flex-1 overflow-auto custom-scrollbar bg-surface-alt">
     <div class="min-h-full">
       {#each filteredLogs as log}
         <div class="log-line {getLogClass(log.level)}">
-          <span class="text-gray-500">
+          <span class="text-content-subtle">
             [{new Date(log.timestamp).toLocaleTimeString()}]
           </span>
           <span class="font-medium">[{log.level.toUpperCase()}]</span>
@@ -74,7 +74,7 @@
         </div>
       {/each}
       {#if filteredLogs.length === 0}
-        <div class="p-4 text-center text-gray-500 text-sm">No logs yet</div>
+        <div class="p-4 text-center text-content-subtle text-sm">No logs yet</div>
       {/if}
     </div>
   </div>
@@ -85,7 +85,7 @@
     font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
     font-size: 11px;
     padding: 6px 12px;
-    border-bottom: 1px solid #f1f5f9;
+    border-bottom: 1px solid rgb(var(--sv-border));
     line-height: 1.5;
     white-space: pre-wrap;
     border-left: 4px solid transparent;
@@ -110,16 +110,16 @@
   }
 
   .custom-scrollbar::-webkit-scrollbar-track {
-    background: #f1f5f9;
+    background: rgb(var(--sv-surface-alt));
     border-radius: 3px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
+    background: rgb(var(--sv-border));
     border-radius: 3px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #94a3b8;
+    background: rgb(var(--sv-text-faint));
   }
 </style>

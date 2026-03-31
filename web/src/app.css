@@ -53,7 +53,7 @@
   }
 
   .btn-secondary {
-    @apply bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors;
+    @apply bg-surface-alt text-content px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors;
   }
 
   .btn-danger {
@@ -61,7 +61,7 @@
   }
 
   .card {
-    @apply bg-white rounded-lg shadow-sm border border-gray-200;
+    @apply bg-surface rounded-lg shadow-sm border border-stroke;
   }
 
   .confidence-high {

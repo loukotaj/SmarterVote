@@ -54,12 +54,12 @@
 </script>
 
 <div class="card p-0">
-  <div class="px-4 py-3 border-b border-gray-200 flex items-center justify-between">
-    <h3 class="text-sm font-semibold text-gray-900">Recent Runs</h3>
+  <div class="px-4 py-3 border-b border-stroke flex items-center justify-between">
+    <h3 class="text-sm font-semibold text-content">Recent Runs</h3>
     <button
       on:click={handleRefresh}
       disabled={isRefreshing}
-      class="text-xs text-blue-600 hover:text-blue-800 disabled:text-gray-400 flex items-center gap-1"
+      class="text-xs text-blue-600 hover:text-blue-500 disabled:text-content-faint flex items-center gap-1"
     >
       {#if isRefreshing}
         <svg class="animate-spin h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -71,17 +71,17 @@
     </button>
   </div>
 
-  <div class="divide-y divide-gray-100 max-h-72 overflow-auto custom-scrollbar">
+  <div class="divide-y divide-stroke max-h-72 overflow-auto custom-scrollbar">
     {#each runHistory.slice(0, 20) as run}
       <button
         type="button"
         class="w-full text-left px-4 py-2.5 transition-colors duration-150 {selectedRunId === run.run_id
-          ? 'bg-blue-50 border-l-2 border-l-blue-500'
-          : 'hover:bg-gray-50'}"
+          ? 'bg-blue-100 dark:bg-blue-900/20 border-l-2 border-l-blue-500'
+          : 'hover:bg-surface-alt'}"
         on:click={() => handleRunSelect(run)}
       >
         <div class="flex items-center gap-2">
-          <span class="text-xs font-mono font-medium text-gray-900 flex-1 truncate" title={raceId(run)}>
+          <span class="text-xs font-mono font-medium text-content flex-1 truncate" title={raceId(run)}>
             {raceId(run)}
           </span>
           <span class="text-xs px-1.5 py-0.5 rounded-full flex-shrink-0 {getStatusClass(run.status || 'unknown')}">
@@ -89,12 +89,12 @@
           </span>
           <button
             type="button"
-            class="text-gray-400 hover:text-gray-700 flex-shrink-0 text-xs"
+            class="text-content-faint hover:text-content-muted flex-shrink-0 text-xs"
             on:click={(e) => handleRunDetails(run, e)}
             title="View run details"
           >↗</button>
         </div>
-        <div class="flex items-center gap-2 mt-0.5 text-xs text-gray-400">
+        <div class="flex items-center gap-2 mt-0.5 text-xs text-content-faint">
           <span>{timeAgo(run.started_at)}</span>
           {#if run.duration_ms}
             <span>· {formatDuration(run.duration_ms)}</span>
@@ -106,7 +106,7 @@
         </div>
       </button>
     {:else}
-      <div class="p-4 text-center text-gray-500 text-sm">No runs yet</div>
+      <div class="p-4 text-center text-content-subtle text-sm">No runs yet</div>
     {/each}
   </div>
 </div>
@@ -117,16 +117,16 @@
   }
 
   .custom-scrollbar::-webkit-scrollbar-track {
-    background: #f1f5f9;
+    background: rgb(var(--sv-surface-alt));
     border-radius: 3px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
+    background: rgb(var(--sv-border));
     border-radius: 3px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #94a3b8;
+    background: rgb(var(--sv-text-faint));
   }
 </style>

@@ -64,10 +64,10 @@
 </script>
 
 <div class="card p-6">
-  <h3 class="text-lg font-semibold text-gray-900 mb-4">Pipeline Execution</h3>
+  <h3 class="text-lg font-semibold text-content mb-4">Pipeline Execution</h3>
 
   <div class="mb-4">
-    <div class="block text-sm font-medium text-gray-700 mb-2">
+    <div class="block text-sm font-medium text-content-muted mb-2">
       Run Selection
     </div>
     <div class="space-y-3">
@@ -77,7 +77,7 @@
         </button>
         {#if runHistory.length}
           <select
-            class="px-3 py-2 border border-gray-300 rounded-md bg-white text-sm min-w-0 flex-1"
+            class="px-3 py-2 border border-stroke rounded-md bg-surface text-content text-sm min-w-0 flex-1"
             bind:value={selectedRunId}
             on:change={handleRunSelect}
           >
@@ -91,20 +91,20 @@
             {/each}
           </select>
         {:else}
-          <span class="text-sm text-gray-500 italic"
+          <span class="text-sm text-content-subtle italic"
             >No previous runs available</span
           >
         {/if}
       </div>
 
       {#if selectedRun}
-        <div class="bg-blue-50 border border-blue-200 rounded-md p-3">
+        <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-md p-3">
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-sm font-medium text-blue-900">
+              <p class="text-sm font-medium text-blue-900 dark:text-blue-200">
                 Continuing Run {selectedRun.display_id}
               </p>
-              <p class="text-xs text-blue-700">
+              <p class="text-xs text-blue-700 dark:text-blue-300">
                 Last step: <span class="font-mono"
                   >{selectedRun.last_step || "Unknown"}</span
                 >
@@ -124,11 +124,11 @@
           </div>
         </div>
       {:else}
-        <div class="bg-green-50 border border-green-200 rounded-md p-3">
-          <p class="text-sm font-medium text-green-900">
+        <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded-md p-3">
+          <p class="text-sm font-medium text-green-900 dark:text-green-200">
             Ready to start new run
           </p>
-          <p class="text-xs text-green-700">
+          <p class="text-xs text-green-700 dark:text-green-300">
             A fresh pipeline execution will be initiated
           </p>
         </div>
@@ -141,7 +141,7 @@
     <div>
       <label
         for="inputJson"
-        class="block text-sm font-medium text-gray-700 mb-2">Input JSON</label
+        class="block text-sm font-medium text-content-muted mb-2">Input JSON</label
       >
       <textarea
         id="inputJson"
@@ -154,25 +154,25 @@
     </div>
 
     <!-- Options -->
-    <details class="options border border-gray-200 rounded-lg p-4">
-      <summary class="cursor-pointer font-medium text-gray-700 mb-3">
+    <details class="options border border-stroke rounded-lg p-4">
+      <summary class="cursor-pointer font-medium text-content-muted mb-3">
         Storage Options
       </summary>
       <div class="space-y-3">
         <label class="flex items-center justify-between">
-          <span class="text-sm text-gray-700">Storage Location</span>
+          <span class="text-sm text-content-muted">Storage Location</span>
           <div class="flex items-center space-x-2">
-            <span class="text-xs text-gray-500">Local</span>
+            <span class="text-xs text-content-subtle">Local</span>
             <input
               type="checkbox"
               checked={useCloudStorage}
               on:change={handleCloudStorageChange}
               class="toggle-switch"
             />
-            <span class="text-xs text-gray-500">Cloud</span>
+            <span class="text-xs text-content-subtle">Cloud</span>
           </div>
         </label>
-        <p class="text-xs text-gray-500">
+        <p class="text-xs text-content-subtle">
           {#if useCloudStorage}
             Artifacts will be stored in cloud services (GCS, etc.)
           {:else}
@@ -183,8 +183,8 @@
     </details>
 
     <!-- Execution Mode Options -->
-    <details class="options border border-gray-200 rounded-lg p-4">
-      <summary class="cursor-pointer font-medium text-gray-700 mb-3">
+    <details class="options border border-stroke rounded-lg p-4">
+      <summary class="cursor-pointer font-medium text-content-muted mb-3">
         Execution Mode
       </summary>
       <div class="space-y-3">
@@ -196,7 +196,7 @@
               on:change={() => handleExecutionModeChange("single")}
               class="mr-2"
             />
-            <span class="text-sm text-gray-700">Run Single Step</span>
+            <span class="text-sm text-content-muted">Run Single Step</span>
           </label>
           <label class="flex items-center">
             <input
@@ -205,10 +205,10 @@
               on:change={() => handleExecutionModeChange("range")}
               class="mr-2"
             />
-            <span class="text-sm text-gray-700">Run Step Range</span>
+            <span class="text-sm text-content-muted">Run Step Range</span>
           </label>
         </div>
-        <div class="text-xs text-gray-500">
+        <div class="text-xs text-content-subtle">
           <p>
             <strong>Single Step:</strong> Executes only the selected step and stops
             for user approval.
@@ -222,11 +222,11 @@
 
     {#if selectedRun}
       <div class="mb-4">
-        <h4 class="text-md font-semibold text-gray-900 mb-3 flex items-center">
+        <h4 class="text-md font-semibold text-content mb-3 flex items-center">
           Pipeline Steps
           {#if currentStep}
             <span
-              class="ml-2 px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800"
+              class="ml-2 px-2 py-1 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200"
             >
               Currently at: {currentStep}
             </span>
@@ -286,9 +286,11 @@
     min-height: 120px;
     font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
     font-size: 13px;
-    border: 1px solid #d1d5db;
+    border: 1px solid rgb(var(--sv-border));
     border-radius: 0.5rem;
     padding: 0.75rem;
+    background: rgb(var(--sv-surface));
+    color: rgb(var(--sv-text));
   }
 
   .json-editor:focus {

@@ -22,13 +22,13 @@
   }
 
   function partyBadgeClass(party: string | undefined): string {
-    if (!party) return "bg-gray-100 text-gray-700";
+    if (!party) return "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300";
     const p = party.toLowerCase();
-    if (p.includes("democrat")) return "bg-blue-100 text-blue-800";
-    if (p.includes("republican")) return "bg-red-100 text-red-800";
-    if (p.includes("libertarian")) return "bg-yellow-100 text-yellow-800";
-    if (p.includes("green")) return "bg-green-100 text-green-800";
-    return "bg-gray-100 text-gray-700";
+    if (p.includes("democrat")) return "bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200";
+    if (p.includes("republican")) return "bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200";
+    if (p.includes("libertarian")) return "bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200";
+    if (p.includes("green")) return "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200";
+    return "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300";
   }
 
   let expanded = false;
@@ -56,8 +56,8 @@
     candidate.career_history && candidate.career_history.length > 0;
   $: hasEducation = candidate.education && candidate.education.length > 0;
   $: hasBackground = hasCareer || hasEducation;
-  $: hasVoting =
-    (candidate.voting_record && candidate.voting_record.length > 0) || !!candidate.voting_summary;
+  $: hasVoting = !!candidate.voting_summary;
+  $: hasDonors = !!candidate.donor_summary;
 </script>
 
 <Card class="candidate-card group" id={generateCandidateId(candidate.name)}>
@@ -191,8 +191,9 @@
         <TabButton
           active={activeTab === "donors"}
           onClick={() => setActiveTab("donors")}
+          disabled={!hasDonors}
         >
-          Top Donors ({candidate.top_donors?.length ?? 0})
+          Donors
         </TabButton>
         <TabButton
           active={activeTab === "voting"}
@@ -200,9 +201,6 @@
           disabled={!hasVoting}
         >
           Voting Record
-          {#if hasVoting}
-            ({candidate.voting_record.length})
-          {/if}
         </TabButton>
       </div>
 
@@ -273,14 +271,13 @@
           </div>
         {:else if activeTab === "donors"}
           <DonorTable
-            donors={candidate.top_donors}
+            donorSummary={candidate.donor_summary || ''}
             donorSourceUrl={candidate.donor_source_url || ''}
             {raceId}
             candidateName={candidate.name}
           />
         {:else if activeTab === "voting"}
           <VotingRecordTable
-            votingRecord={candidate.voting_record || []}
             votingSummary={candidate.voting_summary || ''}
             votingSourceUrl={candidate.voting_source_url || ''}
             {raceId}
@@ -302,11 +299,11 @@
   }
 
   .candidate-image-placeholder {
-    @apply w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-blue-100 border-2 border-blue-200 flex items-center justify-center flex-shrink-0;
+    @apply w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-blue-100 dark:bg-blue-900 border-2 border-blue-200 dark:border-blue-700 flex items-center justify-center flex-shrink-0;
   }
 
   .candidate-initials {
-    @apply text-blue-700 font-bold text-lg sm:text-xl select-none;
+    @apply text-blue-700 dark:text-blue-300 font-bold text-lg sm:text-xl select-none;
   }
 
   .candidate-name {
@@ -315,7 +312,7 @@
   }
 
   .candidate-name-link {
-    @apply text-blue-600 hover:text-blue-800 hover:underline transition-colors duration-200 no-underline;
+    @apply text-blue-600 hover:text-blue-500 dark:hover:text-blue-400 hover:underline transition-colors duration-200 no-underline;
   }
 
   .badge {
@@ -323,11 +320,11 @@
   }
 
   .party-badge {
-    @apply bg-gray-100 text-gray-700;
+    @apply bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300;
   }
 
   .incumbent-badge {
-    @apply bg-green-100 text-green-800;
+    @apply bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200;
   }
 
   .summary {
@@ -335,11 +332,11 @@
   }
 
   .website-link {
-    @apply inline-flex items-center gap-1 text-blue-600 font-medium;
+    @apply inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 font-medium;
   }
 
   .website-link:hover {
-    @apply text-blue-800;
+    @apply text-blue-500 dark:text-blue-300;
   }
 
   .section-title {
@@ -347,12 +344,12 @@
   }
 
   .expand-button {
-    @apply flex items-center gap-2 text-blue-600 font-medium;
+    @apply flex items-center gap-2 text-blue-600 dark:text-blue-400 font-medium;
     @apply transition-colors duration-200;
   }
 
   .expand-button:hover {
-    @apply text-blue-800;
+    @apply text-blue-500 dark:text-blue-300;
   }
 
   .expand-text {
@@ -393,7 +390,7 @@
   }
 
   .more-tag {
-    @apply bg-blue-100 text-blue-700;
+    @apply bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300;
   }
 
   /* Background / Career / Education styles */
@@ -406,7 +403,7 @@
   }
 
   .timeline-entry {
-    @apply border-l-2 border-blue-200 pl-4 py-1;
+    @apply border-l-2 border-blue-200 dark:border-blue-700 pl-4 py-1;
   }
 
   .timeline-header {
