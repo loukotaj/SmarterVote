@@ -158,6 +158,7 @@ export interface CandidateSummary {
   name: string;
   party?: string;
   incumbent: boolean;
+  image_url?: string;
 }
 
 export interface RaceSummary {

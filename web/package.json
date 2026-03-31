@@ -25,6 +25,7 @@
     "@sveltejs/kit": "^2.0.0",
     "@sveltejs/vite-plugin-svelte": "^3.0.0",
     "@testing-library/svelte": "^5.2.8",
+    "@types/topojson-specification": "^1.0.5",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "eslint": "^8.28.0",
@@ -49,8 +50,11 @@
     "@tailwindcss/typography": "^0.5.10",
     "autoprefixer": "^10.4.16",
     "chart.js": "^4.5.1",
+    "d3-geo": "^3.1.1",
     "postcss": "^8.4.31",
     "svelte-chartjs": "^3.1.5",
-    "tailwindcss": "^3.3.5"
+    "tailwindcss": "^3.3.5",
+    "topojson-client": "^3.1.0",
+    "us-atlas": "^3.0.1"
   }
 }

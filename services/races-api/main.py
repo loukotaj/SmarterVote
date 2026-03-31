@@ -89,7 +89,10 @@ def get_race_summaries(request: Request) -> List[RaceSummary]:
             # Extract candidate summaries
             candidate_summaries = [
                 CandidateSummary(
-                    name=candidate["name"], party=candidate.get("party"), incumbent=candidate.get("incumbent", False)
+                    name=candidate["name"],
+                    party=candidate.get("party"),
+                    incumbent=candidate.get("incumbent", False),
+                    image_url=candidate.get("image_url"),
                 )
                 for candidate in race_data.get("candidates", [])
             ]

@@ -9,6 +9,7 @@ class CandidateSummary(BaseModel):
     name: str
     party: str | None = None
     incumbent: bool
+    image_url: str | None = None
 
 
 class RaceSummary(BaseModel):
