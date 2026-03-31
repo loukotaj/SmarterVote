@@ -236,3 +236,40 @@ export interface RunHistoryItem extends RunInfo {
   updated_at: string;
   last_step?: string;
 }
+
+// ---------------------------------------------------------------------------
+// Analytics & Alerts (admin dashboard)
+// ---------------------------------------------------------------------------
+
+export interface TimeseriesBucket {
+  time: string; // HH:MM
+  requests: number;
+}
+
+export interface AnalyticsOverview {
+  total_requests: number;
+  unique_visitors: number;
+  avg_latency_ms: number;
+  error_rate: number; // percentage 0-100
+  error_count: number;
+  timeseries: TimeseriesBucket[];
+  hours: number;
+}
+
+export interface RaceAnalytics {
+  race_id: string;
+  requests_24h: number;
+  last_accessed?: string;
+  updated_utc?: string;
+  title?: string;
+}
+
+export interface Alert {
+  id: string;
+  severity: "info" | "warning" | "critical";
+  category: "freshness" | "failures" | "quality" | "analytics";
+  message: string;
+  details: Record<string, unknown>;
+  created_at: string;
+  acknowledged: boolean;
+}

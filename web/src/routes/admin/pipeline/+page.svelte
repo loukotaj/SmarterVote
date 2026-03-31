@@ -23,6 +23,9 @@
   import RunHistory from "$lib/components/RunHistory.svelte";
   import ArtifactsList from "$lib/components/ArtifactsList.svelte";
   import PipelineModal from "$lib/components/PipelineModal.svelte";
+  import AdminTabs from "$lib/components/admin/AdminTabs.svelte";
+  import DashboardTab from "$lib/components/admin/DashboardTab.svelte";
+  import RacesTab from "$lib/components/admin/RacesTab.svelte";
 
   // Utilities
   import { debounce, safeJsonStringify, downloadAsJson } from "$lib/utils/pipelineUtils";
@@ -35,6 +38,10 @@
   let elapsedTimer: ReturnType<typeof setInterval> | null = null;
   let autoRefreshTimer: ReturnType<typeof setInterval> | null = null;
   let queuePollTimer: ReturnType<typeof setInterval> | null = null;
+
+  // Tab state
+  let activeTab: "dashboard" | "races" | "pipeline" = "dashboard";
+  let alertBadgeCount = 0;
 
   // Modal state
   let showModal = false;
@@ -368,6 +375,23 @@
     }
   }
 
+  async function handleQueueRaceById(race_id: string) {
+    if (!apiService) return;
+    try {
+      const result = await apiService.addToQueue([race_id], buildOptions());
+      if (result.added.length > 0) {
+        addLog("info", `Queued update for ${race_id}`);
+        activeTab = "pipeline";
+      }
+      for (const err of result.errors) {
+        addLog("warning", `${err.race_id}: ${err.error}`);
+      }
+      await refreshQueue();
+    } catch (e) {
+      addLog("error", `Failed to queue ${race_id}: ${e}`);
+    }
+  }
+
   async function handleRemoveQueueItem(item: QueueItem) {
     try {
       await apiService.removeQueueItem(item.id);
@@ -484,7 +508,7 @@
 </script>
 
 <svelte:head>
-  <title>Pipeline Dashboard - SmarterVote</title>
+  <title>Admin Console - SmarterVote</title>
 </svelte:head>
 
 <div class="container mx-auto px-4 py-6 max-w-7xl">
@@ -492,8 +516,8 @@
   <div class="mt-2 mb-6 card p-4">
     <div class="flex items-center justify-between">
       <div class="flex items-center space-x-4">
-        <h1 class="text-xl font-bold text-gray-900">Pipeline Dashboard</h1>
-        <span class="text-sm text-gray-500">AI Agent Research</span>
+        <h1 class="text-xl font-bold text-gray-900">Admin Console</h1>
+        <span class="text-sm text-gray-500">SmarterVote</span>
       </div>
       <div class="flex items-center space-x-2">
         <div class="w-3 h-3 rounded-full {websocket.connected ? 'bg-green-500' : 'bg-red-500'}" />
@@ -513,6 +537,24 @@
     </div>
   </div>
 
+  <!-- Tab navigation -->
+  <AdminTabs bind:activeTab alertCount={alertBadgeCount} />
+
+  <!-- Dashboard tab -->
+  {#if activeTab === "dashboard"}
+    <DashboardTab
+      onAlertCountChange={(n) => (alertBadgeCount = n)}
+      recentRuns={pipeline.runHistory ?? []}
+    />
+  {/if}
+
+  <!-- Races tab -->
+  {#if activeTab === "races"}
+    <RacesTab onUpdateRace={handleQueueRaceById} />
+  {/if}
+
+  <!-- Pipeline tab -->
+  {#if activeTab === "pipeline"}
   <div class="dashboard-grid">
     <!-- Left Panel -->
     <div class="space-y-6">
@@ -827,6 +869,7 @@
       />
     </div>
   </div>
+  {/if}
 </div>
 
 <!-- Modal -->
