@@ -1,28 +1,54 @@
 """
 Run management service for tracking pipeline executions.
+
+Storage strategy:
+- Active (pending/running) runs are kept in-memory only — Cloud Run is single-instance,
+  so this is safe and fast for hot-path updates.
+- Completed/failed/cancelled runs are persisted to Firestore (collection: "pipeline_runs")
+  in a background thread so the hot path is never blocked.
+- Local dev (no FIRESTORE_PROJECT env var): completed runs live in an in-memory dict and
+  are lost on restart — acceptable for local experimentation.
+
+Firestore is the single source of truth; there is no local-file sync and no GCS run storage.
 """
 
-import json
 import logging
-import sys
-import traceback
+import os
+import threading
 import uuid
 from datetime import datetime, timezone
-from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from .models import RunInfo, RunOptions, RunRequest, RunStatus, RunStep
+
+_COLLECTION = "pipeline_runs"
 
 
 class RunManager:
     """Manages pipeline run lifecycle and state."""
 
-    def __init__(self, storage_dir: str = "pipeline_client/runs"):
-        self.storage_dir = Path(storage_dir)
-        self.storage_dir.mkdir(parents=True, exist_ok=True)
+    def __init__(self):
         self.active_runs: Dict[str, RunInfo] = {}
-        self._load_runs()
         self._log_handlers: Dict[str, Any] = {}
+        # Completed-run store: Firestore client in production, in-memory dict in local dev
+        self._db: Optional[Any] = None  # google.cloud.firestore.Client when available
+        self._local_history: Dict[str, RunInfo] = {}  # local dev fallback
+        self._init_store()
+
+    def _init_store(self) -> None:
+        """Connect to Firestore if FIRESTORE_PROJECT is set, else use in-memory fallback."""
+        project = os.getenv("FIRESTORE_PROJECT")
+        if not project:
+            logging.getLogger(__name__).info("RunManager: FIRESTORE_PROJECT not set — using in-memory run history (local dev mode)")
+            return
+        try:
+            from google.cloud import firestore  # type: ignore
+            self._db = firestore.Client(project=project)
+            logging.getLogger(__name__).info("RunManager: using Firestore project=%s collection=%s", project, _COLLECTION)
+        except ImportError:
+            logging.getLogger(__name__).warning("google-cloud-firestore not installed; using in-memory run history")
+        except Exception:
+            logging.getLogger(__name__).exception("Firestore init failed; using in-memory run history")
 
     class RunLogHandler(logging.Handler):
         def __init__(self, run_manager, run_id):
@@ -67,23 +93,7 @@ class RunManager:
             logger.removeHandler(handler)
 
     def _load_runs(self):
-        """Load existing runs from storage."""
-        try:
-            for run_file in self.storage_dir.glob("*.json"):
-                try:
-                    with open(run_file, "r") as f:
-                        data = json.load(f)
-                        run_info = RunInfo(**data)
-                        if run_info.status in [RunStatus.PENDING, RunStatus.RUNNING]:
-                            # Mark incomplete runs as failed on startup
-                            run_info.status = RunStatus.FAILED
-                            run_info.error = "Process interrupted"
-                            self._save_run(run_info)
-                except Exception:
-                    logging.exception("Failed to load run file %s, skipping", run_file)
-                    # Don't load completed runs into active_runs to save memory
-        except (OSError, json.JSONDecodeError, ValueError):
-            logging.exception("Failed to load existing runs from storage")
+        pass  # No-op: replaced by Firestore-primary storage (no startup sync needed)
 
     def create_run(self, steps: List[str], request: RunRequest) -> RunInfo:
         """Create a new pipeline run."""
@@ -151,7 +161,6 @@ class RunManager:
         """Mark a run as started."""
         if run_id in self.active_runs:
             self.active_runs[run_id].status = RunStatus.RUNNING
-            self._save_run(self.active_runs[run_id])
             self.attach_run_logger(run_id)
 
     def complete_run(self, run_id: str, artifact_id: Optional[str] = None, duration_ms: Optional[int] = None):
@@ -162,11 +171,9 @@ class RunManager:
             run_info.completed_at = datetime.now(timezone.utc)
             run_info.artifact_id = artifact_id
             run_info.duration_ms = duration_ms
-            self._save_run(run_info)
-            self._upload_run_to_gcs_background(run_info)
-            # Remove from active runs
             del self.active_runs[run_id]
             self.detach_run_logger(run_id)
+            self._persist_background(run_info)
 
     def fail_run(self, run_id: str, error: str, duration_ms: Optional[int] = None):
         """Mark a run as failed."""
@@ -176,11 +183,9 @@ class RunManager:
             run_info.completed_at = datetime.now(timezone.utc)
             run_info.error = error
             run_info.duration_ms = duration_ms
-            self._save_run(run_info)
-            self._upload_run_to_gcs_background(run_info)
-            # Remove from active runs
             del self.active_runs[run_id]
             self.detach_run_logger(run_id)
+            self._persist_background(run_info)
 
     def cancel_run(self, run_id: str):
         """Cancel a running process."""
@@ -188,38 +193,44 @@ class RunManager:
             run_info = self.active_runs[run_id]
             run_info.status = RunStatus.CANCELLED
             run_info.completed_at = datetime.now(timezone.utc)
-            self._save_run(run_info)
-            self._upload_run_to_gcs_background(run_info)
-            # Remove from active runs
             del self.active_runs[run_id]
             self.detach_run_logger(run_id)
+            self._persist_background(run_info)
 
     def delete_run(self, run_id: str) -> bool:
         """Delete a completed/failed/cancelled run from history. Returns True if deleted."""
         if run_id in self.active_runs:
             return False  # Cannot delete an active run; cancel it first
-        run_file = self.storage_dir / f"{run_id}.json"
-        if run_file.exists():
-            run_file.unlink()
-            return True
-        return False
+        if self._db is not None:
+            try:
+                doc_ref = self._db.collection(_COLLECTION).document(run_id)
+                if not doc_ref.get().exists:
+                    return False
+                doc_ref.delete()
+                return True
+            except Exception:
+                logging.getLogger(__name__).exception("Firestore delete failed for run %s", run_id)
+                return False
+        else:
+            if run_id in self._local_history:
+                del self._local_history[run_id]
+                return True
+            return False
 
     def get_run(self, run_id: str) -> Optional[RunInfo]:
         """Get run information."""
-        # Check active runs first
         if run_id in self.active_runs:
             return self.active_runs[run_id]
-
-        # Check storage
-        run_file = self.storage_dir / f"{run_id}.json"
-        if run_file.exists():
+        if self._db is not None:
             try:
-                with open(run_file, "r") as f:
-                    data = json.load(f)
+                doc = self._db.collection(_COLLECTION).document(run_id).get()
+                if doc.exists:
+                    data = doc.to_dict() or {}
                     return RunInfo(**data)
             except Exception:
-                pass
-
+                logging.getLogger(__name__).exception("Firestore get failed for run %s", run_id)
+        else:
+            return self._local_history.get(run_id)
         return None
 
     def list_active_runs(self) -> List[RunInfo]:
@@ -227,30 +238,33 @@ class RunManager:
         return list(self.active_runs.values())
 
     def list_recent_runs(self, limit: int = 50) -> List[RunInfo]:
-        """List recent runs from storage."""
-        runs = []
+        """List recent runs (active in memory + history from Firestore)."""
+        runs: List[RunInfo] = list(self.active_runs.values())
+        active_ids = set(self.active_runs.keys())
 
-        # Add active runs
-        runs.extend(self.active_runs.values())
+        if self._db is not None:
+            try:
+                from google.cloud.firestore import Query  # type: ignore
+                docs = (
+                    self._db.collection(_COLLECTION)
+                    .order_by("started_at", direction=Query.DESCENDING)
+                    .limit(limit)
+                    .stream()
+                )
+                for doc in docs:
+                    data = doc.to_dict() or {}
+                    if data.get("run_id") not in active_ids:
+                        try:
+                            runs.append(RunInfo(**data))
+                        except Exception:
+                            pass
+            except Exception:
+                logging.getLogger(__name__).exception("Firestore list_recent_runs query failed")
+        else:
+            for run_id, run_info in self._local_history.items():
+                if run_id not in active_ids:
+                    runs.append(run_info)
 
-        # Add completed runs from storage
-        try:
-            run_files = sorted(self.storage_dir.glob("*.json"), key=lambda f: f.stat().st_mtime, reverse=True)
-
-            for run_file in run_files[:limit]:
-                try:
-                    with open(run_file, "r") as f:
-                        data = json.load(f)
-                        run_info = RunInfo(**data)
-                        if run_info.run_id not in self.active_runs:
-                            runs.append(run_info)
-                except (OSError, json.JSONDecodeError, ValueError):
-                    logging.exception("Failed to read run file %s", run_file)
-                    continue
-        except OSError:
-            logging.exception("Failed to list recent runs from storage")
-
-        # Sort by start time, most recent first (normalize tz-awareness for comparison)
         def _sort_key(r):
             dt = r.started_at
             if dt is None:
@@ -263,7 +277,7 @@ class RunManager:
         return runs[:limit]
 
     def add_run_log(self, run_id: str, log: dict):
-        """Add a log entry to a run (in-memory only; disk flush happens on status changes)."""
+        """Add a log entry to a run (in-memory only for active runs)."""
         run_info = self.active_runs.get(run_id)
         if run_info:
             if not hasattr(run_info, "logs") or run_info.logs is None:
@@ -277,97 +291,34 @@ class RunManager:
         return []
 
     def _save_run(self, run_info: RunInfo):
-        """Save run information to storage."""
+        """No-op: replaced by Firestore-primary storage."""
+        pass
+
+    def _persist_background(self, run_info: RunInfo) -> None:
+        """Fire-and-forget: persist a completed/failed/cancelled run to Firestore (or local dict)."""
+        if self._db is not None:
+            threading.Thread(
+                target=self._write_firestore,
+                args=(run_info,),
+                daemon=True,
+                name=f"fs-write-run-{run_info.run_id[:8]}",
+            ).start()
+        else:
+            # Local dev: store in-memory (ephemeral)
+            self._local_history[run_info.run_id] = run_info
+
+    def _write_firestore(self, run_info: RunInfo) -> None:
+        """Write run metadata to Firestore. Logs are excluded (in-memory only, can be large)."""
+        if self._db is None:
+            return
         try:
-            run_file = self.storage_dir / f"{run_info.run_id}.json"
-            # Use dict to include logs
             data = run_info.model_dump(mode="json")
-            if hasattr(run_info, "logs"):
-                data["logs"] = run_info.logs
-            with open(run_file, "w") as f:
-                json.dump(data, f, indent=2, default=str)
-        except OSError:
-            # Do NOT use logging.exception here — it would re-enter the RunLogHandler
-            # and cause infinite recursion. Write directly to stderr instead.
-            print(f"Failed to save run {run_info.run_id}: {traceback.format_exc()}", file=sys.stderr)
-
-    def _upload_run_to_gcs_background(self, run_info: RunInfo) -> None:
-        """Fire-and-forget GCS upload in a daemon thread."""
-        import threading
-        threading.Thread(
-            target=self._upload_run_to_gcs,
-            args=(run_info,),
-            daemon=True,
-            name=f"gcs-upload-run-{run_info.run_id[:8]}",
-        ).start()
-
-    def _upload_run_to_gcs(self, run_info: RunInfo) -> None:
-        """Upload run metadata to GCS so history survives container restarts.
-
-        Logs are stripped to keep the payload small — the full log history lives
-        in the local filesystem copy, which is already written before this runs.
-        """
-        try:
-            from .settings import settings
-            if not settings.gcs_bucket:
-                return
-            from google.cloud import storage  # type: ignore
-            client = storage.Client()
-            bucket = client.bucket(settings.gcs_bucket)
-            blob = bucket.blob(f"runs/{run_info.run_id}.json")
-            data = run_info.model_dump(mode="json")
-            data.pop("logs", None)  # logs can be very large; kept local only
-            blob.upload_from_string(json.dumps(data, indent=2, default=str), content_type="application/json")
-        except ImportError:
-            pass  # google-cloud-storage not installed
+            data.pop("logs", None)  # logs are ephemeral; not stored in Firestore
+            self._db.collection(_COLLECTION).document(run_info.run_id).set(data)
         except Exception:
-            print(f"GCS upload failed for run {run_info.run_id}: {traceback.format_exc()}", file=sys.stderr)
+            logging.getLogger(__name__).exception("Firestore write failed for run %s", run_info.run_id)
 
-    def sync_from_gcs(self) -> int:
-        """Download run records from GCS into local storage (best-effort).
-
-        Called on startup in cloud environments so that run history from previous
-        container instances is visible in the admin UI. Returns number of runs synced.
-        """
-        try:
-            from .settings import settings
-            if not settings.gcs_bucket:
-                return 0
-            from google.cloud import storage  # type: ignore
-            client = storage.Client()
-            bucket = client.bucket(settings.gcs_bucket)
-            count = 0
-            for blob in bucket.list_blobs(prefix="runs/"):
-                if not blob.name.endswith(".json"):
-                    continue
-                run_id = blob.name[len("runs/"):-len(".json")]
-                local_file = self.storage_dir / f"{run_id}.json"
-                if local_file.exists():
-                    continue  # Already have a local copy
-                try:
-                    raw = blob.download_as_text()
-                    # Sanitize stale in-flight statuses — the container that wrote
-                    # this blob is gone, so anything still "running" or "pending"
-                    # from GCS was interrupted.
-                    try:
-                        data = json.loads(raw)
-                        if data.get("status") in ("running", "pending"):
-                            data["status"] = "failed"
-                            if not data.get("error"):
-                                data["error"] = "Process interrupted"
-                            raw = json.dumps(data, indent=2, default=str)
-                    except (json.JSONDecodeError, TypeError):
-                        pass
-                    local_file.write_text(raw, encoding="utf-8")
-                    count += 1
-                except Exception:
-                    print(f"Failed to sync run {run_id} from GCS: {traceback.format_exc()}", file=sys.stderr)
-            return count
-        except ImportError:
-            return 0
-        except Exception:
-            print(f"Failed to sync runs from GCS: {traceback.format_exc()}", file=sys.stderr)
-            return 0
+    # sync_from_gcs is intentionally removed: Firestore is now the source of truth.
 
 
 # Global run manager instance

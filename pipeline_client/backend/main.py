@@ -50,15 +50,6 @@ async def lifespan(app: FastAPI):
     """Startup and shutdown events."""
     loop = asyncio.get_running_loop()
     logging_manager.set_main_loop(loop)
-    # Sync run history from GCS so history from prior container instances is visible.
-    # Only runs in cloud environments where GCS_BUCKET is configured.
-    if settings.gcs_bucket and (os.getenv("K_SERVICE") or os.getenv("CLOUD_RUN_SERVICE") or os.getenv("GOOGLE_CLOUD_PROJECT")):
-        try:
-            synced = await asyncio.to_thread(run_manager.sync_from_gcs)
-            if synced:
-                logging.info("Synced %d run(s) from GCS on startup", synced)
-        except Exception:
-            logging.warning("Failed to sync run history from GCS on startup", exc_info=True)
     # Resume queue processing if there are pending items from before restart
     if queue_manager.get_next_pending():
         asyncio.create_task(queue_manager.process_next())

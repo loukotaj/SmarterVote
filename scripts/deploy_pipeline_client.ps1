@@ -38,8 +38,33 @@ $serviceExists = ($LASTEXITCODE -eq 0) -and ($existsOutput -notmatch "ERROR")
 $ErrorActionPreference = "Stop"
 
 $Bucket  = "smartervote-sv-data-$Environment"
+
+# Look up the races-api URL so analytics proxy can reach it
+Write-Host "==> Looking up races-api URL..."
+$RacesApiService = "races-api-$Environment"
+$RacesApiUrl = gcloud run services describe $RacesApiService --region $Region --project $ProjectId --format 'value(status.url)' 2>$null
+if (-not $RacesApiUrl) {
+    Write-Warning "Could not resolve races-api URL; RACES_API_URL will not be updated"
+    $RacesApiUrl = ""
+}
+
 # Use ^;^ as delimiter so commas inside values don't confuse gcloud
-$envVars = "^;^PROJECT_ID=$ProjectId;ENVIRONMENT=$Environment;LOG_LEVEL=DEBUG;STORAGE_MODE=gcp;GCS_BUCKET=$Bucket;GCS_BUCKET_NAME=$Bucket;BUCKET_NAME=$Bucket;ALLOWED_ORIGINS=https://smarter.vote,https://www.smarter.vote,http://localhost:5173,http://localhost:4173"
+$envParts = @(
+    "PROJECT_ID=$ProjectId",
+    "ENVIRONMENT=$Environment",
+    "LOG_LEVEL=DEBUG",
+    "STORAGE_MODE=gcp",
+    "GCS_BUCKET=$Bucket",
+    "GCS_BUCKET_NAME=$Bucket",
+    "BUCKET_NAME=$Bucket",
+    "FIRESTORE_PROJECT=$ProjectId",
+    "ALLOWED_ORIGINS=https://smarter.vote,https://www.smarter.vote,http://localhost:5173,http://localhost:4173"
+)
+if ($RacesApiUrl) { $envParts += "RACES_API_URL=$RacesApiUrl" }
+$envVars = "^;^" + ($envParts -join ";")
+
+# --update-secrets merges with existing secrets instead of replacing them,
+# so Terraform-managed secrets (e.g. ADMIN_API_KEY) are preserved.
 $secrets  = "OPENAI_API_KEY=openai-api-key-${Environment}:latest,SERPER_API_KEY=serper-api-key-${Environment}:latest,ANTHROPIC_API_KEY=anthropic-api-key-${Environment}:latest,GEMINI_API_KEY=gemini-api-key-${Environment}:latest,XAI_API_KEY=xai-api-key-${Environment}:latest"
 
 if (-not $serviceExists) {
@@ -54,16 +79,16 @@ if (-not $serviceExists) {
         --min-instances 0 `
         --max-instances 1 `
         --allow-unauthenticated `
-        --set-env-vars $envVars `
-        --set-secrets $secrets
+        --update-env-vars $envVars `
+        --update-secrets $secrets
 } else {
     Write-Host "==> Updating $Service..."
     gcloud run services update $Service `
         --region $Region `
         --project $ProjectId `
         --image $Image `
-        --set-env-vars $envVars `
-        --set-secrets $secrets
+        --update-env-vars $envVars `
+        --update-secrets $secrets
 }
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
