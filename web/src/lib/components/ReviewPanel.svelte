@@ -3,6 +3,8 @@
 
   export let reviews: AgentReview[] = [];
 
+  let collapsed = true;
+
   function verdictColor(verdict: string): string {
     switch (verdict) {
       case "approved":
@@ -29,8 +31,8 @@
 </script>
 
 <div class="review-panel">
-  <h3 class="review-title">
-    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <button class="review-title" on:click={() => (collapsed = !collapsed)} aria-expanded={!collapsed}>
+    <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path
         stroke-linecap="round"
         stroke-linejoin="round"
@@ -39,13 +41,26 @@
       />
     </svg>
     AI Review Status
-  </h3>
+    {#if reviews && reviews.length > 0}
+      <span class="review-count">{reviews.length} review{reviews.length !== 1 ? "s" : ""}</span>
+    {/if}
+    <svg
+      class="w-4 h-4 ml-auto transition-transform duration-200"
+      class:rotate-180={!collapsed}
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+    </svg>
+  </button>
 
-  {#if !reviews || reviews.length === 0}
-    <p class="review-empty">No AI review has been run for this race yet.</p>
-  {:else}
-    <div class="review-cards">
-      {#each reviews as review}
+  {#if !collapsed}
+    {#if !reviews || reviews.length === 0}
+      <p class="review-empty">No AI review has been run for this race yet.</p>
+    {:else}
+      <div class="review-cards">
+        {#each reviews as review}
         <div class="review-card">
           <div class="review-header">
             <span class="review-model">{review.model}</span>
@@ -93,6 +108,7 @@
       {/each}
     </div>
   {/if}
+  {/if}
 </div>
 
 <style lang="postcss">
@@ -101,11 +117,16 @@
   }
 
   .review-title {
-    @apply flex items-center gap-2 text-lg font-semibold text-content mb-4;
+    @apply flex items-center gap-2 text-base font-semibold text-content w-full
+           text-left cursor-pointer hover:text-content-muted transition-colors duration-150;
+  }
+
+  .review-count {
+    @apply text-xs font-normal text-content-subtle bg-surface-alt px-2 py-0.5 rounded-full;
   }
 
   .review-cards {
-    @apply grid gap-4 sm:grid-cols-2;
+    @apply grid gap-4 sm:grid-cols-2 mt-4;
   }
 
   .review-card {

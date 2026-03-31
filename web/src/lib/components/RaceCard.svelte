@@ -108,14 +108,6 @@
                 {candidate.name ? candidate.name[0].toUpperCase() : "?"}
               </div>
             {/if}
-            <!-- Incumbent star -->
-            {#if candidate.incumbent}
-              <span
-                class="absolute -top-1 -right-1 text-yellow-400 text-xs leading-none"
-                title="Incumbent"
-                aria-label="Incumbent"
-              >★</span>
-            {/if}
           </div>
           <!-- Name + party -->
           <div class="min-w-0">

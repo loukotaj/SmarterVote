@@ -70,12 +70,12 @@
   {#if loading}
     <div class="flex items-center justify-center py-20">
       <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600" />
-      <span class="ml-3 text-lg text-gray-600">Loading candidate...</span>
+      <span class="ml-3 text-lg text-content-muted">Loading candidate...</span>
     </div>
   {:else if error}
-    <div class="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
-      <h2 class="text-2xl font-bold text-red-800 mb-2">{error}</h2>
-      <a href="/races/{slug}" class="mt-4 inline-block text-blue-600 hover:text-blue-800 font-medium">
+    <div class="bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800 rounded-lg p-6 text-center">
+      <h2 class="text-2xl font-bold text-red-800 dark:text-red-200 mb-2">{error}</h2>
+      <a href="/races/{slug}" class="mt-4 inline-block text-blue-600 hover:text-blue-400 font-medium">
         &larr; Back to race overview
       </a>
     </div>
@@ -309,21 +309,21 @@
   }
 
   .model-label {
-    @apply flex items-center gap-1.5 text-xs text-gray-500;
+    @apply flex items-center gap-1.5 text-xs text-content-subtle;
   }
 
   .model-tag {
-    @apply bg-gray-100 px-2 py-0.5 rounded font-mono text-xs;
+    @apply bg-surface-alt text-content-subtle px-2 py-0.5 rounded font-mono text-xs;
   }
 
   /* Other candidates collapsible */
   .other-candidates-bar {
-    @apply mb-6 bg-gray-50 border border-gray-200 rounded-lg overflow-hidden;
+    @apply mb-6 bg-surface-alt border border-stroke rounded-lg overflow-hidden;
   }
 
   .toggle-others {
     @apply w-full flex items-center justify-between px-4 py-3 text-sm font-medium
-           text-gray-700 hover:bg-gray-100 transition-colors duration-200;
+           text-content hover:bg-stroke/30 transition-colors duration-200;
   }
 
   .others-list {
@@ -331,9 +331,9 @@
   }
 
   .other-chip {
-    @apply flex items-center gap-2.5 px-3 py-2 bg-white border border-gray-200
-           rounded-lg hover:border-blue-300 hover:bg-blue-50 transition-colors
-           duration-200 no-underline text-gray-700;
+    @apply flex items-center gap-2.5 px-3 py-2 bg-surface border border-stroke
+           rounded-lg hover:border-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950 transition-colors
+           duration-200 no-underline text-content;
   }
 
   .other-avatar {
@@ -345,11 +345,11 @@
   }
 
   .other-name {
-    @apply text-sm font-medium text-gray-900;
+    @apply text-sm font-medium text-content;
   }
 
   .other-party {
-    @apply text-xs text-gray-500;
+    @apply text-xs text-content-subtle;
   }
 
   /* Candidate header */
@@ -362,16 +362,16 @@
   }
 
   .candidate-photo {
-    @apply w-24 h-24 sm:w-28 sm:h-28 rounded-xl object-cover border-2 border-gray-200 flex-shrink-0;
+    @apply w-24 h-24 sm:w-28 sm:h-28 rounded-xl object-cover border-2 border-stroke flex-shrink-0;
   }
 
   .candidate-photo-placeholder {
-    @apply w-24 h-24 sm:w-28 sm:h-28 rounded-xl bg-gray-100 border-2 border-gray-200
+    @apply w-24 h-24 sm:w-28 sm:h-28 rounded-xl bg-surface-alt border-2 border-stroke
            flex items-center justify-center flex-shrink-0;
   }
 
   .candidate-detail-name {
-    @apply text-2xl sm:text-3xl font-bold text-gray-900;
+    @apply text-2xl sm:text-3xl font-bold text-content;
   }
 
   .badge {
@@ -379,15 +379,15 @@
   }
 
   .party-badge {
-    @apply bg-blue-100 text-blue-800;
+    @apply bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200;
   }
 
   .incumbent-badge {
-    @apply bg-green-100 text-green-800;
+    @apply bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200;
   }
 
   .candidate-summary {
-    @apply text-gray-700 leading-relaxed text-sm sm:text-base mb-4;
+    @apply text-content-muted leading-relaxed text-sm sm:text-base mb-4;
   }
 
   .quick-links {
@@ -395,9 +395,9 @@
   }
 
   .quick-link {
-    @apply inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 border
-           border-gray-200 rounded-md text-sm text-gray-700 hover:bg-blue-50
-           hover:border-blue-300 hover:text-blue-700 transition-colors
+    @apply inline-flex items-center gap-1.5 px-3 py-1.5 bg-surface-alt border
+           border-stroke rounded-md text-sm text-content hover:bg-blue-50 dark:hover:bg-blue-950
+           hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors
            duration-200 no-underline;
   }
 
@@ -407,7 +407,7 @@
   }
 
   .section-heading {
-    @apply text-lg sm:text-xl font-semibold text-gray-900 mb-3;
+    @apply text-lg sm:text-xl font-semibold text-content mb-3;
   }
 
   :global(.section-card) {
@@ -415,7 +415,7 @@
   }
 
   .subsection-title {
-    @apply text-base font-semibold text-gray-900 mb-3;
+    @apply text-base font-semibold text-content mb-3;
   }
 
   /* Timeline */
@@ -424,7 +424,7 @@
   }
 
   .timeline-entry {
-    @apply border-l-2 border-blue-200 pl-4 py-1;
+    @apply border-l-2 border-blue-300 dark:border-blue-700 pl-4 py-1;
   }
 
   .timeline-header {
@@ -432,19 +432,19 @@
   }
 
   .timeline-title {
-    @apply font-medium text-gray-900 text-sm;
+    @apply font-medium text-content text-sm;
   }
 
   .timeline-years {
-    @apply text-xs text-gray-500;
+    @apply text-xs text-content-subtle;
   }
 
   .timeline-org {
-    @apply text-sm text-gray-600 block;
+    @apply text-sm text-content-muted block;
   }
 
   .timeline-desc {
-    @apply text-xs text-gray-500 mt-1;
+    @apply text-xs text-content-subtle mt-1;
   }
 
   /* Education */
@@ -453,23 +453,23 @@
   }
 
   .edu-institution {
-    @apply font-medium text-gray-900 text-sm;
+    @apply font-medium text-content text-sm;
   }
 
   .edu-degree {
-    @apply text-xs text-gray-600;
+    @apply text-xs text-content-muted;
   }
 
   /* Data note */
   .data-note {
-    @apply mt-8 bg-blue-50 border border-blue-200 rounded-lg p-4 sm:p-6 text-center;
+    @apply mt-8 bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 rounded-lg p-4 sm:p-6 text-center;
   }
 
   .data-note-title {
-    @apply text-blue-800 font-medium mb-2 text-sm sm:text-base;
+    @apply text-blue-800 dark:text-blue-200 font-medium mb-2 text-sm sm:text-base;
   }
 
   .data-note-text {
-    @apply text-blue-700 text-xs sm:text-sm;
+    @apply text-blue-700 dark:text-blue-300 text-xs sm:text-sm;
   }
 </style>
