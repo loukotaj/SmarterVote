@@ -35,6 +35,7 @@ export function getAuth0Client(): Promise<Auth0Client> {
       clientId: import.meta.env.VITE_AUTH0_CLIENT_ID!,
       authorizationParams: {
         redirect_uri: `${window.location.origin}/admin`,
+        audience: import.meta.env.VITE_AUTH0_AUDIENCE,
       },
     });
   }

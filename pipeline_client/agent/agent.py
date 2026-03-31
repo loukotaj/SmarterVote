@@ -561,12 +561,17 @@ async def _call_openai(
 
     client = AsyncOpenAI(api_key=api_key, max_retries=0, timeout=300)
 
+    _supports_temperature = not (
+        model.startswith("o1") or model.startswith("o3") or model.startswith("o4")
+        or "nano" in model
+    )
     kwargs: Dict[str, Any] = {
         "model": model,
         "messages": messages,
-        "temperature": 0.2,
         "max_completion_tokens": max_tokens,
     }
+    if _supports_temperature:
+        kwargs["temperature"] = 0.2
     if tools:
         kwargs["tools"] = tools
         kwargs["tool_choice"] = "auto"

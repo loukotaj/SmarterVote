@@ -110,6 +110,8 @@ jobs:
       TF_VAR_gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
       TF_VAR_xai_api_key: ${{ secrets.XAI_API_KEY }}
       TF_VAR_admin_api_key: ${{ secrets.ADMIN_API_KEY }}
+      TF_VAR_auth0_domain: ${{ secrets.AUTH0_DOMAIN }}
+      TF_VAR_auth0_audience: ${{ secrets.AUTH0_AUDIENCE }}
 
     steps:
     - uses: actions/checkout@v6
