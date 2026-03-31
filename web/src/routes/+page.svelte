@@ -1,474 +1,237 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { getRaceSummaries } from "$lib/api";
-  import { logger } from "$lib/utils/logger";
   import type { RaceSummary } from "$lib/types";
+  import { getRaceSummaries } from "$lib/api";
+  import USMap from "$lib/components/USMap.svelte";
+  import RaceCard from "$lib/components/RaceCard.svelte";
 
-  let loading = true;
   let races: RaceSummary[] = [];
-  let searchQuery = "";
+  let loading = true;
 
   onMount(async () => {
-    try {
-      races = await getRaceSummaries();
-    } catch (error) {
-      logger.error("Failed to load race summaries:", error);
-      races = [];
-    } finally {
-      loading = false;
-    }
+    races = await getRaceSummaries();
+    loading = false;
   });
 
-  function filterRaces(allRaces: RaceSummary[], query: string): RaceSummary[] {
-    if (!query.trim()) return allRaces;
-    const q = query.toLowerCase();
-    return allRaces.filter(
-      (race) =>
+  // Filter state
+  let selectedState: string | null = null;
+  let selectedOffice: string | null = null;
+  let searchQuery = "";
+
+  // jurisdictions that have races
+  $: activeStates = new Set(races.map((r) => r.jurisdiction).filter(Boolean) as string[]);
+
+  // race counts per state for tooltip
+  $: raceCounts = races.reduce<Record<string, number>>((acc, r) => {
+    if (r.jurisdiction) acc[r.jurisdiction] = (acc[r.jurisdiction] ?? 0) + 1;
+    return acc;
+  }, {});
+
+  // unique short office names for filter chips
+  function officeShort(office: string | undefined): string {
+    if (!office) return "Other";
+    const o = office.toLowerCase();
+    if (o.includes("senate")) return "Senate";
+    if (o.includes("governor") || o.includes("gubernatorial")) return "Governor";
+    if (o.includes("house") || o.includes("representative")) return "House";
+    if (o.includes("secretary")) return "Sec. of State";
+    if (o.includes("attorney")) return "Atty. General";
+    return office.length > 18 ? office.slice(0, 18) + "\u2026" : office;
+  }
+
+  $: officeTypes = [...new Set(races.map((r) => officeShort(r.office)))].sort();
+
+  // stats
+  $: totalCandidates = races.reduce((sum, r) => sum + r.candidates.length, 0);
+
+  // filtering chain: state > office > text
+  $: filteredRaces = races.filter((race) => {
+    if (selectedState && race.jurisdiction !== selectedState) return false;
+    if (selectedOffice && officeShort(race.office) !== selectedOffice) return false;
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      return (
         race.title?.toLowerCase().includes(q) ||
         race.office?.toLowerCase().includes(q) ||
         race.jurisdiction?.toLowerCase().includes(q) ||
         race.candidates.some(
-          (candidate) =>
-            candidate.name.toLowerCase().includes(q) ||
-            candidate.party?.toLowerCase().includes(q)
+          (c) => c.name.toLowerCase().includes(q) || c.party?.toLowerCase().includes(q)
         )
-    );
+      );
+    }
+    return true;
+  });
+
+  function handleStateClick(e: CustomEvent<string>) {
+    const state = e.detail;
+    selectedState = selectedState === state ? null : state;
+    selectedOffice = null;
   }
 
-  $: filteredRaces = filterRaces(races, searchQuery) as RaceSummary[];
+  $: hasActiveFilters = selectedState || selectedOffice || searchQuery.trim();
 
-  function formatElectionDate(dateString: string): string {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-  }
-
-  function getRaceUrl(raceId: string): string {
-    return `/races/${raceId}`;
+  function clearFilters() {
+    selectedState = null;
+    selectedOffice = null;
+    searchQuery = "";
   }
 </script>
 
 <svelte:head>
-  <title>Smarter.vote - Clear Election Information</title>
+  <title>Smarter.vote — Know Your Candidates</title>
   <meta
     name="description"
-    content="Compare candidates on key issues with clear analysis from publicly available sources."
+    content="Clear, unbiased AI analysis of where candidates stand on the issues that matter. Browse races by state."
   />
 </svelte:head>
 
-<div class="container mx-auto px-4 py-8 sm:py-12 max-w-6xl">
-  <!-- Alpha Notice -->
-  <div class="bg-amber-50 border border-amber-300 rounded-lg px-4 py-3 mb-6 sm:mb-8 flex items-start gap-3">
-    <svg class="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+<div class="max-w-7xl mx-auto px-4 py-8 sm:py-10">
+
+  <!-- Alpha strip -->
+  <div class="flex items-center gap-2 bg-amber-50 dark:bg-amber-950 border border-amber-200 dark:border-amber-800 rounded-lg px-4 py-2 mb-6 text-xs text-amber-800 dark:text-amber-200">
+    <svg class="w-4 h-4 flex-shrink-0 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
       <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
     </svg>
-    <div>
-      <p class="text-amber-800 font-semibold text-sm">This project is in alpha and actively under development.</p>
-      <p class="text-amber-700 text-sm mt-0.5">AI-generated summaries can be wrong or out of date. Always follow the source links and apply your own critical judgment before relying on anything here.</p>
-    </div>
+    <span><strong>Alpha:</strong> AI-generated content can be wrong or outdated. Always follow the source links and apply your own judgment.</span>
   </div>
 
-  <!-- Hero Section -->
-  <header class="text-center mb-8 sm:mb-12">
-    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-content mb-4">
-      Smarter.vote
+  <!-- Hero -->
+  <header class="text-center mb-8 sm:mb-10">
+    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-content tracking-tight mb-3">
+      Know your candidates.
     </h1>
-    <p class="text-lg sm:text-xl text-content-muted mb-6 sm:mb-8">
-    One place to find clear, unbiased information on where candidates stand on the issues that matter to you.
+    <p class="text-lg sm:text-xl text-content-muted max-w-xl mx-auto mb-5">
+      Clear, unbiased analysis of where they stand — built from public sources, not spin.
     </p>
-    <p class="text-sm sm:text-base text-content-subtle max-w-2xl mx-auto px-4">
-      We analyze candidates' positions from public sources using multiple AI
-      models to provide clear, unbiased comparisons of where they stand on key
-      issues.
-    </p>
+    {#if !loading}
+      <div class="inline-flex items-center gap-3 bg-surface border border-stroke rounded-full px-5 py-2 text-sm text-content-muted">
+        <span><strong class="text-content">{races.length}</strong> races</span>
+        <span class="text-stroke">·</span>
+        <span><strong class="text-content">{totalCandidates}</strong> candidates</span>
+        <span class="text-stroke">·</span>
+        <span><strong class="text-content">12</strong> issues tracked</span>
+      </div>
+    {/if}
   </header>
 
-  <!-- Search Bar -->
-  <div class="flex justify-end mb-6">
-    <div class="relative w-full max-w-md">
-      <div
-        class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
-      >
-        <svg
-          class="h-5 w-5 text-content-faint"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
+  <!-- Map section -->
+  <section class="bg-surface border border-stroke rounded-2xl shadow-sm p-4 sm:p-6 mb-6">
+    <div class="flex items-center justify-between mb-3">
+      <h2 class="text-base font-semibold text-content">
+        {selectedState ? `${selectedState} — ${raceCounts[selectedState] ?? 0} race${(raceCounts[selectedState] ?? 0) !== 1 ? 's' : ''}` : 'Select a state'}
+      </h2>
+      {#if selectedState}
+        <button
+          on:click={() => { selectedState = null; selectedOffice = null; }}
+          class="text-xs text-content-subtle hover:text-content underline underline-offset-2 transition-colors"
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-          />
+          Clear selection
+        </button>
+      {:else}
+        <p class="text-xs text-content-subtle">Click a highlighted state to filter races</p>
+      {/if}
+    </div>
+
+    {#if loading}
+      <div class="h-64 bg-surface-alt rounded-xl animate-pulse" />
+    {:else}
+      <USMap
+        {activeStates}
+        {selectedState}
+        {raceCounts}
+        on:stateClick={handleStateClick}
+      />
+    {/if}
+  </section>
+
+  <!-- Filter bar -->
+  <div class="flex flex-wrap items-center gap-2 mb-6">
+    <!-- State chip (active) -->
+    {#if selectedState}
+      <button
+        on:click={() => { selectedState = null; selectedOffice = null; }}
+        class="inline-flex items-center gap-1.5 pl-3 pr-2 py-1.5 rounded-full text-sm font-medium bg-blue-600 text-white shadow-sm"
+      >
+        {selectedState}
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    {/if}
+
+    <!-- Office type chips -->
+    {#each officeTypes as office}
+      <button
+        on:click={() => { selectedOffice = selectedOffice === office ? null : office; }}
+        class="px-3 py-1.5 rounded-full text-sm font-medium border transition-colors
+          {selectedOffice === office
+            ? 'bg-content text-surface border-content'
+            : 'bg-surface border-stroke text-content-muted hover:border-content-muted hover:text-content'}"
+      >
+        {office}
+      </button>
+    {/each}
+
+    <!-- Spacer -->
+    <div class="flex-1 min-w-[8rem]" />
+
+    <!-- Search -->
+    <div class="relative">
+      <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+        <svg class="h-4 w-4 text-content-faint" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
       </div>
       <input
         type="text"
         bind:value={searchQuery}
-        placeholder="Search races, candidates, or locations..."
-        class="block w-full pl-10 pr-3 py-2 border border-stroke rounded-lg leading-5 bg-surface placeholder-content-subtle focus:outline-none focus:placeholder-content-faint focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-content"
+        placeholder="Search candidates, races…"
+        class="block w-full sm:w-64 pl-9 pr-3 py-1.5 border border-stroke rounded-full text-sm bg-surface placeholder-content-subtle focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-content"
       />
     </div>
   </div>
 
-  <!-- All Races Section -->
-  {#if loading}
-    <div class="bg-surface rounded-lg shadow-sm">
-      <div class="p-4 sm:p-6 border-b border-stroke">
-        <h2 class="text-xl sm:text-2xl font-semibold text-content">Available Races</h2>
-        <p class="text-sm text-content-muted mt-1">Loading race analysesâ€¦</p>
-      </div>
-      <div class="h-96 flex items-center justify-center">
-        <div class="flex flex-col items-center gap-3 text-content-muted">
-          <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-600"></div>
-          <span class="text-sm">Loading racesâ€¦</span>
-        </div>
-      </div>
-    </div>
-  {:else}
-  <section class="bg-surface rounded-lg shadow-sm">
-    <div class="p-4 sm:p-6 border-b border-stroke">
-      <h2 class="text-xl sm:text-2xl font-semibold text-content">
-        Available Races ({filteredRaces.length})
-      </h2>
-      <p class="text-sm text-content-muted mt-1">
-        {searchQuery
-          ? `Showing results for "${searchQuery}"`
-          : "Browse all available race analyses"}
+  <!-- Results grid -->
+  <section>
+    <div class="flex items-center justify-between mb-4">
+      <p class="text-sm text-content-muted">
+        {#if hasActiveFilters}
+          <span class="font-medium text-content">{filteredRaces.length}</span> {filteredRaces.length === 1 ? 'race' : 'races'} found
+          <button on:click={clearFilters} class="ml-2 underline underline-offset-2 hover:text-content transition-colors">clear filters</button>
+        {:else if !loading}
+          Showing all <span class="font-medium text-content">{races.length}</span> races
+        {/if}
       </p>
     </div>
 
-    <div class="h-96 overflow-y-auto">
-      {#if filteredRaces.length === 0}
-        <div class="p-8 text-center text-content-subtle">
-          {#if searchQuery}
-            <svg
-              class="mx-auto h-12 w-12 text-content-faint mb-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.47-.881-6.08-2.329C7.76 10.22 9.77 8 12.16 8c1.311 0 2.52.375 3.546 1.022M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-            <p class="text-lg font-medium">No races found</p>
-            <p class="mt-2">
-              Try adjusting your search terms or browse all available races.
-            </p>
-          {:else}
-            <svg
-              class="mx-auto h-12 w-12 text-content-faint mb-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2h4a1 1 0 110 2h-1v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6H3a1 1 0 010-2h4zM9 6h6v12H9V6z"
-              />
-            </svg>
-            <p class="text-lg font-medium">No races available</p>
-            <p class="mt-2">Check back later for new race analyses.</p>
-          {/if}
-        </div>
-      {:else}
-        <div class="divide-y divide-stroke">
-          {#each filteredRaces as race (race.id)}
-            <div class="p-4 sm:p-6 hover:bg-page transition-colors">
-              <div
-                class="flex flex-col sm:flex-row sm:items-center sm:justify-between"
-              >
-                <div class="mb-4 sm:mb-0">
-                  <h3 class="text-lg font-semibold text-content mb-2">
-                    {race.title ||
-                      `${race.office || "Race"} - ${
-                        race.jurisdiction || "Unknown"
-                      }`}
-                  </h3>
-                  <div class="flex flex-wrap gap-2 text-sm text-content-muted mb-2">
-                    {#if race.office}
-                      <span
-                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800"
-                      >
-                        {race.office}
-                      </span>
-                    {/if}
-                    {#if race.jurisdiction}
-                      <span
-                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800"
-                      >
-                        {race.jurisdiction}
-                      </span>
-                    {/if}
-                    <span
-                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-surface-alt text-content"
-                    >
-                      {formatElectionDate(race.election_date)}
-                    </span>
-                  </div>
-                  <div class="text-sm text-content-muted">
-                    <strong>Candidates:</strong>
-                    {#each race.candidates as candidate, index}
-                      <span class="font-medium">{candidate.name}</span>{#if candidate.party}<span class="party-abbr" class:dem={candidate.party.toLowerCase().includes('democrat')} class:rep={candidate.party.toLowerCase().includes('republican')}>{candidate.party.toLowerCase().includes('democrat') ? 'D' : candidate.party.toLowerCase().includes('republican') ? 'R' : candidate.party[0]}</span>{/if}{#if index < race.candidates.length - 1}, {/if}
-                    {/each}
-                  </div>
-                  <div class="text-xs text-content-subtle mt-1">
-                    Last updated: {new Date(
-                      race.updated_utc
-                    ).toLocaleDateString()}
-                  </div>
-                </div>
-                <div class="flex-shrink-0">
-                  <a
-                    href={getRaceUrl(race.id)}
-                    class="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
-                  >
-                    Compare Candidates
-                    <svg
-                      class="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M9 5l7 7-7 7"
-                      />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-          {/each}
-        </div>
-      {/if}
-    </div>
-  </section>
-  {/if}
-
-  <!-- How It Works -->
-  <section class="mt-12 mb-8 sm:mb-12">
-    <h2
-      class="text-xl sm:text-2xl font-semibold text-content mb-4 sm:mb-6 text-center"
-    >
-      How It Works
-    </h2>
-    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      <div class="text-center">
-        <div
-          class="bg-blue-100 rounded-full w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center mx-auto mb-3 sm:mb-4"
-        >
-          <svg
-            class="w-6 h-6 sm:w-8 sm:h-8 text-blue-600"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            />
-          </svg>
-        </div>
-        <h3 class="font-semibold text-content mb-2 text-sm sm:text-base">
-          Discover Sources
-        </h3>
-        <p class="text-content-muted text-xs sm:text-sm">
-          We find and analyze candidate websites, speeches, voting records, and
-          public statements.
+    {#if loading}
+      <!-- Loading skeleton grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {#each Array(6) as _}
+          <div class="bg-surface border border-stroke rounded-xl h-40 animate-pulse" />
+        {/each}
+      </div>
+    {:else if filteredRaces.length === 0}
+      <div class="text-center py-16 text-content-subtle">
+        <svg class="mx-auto h-12 w-12 text-content-faint mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.47-.881-6.08-2.329C7.76 10.22 9.77 8 12.16 8c1.311 0 2.52.375 3.546 1.022M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <p class="text-lg font-medium text-content">No races found</p>
+        <p class="mt-1 text-sm">
+          {hasActiveFilters ? 'Try adjusting your filters.' : 'No races have been published yet.'}
         </p>
+        {#if hasActiveFilters}
+          <button on:click={clearFilters} class="mt-3 text-blue-600 hover:text-blue-700 text-sm underline underline-offset-2">
+            Clear all filters
+          </button>
+        {/if}
       </div>
-      <div class="text-center">
-        <div
-          class="bg-green-100 rounded-full w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center mx-auto mb-3 sm:mb-4"
-        >
-          <svg
-            class="w-6 h-6 sm:w-8 sm:h-8 text-green-600"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
-            />
-          </svg>
-        </div>
-        <h3 class="font-semibold text-content mb-2 text-sm sm:text-base">
-          Research & Verify
-        </h3>
-        <p class="text-content-muted text-xs sm:text-sm">
-          Candidate positions are researched from public sources and rated by
-          confidence based on source quality.
-        </p>
+    {:else}
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {#each filteredRaces as race (race.id)}
+          <RaceCard {race} />
+        {/each}
       </div>
-      <div class="text-center sm:col-span-2 lg:col-span-1">
-        <div
-          class="bg-purple-100 rounded-full w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center mx-auto mb-3 sm:mb-4"
-        >
-          <svg
-            class="w-6 h-6 sm:w-8 sm:h-8 text-purple-600"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-            />
-          </svg>
-        </div>
-        <h3 class="font-semibold text-content mb-2 text-sm sm:text-base">
-          Clear Comparison
-        </h3>
-        <p class="text-content-muted text-xs sm:text-sm">
-          Clean, side-by-side comparison of candidate positions with source
-          links and confidence indicators.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Key Features -->
-  <section class="bg-surface rounded-lg shadow-sm p-4 sm:p-8">
-    <h2
-      class="text-xl sm:text-2xl font-semibold text-content mb-4 sm:mb-6 text-center"
-    >
-      Why Smarter.vote?
-    </h2>
-    <div class="grid gap-4 sm:gap-6 sm:grid-cols-2">
-      <div class="flex items-start gap-3">
-        <div
-          class="bg-green-100 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 mt-1"
-        >
-          <svg
-            class="w-4 h-4 text-green-600"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            />
-          </svg>
-        </div>
-        <div>
-          <h3 class="font-semibold text-content mb-1 text-sm sm:text-base">
-            Unbiased Analysis
-          </h3>
-          <p class="text-content-muted text-xs sm:text-sm">
-            AI analyzes public sources without political bias, presenting facts
-            clearly.
-          </p>
-        </div>
-      </div>
-      <div class="flex items-start gap-3">
-        <div
-          class="bg-green-100 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 mt-1"
-        >
-          <svg
-            class="w-4 h-4 text-green-600"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            />
-          </svg>
-        </div>
-        <div>
-          <h3 class="font-semibold text-content mb-1 text-sm sm:text-base">
-            Source Transparency
-          </h3>
-          <p class="text-content-muted text-xs sm:text-sm">
-            Every position includes links to original sources and confidence
-            ratings.
-          </p>
-        </div>
-      </div>
-      <div class="flex items-start gap-3">
-        <div
-          class="bg-green-100 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 mt-1"
-        >
-          <svg
-            class="w-4 h-4 text-green-600"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            />
-          </svg>
-        </div>
-        <div>
-          <h3 class="font-semibold text-content mb-1 text-sm sm:text-base">
-            Comprehensive Coverage
-          </h3>
-          <p class="text-content-muted text-xs sm:text-sm">
-            Analysis covers key issue areas.
-          </p>
-        </div>
-      </div>
-      <div class="flex items-start gap-3">
-        <div
-          class="bg-green-100 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 mt-1"
-        >
-          <svg
-            class="w-4 h-4 text-green-600"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            />
-          </svg>
-        </div>
-        <div>
-          <h3 class="font-semibold text-content mb-1 text-sm sm:text-base">
-            Always Up-to-Date
-          </h3>
-          <p class="text-content-muted text-xs sm:text-sm">
-            Information is continuously updated as new public statements emerge.
-          </p>
-        </div>
-      </div>
-    </div>
+    {/if}
   </section>
 </div>
-
-<style lang="postcss">
-  .party-abbr {
-    @apply ml-0.5 text-xs font-semibold text-content-subtle;
-  }
-  .party-abbr.dem {
-    @apply text-blue-600;
-  }
-  .party-abbr.rep {
-    @apply text-red-600;
-  }
-</style>

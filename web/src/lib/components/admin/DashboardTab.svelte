@@ -32,6 +32,16 @@
   let error = "";
   let refreshTimer: ReturnType<typeof setInterval> | null = null;
 
+  const TIME_RANGES = [
+    { label: "1h", value: 1 },
+    { label: "6h", value: 6 },
+    { label: "24h", value: 24 },
+    { label: "7d", value: 168 },
+    { label: "30d", value: 720 },
+  ];
+  let selectedHours = 24;
+  $: rangeLabel = TIME_RANGES.find((r) => r.value === selectedHours)?.label ?? `${selectedHours}h`;
+
   // Derived chart data
   $: lineData = overview
     ? {
@@ -88,13 +98,13 @@
     onAlertCountChange(unacknowledgedAlerts.length);
   }
 
-  async function loadData() {
+  async function loadData(hours = selectedHours) {
     try {
       error = "";
       const [overviewRes, alertsRes, racesRes, metricsRes, metricsSummaryRes] = await Promise.allSettled([
-        analyticsService.getOverview(24),
+        analyticsService.getOverview(hours),
         analyticsService.getAlerts(),
-        analyticsService.getRaces(24),
+        analyticsService.getRaces(hours),
         analyticsService.getPipelineMetrics(20),
         analyticsService.getPipelineMetricsSummary(),
       ]);
@@ -111,6 +121,12 @@
     }
   }
 
+  async function handleRangeChange(hours: number) {
+    selectedHours = hours;
+    loading = true;
+    await loadData(hours);
+  }
+
   async function handleAcknowledge(alertId: string) {
     await analyticsService.acknowledgeAlert(alertId);
     alerts = alerts.map((a) => (a.id === alertId ? { ...a, acknowledged: true } : a));
@@ -122,7 +138,7 @@
 
   onMount(() => {
     loadData();
-    refreshTimer = setInterval(loadData, 60_000);
+    refreshTimer = setInterval(() => loadData(selectedHours), 60_000);
   });
 
   onDestroy(() => {
@@ -159,6 +175,25 @@
   }
 </script>
 
+<!-- Time range selector -->
+<div class="flex items-center justify-between mb-4">
+  <div class="flex items-center gap-1 bg-gray-100 rounded-lg p-1">
+    {#each TIME_RANGES as range}
+      <button
+        type="button"
+        class="px-3 py-1 rounded-md text-sm font-medium transition-colors
+          {selectedHours === range.value
+            ? 'bg-white text-gray-900 shadow-sm'
+            : 'text-gray-500 hover:text-gray-700'}"
+        on:click={() => handleRangeChange(range.value)}
+      >
+        {range.label}
+      </button>
+    {/each}
+  </div>
+  <button type="button" class="text-xs text-blue-600 hover:underline" on:click={() => loadData(selectedHours)}>Refresh</button>
+</div>
+
 {#if loading}
   <div class="flex items-center justify-center py-16">
     <div class="flex items-center space-x-3 text-gray-500">
@@ -177,7 +212,7 @@
   <!-- Stat cards -->
   <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
     <div class="card p-4">
-      <p class="text-xs font-medium text-gray-500 uppercase tracking-wide">Requests (24h)</p>
+      <p class="text-xs font-medium text-gray-500 uppercase tracking-wide">Requests ({rangeLabel})</p>
       <p class="mt-1 text-2xl font-bold text-gray-900">{(overview?.total_requests ?? 0).toLocaleString()}</p>
     </div>
     <div class="card p-4">
@@ -200,7 +235,7 @@
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
     <!-- Requests over time -->
     <div class="card p-4 lg:col-span-2">
-      <h3 class="text-sm font-semibold text-gray-700 mb-3">Requests per Hour (24h)</h3>
+      <h3 class="text-sm font-semibold text-gray-700 mb-3">Requests over Time ({rangeLabel})</h3>
       {#if (overview?.timeseries?.length ?? 0) > 0}
         <div class="h-40">
           <Line data={lineData} options={lineOptions} />
@@ -211,7 +246,7 @@
     </div>
     <!-- By race -->
     <div class="card p-4">
-      <h3 class="text-sm font-semibold text-gray-700 mb-3">Requests by Race (24h)</h3>
+      <h3 class="text-sm font-semibold text-gray-700 mb-3">Requests by Race ({rangeLabel})</h3>
       {#if raceRequests.length > 0}
         <div class="h-40">
           <Doughnut data={donutData} options={donutOptions} />
@@ -237,7 +272,7 @@
           <button
             type="button"
             class="text-xs text-blue-600 hover:underline"
-            on:click={loadData}
+            on:click={() => loadData(selectedHours)}
           >Refresh</button>
         </div>
       </div>
