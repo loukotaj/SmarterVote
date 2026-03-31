@@ -179,14 +179,14 @@ class AgentHandler:
         return output_path
 
     async def _publish_to_gcs(self, race_id: str, json_str: str) -> None:
-        """Upload race JSON to Google Cloud Storage if GCS_BUCKET_NAME is configured.
+        """Upload race JSON to Google Cloud Storage if a GCS bucket is configured.
 
-        Runs in both cloud and local environments — if GCS_BUCKET_NAME is set in
-        the environment (e.g. via .env), the pipeline always pushes to GCS so the
-        deployed API immediately sees fresh data.
+        Runs in both cloud and local environments — if a bucket env var is set
+        (e.g. via .env), the pipeline always pushes to GCS so the deployed API
+        immediately sees fresh data.
         """
         logger = logging.getLogger("pipeline")
-        gcs_bucket = os.getenv("GCS_BUCKET_NAME")
+        gcs_bucket = os.getenv("GCS_BUCKET_NAME") or os.getenv("GCS_BUCKET") or os.getenv("BUCKET_NAME")
         if not gcs_bucket:
             return
 
@@ -214,7 +214,7 @@ class AgentHandler:
         configured or the race doesn't exist yet.
         """
         logger = logging.getLogger("pipeline")
-        gcs_bucket = os.getenv("GCS_BUCKET_NAME")
+        gcs_bucket = os.getenv("GCS_BUCKET_NAME") or os.getenv("GCS_BUCKET") or os.getenv("BUCKET_NAME")
         if not gcs_bucket:
             return None
 
