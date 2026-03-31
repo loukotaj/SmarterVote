@@ -462,6 +462,20 @@
     }
   }
 
+  async function handleDeleteRaceById(raceId: string) {
+    if (!confirm(`Delete race "${raceId}"? This removes the published data and cannot be undone.`)) {
+      return;
+    }
+    try {
+      await apiService.deletePublishedRace(raceId);
+      addLog("info", `Deleted race: ${raceId}`);
+      await racesTabRef?.refresh();
+    } catch (e) {
+      logger.error("Failed to delete race:", e);
+      addLog("error", `Failed to delete race ${raceId}: ${e}`);
+    }
+  }
+
   async function handleExportRace(race: PublishedRaceSummary) {
     try {
       const data = await apiService.getPublishedRace(race.id);
@@ -578,6 +592,7 @@
     <RacesTab
       bind:this={racesTabRef}
       onUpdateRace={handleQueueRaceById}
+      onDeleteRace={handleDeleteRaceById}
       activeRaceIds={activeQueuedRaceIds}
     />
   {/if}

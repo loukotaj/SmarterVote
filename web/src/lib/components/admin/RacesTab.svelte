@@ -7,6 +7,7 @@
   import type { RaceAnalytics } from "$lib/types";
 
   export let onUpdateRace: (raceId: string) => void = () => {};
+  export let onDeleteRace: (raceId: string) => void = () => {};
   export let activeRaceIds: Map<string, "pending" | "running"> = new Map();
   export async function refresh() {
     loading = true;
@@ -309,6 +310,15 @@
                       on:click={() => onUpdateRace(row.race_id)}
                     >
                       {runStatus === "running" ? "Running…" : runStatus === "pending" ? "Queued" : "Update"}
+                    </button>
+                    <button
+                      type="button"
+                      class="px-2 py-1 text-xs border border-red-200 dark:border-red-900 rounded text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 disabled:opacity-40 disabled:cursor-not-allowed"
+                      disabled={!!runStatus}
+                      title="Delete published race data"
+                      on:click={() => onDeleteRace(row.race_id)}
+                    >
+                      Delete
                     </button>
                   </div>
                 </td>
