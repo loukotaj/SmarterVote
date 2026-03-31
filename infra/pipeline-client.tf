@@ -108,6 +108,11 @@ resource "google_cloud_run_v2_service" "pipeline_client" {
       }
 
       env {
+        name  = "RACES_API_URL"
+        value = google_cloud_run_v2_service.races_api.uri
+      }
+
+      env {
         name  = "STORAGE_MODE"
         value = "gcp"
       }
