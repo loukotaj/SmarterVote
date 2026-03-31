@@ -27,11 +27,16 @@ from pipeline_client.agent.prompts import (
     CANONICAL_ISSUES,
     DISCOVERY_SYSTEM,
     DISCOVERY_USER,
-    ISSUE_GROUPS,
     ISSUE_RESEARCH_SYSTEM,
     ISSUE_RESEARCH_USER,
+    ISSUE_SUBAGENT_SYSTEM,
+    ISSUE_SUBAGENT_USER,
     REFINE_SYSTEM,
     REFINE_USER,
+    ROSTER_SYNC_SYSTEM,
+    ROSTER_SYNC_USER,
+    UPDATE_ISSUE_SUBAGENT_SYSTEM,
+    UPDATE_ISSUE_SUBAGENT_USER,
     UPDATE_ISSUE_SYSTEM,
     UPDATE_ISSUE_USER,
     UPDATE_META_SYSTEM,
@@ -53,27 +58,10 @@ def test_canonical_issues_no_duplicates():
     assert len(CANONICAL_ISSUES) == len(set(CANONICAL_ISSUES))
 
 
-def test_all_issues_in_groups():
-    """All canonical issues appear in at least one issue group."""
-    grouped = {issue for group in ISSUE_GROUPS for issue in group}
-    for issue in CANONICAL_ISSUES:
-        assert issue in grouped, f"Issue {issue!r} not in any group"
-
-
-def test_issue_groups_cover_all():
-    """Issue groups have 6 pairs covering 12 issues."""
-    assert len(ISSUE_GROUPS) == 6
-    total = sum(len(g) for g in ISSUE_GROUPS)
-    assert total == 12
-
-
-def test_issue_groups_no_overlaps():
-    """No issue appears in more than one group."""
-    seen = set()
-    for group in ISSUE_GROUPS:
-        for issue in group:
-            assert issue not in seen, f"Issue {issue!r} in multiple groups"
-            seen.add(issue)
+def test_canonical_issues_thematic_order():
+    """Canonical issues are in the expected thematic order."""
+    assert CANONICAL_ISSUES[0] == "Economy"
+    assert CANONICAL_ISSUES[-1] == "Local Issues"
 
 
 def test_discovery_user_formats():
@@ -510,54 +498,28 @@ async def test_run_agent_fresh():
         "id": "test-2024",
         "candidates": [{"name": "Alice", "issues": {}}],
     }
-    issue_result = {
-        "Alice": {
-            "Healthcare": {
-                "stance": "Supports ACA.",
-                "confidence": "high",
-                "sources": [],
-            }
-        }
-    }
-    refined_result = {
-        "id": "test-2024",
-        "candidates": [
-            {
-                "name": "Alice",
-                "issues": {
-                    "Healthcare": {"stance": "Expanded ACA.", "confidence": "high", "sources": []},
-                },
-            }
-        ],
-    }
 
     with (
         patch("pipeline_client.agent.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
         patch("pipeline_client.agent.agent._load_existing", return_value=None),
     ):
-        # discovery, image resolution (1 candidate), 6 issue groups, finance/voting,
-        # per-candidate refine (1), meta refine = 11 total calls
-        mock_loop.side_effect = [
-            discovery_result,  # discovery
-            {"image_url": None},  # image resolution for Alice
-            issue_result,  # issue group 1
-            issue_result,  # issue group 2
-            issue_result,  # issue group 3
-            issue_result,  # issue group 4
-            issue_result,  # issue group 5
-            issue_result,  # issue group 6
-            {"Alice": {"top_donors": [], "voting_record": []}},  # finance/voting
-            refined_result,  # per-candidate refine (Alice)
-            {},  # meta refine (description/polling)
-        ]
+        # discovery (json) → returns skeleton
+        # image resolution (1 candidate) → returns {}
+        # 12 issue sub-agent calls (tools mode) → return {}
+        # finance/voting (json) → return {}
+        # per-candidate refine (1, tools mode) → return {}
+        # meta refine (tools mode) → return {}
+        # Total: 1 + 1 + 12 + 1 + 1 + 1 = 17
+        mock_loop.return_value = {}
+        mock_loop.side_effect = [discovery_result] + [{"image_url": None}] + [{}] * 15
 
         result = await run_agent("test-2024", cheap_mode=True, enable_review=False)
 
     assert result["id"] == "test-2024"
     assert "updated_utc" in result
     assert result["generator"] == ["gpt-5.4-mini"]
-    # discovery + image resolution + 6 issue groups + finance/voting + candidate refine + meta refine = 11
-    assert mock_loop.call_count == 11
+    # discovery + image + 12 issue sub-agents + finance + refine + meta refine = 17
+    assert mock_loop.call_count == 17
 
 
 @pytest.mark.asyncio
@@ -573,7 +535,7 @@ async def test_run_agent_fresh_no_candidates():
         patch("pipeline_client.agent.agent._load_existing", return_value=None),
     ):
         mock_loop.return_value = discovery_result
-        result = await run_agent("empty-2024", cheap_mode=True)
+        result = await run_agent("empty-2024", cheap_mode=True, enable_review=False)
 
     assert result["id"] == "empty-2024"
     assert result["candidates"] == []
@@ -583,7 +545,7 @@ async def test_run_agent_fresh_no_candidates():
 
 @pytest.mark.asyncio
 async def test_run_agent_update_mode():
-    """run_agent with existing data runs in update mode."""
+    """run_agent with existing data but no candidates falls back to fresh run."""
     existing = {"id": "test-2024", "candidates": [], "updated_utc": "2024-01-01"}
     updated = {"id": "test-2024", "candidates": [{"name": "Bob", "issues": {}}]}
 
@@ -591,13 +553,15 @@ async def test_run_agent_update_mode():
         patch("pipeline_client.agent.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
         patch("pipeline_client.agent.agent._load_existing", return_value=existing),
     ):
-        mock_loop.return_value = updated
+        # existing has no candidates → falls back to _run_fresh:
+        # discovery + image (Bob) + 12 issue sub-agents + finance + refine + meta refine = 17
+        mock_loop.return_value = {}
+        mock_loop.side_effect = [updated, {"image_url": None}] + [{}] * 15
         result = await run_agent("test-2024", cheap_mode=True, enable_review=False)
 
     assert result["id"] == "test-2024"
-    # existing has no candidates → falls back to _run_fresh:
-    # discovery + image (Bob) + 6 issue groups + finance/voting + candidate refine + meta refine = 11 calls
-    assert mock_loop.call_count == 11
+    # Falls back to fresh: 1 + 1 + 12 + 1 + 1 + 1 = 17
+    assert mock_loop.call_count == 17
 
 
 @pytest.mark.asyncio
@@ -629,7 +593,7 @@ async def test_run_agent_normalizes_output():
         patch("pipeline_client.agent.agent._load_existing", return_value=None),
     ):
         mock_loop.return_value = minimal
-        result = await run_agent("race-2024", cheap_mode=True, existing_data={})
+        result = await run_agent("race-2024", cheap_mode=True, existing_data={}, enable_review=False)
 
     assert result["id"] == "race-2024"
     assert "updated_utc" in result
@@ -915,6 +879,7 @@ async def test_run_agent_enable_review_skips_without_keys():
     env = os.environ.copy()
     env.pop("ANTHROPIC_API_KEY", None)
     env.pop("GEMINI_API_KEY", None)
+    env.pop("XAI_API_KEY", None)
 
     with (
         patch("pipeline_client.agent.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
@@ -1016,3 +981,276 @@ async def test_v2_handler_passes_enable_review():
     mock_agent.assert_called_once()
     call_kwargs = mock_agent.call_args
     assert call_kwargs.kwargs["enable_review"] is True
+
+
+# ---------------------------------------------------------------------------
+# New architecture tests — tools mode, roster sync, per-issue sub-agent
+# ---------------------------------------------------------------------------
+
+
+def test_roster_sync_prompt_formats():
+    """Roster sync prompt accepts race_id, last_updated, candidate_names."""
+    result = ROSTER_SYNC_USER.format(
+        race_id="ga-senate-2026",
+        last_updated="2025-01-01T00:00:00Z",
+        candidate_names="Alice, Bob",
+    )
+    assert "ga-senate-2026" in result
+    assert "Alice, Bob" in result
+    assert "add_candidate" in result
+
+
+def test_issue_subagent_prompt_formats():
+    """Issue sub-agent prompt accepts required variables."""
+    result = ISSUE_SUBAGENT_USER.format(
+        candidate_name="Jane Doe",
+        race_id="mi-senate-2026",
+        issue="Healthcare",
+        handoff_context="No prior context available.",
+    )
+    assert "Jane Doe" in result
+    assert "Healthcare" in result
+    assert "set_issue_stance" in result
+
+
+def test_update_issue_subagent_prompt_formats():
+    """Update issue sub-agent prompt accepts required variables."""
+    result = UPDATE_ISSUE_SUBAGENT_USER.format(
+        candidate_name="Jane Doe",
+        race_id="mi-senate-2026",
+        issue="Healthcare",
+        last_updated="2025-01-01T00:00:00Z",
+        existing_stance="  Stance: Supports ACA.\n  Confidence: high",
+        handoff_context="No prior context available.",
+    )
+    assert "Jane Doe" in result
+    assert "Healthcare" in result
+    assert "Supports ACA" in result
+
+
+def test_editing_tool_schemas_exist():
+    """All editing tool schemas are importable from agent module."""
+    from pipeline_client.agent.agent import (
+        ADD_CANDIDATE_TOOL,
+        ADD_POLL_TOOL,
+        CANDIDATE_TOOLS,
+        ISSUE_TOOLS,
+        RACE_TOOLS,
+        READ_PROFILE_TOOL,
+        RECORD_TOOLS,
+        REMOVE_CANDIDATE_TOOL,
+        RENAME_CANDIDATE_TOOL,
+        ROSTER_TOOLS,
+        SET_CANDIDATE_FIELD_TOOL,
+        SET_CANDIDATE_SUMMARY_TOOL,
+        SET_DONORS_TOOL,
+        SET_ISSUE_STANCE_TOOL,
+        SET_VOTING_RECORDS_TOOL,
+        UPDATE_RACE_FIELD_TOOL,
+    )
+
+    assert len(ROSTER_TOOLS) == 3
+    assert len(CANDIDATE_TOOLS) == 2
+    assert len(ISSUE_TOOLS) == 1
+    assert len(RECORD_TOOLS) == 2
+    assert len(RACE_TOOLS) == 2
+    assert READ_PROFILE_TOOL["function"]["name"] == "read_profile"
+
+
+def test_make_editing_handlers():
+    """_make_editing_handlers returns all expected handler functions."""
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"candidates": [], "polling": []}
+    log = lambda level, msg: None
+    handlers = _make_editing_handlers(race_json, log)
+
+    expected_names = {
+        "add_candidate",
+        "remove_candidate",
+        "rename_candidate",
+        "set_candidate_field",
+        "set_candidate_summary",
+        "set_issue_stance",
+        "set_voting_records",
+        "set_donors",
+        "add_poll",
+        "update_race_field",
+        "read_profile",
+    }
+    assert set(handlers.keys()) == expected_names
+
+
+def test_add_candidate_handler():
+    """add_candidate handler adds a candidate to race_json."""
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"candidates": []}
+    handlers = _make_editing_handlers(race_json, lambda l, m: None)
+
+    result = handlers["add_candidate"]({"name": "Alice", "party": "Democratic"})
+    assert "Added" in result
+    assert len(race_json["candidates"]) == 1
+    assert race_json["candidates"][0]["name"] == "Alice"
+
+
+def test_remove_candidate_handler():
+    """remove_candidate handler removes a candidate from race_json."""
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"candidates": [{"name": "Alice", "party": "D"}, {"name": "Bob", "party": "R"}]}
+    handlers = _make_editing_handlers(race_json, lambda l, m: None)
+
+    result = handlers["remove_candidate"]({"name": "Alice", "reason": "withdrew"})
+    assert "Removed" in result
+    assert len(race_json["candidates"]) == 1
+    assert race_json["candidates"][0]["name"] == "Bob"
+
+
+def test_set_issue_stance_handler():
+    """set_issue_stance handler writes a stance to candidate issues."""
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"candidates": [{"name": "Alice", "issues": {}}]}
+    handlers = _make_editing_handlers(race_json, lambda l, m: None)
+
+    result = handlers["set_issue_stance"](
+        {
+            "candidate_name": "Alice",
+            "issue": "Healthcare",
+            "stance": "Supports universal coverage.",
+            "confidence": "high",
+            "sources": [{"url": "https://example.com", "type": "news", "title": "Article"}],
+        }
+    )
+    assert "Healthcare" in result
+    assert race_json["candidates"][0]["issues"]["Healthcare"]["stance"] == "Supports universal coverage."
+
+
+def test_read_profile_handler():
+    """read_profile handler returns JSON for different sections."""
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {
+        "id": "test",
+        "description": "A test race",
+        "candidates": [{"name": "Alice", "issues": {"Healthcare": {"stance": "Yes", "confidence": "high"}}}],
+        "polling": [],
+    }
+    handlers = _make_editing_handlers(race_json, lambda l, m: None)
+
+    meta = handlers["read_profile"]({"section": "meta"})
+    assert "test" in meta
+    assert "description" in meta
+
+    issues = handlers["read_profile"]({"section": "issues"})
+    assert "Healthcare" in issues
+
+
+@pytest.mark.asyncio
+async def test_agent_loop_tools_mode():
+    """_agent_loop in tools_mode returns {} when model stops calling tools."""
+    response = _mock_openai_response(content="All done, edits committed.")
+    with patch("pipeline_client.agent.agent._call_openai", new_callable=AsyncMock) as mock:
+        mock.return_value = response
+        result = await _agent_loop(
+            "system",
+            "user",
+            model="gpt-5.4-mini",
+            phase_name="test-tools",
+            tools_mode=True,
+        )
+    assert result == {}
+
+
+@pytest.mark.asyncio
+async def test_agent_loop_tools_mode_calls_extra_handlers():
+    """_agent_loop in tools_mode dispatches extra tool handlers."""
+    tool_response = _mock_openai_response(
+        tool_calls=[
+            {
+                "id": "call_1",
+                "function": {
+                    "name": "set_issue_stance",
+                    "arguments": json.dumps(
+                        {
+                            "candidate_name": "Alice",
+                            "issue": "Healthcare",
+                            "stance": "Supports ACA",
+                            "confidence": "high",
+                        }
+                    ),
+                },
+            }
+        ],
+    )
+    done_response = _mock_openai_response(content="Done.")
+
+    handler_called = {}
+
+    def fake_handler(args):
+        handler_called.update(args)
+        return "OK"
+
+    with patch("pipeline_client.agent.agent._call_openai", new_callable=AsyncMock) as mock:
+        mock.side_effect = [tool_response, done_response]
+        result = await _agent_loop(
+            "system",
+            "user",
+            model="gpt-5.4-mini",
+            phase_name="test-tools",
+            tools_mode=True,
+            extra_tools=[{"type": "function", "function": {"name": "set_issue_stance", "parameters": {}}}],
+            extra_tool_handlers={"set_issue_stance": fake_handler},
+        )
+
+    assert result == {}
+    assert handler_called["candidate_name"] == "Alice"
+    assert handler_called["issue"] == "Healthcare"
+
+
+def test_search_cache_list_cached_for_race():
+    """SearchCache.list_cached_for_race returns cached queries."""
+    import tempfile
+
+    from pipeline_client.agent.search_cache import SearchCache
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        cache = SearchCache(cache_dir=tmpdir, default_ttl_hours=168)
+        cache.set("test query", [{"title": "R", "snippet": "...", "url": "https://r.com"}], race_id="test-race")
+
+        result = cache.list_cached_for_race("test-race")
+        assert len(result["searches"]) == 1
+        assert result["searches"][0]["query"] == "test query"
+        assert "https://r.com" in result["searches"][0]["urls"]
+
+
+@pytest.mark.asyncio
+async def test_run_agent_update_with_candidates():
+    """run_agent in update mode with existing candidates runs roster sync + tools phases."""
+    existing = {
+        "id": "test-2024",
+        "candidates": [{"name": "Alice", "party": "D", "issues": {}}],
+        "updated_utc": "2024-01-01T00:00:00Z",
+    }
+
+    with (
+        patch("pipeline_client.agent.agent._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.agent._load_existing", return_value=existing),
+    ):
+        # roster sync (tools) → {}
+        # meta update (tools) → {}
+        # 12 issue sub-agents (tools) → {} each
+        # finance (json) → {}
+        # refine per-candidate (tools) → {}
+        # refine meta (tools) → {}
+        # image resolution → {}
+        # Total: 1 + 1 + 12 + 1 + 1 + 1 + 1 = 18
+        mock_loop.return_value = {}
+
+        result = await run_agent("test-2024", cheap_mode=True, enable_review=False)
+
+    assert result["id"] == "test-2024"
+    assert "updated_utc" in result
+    # roster sync + meta + 12 issues + finance + refine + meta refine + images = 18
+    assert mock_loop.call_count == 18

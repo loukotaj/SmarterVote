@@ -5,7 +5,7 @@
  */
 
 import { apiStore } from "$lib/stores/apiStore";
-import type { Alert, AnalyticsOverview, RaceAnalytics } from "$lib/types";
+import type { Alert, AnalyticsOverview, PipelineMetricsSummary, PipelineRunRecord, RaceAnalytics } from "$lib/types";
 import { get } from "svelte/store";
 
 const API_BASE = import.meta.env.VITE_API_BASE || "http://127.0.0.1:8001";
@@ -51,5 +51,13 @@ export const analyticsService = {
       method: "POST",
       headers,
     });
+  },
+
+  async getPipelineMetrics(limit = 50): Promise<{ records: PipelineRunRecord[]; count: number }> {
+    return fetchAdmin<{ records: PipelineRunRecord[]; count: number }>("/pipeline/metrics", { limit });
+  },
+
+  async getPipelineMetricsSummary(): Promise<PipelineMetricsSummary> {
+    return fetchAdmin<PipelineMetricsSummary>("/pipeline/metrics/summary");
   },
 };

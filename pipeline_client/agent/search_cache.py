@@ -321,6 +321,38 @@ class SearchCache:
         logger.info(f"Cleared {removed} search cache entries for race {race_id}")
         return removed
 
+    def list_cached_for_race(self, race_id: str) -> Dict[str, List[str]]:
+        """Return cached search queries and their result URLs for a race.
+
+        Returns ``{"searches": [{"query": ..., "urls": [...]}], "page_urls": [...]}``
+        containing only non-expired entries.
+        """
+        now = datetime.utcnow().isoformat()
+        searches: List[Dict[str, Any]] = []
+        with sqlite3.connect(self.db_path) as conn:
+            rows = conn.execute(
+                "SELECT query_text, results FROM search_cache "
+                "WHERE race_id = ? AND expires_at > ?",
+                (race_id, now),
+            )
+            all_urls: set = set()
+            for query_text, results_json in rows:
+                try:
+                    results = json.loads(results_json)
+                except (json.JSONDecodeError, TypeError):
+                    results = []
+                urls = [r.get("url", "") for r in results if r.get("url")]
+                searches.append({"query": query_text, "urls": urls})
+                all_urls.update(urls)
+
+            # Also list page-cache URLs that are still valid
+            page_rows = conn.execute(
+                "SELECT url FROM page_cache WHERE expires_at > ?", (now,)
+            )
+            page_urls = [r[0] for r in page_rows if r[0] in all_urls or True]
+
+        return {"searches": searches, "page_urls": page_urls}
+
     def clear_all(self) -> int:
         """Clear all cache entries."""
         with sqlite3.connect(self.db_path) as conn:

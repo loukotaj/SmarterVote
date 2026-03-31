@@ -7,6 +7,7 @@ import os
 from datetime import datetime, timezone
 from typing import Any, Callable, Dict, List, Optional
 
+from .cost import accumulate
 from .prompts import REVIEW_SYSTEM, REVIEW_USER
 from .utils import _extract_json, make_logger
 
@@ -44,6 +45,8 @@ async def _call_anthropic(system: str, user: str, *, model: str = DEFAULT_CLAUDE
         system=system,
         messages=[{"role": "user", "content": user}],
     )
+    if response.usage:
+        accumulate(response.usage.input_tokens, response.usage.output_tokens, model)
     for block in response.content:
         if block.type == "text":
             return block.text
@@ -67,6 +70,11 @@ async def _call_gemini(system: str, user: str, *, model: str = DEFAULT_GEMINI_MO
             contents=f"{system}\n\n{user}",
         ),
     )
+    try:
+        um = response.usage_metadata
+        accumulate(um.prompt_token_count or 0, um.candidates_token_count or 0, model)
+    except Exception:
+        pass
     return response.text or ""
 
 
@@ -87,6 +95,8 @@ async def _call_grok(system: str, user: str, *, model: str = DEFAULT_GROK_MODEL)
         ],
         temperature=0.2,
     )
+    if response.usage:
+        accumulate(response.usage.prompt_tokens or 0, response.usage.completion_tokens or 0, model)
     return response.choices[0].message.content or ""
 
 

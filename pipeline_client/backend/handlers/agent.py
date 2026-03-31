@@ -16,19 +16,20 @@ from typing import Any, Dict
 # Maps log message patterns → (progress %, label).
 # Checked in order — first match wins.
 _PROGRESS_PATTERNS: list[tuple[re.Pattern, int, str]] = [
-    (re.compile(r"Phase 1/3|Phase 1b/3|Discovering race"),         5,  "Discovering race & candidates..."),
-    (re.compile(r"Verifying and resolving candidate image"),        10, "Verifying candidate images..."),
-    (re.compile(r"Phase 2/3|Researching issues"),                   15, "Researching issues..."),
-    (re.compile(r"Issue group 1/"),                                 20, "Issues: group 1/6..."),
-    (re.compile(r"Issue group 2/"),                                 30, "Issues: group 2/6..."),
-    (re.compile(r"Issue group 3/"),                                 40, "Issues: group 3/6..."),
-    (re.compile(r"Issue group 4/"),                                 50, "Issues: group 4/6..."),
-    (re.compile(r"Issue group 5/"),                                 58, "Issues: group 5/6..."),
-    (re.compile(r"Issue group 6/"),                                 65, "Issues: group 6/6..."),
-    (re.compile(r"Phase 3/3|Refining and validating"),             72, "Refining & validating..."),
-    (re.compile(r"Phase 4:|Sending to review agents"),             82, "Sending to review agents..."),
-    (re.compile(r"Phase 5:|Iterating on review feedback"),         90, "Iterating on review feedback..."),
-    (re.compile(r"✅ Agent finished|Agent finished"),              98, "Finalising..."),
+    (re.compile(r"Phase 1/3|Discovering race"),                     5,  "Discovering race & candidates..."),
+    (re.compile(r"Phase 1b/3|Verifying and resolving candidate image"), 10, "Verifying candidate images..."),
+    (re.compile(r"Update Phase 0"),                                 8,  "Verifying candidate roster..."),
+    (re.compile(r"Update Phase 1"),                                 15, "Searching for new information..."),
+    (re.compile(r"Phase 2/3|Update Phase 2:"),                      20, "Researching issues..."),
+    (re.compile(r"Researching .+\.\.\.|Updating issues for"),        25, "Researching candidate issues..."),
+    (re.compile(r"Issue \d+/12:"),                                  30, "Researching issue positions..."),
+    (re.compile(r"Issue (1[01]|12)/12:"),                           55, "Finishing issue research..."),
+    (re.compile(r"Phase 2b|Update Phase 2b"),                       60, "Researching donors & voting records..."),
+    (re.compile(r"Phase 3/3|Update Phase 3"),                       68, "Refining profile..."),
+    (re.compile(r"Phase 4:|Sending to review agents"),              82, "Sending to review agents..."),
+    (re.compile(r"Phase 5.*cycle 1|Phase 5.*Iterating"),            88, "Iterating on review feedback..."),
+    (re.compile(r"Phase 5.*cycle 2"),                               93, "Second iteration pass..."),
+    (re.compile(r"✅ Agent finished|Agent finished"),               98, "Finalising..."),
 ]
 
 
@@ -125,6 +126,15 @@ class AgentHandler:
 
         duration_ms = int((time.perf_counter() - t0) * 1000)
         logger.info(f"Agent: published {race_id} to {published_path} in {duration_ms}ms")
+
+        # Record pipeline metrics (fire-and-forget)
+        try:
+            from pipeline_client.backend.pipeline_metrics import get_pipeline_metrics_store
+            agent_metrics = race_json.get("agent_metrics")
+            rid = run_id or f"{race_id}-{int(t0)}"
+            await get_pipeline_metrics_store().record_run(rid, race_id, agent_metrics, "completed")
+        except Exception:
+            logger.warning("Failed to record pipeline metrics", exc_info=True)
 
         return {
             "race_id": race_id,

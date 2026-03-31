@@ -1,6 +1,6 @@
 <script lang="ts">
   import "../app.css";
-  import { page } from "$app/stores";
+  import { page, navigating } from "$app/stores";
   import { onMount } from "svelte";
   import { writable } from "svelte/store";
 
@@ -25,6 +25,13 @@
 </script>
 
 <div class="min-h-screen bg-page">
+  <!-- Navigation loading bar -->
+  {#if $navigating}
+    <div class="fixed top-0 left-0 right-0 z-50 h-0.5 overflow-hidden">
+      <div class="h-full bg-blue-600 animate-[navprogress_1.2s_ease-in-out_infinite]"></div>
+    </div>
+  {/if}
+
   <!-- Navigation -->
   <nav class="bg-surface shadow-sm border-b border-stroke">
     <div class="container mx-auto px-4 py-3 max-w-7xl">

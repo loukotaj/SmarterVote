@@ -1,31 +1,41 @@
 <script lang="ts">
-  import type { PageData } from "./$types";
+  import { onMount } from "svelte";
+  import { getRaceSummaries } from "$lib/api";
+  import { logger } from "$lib/utils/logger";
   import type { RaceSummary } from "$lib/types";
 
-  export let data: PageData;
-
+  let loading = true;
+  let races: RaceSummary[] = [];
   let searchQuery = "";
-  let filteredRaces: RaceSummary[] = [];
 
-  // Reactive statement to filter races based on search query
-  $: {
-    if (!searchQuery.trim()) {
-      filteredRaces = data.races;
-    } else {
-      const query = searchQuery.toLowerCase();
-      filteredRaces = data.races.filter(
-        (race) =>
-          race.title?.toLowerCase().includes(query) ||
-          race.office?.toLowerCase().includes(query) ||
-          race.jurisdiction?.toLowerCase().includes(query) ||
-          race.candidates.some(
-            (candidate) =>
-              candidate.name.toLowerCase().includes(query) ||
-              candidate.party?.toLowerCase().includes(query)
-          )
-      );
+  onMount(async () => {
+    try {
+      races = await getRaceSummaries();
+    } catch (error) {
+      logger.error("Failed to load race summaries:", error);
+      races = [];
+    } finally {
+      loading = false;
     }
+  });
+
+  function filterRaces(allRaces: RaceSummary[], query: string): RaceSummary[] {
+    if (!query.trim()) return allRaces;
+    const q = query.toLowerCase();
+    return allRaces.filter(
+      (race) =>
+        race.title?.toLowerCase().includes(q) ||
+        race.office?.toLowerCase().includes(q) ||
+        race.jurisdiction?.toLowerCase().includes(q) ||
+        race.candidates.some(
+          (candidate) =>
+            candidate.name.toLowerCase().includes(q) ||
+            candidate.party?.toLowerCase().includes(q)
+        )
+    );
   }
+
+  $: filteredRaces = filterRaces(races, searchQuery) as RaceSummary[];
 
   function formatElectionDate(dateString: string): string {
     const date = new Date(dateString);
@@ -106,6 +116,20 @@
   </div>
 
   <!-- All Races Section -->
+  {#if loading}
+    <div class="bg-surface rounded-lg shadow-sm">
+      <div class="p-4 sm:p-6 border-b border-stroke">
+        <h2 class="text-xl sm:text-2xl font-semibold text-content">Available Races</h2>
+        <p class="text-sm text-content-muted mt-1">Loading race analyses…</p>
+      </div>
+      <div class="h-96 flex items-center justify-center">
+        <div class="flex flex-col items-center gap-3 text-content-muted">
+          <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-600"></div>
+          <span class="text-sm">Loading races…</span>
+        </div>
+      </div>
+    </div>
+  {:else}
   <section class="bg-surface rounded-lg shadow-sm">
     <div class="p-4 sm:p-6 border-b border-stroke">
       <h2 class="text-xl sm:text-2xl font-semibold text-content">
@@ -232,6 +256,7 @@
       {/if}
     </div>
   </section>
+  {/if}
 
   <!-- How It Works -->
   <section class="mt-12 mb-8 sm:mb-12">

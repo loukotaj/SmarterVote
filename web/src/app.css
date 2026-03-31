@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Navigation loading bar animation */
+@keyframes navprogress {
+  0%   { transform: translateX(-100%); }
+  50%  { transform: translateX(0%); }
+  100% { transform: translateX(100%); }
+}
+
 /* ─── Semantic color tokens ─────────────────────────────────── */
 /* Light mode (default) */
 :root {
