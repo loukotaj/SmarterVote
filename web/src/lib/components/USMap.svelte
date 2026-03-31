@@ -126,6 +126,10 @@
     filter: brightness(1.18);
   }
 
+  .state-path:focus {
+    outline: none;
+  }
+
   .map-container {
     position: relative;
     width: 100%;

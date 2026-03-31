@@ -78,7 +78,7 @@
 </script>
 
 <svelte:head>
-  <title>Smarter.vote — Know Your Candidates</title>
+  <title>Smarter.vote â€” Know Your Candidates</title>
   <meta
     name="description"
     content="Clear, unbiased AI analysis of where candidates stand on the issues that matter. Browse races by state."
@@ -101,24 +101,15 @@
       Know your candidates.
     </h1>
     <p class="text-lg sm:text-xl text-content-muted max-w-xl mx-auto mb-5">
-      Clear, unbiased analysis of where they stand — built from public sources, not spin.
+      Clear, unbiased analysis of where they stand.
     </p>
-    {#if !loading}
-      <div class="inline-flex items-center gap-3 bg-surface border border-stroke rounded-full px-5 py-2 text-sm text-content-muted">
-        <span><strong class="text-content">{races.length}</strong> races</span>
-        <span class="text-stroke">·</span>
-        <span><strong class="text-content">{totalCandidates}</strong> candidates</span>
-        <span class="text-stroke">·</span>
-        <span><strong class="text-content">12</strong> issues tracked</span>
-      </div>
-    {/if}
   </header>
 
   <!-- Map section -->
   <section class="bg-surface border border-stroke rounded-2xl shadow-sm p-4 sm:p-6 mb-6">
     <div class="flex items-center justify-between mb-3">
       <h2 class="text-base font-semibold text-content">
-        {selectedState ? `${selectedState} — ${raceCounts[selectedState] ?? 0} race${(raceCounts[selectedState] ?? 0) !== 1 ? 's' : ''}` : 'Select a state'}
+        {selectedState ? `${selectedState} Â· ${raceCounts[selectedState] ?? 0} race${(raceCounts[selectedState] ?? 0) !== 1 ? 's' : ''}` : 'Select a state'}
       </h2>
       {#if selectedState}
         <button
@@ -185,7 +176,7 @@
       <input
         type="text"
         bind:value={searchQuery}
-        placeholder="Search candidates, races…"
+        placeholder="Search candidates, races..."
         class="block w-full sm:w-64 pl-9 pr-3 py-1.5 border border-stroke rounded-full text-sm bg-surface placeholder-content-subtle focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-content"
       />
     </div>
