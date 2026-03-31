@@ -277,3 +277,10 @@ resource "google_project_iam_member" "github_actions_logging_config" {
   role    = "roles/logging.configWriter"
   member  = "serviceAccount:${google_service_account.github_actions.email}"
 }
+
+# Allow terraform to manage google_firestore_database resources (datastore.databases.*)
+resource "google_project_iam_member" "github_actions_firestore_owner" {
+  project = var.project_id
+  role    = "roles/datastore.owner"
+  member  = "serviceAccount:${google_service_account.github_actions.email}"
+}

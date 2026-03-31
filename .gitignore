@@ -287,3 +287,5 @@ services/races-api/data/analytics.db
 data/pipeline_metrics.db
 data/pipeline_metrics.db-shm
 data/pipeline_metrics.db-wal
+services/races-api/data/analytics.db-wal
+services/races-api/data/analytics.db-shm
