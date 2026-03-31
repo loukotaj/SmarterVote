@@ -110,3 +110,9 @@ variable "admin_api_key" {
   sensitive   = true
   default     = ""
 }
+
+variable "create_firestore_database" {
+  description = "Set to true only on first deploy — requires Owner/Editor. Leave false if the (default) Firestore database already exists."
+  type        = bool
+  default     = false
+}
