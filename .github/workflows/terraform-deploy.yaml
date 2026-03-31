@@ -167,6 +167,21 @@ jobs:
           gsutil versioning set on gs://smartervote-terraform-state
         fi
 
+    - name: Diagnose IAM identity and permissions
+      run: |
+        echo "=== Active identity ==="
+        gcloud auth list
+
+        ACTIVE=$(gcloud auth list --filter=status:ACTIVE --format="value(account)")
+        echo "Active account: $ACTIVE"
+
+        echo ""
+        echo "=== IAM roles bound to active account ==="
+        gcloud projects get-iam-policy ${{ env.PROJECT_ID }} \
+          --flatten="bindings[].members" \
+          --filter="bindings.members:$ACTIVE" \
+          --format="table(bindings.role)"
+
     - name: Terraform Init
       run: |
         cd infra
