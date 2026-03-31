@@ -428,8 +428,7 @@
             Comprehensive Coverage
           </h3>
           <p class="text-content-muted text-xs sm:text-sm">
-            Analysis covers 12 key issue areas
-            policy.
+            Analysis covers key issue areas.
           </p>
         </div>
       </div>

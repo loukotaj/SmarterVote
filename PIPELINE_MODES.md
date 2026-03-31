@@ -89,5 +89,5 @@ Web search results are cached in SQLite to avoid redundant Serper API calls:
 
 Both modes produce identical RaceJSON v0.2 files:
 - `{race-id}.json` with candidates, issues, sources
-- 12 canonical issues per candidate
+- canonical issues per candidate
 - Confidence levels (high/medium/low) per issue stance

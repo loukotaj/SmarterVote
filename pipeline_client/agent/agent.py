@@ -1127,7 +1127,7 @@ async def _run_issue_research_for_candidate(
 ) -> None:
     """Run per-issue research for one candidate, mutating race_json in place.
 
-    For each of the 12 canonical issues, a separate tools-mode _agent_loop
+    For each of the canonical issues, a separate tools-mode _agent_loop
     call uses web_search + set_issue_stance. A structured handoff is passed
     between issues so the sub-agent knows what has already been written and
     which search queries are cached.

@@ -49,7 +49,7 @@ from pipeline_client.agent.prompts import (
 
 
 def test_canonical_issues_count():
-    """All 12 canonical issues are defined."""
+    """All canonical issues are defined."""
     assert len(CANONICAL_ISSUES) == 12
 
 

@@ -6,10 +6,10 @@ Guidelines for generating and editing code in this repository.
 
 Multi-phase AI agent for electoral analysis:
 - **Agent Pipeline**: DISCOVER → RESEARCH (×6 issue groups) → REFINE
-- **Output**: RaceJSON v0.2 with 12 canonical issues, confidence levels, and sources
+- **Output**: RaceJSON v0.2 with canonical issues, confidence levels, and sources
 - **Local-first**: Run agent locally, deploy races-api for serving data
 
-## Canonical Issues (12)
+## Canonical Issues
 
 Healthcare, Economy, Climate/Energy, Reproductive Rights, Immigration, Guns & Safety, Foreign Policy, Social Justice, Education, Tech & AI, Election Reform, Local Issues
 
@@ -90,7 +90,7 @@ cd web && npx svelte-check --tsconfig ./tsconfig.json
 ## Project Rules
 
 1. **Multi-Phase Agent**: Discovery → Issue Research (6 groups) → Refinement
-2. **12 Canonical Issues**: Keep consistent across all outputs
+2. **canonical Issues**: Keep consistent across all outputs
 3. **Source Attribution**: Preserve confidence scoring and sources
 4. **Search Caching**: Use SQLite cache for Serper searches (7-day TTL)
 5. **Rerun Support**: Re-running a race updates the existing profile

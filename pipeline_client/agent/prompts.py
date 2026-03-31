@@ -237,7 +237,7 @@ Research and improve this ONE candidate:
 3. Ensure every stance has at least one source URL.
 4. Improve the summary — plain prose, nonpartisan, 2-3 sentences. No inline "Sources:". Sources go in summary_sources.
 5. Add real named top donors if findable (source object required on each).
-6. Ensure all 12 canonical issues are covered: {all_issues}
+6. Ensure all canonical issues are covered: {all_issues}
 7. Fill gaps in career_history and education if better data exists.
 8. If image_url is missing or null, search for a direct image file URL:
    - Wikipedia: use https://upload.wikimedia.org/wikipedia/commons/... (NOT commons.wikimedia.org/wiki/File:)
@@ -536,7 +536,7 @@ contradicts the profile, or when the source is unavailable. If the source confir
 the original data, skip that flag and leave the data unchanged.
 
 Also ensure:
-- All 12 canonical issues covered: {all_issues}
+- All canonical issues covered: {all_issues}
 - voting_record uses "bill_name" and "vote" (yes/no/abstain/absent)
 - top_donors have source objects
 

@@ -37,7 +37,7 @@ class ConfidenceLevel(str, Enum):
 
 
 class CanonicalIssue(str, Enum):
-    """The 12 canonical issues for consistent comparison across races."""
+    """The canonical issues for consistent comparison across races."""
 
     HEALTHCARE = "Healthcare"
     ECONOMY = "Economy"

@@ -2,7 +2,7 @@
 
 ## What This Repository Does
 
-SmarterVote is an AI-powered electoral analysis platform. A multi-phase research agent (OpenAI + Serper web search) produces structured candidate profiles (RaceJSON v0.3) covering 12 canonical issues with confidence scoring and source attribution. A SvelteKit frontend displays the data served by a FastAPI races-api.
+SmarterVote is an AI-powered electoral analysis platform. A multi-phase research agent (OpenAI + Serper web search) produces structured candidate profiles (RaceJSON v0.3) covering canonical issues with confidence scoring and source attribution. A SvelteKit frontend displays the data served by a FastAPI races-api.
 
 ## Languages & Runtimes
 
@@ -106,7 +106,7 @@ Every PR to `main` runs these jobs — all must pass:
 ## Architecture Notes
 
 - **Agent phases**: DISCOVER → RESEARCH (×6 issue groups) → REFINE (8 LLM calls total)
-- **12 Canonical Issues**: Healthcare, Economy, Climate/Energy, Reproductive Rights, Immigration, Guns & Safety, Foreign Policy, Social Justice, Education, Tech & AI, Election Reform, Local Issues — defined in `shared/models.py` (`CanonicalIssue` enum) and `pipeline_client/agent/prompts.py`
+- **canonical Issues**: Healthcare, Economy, Climate/Energy, Reproductive Rights, Immigration, Guns & Safety, Foreign Policy, Social Justice, Education, Tech & AI, Election Reform, Local Issues — defined in `shared/models.py` (`CanonicalIssue` enum) and `pipeline_client/agent/prompts.py`
 - **Search caching**: SQLite with 7-day TTL (`pipeline_client/agent/search_cache.py`)
 - **Storage backends**: `LocalStorageBackend` (default) and `GCPStorageBackend`
 - **Required API keys**: `OPENAI_API_KEY`, `SERPER_API_KEY` (see `.env.example`)
@@ -114,7 +114,7 @@ Every PR to `main` runs these jobs — all must pass:
 
 ## Important Rules
 
-1. Keep the 12 canonical issues consistent across all outputs.
+1. Keep the canonical issues consistent across all outputs.
 2. Preserve confidence scoring and source attribution in any data changes.
 3. Keep Python models (`shared/models.py`) and TypeScript types (`web/src/lib/types.ts`) in sync.
 4. Re-running a race updates the existing profile — do not create duplicates.

@@ -149,7 +149,7 @@ When enabled:
 - GCS: Data storage
 - Secret Manager: API keys
 
-## 12 Canonical Issues
+## canonical Issues
 
 1. Healthcare
 2. Economy

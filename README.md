@@ -2,7 +2,7 @@
 
 AI-powered candidate research for U.S. elections.
 
-SmarterVote uses an AI agent to research election races and produce structured candidate profiles covering 12 policy issues — with sources and confidence levels.
+SmarterVote uses an AI agent to research election races and produce structured candidate profiles covering a variety of policy issues — with sources and confidence levels.
 
 ## Requirements
 

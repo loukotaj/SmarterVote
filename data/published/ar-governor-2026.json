@@ -8,7 +8,7 @@
     "Removed stale/outdated donor entries for Fred Love that were tied to the 2013 cycle and replaced the donor section with a limitation note pending current-cycle finance data.",
     "Relabeled Sarah Huckabee Sanders\u2019s self-funding entry to distinguish personal funds from external donors and consolidated unitemized donations into a single entry.",
     "Added a polling note indicating that no reliable public polling was found in the sources reviewed as of March 29, 2026.",
-    "Kept all 12 canonical issue areas covered for both candidates and ensured each issue entry includes source URLs and confidence levels."
+    "Kept all canonical issue areas covered for both candidates and ensured each issue entry includes source URLs and confidence levels."
   ],
   "id": "ar-governor-2026",
   "title": "2026 Arkansas gubernatorial election",
@@ -872,7 +872,7 @@
           "severity": "info"
         }
       ],
-      "summary": "This is a well-researched and carefully documented profile. The candidate backgrounds are accurate and thoroughly sourced across multiple credible outlets (official state websites, legislative records, news archives, Ballotpedia). All 12 canonical issue areas are covered for both candidates with appropriate confidence levels. The language is consistently neutral and nonpartisan\u2014stances are reported factually without editorial framing. The iteration notes demonstrate thoughtful revision to correct outdated donor data and clarify policy positions based on official sources. Sources are current (last accessed March 29, 2026) and span government, news, and research domains. Voting records for Fred Love are detailed with bill titles and legislative sources. The profile appropriately flags low-confidence areas (Love's reproductive rights, AI/tech, election reform stances) rather than overstating knowledge. Overall, this represents a high standard of candidate profile accuracy and transparency."
+      "summary": "This is a well-researched and carefully documented profile. The candidate backgrounds are accurate and thoroughly sourced across multiple credible outlets (official state websites, legislative records, news archives, Ballotpedia). All canonical issue areas are covered for both candidates with appropriate confidence levels. The language is consistently neutral and nonpartisan\u2014stances are reported factually without editorial framing. The iteration notes demonstrate thoughtful revision to correct outdated donor data and clarify policy positions based on official sources. Sources are current (last accessed March 29, 2026) and span government, news, and research domains. Voting records for Fred Love are detailed with bill titles and legislative sources. The profile appropriately flags low-confidence areas (Love's reproductive rights, AI/tech, election reform stances) rather than overstating knowledge. Overall, this represents a high standard of candidate profile accuracy and transparency."
     },
     {
       "model": "grok-3-mini",
