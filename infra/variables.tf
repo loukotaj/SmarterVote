@@ -96,3 +96,17 @@ variable "enable_pipeline_client" {
   type        = bool
   default     = false
 }
+
+# Monitoring / alerting
+variable "alert_email" {
+  description = "Email address to receive GCP monitoring alerts. Leave empty to disable alert policies."
+  type        = string
+  default     = ""
+}
+
+variable "admin_api_key" {
+  description = "Secret key that protects the /analytics/* endpoints on the races API"
+  type        = string
+  sensitive   = true
+  default     = ""
+}

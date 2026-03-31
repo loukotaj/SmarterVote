@@ -8,6 +8,7 @@ individual race data stored as JSON files.
 import logging
 import os
 import sys
+from contextlib import asynccontextmanager
 from typing import List
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s %(message)s")
@@ -15,8 +16,10 @@ logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s %(message
 # Add parent directories to path to import shared modules
 sys.path.append(os.path.join(os.path.dirname(__file__), "..", ".."))
 
+from analytics_middleware import AnalyticsMiddleware
+from analytics_store import AnalyticsStore
 from config import DATA_DIR
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, Header, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from schemas import CandidateSummary, RaceSummary
@@ -33,10 +36,28 @@ publish_service = SimplePublishService(data_directory=DATA_DIR)
 # Rate limiter (keyed by client IP)
 limiter = Limiter(key_func=get_remote_address)
 
+_ADMIN_API_KEY = os.getenv("ADMIN_API_KEY", "")
+
+
+def _require_admin_key(x_admin_key: str = Header(default="")) -> None:
+    """Dependency: reject requests missing a valid X-Admin-Key header."""
+    if _ADMIN_API_KEY and x_admin_key != _ADMIN_API_KEY:
+        raise HTTPException(status_code=401, detail="Invalid or missing X-Admin-Key")
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    app.state.analytics = AnalyticsStore()
+    yield
+
+
 # Initialize FastAPI app
-app = FastAPI(title="SmarterVote Races API")
+app = FastAPI(title="SmarterVote Races API", lifespan=lifespan)
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
+# Analytics middleware — runs before CORS, records every tracked request
+app.add_middleware(AnalyticsMiddleware)
 
 # Enable CORS — public read-only API; credentials not needed
 app.add_middleware(
@@ -44,7 +65,7 @@ app.add_middleware(
     allow_origins=["*"],
     allow_credentials=False,
     allow_methods=["GET"],
-    allow_headers=["*"],
+    allow_headers=["*", "X-Admin-Key"],
 )
 
 
@@ -96,6 +117,49 @@ def get_race(request: Request, race_id: str):
     if not race_data:
         raise HTTPException(status_code=404, detail="Race not found")
     return race_data
+
+
+# ---------------------------------------------------------------------------
+# Analytics endpoints (admin-key protected)
+# ---------------------------------------------------------------------------
+
+
+@app.get("/analytics/overview")
+async def analytics_overview(request: Request, hours: int = 24, x_admin_key: str = Header(default="")):
+    """Summary stats: total requests, unique visitors, avg latency, error rate, timeseries."""
+    _require_admin_key(x_admin_key)
+    return await request.app.state.analytics.get_overview(hours=hours)
+
+
+@app.get("/analytics/races")
+async def analytics_races(request: Request, hours: int = 24, x_admin_key: str = Header(default="")):
+    """Per-race request counts for the last *hours* hours."""
+    _require_admin_key(x_admin_key)
+    stats = await request.app.state.analytics.get_race_stats(hours=hours)
+    # Enrich with freshness metadata from the publish service
+    enriched = []
+    for item in stats:
+        race_data = publish_service.get_race_data(item["race_id"])
+        item["updated_utc"] = race_data.get("updated_utc") if race_data else None
+        item["title"] = race_data.get("title") if race_data else None
+        enriched.append(item)
+    return {"races": enriched, "hours": hours}
+
+
+@app.get("/analytics/timeseries")
+async def analytics_timeseries(
+    request: Request,
+    hours: int = 24,
+    bucket: int = 60,
+    x_admin_key: str = Header(default=""),
+):
+    """Bucketed request counts for charting. *bucket* is the bucket size in minutes."""
+    _require_admin_key(x_admin_key)
+    return {
+        "timeseries": await request.app.state.analytics.get_timeseries(hours=hours, bucket_minutes=bucket),
+        "hours": hours,
+        "bucket_minutes": bucket,
+    }
 
 
 if __name__ == "__main__":

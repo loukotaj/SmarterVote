@@ -55,13 +55,44 @@ foreach ($dir in $directories) {
     }
 }
 
-Write-Host ""
-Write-Host "Starting services..." -ForegroundColor Yellow
+
 
 # Set common environment
 $projectRoot = $PWD.Path
 $env:PYTHONPATH = $projectRoot
 $pythonExe = Join-Path $projectRoot ".venv\Scripts\python.exe"
+
+
+
+Write-Host ""
+Write-Host "Updating dependencies..." -ForegroundColor Yellow
+
+Write-Host "  pip install (root requirements)..." -ForegroundColor DarkGray
+& $pythonExe -m pip install -r "$projectRoot\requirements.txt" -q
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "ERROR: pip install failed." -ForegroundColor Red; exit 1
+}
+
+Write-Host "  pip install (races-api requirements)..." -ForegroundColor DarkGray
+& $pythonExe -m pip install -r "$projectRoot\services\races-api\requirements.txt" -q
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "ERROR: pip install (races-api) failed." -ForegroundColor Red; exit 1
+}
+
+Write-Host "  npm ci (web)..." -ForegroundColor DarkGray
+Push-Location "$projectRoot\web"
+npm ci --silent
+if ($LASTEXITCODE -ne 0) {
+    Pop-Location
+    Write-Host "ERROR: npm ci failed." -ForegroundColor Red; exit 1
+}
+Pop-Location
+
+Write-Host "OK  Dependencies up to date!" -ForegroundColor Green
+
+Write-Host ""
+Write-Host "Starting services..." -ForegroundColor Yellow
+
 
 # Helper: launch a service in a new titled window, return the process handle
 function Start-Service {

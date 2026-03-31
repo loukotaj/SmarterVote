@@ -78,7 +78,8 @@ def client(data_dir, monkeypatch):
 
     # Reinitialize the publish service with the new data dir
     main_mod.publish_service = main_mod.SimplePublishService(data_directory=data_dir)
-    return TestClient(main_mod.app)
+    with TestClient(main_mod.app) as c:
+        yield c
 
 
 # ---------------------------------------------------------------------------
@@ -152,3 +153,89 @@ def test_rate_limit_exceeded(client):
 
     resp = client.get("/races")
     assert resp.status_code == 429
+
+
+# ---------------------------------------------------------------------------
+# Analytics endpoint tests
+# ---------------------------------------------------------------------------
+
+
+def test_analytics_overview_no_key(client):
+    """GET /analytics/overview without admin key returns 401 when key is configured."""
+    import main as main_mod
+
+    original = main_mod._ADMIN_API_KEY
+    main_mod._ADMIN_API_KEY = "secret"
+    try:
+        resp = client.get("/analytics/overview")
+        assert resp.status_code == 401
+    finally:
+        main_mod._ADMIN_API_KEY = original
+
+
+def test_analytics_overview_wrong_key(client):
+    """GET /analytics/overview with wrong key returns 401."""
+    import main as main_mod
+
+    original = main_mod._ADMIN_API_KEY
+    main_mod._ADMIN_API_KEY = "secret"
+    try:
+        resp = client.get("/analytics/overview", headers={"X-Admin-Key": "wrong"})
+        assert resp.status_code == 401
+    finally:
+        main_mod._ADMIN_API_KEY = original
+
+
+def test_analytics_overview_correct_key(client):
+    """GET /analytics/overview with correct key returns 200."""
+    import main as main_mod
+
+    original = main_mod._ADMIN_API_KEY
+    main_mod._ADMIN_API_KEY = "secret"
+    try:
+        resp = client.get("/analytics/overview", headers={"X-Admin-Key": "secret"})
+        assert resp.status_code == 200
+        assert "total_requests" in resp.json()
+    finally:
+        main_mod._ADMIN_API_KEY = original
+
+
+def test_analytics_races_correct_key(client):
+    """GET /analytics/races with correct key returns 200."""
+    import main as main_mod
+
+    original = main_mod._ADMIN_API_KEY
+    main_mod._ADMIN_API_KEY = "secret"
+    try:
+        resp = client.get("/analytics/races", headers={"X-Admin-Key": "secret"})
+        assert resp.status_code == 200
+        assert "races" in resp.json()
+    finally:
+        main_mod._ADMIN_API_KEY = original
+
+
+def test_analytics_timeseries_correct_key(client):
+    """GET /analytics/timeseries with correct key returns 200."""
+    import main as main_mod
+
+    original = main_mod._ADMIN_API_KEY
+    main_mod._ADMIN_API_KEY = "secret"
+    try:
+        resp = client.get("/analytics/timeseries", headers={"X-Admin-Key": "secret"})
+        assert resp.status_code == 200
+        assert "timeseries" in resp.json()
+    finally:
+        main_mod._ADMIN_API_KEY = original
+
+
+def test_analytics_no_key_configured(client):
+    """When no key is configured, unauthenticated access is permitted (dev mode)."""
+    import main as main_mod
+
+    original = main_mod._ADMIN_API_KEY
+    main_mod._ADMIN_API_KEY = ""
+    try:
+        resp = client.get("/analytics/overview")
+        assert resp.status_code == 200
+    finally:
+        main_mod._ADMIN_API_KEY = original
