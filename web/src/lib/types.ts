@@ -45,12 +45,10 @@ export interface IssueStance {
   sources: Source[];
 }
 
-export interface TopDonor {
-  name: string;
-  amount?: number;
-  organization?: string;
-  donation_year?: string;
-  source?: Source;
+export interface CandidateLink {
+  url: string;
+  title: string;
+  type: "finance" | "ballotpedia" | "wiki" | "official" | "legislature" | "votesmart" | "govtrack" | "news" | "other";
 }
 
 export interface CareerEntry {
@@ -67,14 +65,6 @@ export interface EducationEntry {
   degree?: string;
   field?: string;
   year?: number;
-  source?: Source;
-}
-
-export interface VotingRecord {
-  bill_name: string;
-  bill_description?: string;
-  vote: "yes" | "no" | "abstain" | "absent";
-  date?: string;
   source?: Source;
 }
 
@@ -103,11 +93,11 @@ export interface Candidate {
   issues: Record<CanonicalIssue, IssueStance>;
   career_history: CareerEntry[];
   education: EducationEntry[];
-  voting_record: VotingRecord[];
   voting_summary?: string;
   voting_source_url?: string;
-  top_donors: TopDonor[];
+  donor_summary?: string;
   donor_source_url?: string;
+  links: CandidateLink[];
   website?: string;
   social_media: Record<string, string>;
 }
@@ -136,6 +126,7 @@ export interface Race {
   jurisdiction?: string;
   description?: string;
   polling?: PollEntry[];
+  polling_note?: string;
   reviews?: AgentReview[];
 }
 

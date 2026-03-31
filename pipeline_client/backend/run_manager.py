@@ -335,7 +335,20 @@ class RunManager:
                 if local_file.exists():
                     continue  # Already have a local copy
                 try:
-                    local_file.write_text(blob.download_as_text(), encoding="utf-8")
+                    raw = blob.download_as_text()
+                    # Sanitize stale in-flight statuses — the container that wrote
+                    # this blob is gone, so anything still "running" or "pending"
+                    # from GCS was interrupted.
+                    try:
+                        data = json.loads(raw)
+                        if data.get("status") in ("running", "pending"):
+                            data["status"] = "failed"
+                            if not data.get("error"):
+                                data["error"] = "Process interrupted"
+                            raw = json.dumps(data, indent=2, default=str)
+                    except (json.JSONDecodeError, TypeError):
+                        pass
+                    local_file.write_text(raw, encoding="utf-8")
                     count += 1
                 except Exception:
                     print(f"Failed to sync run {run_id} from GCS: {traceback.format_exc()}", file=sys.stderr)

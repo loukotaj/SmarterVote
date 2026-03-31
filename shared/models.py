@@ -81,14 +81,15 @@ class IssueStance(BaseModel):
     sources: List[Source] = Field(default_factory=list)
 
 
-class TopDonor(BaseModel):
-    """Top campaign donor information."""
+class CandidateLink(BaseModel):
+    """A notable reference link for a candidate (Ballotpedia, Wikipedia, finance, etc.)."""
 
-    name: str
-    amount: Optional[float] = None
-    organization: Optional[str] = None
-    donation_year: Optional[str] = None
-    source: Optional[Source] = None
+    url: str
+    title: str
+    type: Literal[
+        "finance", "ballotpedia", "wiki", "official",
+        "legislature", "votesmart", "govtrack", "news", "other"
+    ] = "other"
 
 
 # ---------------------------------------------------------------------------
@@ -114,16 +115,6 @@ class EducationEntry(BaseModel):
     degree: Optional[str] = None
     field: Optional[str] = None
     year: Optional[int] = None
-    source: Optional[Source] = None
-
-
-class VotingRecord(BaseModel):
-    """A notable vote cast by the candidate."""
-
-    bill_name: str
-    bill_description: Optional[str] = None
-    vote: Literal["yes", "no", "abstain", "absent"]
-    date: Optional[str] = None
     source: Optional[Source] = None
 
 
@@ -172,15 +163,17 @@ class Candidate(BaseModel):
     # Background
     career_history: List[CareerEntry] = Field(default_factory=list)
     education: List[EducationEntry] = Field(default_factory=list)
-    voting_record: List[VotingRecord] = Field(default_factory=list)
 
-    # Voting summary
+    # Voting summary (narrative + link; raw record list removed in v0.4)
     voting_summary: Optional[str] = None
     voting_source_url: Optional[str] = None
 
-    # Financial
-    top_donors: List[TopDonor] = Field(default_factory=list)
+    # Financial (narrative + link; raw donor list removed in v0.4)
+    donor_summary: Optional[str] = None
     donor_source_url: Optional[str] = None
+
+    # Reference links (Ballotpedia, Wikipedia, OpenSecrets, etc.)
+    links: List[CandidateLink] = Field(default_factory=list)
 
     # Web presence
     website: Optional[HttpUrl] = None
@@ -231,6 +224,7 @@ class RaceJSON(BaseModel):
 
     # Polling data
     polling: List[PollEntry] = Field(default_factory=list)
+    polling_note: Optional[str] = None  # set when no public polls are found
 
     # Multi-LLM reviews
     reviews: List[AgentReview] = Field(default_factory=list)

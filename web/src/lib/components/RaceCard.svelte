@@ -52,6 +52,11 @@
   }
 
   $: badge = getOfficeBadge(race.office);
+
+  let imageErrors: Set<string> = new Set();
+  function handleImageError(name: string) {
+    imageErrors = new Set([...imageErrors, name]);
+  }
 </script>
 
 <a
@@ -75,7 +80,7 @@
 
   <!-- Race title -->
   <div class="px-4 pb-3">
-    <h3 class="text-sm font-semibold text-content group-hover:text-blue-600 transition-colors leading-snug line-clamp-2">
+    <h3 class="text-sm font-semibold text-content group-hover:text-blue-600 transition-colors leading-snug line-clamp-2 capitalize">
       {race.title ?? `${race.office ?? "Race"} — ${race.jurisdiction ?? ""}`}
     </h3>
   </div>
@@ -87,12 +92,13 @@
         <div class="flex items-center gap-2 min-w-0">
           <!-- Avatar -->
           <div class="relative flex-shrink-0">
-            {#if candidate.image_url}
+            {#if candidate.image_url && !imageErrors.has(candidate.name)}
               <img
                 src={candidate.image_url}
                 alt={candidate.name}
                 class="w-9 h-9 rounded-full object-cover ring-2 {getPartyRing(candidate.party)}"
                 loading="lazy"
+                on:error={() => handleImageError(candidate.name)}
               />
             {:else}
               <div

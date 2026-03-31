@@ -21,6 +21,16 @@
     return party[0].toUpperCase();
   }
 
+  function partyBadgeClass(party: string | undefined): string {
+    if (!party) return "bg-gray-100 text-gray-700";
+    const p = party.toLowerCase();
+    if (p.includes("democrat")) return "bg-blue-100 text-blue-800";
+    if (p.includes("republican")) return "bg-red-100 text-red-800";
+    if (p.includes("libertarian")) return "bg-yellow-100 text-yellow-800";
+    if (p.includes("green")) return "bg-green-100 text-green-800";
+    return "bg-gray-100 text-gray-700";
+  }
+
   let expanded = false;
   let imageError = false;
   let activeTab: "issues" | "background" | "donors" | "voting" = "issues";
@@ -84,7 +94,7 @@
           </h3>
           <div class="flex flex-wrap items-center gap-1 mt-1">
             {#if candidate.party}
-              <span class="badge party-badge" title={candidate.party}>{partyAbbr(candidate.party)}</span>
+              <span class="badge {partyBadgeClass(candidate.party)}" title={candidate.party}>{partyAbbr(candidate.party)}</span>
             {/if}
             {#if candidate.incumbent}
               <span class="badge incumbent-badge">Incumbent</span>
@@ -98,8 +108,8 @@
     <p class="summary">
       {expanded
         ? candidate.summary
-        : candidate.summary.slice(0, 300) +
-          (candidate.summary.length > 300 ? "..." : "")}
+        : candidate.summary.slice(0, 600) +
+          (candidate.summary.length > 600 ? "..." : "")}
     </p>
 
     <!-- Website Link -->
@@ -313,7 +323,7 @@
   }
 
   .party-badge {
-    @apply bg-blue-100 text-blue-800;
+    @apply bg-gray-100 text-gray-700;
   }
 
   .incumbent-badge {

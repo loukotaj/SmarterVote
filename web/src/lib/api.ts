@@ -71,6 +71,7 @@ export async function getRaceSummaries(
           name: candidate.name,
           party: candidate.party,
           incumbent: candidate.incumbent,
+          image_url: candidate.image_url,
         })),
       }));
     }

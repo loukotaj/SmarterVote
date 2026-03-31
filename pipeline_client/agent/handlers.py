@@ -19,7 +19,7 @@ def _make_editing_handlers(
     ``extra_tool_handlers`` parameter of ``_agent_loop``.
     """
     _ALLOWED_CANDIDATE_FIELDS = {"party", "incumbent", "website", "image_url"}
-    _ALLOWED_RACE_FIELDS = {"description", "office", "election_date"}
+    _ALLOWED_RACE_FIELDS = {"description", "office", "election_date", "polling_note"}
 
     def _find_candidate(name: str) -> Optional[Dict[str, Any]]:
         for c in race_json.get("candidates", []):
@@ -44,8 +44,11 @@ def _make_editing_handlers(
             "social_media": {},
             "career_history": [],
             "education": [],
-            "voting_record": [],
-            "top_donors": [],
+            "donor_summary": None,
+            "donor_source_url": None,
+            "voting_summary": None,
+            "voting_source_url": None,
+            "links": [],
             "issues": {},
         }
         race_json.setdefault("candidates", []).append(candidate)
@@ -113,27 +116,46 @@ def _make_editing_handlers(
         log("info", f"    📝 {name} / {issue} [{args['confidence']}]")
         return f"Set {name}'s {issue} stance (confidence: {args['confidence']})."
 
-    # --- Record handlers (bulk replace) ---
+    # --- Record handlers (summary setters) ---
 
-    def set_voting_records(args: Dict[str, Any]) -> str:
+    def set_donor_summary(args: Dict[str, Any]) -> str:
         name = args["candidate_name"]
         c = _find_candidate(name)
         if not c:
             return f"Candidate '{name}' not found."
-        c["voting_record"] = args["records"]
-        n = len(args["records"])
-        log("info", f"    📝 Replaced voting records for {name} ({n} entries)")
-        return f"Replaced voting records for '{name}' ({n} entries)."
+        c["donor_summary"] = args["summary"]
+        if args.get("source_url"):
+            c["donor_source_url"] = args["source_url"]
+        log("info", f"    📝 Updated donor summary for {name}")
+        return f"Updated donor summary for '{name}'."
 
-    def set_donors(args: Dict[str, Any]) -> str:
+    def set_voting_summary(args: Dict[str, Any]) -> str:
         name = args["candidate_name"]
         c = _find_candidate(name)
         if not c:
             return f"Candidate '{name}' not found."
-        c["top_donors"] = args["donors"]
-        n = len(args["donors"])
-        log("info", f"    📝 Replaced donors for {name} ({n} entries)")
-        return f"Replaced donors for '{name}' ({n} entries)."
+        c["voting_summary"] = args["summary"]
+        if args.get("source_url"):
+            c["voting_source_url"] = args["source_url"]
+        log("info", f"    📝 Updated voting summary for {name}")
+        return f"Updated voting summary for '{name}'."
+
+    def add_candidate_link(args: Dict[str, Any]) -> str:
+        name = args["candidate_name"]
+        c = _find_candidate(name)
+        if not c:
+            return f"Candidate '{name}' not found."
+        url = args["url"]
+        existing_urls = {lnk.get("url") for lnk in c.get("links", [])}
+        if url in existing_urls:
+            return f"Link already exists for '{name}': {url}"
+        c.setdefault("links", []).append({
+            "url": url,
+            "title": args["title"],
+            "type": args.get("type", "other"),
+        })
+        log("info", f"    🔗 Added link for {name}: {url[:60]}")
+        return f"Added {args.get('type', 'other')} link for '{name}'."
 
     # --- Race-level handlers ---
 
@@ -197,8 +219,9 @@ def _make_editing_handlers(
         "set_candidate_field": set_candidate_field,
         "set_candidate_summary": set_candidate_summary,
         "set_issue_stance": set_issue_stance,
-        "set_voting_records": set_voting_records,
-        "set_donors": set_donors,
+        "set_donor_summary": set_donor_summary,
+        "set_voting_summary": set_voting_summary,
+        "add_candidate_link": add_candidate_link,
         "add_poll": add_poll,
         "update_race_field": update_race_field,
         "read_profile": read_profile,

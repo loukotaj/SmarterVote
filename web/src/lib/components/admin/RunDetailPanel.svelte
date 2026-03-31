@@ -29,8 +29,22 @@
   let logFilter: LogLevel = "all";
 
   $: raceId = (run?.payload?.race_id as string) ?? runId;
+  // A run is only "live" if the backend actually reports it as running/pending.
+  // Never show the live spinner for a run the server has already completed.
   $: isRunning = run?.status === "running" || run?.status === "pending";
-  $: runLogs = isLive ? liveLogs : (run?.logs ?? []);
+  $: isLiveAndRunning = isLive && isRunning;
+  // Use live logs while the run is active; once done fall back to stored logs
+  // then to agent_logs embedded in the artifact (GCS blobs strip logs).
+  $: artifactAgentLogs = (() => {
+    const logs = artifactData?.output?.agent_logs;
+    if (!Array.isArray(logs)) return [];
+    return logs.map((l: any) => ({
+      level: (l.level ?? "info").toLowerCase(),
+      message: l.message ?? String(l),
+      timestamp: l.timestamp ?? "",
+    })) as LogEntry[];
+  })();
+  $: runLogs = isLiveAndRunning ? liveLogs : ((run?.logs ?? []).length > 0 ? (run?.logs ?? []) : artifactAgentLogs);
   $: filteredLogs = logFilter === "all" ? runLogs : runLogs.filter((l) => l.level === logFilter);
   $: steps = run?.steps ?? [];
   $: sections = [
@@ -38,9 +52,9 @@
     { id: "logs" as SectionId, label: `Logs (${runLogs.length})` },
     { id: "output" as SectionId, label: "Output" },
   ];
-  $: progress = isLive && isRunning ? liveProgress : computeProgress(steps);
-  $: progressMsg = isLive && isRunning ? liveProgressMessage : lastStepMessage(steps);
-  $: elapsed = isLive && isRunning ? liveElapsed : (run?.duration_ms ? Math.floor(run.duration_ms / 1000) : 0);
+  $: progress = isLiveAndRunning ? liveProgress : computeProgress(steps);
+  $: progressMsg = isLiveAndRunning ? liveProgressMessage : lastStepMessage(steps);
+  $: elapsed = isLiveAndRunning ? liveElapsed : (run?.duration_ms ? Math.floor(run.duration_ms / 1000) : 0);
 
   function computeProgress(steps: RunStep[]): number {
     if (!steps.length) return 0;
@@ -133,6 +147,9 @@
     await loadRun();
     if (isRunning) {
       pollTimer = setInterval(loadRun, 3000);
+    } else if (run?.artifact_id) {
+      // Auto-load artifact for completed runs so logs are available immediately
+      loadArtifact();
     }
   });
 
@@ -144,6 +161,7 @@
   $: if (run && !isRunning && pollTimer) {
     clearInterval(pollTimer);
     pollTimer = null;
+    if (run.artifact_id && !artifactData) loadArtifact();
   }
 </script>
 
@@ -168,7 +186,7 @@
             {run.status}
           </span>
         {/if}
-        {#if isRunning}
+        {#if isLiveAndRunning}
           <span class="flex items-center gap-1 text-xs text-blue-600">
             <svg class="animate-spin h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
               <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
@@ -348,7 +366,7 @@
 
         {#if artifactData}
           {#if showRawJson}
-            <pre class="bg-gray-50 rounded-lg p-3 text-xs font-mono overflow-auto max-h-[600px] whitespace-pre-wrap break-words">{safeJsonStringify(artifactData, 300000).content}</pre>
+            <pre class="bg-gray-50 rounded-lg p-3 text-xs font-mono overflow-auto max-h-[600px] whitespace-pre-wrap break-words">{safeJsonStringify(artifactData).content}</pre>
           {:else}
             {@const d = artifactData}
             {#if typeof d === "object" && d !== null}
@@ -437,14 +455,14 @@
                   {/each}
                 {:else}
                   <!-- Generic object display -->
-                  <pre class="bg-gray-50 rounded-lg p-3 text-xs font-mono overflow-auto max-h-[600px] whitespace-pre-wrap break-words">{safeJsonStringify(d, 300000).content}</pre>
+                  <pre class="bg-gray-50 rounded-lg p-3 text-xs font-mono overflow-auto max-h-[600px] whitespace-pre-wrap break-words">{safeJsonStringify(d).content}</pre>
                 {/if}
               </div>
             {:else}
               <p class="text-sm text-gray-500">No structured output available</p>
             {/if}
           {/if}
-        {:else if isRunning}
+        {:else if isLiveAndRunning}
           <div class="flex items-center gap-2 p-6 text-gray-400 justify-center">
             <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
               <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />

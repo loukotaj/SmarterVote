@@ -109,14 +109,14 @@ def test_update_meta_user_formats():
 
 
 def test_discovery_prompt_mentions_donor_sources():
-    """Discovery prompt tells the model to include donor sources."""
+    """Discovery prompt tells the model to include donor summary and links."""
     result = DISCOVERY_USER.format(race_id="mo-senate-2024")
-    assert "top_donors" in result
-    assert '"source": {"url": "<url>"' in result
+    assert "donor_summary" in result
+    assert "links" in result
 
 
 def test_refine_prompt_mentions_donor_sources():
-    """Refine prompt requires source objects on donor entries."""
+    """Refine prompt asks agent to fill donor_summary using set_donor_summary."""
     result = REFINE_USER.format(
         race_id="mo-senate-2024",
         candidate_name="Jane Doe",
@@ -125,17 +125,18 @@ def test_refine_prompt_mentions_donor_sources():
         other_candidates="John Smith",
         all_issues="Healthcare, Economy",
     )
-    assert "donor entry must follow this shape" in result
+    assert "set_donor_summary" in result
 
 
 def test_update_prompt_mentions_donor_sources():
-    """Update meta prompt requires donor source objects during reruns."""
+    """Update meta prompt uses donor_summary instead of top_donors."""
     result = UPDATE_META_USER.format(
         race_id="mo-senate-2024",
         candidate_names="Alice, Bob",
         last_updated="2024-01-01T00:00:00Z",
     )
-    assert "top_donors" in result
+    assert "donor_summary" in result
+    assert "top_donors" not in result
 
 
 def test_prompts_contain_rules():
@@ -632,24 +633,15 @@ async def test_run_agent_adds_source_timestamps():
 
 @pytest.mark.asyncio
 async def test_run_agent_adds_donor_source_timestamps():
-    """run_agent adds last_accessed to donor sources that lack it."""
+    """run_agent normalizes candidate shape including donor_summary."""
     discovery_result = {
         "id": "donors-2024",
         "candidates": [
             {
                 "name": "Alice",
                 "issues": {},
-                "top_donors": [
-                    {
-                        "name": "Example PAC",
-                        "amount": 5000,
-                        "source": {
-                            "url": "https://example.com/donors",
-                            "type": "news",
-                            "title": "Donor report",
-                        },
-                    }
-                ],
+                "donor_summary": "Alice received most funding from tech industry PACs.",
+                "donor_source_url": "https://example.com/donors",
             }
         ],
     }
@@ -661,8 +653,9 @@ async def test_run_agent_adds_donor_source_timestamps():
         mock_loop.return_value = discovery_result
         result = await run_agent("donors-2024", cheap_mode=True, existing_data={})
 
-    donor_source = result["candidates"][0]["top_donors"][0]["source"]
-    assert "last_accessed" in donor_source
+    candidate = result["candidates"][0]
+    assert candidate["donor_summary"] == "Alice received most funding from tech industry PACs."
+    assert candidate["donor_source_url"] == "https://example.com/donors"
 
 
 @pytest.mark.asyncio
@@ -782,8 +775,8 @@ def test_refine_prompt_asks_for_image():
 
 
 def test_shared_models_have_new_fields():
-    """shared/models.py has CareerEntry, EducationEntry, VotingRecord, AgentReview."""
-    from shared.models import AgentReview, Candidate, CareerEntry, EducationEntry, RaceJSON, ReviewFlag, VotingRecord
+    """shared/models.py has CareerEntry, EducationEntry, CandidateLink, AgentReview."""
+    from shared.models import AgentReview, Candidate, CandidateLink, CareerEntry, EducationEntry, RaceJSON, ReviewFlag
 
     # CareerEntry
     entry = CareerEntry(title="Senator")
@@ -794,15 +787,16 @@ def test_shared_models_have_new_fields():
     edu = EducationEntry(institution="MIT", degree="BS")
     assert edu.institution == "MIT"
 
-    # VotingRecord
-    vr = VotingRecord(bill_name="HR-1", vote="yes")
-    assert vr.vote == "yes"
+    # CandidateLink replaces VotingRecord / TopDonor
+    link = CandidateLink(url="https://ballotpedia.org/Alice", title="Alice on Ballotpedia", type="ballotpedia")
+    assert link.url.startswith("https://")
 
     # Candidate has new fields
     c = Candidate(name="Test")
     assert c.career_history == []
     assert c.education == []
-    assert c.voting_record == []
+    assert c.links == []
+    assert c.donor_summary is None
     assert c.image_url is None
 
     # AgentReview
@@ -818,7 +812,7 @@ def test_shared_models_have_new_fields():
     flag = ReviewFlag(field="test.field", concern="inaccurate")
     assert flag.severity == "warning"
 
-    # RaceJSON has reviews
+    # RaceJSON has reviews and polling_note
     race = RaceJSON(
         id="test",
         election_date="2024-11-05",
@@ -826,6 +820,7 @@ def test_shared_models_have_new_fields():
         updated_utc="2024-01-01T00:00:00",
     )
     assert race.reviews == []
+    assert race.polling_note is None
 
 
 @pytest.mark.asyncio
@@ -852,8 +847,8 @@ async def test_run_agent_normalizes_new_fields():
     assert candidate["image_url"] is None
     assert candidate["career_history"] == []
     assert candidate["education"] == []
-    assert candidate["voting_record"] == []
-    assert candidate["top_donors"] == []
+    assert candidate["donor_summary"] is None
+    assert candidate["links"] == []
 
 
 @pytest.mark.asyncio
@@ -1032,6 +1027,7 @@ def test_editing_tool_schemas_exist():
     """All editing tool schemas are importable from agent module."""
     from pipeline_client.agent.agent import (
         ADD_CANDIDATE_TOOL,
+        ADD_LINK_TOOL,
         ADD_POLL_TOOL,
         CANDIDATE_TOOLS,
         ISSUE_TOOLS,
@@ -1043,16 +1039,16 @@ def test_editing_tool_schemas_exist():
         ROSTER_TOOLS,
         SET_CANDIDATE_FIELD_TOOL,
         SET_CANDIDATE_SUMMARY_TOOL,
-        SET_DONORS_TOOL,
+        SET_DONOR_SUMMARY_TOOL,
         SET_ISSUE_STANCE_TOOL,
-        SET_VOTING_RECORDS_TOOL,
+        SET_VOTING_SUMMARY_TOOL,
         UPDATE_RACE_FIELD_TOOL,
     )
 
     assert len(ROSTER_TOOLS) == 3
     assert len(CANDIDATE_TOOLS) == 2
     assert len(ISSUE_TOOLS) == 1
-    assert len(RECORD_TOOLS) == 2
+    assert len(RECORD_TOOLS) == 3  # donor_summary, voting_summary, add_link
     assert len(RACE_TOOLS) == 2
     assert READ_PROFILE_TOOL["function"]["name"] == "read_profile"
 
@@ -1072,8 +1068,9 @@ def test_make_editing_handlers():
         "set_candidate_field",
         "set_candidate_summary",
         "set_issue_stance",
-        "set_voting_records",
-        "set_donors",
+        "set_donor_summary",
+        "set_voting_summary",
+        "add_candidate_link",
         "add_poll",
         "update_race_field",
         "read_profile",

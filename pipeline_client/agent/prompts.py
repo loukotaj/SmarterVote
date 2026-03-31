@@ -40,23 +40,6 @@ RULES (apply to every response):
    "vote" MUST be exactly one of: "yes", "no", "abstain", "absent" — never free text like "voted against".
 6. Return ONLY valid JSON – no markdown fences, no extra text."""
 
-_DONOR_SCHEMA_NOTE = """\
-For top_donors, include up to 5 real named donors with amounts.
-Search in this order — stop when you have real names:
-  1. Search "<candidate name> top donors opensecrets" → opensecrets.org/candidates has a "Top Contributors" section
-  2. Search "<candidate name> campaign finance followthemoney" → followthemoney.org
-  3. FEC receipts (NOT the overview page): https://www.fec.gov/data/candidate/<ID>/?tab=raising
-     or search "<candidate name> FEC top contributors site:fec.gov"
-  4. News articles: "<candidate name> biggest donors 2026"
-Do NOT record "None identified" as a donor — if you cannot find real names leave top_donors as [].
-Every donor entry must follow this shape exactly:
-{{
-  "name": "<donor full name>",
-  "amount": <dollar amount as number or null>,
-  "organization": "<employer or organization or null>",
-  "source": {{"url": "<direct url to the page showing this donor>", "type": "government|news|website", "title": "<page title>"}}
-}}"""
-
 # ------------------------------------------------------------------
 # Phase 1: Discovery prompt (enhanced with career & images)
 # ------------------------------------------------------------------
@@ -76,8 +59,7 @@ Search for:
 4. A brief 2-3 sentence nonpartisan summary of each candidate. Do NOT append inline "Sources: ..." text to the summary — put sources in the summary_sources array instead.
 5. Each candidate's career history (political offices held, major jobs).
 6. Each candidate's education (degrees, institutions).
-7. Notable voting record items (for incumbents or former legislators).
-8. A direct image URL for each candidate's headshot. Use these strategies:
+7. A direct image URL for each candidate's headshot. Use these strategies:
    a) Search "<candidate name> wikipedia" — Wikipedia images are at
       https://upload.wikimedia.org/wikipedia/commons/... (NOT commons.wikimedia.org/wiki/File:)
    b) Search "<candidate name> official photo site:house.gov OR site:senate.gov"
@@ -86,17 +68,18 @@ Search for:
    The URL MUST end in .jpg, .jpeg, .png, .gif, or .webp, or be from a known image CDN.
    Do NOT use a Wikipedia/Commons page URL (commons.wikimedia.org/wiki/File:...) — that is a
    gallery page, not an image file. Set to null if you cannot confirm a direct image file URL.
-9. A 3-4 sentence nonpartisan description of this race — what office is being
+8. A 3-4 sentence nonpartisan description of this race — what office is being
    contested, why this race matters (e.g. open seat, competitive, national
    implications), the political context (partisan lean, recent election history),
    and the key themes or contrasts between the candidates.
-10. Recent opinion polls for this race. Search for "[state] [office] poll 2026"
+9. Recent opinion polls for this race. Search for "[state] [office] poll 2026"
     or "[candidates] poll". Include up to 5 of the most recent polls with:
     - Pollster name, date conducted, sample size
     - Each candidate's percentage
     - Source URL
-    Only include real polls from credible pollsters. Set polling to [] if none found.
-""" + _DONOR_SCHEMA_NOTE + """
+    Only include real polls from credible pollsters. Set polling to [] and
+    polling_note to a brief explanation if none are found (e.g. "No public polling
+    found for this race as of <date>.").
 
 Return JSON:
 {{
@@ -120,6 +103,7 @@ Return JSON:
       "source_url": "<direct URL to poll or article>"
     }}
   ],
+  "polling_note": "<brief note if no polls were found, otherwise null>",
   "candidates": [
     {{
       "name": "<full name>",
@@ -149,23 +133,11 @@ Return JSON:
           "year": 2005
         }}
       ],
-      "voting_record": [
-        {{
-          "bill_name": "<bill name or number, e.g. S.5 Laken Riley Act>",
-          "bill_description": "<one sentence description>",
-          "vote": "yes",
-          "date": "<YYYY-MM-DD>",
-          "source": {{"url": "<url>", "type": "government", "title": "<title>"}}
-        }}
-      ],
-      "top_donors": [
-        {{
-          "name": "<donor name>",
-          "amount": 1000000,
-          "organization": "<organization or null>",
-          "source": {{"url": "<url>", "type": "government|news|website", "title": "<title>"}}
-        }}
-      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
       "issues": {{}}
     }}
   ],
@@ -229,25 +201,27 @@ Race-level context:
 - Race description: {race_description}
 - Other candidates in this race: {other_candidates}
 - All canonical issues that must be covered: {all_issues}
-""" + _DONOR_SCHEMA_NOTE + """
 
 Research and improve this ONE candidate:
 1. Fix factual inconsistencies you can verify with web_search.
 2. Fill missing or low-confidence stances with better sourced data.
 3. Ensure every stance has at least one source URL.
 4. Improve the summary — plain prose, nonpartisan, 2-3 sentences. No inline "Sources:". Sources go in summary_sources.
-5. Add real named top donors if findable (source object required on each).
-6. Ensure all canonical issues are covered: {all_issues}
-7. Fill gaps in career_history and education if better data exists.
-8. If image_url is missing or null, search for a direct image file URL:
+5. Ensure all canonical issues are covered: {all_issues}
+6. Fill gaps in career_history and education if better data exists.
+7. If image_url is missing or null, search for a direct image file URL:
    - Wikipedia: use https://upload.wikimedia.org/wikipedia/commons/... (NOT commons.wikimedia.org/wiki/File:)
    - Ballotpedia: https://ballotpedia.org/wiki/images/...
    Only set image_url if the URL directly serves an image file.
-9. Verify voting_record entries — each must have "bill_name" and "vote" (yes/no/abstain/absent).
+8. If donor_summary is missing, add a brief 2-3 sentence summary using
+   set_donor_summary. The dedicated finance phase handles this — only fill
+   it here if it is empty and you already have the data from a prior search.
+9. Add any high-value reference links you've discovered (Ballotpedia,
+   Wikipedia, OpenSecrets, VoteSmart, legislature page) using add_candidate_link.
 
 Use your editing tools to record every improvement directly. When you are satisfied
 that the profile is accurate and complete, reply with a short plain-text summary
-of what you changed (e.g. "Updated Healthcare stance, added 2 donors, fixed image URL.")."""
+of what you changed (e.g. "Updated Healthcare stance, fixed image URL, added 2 links.")."""
 
 REFINE_META_USER = """\
 Here is the top-level metadata for race "{race_id}".
@@ -258,8 +232,10 @@ Current polling: {polling_json}
 Search for:
 1. Any better or more accurate race description (3-4 sentences: office, why it matters, partisan context, key contrasts).
 2. Recent polls (last 90 days). Include pollster, date, sample_size, matchups, source_url.
+   If no real public polls exist, set polling_note via update_race_field to explain
+   (e.g. "No public polling found for this race as of <date>.") and leave polling empty.
 
-Use your editing tools (update_race_field for description and add_poll for each poll)
+Use your editing tools (update_race_field for description or polling_note, add_poll for each poll)
 to record any improvements directly. When done, reply with a short confirmation
 of what you updated (e.g. "Updated description, added 2 new polls.")."""
 
@@ -280,13 +256,14 @@ Search for NEW information since {last_updated}:
 1. Any major news, announcements, or developments for each candidate.
 2. Updated or corrected candidate summaries (keep them 2-3 sentences, nonpartisan).
 3. Recent polls (last 90 days). Include pollster, date, sample size, percentages, source URL.
+   Set polling_note if no polls are found.
 4. Updated race description (office context, why it matters, key contrasts).
-""" + _DONOR_SCHEMA_NOTE + """
 
 Use your editing tools to record every improvement directly:
 - update_race_field for description
 - add_poll for each new poll
 - set_candidate_summary for updated summaries
+- set_donor_summary if new funding/donor information is available
 - set_candidate_field for other candidate fields
 
 When you are done, reply with a short plain-text summary of what changed
@@ -415,77 +392,66 @@ FINANCE_VOTING_USER = """\
 You are researching campaign finance and voting records for the race "{race_id}".
 Candidates: {candidate_names}
 
-PART 1 — TOP DONORS (for each candidate):
-Search aggressively using ALL of these strategies — do NOT stop after one attempt:
-  1. OpenSecrets: search "<candidate name> top donors opensecrets" or
-     "<candidate name> contributors opensecrets.org". Fetch the page and look for
-     the "Top Contributors" table. Extract real names and dollar amounts.
-  2. FollowTheMoney: search "<candidate name> campaign finance followthemoney"
-     Look for top individual and organizational contributors.
-  3. FEC: search "<candidate name> FEC individual contributions" or go to
-     https://www.fec.gov/data/receipts/?data_type=processed&committee_id=<ID>
-     Sort by amount descending. Also try: "<candidate name> top contributors site:fec.gov"
-  4. News articles: search "<candidate name> biggest donors 2026" or
-     "<candidate name> campaign fundraising donors"
-  5. State-level: search "<candidate name> campaign contributions state"
-     (for state/local races, OpenSecrets may not have data — use state disclosures)
+For EACH candidate, produce three things: a donor summary, a voting summary,
+and a curated list of reference links.
 
-You MUST attempt at least 3 different search queries per candidate for donors.
-Include up to 5 real named donors per candidate with actual dollar amounts.
-Do NOT fabricate names. If you genuinely cannot find donor data after multiple
-searches, return an empty array — but try hard first.
+PART 1 — DONOR SUMMARY:
+Search for campaign finance data using at least 3 of these strategies:
+  1. OpenSecrets: "<candidate name> opensecrets" → find their candidate page,
+     note top industries, top organizations, and total raised.
+  2. FollowTheMoney: "<candidate name> followthemoney"
+  3. FEC: "<candidate name> FEC contributions site:fec.gov"
+  4. State campaign finance portal (for state-level races)
+  5. News: "<candidate name> biggest donors 2026" or "<candidate name> fundraising"
 
-PART 2 — VOTING RECORD (for each candidate, especially incumbents):
-Search for actual roll-call votes and bill sponsorships:
-  1. Congress.gov: search "<candidate name> votes site:congress.gov" or
-     "<candidate name> sponsored bills congress.gov"
-  2. GovTrack: search "<candidate name> voting record govtrack.us"
-  3. VoteSmart: search "<candidate name> voting record votesmart.org"
-  4. State legislature: for state-level candidates, search
-     "<candidate name> voting record [state] legislature" or
-     "<candidate name> bills [state]"
-  5. News: search "<candidate name> voted against" or "<candidate name> key votes 2025 2026"
+Write a 2-3 sentence donor_summary describing who funds the candidate:
+  - What industries or sectors dominate their fundraising?
+  - What is the rough total raised / biggest disclosed amounts?
+  - Example: "Primarily funded by real-estate and financial-sector PACs, with
+    the top disclosed donors including [names] totaling approximately $X.
+    Full data is available via OpenSecrets."
+  If no finance data is found after multiple searches, write:
+  "No campaign finance data found in public disclosures as of [date]."
 
-You MUST attempt at least 3 different search queries per candidate for voting records.
-Include up to 10 notable votes per candidate. For each vote include the exact bill
-name/number, a one-sentence description, how they voted (yes/no/abstain/absent),
-the date, and a source URL.
+PART 2 — VOTING SUMMARY:
+For incumbents and former legislators, search:
+  1. VoteSmart: "<candidate name> votesmart"
+  2. GovTrack or Congress.gov: "<candidate name> voting record"
+  3. State legislature site: "<candidate name> [state] legislature votes"
+  4. News: "<candidate name> key votes 2025 2026"
 
-For non-incumbents or candidates with no legislative history, search for any public
-statements about how they WOULD have voted on key bills (note these as "stated
-position" not a vote).
+Write a 2-3 sentence voting_summary describing their overall pattern:
+  - What issues do they consistently support or oppose?
+  - Any notable bills sponsored or major votes?
+  - Example: "Voted with the Democratic caucus 94% of the time in the 2025
+    session. Key votes include support for Medicaid expansion and opposition
+    to school voucher legislation."
+  For non-legislators: note that no legislative voting record exists and
+  describe any comparable public positions found.
 
-IMPORTANT — DEDUPLICATION:
-- If the same donor name appears multiple times, consolidate into ONE entry
-  with the highest amount (or most recent cycle). Do NOT list the same
-  person/organization more than once.
-
-""" + _DONOR_SCHEMA_NOTE + """
+PART 3 — REFERENCE LINKS:
+Using the pages you have already visited, collect the best reference links
+for each candidate. Include whichever of these you found:
+  - Ballotpedia page (type: "ballotpedia")
+  - Wikipedia article (type: "wiki")
+  - OpenSecrets or FEC finance page (type: "finance")
+  - VoteSmart or GovTrack profile (type: "votesmart" or "govtrack")
+  - Official campaign website (type: "official")
+  - Government/legislature bio page (type: "legislature")
+  - Notable recent news article (type: "news")
+Aim for 4-8 high-quality links per candidate. Do NOT include low-quality
+or duplicate links.
 
 Return JSON keyed by candidate name:
 {{
   "<Candidate Name>": {{
-    "top_donors": [
-      {{
-        "name": "<donor full name>",
-        "amount": <dollar amount or null>,
-        "organization": "<employer/org or null>",
-        "donation_year": "<election cycle e.g. 2025-2026, or year e.g. 2026>",
-        "source": {{"url": "<url>", "type": "government|news|website", "title": "<page title>"}}
-      }}
-    ],
-    "donor_source_url": "<best URL where users can browse the full donor list, e.g. OpenSecrets candidate page, FEC candidate page>",
-    "voting_record": [
-      {{
-        "bill_name": "<bill name or number>",
-        "bill_description": "<one sentence>",
-        "vote": "yes|no|abstain|absent",
-        "date": "<YYYY-MM-DD>",
-        "source": {{"url": "<url>", "type": "government|news", "title": "<title>"}}
-      }}
-    ],
-    "voting_summary": "<2-3 sentences summarizing the candidate's voting patterns, e.g. 'Consistently voted for environmental protections and gun safety measures. Sponsored 3 education funding bills.'>",
-    "voting_source_url": "<best URL where users can browse the full voting record — prefer VoteSmart > GovTrack > Congress.gov > state legislature site>"
+    "donor_summary": "<2-3 sentence summary of campaign finance>",
+    "donor_source_url": "<best URL for full donor data, e.g. OpenSecrets page or state portal>",
+    "voting_summary": "<2-3 sentence summary of voting patterns>",
+    "voting_source_url": "<best URL for full voting record — prefer VoteSmart > GovTrack > legislature>",
+    "links": [
+      {{"url": "<url>", "title": "<page title>", "type": "ballotpedia|wiki|finance|official|legislature|votesmart|govtrack|news|other"}}
+    ]
   }}
 }}"""
 
@@ -537,8 +503,7 @@ the original data, skip that flag and leave the data unchanged.
 
 Also ensure:
 - All canonical issues covered: {all_issues}
-- voting_record uses "bill_name" and "vote" (yes/no/abstain/absent)
-- top_donors have source objects
+- donor_summary is a plain-text paragraph (not a list of names)
 
 Use your editing tools to record every fix directly. When you have addressed all
 actionable flags, reply with a short plain-text summary of what you changed

@@ -264,66 +264,63 @@ ISSUE_TOOLS = [SET_ISSUE_STANCE_TOOL]
 
 # --- Record tools (bulk replace) ---
 
-SET_VOTING_RECORDS_TOOL = {
+SET_DONOR_SUMMARY_TOOL = {
     "type": "function",
     "function": {
-        "name": "set_voting_records",
-        "description": "Replace a candidate's entire voting record list.",
+        "name": "set_donor_summary",
+        "description": "Set a candidate's campaign finance summary text and source link.",
         "parameters": {
             "type": "object",
             "properties": {
                 "candidate_name": {"type": "string", "description": "Exact candidate name."},
-                "records": {
-                    "type": "array",
-                    "description": "Full voting record list.",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "bill_name": {"type": "string"},
-                            "bill_description": {"type": "string"},
-                            "vote": {"type": "string", "enum": ["yes", "no", "abstain", "absent"]},
-                            "date": {"type": "string"},
-                            "source": {"type": "object"},
-                        },
-                        "required": ["bill_name", "vote"],
-                    },
-                },
+                "summary": {"type": "string", "description": "2-3 sentence summary of who funds the candidate."},
+                "source_url": {"type": "string", "description": "URL to full donor data (OpenSecrets, FEC, state portal, etc.)."},
             },
-            "required": ["candidate_name", "records"],
+            "required": ["candidate_name", "summary"],
         },
     },
 }
 
-SET_DONORS_TOOL = {
+SET_VOTING_SUMMARY_TOOL = {
     "type": "function",
     "function": {
-        "name": "set_donors",
-        "description": "Replace a candidate's entire top donors list.",
+        "name": "set_voting_summary",
+        "description": "Set a candidate's voting record summary text and source link.",
         "parameters": {
             "type": "object",
             "properties": {
                 "candidate_name": {"type": "string", "description": "Exact candidate name."},
-                "donors": {
-                    "type": "array",
-                    "description": "Full top donors list.",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "name": {"type": "string"},
-                            "amount": {"type": "number"},
-                            "organization": {"type": "string"},
-                            "source": {"type": "object"},
-                        },
-                        "required": ["name"],
-                    },
-                },
+                "summary": {"type": "string", "description": "2-3 sentence summary of the candidate's voting patterns."},
+                "source_url": {"type": "string", "description": "URL to full voting record (VoteSmart, GovTrack, legislature, etc.)."},
             },
-            "required": ["candidate_name", "donors"],
+            "required": ["candidate_name", "summary"],
         },
     },
 }
 
-RECORD_TOOLS = [SET_VOTING_RECORDS_TOOL, SET_DONORS_TOOL]
+ADD_LINK_TOOL = {
+    "type": "function",
+    "function": {
+        "name": "add_candidate_link",
+        "description": "Add a high-value reference link to a candidate's profile (Ballotpedia, Wikipedia, OpenSecrets, etc.).",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "candidate_name": {"type": "string", "description": "Exact candidate name."},
+                "url": {"type": "string", "description": "Full URL."},
+                "title": {"type": "string", "description": "Human-readable page title."},
+                "type": {
+                    "type": "string",
+                    "enum": ["finance", "ballotpedia", "wiki", "official", "legislature", "votesmart", "govtrack", "news", "other"],
+                    "description": "Link category.",
+                },
+            },
+            "required": ["candidate_name", "url", "title", "type"],
+        },
+    },
+}
+
+RECORD_TOOLS = [SET_DONOR_SUMMARY_TOOL, SET_VOTING_SUMMARY_TOOL, ADD_LINK_TOOL]
 
 # --- Race-level tools ---
 
@@ -359,11 +356,11 @@ UPDATE_RACE_FIELD_TOOL = {
     "type": "function",
     "function": {
         "name": "update_race_field",
-        "description": "Update a race-level field. Allowed fields: description, office, election_date.",
+        "description": "Update a race-level field. Allowed fields: description, office, election_date, polling_note.",
         "parameters": {
             "type": "object",
             "properties": {
-                "field": {"type": "string", "enum": ["description", "office", "election_date"],
+                "field": {"type": "string", "enum": ["description", "office", "election_date", "polling_note"],
                           "description": "Field to update."},
                 "value": {"type": "string", "description": "New value."},
             },
@@ -621,8 +618,8 @@ def _normalize_candidate(candidate: Dict[str, Any], now_iso: str) -> None:
     candidate.setdefault("image_url", None)
     candidate.setdefault("career_history", [])
     candidate.setdefault("education", [])
-    candidate.setdefault("voting_record", [])
-    candidate.setdefault("top_donors", [])
+    candidate.setdefault("donor_summary", None)
+    candidate.setdefault("links", [])
 
     # Normalise empty string image_url to None
     if candidate.get("image_url") == "":
@@ -633,19 +630,11 @@ def _normalize_candidate(candidate: Dict[str, Any], now_iso: str) -> None:
             for src in issue_data.get("sources", []):
                 _normalize_source(src, now_iso)
 
-    for donor in candidate.get("top_donors", []):
-        if isinstance(donor, dict):
-            _normalize_source(donor.get("source"), now_iso)
-
     for entry in candidate.get("career_history", []):
         if isinstance(entry, dict):
             _normalize_source(entry.get("source"), now_iso)
 
     for entry in candidate.get("education", []):
-        if isinstance(entry, dict):
-            _normalize_source(entry.get("source"), now_iso)
-
-    for entry in candidate.get("voting_record", []):
         if isinstance(entry, dict):
             _normalize_source(entry.get("source"), now_iso)
 
@@ -1084,7 +1073,7 @@ async def run_agent(
 # Per-candidate, per-issue sub-agent
 # ---------------------------------------------------------------------------
 
-_HANDOFF_WINDOW = 4  # how many previous issue handoffs to include
+_HANDOFF_WINDOW = 2  # how many previous issue handoffs to include
 
 
 def _build_handoff_context(
@@ -1106,14 +1095,13 @@ def _build_handoff_context(
             parts.append(f"  - {h['issue']}: {h['stance'][:120]} [{h['confidence']}]")
         parts.append("")
 
-    # Cache-aware section
+    # Cache-aware section — only show query names (no URLs) to keep prompt small
     if cached_info:
         searches = cached_info.get("searches", [])
         if searches:
-            parts.append(f"Cached searches available ({len(searches)} queries — results are free to re-use):")
-            for s in searches[:15]:  # cap display to avoid prompt bloat
-                urls_str = ", ".join(s["urls"][:3])
-                parts.append(f"  - \"{s['query']}\" → {urls_str}")
+            parts.append(f"Cached search queries available (results served instantly, {len(searches)} total):")
+            for s in searches[:5]:  # cap to avoid prompt bloat
+                parts.append(f"  - \"{s['query']}\"")
             parts.append("")
 
     return "\n".join(parts) if parts else "No prior context available."
@@ -1191,7 +1179,7 @@ async def _run_issue_research_for_candidate(
                 model=model,
                 on_log=on_log,
                 race_id=race_id,
-                max_iterations=max_iterations,
+                max_iterations=min(max_iterations, 10),
                 phase_name=f"issue-{candidate_name[:15]}-{issue[:15]}",
                 max_tokens=4096,
                 extra_tools=ISSUE_TOOLS + [READ_PROFILE_TOOL],
@@ -1564,13 +1552,15 @@ async def _run_update(
 
 
 def _apply_meta_patch(race_json: Dict[str, Any], patch: Dict[str, Any], log: Any) -> None:
-    """Merge a meta patch (summaries, donors, polls, voting record) into race_json in-place."""
     if "description" in patch and patch["description"]:
         race_json["description"] = patch["description"]
 
     if "polling" in patch and isinstance(patch["polling"], list) and patch["polling"]:
         existing_polls = race_json.get("polling", [])
         race_json["polling"] = patch["polling"] + existing_polls
+
+    if patch.get("polling_note"):
+        race_json["polling_note"] = patch["polling_note"]
 
     patch_candidates = {c["name"]: c for c in patch.get("candidates", []) if isinstance(c, dict)}
     for candidate in race_json.get("candidates", []):
@@ -1580,13 +1570,8 @@ def _apply_meta_patch(race_json: Dict[str, Any], patch: Dict[str, Any], log: Any
             continue
         if pc.get("summary"):
             candidate["summary"] = pc["summary"]
-        if pc.get("top_donors"):
-            candidate["top_donors"] = pc["top_donors"]
-        if pc.get("voting_record"):
-            existing_vr = {v.get("bill_name"): v for v in candidate.get("voting_record", [])}
-            for vote in pc["voting_record"]:
-                existing_vr[vote.get("bill_name", "")] = vote
-            candidate["voting_record"] = list(existing_vr.values())
+        if pc.get("donor_summary"):
+            candidate["donor_summary"] = pc["donor_summary"]
     log("info", f"  Meta patch applied — {len(patch_candidates)} candidates updated")
 
 
@@ -1623,26 +1608,28 @@ def _apply_candidate_patch(candidate: Dict[str, Any], patch: Dict[str, Any], log
     """Merge a per-candidate patch dict into the candidate in-place.
 
     Simple fields (summary, image_url, website) are overwritten.
-    List fields (career_history, education, voting_record, top_donors) replace
-    the existing list only when the patch list is non-empty.
+    List fields (career_history, education, links) replace the existing list
+    only when the patch list is non-empty.
     Issues are merged key-by-key.
     summary_sources replaces the existing array when non-empty.
     """
     cname = candidate.get("name", "?")
-    for key in ("summary", "image_url", "website", "incumbent", "party"):
+    for key in ("summary", "image_url", "website", "incumbent", "party",
+                "donor_summary", "donor_source_url", "voting_summary", "voting_source_url"):
         if key in patch:
             candidate[key] = patch[key]
-    for key in ("summary_sources", "career_history", "education", "top_donors"):
+    for key in ("summary_sources", "career_history", "education"):
         val = patch.get(key)
         if isinstance(val, list) and val:
             candidate[key] = val
-    # voting_record — deduplicate by bill_name
-    new_votes = patch.get("voting_record")
-    if isinstance(new_votes, list) and new_votes:
-        existing_vr = {v.get("bill_name"): v for v in candidate.get("voting_record", [])}
-        for vote in new_votes:
-            existing_vr[vote.get("bill_name", "")] = vote
-        candidate["voting_record"] = list(existing_vr.values())
+    # Links — merge by URL (deduplicate)
+    new_links = patch.get("links")
+    if isinstance(new_links, list) and new_links:
+        existing_urls = {lnk.get("url") for lnk in candidate.get("links", [])}
+        for lnk in new_links:
+            if isinstance(lnk, dict) and lnk.get("url") not in existing_urls:
+                candidate.setdefault("links", []).append(lnk)
+                existing_urls.add(lnk.get("url"))
     # Issues — merge key-by-key
     new_issues = patch.get("issues")
     if isinstance(new_issues, dict) and new_issues:
@@ -1677,44 +1664,30 @@ def _apply_finance_patch(race_json: Dict[str, Any], patch: Dict[str, Any], log: 
             continue
         candidate = candidates_by_name[cand_name]
 
-        # Merge donors — replace if the new data has more entries, then deduplicate
-        new_donors = data.get("top_donors", [])
-        if isinstance(new_donors, list) and new_donors:
-            existing_donors = candidate.get("top_donors", [])
-            if len(new_donors) >= len(existing_donors):
-                candidate["top_donors"] = new_donors
-            else:
-                # Append new ones not already present
-                existing_names = {d.get("name", "").lower() for d in existing_donors}
-                for d in new_donors:
-                    if d.get("name", "").lower() not in existing_names:
-                        existing_donors.append(d)
-                candidate["top_donors"] = existing_donors
-            # Deduplicate donors by name (keep highest amount)
-            candidate["top_donors"] = _deduplicate_donors(candidate["top_donors"])
-
-        # Merge voting records — deduplicate by bill_name
-        new_votes = data.get("voting_record", [])
-        if isinstance(new_votes, list) and new_votes:
-            existing_vr = {v.get("bill_name"): v for v in candidate.get("voting_record", [])}
-            for vote in new_votes:
-                existing_vr[vote.get("bill_name", "")] = vote
-            candidate["voting_record"] = list(existing_vr.values())
-
-        # Merge new scalar fields
+        if data.get("donor_summary"):
+            candidate["donor_summary"] = data["donor_summary"]
+        if data.get("donor_source_url"):
+            candidate["donor_source_url"] = data["donor_source_url"]
         if data.get("voting_summary"):
             candidate["voting_summary"] = data["voting_summary"]
         if data.get("voting_source_url"):
             candidate["voting_source_url"] = data["voting_source_url"]
-        if data.get("donor_source_url"):
-            candidate["donor_source_url"] = data["donor_source_url"]
+
+        # Merge links — deduplicate by URL
+        new_links = data.get("links", [])
+        if isinstance(new_links, list) and new_links:
+            existing_urls = {lnk.get("url") for lnk in candidate.get("links", [])}
+            for lnk in new_links:
+                if isinstance(lnk, dict) and lnk.get("url") not in existing_urls:
+                    candidate.setdefault("links", []).append(lnk)
+                    existing_urls.add(lnk.get("url"))
 
         updated += 1
     log("info", f"  Finance/voting patch applied — {updated} candidates updated")
 
 
 def _deduplicate_donors(donors: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    """Deduplicate donors by lowercased name, keeping the entry with the highest amount."""
+    """Kept for backward-compat with any update-run paths that may load old data."""
     best: Dict[str, Dict[str, Any]] = {}
     for d in donors:
         key = d.get("name", "").strip().lower()
@@ -1724,7 +1697,6 @@ def _deduplicate_donors(donors: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         if existing is None:
             best[key] = d
         else:
-            # Keep whichever has the higher amount (treat None as 0)
             new_amt = d.get("amount") or 0
             old_amt = existing.get("amount") or 0
             if new_amt > old_amt:

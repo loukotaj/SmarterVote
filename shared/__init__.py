@@ -6,6 +6,7 @@ Contains Pydantic models used across pipeline and services.
 from .models import (
     AgentReview,
     Candidate,
+    CandidateLink,
     CanonicalIssue,
     CareerEntry,
     ConfidenceLevel,
@@ -15,14 +16,13 @@ from .models import (
     ReviewFlag,
     Source,
     SourceType,
-    TopDonor,
-    VotingRecord,
 )
 
-__version__ = "0.3.0"
+__version__ = "0.4.0"
 __all__ = [
     "AgentReview",
     "Candidate",
+    "CandidateLink",
     "CanonicalIssue",
     "CareerEntry",
     "ConfidenceLevel",
@@ -32,6 +32,4 @@ __all__ = [
     "ReviewFlag",
     "Source",
     "SourceType",
-    "TopDonor",
-    "VotingRecord",
 ]

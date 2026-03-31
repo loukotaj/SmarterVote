@@ -100,15 +100,6 @@
           <span>Updated: {new Date(race.updated_utc).toLocaleDateString()}</span>
         </div>
       </div>
-      <div class="model-label">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-        </svg>
-        <span>Models:</span>
-        {#each (race.generator ?? []) as model}
-          <span class="model-tag">{formatModelName(model)}</span>
-        {/each}
-      </div>
     </Card>
 
     <!-- Race Overview -->
@@ -258,6 +249,19 @@
     <!-- AI Review Status (bottom) -->
     <ReviewPanel reviews={race.reviews ?? []} />
 
+    <!-- Models used to generate this race -->
+    {#if race.generator && race.generator.length > 0}
+      <div class="model-label">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+        <span>Models:</span>
+        {#each race.generator as model}
+          <span class="model-tag">{formatModelName(model)}</span>
+        {/each}
+      </div>
+    {/if}
+
     <!-- Back to Top -->
     <div class="back-to-top">
       <button class="back-to-top-link" on:click={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
@@ -300,7 +304,7 @@
   }
 
   .header-title {
-    @apply text-2xl sm:text-3xl lg:text-4xl font-bold text-content mb-4;
+    @apply text-2xl sm:text-3xl lg:text-4xl font-bold text-content mb-4 capitalize;
   }
 
   .header-meta {
@@ -312,7 +316,7 @@
   }
 
   .model-label {
-    @apply mt-4 flex flex-wrap items-center gap-2 text-sm text-content-subtle;
+    @apply mt-2 mb-4 flex flex-wrap items-center gap-2 text-sm text-content-subtle;
   }
 
   .model-tag {
