@@ -138,6 +138,7 @@ async def list_published_races() -> Dict[str, Any]:
                     continue
                 try:
                     data = json.loads(blob.download_as_text())
+                    am = data.get("agent_metrics") or {}
                     races.append(
                         {
                             "id": data.get("id", blob.name[len("races/") : -len(".json")]),
@@ -147,6 +148,7 @@ async def list_published_races() -> Dict[str, Any]:
                             "election_date": data.get("election_date", ""),
                             "updated_utc": data.get("updated_utc", ""),
                             "candidates": [{"name": c.get("name", ""), "party": c.get("party")} for c in data.get("candidates", [])],
+                            "agent_metrics": {"estimated_usd": am.get("estimated_usd"), "model": am.get("model"), "total_tokens": am.get("total_tokens")} if am else None,
                         }
                     )
                 except Exception:
@@ -164,6 +166,7 @@ async def list_published_races() -> Dict[str, Any]:
             try:
                 with path.open("r", encoding="utf-8") as f:
                     data = json.load(f)
+                am = data.get("agent_metrics") or {}
                 races.append(
                     {
                         "id": data.get("id", path.stem),
@@ -173,6 +176,7 @@ async def list_published_races() -> Dict[str, Any]:
                         "election_date": data.get("election_date", ""),
                         "updated_utc": data.get("updated_utc", ""),
                         "candidates": [{"name": c.get("name", ""), "party": c.get("party")} for c in data.get("candidates", [])],
+                        "agent_metrics": {"estimated_usd": am.get("estimated_usd"), "model": am.get("model"), "total_tokens": am.get("total_tokens")} if am else None,
                     }
                 )
             except Exception:

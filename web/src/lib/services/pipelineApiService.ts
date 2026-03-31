@@ -20,6 +20,7 @@ export interface PublishedRaceSummary {
   election_date: string;
   updated_utc: string;
   candidates: { name: string; party?: string }[];
+  agent_metrics?: { estimated_usd?: number; model?: string; total_tokens?: number } | null;
 }
 
 interface PublishedRacesResponse {

@@ -918,9 +918,8 @@ async def run_agent(
     )
 
     model = research_model or (CHEAP_MODEL if cheap_mode else DEFAULT_MODEL)
-    # Nano handles focused sub-tasks (issue sub-agents, image resolution, roster sync)
-    # in cheap mode; falls back to the same model in full mode.
-    small_model = NANO_MODEL if cheap_mode else model
+    # Sub-task model: nano in cheap mode, mini in normal mode (full model reserved for synthesis).
+    small_model = NANO_MODEL if cheap_mode else CHEAP_MODEL
     log = make_logger(on_log)
     t0 = time.perf_counter()
 
