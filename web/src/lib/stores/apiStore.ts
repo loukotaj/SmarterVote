@@ -60,12 +60,12 @@ export async function fetchWithAuth(
   });
   unsubscribe();
 
-  // Refresh token if needed
-  if (!currentToken && currentAuth0) {
+  // Refresh token if needed — also handles cold-start where Auth0 hasn't initialized yet
+  if (!currentToken) {
     try {
-      const auth0Client = currentAuth0 as Auth0Client;
+      const auth0Client: Auth0Client = currentAuth0 ?? (await getAuth0Client());
       currentToken = await auth0Client.getTokenSilently();
-      apiStore.update((state) => ({ ...state, token: currentToken }));
+      apiStore.update((state) => ({ ...state, auth0: auth0Client, token: currentToken, isAuthenticated: true }));
     } catch (error) {
       logger.error("Failed to refresh token:", error);
       throw new Error("Authentication token refresh failed");

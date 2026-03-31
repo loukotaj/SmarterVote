@@ -58,6 +58,8 @@ $envParts = @(
     "GCS_BUCKET_NAME=$Bucket",
     "BUCKET_NAME=$Bucket",
     "FIRESTORE_PROJECT=$ProjectId",
+    "AUTH0_DOMAIN=dev-t37rz-ur.auth0.com",
+    "AUTH0_AUDIENCE=https://pipeline-client.smarter.vote",
     "ALLOWED_ORIGINS=https://smarter.vote,https://www.smarter.vote,http://localhost:5173,http://localhost:4173"
 )
 if ($RacesApiUrl) { $envParts += "RACES_API_URL=$RacesApiUrl" }
