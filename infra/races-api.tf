@@ -34,7 +34,7 @@ resource "google_cloud_run_v2_service" "races_api" {
       }
 
       dynamic "env" {
-        for_each = var.admin_api_key != "" ? toset(["admin_api_key"]) : toset([])
+        for_each = (var.admin_api_key != null && var.admin_api_key != "") ? { admin_api_key = true } : {}
         content {
           name = "ADMIN_API_KEY"
           value_source {
