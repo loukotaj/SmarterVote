@@ -273,3 +273,38 @@ export interface Alert {
   created_at: string;
   acknowledged: boolean;
 }
+
+// ---------------------------------------------------------------------------
+// Pipeline cost metrics
+// ---------------------------------------------------------------------------
+
+export interface AgentMetrics {
+  model: string;
+  prompt_tokens: number;
+  completion_tokens: number;
+  total_tokens: number;
+  estimated_usd: number;
+  model_breakdown: Record<string, { prompt_tokens: number; completion_tokens: number }>;
+  duration_s: number;
+}
+
+export interface PipelineRunRecord {
+  run_id: string;
+  race_id: string;
+  status: string;
+  timestamp: string;
+  model: string;
+  prompt_tokens: number;
+  completion_tokens: number;
+  total_tokens: number;
+  estimated_usd: number;
+  model_breakdown: Record<string, { prompt_tokens: number; completion_tokens: number }>;
+  duration_s: number;
+}
+
+export interface PipelineMetricsSummary {
+  total_runs: number;
+  total_usd: number;
+  avg_usd: number;
+  recent_30d_usd: number;
+}

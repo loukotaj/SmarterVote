@@ -1,16 +1,19 @@
 """Multi-phase candidate research agent with web search & caching.
 
-Phases:
+Phases (fresh run):
 1. **Discovery** – identify the race, candidates, career history, images.
-2. **Issue research** – one focused call per issue group (6 calls).
-3. **Refinement** – merge, clean, and improve the full profile.
-4. **Review** (optional) – send to Claude and/or Gemini for fact-checking.
+1b. **Image resolution** – verify/find direct image URLs per candidate.
+2. **Issue research** – 12 per-candidate sub-agent calls (one per canonical issue).
+2b. **Finance & voting** – dedicated donor and voting-record research.
+3. **Refinement** – tools-mode per-candidate and meta cleanup.
+4. **Review** (optional) – send to Claude, Gemini, and Grok for fact-checking.
+5. **Iteration** – tools-mode pass to address review flags (up to 2 cycles).
 
-Supports **rerun/update** mode: pass an existing RaceJSON and the agent
-will search for new developments and improve the profile.
+Update run adds Phase 0 (roster sync) before Phase 1 (meta update).
 
 Uses a SQLite search cache (``pipeline_client.agent.search_cache``) to avoid
-redundant Serper API calls across runs.
+redundant Serper API calls across runs.  Token usage and estimated USD cost
+are attached to the output JSON under ``agent_metrics``.
 """
 
 import asyncio
@@ -25,6 +28,8 @@ from typing import Any, Dict, List, Optional
 
 import httpx
 
+from .cost import _cost_ctx, accumulate, estimate_cost
+from .handlers import _make_editing_handlers
 from .images import resolve_candidate_images
 from .prompts import (
     CANONICAL_ISSUES,
@@ -32,19 +37,20 @@ from .prompts import (
     DISCOVERY_USER,
     FINANCE_VOTING_SYSTEM,
     FINANCE_VOTING_USER,
-    ISSUE_GROUPS,
-    ISSUE_RESEARCH_SYSTEM,
-    ISSUE_RESEARCH_USER,
+    ISSUE_SUBAGENT_SYSTEM,
+    ISSUE_SUBAGENT_USER,
     ITERATE_SYSTEM,
     ITERATE_USER,
     ITERATE_META_USER,
     REFINE_SYSTEM,
     REFINE_USER,
     REFINE_META_USER,
+    ROSTER_SYNC_SYSTEM,
+    ROSTER_SYNC_USER,
+    UPDATE_ISSUE_SUBAGENT_SYSTEM,
+    UPDATE_ISSUE_SUBAGENT_USER,
     UPDATE_META_SYSTEM,
     UPDATE_META_USER,
-    UPDATE_ISSUE_SYSTEM,
-    UPDATE_ISSUE_USER,
 )
 from .review import run_reviews
 from .utils import _extract_json, make_logger
@@ -60,6 +66,7 @@ CHEAP_MODEL = "gpt-5.4-mini"
 
 # ---------------------------------------------------------------------------
 # Web search tool definition for OpenAI function calling
+# (cost tracking imported from .cost; editing handlers from .handlers)
 # ---------------------------------------------------------------------------
 
 SEARCH_TOOL = {
@@ -104,6 +111,288 @@ FETCH_TOOL = {
                 }
             },
             "required": ["url"],
+        },
+    },
+}
+
+
+# ---------------------------------------------------------------------------
+# Editing tool definitions for tools-mode phases
+# ---------------------------------------------------------------------------
+
+# --- Roster tools ---
+
+ADD_CANDIDATE_TOOL = {
+    "type": "function",
+    "function": {
+        "name": "add_candidate",
+        "description": "Add a new candidate to the race. Use when a new entrant has joined the race.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "name": {"type": "string", "description": "Full name of the candidate."},
+                "party": {"type": "string", "description": "Party affiliation (e.g. 'Democratic', 'Republican')."},
+                "incumbent": {"type": "boolean", "description": "Whether this candidate is the incumbent."},
+            },
+            "required": ["name", "party"],
+        },
+    },
+}
+
+REMOVE_CANDIDATE_TOOL = {
+    "type": "function",
+    "function": {
+        "name": "remove_candidate",
+        "description": "Remove a candidate who has dropped out or withdrawn from the race.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "name": {"type": "string", "description": "Exact name of the candidate to remove."},
+                "reason": {"type": "string", "description": "Brief reason for removal (e.g. 'withdrew', 'disqualified')."},
+            },
+            "required": ["name"],
+        },
+    },
+}
+
+RENAME_CANDIDATE_TOOL = {
+    "type": "function",
+    "function": {
+        "name": "rename_candidate",
+        "description": "Correct a candidate's name (e.g. fix spelling, use formal name).",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "old_name": {"type": "string", "description": "Current name in the profile."},
+                "new_name": {"type": "string", "description": "Corrected name."},
+            },
+            "required": ["old_name", "new_name"],
+        },
+    },
+}
+
+ROSTER_TOOLS = [ADD_CANDIDATE_TOOL, REMOVE_CANDIDATE_TOOL, RENAME_CANDIDATE_TOOL]
+
+# --- Candidate field tools ---
+
+SET_CANDIDATE_FIELD_TOOL = {
+    "type": "function",
+    "function": {
+        "name": "set_candidate_field",
+        "description": (
+            "Update a scalar field on a candidate. Allowed fields: party, incumbent, "
+            "website, image_url."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "candidate_name": {"type": "string", "description": "Exact candidate name."},
+                "field": {"type": "string", "enum": ["party", "incumbent", "website", "image_url"],
+                          "description": "Field to update."},
+                "value": {"description": "New value for the field."},
+            },
+            "required": ["candidate_name", "field", "value"],
+        },
+    },
+}
+
+SET_CANDIDATE_SUMMARY_TOOL = {
+    "type": "function",
+    "function": {
+        "name": "set_candidate_summary",
+        "description": "Rewrite a candidate's biographical summary. Keep it 2-3 sentences, nonpartisan.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "candidate_name": {"type": "string", "description": "Exact candidate name."},
+                "summary": {"type": "string", "description": "New 2-3 sentence nonpartisan summary."},
+                "sources": {
+                    "type": "array",
+                    "description": "Source URLs for the summary.",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "url": {"type": "string"},
+                            "type": {"type": "string"},
+                            "title": {"type": "string"},
+                        },
+                    },
+                },
+            },
+            "required": ["candidate_name", "summary"],
+        },
+    },
+}
+
+CANDIDATE_TOOLS = [SET_CANDIDATE_FIELD_TOOL, SET_CANDIDATE_SUMMARY_TOOL]
+
+# --- Issue tools ---
+
+SET_ISSUE_STANCE_TOOL = {
+    "type": "function",
+    "function": {
+        "name": "set_issue_stance",
+        "description": "Set or update a candidate's stance on a canonical issue.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "candidate_name": {"type": "string", "description": "Exact candidate name."},
+                "issue": {"type": "string", "description": "Canonical issue name (e.g. 'Healthcare')."},
+                "stance": {"type": "string", "description": "1-2 sentence position description."},
+                "confidence": {"type": "string", "enum": ["high", "medium", "low"],
+                               "description": "Confidence level."},
+                "sources": {
+                    "type": "array",
+                    "description": "Source URLs supporting this stance.",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "url": {"type": "string"},
+                            "type": {"type": "string"},
+                            "title": {"type": "string"},
+                        },
+                    },
+                },
+            },
+            "required": ["candidate_name", "issue", "stance", "confidence"],
+        },
+    },
+}
+
+ISSUE_TOOLS = [SET_ISSUE_STANCE_TOOL]
+
+# --- Record tools (bulk replace) ---
+
+SET_VOTING_RECORDS_TOOL = {
+    "type": "function",
+    "function": {
+        "name": "set_voting_records",
+        "description": "Replace a candidate's entire voting record list.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "candidate_name": {"type": "string", "description": "Exact candidate name."},
+                "records": {
+                    "type": "array",
+                    "description": "Full voting record list.",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "bill_name": {"type": "string"},
+                            "bill_description": {"type": "string"},
+                            "vote": {"type": "string", "enum": ["yes", "no", "abstain", "absent"]},
+                            "date": {"type": "string"},
+                            "source": {"type": "object"},
+                        },
+                        "required": ["bill_name", "vote"],
+                    },
+                },
+            },
+            "required": ["candidate_name", "records"],
+        },
+    },
+}
+
+SET_DONORS_TOOL = {
+    "type": "function",
+    "function": {
+        "name": "set_donors",
+        "description": "Replace a candidate's entire top donors list.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "candidate_name": {"type": "string", "description": "Exact candidate name."},
+                "donors": {
+                    "type": "array",
+                    "description": "Full top donors list.",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "name": {"type": "string"},
+                            "amount": {"type": "number"},
+                            "organization": {"type": "string"},
+                            "source": {"type": "object"},
+                        },
+                        "required": ["name"],
+                    },
+                },
+            },
+            "required": ["candidate_name", "donors"],
+        },
+    },
+}
+
+RECORD_TOOLS = [SET_VOTING_RECORDS_TOOL, SET_DONORS_TOOL]
+
+# --- Race-level tools ---
+
+ADD_POLL_TOOL = {
+    "type": "function",
+    "function": {
+        "name": "add_poll",
+        "description": "Add a new poll to the race's polling data.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "pollster": {"type": "string", "description": "Polling organization name."},
+                "date": {"type": "string", "description": "Date of poll (YYYY-MM-DD)."},
+                "sample_size": {"type": "integer", "description": "Number of respondents."},
+                "matchups": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "candidates": {"type": "array", "items": {"type": "string"}},
+                            "percentages": {"type": "array", "items": {"type": "number"}},
+                        },
+                    },
+                },
+                "source_url": {"type": "string", "description": "URL to poll source."},
+            },
+            "required": ["pollster", "date", "matchups", "source_url"],
+        },
+    },
+}
+
+UPDATE_RACE_FIELD_TOOL = {
+    "type": "function",
+    "function": {
+        "name": "update_race_field",
+        "description": "Update a race-level field. Allowed fields: description, office, election_date.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "field": {"type": "string", "enum": ["description", "office", "election_date"],
+                          "description": "Field to update."},
+                "value": {"type": "string", "description": "New value."},
+            },
+            "required": ["field", "value"],
+        },
+    },
+}
+
+RACE_TOOLS = [ADD_POLL_TOOL, UPDATE_RACE_FIELD_TOOL]
+
+# --- Read-only tool for verifying state ---
+
+READ_PROFILE_TOOL = {
+    "type": "function",
+    "function": {
+        "name": "read_profile",
+        "description": (
+            "Read the current state of the race profile JSON. Use this to verify "
+            "your edits took effect or to check what data already exists."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "section": {
+                    "type": "string",
+                    "enum": ["full", "candidates", "issues", "polling", "meta"],
+                    "description": "Which section to read. Use 'issues' for a compact issues-only view.",
+                },
+            },
+            "required": ["section"],
         },
     },
 }
@@ -280,7 +569,10 @@ async def _call_openai(
 
     for attempt in range(max_retries):
         try:
-            return await client.chat.completions.create(**kwargs)
+            resp = await client.chat.completions.create(**kwargs)
+            if resp.usage:
+                accumulate(resp.usage.prompt_tokens or 0, resp.usage.completion_tokens or 0, model)
+            return resp
         except RateLimitError as exc:
             if attempt >= max_retries - 1:
                 raise
@@ -364,8 +656,16 @@ async def _agent_loop(
     max_iterations: int = 15,
     phase_name: str = "",
     max_tokens: int = 16384,
+    extra_tools: List[Dict[str, Any]] | None = None,
+    extra_tool_handlers: Dict[str, Any] | None = None,
+    tools_mode: bool = False,
 ) -> Dict[str, Any]:
-    """Run a single agent loop (search → answer → parse JSON)."""
+    """Run a single agent loop.
+
+    In normal (json) mode: search → answer → parse JSON.
+    In tools_mode: the LLM uses editing tools to mutate state directly;
+    the loop exits when the LLM stops making tool calls.  Returns ``{}``.
+    """
     log = make_logger(on_log)
 
     messages: List[Dict[str, Any]] = [
@@ -374,23 +674,42 @@ async def _agent_loop(
     ]
 
     nudge_at = max(int(max_iterations / 1.5), 3)
+    _extra_tools = extra_tools or []
+    _extra_handlers = extra_tool_handlers or {}
 
     for iteration in range(max_iterations):
         log("info", f"  [{phase_name}] iteration {iteration + 1}/{max_iterations} — calling {model}...")
 
-        # After a significant portion of the budget is spent, stop offering the search tool and
-        # tell the model to produce its final JSON answer now.
-        if iteration == nudge_at and len(messages) > 2:
-            messages.append({
-                "role": "user",
-                "content": (
-                    "You have used several searches. Please now compile your findings "
-                    "and return ONLY the final JSON response. No more searches."
-                ),
-            })
-            log("info", f"  [{phase_name}] nudging model to produce output (iteration {iteration + 1})")
+        if tools_mode:
+            # In tools mode: search tools cut off at nudge_at, editing tools stay available
+            search_tools = [SEARCH_TOOL, FETCH_TOOL] if iteration < nudge_at else []
+            tools_for_call = search_tools + _extra_tools if (search_tools or _extra_tools) else None
 
-        tools_for_call = [SEARCH_TOOL, FETCH_TOOL] if iteration < nudge_at else None
+            if iteration == nudge_at and len(messages) > 2:
+                messages.append({
+                    "role": "user",
+                    "content": (
+                        "You have used several searches. Stop searching and use your "
+                        "editing tools to commit your findings now. When you are done "
+                        "editing, reply with a short confirmation message (no JSON needed)."
+                    ),
+                })
+                log("info", f"  [{phase_name}] nudging model to commit edits (iteration {iteration + 1})")
+        else:
+            # In json mode: all tools cut off at nudge_at
+            if iteration == nudge_at and len(messages) > 2:
+                messages.append({
+                    "role": "user",
+                    "content": (
+                        "You have used several searches. Please now compile your findings "
+                        "and return ONLY the final JSON response. No more searches."
+                    ),
+                })
+                log("info", f"  [{phase_name}] nudging model to produce output (iteration {iteration + 1})")
+
+            base_tools = [SEARCH_TOOL, FETCH_TOOL] if iteration < nudge_at else []
+            # Extra tools (editing) stay available past nudge in json mode too
+            tools_for_call = (base_tools + _extra_tools) if (base_tools or _extra_tools) else None
 
         t_call = time.perf_counter()
         result = await _call_openai(
@@ -409,7 +728,7 @@ async def _agent_loop(
             f"tokens={getattr(usage, 'prompt_tokens', '?')}→{getattr(usage, 'completion_tokens', '?')}",
         )
 
-        # If the model wants to call tools, execute them (only when tools were offered)
+        # If the model wants to call tools, execute them
         if message.tool_calls and tools_for_call:
             messages.append(message.model_dump())
             for tool_call in message.tool_calls:
@@ -436,9 +755,35 @@ async def _agent_loop(
                         "tool_call_id": tool_call.id,
                         "content": page_text,
                     })
+                elif fn.name in _extra_handlers:
+                    args = json.loads(fn.arguments)
+                    log("info", f"    🔧 {fn.name}({', '.join(f'{k}={v!r}' for k, v in args.items())})")
+                    try:
+                        handler_result = _extra_handlers[fn.name](args)
+                        log("info", f"    🔧 {fn.name} → OK")
+                    except Exception as exc:
+                        handler_result = f"Error: {exc}"
+                        log("warning", f"    🔧 {fn.name} → {exc}")
+                    messages.append({
+                        "role": "tool",
+                        "tool_call_id": tool_call.id,
+                        "content": str(handler_result),
+                    })
+                else:
+                    log("warning", f"    ⚠️ Unknown tool: {fn.name}")
+                    messages.append({
+                        "role": "tool",
+                        "tool_call_id": tool_call.id,
+                        "content": f"Error: unknown tool '{fn.name}'",
+                    })
             continue
 
-        # No tool calls — try to parse the answer
+        # No tool calls — in tools_mode this means the LLM is done editing
+        if tools_mode:
+            log("info", f"  [{phase_name}] tools-mode complete (no more tool calls)")
+            return {}
+
+        # Normal json mode — try to parse the answer
         content = message.content or ""
 
         # Response was truncated: ask for a more concise answer
@@ -476,6 +821,9 @@ async def _agent_loop(
             })
             continue
 
+    if tools_mode:
+        log("warning", f"  [{phase_name}] tools-mode hit max iterations — returning")
+        return {}
     raise RuntimeError(
         f"[{phase_name}] did not produce output within {max_iterations} iterations"
     )
@@ -572,6 +920,10 @@ async def run_agent(
     log = make_logger(on_log)
     t0 = time.perf_counter()
 
+    # Initialise a fresh cost accumulator for this run
+    _acc: Dict[str, Any] = {"prompt_tokens": 0, "completion_tokens": 0}
+    _ctx_token = _cost_ctx.set(_acc)
+
     if existing_data is None:
         existing_data = _load_existing(race_id)
 
@@ -623,11 +975,10 @@ async def run_agent(
 
         # --- Phase 5: Iterate on review feedback (up to 2 cycles) ---
         max_review_cycles = 2
-        dismissed_fields: set[str] = set()  # track flags dismissed by source verification
         for cycle in range(1, max_review_cycles + 1):
             # Cycle 2+: only iterate on error-severity flags to break subjective loops
             min_severity = "error" if cycle > 1 else "warning"
-            if not _has_actionable_flags(reviews, min_severity=min_severity, exclude_fields=dismissed_fields):
+            if not _has_actionable_flags(reviews, min_severity=min_severity):
                 if cycle == 1:
                     log("info", "  No actionable review flags — skipping iteration")
                 else:
@@ -643,13 +994,6 @@ async def run_agent(
             )
             if improved is not None:
                 race_json = improved
-                # Collect dismissed flags from this cycle
-                for note in race_json.get("iteration_notes", []):
-                    if isinstance(note, str) and note.startswith("DISMISSED:"):
-                        # Format: "DISMISSED:field_path — reason"
-                        field = note.split("DISMISSED:", 1)[1].split(" \u2014 ", 1)[0].strip()
-                        if field:
-                            dismissed_fields.add(field)
                 # Re-normalize after iteration
                 now_iso = datetime.now(timezone.utc).isoformat()
                 race_json["updated_utc"] = now_iso
@@ -671,13 +1015,41 @@ async def run_agent(
             else:
                 log("warning", f"  Cycle {cycle}: iteration failed — stopping")
                 break
-        if dismissed_fields:
-            log("info", f"  {len(dismissed_fields)} reviewer flag(s) dismissed via source verification")
     else:
         race_json.setdefault("reviews", [])
 
     elapsed = time.perf_counter() - t0
-    log("info", f"✅ Agent finished in {elapsed:.1f}s")
+
+    # Compute and attach cost estimate (covers all LLMs: OpenAI + review providers)
+    _cost_ctx.reset(_ctx_token)
+    pt = _acc["prompt_tokens"]
+    ct = _acc["completion_tokens"]
+    total_tokens = pt + ct
+    breakdown = _acc.get("model_breakdown", {})
+    total_cost = (
+        sum(
+            estimate_cost(m, bd.get("prompt_tokens", 0), bd.get("completion_tokens", 0))
+            for m, bd in breakdown.items()
+        )
+        if breakdown
+        else estimate_cost(model, pt, ct)
+    )
+    agent_metrics = {
+        "model": model,
+        "prompt_tokens": pt,
+        "completion_tokens": ct,
+        "total_tokens": total_tokens,
+        "estimated_usd": round(total_cost, 4),
+        "model_breakdown": breakdown,
+        "duration_s": round(elapsed, 1),
+    }
+    race_json["agent_metrics"] = agent_metrics
+    log(
+        "info",
+        f"✅ Agent finished in {elapsed:.1f}s — "
+        f"${total_cost:.4f} estimated "
+        f"({pt:,} in + {ct:,} out = {total_tokens:,} tokens)",
+    )
 
     # Sanity-check: reject partial LLM output (e.g. a stray polling entry)
     _candidates = race_json.get("candidates")
@@ -689,6 +1061,143 @@ async def run_agent(
         )
 
     return race_json
+
+
+# ---------------------------------------------------------------------------
+# Per-candidate, per-issue sub-agent
+# ---------------------------------------------------------------------------
+
+_HANDOFF_WINDOW = 4  # how many previous issue handoffs to include
+
+
+def _build_handoff_context(
+    handoffs: List[Dict[str, Any]],
+    cached_info: Dict[str, Any] | None,
+) -> str:
+    """Build a handoff context string for the issue sub-agent.
+
+    Includes the last N stances already written and a summary of cached
+    search queries / page URLs the sub-agent can freely re-fetch.
+    """
+    parts: List[str] = []
+
+    # Previous stances written for this candidate
+    recent = handoffs[-_HANDOFF_WINDOW:] if handoffs else []
+    if recent:
+        parts.append("Previous stances already written for this candidate:")
+        for h in recent:
+            parts.append(f"  - {h['issue']}: {h['stance'][:120]} [{h['confidence']}]")
+        parts.append("")
+
+    # Cache-aware section
+    if cached_info:
+        searches = cached_info.get("searches", [])
+        if searches:
+            parts.append(f"Cached searches available ({len(searches)} queries — results are free to re-use):")
+            for s in searches[:15]:  # cap display to avoid prompt bloat
+                urls_str = ", ".join(s["urls"][:3])
+                parts.append(f"  - \"{s['query']}\" → {urls_str}")
+            parts.append("")
+
+    return "\n".join(parts) if parts else "No prior context available."
+
+
+async def _run_issue_research_for_candidate(
+    candidate_name: str,
+    race_json: Dict[str, Any],
+    *,
+    race_id: str,
+    model: str,
+    on_log: Any | None = None,
+    max_iterations: int = 12,
+    is_update: bool = False,
+    last_updated: str = "",
+) -> None:
+    """Run per-issue research for one candidate, mutating race_json in place.
+
+    For each of the 12 canonical issues, a separate tools-mode _agent_loop
+    call uses web_search + set_issue_stance. A structured handoff is passed
+    between issues so the sub-agent knows what has already been written and
+    which search queries are cached.
+    """
+    log = make_logger(on_log)
+    handlers = _make_editing_handlers(race_json, log)
+    cache = _get_search_cache()
+    cached_info = cache.list_cached_for_race(race_id) if cache else None
+
+    handoffs: List[Dict[str, Any]] = []
+
+    for issue_idx, issue in enumerate(CANONICAL_ISSUES):
+        handoff_ctx = _build_handoff_context(handoffs, cached_info)
+
+        # Find existing stance for this candidate/issue (for update mode)
+        existing_stance = ""
+        if is_update:
+            for c in race_json.get("candidates", []):
+                if c.get("name") == candidate_name:
+                    sd = c.get("issues", {}).get(issue)
+                    if isinstance(sd, dict):
+                        existing_stance = (
+                            f"  Stance: {sd.get('stance', '?')}\n"
+                            f"  Confidence: {sd.get('confidence', '?')}\n"
+                            f"  Sources: {json.dumps(sd.get('sources', []))}"
+                        )
+                    else:
+                        existing_stance = "  MISSING — no existing stance"
+                    break
+
+        if is_update:
+            sys_prompt = UPDATE_ISSUE_SUBAGENT_SYSTEM
+            usr_prompt = UPDATE_ISSUE_SUBAGENT_USER.format(
+                candidate_name=candidate_name,
+                race_id=race_id,
+                issue=issue,
+                last_updated=last_updated,
+                existing_stance=existing_stance or "  MISSING",
+                handoff_context=handoff_ctx,
+            )
+        else:
+            sys_prompt = ISSUE_SUBAGENT_SYSTEM
+            usr_prompt = ISSUE_SUBAGENT_USER.format(
+                candidate_name=candidate_name,
+                race_id=race_id,
+                issue=issue,
+                handoff_context=handoff_ctx,
+            )
+
+        log("info", f"    Issue {issue_idx + 1}/12: {issue}")
+
+        try:
+            await _agent_loop(
+                sys_prompt,
+                usr_prompt,
+                model=model,
+                on_log=on_log,
+                race_id=race_id,
+                max_iterations=max_iterations,
+                phase_name=f"issue-{candidate_name[:15]}-{issue[:15]}",
+                max_tokens=4096,
+                extra_tools=ISSUE_TOOLS + [READ_PROFILE_TOOL],
+                extra_tool_handlers=handlers,
+                tools_mode=True,
+            )
+        except (RuntimeError, ValueError) as exc:
+            log("warning", f"    Issue sub-agent failed for {candidate_name}/{issue}: {exc}")
+
+        # Build handoff entry from what was just written
+        for c in race_json.get("candidates", []):
+            if c.get("name") == candidate_name:
+                sd = c.get("issues", {}).get(issue, {})
+                handoffs.append({
+                    "issue": issue,
+                    "stance": sd.get("stance", "(not set)") if isinstance(sd, dict) else "(not set)",
+                    "confidence": sd.get("confidence", "?") if isinstance(sd, dict) else "?",
+                })
+                break
+
+        # Refresh cache info after each issue (new searches may have been cached)
+        if cache:
+            cached_info = cache.list_cached_for_race(race_id)
 
 
 # ---------------------------------------------------------------------------
@@ -725,9 +1234,8 @@ async def _run_fresh(
         log("warning", "No candidates found in discovery phase")
         return race_json
 
-    issue_iters = _scale_iterations(max_iterations, n, per_candidate=3, minimum=12)
     refine_iters = _scale_iterations(max_iterations, n, per_candidate=2, minimum=12)
-    log("info", f"  Iteration budgets — issue:{issue_iters}  refine:{refine_iters}  (n={n} candidates)")
+    log("info", f"  Iteration budgets — refine:{refine_iters}  (n={n} candidates)")
 
     # --- Phase 1b: Image URL verification & resolution (parallel) ---
     log("info", "Phase 1b/3: Verifying and resolving candidate image URLs...")
@@ -740,40 +1248,19 @@ async def _run_fresh(
         max_iterations=min(max_iterations, 10),
     )
 
-    # --- Phase 2: Issue research (one call per group) ---
-    log("info", f"Phase 2/3: Researching issues for {n} candidates...")
-    all_issues: Dict[str, Dict[str, Any]] = {name: {} for name in candidate_names}
-
-    for group_idx, issues in enumerate(ISSUE_GROUPS):
-        log("info", f"  Issue group {group_idx + 1}/{len(ISSUE_GROUPS)}: {', '.join(issues)}")
-        try:
-            issues_result = await _agent_loop(
-                ISSUE_RESEARCH_SYSTEM,
-                ISSUE_RESEARCH_USER.format(
-                    race_id=race_id,
-                    candidate_names=", ".join(candidate_names),
-                    issues_list="\n".join(f"  - {i}" for i in issues),
-                ),
-                model=model,
-                on_log=on_log,
-                race_id=race_id,
-                max_iterations=issue_iters,
-                phase_name=f"issues-{group_idx + 1}",
-                max_tokens=16384,
-            )
-            if not isinstance(issues_result, dict):
-                log("warning", f"  Issue group {group_idx + 1} returned non-dict ({type(issues_result).__name__}) — skipping")
-            else:
-                for cand_name, cand_issues in issues_result.items():
-                    if cand_name in all_issues and isinstance(cand_issues, dict):
-                        all_issues[cand_name].update(cand_issues)
-        except RuntimeError as exc:
-            log("warning", f"  Issue group {group_idx + 1} failed after all retries: {exc} — skipping group")
-
-    for candidate in race_json.get("candidates", []):
-        name = candidate["name"]
-        if name in all_issues:
-            candidate.setdefault("issues", {}).update(all_issues[name])
+    # --- Phase 2: Per-candidate, per-issue research (tools mode) ---
+    log("info", f"Phase 2/3: Researching issues for {n} candidates (12 issues each)...")
+    for cand_name in candidate_names:
+        log("info", f"  Researching {cand_name}...")
+        await _run_issue_research_for_candidate(
+            cand_name,
+            race_json,
+            race_id=race_id,
+            model=model,
+            on_log=on_log,
+            max_iterations=max_iterations,
+            is_update=False,
+        )
 
     # --- Phase 2b: Dedicated finance & voting record research ---
     finance_iters = _scale_iterations(max_iterations, n, per_candidate=4, minimum=15)
@@ -799,23 +1286,22 @@ async def _run_fresh(
     except (RuntimeError, ValueError) as exc:
         log("warning", f"  Finance/voting phase failed: {exc} — continuing without")
 
-    # --- Phase 3: Refinement (per-candidate + meta, patched in) ---
-    log("info", "Phase 3/3: Refining profile (one candidate at a time)...")
+    # --- Phase 3: Refinement (tools mode — per-candidate + meta) ---
+    log("info", "Phase 3/3: Refining profile (one candidate at a time, tools mode)...")
+    handlers = _make_editing_handlers(race_json, log)
     candidate_names_in_json = [c["name"] for c in race_json.get("candidates", [])]
-    other_names_str = ", ".join(candidate_names_in_json)
-    candidate_patches: List[Dict[str, Any]] = []
     for candidate in race_json.get("candidates", []):
         cname = candidate["name"]
         log("info", f"  Refining {cname}...")
         try:
-            patch = _ensure_dict(await _agent_loop(
+            await _agent_loop(
                 REFINE_SYSTEM,
                 REFINE_USER.format(
                     race_id=race_id,
                     candidate_name=cname,
                     candidate_json=json.dumps(candidate, indent=2, default=str),
                     race_description=race_json.get("description", ""),
-                    other_candidates=", ".join(n for n in candidate_names_in_json if n != cname),
+                    other_candidates=", ".join(cn for cn in candidate_names_in_json if cn != cname),
                     all_issues=", ".join(CANONICAL_ISSUES),
                 ),
                 model=model,
@@ -824,16 +1310,17 @@ async def _run_fresh(
                 max_iterations=max(8, refine_iters // max(len(candidate_names_in_json), 1)),
                 phase_name=f"refine-{cname[:20]}",
                 max_tokens=8192,
-            ), f"refine-{cname[:20]}", log)
-            patch["name"] = cname
-            candidate_patches.append(patch)
+                extra_tools=CANDIDATE_TOOLS + RECORD_TOOLS + [READ_PROFILE_TOOL],
+                extra_tool_handlers=handlers,
+                tools_mode=True,
+            )
         except (RuntimeError, ValueError) as exc:
-            log("warning", f"  Refine patch failed for {cname}: {exc} — keeping existing")
-    # Meta patch (description + polling)
+            log("warning", f"  Refine failed for {cname}: {exc} — keeping existing")
+
+    # Meta refinement (description + polling) — tools mode
     log("info", "  Refining race metadata...")
-    meta_patch: Dict[str, Any] = {}
     try:
-        meta_patch = _ensure_dict(await _agent_loop(
+        await _agent_loop(
             REFINE_SYSTEM,
             REFINE_META_USER.format(
                 race_id=race_id,
@@ -846,10 +1333,12 @@ async def _run_fresh(
             max_iterations=max(6, refine_iters // 3),
             phase_name="refine-meta",
             max_tokens=4096,
-        ), "refine-meta", log)
+            extra_tools=RACE_TOOLS + [READ_PROFILE_TOOL],
+            extra_tool_handlers=handlers,
+            tools_mode=True,
+        )
     except (RuntimeError, ValueError) as exc:
-        log("warning", f"  Refine meta patch failed: {exc} — keeping existing meta")
-    _apply_refine_patch(race_json, meta_patch, candidate_patches, log, [])
+        log("warning", f"  Refine meta failed: {exc} — keeping existing meta")
 
     return race_json
 
@@ -883,14 +1372,45 @@ async def _run_update(
         log("warning", "No candidates in existing data — falling back to fresh run")
         return await _run_fresh(race_id, model=model, on_log=on_log, max_iterations=max_iterations)
 
-    meta_iters = _scale_iterations(max_iterations, n, per_candidate=2, minimum=10)
-    issue_iters = _scale_iterations(max_iterations, n, per_candidate=2, minimum=10)
     refine_iters = _scale_iterations(max_iterations, n, per_candidate=2, minimum=12)
+    handlers = _make_editing_handlers(race_json, log)
 
-    # --- Phase 1: Meta update (summaries, donors, polls, voting record) ---
+    # --- Phase 0: Roster sync (tools mode) ---
+    log("info", "Update Phase 0: Verifying candidate roster...")
+    try:
+        await _agent_loop(
+            ROSTER_SYNC_SYSTEM,
+            ROSTER_SYNC_USER.format(
+                race_id=race_id,
+                last_updated=last_updated,
+                candidate_names=", ".join(candidate_names),
+            ),
+            model=model,
+            on_log=on_log,
+            race_id=race_id,
+            max_iterations=max(8, max_iterations // 2),
+            phase_name="roster-sync",
+            max_tokens=4096,
+            extra_tools=ROSTER_TOOLS + [READ_PROFILE_TOOL],
+            extra_tool_handlers=handlers,
+            tools_mode=True,
+        )
+    except (RuntimeError, ValueError) as exc:
+        log("warning", f"  Roster sync failed: {exc} — keeping existing roster")
+
+    # Refresh candidate names after roster sync (may have changed)
+    candidate_names = [c["name"] for c in race_json.get("candidates", [])]
+    n = len(candidate_names)
+
+    if not candidate_names:
+        log("warning", "No candidates after roster sync — falling back to fresh run")
+        return await _run_fresh(race_id, model=model, on_log=on_log, max_iterations=max_iterations)
+
+    # --- Phase 1: Meta update (tools mode — summaries, polls, race fields) ---
+    meta_iters = _scale_iterations(max_iterations, n, per_candidate=2, minimum=10)
     log("info", "Update Phase 1: Searching for new summaries, donors, polls, voting records...")
     try:
-        meta_patch = _ensure_dict(await _agent_loop(
+        await _agent_loop(
             UPDATE_META_SYSTEM,
             UPDATE_META_USER.format(
                 race_id=race_id,
@@ -903,40 +1423,27 @@ async def _run_update(
             max_iterations=meta_iters,
             phase_name="update-meta",
             max_tokens=16384,
-        ), "update-meta", log)
-        _apply_meta_patch(race_json, meta_patch, log)
+            extra_tools=RACE_TOOLS + CANDIDATE_TOOLS + [READ_PROFILE_TOOL],
+            extra_tool_handlers=handlers,
+            tools_mode=True,
+        )
     except (RuntimeError, ValueError) as exc:
         log("warning", f"  Update meta phase failed: {exc} — keeping existing meta")
 
-    # --- Phase 2: Issue updates (one call per group) ---
-    log("info", f"Update Phase 2: Refreshing issue positions for {n} candidates...")
-    for group_idx, issues in enumerate(ISSUE_GROUPS):
-        log("info", f"  Issue group {group_idx + 1}/{len(ISSUE_GROUPS)}: {', '.join(issues)}")
-        try:
-            # Build a summary of existing stances for this group
-            existing_stances = _summarize_existing_stances(existing_candidates, issues)
-            issues_result = await _agent_loop(
-                UPDATE_ISSUE_SYSTEM,
-                UPDATE_ISSUE_USER.format(
-                    race_id=race_id,
-                    last_updated=last_updated,
-                    candidate_names=", ".join(candidate_names),
-                    issues_list="\n".join(f"  - {i}" for i in issues),
-                    existing_stances=existing_stances,
-                ),
-                model=model,
-                on_log=on_log,
-                race_id=race_id,
-                max_iterations=issue_iters,
-                phase_name=f"update-issues-{group_idx + 1}",
-                max_tokens=8192,
-            )
-            if not isinstance(issues_result, dict):
-                log("warning", f"  Issue group {group_idx + 1} returned non-dict — skipping")
-            else:
-                _apply_issue_patch(race_json, issues_result, log)
-        except (RuntimeError, ValueError) as exc:
-            log("warning", f"  Issue group {group_idx + 1} failed: {exc} — keeping existing")
+    # --- Phase 2: Per-candidate, per-issue research (tools mode) ---
+    log("info", f"Update Phase 2: Refreshing issue positions for {n} candidates (12 issues each)...")
+    for cand_name in candidate_names:
+        log("info", f"  Updating issues for {cand_name}...")
+        await _run_issue_research_for_candidate(
+            cand_name,
+            race_json,
+            race_id=race_id,
+            model=model,
+            on_log=on_log,
+            max_iterations=max_iterations,
+            is_update=True,
+            last_updated=last_updated,
+        )
 
     # --- Phase 2b: Dedicated finance & voting record refresh ---
     finance_iters = _scale_iterations(max_iterations, n, per_candidate=4, minimum=15)
@@ -962,15 +1469,14 @@ async def _run_update(
     except (RuntimeError, ValueError) as exc:
         log("warning", f"  Finance/voting phase failed: {exc} — continuing without")
 
-    # --- Phase 3: Refinement (per-candidate + meta, patched in) ---
-    log("info", "Update Phase 3: Refining updated profile (one candidate at a time)...")
+    # --- Phase 3: Refinement (tools mode — per-candidate + meta) ---
+    log("info", "Update Phase 3: Refining updated profile (one candidate at a time, tools mode)...")
     cand_list = race_json.get("candidates", [])
-    candidate_patches_upd: List[Dict[str, Any]] = []
     for candidate in cand_list:
         cname = candidate["name"]
         log("info", f"  Refining {cname}...")
         try:
-            patch = _ensure_dict(await _agent_loop(
+            await _agent_loop(
                 REFINE_SYSTEM,
                 REFINE_USER.format(
                     race_id=race_id,
@@ -986,15 +1492,17 @@ async def _run_update(
                 max_iterations=max(8, refine_iters // max(len(cand_list), 1)),
                 phase_name=f"upd-refine-{cname[:20]}",
                 max_tokens=8192,
-            ), f"upd-refine-{cname[:20]}", log)
-            patch["name"] = cname
-            candidate_patches_upd.append(patch)
+                extra_tools=CANDIDATE_TOOLS + RECORD_TOOLS + [READ_PROFILE_TOOL],
+                extra_tool_handlers=handlers,
+                tools_mode=True,
+            )
         except (RuntimeError, ValueError) as exc:
-            log("warning", f"  Refine patch failed for {cname}: {exc} — keeping existing")
+            log("warning", f"  Refine failed for {cname}: {exc} — keeping existing")
+
+    # Meta refinement (description + polling) — tools mode
     log("info", "  Refining race metadata...")
-    meta_patch_upd: Dict[str, Any] = {}
     try:
-        meta_patch_upd = _ensure_dict(await _agent_loop(
+        await _agent_loop(
             REFINE_SYSTEM,
             REFINE_META_USER.format(
                 race_id=race_id,
@@ -1007,10 +1515,12 @@ async def _run_update(
             max_iterations=max(6, refine_iters // 3),
             phase_name="upd-refine-meta",
             max_tokens=4096,
-        ), "upd-refine-meta", log)
+            extra_tools=RACE_TOOLS + [READ_PROFILE_TOOL],
+            extra_tool_handlers=handlers,
+            tools_mode=True,
+        )
     except (RuntimeError, ValueError) as exc:
-        log("warning", f"  Refine meta patch failed: {exc} — keeping existing meta")
-    _apply_refine_patch(race_json, meta_patch_upd, candidate_patches_upd, log, [])
+        log("warning", f"  Refine meta failed: {exc} — keeping existing meta")
 
     # --- Post-update: image URL verification ---
     log("info", "Post-update: Verifying and resolving candidate image URLs...")
@@ -1244,10 +1754,11 @@ async def _run_iteration_pass(
     on_log: Any | None = None,
     max_iterations: int = 20,
 ) -> Optional[Dict[str, Any]]:
-    """Run a single iteration pass addressing review flags (per-candidate patches).
+    """Run a single iteration pass addressing review flags (tools mode).
 
-    Returns the improved race_json in-place (same object, modified), or None if
-    every patch call fails.
+    Uses the full editing toolkit so the LLM can directly fix flagged issues.
+    Returns the improved race_json (same object, modified), or None if
+    every call fails.
     """
     import copy
     log = make_logger(on_log)
@@ -1258,18 +1769,19 @@ async def _run_iteration_pass(
     iterate_iters = _scale_iterations(max_iterations, n, per_candidate=3, minimum=12)
     iters_per_cand = max(6, iterate_iters // max(n, 1))
 
-    log("info", f"  Iteration: addressing review flags for {n} candidates (per-candidate patches)")
+    log("info", f"  Iteration: addressing review flags for {n} candidates (tools mode)")
 
     working = copy.deepcopy(race_json)
-    all_iteration_notes: List[str] = []
+    handlers = _make_editing_handlers(working, log)
+    all_tools = ROSTER_TOOLS + CANDIDATE_TOOLS + ISSUE_TOOLS + RECORD_TOOLS + RACE_TOOLS + [READ_PROFILE_TOOL]
     any_success = False
 
-    # Per-candidate patches
+    # Per-candidate iteration
     for candidate in working.get("candidates", []):
         cname = candidate["name"]
         log("info", f"  Iterating on {cname}...")
         try:
-            patch = _ensure_dict(await _agent_loop(
+            await _agent_loop(
                 ITERATE_SYSTEM,
                 ITERATE_USER.format(
                     race_id=race_id,
@@ -1284,20 +1796,18 @@ async def _run_iteration_pass(
                 max_iterations=iters_per_cand,
                 phase_name=f"iterate-{cname[:20]}",
                 max_tokens=8192,
-            ), f"iterate-{cname[:20]}", log)
-            patch["name"] = cname
-            _apply_candidate_patch(candidate, patch, log)
-            notes = patch.get("iteration_notes", [])
-            if isinstance(notes, list):
-                all_iteration_notes.extend(notes)
+                extra_tools=all_tools,
+                extra_tool_handlers=handlers,
+                tools_mode=True,
+            )
             any_success = True
         except (RuntimeError, ValueError) as exc:
-            log("warning", f"  Iteration patch failed for {cname}: {exc} — keeping existing")
+            log("warning", f"  Iteration failed for {cname}: {exc} — keeping existing")
 
-    # Meta patch (description + polling flags)
+    # Meta iteration (description + polling flags)
     log("info", "  Iterating on race metadata...")
     try:
-        meta_patch = _ensure_dict(await _agent_loop(
+        await _agent_loop(
             ITERATE_SYSTEM,
             ITERATE_META_USER.format(
                 race_id=race_id,
@@ -1311,25 +1821,17 @@ async def _run_iteration_pass(
             max_iterations=max(5, iters_per_cand // 2),
             phase_name="iterate-meta",
             max_tokens=4096,
-        ), "iterate-meta", log)
-        if meta_patch.get("description"):
-            working["description"] = meta_patch["description"]
-        if isinstance(meta_patch.get("polling"), list) and meta_patch["polling"]:
-            working["polling"] = meta_patch["polling"]
-        notes = meta_patch.get("iteration_notes", [])
-        if isinstance(notes, list):
-            all_iteration_notes.extend(notes)
+            extra_tools=RACE_TOOLS + [READ_PROFILE_TOOL],
+            extra_tool_handlers=handlers,
+            tools_mode=True,
+        )
         any_success = True
     except (RuntimeError, ValueError) as exc:
-        log("warning", f"  Iteration meta patch failed: {exc} — keeping existing meta")
+        log("warning", f"  Iteration meta failed: {exc} — keeping existing meta")
 
     if not any_success:
-        log("warning", "  All iteration patches failed — keeping original")
+        log("warning", "  All iteration calls failed — keeping original")
         return None
-
-    if all_iteration_notes:
-        existing_notes = working.get("iteration_notes", [])
-        working["iteration_notes"] = existing_notes + all_iteration_notes
 
     working.setdefault("id", race_id)
     return working

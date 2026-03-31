@@ -13,7 +13,7 @@
   } from "chart.js";
   import { Doughnut, Line } from "svelte-chartjs";
   import { analyticsService } from "$lib/services/analyticsService";
-  import type { Alert, AnalyticsOverview } from "$lib/types";
+  import type { Alert, AnalyticsOverview, PipelineMetricsSummary, PipelineRunRecord } from "$lib/types";
 
   // Register Chart.js components once
   ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement);
@@ -26,6 +26,8 @@
 
   let overview: AnalyticsOverview | null = null;
   let alerts: Alert[] = [];
+  let pipelineRecords: PipelineRunRecord[] = [];
+  let pipelineSummary: PipelineMetricsSummary | null = null;
   let loading = true;
   let error = "";
   let refreshTimer: ReturnType<typeof setInterval> | null = null;
@@ -89,15 +91,19 @@
   async function loadData() {
     try {
       error = "";
-      const [overviewRes, alertsRes, racesRes] = await Promise.allSettled([
+      const [overviewRes, alertsRes, racesRes, metricsRes, metricsSummaryRes] = await Promise.allSettled([
         analyticsService.getOverview(24),
         analyticsService.getAlerts(),
         analyticsService.getRaces(24),
+        analyticsService.getPipelineMetrics(20),
+        analyticsService.getPipelineMetricsSummary(),
       ]);
 
       if (overviewRes.status === "fulfilled") overview = overviewRes.value;
       if (alertsRes.status === "fulfilled") alerts = alertsRes.value.alerts;
       if (racesRes.status === "fulfilled") raceRequests = racesRes.value.races;
+      if (metricsRes.status === "fulfilled") pipelineRecords = metricsRes.value.records;
+      if (metricsSummaryRes.status === "fulfilled") pipelineSummary = metricsSummaryRes.value;
     } catch (e) {
       error = String(e);
     } finally {
@@ -142,6 +148,14 @@
   function formatDate(s?: string) {
     if (!s) return "—";
     return new Date(s).toLocaleString(undefined, { dateStyle: "short", timeStyle: "short" });
+  }
+
+  function formatUsd(n: number) {
+    return n < 0.001 ? "<$0.001" : `$${n.toFixed(4)}`;
+  }
+
+  function formatTokens(n: number) {
+    return n >= 1000 ? `${(n / 1000).toFixed(1)}k` : String(n);
   }
 </script>
 
@@ -283,6 +297,83 @@
               </div>
             </div>
           {/each}
+        </div>
+      {/if}
+    </div>
+  </div>
+
+  <!-- Pipeline Cost Metrics -->
+  <div class="mt-6">
+    <h2 class="text-base font-semibold text-gray-800 mb-3">Pipeline Cost & Usage</h2>
+
+    <!-- Summary stat cards -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+      <div class="card p-4">
+        <p class="text-xs font-medium text-gray-500 uppercase tracking-wide">Total Runs</p>
+        <p class="mt-1 text-2xl font-bold text-gray-900">{pipelineSummary?.total_runs ?? "—"}</p>
+      </div>
+      <div class="card p-4">
+        <p class="text-xs font-medium text-gray-500 uppercase tracking-wide">Total Spend</p>
+        <p class="mt-1 text-2xl font-bold text-gray-900">
+          {pipelineSummary ? formatUsd(pipelineSummary.total_usd) : "—"}
+        </p>
+      </div>
+      <div class="card p-4">
+        <p class="text-xs font-medium text-gray-500 uppercase tracking-wide">Avg / Run</p>
+        <p class="mt-1 text-2xl font-bold text-gray-900">
+          {pipelineSummary ? formatUsd(pipelineSummary.avg_usd) : "—"}
+        </p>
+      </div>
+      <div class="card p-4">
+        <p class="text-xs font-medium text-gray-500 uppercase tracking-wide">Last 30 Days</p>
+        <p class="mt-1 text-2xl font-bold text-gray-900">
+          {pipelineSummary ? formatUsd(pipelineSummary.recent_30d_usd) : "—"}
+        </p>
+      </div>
+    </div>
+
+    <!-- Per-run table -->
+    <div class="card overflow-hidden">
+      <div class="px-4 py-3 border-b border-gray-100">
+        <h3 class="text-sm font-semibold text-gray-700">Recent Runs</h3>
+      </div>
+      {#if pipelineRecords.length === 0}
+        <p class="text-sm text-gray-400 py-6 text-center">No pipeline metrics recorded yet</p>
+      {:else}
+        <div class="overflow-x-auto">
+          <table class="min-w-full text-xs">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-3 py-2 text-left font-medium text-gray-500">Race</th>
+                <th class="px-3 py-2 text-left font-medium text-gray-500">Status</th>
+                <th class="px-3 py-2 text-left font-medium text-gray-500">Model</th>
+                <th class="px-3 py-2 text-right font-medium text-gray-500">Tokens</th>
+                <th class="px-3 py-2 text-right font-medium text-gray-500">Cost</th>
+                <th class="px-3 py-2 text-right font-medium text-gray-500">Duration</th>
+                <th class="px-3 py-2 text-left font-medium text-gray-500">Time</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+              {#each pipelineRecords as rec (rec.run_id)}
+                <tr class="hover:bg-gray-50">
+                  <td class="px-3 py-2 font-mono text-gray-700 max-w-32 truncate">{rec.race_id}</td>
+                  <td class="px-3 py-2">
+                    <span class="px-1.5 py-0.5 rounded font-medium
+                      {rec.status === 'completed' ? 'bg-green-100 text-green-700'
+                        : rec.status === 'failed' ? 'bg-red-100 text-red-700'
+                        : 'bg-gray-100 text-gray-600'}">
+                      {rec.status}
+                    </span>
+                  </td>
+                  <td class="px-3 py-2 text-gray-600 max-w-28 truncate">{rec.model || "—"}</td>
+                  <td class="px-3 py-2 text-right text-gray-700">{formatTokens(rec.total_tokens)}</td>
+                  <td class="px-3 py-2 text-right font-medium text-gray-900">{formatUsd(rec.estimated_usd)}</td>
+                  <td class="px-3 py-2 text-right text-gray-600">{rec.duration_s ? `${rec.duration_s}s` : "—"}</td>
+                  <td class="px-3 py-2 text-gray-400">{formatDate(rec.timestamp)}</td>
+                </tr>
+              {/each}
+            </tbody>
+          </table>
         </div>
       {/if}
     </div>

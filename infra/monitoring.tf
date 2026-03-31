@@ -11,6 +11,7 @@ resource "google_project_service" "firestore" {
 }
 
 resource "google_firestore_database" "analytics" {
+  count       = var.create_firestore_database ? 1 : 0
   project     = var.project_id
   name        = "(default)"
   location_id = var.region
@@ -31,8 +32,6 @@ resource "google_project_iam_member" "races_api_firestore" {
   project = var.project_id
   role    = "roles/datastore.user"
   member  = "serviceAccount:${google_service_account.races_api.email}"
-
-  depends_on = [google_firestore_database.analytics]
 }
 
 resource "google_project_iam_member" "pipeline_client_firestore" {
@@ -40,8 +39,6 @@ resource "google_project_iam_member" "pipeline_client_firestore" {
   project = var.project_id
   role    = "roles/datastore.user"
   member  = "serviceAccount:${google_service_account.pipeline_client[0].email}"
-
-  depends_on = [google_firestore_database.analytics]
 }
 
 # ---------------------------------------------------------------------------
@@ -128,6 +125,7 @@ resource "google_monitoring_alert_policy" "races_api_no_traffic" {
 
 # Log-based metric — pipeline ERROR log entries
 resource "google_logging_metric" "pipeline_errors" {
+  count       = var.enable_pipeline_client ? 1 : 0
   project     = var.project_id
   name        = "pipeline_errors_${var.environment}"
   description = "Count of ERROR-level log entries from the pipeline-client service"
@@ -151,7 +149,7 @@ resource "google_monitoring_alert_policy" "pipeline_error_spike" {
     display_name = "Pipeline ERROR logs > 5 in 5 minutes"
 
     condition_threshold {
-      filter          = "metric.type = \"logging.googleapis.com/user/${google_logging_metric.pipeline_errors.name}\" AND resource.type = \"cloud_run_revision\""
+      filter          = "metric.type = \"logging.googleapis.com/user/${google_logging_metric.pipeline_errors[0].name}\" AND resource.type = \"cloud_run_revision\""
       duration        = "0s"
       comparison      = "COMPARISON_GT"
       threshold_value = 5

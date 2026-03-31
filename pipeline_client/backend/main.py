@@ -600,3 +600,31 @@ async def _proxy_analytics(path: str, params: Dict[str, Any]) -> Dict[str, Any]:
         raise HTTPException(status_code=exc.response.status_code, detail="Analytics unavailable") from exc
     except Exception as exc:
         raise HTTPException(status_code=503, detail="Analytics service unreachable") from exc
+
+
+# ---------------------------------------------------------------------------
+# Pipeline metrics (token usage & cost per research run)
+# ---------------------------------------------------------------------------
+
+
+@app.get("/pipeline/metrics", dependencies=[Depends(verify_token)])
+async def get_pipeline_metrics(limit: int = 50) -> Dict[str, Any]:
+    """Return recent pipeline run records with token usage and cost data."""
+    from pipeline_client.backend.pipeline_metrics import get_pipeline_metrics_store
+
+    try:
+        records = await get_pipeline_metrics_store().get_recent(limit=limit)
+        return {"records": records, "count": len(records)}
+    except Exception as exc:
+        raise HTTPException(status_code=503, detail=f"Pipeline metrics unavailable: {exc}") from exc
+
+
+@app.get("/pipeline/metrics/summary", dependencies=[Depends(verify_token)])
+async def get_pipeline_metrics_summary() -> Dict[str, Any]:
+    """Return aggregate pipeline cost stats (total_runs, total_usd, avg_usd, recent_30d_usd)."""
+    from pipeline_client.backend.pipeline_metrics import get_pipeline_metrics_store
+
+    try:
+        return await get_pipeline_metrics_store().get_summary()
+    except Exception as exc:
+        raise HTTPException(status_code=503, detail=f"Pipeline metrics unavailable: {exc}") from exc

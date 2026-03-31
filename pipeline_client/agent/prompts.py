@@ -9,28 +9,18 @@ Optionally followed by multi-LLM **review** (Claude / Gemini).
 """
 
 CANONICAL_ISSUES = [
-    "Healthcare",
     "Economy",
-    "Climate/Energy",
-    "Reproductive Rights",
-    "Immigration",
-    "Guns & Safety",
-    "Foreign Policy",
-    "Social Justice",
     "Education",
+    "Healthcare",
+    "Reproductive Rights",
+    "Climate/Energy",
     "Tech & AI",
+    "Immigration",
+    "Foreign Policy",
+    "Guns & Safety",
+    "Social Justice",
     "Election Reform",
     "Local Issues",
-]
-
-# Groups of issues researched together (keeps each prompt focused)
-ISSUE_GROUPS = [
-    ["Healthcare", "Reproductive Rights"],
-    ["Economy", "Education"],
-    ["Climate/Energy", "Tech & AI"],
-    ["Immigration", "Foreign Policy"],
-    ["Guns & Safety", "Social Justice"],
-    ["Election Reform", "Local Issues"],
 ]
 
 # ------------------------------------------------------------------
@@ -255,22 +245,9 @@ Research and improve this ONE candidate:
    Only set image_url if the URL directly serves an image file.
 9. Verify voting_record entries — each must have "bill_name" and "vote" (yes/no/abstain/absent).
 
-Return ONLY a JSON patch for this candidate — the fields you changed or improved.
-Omit fields you did not change. Do NOT return the full profile.
-Shape:
-{{
-  "name": "{candidate_name}",
-  "summary": "<improved summary or omit if unchanged>",
-  "summary_sources": [...],
-  "image_url": "<url or null or omit if unchanged>",
-  "career_history": [...],
-  "education": [...],
-  "voting_record": [...],
-  "top_donors": [...],
-  "issues": {{
-    "<Issue>": {{"stance": "...", "confidence": "high|medium|low", "sources": [...]}}
-  }}
-}}"""
+Use your editing tools to record every improvement directly. When you are satisfied
+that the profile is accurate and complete, reply with a short plain-text summary
+of what you changed (e.g. "Updated Healthcare stance, added 2 donors, fixed image URL.")."""
 
 REFINE_META_USER = """\
 Here is the top-level metadata for race "{race_id}".
@@ -282,15 +259,9 @@ Search for:
 1. Any better or more accurate race description (3-4 sentences: office, why it matters, partisan context, key contrasts).
 2. Recent polls (last 90 days). Include pollster, date, sample_size, matchups, source_url.
 
-Return ONLY a JSON patch with the fields you improved (omit fields you did not change):
-{{
-  "description": "<improved description or omit if unchanged>",
-  "polling": [
-    {{"pollster": "<name>", "date": "<YYYY-MM-DD>", "sample_size": 600,
-      "matchups": [{{"candidates": ["A", "B"], "percentages": [48.0, 41.0]}}],
-      "source_url": "<url>"}}
-  ]
-}}"""
+Use your editing tools (update_race_field for description and add_poll for each poll)
+to record any improvements directly. When done, reply with a short confirmation
+of what you updated (e.g. "Updated description, added 2 new polls.")."""
 
 # ------------------------------------------------------------------
 # Update prompts — phase-based (mirrors fresh run)
@@ -312,34 +283,14 @@ Search for NEW information since {last_updated}:
 4. Updated race description (office context, why it matters, key contrasts).
 """ + _DONOR_SCHEMA_NOTE + """
 
-Return JSON:
-{{
-  "description": "<updated 3-4 sentence race description>",
-  "polling": [
-    {{
-      "pollster": "<name>", "date": "<YYYY-MM-DD>", "sample_size": 600,
-      "matchups": [{{"candidates": ["A", "B"], "percentages": [48.0, 41.0]}}],
-      "source_url": "<url>"
-    }}
-  ],
-  "candidates": [
-    {{
-      "name": "<exact name>",
-      "summary": "<updated 2-3 sentence summary — plain prose only, no 'Sources:' appended>",
-      "summary_sources": [
-        {{"url": "<url>", "type": "government|news|website", "title": "<page title>", "last_accessed": "<ISO timestamp>"}}
-      ],
-      "top_donors": [
-        {{"name": "<donor>", "amount": 50000, "organization": "<org or null>",
-          "source": {{"url": "<url>", "type": "government|news|website", "title": "<title>"}}}}
-      ],
-      "voting_record": [
-        {{"bill_name": "<bill>", "bill_description": "<desc>", "vote": "yes|no|abstain|absent",
-          "date": "<YYYY-MM-DD>", "source": {{"url": "<url>", "type": "government", "title": "<title>"}}}}
-      ]
-    }}
-  ]
-}}"""
+Use your editing tools to record every improvement directly:
+- update_race_field for description
+- add_poll for each new poll
+- set_candidate_summary for updated summaries
+- set_candidate_field for other candidate fields
+
+When you are done, reply with a short plain-text summary of what changed
+(e.g. "Updated description, added 1 poll, refreshed summary for Candidate A.")."""
 
 UPDATE_ISSUE_SYSTEM = f"""\
 You are a nonpartisan political research agent updating issue positions in an existing profile.
@@ -579,28 +530,19 @@ For EACH flag above:
 4. If the flag identifies bias, rewrite the text to be neutral.
 5. If the flag is informational only (severity "info"), address if easily fixable.
 
+CRITICAL — SOURCE-VERIFICATION RULE: Before changing ANY factual claim, verify it
+by re-fetching the original source. Only change data when the source actually
+contradicts the profile, or when the source is unavailable. If the source confirms
+the original data, skip that flag and leave the data unchanged.
+
 Also ensure:
 - All 12 canonical issues covered: {all_issues}
 - voting_record uses "bill_name" and "vote" (yes/no/abstain/absent)
 - top_donors have source objects
 
-Return ONLY a JSON patch for this candidate with the fields you changed.
-Do NOT return the full profile. Omit unchanged fields.
-Shape:
-{{
-  "name": "{candidate_name}",
-  "summary": "<if changed>",
-  "issues": {{"<Issue>": {{"stance": "...", "confidence": "...", "sources": [...]}}}},
-  "voting_record": [...],
-  "top_donors": [...],
-  "iteration_notes": ["Fixed X for {candidate_name}", "Added Y"],
-  "dismissed_flags": [
-    {{"field": "<dot-path from flag>", "reason": "DISMISSED:<field> \u2014 <why the original data is correct>"}}
-  ]
-}}
-
-IMPORTANT: For each dismissed flag, prefix the reason with "DISMISSED:<field> \u2014 "
-so the system can track which flags were verified as correct."""
+Use your editing tools to record every fix directly. When you have addressed all
+actionable flags, reply with a short plain-text summary of what you changed
+(e.g. "Fixed Healthcare stance sourcing, added missing Economy stance.")."""
 
 ITERATE_META_USER = """\
 Race "{race_id}" — addressing review flags for race-level metadata.
@@ -613,9 +555,101 @@ Review flags to address:
 
 Search and fix any flagged issues with the description or polling.
 
-Return ONLY a JSON patch with the fields you changed:
-{{
-  "description": "<if changed>",
-  "polling": [...],
-  "iteration_notes": ["<what changed>"]
-}}"""
+Use your editing tools (update_race_field for description, add_poll for new polls)
+to record any fixes directly. When done, reply with a short plain-text confirmation
+of what you changed (e.g. "Fixed race description bias, added corrected poll.")."""
+
+
+# ------------------------------------------------------------------
+# Roster sync prompt (update mode only)
+# ------------------------------------------------------------------
+
+ROSTER_SYNC_SYSTEM = f"""\
+You are a nonpartisan political research agent. Your ONLY task is to verify
+the current list of candidates in a race and correct it using your editing
+tools. Do NOT change any other data — only the candidate roster.
+
+{_SHARED_RULES}"""
+
+ROSTER_SYNC_USER = """\
+Race: "{race_id}" — last updated {last_updated}
+Current candidates: {candidate_names}
+
+Search for whether any candidates have:
+1. Dropped out, withdrawn, or been disqualified since {last_updated}
+2. Newly entered the race since {last_updated}
+3. Had their name corrected (e.g. legal name change, common misspelling)
+
+Use your editing tools to make corrections:
+- add_candidate — for new entrants
+- remove_candidate — for withdrawals (include reason)
+- rename_candidate — for name corrections
+
+If the roster is already correct, reply with a short confirmation. Do NOT
+modify any other data (issues, summaries, polls, etc.)."""
+
+
+# ------------------------------------------------------------------
+# Per-candidate per-issue sub-agent prompt
+# ------------------------------------------------------------------
+
+ISSUE_SUBAGENT_SYSTEM = f"""\
+You are a nonpartisan political research agent researching ONE candidate's
+position on ONE issue. Use web_search and fetch_page to find the most
+authoritative sources, then use your set_issue_stance tool to record the
+finding.
+
+{_SHARED_RULES}"""
+
+ISSUE_SUBAGENT_USER = """\
+Candidate: {candidate_name}
+Race: {race_id}
+Issue to research: {issue}
+
+{handoff_context}
+
+Research this candidate's position on "{issue}". Look for:
+- Official campaign positions or policy pages
+- Voting record on relevant legislation
+- Public statements, interviews, debate answers
+- Endorsements or scorecards from issue-focused organizations
+
+Then use the set_issue_stance tool to record:
+- stance: 1-2 sentence factual description of their position
+- confidence: "high" (multiple corroborating sources), "medium" (single credible source), "low" (inferred)
+- sources: array of source objects with url, type, title
+
+When you are done, reply briefly confirming what you found."""
+
+
+# ------------------------------------------------------------------
+# Update issue sub-agent prompt (for update/rerun mode)
+# ------------------------------------------------------------------
+
+UPDATE_ISSUE_SUBAGENT_SYSTEM = f"""\
+You are a nonpartisan political research agent updating ONE candidate's
+position on ONE issue. An existing stance is provided — use web_search and
+fetch_page to find newer or better-sourced information, then use your
+set_issue_stance tool ONLY if you find an improvement.
+
+{_SHARED_RULES}"""
+
+UPDATE_ISSUE_SUBAGENT_USER = """\
+Candidate: {candidate_name}
+Race: {race_id} — updating since {last_updated}
+Issue to update: {issue}
+
+Current stance:
+{existing_stance}
+
+{handoff_context}
+
+Search for NEWER information about this candidate's position on "{issue}"
+since {last_updated}. Focus on:
+- New statements, votes, or policy changes
+- Better sources if current confidence is "low" or "medium"
+- Corrections if the current stance is inaccurate
+
+Use set_issue_stance ONLY if you find genuinely new or better data.
+If the existing stance is already accurate and well-sourced, reply with
+a short confirmation (no tool call needed)."""

@@ -33,12 +33,15 @@ resource "google_cloud_run_v2_service" "races_api" {
         value = var.project_id
       }
 
-      env {
-        name = "ADMIN_API_KEY"
-        value_source {
-          secret_key_ref {
-            secret  = google_secret_manager_secret.admin_api_key.secret_id
-            version = "latest"
+      dynamic "env" {
+        for_each = (var.admin_api_key != null && var.admin_api_key != "") ? { admin_api_key = true } : {}
+        content {
+          name = "ADMIN_API_KEY"
+          value_source {
+            secret_key_ref {
+              secret  = google_secret_manager_secret.admin_api_key.secret_id
+              version = "latest"
+            }
           }
         }
       }
