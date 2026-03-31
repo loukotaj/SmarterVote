@@ -133,6 +133,34 @@ resource "google_service_account" "github_actions" {
 }
 
 # IAM bindings for races API
+resource "google_secret_manager_secret" "admin_api_key" {
+  project   = var.project_id
+  secret_id = "races-api-admin-key-${var.environment}"
+
+  replication {
+    auto {}
+  }
+
+  depends_on = [google_project_service.apis]
+}
+
+resource "google_secret_manager_secret_version" "admin_api_key" {
+  count       = var.admin_api_key != "" ? 1 : 0
+  secret      = google_secret_manager_secret.admin_api_key.id
+  secret_data = var.admin_api_key
+
+  lifecycle {
+    ignore_changes = [secret_data]
+  }
+}
+
+resource "google_secret_manager_secret_iam_member" "races_api_admin_key" {
+  project   = var.project_id
+  secret_id = google_secret_manager_secret.admin_api_key.secret_id
+  role      = "roles/secretmanager.secretAccessor"
+  member    = "serviceAccount:${google_service_account.races_api.email}"
+}
+
 resource "google_project_iam_member" "races_api_storage" {
   project = var.project_id
   role    = "roles/storage.objectViewer"

@@ -103,3 +103,10 @@ variable "alert_email" {
   type        = string
   default     = ""
 }
+
+variable "admin_api_key" {
+  description = "Secret key that protects the /analytics/* endpoints on the races API"
+  type        = string
+  sensitive   = true
+  default     = ""
+}

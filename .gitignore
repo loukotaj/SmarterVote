@@ -283,3 +283,4 @@ pipeline_client/runs/*
 pipeline_client/pipeline_client/runs/*
 pipeline_client/data/
 web/vite.config.js.timestamp-*
+services/races-api/data/analytics.db

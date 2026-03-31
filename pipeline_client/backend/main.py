@@ -124,10 +124,8 @@ class QueueAddRequest(BaseModel):
 @app.get("/races", dependencies=[Depends(verify_token)])
 async def list_published_races() -> Dict[str, Any]:
     """List all published race summaries from GCS (cloud) or data/published/ (local)."""
-    import os
-
     races = []
-    gcs_bucket = os.getenv("GCS_BUCKET_NAME")
+    gcs_bucket = settings.gcs_bucket
     # In Cloud Run, GCS is the source of truth — local filesystem is ephemeral
     if gcs_bucket and (os.getenv("K_SERVICE") or os.getenv("CLOUD_RUN_SERVICE") or os.getenv("GOOGLE_CLOUD_PROJECT")):
         try:
@@ -185,8 +183,6 @@ async def list_published_races() -> Dict[str, Any]:
 @app.get("/races/{race_id}", dependencies=[Depends(verify_token)])
 async def get_published_race(race_id: str) -> Dict[str, Any]:
     """Get full published race data for export/download."""
-    import os
-
     _validate_race_id(race_id)
     published_dir = ROOT / "data" / "published"
     path = published_dir / f"{race_id}.json"
@@ -195,7 +191,7 @@ async def get_published_race(race_id: str) -> Dict[str, Any]:
             return json.load(f)
 
     # Fall back to GCS when local file is absent (always the case on Cloud Run)
-    gcs_bucket = os.getenv("GCS_BUCKET_NAME")
+    gcs_bucket = settings.gcs_bucket
     if gcs_bucket:
         try:
             from google.cloud import storage as gcs  # type: ignore
@@ -215,8 +211,6 @@ async def get_published_race(race_id: str) -> Dict[str, Any]:
 @app.delete("/races/{race_id}", dependencies=[Depends(verify_token)])
 async def delete_published_race(race_id: str) -> Dict[str, Any]:
     """Delete a published race file locally and/or from GCS."""
-    import os
-
     _validate_race_id(race_id)
     deleted = False
 
@@ -228,7 +222,7 @@ async def delete_published_race(race_id: str) -> Dict[str, Any]:
         deleted = True
 
     # Delete from GCS if configured
-    gcs_bucket = os.getenv("GCS_BUCKET_NAME")
+    gcs_bucket = settings.gcs_bucket
     if gcs_bucket:
         try:
             from google.cloud import storage as gcs  # type: ignore
