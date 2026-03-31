@@ -1,0 +1,1035 @@
+{
+  "id": "az-senate-2026",
+  "title": "2026 U.S. Senate election in Arizona",
+  "office": "United States Senate",
+  "jurisdiction": "Arizona",
+  "election_date": "2026-11-03",
+  "description": "This race is for Arizona\u2019s Class III U.S. Senate seat, with the winner serving a six-year term beginning January 3, 2027. Arizona has been one of the nation\u2019s closest battleground states in recent federal elections, and the seat is politically important because control of the Senate can hinge on a small number of competitive races. The contest is likely to feature a contrast between incumbent Democrat Mark Kelly\u2019s moderate, service-oriented profile and Republican Kari Lake\u2019s more conservative, Trump-aligned message, with border security, costs, abortion, and election issues expected to be central.",
+  "polling": [],
+  "candidates": [
+    {
+      "name": "Mark Kelly",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Mark Kelly is the senior U.S. senator from Arizona, first elected in 2020. A former Navy captain and NASA astronaut, he has emphasized lowering costs, infrastructure, border security, and protecting reproductive rights.",
+      "summary_sources": [
+        {
+          "url": "https://www.kelly.senate.gov/about/",
+          "type": "website",
+          "title": "About Mark - Senator Mark Kelly",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        },
+        {
+          "url": "https://www.congress.gov/member/mark-kelly/K000377",
+          "type": "government",
+          "title": "Senator Mark Kelly - Congress.gov",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        },
+        {
+          "url": "https://www.markkelly.com/bio/",
+          "type": "website",
+          "title": "About Mark - Mark Kelly for Senate",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Mark_Kelly%2C_Official_Portrait_117th.jpg/500px-Mark_Kelly%2C_Official_Portrait_117th.jpg",
+      "website": "https://www.markkelly.com/",
+      "social_media": {
+        "x": "https://x.com/SenMarkKelly",
+        "facebook": "https://www.facebook.com/SenMarkKelly/",
+        "instagram": "https://www.instagram.com/senmarkkelly/?hl=en",
+        "youtube": "https://www.youtube.com/@SenMarkKelly"
+      },
+      "career_history": [
+        {
+          "title": "United States Senator",
+          "organization": "U.S. Senate",
+          "start_year": 2020,
+          "end_year": null,
+          "description": "Represents Arizona in the U.S. Senate."
+        },
+        {
+          "title": "NASA astronaut",
+          "organization": "NASA",
+          "start_year": 1996,
+          "end_year": 2011,
+          "description": "Served as an astronaut and flew multiple shuttle missions."
+        },
+        {
+          "title": "U.S. Navy captain and combat pilot",
+          "organization": "U.S. Navy",
+          "start_year": 1987,
+          "end_year": 2011,
+          "description": "Served as a Navy pilot, including combat missions and test pilot duties."
+        }
+      ],
+      "education": [
+        {
+          "institution": "U.S. Merchant Marine Academy",
+          "degree": "B.S.",
+          "field": "marine engineering and nautical science",
+          "year": 1986
+        },
+        {
+          "institution": "University of Arizona",
+          "degree": "M.S.",
+          "field": "aeronautical engineering",
+          "year": 1994
+        },
+        {
+          "institution": "U.S. Naval Postgraduate School",
+          "degree": "M.S.",
+          "field": "aeronautical engineering",
+          "year": null
+        }
+      ],
+      "voting_record": [
+        {
+          "bill_name": "Inflation Reduction Act",
+          "vote": "yes",
+          "date": "2022-08-07",
+          "source": {
+            "url": "https://www.congress.gov/bill/117th-congress/house-bill/5376",
+            "type": "government",
+            "title": "H.R.5376 - Inflation Reduction Act of 2022",
+            "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+          }
+        },
+        {
+          "bill_name": "Bipartisan Infrastructure Law",
+          "vote": "yes",
+          "date": "2021-08-10",
+          "source": {
+            "url": "https://www.congress.gov/bill/117th-congress/house-bill/3684",
+            "type": "government",
+            "title": "H.R.3684 - Infrastructure Investment and Jobs Act",
+            "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+          }
+        },
+        {
+          "bill_name": "Respect for Marriage Act",
+          "vote": "yes",
+          "date": "2022-11-29",
+          "source": {
+            "url": "https://www.congress.gov/bill/117th-congress/house-bill/8404",
+            "type": "government",
+            "title": "H.R.8404 - Respect for Marriage Act",
+            "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+          }
+        },
+        {
+          "bill_name": "Laken Riley Act",
+          "vote": "no",
+          "date": "2025-01-20",
+          "source": {
+            "url": "https://www.congress.gov/bill/119th-congress/senate-bill/5",
+            "type": "government",
+            "title": "S.5 - Laken Riley Act",
+            "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+          }
+        },
+        {
+          "bill_name": "Fiscal Responsibility Act of 2023",
+          "vote": "yes",
+          "date": "2023-06-01",
+          "source": {
+            "url": "https://www.congress.gov/bill/118th-congress/house-bill/3746",
+            "type": "government",
+            "title": "H.R.3746 - Fiscal Responsibility Act of 2023",
+            "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+          }
+        },
+        {
+          "bill_name": "PN730-46: Ryan McCormack nomination",
+          "vote": "yes",
+          "date": "2026-02-26",
+          "source": {
+            "url": "https://www.govtrack.us/congress/members/mark_kelly/456794",
+            "type": "news",
+            "title": "Sen. Mark Kelly [D-AZ, 2020-2028], Senator for Arizona - GovTrack.us",
+            "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+          }
+        },
+        {
+          "bill_name": "H.R. 6938: Commerce, Justice, Science; Energy and Water Development; and Interior and Environment Appropriations Act, 2026",
+          "vote": "yes",
+          "date": "2026-01-15",
+          "source": {
+            "url": "https://www.govtrack.us/congress/members/mark_kelly/456794",
+            "type": "news",
+            "title": "Sen. Mark Kelly [D-AZ, 2020-2028], Senator for Arizona - GovTrack.us",
+            "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+          }
+        },
+        {
+          "bill_name": "PN520-4: Susan Courtwright Rodriguez nomination",
+          "vote": "yes",
+          "date": "2025-12-04",
+          "source": {
+            "url": "https://www.govtrack.us/congress/members/mark_kelly/456794",
+            "type": "news",
+            "title": "Sen. Mark Kelly [D-AZ, 2020-2028], Senator for Arizona - GovTrack.us",
+            "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+          }
+        },
+        {
+          "bill_name": "PN11-23: Lee Zeldin nomination",
+          "vote": "yes",
+          "date": "2025-01-29",
+          "source": {
+            "url": "https://www.govtrack.us/congress/members/mark_kelly/456794",
+            "type": "news",
+            "title": "Sen. Mark Kelly [D-AZ, 2020-2028], Senator for Arizona - GovTrack.us",
+            "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+          }
+        },
+        {
+          "bill_name": "H.J.Res. 109 (118th)",
+          "vote": "yes",
+          "date": "2024-05-16",
+          "source": {
+            "url": "https://www.govtrack.us/congress/members/mark_kelly/456794",
+            "type": "news",
+            "title": "Sen. Mark Kelly [D-AZ, 2020-2028], Senator for Arizona - GovTrack.us",
+            "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+          }
+        },
+        {
+          "bill_name": "PN649: Monica M. Bertagnolli nomination",
+          "vote": "yes",
+          "date": "2023-11-07",
+          "source": {
+            "url": "https://www.govtrack.us/congress/members/mark_kelly/456794",
+            "type": "news",
+            "title": "Sen. Mark Kelly [D-AZ, 2020-2028], Senator for Arizona - GovTrack.us",
+            "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+          }
+        },
+        {
+          "bill_name": "PN29: Eric M. Garcetti nomination",
+          "vote": "no",
+          "date": "2023-03-15",
+          "source": {
+            "url": "https://www.govtrack.us/congress/members/mark_kelly/456794",
+            "type": "news",
+            "title": "Sen. Mark Kelly [D-AZ, 2020-2028], Senator for Arizona - GovTrack.us",
+            "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+          }
+        },
+        {
+          "bill_name": "PN162: Patrice H. Kunesh nomination",
+          "vote": "yes",
+          "date": "2023-03-08",
+          "source": {
+            "url": "https://www.govtrack.us/congress/members/mark_kelly/456794",
+            "type": "news",
+            "title": "Sen. Mark Kelly [D-AZ, 2020-2028], Senator for Arizona - GovTrack.us",
+            "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+          }
+        },
+        {
+          "bill_name": "PN1522: Jerome H. Powell nomination",
+          "vote": "yes",
+          "date": "2022-05-12",
+          "source": {
+            "url": "https://www.govtrack.us/congress/members/mark_kelly/456794",
+            "type": "news",
+            "title": "Sen. Mark Kelly [D-AZ, 2020-2028], Senator for Arizona - GovTrack.us",
+            "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+          }
+        },
+        {
+          "bill_name": "PN2246: Charles Edward Atchley Jr. nomination",
+          "vote": "yes",
+          "date": "2020-12-17",
+          "source": {
+            "url": "https://www.govtrack.us/congress/members/mark_kelly/456794",
+            "type": "news",
+            "title": "Sen. Mark Kelly [D-AZ, 2020-2028], Senator for Arizona - GovTrack.us",
+            "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+          }
+        }
+      ],
+      "top_donors": [
+        {
+          "name": "University of Arizona",
+          "amount": 19875,
+          "organization": "University of Arizona",
+          "source": {
+            "url": "https://www.opensecrets.org/members-of-congress/contributors?cycle=2024&cid=N00044223",
+            "type": "website",
+            "title": "Sen. Mark Kelly - Arizona - OpenSecrets",
+            "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+          }
+        },
+        {
+          "name": "Amazon.com",
+          "amount": 17761,
+          "organization": "Amazon.com",
+          "source": {
+            "url": "https://www.opensecrets.org/members-of-congress/contributors?cycle=2024&cid=N00044223",
+            "type": "website",
+            "title": "Sen. Mark Kelly - Arizona - OpenSecrets",
+            "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+          }
+        },
+        {
+          "name": "Arizona State University",
+          "amount": 14758,
+          "organization": "Arizona State University",
+          "source": {
+            "url": "https://www.opensecrets.org/members-of-congress/contributors?cycle=2024&cid=N00044223",
+            "type": "website",
+            "title": "Sen. Mark Kelly - Arizona - OpenSecrets",
+            "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+          }
+        },
+        {
+          "name": "Haberfeld Assoc",
+          "amount": 13200,
+          "organization": "Haberfeld Assoc",
+          "source": {
+            "url": "https://www.opensecrets.org/members-of-congress/contributors?cycle=2024&cid=N00044223",
+            "type": "website",
+            "title": "Sen. Mark Kelly - Arizona - OpenSecrets",
+            "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+          }
+        },
+        {
+          "name": "Albright Stonebridge Group",
+          "amount": 10400,
+          "organization": "Albright Stonebridge Group",
+          "source": {
+            "url": "https://www.opensecrets.org/members-of-congress/contributors?cycle=2024&cid=N00044223",
+            "type": "website",
+            "title": "Sen. Mark Kelly - Arizona - OpenSecrets",
+            "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+          }
+        }
+      ],
+      "issues": {
+        "Healthcare": {
+          "stance": "Kelly says he is focused on lowering health care costs for Arizona families, including protecting Affordable Care Act subsidies and lowering prescription drug prices.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.kelly.senate.gov/priorities/",
+              "type": "website",
+              "title": "Priorities - Senator Mark Kelly",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            },
+            {
+              "url": "https://www.kelly.senate.gov/newsroom/press-releases/kelly-presses-trump-for-action-to-lower-health-care-costs-for-arizona-families/",
+              "type": "website",
+              "title": "Kelly Presses Trump for Action to Lower Health Care Costs for Arizona Families",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Kelly says Washington should lower costs for Arizona families by fixing supply-chain bottlenecks, strengthening energy independence, boosting domestic microchip production, and supporting job creation through infrastructure and job training.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.kelly.senate.gov/priorities/",
+              "type": "website",
+              "title": "Priorities - Senator Mark Kelly",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Kelly says Arizona needs cleaner, more affordable energy and has backed policies to modernize the grid, expand clean energy, and protect low-income households from high energy costs.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.kelly.senate.gov/newsroom/press-releases/kelly-gallego-respond-to-new-report-confirming-arizona-is-shortchanged-on-federal-energy-assistance/",
+              "type": "website",
+              "title": "Kelly, Gallego Respond to New Report Confirming Arizona Is Shortchanged on Federal Energy Assistance",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            },
+            {
+              "url": "https://www.kelly.senate.gov/newsroom/press-releases/support-rolls-in-for-kellys-ai-for-america/",
+              "type": "website",
+              "title": "Support Rolls in for Kelly\u2019s AI for America",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            }
+          ]
+        },
+        "Reproductive Rights": {
+          "stance": "Kelly supports codifying Roe v. Wade into federal law and says women, not politicians, should make abortion decisions.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.kelly.senate.gov/newsroom/press-releases/kelly-statement-on-roe-v-wade-anniversary/",
+              "type": "website",
+              "title": "Kelly Statement on Roe v. Wade Anniversary",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            },
+            {
+              "url": "https://www.kelly.senate.gov/newsroom/press-releases/kelly-statement-on-arizona-senate-voting-to-repeal-abortion-ban/",
+              "type": "website",
+              "title": "Kelly Statement on Arizona Senate Voting to Repeal Abortion Ban",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Kelly says the border should be secured with more resources, technology, staffing, and coordination, while also supporting Dreamers and an earned pathway to citizenship for long-term undocumented immigrants.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.kelly.senate.gov/priorities/",
+              "type": "website",
+              "title": "Priorities - Senator Mark Kelly",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            },
+            {
+              "url": "https://www.kelly.senate.gov/newsroom/press-releases/sens-kelly-cortez-masto-and-durbin-push-to-allow-dreamers-to-work-in-congress/",
+              "type": "website",
+              "title": "Sens. Kelly, Cortez Masto, and Durbin Push to Allow Dreamers to Work in Congress",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            },
+            {
+              "url": "https://www.kelly.senate.gov/newsroom/press-releases/kelly-colleagues-oppose-trump-administrations-proposed-rule-to-take-aca-eligibility-away-from-dreamers/",
+              "type": "website",
+              "title": "Kelly, Colleagues Oppose Trump Administration's Proposed Rule to Take ACA Eligibility Away from Dreamers",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            }
+          ]
+        },
+        "Guns & Safety": {
+          "stance": "Kelly supports gun violence prevention measures, including background checks and other federal gun-safety legislation.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.kelly.senate.gov/priorities/",
+              "type": "website",
+              "title": "Priorities - Senator Mark Kelly",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            },
+            {
+              "url": "https://www.markkelly.com/",
+              "type": "website",
+              "title": "Mark Kelly for Senate",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Kelly\u2019s public foreign-policy profile centers on support for U.S. alliances, military readiness, and oversight of U.S. global engagement; his Senate biography emphasizes his Navy and astronaut background rather than a detailed standalone foreign-policy platform.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.kelly.senate.gov/about/",
+              "type": "website",
+              "title": "About Mark - Senator Mark Kelly",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            },
+            {
+              "url": "https://www.congress.gov/member/mark-kelly/K000377",
+              "type": "government",
+              "title": "Senator Mark Kelly - Congress.gov",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            }
+          ]
+        },
+        "Social Justice": {
+          "stance": "Kelly generally frames social-policy issues around civil rights, inclusion, and protecting vulnerable groups, including support for Dreamers and anti-discrimination protections.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.kelly.senate.gov/priorities/",
+              "type": "website",
+              "title": "Priorities - Senator Mark Kelly",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            },
+            {
+              "url": "https://www.kelly.senate.gov/",
+              "type": "website",
+              "title": "Senator Mark Kelly",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Kelly\u2019s stated education-related focus is on expanding job training, apprenticeships, and workforce preparation rather than K-12 policy.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.kelly.senate.gov/priorities/",
+              "type": "website",
+              "title": "Priorities - Senator Mark Kelly",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "Kelly has called for stronger AI oversight and a federal framework that makes AI companies help pay for worker retraining, infrastructure, and responsible deployment.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.kelly.senate.gov/newsroom/press-releases/support-rolls-in-for-kellys-ai-for-america/",
+              "type": "website",
+              "title": "Support Rolls in for Kelly\u2019s AI for America",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            },
+            {
+              "url": "https://www.kelly.senate.gov/newsroom/press-releases/in-the-news-kelly-releases-ai-for-america-a-roadmap-for-lasting-leadership-that-benefits-all-americans/",
+              "type": "website",
+              "title": "In the News: Kelly Releases AI for America, a Roadmap for Lasting Leadership that Benefits All Americans",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            }
+          ]
+        },
+        "Election Reform": {
+          "stance": "Kelly supports expanding voting access and tightening election rules to reduce barriers, including protecting vote-by-mail, making Election Day a federal holiday, banning partisan gerrymandering, and increasing election security.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.kelly.senate.gov/newsroom/press-releases/senator-kelly-statement-on-voting-rights-and-senate-rules/",
+              "type": "website",
+              "title": "Senator Kelly Statement on Voting Rights and Senate Rules",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            },
+            {
+              "url": "https://www.kelly.senate.gov/priorities/",
+              "type": "website",
+              "title": "Priorities - Senator Mark Kelly",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Kelly emphasizes Arizona-specific concerns such as lowering costs, water security, infrastructure, border security, and job creation, including drought resiliency and upgrades to water systems, roads, bridges, broadband, and ports of entry.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.kelly.senate.gov/priorities/",
+              "type": "website",
+              "title": "Priorities - Senator Mark Kelly",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Kari Lake",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Kari Lake is a former television news anchor and Republican political figure in Arizona. She has run as a conservative, Trump-aligned candidate focused on immigration, election integrity, and opposition to Democratic policies.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Kari_Lake",
+          "type": "website",
+          "title": "Kari Lake - Ballotpedia",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        },
+        {
+          "url": "https://www.axios.com/2023/10/11/kari-lake-senate-announcement-trump",
+          "type": "news",
+          "title": "Kari Lake launches U.S. Senate campaign in Arizona - Axios",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        },
+        {
+          "url": "https://secure.karilake.com/",
+          "type": "website",
+          "title": "Kari Lake For Senate: Support",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Kari_Lake_by_Gage_Skidmore_4.jpg/500px-Kari_Lake_by_Gage_Skidmore_4.jpg",
+      "website": "https://secure.karilake.com/ebbbc664-d57e-427e-8173-cdbb7a04aece",
+      "social_media": {
+        "x": "https://x.com/KariLake",
+        "facebook": "https://www.facebook.com/TheKariLake/",
+        "instagram": "https://www.instagram.com/karilake/?hl=en"
+      },
+      "career_history": [
+        {
+          "title": "Senior advisor",
+          "organization": "U.S. Agency for Global Media",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Served in a senior advisory role at USAGM."
+        },
+        {
+          "title": "Television news anchor",
+          "organization": "KSAZ-TV (Fox 10 Phoenix)",
+          "start_year": 1999,
+          "end_year": 2021,
+          "description": "Worked as a local television news anchor in Phoenix for more than two decades."
+        },
+        {
+          "title": "Republican nominee for U.S. Senate",
+          "organization": "Arizona",
+          "start_year": 2024,
+          "end_year": 2024,
+          "description": "Ran in Arizona\u2019s 2024 U.S. Senate race."
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Iowa",
+          "degree": "B.A.",
+          "field": "journalism and mass communication",
+          "year": null
+        }
+      ],
+      "voting_record": [],
+      "top_donors": [
+        {
+          "name": "Crownquest Operating",
+          "amount": 150000,
+          "organization": "Crownquest Operating",
+          "source": {
+            "url": "https://www.opensecrets.org/joint-fundraising-committees-jfcs/kari-lake-victory-fund/C00856120/2024/donors",
+            "type": "website",
+            "title": "Kari Lake Victory Fund Top Donors, 2024 - OpenSecrets",
+            "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+          }
+        },
+        {
+          "name": "Rich Dad Co",
+          "amount": 120000,
+          "organization": "Rich Dad Co",
+          "source": {
+            "url": "https://www.opensecrets.org/joint-fundraising-committees-jfcs/kari-lake-victory-fund/C00856120/2024/donors",
+            "type": "website",
+            "title": "Kari Lake Victory Fund Top Donors, 2024 - OpenSecrets",
+            "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+          }
+        },
+        {
+          "name": "Mt Vernon Investments",
+          "amount": 106600,
+          "organization": "Mt Vernon Investments",
+          "source": {
+            "url": "https://www.opensecrets.org/joint-fundraising-committees-jfcs/kari-lake-victory-fund/C00856120/2024/donors",
+            "type": "website",
+            "title": "Kari Lake Victory Fund Top Donors, 2024 - OpenSecrets",
+            "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+          }
+        },
+        {
+          "name": "Rich Dad Operating Co",
+          "amount": 101000,
+          "organization": "Rich Dad Operating Co",
+          "source": {
+            "url": "https://www.opensecrets.org/joint-fundraising-committees-jfcs/kari-lake-victory-fund/C00856120/2024/donors",
+            "type": "website",
+            "title": "Kari Lake Victory Fund Top Donors, 2024 - OpenSecrets",
+            "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+          }
+        },
+        {
+          "name": "Huntive Tn Farms",
+          "amount": 100000,
+          "organization": "Huntive Tn Farms",
+          "source": {
+            "url": "https://www.opensecrets.org/joint-fundraising-committees-jfcs/kari-lake-victory-fund/C00856120/2024/donors",
+            "type": "website",
+            "title": "Kari Lake Victory Fund Top Donors, 2024 - OpenSecrets",
+            "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+          }
+        }
+      ],
+      "issues": {
+        "Healthcare": {
+          "stance": "Lake has said she wants to support families through policies such as baby bonuses, expanded child tax credits, paid family leave, and prenatal care resources.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.nbcnews.com/politics/2024-election/kari-lake-clarifies-stance-abortion-rcna141431",
+              "type": "news",
+              "title": "Kari Lake clarifies her stance on abortion",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            },
+            {
+              "url": "https://www.facebook.com/NewsNationNow/posts/kari-lake-candidate-for-us-senate-in-arizona-joins-the-hill-to-discuss-her-views/525760673164288/",
+              "type": "social_media",
+              "title": "Kari Lake, candidate for U.S. Senate in Arizona, joins \u201cThe Hill\u201d to discuss her views on abortion legislation",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Lake says inflation and federal economic policy are hurting Arizona families and has said she wants to return to the \"Trump economy,\" reshore manufacturing, and bring more jobs back to Arizona.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.pbs.org/video/kari-lake-one-on-one-interview-swunld/",
+              "type": "news",
+              "title": "AZ Votes | Kari Lake one-on-one interview | Oct. 3, 2024 | Season 2024 | Episode 44 | PBS",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            },
+            {
+              "url": "https://azpbs.org/azvotes/2024/10/one-on-one-interview-with-kari-lake-oct-3-2024/",
+              "type": "news",
+              "title": "One-on-one interview with Kari Lake - Arizona PBS",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Lake\u2019s publicly available campaign position on climate and energy was not clearly stated in the sources reviewed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.politifact.com/article/2024/oct/10/fact-checking-the-arizona-senate-debate-between-ru/",
+              "type": "news",
+              "title": "Fact-checking the Arizona Senate debate between Ruben Gallego, Kari Lake",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            },
+            {
+              "url": "https://www.npr.org/2023/10/10/1204870164/arizona-republican-kari-lake-launches-2024-senate-campaign",
+              "type": "news",
+              "title": "Arizona Republican Kari Lake launches 2024 Senate campaign",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            }
+          ]
+        },
+        "Reproductive Rights": {
+          "stance": "Lake has opposed abortion rights and, in a March 2024 NBC News interview, said she opposes a federal abortion ban and does not support a near-total state ban, while saying she expects Arizona to settle on a 15- to 24-week limit with exceptions for rape, incest, and the mother's health.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.nbcnews.com/politics/2024-election/kari-lake-clarifies-stance-abortion-rcna141431",
+              "type": "news",
+              "title": "Kari Lake clarifies her stance on abortion",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            },
+            {
+              "url": "https://azmirror.com/2023/10/13/reproductive-rights-advocates-say-kari-lake-is-spreading-blatant-lies-about-abortion/",
+              "type": "news",
+              "title": "Reproductive rights advocates say Kari Lake is spreading 'blatant lies' about abortion",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            },
+            {
+              "url": "https://azmirror.com/2024/04/17/kari-lake-flips-on-abortion-ban-but-at-tucson-event-says-she-wants-to-save-as-many-babies-as-possible/",
+              "type": "news",
+              "title": "Kari Lake flips on abortion ban, but says she wants to 'save as many babies as possible'",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Lake has centered her immigration message on border security and enforcement, including calls to secure the border and end illegal immigration.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.kawc.org/news/2024-10-23/kari-lake-at-the-border-near-yuma-says-shell-secure-the-border-and-end-illegal-immigration",
+              "type": "news",
+              "title": "Kari Lake, at the border near Yuma, says she'll 'secure the border and end illegal immigration'",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            },
+            {
+              "url": "https://www.ivpressonline.com/featured/republican-u-s-senate-candidate-kari-lake-highlights-border-security-concerns-in-yuma/article_a140ae62-9617-11ef-a247-eb0e9d0ee098.html",
+              "type": "news",
+              "title": "Republican U.S. Senate candidate Kari Lake highlights border security concerns in Yuma",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            }
+          ]
+        },
+        "Guns & Safety": {
+          "stance": "Lake opposes red-flag laws and has argued against gun restrictions such as magazine-capacity bans and gun-free zones.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.politifact.com/factchecks/2022/nov/09/everytown-gun-safety/yes-arizona-republican-governor-candidate-kari-lak/",
+              "type": "news",
+              "title": "Yes, Arizona Republican governor candidate Kari Lake opposes red flag laws - PolitiFact",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            },
+            {
+              "url": "https://gunsensevoter.org/candidates/",
+              "type": "website",
+              "title": "Your 2026 Gun Sense Candidates - Gun Sense Voter",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Lake\u2019s foreign-policy profile in the sources reviewed is limited, but her public role at the U.S. Agency for Global Media and her congressional testimony have focused on U.S. international broadcasting and media oversight rather than a detailed Senate foreign-policy agenda.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.usagm.gov/2025/03/15/u-s-agency-for-global-media-complies-with-presidential-executive-order-to-reduce-the-federal-bureaucracy/",
+              "type": "government",
+              "title": "U.S. Agency for Global Media complies with presidential executive order to reduce the federal bureaucracy",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            },
+            {
+              "url": "https://docs.house.gov/meetings/FA/FA00/20250625/118430/HHRG-119-FA00-Wstate-LakeK-20250625.pdf",
+              "type": "government",
+              "title": "Kari Lake testimony before House Committee on Foreign Affairs",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            }
+          ]
+        },
+        "Social Justice": {
+          "stance": "Lake has taken socially conservative positions and has been criticized by LGBTQ-rights groups for opposing nondiscrimination protections and gender-identity education policies.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.hrc.org/press-releases/hrc-arizonans-will-again-reject-anti-lgbtq-trump-disciple-kari-lake-in-november",
+              "type": "news",
+              "title": "HRC: Arizonans Will Again Reject Anti-LGBTQ+ Trump Disciple Kari Lake in November",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            },
+            {
+              "url": "https://glaad.org/gap/kari-lake/",
+              "type": "website",
+              "title": "Kari Lake | GLAAD",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "No clear, detailed education policy statement from Lake was identified in the sources reviewed; her public messaging in this race has focused more on border security, inflation, and election issues.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.pbs.org/video/kari-lake-one-on-one-interview-swunld/",
+              "type": "news",
+              "title": "AZ Votes | Kari Lake one-on-one interview | Oct. 3, 2024 | Season 2024 | Episode 44 | PBS",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            },
+            {
+              "url": "https://azpbs.org/azvotes/2024/10/one-on-one-interview-with-kari-lake-oct-3-2024/",
+              "type": "news",
+              "title": "One-on-one interview with Kari Lake - Arizona PBS",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "Lake has not been found to have a detailed, publicly stated AI policy in the sources reviewed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.washingtonpost.com/politics/2024/03/24/kari-lake-deepfake/",
+              "type": "news",
+              "title": "Deepfake Kari Lake video shows coming chaos of AI in elections",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            },
+            {
+              "url": "https://www.azfamily.com/2024/03/26/deepfake-video-kari-lake-highlights-potential-problem-election-season/",
+              "type": "news",
+              "title": "AI video of Kari Lake highlights potential problem election season",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            },
+            {
+              "url": "https://thehill.com/homenews/state-watch/4549493-arizona-newsletter-kari-lake-deep-fake/",
+              "type": "news",
+              "title": "Arizona newsletter makes Kari Lake deepfake - The Hill",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            }
+          ]
+        },
+        "Election Reform": {
+          "stance": "Lake has centered her election-reform message on election integrity and has repeatedly raised concerns about election fraud and certification of results.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.wired.com/story/kari-lake-campaign-claims-election-fraud/",
+              "type": "news",
+              "title": "Arizona's Kari Lake Is Already Claiming Election Fraud - WIRED",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            },
+            {
+              "url": "https://thehill.com/homenews/campaign/4925001-lake-dodges-2024-election-certification/",
+              "type": "news",
+              "title": "Kari Lake dodges question over whether she'd certify 2024 election",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Lake\u2019s local-issues messaging in Arizona has focused heavily on border security and immigration, especially the southern border.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.nytimes.com/2024/02/29/us/politics/kari-lake-arizona.html",
+              "type": "news",
+              "title": "Kari Lake Blasts Border 'Invasion' Alongside Top Senate Republican",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            },
+            {
+              "url": "https://www.azfamily.com/2024/10/24/kari-lake-talks-tough-border-secuirty-yuma-county/",
+              "type": "news",
+              "title": "Kari Lake talks tough on border security in Yuma County",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            },
+            {
+              "url": "https://www.coloradopolitics.com/2024/10/10/five-takeaways-from-arizona-senate-debate-between-lake-and-gallego-that-centered-on-border-crisis/",
+              "type": "news",
+              "title": "Five takeaways from Arizona Senate debate between Lake and Gallego that centered on border crisis",
+              "last_accessed": "2026-03-29T18:47:46.628775+00:00"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "updated_utc": "2026-03-29T18:47:46.628775+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "claude-haiku-4-5-20251001",
+    "gemini-3.1-flash-lite-preview",
+    "grok-3-mini"
+  ],
+  "reviews": [
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "reviewed_at": "2026-03-29T18:48:13.416866+00:00",
+      "verdict": "needs_revision",
+      "flags": [
+        {
+          "field": "candidates[1].career_history[0]",
+          "concern": "Kari Lake's role as 'Senior advisor' at USAGM lists start_year as 2025, but the profile's access dates are March 2026, suggesting this is current. The USAGM source URL references a March 2025 press release, which is consistent, but the job title and responsibilities deserve more specificity than 'advisory role.'",
+          "suggestion": "Verify the exact title, scope, and dates of Lake's USAGM role. If still current, end_year should remain null; if not, update accordingly.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].voting_record",
+          "concern": "Kari Lake has no voting record entries. While this is factually correct (she has not held elective office), the profile should explicitly note in a comment or explanation that she is not a sitting legislator rather than leaving the array empty without context.",
+          "suggestion": "Add a note or use the existing empty array structure but document in issue stances that voting-record data is not applicable. Consider adding any relevant voting history if she served on appointed boards or commissions.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Climate_Energy",
+          "concern": "The stance is too vague: 'Lake's publicly available campaign position on climate and energy was not clearly stated in the sources reviewed.' With confidence marked 'low', this is essentially a non-answer. For a major Senate race, this gap is significant.",
+          "suggestion": "Conduct additional research into Lake's public statements, debate remarks, or campaign materials on climate, energy policy, or environmental regulation. If truly unavailable, mark confidence as 'very low' and note that Lake has not emphasized this issue in her 2026 campaign messaging, rather than leaving it blank.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Education",
+          "concern": "Stance reads as 'no clear, detailed education policy statement' with low confidence. This is a significant policy area and deserves more investigation or explicit acknowledgment of the gap.",
+          "suggestion": "Research Lake's prior statements as gubernatorial candidate or any recent comments on K-12, higher education, or workforce training. If unavailable, note that this appears deprioritized in her Senate messaging compared to immigration and inflation.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Tech_AI",
+          "concern": "The stance text discusses deepfake videos of Lake but does not state her actual AI policy position. With 'low' confidence, this is inadequate.",
+          "suggestion": "Distinguish between 'Lake was victim of a deepfake' (a news event) and 'Lake's AI policy stance.' Search for any statements on AI regulation, tech industry oversight, or related topics. If unavailable, explicitly state that she has not articulated a detailed AI policy.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Election_Reform",
+          "concern": "The stance focuses on Lake's concerns about election fraud and her reluctance to certify results, but sourcing is sparse (only two sources, both with 'medium' confidence). This is a central issue in her political profile and deserves stronger sourcing.",
+          "suggestion": "Add additional sources documenting her specific election-integrity proposals, statements on mail-in voting, voter ID, or other concrete policies beyond general fraud concerns. Include dates of statements to clarify which claims are current vs. 2022 or 2024 cycle remarks.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Foreign_Policy.confidence",
+          "concern": "Mark Kelly's Foreign Policy confidence is marked 'medium' with a reasonable justification (his Senate bio emphasizes military/astronaut background rather than detailed platform). This is appropriately cautious.",
+          "suggestion": "No change needed. This is honest and well-calibrated.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].education[2]",
+          "concern": "The U.S. Naval Postgraduate School M.S. in aeronautical engineering lists year as null. This degree should have a completion year for verification.",
+          "suggestion": "Verify and add the graduation year for Mark Kelly's Naval Postgraduate School degree. If unavailable, note 'year unknown' rather than null.",
+          "severity": "warning"
+        },
+        {
+          "field": "election_date",
+          "concern": "The election_date is listed as '2026-11-03', which is a Tuesday. U.S. federal elections are held on the Tuesday after the first Monday in November. In 2026, that would be November 3. This appears correct, but confirm.",
+          "suggestion": "Verify that November 3, 2026 is indeed the first Tuesday after the first Monday of November (it is). No change needed.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Reproductive_Rights.sources",
+          "concern": "The abortion stance is sourced primarily to an NBC News article from March 2024 ('clarifies her stance'). However, the April 2024 Arizona Mirror article titled 'Kari Lake flips on abortion ban' suggests her position may have shifted. The profile should clarify whether these represent a true flip or clarification of the same position.",
+          "suggestion": "Review both articles and make clear in the stance text whether Lake changed her position between March and April 2024, or if April article describes internal campaign tension. If she did shift, note the evolution in the stance text.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Social_Justice.sources",
+          "concern": "Sources are advocacy organization websites (HRC, GLAAD) rather than neutral news or Lake's own statements. While these are credible organizations, the profile should include a direct quote or link to Lake's own position statements to balance.",
+          "suggestion": "Add a news source or Lake's own campaign statement on LGBTQ issues, gender-identity education, or nondiscrimination protections to complement the advocacy perspectives.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].top_donors",
+          "concern": "Mark Kelly's top donors are listed from 2024 cycle (current cycle data may be more recent). Similarly, Kari Lake's 2024 donors are shown. For a 2026 race profile updated in March 2026, 2024 data is somewhat stale; 2025-2026 fundraising data would be more relevant.",
+          "suggestion": "Update donor lists to include 2025 and early 2026 cycle data from OpenSecrets or FEC filings, if available.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].summary",
+          "concern": "The summary describes Lake as 'focused on immigration, election integrity, and opposition to Democratic policies.' This is fair, but the phrase 'opposition to Democratic policies' is vague and somewhat generic. A more specific descriptor of her platform would strengthen this.",
+          "suggestion": "Reword to something like: 'focused on border security, election integrity, and economic populism aligned with the Trump administration's agenda' or similar, depending on what research shows her primary messaging to be.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues",
+          "concern": "Mark Kelly has 11 issue areas well-documented with high or medium confidence. This is comprehensive. However, one minor note: the description field mentions 'abortion' but the profile spells out 'Reproductive Rights' as an issue. Ensure all issues mentioned in the race description are covered in both candidates' profiles.",
+          "suggestion": "Confirm that all four issues mentioned in the race description (border security, costs, abortion, election issues) are addressed in both candidates' profiles. They appear to be, but verify cross-mapping.",
+          "severity": "info"
+        }
+      ],
+      "summary": "This is a well-structured and generally well-sourced profile with strong coverage of Mark Kelly's positions and voting record. However, there are meaningful gaps and concerns with Kari Lake's profile that require attention: notably the absence of any voting record (understandable given she has not held elective office, but this should be explicitly clarified), significant inconsistencies and incompleteness in issue stances (especially Climate/Energy, Education, and Tech & AI), and some source quality issues. Additionally, there are minor accuracy and dating concerns that should be verified."
+    },
+    {
+      "model": "gemini-3.1-flash-lite-preview",
+      "reviewed_at": "2026-03-29T18:47:50.683546+00:00",
+      "verdict": "needs_revision",
+      "flags": [
+        {
+          "field": "candidates[1].career_history[0]",
+          "concern": "The entry 'Senior advisor, U.S. Agency for Global Media (2025\u2013present)' is unsubstantiated and appears to be a hallucination or misinterpretation of external news sources.",
+          "suggestion": "Verify current employment status through official USAGM rosters or reliable reporting. If unverified, remove this entry.",
+          "severity": "error"
+        },
+        {
+          "field": "candidates[1].career_history[2]",
+          "concern": "The description implies the 2024 race is the only relevant electoral history, which is misleading given her 2022 gubernatorial run is missing.",
+          "suggestion": "Add an entry for the 2022 Arizona gubernatorial election to ensure a complete career timeline.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].website",
+          "concern": "The URL provided contains a long, session-specific/dynamic token string (ebbbc664-d57e-427e-8173-cdbb7a04aece), which is not a persistent or clean link.",
+          "suggestion": "Replace with the primary campaign domain: https://www.karilake.com/",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].voting_record",
+          "concern": "The voting record field is empty. While she is not an incumbent, it is best practice to label this as 'N/A' or include a note explaining that the candidate has never held a legislative office with a public voting record.",
+          "suggestion": "Add a descriptive note or null value to clarify why the array is empty.",
+          "severity": "info"
+        }
+      ],
+      "summary": "The profile is well-structured and provides a balanced, neutral comparison of the two candidates. The sourcing for Mark Kelly is excellent, utilizing primary government and campaign documents. However, the profile contains significant factual errors regarding Kari Lake's current career status and lacks consistency in the candidate's electoral history, likely due to the inclusion of legacy 2024 data."
+    },
+    {
+      "model": "grok-3-mini",
+      "reviewed_at": "2026-03-29T18:48:08.198888+00:00",
+      "verdict": "approved",
+      "flags": [
+        {
+          "field": "candidates[0].education[2].year",
+          "concern": "The year for Mark Kelly's degree from the U.S. Naval Postgraduate School is listed as null, which may indicate incomplete information and could affect the completeness of his educational background.",
+          "suggestion": "Verify and update with the accurate graduation year from reliable sources, such as official records or biographies.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].education[0].year",
+          "concern": "The year for Kari Lake's B.A. from the University of Iowa is listed as null, potentially leaving a gap in her educational history.",
+          "suggestion": "Research and add the correct graduation year from credible sources to enhance completeness.",
+          "severity": "info"
+        },
+        {
+          "field": "polling",
+          "concern": "The polling array is empty, which may represent a gap in current data for this race, potentially affecting the profile's completeness regarding electoral trends.",
+          "suggestion": "Incorporate available polling data from reputable sources like FiveThirtyEight or RealClearPolitics if it exists, or note the absence explicitly.",
+          "severity": "warning"
+        }
+      ],
+      "summary": "This profile is a well-constructed and balanced overview of the 2026 Arizona Senate race, with accurate representations of candidates' backgrounds, voting records, and issue stances drawn from credible sources like official government sites, campaign pages, and reputable news outlets. It excels in providing high-confidence details for Mark Kelly's career history, education, and policy positions, while fairly noting uncertainties in Kari Lake's less-documented areas, ensuring a comprehensive and neutral presentation overall."
+    }
+  ]
+}

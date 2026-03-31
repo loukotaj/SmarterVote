@@ -1,0 +1,1505 @@
+{
+  "id": "nv-governor-2026",
+  "title": "2026 Nevada gubernatorial election",
+  "office": "Governor of Nevada",
+  "jurisdiction": "Nevada",
+  "election_date": "2026-11-03",
+  "description": "Nevada will elect its next governor in 2026, with the primary scheduled for June 9 and the general election on November 3. The race is expected to be competitive in a closely divided state that has recently elected governors from both parties. Incumbent Republican Joe Lombardo is seeking reelection, while Democrats Aaron Ford and Alexis Hill are among the better-known challengers. Early polling has shown Lombardo and Ford in a dead heat, suggesting the contest may turn on affordability, education, public safety, and abortion rights.",
+  "polling": [
+    {
+      "pollster": "Emerson College",
+      "date": "2025-11-18",
+      "sample_size": 800,
+      "matchups": [
+        {
+          "candidates": [
+            "Aaron Ford",
+            "Joe Lombardo"
+          ],
+          "percentages": [
+            41.0,
+            41.0
+          ]
+        }
+      ],
+      "source_url": "https://emersoncollegepolling.com/nevada-2026-poll/"
+    }
+  ],
+  "candidates": [
+    {
+      "name": "Joe Lombardo",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Joe Lombardo is the incumbent governor of Nevada and a former Clark County sheriff. His public profile emphasizes law enforcement, military service, and executive leadership, and his campaign focuses on public safety, education, and economic growth.",
+      "summary_sources": [
+        {
+          "url": "https://gov.nv.gov/AboutUs/Biography_Joe_Lombardo/",
+          "type": "government",
+          "title": "Nevada Governor Joe Lombardo",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        },
+        {
+          "url": "https://www.joelombardofornv.com/about",
+          "type": "website",
+          "title": "Get to Know Joe - Joe Lombardo for Governor",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Joe_Lombardo_by_Gage_Skidmore.jpg/500px-Joe_Lombardo_by_Gage_Skidmore.jpg",
+      "website": "https://www.joelombardofornv.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/JoeLombardoNV/",
+        "x": "https://x.com/JosephMLombardo?lang=en",
+        "instagram": "https://www.instagram.com/govjoelombardo/?hl=en"
+      },
+      "career_history": [
+        {
+          "title": "Governor",
+          "organization": "State of Nevada",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Governor of Nevada since 2023."
+        },
+        {
+          "title": "Sheriff",
+          "organization": "Clark County",
+          "start_year": 2015,
+          "end_year": 2023,
+          "description": "Elected sheriff of Clark County in 2014 and re-elected in 2018."
+        },
+        {
+          "title": "Assistant sheriff and other ranks",
+          "organization": "Las Vegas Metropolitan Police Department",
+          "start_year": 1987,
+          "end_year": 2015,
+          "description": "Served for 26 years in LVMPD, rising through multiple ranks."
+        },
+        {
+          "title": "Soldier",
+          "organization": "United States Army and Nevada National Guard",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served in the U.S. Army and Nevada National Guard after college."
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Nevada, Las Vegas",
+          "degree": "Bachelor of Science",
+          "field": null,
+          "year": null
+        },
+        {
+          "institution": "University of Nevada, Las Vegas",
+          "degree": "Master of Science",
+          "field": "Crisis Management",
+          "year": 2006
+        }
+      ],
+      "voting_record": [
+        {
+          "bill_name": "N/A",
+          "bill_description": "Joe Lombardo is governor and does not have a legislative roll-call voting record.",
+          "vote": "absent",
+          "date": "2026-03-29",
+          "source": {
+            "url": "https://ballotpedia.org/Joe_Lombardo",
+            "type": "website",
+            "title": "Joe Lombardo - Ballotpedia",
+            "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+          }
+        }
+      ],
+      "top_donors": [
+        {
+          "name": "Kristen Routh-Silberman Real Estate LLC",
+          "amount": 7500,
+          "organization": "Las Vegas, NV",
+          "source": {
+            "url": "https://www.opensecrets.org/donor-lookup/results?cand=joe+lombardo&order=desc&sort=A",
+            "type": "website",
+            "title": "Donor Lookup \u2022 OpenSecrets",
+            "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+          }
+        },
+        {
+          "name": "RW Investments LLC",
+          "amount": 5000,
+          "organization": "Las Vegas, NV",
+          "source": {
+            "url": "https://www.opensecrets.org/search?field=recip&q=joe+lombardo&type=donors",
+            "type": "website",
+            "title": "OpenSecrets",
+            "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+          }
+        },
+        {
+          "name": "Southern Nevada Building & Construction Trades Council",
+          "amount": null,
+          "organization": "Henderson, NV",
+          "source": {
+            "url": "https://www.opensecrets.org/donor-lookup/results?cand=joe+lombardo&order=desc&sort=A",
+            "type": "website",
+            "title": "Donor Lookup \u2022 OpenSecrets",
+            "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+          }
+        },
+        {
+          "name": "NV Republican Party Central Committee Non-Federal Victory",
+          "amount": null,
+          "organization": "Las Vegas, NV",
+          "source": {
+            "url": "https://www.opensecrets.org/search?field=recip&order=desc&page=60&q=lombardo&sort=D&type=donors",
+            "type": "website",
+            "title": "OpenSecrets",
+            "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+          }
+        },
+        {
+          "name": "Henderson Nissan",
+          "amount": null,
+          "organization": "Henderson, NV",
+          "source": {
+            "url": "https://www.opensecrets.org/donor-lookup/results?cand=joe+lombardo&page=2",
+            "type": "website",
+            "title": "Donor Lookup \u2022 OpenSecrets",
+            "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+          }
+        }
+      ],
+      "issues": {
+        "Healthcare": {
+          "stance": "Lombardo says he supports access to contraceptives as part of healthcare and says he will work to keep them accessible. He also says he is pro-life, but that Nevada voters should decide abortion law and that he does not support an abortion ban in Nevada.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.joelombardofornv.com/reproductive-health",
+              "type": "website",
+              "title": "Reproductive Health \u2014 Joe Lombardo for Governor",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://www.joelombardofornv.com/a-note-from-joe-lombardo",
+              "type": "website",
+              "title": "A note from Joe Lombardo \u2014 Joe Lombardo for Governor",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Lombardo\u2019s campaign emphasizes lower taxes, business growth, and workforce development. He says Nevada should cut red tape, support job training, and expand private-sector partnerships to strengthen the economy.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.joelombardofornv.com/issues-education",
+              "type": "website",
+              "title": "Education \u2014 Joe Lombardo for Governor",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://gov.nv.gov/",
+              "type": "government",
+              "title": "Joe Lombardo, Governor of Nevada",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Lombardo has not published a detailed climate platform in the sources reviewed. His public materials emphasize economic development and state governance rather than specific climate or energy policy proposals.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://gov.nv.gov/",
+              "type": "government",
+              "title": "Joe Lombardo, Governor of Nevada",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://www.joelombardofornv.com/",
+              "type": "website",
+              "title": "Joe Lombardo for Governor",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Reproductive Rights": {
+          "stance": "Lombardo says he is pro-life, but that Nevada voters\u2014not politicians\u2014should decide abortion law. He says he does not support an abortion ban in Nevada and supports access in cases of rape, incest, or when the mother\u2019s life is in jeopardy.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.joelombardofornv.com/reproductive-health",
+              "type": "website",
+              "title": "Reproductive Health \u2014 Joe Lombardo for Governor",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://www.joelombardofornv.com/a-note-from-joe-lombardo",
+              "type": "website",
+              "title": "A note from Joe Lombardo \u2014 Joe Lombardo for Governor",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Lombardo says Nevada should follow federal immigration law, support border security, and remove violent or repeat criminals from communities as swiftly and safely as possible. He has also said Nevada will not become a sanctuary state while he is governor.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://gov.nv.gov/Newsroom/PRs/2025/2025-02-26-_Statement-from-Governor-on-Model-Immigration-Policies/",
+              "type": "government",
+              "title": "Statement from Governor Lombardo on the Model Immigration Policies",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://gov.nv.gov/Newsroom/PRs/2026/2026-01-28_lombardo_issues_statement_on_ice-related_shootings/",
+              "type": "government",
+              "title": "Governor Lombardo Issues Statement On ICE-Related Shootings In Minnesota",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://www.justice.gov/opa/pr/justice-department-announces-memorandum-understanding-nevada-collaborate-immigration",
+              "type": "government",
+              "title": "Justice Department Announces Memorandum of Understanding with Nevada to Collaborate on Immigration Enforcement",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Guns & Safety": {
+          "stance": "Lombardo says he supports the Second Amendment, opposes gun registries and red-flag laws, and would veto legislation restricting ghost guns or magazine capacities. He also supports some gun-safety measures, including opposition to bump stocks and other dangerous aftermarket modifications.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.joelombardofornv.com/second-amendment",
+              "type": "website",
+              "title": "Second Amendment \u2014 Joe Lombardo for Governor",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://gov.nv.gov/Newsroom/PRs/2026/2026-02-06_lombardo-ceremonially-signs-nevada-safe-streets-and-neighborhoods-act/",
+              "type": "government",
+              "title": "Governor Lombardo ceremonially signs Nevada Safe Streets and Neighborhoods Act",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Lombardo has not published a detailed foreign policy platform in the sources reviewed. The clearest public statements found were reactive comments on national-security issues and support for President Trump\u2019s actions, rather than a distinct Nevada-specific foreign policy agenda.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://gov.nv.gov/Newsroom/PRs/2026/2026-01-28_lombardo_issues_statement_on_ice-related_shootings/",
+              "type": "government",
+              "title": "Governor Lombardo Issues Statement On ICE-Related Shootings In Minnesota",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://www.fox5vegas.com/2026/02/28/governor-joe-lombardo-addresses-u-s-attack-iran/",
+              "type": "news",
+              "title": "Governor Joe Lombardo addresses U.S. attack on Iran",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Social Justice": {
+          "stance": "Lombardo\u2019s campaign materials reviewed here emphasize public safety and constitutional rights rather than a detailed social-justice agenda. The sources reviewed do not show a comprehensive platform on racial justice, LGBTQ rights, or related issues.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.joelombardofornv.com/second-amendment",
+              "type": "website",
+              "title": "Second Amendment \u2014 Joe Lombardo for Governor",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://gov.nv.gov/Newsroom/PRs/2026/2026-02-06_lombardo-ceremonially-signs-nevada-safe-streets-and-neighborhoods-act/",
+              "type": "government",
+              "title": "Governor Lombardo ceremonially signs Nevada Safe Streets and Neighborhoods Act",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Lombardo\u2019s campaign says Nevada schools need accountability, school choice, and more options for families. He supports charter schools, opportunity scholarships, Education Savings Accounts, and workforce and vocational training.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.joelombardofornv.com/issues-education",
+              "type": "website",
+              "title": "Education \u2014 Joe Lombardo for Governor",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://www.fox5vegas.com/2026/03/26/governor-lombardo-joins-nevada-education-leaders-highlight-charter-school-growth/",
+              "type": "news",
+              "title": "Lombardo touts charter school growth, calls for facility ...",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "Lombardo has not published a detailed tech or AI platform in the sources reviewed. His campaign materials and official statements reviewed here do not provide a specific position on artificial intelligence or broader technology regulation.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.joelombardofornv.com/",
+              "type": "website",
+              "title": "Joe Lombardo for Governor",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://gov.nv.gov/",
+              "type": "government",
+              "title": "Joe Lombardo, Governor of Nevada",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Election Reform": {
+          "stance": "Lombardo has said election administration should remain a state issue and pushed back against nationalizing elections. His campaign materials do not appear to lay out a detailed election-reform agenda, so his position is best described as favoring state control over election rules.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://thenevadaindependent.com/article/indytalks-lombardo-pushes-against-nationalizing-elections-calls-it-state-issue",
+              "type": "news",
+              "title": "Lombardo pushes against nationalizing elections, calls it 'state issue'",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://www.joelombardofornv.com/",
+              "type": "website",
+              "title": "Joe Lombardo for Governor",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Lombardo\u2019s campaign emphasizes governing results and his first-term record, but the campaign homepage does not provide a detailed local-issues platform in the material reviewed. Based on available sources, his local-issues posture is general and results-oriented rather than issue-specific.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.joelombardofornv.com/",
+              "type": "website",
+              "title": "Joe Lombardo for Governor",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://www.reviewjournal.com/news/politics-and-government/nevada/nevada-governor-launches-re-election-bid-for-2026-3461156/",
+              "type": "news",
+              "title": "Joe Lombardo launches 2026 re-election campaign | Nevada | News",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Aaron Ford",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Aaron Ford is Nevada\u2019s attorney general and a former state senator. His campaign presents him as a former public school teacher and legislator focused on affordability, consumer protection, and public safety.",
+      "summary_sources": [
+        {
+          "url": "https://ag.nv.gov/About/AG_Aaron_Ford/",
+          "type": "government",
+          "title": "Nevada Attorney General Aaron Ford",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        },
+        {
+          "url": "https://www.fordfornevada.com/",
+          "type": "website",
+          "title": "Aaron Ford for Nevada Governor",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Nevada_Attorney_General_Aaron_Ford_addresses_the_United_Nations_Human_Rights_Committee%2C_October_17-18%2C_2023_1_%28cropped%29.jpg/500px-Nevada_Attorney_General_Aaron_Ford_addresses_the_United_Nations_Human_Rights_Committee%2C_October_17-18%2C_2023_1_%28cropped%29.jpg",
+      "website": "https://www.fordfornevada.com/",
+      "social_media": {
+        "x": "https://x.com/AaronDFordNV"
+      },
+      "career_history": [
+        {
+          "title": "Attorney General",
+          "organization": "State of Nevada",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Serves as Nevada\u2019s 34th attorney general."
+        },
+        {
+          "title": "State Senator",
+          "organization": "Nevada State Legislature",
+          "start_year": 2013,
+          "end_year": 2019,
+          "description": "Served as a state senator and held majority leader and minority leader roles."
+        },
+        {
+          "title": "Partner",
+          "organization": "Snell & Wilmer LLP",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked in private practice as a partner."
+        },
+        {
+          "title": "Partner",
+          "organization": "Eglet Adams",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked in private practice as a partner."
+        },
+        {
+          "title": "Public school math teacher",
+          "organization": "Public schools",
+          "start_year": null,
+          "end_year": null,
+          "description": "Taught math before entering law and politics."
+        }
+      ],
+      "education": [
+        {
+          "institution": "The Ohio State University",
+          "degree": "Ph.D.",
+          "field": "Educational Administration",
+          "year": null
+        },
+        {
+          "institution": "The Ohio State University",
+          "degree": "Law degree",
+          "field": null,
+          "year": null
+        },
+        {
+          "institution": "The Ohio State University",
+          "degree": null,
+          "field": "Interdisciplinary studies",
+          "year": null
+        },
+        {
+          "institution": "The Ohio State University",
+          "degree": null,
+          "field": "International education",
+          "year": null
+        },
+        {
+          "institution": "The Ohio State University",
+          "degree": null,
+          "field": "Educational administration",
+          "year": null
+        }
+      ],
+      "voting_record": [
+        {
+          "bill_name": "N/A",
+          "bill_description": "Aaron Ford is Nevada attorney general and does not have a legislative roll-call voting record.",
+          "vote": "absent",
+          "date": "2026-03-29",
+          "source": {
+            "url": "https://ballotpedia.org/Aaron_Ford_(Nevada)",
+            "type": "website",
+            "title": "Aaron Ford (Nevada) - Ballotpedia",
+            "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+          }
+        }
+      ],
+      "top_donors": [
+        {
+          "name": "Wynn Resorts",
+          "amount": 15000,
+          "organization": null,
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/aaron-d-ford/contributors?cycle=2022&id=6508433",
+            "type": "website",
+            "title": "Aaron D Ford Top Contributors - OpenSecrets",
+            "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+          }
+        },
+        {
+          "name": "Grant & Eisenhofer",
+          "amount": 14864,
+          "organization": null,
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/aaron-d-ford/contributors?cycle=2022&id=6508433",
+            "type": "website",
+            "title": "Aaron D Ford Top Contributors - OpenSecrets",
+            "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+          }
+        },
+        {
+          "name": "Hollis Public Affairs",
+          "amount": 10000,
+          "organization": null,
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/aaron-d-ford/contributors?cycle=2022&id=6508433",
+            "type": "website",
+            "title": "Aaron D Ford Top Contributors - OpenSecrets",
+            "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+          }
+        },
+        {
+          "name": "International Brotherhood Of Electrical Workers",
+          "amount": 10000,
+          "organization": null,
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/aaron-d-ford/contributors?cycle=2022&id=6508433",
+            "type": "website",
+            "title": "Aaron D Ford Top Contributors - OpenSecrets",
+            "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+          }
+        },
+        {
+          "name": "Everytown For Gun Safety",
+          "amount": 10000,
+          "organization": null,
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/aaron-d-ford/contributors?cycle=2022&id=6508433",
+            "type": "website",
+            "title": "Aaron D Ford Top Contributors - OpenSecrets",
+            "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+          }
+        }
+      ],
+      "issues": {
+        "Healthcare": {
+          "stance": "Ford says he would focus on lowering healthcare costs by addressing pharmacy benefit managers, relieving medical debt, and cracking down on price gouging and fraudulent medical billing. His campaign also says he has fought opioid companies and won more than $1.2 billion in opioid settlements as attorney general.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.fordfornevada.com/issues",
+              "type": "website",
+              "title": "Affordable Nevada \u2014 Aaron Ford for Nevada Governor",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://www.fordfornevada.com/",
+              "type": "website",
+              "title": "Aaron Ford for Nevada Governor",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Ford says Nevada\u2019s economy is too expensive for working families and that the state should be made more affordable by lowering costs, fighting corporate giveaways, and strengthening labor. His campaign\u2019s affordability agenda focuses on housing, cost of living, pro-worker policies, and pushing back on tariffs and corporate homeownership.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.fordfornevada.com/",
+              "type": "website",
+              "title": "Aaron Ford for Nevada Governor",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://www.fordfornevada.com/news/ford-talks-affordability-in-carson-city-reno-and-sparks-on-working-class-first-tour",
+              "type": "website",
+              "title": "Ford Talks Affordability In Carson City, Reno, and Sparks On Working Class First Tour",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://www.fordfornevada.com/news/ford-im-going-to-be-the-most-pro-labor-governor-this-state-has-ever-seen",
+              "type": "website",
+              "title": "FORD: \u201cI'm Going To Be The Most Pro-Labor Governor This State Has Ever Seen\u201d",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Ford has not published a detailed climate or energy platform in the sources reviewed. His campaign materials reviewed here focus on affordability, housing, labor, and public services rather than specific climate or energy proposals.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.fordfornevada.com/",
+              "type": "website",
+              "title": "Aaron Ford for Nevada Governor",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://www.fordfornevada.com/issues",
+              "type": "website",
+              "title": "Affordable Nevada \u2014 Aaron Ford for Nevada Governor",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Reproductive Rights": {
+          "stance": "Ford is presented by his campaign and reproductive-rights groups as a supporter of reproductive freedom and abortion access. His campaign says he has been a leader and champion for reproductive freedom, and he has been endorsed by Reproductive Freedom for All.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.fordfornevada.com/news/reproductive-freedom-for-all-endorses-attorney-general-aaron-ford-for-governor",
+              "type": "website",
+              "title": "Reproductive Freedom For All Endorses Attorney General Aaron Ford for Governor",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://reproductivefreedomforall.org/news/reproductive-freedom-for-all-endorses-attorney-general-aaron-ford-for-governor-and-nicole-cannizzaro-for-attorney-general/",
+              "type": "website",
+              "title": "Reproductive Freedom for All Endorses Aaron Ford for Governor and Nicole Cannizzaro for Attorney General",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Ford said he does not support sanctuary policies and argued that the attorney general\u2019s model immigration policies were non-binding guidelines required by statute, not an attempt to make Nevada a sanctuary state. He emphasized that the policies do not protect criminals or prevent cooperation with law enforcement and said they are meant to enhance public safety.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://ag.nv.gov/News/PR/2025/Attorney_General_Aaron_Ford_Releases_Response_to_Governor_Lombardo%E2%80%99s_Misleading_Statement_on_Model_Immigration_Policies/",
+              "type": "government",
+              "title": "Attorney General Aaron Ford Releases Response to Governor Lombardo\u2019s Misleading Statement on Model Immigration Policies",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Guns & Safety": {
+          "stance": "Ford\u2019s public record and campaign materials emphasize public safety and efforts to reduce gun violence, including support for laws and litigation aimed at keeping dangerous weapons and devices out of circulation. The sources reviewed do not provide a detailed campaign gun-policy page, but they show him backing measures to protect communities and oppose broad access for dangerous actors.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://fordfornevada.com/",
+              "type": "website",
+              "title": "Aaron Ford for Nevada Governor",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://ag.nv.gov/News/PR/2025/Attorney_General_Ford_Sues_Trump_Administration_to_Prevent_Efforts_to_Distribute_Thousands_of_Machine_Gun_Devices_Across_Country/",
+              "type": "government",
+              "title": "Attorney General Ford Sues Trump Administration to Prevent Efforts to Distribute Thousands of Machine Gun Devices Across Country",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://giffords.org/candidates/aaron-ford/",
+              "type": "website",
+              "title": "Aaron Ford - Giffords.org",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Ford\u2019s publicly available Nevada-focused materials reviewed here do not lay out a detailed foreign policy platform. His recent public actions have centered on litigation against Trump administration actions, including tariffs, which indicates opposition to those federal policies but does not amount to a broader foreign policy doctrine.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ag.nv.gov/News/PR/2026/Attorney_General_Ford_Seeks_Court_Order_to_Stop_the_Trump_Administration%E2%80%99s_Illegal_Tariffs/",
+              "type": "government",
+              "title": "Attorney General Ford Seeks Court Order to Stop the Trump Administration\u2019s Illegal Tariffs",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://www.fordfornevada.com/news/aaron-ford-statement-on-ices-federal-overreach-across-the-nation",
+              "type": "website",
+              "title": "Aaron Ford Statement on ICE's Federal Overreach Across The Nation",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Social Justice": {
+          "stance": "Ford says he will defend LGBTQ rights, supported banning conversion therapy for minors, and has backed anti-discrimination protections. He also opposed the SAVE Act as a barrier to voting and has advocated for tribal public-safety support, including action on Missing and Murdered Indigenous People.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.hrc.org/press-releases/human-rights-campaign-endorses-aaron-ford-for-nevada-attorney-general",
+              "type": "website",
+              "title": "Human Rights Campaign Endorses Aaron Ford for Nevada Attorney General",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://ag.nv.gov/News/PR/2025/Attorney_General_Ford_Opposes_Bill_That_Would_Create_Substantial_Barriers_to_Voting/",
+              "type": "government",
+              "title": "Attorney General Ford Opposes Bill That Would Create Substantial Barriers to Voting",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://ag.nv.gov/News/PR/2025/Attorney_General_Ford_Leads_Coalition_of_Attorneys_General_in_Urging_Congress_to_Pass_Tribal_Warrant_Fairness_Act/",
+              "type": "government",
+              "title": "Attorney General Ford Leads Coalition of Attorneys General in Urging Congress to Pass Tribal Warrant Fairness Act",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Ford says Nevada should fully fund public schools, raise teacher pay, and expand early childhood and workforce pathways. His campaign page lists education as a top priority, and his policy statements call for stronger school funding, universal pre-K, free school meals, and better support for teachers and students.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.fordfornevada.com/",
+              "type": "website",
+              "title": "Aaron Ford for Nevada Governor",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://www.fordfornevada.com/news/ford-talks-affordability-in-carson-city-reno-and-sparks-on-working-class-first-tour",
+              "type": "website",
+              "title": "Ford Talks Affordability In Carson City, Reno, and Sparks On Working Class First Tour",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://www.fordfornevada.com/news/aaron-ford-holds-education-roundtable-with-southern-nevada-educators-parents-and-students",
+              "type": "website",
+              "title": "Aaron Ford Holds Education Roundtable with Southern Nevada Educators, Parents, and Students",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "Ford has not published a detailed tech or AI platform in the sources reviewed. The materials reviewed here do not show a specific position on artificial intelligence or broader technology regulation.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.fordfornevada.com/",
+              "type": "website",
+              "title": "Aaron Ford for Nevada Governor",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Election Reform": {
+          "stance": "Ford\u2019s campaign materials reviewed here do not show a specific election-reform plank. His public campaign focus is on affordability, housing, public safety, cost of living, education, and jobs, so no clear stated position on election reform was found in the sources reviewed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.fordfornevada.com/",
+              "type": "website",
+              "title": "Aaron Ford for Nevada Governor",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Ford says he wants to work with communities and municipalities across Nevada on local affordability problems, especially housing. His campaign also highlights cost of living, education, public safety, and jobs as top priorities.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.fordfornevada.com/",
+              "type": "website",
+              "title": "Aaron Ford for Nevada Governor",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://www.fordfornevada.com/issues/housing",
+              "type": "website",
+              "title": "Housing - Aaron Ford for Nevada Governor",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://www.fordfornevada.com/news/ford-fights-to-lower-housing-costs-while-lombardo-vetoes-affordability-for-working-families",
+              "type": "website",
+              "title": "Ford Continues Fighting to Lower Housing Costs After Lombardo Vetoes Affordability for Working Families",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Alexis Hill",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Alexis Hill is a Washoe County commissioner and chair of the county board. Her campaign presents her as a Nevada native focused on affordability, tax reform, and state investment in schools and local government.",
+      "summary_sources": [
+        {
+          "url": "https://alexisfornevada.com/about-alexis/",
+          "type": "website",
+          "title": "About Alexis",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        },
+        {
+          "url": "https://www.washoecounty.gov/bcc/profile/1-hill_alexis.php",
+          "type": "government",
+          "title": "Commissioner Alexis Hill",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://alexisfornevada.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/AlexisForNevada/",
+        "instagram": "https://www.instagram.com/alexisfornevada/"
+      },
+      "career_history": [
+        {
+          "title": "Chair, Washoe County Commission",
+          "organization": "Washoe County",
+          "start_year": 2020,
+          "end_year": null,
+          "description": "Elected to the county commission in 2020 and served as chair of the five-member board."
+        },
+        {
+          "title": "Executive director",
+          "organization": "Kids & Horses",
+          "start_year": null,
+          "end_year": null,
+          "description": "Led a nonprofit organization."
+        },
+        {
+          "title": "Private sector employee",
+          "organization": "Lake Tahoe Shakespeare Festival",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked in the private sector before county office."
+        },
+        {
+          "title": "Municipal service professional",
+          "organization": "Local government",
+          "start_year": null,
+          "end_year": 2020,
+          "description": "Spent more than a decade in municipal service."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Texas A&M University, George H.W. Bush School of Public Policy",
+          "degree": "Bachelor\u2019s degree",
+          "field": "Public policy",
+          "year": null
+        },
+        {
+          "institution": "University of Nevada",
+          "degree": "Master\u2019s degree",
+          "field": "Public administration and public policy",
+          "year": null
+        }
+      ],
+      "voting_record": [
+        {
+          "bill_name": "N/A",
+          "bill_description": "Alexis Hill is a Washoe County commissioner and gubernatorial candidate; no legislative roll-call voting record was identified in the Nevada Legislature or Congress.",
+          "vote": "absent",
+          "date": "2026-03-29",
+          "source": {
+            "url": "https://ballotpedia.org/Alexis_Hill",
+            "type": "website",
+            "title": "Alexis Hill - Ballotpedia",
+            "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+          }
+        }
+      ],
+      "top_donors": [],
+      "issues": {
+        "Healthcare": {
+          "stance": "Hill says supporting families includes healthcare, and her platform emphasizes affordable childcare, senior and disabled housing, and broader support systems for working families. In the materials reviewed, she does not lay out a detailed standalone healthcare plan, but she links family support to access to healthcare and says she will protect LGBTQ+ rights and privacy.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://alexisfornevada.com/issues/",
+              "type": "website",
+              "title": "Issues - Alexis Hill",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://alexisfornevada.com/",
+              "type": "website",
+              "title": "Alexis Hill for Nevada Governor",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Hill says Nevada needs a more aggressive revenue and tax policy to fund public services and support working families. She proposes modernizing state revenue, ending corporate tax giveaways, taxing corporate-owned homes like investments, and using fairer taxes to pay for roads, housing, and other services.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://alexisfornevada.com/issues/",
+              "type": "website",
+              "title": "Issues - Alexis Hill",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://alexisfornevada.com/",
+              "type": "website",
+              "title": "Alexis Hill for Nevada Governor",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://lasvegassun.com/news/2026/mar/09/alexis-hill-pitches-aggressive-revenue-plan-in-cam/",
+              "type": "news",
+              "title": "Alexis Hill pitches 'aggressive' revenue plan in campaign for Nevada ...",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Hill has not published a detailed climate or energy platform in the sources reviewed. Her campaign materials reviewed here focus on affordability, housing, schools, and local services rather than specific climate or energy proposals.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://alexisfornevada.com/issues/",
+              "type": "website",
+              "title": "Issues - Alexis Hill",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://alexisfornevada.com/",
+              "type": "website",
+              "title": "Alexis Hill for Nevada Governor",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Reproductive Rights": {
+          "stance": "Hill says she is a staunch supporter of the right to choose and says she is proud to have been endorsed by Planned Parenthood Action in previous runs for office. Her campaign materials also say she will safeguard reproductive freedom for every Nevadan.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://alexisfornevada.com/issues/",
+              "type": "website",
+              "title": "Issues - Alexis Hill",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://www.instagram.com/p/DWPfmXwGBZl/",
+              "type": "social_media",
+              "title": "Instagram post: 'Everyone should have the right and freedom to make their own ...'",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Hill says immigration reform should be handled by Congress, not by Nevada building a state-run detention system. She supports partnering with federal agencies, ensuring due process and humane treatment, and pursuing comprehensive reform with fair pathways to citizenship; she also opposes using the Nevada National Guard to indiscriminately round up immigrants.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://alexisfornevada.com/issues/",
+              "type": "website",
+              "title": "Issues - Alexis Hill",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Guns & Safety": {
+          "stance": "Hill\u2019s campaign materials reviewed here do not provide a detailed firearms policy. Her public platform emphasizes public safety broadly, including safer roads, homelessness response, and funding police and fire services.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://alexisfornevada.com/issues/",
+              "type": "website",
+              "title": "Issues - Alexis Hill",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://alexisfornevada.com/about-alexis/",
+              "type": "website",
+              "title": "About Alexis",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Hill does not appear to have a detailed foreign policy platform in the sources reviewed. Her public issue page focuses on state governance and does not provide specific positions on international affairs.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://alexisfornevada.com/issues/",
+              "type": "website",
+              "title": "Issues - Alexis Hill",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Social Justice": {
+          "stance": "Hill\u2019s platform includes support for LGBTQ+ rights, Native American sovereignty, fair access to primary elections for nonpartisans, and a humane approach to homelessness and immigration. She also says she will protect privacy and human rights and oppose treating homelessness solely through the criminal justice system.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://alexisfornevada.com/issues/",
+              "type": "website",
+              "title": "Issues - Alexis Hill",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://news3lv.com/news/local/washoe-county-commissioner-alexis-hill-nevada-governor-interview-gubernatorial-campaign-election-2026-politics-democratic-party",
+              "type": "news",
+              "title": "Washoe County Commissioner Alexis Hill explains why she's running for Nevada governor",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Hill says Nevada\u2019s biggest education problem is funding, and she wants to close the state\u2019s education funding gap to the national average. Her plan calls for property tax reform, permanent universal pre-K funding, free school breakfast and lunch, livable teacher pay, and expanded career, technical, apprenticeship, and higher-education pathways.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://alexisfornevada.com/issues/",
+              "type": "website",
+              "title": "Issues - Alexis Hill",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://alexisfornevada.com/",
+              "type": "website",
+              "title": "Alexis Hill for Nevada Governor",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "Hill has not published a detailed tech or AI platform in the sources reviewed. The materials reviewed here do not show a specific position on artificial intelligence or broader technology regulation.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://alexisfornevada.com/issues/",
+              "type": "website",
+              "title": "Issues - Alexis Hill",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Election Reform": {
+          "stance": "Hill\u2019s campaign materials reviewed here do not present a detailed election-reform platform. The available campaign page focuses on taxes, rent, insurance, SNAP, and other affordability issues, so no clear stated position on election reform was found in the sources reviewed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://alexisfornevada.com/",
+              "type": "website",
+              "title": "Alexis Hill for Nevada Governor",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Hill emphasizes local affordability and community concerns, saying she wants to modernize state revenue, freeze residential rent increases and insurance premiums, and put Nevadans first. Her campaign also references investing in schools and roads and rejecting tax incentives for Hollywood studios in Southern Nevada.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://alexisfornevada.com/",
+              "type": "website",
+              "title": "Alexis Hill for Nevada Governor",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://alexisfornevada.com/press/",
+              "type": "website",
+              "title": "Press - Alexis Hill for Nevada Governor",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://thenevadaindependent.com/article/democrat-alexis-hill-jumps-into-nevada-governor-race-unveils-revenue-raising-tax-plan",
+              "type": "news",
+              "title": "Democrat Alexis Hill jumps into Nevada governor race, unveils revenue-raising tax plan",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Matthew Winterhawk",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Matthew Winterhawk is a Republican candidate for governor of Nevada. His campaign website presents him as a Nevada-first conservative focused on transparency, public safety, education reform, data privacy, and limiting government overreach.",
+      "summary_sources": [
+        {
+          "url": "https://w4nevada.com/",
+          "type": "website",
+          "title": "Matthew Winterhawk for Governor of Nevada (2026)",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Matthew_Winterhawk",
+          "type": "website",
+          "title": "Matthew Winterhawk - Ballotpedia",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://w4nevada.com/",
+      "social_media": {
+        "x": "https://x.com/nvwinterhawk"
+      },
+      "career_history": [],
+      "education": [],
+      "voting_record": [
+        {
+          "bill_name": "N/A",
+          "bill_description": "Matthew Winterhawk is a gubernatorial candidate with no identified legislative roll-call voting record.",
+          "vote": "absent",
+          "date": "2026-03-29",
+          "source": {
+            "url": "https://ballotpedia.org/Matthew_Winterhawk",
+            "type": "website",
+            "title": "Matthew Winterhawk - Ballotpedia",
+            "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+          }
+        }
+      ],
+      "top_donors": [],
+      "issues": {
+        "Healthcare": {
+          "stance": "Winterhawk\u2019s published platform does not provide a detailed general healthcare policy, but his NPPA initiative says parents should have direct control over children\u2019s healthcare and that medical, social, or psychological intervention in children should not occur without parental consent.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://w4nevada.com/nppa",
+              "type": "website",
+              "title": "NPPA - Matthew Winterhawk for Governor of Nevada (2026)",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://w4nevada.com/top-6-issues",
+              "type": "website",
+              "title": "Top 6 Issues for Nevada Voters | Winterhawk on Education, Safety, Housing, Elections",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Winterhawk\u2019s public materials emphasize small-business operation, transparency, and local control, but they do not present a detailed economy platform on the pages reviewed. His stated focus on ownership and county-by-county problem solving suggests a local, self-reliant approach.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://w4nevada.com/biography",
+              "type": "website",
+              "title": "About Matthew Winterhawk | Nevada Governor Candidate 2026",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://w4nevada.com/",
+              "type": "website",
+              "title": "Matthew Winterhawk for Governor of Nevada (2026) | Nevada First Leadership",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Winterhawk\u2019s reviewed materials do not present a detailed climate or energy platform. His public agenda emphasizes Nevada sovereignty, opposition to federal overreach, and state control over land and resources.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://w4nevada.com/nlsara",
+              "type": "website",
+              "title": "NLSARA - Matthew Winterhawk for Governor of Nevada (2026) | Nevada First ...",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://w4nevada.com/top-6-issues",
+              "type": "website",
+              "title": "Top 6 Issues for Nevada Voters | Winterhawk on Education, Safety, Housing, Elections",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Reproductive Rights": {
+          "stance": "Winterhawk\u2019s NPPA materials emphasize parental rights, require parental consent for medical or social interventions for minors, and prohibit concealed identity policies in schools. The materials reviewed do not state a direct position on abortion.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://w4nevada.com/nppa",
+              "type": "website",
+              "title": "NPPA - Matthew Winterhawk for Governor of Nevada (2026)",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://w4nevada.com/top-6-issues",
+              "type": "website",
+              "title": "Top 6 Issues for Nevada Voters | Winterhawk on Education, Safety, Housing, Elections",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Winterhawk says Nevada\u2019s laws, schools, hospitals, and public services should prioritize legal residents, citizens, and people here lawfully. He opposes sanctuary policies, wants secure ID for voting and benefits, and calls for stronger coordination with sheriffs and federal agencies to remove criminal offenders through proper channels.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://w4nevada.com/top-6-issues",
+              "type": "website",
+              "title": "Top 6 Issues for Nevada Voters | Winterhawk on Education, Safety, Housing, Elections",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://w4nevada.com/nlsara",
+              "type": "website",
+              "title": "NLSARA - Matthew Winterhawk for Governor of Nevada (2026) | Nevada First ...",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Guns & Safety": {
+          "stance": "Winterhawk\u2019s public issue page focuses on crime, safety, and public protection, calling for zero tolerance for violent and repeat offenders, stronger penalties for organized retail crime and trafficking, and better resources for victims. The sources reviewed do not show a specific firearms-policy statement.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://w4nevada.com/top-6-issues",
+              "type": "website",
+              "title": "Top 6 Issues for Nevada Voters | Winterhawk on Education, Safety, Housing, Elections",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Winterhawk\u2019s reviewed materials do not present a conventional foreign policy platform. His public agenda emphasizes Nevada sovereignty and state control over land and resources rather than foreign-policy-specific positions.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://w4nevada.com/nlsara",
+              "type": "website",
+              "title": "NLSARA - Matthew Winterhawk for Governor of Nevada (2026) | Nevada First ...",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            },
+            {
+              "url": "https://w4nevada.com/top-6-issues",
+              "type": "website",
+              "title": "Top 6 Issues for Nevada Voters | Winterhawk on Education, Safety, Housing, Elections",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Social Justice": {
+          "stance": "Winterhawk\u2019s platform does not present a broad social-justice agenda in the sources reviewed; instead, it emphasizes law-and-order themes, election integrity, and prioritizing legal residents in public services.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://w4nevada.com/top-6-issues",
+              "type": "website",
+              "title": "Top 6 Issues for Nevada Voters | Winterhawk on Education, Safety, Housing, Elections",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Winterhawk says Nevada schools are broken and frames education as his top issue, arguing for education, not indoctrination. He says he wants to remove gender ideology and adult content from classrooms, restore critical thinking and real-world skills, and strengthen parents\u2019 rights and school safety.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://w4nevada.com/biography",
+              "type": "website",
+              "title": "About Matthew Winterhawk | Nevada Governor Candidate 2026",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "Winterhawk\u2019s NIDDA proposal would require apps and websites to disclose data collection, ban sale or transfer of biometric data without explicit consent, create a Nevada data privacy agency, and label ads that use behavioral tracking or AI-generated targeting. That makes data privacy and AI transparency a central part of his technology-related platform.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://w4nevada.com/nidda",
+              "type": "website",
+              "title": "NIDDA - Matthew Winterhawk for Governor of Nevada (2026)",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Election Reform": {
+          "stance": "Winterhawk explicitly supports election-integrity measures including mandatory voter ID, prohibiting non-citizen voting, ending universal mail ballots, requiring paper trails and independent audits, cleaning voter rolls, and county-level tabulation oversight.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://w4nevada.com/top-6-issues",
+              "type": "website",
+              "title": "Top 6 Issues for Nevada Voters | Winterhawk on Education, Safety, Housing, Elections",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Winterhawk says Nevada land and water should remain under Nevada\u2019s control and supports auditing water contracts, opposing federal overreach, and prioritizing agriculture, conservation, and rural sustainability. He also backs housing measures to keep Nevadans in their neighborhoods, including restricting bulk purchases by out-of-state funds and increasing transparency in development approvals.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://w4nevada.com/top-6-issues",
+              "type": "website",
+              "title": "Top 6 Issues for Nevada Voters | Winterhawk on Education, Safety, Housing, Elections",
+              "last_accessed": "2026-03-29T17:45:40.578325+00:00"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "updated_utc": "2026-03-29T17:45:40.578325+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "claude-haiku-4-5-20251001",
+    "gemini-2.0-flash",
+    "grok-3-mini"
+  ],
+  "reviews": [
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "reviewed_at": "2026-03-29T17:46:09.414892+00:00",
+      "verdict": "needs_revision",
+      "flags": [
+        {
+          "field": "candidates[3].career_history",
+          "concern": "Matthew Winterhawk's career_history array is empty. No professional background, previous employment, or work experience is documented, making his profile incomplete and asymmetrical compared to other candidates.",
+          "suggestion": "Research and populate career_history with verifiable professional experience, or document if information is genuinely unavailable and note that in a disclaimer.",
+          "severity": "error"
+        },
+        {
+          "field": "candidates[3].education",
+          "concern": "Matthew Winterhawk's education array is empty. No educational institutions, degrees, or fields of study are documented.",
+          "suggestion": "Research and add education details, or note unavailability if applicable.",
+          "severity": "error"
+        },
+        {
+          "field": "candidates[2].image_url",
+          "concern": "Alexis Hill's image_url is null, while other major candidates have images. This creates visual inconsistency in the profile.",
+          "suggestion": "Source a professional image of Alexis Hill from her campaign website or a credible public source.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].top_donors",
+          "concern": "Alexis Hill's top_donors array is empty, while other candidates (Lombardo, Ford) have donor information. This is a notable omission for a publicly elected official.",
+          "suggestion": "Research Hill's 2022 and 2026 campaign finance filings via OpenSecrets or Nevada Secretary of State records to populate top donors.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[3].top_donors",
+          "concern": "Matthew Winterhawk's top_donors array is empty. This may reflect that he is a less-established candidate, but it is worth documenting.",
+          "suggestion": "If Winterhawk has no significant donors or has not yet filed campaign finance reports, note that explicitly in a metadata comment or disclaimer.",
+          "severity": "info"
+        },
+        {
+          "field": "polling",
+          "concern": "Only one poll is included, covering only one matchup (Ford vs. Lombardo). This represents a very limited snapshot of the race and excludes Hill and Winterhawk entirely. For a competitive race described as 'closely divided,' more comprehensive polling data would be expected.",
+          "suggestion": "Add additional polls from other reputable pollsters (e.g., Nevada Independent, Quinnipiac, Public Policy Polling) covering multiple matchups and including all major candidates, if available.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Climate/Energy.sources",
+          "concern": "Both sources for Lombardo's Climate/Energy stance are generic landing pages (gov.nv.gov and joelombardofornv.com homepage) rather than specific pages addressing climate or energy policy. The stance correctly reflects low confidence, but sourcing is weak.",
+          "suggestion": "Search for specific statements by Lombardo on renewable energy, water policy, or climate (e.g., via news archives or press releases) to strengthen sourcing or confirm that no detailed platform exists.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Climate/Energy.sources",
+          "concern": "Ford's Climate/Energy sources are similarly generic landing pages with no specific climate or energy policy content.",
+          "suggestion": "Search Ford's legislative record (2013\u20132019 as state senator) or recent AG statements on renewable energy, environmental enforcement, or climate litigation to either populate the stance or confirm the low-confidence assessment.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Tech/AI.sources",
+          "concern": "Ford's Tech/AI section cites only the campaign homepage and issues page, neither of which address technology or AI policy. The low-confidence rating is appropriate, but sourcing is circular.",
+          "suggestion": "Search Ford's AG record for statements on data privacy, technology regulation, or AI-related enforcement actions, or acknowledge in a note that the candidate has not published a detailed tech platform.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Guns/Safety.confidence",
+          "concern": "Hill's Guns & Safety stance is marked 'low' confidence and the sources provided (her issues page and bio) do not detail a firearms or gun-safety policy. The stance describes public safety broadly but avoids the specifics of gun rights or restrictions.",
+          "suggestion": "Either search for statements by Hill on specific gun measures (e.g., background checks, magazine limits, permitless carry) from news interviews or town halls, or reframe the stance to acknowledge that Hill has not published a detailed gun-safety platform.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[3].issues.Healthcare.stance",
+          "concern": "Winterhawk's Healthcare stance focuses narrowly on parental consent for minors' medical decisions (via NPPA), not on broader healthcare access, affordability, or coverage policy. The stance is incomplete relative to typical gubernatorial healthcare platforms.",
+          "suggestion": "Search for statements by Winterhawk on Medicaid, healthcare costs, prescription drug regulation, or health provider access; note in the stance description if his platform does not address those areas.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[3].issues.Reproductive/Rights.stance",
+          "concern": "Winterhawk's Reproductive Rights stance focuses only on parental-consent language (NPPA) and does not directly state his position on abortion access, restrictions, or exceptions. This is a significant omission for a gubernatorial race where abortion is a named top issue.",
+          "suggestion": "Search for explicit statements by Winterhawk on abortion policy, legal exceptions, or rights to clarify his position, or reframe the stance description to note that his platform emphasizes parental rights rather than a direct abortion stance.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].summary_sources[1].url",
+          "concern": "The source URL 'https://www.joelombardofornv.com/about' is a campaign website, which is appropriate, but campaign websites are self-promotional and should be balanced with independent news or official government sources.",
+          "suggestion": "Ensure that candidate summaries are corroborated by at least one independent or government source (as done here with gov.nv.gov), which they are. No change needed, but this is consistent with best practice.",
+          "severity": "info"
+        },
+        {
+          "field": "updated_utc",
+          "concern": "The profile is dated 2026-03-29, which is a future date. If this is a test or demo, it should be noted; if real, verify that the data collection timestamp is correct.",
+          "suggestion": "Confirm the actual date the profile was generated. If it is a hypothetical 2026 scenario, consider adding a note in the metadata.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].career_history[3].start_year and end_year",
+          "concern": "Lombardo's military service (U.S. Army and Nevada National Guard) has null start_year and end_year. Given that his law enforcement career began in 1987, the military service should have defined dates.",
+          "suggestion": "Research Lombardo's military service record to populate start and end years. Public bios typically note when he served (likely post-college, early 1980s or late 1980s).",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].education",
+          "concern": "Aaron Ford's education array lists five entries, all from The Ohio State University, but with redundant and overlapping fields (e.g., 'Interdisciplinary studies' and 'International education' appear as separate degree entries without degree types). This structure is confusing and appears to conflate degrees with minors or concentrations.",
+          "suggestion": "Clarify Ford's education: Confirm whether he has a Ph.D. in Educational Administration, a law degree (J.D.?), and a bachelor's degree, and what the minors/concentrations were. Restructure the array to show one row per degree earned.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[3].website",
+          "concern": "Winterhawk's website is https://w4nevada.com/, which uses a shorthand acronym. While functional, it is less memorable and official-sounding than full-name domains. Not an error, but worth noting.",
+          "suggestion": "No action required unless Winterhawk launches a more prominent domain.",
+          "severity": "info"
+        },
+        {
+          "field": "description",
+          "concern": "The race description identifies 'Aaron Ford and Alexis Hill' as 'better-known challengers,' which may understate Hill's profile as chair of Washoe County Commission and overstate Ford's lead. Ford is more prominent (statewide AG), but the phrasing is slightly imprecise.",
+          "suggestion": "Revise to: 'Democrats Aaron Ford (Nevada Attorney General) and Alexis Hill (Washoe County Commission Chair) are among the Democratic challengers' to be more precise about their roles.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].voting_record and candidates[2].voting_record",
+          "concern": "Both Ford and Hill lack a legislative voting record in the Nevada Legislature (Ford was a state senator 2013\u20132019, but no individual bills or votes are documented). This is a notable gap compared to Lombardo's and Winterhawk's placeholder voting_record entries.",
+          "suggestion": "For Aaron Ford, research his voting record as a Nevada State Senator (2013\u20132019) and populate specific bills and votes from legislative databases. This would strengthen the profile significantly and provide voters with a record of his legislative positions.",
+          "severity": "warning"
+        }
+      ],
+      "summary": "This is a comprehensive and well-structured profile with strong sourcing on major candidates (Lombardo, Ford, Hill) and generally neutral language. However, there are significant gaps and concerns: (1) Matthew Winterhawk's profile lacks basic biographical data (empty career_history and education arrays), making it substantially incomplete compared to other candidates; (2) several candidates have incomplete or low-confidence issue positions, particularly on climate/energy and tech/AI; (3) some source URLs appear to be from 2026, which is a future date and suggests potential data integrity issues; (4) the polling data is sparse (one poll, one matchup); and (5) Alexis Hill and Winterhawk lack donor information. These issues should be resolved before publication."
+    },
+    {
+      "model": "grok-3-mini",
+      "reviewed_at": "2026-03-29T17:45:59.180757+00:00",
+      "verdict": "needs_revision",
+      "flags": [
+        {
+          "field": "candidates[0].career_history[3].start_year",
+          "concern": "Start year is null for Joe Lombardo's military service, making the entry incomplete and potentially inaccurate.",
+          "suggestion": "Verify and fill in the start year from reliable sources like official biographies or military records.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].education[0].field",
+          "concern": "Field of study is null for Joe Lombardo's Bachelor of Science degree, lacking specificity.",
+          "suggestion": "Research and add the specific field from university records or verified biographies.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].education[0].year",
+          "concern": "Year is null for Joe Lombardo's Bachelor of Science degree, indicating a gap in completeness.",
+          "suggestion": "Include the graduation year if available from credible sources.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].education",
+          "concern": "Multiple entries for Aaron Ford's education have null degrees or years, which may inaccurately represent his background.",
+          "suggestion": "Verify and complete the degrees and years using official records from The Ohio State University.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].career_history[2].start_year",
+          "concern": "Start year is null for Aaron Ford's role at Snell & Wilmer LLP, leaving the timeline incomplete.",
+          "suggestion": "Add the start and end years based on professional records or resumes.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].image_url",
+          "concern": "Image URL is null for Alexis Hill, missing a visual element that could enhance completeness.",
+          "suggestion": "Source and add a verified image URL from official profiles or media.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].top_donors",
+          "concern": "Top donors array is empty for Alexis Hill, indicating a gap in financial disclosure data.",
+          "suggestion": "Research and populate with data from sources like OpenSecrets or campaign finance reports.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[3].career_history",
+          "concern": "Career history array is empty for Matthew Winterhawk, severely lacking in completeness and accuracy.",
+          "suggestion": "Add verified career details from reliable sources like his campaign site or public records.",
+          "severity": "error"
+        },
+        {
+          "field": "candidates[3].education",
+          "concern": "Education array is empty for Matthew Winterhawk, missing key biographical information.",
+          "suggestion": "Include educational background if available from credible sources.",
+          "severity": "error"
+        },
+        {
+          "field": "candidates[3].issues.Climate/Energy.stance",
+          "concern": "Stance is vague and lacks detail for Matthew Winterhawk, with low confidence indicating incompleteness.",
+          "suggestion": "Expand with more specific positions from additional sources to improve accuracy and completeness.",
+          "severity": "warning"
+        }
+      ],
+      "summary": "The profile is generally well-structured with accurate representations of candidates' positions based on cited sources, but it has notable gaps in completeness for less prominent candidates' backgrounds and inconsistent detail in issues like education and career history, which could be strengthened for a more comprehensive view."
+    }
+  ]
+}

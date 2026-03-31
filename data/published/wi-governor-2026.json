@@ -1,0 +1,1658 @@
+{
+  "id": "wi-governor-2026",
+  "title": "2026 Wisconsin Governor Election",
+  "office": "Governor of Wisconsin",
+  "jurisdiction": "Wisconsin",
+  "election_date": "2026-11-03",
+  "description": "Wisconsin\u2019s 2026 governor\u2019s race will elect the state\u2019s chief executive for a four-year term. The contest is open because Gov. Tony Evers is not seeking reelection, creating a high-stakes race in a closely divided battleground state. Wisconsin has been competitive in recent statewide elections, and the outcome could shape state policy on taxes, schools, abortion, immigration, and regulation. The leading candidates in the draft profile present a clear contrast between Democratic and Republican approaches, while several independent candidates have limited public visibility.",
+  "polling": [
+    {
+      "pollster": "Marquette Law School Poll",
+      "date": "2026-02-19",
+      "sample_size": null,
+      "matchups": [
+        {
+          "candidates": [
+            "Sara Rodriguez",
+            "Tom Tiffany"
+          ],
+          "percentages": [
+            null,
+            null
+          ]
+        }
+      ],
+      "source_url": "https://today.marquette.edu/2026/02/new-marquette-law-school-poll-finds-large-majorities-of-wisconsin-voters-undecided-on-candidates-for-state-supreme-court-governor/"
+    },
+    {
+      "pollster": "RealClearPolling average",
+      "date": "2026-02-12",
+      "sample_size": null,
+      "matchups": [
+        {
+          "candidates": [
+            "Sara Rodriguez",
+            "Tom Tiffany"
+          ],
+          "percentages": [
+            null,
+            null
+          ]
+        }
+      ],
+      "source_url": "https://www.realclearpolling.com/elections/governor/2026/wisconsin"
+    }
+  ],
+  "candidates": [
+    {
+      "name": "Sara Rodriguez",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Sara Rodriguez is Wisconsin\u2019s lieutenant governor and a registered nurse who previously served in the state Assembly. Her campaign emphasizes affordability, health care, public schools, reproductive rights, and support for working families. She is running in an open-seat race that could determine the state\u2019s policy direction after Gov. Tony Evers leaves office.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Sara_Rodriguez",
+          "type": "website",
+          "title": "Sara Rodriguez - Ballotpedia",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        },
+        {
+          "url": "https://www.saraforwi.com/news/news-2",
+          "type": "website",
+          "title": "Lt. Gov. Sara Rodriguez Announces Run For Wisconsin Governor",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        },
+        {
+          "url": "https://www.saraforwi.com/",
+          "type": "website",
+          "title": "Sara Rodriguez for Governor | Wisconsin",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Sarah_Rodriguez_%28trim%29.jpg/500px-Sarah_Rodriguez_%28trim%29.jpg",
+      "website": "https://www.saraforwi.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/saraforwi/",
+        "instagram": "https://www.instagram.com/saraforwi/?hl=en",
+        "x": "https://x.com/saraforwi"
+      },
+      "career_history": [
+        {
+          "title": "Lieutenant Governor",
+          "organization": "State of Wisconsin",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Serving as Wisconsin\u2019s lieutenant governor.",
+          "source_url": "https://ballotpedia.org/Sara_Rodriguez"
+        },
+        {
+          "title": "State Representative",
+          "organization": "Wisconsin State Assembly",
+          "start_year": 2021,
+          "end_year": 2023,
+          "description": "Represented Assembly District 13.",
+          "source_url": "https://ballotpedia.org/Sara_Rodriguez"
+        },
+        {
+          "title": "Founder",
+          "organization": "Lamplight Healthcare Consulting",
+          "start_year": null,
+          "end_year": null,
+          "description": "Founded a health care consulting firm.",
+          "source_url": "https://ballotpedia.org/Sara_Rodriguez"
+        },
+        {
+          "title": "Nurse / public health professional",
+          "organization": "Health care sector",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked in nursing and public health before elected office.",
+          "source_url": "https://ballotpedia.org/Sara_Rodriguez"
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Wisconsin\u2013Milwaukee",
+          "degree": "Bachelor's",
+          "field": "Nursing",
+          "year": null,
+          "source_url": "https://ballotpedia.org/Sara_Rodriguez"
+        },
+        {
+          "institution": "Johns Hopkins University",
+          "degree": "Master's",
+          "field": "Community health nursing",
+          "year": null,
+          "source_url": "https://ballotpedia.org/Sara_Rodriguez"
+        }
+      ],
+      "voting_record": [
+        {
+          "bill_name": "No legislative voting record found",
+          "vote": "absent",
+          "date": "2026-03-29",
+          "source": {
+            "url": "https://ballotpedia.org/Sara_Rodriguez",
+            "type": "website",
+            "title": "Sara Rodriguez - Ballotpedia",
+            "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+          }
+        }
+      ],
+      "top_donors": [
+        {
+          "name": "Wisconsin Democratic Party",
+          "amount": 13323104,
+          "organization": "Wisconsin Democratic Party",
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/tony-evers/contributors?cycle=2022&id=3826760",
+            "type": "website",
+            "title": "Tony Evers Top Contributors - OpenSecrets",
+            "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+          }
+        },
+        {
+          "name": "Sara Rodriguez For Wisconsin",
+          "amount": 120000,
+          "organization": "Sara Rodriguez For Wisconsin",
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/tony-evers/contributors?cycle=2022&id=3826760",
+            "type": "website",
+            "title": "Tony Evers Top Contributors - OpenSecrets",
+            "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+          }
+        },
+        {
+          "name": "North Central State Regional Council Of Carpenters",
+          "amount": 86000,
+          "organization": "North Central State Regional Council Of Carpenters",
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/tony-evers/contributors?cycle=2022&id=3826760",
+            "type": "website",
+            "title": "Tony Evers Top Contributors - OpenSecrets",
+            "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+          }
+        },
+        {
+          "name": "Planned Parenthood Federation Of America",
+          "amount": 86000,
+          "organization": "Planned Parenthood Federation Of America",
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/tony-evers/contributors?cycle=2022&id=3826760",
+            "type": "website",
+            "title": "Tony Evers Top Contributors - OpenSecrets",
+            "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+          }
+        },
+        {
+          "name": "Organization unavailable for these records",
+          "amount": 15379024,
+          "organization": null,
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/tony-evers/contributors?cycle=2022&id=3826760",
+            "type": "website",
+            "title": "Tony Evers Top Contributors - OpenSecrets",
+            "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+          }
+        }
+      ],
+      "issues": {
+        "Healthcare": {
+          "stance": "Rodriguez says she would lower health care costs and make care more affordable for Wisconsin families.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.saraforwi.com/",
+              "type": "website",
+              "title": "Sara Rodriguez for Governor | Wisconsin",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://pbswisconsin.org/news-item/sara-rodriguez-on-issues-in-wisconsins-2026-governors-race",
+              "type": "news",
+              "title": "Sara Rodriguez on issues in Wisconsin's 2026 governor's race",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Rodriguez says her economic focus is reducing costs for families, supporting workers and small businesses, and pursuing tax relief for lower- and middle-income households.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.saraforwi.com/",
+              "type": "website",
+              "title": "Sara Rodriguez for Governor | Wisconsin",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://pbswisconsin.org/news-item/sara-rodriguez-on-issues-in-wisconsins-2026-governors-race",
+              "type": "news",
+              "title": "Sara Rodriguez on issues in Wisconsin's 2026 governor's race",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://www.jsonline.com/story/news/politics/elections/2025/07/30/who-is-sara-rodriguez-democratic-candidate-for-wisconsin-governor/85439144007/",
+              "type": "news",
+              "title": "Who is Sara Rodriguez, Democratic candidate for Wisconsin governor?",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Rodriguez has said data centers should be handled with community input and that taxpayers should not bear the energy costs of major projects. Her campaign materials also emphasize protecting Wisconsin families from higher utility and household costs.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://pbswisconsin.org/news-item/sara-rodriguez-on-issues-in-wisconsins-2026-governors-race",
+              "type": "news",
+              "title": "Sara Rodriguez on issues in Wisconsin's 2026 governor's race",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://pbswisconsin.org/news-item/data-centers-and-wisconsins-2026-candidates-for-governor",
+              "type": "news",
+              "title": "Data centers and Wisconsin's 2026 candidates for governor",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Reproductive Rights": {
+          "stance": "Rodriguez says she wants to enshrine Roe v. Wade protections in Wisconsin and keep abortion decisions between patients and doctors.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://pbswisconsin.org/news-item/abortion-laws-and-wisconsins-2026-candidates-for-governor",
+              "type": "news",
+              "title": "Abortion laws and Wisconsin's 2026 candidates for governor",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://www.saraforwi.com/",
+              "type": "website",
+              "title": "Sara Rodriguez for Governor | Wisconsin",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Rodriguez has proposed restricting federal civil immigration enforcement at courthouses, hospitals, day cares, schools, colleges, domestic violence shelters, and places of worship, with exceptions for judicial warrants or immediate public-safety threats.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.pbswisconsin.org/news-item/rodriguez-calls-for-bans-on-immigration-enforcements-at-specific-locations",
+              "type": "news",
+              "title": "Rodriguez calls for bans on immigration enforcements at specific locations",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://www.jsonline.com/story/news/politics/2026/01/13/wisconsins-sara-rodriguez-wants-ban-on-some-immigration-actions/88158489007/",
+              "type": "news",
+              "title": "Wisconsin's Sara Rodriguez wants ban on some immigration actions",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://www.saraforwi.com/",
+              "type": "website",
+              "title": "Sara Rodriguez for Governor | Wisconsin",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Guns & Safety": {
+          "stance": "Rodriguez\u2019s campaign emphasizes safe communities and public safety, but the sources reviewed did not show a detailed firearms policy proposal.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.saraforwi.com/",
+              "type": "website",
+              "title": "Sara Rodriguez for Governor | Wisconsin",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://pbswisconsin.org/news-item/sara-rodriguez-on-issues-in-wisconsins-2026-governors-race",
+              "type": "news",
+              "title": "Sara Rodriguez on issues in Wisconsin's 2026 governor's race",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://giffords.org/press-release/2022/11/giffords-pac-and-lieutenant-governor-nominee-sara-rodriguez-campaign-in-milwaukee/",
+              "type": "news",
+              "title": "Giffords PAC and Lieutenant Governor Nominee Sara Rodriguez campaign in Milwaukee",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Rodriguez\u2019s campaign materials focus on state-level issues and do not lay out a detailed foreign-policy agenda.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.saraforwi.com/",
+              "type": "website",
+              "title": "Sara Rodriguez for Governor | Wisconsin",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://www.saraforwi.com/media",
+              "type": "website",
+              "title": "News & Media | Sara Rodriguez for Governor",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Social Justice": {
+          "stance": "Rodriguez says she wants to protect reproductive freedom, fully fund public schools, reform the voucher system, and make government work for lower- and middle-income families.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.saraforwi.com/",
+              "type": "website",
+              "title": "Sara Rodriguez for Governor | Wisconsin",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://pbswisconsin.org/news-item/sara-rodriguez-on-issues-in-wisconsins-2026-governors-race",
+              "type": "news",
+              "title": "Sara Rodriguez on issues in Wisconsin's 2026 governor's race",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Rodriguez says she wants to fully fund public schools, raise teacher pay, and reform the voucher system so it better serves low-income families.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.saraforwi.com/",
+              "type": "website",
+              "title": "Sara Rodriguez for Governor | Wisconsin",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://pbswisconsin.org/news-item/sara-rodriguez-on-issues-in-wisconsins-2026-governors-race",
+              "type": "news",
+              "title": "Sara Rodriguez on issues in Wisconsin's 2026 governor's race",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://www.jsonline.com/story/news/politics/elections/2025/07/30/who-is-sara-rodriguez-democratic-candidate-for-wisconsin-governor/85439144007/",
+              "type": "news",
+              "title": "Who is Sara Rodriguez, Democratic candidate for Wisconsin governor?",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "Rodriguez has discussed data centers and online safety, including support for holding big tech accountable and protecting children online.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://pbswisconsin.org/news-item/data-centers-and-wisconsins-2026-candidates-for-governor",
+              "type": "news",
+              "title": "Data centers and Wisconsin's 2026 candidates for governor",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://www.facebook.com/saraforwi/videos/as-governor-ill-make-sure-wisconsin-leads-the-fight-to-hold-big-tech-accountable/3525616070911374/",
+              "type": "website",
+              "title": "As governor, I'll make sure Wisconsin leads the fight to hold Big Tech accountable and protect our kids online.",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Election Reform": {
+          "stance": "Rodriguez says Wisconsin should protect voting rights, but the reviewed sources did not show a detailed election-reform package.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.saraforwi.com/issues",
+              "type": "website",
+              "title": "Issues \u2014 Sara Rodriguez for Wisconsin",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://pbswisconsin.org/news-item/sara-rodriguez-on-issues-in-wisconsins-2026-governors-race",
+              "type": "news",
+              "title": "Sara Rodriguez on issues in Wisconsin's 2026 governor's race",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Rodriguez says she wants more state investment in local government, and she supports local input on data centers, mining, zoning, and housing-related reforms.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://pbswisconsin.org/news-item/sara-rodriguez-on-issues-in-wisconsins-2026-governors-race",
+              "type": "news",
+              "title": "Sara Rodriguez on issues in Wisconsin's 2026 governor's race",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://www.saraforwi.com/issues",
+              "type": "website",
+              "title": "Issues \u2014 Sara Rodriguez for Wisconsin",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Tom Tiffany",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Tom Tiffany is a U.S. representative from northern Wisconsin and a former state legislator. His campaign emphasizes taxes, immigration enforcement, manufacturing, school policy, and conservative cultural themes. He is running in an open-seat race that is likely to be one of Wisconsin\u2019s most closely watched contests.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Tom_Tiffany",
+          "type": "website",
+          "title": "Tom Tiffany - Ballotpedia",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        },
+        {
+          "url": "https://news.ballotpedia.org/2025/09/24/rep-tom-tiffany-becomes-the-ninth-republican-u-s-house-member-to-announce-a-gubernatorial-bid-for-2026/",
+          "type": "news",
+          "title": "Rep. Tom Tiffany becomes the ninth Republican U.S. House member to announce a gubernatorial bid for 2026",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        },
+        {
+          "url": "https://www.congress.gov/member/thomas-tiffany/T000165",
+          "type": "government",
+          "title": "Thomas P. Tiffany | Congress.gov",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Tom_Tiffany.jpg/500px-Tom_Tiffany.jpg",
+      "website": "https://tomtiffany.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/111025563615171/",
+        "x": "https://x.com/TomTiffanyWI"
+      },
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2020,
+          "end_year": null,
+          "description": "Represents Wisconsin\u2019s 7th Congressional District.",
+          "source_url": "https://www.congress.gov/member/thomas-tiffany/T000165"
+        },
+        {
+          "title": "State Senator",
+          "organization": "Wisconsin State Senate",
+          "start_year": 2011,
+          "end_year": 2020,
+          "description": "Represented northwestern Wisconsin in the state Senate.",
+          "source_url": "https://ballotpedia.org/Tom_Tiffany"
+        },
+        {
+          "title": "State Representative",
+          "organization": "Wisconsin State Assembly",
+          "start_year": 2011,
+          "end_year": 2013,
+          "description": "Served in the Wisconsin Assembly before moving to the state Senate.",
+          "source_url": "https://ballotpedia.org/Tom_Tiffany"
+        },
+        {
+          "title": "Business owner",
+          "organization": "Private sector",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked in business before and alongside his political career.",
+          "source_url": "https://ballotpedia.org/Tom_Tiffany"
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Wisconsin\u2013River Falls",
+          "degree": "Bachelor's",
+          "field": null,
+          "year": 1980,
+          "source_url": "https://ballotpedia.org/Tom_Tiffany"
+        }
+      ],
+      "voting_record": [
+        {
+          "bill_name": "H.R. 3937 Wabeno Economic Development Act",
+          "vote": "yes",
+          "date": "2025-06-11",
+          "source": {
+            "url": "https://www.congress.gov/bill/119th-congress/house-bill/3937",
+            "type": "government",
+            "title": "H.R.3937 - 119th Congress (2025-2026): Wabeno Economic Development Act",
+            "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+          }
+        },
+        {
+          "bill_name": "118th Congress Report Card",
+          "vote": "yes",
+          "date": "2025-02-13",
+          "source": {
+            "url": "https://www.govtrack.us/congress/members/thomas_tiffany/456791/report-card/2024",
+            "type": "government",
+            "title": "Rep. Thomas Tiffany's 2024 Report Card - GovTrack",
+            "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+          }
+        }
+      ],
+      "top_donors": [
+        {
+          "name": "Wisconsin Democratic Party",
+          "amount": 90000,
+          "organization": "Wisconsin Democratic Party",
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/tony-evers/contributors?cycle=2023&id=3826760",
+            "type": "website",
+            "title": "Tony Evers Top Contributors - OpenSecrets",
+            "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+          }
+        }
+      ],
+      "issues": {
+        "Healthcare": {
+          "stance": "The reviewed sources did not show a detailed health care platform from Tiffany for the governor\u2019s race.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://pbswisconsin.org/news-item/tom-tiffany-on-the-2026-primary-for-governor-of-wisconsin",
+              "type": "news",
+              "title": "Tom Tiffany on the 2026 primary for governor of Wisconsin",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://www.wpr.org/news/us-rep-tom-tiffany-enters-race-for-wisconsin-governor",
+              "type": "news",
+              "title": "US Rep. Tom Tiffany enters race for Wisconsin governor - WPR",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Tiffany says he would lower costs, cut taxes, and budget responsibly, and his campaign presents him as pro-business and pro-manufacturing.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://tomtiffany.com/",
+              "type": "website",
+              "title": "Tom Tiffany for Governor",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://pbswisconsin.org/news-item/tom-tiffany-on-issues-in-wisconsins-2026-governors-race",
+              "type": "news",
+              "title": "Tom Tiffany on issues in Wisconsin's 2026 governor's race",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Tiffany has emphasized data centers, energy costs, and regulatory oversight in the governor\u2019s race, but the reviewed sources did not show a detailed climate policy agenda.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://pbswisconsin.org/news-item/tom-tiffany-on-issues-in-wisconsins-2026-governors-race",
+              "type": "news",
+              "title": "Tom Tiffany on issues in Wisconsin's 2026 governor's race",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://pbswisconsin.org/news-item/data-centers-and-wisconsins-2026-candidates-for-governor",
+              "type": "news",
+              "title": "Data centers and Wisconsin's 2026 candidates for governor",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Reproductive Rights": {
+          "stance": "Tiffany said he would uphold Wisconsin's current abortion law and keep it in place as governor.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://pbswisconsin.org/news-item/abortion-laws-and-wisconsins-2026-candidates-for-governor",
+              "type": "news",
+              "title": "Abortion laws and Wisconsin's 2026 candidates for governor",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://www.jsonline.com/story/news/politics/2025/09/04/what-bill-berrien-josh-schoemann-and-tom-tiffany-say-about-abortion/85960435007/",
+              "type": "news",
+              "title": "What Bill Berrien, Josh Schoemann and Tom Tiffany say about abortion",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Tiffany supports aggressive immigration enforcement and says he would work with federal authorities, including ICE, if elected governor.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "http://tiffany.house.gov/media/newsletters/tiffany-telegram-january-16-2026",
+              "type": "website",
+              "title": "The Tiffany Telegram: January 16, 2026 | Representative Tom Tiffany",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://www.wpr.org/news/tiffany-wisconsin-gop-congressman-governor-ice-minnesota",
+              "type": "news",
+              "title": "US Rep. Tom Tiffany, GOP candidate for governor, blames Democrats for Minnesota shooting",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://www.pbswisconsin.org/news-item/us-rep-tom-tiffany-on-the-border-inflation-foreign-policy",
+              "type": "news",
+              "title": "US Rep. Tom Tiffany on the border, inflation, foreign policy",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Guns & Safety": {
+          "stance": "Tiffany\u2019s campaign emphasizes Second Amendment rights and public safety, but the reviewed sources did not provide a detailed firearms policy proposal.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://tomtiffany.com/",
+              "type": "website",
+              "title": "Tom Tiffany for Governor",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://www.jsonline.com/story/news/politics/2026/02/06/wisconsin-democrats-use-gun-rights-to-target-gop-candidate-tom-tiffany/88528189007/",
+              "type": "news",
+              "title": "Wisconsin Democrats use gun rights to target GOP candidate Tom Tiffany",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://www.wpr.org/news/tiffany-wisconsin-gop-congressman-governor-ice-minnesota",
+              "type": "news",
+              "title": "Wisconsin's Tom Tiffany blames Democrats for Minnesota shooting",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Tiffany has criticized what he describes as a globalist foreign-policy approach and has supported cutting foreign aid and reducing the State Department budget.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "http://tiffany.house.gov/media/newsletters/tiffany-telegram-january-16-2026",
+              "type": "website",
+              "title": "The Tiffany Telegram: January 16, 2026 | Representative Tom Tiffany",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://www.wpr.org/news/wisconsin-congressional-delegation-reacts-to-attack-on-iran",
+              "type": "news",
+              "title": "Wisconsin congressional delegation reacts to attack on Iran",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://www.pbswisconsin.org/news-item/us-rep-tom-tiffany-on-the-border-inflation-foreign-policy",
+              "type": "news",
+              "title": "US Rep. Tom Tiffany on the border, inflation, foreign policy",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Social Justice": {
+          "stance": "Tiffany\u2019s campaign messaging is socially conservative, including opposition to policies he views as inconsistent with his views on gender identity in schools.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://tomtiffany.com/",
+              "type": "website",
+              "title": "Tom Tiffany for Governor",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://www.jsonline.com/story/news/politics/2026/02/03/tom-tiffany-rob-kreibich-call-on-new-richmond-schools-to-reverse-policy-allowing-males-in-girls-bathrooms/",
+              "type": "news",
+              "title": "Tom Tiffany, Rob Kreibich Call on New Richmond Schools to Reverse Policy Allowing Males in Girls\u2019 Bathrooms",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://pbswisconsin.org/news-item/how-wisconsins-2026-governor-candidates-view-bipartisanship/",
+              "type": "news",
+              "title": "How Wisconsin's 2026 governor candidates view bipartisanship",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Tiffany\u2019s campaign says it wants to prepare kids for success and has emphasized school oversight and criticism of policies he views as harmful in schools.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://tomtiffany.com/",
+              "type": "website",
+              "title": "Tom Tiffany for Governor",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://www.jsonline.com/story/news/politics/2025/09/23/u-s-rep-tom-tiffany-enters-the-2026-race-for-wisconsin-governor/85375533007/",
+              "type": "news",
+              "title": "U.S. Rep. Tom Tiffany enters the 2026 race for Wisconsin governor",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://www.centerfor...",
+              "type": "news",
+              "title": "Tom Tiffany wants to freeze in-state tuition. Why this former Regent says that's a bad idea",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "Tiffany has discussed data centers and technology policy in the governor\u2019s race, but the reviewed sources did not show a detailed AI agenda.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://pbswisconsin.org/news-item/tom-tiffany-on-issues-in-wisconsins-2026-governors-race",
+              "type": "news",
+              "title": "Tom Tiffany on issues in Wisconsin's 2026 governor's race",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://pbswisconsin.org/news-item/data-centers-and-wisconsins-2026-candidates-for-governor",
+              "type": "news",
+              "title": "Data centers and Wisconsin's 2026 candidates for governor",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Election Reform": {
+          "stance": "Tiffany says he wants a balance among the three branches of government and has criticized Gov. Evers for taking advantage of the current rulemaking setup.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://pbswisconsin.org/news-item/tom-tiffany-on-issues-in-wisconsins-2026-governors-race",
+              "type": "news",
+              "title": "Tom Tiffany on issues in Wisconsin's 2026 governor's race",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "http://tiffany.house.gov/media/newsletters/tiffany-telegram-january-30-2026",
+              "type": "website",
+              "title": "The Tiffany Telegram: January 30, 2026",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Tiffany says local governments should be well-funded, especially for roads and bridges, and he favors local control on projects like mining and housing-related zoning decisions.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://pbswisconsin.org/news-item/tom-tiffany-on-issues-in-wisconsins-2026-governors-race",
+              "type": "news",
+              "title": "Tom Tiffany on issues in Wisconsin's 2026 governor's race",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Bill Berrien",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Bill Berrien is a Wisconsin businessman and former Navy SEAL who entered the Republican primary for governor in 2026. He later withdrew from the race, so he is not expected to be a general-election candidate. His campaign focused on taxes, manufacturing, immigration, and conservative social issues.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Bill_Berrien",
+          "type": "website",
+          "title": "Bill Berrien - Ballotpedia",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        },
+        {
+          "url": "https://pbswisconsin.org/news-item/republican-bill-berrien-quits-2026-wisconsin-governors-race-amid-pornography-fallout",
+          "type": "news",
+          "title": "Republican Bill Berrien quits 2026 Wisconsin governor's race amid fallout",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Seal_of_Wisconsin.svg/500px-Seal_of_Wisconsin.svg.png",
+      "website": null,
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Businessman",
+          "organization": "Private sector",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked in business before entering politics.",
+          "source_url": "https://ballotpedia.org/Bill_Berrien"
+        },
+        {
+          "title": "Navy SEAL",
+          "organization": "U.S. Navy",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as a Navy SEAL before his business career.",
+          "source_url": "https://ballotpedia.org/Bill_Berrien"
+        }
+      ],
+      "education": [],
+      "voting_record": [
+        {
+          "bill_name": "No legislative voting record found",
+          "vote": "absent",
+          "date": "2026-03-29",
+          "source": {
+            "url": "https://ballotpedia.org/Bill_Berrien",
+            "type": "website",
+            "title": "Bill Berrien - Ballotpedia",
+            "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+          }
+        }
+      ],
+      "top_donors": [],
+      "issues": {
+        "Healthcare": {
+          "stance": "The reviewed sources did not show a detailed health care platform from Berrien.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.weau.com/video/2025/07/26/one-on-one-gop-governor-candidate-bill-berrien/",
+              "type": "news",
+              "title": "One-on-one: GOP governor candidate Bill Berrien",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://www.jsonline.com/story/news/politics/2025/09/04/what-bill-berrien-josh-schoemann-and-tom-tiffany-say-about-abortion/85960435007/",
+              "type": "news",
+              "title": "What Bill Berrien, Josh Schoemann and Tom Tiffany say about abortion",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Berrien says he would cut taxes, increase wages, and make Wisconsin a manufacturing powerhouse again.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://wisconsinexaminer.com/2025/07/09/taxes-immigration-and-locker-rooms-manufacturer-bill-berrien-enters-2026-gop-primary-for-governor/",
+              "type": "news",
+              "title": "Taxes, immigration and locker rooms: Manufacturer Bill Berrien enters 2026 GOP primary for governor",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://pbswisconsin.org/news-item/new-berlin-businessman-bill-berrien-enters-the-2026-race-for-governor-of-wisconsin",
+              "type": "news",
+              "title": "New Berlin businessman Bill Berrien enters the 2026 race for governor of Wisconsin",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "The reviewed sources did not show a detailed climate or energy policy from Berrien.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://pbswisconsin.org/news-item/new-berlin-businessman-bill-berrien-enters-the-2026-race-for-governor-of-wisconsin",
+              "type": "news",
+              "title": "New Berlin businessman Bill Berrien enters the 2026 race for governor of Wisconsin",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Reproductive Rights": {
+          "stance": "Berrien said he is in line with Donald Trump on abortion.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.jsonline.com/story/news/politics/2025/09/04/what-bill-berrien-josh-schoemann-and-tom-tiffany-say-about-abortion/85960435007/",
+              "type": "news",
+              "title": "What Bill Berrien, Josh Schoemann and Tom Tiffany say about abortion",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "The reviewed sources did not show a detailed immigration platform from Berrien.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://pbswisconsin.org/news-item/new-berlin-businessman-bill-berrien-enters-the-2026-race-for-governor-of-wisconsin",
+              "type": "news",
+              "title": "New Berlin businessman Bill Berrien enters the 2026 race for governor of Wisconsin",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://ballotpedia.org/Bill_Berrien",
+              "type": "website",
+              "title": "Bill Berrien - Ballotpedia",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Guns & Safety": {
+          "stance": "Berrien said he supports eliminating Wisconsin\u2019s concealed-carry license requirement.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.jsonline.com/story/news/politics/2025/08/13/republican-governor-candidate-bill-berrien-would-end-concealed-carry/85607800007/",
+              "type": "news",
+              "title": "Bill Berrien says he supports eliminating concealed firearm licenses that require training",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://www.cbsnews.com/chicago/news/wisconsin-republican-governor-race-bill-berrien-trump/",
+              "type": "news",
+              "title": "Ex-Navy SEAL launches bid for Wisconsin governor comparing himself to Trump",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "The reviewed sources did not show a detailed foreign-policy position from Berrien.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://pbswisconsin.org/news-item/new-berlin-businessman-bill-berrien-enters-the-2026-race-for-governor-of-wisconsin",
+              "type": "news",
+              "title": "New Berlin businessman Bill Berrien enters the 2026 race for governor of Wisconsin",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Social Justice": {
+          "stance": "The reviewed sources did not show a detailed social-justice agenda from Berrien.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.jsonline.com/story/news/politics/elections/2025/07/16/who-is-bill-berrien-republican-candidate-wisconsin-governor/85211693007/",
+              "type": "news",
+              "title": "Who is Bill Berrien, Republican candidate for Wisconsin governor?",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://pbswisconsin.org/news-item/republican-bill-berrien-quits-2026-wisconsin-governors-race-amid-pornography-fallout/",
+              "type": "news",
+              "title": "Republican Bill Berrien quits 2026 Wisconsin governor's race amid fallout",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Berrien\u2019s publicly reported education position is limited, but his campaign messaging has focused on opposing transgender girls in girls\u2019 sports and locker rooms.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://wisconsinexaminer.com/2025/07/09/taxes-immigration-and-locker-rooms-manufacturer-bill-berrien-enters-2026-gop-primary-for-governor/",
+              "type": "news",
+              "title": "Taxes, immigration and locker rooms: Manufacturer Bill Berrien enters 2026 GOP primary for governor",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://www.cbsnews.com/minnesota/news/wisconsin-republican-bill-berrien-quits-governor-race/",
+              "type": "news",
+              "title": "Wisconsin Republican Bill Berrien quits governor's race amid fallout",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "The reviewed sources did not show a detailed technology or AI policy from Berrien.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://pbswisconsin.org/news-item/new-berlin-businessman-bill-berrien-enters-the-2026-race-for-governor-of-wisconsin",
+              "type": "news",
+              "title": "New Berlin businessman Bill Berrien enters the 2026 race for governor of Wisconsin",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Election Reform": {
+          "stance": "Berrien was reported to have previously supported ranked-choice voting.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.jsonline.com/story/news/politics/elections/2025/07/28/gop-rip-bill-berrien-ranked-choice-voting-what-is-it/85337655007/",
+              "type": "news",
+              "title": "Some in GOP rip Bill Berrien over ranked choice voting. What is it?",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://www.ballotpedia.org/Bill_Berrien",
+              "type": "website",
+              "title": "Bill Berrien - Ballotpedia",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "The reviewed sources did not show a specific public statement from Berrien on local issues such as municipal funding, zoning, or infrastructure.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://pbswisconsin.org/news-item/republican-bill-berrien-quits-2026-wisconsin-governors-race-amid-pornography-fallout/",
+              "type": "news",
+              "title": "Republican Bill Berrien quits 2026 Wisconsin governor's race amid fallout",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://www.ballotpedia.org/Bill_Berrien",
+              "type": "website",
+              "title": "Bill Berrien - Ballotpedia",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Mike Kohn",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Mike Kohn is an independent candidate for Wisconsin governor in 2026. Publicly available information about his background and policy positions is limited. He appears to be a lower-visibility candidate in the race.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Mike_Kohn",
+          "type": "website",
+          "title": "Mike Kohn - Ballotpedia",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Wisconsin_gubernatorial_and_lieutenant_gubernatorial_election,_2026",
+          "type": "website",
+          "title": "Wisconsin gubernatorial and lieutenant gubernatorial election, 2026",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Mike_Kohn_2013b.jpg/500px-Mike_Kohn_2013b.jpg",
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "voting_record": [
+        {
+          "bill_name": "No legislative voting record found",
+          "vote": "absent",
+          "date": "2026-03-29",
+          "source": {
+            "url": "https://ballotpedia.org/Mike_Kohn",
+            "type": "website",
+            "title": "Mike Kohn - Ballotpedia",
+            "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+          }
+        }
+      ],
+      "top_donors": [],
+      "issues": {
+        "Healthcare": {
+          "stance": "The reviewed sources did not show a clear health care position from Kohn.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Mike_Kohn",
+              "type": "website",
+              "title": "Mike Kohn - Ballotpedia",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://votesafe.org/candidate/9947157b-5d98-495c-92ad-c06997745df2",
+              "type": "website",
+              "title": "Mike Kohn - VOTE SAFE",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "The reviewed sources did not show a clear economic platform from Kohn.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Mike_Kohn",
+              "type": "website",
+              "title": "Mike Kohn - Ballotpedia",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://www.wuwm.com/2026-wisconsin-governor-race-candidates",
+              "type": "news",
+              "title": "Here's who is running for Wisconsin governor in 2026 - WUWM",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "The reviewed sources did not show a clear climate or energy position from Kohn.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Mike_Kohn",
+              "type": "website",
+              "title": "Mike Kohn - Ballotpedia",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Reproductive Rights": {
+          "stance": "The reviewed sources did not show a clear abortion or reproductive-rights position from Kohn.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Mike_Kohn",
+              "type": "website",
+              "title": "Mike Kohn - Ballotpedia",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "The reviewed sources did not show a clear immigration position from Kohn.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Mike_Kohn",
+              "type": "website",
+              "title": "Mike Kohn - Ballotpedia",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://www.wuwm.com/2026-wisconsin-governor-race-candidates",
+              "type": "news",
+              "title": "Here's who is running for Wisconsin governor in 2026 - WUWM",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Guns & Safety": {
+          "stance": "The reviewed sources did not show a clear guns or public-safety position from Kohn.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Mike_Kohn",
+              "type": "website",
+              "title": "Mike Kohn - Ballotpedia",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://votesafe.org/candidate/9947157b-5d98-495c-92ad-c06997745df2",
+              "type": "website",
+              "title": "Mike Kohn - VOTE SAFE",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "The reviewed sources did not show a clear foreign-policy position from Kohn.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Mike_Kohn",
+              "type": "website",
+              "title": "Mike Kohn - Ballotpedia",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Social Justice": {
+          "stance": "The reviewed sources did not show a clear social-justice platform from Kohn.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Mike_Kohn",
+              "type": "website",
+              "title": "Mike Kohn - Ballotpedia",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://www.wisdc.org/component/wdcfinancedatabase/electionhistory/1072506",
+              "type": "website",
+              "title": "Kohn, Mike - Wisconsin Democracy Campaign",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "The reviewed sources did not show a clear education platform from Kohn.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Mike_Kohn",
+              "type": "website",
+              "title": "Mike Kohn - Ballotpedia",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://www.wuwm.com/2026-wisconsin-governor-race-candidates",
+              "type": "news",
+              "title": "Here's who is running for Wisconsin governor in 2026 - WUWM",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "The reviewed sources did not show a clear technology or AI position from Kohn.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Mike_Kohn",
+              "type": "website",
+              "title": "Mike Kohn - Ballotpedia",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Election Reform": {
+          "stance": "The reviewed sources did not show a clear election-reform position from Kohn.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Mike_Kohn",
+              "type": "website",
+              "title": "Mike Kohn - Ballotpedia",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://www.wuwm.com/2026-wisconsin-governor-race-candidates",
+              "type": "news",
+              "title": "Here's who is running for Wisconsin governor in 2026 - WUWM",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "The reviewed sources did not show a clear local-issues platform from Kohn.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Mike_Kohn",
+              "type": "website",
+              "title": "Mike Kohn - Ballotpedia",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://www.wuwm.com/2026-wisconsin-governor-race-candidates",
+              "type": "news",
+              "title": "Here's who is running for Wisconsin governor in 2026 - WUWM",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "David King",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "David King is an independent candidate in Wisconsin\u2019s 2026 governor\u2019s race. His campaign materials emphasize unity, community-based leadership, and practical solutions on state issues. Publicly available information on his background is limited, so his profile remains less developed than those of the major-party candidates.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/David_King_(Wisconsin)",
+          "type": "website",
+          "title": "David King (Wisconsin) - Ballotpedia",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Wisconsin_gubernatorial_and_lieutenant_gubernatorial_election,_2026",
+          "type": "website",
+          "title": "Wisconsin gubernatorial and lieutenant gubernatorial election, 2026",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Sir_David_King_%28cropped%29.jpg/500px-Sir_David_King_%28cropped%29.jpg",
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "voting_record": [
+        {
+          "bill_name": "No legislative voting record found",
+          "vote": "absent",
+          "date": "2026-03-29",
+          "source": {
+            "url": "https://ballotpedia.org/David_King_(Wisconsin)",
+            "type": "website",
+            "title": "David King (Wisconsin) - Ballotpedia",
+            "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+          }
+        }
+      ],
+      "top_donors": [],
+      "issues": {
+        "Healthcare": {
+          "stance": "King says his campaign will focus on expanding holistic healthcare and improving access.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://urbanmilwaukee.com/pressrelease/david-d-king-officially-launches-independent-campaign-for-governor-of-wisconsin/",
+              "type": "news",
+              "title": "David D. King Officially Launches Independent Campaign for Governor of Wisconsin",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "King says he wants to create economic opportunity for Wisconsin residents and support small businesses through community-based leadership.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.kingforgovernor.com/meet-david-king",
+              "type": "website",
+              "title": "Meet David King | King For Governor",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://urbanmilwaukee.com/pressrelease/david-d-king-officially-launches-independent-campaign-for-governor-of-wisconsin/",
+              "type": "news",
+              "title": "David D. King Officially Launches Independent Campaign for Governor of Wisconsin",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "The reviewed sources did not show a clear climate or energy position from King.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.kingforgovernor.com/meet-david-king",
+              "type": "website",
+              "title": "Meet David King | King For Governor",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Reproductive Rights": {
+          "stance": "The reviewed sources did not show a clear abortion or reproductive-rights position from King.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://urbanmilwaukee.com/pressrelease/david-d-king-officially-launches-independent-campaign-for-governor-of-wisconsin/",
+              "type": "news",
+              "title": "David D. King Officially Launches Independent Campaign for Governor of Wisconsin",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "The reviewed sources did not show a specific immigration policy from King.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.kingforgovernor.com/meet-david-king",
+              "type": "website",
+              "title": "Meet David King | King For Governor",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://urbanmilwaukee.com/pressrelease/david-d-king-officially-launches-independent-campaign-for-governor-of-wisconsin/",
+              "type": "news",
+              "title": "David D. King Officially Launches Independent Campaign for Governor of Wisconsin",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Guns & Safety": {
+          "stance": "King says his campaign will focus on reducing crime and using community-based solutions to keep communities safe.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://urbanmilwaukee.com/pressrelease/david-d-king-officially-launches-independent-campaign-for-governor-of-wisconsin/",
+              "type": "news",
+              "title": "David D. King Officially Launches Independent Campaign for Governor of Wisconsin",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://ballotpedia.org/David_King_(Wisconsin)",
+              "type": "website",
+              "title": "David King (Wisconsin) - Ballotpedia",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "The reviewed sources did not show a clear foreign-policy position from King.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.kingforgovernor.com/meet-david-king",
+              "type": "website",
+              "title": "Meet David King | King For Governor",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Social Justice": {
+          "stance": "King says his campaign is about unity, listening, and putting people before politics, with priorities including families, education, health care, and opportunity across communities.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://urbanmilwaukee.com/pressrelease/david-d-king-officially-launches-independent-campaign-for-governor-of-wisconsin/",
+              "type": "news",
+              "title": "David D. King Officially Launches Independent Campaign for Governor of Wisconsin",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://ballotpedia.org/David_King_(Wisconsin)",
+              "type": "website",
+              "title": "David King (Wisconsin) - Ballotpedia",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "King says he wants to strengthen schools and empower families.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.kingforgovernor.com/meet-david-king",
+              "type": "website",
+              "title": "Meet David King | King For Governor",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://urbanmilwaukee.com/pressrelease/david-d-king-officially-launches-independent-campaign-for-governor-of-wisconsin/",
+              "type": "news",
+              "title": "David D. King Officially Launches Independent Campaign for Governor of Wisconsin",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "The reviewed sources did not show a clear technology or AI position from King.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.kingforgovernor.com/meet-david-king",
+              "type": "website",
+              "title": "Meet David King | King For Governor",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Election Reform": {
+          "stance": "King says he wants transparency, accountability, and unity in state government, but the reviewed sources did not show a specific election-reform proposal.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.kingforgovernor.com/meet-david-king",
+              "type": "website",
+              "title": "Meet David King | King For Governor",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://urbanmilwaukee.com/pressrelease/david-d-king-officially-launches-independent-campaign-for-governor-of-wisconsin/",
+              "type": "news",
+              "title": "David D. King Officially Launches Independent Campaign for Governor of Wisconsin",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "King says his campaign will focus on families, small businesses, farmers, education, affordable health care, crime reduction, and infrastructure, and he has said he will hold a statewide listening tour.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://urbanmilwaukee.com/pressrelease/david-d-king-officially-launches-independent-campaign-for-governor-of-wisconsin/",
+              "type": "news",
+              "title": "David D. King Officially Launches Independent Campaign for Governor of Wisconsin",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            },
+            {
+              "url": "https://www.kingforgovernor.com/meet-david-king",
+              "type": "website",
+              "title": "Meet David King | King For Governor",
+              "last_accessed": "2026-03-29T17:51:06.372267+00:00"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "updated_utc": "2026-03-29T17:51:06.372267+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "claude-haiku-4-5-20251001",
+    "gemini-2.0-flash",
+    "grok-3-mini"
+  ],
+  "reviews": [
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "reviewed_at": "2026-03-29T17:51:28.854916+00:00",
+      "verdict": "needs_revision",
+      "flags": [
+        {
+          "field": "candidates[1].top_donors",
+          "concern": "All donor entries for Tom Tiffany are sourced from Tony Evers' OpenSecrets contributor page (2022\u20132023 cycle), not Tiffany's own fundraising records. The URL references 'officeholders/tony-evers' and the single $90K entry from Wisconsin Democratic Party is implausible for a Republican candidate. This is a critical data error.",
+          "suggestion": "Replace with Tiffany's actual FEC/OpenSecrets fundraising data. Query OpenSecrets for 'Thomas Tiffany' or use FEC.gov directly for his 2026 gubernatorial committee (not his House committee).",
+          "severity": "error"
+        },
+        {
+          "field": "candidates[2]",
+          "concern": "Bill Berrien withdrew from the 2026 race in January 2026 after controversy. Including him as an active candidate is misleading, even though his summary correctly notes the withdrawal. The profile's presence suggests he remains a viable general-election option.",
+          "suggestion": "Remove Berrien entirely from the candidates array, or clearly mark him as 'withdrawn' with a status field and move him to a separate historical/withdrawn section if the data structure supports it.",
+          "severity": "error"
+        },
+        {
+          "field": "candidates[3].image_url",
+          "concern": "Mike Kohn's image URL points to a generic Wisconsin state seal (500px-Seal_of_Wisconsin.svg.png), not an actual photo of the candidate. This is a placeholder.",
+          "suggestion": "Source or obtain an actual photograph of Mike Kohn, or leave image_url null if unavailable.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[4].image_url",
+          "concern": "David King's image appears to be a photo of the famous British scientist Sir David King (based on the Wikipedia URL structure 'Sir_David_King_(cropped).jpg'), not the Wisconsin gubernatorial candidate David King. This is a mismatched image.",
+          "suggestion": "Obtain the correct photograph of David King (Wisconsin gubernatorial candidate) or set to null.",
+          "severity": "error"
+        },
+        {
+          "field": "candidates[3].career_history",
+          "concern": "Career history array is empty for Mike Kohn, despite him being a candidate. No background information is available in the profile.",
+          "suggestion": "Research and populate Kohn's professional background, or acknowledge in the summary that detailed biographical information is not publicly available.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[4].career_history",
+          "concern": "Career history array is empty for David King, despite him being a candidate. The summary mentions his campaign themes but not his background.",
+          "suggestion": "Research and populate King's professional and community background, or acknowledge in the summary that detailed biographical information is limited.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[3].education",
+          "concern": "Education array is empty for Mike Kohn.",
+          "suggestion": "Research and add educational background if publicly available, or acknowledge its absence.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[4].education",
+          "concern": "Education array is empty for David King.",
+          "suggestion": "Research and add educational background if publicly available, or acknowledge its absence.",
+          "severity": "info"
+        },
+        {
+          "field": "polling",
+          "concern": "Both polling entries have null values for sample_size and all matchup percentages. The Marquette and RealClearPolling data provide no actual voter preference information\u2014they appear to be placeholder entries. The URLs reference articles about 'undecided voters' and general polling aggregates, but no actual numbers are populated.",
+          "suggestion": "Either populate with actual poll numbers from these sources (if publicly available for 2026), or remove the polling array entirely until real data exists. If included, add a note explaining why data is unavailable.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].top_donors",
+          "concern": "The donor source for Sara Rodriguez references Tony Evers' 2022 OpenSecrets page, not Rodriguez's own fundraising records. While the amounts and organization names may be plausible for a Democratic candidate, the source URL is incorrect (it references Evers, not Rodriguez).",
+          "suggestion": "Verify and correct the source URL to Rodriguez's own OpenSecrets fundraising page or her FEC filings.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].career_history[2]",
+          "concern": "Tom Tiffany's state Senate tenure is listed as 2011\u20132020, but his Assembly tenure is listed as 2011\u20132013. These overlap in 2011\u20132013. Wisconsin state legislators typically serve in one chamber at a time; this sequence needs clarification about whether he served both simultaneously (unlikely) or if dates are wrong.",
+          "suggestion": "Verify the exact timeline. Tiffany likely served in the Assembly 2011\u20132013, then moved to the Senate 2013\u20132020 (not 2011\u20132020).",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].summary_sources[2]",
+          "concern": "The campaign website URL 'https://www.saraforwi.com/' is cited as 'last_accessed': '2026-03-29T00:00:00Z' multiple times throughout the profile. This is extremely recent (profile date is 2026-03-29), which is plausible but worth verifying.",
+          "suggestion": "Confirm that all campaign websites were actually accessed on 2026-03-29 or update timestamps to reflect actual access dates.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].career_history[0].end_year",
+          "concern": "Tom Tiffany's U.S. Representative tenure is marked as ongoing (end_year: null), which is correct as of 2026-03-29. However, if he resigns to run for governor full-time (common in open-seat races), this may become outdated quickly.",
+          "suggestion": "Consider adding a note or monitoring for updates if Tiffany resigns from Congress during the campaign.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].summary",
+          "concern": "The summary correctly notes that Bill Berrien withdrew, but his profile remains in the active candidates array. This creates a structural inconsistency.",
+          "suggestion": "Remove Berrien from the candidates array as noted above.",
+          "severity": "error"
+        },
+        {
+          "field": "description",
+          "concern": "The race description mentions 'several independent candidates have limited public visibility.' Three independent candidates (Kohn, King, and presumably others) are included, but Kohn and King have very sparse profiles with mostly 'low confidence' issue positions. This is consistent with the description but highlights a real data gap.",
+          "suggestion": "No change needed; the description accurately flags the visibility gap. However, consider whether independent candidates warrant inclusion if data is so limited.",
+          "severity": "info"
+        }
+      ],
+      "summary": "This profile demonstrates strong sourcing and generally neutral language across the major-party candidates (Rodriguez and Tiffany), with well-documented career histories and issue positions backed by credible news outlets and official sources. However, there are several significant data integrity issues that require correction before publication: (1) a critical donor-data error for Tom Tiffany that pulls from Tony Evers' 2022 donor list instead of Tiffany's own records; (2) inconsistent candidate inclusion\u2014Bill Berrien has withdrawn from the race and should not appear as an active candidate; (3) incomplete and unverified profiles for independent candidates King and Kohn, with placeholder/mismatched images; and (4) empty polling data fields that provide no actual voter preference information. The race description and lead candidate profiles are accurate and well-sourced, but these structural problems must be resolved."
+    },
+    {
+      "model": "grok-3-mini",
+      "reviewed_at": "2026-03-29T17:51:25.517631+00:00",
+      "verdict": "needs_revision",
+      "flags": [
+        {
+          "field": "candidates[0].top_donors",
+          "concern": "The sources for top donors are incorrectly linked to Tony Evers instead of Sara Rodriguez, leading to potential factual inaccuracies in donor attribution.",
+          "suggestion": "Update the sources to reflect accurate data for Sara Rodriguez, possibly from OpenSecrets or FEC records specific to her campaign.",
+          "severity": "error"
+        },
+        {
+          "field": "polling[0].sample_size",
+          "concern": "Sample size is null, indicating missing data that could affect the completeness and accuracy of polling information.",
+          "suggestion": "Obtain and include actual sample size data from the pollster to ensure the profile is fully informative.",
+          "severity": "warning"
+        },
+        {
+          "field": "polling[0].matchups[0].percentages",
+          "concern": "Percentages are null, making the polling data incomplete and potentially misleading.",
+          "suggestion": "Replace null values with verified percentages from the source URLs or updated polls.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2]",
+          "concern": "Bill Berrien has withdrawn from the race, making his profile outdated and potentially irrelevant for the general election focus.",
+          "suggestion": "Remove or archive this candidate's entry to maintain profile completeness and relevance.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].issues",
+          "concern": "Many issues for Mike Kohn have low confidence and lack detailed stances, indicating gaps in completeness for independent candidates.",
+          "suggestion": "Gather more detailed information from additional credible sources to enhance the profile's thoroughness.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[4].issues",
+          "concern": "David King's issues section has several low-confidence stances and missing details, reflecting incompleteness in covering independent candidates.",
+          "suggestion": "Expand with more specific policy positions from his campaign materials or interviews to improve accuracy and depth.",
+          "severity": "warning"
+        }
+      ],
+      "summary": "The profile is generally well-structured with neutral language and credible sources for major candidates, but it contains factual inaccuracies in donor data and incomplete polling information, which undermine its overall reliability. Specifically, Sara Rodriguez's top donors are sourced from Tony Evers' records, and polling data lacks essential details like sample sizes and percentages."
+    }
+  ]
+}

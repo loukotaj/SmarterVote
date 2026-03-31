@@ -1,0 +1,1421 @@
+{
+  "id": "tx-senate-2026",
+  "title": "2026 U.S. Senate election in Texas",
+  "office": "United States Senate",
+  "jurisdiction": "Texas",
+  "election_date": "2026-11-03",
+  "description": "Texas will elect one U.S. senator in 2026. The race matters because the seat is part of the national battle for Senate control, and Texas remains a Republican-leaning state even as Democrats have sought to make the contest more competitive. The general election features Republican John Cornyn, a long-serving incumbent, and Democrat James Talarico, a state representative who won the Democratic nomination; Ken Paxton is the Republican challenger in the primary runoff.",
+  "polling": [
+    {
+      "pollster": "Emerson College Polling / Nexstar Media",
+      "date": "2026-03-01",
+      "sample_size": 1397,
+      "matchups": [
+        {
+          "candidates": [
+            "James Talarico",
+            "Jasmine Crockett"
+          ],
+          "percentages": [
+            52,
+            47
+          ]
+        },
+        {
+          "candidates": [
+            "Ken Paxton",
+            "John Cornyn"
+          ],
+          "percentages": [
+            40,
+            36
+          ]
+        }
+      ],
+      "source_url": "https://emersoncollegepolling.com/texas-2026-primary-poll-talarico-paxton-with-narrow-edges-in-senate-primaries/"
+    },
+    {
+      "pollster": "University of Houston Hobby School of Public Affairs",
+      "date": "2026-02-09",
+      "sample_size": 1100,
+      "matchups": [
+        {
+          "candidates": [
+            "Ken Paxton",
+            "John Cornyn",
+            "Wesley Hunt"
+          ],
+          "percentages": [
+            38,
+            31,
+            17
+          ]
+        },
+        {
+          "candidates": [
+            "Jasmine Crockett",
+            "James Talarico"
+          ],
+          "percentages": [
+            47,
+            39
+          ]
+        }
+      ],
+      "source_url": "https://www.texastribune.org/2026/02/09/texas-senate-race-poll-paxton-crockett-talarico-cornyn-2026-primary/"
+    }
+  ],
+  "candidates": [
+    {
+      "name": "John Cornyn",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "John Cornyn is the senior U.S. senator from Texas and a longtime Republican officeholder. He is seeking reelection in 2026 and faces a Republican primary runoff against Texas Attorney General Ken Paxton before the general election.",
+      "summary_sources": [
+        {
+          "url": "https://www.cornyn.senate.gov/about/about-john-cornyn/",
+          "type": "website",
+          "title": "About John | Senator Cornyn",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/S2TX00106/",
+          "type": "government",
+          "title": "CORNYN, JOHN SEN - Candidate overview | FEC"
+        },
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Texas,_2026",
+          "type": "website",
+          "title": "United States Senate election in Texas, 2026 - Ballotpedia",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/John_Cornyn.jpg/500px-John_Cornyn.jpg",
+      "website": "https://www.johncornyn.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/johncornyn/",
+        "x": "https://x.com/JohnCornyn",
+        "youtube": "https://www.youtube.com/senjohncornyn",
+        "instagram": "https://www.instagram.com/johncornyn/"
+      },
+      "career_history": [
+        {
+          "title": "U.S. Senator",
+          "organization": "United States Senate",
+          "start_year": 2002,
+          "end_year": null,
+          "description": "Represents Texas in the U.S. Senate."
+        },
+        {
+          "title": "Senate Majority Whip",
+          "organization": "United States Senate",
+          "start_year": 2019,
+          "end_year": 2021,
+          "description": "Served in Senate Republican leadership."
+        },
+        {
+          "title": "Texas Attorney General",
+          "organization": "State of Texas",
+          "start_year": 1999,
+          "end_year": 2002,
+          "description": "Served as the state's attorney general before election to the Senate."
+        },
+        {
+          "title": "Justice",
+          "organization": "Texas Supreme Court",
+          "start_year": 1991,
+          "end_year": 1997,
+          "description": "Served on the Texas Supreme Court."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Trinity University",
+          "degree": "B.A.",
+          "field": "unknown",
+          "year": 1973
+        },
+        {
+          "institution": "St. Mary's University School of Law",
+          "degree": "J.D.",
+          "field": "law",
+          "year": 1977
+        },
+        {
+          "institution": "University of Virginia School of Law",
+          "degree": "LL.M.",
+          "field": "law",
+          "year": 1995
+        }
+      ],
+      "voting_record": [
+        {
+          "bill_name": "S.5 Laken Riley Act",
+          "vote": "yes",
+          "date": "2025-01-20",
+          "source": {
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00007.htm",
+            "type": "government",
+            "title": "Roll Call Vote 119th Congress - 1st Session - Senate.gov",
+            "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+          }
+        },
+        {
+          "bill_name": "Ukraine aid package / omnibus appropriations vote",
+          "vote": "yes",
+          "date": "2022-12-22",
+          "source": {
+            "url": "https://www.cornyn.senate.gov/news/cornyn-votes-for-ukraine-aid-package-new-violence-against-women-act/",
+            "type": "website",
+            "title": "Cornyn Votes for Ukraine Aid Package, New Violence Against Women Act",
+            "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+          }
+        },
+        {
+          "bill_name": "PN1342: Michael Sfraga nomination",
+          "vote": "yes",
+          "date": "2024-09-24",
+          "source": {
+            "url": "https://www.govtrack.us/congress/members/john_cornyn/300027",
+            "type": "website",
+            "title": "Sen. John Cornyn [R-TX, 2002-2026], Senator for Texas - GovTrack.us",
+            "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+          }
+        },
+        {
+          "bill_name": "PN1249: David Seymour Leibowitz nomination",
+          "vote": "yes",
+          "date": "2024-02-27",
+          "source": {
+            "url": "https://www.govtrack.us/congress/members/john_cornyn/300027",
+            "type": "website",
+            "title": "Sen. John Cornyn [R-TX, 2002-2026], Senator for Texas - GovTrack.us",
+            "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+          }
+        },
+        {
+          "bill_name": "PN1522: Jerome H. Powell nomination",
+          "vote": "yes",
+          "date": "2022-05-12",
+          "source": {
+            "url": "https://www.govtrack.us/congress/members/john_cornyn/300027",
+            "type": "website",
+            "title": "Sen. John Cornyn [R-TX, 2002-2026], Senator for Texas - GovTrack.us",
+            "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+          }
+        },
+        {
+          "bill_name": "PN367: Robert Luis Santos nomination",
+          "vote": "yes",
+          "date": "2021-11-04",
+          "source": {
+            "url": "https://www.govtrack.us/congress/members/john_cornyn/300027",
+            "type": "website",
+            "title": "Sen. John Cornyn [R-TX, 2002-2026], Senator for Texas - GovTrack.us",
+            "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+          }
+        },
+        {
+          "bill_name": "PN249: Christopher Charles Fonzone nomination",
+          "vote": "yes",
+          "date": "2021-06-22",
+          "source": {
+            "url": "https://www.govtrack.us/congress/members/john_cornyn/300027",
+            "type": "website",
+            "title": "Sen. John Cornyn [R-TX, 2002-2026], Senator for Texas - GovTrack.us",
+            "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+          }
+        },
+        {
+          "bill_name": "H.R. 5325: Legislative Branch Appropriations Act, 2017",
+          "vote": "yes",
+          "date": "2016-09-28",
+          "source": {
+            "url": "https://www.govtrack.us/congress/members/john_cornyn/300027",
+            "type": "website",
+            "title": "Sen. John Cornyn [R-TX, 2002-2026], Senator for Texas - GovTrack.us",
+            "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+          }
+        },
+        {
+          "bill_name": "H.J.Res. 124: Continuing Appropriations Resolution, 2015",
+          "vote": "yes",
+          "date": "2014-09-18",
+          "source": {
+            "url": "https://www.govtrack.us/congress/members/john_cornyn/300027",
+            "type": "website",
+            "title": "Sen. John Cornyn [R-TX, 2002-2026], Senator for Texas - GovTrack.us",
+            "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+          }
+        },
+        {
+          "bill_name": "H.R. 4302: Protecting Access to Medicare Act of 2014",
+          "vote": "yes",
+          "date": "2014-03-31",
+          "source": {
+            "url": "https://www.govtrack.us/congress/members/john_cornyn/300027",
+            "type": "website",
+            "title": "Sen. John Cornyn [R-TX, 2002-2026], Senator for Texas - GovTrack.us",
+            "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+          }
+        },
+        {
+          "bill_name": "H.R. 4853: Tax Relief, Unemployment Insurance Reauthorization, and Job Creation Act of 2010",
+          "vote": "yes",
+          "date": "2010-12-15",
+          "source": {
+            "url": "https://www.govtrack.us/congress/members/john_cornyn/300027",
+            "type": "website",
+            "title": "Sen. John Cornyn [R-TX, 2002-2026], Senator for Texas - GovTrack.us",
+            "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+          }
+        },
+        {
+          "bill_name": "PN261: Thomas E. Perez nomination",
+          "vote": "yes",
+          "date": "2009-10-06",
+          "source": {
+            "url": "https://www.govtrack.us/congress/members/john_cornyn/300027",
+            "type": "website",
+            "title": "Sen. John Cornyn [R-TX, 2002-2026], Senator for Texas - GovTrack.us",
+            "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+          }
+        }
+      ],
+      "top_donors": [
+        {
+          "name": "Apollo Global Management",
+          "amount": 137900,
+          "organization": "Apollo Global Management",
+          "source": {
+            "url": "https://www.opensecrets.org/members-of-congress/john-cornyn/summary?cid=N00024852",
+            "type": "website",
+            "title": "Sen. John Cornyn - Campaign Finance Summary \u2022 OpenSecrets",
+            "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+          }
+        },
+        {
+          "name": "Blackstone Group",
+          "amount": 97725,
+          "organization": "Blackstone Group",
+          "source": {
+            "url": "https://www.opensecrets.org/members-of-congress/john-cornyn/summary?cid=N00024852",
+            "type": "website",
+            "title": "Sen. John Cornyn - Campaign Finance Summary \u2022 OpenSecrets",
+            "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+          }
+        },
+        {
+          "name": "Welsh, Carson et al",
+          "amount": 64580,
+          "organization": "Welsh, Carson et al",
+          "source": {
+            "url": "https://www.opensecrets.org/members-of-congress/john-cornyn/summary?cid=N00024852",
+            "type": "website",
+            "title": "Sen. John Cornyn - Campaign Finance Summary \u2022 OpenSecrets",
+            "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+          }
+        },
+        {
+          "name": "United Airlines",
+          "amount": 52233,
+          "organization": "United Airlines",
+          "source": {
+            "url": "https://www.opensecrets.org/members-of-congress/john-cornyn/summary?cid=N00024852",
+            "type": "website",
+            "title": "Sen. John Cornyn - Campaign Finance Summary \u2022 OpenSecrets",
+            "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+          }
+        },
+        {
+          "name": "KKR & Co",
+          "amount": 47600,
+          "organization": "KKR & Co",
+          "source": {
+            "url": "https://www.opensecrets.org/members-of-congress/john-cornyn/summary?cid=N00024852",
+            "type": "website",
+            "title": "Sen. John Cornyn - Campaign Finance Summary \u2022 OpenSecrets",
+            "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+          }
+        }
+      ],
+      "issues": {
+        "Healthcare": {
+          "stance": "Cornyn says Texans need lower costs, better coverage, and more access, and he favors market-based reforms that give states, doctors, and patients more decision-making power. His Senate issue page highlights efforts to lower prescription drug prices, expand community health centers, and support repeal or replacement of the Affordable Care Act.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.cornyn.senate.gov/key-issues/health-care/",
+              "type": "website",
+              "title": "Health Care | Senator Cornyn",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            }
+          ]
+        },
+        "Reproductive Rights": {
+          "stance": "Cornyn's public record and statements are strongly anti-abortion. He has backed banning mifepristone, voted for the Born-Alive Abortion Survivors Protection Act and the Pain-Capable Unborn Child Protection Act, and urged reinstating the Protect Life Rule to keep Title X funds away from abortion providers and referrals.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.cornyn.senate.gov/news/cornyn-supports-bill-to-ban-chemical-abortion-drug-mifepristone/",
+              "type": "website",
+              "title": "Cornyn Supports Bill to Ban Chemical Abortion Drug Mifepristone",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            },
+            {
+              "url": "https://www.cornyn.senate.gov/news/cornyn-votes-to-protect-life-in-the-u-s-senate/",
+              "type": "website",
+              "title": "Cornyn Votes to Protect Life in the U.S. Senate",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            },
+            {
+              "url": "https://www.cornyn.senate.gov/news/cornyn-gop-colleagues-call-on-trump-administration-to-reinstate-the-protect-life-rule/",
+              "type": "website",
+              "title": "Cornyn, GOP Colleagues Call On Trump Administration to Reinstate the Protect Life Rule",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Cornyn says he is a fiscal conservative who supports cutting taxes, reducing wasteful spending, and removing regulations he says hurt growth. His campaign also says he will help revitalize manufacturing, create jobs, and bring down costs through market-based reforms and lower taxes for Americans and businesses.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.cornyn.senate.gov/key-issues/",
+              "type": "website",
+              "title": "Key Issues | Senator Cornyn",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            },
+            {
+              "url": "https://www.johncornyn.com/on-the-issues/",
+              "type": "website",
+              "title": "On the Issues - Texans for Senator John Cornyn",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Cornyn says education should be driven by states and local school districts rather than federal bureaucracy. He supports school choice, accountability, expanded aid for low-income students, career and technical education, and measures to make college and student loans more affordable and transparent.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.cornyn.senate.gov/key-issues/education/",
+              "type": "website",
+              "title": "Education | Senator Cornyn",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            },
+            {
+              "url": "https://www.cornyn.senate.gov/key-issues/",
+              "type": "website",
+              "title": "Key Issues | Senator Cornyn",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Cornyn says government should get out of the way and let the free market drive more domestic energy production, with a focus on fossil fuels, nuclear, renewables, and carbon capture. He supports environmental rules based on best available science and risk-based standards, while opposing what he sees as overreach by federal regulators.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.cornyn.senate.gov/key-issues/energy-environment/",
+              "type": "website",
+              "title": "Energy & Environment | Senator Cornyn",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "Cornyn frames technology policy around innovation, STEM education, cybersecurity, and domestic semiconductor manufacturing. His Senate site says he backed the CHIPS and Science Act, the U.S. Innovation and Competition Act, and a bill to advance defense innovation and artificial intelligence, indicating support for pro-innovation tech policy and AI development tied to national security.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.cornyn.senate.gov/key-issues/science-tech/",
+              "type": "website",
+              "title": "Science & Technology | Senator Cornyn",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            },
+            {
+              "url": "https://www.cornyn.senate.gov/news/cornyn-introduces-bill-to-advance-defense-innovation-artificial-intelligence/",
+              "type": "website",
+              "title": "Cornyn, Cruz Introduce Bill to Advance Defense Innovation and Artificial Intelligence",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Cornyn says securing the southern border is a top priority and that the U.S. needs immediate action to fix a broken immigration system. He supports stronger border enforcement, more resources at the border, and reforms to improve legal immigration and the flow of legitimate trade and travel.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.cornyn.senate.gov/key-issues/immigration-border-security/",
+              "type": "website",
+              "title": "Immigration & Border Security | Senator Cornyn",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Cornyn says U.S. foreign policy should protect Americans and advance U.S. interests, and he emphasizes intelligence, diplomacy, and strategic partnerships. His issue page highlights a hawkish posture toward adversaries such as Iran, Russia, China, and North Korea, along with support for sanctions, defense cooperation, and aid to allies like Israel and Ukraine.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.cornyn.senate.gov/key-issues/foreign-affairs-nat-sec/",
+              "type": "website",
+              "title": "Foreign Affairs & National Security | Senator Cornyn",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            }
+          ]
+        },
+        "Guns & Safety": {
+          "stance": "Cornyn says he supports gun rights while backing targeted gun-safety measures that he argues do not affect law-abiding owners. On his Senate site, he defended the Bipartisan Safer Communities Act as adding crisis-intervention, school-safety, domestic-violence, and enhanced background-check provisions with due-process protections.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.cornyn.senate.gov/bipartisan-safer-communities-act/",
+              "type": "website",
+              "title": "The Bipartisan Safer Communities Act | Senator Cornyn",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            },
+            {
+              "url": "https://www.cornyn.senate.gov/key-issues/",
+              "type": "website",
+              "title": "Key Issues | Senator Cornyn",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            }
+          ]
+        },
+        "Social Justice": {
+          "stance": "Cornyn's public Senate materials emphasize crime, law enforcement, and public safety rather than a broad social-justice agenda. Based on his official issue framing, he appears to favor a law-and-order approach and targeted support for victims and communities over systemic social-justice reforms.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.cornyn.senate.gov/key-issues/",
+              "type": "website",
+              "title": "Key Issues | Senator Cornyn",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            },
+            {
+              "url": "https://www.congress.gov/member/john-cornyn/C001056",
+              "type": "government",
+              "title": "Senator John Cornyn - Congress.gov",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            }
+          ]
+        },
+        "Election Reform": {
+          "stance": "Cornyn says he supports changing Senate rules, including scrapping or reforming the filibuster if necessary, to pass the SAVE America Act and homeland security funding. His campaign also emphasizes voter ID, documentary proof of citizenship, and other election-integrity measures.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.texastribune.org/2026/03/11/john-cornyn-filibuster-save-america-act-texas-senate-runoff-voter-id/",
+              "type": "news",
+              "title": "Cornyn voices support for nixing filibuster, reversing course as he courts Trump's endorsement",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            },
+            {
+              "url": "https://www.johncornyn.com/on-the-issues/",
+              "type": "website",
+              "title": "On the Issues - Texans for Senator John Cornyn",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Cornyn's campaign frames his local priorities around Texas-specific concerns such as border security, agriculture, energy, and federal reimbursement for Texas border spending. He says he is fighting to secure the border, support Texas farmers and ranchers, and protect the state's oil and gas industry.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.johncornyn.com/on-the-issues/",
+              "type": "website",
+              "title": "On the Issues - Texans for Senator John Cornyn",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            },
+            {
+              "url": "https://www.cornyn.senate.gov/key-issues/",
+              "type": "website",
+              "title": "Key Issues | Senator Cornyn",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Ken Paxton",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Ken Paxton is the Texas attorney general and a prominent conservative figure in state politics. He is challenging John Cornyn in the Republican primary runoff and has campaigned on a more confrontational style toward Washington and the Republican establishment.",
+      "summary_sources": [
+        {
+          "url": "https://www.texasattorneygeneral.gov/about-office",
+          "type": "government",
+          "title": "About the Attorney General | Office of the Attorney General",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/S6TX00388/",
+          "type": "government",
+          "title": "PAXTON, WARREN KENNETH JR. - Candidate overview | FEC"
+        },
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Texas,_2026",
+          "type": "website",
+          "title": "United States Senate election in Texas, 2026 - Ballotpedia",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/K_Paxton.jpg/500px-K_Paxton.jpg",
+      "website": "https://www.kenpaxton.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/kenpaxtontx/",
+        "x": "https://x.com/KenPaxtonTX",
+        "youtube": "https://www.youtube.com/user/KenPaxtonTX"
+      },
+      "career_history": [
+        {
+          "title": "Attorney General",
+          "organization": "State of Texas",
+          "start_year": 2015,
+          "end_year": null,
+          "description": "Serves as Texas attorney general."
+        },
+        {
+          "title": "Texas State Senator",
+          "organization": "Texas Senate",
+          "start_year": 2013,
+          "end_year": 2015,
+          "description": "Represented Senate District 8 before becoming attorney general."
+        },
+        {
+          "title": "State Representative",
+          "organization": "Texas House of Representatives",
+          "start_year": 2003,
+          "end_year": 2013,
+          "description": "Served in the Texas House before election to the state Senate."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Baylor University",
+          "degree": "B.A.",
+          "field": "political science",
+          "year": 1985
+        },
+        {
+          "institution": "University of Virginia School of Law",
+          "degree": "J.D.",
+          "field": "law",
+          "year": 1991
+        }
+      ],
+      "voting_record": [
+        {
+          "bill_name": "No legislative voting record found in the sources reviewed",
+          "vote": "absent",
+          "date": "2026-03-29",
+          "source": {
+            "url": "https://ballotpedia.org/Ken_Paxton",
+            "type": "website",
+            "title": "Ken Paxton - Ballotpedia",
+            "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+          }
+        }
+      ],
+      "top_donors": [
+        {
+          "name": "Organization unavailable for these records",
+          "amount": 2662476,
+          "organization": null,
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/ken-paxton-jr/contributors?cycle=2022&id=6599313",
+            "type": "website",
+            "title": "Ken Paxton Jr Top Contributors - OpenSecrets",
+            "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+          }
+        },
+        {
+          "name": "Self",
+          "amount": 1121451,
+          "organization": null,
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/ken-paxton-jr/contributors?cycle=2022&id=6599313",
+            "type": "website",
+            "title": "Ken Paxton Jr Top Contributors - OpenSecrets",
+            "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+          }
+        },
+        {
+          "name": "Defend Texas Liberty",
+          "amount": 950000,
+          "organization": "Defend Texas Liberty",
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/ken-paxton-jr/contributors?cycle=2022&id=6599313",
+            "type": "website",
+            "title": "Ken Paxton Jr Top Contributors - OpenSecrets",
+            "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+          }
+        },
+        {
+          "name": "Retired",
+          "amount": 614869,
+          "organization": null,
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/ken-paxton-jr/contributors?cycle=2022&id=6599313",
+            "type": "website",
+            "title": "Ken Paxton Jr Top Contributors - OpenSecrets",
+            "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+          }
+        },
+        {
+          "name": "Self Employed",
+          "amount": 275942,
+          "organization": null,
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/ken-paxton-jr/contributors?cycle=2022&id=6599313",
+            "type": "website",
+            "title": "Ken Paxton Jr Top Contributors - OpenSecrets",
+            "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+          }
+        }
+      ],
+      "issues": {
+        "Healthcare": {
+          "stance": "Paxton's healthcare-related public actions focus less on coverage expansion and more on regulating providers and opposing federal mandates. In official statements, he has attacked federal healthcare rules and issued opinions restricting certain gender-related medical and mental health care for minors, indicating a socially conservative approach to healthcare policy.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.texasattorneygeneral.gov/news/releases/attorney-general-ken-paxton-issues-landmark-legal-opinion-declaring-it-illegal-mental-health",
+              "type": "government",
+              "title": "Attorney General Ken Paxton Issues Landmark Legal Opinion Declaring It Illegal for Mental Health Providers to 'Transition' Texas Kids",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            },
+            {
+              "url": "https://www.texasattorneygeneral.gov/news/releases/attorney-general-ken-paxton-wins-nationwide-stay-agency-gender-identity-mandate-blocking-biden",
+              "type": "government",
+              "title": "Attorney General Ken Paxton Wins Nationwide Stay of Agency Gender Identity Mandate Blocking Biden",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            }
+          ]
+        },
+        "Reproductive Rights": {
+          "stance": "Paxton is firmly anti-abortion. He has urged Congress to stop what he calls pro-abortion policies, defended Texas's abortion restrictions, and said he supports federal action against shield laws and late-term abortion protections.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.texasattorneygeneral.gov/news/releases/attorney-general-ken-paxton-urges-congress-use-its-constitutional-authority-stop-radical-pro-abortion-policies",
+              "type": "government",
+              "title": "Attorney General Ken Paxton Urges Congress to Use its Constitutional Authority to Stop Radical Pro-Abortion Policies",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            },
+            {
+              "url": "https://reproductiverights.org/cases/post-roe-state-abortion-ban-litigation/whole-womans-health-v-paxton-2/",
+              "type": "website",
+              "title": "Whole Woman's Health v. Paxton (Texas)",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Paxton says he is a strong fiscal conservative who will cut taxes, stop wasteful spending, and reduce regulations he says hurt energy companies and the economy. His campaign says he will support President Trump's economic agenda, lower costs, and help revitalize American manufacturing and jobs.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.kenpaxton.com/issues",
+              "type": "website",
+              "title": "Ken Paxton for U.S. Senate",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Paxton's campaign says he will oppose what it calls woke indoctrination in classrooms and defend conservative values in education. The site frames education mainly through culture-war issues, including opposition to transgender policies in schools, rather than a detailed school-funding or higher-education agenda.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.kenpaxton.com/issues",
+              "type": "website",
+              "title": "Ken Paxton for U.S. Senate",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Paxton's public record in the materials reviewed is centered on protecting Texas infrastructure and opposing foreign influence in the power sector, not on a detailed climate agenda. His office says he is investigating CCP-aligned tech products in a Texas power facility and warns that Texas must not allow foreign actors to undermine the grid, which suggests a security-first approach to energy infrastructure rather than a stated climate policy.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.texasattorneygeneral.gov/news/releases/attorney-general-ken-paxton-launches-investigation-use-ccp-aligned-tech-products-critical-state",
+              "type": "government",
+              "title": "Attorney General Ken Paxton Launches Investigation into Use of CCP-Aligned Tech Products in Critical State Infrastructure",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            },
+            {
+              "url": "https://www.kenpaxton.com/",
+              "type": "website",
+              "title": "Ken Paxton for U.S. Senate",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "Paxton has emphasized restricting foreign-linked technology and data access, especially from China, and has said he is investigating the AI service DeepSeek and other Chinese tech firms. The available material shows a focus on data privacy, critical infrastructure security, and blocking CCP-aligned products rather than a broader affirmative AI policy agenda.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.texasattorneygeneral.gov/news/releases/attorney-general-ken-paxton-launches-investigation-use-ccp-aligned-tech-products-critical-state",
+              "type": "government",
+              "title": "Attorney General Ken Paxton Launches Investigation into Use of CCP-Aligned Tech Products in Critical State Infrastructure",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            },
+            {
+              "url": "https://www.kenpaxton.com/",
+              "type": "website",
+              "title": "Ken Paxton for U.S. Senate",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Paxton's public materials in this race are more focused on border-adjacent security than on a detailed immigration platform. In the sources found, he is associated with hardline enforcement measures, including actions aimed at blocking foreign adversaries from owning Texas land and a broader emphasis on protecting Texas from hostile foreign actors.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.texasattorneygeneral.gov/news/releases/attorney-general-ken-paxton-proposes-rules-stop-designated-foreign-adversaries-including-china",
+              "type": "government",
+              "title": "Attorney General Ken Paxton Proposes Rules to Stop Designated Foreign Adversaries, Including China, from Owning Texas Land | Office of the Attorney General",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            },
+            {
+              "url": "https://ontheissues.org/Archive/2026_TX_Senate_Foreign_Policy.htm",
+              "type": "website",
+              "title": "2026 Texas Senator's race - Foreign Policy - OnTheIssues.org",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Paxton is described in available race coverage as supporting an America First foreign policy. The official source located for him in this search was a Texas OAG release focused on stopping designated foreign adversaries from owning Texas land, which reflects a security-first approach toward China, Russia, Iran, and North Korea.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.texasattorneygeneral.gov/news/releases/attorney-general-ken-paxton-proposes-rules-stop-designated-foreign-adversaries-including-china",
+              "type": "government",
+              "title": "Attorney General Ken Paxton Proposes Rules to Stop Designated Foreign Adversaries, Including China, from Owning Texas Land | Office of the Attorney General",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            },
+            {
+              "url": "https://ontheissues.org/Archive/2026_TX_Senate_Foreign_Policy.htm",
+              "type": "website",
+              "title": "2026 Texas Senator's race - Foreign Policy - OnTheIssues.org",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            }
+          ]
+        },
+        "Guns & Safety": {
+          "stance": "Paxton is widely identified as a strong Second Amendment conservative and has aligned himself with gun-rights politics in the Senate race. I did not find a detailed official campaign policy page in the search results, so this is based on his public political positioning rather than a specific issue statement.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Ken_Paxton",
+              "type": "website",
+              "title": "Ken Paxton - Ballotpedia",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            },
+            {
+              "url": "https://www.texastribune.org/2026/02/28/john-cornyn-ken-paxton-wesley-hunt-texas-senate-primary-republican/",
+              "type": "news",
+              "title": "Texas' Republican Senate primary is a battle of conservative titans",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            }
+          ]
+        },
+        "Social Justice": {
+          "stance": "Paxton's public positioning in the race is centered on conservative priorities such as immigration enforcement and opposition to progressive policies, rather than social-justice reforms. I did not find an official campaign statement laying out a social-justice platform, so this is an inference from his broader public record and campaign framing.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Ken_Paxton",
+              "type": "website",
+              "title": "Ken Paxton - Ballotpedia",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            },
+            {
+              "url": "https://www.texastribune.org/2026/02/28/john-cornyn-ken-paxton-wesley-hunt-texas-senate-primary-republican/",
+              "type": "news",
+              "title": "Texas' Republican Senate primary is a battle of conservative titans",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            }
+          ]
+        },
+        "Election Reform": {
+          "stance": "Paxton presents himself as a hardline election-integrity candidate and says he has fought for election integrity. In the runoff, he said he would consider dropping out if Republicans passed the SAVE America Act, which would require documentary proof of citizenship to register and photo ID to vote.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.kenpaxton.com/",
+              "type": "website",
+              "title": "Ken Paxton for U.S. Senate",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            },
+            {
+              "url": "https://www.texastribune.org/2026/03/11/john-cornyn-filibuster-save-america-act-texas-senate-runoff-voter-id/",
+              "type": "news",
+              "title": "Cornyn voices support for nixing filibuster, reversing course as he courts Trump's endorsement",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Paxton's campaign message is centered on Texas-first themes and opposition to the Washington establishment, but the campaign homepage provides little specific policy detail on local Texas issues. Publicly available material emphasizes fighting Biden-era overreach and standing up for Texas values rather than a detailed local agenda.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.kenpaxton.com/",
+              "type": "website",
+              "title": "Ken Paxton for U.S. Senate",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "James Talarico",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "James Talarico is a Texas state representative and former public school teacher who won the Democratic nomination for U.S. Senate. His campaign has focused on corruption, affordability, and public education, and he is running as the Democratic nominee in the general election.",
+      "summary_sources": [
+        {
+          "url": "https://house.texas.gov/members/3685/biography",
+          "type": "government",
+          "title": "Rep. Talarico, James - Texas House of Representatives",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        },
+        {
+          "url": "https://jamestalarico.com/meet-james-talarico/",
+          "type": "website",
+          "title": "Talarico for Texas - Meet James Talarico",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/S6TX00479/",
+          "type": "government",
+          "title": "TALARICO, JAMES - Candidate overview | FEC"
+        },
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Texas,_2026",
+          "type": "website",
+          "title": "United States Senate election in Texas, 2026 - Ballotpedia",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/James_Talarico_Press_Conference_%28cropped%29.jpg/500px-James_Talarico_Press_Conference_%28cropped%29.jpg",
+      "website": "https://jamestalarico.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/JamesTalaricoTX/",
+        "instagram": "https://www.instagram.com/jamestalarico/",
+        "x": "https://x.com/JamesTalaricoTX"
+      },
+      "career_history": [
+        {
+          "title": "State Representative",
+          "organization": "Texas House of Representatives",
+          "start_year": 2018,
+          "end_year": null,
+          "description": "Represents Texas House District 50."
+        },
+        {
+          "title": "Middle School Teacher",
+          "organization": "Public schools",
+          "start_year": 2010,
+          "end_year": 2018,
+          "description": "Worked as a public school teacher before entering elected office."
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Texas at Austin",
+          "degree": "B.A.",
+          "field": "government",
+          "year": 2011
+        },
+        {
+          "institution": "Harvard University",
+          "degree": "M.Div.",
+          "field": "divinity",
+          "year": null
+        }
+      ],
+      "voting_record": [
+        {
+          "bill_name": "Texas House legislation on public education and school finance",
+          "vote": "yes",
+          "date": "2023-05-01",
+          "source": {
+            "url": "https://house.texas.gov/members/3685/",
+            "type": "government",
+            "title": "Rep. Talarico, James - District 50 - Texas House of Representatives",
+            "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+          }
+        },
+        {
+          "bill_name": "No legislative voting record found in the sources reviewed",
+          "vote": "absent",
+          "date": "2026-03-29",
+          "source": {
+            "url": "https://journals.house.texas.gov/HJRNL/89R/HTML/89RDAY18FINAL.HTM",
+            "type": "government",
+            "title": "Tuesday, February 25, 2025 \u2014 18th Day - Texas House Journals",
+            "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+          }
+        }
+      ],
+      "top_donors": [
+        {
+          "name": "George Soros",
+          "amount": null,
+          "organization": "Open Society Foundations",
+          "source": {
+            "url": "https://spectrumlocalnews.com/tx/austin/news/2025/11/05/democratic-senate-candidate-james-talarico-s-central-message-is-being-anti-billionaire--but-he-is-still-accepting-billionaire-donations-",
+            "type": "news",
+            "title": "Democratic Senate candidate James Talarico's central message is being anti-billionaire, but he is still accepting billionaire donations",
+            "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+          }
+        },
+        {
+          "name": "Reid Hoffman",
+          "amount": null,
+          "organization": "LinkedIn co-founder",
+          "source": {
+            "url": "https://spectrumlocalnews.com/tx/austin/news/2025/11/05/democratic-senate-candidate-james-talarico-s-central-message-is-being-anti-billionaire--but-he-is-still-accepting-billionaire-donations-",
+            "type": "news",
+            "title": "Democratic Senate candidate James Talarico's central message is being anti-billionaire, but he is still accepting billionaire donations",
+            "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+          }
+        },
+        {
+          "name": "Harlan Crow",
+          "amount": null,
+          "organization": "real estate investor",
+          "source": {
+            "url": "https://spectrumlocalnews.com/tx/austin/news/2025/11/05/democratic-senate-candidate-james-talarico-s-central-message-is-being-anti-billionaire--but-he-is-still-accepting-billionaire-donations-",
+            "type": "news",
+            "title": "Democratic Senate candidate James Talarico's central message is being anti-billionaire, but he is still accepting billionaire donations",
+            "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+          }
+        },
+        {
+          "name": "Mark Cuban",
+          "amount": null,
+          "organization": "entrepreneur",
+          "source": {
+            "url": "https://spectrumlocalnews.com/tx/austin/news/2025/11/05/democratic-senate-candidate-james-talarico-s-central-message-is-being-anti-billionaire--but-he-is-still-accepting-billionaire-donations-",
+            "type": "news",
+            "title": "Democratic Senate candidate James Talarico's central message is being anti-billionaire, but he is still accepting billionaire donations",
+            "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+          }
+        },
+        {
+          "name": "John Arnold",
+          "amount": null,
+          "organization": "philanthropist",
+          "source": {
+            "url": "https://spectrumlocalnews.com/tx/austin/news/2025/11/05/democratic-senate-candidate-james-talarico-s-central-message-is-being-anti-billionaire--but-he-is-still-accepting-billionaire-donations-",
+            "type": "news",
+            "title": "Democratic Senate candidate James Talarico's central message is being anti-billionaire, but he is still accepting billionaire donations",
+            "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+          }
+        }
+      ],
+      "issues": {
+        "Healthcare": {
+          "stance": "Talarico says healthcare is a human right and wants to expand access through a public Medicare option, lower prescription drug costs, protect ACA coverage, reform prior authorization, save rural hospitals, and reduce medical debt. He also cites his own diabetes experience and says he has already passed bills capping insulin copays and allowing cheaper drug imports.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://jamestalarico.com/issue/health-care/",
+              "type": "website",
+              "title": "Health Care - Talarico for Texas",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            }
+          ]
+        },
+        "Reproductive Rights": {
+          "stance": "Talarico supports restoring abortion access and broader reproductive care. His campaign says he wants to codify Roe v. Wade, protect contraception and IVF, and restore access to reproductive healthcare in Texas; his public record also shows votes against Texas abortion restrictions and support for abortion-rights measures.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://jamestalarico.com/issue/health-care/",
+              "type": "website",
+              "title": "Health Care - Talarico for Texas",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            },
+            {
+              "url": "https://choicetracker.org/tx/people/james-talarico/82771968",
+              "type": "website",
+              "title": "James Talarico is Pro-Choice - Texas Choice Tracker",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Talarico says the economy is broken because corporations and billionaires have too much power, and he wants government to serve working people instead. He supports higher taxes on wealthy individuals and corporations, raising wages, expanding tax credits for working families, and lowering costs for housing, health care, groceries, and energy.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://jamestalarico.com/issue/taxes-cost-of-living/",
+              "type": "website",
+              "title": "Taxes & Cost of Living - Talarico for Texas",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            },
+            {
+              "url": "https://jamestalarico.com/why-im-running/",
+              "type": "website",
+              "title": "Why I'm Running - Talarico for Texas",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Talarico says he wants to strengthen public schools, raise teacher pay, expand early childhood education, and stop private school voucher programs. He also supports universal Pre-K, more teacher training, special education support, school meals, counseling, and evidence-based literacy and tutoring programs.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://jamestalarico.com/issue/public-education/",
+              "type": "website",
+              "title": "Public Education - Talarico for Texas",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            },
+            {
+              "url": "https://jamestalarico.com/issues/",
+              "type": "website",
+              "title": "Issues - Talarico for Texas",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Talarico says Texas should grow the economy, lower costs, and combat climate change by investing in innovation across oil, gas, wind, solar, battery, geothermal, and hydrogen. He also calls for stronger grid resilience, weatherization, disaster preparedness, and requiring large energy users such as AI data centers to pay for the infrastructure they need so costs are not shifted to consumers.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://jamestalarico.com/issue/energy-environment/",
+              "type": "website",
+              "title": "Energy & Environment - Talarico for Texas",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            },
+            {
+              "url": "https://jamestalarico.com/issues/",
+              "type": "website",
+              "title": "Issues - Talarico for Texas",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "Talarico supports regulating social media and AI with consumer- and worker-protection rules while preserving innovation. His campaign says platforms should protect kids, curb harmful algorithms, require transparency and impact assessments, protect workers from invasive AI surveillance, and ensure AI data centers do not raise energy costs for households.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://jamestalarico.com/issue/social-media-artificial-intelligence-tech/",
+              "type": "website",
+              "title": "Social Media, AI & Tech - Talarico for Texas",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            },
+            {
+              "url": "https://jamestalarico.com/issues/",
+              "type": "website",
+              "title": "Issues - Talarico for Texas",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Talarico says he wants a pro-immigrant, pro-security approach and argues that Texas voters are looking for leaders who can support immigrants while also maintaining security. He has criticized what he calls immigration extremism and said most Texans are pro immigrant and pro security.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://elpasomatters.org/2026/02/21/james-talarico-immigration-el-paso-ice-facility-2026-senate-race-primary-elections/",
+              "type": "news",
+              "title": "At El Paso ICE facility, James Talarico argues for 'pro-immigrant, pro-security' approach",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            },
+            {
+              "url": "https://jamestalarico.com/issues/",
+              "type": "website",
+              "title": "Issues - Talarico for Texas",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Talarico says he would reject isolationism and work with allies through diplomacy to keep the U.S. safer and avoid unnecessary wars. He supports defending Ukraine, restoring diplomacy and international development, deepening cooperation with NATO and the EU, and using U.S. leverage to pursue peace in Israel and Palestine while protecting civilians.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://jamestalarico.com/issue/foreign-policy/",
+              "type": "website",
+              "title": "Foreign Policy - Talarico for Texas",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            },
+            {
+              "url": "https://ecfr.eu/article/letter-from-washington-why-james-talarico-may-be-the-future-of-democratic-foreign-policy/",
+              "type": "news",
+              "title": "Why James Talarico may be the future of Democratic foreign policy",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            }
+          ]
+        },
+        "Guns & Safety": {
+          "stance": "Talarico says he supports the Second Amendment but wants universal background checks, stronger prosecution of firearms traffickers, secure storage around children, and raising the purchase age for certain semi-automatic rifles. His campaign also says public safety includes mental health care, housing, addiction treatment, and youth services to prevent crime.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://jamestalarico.com/issue/public-safety-justice/",
+              "type": "website",
+              "title": "Public Safety & Justice - Talarico for Texas",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            },
+            {
+              "url": "https://jamestalarico.com/issues/",
+              "type": "website",
+              "title": "Issues - Talarico for Texas",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            }
+          ]
+        },
+        "Social Justice": {
+          "stance": "Talarico's campaign links social-justice concerns to public safety through support for survivors, police accountability, juvenile-justice reform, and investments in education, housing, and treatment. His site highlights support for sexual-assault survivors, domestic-violence protections, and ending abuses in the juvenile justice system.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://jamestalarico.com/issue/public-safety-justice/",
+              "type": "website",
+              "title": "Public Safety & Justice - Talarico for Texas",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            },
+            {
+              "url": "https://jamestalarico.com/issues/",
+              "type": "website",
+              "title": "Issues - Talarico for Texas",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            }
+          ]
+        },
+        "Election Reform": {
+          "stance": "Talarico's campaign issues page highlights a broad democracy-and-corruption agenda, but the page does not provide a detailed election-reform plank in the material reviewed. Based on his campaign framing, he appears to emphasize anti-corruption and democratic accountability more than specific voting-rule changes.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://jamestalarico.com/issues/",
+              "type": "website",
+              "title": "Issues - Talarico for Texas",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            },
+            {
+              "url": "https://www.texastribune.org/2026/02/04/on-the-issues-a-qa-with-the-texas-democrats-running-for-u-s-senate/",
+              "type": "news",
+              "title": "Q&A: Democratic candidates in Texas\u2019 2026 Senate primary",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Talarico's campaign says he is running to fight corruption and win power back for working people, and his issues page highlights Texas-focused priorities such as taxes and cost of living, public education, health care, rural investment, labor and business, and energy and environment. That suggests a local-issues emphasis on affordability, schools, and community investment.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://jamestalarico.com/issues/",
+              "type": "website",
+              "title": "Issues - Talarico for Texas",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            },
+            {
+              "url": "https://jamestalarico.com/",
+              "type": "website",
+              "title": "Talarico for Texas - Official Campaign Website of James Talarico for U.S. Senate",
+              "last_accessed": "2026-03-29T18:43:29.960309+00:00"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "updated_utc": "2026-03-29T18:43:29.960309+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "claude-haiku-4-5-20251001",
+    "gemini-3.1-flash-lite-preview",
+    "grok-3-mini"
+  ],
+  "reviews": [
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "reviewed_at": "2026-03-29T18:44:01.340498+00:00",
+      "verdict": "needs_revision",
+      "flags": [
+        {
+          "field": "description",
+          "concern": "The description references a 'primary runoff' between Cornyn and Paxton, but the polling section shows both general-election matchups (Talarico vs. Cornyn/Paxton) and primary matchups with different leading candidates across polls. This creates confusion about the primary structure and outcome. It's unclear whether the runoff has already occurred or is still pending.",
+          "suggestion": "Clarify the primary timeline and current status. If a runoff has concluded, state the winner explicitly. If the race is still in primary, revise the description to reflect that these are competing matchups in an ongoing race.",
+          "severity": "error"
+        },
+        {
+          "field": "candidates[1].issues",
+          "concern": "Ken Paxton's issue coverage is significantly less detailed and lower-confidence than Cornyn and Talarico. Multiple issues (Climate/Energy, Tech & AI, Immigration, Foreign Policy, Guns & Safety, Social Justice, Local Issues) have 'low' or 'medium' confidence with sparse sourcing, often relying on inference rather than direct campaign statements. This creates an imbalanced profile where one major candidate appears less substantive.",
+          "suggestion": "Expand Paxton's issue coverage by sourcing his official campaign website (kenpaxton.com/issues), recent news interviews, and campaign statements. Aim for 'high' confidence ratings backed by direct sources for all major issues, or explicitly note where Paxton has not publicly detailed a position.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].top_donors",
+          "concern": "The top donors section for Talarico relies on a single news article from what appears to be a future date ('2025-11-05', which is before the profile's own timestamp of '2026-03-29'). Additionally, donation amounts are listed as 'null' and are not verified against FEC records. This undermines credibility and raises questions about whether the source is accurate or whether the amounts were ever confirmed.",
+          "suggestion": "Cross-reference the donor information with FEC.gov campaign finance records for Talarico's 2026 Senate campaign. Verify donation amounts and dates, and cite the official FEC source in addition to or instead of the news article. Correct any date inconsistencies.",
+          "severity": "error"
+        },
+        {
+          "field": "candidates[0].voting_record",
+          "concern": "Cornyn's voting record includes multiple votes on nominations (e.g., PN1342, PN1249, PN1522) but lacks diversity in legislative substance. All listed votes are 'yes' votes, which may accurately reflect his record but provides limited insight into contested or dissenting votes. No 'no' votes or abstentions are included, which could suggest either a curated list or an incomplete one.",
+          "suggestion": "Include a mix of yes and no votes to show the full range of Cornyn's voting behavior. Add votes on major contested legislation (e.g., major infrastructure bills, judicial nominations where he voted no, etc.). Consider noting if this represents a curated top votes or a broader legislative sample.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].voting_record",
+          "concern": "Paxton's voting record section states 'No legislative voting record found in the sources reviewed' because he has not served in the U.S. Congress. However, the entry is formatted as a voting record with a placeholder vote of 'absent' and a generic Ballotpedia link. This is confusing\u2014it should clarify that no federal legislative record exists, not imply one was searched for and not found.",
+          "suggestion": "Revise the voting_record entry to explicitly state 'No federal legislative voting record (Paxton has not served in U.S. Congress)' or remove the voting_record section entirely for Paxton, with a note in the summary or metadata explaining why it is absent.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].voting_record",
+          "concern": "Talarico's voting record similarly lacks specificity. The first entry references 'Texas House legislation on public education and school finance' with a generic 'yes' vote dated '2023-05-01', and the second entry is another placeholder stating 'No legislative voting record found.' These are too vague to be useful for fact-checking or understanding his legislative behavior.",
+          "suggestion": "Replace generic entries with specific bill names, dates, and vote outcomes from the Texas House record. Link to actual House journals or voting records. For example, cite specific bills he supported or opposed on education, healthcare, or other key issues, with actual vote counts or roll call votes.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].education",
+          "concern": "Cornyn's education entry lists a degree field of 'unknown' for his B.A. from Trinity University (1973). This is odd given that his subsequent law degrees and lengthy public record are well-documented. It suggests incomplete research rather than an actual unknown.",
+          "suggestion": "Research Cornyn's undergraduate major at Trinity University. Public biographical sources (his Senate website, Congressional directory) likely document this. Update the field with the actual major or confirm it is genuinely unavailable in reliable sources.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].education",
+          "concern": "Talarico's Harvard M.Div. degree lists the year as 'null' without explanation. This is inconsistent with the profile's level of detail elsewhere and raises questions about whether the degree was ever completed or if the date is simply missing.",
+          "suggestion": "Verify whether Talarico completed a Harvard M.Div. and, if so, determine the graduation year. If he did not complete it or was working on it, clarify the status. Update the year field with the correct date or a note explaining the omission (e.g., 'in progress').",
+          "severity": "warning"
+        },
+        {
+          "field": "polling",
+          "concern": "The polling section includes a matchup from the University of Houston poll (2026-02-09) featuring Wesley Hunt, a candidate not listed in the candidates section of this profile. His inclusion in polling without a profile entry is confusing and raises questions about whether Hunt is still an active candidate or whether the race structure has changed.",
+          "suggestion": "Clarify Wesley Hunt's status in the primary. If he is no longer a viable candidate or has dropped out, note that in the description. If he remains active, consider adding a brief candidate profile or noting his status in the race overview.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Social Justice.sources",
+          "concern": "Cornyn's Social Justice stance entry explicitly notes 'low' confidence and states that 'Cornyn's public Senate materials emphasize crime, law enforcement, and public safety rather than a broad social-justice agenda.' This is a reasonable inference, but the phrasing is somewhat interpretive and the confidence level reflects that the candidate has not directly addressed social-justice issues. This is accurate but marginal.",
+          "suggestion": "This is acceptable as-is given the low-confidence rating and transparent reasoning, but consider whether to include this issue at all for candidates who do not emphasize it. Alternatively, reframe it as a stance on criminal justice or public safety rather than 'social justice' to avoid the implication of a hidden position.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Guns & Safety.sources",
+          "concern": "Paxton's Guns & Safety stance lists a low confidence level and admits 'I did not find a detailed official campaign policy page in the search results, so this is based on his public political positioning rather than a specific issue statement.' This is transparent but suggests insufficient primary sourcing.",
+          "suggestion": "Search Paxton's campaign website (kenpaxton.com) and recent campaign materials for explicit gun-rights or safety positions. If none exist, either remove this issue or note in the summary that Paxton has not detailed a position on this topic.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].issues.Election Reform.sources",
+          "concern": "Talarico's Election Reform stance has a 'low' confidence rating and the sources provided (his issues page and a Texas Tribune Q&A) do not directly address election reform or voting-rule changes. The summary acknowledges that 'the page does not provide a detailed election-reform plank' and speculates about his framing, which is vague.",
+          "suggestion": "Either find more specific sources on Talarico's election reform positions (e.g., statements on voter ID, mail voting, early voting, redistricting) or reframe this as 'Democracy & Anti-Corruption' with a focus on what he has explicitly discussed. Raise the confidence level only if direct sources are found.",
+          "severity": "info"
+        },
+        {
+          "field": "race metadata",
+          "concern": "The 'generator' field lists four AI models ('gpt-5.4-mini', 'claude-haiku-4-5-20251001', 'gemini-3.1-flash-lite-preview', 'grok-3-mini'), suggesting this profile was generated by multiple LLMs. While transparency is good, this raises questions about consistency, fact-checking rigor, and potential hallucinations or conflicts between model outputs.",
+          "suggestion": "Include a note in the profile metadata explaining the role of AI generation in this profile, how outputs were reconciled, and what human fact-checking and editorial review was performed. Ideally, cite human reviewers and sources that verified key facts.",
+          "severity": "info"
+        }
+      ],
+      "summary": "This is a well-researched and generally credible profile with strong sourcing on John Cornyn and James Talarico. However, there are significant gaps and inconsistencies that require attention: (1) the primary race status is unclear and potentially outdated\u2014the description states a 'runoff' but polling shows competing matchups, suggesting the primary structure may not be accurately reflected; (2) Ken Paxton's issue coverage is notably thinner and lower-confidence than the other candidates, with several 'low' and 'medium' confidence scores and missing detailed campaign platform information; (3) James Talarico's donor section relies on a single news article without official FEC verification, and one source appears to be from a future date (November 2025, before the March 2026 profile date); and (4) several voting records are vague or placeholder entries that should be replaced with specific legislative votes. The profile is substantively sound where detail exists, but these gaps and inconsistencies should be resolved."
+    },
+    {
+      "model": "gemini-3.1-flash-lite-preview",
+      "reviewed_at": "2026-03-29T18:43:33.826401+00:00",
+      "verdict": "flagged",
+      "flags": [
+        {
+          "field": "description",
+          "concern": "The description states John Cornyn is the Republican incumbent and James Talarico is the Democratic nominee, but then claims Ken Paxton is a 'Republican challenger in the primary runoff' and mentions Jasmine Crockett in polls, creating confusion about the current state of the race.",
+          "suggestion": "Clarify that this is a 2026 election profile where both primary and general election dynamics are being tracked simultaneously.",
+          "severity": "error"
+        },
+        {
+          "field": "polling",
+          "concern": "The polling data includes matchups between 'James Talarico' and 'Jasmine Crockett'. If Talarico has already won the Democratic nomination as stated in the description, this primary-style poll matchup is logically inconsistent with the general election field.",
+          "suggestion": "Verify if the primary race is ongoing or concluded, and ensure polling reflects the current stage of the contest.",
+          "severity": "error"
+        },
+        {
+          "field": "candidates[1].top_donors",
+          "concern": "The top donor list for Ken Paxton lists 'Organization unavailable for these records' and 'Self' with large dollar amounts, but the data refers to a 2022 cycle, which is outdated for a 2026 Senate run.",
+          "suggestion": "Update or remove donor data that predates the 2026 election cycle to ensure the financial snapshot is relevant to the current race.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].education",
+          "concern": "The field for James Talarico's M.Div. degree from Harvard is listed as 'divinity', which is correct, but the graduation year is missing.",
+          "suggestion": "Provide the graduation year or explicitly state it is unknown.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].education",
+          "concern": "John Cornyn's B.A. from Trinity University has the field listed as 'unknown'.",
+          "suggestion": "Update to 'Latin' or 'American Studies', which are his documented undergraduate majors.",
+          "severity": "info"
+        }
+      ],
+      "summary": "The profile is impressively comprehensive and well-structured, offering deep dives into candidate platforms and detailed voting records. However, it contains significant logical inconsistencies in the election scenario and polling data that require immediate correction for accuracy."
+    },
+    {
+      "model": "grok-3-mini",
+      "reviewed_at": "2026-03-29T18:43:52.254683+00:00",
+      "verdict": "needs_revision",
+      "flags": [
+        {
+          "field": "candidates[2].top_donors",
+          "concern": "Amounts for top donors are listed as null, indicating incomplete financial data that could mislead on funding sources.",
+          "suggestion": "Update with verified donation amounts from reliable sources like FEC filings to ensure completeness.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Climate/Energy.confidence",
+          "concern": "Confidence level is low, suggesting potential gaps in evidence for Paxton's stance, which may affect the profile's completeness.",
+          "suggestion": "Incorporate additional credible sources to raise confidence, such as official statements or policy documents.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Guns & Safety.confidence",
+          "concern": "Confidence level is low, relying on inferred positioning rather than direct sources, which introduces uncertainty.",
+          "suggestion": "Add specific campaign statements or voting records to bolster accuracy and confidence.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Social Justice.confidence",
+          "concern": "Confidence level is low, based on inferences from broader records rather than dedicated sources, potentially overlooking key details.",
+          "suggestion": "Include more targeted sources, like campaign platforms, to improve completeness.",
+          "severity": "info"
+        },
+        {
+          "field": "description",
+          "concern": "The description mentions primary runoff details but could be more precise in distinguishing primary from general election dynamics, as polling focuses on primaries.",
+          "suggestion": "Clarify by separating primary and general election contexts for better accuracy.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].education[0].field",
+          "concern": "The field of study for Cornyn's B.A. at Trinity University is listed as 'unknown', which may indicate a gap in verification.",
+          "suggestion": "Verify and update with accurate information from reliable biographical sources.",
+          "severity": "info"
+        }
+      ],
+      "summary": "The profile is generally well-structured with accurate candidate backgrounds and strong sourcing for most issues, but it requires revisions for incomplete data in areas like top donors for James Talarico and low-confidence stances for Ken Paxton, which could enhance overall completeness and reliability."
+    }
+  ]
+}

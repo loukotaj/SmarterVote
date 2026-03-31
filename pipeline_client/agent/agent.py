@@ -437,6 +437,9 @@ def _strip_html(html: str) -> str:
     # Collapse whitespace
     text = re.sub(r"[ \t]+", " ", text)
     text = re.sub(r"\n{3,}", "\n\n", text)
+    # Strip ASCII control characters that are invalid in JSON strings
+    # (keep \x09 tab, \x0a newline, \x0d carriage-return)
+    text = re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]", "", text)
     return text.strip()
 
 
@@ -731,7 +734,13 @@ async def _agent_loop(
 
         # If the model wants to call tools, execute them
         if message.tool_calls and tools_for_call:
-            messages.append(message.model_dump())
+            # model_dump() can include extra Pydantic fields; keep only what the API accepts
+            msg_dict = {
+                "role": message.role,
+                "content": message.content,
+                "tool_calls": [tc.model_dump() for tc in message.tool_calls],
+            }
+            messages.append(msg_dict)
             for tool_call in message.tool_calls:
                 fn = tool_call.function
                 if fn.name == "web_search":

@@ -1,0 +1,1693 @@
+{
+  "id": "mi-governor-2026",
+  "title": "2026 Michigan gubernatorial election",
+  "office": "Governor of Michigan",
+  "jurisdiction": "Michigan",
+  "election_date": "2026-11-03",
+  "description": "Michigan will elect a governor and lieutenant governor on November 3, 2026. The race is open because Gov. Gretchen Whitmer is term-limited, and Michigan has been closely contested in recent statewide elections, including narrow presidential margins and competitive down-ballot races. The field features a Democratic secretary of state, a Republican former attorney general and current member of Congress, and an independent former Detroit mayor, with the main contrasts centered on affordability, education, public safety, and governing style.",
+  "polling": [
+    {
+      "pollster": "Impact Research",
+      "date": "2026-02-16",
+      "sample_size": 800,
+      "matchups": [
+        {
+          "candidates": [
+            "Jocelyn Benson",
+            "Mike Duggan"
+          ],
+          "percentages": [
+            39.0,
+            20.0
+          ]
+        }
+      ],
+      "source_url": "https://www.ballotpedia.org/Michigan_gubernatorial_and_lieutenant_gubernatorial_election,_2026"
+    },
+    {
+      "pollster": "The Glengariff Group",
+      "date": "2026-01-06",
+      "sample_size": 600,
+      "matchups": [
+        {
+          "candidates": [
+            "Jocelyn Benson",
+            "John James"
+          ],
+          "percentages": [
+            46.5,
+            44.6
+          ]
+        }
+      ],
+      "source_url": "https://www.ballotpedia.org/Michigan_gubernatorial_and_lieutenant_gubernatorial_election,_2026"
+    },
+    {
+      "pollster": "The Glengariff Group",
+      "date": "2026-01-06",
+      "sample_size": 600,
+      "matchups": [
+        {
+          "candidates": [
+            "Jocelyn Benson",
+            "Mike Cox",
+            "Mike Duggan"
+          ],
+          "percentages": [
+            34.2,
+            27.7,
+            31.4
+          ]
+        }
+      ],
+      "source_url": "https://www.ballotpedia.org/Michigan_gubernatorial_and_lieutenant_gubernatorial_election,_2026"
+    },
+    {
+      "pollster": "The Glengariff Group",
+      "date": "2026-01-06",
+      "sample_size": 600,
+      "matchups": [
+        {
+          "candidates": [
+            "Jocelyn Benson",
+            "Mike Duggan",
+            "John James"
+          ],
+          "percentages": [
+            32.2,
+            26.1,
+            33.8
+          ]
+        }
+      ],
+      "source_url": "https://www.ballotpedia.org/Michigan_gubernatorial_and_lieutenant_gubernatorial_election,_2026"
+    },
+    {
+      "pollster": "EPIC-MRA",
+      "date": "2025-11-11",
+      "sample_size": 600,
+      "matchups": [
+        {
+          "candidates": [
+            "John James",
+            "Jocelyn Benson",
+            "Mike Duggan"
+          ],
+          "percentages": [
+            33.0,
+            34.0,
+            20.0
+          ]
+        }
+      ],
+      "source_url": "https://www.ballotpedia.org/Michigan_gubernatorial_and_lieutenant_gubernatorial_election,_2026"
+    }
+  ],
+  "candidates": [
+    {
+      "name": "Jocelyn Benson",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Jocelyn Benson is Michigan\u2019s secretary of state and a Democratic candidate for governor. Her background is in election administration, civil rights law, and legal academia, and her campaign emphasizes affordability, public trust, and government transparency.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Jocelyn_Benson",
+          "type": "website",
+          "title": "Jocelyn Benson - Ballotpedia",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        },
+        {
+          "url": "https://www.jocelynbenson.com/",
+          "type": "website",
+          "title": "Jocelyn Benson for Governor",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/SOS_Jocelyn_Benson_web.jpg/500px-SOS_Jocelyn_Benson_web.jpg",
+      "website": "https://www.jocelynbenson.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/JocelynBenson",
+        "x": "https://x.com/JocelynBenson",
+        "instagram": "https://www.instagram.com/jocelynbenson/",
+        "youtube": "https://www.youtube.com/@JocelynBenson"
+      },
+      "career_history": [
+        {
+          "title": "Michigan Secretary of State",
+          "organization": "State of Michigan",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Statewide elected chief elections and motor vehicle official."
+        },
+        {
+          "title": "Dean",
+          "organization": "Wayne State University Law School",
+          "start_year": 2017,
+          "end_year": 2018,
+          "description": "Led the law school before entering statewide office."
+        },
+        {
+          "title": "Associate professor / associate director",
+          "organization": "Wayne Law Damon J. Keith Center for Civil Rights",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked in legal education and civil rights scholarship."
+        },
+        {
+          "title": "Election protection attorney / election law advocate",
+          "organization": "Democratic National Committee and Michigan Democratic Party",
+          "start_year": 2004,
+          "end_year": 2008,
+          "description": "Helped develop and supervise election protection efforts."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Wellesley College",
+          "degree": "Bachelor's",
+          "field": null,
+          "year": null
+        },
+        {
+          "institution": "University of Oxford",
+          "degree": "Graduate degree",
+          "field": null,
+          "year": null
+        },
+        {
+          "institution": "Harvard Law School",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": null
+        }
+      ],
+      "voting_record": [],
+      "top_donors": [
+        {
+          "name": "Not Employed",
+          "amount": 29951,
+          "organization": null,
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/jocelyn-f-benson/contributors?cycle=2023&id=256339",
+            "type": "website",
+            "title": "Jocelyn F Benson Top Contributors \u2022 OpenSecrets",
+            "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+          }
+        },
+        {
+          "name": "Self",
+          "amount": 17776,
+          "organization": null,
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/jocelyn-f-benson/contributors?cycle=2023&id=256339",
+            "type": "website",
+            "title": "Jocelyn F Benson Top Contributors \u2022 OpenSecrets",
+            "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+          }
+        },
+        {
+          "name": "Organization unavailable for these records",
+          "amount": 11095,
+          "organization": null,
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/jocelyn-f-benson/contributors?cycle=2023&id=256339",
+            "type": "website",
+            "title": "Jocelyn F Benson Top Contributors \u2022 OpenSecrets",
+            "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+          }
+        },
+        {
+          "name": "Ripple Inc",
+          "amount": 8325,
+          "organization": "Ripple Inc",
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/jocelyn-f-benson/contributors?cycle=2023&id=256339",
+            "type": "website",
+            "title": "Jocelyn F Benson Top Contributors \u2022 OpenSecrets",
+            "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+          }
+        },
+        {
+          "name": "Jlabs Llc",
+          "amount": 8325,
+          "organization": "Jlabs Llc",
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/jocelyn-f-benson/contributors?cycle=2023&id=256339",
+            "type": "website",
+            "title": "Jocelyn F Benson Top Contributors \u2022 OpenSecrets",
+            "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+          }
+        }
+      ],
+      "issues": {
+        "Healthcare": {
+          "stance": "Benson says healthcare is a core affordability issue and has released a plan to lower healthcare costs, improve outcomes, and expand access to care across Michigan. Her campaign also says it will address maternal health and the Black maternal healthcare crisis.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.jocelynbenson.com/",
+              "type": "website",
+              "title": "Jocelyn Benson for Governor",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://www.jocelynbenson.com/news",
+              "type": "website",
+              "title": "News \u2014 jocelynbenson - Jocelyn Benson for Governor",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Benson says she wants to make Michigan more affordable and grow jobs by fixing government systems that add costs for families and businesses. Her campaign frames the economy around affordability, housing, healthcare, childcare, and lower electricity costs.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.jocelynbenson.com/",
+              "type": "website",
+              "title": "Jocelyn Benson for Governor",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://www.wemu.org/wemu-news/2026-01-13/michigan-sos-benson-touts-economic-growth-plans-to-a2y-chamber",
+              "type": "news",
+              "title": "Michigan SOS Benson touts economic growth plans to A2Y Chamber",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://www.wjr.com/2026/02/05/jocelyn-benson-outlines-how-michigan-can-be-economic-engine-of-the-midwest/",
+              "type": "news",
+              "title": "Jocelyn Benson Outlines How Michigan Can Be 'Economic Engine ...'",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Benson says Michigan should prioritize climate tech, renewable energy, and protecting water and electricity customers from large data centers. She has said data centers should not be allowed to use Michigan water or drive up energy costs, and should instead be required to make agreements that lower energy costs and invest in renewable energy.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.wcmu.org/local-regional-news/2026-02-26/sec-of-state-jocelyn-benson-on-data-centers-corporate-welfare",
+              "type": "news",
+              "title": "Sec. of State Jocelyn Benson on data centers, corporate welfare",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://www.ourmidland.com/news/article/benson-michigan-data-center-husband-21220314.php",
+              "type": "news",
+              "title": "Benson: I'll ban data centers that use Michigan water or raise energy ...",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Reproductive Rights": {
+          "stance": "Benson says she will protect Michiganders\u2019 access to reproductive healthcare and their rights and freedoms. Her campaign has highlighted an endorsement from Reproductive Freedom for All and says she will stand up for reproductive freedom as governor.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.jocelynbenson.com/news",
+              "type": "website",
+              "title": "News \u2014 jocelynbenson - Jocelyn Benson for Governor",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://reproductivefreedomforall.org/news/reproductive-freedom-for-all-endorses-jocelyn-benson-for-michigan-governor/",
+              "type": "news",
+              "title": "Reproductive Freedom for All Endorses Jocelyn Benson for Michigan Governor",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Benson\u2019s campaign materials reviewed here do not lay out a detailed immigration platform. Her public messaging focuses more on elections, affordability, and state services than on immigration policy.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.jocelynbenson.com/",
+              "type": "website",
+              "title": "Jocelyn Benson for Governor",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://www.jocelynbenson.com/news",
+              "type": "website",
+              "title": "News \u2014 jocelynbenson - Jocelyn Benson for Governor",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Guns & Safety": {
+          "stance": "Benson has emphasized election and public safety, including protecting voters and poll workers from armed intimidation and misinformation. In the available reporting, she is associated with supporting gun restrictions at polling places and broader efforts to reduce threats tied to political violence.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.npr.org/2024/02/26/1233856035/jocelyn-benson-michigan-election-security-2024",
+              "type": "news",
+              "title": "How Michigan Secretary of State Jocelyn Benson is preparing for the election",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://giffords.org/analysis/a-win-for-democracy-and-gun-safety-in-michigan/",
+              "type": "website",
+              "title": "A Win for Democracy and Gun Safety in Michigan - Giffords.org",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://www.facebook.com/GIFFORDS/posts/were-proud-to-endorse-secretary-jocelyn-benson-for-governor-in-michigansecretary/1220037993576993/",
+              "type": "social_media",
+              "title": "We're proud to endorse Secretary Jocelyn Benson for governor in Michigan",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Benson\u2019s gubernatorial campaign materials reviewed here do not present a specific foreign policy agenda. Her public campaign focus is on state-level issues such as affordability, education, and government trust.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.jocelynbenson.com/",
+              "type": "website",
+              "title": "Jocelyn Benson for Governor",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://www.jocelynbenson.com/news",
+              "type": "website",
+              "title": "News \u2014 jocelynbenson - Jocelyn Benson for Governor",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Social Justice": {
+          "stance": "Benson\u2019s campaign messaging centers on fairness, equal opportunity, and protecting democracy and rights. The sources reviewed do not provide a detailed social justice agenda, but they do show her framing the race around defending rights and ensuring everyone gets a fair shot.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://x.com/JocelynBenson",
+              "type": "social_media",
+              "title": "Jocelyn Benson (@JocelynBenson) / X",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://www.instagram.com/reel/DVJxn37kSTo/",
+              "type": "social_media",
+              "title": "Governors are the guardrails for our rights and our freedoms. They...",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Benson says she would make public schools a top priority, including taking Michigan\u2019s schools into the nation\u2019s top 10. She supports mandatory science-of-reading training for K-3 teachers, high-quality research-backed curricula, more tutoring and early literacy support, and personalized education plans for every student.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.jocelynbenson.com/",
+              "type": "website",
+              "title": "Jocelyn Benson for Governor",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://bridgemi.com/michigan-government/in-their-words-what-michigan-governor-candidates-would-do-to-fix-schools/",
+              "type": "news",
+              "title": "In their words: What Michigan governor candidates would do to fix schools",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://www.crainsdetroit.com/politics-policy/jocelyn-benson-focuses-housing-education-governor-run/",
+              "type": "news",
+              "title": "Jocelyn Benson aims to make housing, education centerpieces of governor campaign",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "Benson has framed AI data centers as something Michigan should regulate through a transparent process, with limits on water use and energy costs. Her comments suggest support for tech investment, but only if it is paired with community agreements and renewable-energy requirements.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.wcmu.org/local-regional-news/2026-02-26/sec-of-state-jocelyn-benson-on-data-centers-corporate-welfare",
+              "type": "news",
+              "title": "Sec. of State Jocelyn Benson on data centers, corporate welfare",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://www.ourmidland.com/news/article/benson-michigan-data-center-husband-21220314.php",
+              "type": "news",
+              "title": "Benson: I'll ban data centers that use Michigan water or raise energy ...",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Election Reform": {
+          "stance": "As secretary of state, Benson has centered her public profile on election administration, voter access, and election security. Her campaign materials and reporting on her office emphasize protecting election integrity while making voting and election systems more accessible.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.jocelynbenson.com/",
+              "type": "website",
+              "title": "Jocelyn Benson for Governor",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://ballotpedia.org/Jocelyn_Benson",
+              "type": "website",
+              "title": "Jocelyn Benson - Ballotpedia",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://www.npr.org/2024/02/26/1233856035/jocelyn-benson-michigan-election-security-2024",
+              "type": "news",
+              "title": "How Michigan Secretary of State Jocelyn Benson is preparing for the election",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Benson\u2019s campaign has emphasized state-level affordability issues, including housing, childcare, electricity costs, and public trust in government. Her platform is aimed at statewide management rather than a specific local-government agenda.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.jocelynbenson.com/",
+              "type": "website",
+              "title": "Jocelyn Benson for Governor",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://www.wemu.org/wemu-news/2026-01-13/michigan-sos-benson-touts-economic-growth-plans-to-a2y-chamber",
+              "type": "news",
+              "title": "Michigan SOS Benson touts economic growth plans to A2Y Chamber",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Mike Cox",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Mike Cox is a former Michigan attorney general and Republican candidate for governor. His career has centered on law enforcement and legal work, and his campaign emphasizes taxes, public safety, education, and conservative policy themes.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Mike_Cox",
+          "type": "website",
+          "title": "Mike Cox - Ballotpedia",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        },
+        {
+          "url": "https://mikecox2026.com/",
+          "type": "website",
+          "title": "Mike Cox for Governor",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Mike_Cox_Summer_2009.JPG",
+      "website": "https://mikecox2026.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/p/Mike-Cox-100063786757090/",
+        "x": "https://x.com/Mike_Cox",
+        "instagram": "https://www.instagram.com/mikecox2026/"
+      },
+      "career_history": [
+        {
+          "title": "Attorney General of Michigan",
+          "organization": "State of Michigan",
+          "start_year": 2003,
+          "end_year": 2010,
+          "description": "Served as the state\u2019s chief legal officer."
+        },
+        {
+          "title": "Assistant prosecutor / legal roles",
+          "organization": "Wayne County and related legal offices",
+          "start_year": null,
+          "end_year": 2003,
+          "description": "Held legal and prosecutorial roles before statewide office."
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Michigan Law School",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": 1989
+        },
+        {
+          "institution": "University of Michigan, Ann Arbor",
+          "degree": "Attended",
+          "field": null,
+          "year": null
+        }
+      ],
+      "voting_record": [],
+      "top_donors": [
+        {
+          "name": "Organization unavailable for these records",
+          "amount": 22832,
+          "organization": null,
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/michael-a-cox/contributors?cycle=2004&id=6574745",
+            "type": "website",
+            "title": "Michael A Cox Top Contributors \u2022 OpenSecrets",
+            "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+          }
+        },
+        {
+          "name": "National Heritage Academies",
+          "amount": 3400,
+          "organization": "National Heritage Academies",
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/michael-a-cox/contributors?cycle=2004&id=6574745",
+            "type": "website",
+            "title": "Michael A Cox Top Contributors \u2022 OpenSecrets",
+            "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+          }
+        },
+        {
+          "name": "Wayne Co Public Administrator",
+          "amount": 3400,
+          "organization": "Wayne Co Public Administrator",
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/michael-a-cox/contributors?cycle=2004&id=6574745",
+            "type": "website",
+            "title": "Michael A Cox Top Contributors \u2022 OpenSecrets",
+            "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+          }
+        },
+        {
+          "name": "Kirk Huth",
+          "amount": 2200,
+          "organization": null,
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/michael-a-cox/contributors?cycle=2004&id=6574745",
+            "type": "website",
+            "title": "Michael A Cox Top Contributors \u2022 OpenSecrets",
+            "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+          }
+        },
+        {
+          "name": "Newaygo County Republican Central Cmte Of Michigan",
+          "amount": 1000,
+          "organization": "Newaygo County Republican Central Cmte Of Michigan",
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/michael-a-cox/contributors?cycle=2004&id=6574745",
+            "type": "website",
+            "title": "Michael A Cox Top Contributors \u2022 OpenSecrets",
+            "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+          }
+        }
+      ],
+      "issues": {
+        "Healthcare": {
+          "stance": "Cox\u2019s campaign emphasizes lowering taxes, reducing regulation, and making government more efficient, but it does not publish a detailed healthcare policy on the campaign issues page. The clearest healthcare-related statement on the site is that he created a drug price website as attorney general to help consumers compare prescription drug prices.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://mikecox2026.com/on-the-issues",
+              "type": "website",
+              "title": "Issues | Mike Cox for Governor | Join the Michigan Comeback Today",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://mikecox2026.com/",
+              "type": "website",
+              "title": "Mike Cox for Governor | Fighting to Make Michigan Great Again",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Cox\u2019s campaign emphasizes lower taxes, reduced regulation, and a more business-friendly state government. His public materials connect economic growth to education reform, school choice, and broader conservative governance.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://mikecox2026.com/",
+              "type": "website",
+              "title": "Mike Cox for Governor | Fighting to Make Michigan Great Again",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://bridgemi.com/talent-education/heres-how-governor-candidates-say-theyd-fix-michigan-education/",
+              "type": "news",
+              "title": "Here\u2019s how governor candidates say they\u2019d fix Michigan education",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Cox's campaign materials emphasize lower taxes, deregulation, and energy independence, but they do not lay out a detailed climate policy. The clearest energy-related statement in his campaign bio is support for American energy independence and opposition to harmful EV mandates.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://mikecox2026.com/about",
+              "type": "website",
+              "title": "About Mike Cox for Governor | Support Michigan's Future Today",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Reproductive Rights": {
+          "stance": "Cox\u2019s campaign site does not present a pro-reproductive-rights position; instead, it frames his record around conservative priorities and opposition to what it calls \u201cwoke\u201d policies. Based on the campaign materials reviewed, he appears aligned with restricting abortion access rather than expanding it, but the site does not provide a direct abortion policy statement.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://mikecox2026.com/on-the-issues",
+              "type": "website",
+              "title": "Issues | Mike Cox for Governor | Join the Michigan Comeback Today",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://mikecox2026.com/",
+              "type": "website",
+              "title": "Mike Cox for Governor | Fighting to Make Michigan Great Again",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Cox\u2019s campaign materials reviewed here do not provide a detailed immigration platform. His broader messaging focuses on law enforcement, taxes, and conservative governance rather than immigration policy.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://mikecox2026.com/on-the-issues",
+              "type": "website",
+              "title": "Issues | Mike Cox for Governor | Join the Michigan Comeback Today",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://mikecox2026.com/",
+              "type": "website",
+              "title": "Mike Cox for Governor | Fighting to Make Michigan Great Again",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Guns & Safety": {
+          "stance": "Cox presents himself as strongly pro\u2013Second Amendment and says he has protected hunters\u2019 and gun owners\u2019 rights. His campaign also says he will stand with law enforcement and use proven crime-fighting strategies to reduce violence.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://mikecox2026.com/on-the-issues",
+              "type": "website",
+              "title": "Issues | Mike Cox for Governor | Join the Michigan Comeback Today",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://x.com/Mike_Cox/status/2010093694515581146",
+              "type": "social_media",
+              "title": "Mike Cox 2026 (@Mike_Cox) / X",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Cox\u2019s gubernatorial campaign materials reviewed here do not present a specific foreign policy agenda. The campaign focus is on state taxes, education, public safety, and regulation.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://mikecox2026.com/",
+              "type": "website",
+              "title": "Mike Cox for Governor | Fighting to Make Michigan Great Again",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Social Justice": {
+          "stance": "Cox\u2019s campaign explicitly rejects DEI programs and says he wants to end what he calls the 'DEI bureaucracy.' He frames his approach as equal opportunity without identity-based preferences, and his site cites his support for the Michigan Civil Rights Initiative as part of that record.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://mikecox2026.com/on-the-issues",
+              "type": "website",
+              "title": "Issues | Mike Cox for Governor | Join the Michigan Comeback Today",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://www.ontheissues.org/Governor/Mike_Cox_Civil_Rights.htm",
+              "type": "website",
+              "title": "Mike Cox on Civil Rights - OnTheIssues.org",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Cox says Michigan should adopt the Mississippi model: mandatory science-of-reading curricula, training for K-5 teachers, reinstating A-F school grading, and expanding school choice through education savings accounts. He also says he would reduce rules and regulations and increase accountability, including firing failing school leaders and closing schools if needed.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://bridgemi.com/talent-education/heres-how-governor-candidates-say-theyd-fix-michigan-education/",
+              "type": "news",
+              "title": "Here\u2019s how governor candidates say they\u2019d fix Michigan education",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://bridgemi.com/michigan-government/in-their-words-what-michigan-governor-candidates-would-do-to-fix-schools/",
+              "type": "news",
+              "title": "In their words: What Michigan governor candidates would do to fix schools",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://mikecox2026.com/",
+              "type": "website",
+              "title": "Mike Cox for Governor | Fighting to Make Michigan Great Again",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "Cox's public campaign bio does not provide a specific AI policy. His broader message is pro-business and anti-regulation, so any AI stance would be inferred rather than explicitly stated.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://mikecox2026.com/about",
+              "type": "website",
+              "title": "About Mike Cox for Governor | Support Michigan's Future Today",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Election Reform": {
+          "stance": "Cox\u2019s campaign materials reviewed here do not lay out a detailed election-reform platform. His public emphasis is on conservative governance, law enforcement, and education rather than election administration.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://mikecox2026.com/",
+              "type": "website",
+              "title": "Mike Cox for Governor | Fighting to Make Michigan Great Again",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Cox\u2019s campaign focuses on statewide issues such as taxes, regulation, education, and public safety rather than a detailed local-government agenda. His message is that a more efficient state government will improve conditions for communities across Michigan.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://mikecox2026.com/",
+              "type": "website",
+              "title": "Mike Cox for Governor | Fighting to Make Michigan Great Again",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Mike Duggan",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Mike Duggan is the former mayor of Detroit and is running as an independent for governor. His campaign has focused on a nonpartisan governing style, economic development, and practical problem-solving, drawing support from across party lines.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Mike_Duggan",
+          "type": "website",
+          "title": "Mike Duggan - Ballotpedia",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        },
+        {
+          "url": "https://mikeduggan.com/",
+          "type": "website",
+          "title": "Mike Duggan for Governor",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Mike_Duggan_8r4a8513_54264084636_%282%29.jpg/500px-Mike_Duggan_8r4a8513_54264084636_%282%29.jpg",
+      "website": "https://mikeduggan.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/mikeeduggan/",
+        "x": null,
+        "instagram": "https://www.instagram.com/mikeeduggan/",
+        "youtube": "https://www.youtube.com/@MikeEDugganMI",
+        "tiktok": "https://www.tiktok.com/@mikeduggan"
+      },
+      "career_history": [
+        {
+          "title": "Mayor of Detroit",
+          "organization": "City of Detroit",
+          "start_year": 2014,
+          "end_year": 2026,
+          "description": "Led Detroit\u2019s city government for three terms."
+        },
+        {
+          "title": "Wayne County Deputy Executive",
+          "organization": "Wayne County",
+          "start_year": 1987,
+          "end_year": 2000,
+          "description": "Served in county government before becoming prosecutor."
+        },
+        {
+          "title": "Wayne County Prosecutor",
+          "organization": "Wayne County",
+          "start_year": 2001,
+          "end_year": 2003,
+          "description": "Served as county prosecutor."
+        },
+        {
+          "title": "CEO",
+          "organization": "Detroit Medical Center",
+          "start_year": 2004,
+          "end_year": 2012,
+          "description": "Led the hospital system before entering city office."
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Michigan",
+          "degree": "Bachelor's",
+          "field": null,
+          "year": 1980
+        },
+        {
+          "institution": "University of Michigan Law School",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": 1983
+        }
+      ],
+      "voting_record": [],
+      "top_donors": [
+        {
+          "name": "Caterpillar",
+          "amount": 6000,
+          "organization": "Caterpillar",
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/mike-dugan/contributors?cycle=2022&id=6874008",
+            "type": "website",
+            "title": "Mike Dugan Top Contributors \u2022 OpenSecrets",
+            "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+          }
+        },
+        {
+          "name": "AT&T",
+          "amount": 5800,
+          "organization": "AT&T",
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/mike-dugan/contributors?cycle=2022&id=6874008",
+            "type": "website",
+            "title": "Mike Dugan Top Contributors \u2022 OpenSecrets",
+            "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+          }
+        },
+        {
+          "name": "O'Kelley & Sorohan Att At Law",
+          "amount": 5600,
+          "organization": "O'Kelley & Sorohan Att At Law",
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/mike-dugan/contributors?cycle=2022&id=6874008",
+            "type": "website",
+            "title": "Mike Dugan Top Contributors \u2022 OpenSecrets",
+            "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+          }
+        },
+        {
+          "name": "Greencourt Legal Technologies",
+          "amount": 5500,
+          "organization": "Greencourt Legal Technologies",
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/mike-dugan/contributors?cycle=2022&id=6874008",
+            "type": "website",
+            "title": "Mike Dugan Top Contributors \u2022 OpenSecrets",
+            "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+          }
+        },
+        {
+          "name": "Utility Associates, Inc",
+          "amount": 5000,
+          "organization": "Utility Associates, Inc",
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/mike-dugan/contributors?cycle=2022&id=6874008",
+            "type": "website",
+            "title": "Mike Dugan Top Contributors \u2022 OpenSecrets",
+            "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+          }
+        }
+      ],
+      "issues": {
+        "Healthcare": {
+          "stance": "Duggan says Michigan needs a statewide strategy to expand access to affordable healthcare, and his campaign says he wants to address rising costs and improve access to care. His campaign page frames healthcare as part of a broader affordability agenda rather than a detailed policy platform.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://mikeduggan.com/",
+              "type": "website",
+              "title": "Mike Duggan for Governor - Independent for Michigan Governor",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Duggan says Michigan needs a broad turnaround focused on affordability, jobs, and better state management. His campaign says he would cut state spending by 2% to fund a $4.5 billion education investment without raising taxes, and his broader pitch is that stable, long-term governance will improve the state\u2019s economy.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://mikeduggan.com/",
+              "type": "website",
+              "title": "Mike Duggan for Governor - Independent for Michigan Governor",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://munisingbeacon.com/local-history/2026-election-governor-of-michigan-duggan-begins-to-make-his-case/",
+              "type": "news",
+              "title": "2026 Election | Governor of Michigan: Duggan begins to make his case",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://www.nbcnews.com/politics/2026-election/former-democrat-trump-factor-scramble-michigans-race-governor-rcna257083",
+              "type": "news",
+              "title": "A former Democrat and the Trump factor scramble Michigan's race ...",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Duggan has said Michigan should require data centers to use more expensive cooling systems to protect groundwater and streams, and he wants 'air-tight' electricity contracts so data centers do not raise prices for ordinary customers. His position is regulatory rather than anti-development: allow investment, but with stronger environmental and utility protections.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.detroitnews.com/story/news/politics/2026/01/29/detroit-regional-chamber-policy-conference-mayor-mike-duggan-independent-governor-data-centers/88403073007/",
+              "type": "news",
+              "title": "Duggan pitches data center regulations to friendly crowd in Detroit",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://www.wcmu.org/local-regional-news/2026-02-26/sec-of-state-jocelyn-benson-on-data-centers-corporate-welfare",
+              "type": "news",
+              "title": "Sec. of State Jocelyn Benson on data centers, corporate welfare",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Reproductive Rights": {
+          "stance": "Duggan\u2019s campaign website reviewed here does not lay out a detailed abortion or reproductive-rights platform. The materials emphasize a coalition-building, independent approach and affordability issues, so any reproductive-rights stance is not clearly stated on the campaign site.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://mikeduggan.com/",
+              "type": "website",
+              "title": "Mike Duggan for Governor - Independent for Michigan Governor",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Duggan\u2019s campaign materials reviewed here do not present a detailed immigration platform. His public focus is on affordability, education, and state management rather than immigration policy.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://mikeduggan.com/",
+              "type": "website",
+              "title": "Mike Duggan for Governor - Independent for Michigan Governor",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Guns & Safety": {
+          "stance": "Duggan has backed community-based gun violence reduction efforts in Detroit, including a $10 million program to partner with violence-prevention groups. He has said police alone cannot 'take the anger out of people\u2019s hearts,' indicating support for intervention and prevention alongside law enforcement.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://michiganadvance.com/briefs/duggan-pledges-to-enlist-citizens-to-reduce-gun-violence/",
+              "type": "news",
+              "title": "Duggan pledges to enlist citizens to reduce gun violence",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://mikeduggan.com/",
+              "type": "website",
+              "title": "Mike Duggan for Governor - Independent for Michigan Governor",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Duggan\u2019s gubernatorial campaign materials reviewed here do not present a specific foreign policy agenda. His campaign is centered on state governance, economic development, and public services.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://mikeduggan.com/",
+              "type": "website",
+              "title": "Mike Duggan for Governor - Independent for Michigan Governor",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Social Justice": {
+          "stance": "Duggan\u2019s campaign site emphasizes 'people over politics,' coalition-building, and opposition to divisive politics, but it does not lay out a detailed social-justice platform. Reporting on his Detroit tenure shows criticism from activists over racism and police practices, while Duggan\u2019s own stated approach is to work across party lines and focus on public services and safety.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://mikeduggan.com/",
+              "type": "website",
+              "title": "Mike Duggan for Governor - Independent for Michigan Governor",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://michiganadvance.com/briefs/duggan-pledges-to-enlist-citizens-to-reduce-gun-violence/",
+              "type": "news",
+              "title": "Duggan pledges to enlist citizens to reduce gun violence",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Duggan says he would invest $4.5 billion more in Michigan schools over five years, without raising taxes, to rebuild education. His plan emphasizes early reading tutoring, summer reading, small-group learning, more literacy training, stronger CTE, a five-year school grading system, and consequences for failing school leaders.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://mikeduggan.com/education/",
+              "type": "website",
+              "title": "Mike Duggan's Plan to Improve Education in Michigan",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://bridgemi.com/talent-education/heres-how-governor-candidates-say-theyd-fix-michigan-education/",
+              "type": "news",
+              "title": "Here\u2019s how governor candidates say they\u2019d fix Michigan education",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://www.crainsdetroit.com/politics-policy/michigan-governor-candidates-tackle-k-12-funding/",
+              "type": "news",
+              "title": "Michigan governor candidates tackle K-12 funding",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "Duggan has presented AI as an economic issue Michigan must prepare for, and he has backed data-center reform and local control as part of that strategy. His approach appears to favor tech growth, but with rules to manage community impacts and utility costs.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.detroitonemillion.com/p/michigan-candidates-for-governor",
+              "type": "news",
+              "title": "Michigan candidates for governor prepare for AI impact on economy",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://www.detroitnews.com/story/news/politics/2026/01/29/detroit-regional-chamber-policy-conference-mayor-mike-duggan-independent-governor-data-centers/88403073007/",
+              "type": "news",
+              "title": "Duggan pitches data center regulations to friendly crowd in Detroit",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Election Reform": {
+          "stance": "Duggan\u2019s campaign materials reviewed here do not present a detailed election-reform platform. His public messaging focuses on governance, affordability, and coalition-building rather than election administration.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://mikeduggan.com/",
+              "type": "website",
+              "title": "Mike Duggan for Governor - Independent for Michigan Governor",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Duggan\u2019s campaign emphasizes Detroit-style problem solving on housing, neighborhood investment, and city services, and he argues that practical management can improve conditions across Michigan. His pitch is that local results and state leadership should be judged by whether they improve everyday services.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://mikeduggan.com/",
+              "type": "website",
+              "title": "Mike Duggan for Governor - Independent for Michigan Governor",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://www.nbcnews.com/politics/2026-election/former-democrat-trump-factor-scramble-michigans-race-governor-rcna257083",
+              "type": "news",
+              "title": "A former Democrat and the Trump factor scramble Michigan's race ...",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "John James",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "John James is a Republican member of the U.S. House representing Michigan\u2019s 10th Congressional District and a candidate for governor. A former Army officer and business executive, he has framed his campaign around conservative priorities including economic growth, education, and public safety.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/John_James_(Michigan)",
+          "type": "website",
+          "title": "John James (Michigan) - Ballotpedia",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        },
+        {
+          "url": "https://johnjamesmi.com/about-john-james/",
+          "type": "website",
+          "title": "About John James - John James for Michigan",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/John_James_Audubon_1826.jpg/500px-John_James_Audubon_1826.jpg",
+      "website": "https://johnjamesmi.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/JohnJamesMI/",
+        "x": "https://x.com/JohnJamesMI",
+        "instagram": "https://www.instagram.com/johnjamesmi/",
+        "youtube": "https://www.youtube.com/@JohnJamesMI"
+      },
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives, Michigan's 10th District",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Represents Michigan\u2019s 10th Congressional District."
+        },
+        {
+          "title": "President",
+          "organization": "James Group International",
+          "start_year": null,
+          "end_year": null,
+          "description": "Business executive and company leader."
+        },
+        {
+          "title": "U.S. Army officer",
+          "organization": "U.S. Army",
+          "start_year": 2004,
+          "end_year": 2012,
+          "description": "Served in the Army after graduating from West Point."
+        }
+      ],
+      "education": [
+        {
+          "institution": "United States Military Academy at West Point",
+          "degree": "Bachelor's",
+          "field": "Legal studies",
+          "year": 2004
+        },
+        {
+          "institution": "Penn State University",
+          "degree": "Master's",
+          "field": "Supply chain management and information systems",
+          "year": 2014
+        },
+        {
+          "institution": "University of Michigan",
+          "degree": "MBA",
+          "field": "Business administration",
+          "year": 2015
+        }
+      ],
+      "voting_record": [
+        {
+          "bill_name": "H.R. 29 Laken Riley Act",
+          "vote": "yes",
+          "date": "2025-01-07",
+          "source": {
+            "url": "https://clerk.house.gov/Votes/20251",
+            "type": "government",
+            "title": "Roll Call 1 | Clerk of the House",
+            "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+          }
+        },
+        {
+          "bill_name": "H.R. 28 Protection of Women and Girls in Sports Act",
+          "vote": "yes",
+          "date": "2025-01-14",
+          "source": {
+            "url": "https://clerk.house.gov/Votes/20252",
+            "type": "government",
+            "title": "Roll Call 2 | Clerk of the House",
+            "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+          }
+        },
+        {
+          "bill_name": "H.R. 884",
+          "vote": "yes",
+          "date": "2025-06-10",
+          "source": {
+            "url": "https://justfacts.votesmart.org/candidate/key-votes/181062/john-james/12/elections",
+            "type": "government",
+            "title": "John James' Voting Records on Issue: Elections",
+            "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+          }
+        },
+        {
+          "bill_name": "H.R. 22",
+          "vote": "yes",
+          "date": "2025-04-10",
+          "source": {
+            "url": "https://justfacts.votesmart.org/candidate/key-votes/181062/john-james/12/elections",
+            "type": "government",
+            "title": "John James' Voting Records on Issue: Elections",
+            "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+          }
+        },
+        {
+          "bill_name": "H.R. 5658",
+          "vote": "yes",
+          "date": "2024-11-18",
+          "source": {
+            "url": "https://justfacts.votesmart.org/candidate/key-votes/181062/john-james/12/elections",
+            "type": "government",
+            "title": "John James' Voting Records on Issue: Elections",
+            "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+          }
+        },
+        {
+          "bill_name": "H.R. 8314",
+          "vote": "yes",
+          "date": "2024-09-17",
+          "source": {
+            "url": "https://justfacts.votesmart.org/candidate/key-votes/181062/john-james/12/elections",
+            "type": "government",
+            "title": "John James' Voting Records on Issue: Elections",
+            "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+          }
+        },
+        {
+          "bill_name": "H.R. 8281",
+          "vote": "yes",
+          "date": "2024-07-10",
+          "source": {
+            "url": "https://justfacts.votesmart.org/candidate/key-votes/181062/john-james/12/elections",
+            "type": "government",
+            "title": "John James' Voting Records on Issue: Elections",
+            "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+          }
+        },
+        {
+          "bill_name": "H.R. 192",
+          "vote": "yes",
+          "date": "2024-05-23",
+          "source": {
+            "url": "https://justfacts.votesmart.org/candidate/key-votes/181062/john-james/12/elections",
+            "type": "government",
+            "title": "John James' Voting Records on Issue: Elections",
+            "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+          }
+        },
+        {
+          "bill_name": "H.R. 5103",
+          "vote": "no",
+          "date": "2026-03-25",
+          "source": {
+            "url": "https://james.house.gov/voterecord",
+            "type": "government",
+            "title": "Vote Record | U.S. Representative",
+            "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+          }
+        },
+        {
+          "bill_name": "H.Res. 1131",
+          "vote": "yes",
+          "date": "2026-03-25",
+          "source": {
+            "url": "https://james.house.gov/voterecord",
+            "type": "government",
+            "title": "Vote Record | U.S. Representative",
+            "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+          }
+        }
+      ],
+      "top_donors": [
+        {
+          "name": "Senate Conservatives Fund",
+          "amount": 459986,
+          "organization": "Senate Conservatives Fund",
+          "source": {
+            "url": "https://www.opensecrets.org/members-of-congress/james-john/summary?cid=N00041550&cycle=CAREER&type=I",
+            "type": "website",
+            "title": "Rep. John James - Campaign Finance Summary \u2022 OpenSecrets",
+            "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+          }
+        },
+        {
+          "name": "Rdv Corp",
+          "amount": 201500,
+          "organization": "Rdv Corp",
+          "source": {
+            "url": "https://www.opensecrets.org/members-of-congress/james-john/summary?cid=N00041550&cycle=CAREER&type=I",
+            "type": "website",
+            "title": "Rep. John James - Campaign Finance Summary \u2022 OpenSecrets",
+            "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+          }
+        },
+        {
+          "name": "Penske Corp",
+          "amount": 131401,
+          "organization": "Penske Corp",
+          "source": {
+            "url": "https://www.opensecrets.org/members-of-congress/james-john/summary?cid=N00041550&cycle=CAREER&type=I",
+            "type": "website",
+            "title": "Rep. John James - Campaign Finance Summary \u2022 OpenSecrets",
+            "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+          }
+        },
+        {
+          "name": "Amway/Alticor Inc",
+          "amount": 107055,
+          "organization": "Amway/Alticor Inc",
+          "source": {
+            "url": "https://www.opensecrets.org/members-of-congress/james-john/summary?cid=N00041550&cycle=CAREER&type=I",
+            "type": "website",
+            "title": "Rep. John James - Campaign Finance Summary \u2022 OpenSecrets",
+            "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+          }
+        },
+        {
+          "name": "General Motors",
+          "amount": 90387,
+          "organization": "General Motors",
+          "source": {
+            "url": "https://www.opensecrets.org/members-of-congress/james-john/summary?cid=N00041550&cycle=CAREER&type=I",
+            "type": "website",
+            "title": "Rep. John James - Campaign Finance Summary \u2022 OpenSecrets",
+            "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+          }
+        }
+      ],
+      "issues": {
+        "Healthcare": {
+          "stance": "James says affordability is his top priority and that he will address healthcare expenses as part of a broader plan to lower the tax burden and improve family finances. His campaign page does not provide a detailed healthcare policy, but it explicitly says he will prioritize lowering healthcare costs.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://johnjamesmi.com/about-john-james/",
+              "type": "website",
+              "title": "About John James - John James for Michigan",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "James says affordability is his top priority and says he would lower the tax burden, cut job-killing regulations, and focus on housing costs and healthcare expenses. He also frames his economic agenda around supporting workers, energy independence, supply chains, and growing Michigan jobs.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://johnjamesmi.com/about-john-james/",
+              "type": "website",
+              "title": "About John James - John James for Michigan",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://www.politico.com/news/2025/04/07/james-governor-michigan-announcement-031742",
+              "type": "news",
+              "title": "John James launches bid for Michigan governor - POLITICO",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://www.lansingstatejournal.com/story/news/local/michigan/2025/04/13/michigans-2026-gubernatorial-race-john-james-democrats-republicans/83058366007/",
+              "type": "news",
+              "title": "US Rep John James joins race for Michigan governor. See the full ...",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "James says he supports American energy independence and opposes harmful EV mandates. His campaign bio does not present a detailed climate agenda, but it signals a pro-fossil-fuel, anti-mandate energy posture.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://johnjamesmi.com/about-john-james/",
+              "type": "website",
+              "title": "About John James - John James for Michigan",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Reproductive Rights": {
+          "stance": "James\u2019s congressional voting record, as tracked by Reproductive Freedom for All, shows repeated votes against measures that would expand or protect reproductive freedom, including votes related to abortion access and mifepristone. His campaign biography does not present a pro-reproductive-rights position.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://reproductivefreedomforall.org/lawmaker/john-james/",
+              "type": "website",
+              "title": "John James's Congressional Scorecard by Reproductive Freedom for All\u00ae",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://johnjamesmi.com/about-john-james/",
+              "type": "website",
+              "title": "About John James - John James for Michigan",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "James\u2019s congressional voting record includes support for immigration-enforcement legislation such as the Laken Riley Act. His campaign biography emphasizes border security and law-and-order themes more than a detailed state immigration platform.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://clerk.house.gov/Votes/20251",
+              "type": "government",
+              "title": "Roll Call 1 | Clerk of the House",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://johnjamesmi.com/about-john-james/",
+              "type": "website",
+              "title": "About John James - John James for Michigan",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Guns & Safety": {
+          "stance": "James says he supports law enforcement and opposes 'defunding' police, favoring more officer training, transparency, community policing, and hiring officers from the communities they serve. He also says public safety must be protected without allowing innocent people to be killed.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.bridgedetroit.com/in-senate-bid-john-james-is-blunt-about-police-racism-less-so-about-trump/",
+              "type": "news",
+              "title": "In Senate bid, John James is blunt about police, racism. Less so about Trump. - BridgeDetroit",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://michiganadvance.com/briefs/rep-john-james-joins-race-for-michigan-governor-says-state-lacks-strong-competent-leadership/",
+              "type": "news",
+              "title": "Rep. John James joins race for Michigan governor, says state lacks \u201cstrong, competent leadership.\u201d",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "James\u2019s gubernatorial campaign materials reviewed here do not present a detailed foreign policy agenda. His background as a former Army officer is part of his biography, but the campaign focus is on state-level issues.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://johnjamesmi.com/about-john-james/",
+              "type": "website",
+              "title": "About John James - John James for Michigan",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Social Justice": {
+          "stance": "James has said both major parties have failed Black Americans and has tried to present himself as supportive of peaceful protest and racial equity. At the same time, reporting notes he has offered few concrete policy ideas on racial justice and has not consistently aligned with the Black Lives Matter movement.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.bridgedetroit.com/in-senate-bid-john-james-is-blunt-about-police-racism-less-so-about-trump/",
+              "type": "news",
+              "title": "In Senate bid, John James is blunt about police, racism. Less so about Trump. - BridgeDetroit",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://michiganadvance.com/briefs/rep-john-james-joins-race-for-michigan-governor-says-state-lacks-strong-competent-leadership/",
+              "type": "news",
+              "title": "Rep. John James joins race for Michigan governor, says state lacks \u201cstrong, competent leadership.\u201d",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "James says he wants academic excellence and to put kids and families first in education, but his campaign had not released a full education plan in the sources reviewed. In Bridge Michigan, he said he would pursue legislative action to require proven phonics instruction from kindergarten through third grade, following the Mississippi model.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://bridgemi.com/talent-education/heres-how-governor-candidates-say-theyd-fix-michigan-education/",
+              "type": "news",
+              "title": "Here\u2019s how governor candidates say they\u2019d fix Michigan education",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://johnjamesmi.com/about-john-james/",
+              "type": "website",
+              "title": "About John James - John James for Michigan",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=zzarwyIXeiU",
+              "type": "social_media",
+              "title": "John James speaks on his run for Governor and legislative priorites",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "James's campaign bio does not lay out a specific AI policy. It does say he wants to cut job-killing regulations, strengthen supply chains, and promote economic opportunity, which suggests a generally pro-innovation posture but not an explicit AI platform.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://johnjamesmi.com/about-john-james/",
+              "type": "website",
+              "title": "About John James - John James for Michigan",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Election Reform": {
+          "stance": "James\u2019s congressional voting record includes support for election-related legislation such as the SAVE Act and other measures focused on voter eligibility and election administration. His campaign biography does not present a separate state election-reform platform.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://justfacts.votesmart.org/candidate/key-votes/181062/john-james/12/elections",
+              "type": "government",
+              "title": "John James' Voting Records on Issue: Elections",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://johnjamesmi.com/about-john-james/",
+              "type": "website",
+              "title": "About John James - John James for Michigan",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "James\u2019s campaign is centered on statewide affordability, but it also highlights local concerns such as housing costs, community safety, and the condition of Michigan\u2019s schools. His pitch is that state government should be more responsive to families and local communities.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://johnjamesmi.com/about-john-james/",
+              "type": "website",
+              "title": "About John James - John James for Michigan",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            },
+            {
+              "url": "https://www.lansingstatejournal.com/story/news/local/michigan/2025/04/13/michigans-2026-gubernatorial-race-john-james-democrats-republicans/83058366007/",
+              "type": "news",
+              "title": "US Rep John James joins race for Michigan governor. See the full ...",
+              "last_accessed": "2026-03-29T17:40:56.156668+00:00"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "updated_utc": "2026-03-29T17:40:56.156668+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "claude-haiku-4-5-20251001",
+    "gemini-2.0-flash",
+    "grok-3-mini"
+  ],
+  "reviews": [
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "reviewed_at": "2026-03-29T17:41:17.604525+00:00",
+      "verdict": "needs_revision",
+      "flags": [
+        {
+          "field": "candidates[3].image_url",
+          "concern": "The image URL points to a historical painting of naturalist John James Audubon (1826), not the current U.S. Representative John James. This is a critical factual error that will display incorrect imagery.",
+          "suggestion": "Replace with the correct Wikipedia URL for Rep. John James (Michigan), or verify the current official congressional headshot URL.",
+          "severity": "error"
+        },
+        {
+          "field": "candidates[0].top_donors",
+          "concern": "Donor data is sourced from OpenSecrets cycle=2023, but the profile is current as of March 2026. This data is 3 years old and may not reflect current 2026 gubernatorial campaign funding.",
+          "suggestion": "Update to cycle=2026 or current reporting cycle if available, or note the year explicitly in the source URL.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].top_donors",
+          "concern": "Donor data is sourced from OpenSecrets cycle=2022, which is 4 years old relative to the 2026 profile update date. Should reflect more recent fundraising.",
+          "suggestion": "Update to 2026 cycle or most recent available data for mayoral or gubernatorial activity.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].top_donors",
+          "concern": "Donor data is sourced from cycle=2004 (22 years old), which is far outdated relative to a 2026 gubernatorial campaign. Cox's current gubernatorial fundraising is not reflected.",
+          "suggestion": "Obtain current 2026 gubernatorial campaign donor data from Cox's campaign finance filings or OpenSecrets 2026 cycle data.",
+          "severity": "error"
+        },
+        {
+          "field": "candidates[2].issues.Reproductive Rights.stance",
+          "concern": "Marked 'low' confidence, but the stance is vague ('does not lay out a detailed abortion or reproductive-rights platform'). For an independent candidate running in 2026, this gap in documentation may be accurate but is notable given the centrality of the issue in Michigan politics post-Proposal 3.",
+          "suggestion": "Consider searching for additional recent statements, town halls, or news interviews where Duggan may have addressed reproductive rights. If truly absent, that itself is a newsworthy omission worth noting more prominently.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Reproductive Rights.stance",
+          "concern": "Stance is marked 'low' confidence and relies heavily on inference ('appears aligned with restricting abortion access rather than expanding it, but the site does not provide a direct abortion policy statement'). For a major GOP candidate in 2026, explicit sourcing of abortion position would strengthen profile.",
+          "suggestion": "Search recent statements, campaign speeches, or news interviews for Cox's explicit position on abortion/reproductive rights. Low confidence is appropriate if unavailable, but note whether this is a deliberate campaign omission.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].image_url",
+          "concern": "Although the image appears to be a historical artwork (same issue as candidate[3] earlier), confirm this is not the correct congressional portrait.",
+          "suggestion": "Verify and replace with official U.S. House portrait or campaign-approved headshot.",
+          "severity": "error"
+        },
+        {
+          "field": "candidates[0].career_history",
+          "concern": "Election protection attorney role (2004\u20132008) lists organization as 'Democratic National Committee and Michigan Democratic Party' \u2014 this is accurate but could be clarified as to whether roles were paid staff or volunteer/advisory.",
+          "suggestion": "Minor: add context ('volunteer,' 'staff,' or 'advisor') if available to clarify the nature of the role.",
+          "severity": "info"
+        },
+        {
+          "field": "polling",
+          "concern": "All polling data uses the same source URL (Ballotpedia) for all polls. While this is a legitimate aggregator, the original pollsters are cited in the pollster field (Impact Research, Glengariff Group, EPIC-MRA). Consider whether direct links to each pollster's original release would strengthen source credibility.",
+          "suggestion": "If available, add direct URLs to each pollster's original releases alongside the Ballotpedia aggregator link for increased transparency.",
+          "severity": "info"
+        },
+        {
+          "field": "description",
+          "concern": "The description mentions 'a Republican former attorney general and current member of Congress' \u2014 this accurately refers to James (current U.S. Rep) but Cox (former AG) is no longer in federal office. The phrasing could be clearer to distinguish the two Republican candidates.",
+          "suggestion": "Reword to: 'Republican candidates including a former attorney general and a current member of Congress' or list them separately.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[3].voting_record",
+          "concern": "Voting record includes 10 bills with dates ranging from 2024 to 2026. While this is useful context, the profile does not explain how these votes relate to gubernatorial policy positions or what James's rationale was. The votes are listed factually but without interpretive framing.",
+          "suggestion": "Either expand each vote with a brief issue label (e.g., 'Immigration enforcement') or acknowledge in the stance sections that voting record is summarized under the relevant issue (e.g., under Immigration, cite the Laken Riley Act vote).",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].summary",
+          "concern": "Summary describes Cox as having 'law enforcement and legal work' as his career focus, but his role as a private citizen/business executive (if any) between 2010 and 2026 is not mentioned in the summary or career history.",
+          "suggestion": "Clarify what Cox has been doing since leaving office as Attorney General in 2010. If private practice or business roles exist, add them to career_history.",
+          "severity": "info"
+        }
+      ],
+      "summary": "This is a comprehensive and well-sourced profile overall, with strong documentation of candidate backgrounds, education, and issue positions across all major topics. Sourcing is generally credible, mixing official campaign sites, news outlets, and government records. However, there are several notable issues that require correction: a critical image URL mismatch for John James (showing John James Audubon instead of the congressman), inconsistent donor data sourcing (some from 2004 and 2023 cycles rather than current 2026 data), and a few low-confidence stance sections where candidate positions could be documented more thoroughly. The profile would benefit from updating donor information to the 2026 cycle and verifying the James image URL."
+    },
+    {
+      "model": "grok-3-mini",
+      "reviewed_at": "2026-03-29T17:41:18.750037+00:00",
+      "verdict": "needs_revision",
+      "flags": [
+        {
+          "field": "candidates[3].image_url",
+          "concern": "The image URL provided is for John James Audubon, the ornithologist, not the Michigan politician John James, which is a factual inaccuracy.",
+          "suggestion": "Replace with the correct image URL for John James, such as an official photo from his campaign or a reliable source like his congressional page.",
+          "severity": "error"
+        },
+        {
+          "field": "candidates[0].education[0].year",
+          "concern": "The year for Jocelyn Benson's Bachelor's degree from Wellesley College is listed as null, potentially indicating a gap in completeness.",
+          "suggestion": "Verify and add the specific year based on reliable biographical sources.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].top_donors[0].source",
+          "concern": "The donor data source is from the 2023 cycle, which may be outdated for a 2026 election profile, potentially affecting accuracy.",
+          "suggestion": "Update with the most recent donor data available up to 2026 or note the data's limitations.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].education[1].year",
+          "concern": "The year for Mike Cox's attendance at University of Michigan, Ann Arbor is listed as null, leaving a gap in completeness.",
+          "suggestion": "Add the specific year if available from credible sources.",
+          "severity": "warning"
+        }
+      ],
+      "summary": "The profile is generally well-structured with strong sourcing from credible outlets like Ballotpedia, OpenSecrets, and major news sites, accurately reflecting candidates' positions on key issues such as healthcare and education. However, it requires revisions for factual inaccuracies, like the incorrect image for John James, and minor gaps in completeness, such as missing education details and potentially outdated donor data, to ensure full accuracy and neutrality."
+    }
+  ]
+}

@@ -1,0 +1,1055 @@
+{
+  "id": "ks-governor-2026",
+  "title": "2026 Kansas Governor Election",
+  "office": "Governor of Kansas",
+  "jurisdiction": "Kansas",
+  "election_date": "2026-11-03",
+  "description": "Kansas will elect a governor in 2026 to succeed term-limited Gov. Laura Kelly, making this an open-seat race. The contest is likely to reflect Kansas\u2019s recent pattern of competitive statewide elections, with both parties emphasizing their records on taxes, schools, and the cost of living. Early campaign messaging suggests Democrats will stress affordability and public investment, while Republicans are focusing on tax cuts, regulation, and conservative values.",
+  "polling": [
+    {
+      "pollster": "SurveyUSA",
+      "date": "2026-01-08",
+      "sample_size": 600,
+      "matchups": [
+        {
+          "candidates": [
+            "Cindy Holscher",
+            "Ethan Corson"
+          ],
+          "percentages": [
+            null,
+            null
+          ]
+        }
+      ],
+      "source_url": "https://kansasreflector.com/2026/01/15/early-poll-of-democratic-primary-race-for-kansas-governor-reveals-most-voters-undecided/"
+    },
+    {
+      "pollster": "SurveyUSA",
+      "date": "2026-01-08",
+      "sample_size": 600,
+      "matchups": [
+        {
+          "candidates": [
+            "Cindy Holscher",
+            "Ethan Corson"
+          ],
+          "percentages": [
+            null,
+            null
+          ]
+        }
+      ],
+      "source_url": "https://www.cjonline.com/story/news/politics/state/2026/01/15/kansas-sen-cindy-holscher-holds-the-lead-in-polling-over-ethan-corson/88184633007/"
+    }
+  ],
+  "candidates": [
+    {
+      "name": "Cindy Holscher",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Cindy Holscher is a Kansas state senator from Overland Park and a former Kansas House member. Her campaign centers on affordability, public schools, health care, and government reform, and she presents herself as a pragmatic Democrat focused on lowering costs for Kansas families.",
+      "summary_sources": [
+        {
+          "url": "https://cindyforkansas.com/about/",
+          "type": "website",
+          "title": "About | Kansas - Cindy Holscher for Governor",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Cindy_Holscher",
+          "type": "website",
+          "title": "Cindy Holscher - Ballotpedia",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        },
+        {
+          "url": "https://cindyforkansas.com/priorities/",
+          "type": "website",
+          "title": "Priorities | Kansas - Cindy Holscher for Governor",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://cindyforkansas.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/CindyHolscherKS",
+        "x": "https://x.com/CindyHolscherKS",
+        "instagram": "https://www.instagram.com/cindyholscherks/",
+        "linkedin": null
+      },
+      "career_history": [
+        {
+          "title": "Kansas State Senator",
+          "organization": "Kansas State Senate",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Represents Senate District 8."
+        },
+        {
+          "title": "Kansas House Representative",
+          "organization": "Kansas House of Representatives",
+          "start_year": 2017,
+          "end_year": 2021,
+          "description": "Represented House District 16."
+        },
+        {
+          "title": "Professional roles",
+          "organization": "R.H. Donnelley, The Add Sheet, Sprint",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked in business and communications roles before elected office."
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Missouri",
+          "degree": "Bachelor's degrees",
+          "field": "journalism, marketing, and political science",
+          "year": 1992
+        },
+        {
+          "institution": "Slater High School",
+          "degree": "High school diploma",
+          "field": null,
+          "year": 1987
+        }
+      ],
+      "voting_record": [],
+      "top_donors": [],
+      "issues": {
+        "Healthcare": {
+          "stance": "Holscher says she wants to lower health care costs, protect Medicaid, and make health care more affordable for Kansas families.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://cindyforkansas.com/priorities/",
+              "type": "website",
+              "title": "Priorities | Kansas - Cindy Holscher for Governor",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Holscher says she wants to make Kansas more affordable by lowering the cost of living, cutting residential property taxes, supporting working families, and raising the minimum wage to $16.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://cindyforkansas.com/priorities/",
+              "type": "website",
+              "title": "Priorities | Kansas - Cindy Holscher for Governor",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Holscher\u2019s campaign materials do not lay out a detailed climate plan. Her public messaging is more focused on affordability, household costs, and state investment than on a specific climate or energy agenda.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://cindyforkansas.com/priorities/",
+              "type": "website",
+              "title": "Priorities | Kansas - Cindy Holscher for Governor",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            },
+            {
+              "url": "https://cindyforkansas.com/",
+              "type": "website",
+              "title": "Cindy Holscher for Governor",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            }
+          ]
+        },
+        "Reproductive Rights": {
+          "stance": "Holscher\u2019s campaign materials reviewed here do not provide a detailed abortion policy statement. Her broader campaign messaging emphasizes health care access and protecting families, but no explicit reproductive-rights platform was located in the sources reviewed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://cindyforkansas.com/priorities/",
+              "type": "website",
+              "title": "Priorities | Kansas - Cindy Holscher for Governor",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            },
+            {
+              "url": "https://cindyforkansas.com/about/",
+              "type": "website",
+              "title": "About | Kansas - Cindy Holscher for Governor",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "No clear candidate-stated immigration position was found in the campaign materials reviewed. Holscher\u2019s public priorities page focuses on affordability, education, health care, and government reform rather than immigration.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://cindyforkansas.com/priorities/",
+              "type": "website",
+              "title": "Priorities | Kansas - Cindy Holscher for Governor",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            },
+            {
+              "url": "https://cindyforkansas.com/",
+              "type": "website",
+              "title": "Cindy Holscher for Governor",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            }
+          ]
+        },
+        "Guns & Safety": {
+          "stance": "Holscher\u2019s campaign materials reviewed here do not present a detailed gun policy. Her messaging emphasizes family well-being, public services, and general safety-oriented governance rather than a specific firearms agenda.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://cindyforkansas.com/priorities/",
+              "type": "website",
+              "title": "Priorities | Kansas - Cindy Holscher for Governor",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            },
+            {
+              "url": "https://cindyforkansas.com/about/",
+              "type": "website",
+              "title": "About | Kansas - Cindy Holscher for Governor",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "No clear candidate-stated foreign policy position was found in the campaign materials reviewed. Her campaign focuses on Kansas state issues rather than international affairs.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://cindyforkansas.com/priorities/",
+              "type": "website",
+              "title": "Priorities | Kansas - Cindy Holscher for Governor",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            },
+            {
+              "url": "https://cindyforkansas.com/",
+              "type": "website",
+              "title": "Cindy Holscher for Governor",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            }
+          ]
+        },
+        "Social Justice": {
+          "stance": "Holscher\u2019s campaign emphasizes helping working families, supporting public education, and limiting corporate influence in elections. Her materials frame these goals in broad equity and fairness terms, but do not set out a separate social-justice platform.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://cindyforkansas.com/priorities/",
+              "type": "website",
+              "title": "Priorities | Kansas - Cindy Holscher for Governor",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            },
+            {
+              "url": "https://cindyforkansas.com/about/",
+              "type": "website",
+              "title": "About | Kansas - Cindy Holscher for Governor",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Holscher says she will invest in public education, expand special education funding, and make school lunch free for every student.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://cindyforkansas.com/priorities/",
+              "type": "website",
+              "title": "Priorities | Kansas - Cindy Holscher for Governor",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "No specific public statement on AI or technology policy was found in the sources reviewed. Her campaign site emphasizes government services and affordability rather than a technology agenda.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://cindyforkansas.com/priorities/",
+              "type": "website",
+              "title": "Priorities | Kansas - Cindy Holscher for Governor",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            },
+            {
+              "url": "https://cindyforkansas.com/",
+              "type": "website",
+              "title": "Cindy Holscher for Governor",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            }
+          ]
+        },
+        "Election Reform": {
+          "stance": "Holscher says Kansas should create an independent redistricting panel, prohibit mid-decade redistricting, enact term limits, and limit corporate PAC money in elections.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://cindyforkansas.com/priorities/",
+              "type": "website",
+              "title": "Priorities | Kansas - Cindy Holscher for Governor",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Holscher\u2019s campaign emphasizes Kansas-specific concerns such as property taxes, housing affordability, childcare, groceries, gas prices, and support for seniors, veterans, and farmers.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://cindyforkansas.com/priorities/",
+              "type": "website",
+              "title": "Priorities | Kansas - Cindy Holscher for Governor",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Vicki Schmidt",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Vicki Schmidt is Kansas commissioner of insurance and a former state senator from Topeka. Her campaign presents her as a conservative statewide executive with experience in insurance regulation, legislative service, and pharmacy, and it emphasizes taxes, regulation, and public safety.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Vicki_Schmidt",
+          "type": "website",
+          "title": "Vicki Schmidt - Ballotpedia",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        },
+        {
+          "url": "https://vickiforgovernor.com/",
+          "type": "website",
+          "title": "Home Page - Vicki Schmidt for Governor",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://vickiforgovernor.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/vickiforgovernor",
+        "x": null,
+        "instagram": "https://www.instagram.com/vickiforgovernor/",
+        "linkedin": "https://www.linkedin.com/in/vicki-schmidt-0b4b7b1/"
+      },
+      "career_history": [
+        {
+          "title": "Kansas Commissioner of Insurance",
+          "organization": "State of Kansas",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Statewide elected insurance commissioner."
+        },
+        {
+          "title": "Kansas State Senator",
+          "organization": "Kansas State Senate",
+          "start_year": 2005,
+          "end_year": 2018,
+          "description": "Represented Senate District 20."
+        },
+        {
+          "title": "Pharmacist",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Professional background in pharmacy."
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Kansas School of Pharmacy",
+          "degree": "Bachelor's",
+          "field": "pharmacy",
+          "year": 1978
+        }
+      ],
+      "voting_record": [],
+      "top_donors": [
+        {
+          "name": "Organization unavailable for these records",
+          "amount": 60021,
+          "organization": null,
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/vicki-l-schmidt/contributors?cycle=2022&id=6665772&recs=100",
+            "type": "website",
+            "title": "Vicki L Schmidt Top Contributors \u2022 OpenSecrets",
+            "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+          }
+        },
+        {
+          "name": "Independent Insurance Agents Of Georgia",
+          "amount": 8000,
+          "organization": "Independent Insurance Agents Of Georgia",
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/vicki-l-schmidt/contributors?cycle=2022&id=6665772&recs=100",
+            "type": "website",
+            "title": "Vicki L Schmidt Top Contributors \u2022 OpenSecrets",
+            "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+          }
+        },
+        {
+          "name": "Security Benefit Life Insurance",
+          "amount": 4000,
+          "organization": "Security Benefit Life Insurance",
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/vicki-l-schmidt/contributors?cycle=2022&id=6665772&recs=100",
+            "type": "website",
+            "title": "Vicki L Schmidt Top Contributors \u2022 OpenSecrets",
+            "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+          }
+        },
+        {
+          "name": "Security Distributors Llc",
+          "amount": 2000,
+          "organization": "Security Distributors Llc",
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/vicki-l-schmidt/contributors?cycle=2022&id=6665772&recs=100",
+            "type": "website",
+            "title": "Vicki L Schmidt Top Contributors \u2022 OpenSecrets",
+            "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+          }
+        },
+        {
+          "name": "Security Financial Resources",
+          "amount": 2000,
+          "organization": "Security Financial Resources",
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/vicki-l-schmidt/contributors?cycle=2022&id=6665772&recs=100",
+            "type": "website",
+            "title": "Vicki L Schmidt Top Contributors \u2022 OpenSecrets",
+            "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+          }
+        }
+      ],
+      "issues": {
+        "Healthcare": {
+          "stance": "Schmidt says she wants to lower health care costs and has highlighted her background as a pharmacist and insurance commissioner.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://vickiforgovernor.com/",
+              "type": "website",
+              "title": "Home Page - Vicki Schmidt for Governor",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            },
+            {
+              "url": "https://vickiforgovernor.com/2025/07/21/kansas-republican-vicki-schmidt-anchors-2026-campaign-for-governor-on-record-of-service/",
+              "type": "website",
+              "title": "Kansas Republican Vicki Schmidt anchors 2026 campaign for governor on record of service - Vicki Schmidt for Governor",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Schmidt says she wants to cut taxes and costs for Kansas families, reduce regulations on businesses, and bring more jobs to all parts of the state.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://vickiforgovernor.com/",
+              "type": "website",
+              "title": "Home Page - Vicki Schmidt for Governor",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            },
+            {
+              "url": "https://vickiforgovernor.com/2025/07/21/kansas-republican-vicki-schmidt-anchors-2026-campaign-for-governor-on-record-of-service/",
+              "type": "website",
+              "title": "Kansas Republican Vicki Schmidt anchors 2026 campaign for governor on record of service - Vicki Schmidt for Governor",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Schmidt\u2019s campaign materials do not present a detailed climate platform. Her public messaging centers on lowering costs, reducing regulations, and promoting business growth rather than a specific climate-policy agenda.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://vickiforgovernor.com/",
+              "type": "website",
+              "title": "Home Page - Vicki Schmidt for Governor",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            },
+            {
+              "url": "https://kansasreflector.com/2025/07/21/kansas-republican-vicki-schmidt-anchors-2026-campaign-for-governor-on-record-of-service/",
+              "type": "news",
+              "title": "Kansas Republican Vicki Schmidt anchors 2026 campaign for governor on record of service",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            }
+          ]
+        },
+        "Reproductive Rights": {
+          "stance": "Schmidt told Kansas Reflector she does not believe in abortion on demand but supports reasonable exceptions, indicating a socially conservative position on abortion.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://kansasreflector.com/2025/07/21/kansas-republican-vicki-schmidt-anchors-2026-campaign-for-governor-on-record-of-service/",
+              "type": "news",
+              "title": "Kansas Republican Vicki Schmidt anchors 2026 campaign for governor on record of service",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Schmidt\u2019s campaign materials reviewed here do not lay out a detailed immigration agenda. Her launch messaging focuses on state governance, taxes, and public safety.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://vickiforgovernor.com/",
+              "type": "website",
+              "title": "Home Page - Vicki Schmidt for Governor",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            },
+            {
+              "url": "https://kansasreflector.com/2025/07/21/kansas-republican-vicki-schmidt-anchors-2026-campaign-for-governor-on-record-of-service/",
+              "type": "news",
+              "title": "Kansas Republican Vicki Schmidt anchors 2026 campaign for governor on record of service",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            }
+          ]
+        },
+        "Guns & Safety": {
+          "stance": "Schmidt\u2019s campaign says she will ensure public safety is fully funded and protect Second Amendment rights.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://vickiforgovernor.com/",
+              "type": "website",
+              "title": "Home Page - Vicki Schmidt for Governor",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "No clear foreign policy platform was found in the campaign materials reviewed. Her campaign focuses on Kansas governance and state-level issues.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://vickiforgovernor.com/",
+              "type": "website",
+              "title": "Home Page - Vicki Schmidt for Governor",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            },
+            {
+              "url": "https://kansasreflector.com/2025/07/21/kansas-republican-vicki-schmidt-anchors-2026-campaign-for-governor-on-record-of-service/",
+              "type": "news",
+              "title": "Kansas Republican Vicki Schmidt anchors 2026 campaign for governor on record of service",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            }
+          ]
+        },
+        "Social Justice": {
+          "stance": "Schmidt\u2019s reviewed campaign materials focus on taxes, efficiency, abortion, and public safety rather than a broader social-justice platform.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://vickiforgovernor.com/",
+              "type": "website",
+              "title": "Home Page - Vicki Schmidt for Governor",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            },
+            {
+              "url": "https://kansasreflector.com/2025/07/21/kansas-republican-vicki-schmidt-anchors-2026-campaign-for-governor-on-record-of-service/",
+              "type": "news",
+              "title": "Kansas Republican Vicki Schmidt anchors 2026 campaign for governor on record of service",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Schmidt\u2019s campaign says she has supported local control and adequate funding for schools, but her current materials do not provide a detailed education agenda beyond that emphasis.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://vickiforgovernor.com/2025/07/21/kansas-republican-vicki-schmidt-anchors-2026-campaign-for-governor-on-record-of-service/",
+              "type": "website",
+              "title": "Kansas Republican Vicki Schmidt anchors 2026 campaign for governor on record of service - Vicki Schmidt for Governor",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            },
+            {
+              "url": "https://ballotpedia.org/Vicki_Schmidt",
+              "type": "website",
+              "title": "Vicki Schmidt - Ballotpedia",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "No specific public statement on AI policy was found in the sources reviewed. Her campaign emphasizes efficiency and modernization of government processes, but not a distinct technology agenda.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://vickiforgovernor.com/",
+              "type": "website",
+              "title": "Home Page - Vicki Schmidt for Governor",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            },
+            {
+              "url": "https://kansasreflector.com/2025/07/21/kansas-republican-vicki-schmidt-anchors-2026-campaign-for-governor-on-record-of-service/",
+              "type": "news",
+              "title": "Kansas Republican Vicki Schmidt anchors 2026 campaign for governor on record of service",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            }
+          ]
+        },
+        "Election Reform": {
+          "stance": "Schmidt has emphasized election security, voter ID, and opposition to federal efforts she says would federalize state elections.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://scottschwab.com/",
+              "type": "website",
+              "title": "Home - Scott-Schwab",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            },
+            {
+              "url": "https://apnews.com/article/kansas-governors-race-2026-election-conspiracies-4587939711dc7a5effb1879374405147",
+              "type": "news",
+              "title": "Kansas official runs for governor after fighting election conspiracies",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Schmidt\u2019s campaign focuses on Kansas-specific concerns such as property taxes, business costs, rural jobs, and state government efficiency.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://vickiforgovernor.com/",
+              "type": "website",
+              "title": "Home Page - Vicki Schmidt for Governor",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            },
+            {
+              "url": "https://vickiforgovernor.com/2025/07/21/kansas-republican-vicki-schmidt-anchors-2026-campaign-for-governor-on-record-of-service/",
+              "type": "website",
+              "title": "Kansas Republican Vicki Schmidt anchors 2026 campaign for governor on record of service - Vicki Schmidt for Governor",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Scott Schwab",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Scott Schwab is Kansas secretary of state and a former Kansas House member. His campaign highlights election administration experience, tax cuts, local control, and conservative positions on immigration, guns, and social issues.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Scott_Schwab",
+          "type": "website",
+          "title": "Scott Schwab - Ballotpedia",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        },
+        {
+          "url": "https://scottschwab.com/",
+          "type": "website",
+          "title": "Home - Scott-Schwab",
+          "last_accessed": "2026-03-29T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Scott_Schwab_official_photo_%28cropped%29.jpg/500px-Scott_Schwab_official_photo_%28cropped%29.jpg",
+      "website": "null",
+      "social_media": {
+        "facebook": "https://www.facebook.com/ScottSchwabKS",
+        "x": "https://x.com/ScottSchwabKS",
+        "instagram": "https://www.instagram.com/scottschwabks/",
+        "youtube": "https://www.youtube.com/@ScottSchwabKS",
+        "linkedin": "https://www.linkedin.com/in/scott-schwab-0b2b7b1/"
+      },
+      "career_history": [
+        {
+          "title": "Kansas Secretary of State",
+          "organization": "State of Kansas",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Statewide elected chief elections officer."
+        },
+        {
+          "title": "Kansas House Representative",
+          "organization": "Kansas House of Representatives",
+          "start_year": 2009,
+          "end_year": 2019,
+          "description": "Represented House District 49."
+        },
+        {
+          "title": "Marketing consultant",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Professional experience in marketing consulting."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Fort Hays State University",
+          "degree": "Bachelor's",
+          "field": null,
+          "year": null
+        }
+      ],
+      "voting_record": [],
+      "top_donors": [
+        {
+          "name": "Organization unavailable for these records",
+          "amount": 108522,
+          "organization": null,
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/scott-schwab/contributors?cycle=2021&id=6612651&recs=100",
+            "type": "website",
+            "title": "Scott Schwab Top Contributors \u2022 OpenSecrets",
+            "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+          }
+        },
+        {
+          "name": "Palmer / American Holding Inc",
+          "amount": 4000,
+          "organization": "Palmer / American Holding Inc",
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/scott-schwab/contributors?cycle=2021&id=6612651&recs=100",
+            "type": "website",
+            "title": "Scott Schwab Top Contributors \u2022 OpenSecrets",
+            "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+          }
+        },
+        {
+          "name": "Sandlian Realty",
+          "amount": 2000,
+          "organization": "Sandlian Realty",
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/scott-schwab/contributors?cycle=2021&id=6612651&recs=100",
+            "type": "website",
+            "title": "Scott Schwab Top Contributors \u2022 OpenSecrets",
+            "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+          }
+        },
+        {
+          "name": "Heartland Oil Inc",
+          "amount": 2000,
+          "organization": "Heartland Oil Inc",
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/scott-schwab/contributors?cycle=2021&id=6612651&recs=100",
+            "type": "website",
+            "title": "Scott Schwab Top Contributors \u2022 OpenSecrets",
+            "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+          }
+        },
+        {
+          "name": "Kansas Beer Wholesalers Association",
+          "amount": 2000,
+          "organization": "Kansas Beer Wholesalers Association",
+          "source": {
+            "url": "https://www.opensecrets.org/officeholders/scott-schwab/contributors?cycle=2021&id=6612651&recs=100",
+            "type": "website",
+            "title": "Scott Schwab Top Contributors \u2022 OpenSecrets",
+            "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+          }
+        }
+      ],
+      "issues": {
+        "Healthcare": {
+          "stance": "Schwab\u2019s campaign does not present a detailed health care plan, but it emphasizes lower costs and efficient government.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://scottschwab.com/",
+              "type": "website",
+              "title": "Home - Scott-Schwab",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Schwab says he wants to cut taxes and costs for Kansas families, reduce regulations on businesses, and bring more jobs to all parts of the state.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://scottschwab.com/",
+              "type": "website",
+              "title": "Home - Scott-Schwab",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Schwab\u2019s campaign site does not offer a detailed climate plan. His priorities page uses a broad sustainability label, but the campaign messaging reviewed here focuses more on taxes, regulation, and business growth.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://scottschwab.com/",
+              "type": "website",
+              "title": "Home - Scott-Schwab",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            }
+          ]
+        },
+        "Reproductive Rights": {
+          "stance": "Schwab\u2019s campaign materials reviewed here do not provide a detailed abortion policy statement. His public messaging emphasizes conservative values, but no explicit reproductive-rights platform was located in the sources reviewed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://scottschwab.com/",
+              "type": "website",
+              "title": "Home - Scott-Schwab",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Schwab says he would work with the Trump administration on enforcing immigration laws.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://scottschwab.com/",
+              "type": "website",
+              "title": "Home - Scott-Schwab",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            }
+          ]
+        },
+        "Guns & Safety": {
+          "stance": "Schwab says he will protect Second Amendment rights and fully fund public safety.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://scottschwab.com/",
+              "type": "website",
+              "title": "Home - Scott-Schwab",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "No clear foreign policy platform was found in the campaign materials reviewed. His campaign does mention protecting military bases from communist China, but otherwise focuses on Kansas state issues.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://scottschwab.com/",
+              "type": "website",
+              "title": "Home - Scott-Schwab",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            }
+          ]
+        },
+        "Social Justice": {
+          "stance": "Schwab\u2019s campaign messaging centers on conservative values, family, and government efficiency rather than a broader social-justice platform.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://scottschwab.com/",
+              "type": "website",
+              "title": "Home - Scott-Schwab",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Schwab says he supports local control in Kansas schools.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://scottschwab.com/",
+              "type": "website",
+              "title": "Home - Scott-Schwab",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "No specific public statement on AI policy was found in the sources reviewed. His campaign emphasizes modernizing government processes and improving filing systems, but not a distinct technology agenda.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://scottschwab.com/",
+              "type": "website",
+              "title": "Home - Scott-Schwab",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            }
+          ]
+        },
+        "Election Reform": {
+          "stance": "Schwab has prioritized election security, voter ID, and opposition to federal efforts he says would federalize state elections.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://scottschwab.com/",
+              "type": "website",
+              "title": "Home - Scott-Schwab",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            },
+            {
+              "url": "https://kansasreflector.com/2025/01/08/scott-schwab-runs-for-kansas-governor-after-two-terms-as-states-top-election-official/",
+              "type": "news",
+              "title": "Scott Schwab runs for Kansas governor after two terms as state's top election official",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Schwab\u2019s campaign focuses on Kansas-specific concerns such as property taxes, rural jobs, business regulation, and state government efficiency.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://scottschwab.com/",
+              "type": "website",
+              "title": "Home - Scott-Schwab",
+              "last_accessed": "2026-03-29T18:38:56.640732+00:00"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "updated_utc": "2026-03-29T18:38:56.640732+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "claude-haiku-4-5-20251001",
+    "gemini-3.1-flash-lite-preview",
+    "grok-3-mini"
+  ],
+  "reviews": [
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "reviewed_at": "2026-03-29T18:39:12.610416+00:00",
+      "verdict": "needs_revision",
+      "flags": [
+        {
+          "field": "polling[0].matchups[0].percentages",
+          "concern": "Both poll entries contain null percentages for both candidates, rendering the polling data useless. If actual polling data exists, it should be populated; if not, these entries should be removed.",
+          "suggestion": "Either populate with actual percentages from the SurveyUSA polls dated 2026-01-08, or remove both polling entries entirely.",
+          "severity": "error"
+        },
+        {
+          "field": "polling[1]",
+          "concern": "This polling entry is identical to polling[0]\u2014same pollster, date, sample size, candidates, and null percentages. This is a duplicate.",
+          "suggestion": "Remove polling[1] as a duplicate, or if these represent different methodologies or subsamples, clarify the distinction and populate the percentages.",
+          "severity": "error"
+        },
+        {
+          "field": "candidates[1].issues.Election_Reform.sources",
+          "concern": "The sources cited for Vicki Schmidt's Election Reform stance are https://scottschwab.com/ and an AP News article about Scott Schwab running for governor. These do not document Schmidt's own position on election reform\u2014they are sources about a different candidate.",
+          "suggestion": "Replace with sources from Schmidt's official campaign site (https://vickiforgovernor.com/) or credible news coverage of Schmidt's specific election reform positions.",
+          "severity": "error"
+        },
+        {
+          "field": "candidates[2].website",
+          "concern": "The website field for Scott Schwab contains the string \"null\" rather than either a valid URL or a proper null value. This is inconsistent with other candidates who have valid URLs.",
+          "suggestion": "Either populate with Schwab's official campaign website URL or set to null (JSON null, not string). The ballotpedia and scottschwab.com links in summary_sources suggest https://scottschwab.com/ may be the correct URL.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].voting_record",
+          "concern": "Cindy Holscher's voting_record array is empty despite her having served in both the Kansas House (2017\u20132021) and Kansas Senate (2021\u2013present). No voting record is documented.",
+          "suggestion": "Populate with key votes from her legislative service, sourced from Kansas Legislature website or Ballotpedia, or note explicitly why this data is unavailable.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].voting_record",
+          "concern": "Vicki Schmidt's voting_record array is empty despite her 13-year service in the Kansas State Senate (2005\u20132018). No voting record is documented.",
+          "suggestion": "Populate with notable legislative votes from her senate tenure, or explicitly document why this is unavailable.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].voting_record",
+          "concern": "Scott Schwab's voting_record array is empty despite his 10-year service in the Kansas House (2009\u20132019). No voting record is documented.",
+          "suggestion": "Populate with key votes from his house service, or document why this is unavailable.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].top_donors",
+          "concern": "Cindy Holscher's top_donors array is empty. As a major-party gubernatorial candidate, fundraising data should be available.",
+          "suggestion": "Populate from FEC records, Kansas Ethics Commission, or OpenSecrets if the candidate has raised funds. If no major donors exist, note this explicitly.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].education[0]",
+          "concern": "Scott Schwab's education entry for Fort Hays State University is missing the 'field' and 'year' values. Both are populated for other candidates.",
+          "suggestion": "Add Schwab's major/degree field and graduation year if available from his official biography or Ballotpedia.",
+          "severity": "info"
+        },
+        {
+          "field": "description",
+          "concern": "The race description correctly notes that Laura Kelly is term-limited, but it does not mention Ethan Corson, who appears in the polling section as a Democratic primary candidate. The narrative should acknowledge the Democratic primary race if polling for it is included.",
+          "suggestion": "Optionally expand description to note the anticipated Democratic primary (Holscher vs. Corson) and/or clarify why polling for a primary without a third candidate is included.",
+          "severity": "info"
+        }
+      ],
+      "summary": "This profile demonstrates strong issue coverage and generally high-quality sourcing, with well-documented candidate backgrounds and clear position statements on major topics. However, there are several material issues that require correction: (1) critical source problems in the polling section\u2014both polls show null percentages and appear to be duplicates with no actual data; (2) a source attribution error for Vicki Schmidt's Election Reform stance, where the sources cite Scott Schwab's and an AP News URL rather than Schmidt's own materials; (3) inconsistency in Scott Schwab's website field (listed as \"null\" string rather than a valid URL); and (4) some candidates lack voting records and donor data despite holding or having held elected office. These issues affect data integrity and credibility."
+    },
+    {
+      "model": "gemini-3.1-flash-lite-preview",
+      "reviewed_at": "2026-03-29T18:39:00.208376+00:00",
+      "verdict": "needs_revision",
+      "flags": [
+        {
+          "field": "polling",
+          "concern": "Duplicate entries: The same SurveyUSA poll from 2026-01-08 is listed twice in the array with identical data.",
+          "suggestion": "Remove the duplicate poll object.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].website",
+          "concern": "The website field is set to the string 'null' rather than a null object or a valid URL.",
+          "suggestion": "Change 'null' to the actual URL 'https://scottschwab.com/' or use null.",
+          "severity": "error"
+        },
+        {
+          "field": "candidates[1].social_media.x",
+          "concern": "Vicki Schmidt's profile indicates 'x' is null, but high-profile candidates typically maintain a presence. Please double-check if this is an intentional omission.",
+          "suggestion": "Verify if the account exists and update or confirm it is inactive.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues.Reproductive Rights.stance",
+          "concern": "Confidence is 'low' despite being a major issue in Kansas politics post-2022 amendment. Given the candidate's legislative background, more effort should be made to find a public voting record or statement.",
+          "suggestion": "Consult legislative voting records from her time in the Senate to provide a higher-confidence summary.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].voting_record",
+          "concern": "The voting_record array is empty for all candidates, despite all three candidates having extensive legislative histories in the Kansas House or Senate.",
+          "suggestion": "Include key representative votes or state that the field is awaiting data ingestion.",
+          "severity": "warning"
+        }
+      ],
+      "summary": "While the profile provides a comprehensive structure and strong sourcing for candidate backgrounds and most policy positions, there are significant data integrity issues, including broken website links, duplicate polling entries, and internal inconsistencies regarding candidate websites."
+    },
+    {
+      "model": "grok-3-mini",
+      "reviewed_at": "2026-03-29T18:39:17.770459+00:00",
+      "verdict": "needs_revision",
+      "flags": [
+        {
+          "field": "polling[1]",
+          "concern": "This entry is identical to polling[0], indicating a possible duplication that could mislead users about the diversity of polling data.",
+          "suggestion": "Remove the duplicate entry or verify and update it with unique data if available.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].website",
+          "concern": "The website field is set to 'null', which contradicts the context where a website URL is referenced (e.g., https://scottschwab.com/), potentially indicating an error in data entry.",
+          "suggestion": "Update the field to the correct URL, such as 'https://scottschwab.com/'.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].voting_record",
+          "concern": "The voting_record array is empty, which leaves a gap in completeness for assessing Cindy Holscher's legislative history.",
+          "suggestion": "Populate with relevant voting data from credible sources like legislative records or Ballotpedia.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].top_donors",
+          "concern": "Top donors are listed from the 2022 cycle, which may not reflect current 2026 campaign dynamics, potentially outdated for accuracy.",
+          "suggestion": "Update with the most recent donor data from 2026 or the latest available cycle from OpenSecrets.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].education[0].field",
+          "concern": "The field for Scott Schwab's education is null, lacking specificity that could enhance completeness of his background.",
+          "suggestion": "Add the specific field of study if available from reliable sources like university records or his biography.",
+          "severity": "info"
+        }
+      ],
+      "summary": "The profile is generally accurate and well-structured, with strong sourcing from credible outlets like Ballotpedia and campaign websites, but it requires revisions for duplicates in polling data, inconsistent field formatting (e.g., null values), and potential gaps in completeness for voting records and real-time donor information to ensure full reliability."
+    }
+  ]
+}
