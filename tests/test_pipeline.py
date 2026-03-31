@@ -517,7 +517,7 @@ async def test_run_agent_fresh():
 
     assert result["id"] == "test-2024"
     assert "updated_utc" in result
-    assert result["generator"] == ["gpt-5.4-mini"]
+    assert result["generator"] == ["gpt-5.4-mini", "gpt-5-nano"]
     # discovery + image + 12 issue sub-agents + finance + refine + meta refine = 17
     assert mock_loop.call_count == 17
 
@@ -597,7 +597,7 @@ async def test_run_agent_normalizes_output():
 
     assert result["id"] == "race-2024"
     assert "updated_utc" in result
-    assert result["generator"] == ["gpt-5.4-mini"]
+    assert result["generator"] == ["gpt-5.4-mini", "gpt-5-nano"]
 
 
 @pytest.mark.asyncio

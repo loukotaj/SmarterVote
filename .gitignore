@@ -284,3 +284,6 @@ pipeline_client/pipeline_client/runs/*
 pipeline_client/data/
 web/vite.config.js.timestamp-*
 services/races-api/data/analytics.db
+data/pipeline_metrics.db
+data/pipeline_metrics.db-shm
+data/pipeline_metrics.db-wal

@@ -270,3 +270,10 @@ resource "google_project_iam_member" "github_actions_role_viewer" {
   role    = "roles/iam.roleViewer"
   member  = "serviceAccount:${google_service_account.github_actions.email}"
 }
+
+# Allow terraform to manage google_logging_metric resources (requires logging.logMetrics.*)
+resource "google_project_iam_member" "github_actions_logging_config" {
+  project = var.project_id
+  role    = "roles/logging.configWriter"
+  member  = "serviceAccount:${google_service_account.github_actions.email}"
+}

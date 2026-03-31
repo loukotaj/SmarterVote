@@ -22,6 +22,7 @@ _cost_ctx: ContextVar[Optional[Dict[str, Any]]] = ContextVar("_cost_ctx", defaul
 OPENAI_PRICING: Dict[str, Dict[str, float]] = {
     "gpt-5.4":      {"input": 2.50, "output": 10.00},
     "gpt-5.4-mini": {"input": 0.15, "output":  0.60},
+    "gpt-5-nano":   {"input": 0.10, "output":  0.40},  # approximate — update when published
 }
 
 ANTHROPIC_PRICING: Dict[str, Dict[str, float]] = {
