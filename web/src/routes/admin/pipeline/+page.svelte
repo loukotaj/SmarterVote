@@ -555,21 +555,14 @@
 
   <!-- Pipeline tab -->
   {#if activeTab === "pipeline"}
-  <div class="dashboard-grid">
-    <!-- Left Panel -->
-    <div class="space-y-6">
+  <div class="pipeline-top-grid">
+    <!-- Left Sidebar: controls + run history + artifacts -->
+    <div class="space-y-4">
       <!-- Agent Controls -->
-      <div class="card p-6">
-        <h3 class="text-lg font-semibold text-gray-900 mb-1">Research a Race</h3>
-        <p class="text-sm text-gray-500 mb-4">
-          The AI agent will search the web, research candidates, and produce
-          a structured profile with sources. Re-running an existing race updates it.
-        </p>
-        <div class="space-y-4">
+      <div class="card p-4">
+        <h3 class="text-base font-semibold text-gray-900 mb-3">Research a Race</h3>
+        <div class="space-y-3">
           <div>
-            <label for="raceId" class="block text-sm font-medium text-gray-700 mb-1">
-              Race ID
-            </label>
             <div class="flex gap-2">
               <input
                 id="raceId"
@@ -584,41 +577,37 @@
                 type="button"
                 on:click={handleAddToQueue}
                 disabled={!pipeline.raceId.trim()}
-                title="Add to server queue (processes sequentially)"
+                title="Add to queue"
                 class="btn-primary px-4 py-2 text-sm rounded-lg whitespace-nowrap disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 + Queue
               </button>
             </div>
             <p class="mt-1 text-xs text-gray-400">
-              Comma-separate multiple IDs · Press <kbd class="px-1 py-0.5 bg-gray-100 rounded text-xs">Enter</kbd> or + Queue to add all
+              Comma-separate multiple IDs · <kbd class="px-1 py-0.5 bg-gray-100 rounded text-xs">Enter</kbd> to add
             </p>
           </div>
 
           <!-- Server Queue -->
           {#if queueItems.length > 0}
-            <div class="border border-gray-200 rounded-lg p-3">
-              <div class="flex items-center justify-between mb-2">
+            <div class="border border-gray-200 rounded-lg p-2.5">
+              <div class="flex items-center justify-between mb-1.5">
                 <span class="text-xs font-medium text-gray-600">
                   Queue — {queueFinished}/{queueItems.length} done
                   {#if queuePending > 0}
                     <span class="ml-1 text-blue-600">({queuePending} pending)</span>
                   {/if}
                   {#if queueRunning}
-                    <span class="ml-1 text-green-600 animate-pulse">● processing</span>
+                    <span class="ml-1 text-green-600 animate-pulse">● running</span>
                   {/if}
                 </span>
                 {#if queueFinished > 0}
-                  <button
-                    type="button"
-                    on:click={handleClearFinishedQueue}
-                    class="text-xs text-red-500 hover:text-red-700"
-                  >
-                    Clear finished
+                  <button type="button" on:click={handleClearFinishedQueue} class="text-xs text-red-500 hover:text-red-700">
+                    Clear done
                   </button>
                 {/if}
               </div>
-              <div class="space-y-1.5 max-h-48 overflow-y-auto">
+              <div class="space-y-1 max-h-40 overflow-y-auto">
                 {#each queueItems as item (item.id)}
                   <div class="flex items-center gap-2">
                     <span class="text-xs font-mono text-gray-700 flex-1 truncate">{item.race_id}</span>
@@ -627,25 +616,17 @@
                       item.status === 'failed' ? 'bg-red-100 text-red-700' :
                       item.status === 'cancelled' ? 'bg-yellow-100 text-yellow-700' :
                       item.status === 'running' ? 'bg-blue-100 text-blue-700 animate-pulse' :
-                      'bg-gray-100 text-gray-500'
-                    }">
+                      'bg-gray-100 text-gray-500'}">
                       {item.status}
                     </span>
                     {#if item.status === 'pending' || item.status === 'running'}
-                      <button
-                        type="button"
-                        on:click={() => handleRemoveQueueItem(item)}
-                        class="flex-shrink-0 text-gray-400 hover:text-red-500"
-                        title="Remove / Cancel"
-                      >
+                      <button type="button" on:click={() => handleRemoveQueueItem(item)} class="flex-shrink-0 text-gray-400 hover:text-red-500" title="Cancel">
                         <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
                           <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
                         </svg>
                       </button>
                     {:else if item.status === 'failed' && item.error}
-                      <span class="text-xs text-red-400 truncate max-w-[8rem]" title={item.error}>{item.error}</span>
-                    {:else}
-                      <div class="w-3.5 h-3.5 flex-shrink-0" />
+                      <span class="text-xs text-red-400 truncate max-w-[7rem]" title={item.error}>{item.error}</span>
                     {/if}
                   </div>
                 {/each}
@@ -654,24 +635,15 @@
           {/if}
 
           <!-- Mode Toggles -->
-          <div class="flex flex-wrap gap-x-6 gap-y-2">
+          <div class="flex items-center gap-5">
             <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
-              <input
-                type="checkbox"
-                bind:checked={cheapMode}
-                class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-              />
+              <input type="checkbox" bind:checked={cheapMode} class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
               <span>Cheap Mode</span>
-              <span class="text-xs text-gray-400">(faster, lower cost)</span>
             </label>
             <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
-              <input
-                type="checkbox"
-                bind:checked={enableReview}
-                class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-              />
+              <input type="checkbox" bind:checked={enableReview} class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
               <span>AI Review</span>
-              <span class="text-xs text-gray-400">(Claude + Gemini + Grok)</span>
+              <span class="text-xs text-gray-400">✦</span>
             </label>
           </div>
 
@@ -687,32 +659,46 @@
             Advanced Model Settings
           </button>
           {#if showAdvanced}
-            <div class="space-y-3 border-t border-gray-200 pt-3">
-              <p class="text-xs text-gray-500">Leave blank for defaults. Cheap mode selects lighter variants automatically.</p>
-              <div class="grid grid-cols-2 gap-3">
+            <div class="space-y-2.5 border-t border-gray-200 pt-2.5">
+              <p class="text-xs text-gray-400">Leave on default, or override for this run.</p>
+              <!-- Research model — full width -->
+              <div>
+                <label for="researchModel" class="block text-xs font-medium text-gray-600 mb-1">Research (OpenAI)</label>
+                <select id="researchModel" bind:value={researchModel}
+                  class="w-full px-2 py-1.5 border border-gray-300 rounded text-xs focus:outline-none focus:border-blue-500 bg-white">
+                  <option value="">Default — {cheapMode ? 'gpt-5.4-mini' : 'gpt-5.4'}</option>
+                  <option value="gpt-5.4">gpt-5.4 · best quality</option>
+                  <option value="gpt-5.4-mini">gpt-5.4-mini · fast & smart</option>
+                  <option value="gpt-5-nano">gpt-5-nano · fastest, cheapest</option>
+                </select>
+              </div>
+              <div class="grid grid-cols-3 gap-2">
                 <div>
-                  <label for="researchModel" class="block text-xs font-medium text-gray-600">Research (OpenAI)</label>
-                  <input id="researchModel" type="text" bind:value={researchModel}
-                    placeholder={cheapMode ? "gpt-5.4-mini" : "gpt-5.4"}
-                    class="w-full px-2 py-1.5 border border-gray-300 rounded text-xs font-mono focus:outline-none focus:border-blue-500" />
+                  <label for="claudeModel" class="block text-xs font-medium text-gray-600 mb-1">Claude</label>
+                  <select id="claudeModel" bind:value={claudeModel}
+                    class="w-full px-2 py-1.5 border border-gray-300 rounded text-xs focus:outline-none focus:border-blue-500 bg-white">
+                    <option value="">Default</option>
+                    <option value="claude-sonnet-4-6">Sonnet 4.6</option>
+                    <option value="claude-haiku-4-5-20251001">Haiku 4.5</option>
+                  </select>
                 </div>
                 <div>
-                  <label for="claudeModel" class="block text-xs font-medium text-gray-600">Claude (Review)</label>
-                  <input id="claudeModel" type="text" bind:value={claudeModel}
-                    placeholder={cheapMode ? "claude-haiku-4-5-20251001" : "claude-sonnet-4-6"}
-                    class="w-full px-2 py-1.5 border border-gray-300 rounded text-xs font-mono focus:outline-none focus:border-blue-500" />
+                  <label for="geminiModel" class="block text-xs font-medium text-gray-600 mb-1">Gemini</label>
+                  <select id="geminiModel" bind:value={geminiModel}
+                    class="w-full px-2 py-1.5 border border-gray-300 rounded text-xs focus:outline-none focus:border-blue-500 bg-white">
+                    <option value="">Default</option>
+                    <option value="gemini-3-flash-preview">3 Flash</option>
+                    <option value="gemini-3.1-flash-lite-preview">3.1 Lite</option>
+                  </select>
                 </div>
                 <div>
-                  <label for="geminiModel" class="block text-xs font-medium text-gray-600">Gemini (Review)</label>
-                  <input id="geminiModel" type="text" bind:value={geminiModel}
-                    placeholder={cheapMode ? "gemini-3.0-flash" : "gemini-3.0-flash"}
-                    class="w-full px-2 py-1.5 border border-gray-300 rounded text-xs font-mono focus:outline-none focus:border-blue-500" />
-                </div>
-                <div>
-                  <label for="grokModel" class="block text-xs font-medium text-gray-600">Grok (Review)</label>
-                  <input id="grokModel" type="text" bind:value={grokModel}
-                    placeholder={cheapMode ? "grok-3-mini" : "grok-3"}
-                    class="w-full px-2 py-1.5 border border-gray-300 rounded text-xs font-mono focus:outline-none focus:border-blue-500" />
+                  <label for="grokModel" class="block text-xs font-medium text-gray-600 mb-1">Grok</label>
+                  <select id="grokModel" bind:value={grokModel}
+                    class="w-full px-2 py-1.5 border border-gray-300 rounded text-xs focus:outline-none focus:border-blue-500 bg-white">
+                    <option value="">Default</option>
+                    <option value="grok-3">Grok 3</option>
+                    <option value="grok-3-mini">Grok Mini</option>
+                  </select>
                 </div>
               </div>
             </div>
@@ -729,97 +715,16 @@
               </svg>
               Researching{queueRunning ? ` ${queueRunning.race_id}` : ''}...
               {#if queuePending > 0}
-                <span class="text-xs opacity-75">({queuePending} more queued)</span>
+                <span class="text-xs opacity-75">({queuePending} more)</span>
               {/if}
             </button>
           {/if}
         </div>
       </div>
 
-      <!-- Existing Races -->
-      <div class="card p-6">
-        <div class="flex items-center justify-between mb-3">
-          <div>
-            <h3 class="text-lg font-semibold text-gray-900">Published Races</h3>
-            <p class="text-sm text-gray-500">
-              {publishedRaces.length} race{publishedRaces.length !== 1 ? 's' : ''} published.
-              Update, export, or delete.
-            </p>
-          </div>
-          <button
-            type="button"
-            on:click={refreshPublishedRaces}
-            disabled={racesLoading}
-            class="text-xs text-blue-600 hover:text-blue-800 flex items-center gap-1 disabled:opacity-50"
-            title="Refresh list"
-          >
-            <svg class="w-3.5 h-3.5 {racesLoading ? 'animate-spin' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-            </svg>
-            Refresh
-          </button>
-        </div>
-
-        {#if publishedRaces.length === 0}
-          <p class="text-sm text-gray-400 text-center py-4">No published races found.</p>
-        {:else}
-          <div class="space-y-2 max-h-[28rem] overflow-y-auto">
-            {#each publishedRaces as race (race.id)}
-              {@const updatedDate = race.updated_utc ? new Date(race.updated_utc) : null}
-              {@const daysSinceUpdate = updatedDate ? Math.floor((Date.now() - updatedDate.getTime()) / 86400000) : null}
-              <div class="flex items-start justify-between gap-3 p-3 rounded-lg border border-gray-200 hover:border-blue-200 hover:bg-blue-50/50 transition-colors">
-                <div class="min-w-0 flex-1">
-                  <div class="flex items-center gap-2 flex-wrap">
-                    <span class="text-sm font-medium text-gray-900 font-mono">{race.id}</span>
-                    {#if daysSinceUpdate !== null}
-                      <span class="text-xs px-1.5 py-0.5 rounded {daysSinceUpdate > 90 ? 'bg-red-100 text-red-700' : daysSinceUpdate > 30 ? 'bg-yellow-100 text-yellow-700' : 'bg-green-100 text-green-700'}">
-                        {daysSinceUpdate === 0 ? 'today' : daysSinceUpdate === 1 ? '1d ago' : `${daysSinceUpdate}d ago`}
-                      </span>
-                    {/if}
-                  </div>
-                  {#if race.title}
-                    <p class="text-xs text-gray-500 mt-0.5 truncate">{race.title}</p>
-                  {/if}
-                  <p class="text-xs text-gray-400 mt-0.5">
-                    {race.candidates.map((c) => `${c.name}${c.party ? ` (${c.party})` : ""}`).join(" · ")}
-                  </p>
-                </div>
-                <div class="flex items-center gap-1.5 flex-shrink-0">
-                  <button
-                    type="button"
-                    on:click={() => handleExportRace(race)}
-                    title="Download race JSON"
-                    class="text-xs px-2 py-1.5 rounded border border-gray-300 text-gray-600 hover:bg-gray-100 transition-colors"
-                  >
-                    ↓
-                  </button>
-                  <button
-                    type="button"
-                    on:click={() => handleQueueRace(race)}
-                    disabled={queueItems.some((q) => q.race_id === race.id && (q.status === 'pending' || q.status === 'running'))}
-                    title="Queue re-research"
-                    class="text-xs px-2.5 py-1.5 rounded bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                  >
-                    {queueItems.some((q) => q.race_id === race.id && (q.status === 'pending' || q.status === 'running')) ? 'Queued' : 'Update'}
-                  </button>
-                  <button
-                    type="button"
-                    on:click={() => handleDeleteRace(race)}
-                    disabled={pipeline.isExecuting}
-                    title="Delete race"
-                    class="text-xs px-2 py-1.5 rounded border border-red-300 text-red-600 hover:bg-red-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                  >
-                    ✕
-                  </button>
-                </div>
-              </div>
-            {/each}
-          </div>
-        {/if}
-      </div>
-
       <!-- Run Progress -->
-      <RunProgress        isExecuting={pipeline.isExecuting}
+      <RunProgress
+        isExecuting={pipeline.isExecuting}
         runStatus={pipeline.runStatus}
         progress={pipeline.progress}
         progressMessage={pipeline.progressMessage}
@@ -827,24 +732,6 @@
         currentRunId={pipeline.currentRunId}
         errorCount={logs.filter((l) => l.level === "error").length}
         on:stop-execution={handleStopExecution}
-      />
-
-      <!-- Output Results -->
-      <OutputResults
-        output={pipeline.output}
-        onAddLog={addLog}
-      />
-    </div>
-
-    <!-- Right Panel -->
-    <div class="space-y-6">
-      <!-- Live Logs -->
-      <LiveLogs
-        {logs}
-        logFilter={pipeline.logFilter}
-        connected={websocket.connected}
-        on:filter-change={handleLogFilterChange}
-        on:clear-logs={handleClearLogs}
       />
 
       <!-- Run History -->
@@ -868,6 +755,110 @@
             .then((artifacts) => pipelineActions.setArtifacts(artifacts))}
       />
     </div>
+
+    <!-- Main Panel: logs + output -->
+    <div class="space-y-4">
+      <!-- Live Logs -->
+      <LiveLogs
+        {logs}
+        logFilter={pipeline.logFilter}
+        connected={websocket.connected}
+        on:filter-change={handleLogFilterChange}
+        on:clear-logs={handleClearLogs}
+      />
+
+      <!-- Output Results -->
+      <OutputResults
+        output={pipeline.output}
+        onAddLog={addLog}
+      />
+    </div>
+  </div>
+
+  <!-- Full-width Published Races grid -->
+  <div class="mt-5 card p-4">
+    <div class="flex items-center justify-between mb-4">
+      <div>
+        <h3 class="text-base font-semibold text-gray-900">Published Races</h3>
+        <p class="text-xs text-gray-500 mt-0.5">
+          {publishedRaces.length} race{publishedRaces.length !== 1 ? 's' : ''} · click Update to re-research
+        </p>
+      </div>
+      <button
+        type="button"
+        on:click={refreshPublishedRaces}
+        disabled={racesLoading}
+        class="text-xs text-blue-600 hover:text-blue-800 flex items-center gap-1 disabled:opacity-50"
+        title="Refresh list"
+      >
+        <svg class="w-3.5 h-3.5 {racesLoading ? 'animate-spin' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+        </svg>
+        Refresh
+      </button>
+    </div>
+
+    {#if publishedRaces.length === 0}
+      <p class="text-sm text-gray-400 text-center py-8">No published races found.</p>
+    {:else}
+      <div class="races-grid">
+        {#each publishedRaces as race (race.id)}
+          {@const updatedDate = race.updated_utc ? new Date(race.updated_utc) : null}
+          {@const daysSince = updatedDate ? Math.floor((Date.now() - updatedDate.getTime()) / 86400000) : null}
+          {@const costUsd = race.agent_metrics?.estimated_usd}
+          <div class="race-card">
+            <!-- Top row: ID + freshness + cost -->
+            <div class="flex items-start justify-between gap-2 mb-2">
+              <div class="flex-1 min-w-0">
+                <span class="text-sm font-mono font-semibold text-gray-900 block truncate">{race.id}</span>
+                {#if race.title || race.office}
+                  <span class="text-xs text-gray-500 block truncate mt-0.5">{race.title ?? race.office}</span>
+                {/if}
+              </div>
+              <div class="flex flex-col items-end gap-1 flex-shrink-0">
+                {#if daysSince !== null}
+                  <span class="text-xs px-1.5 py-0.5 rounded {daysSince > 90 ? 'bg-red-100 text-red-700' : daysSince > 30 ? 'bg-yellow-100 text-yellow-700' : 'bg-green-100 text-green-700'}">
+                    {daysSince === 0 ? 'today' : daysSince === 1 ? '1d' : `${daysSince}d`}
+                  </span>
+                {/if}
+                {#if costUsd != null}
+                  <span class="text-xs text-gray-400 font-mono" title="Estimated run cost">${costUsd.toFixed(3)}</span>
+                {/if}
+              </div>
+            </div>
+            <!-- Candidates -->
+            <p class="text-xs text-gray-500 truncate mb-3">
+              {race.candidates.map((c) => `${c.name}${c.party ? ` (${c.party})` : ''}`).join(' · ')}
+            </p>
+            <!-- Actions -->
+            <div class="flex items-center gap-1.5 justify-end">
+              <button
+                type="button"
+                on:click={() => handleExportRace(race)}
+                title="Download JSON"
+                class="text-xs px-2 py-1 rounded border border-gray-200 text-gray-500 hover:bg-gray-50 transition-colors"
+              >↓ Export</button>
+              <button
+                type="button"
+                on:click={() => handleQueueRace(race)}
+                disabled={queueItems.some((q) => q.race_id === race.id && (q.status === 'pending' || q.status === 'running'))}
+                title="Queue re-research"
+                class="text-xs px-2.5 py-1 rounded bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                {queueItems.some((q) => q.race_id === race.id && (q.status === 'pending' || q.status === 'running')) ? 'Queued' : 'Update'}
+              </button>
+              <button
+                type="button"
+                on:click={() => handleDeleteRace(race)}
+                disabled={pipeline.isExecuting}
+                title="Delete race"
+                class="text-xs px-2 py-1 rounded border border-red-200 text-red-500 hover:bg-red-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >✕</button>
+            </div>
+          </div>
+        {/each}
+      </div>
+    {/if}
   </div>
   {/if}
 </div>
@@ -884,15 +875,34 @@
 </PipelineModal>
 
 <style>
-  .dashboard-grid {
+  .pipeline-top-grid {
     display: grid;
-    gap: 1.5rem;
-    grid-template-columns: 1fr 400px;
+    gap: 1.25rem;
+    grid-template-columns: 360px 1fr;
   }
 
   @media (max-width: 1024px) {
-    .dashboard-grid {
+    .pipeline-top-grid {
       grid-template-columns: 1fr;
     }
+  }
+
+  .races-grid {
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  }
+
+  .race-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 0.875rem;
+    background: #fff;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+
+  .race-card:hover {
+    border-color: #bfdbfe;
+    box-shadow: 0 1px 4px rgba(59, 130, 246, 0.08);
   }
 </style>
