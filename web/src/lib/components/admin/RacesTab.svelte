@@ -7,6 +7,10 @@
   import type { RaceAnalytics } from "$lib/types";
 
   export let onUpdateRace: (raceId: string) => void = () => {};
+  export async function refresh() {
+    loading = true;
+    await loadData();
+  }
 
   const API_BASE = import.meta.env.VITE_API_BASE || "http://127.0.0.1:8001";
 
@@ -168,7 +172,7 @@
 
   function formatDate(s?: string) {
     if (!s) return "—";
-    return new Date(s).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
+    return new Date(s).toLocaleString(undefined, { month: "short", day: "numeric", year: "numeric", hour: "2-digit", minute: "2-digit" });
   }
 
   function sortIcon(key: keyof RaceRow) {
