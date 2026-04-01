@@ -25,6 +25,7 @@ class QueueItemOptions(BaseModel):
     claude_model: Optional[str] = None
     gemini_model: Optional[str] = None
     grok_model: Optional[str] = None
+    enabled_steps: Optional[List[str]] = None
 
 
 class QueueItem(BaseModel):

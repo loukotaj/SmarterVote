@@ -204,7 +204,7 @@
           disabled={bulkUpdating}
           on:click={handleBulkUpdate}
         >
-          {bulkUpdating ? "Queuing…" : `Update ${selected.size} Selected`}
+          {bulkUpdating ? "Setting up…" : `Run ${selected.size} Selected`}
         </button>
       {/if}
       <button
@@ -309,7 +309,7 @@
                       title={runStatus ? `${runStatus === 'running' ? 'Currently running' : 'Queued for update'}` : undefined}
                       on:click={() => onUpdateRace(row.race_id)}
                     >
-                      {runStatus === "running" ? "Running…" : runStatus === "pending" ? "Queued" : "Update"}
+                      {runStatus === "running" ? "Running…" : runStatus === "pending" ? "Queued" : "Run ➜"}
                     </button>
                     <button
                       type="button"

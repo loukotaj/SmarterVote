@@ -584,6 +584,8 @@ async def run_agent(
     claude_model: Optional[str] = None,
     gemini_model: Optional[str] = None,
     grok_model: Optional[str] = None,
+    enabled_steps: Optional[List[str]] = None,
+    step_tracker: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
     """Run the multi-phase research agent for a given race_id.
 
@@ -608,6 +610,11 @@ async def run_agent(
         Override the OpenAI model for research phases.
     claude_model / gemini_model / grok_model : str, optional
         Override individual review models.
+    enabled_steps : list[str], optional
+        Step names to run (from PipelineStep enum). None = all steps.
+    step_tracker : dict, optional
+        Callbacks: ``start(step)``, ``complete(step, duration_ms)``,
+        ``skip(step)``, ``progress(step, pct)`` for structured tracking.
     """
     from .review import (
         DEFAULT_CLAUDE_MODEL, CHEAP_CLAUDE_MODEL,
@@ -621,6 +628,20 @@ async def run_agent(
     log = make_logger(on_log)
     t0 = time.perf_counter()
 
+    # Step enablement check — None means all enabled
+    _all_steps = {"discovery", "images", "issues", "finance", "refinement", "review", "iteration"}
+    _enabled = set(enabled_steps) if enabled_steps else _all_steps
+
+    def _step_enabled(step: str) -> bool:
+        return step in _enabled
+
+    def _track(action: str, step: str, **kwargs):
+        if step_tracker and action in step_tracker:
+            try:
+                step_tracker[action](step, **kwargs)
+            except Exception:
+                pass
+
     # Initialise a fresh cost accumulator for this run
     _acc: Dict[str, Any] = {"prompt_tokens": 0, "completion_tokens": 0}
     _ctx_token = _cost_ctx.set(_acc)
@@ -630,10 +651,18 @@ async def run_agent(
 
     if existing_data:
         log("info", f"🔄 Update mode for {race_id} (model={model}, small_model={small_model})")
-        race_json = await _run_update(race_id, existing_data, model=model, small_model=small_model, on_log=on_log, max_iterations=max_iterations)
+        race_json = await _run_update(
+            race_id, existing_data, model=model, small_model=small_model,
+            on_log=on_log, max_iterations=max_iterations,
+            step_enabled=_step_enabled, track=_track,
+        )
     else:
         log("info", f"🆕 New research for {race_id} (model={model}, small_model={small_model})")
-        race_json = await _run_fresh(race_id, model=model, small_model=small_model, on_log=on_log, max_iterations=max_iterations)
+        race_json = await _run_fresh(
+            race_id, model=model, small_model=small_model,
+            on_log=on_log, max_iterations=max_iterations,
+            step_enabled=_step_enabled, track=_track,
+        )
 
     # LLMs sometimes wrap their output in {"race_json": {...}} — unwrap it so
     # metadata we add below lands at the top level, not buried inside a key.
@@ -662,7 +691,9 @@ async def run_agent(
 
     race_json.setdefault("polling", [])
 
-    if enable_review:
+    if enable_review and _step_enabled("review"):
+        _track("start", "review")
+        review_t0 = time.perf_counter()
         log("info", "Phase 4: Sending to review agents (Claude, Gemini, Grok)...")
         reviews = await run_reviews(
             race_id, race_json,
@@ -673,51 +704,68 @@ async def run_agent(
             grok_model=grok_model,
         )
         race_json["reviews"] = reviews
+        _track("complete", "review", duration_ms=int((time.perf_counter() - review_t0) * 1000))
 
         # --- Phase 5: Iterate on review feedback (up to 2 cycles) ---
-        max_review_cycles = 2
-        for cycle in range(1, max_review_cycles + 1):
-            # Cycle 2+: only iterate on error-severity flags to break subjective loops
-            min_severity = "error" if cycle > 1 else "warning"
-            if not _has_actionable_flags(reviews, min_severity=min_severity):
-                if cycle == 1:
-                    log("info", "  No actionable review flags — skipping iteration")
-                else:
-                    log("info", f"  Cycle {cycle}: no remaining {min_severity}+ flags — done")
-                break
+        if _step_enabled("iteration"):
+            _track("start", "iteration")
+            iter_t0 = time.perf_counter()
+            max_review_cycles = 2
+            did_iterate = False
+            for cycle in range(1, max_review_cycles + 1):
+                # Cycle 2+: only iterate on error-severity flags to break subjective loops
+                min_severity = "error" if cycle > 1 else "warning"
+                if not _has_actionable_flags(reviews, min_severity=min_severity):
+                    if cycle == 1:
+                        log("info", "  No actionable review flags — skipping iteration")
+                    else:
+                        log("info", f"  Cycle {cycle}: no remaining {min_severity}+ flags — done")
+                    break
 
-            log("info", f"Phase 5 (cycle {cycle}/{max_review_cycles}): Iterating on review feedback...")
-            # Split iteration budget: 60% cycle 1, 40% cycle 2
-            cycle_budget = int(max_iterations * (0.6 if cycle == 1 else 0.4))
-            improved = await _run_iteration_pass(
-                race_id, race_json, reviews,
-                model=model, on_log=on_log, max_iterations=max(cycle_budget, 8),
-            )
-            if improved is not None:
-                race_json = improved
-                # Re-normalize after iteration
-                now_iso = datetime.now(timezone.utc).isoformat()
-                race_json["updated_utc"] = now_iso
-                for candidate in race_json.get("candidates", []):
-                    if isinstance(candidate, dict):
-                        _normalize_candidate(candidate, now_iso)
-                race_json["generator"] = generators
-
-                log("info", f"  Cycle {cycle}: Re-running reviews...")
-                reviews = await run_reviews(
-                    race_id, race_json,
-                    on_log=on_log,
-                    cheap_mode=cheap_mode,
-                    claude_model=claude_model,
-                    gemini_model=gemini_model,
-                    grok_model=grok_model,
+                did_iterate = True
+                log("info", f"Phase 5 (cycle {cycle}/{max_review_cycles}): Iterating on review feedback...")
+                _track("progress", "iteration", pct=int(cycle / max_review_cycles * 80))
+                # Split iteration budget: 60% cycle 1, 40% cycle 2
+                cycle_budget = int(max_iterations * (0.6 if cycle == 1 else 0.4))
+                improved = await _run_iteration_pass(
+                    race_id, race_json, reviews,
+                    model=model, on_log=on_log, max_iterations=max(cycle_budget, 8),
                 )
-                race_json["reviews"] = reviews
+                if improved is not None:
+                    race_json = improved
+                    # Re-normalize after iteration
+                    now_iso = datetime.now(timezone.utc).isoformat()
+                    race_json["updated_utc"] = now_iso
+                    for candidate in race_json.get("candidates", []):
+                        if isinstance(candidate, dict):
+                            _normalize_candidate(candidate, now_iso)
+                    race_json["generator"] = generators
+
+                    log("info", f"  Cycle {cycle}: Re-running reviews...")
+                    reviews = await run_reviews(
+                        race_id, race_json,
+                        on_log=on_log,
+                        cheap_mode=cheap_mode,
+                        claude_model=claude_model,
+                        gemini_model=gemini_model,
+                        grok_model=grok_model,
+                    )
+                    race_json["reviews"] = reviews
+                else:
+                    log("warning", f"  Cycle {cycle}: iteration failed — stopping")
+                    break
+            if not did_iterate:
+                _track("skip", "iteration")
             else:
-                log("warning", f"  Cycle {cycle}: iteration failed — stopping")
-                break
+                _track("complete", "iteration", duration_ms=int((time.perf_counter() - iter_t0) * 1000))
+        else:
+            _track("skip", "iteration")
     else:
         race_json.setdefault("reviews", [])
+        if _step_enabled("review"):
+            _track("skip", "review")
+        if _step_enabled("iteration"):
+            _track("skip", "iteration")
 
     elapsed = time.perf_counter() - t0
 
@@ -912,6 +960,8 @@ async def _run_fresh(
     small_model: str,
     on_log: Any | None = None,
     max_iterations: int = 15,
+    step_enabled: Any = None,
+    track: Any = None,
 ) -> Dict[str, Any]:
     """Phase 1 → 2 → 3: Discovery → Issue research → Refinement.
 
@@ -919,8 +969,14 @@ async def _run_fresh(
     *small_model* is used for focused sub-tasks (image resolution, per-issue sub-agents).
     """
     log = make_logger(on_log)
+    if step_enabled is None:
+        step_enabled = lambda s: True
+    if track is None:
+        track = lambda a, s, **kw: None
 
     # --- Phase 1: Discovery ---
+    track("start", "discovery")
+    disc_t0 = time.perf_counter()
     log("info", "Phase 1/3: Discovering race and candidates...")
     race_json = _ensure_dict(await _agent_loop(
         DISCOVERY_SYSTEM,
@@ -937,113 +993,144 @@ async def _run_fresh(
     n = len(candidate_names)
     if not candidate_names:
         log("warning", "No candidates found in discovery phase")
+        track("complete", "discovery", duration_ms=int((time.perf_counter() - disc_t0) * 1000))
         return race_json
 
     refine_iters = _scale_iterations(max_iterations, n, per_candidate=2, minimum=12)
     log("info", f"  Iteration budgets — refine:{refine_iters}  (n={n} candidates)")
+    track("complete", "discovery", duration_ms=int((time.perf_counter() - disc_t0) * 1000))
 
     # --- Phase 1b: Image URL verification & resolution (parallel) ---
-    log("info", "Phase 1b/3: Verifying and resolving candidate image URLs...")
-    await resolve_candidate_images(
-        race_json,
-        agent_loop_fn=_agent_loop,
-        model=small_model,
-        on_log=on_log,
-        race_id=race_id,
-        max_iterations=min(max_iterations, 10),
-    )
-
-    # --- Phase 2: Per-candidate, per-issue research (tools mode) ---
-    log("info", f"Phase 2/3: Researching issues for {n} candidates (12 issues each)...")
-    for cand_name in candidate_names:
-        log("info", f"  Researching {cand_name}...")
-        await _run_issue_research_for_candidate(
-            cand_name,
+    if step_enabled("images"):
+        track("start", "images")
+        img_t0 = time.perf_counter()
+        log("info", "Phase 1b/3: Verifying and resolving candidate image URLs...")
+        await resolve_candidate_images(
             race_json,
-            race_id=race_id,
+            agent_loop_fn=_agent_loop,
             model=small_model,
             on_log=on_log,
-            max_iterations=max_iterations,
-            is_update=False,
+            race_id=race_id,
+            max_iterations=min(max_iterations, 10),
         )
+        track("complete", "images", duration_ms=int((time.perf_counter() - img_t0) * 1000))
+    else:
+        log("info", "Phase 1b/3: Image resolution — SKIPPED")
+        track("skip", "images")
+
+    # --- Phase 2: Per-candidate, per-issue research (tools mode) ---
+    if step_enabled("issues"):
+        track("start", "issues")
+        iss_t0 = time.perf_counter()
+        log("info", f"Phase 2/3: Researching issues for {n} candidates (12 issues each)...")
+        for ci, cand_name in enumerate(candidate_names):
+            log("info", f"  Researching {cand_name}...")
+            track("progress", "issues", pct=int((ci / max(n, 1)) * 100))
+            await _run_issue_research_for_candidate(
+                cand_name,
+                race_json,
+                race_id=race_id,
+                model=small_model,
+                on_log=on_log,
+                max_iterations=max_iterations,
+                is_update=False,
+            )
+        track("complete", "issues", duration_ms=int((time.perf_counter() - iss_t0) * 1000))
+    else:
+        log("info", "Phase 2/3: Issue research — SKIPPED")
+        track("skip", "issues")
 
     # --- Phase 2b: Dedicated finance & voting record research ---
-    finance_iters = _scale_iterations(max_iterations, n, per_candidate=4, minimum=15)
-    log("info", f"Phase 2b: Researching donors & voting records for {n} candidates...")
-    try:
-        finance_result = await _agent_loop(
-            FINANCE_VOTING_SYSTEM,
-            FINANCE_VOTING_USER.format(
-                race_id=race_id,
-                candidate_names=", ".join(candidate_names),
-            ),
-            model=model,
-            on_log=on_log,
-            race_id=race_id,
-            max_iterations=finance_iters,
-            phase_name="finance-voting",
-            max_tokens=16384,
-        )
-        if isinstance(finance_result, dict):
-            _apply_finance_patch(race_json, finance_result, log)
-        else:
-            log("warning", "  Finance/voting phase returned non-dict — skipping")
-    except (RuntimeError, ValueError) as exc:
-        log("warning", f"  Finance/voting phase failed: {exc} — continuing without")
-
-    # --- Phase 3: Refinement (tools mode — per-candidate + meta) ---
-    log("info", "Phase 3/3: Refining profile (one candidate at a time, tools mode)...")
-    handlers = _make_editing_handlers(race_json, log)
-    candidate_names_in_json = [c["name"] for c in race_json.get("candidates", [])]
-    for candidate in race_json.get("candidates", []):
-        cname = candidate["name"]
-        log("info", f"  Refining {cname}...")
+    if step_enabled("finance"):
+        track("start", "finance")
+        fin_t0 = time.perf_counter()
+        finance_iters = _scale_iterations(max_iterations, n, per_candidate=4, minimum=15)
+        log("info", f"Phase 2b: Researching donors & voting records for {n} candidates...")
         try:
-            await _agent_loop(
-                REFINE_SYSTEM,
-                REFINE_USER.format(
+            finance_result = await _agent_loop(
+                FINANCE_VOTING_SYSTEM,
+                FINANCE_VOTING_USER.format(
                     race_id=race_id,
-                    candidate_name=cname,
-                    candidate_json=json.dumps(candidate, indent=2, default=str),
-                    race_description=race_json.get("description", ""),
-                    other_candidates=", ".join(cn for cn in candidate_names_in_json if cn != cname),
-                    all_issues=", ".join(CANONICAL_ISSUES),
+                    candidate_names=", ".join(candidate_names),
                 ),
                 model=model,
                 on_log=on_log,
                 race_id=race_id,
-                max_iterations=max(8, refine_iters // max(len(candidate_names_in_json), 1)),
-                phase_name=f"refine-{cname[:20]}",
-                max_tokens=8192,
-                extra_tools=CANDIDATE_TOOLS + RECORD_TOOLS + [READ_PROFILE_TOOL],
+                max_iterations=finance_iters,
+                phase_name="finance-voting",
+                max_tokens=16384,
+            )
+            if isinstance(finance_result, dict):
+                _apply_finance_patch(race_json, finance_result, log)
+            else:
+                log("warning", "  Finance/voting phase returned non-dict — skipping")
+        except (RuntimeError, ValueError) as exc:
+            log("warning", f"  Finance/voting phase failed: {exc} — continuing without")
+        track("complete", "finance", duration_ms=int((time.perf_counter() - fin_t0) * 1000))
+    else:
+        log("info", "Phase 2b: Finance & voting — SKIPPED")
+        track("skip", "finance")
+
+    # --- Phase 3: Refinement (tools mode — per-candidate + meta) ---
+    if step_enabled("refinement"):
+        track("start", "refinement")
+        ref_t0 = time.perf_counter()
+        log("info", "Phase 3/3: Refining profile (one candidate at a time, tools mode)...")
+        handlers = _make_editing_handlers(race_json, log)
+        candidate_names_in_json = [c["name"] for c in race_json.get("candidates", [])]
+        for candidate in race_json.get("candidates", []):
+            cname = candidate["name"]
+            log("info", f"  Refining {cname}...")
+            try:
+                await _agent_loop(
+                    REFINE_SYSTEM,
+                    REFINE_USER.format(
+                        race_id=race_id,
+                        candidate_name=cname,
+                        candidate_json=json.dumps(candidate, indent=2, default=str),
+                        race_description=race_json.get("description", ""),
+                        other_candidates=", ".join(cn for cn in candidate_names_in_json if cn != cname),
+                        all_issues=", ".join(CANONICAL_ISSUES),
+                    ),
+                    model=model,
+                    on_log=on_log,
+                    race_id=race_id,
+                    max_iterations=max(8, refine_iters // max(len(candidate_names_in_json), 1)),
+                    phase_name=f"refine-{cname[:20]}",
+                    max_tokens=8192,
+                    extra_tools=CANDIDATE_TOOLS + RECORD_TOOLS + [READ_PROFILE_TOOL],
+                    extra_tool_handlers=handlers,
+                    tools_mode=True,
+                )
+            except (RuntimeError, ValueError) as exc:
+                log("warning", f"  Refine failed for {cname}: {exc} — keeping existing")
+
+        # Meta refinement (description + polling) — tools mode
+        log("info", "  Refining race metadata...")
+        try:
+            await _agent_loop(
+                REFINE_SYSTEM,
+                REFINE_META_USER.format(
+                    race_id=race_id,
+                    race_description=race_json.get("description", ""),
+                    polling_json=json.dumps(race_json.get("polling", []), indent=2, default=str),
+                ),
+                model=model,
+                on_log=on_log,
+                race_id=race_id,
+                max_iterations=max(6, refine_iters // 3),
+                phase_name="refine-meta",
+                max_tokens=4096,
+                extra_tools=RACE_TOOLS + [READ_PROFILE_TOOL],
                 extra_tool_handlers=handlers,
                 tools_mode=True,
             )
         except (RuntimeError, ValueError) as exc:
-            log("warning", f"  Refine failed for {cname}: {exc} — keeping existing")
-
-    # Meta refinement (description + polling) — tools mode
-    log("info", "  Refining race metadata...")
-    try:
-        await _agent_loop(
-            REFINE_SYSTEM,
-            REFINE_META_USER.format(
-                race_id=race_id,
-                race_description=race_json.get("description", ""),
-                polling_json=json.dumps(race_json.get("polling", []), indent=2, default=str),
-            ),
-            model=model,
-            on_log=on_log,
-            race_id=race_id,
-            max_iterations=max(6, refine_iters // 3),
-            phase_name="refine-meta",
-            max_tokens=4096,
-            extra_tools=RACE_TOOLS + [READ_PROFILE_TOOL],
-            extra_tool_handlers=handlers,
-            tools_mode=True,
-        )
-    except (RuntimeError, ValueError) as exc:
-        log("warning", f"  Refine meta failed: {exc} — keeping existing meta")
+            log("warning", f"  Refine meta failed: {exc} — keeping existing meta")
+        track("complete", "refinement", duration_ms=int((time.perf_counter() - ref_t0) * 1000))
+    else:
+        log("info", "Phase 3/3: Refinement — SKIPPED")
+        track("skip", "refinement")
 
     return race_json
 
@@ -1061,6 +1148,8 @@ async def _run_update(
     small_model: str,
     on_log: Any | None = None,
     max_iterations: int = 15,
+    step_enabled: Any = None,
+    track: Any = None,
 ) -> Dict[str, Any]:
     """Phase-based update mirroring _run_fresh but starting from existing data.
 
@@ -1068,6 +1157,10 @@ async def _run_update(
     *small_model* is used for focused sub-tasks (roster sync, per-issue sub-agents, images).
     """
     log = make_logger(on_log)
+    if step_enabled is None:
+        step_enabled = lambda s: True
+    if track is None:
+        track = lambda a, s, **kw: None
 
     # Start from a deep copy of existing so we never mutate the original
     import copy
@@ -1080,12 +1173,15 @@ async def _run_update(
 
     if not candidate_names:
         log("warning", "No candidates in existing data — falling back to fresh run")
-        return await _run_fresh(race_id, model=model, small_model=small_model, on_log=on_log, max_iterations=max_iterations)
+        return await _run_fresh(race_id, model=model, small_model=small_model, on_log=on_log, max_iterations=max_iterations, step_enabled=step_enabled, track=track)
 
     refine_iters = _scale_iterations(max_iterations, n, per_candidate=2, minimum=12)
     handlers = _make_editing_handlers(race_json, log)
 
-    # --- Phase 0: Roster sync (tools mode) ---
+    # --- Phase 0+1: Discovery (roster sync + meta update) ---
+    track("start", "discovery")
+    disc_t0 = time.perf_counter()
+
     log("info", "Update Phase 0: Verifying candidate roster...")
     try:
         await _agent_loop(
@@ -1114,7 +1210,10 @@ async def _run_update(
 
     if not candidate_names:
         log("warning", "No candidates after roster sync — falling back to fresh run")
-        return await _run_fresh(race_id, model=model, small_model=small_model, on_log=on_log, max_iterations=max_iterations)
+        track("complete", "discovery", duration_ms=int((time.perf_counter() - disc_t0) * 1000))
+        return await _run_fresh(race_id, model=model, small_model=small_model, on_log=on_log, max_iterations=max_iterations, step_enabled=step_enabled, track=track)
+
+    track("progress", "discovery", pct=50)
 
     # --- Phase 1: Meta update (tools mode — summaries, polls, race fields) ---
     meta_iters = _scale_iterations(max_iterations, n, per_candidate=2, minimum=10)
@@ -1140,108 +1239,139 @@ async def _run_update(
     except (RuntimeError, ValueError) as exc:
         log("warning", f"  Update meta phase failed: {exc} — keeping existing meta")
 
+    track("complete", "discovery", duration_ms=int((time.perf_counter() - disc_t0) * 1000))
+
     # --- Phase 2: Per-candidate, per-issue research (tools mode) ---
-    log("info", f"Update Phase 2: Refreshing issue positions for {n} candidates (12 issues each)...")
-    for cand_name in candidate_names:
-        log("info", f"  Updating issues for {cand_name}...")
-        await _run_issue_research_for_candidate(
-            cand_name,
-            race_json,
-            race_id=race_id,
-            model=small_model,
-            on_log=on_log,
-            max_iterations=max_iterations,
-            is_update=True,
-            last_updated=last_updated,
-        )
+    if step_enabled("issues"):
+        track("start", "issues")
+        iss_t0 = time.perf_counter()
+        log("info", f"Update Phase 2: Refreshing issue positions for {n} candidates (12 issues each)...")
+        for ci, cand_name in enumerate(candidate_names):
+            log("info", f"  Updating issues for {cand_name}...")
+            track("progress", "issues", pct=int((ci / max(n, 1)) * 100))
+            await _run_issue_research_for_candidate(
+                cand_name,
+                race_json,
+                race_id=race_id,
+                model=small_model,
+                on_log=on_log,
+                max_iterations=max_iterations,
+                is_update=True,
+                last_updated=last_updated,
+            )
+        track("complete", "issues", duration_ms=int((time.perf_counter() - iss_t0) * 1000))
+    else:
+        log("info", "Update Phase 2: Issue research — SKIPPED")
+        track("skip", "issues")
 
     # --- Phase 2b: Dedicated finance & voting record refresh ---
-    finance_iters = _scale_iterations(max_iterations, n, per_candidate=4, minimum=15)
-    log("info", f"Update Phase 2b: Refreshing donors & voting records for {n} candidates...")
-    try:
-        finance_result = await _agent_loop(
-            FINANCE_VOTING_SYSTEM,
-            FINANCE_VOTING_USER.format(
-                race_id=race_id,
-                candidate_names=", ".join(candidate_names),
-            ),
-            model=model,
-            on_log=on_log,
-            race_id=race_id,
-            max_iterations=finance_iters,
-            phase_name="update-finance-voting",
-            max_tokens=16384,
-        )
-        if isinstance(finance_result, dict):
-            _apply_finance_patch(race_json, finance_result, log)
-        else:
-            log("warning", "  Finance/voting phase returned non-dict — skipping")
-    except (RuntimeError, ValueError) as exc:
-        log("warning", f"  Finance/voting phase failed: {exc} — continuing without")
-
-    # --- Phase 3: Refinement (tools mode — per-candidate + meta) ---
-    log("info", "Update Phase 3: Refining updated profile (one candidate at a time, tools mode)...")
-    cand_list = race_json.get("candidates", [])
-    for candidate in cand_list:
-        cname = candidate["name"]
-        log("info", f"  Refining {cname}...")
+    if step_enabled("finance"):
+        track("start", "finance")
+        fin_t0 = time.perf_counter()
+        finance_iters = _scale_iterations(max_iterations, n, per_candidate=4, minimum=15)
+        log("info", f"Update Phase 2b: Refreshing donors & voting records for {n} candidates...")
         try:
-            await _agent_loop(
-                REFINE_SYSTEM,
-                REFINE_USER.format(
+            finance_result = await _agent_loop(
+                FINANCE_VOTING_SYSTEM,
+                FINANCE_VOTING_USER.format(
                     race_id=race_id,
-                    candidate_name=cname,
-                    candidate_json=json.dumps(candidate, indent=2, default=str),
-                    race_description=race_json.get("description", ""),
-                    other_candidates=", ".join(c["name"] for c in cand_list if c["name"] != cname),
-                    all_issues=", ".join(CANONICAL_ISSUES),
+                    candidate_names=", ".join(candidate_names),
                 ),
                 model=model,
                 on_log=on_log,
                 race_id=race_id,
-                max_iterations=max(8, refine_iters // max(len(cand_list), 1)),
-                phase_name=f"upd-refine-{cname[:20]}",
-                max_tokens=8192,
-                extra_tools=CANDIDATE_TOOLS + RECORD_TOOLS + [READ_PROFILE_TOOL],
+                max_iterations=finance_iters,
+                phase_name="update-finance-voting",
+                max_tokens=16384,
+            )
+            if isinstance(finance_result, dict):
+                _apply_finance_patch(race_json, finance_result, log)
+            else:
+                log("warning", "  Finance/voting phase returned non-dict — skipping")
+        except (RuntimeError, ValueError) as exc:
+            log("warning", f"  Finance/voting phase failed: {exc} — continuing without")
+        track("complete", "finance", duration_ms=int((time.perf_counter() - fin_t0) * 1000))
+    else:
+        log("info", "Update Phase 2b: Finance & voting — SKIPPED")
+        track("skip", "finance")
+
+    # --- Phase 3: Refinement (tools mode — per-candidate + meta) ---
+    if step_enabled("refinement"):
+        track("start", "refinement")
+        ref_t0 = time.perf_counter()
+        log("info", "Update Phase 3: Refining updated profile (one candidate at a time, tools mode)...")
+        cand_list = race_json.get("candidates", [])
+        for candidate in cand_list:
+            cname = candidate["name"]
+            log("info", f"  Refining {cname}...")
+            try:
+                await _agent_loop(
+                    REFINE_SYSTEM,
+                    REFINE_USER.format(
+                        race_id=race_id,
+                        candidate_name=cname,
+                        candidate_json=json.dumps(candidate, indent=2, default=str),
+                        race_description=race_json.get("description", ""),
+                        other_candidates=", ".join(c["name"] for c in cand_list if c["name"] != cname),
+                        all_issues=", ".join(CANONICAL_ISSUES),
+                    ),
+                    model=model,
+                    on_log=on_log,
+                    race_id=race_id,
+                    max_iterations=max(8, refine_iters // max(len(cand_list), 1)),
+                    phase_name=f"upd-refine-{cname[:20]}",
+                    max_tokens=8192,
+                    extra_tools=CANDIDATE_TOOLS + RECORD_TOOLS + [READ_PROFILE_TOOL],
+                    extra_tool_handlers=handlers,
+                    tools_mode=True,
+                )
+            except (RuntimeError, ValueError) as exc:
+                log("warning", f"  Refine failed for {cname}: {exc} — keeping existing")
+
+        # Meta refinement (description + polling) — tools mode
+        log("info", "  Refining race metadata...")
+        try:
+            await _agent_loop(
+                REFINE_SYSTEM,
+                REFINE_META_USER.format(
+                    race_id=race_id,
+                    race_description=race_json.get("description", ""),
+                    polling_json=json.dumps(race_json.get("polling", []), indent=2, default=str),
+                ),
+                model=model,
+                on_log=on_log,
+                race_id=race_id,
+                max_iterations=max(6, refine_iters // 3),
+                phase_name="upd-refine-meta",
+                max_tokens=4096,
+                extra_tools=RACE_TOOLS + [READ_PROFILE_TOOL],
                 extra_tool_handlers=handlers,
                 tools_mode=True,
             )
         except (RuntimeError, ValueError) as exc:
-            log("warning", f"  Refine failed for {cname}: {exc} — keeping existing")
-
-    # Meta refinement (description + polling) — tools mode
-    log("info", "  Refining race metadata...")
-    try:
-        await _agent_loop(
-            REFINE_SYSTEM,
-            REFINE_META_USER.format(
-                race_id=race_id,
-                race_description=race_json.get("description", ""),
-                polling_json=json.dumps(race_json.get("polling", []), indent=2, default=str),
-            ),
-            model=model,
-            on_log=on_log,
-            race_id=race_id,
-            max_iterations=max(6, refine_iters // 3),
-            phase_name="upd-refine-meta",
-            max_tokens=4096,
-            extra_tools=RACE_TOOLS + [READ_PROFILE_TOOL],
-            extra_tool_handlers=handlers,
-            tools_mode=True,
-        )
-    except (RuntimeError, ValueError) as exc:
-        log("warning", f"  Refine meta failed: {exc} — keeping existing meta")
+            log("warning", f"  Refine meta failed: {exc} — keeping existing meta")
+        track("complete", "refinement", duration_ms=int((time.perf_counter() - ref_t0) * 1000))
+    else:
+        log("info", "Update Phase 3: Refinement — SKIPPED")
+        track("skip", "refinement")
 
     # --- Post-update: image URL verification ---
-    log("info", "Post-update: Verifying and resolving candidate image URLs...")
-    await resolve_candidate_images(
-        race_json,
-        agent_loop_fn=_agent_loop,
-        model=small_model,
-        on_log=on_log,
-        race_id=race_id,
-        max_iterations=min(max_iterations, 10),
-    )
+    if step_enabled("images"):
+        track("start", "images")
+        img_t0 = time.perf_counter()
+        log("info", "Post-update: Verifying and resolving candidate image URLs...")
+        await resolve_candidate_images(
+            race_json,
+            agent_loop_fn=_agent_loop,
+            model=small_model,
+            on_log=on_log,
+            race_id=race_id,
+            max_iterations=min(max_iterations, 10),
+        )
+        track("complete", "images", duration_ms=int((time.perf_counter() - img_t0) * 1000))
+    else:
+        log("info", "Post-update: Image verification — SKIPPED")
+        track("skip", "images")
 
     return race_json
 

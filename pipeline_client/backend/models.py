@@ -11,6 +11,49 @@ class RunStatus(str, Enum):
     COMPLETED = "completed"
     FAILED = "failed"
     CANCELLED = "cancelled"
+    SKIPPED = "skipped"
+
+
+class PipelineStep(str, Enum):
+    """Canonical pipeline step identifiers.
+
+    Fresh runs execute: discovery → images → issues → finance → refinement → review → iteration.
+    Update runs execute the same steps but 'discovery' maps to roster sync + meta update,
+    and 'images' runs after refinement instead of after discovery.
+    """
+    DISCOVERY = "discovery"
+    IMAGES = "images"
+    ISSUES = "issues"
+    FINANCE = "finance"
+    REFINEMENT = "refinement"
+    REVIEW = "review"
+    ITERATION = "iteration"
+
+
+# Ordered lists for run creation
+ALL_STEPS: List[str] = [s.value for s in PipelineStep]
+
+# Human-readable labels for each step
+STEP_LABELS: Dict[str, str] = {
+    PipelineStep.DISCOVERY: "Discovery",
+    PipelineStep.IMAGES: "Image Resolution",
+    PipelineStep.ISSUES: "Issue Research",
+    PipelineStep.FINANCE: "Finance & Voting",
+    PipelineStep.REFINEMENT: "Refinement",
+    PipelineStep.REVIEW: "AI Review",
+    PipelineStep.ITERATION: "Review Iteration",
+}
+
+# Weights for progress computation (must sum to 100)
+STEP_WEIGHTS: Dict[str, int] = {
+    PipelineStep.DISCOVERY: 15,
+    PipelineStep.IMAGES: 5,
+    PipelineStep.ISSUES: 35,
+    PipelineStep.FINANCE: 10,
+    PipelineStep.REFINEMENT: 15,
+    PipelineStep.REVIEW: 12,
+    PipelineStep.ITERATION: 8,
+}
 
 
 class RunOptions(BaseModel):
@@ -23,6 +66,9 @@ class RunOptions(BaseModel):
     claude_model: Optional[str] = None     # Claude model for review
     gemini_model: Optional[str] = None     # Gemini model for review
     grok_model: Optional[str] = None       # Grok model for review
+    # Step-level configuration: list of step names to run.
+    # None/empty = all steps (backward compatible). Steps not listed are SKIPPED.
+    enabled_steps: Optional[List[str]] = None
 
 
 class RunRequest(BaseModel):
@@ -44,10 +90,13 @@ class RunStep(BaseModel):
     """Information about a single step within a run."""
 
     name: str
+    label: Optional[str] = None  # Human-readable label
     status: RunStatus = RunStatus.PENDING
     started_at: Optional[datetime] = None
     completed_at: Optional[datetime] = None
     duration_ms: Optional[int] = None
+    progress_pct: Optional[int] = None  # 0-100 progress within this step
+    weight: Optional[int] = None  # Weight for overall progress calculation
     artifact_id: Optional[str] = None
     error: Optional[str] = None
 

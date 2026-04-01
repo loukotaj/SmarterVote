@@ -20,8 +20,8 @@
   let error = "";
   let pollTimer: ReturnType<typeof setInterval> | null = null;
   let showRawJson = false;
-  type SectionId = "logs" | "output";
-  let activeSection: SectionId = "logs";
+  type SectionId = "steps" | "logs" | "output";
+  let activeSection: SectionId = "steps";
   let artifactData: any = null;
   let artifactLoading = false;
   type LogLevel = "all" | "info" | "warning" | "error";
@@ -47,18 +47,32 @@
   $: runLogs = isLiveAndRunning ? liveLogs : ((run?.logs ?? []).length > 0 ? (run?.logs ?? []) : artifactAgentLogs);
   $: filteredLogs = logFilter === "all" ? runLogs : runLogs.filter((l) => l.level === logFilter);
   $: steps = run?.steps ?? [];
+  // Filter to only pipeline sub-steps (exclude the top-level "agent" step)
+  $: pipelineSteps = steps.filter((s) => s.name !== "agent");
+  $: hasPipelineSteps = pipelineSteps.length > 0;
   $: sections = [
+    { id: "steps" as SectionId, label: `Steps (${pipelineSteps.length})` },
     { id: "logs" as SectionId, label: `Logs (${runLogs.length})` },
     { id: "output" as SectionId, label: "Output" },
   ];
-  $: progress = isLiveAndRunning ? liveProgress : computeProgress(steps);
-  $: progressMsg = isLiveAndRunning ? liveProgressMessage : lastStepMessage(steps);
+  $: progress = isLiveAndRunning ? liveProgress : computeProgress(pipelineSteps);
+  $: progressMsg = isLiveAndRunning ? liveProgressMessage : lastStepMessage(pipelineSteps);
   $: elapsed = isLiveAndRunning ? liveElapsed : (run?.duration_ms ? Math.floor(run.duration_ms / 1000) : 0);
 
   function computeProgress(steps: RunStep[]): number {
     if (!steps.length) return 0;
-    const done = steps.filter((s) => s.status === "completed").length;
-    return Math.round((done / steps.length) * 100);
+    // Weight-based progress: sum weights of completed steps / total enabled weight
+    const enabled = steps.filter((s) => s.status !== "skipped");
+    if (!enabled.length) return 100;
+    const totalWeight = enabled.reduce((sum, s) => sum + (s.weight || 1), 0);
+    let doneWeight = 0;
+    let partialWeight = 0;
+    for (const s of enabled) {
+      const w = s.weight || 1;
+      if (s.status === "completed") doneWeight += w;
+      else if (s.status === "running") partialWeight += w * ((s.progress_pct || 0) / 100);
+    }
+    return Math.min(98, Math.round(((doneWeight + partialWeight) / totalWeight) * 100));
   }
 
   function lastStepMessage(steps: RunStep[]): string {
@@ -74,6 +88,7 @@
       case "completed": return "✓";
       case "running": return "●";
       case "failed": return "✗";
+      case "skipped": return "⊘";
       default: return "○";
     }
   }
@@ -83,6 +98,7 @@
       case "completed": return "text-green-600";
       case "running": return "text-blue-600";
       case "failed": return "text-red-600";
+      case "skipped": return "text-content-faint opacity-50";
       default: return "text-content-faint";
     }
   }
@@ -93,6 +109,7 @@
       case "running": return "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300";
       case "failed": return "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300";
       case "cancelled": return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300";
+      case "skipped": return "bg-gray-100 text-gray-500 dark:bg-gray-800/30 dark:text-gray-500";
       case "pending": return "bg-surface-alt text-content-subtle";
       default: return "bg-surface-alt text-content-subtle";
     }
@@ -254,6 +271,60 @@
         </button>
       {/each}
     </div>
+
+    <!-- Steps section -->
+    {#if activeSection === "steps"}
+      <div class="card p-0">
+        {#if pipelineSteps.length > 0}
+          <div class="divide-y divide-stroke">
+            {#each pipelineSteps as step, i}
+              {@const isSkipped = step.status === "skipped"}
+              <div class="flex items-center gap-3 px-4 py-3 {isSkipped ? 'opacity-50' : ''}">
+                <!-- Step number + icon -->
+                <div class="flex items-center gap-2 shrink-0 w-8">
+                  <span class="text-lg {stepColor(step.status)}">{stepIcon(step.status)}</span>
+                </div>
+
+                <!-- Step info -->
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-2">
+                    <span class="text-sm font-medium text-content {isSkipped ? 'line-through' : ''}">{step.label || step.name}</span>
+                    <span class="px-1.5 py-0.5 rounded text-[10px] font-semibold uppercase {statusBadge(step.status)}">{step.status}</span>
+                  </div>
+                  {#if step.status === "running" && step.progress_pct}
+                    <div class="mt-1.5 flex items-center gap-2">
+                      <div class="flex-1 h-1.5 bg-surface-alt rounded-full overflow-hidden">
+                        <div class="h-full bg-blue-500 rounded-full transition-all duration-300" style="width: {step.progress_pct}%"></div>
+                      </div>
+                      <span class="text-[10px] text-content-subtle shrink-0">{step.progress_pct}%</span>
+                    </div>
+                  {/if}
+                </div>
+
+                <!-- Duration -->
+                <div class="shrink-0 text-right">
+                  {#if step.duration_ms}
+                    <span class="text-xs text-content-subtle">{formatDuration(step.duration_ms)}</span>
+                  {:else if step.status === "running"}
+                    <span class="text-xs text-blue-500 animate-pulse">running…</span>
+                  {:else if isSkipped}
+                    <span class="text-xs text-content-faint">skipped</span>
+                  {/if}
+                </div>
+              </div>
+            {/each}
+          </div>
+        {:else}
+          <div class="text-center text-content-faint py-8 text-sm">
+            {#if isRunning}
+              Waiting for step data…
+            {:else}
+              No step data available for this run
+            {/if}
+          </div>
+        {/if}
+      </div>
+    {/if}
 
     <!-- Logs section -->
     {#if activeSection === "logs"}

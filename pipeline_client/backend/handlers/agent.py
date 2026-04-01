@@ -11,33 +11,42 @@ import re
 import time
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict
-
-# Maps log message patterns → (progress %, label).
-# Checked in order — first match wins.
-_PROGRESS_PATTERNS: list[tuple[re.Pattern, int, str]] = [
-    (re.compile(r"Phase 1/3|Discovering race"),                     5,  "Discovering race & candidates..."),
-    (re.compile(r"Phase 1b/3|Verifying and resolving candidate image"), 10, "Verifying candidate images..."),
-    (re.compile(r"Update Phase 0"),                                 8,  "Verifying candidate roster..."),
-    (re.compile(r"Update Phase 1"),                                 15, "Searching for new information..."),
-    (re.compile(r"Phase 2/3|Update Phase 2:"),                      20, "Researching issues..."),
-    (re.compile(r"Researching .+\.\.\.|Updating issues for"),        25, "Researching candidate issues..."),
-    (re.compile(r"Issue \d+/12:"),                                  30, "Researching issue positions..."),
-    (re.compile(r"Issue (1[01]|12)/12:"),                           55, "Finishing issue research..."),
-    (re.compile(r"Phase 2b|Update Phase 2b"),                       60, "Researching donors & voting records..."),
-    (re.compile(r"Phase 3/3|Update Phase 3"),                       68, "Refining profile..."),
-    (re.compile(r"Phase 4:|Sending to review agents"),              82, "Sending to review agents..."),
-    (re.compile(r"Phase 5.*cycle 1|Phase 5.*Iterating"),            88, "Iterating on review feedback..."),
-    (re.compile(r"Phase 5.*cycle 2"),                               93, "Second iteration pass..."),
-    (re.compile(r"✅ Agent finished|Agent finished"),               98, "Finalising..."),
-]
+from typing import Any, Dict, Set
 
 
-def _detect_progress(message: str) -> tuple[int, str] | None:
-    for pattern, pct, label in _PROGRESS_PATTERNS:
-        if pattern.search(message):
-            return pct, label
-    return None
+def _compute_overall_progress(
+    run_id: str,
+    run_manager: Any,
+    all_steps: list,
+    step_weights: dict,
+    enabled_set: Set[str],
+    current_step: str | None = None,
+    current_step_pct: int = 0,
+) -> int:
+    """Compute weighted overall progress (0-100) from step statuses."""
+    run_info = run_manager.get_run(run_id)
+    if not run_info:
+        return 0
+
+    # Only count enabled steps for weight denominator
+    total_weight = sum(step_weights.get(s, 0) for s in all_steps if s in enabled_set)
+    if total_weight == 0:
+        return 0
+
+    done_weight = 0
+    partial_weight = 0
+    for step_info in run_info.steps:
+        w = step_weights.get(step_info.name, 0)
+        if step_info.name not in enabled_set:
+            continue
+        if step_info.status in ("completed",):
+            done_weight += w
+        elif step_info.status == "running":
+            # Use per-step progress or the provided current_step_pct
+            pct = current_step_pct if step_info.name == current_step else (step_info.progress_pct or 0)
+            partial_weight += w * pct / 100
+
+    return min(98, int((done_weight + partial_weight) / total_weight * 100))
 
 
 class AgentHandler:
@@ -49,21 +58,13 @@ class AgentHandler:
     async def handle(self, payload: Dict[str, Any], options: Dict[str, Any]) -> Any:
         """Run the agent for a race_id and publish the result.
 
-        Payload expected:
-            - race_id: str (e.g. "mo-senate-2024")
-
-        Options:
-            - cheap_mode: bool (default True, uses gpt-5.4-mini in cheap, gpt-5.4 in full)
-            - enable_review: bool (default False, send to Claude/Gemini/Grok)
-            - research_model: str (override OpenAI research model)
-            - claude_model: str (override Claude review model)
-            - gemini_model: str (override Gemini review model)
-            - grok_model: str (override Grok review model)
-
-        Returns:
-            dict with race_id, race_json, published_path, duration_ms
+        Creates all pipeline sub-steps upfront so progress is always visible,
+        then passes a step_tracker to the agent so phases report back directly.
         """
         from pipeline_client.agent.agent import run_agent
+        from pipeline_client.backend.models import (
+            ALL_STEPS, PipelineStep, RunStatus, STEP_LABELS, STEP_WEIGHTS,
+        )
 
         logger = logging.getLogger("pipeline")
         race_id = payload.get("race_id")
@@ -72,16 +73,24 @@ class AgentHandler:
 
         cheap_mode = options.get("cheap_mode", True)
         enable_review = options.get("enable_review", True)
+        enabled_steps_raw = options.get("enabled_steps")
         t0 = time.perf_counter()
 
         logger.info(f"Agent: researching race {race_id} (cheap_mode={cheap_mode}, review={enable_review})")
 
-        # Pre-load existing data from GCS if running in cloud (container filesystem
-        # may be ephemeral, so _load_existing() won't find local files from previous runs).
+        # Resolve enabled steps: explicit list > derive from options > all
+        if enabled_steps_raw:
+            enabled_steps = [s for s in enabled_steps_raw if s in {e.value for e in PipelineStep}]
+        else:
+            enabled_steps = list(ALL_STEPS)
+            if not enable_review:
+                enabled_steps = [s for s in enabled_steps if s not in ("review", "iteration")]
+        enabled_set = set(enabled_steps)
+
+        # Pre-load existing data from GCS if running in cloud
         existing_data = await self._load_existing_from_gcs(race_id)
 
-        # Collect logs from the agent and broadcast progress via WebSocket
-        agent_logs: list[Dict[str, Any]] = []
+        # Get run context for broadcasting
         run_id: str | None = None
         _safe_broadcast: Any = None
         _run_manager: Any = None
@@ -93,9 +102,78 @@ class AgentHandler:
         except Exception:
             pass
 
-        # Phase sub-step tracking (list cells allow mutation inside the closure)
-        _cur_step: list[str | None] = [None]
-        _step_t0: list[float] = [0.0]
+        # --- Create all sub-steps upfront ---
+        if run_id and _run_manager:
+            for step_name in ALL_STEPS:
+                try:
+                    step_obj = _run_manager.add_step(run_id, step_name)
+                    if step_obj:
+                        step_obj.label = STEP_LABELS.get(step_name, step_name)
+                        step_obj.weight = STEP_WEIGHTS.get(step_name, 0)
+                        if step_name not in enabled_set:
+                            _run_manager.update_step_status(run_id, step_name, RunStatus.SKIPPED)
+                except Exception:
+                    pass
+
+        # --- Step tracker callbacks ---
+        def _on_step_start(step: str, **_kw):
+            if not run_id or not _run_manager:
+                return
+            try:
+                _run_manager.update_step_status(run_id, step, RunStatus.RUNNING)
+                label = STEP_LABELS.get(step, step)
+                weight = STEP_WEIGHTS.get(step, 0)
+                # Compute cumulative progress: sum of completed step weights + 0% of current
+                pct = _compute_overall_progress(run_id, _run_manager, ALL_STEPS, STEP_WEIGHTS, enabled_set)
+                _safe_broadcast({"type": "run_progress", "run_id": run_id, "progress": pct, "message": label})
+            except Exception:
+                pass
+
+        def _on_step_complete(step: str, *, duration_ms: int = 0, **_kw):
+            if not run_id or not _run_manager:
+                return
+            try:
+                _run_manager.update_step_status(run_id, step, RunStatus.COMPLETED, duration_ms=duration_ms)
+                pct = _compute_overall_progress(run_id, _run_manager, ALL_STEPS, STEP_WEIGHTS, enabled_set)
+                label = STEP_LABELS.get(step, step) + " ✓"
+                _safe_broadcast({"type": "run_progress", "run_id": run_id, "progress": pct, "message": label})
+            except Exception:
+                pass
+
+        def _on_step_skip(step: str, **_kw):
+            if not run_id or not _run_manager:
+                return
+            try:
+                _run_manager.update_step_status(run_id, step, RunStatus.SKIPPED)
+            except Exception:
+                pass
+
+        def _on_step_progress(step: str, *, pct: int = 0, **_kw):
+            if not run_id or not _run_manager:
+                return
+            try:
+                # Update per-step progress
+                run_info = _run_manager.get_run(run_id)
+                if run_info:
+                    for s in run_info.steps:
+                        if s.name == step:
+                            s.progress_pct = pct
+                            break
+                overall = _compute_overall_progress(run_id, _run_manager, ALL_STEPS, STEP_WEIGHTS, enabled_set, step, pct)
+                label = STEP_LABELS.get(step, step)
+                _safe_broadcast({"type": "run_progress", "run_id": run_id, "progress": overall, "message": label})
+            except Exception:
+                pass
+
+        step_tracker = {
+            "start": _on_step_start,
+            "complete": _on_step_complete,
+            "skip": _on_step_skip,
+            "progress": _on_step_progress,
+        }
+
+        # --- Log collector ---
+        agent_logs: list[Dict[str, Any]] = []
 
         def on_log(level: str, message: str) -> None:
             log_entry = {
@@ -104,35 +182,11 @@ class AgentHandler:
                 "timestamp": datetime.now(timezone.utc).isoformat(),
             }
             agent_logs.append(log_entry)
-            # Mirror agent-internal messages into run_info.logs so the Logs tab
-            # shows full verbosity for both live and historical runs.
             if run_id and _run_manager:
                 try:
                     _run_manager.add_run_log(run_id, log_entry)
                 except Exception:
                     pass
-            progress_hit = _detect_progress(message)
-            if progress_hit and run_id:
-                pct, label = progress_hit
-                try:
-                    _safe_broadcast({"type": "run_progress", "run_id": run_id, "progress": pct, "message": label})
-                except Exception:
-                    pass
-                # Reflect phase transitions as discrete RunManager sub-steps so the
-                # Steps tab in the admin UI shows granular progress.
-                if label != _cur_step[0]:
-                    try:
-                        from pipeline_client.backend.models import RunStatus
-                        if _cur_step[0]:
-                            dur = int((time.perf_counter() - _step_t0[0]) * 1000)
-                            _run_manager.update_step_status(run_id, _cur_step[0], RunStatus.COMPLETED, duration_ms=dur)
-                        _cur_step[0] = label
-                        _step_t0[0] = time.perf_counter()
-                        _run_manager.add_step(run_id, label)
-                        _run_manager.update_step_status(run_id, label, RunStatus.RUNNING)
-                    except Exception:
-                        pass
-
 
         # Run the agent
         race_json = await run_agent(
@@ -145,16 +199,9 @@ class AgentHandler:
             claude_model=options.get("claude_model"),
             gemini_model=options.get("gemini_model"),
             grok_model=options.get("grok_model"),
+            enabled_steps=enabled_steps,
+            step_tracker=step_tracker,
         )
-
-        # Complete the last active phase sub-step
-        if run_id and _cur_step[0]:
-            try:
-                from pipeline_client.backend.models import RunStatus
-                dur = int((time.perf_counter() - _step_t0[0]) * 1000)
-                _run_manager.update_step_status(run_id, _cur_step[0], RunStatus.COMPLETED, duration_ms=dur)
-            except Exception:
-                pass
 
         # Publish to local filesystem
         published_path = await self._publish(race_id, race_json)

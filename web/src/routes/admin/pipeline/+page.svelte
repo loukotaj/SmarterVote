@@ -27,7 +27,8 @@
   // Utilities
   import { debounce, safeJsonStringify, downloadAsJson } from "$lib/utils/pipelineUtils";
   import { logger } from "$lib/utils/logger";
-  import type { RunHistoryItem, Artifact } from "$lib/types";
+  import type { RunHistoryItem, Artifact, PipelineStepId, PIPELINE_STEPS as _PS } from "$lib/types";
+  import { PIPELINE_STEPS } from "$lib/types";
 
   const API_BASE = import.meta.env.VITE_API_BASE || "http://127.0.0.1:8001";
 
@@ -55,6 +56,13 @@
   let claudeModel = "";
   let geminiModel = "";
   let grokModel = "";
+  let showStepConfig = false;
+  // Step toggles: all enabled by default. Keys are PipelineStepId values.
+  let stepToggles: Record<string, boolean> = Object.fromEntries(
+    PIPELINE_STEPS.map((s) => [s.id, true])
+  );
+  // Derive enabled_steps list from toggles (null if all enabled = default)
+  $: allStepsEnabled = PIPELINE_STEPS.every((s) => stepToggles[s.id]);
 
   // Server-side queue state
   let queueItems: QueueItem[] = [];
@@ -351,6 +359,9 @@
     if (claudeModel) opts.claude_model = claudeModel;
     if (geminiModel) opts.gemini_model = geminiModel;
     if (grokModel) opts.grok_model = grokModel;
+    if (!allStepsEnabled) {
+      opts.enabled_steps = PIPELINE_STEPS.filter((s) => stepToggles[s.id]).map((s) => s.id);
+    }
     return opts;
   }
 
@@ -393,21 +404,15 @@
     }
   }
 
-  async function handleQueueRaceById(race_id: string) {
-    if (!apiService) return;
-    try {
-      const result = await apiService.addToQueue([race_id], buildOptions());
-      if (result.added.length > 0) {
-        addLog("info", `Queued update for ${race_id}`);
-        activeTab = "pipeline";
-      }
-      for (const err of result.errors) {
-        addLog("warning", `${err.race_id}: ${err.error}`);
-      }
-      await refreshQueue();
-    } catch (e) {
-      addLog("error", `Failed to queue ${race_id}: ${e}`);
+  function handleSetupRace(race_id: string) {
+    // Pre-fill the pipeline form with this race ID and switch to pipeline tab
+    const current = pipeline.raceId.trim();
+    if (current && !current.split(",").map((s) => s.trim()).includes(race_id)) {
+      pipelineActions.setRaceId(`${current}, ${race_id}`);
+    } else {
+      pipelineActions.setRaceId(race_id);
     }
+    activeTab = "pipeline";
   }
 
   async function handleRemoveQueueItem(item: QueueItem) {
@@ -591,7 +596,7 @@
   {#if activeTab === "races"}
     <RacesTab
       bind:this={racesTabRef}
-      onUpdateRace={handleQueueRaceById}
+      onUpdateRace={handleSetupRace}
       onDeleteRace={handleDeleteRaceById}
       activeRaceIds={activeQueuedRaceIds}
     />
@@ -720,10 +725,52 @@
                   </div>
                 </div>
               {/if}
+
+              <!-- Step Configuration -->
+              <button
+                type="button"
+                on:click={() => (showStepConfig = !showStepConfig)}
+                class="text-xs text-blue-600 hover:text-blue-800 flex items-center gap-1"
+              >
+                <svg class="w-3 h-3 transition-transform {showStepConfig ? 'rotate-90' : ''}" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                </svg>
+                Pipeline Steps {allStepsEnabled ? '' : `(${PIPELINE_STEPS.filter((s) => stepToggles[s.id]).length}/${PIPELINE_STEPS.length})`}
+              </button>
+              {#if showStepConfig}
+                <div class="border-t border-stroke pt-2.5 space-y-2">
+                  <p class="text-xs text-content-faint">
+                    Toggle steps on/off. Disabled steps are skipped. Discovery always runs.
+                  </p>
+                  <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                    {#each PIPELINE_STEPS as step}
+                      <label class="flex items-center gap-1.5 text-xs text-content-muted cursor-pointer select-none {step.id === 'discovery' ? 'opacity-60 cursor-not-allowed' : ''}">
+                        <input
+                          type="checkbox"
+                          bind:checked={stepToggles[step.id]}
+                          disabled={step.id === "discovery"}
+                          class="rounded border-stroke text-blue-600 focus:ring-blue-500 h-3.5 w-3.5"
+                        />
+                        <span>{step.label}</span>
+                      </label>
+                    {/each}
+                  </div>
+                  <div class="flex gap-2">
+                    <button
+                      type="button"
+                      class="text-xs text-blue-600 hover:underline"
+                      on:click={() => { PIPELINE_STEPS.forEach((s) => { stepToggles[s.id] = true; }); stepToggles = stepToggles; }}
+                    >All on</button>
+                    <button
+                      type="button"
+                      class="text-xs text-blue-600 hover:underline"
+                      on:click={() => { PIPELINE_STEPS.forEach((s) => { stepToggles[s.id] = s.id === "discovery"; }); stepToggles = stepToggles; }}
+                    >Discovery only</button>
+                  </div>
+                </div>
+              {/if}
             </div>
           </div>
-
-          <!-- Active Run Banner -->
           {#if pipeline.isExecuting}
             <button
               type="button"

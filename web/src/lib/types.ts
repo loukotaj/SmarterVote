@@ -168,7 +168,28 @@ export type RunStatus =
   | "running"
   | "completed"
   | "failed"
-  | "cancelled";
+  | "cancelled"
+  | "skipped";
+
+// Canonical pipeline step identifiers
+export type PipelineStepId =
+  | "discovery"
+  | "images"
+  | "issues"
+  | "finance"
+  | "refinement"
+  | "review"
+  | "iteration";
+
+export const PIPELINE_STEPS: { id: PipelineStepId; label: string; weight: number }[] = [
+  { id: "discovery", label: "Discovery", weight: 15 },
+  { id: "images", label: "Image Resolution", weight: 5 },
+  { id: "issues", label: "Issue Research", weight: 35 },
+  { id: "finance", label: "Finance & Voting", weight: 10 },
+  { id: "refinement", label: "Refinement", weight: 15 },
+  { id: "review", label: "AI Review", weight: 12 },
+  { id: "iteration", label: "Review Iteration", weight: 8 },
+];
 
 export interface RunOptions {
   save_artifact?: boolean;
@@ -179,14 +200,18 @@ export interface RunOptions {
   claude_model?: string;
   gemini_model?: string;
   grok_model?: string;
+  enabled_steps?: string[];
 }
 
 export interface RunStep {
   name: string;
+  label?: string;
   status: RunStatus;
   started_at?: string;
   completed_at?: string;
   duration_ms?: number;
+  progress_pct?: number;
+  weight?: number;
   artifact_id?: string;
   error?: string;
 }
