@@ -102,7 +102,7 @@
         <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
         <div>
           <p class="font-semibold">Limited Data — Discovery Only</p>
-          <p class="mt-1 text-blue-700 dark:text-blue-300">This candidate has basic biographical information but detailed issue positions have not been researched yet. Want detailed data? <a href="mailto:info@smarter.vote?subject=Research%20request:%20{encodeURIComponent(race?.title ?? slug)}" class="underline font-medium hover:text-blue-900 dark:hover:text-blue-100">Request a research run</a> or <a href="https://smarter.vote/sponsor" class="underline font-medium hover:text-blue-900 dark:hover:text-blue-100">sponsor to help fund it</a>!</p>
+          <p class="mt-1 text-blue-700 dark:text-blue-300">This candidate has basic biographical information but detailed issue positions have not been researched yet. Want detailed data? <a href="https://github.com/loukotaj/SmarterVote/issues/new/choose" target="_blank" rel="noopener noreferrer" class="underline font-medium hover:text-blue-900 dark:hover:text-blue-100">Request a research run</a> or <a href="https://github.com/sponsors/loukotaj" target="_blank" rel="noopener noreferrer" class="underline font-medium hover:text-blue-900 dark:hover:text-blue-100">sponsor to help fund it</a>!</p>
         </div>
       </div>
     {/if}

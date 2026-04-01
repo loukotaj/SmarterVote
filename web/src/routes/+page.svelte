@@ -124,7 +124,12 @@
     </div>
 
     {#if loading}
-      <div class="h-64 bg-surface-alt rounded-xl animate-pulse" />
+      <div class="h-64 bg-surface-alt rounded-xl flex items-center justify-center">
+        <svg class="animate-spin h-8 w-8 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+        </svg>
+      </div>
     {:else}
       <USMap
         {activeStates}
@@ -196,7 +201,14 @@
     </div>
 
     {#if loading}
-      <!-- Loading skeleton grid -->
+      <!-- Loading spinner + skeleton grid -->
+      <div class="flex justify-center items-center py-6">
+        <svg class="animate-spin h-10 w-10 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+        </svg>
+        <span class="ml-3 text-content-muted text-sm">Loading races…</span>
+      </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {#each Array(6) as _}
           <div class="bg-surface border border-stroke rounded-xl h-40 animate-pulse" />
