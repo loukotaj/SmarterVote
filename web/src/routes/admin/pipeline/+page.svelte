@@ -49,7 +49,6 @@
   let modalLoading = false;
 
   // Pipeline options
-  let enableReview = true;
   let cheapMode = true;
   let showAdvanced = false;
   let researchModel = "";
@@ -61,8 +60,6 @@
   let stepToggles: Record<string, boolean> = Object.fromEntries(
     PIPELINE_STEPS.map((s) => [s.id, true])
   );
-  // Derive enabled_steps list from toggles (null if all enabled = default)
-  $: allStepsEnabled = PIPELINE_STEPS.every((s) => stepToggles[s.id]);
 
   // Server-side queue state
   let queueItems: QueueItem[] = [];
@@ -352,16 +349,14 @@
   function buildOptions(): Record<string, any> {
     const opts: Record<string, any> = {
       save_artifact: true,
-      enable_review: enableReview,
       cheap_mode: cheapMode,
+      // Always send explicit step list so the backend never needs to guess
+      enabled_steps: PIPELINE_STEPS.filter((s) => stepToggles[s.id]).map((s) => s.id),
     };
     if (researchModel) opts.research_model = researchModel;
     if (claudeModel) opts.claude_model = claudeModel;
     if (geminiModel) opts.gemini_model = geminiModel;
     if (grokModel) opts.grok_model = grokModel;
-    if (!allStepsEnabled) {
-      opts.enabled_steps = PIPELINE_STEPS.filter((s) => stepToggles[s.id]).map((s) => s.id);
-    }
     return opts;
   }
 
@@ -663,11 +658,6 @@
                   <input type="checkbox" bind:checked={cheapMode} class="rounded border-stroke text-blue-600 focus:ring-blue-500" />
                   <span>Cheap Mode</span>
                 </label>
-                <label class="flex items-center gap-2 text-sm text-content-muted cursor-pointer">
-                  <input type="checkbox" bind:checked={enableReview} class="rounded border-stroke text-blue-600 focus:ring-blue-500" />
-                  <span>AI Review</span>
-                  <span class="text-xs text-content-faint">✶</span>
-                </label>
               </div>
 
               <!-- Advanced Model Config -->
@@ -735,7 +725,7 @@
                 <svg class="w-3 h-3 transition-transform {showStepConfig ? 'rotate-90' : ''}" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
                 </svg>
-                Pipeline Steps {allStepsEnabled ? '' : `(${PIPELINE_STEPS.filter((s) => stepToggles[s.id]).length}/${PIPELINE_STEPS.length})`}
+                Pipeline Steps {PIPELINE_STEPS.every((s) => stepToggles[s.id]) ? '' : `(${PIPELINE_STEPS.filter((s) => stepToggles[s.id]).length}/${PIPELINE_STEPS.length})`}
               </button>
               {#if showStepConfig}
                 <div class="border-t border-stroke pt-2.5 space-y-2">

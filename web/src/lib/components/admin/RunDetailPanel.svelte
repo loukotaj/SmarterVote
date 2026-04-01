@@ -304,7 +304,7 @@
                 <!-- Duration -->
                 <div class="shrink-0 text-right">
                   {#if step.duration_ms}
-                    <span class="text-xs text-content-subtle">{formatDuration(step.duration_ms)}</span>
+                    <span class="text-xs text-content-subtle">{formatDuration(Math.round(step.duration_ms / 1000))}</span>
                   {:else if step.status === "running"}
                     <span class="text-xs text-blue-500 animate-pulse">running…</span>
                   {:else if isSkipped}

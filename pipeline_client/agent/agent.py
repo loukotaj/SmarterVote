@@ -676,7 +676,7 @@ async def run_agent(
 
     # Record the models actually used (deduplicated — nano == model in full mode)
     generators = list(dict.fromkeys([model, small_model]))  # preserves order, drops duplicates
-    if enable_review:
+    if _step_enabled("review"):
         if os.getenv("ANTHROPIC_API_KEY"):
             generators.append(claude_model or (CHEAP_CLAUDE_MODEL if cheap_mode else DEFAULT_CLAUDE_MODEL))
         if os.getenv("GEMINI_API_KEY"):
@@ -691,7 +691,7 @@ async def run_agent(
 
     race_json.setdefault("polling", [])
 
-    if enable_review and _step_enabled("review"):
+    if _step_enabled("review"):
         _track("start", "review")
         review_t0 = time.perf_counter()
         log("info", "Phase 4: Sending to review agents (Claude, Gemini, Grok)...")
@@ -762,10 +762,8 @@ async def run_agent(
             _track("skip", "iteration")
     else:
         race_json.setdefault("reviews", [])
-        if _step_enabled("review"):
-            _track("skip", "review")
-        if _step_enabled("iteration"):
-            _track("skip", "iteration")
+        _track("skip", "review")
+        _track("skip", "iteration")
 
     elapsed = time.perf_counter() - t0
 
@@ -1025,7 +1023,7 @@ async def _run_fresh(
         log("info", f"Phase 2/3: Researching issues for {n} candidates (12 issues each)...")
         for ci, cand_name in enumerate(candidate_names):
             log("info", f"  Researching {cand_name}...")
-            track("progress", "issues", pct=int((ci / max(n, 1)) * 100))
+            track("progress", "issues", pct=int((ci / max(n, 1)) * 100), message=f"Issue Research: {cand_name} ({ci + 1}/{n})")
             await _run_issue_research_for_candidate(
                 cand_name,
                 race_json,
@@ -1248,7 +1246,7 @@ async def _run_update(
         log("info", f"Update Phase 2: Refreshing issue positions for {n} candidates (12 issues each)...")
         for ci, cand_name in enumerate(candidate_names):
             log("info", f"  Updating issues for {cand_name}...")
-            track("progress", "issues", pct=int((ci / max(n, 1)) * 100))
+            track("progress", "issues", pct=int((ci / max(n, 1)) * 100), message=f"Issue Research: {cand_name} ({ci + 1}/{n})")
             await _run_issue_research_for_candidate(
                 cand_name,
                 race_json,

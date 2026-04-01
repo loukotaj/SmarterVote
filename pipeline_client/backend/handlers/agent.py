@@ -148,7 +148,7 @@ class AgentHandler:
             except Exception:
                 pass
 
-        def _on_step_progress(step: str, *, pct: int = 0, **_kw):
+        def _on_step_progress(step: str, *, pct: int = 0, message: str = "", **_kw):
             if not run_id or not _run_manager:
                 return
             try:
@@ -160,7 +160,7 @@ class AgentHandler:
                             s.progress_pct = pct
                             break
                 overall = _compute_overall_progress(run_id, _run_manager, ALL_STEPS, STEP_WEIGHTS, enabled_set, step, pct)
-                label = STEP_LABELS.get(step, step)
+                label = message or STEP_LABELS.get(step, step)
                 _safe_broadcast({"type": "run_progress", "run_id": run_id, "progress": overall, "message": label})
             except Exception:
                 pass
@@ -193,7 +193,7 @@ class AgentHandler:
             race_id,
             on_log=on_log,
             cheap_mode=cheap_mode,
-            enable_review=enable_review,
+            enable_review="review" in enabled_set,
             existing_data=existing_data,
             research_model=options.get("research_model"),
             claude_model=options.get("claude_model"),
