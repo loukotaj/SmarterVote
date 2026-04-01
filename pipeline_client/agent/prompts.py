@@ -164,6 +164,11 @@ For EACH candidate and EACH issue, provide:
 - Confidence level (high/medium/low)
 - Source URLs with titles
 
+IMPORTANT — stance field rules:
+- Write only the candidate's actual position, never process notes.
+- NEVER write stances like "Pending update", "Updating to reflect...", "Under review", or any text that describes the pipeline state.
+- If no information is found, set stance to "No public position found" and confidence to "low" with sources: [].
+
 Return JSON – an object keyed by candidate name:
 {{
   "<Candidate Name>": {{
@@ -204,6 +209,8 @@ Research and improve this ONE candidate:
 1. Fix factual inconsistencies you can verify with web_search.
 2. Fill missing or low-confidence stances with better sourced data.
 3. Ensure every stance has at least one source URL.
+   - NEVER write stance text that describes the pipeline state (e.g. "Pending update", "Updating to reflect...", "Under review").
+   - If a stance is genuinely unknown, use "No public position found" with confidence "low" and sources: [].
 4. Improve the summary — plain prose, nonpartisan, 2-3 sentences. No inline "Sources:". Sources go in summary_sources.
 5. Ensure all canonical issues are covered: {all_issues}
 6. Fill gaps in career_history and education if better data exists.
@@ -284,6 +291,12 @@ Existing stances (for reference — only return better/corrected data):
 Search for the LATEST positions on these issues. Focus on:
 - Statements, votes, or actions since {last_updated}
 - Filling any gaps where confidence is "low" or stance is missing
+
+IMPORTANT — stance field rules:
+- Write only the candidate's actual position, never process notes.
+- NEVER write stances like "Pending update", "Updating to reflect...", "Under review", or any text that describes the research or pipeline state.
+- If no new information is found for an issue, omit that issue from the response entirely — do not overwrite existing data with a placeholder.
+- If a stance is genuinely unknown, set it to "No public position found" with confidence "low" and sources: [].
 
 Return JSON keyed by candidate name (only include candidates/issues where you have new or better data):
 {{
