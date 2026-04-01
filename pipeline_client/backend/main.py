@@ -127,7 +127,7 @@ async def list_published_races() -> Dict[str, Any]:
     races = []
     gcs_bucket = settings.gcs_bucket
     # In Cloud Run, GCS is the source of truth — local filesystem is ephemeral
-    if gcs_bucket and (os.getenv("K_SERVICE") or os.getenv("CLOUD_RUN_SERVICE") or os.getenv("GOOGLE_CLOUD_PROJECT")):
+    if gcs_bucket and settings.is_cloud_run:
         try:
             from google.cloud import storage as gcs  # type: ignore
 

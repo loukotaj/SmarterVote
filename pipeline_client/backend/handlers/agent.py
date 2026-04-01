@@ -97,8 +97,12 @@ class AgentHandler:
         try:
             from pipeline_client.backend.pipeline_runner import _safe_broadcast
             from pipeline_client.backend.run_manager import run_manager as _run_manager
-            active = next(iter(_run_manager.list_active_runs()), None)
-            run_id = active.run_id if active else None
+            # Use explicit run_id passed via options (set by pipeline_runner)
+            run_id = options.get("run_id")
+            if not run_id:
+                # Fallback: pick the first active run (legacy path)
+                active = next(iter(_run_manager.list_active_runs()), None)
+                run_id = active.run_id if active else None
         except Exception:
             pass
 

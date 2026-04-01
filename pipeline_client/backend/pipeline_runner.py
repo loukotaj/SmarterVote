@@ -94,6 +94,9 @@ async def run_step_async(step: str, request: RunRequest, run_id: Optional[str] =
 
         context_logger.info(f"Executing step handler...")
 
+        # Pass run_id through options so the handler can track its own run
+        options["run_id"] = run_id
+
         # Run the handler directly in the main event loop context
         # This allows logging to work properly with WebSocket broadcasting
         output = await handler.handle(request.payload, options)
@@ -120,6 +123,10 @@ async def run_step_async(step: str, request: RunRequest, run_id: Optional[str] =
 
         # Mark step as completed
         run_manager.update_step_status(run_id, step, RunStatus.COMPLETED, artifact_id, duration_ms)
+
+        # Mark the overall run as completed (persists to Firestore, detaches log handler)
+        run_manager.complete_run(run_id, artifact_id, duration_ms)
+
         await logging_manager.send_run_status(run_id, "completed", artifact_id=artifact_id, duration_ms=duration_ms)
 
         # Send run_completed message that frontend expects

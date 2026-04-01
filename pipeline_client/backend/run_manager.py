@@ -77,12 +77,17 @@ class RunManager:
                 self._emitting = False
 
     def attach_run_logger(self, run_id: str, logger_name: Optional[str] = None):
-        """Attach a logging handler to capture logs for this run."""
+        """Attach a logging handler to capture logs for this run.
+
+        Scoped to the 'pipeline' logger by default (not root) to avoid
+        cross-run log bleed when multiple runs overlap.
+        """
         if run_id in self._log_handlers:
             return  # Already attached
         handler = self.RunLogHandler(self, run_id)
         handler.setLevel(logging.DEBUG)
-        logger = logging.getLogger(logger_name) if logger_name else logging.getLogger()
+        target = logger_name or "pipeline"
+        logger = logging.getLogger(target)
         logger.addHandler(handler)
         self._log_handlers[run_id] = (handler, logger)
 

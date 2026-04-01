@@ -1,3 +1,5 @@
+import os
+
 from pathlib import Path
 
 from pydantic import Field
@@ -20,6 +22,32 @@ class Settings(BaseSettings):
     def allowed_origins_list(self) -> list[str]:
         return [o.strip() for o in self.allowed_origins.split(",") if o.strip()]
 
+    @property
+    def is_cloud_run(self) -> bool:
+        return bool(os.getenv("K_SERVICE") or os.getenv("CLOUD_RUN_SERVICE"))
+
+    def validate_cloud_config(self) -> None:
+        """Fail fast if running on Cloud Run without required cloud backends.
+
+        This prevents silent fallback to ephemeral local storage.
+        """
+        if not self.is_cloud_run:
+            return
+        errors = []
+        if not self.gcs_bucket:
+            errors.append("GCS_BUCKET is required on Cloud Run (set via Terraform/deploy script)")
+        if not self.firestore_project:
+            errors.append("FIRESTORE_PROJECT is required on Cloud Run (set via Terraform/deploy script)")
+        if self.storage_mode != "gcp":
+            errors.append(f"STORAGE_MODE must be 'gcp' on Cloud Run, got '{self.storage_mode}'")
+        if errors:
+            raise RuntimeError(
+                "Cloud Run environment detected but cloud backends are not configured:\n  - "
+                + "\n  - ".join(errors)
+            )
+
 
 settings = Settings()
 settings.artifacts_dir.mkdir(parents=True, exist_ok=True)
+# Blow up immediately if deployed without required cloud config
+settings.validate_cloud_config()
