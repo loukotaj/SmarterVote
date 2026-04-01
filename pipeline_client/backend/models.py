@@ -69,6 +69,9 @@ class RunOptions(BaseModel):
     # Step-level configuration: list of step names to run.
     # None/empty = all steps (backward compatible). Steps not listed are SKIPPED.
     enabled_steps: Optional[List[str]] = None
+    # Candidate analysis limits
+    max_candidates: Optional[int] = None  # Max candidates to research (None = all)
+    target_no_info: bool = False  # Prioritise candidates with least existing info
 
 
 class RunRequest(BaseModel):

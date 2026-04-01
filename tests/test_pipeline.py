@@ -716,7 +716,7 @@ async def test_v2_handler_raises_on_missing_race_id():
 
 @pytest.mark.asyncio
 async def test_v2_handler_runs_agent_and_publishes():
-    """AgentHandler calls run_agent and publishes the result."""
+    """AgentHandler calls run_agent and saves draft."""
     from pipeline_client.backend.handlers.agent import AgentHandler
 
     handler = AgentHandler()
@@ -724,10 +724,10 @@ async def test_v2_handler_runs_agent_and_publishes():
 
     with (
         patch("pipeline_client.agent.agent.run_agent", new_callable=AsyncMock) as mock_agent,
-        patch.object(handler, "_publish", new_callable=AsyncMock) as mock_publish,
+        patch.object(handler, "_save_draft", new_callable=AsyncMock) as mock_save_draft,
     ):
         mock_agent.return_value = fake_result
-        mock_publish.return_value = Path("/tmp/test-race.json")
+        mock_save_draft.return_value = Path("/tmp/test-race.json")
 
         result = await handler.handle(
             {"race_id": "test-race"},
@@ -735,7 +735,7 @@ async def test_v2_handler_runs_agent_and_publishes():
         )
 
     assert result["race_id"] == "test-race"
-    assert result["status"] == "published"
+    assert result["status"] == "draft"
     mock_agent.assert_called_once()
 
 
@@ -964,10 +964,10 @@ async def test_v2_handler_passes_enable_review():
 
     with (
         patch("pipeline_client.agent.agent.run_agent", new_callable=AsyncMock) as mock_agent,
-        patch.object(handler, "_publish", new_callable=AsyncMock) as mock_publish,
+        patch.object(handler, "_save_draft", new_callable=AsyncMock) as mock_save_draft,
     ):
         mock_agent.return_value = fake_result
-        mock_publish.return_value = Path("/tmp/test-race.json")
+        mock_save_draft.return_value = Path("/tmp/test-race.json")
 
         await handler.handle(
             {"race_id": "test-race"},

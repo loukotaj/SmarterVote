@@ -73,7 +73,10 @@ export class PipelineApiService {
     const runs = data.runs || [];
 
     return runs.map((r: RunInfo, idx: number) => {
-      const lastStep = r.steps?.at(-1)?.name || (r as any).step;
+      // Find the currently running step, or the last completed step
+      const runningStep = r.steps?.find((s) => s.status === "running");
+      const completedSteps = r.steps?.filter((s) => s.status === "completed") ?? [];
+      const lastStep = runningStep?.name ?? completedSteps.at(-1)?.name ?? (r as any).step;
       return {
         ...(r as any),
         run_id: (r as any).run_id || (r as any).id || (r as any)._id,
@@ -171,6 +174,76 @@ export class PipelineApiService {
   async deletePublishedRace(raceId: string): Promise<void> {
     const res = await fetchWithAuth(
       `${this.apiBase}/races/${encodeURIComponent(raceId)}`,
+      { method: "DELETE" },
+      15000
+    );
+    if (!res.ok) {
+      const errorText = await res.text().catch(() => "Unknown error");
+      throw new Error(`HTTP ${res.status}: ${res.statusText}. ${errorText}`);
+    }
+  }
+
+  // -- Drafts API ---------------------------------------------------------
+
+  /**
+   * Load draft race summaries
+   */
+  async loadDraftRaces(): Promise<PublishedRaceSummary[]> {
+    const res = await fetchWithAuth(`${this.apiBase}/drafts`, {}, 10000);
+    if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+    const data: PublishedRacesResponse = await res.json();
+    return data.races || [];
+  }
+
+  /**
+   * Get full draft race data (for preview)
+   */
+  async getDraftRace(raceId: string): Promise<Record<string, unknown>> {
+    const res = await fetchWithAuth(
+      `${this.apiBase}/drafts/${encodeURIComponent(raceId)}`,
+      {},
+      15000
+    );
+    if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+    return await res.json();
+  }
+
+  /**
+   * Publish a draft race (copy from drafts/ to races/)
+   */
+  async publishDraft(raceId: string): Promise<void> {
+    const res = await fetchWithAuth(
+      `${this.apiBase}/drafts/${encodeURIComponent(raceId)}/publish`,
+      { method: "POST" },
+      15000
+    );
+    if (!res.ok) {
+      const errorText = await res.text().catch(() => "Unknown error");
+      throw new Error(`HTTP ${res.status}: ${res.statusText}. ${errorText}`);
+    }
+  }
+
+  /**
+   * Unpublish a race (remove from published, keep draft)
+   */
+  async unpublishRace(raceId: string): Promise<void> {
+    const res = await fetchWithAuth(
+      `${this.apiBase}/races/${encodeURIComponent(raceId)}/unpublish`,
+      { method: "POST" },
+      15000
+    );
+    if (!res.ok) {
+      const errorText = await res.text().catch(() => "Unknown error");
+      throw new Error(`HTTP ${res.status}: ${res.statusText}. ${errorText}`);
+    }
+  }
+
+  /**
+   * Delete a draft race
+   */
+  async deleteDraftRace(raceId: string): Promise<void> {
+    const res = await fetchWithAuth(
+      `${this.apiBase}/drafts/${encodeURIComponent(raceId)}`,
       { method: "DELETE" },
       15000
     );

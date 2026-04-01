@@ -167,6 +167,7 @@ class RunManager:
         if run_id in self.active_runs:
             self.active_runs[run_id].status = RunStatus.RUNNING
             self.attach_run_logger(run_id)
+            self._save_run(self.active_runs[run_id])
 
     def complete_run(self, run_id: str, artifact_id: Optional[str] = None, duration_ms: Optional[int] = None):
         """Mark a run as completed."""
@@ -296,8 +297,14 @@ class RunManager:
         return []
 
     def _save_run(self, run_info: RunInfo):
-        """No-op: replaced by Firestore-primary storage."""
-        pass
+        """Persist active run state to Firestore so step progress survives page refreshes."""
+        if self._db is not None:
+            threading.Thread(
+                target=self._write_firestore,
+                args=(run_info,),
+                daemon=True,
+                name=f"fs-save-run-{run_info.run_id[:8]}",
+            ).start()
 
     def _persist_background(self, run_info: RunInfo) -> None:
         """Fire-and-forget: persist a completed/failed/cancelled run to Firestore (or local dict)."""

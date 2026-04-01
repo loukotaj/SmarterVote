@@ -220,6 +220,7 @@ class RaceJSON(BaseModel):
     title: Optional[str] = None
     office: Optional[str] = None
     jurisdiction: Optional[str] = None
+    district: Optional[str] = None
     description: Optional[str] = None
 
     # Polling data

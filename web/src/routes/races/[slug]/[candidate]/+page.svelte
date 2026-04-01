@@ -6,7 +6,7 @@
   import DonorTable from "$lib/components/DonorTable.svelte";
   import VotingRecordTable from "$lib/components/VotingRecordTable.svelte";
   import type { Race, Candidate } from "$lib/types";
-  import { getRace } from "$lib/api";
+  import { getRace, getDraftRace } from "$lib/api";
   import { candidateSlug, formatModelName } from "$lib/utils/format";
 
   let race: Race | null = null;
@@ -15,6 +15,7 @@
   let loading = true;
   let error: string | null = null;
   let othersExpanded = false;
+  let isDraftPreview = false;
 
   let slug: string;
   let candidateParam: string;
@@ -22,8 +23,15 @@
   $: candidateParam = $page.params.candidate as string;
 
   onMount(async () => {
+    const params = new URLSearchParams(window.location.search);
+    isDraftPreview = params.get("draft") === "true";
+
     try {
-      race = await getRace(slug);
+      if (isDraftPreview) {
+        race = await getDraftRace(slug);
+      } else {
+        race = await getRace(slug);
+      }
     } catch (err) {
       try {
         race = await getRace(slug, fetch, true);
@@ -54,6 +62,9 @@
     candidate && candidate.education && candidate.education.length > 0;
   $: hasVoting = !!(candidate && candidate.voting_summary);
   $: hasDonors = !!(candidate && candidate.donor_summary);
+  $: candidateDiscoveryOnly = candidate != null &&
+    (!candidate.issues || Object.keys(candidate.issues).length === 0 ||
+      Object.values(candidate.issues).every(i => !i?.stance));
 </script>
 
 <svelte:head>
@@ -80,6 +91,21 @@
       </a>
     </div>
   {:else if candidate && race}
+    {#if isDraftPreview}
+      <div class="mb-4 rounded-lg border-2 border-amber-400 bg-amber-50 dark:bg-amber-900/20 dark:border-amber-600 px-4 py-3 text-sm text-amber-800 dark:text-amber-200 flex items-center gap-2">
+        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" /></svg>
+        <span><strong>Draft Preview</strong> — This data has not been published. Only admins can see this page.</span>
+      </div>
+    {/if}
+    {#if candidateDiscoveryOnly}
+      <div class="mb-4 rounded-lg border-2 border-blue-300 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-600 px-4 py-3 text-sm text-blue-800 dark:text-blue-200 flex items-start gap-3">
+        <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        <div>
+          <p class="font-semibold">Limited Data — Discovery Only</p>
+          <p class="mt-1 text-blue-700 dark:text-blue-300">This candidate has basic biographical information but detailed issue positions have not been researched yet. Want detailed data? <a href="mailto:info@smarter.vote?subject=Research%20request:%20{encodeURIComponent(race?.title ?? slug)}" class="underline font-medium hover:text-blue-900 dark:hover:text-blue-100">Request a research run</a> or <a href="https://smarter.vote/sponsor" class="underline font-medium hover:text-blue-900 dark:hover:text-blue-100">sponsor to help fund it</a>!</p>
+        </div>
+      </div>
+    {/if}
     <!-- Navigation Bar -->
     <nav class="nav-bar">
       <a href="/races/{slug}" class="back-link">

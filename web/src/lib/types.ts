@@ -124,6 +124,7 @@ export interface Race {
   title?: string;
   office?: string;
   jurisdiction?: string;
+  district?: string;
   description?: string;
   polling?: PollEntry[];
   polling_note?: string;
@@ -201,6 +202,8 @@ export interface RunOptions {
   gemini_model?: string;
   grok_model?: string;
   enabled_steps?: string[];
+  max_candidates?: number;
+  target_no_info?: boolean;
 }
 
 export interface RunStep {

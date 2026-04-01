@@ -5,20 +5,28 @@
   import ReviewPanel from "$lib/components/ReviewPanel.svelte";
   import Card from "$lib/components/Card.svelte";
   import type { Race } from "$lib/types";
-  import { getRace } from "$lib/api";
+  import { getRace, getDraftRace } from "$lib/api";
   import { formatModelName, candidateSlug } from "$lib/utils/format";
 
   let race: Race | null = null;
   let loading = true;
   let error: string | null = null;
   let usingFallbackData = false;
+  let isDraftPreview = false;
 
   let slug: string;
   $: slug = $page.params.slug as string;
 
   onMount(async () => {
+    const params = new URLSearchParams(window.location.search);
+    isDraftPreview = params.get("draft") === "true";
+
     try {
-      race = await getRace(slug);
+      if (isDraftPreview) {
+        race = await getDraftRace(slug);
+      } else {
+        race = await getRace(slug);
+      }
       usingFallbackData = false;
     } catch (err) {
       // Try to use fallback data
@@ -41,6 +49,9 @@
   $: polls = race?.polling ?? [];
   $: latestPoll = polls.length > 0 ? polls[0] : null;
   $: latestMatchup = latestPoll?.matchups?.[0] ?? null;
+  $: discoveryOnly = race?.candidates != null && race.candidates.length > 0 &&
+    race.candidates.every(c => !c.issues || Object.keys(c.issues).length === 0 ||
+      Object.values(c.issues).every(i => !i?.stance));
 
   function partyClass(name: string): string {
     const candidate = race?.candidates?.find(c => c.name === name);
@@ -76,6 +87,21 @@
       </button>
     </div>
   {:else if race}
+    {#if isDraftPreview}
+      <div class="mb-4 rounded-lg border-2 border-amber-400 bg-amber-50 dark:bg-amber-900/20 dark:border-amber-600 px-4 py-3 text-sm text-amber-800 dark:text-amber-200 flex items-center gap-2">
+        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" /></svg>
+        <span><strong>Draft Preview</strong> — This data has not been published. Only admins can see this page.</span>
+      </div>
+    {/if}
+    {#if discoveryOnly}
+      <div class="mb-4 rounded-lg border-2 border-blue-300 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-600 px-4 py-3 text-sm text-blue-800 dark:text-blue-200 flex items-start gap-3">
+        <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        <div>
+          <p class="font-semibold">Limited Data — Discovery Only</p>
+          <p class="mt-1 text-blue-700 dark:text-blue-300">This race has basic candidate information but detailed issue positions have not been researched yet. Want detailed data on this race? <a href="mailto:info@smarter.vote?subject=Research%20request:%20{encodeURIComponent(race?.title ?? slug)}" class="underline font-medium hover:text-blue-900 dark:hover:text-blue-100">Request a research run</a> or <a href="https://smarter.vote/sponsor" class="underline font-medium hover:text-blue-900 dark:hover:text-blue-100">sponsor to help fund it</a>!</p>
+        </div>
+      </div>
+    {/if}
     <!-- Race Header -->
     <Card tag="header" class="header-card">
       <h1 class="header-title">{race.title}</h1>
@@ -91,7 +117,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
           </svg>
-          <span>{race.office} &bull; {race.jurisdiction}</span>
+          <span>{race.office}{race.district ? ` (${race.district})` : ''} &bull; {race.jurisdiction}</span>
         </div>
         <div class="info-row">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

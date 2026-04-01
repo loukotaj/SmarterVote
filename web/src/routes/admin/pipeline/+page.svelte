@@ -1,6 +1,8 @@
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
+  import { page } from "$app/stores";
+  import { goto } from "$app/navigation";
 
   // Stores
   import {
@@ -55,6 +57,8 @@
   let claudeModel = "";
   let geminiModel = "";
   let grokModel = "";
+  let maxCandidates: number | null = null;
+  let targetNoInfo = false;
   let showStepConfig = false;
   // Step toggles: all enabled by default. Keys are PipelineStepId values.
   let stepToggles: Record<string, boolean> = Object.fromEntries(
@@ -69,6 +73,19 @@
   // Run detail view
   let detailRunId: string | null = null;
   $: showingDetail = !!detailRunId;
+
+  function setDetailRunId(runId: string | null) {
+    detailRunId = runId;
+    if (!browser) return;
+    const url = new URL(window.location.href);
+    if (runId) {
+      url.searchParams.set("run", runId);
+      url.searchParams.set("tab", "pipeline");
+    } else {
+      url.searchParams.delete("run");
+    }
+    goto(url.pathname + url.search, { replaceState: true, noScroll: true, keepFocus: true });
+  }
 
   // Reactive computed
   $: queueRunning = queueItems.find((i) => i.status === "running");
@@ -124,6 +141,18 @@
 
       // Start polling queue state every 4s
       queuePollTimer = setInterval(refreshQueue, 4000);
+
+      // Restore tab and run detail from URL params
+      const params = new URLSearchParams(window.location.search);
+      const tabParam = params.get("tab");
+      if (tabParam === "dashboard" || tabParam === "races" || tabParam === "pipeline") {
+        activeTab = tabParam;
+      }
+      const runParam = params.get("run");
+      if (runParam) {
+        activeTab = "pipeline";
+        detailRunId = runParam;
+      }
 
       addLog("info", "Pipeline dashboard initialized");
     } catch (error) {
@@ -357,6 +386,8 @@
     if (claudeModel) opts.claude_model = claudeModel;
     if (geminiModel) opts.gemini_model = geminiModel;
     if (grokModel) opts.grok_model = grokModel;
+    if (maxCandidates !== null && maxCandidates > 0) opts.max_candidates = maxCandidates;
+    if (targetNoInfo) opts.target_no_info = true;
     return opts;
   }
 
@@ -440,7 +471,7 @@
     try {
       await apiService.deleteRun(run.run_id);
       addLog("info", `Deleted run: ${run.run_id.substring(0, 8)}`);
-      if (detailRunId === run.run_id) detailRunId = null;
+      if (detailRunId === run.run_id) setDetailRunId(null);
       await debouncedRefresh();
     } catch (e) {
       logger.error("Failed to delete run:", e);
@@ -521,7 +552,7 @@
 
   async function handleRunDetails(event: { detail: RunHistoryItem }) {
     const run = event.detail;
-    detailRunId = run.run_id;
+    setDetailRunId(run.run_id);
   }
 
   function closeModal() {
@@ -607,7 +638,7 @@
         liveProgress={pipeline.progress}
         liveProgressMessage={pipeline.progressMessage}
         liveElapsed={pipeline.elapsedTime}
-        on:back={() => (detailRunId = null)}
+        on:back={() => setDetailRunId(null)}
       />
     {:else}
       <!-- Queue + Controls -->
@@ -657,6 +688,26 @@
                 <label class="flex items-center gap-2 text-sm text-content-muted cursor-pointer">
                   <input type="checkbox" bind:checked={cheapMode} class="rounded border-stroke text-blue-600 focus:ring-blue-500" />
                   <span>Cheap Mode</span>
+                </label>
+              </div>
+
+              <!-- Candidate Limits -->
+              <div class="flex items-center gap-4 flex-wrap">
+                <div class="flex items-center gap-2">
+                  <label for="maxCandidates" class="text-xs text-content-muted whitespace-nowrap">Max candidates</label>
+                  <input
+                    id="maxCandidates"
+                    type="number"
+                    min="1"
+                    placeholder="All"
+                    value={maxCandidates ?? ''}
+                    on:input={(e) => { const v = parseInt(e.currentTarget.value); maxCandidates = isNaN(v) ? null : v; }}
+                    class="w-16 px-2 py-1 border border-stroke rounded text-xs bg-surface text-content focus:outline-none focus:border-blue-500"
+                  />
+                </div>
+                <label class="flex items-center gap-1.5 text-xs text-content-muted cursor-pointer">
+                  <input type="checkbox" bind:checked={targetNoInfo} class="rounded border-stroke text-blue-600 focus:ring-blue-500 h-3.5 w-3.5" />
+                  <span>Prioritize no-info candidates</span>
                 </label>
               </div>
 
@@ -764,7 +815,7 @@
           {#if pipeline.isExecuting}
             <button
               type="button"
-              on:click={() => { if (pipeline.currentRunId) detailRunId = pipeline.currentRunId; }}
+              on:click={() => { if (pipeline.currentRunId) setDetailRunId(pipeline.currentRunId); }}
               class="w-full card p-4 border-blue-200 bg-blue-50 hover:bg-blue-100 transition-colors text-left"
             >
               <div class="flex items-center gap-3">
@@ -875,7 +926,7 @@
                     <button
                       type="button"
                       class="w-full text-left px-4 py-3 pr-10 transition-colors hover:bg-surface-alt"
-                      on:click={() => (detailRunId = run.run_id)}
+                      on:click={() => setDetailRunId(run.run_id)}
                     >
                       <div class="flex items-center gap-2">
                         {#if isActive}

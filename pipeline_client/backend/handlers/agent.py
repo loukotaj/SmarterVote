@@ -205,13 +205,15 @@ class AgentHandler:
             grok_model=options.get("grok_model"),
             enabled_steps=enabled_steps,
             step_tracker=step_tracker,
+            max_candidates=options.get("max_candidates"),
+            target_no_info=options.get("target_no_info", False),
         )
 
-        # Publish to local filesystem
-        published_path = await self._publish(race_id, race_json)
+        # Save as draft (not published) — admin must explicitly publish
+        draft_path = await self._save_draft(race_id, race_json)
 
         duration_ms = int((time.perf_counter() - t0) * 1000)
-        logger.info(f"Agent: published {race_id} to {published_path} in {duration_ms}ms")
+        logger.info(f"Agent: saved draft {race_id} to {draft_path} in {duration_ms}ms")
 
         # Record pipeline metrics (fire-and-forget)
         try:
@@ -225,32 +227,25 @@ class AgentHandler:
         return {
             "race_id": race_id,
             "race_json": race_json,
-            "published_path": str(published_path),
+            "draft_path": str(draft_path),
             "duration_ms": duration_ms,
             "agent_logs": agent_logs,
-            "status": "published",
+            "status": "draft",
         }
 
-    async def _publish(self, race_id: str, race_json: Dict[str, Any]) -> Path:
-        """Write RaceJSON to the published data directory and optionally to GCS."""
+    async def _save_draft(self, race_id: str, race_json: Dict[str, Any]) -> Path:
+        """Write RaceJSON to the drafts directory and optionally to GCS drafts/."""
         logger = logging.getLogger("pipeline")
-        published_dir = Path(__file__).resolve().parents[3] / "data" / "published"
-        published_dir.mkdir(parents=True, exist_ok=True)
+        drafts_dir = Path(__file__).resolve().parents[3] / "data" / "drafts"
+        drafts_dir.mkdir(parents=True, exist_ok=True)
 
-        output_path = published_dir / f"{race_id}.json"
+        output_path = drafts_dir / f"{race_id}.json"
 
-        # Backup existing file if present
-        if output_path.exists():
-            backup_path = output_path.with_suffix(
-                f".json.backup.{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}"
-            )
-            output_path.rename(backup_path)
-
-        # Guard against publishing a partial/corrupted LLM response
+        # Guard against saving a partial/corrupted LLM response
         candidates = race_json.get("candidates")
         if not isinstance(candidates, list) or len(candidates) == 0:
             raise ValueError(
-                f"Refusing to publish '{race_id}': 'candidates' is missing or empty. "
+                f"Refusing to save draft '{race_id}': 'candidates' is missing or empty. "
                 f"Top-level keys present: {list(race_json.keys())}. "
                 "This usually means the LLM returned a partial object. Re-queue the race."
             )
@@ -259,17 +254,16 @@ class AgentHandler:
         with output_path.open("w", encoding="utf-8") as f:
             f.write(json_str)
 
-        # Also publish to GCS when running in cloud environment
-        await self._publish_to_gcs(race_id, json_str)
+        # Also upload to GCS drafts/ prefix
+        await self._upload_to_gcs(race_id, json_str, prefix="drafts")
 
         return output_path
 
-    async def _publish_to_gcs(self, race_id: str, json_str: str) -> None:
-        """Upload race JSON to Google Cloud Storage if a GCS bucket is configured.
+    async def _upload_to_gcs(self, race_id: str, json_str: str, prefix: str = "drafts") -> None:
+        """Upload race JSON to Google Cloud Storage under the given prefix.
 
         Runs in both cloud and local environments — if a bucket env var is set
-        (e.g. via .env), the pipeline always pushes to GCS so the deployed API
-        immediately sees fresh data.
+        (e.g. via .env), the pipeline always pushes to GCS.
         """
         logger = logging.getLogger("pipeline")
         gcs_bucket = os.getenv("GCS_BUCKET_NAME") or os.getenv("GCS_BUCKET") or os.getenv("BUCKET_NAME")
@@ -281,23 +275,20 @@ class AgentHandler:
 
             client = storage.Client()
             bucket = client.bucket(gcs_bucket)
-            blob = bucket.blob(f"races/{race_id}.json")
+            blob = bucket.blob(f"{prefix}/{race_id}.json")
             blob.upload_from_string(json_str, content_type="application/json")
-            logger.info(f"Published {race_id} to GCS: gs://{gcs_bucket}/races/{race_id}.json")
+            logger.info(f"Uploaded {race_id} to GCS: gs://{gcs_bucket}/{prefix}/{race_id}.json")
         except ImportError:
             logger.warning("google-cloud-storage not installed; skipping GCS upload")
         except Exception as e:
-            logger.warning(f"Failed to upload {race_id} to GCS: {e}")
+            logger.warning(f"Failed to upload {race_id} to GCS {prefix}/: {e}")
 
     async def _load_existing_from_gcs(self, race_id: str) -> Dict[str, Any] | None:
         """Load existing race data from GCS so deployed containers use update mode.
 
-        On Cloud Run the local filesystem is ephemeral, so ``_load_existing``
-        in the agent module won't find previous runs. This method fetches the
-        current published version from GCS to hand to the agent as
-        ``existing_data``, ensuring the agent enters update mode rather than
-        creating a duplicate fresh profile.  Returns *None* when GCS is not
-        configured or the race doesn't exist yet.
+        Checks drafts/ first (most recent agent output), then falls back to
+        races/ (published).  Returns *None* when GCS is not configured or the
+        race doesn't exist in either prefix.
         """
         logger = logging.getLogger("pipeline")
         gcs_bucket = os.getenv("GCS_BUCKET_NAME") or os.getenv("GCS_BUCKET") or os.getenv("BUCKET_NAME")
@@ -309,19 +300,23 @@ class AgentHandler:
 
             client = storage.Client()
             bucket = client.bucket(gcs_bucket)
-            blob = bucket.blob(f"races/{race_id}.json")
-            if not blob.exists():
-                return None
-            data = json.loads(blob.download_as_text())
-            # Sanity-check: reject corrupt/partial files (e.g. a stray polling entry)
-            if not isinstance(data.get("candidates"), list) or len(data["candidates"]) == 0:
-                logger.warning(
-                    f"Existing GCS file for '{race_id}' has no candidates "
-                    f"(keys: {list(data.keys())}) — treating as new race"
-                )
-                return None
-            logger.info(f"Loaded existing {race_id} from GCS for update mode")
-            return data
+
+            # Try drafts first (latest agent output), then published
+            for prefix in ("drafts", "races"):
+                blob = bucket.blob(f"{prefix}/{race_id}.json")
+                if not blob.exists():
+                    continue
+                data = json.loads(blob.download_as_text())
+                if not isinstance(data.get("candidates"), list) or len(data["candidates"]) == 0:
+                    logger.warning(
+                        f"Existing GCS file {prefix}/{race_id} has no candidates "
+                        f"(keys: {list(data.keys())}) — skipping"
+                    )
+                    continue
+                logger.info(f"Loaded existing {race_id} from GCS {prefix}/ for update mode")
+                return data
+
+            return None
         except ImportError:
             logger.warning("google-cloud-storage not installed; cannot load existing race from GCS")
             return None

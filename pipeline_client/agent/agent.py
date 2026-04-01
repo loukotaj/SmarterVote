@@ -553,12 +553,13 @@ def _ensure_dict(result: Any, phase_name: str, log: Any) -> Dict[str, Any]:
 
 
 def _load_existing(race_id: str) -> Optional[Dict[str, Any]]:
-    """Load an existing published RaceJSON if it exists."""
-    published_dir = Path(__file__).resolve().parents[2] / "data" / "published"
-    path = published_dir / f"{race_id}.json"
-    if path.exists():
-        with path.open("r", encoding="utf-8") as f:
-            return json.load(f)
+    """Load an existing RaceJSON if it exists (drafts first, then published)."""
+    base = Path(__file__).resolve().parents[2] / "data"
+    for subdir in ("drafts", "published"):
+        path = base / subdir / f"{race_id}.json"
+        if path.exists():
+            with path.open("r", encoding="utf-8") as f:
+                return json.load(f)
     return None
 
 
@@ -570,6 +571,54 @@ def _load_existing(race_id: str) -> Optional[Dict[str, Any]]:
 def _scale_iterations(base: int, n_candidates: int, per_candidate: int, minimum: int = 12) -> int:
     """Return an iteration budget scaled to the number of candidates."""
     return max(base, n_candidates * per_candidate + minimum)
+
+
+def _candidate_info_score(candidate: Dict[str, Any]) -> int:
+    """Score a candidate by how much issue data they already have.
+
+    Higher score = more issues with a non-empty stance recorded.
+    """
+    issues = candidate.get("issues", {})
+    score = 0
+    for v in issues.values():
+        if isinstance(v, dict) and v.get("stance"):
+            score += 1
+    return score
+
+
+def _select_candidates_for_research(
+    candidate_names: List[str],
+    race_json: Dict[str, Any],
+    *,
+    max_candidates: Optional[int],
+    target_no_info: bool,
+    log: Any,
+) -> List[str]:
+    """Return the (possibly truncated) list of candidates to research.
+
+    Sorts candidates by existing info density.  When *target_no_info* is True
+    the least-informed candidates come first; otherwise the most-informed do
+    (higher-profile candidates tend to have richer public records, making
+    research more productive).  When *max_candidates* is set the list is
+    trimmed accordingly.
+    """
+    if max_candidates is None and not target_no_info:
+        return candidate_names  # no filtering needed
+
+    cand_by_name: Dict[str, Dict[str, Any]] = {
+        c["name"]: c for c in race_json.get("candidates", []) if isinstance(c, dict)
+    }
+    scored = [(name, _candidate_info_score(cand_by_name.get(name, {}))) for name in candidate_names]
+    # target_no_info → ascending (least info first); default → descending
+    scored.sort(key=lambda t: t[1], reverse=not target_no_info)
+
+    selected = [name for name, _ in scored]
+    if max_candidates is not None and max_candidates < len(selected):
+        skipped = selected[max_candidates:]
+        selected = selected[:max_candidates]
+        log("info", f"  Candidate limit: researching {len(selected)} of {len(candidate_names)} "
+            f"(skipped: {', '.join(skipped)})")
+    return selected
 
 
 async def run_agent(
@@ -586,6 +635,8 @@ async def run_agent(
     grok_model: Optional[str] = None,
     enabled_steps: Optional[List[str]] = None,
     step_tracker: Optional[Dict[str, Any]] = None,
+    max_candidates: Optional[int] = None,
+    target_no_info: bool = False,
 ) -> Dict[str, Any]:
     """Run the multi-phase research agent for a given race_id.
 
@@ -615,6 +666,12 @@ async def run_agent(
     step_tracker : dict, optional
         Callbacks: ``start(step)``, ``complete(step, duration_ms)``,
         ``skip(step)``, ``progress(step, pct)`` for structured tracking.
+    max_candidates : int, optional
+        Max number of candidates to research in the issues phase.
+        *None* (default) researches all. Candidates are ranked by existing
+        info density; the top *max_candidates* are researched.
+    target_no_info : bool
+        When *True*, prioritise candidates with the least existing info.
     """
     from .review import (
         DEFAULT_CLAUDE_MODEL, CHEAP_CLAUDE_MODEL,
@@ -655,6 +712,7 @@ async def run_agent(
             race_id, existing_data, model=model, small_model=small_model,
             on_log=on_log, max_iterations=max_iterations,
             step_enabled=_step_enabled, track=_track,
+            max_candidates=max_candidates, target_no_info=target_no_info,
         )
     else:
         log("info", f"🆕 New research for {race_id} (model={model}, small_model={small_model})")
@@ -662,6 +720,7 @@ async def run_agent(
             race_id, model=model, small_model=small_model,
             on_log=on_log, max_iterations=max_iterations,
             step_enabled=_step_enabled, track=_track,
+            max_candidates=max_candidates, target_no_info=target_no_info,
         )
 
     # LLMs sometimes wrap their output in {"race_json": {...}} — unwrap it so
@@ -960,6 +1019,8 @@ async def _run_fresh(
     max_iterations: int = 15,
     step_enabled: Any = None,
     track: Any = None,
+    max_candidates: Optional[int] = None,
+    target_no_info: bool = False,
 ) -> Dict[str, Any]:
     """Phase 1 → 2 → 3: Discovery → Issue research → Refinement.
 
@@ -1020,10 +1081,15 @@ async def _run_fresh(
     if step_enabled("issues"):
         track("start", "issues")
         iss_t0 = time.perf_counter()
-        log("info", f"Phase 2/3: Researching issues for {n} candidates (12 issues each)...")
-        for ci, cand_name in enumerate(candidate_names):
+        research_names = _select_candidates_for_research(
+            candidate_names, race_json,
+            max_candidates=max_candidates, target_no_info=target_no_info, log=log,
+        )
+        rn = len(research_names)
+        log("info", f"Phase 2/3: Researching issues for {rn} candidates (12 issues each)...")
+        for ci, cand_name in enumerate(research_names):
             log("info", f"  Researching {cand_name}...")
-            track("progress", "issues", pct=int((ci / max(n, 1)) * 100), message=f"Issue Research: {cand_name} ({ci + 1}/{n})")
+            track("progress", "issues", pct=int((ci / max(rn, 1)) * 100), message=f"Issue Research: {cand_name} ({ci + 1}/{rn})")
             await _run_issue_research_for_candidate(
                 cand_name,
                 race_json,
@@ -1148,6 +1214,8 @@ async def _run_update(
     max_iterations: int = 15,
     step_enabled: Any = None,
     track: Any = None,
+    max_candidates: Optional[int] = None,
+    target_no_info: bool = False,
 ) -> Dict[str, Any]:
     """Phase-based update mirroring _run_fresh but starting from existing data.
 
@@ -1171,7 +1239,7 @@ async def _run_update(
 
     if not candidate_names:
         log("warning", "No candidates in existing data — falling back to fresh run")
-        return await _run_fresh(race_id, model=model, small_model=small_model, on_log=on_log, max_iterations=max_iterations, step_enabled=step_enabled, track=track)
+        return await _run_fresh(race_id, model=model, small_model=small_model, on_log=on_log, max_iterations=max_iterations, step_enabled=step_enabled, track=track, max_candidates=max_candidates, target_no_info=target_no_info)
 
     refine_iters = _scale_iterations(max_iterations, n, per_candidate=2, minimum=12)
     handlers = _make_editing_handlers(race_json, log)
@@ -1209,7 +1277,7 @@ async def _run_update(
     if not candidate_names:
         log("warning", "No candidates after roster sync — falling back to fresh run")
         track("complete", "discovery", duration_ms=int((time.perf_counter() - disc_t0) * 1000))
-        return await _run_fresh(race_id, model=model, small_model=small_model, on_log=on_log, max_iterations=max_iterations, step_enabled=step_enabled, track=track)
+        return await _run_fresh(race_id, model=model, small_model=small_model, on_log=on_log, max_iterations=max_iterations, step_enabled=step_enabled, track=track, max_candidates=max_candidates, target_no_info=target_no_info)
 
     track("progress", "discovery", pct=50)
 
@@ -1243,10 +1311,15 @@ async def _run_update(
     if step_enabled("issues"):
         track("start", "issues")
         iss_t0 = time.perf_counter()
-        log("info", f"Update Phase 2: Refreshing issue positions for {n} candidates (12 issues each)...")
-        for ci, cand_name in enumerate(candidate_names):
+        research_names = _select_candidates_for_research(
+            candidate_names, race_json,
+            max_candidates=max_candidates, target_no_info=target_no_info, log=log,
+        )
+        rn = len(research_names)
+        log("info", f"Update Phase 2: Refreshing issue positions for {rn} candidates (12 issues each)...")
+        for ci, cand_name in enumerate(research_names):
             log("info", f"  Updating issues for {cand_name}...")
-            track("progress", "issues", pct=int((ci / max(n, 1)) * 100), message=f"Issue Research: {cand_name} ({ci + 1}/{n})")
+            track("progress", "issues", pct=int((ci / max(rn, 1)) * 100), message=f"Issue Research: {cand_name} ({ci + 1}/{rn})")
             await _run_issue_research_for_candidate(
                 cand_name,
                 race_json,

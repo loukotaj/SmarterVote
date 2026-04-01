@@ -121,66 +121,153 @@ class QueueAddRequest(BaseModel):
     options: RunOptions | None = None
 
 
-@app.get("/races", dependencies=[Depends(verify_token)])
-async def list_published_races() -> Dict[str, Any]:
-    """List all published race summaries from GCS (cloud) or data/published/ (local)."""
-    races = []
+# ---------------------------------------------------------------------------
+# Helpers for reading race data from GCS or local filesystem
+# ---------------------------------------------------------------------------
+
+
+def _race_summary(data: Dict[str, Any], fallback_id: str) -> Dict[str, Any]:
+    """Build a race summary dict from full race JSON."""
+    am = data.get("agent_metrics") or {}
+    return {
+        "id": data.get("id", fallback_id),
+        "title": data.get("title"),
+        "office": data.get("office"),
+        "jurisdiction": data.get("jurisdiction"),
+        "election_date": data.get("election_date", ""),
+        "updated_utc": data.get("updated_utc", ""),
+        "candidates": [
+            {"name": c.get("name", ""), "party": c.get("party")}
+            for c in data.get("candidates", [])
+        ],
+        "agent_metrics": (
+            {
+                "estimated_usd": am.get("estimated_usd"),
+                "model": am.get("model"),
+                "total_tokens": am.get("total_tokens"),
+            }
+            if am
+            else None
+        ),
+    }
+
+
+def _list_races_gcs(gcs_prefix: str) -> List[Dict[str, Any]] | None:
+    """List race summaries from a GCS prefix. Returns None on failure."""
     gcs_bucket = settings.gcs_bucket
-    # In Cloud Run, GCS is the source of truth — local filesystem is ephemeral
-    if gcs_bucket and settings.is_cloud_run:
-        try:
-            from google.cloud import storage as gcs  # type: ignore
+    if not gcs_bucket or not settings.is_cloud_run:
+        return None
+    try:
+        from google.cloud import storage as gcs  # type: ignore
 
-            client = gcs.Client()
-            bucket = client.bucket(gcs_bucket)
-            for blob in bucket.list_blobs(prefix="races/"):
-                if not blob.name.endswith(".json"):
-                    continue
-                try:
-                    data = json.loads(blob.download_as_text())
-                    am = data.get("agent_metrics") or {}
-                    races.append(
-                        {
-                            "id": data.get("id", blob.name[len("races/") : -len(".json")]),
-                            "title": data.get("title"),
-                            "office": data.get("office"),
-                            "jurisdiction": data.get("jurisdiction"),
-                            "election_date": data.get("election_date", ""),
-                            "updated_utc": data.get("updated_utc", ""),
-                            "candidates": [{"name": c.get("name", ""), "party": c.get("party")} for c in data.get("candidates", [])],
-                            "agent_metrics": {"estimated_usd": am.get("estimated_usd"), "model": am.get("model"), "total_tokens": am.get("total_tokens")} if am else None,
-                        }
-                    )
-                except Exception:
-                    logging.exception("Failed to read race blob %s from GCS", blob.name)
-            return {"races": sorted(races, key=lambda r: r.get("id", ""))}
-        except ImportError:
-            logging.warning("google-cloud-storage not installed; falling back to local filesystem")
-        except Exception:
-            logging.exception("Failed to list races from GCS; falling back to local filesystem")
+        client = gcs.Client()
+        bucket = client.bucket(gcs_bucket)
+        races = []
+        for blob in bucket.list_blobs(prefix=f"{gcs_prefix}/"):
+            if not blob.name.endswith(".json"):
+                continue
+            try:
+                data = json.loads(blob.download_as_text())
+                stem = blob.name[len(f"{gcs_prefix}/") : -len(".json")]
+                races.append(_race_summary(data, stem))
+            except Exception:
+                logging.exception("Failed to read blob %s from GCS", blob.name)
+        return sorted(races, key=lambda r: r.get("id", ""))
+    except ImportError:
+        logging.warning("google-cloud-storage not installed; falling back to local filesystem")
+    except Exception:
+        logging.exception("Failed to list %s from GCS; falling back to local filesystem", gcs_prefix)
+    return None
 
-    # Local filesystem (development or GCS fallback)
-    published_dir = ROOT / "data" / "published"
-    if published_dir.exists():
-        for path in sorted(published_dir.glob("*.json")):
+
+def _list_races_local(local_dir: Path) -> List[Dict[str, Any]]:
+    """List race summaries from a local directory."""
+    races = []
+    if local_dir.exists():
+        for path in sorted(local_dir.glob("*.json")):
             try:
                 with path.open("r", encoding="utf-8") as f:
                     data = json.load(f)
-                am = data.get("agent_metrics") or {}
-                races.append(
-                    {
-                        "id": data.get("id", path.stem),
-                        "title": data.get("title"),
-                        "office": data.get("office"),
-                        "jurisdiction": data.get("jurisdiction"),
-                        "election_date": data.get("election_date", ""),
-                        "updated_utc": data.get("updated_utc", ""),
-                        "candidates": [{"name": c.get("name", ""), "party": c.get("party")} for c in data.get("candidates", [])],
-                        "agent_metrics": {"estimated_usd": am.get("estimated_usd"), "model": am.get("model"), "total_tokens": am.get("total_tokens")} if am else None,
-                    }
-                )
+                races.append(_race_summary(data, path.stem))
             except Exception:
                 logging.exception("Failed to read race file %s", path)
+    return races
+
+
+def _get_race_gcs(race_id: str, gcs_prefix: str) -> Dict[str, Any] | None:
+    """Load a single race from GCS. Returns None on miss/error."""
+    gcs_bucket = settings.gcs_bucket
+    if not gcs_bucket:
+        return None
+    try:
+        from google.cloud import storage as gcs  # type: ignore
+
+        client = gcs.Client()
+        blob = client.bucket(gcs_bucket).blob(f"{gcs_prefix}/{race_id}.json")
+        if blob.exists():
+            return json.loads(blob.download_as_text())
+    except ImportError:
+        logging.warning("google-cloud-storage not installed; cannot read from GCS")
+    except Exception:
+        logging.exception("Failed to fetch %s/%s from GCS", gcs_prefix, race_id)
+    return None
+
+
+def _delete_race_gcs(race_id: str, gcs_prefix: str) -> bool:
+    """Delete a race from GCS. Returns True if deleted."""
+    gcs_bucket = settings.gcs_bucket
+    if not gcs_bucket:
+        return False
+    try:
+        from google.cloud import storage as gcs  # type: ignore
+
+        client = gcs.Client()
+        blob = client.bucket(gcs_bucket).blob(f"{gcs_prefix}/{race_id}.json")
+        if blob.exists():
+            blob.delete()
+            logging.info("Deleted %s from GCS: gs://%s/%s/%s.json", race_id, gcs_bucket, gcs_prefix, race_id)
+            return True
+    except ImportError:
+        logging.warning("google-cloud-storage not installed; skipping GCS delete")
+    except Exception as e:
+        logging.warning("Failed to delete %s from GCS %s/: %s", race_id, gcs_prefix, e)
+    return False
+
+
+def _copy_race_gcs(race_id: str, src_prefix: str, dst_prefix: str) -> bool:
+    """Copy a race between GCS prefixes. Returns True if copied."""
+    gcs_bucket = settings.gcs_bucket
+    if not gcs_bucket:
+        return False
+    try:
+        from google.cloud import storage as gcs  # type: ignore
+
+        client = gcs.Client()
+        bucket = client.bucket(gcs_bucket)
+        src_blob = bucket.blob(f"{src_prefix}/{race_id}.json")
+        if not src_blob.exists():
+            return False
+        bucket.copy_blob(src_blob, bucket, f"{dst_prefix}/{race_id}.json")
+        logging.info("Copied %s from %s/ to %s/ in GCS", race_id, src_prefix, dst_prefix)
+        return True
+    except ImportError:
+        logging.warning("google-cloud-storage not installed; skipping GCS copy")
+    except Exception as e:
+        logging.warning("Failed to copy %s from %s/ to %s/ in GCS: %s", race_id, src_prefix, dst_prefix, e)
+    return False
+
+
+# ---------------------------------------------------------------------------
+# Published races endpoints
+# ---------------------------------------------------------------------------
+
+
+@app.get("/races", dependencies=[Depends(verify_token)])
+async def list_published_races() -> Dict[str, Any]:
+    """List all published race summaries from GCS (cloud) or data/published/ (local)."""
+    races = _list_races_gcs("races")
+    if races is None:
+        races = _list_races_local(ROOT / "data" / "published")
     return {"races": races}
 
 
@@ -188,27 +275,15 @@ async def list_published_races() -> Dict[str, Any]:
 async def get_published_race(race_id: str) -> Dict[str, Any]:
     """Get full published race data for export/download."""
     _validate_race_id(race_id)
+    # Local first (dev), then GCS (cloud)
     published_dir = ROOT / "data" / "published"
     path = published_dir / f"{race_id}.json"
     if path.exists():
         with path.open("r", encoding="utf-8") as f:
             return json.load(f)
-
-    # Fall back to GCS when local file is absent (always the case on Cloud Run)
-    gcs_bucket = settings.gcs_bucket
-    if gcs_bucket:
-        try:
-            from google.cloud import storage as gcs  # type: ignore
-
-            client = gcs.Client()
-            blob = client.bucket(gcs_bucket).blob(f"races/{race_id}.json")
-            if blob.exists():
-                return json.loads(blob.download_as_text())
-        except ImportError:
-            logging.warning("google-cloud-storage not installed; cannot read from GCS")
-        except Exception:
-            logging.exception("Failed to fetch race %s from GCS", race_id)
-
+    data = _get_race_gcs(race_id, "races")
+    if data:
+        return data
     raise HTTPException(status_code=404, detail="Race not found")
 
 
@@ -217,35 +292,122 @@ async def delete_published_race(race_id: str) -> Dict[str, Any]:
     """Delete a published race file locally and/or from GCS."""
     _validate_race_id(race_id)
     deleted = False
-
-    # Delete local file if present
     published_dir = ROOT / "data" / "published"
     path = published_dir / f"{race_id}.json"
     if path.exists():
         path.unlink()
         deleted = True
+    if _delete_race_gcs(race_id, "races"):
+        deleted = True
+    if not deleted:
+        raise HTTPException(status_code=404, detail="Race not found")
+    return {"message": f"Race {race_id} deleted", "id": race_id}
 
-    # Delete from GCS if configured
+
+# ---------------------------------------------------------------------------
+# Draft races endpoints
+# ---------------------------------------------------------------------------
+
+
+@app.get("/drafts", dependencies=[Depends(verify_token)])
+async def list_draft_races() -> Dict[str, Any]:
+    """List all draft race summaries from GCS drafts/ or data/drafts/."""
+    races = _list_races_gcs("drafts")
+    if races is None:
+        races = _list_races_local(ROOT / "data" / "drafts")
+    return {"races": races}
+
+
+@app.get("/drafts/{race_id}", dependencies=[Depends(verify_token)])
+async def get_draft_race(race_id: str) -> Dict[str, Any]:
+    """Get full draft race data."""
+    _validate_race_id(race_id)
+    drafts_dir = ROOT / "data" / "drafts"
+    path = drafts_dir / f"{race_id}.json"
+    if path.exists():
+        with path.open("r", encoding="utf-8") as f:
+            return json.load(f)
+    data = _get_race_gcs(race_id, "drafts")
+    if data:
+        return data
+    raise HTTPException(status_code=404, detail="Draft not found")
+
+
+@app.post("/drafts/{race_id}/publish", dependencies=[Depends(verify_token)])
+async def publish_draft(race_id: str) -> Dict[str, Any]:
+    """Promote a draft to published: copy drafts/ -> races/ in GCS + local."""
+    _validate_race_id(race_id)
+
+    # Load the draft data
+    draft_data = None
+    drafts_dir = ROOT / "data" / "drafts"
+    draft_path = drafts_dir / f"{race_id}.json"
+    if draft_path.exists():
+        with draft_path.open("r", encoding="utf-8") as f:
+            draft_data = json.load(f)
+
+    if draft_data is None:
+        draft_data = _get_race_gcs(race_id, "drafts")
+
+    if draft_data is None:
+        raise HTTPException(status_code=404, detail="Draft not found")
+
+    # Write to published (local)
+    published_dir = ROOT / "data" / "published"
+    published_dir.mkdir(parents=True, exist_ok=True)
+    published_path = published_dir / f"{race_id}.json"
+    json_str = json.dumps(draft_data, indent=2, default=str)
+    with published_path.open("w", encoding="utf-8") as f:
+        f.write(json_str)
+
+    # Copy to published (GCS)
     gcs_bucket = settings.gcs_bucket
     if gcs_bucket:
         try:
             from google.cloud import storage as gcs  # type: ignore
-
             client = gcs.Client()
-            blob = client.bucket(gcs_bucket).blob(f"races/{race_id}.json")
-            if blob.exists():
-                blob.delete()
-                deleted = True
-                logging.info("Deleted %s from GCS: gs://%s/races/%s.json", race_id, gcs_bucket, race_id)
-        except ImportError:
-            logging.warning("google-cloud-storage not installed; skipping GCS delete")
-        except Exception as e:
-            logging.warning("Failed to delete %s from GCS: %s", race_id, e)
+            bucket = client.bucket(gcs_bucket)
+            blob = bucket.blob(f"races/{race_id}.json")
+            blob.upload_from_string(json_str, content_type="application/json")
+            logging.info("Published %s to GCS: gs://%s/races/%s.json", race_id, gcs_bucket, race_id)
+        except Exception:
+            logging.exception("Failed to publish %s to GCS", race_id)
 
+    return {"message": f"Race {race_id} published", "id": race_id}
+
+
+@app.post("/races/{race_id}/unpublish", dependencies=[Depends(verify_token)])
+async def unpublish_race(race_id: str) -> Dict[str, Any]:
+    """Remove a race from published (keeps draft). Deletes races/ entry only."""
+    _validate_race_id(race_id)
+    deleted = False
+    published_dir = ROOT / "data" / "published"
+    path = published_dir / f"{race_id}.json"
+    if path.exists():
+        path.unlink()
+        deleted = True
+    if _delete_race_gcs(race_id, "races"):
+        deleted = True
     if not deleted:
-        raise HTTPException(status_code=404, detail="Race not found")
+        raise HTTPException(status_code=404, detail="Published race not found")
+    return {"message": f"Race {race_id} unpublished (draft retained)", "id": race_id}
 
-    return {"message": f"Race {race_id} deleted", "id": race_id}
+
+@app.delete("/drafts/{race_id}", dependencies=[Depends(verify_token)])
+async def delete_draft_race(race_id: str) -> Dict[str, Any]:
+    """Delete a draft race file."""
+    _validate_race_id(race_id)
+    deleted = False
+    drafts_dir = ROOT / "data" / "drafts"
+    path = drafts_dir / f"{race_id}.json"
+    if path.exists():
+        path.unlink()
+        deleted = True
+    if _delete_race_gcs(race_id, "drafts"):
+        deleted = True
+    if not deleted:
+        raise HTTPException(status_code=404, detail="Draft not found")
+    return {"message": f"Draft {race_id} deleted", "id": race_id}
 
 
 @app.post("/api/run", dependencies=[Depends(verify_token)])

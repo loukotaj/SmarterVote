@@ -84,7 +84,8 @@ Return JSON:
   "id": "{race_id}",
   "title": "<descriptive race title>",
   "office": "<office name>",
-  "jurisdiction": "<state or district>",
+  "jurisdiction": "<state or locality>",
+  "district": "<district number or name if applicable, else null>",
   "election_date": "<YYYY-MM-DD or best estimate>",
   "description": "<3-4 sentence nonpartisan overview of the race>",
   "polling": [

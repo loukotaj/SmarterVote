@@ -28,7 +28,10 @@
     quality_score: number;
     age_days: number;
     freshness: "fresh" | "recent" | "aging" | "stale";
+    status: "published" | "draft" | "both";
   }
+
+  const apiService = new PipelineApiService(API_BASE);
 
   let rows: RaceRow[] = [];
   let filteredRows: RaceRow[] = [];
@@ -39,6 +42,7 @@
   let sortAsc = false;
   let selected = new Set<string>();
   let bulkUpdating = false;
+  let publishing = new Set<string>();
 
   function computeQuality(race: PublishedRaceSummary): number {
     // Based on candidate count as a proxy (full data not available in summary)
@@ -63,33 +67,42 @@
   async function loadData() {
     try {
       error = "";
-      const apiService = new PipelineApiService(API_BASE);
-      const [racesResult, analyticsResult] = await Promise.allSettled([
+      const [racesResult, draftsResult, analyticsResult] = await Promise.allSettled([
         apiService.loadPublishedRaces(),
+        apiService.loadDraftRaces(),
         analyticsService.getRaces(24),
       ]);
 
-      const races: PublishedRaceSummary[] = racesResult.status === "fulfilled" ? racesResult.value : [];
+      const publishedRaces: PublishedRaceSummary[] = racesResult.status === "fulfilled" ? racesResult.value : [];
+      const draftRaces: PublishedRaceSummary[] = draftsResult.status === "fulfilled" ? draftsResult.value : [];
       const analyticsRaces: RaceAnalytics[] =
         analyticsResult.status === "fulfilled" ? analyticsResult.value.races : [];
 
       const analyticsMap = new Map<string, RaceAnalytics>(analyticsRaces.map((r) => [r.race_id, r]));
+      const publishedMap = new Map(publishedRaces.map((r) => [r.id, r]));
+      const draftMap = new Map(draftRaces.map((r) => [r.id, r]));
+      const allIds = new Set([...publishedMap.keys(), ...draftMap.keys()]);
 
-      rows = races.map((r) => {
-        const a = analyticsMap.get(r.id);
-        const age_days = computeAgeDays(r.updated_utc);
+      rows = [...allIds].map((id) => {
+        const pub = publishedMap.get(id);
+        const draft = draftMap.get(id);
+        const race = draft ?? pub!;
+        const status: "published" | "draft" | "both" = pub && draft ? "both" : pub ? "published" : "draft";
+        const a = analyticsMap.get(id);
+        const age_days = computeAgeDays(race.updated_utc);
         return {
-          race_id: r.id,
-          title: r.title,
-          office: r.office,
-          jurisdiction: r.jurisdiction,
-          candidates: r.candidates.map((c) => c.name),
-          updated_utc: r.updated_utc,
+          race_id: id,
+          title: race.title,
+          office: race.office,
+          jurisdiction: race.jurisdiction,
+          candidates: race.candidates.map((c) => c.name),
+          updated_utc: race.updated_utc,
           requests_24h: a?.requests_24h ?? 0,
           last_accessed: a?.last_accessed,
-          quality_score: computeQuality(r),
+          quality_score: computeQuality(race),
           age_days,
           freshness: computeFreshness(age_days),
+          status,
         };
       });
 
@@ -182,6 +195,75 @@
     return sortAsc ? "↑" : "↓";
   }
 
+  function statusBadgeClass(s: string) {
+    switch (s) {
+      case "published":
+        return "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200";
+      case "draft":
+        return "bg-amber-100 dark:bg-amber-900 text-amber-800 dark:text-amber-200";
+      case "both":
+        return "bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200";
+      default:
+        return "bg-surface-alt text-content-muted";
+    }
+  }
+
+  function statusLabel(s: string) {
+    switch (s) {
+      case "published":
+        return "Published";
+      case "draft":
+        return "Draft";
+      case "both":
+        return "Pub + Draft";
+      default:
+        return s;
+    }
+  }
+
+  async function handlePublish(race_id: string) {
+    publishing = new Set([...publishing, race_id]);
+    try {
+      await apiService.publishDraft(race_id);
+      await loadData();
+    } catch (e) {
+      error = `Publish failed: ${e}`;
+    } finally {
+      const next = new Set(publishing);
+      next.delete(race_id);
+      publishing = next;
+    }
+  }
+
+  async function handleUnpublish(race_id: string) {
+    if (!confirm(`Unpublish "${race_id}"? This removes it from the public site but keeps the draft.`)) return;
+    publishing = new Set([...publishing, race_id]);
+    try {
+      await apiService.unpublishRace(race_id);
+      await loadData();
+    } catch (e) {
+      error = `Unpublish failed: ${e}`;
+    } finally {
+      const next = new Set(publishing);
+      next.delete(race_id);
+      publishing = next;
+    }
+  }
+
+  async function handleDeleteDraft(race_id: string) {
+    if (!confirm(`Delete draft for "${race_id}"? This cannot be undone.`)) return;
+    try {
+      await apiService.deleteDraftRace(race_id);
+      await loadData();
+    } catch (e) {
+      error = `Delete draft failed: ${e}`;
+    }
+  }
+
+  function handlePreview(race_id: string) {
+    window.open(`/races/${race_id}?draft=true`, "_blank");
+  }
+
   onMount(loadData);
 </script>
 
@@ -249,6 +331,7 @@
                 Updated {sortIcon("age_days")}
               </th>
               <th class="px-3 py-3 text-left font-medium text-content-muted whitespace-nowrap">Freshness</th>
+              <th class="px-3 py-3 text-left font-medium text-content-muted whitespace-nowrap">Status</th>
               <th class="px-3 py-3 text-left font-medium text-content-muted cursor-pointer hover:text-content whitespace-nowrap" on:click={() => toggleSort("requests_24h")}>
                 Reqs 24h {sortIcon("requests_24h")}
               </th>
@@ -296,12 +379,47 @@
                     {row.freshness}
                   </span>
                 </td>
+                <td class="px-3 py-3">
+                  <span class="px-2 py-0.5 rounded-full text-xs font-medium {statusBadgeClass(row.status)}">
+                    {statusLabel(row.status)}
+                  </span>
+                </td>
                 <td class="px-3 py-3 text-content-muted text-right font-mono">{row.requests_24h}</td>
                 <td class="px-3 py-3">
                   <QualityBadge score={row.quality_score} />
                 </td>
                 <td class="px-3 py-3">
                   <div class="flex items-center space-x-1">
+                    {#if row.status === "draft" || row.status === "both"}
+                      <button
+                        type="button"
+                        class="px-2 py-1 text-xs border border-green-300 dark:border-green-700 rounded text-green-700 dark:text-green-300 hover:bg-green-50 dark:hover:bg-green-900/20 disabled:opacity-40 disabled:cursor-not-allowed"
+                        disabled={publishing.has(row.race_id)}
+                        title={row.status === "both" ? "Update published with latest draft" : "Publish this draft"}
+                        on:click={() => handlePublish(row.race_id)}
+                      >
+                        {publishing.has(row.race_id) ? "…" : "Publish"}
+                      </button>
+                      <button
+                        type="button"
+                        class="px-2 py-1 text-xs border border-stroke rounded text-content-muted hover:bg-surface-alt"
+                        title="Preview draft in new tab"
+                        on:click={() => handlePreview(row.race_id)}
+                      >
+                        Preview
+                      </button>
+                    {/if}
+                    {#if row.status === "published" || row.status === "both"}
+                      <button
+                        type="button"
+                        class="px-2 py-1 text-xs border border-amber-300 dark:border-amber-700 rounded text-amber-700 dark:text-amber-300 hover:bg-amber-50 dark:hover:bg-amber-900/20 disabled:opacity-40 disabled:cursor-not-allowed"
+                        disabled={publishing.has(row.race_id)}
+                        title="Remove from public site (keeps draft)"
+                        on:click={() => handleUnpublish(row.race_id)}
+                      >
+                        Unpublish
+                      </button>
+                    {/if}
                     <button
                       type="button"
                       class="px-2 py-1 text-xs border border-stroke rounded hover:bg-surface-alt disabled:opacity-40 disabled:cursor-not-allowed"
@@ -315,8 +433,8 @@
                       type="button"
                       class="px-2 py-1 text-xs border border-red-200 dark:border-red-900 rounded text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 disabled:opacity-40 disabled:cursor-not-allowed"
                       disabled={!!runStatus}
-                      title="Delete published race data"
-                      on:click={() => onDeleteRace(row.race_id)}
+                      title={row.status === "draft" ? "Delete draft" : "Delete published race data"}
+                      on:click={() => row.status === "draft" ? handleDeleteDraft(row.race_id) : onDeleteRace(row.race_id)}
                     >
                       Delete
                     </button>
