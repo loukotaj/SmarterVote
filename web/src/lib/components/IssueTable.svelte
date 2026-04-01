@@ -54,7 +54,7 @@
               <ConfidenceIndicator confidence={stance.confidence} />
             </td>
             <td class="py-3 px-4 text-center">
-              {#if stance.sources.length > 0}
+              {#if stance.sources?.length > 0}
                 <button
                   class="text-blue-600 hover:text-blue-500 dark:hover:text-blue-400 text-sm underline"
                   title="{expandedSources.has(issue) ? 'Hide' : 'View'} {stance.sources.length} source{stance.sources.length > 1 ? 's' : ''}"
@@ -90,7 +90,7 @@
           <ConfidenceIndicator confidence={stance.confidence} />
         </div>
         <p class="text-content-muted mb-3">{stance.stance}</p>
-        {#if stance.sources.length > 0}
+        {#if stance.sources?.length > 0}
           <div class="text-sm">
             <span class="text-content-muted">Sources:</span>
             <div class="mt-1 space-y-1">
