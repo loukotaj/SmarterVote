@@ -3,6 +3,7 @@
   import { onMount } from "svelte";
   import CandidateCard from "$lib/components/CandidateCard.svelte";
   import ReviewPanel from "$lib/components/ReviewPanel.svelte";
+  import ValidationGradeBadge from "$lib/components/ValidationGradeBadge.svelte";
   import Card from "$lib/components/Card.svelte";
   import type { Race } from "$lib/types";
   import { getRace, getDraftRace } from "$lib/api";
@@ -104,7 +105,12 @@
     {/if}
     <!-- Race Header -->
     <Card tag="header" class="header-card">
-      <h1 class="header-title">{race.title}</h1>
+      <div class="header-top">
+        <h1 class="header-title">{race.title}</h1>
+        {#if race.validation_grade}
+          <ValidationGradeBadge grade={race.validation_grade} />
+        {/if}
+      </div>
       <div class="header-meta">
         <div class="info-row">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -330,7 +336,11 @@
   }
 
   .header-title {
-    @apply text-2xl sm:text-3xl lg:text-4xl font-bold text-content mb-4 capitalize;
+    @apply text-2xl sm:text-3xl lg:text-4xl font-bold text-content capitalize;
+  }
+
+  .header-top {
+    @apply flex flex-wrap items-start sm:items-center justify-between gap-3 mb-4;
   }
 
   .header-meta {

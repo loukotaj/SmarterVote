@@ -138,6 +138,7 @@ async def _run_single_review(
             "model": model_name,
             "reviewed_at": datetime.now(timezone.utc).isoformat(),
             "verdict": review_data.get("verdict", "flagged"),
+            "score": review_data.get("score"),
             "flags": review_data.get("flags", []),
             "summary": review_data.get("summary", ""),
         }
@@ -178,6 +179,44 @@ async def run_reviews(
 
     results = await asyncio.gather(*tasks)
     return [r for r in results if r is not None]
+
+
+def compute_validation_grade(reviews: List[Dict[str, Any]]) -> Optional[Dict[str, Any]]:
+    """Compute an aggregate validation grade from review scores.
+
+    Returns a dict with grade, score, passed, and summary — or None if no
+    reviews have scores.
+    """
+    scores = [r["score"] for r in reviews if isinstance(r.get("score"), (int, float))]
+    if not scores:
+        return None
+
+    avg = round(sum(scores) / len(scores))
+    avg = max(0, min(100, avg))
+
+    if avg >= 90:
+        grade = "A"
+    elif avg >= 80:
+        grade = "B"
+    elif avg >= 70:
+        grade = "C"
+    elif avg >= 60:
+        grade = "D"
+    else:
+        grade = "F"
+
+    passed = avg >= 80  # B or above
+
+    verdicts = [r.get("verdict", "") for r in reviews]
+    approved_count = sum(1 for v in verdicts if v == "approved")
+    total = len(reviews)
+
+    if passed:
+        summary = f"Validated by {approved_count}/{total} reviewers with an average score of {avg}/100."
+    else:
+        summary = f"Below quality threshold — {approved_count}/{total} reviewers approved, average score {avg}/100."
+
+    return {"grade": grade, "score": avg, "passed": passed, "summary": summary}
 
 
 # ---------------------------------------------------------------------------

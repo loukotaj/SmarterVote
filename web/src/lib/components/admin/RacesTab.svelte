@@ -23,6 +23,7 @@
     jurisdiction?: string;
     candidates: string[];
     updated_utc?: string;
+    published_utc?: string; // only set when status === "both"
     requests_24h: number;
     last_accessed?: string;
     quality_score: number;
@@ -97,6 +98,7 @@
           jurisdiction: race.jurisdiction,
           candidates: race.candidates.map((c) => c.name),
           updated_utc: race.updated_utc,
+          published_utc: pub && draft ? pub.updated_utc : undefined,
           requests_24h: a?.requests_24h ?? 0,
           last_accessed: a?.last_accessed,
           quality_score: computeQuality(race),
@@ -251,12 +253,25 @@
   }
 
   async function handleDeleteDraft(race_id: string) {
-    if (!confirm(`Delete draft for "${race_id}"? This cannot be undone.`)) return;
+    if (!confirm(`Discard draft for "${race_id}"? This cannot be undone. The published version will remain live.`)) return;
     try {
       await apiService.deleteDraftRace(race_id);
       await loadData();
     } catch (e) {
-      error = `Delete draft failed: ${e}`;
+      error = `Discard draft failed: ${e}`;
+    }
+  }
+
+  async function handleDeleteBoth(race_id: string) {
+    if (!confirm(`Delete "${race_id}" entirely? This removes both the draft and the published data and cannot be undone.`)) return;
+    try {
+      await Promise.allSettled([
+        apiService.deleteDraftRace(race_id),
+        apiService.deletePublishedRace(race_id),
+      ]);
+      await loadData();
+    } catch (e) {
+      error = `Delete failed: ${e}`;
     }
   }
 
@@ -373,7 +388,16 @@
                 <td class="px-3 py-3 text-content-muted max-w-40">
                   <span class="truncate block" title={row.candidates.join(", ")}>{row.candidates.join(", ") || "—"}</span>
                 </td>
-                <td class="px-3 py-3 text-content-muted whitespace-nowrap">{formatDate(row.updated_utc)}</td>
+                <td class="px-3 py-3 text-content-muted whitespace-nowrap">
+                  {#if row.published_utc}
+                    <span class="block" title="Draft updated: {formatDate(row.updated_utc)}\nLive since: {formatDate(row.published_utc)}">
+                      {formatDate(row.updated_utc)}
+                      <span class="text-xs text-blue-500 dark:text-blue-400">(draft)</span>
+                    </span>
+                  {:else}
+                    {formatDate(row.updated_utc)}
+                  {/if}
+                </td>
                 <td class="px-3 py-3">
                   <span class="px-2 py-0.5 rounded-full text-xs font-medium {freshnessBadgeClass(row.freshness)}">
                     {row.freshness}
@@ -409,6 +433,17 @@
                         Preview
                       </button>
                     {/if}
+                    {#if row.status === "both"}
+                      <button
+                        type="button"
+                        class="px-2 py-1 text-xs border border-orange-300 dark:border-orange-700 rounded text-orange-700 dark:text-orange-300 hover:bg-orange-50 dark:hover:bg-orange-900/20 disabled:opacity-40 disabled:cursor-not-allowed"
+                        disabled={publishing.has(row.race_id)}
+                        title="Discard this draft — keep the current live version unchanged"
+                        on:click={() => handleDeleteDraft(row.race_id)}
+                      >
+                        Discard Draft
+                      </button>
+                    {/if}
                     {#if row.status === "published" || row.status === "both"}
                       <button
                         type="button"
@@ -433,8 +468,8 @@
                       type="button"
                       class="px-2 py-1 text-xs border border-red-200 dark:border-red-900 rounded text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 disabled:opacity-40 disabled:cursor-not-allowed"
                       disabled={!!runStatus}
-                      title={row.status === "draft" ? "Delete draft" : "Delete published race data"}
-                      on:click={() => row.status === "draft" ? handleDeleteDraft(row.race_id) : onDeleteRace(row.race_id)}
+                      title={row.status === "draft" ? "Delete this draft" : row.status === "both" ? "Delete draft and published data" : "Delete published race data"}
+                      on:click={() => row.status === "draft" ? handleDeleteDraft(row.race_id) : row.status === "both" ? handleDeleteBoth(row.race_id) : onDeleteRace(row.race_id)}
                     >
                       Delete
                     </button>

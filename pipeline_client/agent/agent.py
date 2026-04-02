@@ -52,7 +52,7 @@ from .prompts import (
     UPDATE_META_SYSTEM,
     UPDATE_META_USER,
 )
-from .review import run_reviews
+from .review import compute_validation_grade, run_reviews
 from .tools import (
     ADD_CANDIDATE_TOOL,
     ADD_LINK_TOOL,
@@ -823,6 +823,10 @@ async def run_agent(
         race_json.setdefault("reviews", [])
         _track("skip", "review")
         _track("skip", "iteration")
+
+    # Compute aggregate validation grade from review scores
+    grade = compute_validation_grade(race_json.get("reviews", []))
+    race_json["validation_grade"] = grade
 
     elapsed = time.perf_counter() - t0
 

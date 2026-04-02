@@ -376,9 +376,23 @@ For the "summary" field:
   well-documented."). Do NOT just say "looks good" — be specific.
 - If verdict is "needs_revision" or "flagged": summarize the key concerns concisely.
 
+Also assign an overall quality score from 0-100 based on:
+- Factual accuracy and source quality (40%)
+- Completeness across all canonical issues (30%)
+- Neutrality and lack of bias (20%)
+- Background accuracy (10%)
+
+Score guidelines:
+- 90-100 (A): Excellent — well-sourced, complete, unbiased, accurate
+- 80-89 (B): Good — minor gaps or weak sources but overall solid
+- 70-79 (C): Acceptable — noticeable gaps, some unsourced claims, or mild bias
+- 60-69 (D): Poor — significant issues with accuracy, sourcing, or completeness
+- 0-59 (F): Failing — major factual errors, heavy bias, or severely incomplete
+
 Return JSON:
 {{
   "verdict": "approved|needs_revision|flagged",
+  "score": <integer 0-100>,
   "summary": "<specific assessment — warm and positive if approved, focused on key issues if not>",
   "flags": [
     {{

@@ -30,7 +30,7 @@
   }
 </script>
 
-<div class="review-panel">
+<div id="ai-review" class="review-panel">
   <button class="review-title" on:click={() => (collapsed = !collapsed)} aria-expanded={!collapsed}>
     <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path
@@ -64,9 +64,14 @@
         <div class="review-card">
           <div class="review-header">
             <span class="review-model">{review.model}</span>
-            <span class="review-verdict {verdictColor(review.verdict)}">
-              {review.verdict.replace("_", " ")}
-            </span>
+            <div class="review-header-right">
+              {#if review.score != null}
+                <span class="review-score">{review.score}/100</span>
+              {/if}
+              <span class="review-verdict {verdictColor(review.verdict)}">
+                {review.verdict.replace("_", " ")}
+              </span>
+            </div>
           </div>
           {#if review.summary}
             <p class="review-summary">{review.summary}</p>
@@ -135,6 +140,14 @@
 
   .review-header {
     @apply flex items-center justify-between mb-2;
+  }
+
+  .review-header-right {
+    @apply flex items-center gap-2;
+  }
+
+  .review-score {
+    @apply text-xs font-medium text-content-subtle;
   }
 
   .review-model {

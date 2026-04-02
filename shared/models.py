@@ -138,8 +138,18 @@ class AgentReview(BaseModel):
     model: str
     reviewed_at: datetime
     verdict: Literal["approved", "needs_revision", "flagged"]
+    score: Optional[int] = Field(None, ge=0, le=100, description="Quality score 0-100")
     flags: List[ReviewFlag] = Field(default_factory=list)
     summary: str = ""
+
+
+class ValidationGrade(BaseModel):
+    """Aggregate validation grade computed from multi-LLM reviews."""
+
+    grade: Literal["A", "B", "C", "D", "F"]
+    score: int = Field(..., ge=0, le=100, description="Average score across reviewers")
+    passed: bool = Field(..., description="Whether the grade meets the quality threshold (B or above)")
+    summary: str = Field("", description="Brief explanation of the grade")
 
 
 # ---------------------------------------------------------------------------
@@ -229,3 +239,4 @@ class RaceJSON(BaseModel):
 
     # Multi-LLM reviews
     reviews: List[AgentReview] = Field(default_factory=list)
+    validation_grade: Optional[ValidationGrade] = None

@@ -79,7 +79,15 @@ export interface AgentReview {
   model: string;
   reviewed_at: string;
   verdict: "approved" | "needs_revision" | "flagged";
+  score?: number;
   flags: ReviewFlag[];
+  summary: string;
+}
+
+export interface ValidationGrade {
+  grade: "A" | "B" | "C" | "D" | "F";
+  score: number;
+  passed: boolean;
   summary: string;
 }
 
@@ -129,6 +137,7 @@ export interface Race {
   polling?: PollEntry[];
   polling_note?: string;
   reviews?: AgentReview[];
+  validation_grade?: ValidationGrade;
 }
 
 export const CANONICAL_ISSUES: CanonicalIssue[] = [
