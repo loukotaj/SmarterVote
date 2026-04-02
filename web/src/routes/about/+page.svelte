@@ -142,8 +142,7 @@
       </p>
       <p class="text-content-muted leading-relaxed text-sm sm:text-base">
         The long-term goal is to grow this into a non-profit with broader
-        coverage and a team of contributors. Until then, it runs lean and stays
-        free.
+        coverage and a team of contributors.
       </p>
     </div>
 
