@@ -42,7 +42,7 @@ jobs:
   build-containers:
     name: Build Container Images
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && contains(github.event.head_commit.modified, 'infra/')) }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     strategy:
       matrix:
         container:
@@ -96,7 +96,7 @@ jobs:
     name: Deploy Infrastructure
     runs-on: ubuntu-latest
     needs: build-containers
-    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && contains(github.event.head_commit.modified, 'infra/')) }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     # Pass all Terraform variables as TF_VAR_* env vars to avoid writing secrets into a
     # shell heredoc (backticks/special chars in secret values cause bad-substitution errors).
     env:
