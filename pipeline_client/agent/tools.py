@@ -56,6 +56,32 @@ FETCH_TOOL: Dict = {
     },
 }
 
+BALLOTPEDIA_TOOL: Dict = {
+    "type": "function",
+    "function": {
+        "name": "ballotpedia_lookup",
+        "description": (
+            "Look up a political candidate on Ballotpedia and return structured data "
+            "directly from their page — without needing to spend a web search or parse HTML. "
+            "Returns: a bio extract (intro paragraph), a list of useful external links "
+            "(campaign website, FEC profile, VoteSmart, OpenSecrets, social media), "
+            "a thumbnail image URL, and the Ballotpedia page URL. "
+            "Use this early in research for any candidate to quickly gather their "
+            "official website, finance links, and a clean biography."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "candidate_name": {
+                    "type": "string",
+                    "description": "Full name of the candidate to look up (e.g. 'Tom Cotton').",
+                }
+            },
+            "required": ["candidate_name"],
+        },
+    },
+}
+
 # ---------------------------------------------------------------------------
 # Roster editing tools
 # ---------------------------------------------------------------------------

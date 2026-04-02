@@ -53,10 +53,12 @@ from .prompts import (
     UPDATE_META_USER,
 )
 from .review import compute_validation_grade, run_reviews
+from .ballotpedia import lookup_candidate_data as _ballotpedia_lookup
 from .tools import (
     ADD_CANDIDATE_TOOL,
     ADD_LINK_TOOL,
     ADD_POLL_TOOL,
+    BALLOTPEDIA_TOOL,
     CANDIDATE_TOOLS,
     FETCH_TOOL,
     ISSUE_TOOLS,
@@ -228,6 +230,27 @@ async def _serper_search(
 # OpenAI helpers
 # ---------------------------------------------------------------------------
 
+# Module-level client singleton — reused across all calls to avoid the
+# overhead of creating a new httpx connection pool on every API call.
+_openai_client: Any = None
+
+
+def _get_openai_client() -> Any:
+    """Return (and lazily create) the shared AsyncOpenAI client."""
+    global _openai_client
+    from openai import AsyncOpenAI
+
+    api_key = os.environ.get("OPENAI_API_KEY", "")
+    if not api_key:
+        raise RuntimeError("OPENAI_API_KEY is not set")
+
+    # Re-create if the key has changed (e.g., rotated between runs in tests)
+    existing_key = getattr(_openai_client, "api_key", None)
+    if _openai_client is None or existing_key != api_key:
+        _openai_client = AsyncOpenAI(api_key=api_key, max_retries=0, timeout=300)
+
+    return _openai_client
+
 
 async def _call_openai(
     messages: List[Dict[str, Any]],
@@ -241,17 +264,14 @@ async def _call_openai(
 
     429 rate-limit: exponential backoff starting at 30 s, capped at 10 min.
     5xx transient errors: shorter exponential backoff (2, 4, 8 … s).
+    400 bad-request errors: raised immediately as RuntimeError (unretryable).
     The Retry-After response header always takes precedence.
 
     Returns an ``openai.types.chat.ChatCompletion`` object.
     """
-    from openai import AsyncOpenAI, RateLimitError, APIStatusError
+    from openai import BadRequestError, RateLimitError, APIStatusError
 
-    api_key = os.environ.get("OPENAI_API_KEY", "")
-    if not api_key:
-        raise RuntimeError("OPENAI_API_KEY is not set")
-
-    client = AsyncOpenAI(api_key=api_key, max_retries=0, timeout=300)
+    client = _get_openai_client()
 
     _supports_temperature = not (
         model.startswith("o1") or model.startswith("o3") or model.startswith("o4")
@@ -274,6 +294,12 @@ async def _call_openai(
             if resp.usage:
                 accumulate(resp.usage.prompt_tokens or 0, resp.usage.completion_tokens or 0, model)
             return resp
+        except BadRequestError as exc:
+            # 400 errors are never transient — retrying the same request will
+            # always fail.  Wrap as RuntimeError so pipeline phase handlers
+            # (which catch RuntimeError) can skip the step and continue.
+            logger.error(f"OpenAI bad request (400) for model={model}: {exc}")
+            raise RuntimeError(f"OpenAI bad request: {exc}") from exc
         except RateLimitError as exc:
             if attempt >= max_retries - 1:
                 raise
@@ -375,7 +401,7 @@ async def _agent_loop(
 
         if tools_mode:
             # In tools mode: search tools cut off at nudge_at, editing tools stay available
-            search_tools = [SEARCH_TOOL, FETCH_TOOL] if iteration < nudge_at else []
+            search_tools = [SEARCH_TOOL, FETCH_TOOL, BALLOTPEDIA_TOOL] if iteration < nudge_at else []
             tools_for_call = search_tools + _extra_tools if (search_tools or _extra_tools) else None
 
             if iteration == nudge_at and len(messages) > 2:
@@ -400,7 +426,7 @@ async def _agent_loop(
                 })
                 log("info", f"  [{phase_name}] nudging model to produce output (iteration {iteration + 1})")
 
-            base_tools = [SEARCH_TOOL, FETCH_TOOL] if iteration < nudge_at else []
+            base_tools = [SEARCH_TOOL, FETCH_TOOL, BALLOTPEDIA_TOOL] if iteration < nudge_at else []
             # Extra tools (editing) stay available past nudge in json mode too
             tools_for_call = (base_tools + _extra_tools) if (base_tools or _extra_tools) else None
 
@@ -453,6 +479,17 @@ async def _agent_loop(
                         "role": "tool",
                         "tool_call_id": tool_call.id,
                         "content": page_text,
+                    })
+                elif fn.name == "ballotpedia_lookup":
+                    args = json.loads(fn.arguments)
+                    candidate_name = args.get("candidate_name", "")
+                    log("info", f"    📋 Ballotpedia lookup: {candidate_name}")
+                    bp_data = await _ballotpedia_lookup(candidate_name)
+                    log("debug", f"    📋 found={bp_data.get('found')}")
+                    messages.append({
+                        "role": "tool",
+                        "tool_call_id": tool_call.id,
+                        "content": json.dumps(bp_data),
                     })
                 elif fn.name in _extra_handlers:
                     args = json.loads(fn.arguments)

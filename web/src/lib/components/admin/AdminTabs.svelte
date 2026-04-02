@@ -1,13 +1,12 @@
 <script lang="ts">
   import { browser } from "$app/environment";
 
-  export let activeTab: "dashboard" | "races" | "pipeline" = "dashboard";
+  export let activeTab: "dashboard" | "races" = "dashboard";
   export let alertCount: number = 0;
 
   const tabs = [
     { id: "dashboard", label: "Dashboard" },
     { id: "races", label: "Races" },
-    { id: "pipeline", label: "Pipeline" },
   ] as const;
 
   type TabId = typeof tabs[number]["id"];

@@ -339,3 +339,45 @@ export interface PipelineMetricsSummary {
   avg_usd: number;
   recent_30d_usd: number;
 }
+
+// ---------------------------------------------------------------------------
+// Unified Race Record (mirrors Python RaceRecord)
+// ---------------------------------------------------------------------------
+
+export type RaceStatusType =
+  | "empty"
+  | "queued"
+  | "running"
+  | "draft"
+  | "published"
+  | "failed";
+
+export interface RaceRecord {
+  race_id: string;
+  title?: string;
+  office?: string;
+  jurisdiction?: string;
+  election_date?: string;
+
+  status: RaceStatusType;
+  published_at?: string;
+  draft_updated_at?: string;
+
+  candidate_count: number;
+  quality_score?: number;
+  freshness?: string;
+
+  queue_position?: number;
+  queue_options?: Record<string, unknown>;
+  current_run_id?: string;
+  last_run_id?: string;
+  last_run_at?: string;
+  last_run_status?: string;
+  total_runs: number;
+
+  requests_24h: number;
+  last_accessed?: string;
+
+  created_at: string;
+  updated_at: string;
+}

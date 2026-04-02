@@ -212,6 +212,13 @@ class AgentHandler:
         # Save as draft (not published) — admin must explicitly publish
         draft_path = await self._save_draft(race_id, race_json)
 
+        # Update race record metadata from the new draft data
+        try:
+            from pipeline_client.backend.race_manager import race_manager
+            race_manager.update_race_metadata(race_id, race_json)
+        except Exception:
+            logger.warning("Failed to update race metadata after draft save", exc_info=True)
+
         duration_ms = int((time.perf_counter() - t0) * 1000)
         logger.info(f"Agent: saved draft {race_id} to {draft_path} in {duration_ms}ms")
 

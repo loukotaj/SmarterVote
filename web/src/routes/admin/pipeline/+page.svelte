@@ -1,7 +1,6 @@
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
-  import { page } from "$app/stores";
   import { goto } from "$app/navigation";
 
   // Stores
@@ -16,7 +15,7 @@
 
   // Services
   import { PipelineApiService } from "$lib/services/pipelineApiService";
-  import type { PublishedRaceSummary, QueueItem } from "$lib/services/pipelineApiService";
+  import type { QueueItem } from "$lib/services/pipelineApiService";
 
   // Components
   import LiveLogs from "$lib/components/LiveLogs.svelte";
@@ -24,13 +23,14 @@
   import AdminTabs from "$lib/components/admin/AdminTabs.svelte";
   import DashboardTab from "$lib/components/admin/DashboardTab.svelte";
   import RacesTab from "$lib/components/admin/RacesTab.svelte";
+  import RacePanel from "$lib/components/admin/RacePanel.svelte";
+  import BatchQueueModal from "$lib/components/admin/BatchQueueModal.svelte";
   import RunDetailPanel from "$lib/components/admin/RunDetailPanel.svelte";
 
   // Utilities
-  import { debounce, safeJsonStringify, downloadAsJson } from "$lib/utils/pipelineUtils";
+  import { debounce, safeJsonStringify } from "$lib/utils/pipelineUtils";
   import { logger } from "$lib/utils/logger";
-  import type { RunHistoryItem, Artifact, PipelineStepId, PIPELINE_STEPS as _PS } from "$lib/types";
-  import { PIPELINE_STEPS } from "$lib/types";
+  import type { RunHistoryItem, Artifact, RaceRecord } from "$lib/types";
 
   const API_BASE = import.meta.env.VITE_API_BASE || "http://127.0.0.1:8001";
 
@@ -41,7 +41,7 @@
   let queuePollTimer: ReturnType<typeof setInterval> | null = null;
 
   // Tab state
-  let activeTab: "dashboard" | "races" | "pipeline" = "dashboard";
+  let activeTab: "dashboard" | "races" = "dashboard";
   let alertBadgeCount = 0;
 
   // Modal state
@@ -50,25 +50,16 @@
   let modalData: unknown = null;
   let modalLoading = false;
 
-  // Pipeline options
-  let cheapMode = true;
-  let showAdvanced = false;
-  let researchModel = "";
-  let claudeModel = "";
-  let geminiModel = "";
-  let grokModel = "";
-  let maxCandidates: number | null = null;
-  let targetNoInfo = false;
-  let showStepConfig = false;
-  // Step toggles: all enabled by default. Keys are PipelineStepId values.
-  let stepToggles: Record<string, boolean> = Object.fromEntries(
-    PIPELINE_STEPS.map((s) => [s.id, true])
-  );
+  // Race panel state
+  let selectedRace: RaceRecord | null = null;
+  let racePanelOpen = false;
+
+  // Batch modal state
+  let batchModalOpen = false;
+  let batchRaceIds: string[] = [];
 
   // Server-side queue state
   let queueItems: QueueItem[] = [];
-  let queueLoading = false;
-  let addingToQueue = false;
 
   // Run detail view
   let detailRunId: string | null = null;
@@ -80,7 +71,7 @@
     const url = new URL(window.location.href);
     if (runId) {
       url.searchParams.set("run", runId);
-      url.searchParams.set("tab", "pipeline");
+      url.searchParams.set("tab", "races");
     } else {
       url.searchParams.delete("run");
     }
@@ -90,36 +81,12 @@
   // Reactive computed
   $: queueRunning = queueItems.find((i) => i.status === "running");
   $: queuePending = queueItems.filter((i) => i.status === "pending").length;
-  $: queueFinished = queueItems.filter((i) => ["completed", "failed", "cancelled"].includes(i.status)).length;
-  $: queueHasActive = !!queueRunning || queuePending > 0;
-  $: activeQueuedRaceIds = new Map<string, "pending" | "running">(
-    queueItems
-      .filter((i) => i.status === "running" || i.status === "pending")
-      .map((i) => [i.race_id, i.status as "pending" | "running"])
-  );
-
-  function handleRaceIdInput(e: Event) {
-    pipelineActions.setRaceId((e.currentTarget as HTMLInputElement).value);
-  }
-
-  function handleRaceIdKeydown(e: KeyboardEvent) {
-    if (e.key === "Enter") handleAddToQueue();
-  }
-
-  // Published races
-  let publishedRaces: PublishedRaceSummary[] = [];
-  let racesLoading = false;
-
-  // Auto-refresh management
-  const MIN_REFRESH_INTERVAL = 2000;
-  let pendingRefresh = false;
 
   // Reactive subscriptions
   $: pipeline = $pipelineStore;
   $: websocket = $websocketStore;
   $: api = $apiStore;
   $: logs = $filteredLogs;
-  $: _outputDisplay = $safeOutputDisplay;
 
   onMount(async () => {
     if (!browser) return;
@@ -145,12 +112,12 @@
       // Restore tab and run detail from URL params
       const params = new URLSearchParams(window.location.search);
       const tabParam = params.get("tab");
-      if (tabParam === "dashboard" || tabParam === "races" || tabParam === "pipeline") {
+      if (tabParam === "dashboard" || tabParam === "races") {
         activeTab = tabParam;
       }
       const runParam = params.get("run");
       if (runParam) {
-        activeTab = "pipeline";
+        activeTab = "races";
         detailRunId = runParam;
       }
 
@@ -170,49 +137,26 @@
 
   async function loadInitialData() {
     try {
-      const [artifactsResult, historyResult, racesResult, queueResult] = await Promise.allSettled([
-        apiService.loadArtifacts(),
+      const [historyResult, queueResult] = await Promise.allSettled([
         apiService.loadRunHistory(),
-        apiService.loadPublishedRaces(),
         apiService.loadQueue(),
       ]);
-
-      if (artifactsResult.status === "fulfilled") {
-        pipelineActions.setArtifacts(artifactsResult.value);
-      }
 
       if (historyResult.status === "fulfilled") {
         const history = historyResult.value;
         pipelineActions.setRunHistory(history);
-
-        // Restore executing state if a run is still active (e.g. after page refresh)
-        const activeRun = history.find((r: RunHistoryItem) => r.status === "running" || r.status === "pending");
-        if (activeRun) {
-          addLog("info", `Resuming monitoring of active run ${activeRun.run_id}`);
-          pipelineActions.setCurrentRun(activeRun.run_id, activeRun.last_step ?? null);
-          pipelineActions.setExecutionState(true);
-          pipelineActions.setRunStatus("running");
-          startAutoRefresh();
-          startElapsedTimer();
-        }
-      }
-
-      if (racesResult.status === "fulfilled") {
-        publishedRaces = racesResult.value;
       }
 
       if (queueResult.status === "fulfilled") {
         queueItems = queueResult.value.items;
         const running = queueItems.find((i) => i.status === "running");
         if (running && running.run_id) {
-          // Queue has an active run — this is the ground truth
           pipelineActions.setCurrentRun(running.run_id, "agent");
           pipelineActions.setExecutionState(true);
           pipelineActions.setRunStatus("running");
           startAutoRefresh();
           startElapsedTimer();
         } else {
-          // Queue has no running item — clear any execution state set by run history
           pipelineActions.setExecutionState(false);
           pipelineActions.setRunStatus("idle");
           stopElapsedTimer();
@@ -233,7 +177,6 @@
       const nowRunning = queueItems.find((i) => i.status === "running");
 
       if (nowRunning && nowRunning.run_id) {
-        // A job is actively running — sync execution state if not already set
         if (!pipeline.isExecuting) {
           pipelineActions.setCurrentRun(nowRunning.run_id, "agent");
           pipelineActions.setExecutionState(true);
@@ -242,7 +185,6 @@
           startElapsedTimer();
         }
       } else {
-        // Nothing running — clear execution state if UI thinks otherwise
         if (pipeline.isExecuting) {
           pipelineActions.setExecutionState(false);
           stopElapsedTimer();
@@ -256,29 +198,13 @@
   }
 
   const debouncedRefresh = debounce(async () => {
-    if (pendingRefresh) return;
-    const timeSinceLastRefresh = Date.now() - pipeline.lastRefreshTime;
-    if (timeSinceLastRefresh < MIN_REFRESH_INTERVAL) return;
-
-    pendingRefresh = true;
     pipelineActions.setRefreshing(true);
-
     try {
-      const [historyResult, artifactsResult] = await Promise.allSettled([
-        apiService.loadRunHistory(),
-        apiService.loadArtifacts(),
-      ]);
-
-      if (historyResult.status === "fulfilled") {
-        pipelineActions.setRunHistory(historyResult.value);
-      }
-      if (artifactsResult.status === "fulfilled") {
-        pipelineActions.setArtifacts(artifactsResult.value);
-      }
+      const result = await apiService.loadRunHistory();
+      pipelineActions.setRunHistory(result);
     } catch (error) {
       logger.error("Refresh failed:", error);
     } finally {
-      pendingRefresh = false;
       pipelineActions.setRefreshing(false);
     }
   }, 1000);
@@ -286,9 +212,7 @@
   function startAutoRefresh() {
     if (autoRefreshTimer) return;
     autoRefreshTimer = setInterval(async () => {
-      if (pipeline.isExecuting) {
-        await debouncedRefresh();
-      }
+      if (pipeline.isExecuting) await debouncedRefresh();
     }, 5000);
   }
 
@@ -362,168 +286,75 @@
     }
   }
 
-  async function refreshPublishedRaces() {
-    racesLoading = true;
-    try {
-      publishedRaces = await apiService.loadPublishedRaces();
-    } catch (e) {
-      logger.error("Failed to refresh published races:", e);
-    } finally {
-      racesLoading = false;
-    }
+  // -- Race Panel / Batch handlers --
+
+  function handleSelectRace(race: RaceRecord) {
+    selectedRace = race;
+    racePanelOpen = true;
   }
 
-  // -- Queue Operations (server-side) --
-
-  function buildOptions(): Record<string, any> {
-    const opts: Record<string, any> = {
-      save_artifact: true,
-      cheap_mode: cheapMode,
-      // Always send explicit step list so the backend never needs to guess
-      enabled_steps: PIPELINE_STEPS.filter((s) => stepToggles[s.id]).map((s) => s.id),
-    };
-    if (researchModel) opts.research_model = researchModel;
-    if (claudeModel) opts.claude_model = claudeModel;
-    if (geminiModel) opts.gemini_model = geminiModel;
-    if (grokModel) opts.grok_model = grokModel;
-    if (maxCandidates !== null && maxCandidates > 0) opts.max_candidates = maxCandidates;
-    if (targetNoInfo) opts.target_no_info = true;
-    return opts;
+  function handleBatchQueue(raceIds: string[]) {
+    batchRaceIds = raceIds;
+    batchModalOpen = true;
   }
 
-  async function handleAddToQueue() {
-    const raw = pipeline.raceId.trim();
-    if (!raw) return;
-    const ids = raw.split(",").map((s) => s.trim()).filter(Boolean);
+  async function handleAddRaces(event: CustomEvent<string>) {
+    const raw = event.detail;
+    const ids = raw.split(",").map((s: string) => s.trim()).filter(Boolean);
     if (ids.length === 0) return;
 
-    addingToQueue = true;
     try {
-      const result = await apiService.addToQueue(ids, buildOptions());
+      const result = await apiService.queueRaces(ids, { cheap_mode: true });
       if (result.added.length > 0) {
         addLog("info", `Queued ${result.added.length} race(s): ${result.added.map((a) => a.race_id).join(", ")}`);
-        pipelineActions.setRaceId("");
       }
       for (const err of result.errors) {
         addLog("warning", `${err.race_id}: ${err.error}`);
       }
+      await racesTabRef?.refresh();
       await refreshQueue();
     } catch (e) {
       addLog("error", `Failed to queue: ${e}`);
-    } finally {
-      addingToQueue = false;
     }
   }
 
-  async function handleQueueRace(race: PublishedRaceSummary) {
-    try {
-      const result = await apiService.addToQueue([race.id], buildOptions());
-      if (result.added.length > 0) {
-        addLog("info", `Queued update for ${race.id}`);
-      }
-      for (const err of result.errors) {
-        addLog("warning", `${err.race_id}: ${err.error}`);
-      }
-      await refreshQueue();
-    } catch (e) {
-      addLog("error", `Failed to queue ${race.id}: ${e}`);
+  function handleRacePanelClose() {
+    racePanelOpen = false;
+    selectedRace = null;
+  }
+
+  function handleRacePanelRunStarted(event: CustomEvent<{ race_id: string; run_id: string }>) {
+    addLog("info", `Started run for ${event.detail.race_id}: ${event.detail.run_id}`);
+    refreshQueue();
+    racesTabRef?.refresh();
+  }
+
+  function handleRacePanelUpdated() {
+    racesTabRef?.refresh();
+    // Refresh the selected race data
+    if (selectedRace) {
+      apiService.getRaceRecord(selectedRace.race_id).then((r) => {
+        selectedRace = r;
+      }).catch(() => {});
     }
   }
 
-  function handleSetupRace(race_id: string) {
-    // Pre-fill the pipeline form with this race ID and switch to pipeline tab
-    const current = pipeline.raceId.trim();
-    if (current && !current.split(",").map((s) => s.trim()).includes(race_id)) {
-      pipelineActions.setRaceId(`${current}, ${race_id}`);
-    } else {
-      pipelineActions.setRaceId(race_id);
-    }
-    activeTab = "pipeline";
+  function handleRacePanelViewRun(event: CustomEvent<string>) {
+    racePanelOpen = false;
+    setDetailRunId(event.detail);
   }
 
-  async function handleRemoveQueueItem(item: QueueItem) {
-    try {
-      await apiService.removeQueueItem(item.id);
-      await refreshQueue();
-    } catch (e) {
-      addLog("error", `Failed to remove queue item: ${e}`);
+  function handleBatchQueued(event: CustomEvent<{ added: number; errors: string[] }>) {
+    batchModalOpen = false;
+    batchRaceIds = [];
+    if (event.detail.added > 0) {
+      addLog("info", `Queued ${event.detail.added} races`);
     }
-  }
-
-  async function handleClearFinishedQueue() {
-    try {
-      const result = await apiService.clearFinishedQueue();
-      if (result.removed > 0) {
-        addLog("info", `Cleared ${result.removed} finished queue items`);
-      }
-      await refreshQueue();
-    } catch (e) {
-      addLog("error", `Failed to clear queue: ${e}`);
+    for (const err of event.detail.errors) {
+      addLog("warning", err);
     }
-  }
-
-  async function handleDeleteRun(run: RunHistoryItem) {
-    if (run.status === "running" || run.status === "pending") {
-      if (!confirm(`Cancel this active run for "${(run.payload?.race_id) ?? run.run_id}"?`)) return;
-    } else {
-      if (!confirm(`Delete run history for "${(run.payload?.race_id) ?? run.run_id}"? This cannot be undone.`)) return;
-    }
-    try {
-      await apiService.deleteRun(run.run_id);
-      addLog("info", `Deleted run: ${run.run_id.substring(0, 8)}`);
-      if (detailRunId === run.run_id) setDetailRunId(null);
-      await debouncedRefresh();
-    } catch (e) {
-      logger.error("Failed to delete run:", e);
-      addLog("error", `Failed to delete run: ${e}`);
-    }
-  }
-
-  async function handleDeleteRace(race: PublishedRaceSummary) {
-    if (!confirm(`Delete race "${race.id}"? This removes the published data and cannot be undone.`)) {
-      return;
-    }
-    try {
-      await apiService.deletePublishedRace(race.id);
-      addLog("info", `Deleted race: ${race.id}`);
-      await racesTabRef?.refresh();
-    } catch (e) {
-      logger.error("Failed to delete race:", e);
-      addLog("error", `Failed to delete race ${race.id}: ${e}`);
-    }
-  }
-
-  async function handleDeleteRaceById(raceId: string) {
-    if (!confirm(`Delete race "${raceId}"? This removes the published data and cannot be undone.`)) {
-      return;
-    }
-    try {
-      await apiService.deletePublishedRace(raceId);
-      addLog("info", `Deleted race: ${raceId}`);
-      await racesTabRef?.refresh();
-    } catch (e) {
-      logger.error("Failed to delete race:", e);
-      addLog("error", `Failed to delete race ${raceId}: ${e}`);
-    }
-  }
-
-  async function handleExportRace(race: PublishedRaceSummary) {
-    try {
-      const data = await apiService.getPublishedRace(race.id);
-      downloadAsJson(data, `${race.id}.json`);
-      addLog("info", `Exported race: ${race.id}`);
-    } catch (e) {
-      logger.error("Failed to export race:", e);
-      addLog("error", `Failed to export race ${race.id}: ${e}`);
-    }
-  }
-
-  function handleStopExecution() {
-    if (pipeline.currentRunId && websocket.ws && websocket.ws.readyState === WebSocket.OPEN) {
-      websocketActions.send({ type: "stop_run", run_id: pipeline.currentRunId });
-    }
-    pipelineActions.setExecutionState(false);
-    stopElapsedTimer();
+    racesTabRef?.refresh();
+    refreshQueue();
   }
 
   function handleLogFilterChange(event: { detail: "all" | "debug" | "info" | "warning" | "error" }) {
@@ -548,11 +379,6 @@
       modalData = { error: String(e), ...artifact };
     }
     modalLoading = false;
-  }
-
-  async function handleRunDetails(event: { detail: RunHistoryItem }) {
-    const run = event.detail;
-    setDetailRunId(run.run_id);
   }
 
   function closeModal() {
@@ -610,6 +436,33 @@
   <!-- Tab navigation -->
   <AdminTabs bind:activeTab alertCount={alertBadgeCount} />
 
+  <!-- Running banner (visible across tabs) -->
+  {#if pipeline.isExecuting}
+    <div class="mb-4 card p-4 border-blue-200 bg-blue-50 dark:bg-blue-900/20">
+      <div class="flex items-center gap-3">
+        <svg class="animate-spin h-5 w-5 text-blue-600 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
+          <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+        </svg>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-semibold text-blue-900 dark:text-blue-200">
+            Researching{queueRunning ? ` ${queueRunning.race_id}` : ''}…
+          </p>
+          <p class="text-xs text-blue-700 dark:text-blue-300 mt-0.5">
+            {pipeline.progressMessage || 'Running'}
+            {#if queuePending > 0} · {queuePending} more in queue{/if}
+          </p>
+        </div>
+        <div class="text-right shrink-0">
+          <p class="text-lg font-bold text-blue-800 dark:text-blue-200">{pipeline.progress}%</p>
+        </div>
+      </div>
+      <div class="mt-2 w-full bg-blue-200 dark:bg-blue-800 rounded-full h-1.5">
+        <div class="bg-blue-600 h-1.5 rounded-full transition-all duration-700" style="width: {pipeline.progress}%" />
+      </div>
+    </div>
+  {/if}
+
   <!-- Dashboard tab -->
   {#if activeTab === "dashboard"}
     <DashboardTab
@@ -620,16 +473,6 @@
 
   <!-- Races tab -->
   {#if activeTab === "races"}
-    <RacesTab
-      bind:this={racesTabRef}
-      onUpdateRace={handleSetupRace}
-      onDeleteRace={handleDeleteRaceById}
-      activeRaceIds={activeQueuedRaceIds}
-    />
-  {/if}
-
-  <!-- Pipeline tab -->
-  {#if activeTab === "pipeline"}
     {#if showingDetail && detailRunId}
       <RunDetailPanel
         runId={detailRunId}
@@ -641,251 +484,16 @@
         on:back={() => setDetailRunId(null)}
       />
     {:else}
-      <!-- Queue + Controls -->
-      <div class="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-5">
-        <!-- Left: Controls -->
-        <div class="space-y-4">
-          <!-- Research a Race -->
-          <div class="card p-4">
-            <h3 class="text-base font-semibold text-content mb-3">Research a Race</h3>
-            <div class="space-y-3">
-              <div>
-                <div class="flex gap-2">
-                  <input
-                    id="raceId"
-                    type="text"
-                    value={pipeline.raceId}
-                    on:input={handleRaceIdInput}
-                    on:keydown={handleRaceIdKeydown}
-                    placeholder="e.g. ga-senate-2026, tx-governor-2026"
-                    class="flex-1 px-3 py-2 border border-stroke rounded-lg text-sm font-mono bg-surface text-content focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                  />
-                  <button
-                    type="button"
-                    on:click={handleAddToQueue}
-                    disabled={!pipeline.raceId.trim() || addingToQueue}
-                    title="Add to queue"
-                    class="btn-primary px-4 py-2 text-sm rounded-lg whitespace-nowrap disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-1.5"
-                  >
-                    {#if addingToQueue}
-                      <svg class="animate-spin h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
-                        <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                      </svg>
-                      Queuing…
-                    {:else}
-                      + Queue
-                    {/if}
-                  </button>
-                </div>
-                <p class="mt-1 text-xs text-content-faint">
-                  Comma-separate multiple IDs · <kbd class="px-1 py-0.5 bg-surface-alt rounded text-xs">Enter</kbd> to add
-                </p>
-              </div>
+      <RacesTab
+        bind:this={racesTabRef}
+        onSelectRace={handleSelectRace}
+        onBatchQueue={handleBatchQueue}
+        on:addRaces={handleAddRaces}
+      />
 
-              <!-- Mode Toggles -->
-              <div class="flex items-center gap-5">
-                <label class="flex items-center gap-2 text-sm text-content-muted cursor-pointer">
-                  <input type="checkbox" bind:checked={cheapMode} class="rounded border-stroke text-blue-600 focus:ring-blue-500" />
-                  <span>Cheap Mode</span>
-                </label>
-              </div>
-
-              <!-- Candidate Limits -->
-              <div class="flex items-center gap-4 flex-wrap">
-                <div class="flex items-center gap-2">
-                  <label for="maxCandidates" class="text-xs text-content-muted whitespace-nowrap">Max candidates</label>
-                  <input
-                    id="maxCandidates"
-                    type="number"
-                    min="1"
-                    placeholder="All"
-                    value={maxCandidates ?? ''}
-                    on:input={(e) => { const v = parseInt(e.currentTarget.value); maxCandidates = isNaN(v) ? null : v; }}
-                    class="w-16 px-2 py-1 border border-stroke rounded text-xs bg-surface text-content focus:outline-none focus:border-blue-500"
-                  />
-                </div>
-                <label class="flex items-center gap-1.5 text-xs text-content-muted cursor-pointer">
-                  <input type="checkbox" bind:checked={targetNoInfo} class="rounded border-stroke text-blue-600 focus:ring-blue-500 h-3.5 w-3.5" />
-                  <span>Prioritize no-info candidates</span>
-                </label>
-              </div>
-
-              <!-- Advanced Model Config -->
-              <button
-                type="button"
-                on:click={() => (showAdvanced = !showAdvanced)}
-                class="text-xs text-blue-600 hover:text-blue-800 flex items-center gap-1"
-              >
-                <svg class="w-3 h-3 transition-transform {showAdvanced ? 'rotate-90' : ''}" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-                </svg>
-                Advanced Model Settings
-              </button>
-              {#if showAdvanced}
-                <div class="space-y-2.5 border-t border-stroke pt-2.5">
-                  <p class="text-xs text-content-faint">Leave on default, or override for this run.</p>
-                  <div>
-                    <label for="researchModel" class="block text-xs font-medium text-content-muted mb-1">Research (OpenAI)</label>
-                    <select id="researchModel" bind:value={researchModel}
-                      class="w-full px-2 py-1.5 border border-stroke rounded text-xs bg-surface text-content focus:outline-none focus:border-blue-500">
-                      <option value="">Default — {cheapMode ? 'gpt-5.4-mini' : 'gpt-5.4'}</option>
-                      <option value="gpt-5.4">gpt-5.4 · best quality</option>
-                      <option value="gpt-5.4-mini">gpt-5.4-mini · fast & smart</option>
-                      <option value="gpt-5-nano">gpt-5-nano · fastest, cheapest</option>
-                    </select>
-                  </div>
-                  <div class="grid grid-cols-3 gap-2">
-                    <div>
-                      <label for="claudeModel" class="block text-xs font-medium text-content-muted mb-1">Claude</label>
-                      <select id="claudeModel" bind:value={claudeModel}
-                        class="w-full px-2 py-1.5 border border-stroke rounded text-xs bg-surface text-content focus:outline-none focus:border-blue-500">
-                        <option value="">Default</option>
-                        <option value="claude-sonnet-4-6">Sonnet 4.6</option>
-                        <option value="claude-haiku-4-5-20251001">Haiku 4.5</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label for="geminiModel" class="block text-xs font-medium text-content-muted mb-1">Gemini</label>
-                      <select id="geminiModel" bind:value={geminiModel}
-                        class="w-full px-2 py-1.5 border border-stroke rounded text-xs bg-surface text-content focus:outline-none focus:border-blue-500">
-                        <option value="">Default</option>
-                        <option value="gemini-3-flash-preview">3 Flash</option>
-                        <option value="gemini-3.1-flash-lite-preview">3.1 Lite</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label for="grokModel" class="block text-xs font-medium text-content-muted mb-1">Grok</label>
-                      <select id="grokModel" bind:value={grokModel}
-                        class="w-full px-2 py-1.5 border border-stroke rounded text-xs bg-surface text-content focus:outline-none focus:border-blue-500">
-                        <option value="">Default</option>
-                        <option value="grok-3">Grok 3</option>
-                        <option value="grok-3-mini">Grok Mini</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              {/if}
-
-              <!-- Step Configuration -->
-              <button
-                type="button"
-                on:click={() => (showStepConfig = !showStepConfig)}
-                class="text-xs text-blue-600 hover:text-blue-800 flex items-center gap-1"
-              >
-                <svg class="w-3 h-3 transition-transform {showStepConfig ? 'rotate-90' : ''}" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-                </svg>
-                Pipeline Steps {PIPELINE_STEPS.every((s) => stepToggles[s.id]) ? '' : `(${PIPELINE_STEPS.filter((s) => stepToggles[s.id]).length}/${PIPELINE_STEPS.length})`}
-              </button>
-              {#if showStepConfig}
-                <div class="border-t border-stroke pt-2.5 space-y-2">
-                  <p class="text-xs text-content-faint">
-                    Toggle steps on/off. Disabled steps are skipped. Discovery always runs.
-                  </p>
-                  <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                    {#each PIPELINE_STEPS as step}
-                      <label class="flex items-center gap-1.5 text-xs text-content-muted cursor-pointer select-none {step.id === 'discovery' ? 'opacity-60 cursor-not-allowed' : ''}">
-                        <input
-                          type="checkbox"
-                          bind:checked={stepToggles[step.id]}
-                          disabled={step.id === "discovery"}
-                          class="rounded border-stroke text-blue-600 focus:ring-blue-500 h-3.5 w-3.5"
-                        />
-                        <span>{step.label}</span>
-                      </label>
-                    {/each}
-                  </div>
-                  <div class="flex gap-2">
-                    <button
-                      type="button"
-                      class="text-xs text-blue-600 hover:underline"
-                      on:click={() => { PIPELINE_STEPS.forEach((s) => { stepToggles[s.id] = true; }); stepToggles = stepToggles; }}
-                    >All on</button>
-                    <button
-                      type="button"
-                      class="text-xs text-blue-600 hover:underline"
-                      on:click={() => { PIPELINE_STEPS.forEach((s) => { stepToggles[s.id] = s.id === "discovery"; }); stepToggles = stepToggles; }}
-                    >Discovery only</button>
-                  </div>
-                </div>
-              {/if}
-            </div>
-          </div>
-          {#if pipeline.isExecuting}
-            <button
-              type="button"
-              on:click={() => { if (pipeline.currentRunId) setDetailRunId(pipeline.currentRunId); }}
-              class="w-full card p-4 border-blue-200 bg-blue-50 hover:bg-blue-100 transition-colors text-left"
-            >
-              <div class="flex items-center gap-3">
-                <svg class="animate-spin h-5 w-5 text-blue-600 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
-                  <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                </svg>
-                <div class="flex-1 min-w-0">
-                  <p class="text-sm font-semibold text-blue-900">
-                    Researching{queueRunning ? ` ${queueRunning.race_id}` : ''}…
-                  </p>
-                  <p class="text-xs text-blue-700 mt-0.5">
-                    {pipeline.progressMessage || 'Running'}
-                    {#if queuePending > 0} · {queuePending} more in queue{/if}
-                  </p>
-                </div>
-                <div class="text-right shrink-0">
-                  <p class="text-lg font-bold text-blue-800">{pipeline.progress}%</p>
-                </div>
-              </div>
-              <div class="mt-2 w-full bg-blue-200 rounded-full h-1.5">
-                <div class="bg-blue-600 h-1.5 rounded-full transition-all duration-700" style="width: {pipeline.progress}%" />
-              </div>
-            </button>
-          {/if}
-
-          <!-- Server Queue -->
-          {#if queueItems.length > 0}
-            <div class="card p-3">
-              <div class="flex items-center justify-between mb-2">
-                <span class="text-xs font-semibold text-content-muted">
-                  Queue — {queueFinished}/{queueItems.length} done
-                  {#if queuePending > 0}
-                    <span class="ml-1 text-blue-600">({queuePending} pending)</span>
-                  {/if}
-                </span>
-                {#if queueFinished > 0}
-                  <button type="button" on:click={handleClearFinishedQueue} class="text-xs text-red-500 hover:text-red-700">
-                    Clear done
-                  </button>
-                {/if}
-              </div>
-              <div class="space-y-1 max-h-48 overflow-y-auto">
-                {#each queueItems as item (item.id)}
-                  <div class="flex items-center gap-2 py-1">
-                    <span class="text-xs font-mono text-content-muted flex-1 truncate">{item.race_id}</span>
-                    <span class="text-xs px-1.5 py-0.5 rounded flex-shrink-0 {
-                      item.status === 'completed' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300' :
-                      item.status === 'failed' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300' :
-                      item.status === 'cancelled' ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300' :
-                      item.status === 'running' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 animate-pulse' :
-                      'bg-surface-alt text-content-subtle'}">
-                      {item.status}
-                    </span>
-                    {#if item.status === 'pending' || item.status === 'running'}
-                      <button type="button" on:click={() => handleRemoveQueueItem(item)} class="flex-shrink-0 text-gray-400 hover:text-red-500" title="Cancel">
-                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-                        </svg>
-                      </button>
-                    {:else if item.status === 'failed' && item.error}
-                      <span class="text-xs text-red-400 truncate max-w-[7rem]" title={item.error}>{item.error}</span>
-                    {/if}
-                  </div>
-                {/each}
-              </div>
-            </div>
-          {/if}
-
-          <!-- Live Logs (compact) -->
+      <!-- Live Logs (collapsible, below races grid) -->
+      {#if logs.length > 0}
+        <div class="mt-4">
           <LiveLogs
             {logs}
             logFilter={pipeline.logFilter}
@@ -894,94 +502,30 @@
             on:clear-logs={handleClearLogs}
           />
         </div>
-
-        <!-- Right: Run History -->
-        <div class="space-y-4">
-          <div class="card p-0">
-            <div class="px-4 py-3 border-b border-stroke flex items-center justify-between">
-              <h3 class="text-sm font-semibold text-content">All Runs</h3>
-              <button
-                on:click={debouncedRefresh}
-                disabled={pipeline.isRefreshing}
-                class="text-xs text-blue-600 hover:text-blue-800 disabled:text-gray-400 flex items-center gap-1"
-              >
-                {#if pipeline.isRefreshing}
-                  <svg class="animate-spin h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
-                    <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                  </svg>
-                {/if}
-                Refresh
-              </button>
-            </div>
-
-            {#if pipeline.runHistory.length === 0}
-              <div class="p-8 text-center text-content-faint text-sm">No runs yet — queue a race to get started</div>
-            {:else}
-              <div class="divide-y divide-stroke max-h-[calc(100vh-300px)] overflow-auto">
-                {#each pipeline.runHistory as run (run.run_id)}
-                  {@const rId = (run.payload?.race_id) ?? `run-${run.display_id}`}
-                  {@const isActive = run.status === "running"}
-                  <div class="relative group {isActive ? 'bg-blue-50 dark:bg-blue-900/20 border-l-2 border-l-blue-500' : ''}">
-                    <button
-                      type="button"
-                      class="w-full text-left px-4 py-3 pr-10 transition-colors hover:bg-surface-alt"
-                      on:click={() => setDetailRunId(run.run_id)}
-                    >
-                      <div class="flex items-center gap-2">
-                        {#if isActive}
-                          <svg class="animate-spin h-3.5 w-3.5 text-blue-500 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
-                            <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                          </svg>
-                        {/if}
-                        <span class="text-sm font-mono font-medium text-content flex-1 truncate">{rId}</span>
-                        <span class="text-xs px-2 py-0.5 rounded-full shrink-0 {
-                          run.status === 'completed' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300' :
-                          run.status === 'failed' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300' :
-                          run.status === 'running' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300' :
-                          run.status === 'cancelled' ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300' :
-                          'bg-surface-alt text-content-subtle'}">
-                          {run.status ?? "unknown"}
-                        </span>
-                      </div>
-                      <div class="flex items-center gap-3 mt-1 text-xs text-content-faint">
-                        <span>{new Date(run.started_at).toLocaleString(undefined, { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })}</span>
-                        {#if run.duration_ms}
-                          {@const dur = run.duration_ms}
-                          <span>· {dur < 60000 ? `${Math.round(dur / 1000)}s` : `${Math.floor(dur / 60000)}m ${Math.round((dur % 60000) / 1000)}s`}</span>
-                        {/if}
-                        {#if run.options?.research_model}
-                          <span class="ml-auto font-mono">{run.options.research_model}</span>
-                        {/if}
-                        {#if run.options?.enable_review}
-                          <span title="AI review enabled" class="text-purple-400">✦</span>
-                        {/if}
-                      </div>
-                      {#if run.error}
-                        <p class="text-xs text-red-500 mt-1 truncate">{run.error}</p>
-                      {/if}
-                    </button>
-                    <button
-                      type="button"
-                      class="absolute top-1/2 -translate-y-1/2 right-2 p-1 rounded opacity-0 group-hover:opacity-100 text-content-faint hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all"
-                      on:click={() => handleDeleteRun(run)}
-                      title={run.status === 'running' || run.status === 'pending' ? 'Cancel run' : 'Delete run'}
-                    >
-                      <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
-                      </svg>
-                    </button>
-                  </div>
-                {/each}
-              </div>
-            {/if}
-          </div>
-        </div>
-      </div>
+      {/if}
     {/if}
   {/if}
 </div>
+
+<!-- Race Panel (slide-over) -->
+{#if selectedRace}
+  <RacePanel
+    race={selectedRace}
+    open={racePanelOpen}
+    on:close={handleRacePanelClose}
+    on:runStarted={handleRacePanelRunStarted}
+    on:updated={handleRacePanelUpdated}
+    on:viewRun={handleRacePanelViewRun}
+  />
+{/if}
+
+<!-- Batch Queue Modal -->
+<BatchQueueModal
+  open={batchModalOpen}
+  raceIds={batchRaceIds}
+  on:close={() => { batchModalOpen = false; batchRaceIds = []; }}
+  on:queued={handleBatchQueued}
+/>
 
 <!-- Modal -->
 <PipelineModal

@@ -6,6 +6,7 @@ import re
 import sys
 import uuid
 from contextlib import asynccontextmanager
+from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List
 
@@ -35,6 +36,7 @@ from .logging_manager import logging_manager
 from .models import RunInfo, RunOptions, RunRequest, RunResponse
 from .pipeline_runner import run_step_async
 from .queue_manager import queue_manager
+from .race_manager import RaceRecord, race_manager
 from .run_manager import run_manager
 from .settings import settings
 from .step_registry import REGISTRY
@@ -50,6 +52,16 @@ async def lifespan(app: FastAPI):
     """Startup and shutdown events."""
     loop = asyncio.get_running_loop()
     logging_manager.set_main_loop(loop)
+
+    # Hydrate race records from existing files/GCS
+    try:
+        if settings.is_cloud_run and settings.gcs_bucket:
+            race_manager.hydrate_from_gcs()
+        else:
+            race_manager.hydrate_from_files()
+    except Exception:
+        logging.exception("Race hydration failed — continuing with empty race list")
+
     # Resume queue processing if there are pending items from before restart
     if queue_manager.get_next_pending():
         asyncio.create_task(queue_manager.process_next())
@@ -410,6 +422,284 @@ async def delete_draft_race(race_id: str) -> Dict[str, Any]:
     return {"message": f"Draft {race_id} deleted", "id": race_id}
 
 
+# ---------------------------------------------------------------------------
+# Unified Race Management API (Phase 1-4)
+# ---------------------------------------------------------------------------
+
+
+class RaceQueueRequest(BaseModel):
+    """Request body for queueing races."""
+
+    race_ids: List[str]
+    options: RunOptions | None = None
+
+
+@app.get("/api/races", dependencies=[Depends(verify_token)])
+async def list_all_races() -> Dict[str, Any]:
+    """List all race records (unified view: published, draft, queued, running, etc.)."""
+    races = race_manager.list_races(500)
+    return {"races": [r.model_dump(mode="json") for r in races]}
+
+
+@app.get("/api/races/{race_id}", dependencies=[Depends(verify_token)])
+async def get_race_record(race_id: str) -> Dict[str, Any]:
+    """Get a single race record."""
+    _validate_race_id(race_id)
+    record = race_manager.get_race(race_id)
+    if not record:
+        raise HTTPException(status_code=404, detail="Race not found")
+    return record.model_dump(mode="json")
+
+
+@app.delete("/api/races/{race_id}", dependencies=[Depends(verify_token)])
+async def delete_race_record(race_id: str) -> Dict[str, Any]:
+    """Delete a race record and all associated data (published, draft, runs)."""
+    _validate_race_id(race_id)
+
+    # Delete published + draft files
+    published_dir = ROOT / "data" / "published"
+    drafts_dir = ROOT / "data" / "drafts"
+    for d in [published_dir, drafts_dir]:
+        path = d / f"{race_id}.json"
+        if path.exists():
+            path.unlink()
+
+    _delete_race_gcs(race_id, "races")
+    _delete_race_gcs(race_id, "drafts")
+
+    race_manager.delete_race(race_id)
+    return {"message": f"Race {race_id} deleted", "id": race_id}
+
+
+@app.post("/api/races/queue", dependencies=[Depends(verify_token)])
+async def queue_races(request: RaceQueueRequest) -> Dict[str, Any]:
+    """Queue races for pipeline processing (unified — replaces POST /queue)."""
+    options = request.options.model_dump(exclude_unset=True) if request.options else {}
+    added = []
+    errors = []
+
+    valid_ids = []
+    for race_id in request.race_ids:
+        race_id = race_id.strip()
+        if not race_id:
+            continue
+        try:
+            _validate_race_id(race_id)
+            valid_ids.append(race_id)
+        except HTTPException:
+            errors.append({"race_id": race_id, "error": "Invalid race_id format"})
+
+    # Update race_manager records
+    records = race_manager.queue_races(valid_ids, options)
+
+    # Also add to queue_manager for processing
+    for record in records:
+        if record.status == "queued":
+            try:
+                queue_manager.add(record.race_id, options)
+                added.append(record.model_dump(mode="json"))
+            except ValueError as e:
+                errors.append({"race_id": record.race_id, "error": str(e)})
+        else:
+            added.append(record.model_dump(mode="json"))
+
+    # Start processing
+    asyncio.create_task(queue_manager.process_next())
+
+    return {"added": added, "errors": errors}
+
+
+@app.post("/api/races/{race_id}/cancel", dependencies=[Depends(verify_token)])
+async def cancel_race_queue(race_id: str) -> Dict[str, Any]:
+    """Cancel a queued or running race."""
+    _validate_race_id(race_id)
+    race = race_manager.get_race(race_id)
+    if not race or race.status not in ("queued", "running"):
+        raise HTTPException(status_code=404, detail="Race is not queued or running")
+
+    # Cancel in queue_manager
+    for item in queue_manager.get_all():
+        if item.race_id == race_id and item.status in ("pending", "running"):
+            queue_manager.cancel(item.id)
+            break
+
+    record = race_manager.cancel_race(race_id)
+    return {"message": f"Race {race_id} cancelled", "race": record.model_dump(mode="json") if record else None}
+
+
+@app.post("/api/races/{race_id}/run", dependencies=[Depends(verify_token)])
+async def run_race_pipeline(race_id: str, options: RunOptions | None = None) -> Dict[str, Any]:
+    """Run the pipeline for a single race (direct, not queued)."""
+    _validate_race_id(race_id)
+
+    run_request = RunRequest(
+        payload={"race_id": race_id},
+        options=options,
+    )
+    run_info = run_manager.create_run(["agent"], run_request)
+
+    # Update race record
+    race_manager.start_run(race_id, run_info.run_id)
+    race_manager.save_run(race_id, run_info)
+
+    asyncio.create_task(_execute_run_async("agent", run_request, run_info.run_id))
+
+    return {"run_id": run_info.run_id, "status": "started", "race_id": race_id}
+
+
+@app.post("/api/races/{race_id}/publish", dependencies=[Depends(verify_token)])
+async def publish_race(race_id: str) -> Dict[str, Any]:
+    """Publish a race (copy draft -> published). Updates race record."""
+    _validate_race_id(race_id)
+
+    # Load draft data
+    draft_data = None
+    drafts_dir = ROOT / "data" / "drafts"
+    draft_path = drafts_dir / f"{race_id}.json"
+    if draft_path.exists():
+        with draft_path.open("r", encoding="utf-8") as f:
+            draft_data = json.load(f)
+
+    if draft_data is None:
+        draft_data = _get_race_gcs(race_id, "drafts")
+
+    if draft_data is None:
+        raise HTTPException(status_code=404, detail="Draft not found")
+
+    # Write to published (local)
+    published_dir = ROOT / "data" / "published"
+    published_dir.mkdir(parents=True, exist_ok=True)
+    published_path = published_dir / f"{race_id}.json"
+    json_str = json.dumps(draft_data, indent=2, default=str)
+    with published_path.open("w", encoding="utf-8") as f:
+        f.write(json_str)
+
+    # Copy to published (GCS)
+    gcs_bucket = settings.gcs_bucket
+    if gcs_bucket:
+        try:
+            from google.cloud import storage as gcs  # type: ignore
+
+            client = gcs.Client()
+            bucket = client.bucket(gcs_bucket)
+            blob = bucket.blob(f"races/{race_id}.json")
+            blob.upload_from_string(json_str, content_type="application/json")
+        except Exception:
+            logging.exception("Failed to publish %s to GCS", race_id)
+
+    # Update race record
+    race_manager.publish_race(race_id)
+    race_manager.update_race_metadata(race_id, draft_data)
+
+    return {"message": f"Race {race_id} published", "id": race_id}
+
+
+@app.post("/api/races/{race_id}/unpublish", dependencies=[Depends(verify_token)])
+async def unpublish_race_api(race_id: str) -> Dict[str, Any]:
+    """Unpublish a race (remove from published, keep draft)."""
+    _validate_race_id(race_id)
+    deleted = False
+    published_dir = ROOT / "data" / "published"
+    path = published_dir / f"{race_id}.json"
+    if path.exists():
+        path.unlink()
+        deleted = True
+    if _delete_race_gcs(race_id, "races"):
+        deleted = True
+    if not deleted:
+        raise HTTPException(status_code=404, detail="Published race not found")
+
+    race_manager.unpublish_race(race_id)
+    return {"message": f"Race {race_id} unpublished", "id": race_id}
+
+
+@app.get("/api/races/{race_id}/runs", dependencies=[Depends(verify_token)])
+async def list_race_runs(race_id: str, limit: int = 20) -> Dict[str, Any]:
+    """List runs for a specific race (from subcollection)."""
+    _validate_race_id(race_id)
+    runs = race_manager.list_runs(race_id, limit)
+    # Also include active runs from run_manager
+    active_runs = [
+        r for r in run_manager.list_active_runs()
+        if r.payload.get("race_id") == race_id
+    ]
+    active_ids = {r.run_id for r in active_runs}
+    combined = active_runs + [r for r in runs if r.run_id not in active_ids]
+    combined.sort(key=lambda r: r.started_at or datetime.min, reverse=True)
+
+    return {
+        "runs": [r.model_dump(mode="json") for r in combined[:limit]],
+        "count": len(combined[:limit]),
+    }
+
+
+@app.get("/api/races/{race_id}/runs/{run_id}", dependencies=[Depends(verify_token)])
+async def get_race_run(race_id: str, run_id: str) -> Dict[str, Any]:
+    """Get details of a specific run for a race."""
+    _validate_race_id(race_id)
+    # Check active first
+    run_info = run_manager.get_run(run_id)
+    if run_info:
+        return run_info.model_dump(mode="json")
+    # Then subcollection
+    run_info = race_manager.get_run(race_id, run_id)
+    if not run_info:
+        raise HTTPException(status_code=404, detail="Run not found")
+    return run_info.model_dump(mode="json")
+
+
+@app.delete("/api/races/{race_id}/runs/{run_id}", dependencies=[Depends(verify_token)])
+async def delete_race_run(race_id: str, run_id: str) -> Dict[str, Any]:
+    """Cancel or delete a run for a race."""
+    _validate_race_id(race_id)
+    run_info = run_manager.get_run(run_id)
+    if run_info and run_info.status in ("pending", "running"):
+        run_manager.cancel_run(run_id)
+        await logging_manager.send_run_status(run_id, "cancelled")
+        return {"message": "Run cancelled", "run_id": run_id}
+
+    if race_manager.delete_run(race_id, run_id):
+        return {"message": "Run deleted", "run_id": run_id}
+
+    # Fallback to old run_manager delete
+    if run_manager.delete_run(run_id):
+        return {"message": "Run deleted", "run_id": run_id}
+
+    raise HTTPException(status_code=404, detail="Run not found")
+
+
+@app.get("/api/races/{race_id}/data", dependencies=[Depends(verify_token)])
+async def get_race_data(race_id: str, draft: bool = False) -> Dict[str, Any]:
+    """Get full race JSON content (published or draft). For export/download."""
+    _validate_race_id(race_id)
+
+    if draft:
+        drafts_dir = ROOT / "data" / "drafts"
+        path = drafts_dir / f"{race_id}.json"
+        if path.exists():
+            with path.open("r", encoding="utf-8") as f:
+                return json.load(f)
+        data = _get_race_gcs(race_id, "drafts")
+        if data:
+            return data
+        raise HTTPException(status_code=404, detail="Draft not found")
+
+    published_dir = ROOT / "data" / "published"
+    path = published_dir / f"{race_id}.json"
+    if path.exists():
+        with path.open("r", encoding="utf-8") as f:
+            return json.load(f)
+    data = _get_race_gcs(race_id, "races")
+    if data:
+        return data
+    raise HTTPException(status_code=404, detail="Race data not found")
+
+
+# ---------------------------------------------------------------------------
+# Legacy agent endpoint (kept for backward compatibility, delegates to unified)
+# ---------------------------------------------------------------------------
+
+
 @app.post("/api/run", dependencies=[Depends(verify_token)])
 async def run_agent_endpoint(request: AgentRequest) -> Dict[str, Any]:
     """Run the agent pipeline for a race.
@@ -423,6 +713,10 @@ async def run_agent_endpoint(request: AgentRequest) -> Dict[str, Any]:
         options=request.options,
     )
     run_info = run_manager.create_run(["agent"], run_request)
+
+    # Update race record
+    race_manager.start_run(request.race_id, run_info.run_id)
+    race_manager.save_run(request.race_id, run_info)
 
     # Start execution in background
     asyncio.create_task(_execute_run_async("agent", run_request, run_info.run_id))

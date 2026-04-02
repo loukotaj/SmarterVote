@@ -7,6 +7,7 @@ from urllib.parse import urlparse, quote
 
 import httpx
 
+from .ballotpedia import lookup_candidate_image as _ballotpedia_lookup
 from .utils import make_logger
 
 logger = logging.getLogger("pipeline")
@@ -82,54 +83,77 @@ async def _check_url_accessible(url: str) -> Tuple[bool, str]:
         return False, url
 
 
-async def _lookup_wikipedia_image(candidate_name: str) -> Optional[str]:
+async def _lookup_wikipedia_image(candidate_name: str, context: str = "") -> Optional[str]:
     """Query the Wikipedia API to get a candidate's headshot URL.
 
     Uses opensearch to find the best matching page, then pageimages to get the
     image. Returns a direct upload.wikimedia.org URL, or None if not found.
+
+    If ``context`` is provided (e.g. "Senator Arkansas Republican") it is
+    appended to a second search pass so that a common name like "Mike Johnson"
+    can be disambiguated when the bare-name search returns no thumbnail.
     """
     try:
         async with httpx.AsyncClient(timeout=10, follow_redirects=True) as client:
-            # Step 1: find the most likely Wikipedia page title
-            search_resp = await client.get(
-                "https://en.wikipedia.org/w/api.php",
-                params={
-                    "action": "opensearch",
-                    "search": candidate_name,
-                    "limit": "3",
-                    "format": "json",
-                },
-                headers={"User-Agent": _BROWSER_UA},
-            )
-            search_resp.raise_for_status()
-            search_data = search_resp.json()
-            titles = search_data[1] if len(search_data) > 1 else []
-            if not titles:
-                return None
 
-            # Step 2: for each candidate title, try to fetch a pageimage
-            for title in titles:
-                img_resp = await client.get(
+            async def _search_and_fetch(query: str) -> Optional[str]:
+                search_resp = await client.get(
                     "https://en.wikipedia.org/w/api.php",
                     params={
-                        "action": "query",
-                        "titles": title,
-                        "prop": "pageimages",
-                        "pithumbsize": "400",
+                        "action": "opensearch",
+                        "search": query,
+                        "limit": "3",
                         "format": "json",
-                        "redirects": "1",
                     },
                     headers={"User-Agent": _BROWSER_UA},
                 )
-                img_resp.raise_for_status()
-                data = img_resp.json()
-                for page in data.get("query", {}).get("pages", {}).values():
-                    thumb = page.get("thumbnail", {}).get("source", "")
-                    if thumb and "upload.wikimedia.org" in thumb:
-                        return thumb
+                search_resp.raise_for_status()
+                search_data = search_resp.json()
+                titles = search_data[1] if len(search_data) > 1 else []
+                for title in titles:
+                    img_resp = await client.get(
+                        "https://en.wikipedia.org/w/api.php",
+                        params={
+                            "action": "query",
+                            "titles": title,
+                            "prop": "pageimages",
+                            "pithumbsize": "400",
+                            "format": "json",
+                            "redirects": "1",
+                        },
+                        headers={"User-Agent": _BROWSER_UA},
+                    )
+                    img_resp.raise_for_status()
+                    data = img_resp.json()
+                    for page in data.get("query", {}).get("pages", {}).values():
+                        thumb = page.get("thumbnail", {}).get("source", "")
+                        if thumb and "upload.wikimedia.org" in thumb:
+                            return thumb
+                return None
+
+            # First pass: bare name search
+            result = await _search_and_fetch(candidate_name)
+            if result:
+                return result
+
+            # Second pass: name + context to disambiguate (e.g. common names)
+            if context:
+                result = await _search_and_fetch(f"{candidate_name} {context}")
+                if result:
+                    return result
+
     except Exception:
         pass
     return None
+
+
+async def _lookup_ballotpedia_image(candidate_name: str) -> Optional[str]:
+    """Return a Ballotpedia thumbnail URL for *candidate_name*, or None.
+
+    Delegates to the shared :mod:`.ballotpedia` module so all Ballotpedia API
+    logic lives in one place.
+    """
+    return await _ballotpedia_lookup(candidate_name)
 
 
 async def _resolve_wikimedia_commons(url: str) -> Optional[str]:
@@ -156,6 +180,8 @@ async def _resolve_single_image(
     on_log: Optional[Callable] = None,
     race_id: Optional[str] = None,
     max_iterations: int = 10,
+    office: str = "",
+    jurisdiction: str = "",
 ) -> None:
     """Validate and resolve image_url for a single candidate in-place."""
     log = make_logger(on_log)
@@ -198,9 +224,14 @@ async def _resolve_single_image(
     else:
         log("info", f"  [{name}] No image URL — starting search")
 
-    # Fast path: query Wikipedia API directly (no LLM call needed)
+    # Build a context string from available race/candidate metadata to help
+    # disambiguate common names (e.g. "Mike Johnson" → "Mike Johnson Senator Louisiana")
+    context_parts = [p for p in (jurisdiction, office) if p]
+    search_context = " ".join(context_parts)
+
+    # Fast path 1: query Wikipedia API directly (no LLM call needed)
     log("info", f"  [{name}] Trying Wikipedia API lookup...")
-    wiki_url = await _lookup_wikipedia_image(name)
+    wiki_url = await _lookup_wikipedia_image(name, context=search_context)
     if wiki_url:
         log("info", f"  [{name}] Wikipedia API returned: {wiki_url[:80]}")
         accessible, final_url = await _check_url_accessible(wiki_url)
@@ -209,9 +240,24 @@ async def _resolve_single_image(
             candidate["image_url"] = store_url
             log("info", f"  [{name}] Wikipedia image confirmed → {store_url[:80]}")
             return
-        log("info", f"  [{name}] Wikipedia URL not accessible — falling back to agent search")
+        log("info", f"  [{name}] Wikipedia URL not accessible — trying Ballotpedia")
     else:
-        log("info", f"  [{name}] Wikipedia API found no image — falling back to agent search")
+        log("info", f"  [{name}] Wikipedia API found no image — trying Ballotpedia")
+
+    # Fast path 2: Ballotpedia API (covers virtually every US candidate)
+    log("info", f"  [{name}] Trying Ballotpedia API lookup...")
+    bp_url = await _lookup_ballotpedia_image(name)
+    if bp_url:
+        log("info", f"  [{name}] Ballotpedia API returned: {bp_url[:80]}")
+        accessible, final_url = await _check_url_accessible(bp_url)
+        if accessible:
+            store_url = final_url if _is_valid_image_url(final_url) else bp_url
+            candidate["image_url"] = store_url
+            log("info", f"  [{name}] Ballotpedia image confirmed → {store_url[:80]}")
+            return
+        log("info", f"  [{name}] Ballotpedia URL not accessible — falling back to agent search")
+    else:
+        log("info", f"  [{name}] Ballotpedia API found no image — falling back to agent search")
 
     # Ask the agent to find a working image URL
     from .prompts import IMAGE_SEARCH_SYSTEM, IMAGE_SEARCH_USER
@@ -274,6 +320,8 @@ async def resolve_candidate_images(
     candidates = [c for c in race_json.get("candidates", []) if isinstance(c, dict)]
     if not candidates:
         return
+    office = race_json.get("office", "")
+    jurisdiction = race_json.get("jurisdiction", "")
     await asyncio.gather(*[
         _resolve_single_image(
             c,
@@ -282,6 +330,8 @@ async def resolve_candidate_images(
             on_log=on_log,
             race_id=race_id,
             max_iterations=max_iterations,
+            office=office,
+            jurisdiction=jurisdiction,
         )
         for c in candidates
     ])

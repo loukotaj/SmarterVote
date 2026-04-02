@@ -315,6 +315,7 @@ class QueueManager:
         """Process a single queue item using the existing pipeline runner."""
         from .models import RunOptions, RunRequest
         from .pipeline_runner import run_step_async
+        from .race_manager import race_manager
         from .run_manager import run_manager
 
         logger = logging.getLogger("pipeline")
@@ -326,6 +327,10 @@ class QueueManager:
         )
         run_info = run_manager.create_run(["agent"], request)
         self.mark_running(item.id, run_info.run_id)
+
+        # Update race record
+        race_manager.start_run(item.race_id, run_info.run_id)
+        race_manager.save_run(item.race_id, run_info)
 
         try:
             result = await run_step_async("agent", request, run_info.run_id)

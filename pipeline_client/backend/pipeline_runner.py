@@ -9,6 +9,7 @@ from typing import Any, Dict, Optional
 
 from .logging_manager import logging_manager
 from .models import RunRequest, RunResponse, RunStatus
+from .race_manager import race_manager
 from .run_manager import run_manager
 from .step_registry import get_handler
 from .storage import new_artifact_id, save_artifact
@@ -154,6 +155,17 @@ async def run_step_async(step: str, request: RunRequest, run_id: Optional[str] =
         # Mark the overall run as completed (persists to Firestore, detaches log handler)
         run_manager.complete_run(run_id, artifact_id, duration_ms)
 
+        # Update race record: mark completed, save run to subcollection
+        if race_id:
+            try:
+                race_manager.complete_run(race_id, run_id, artifact_id)
+                # Save final run state to subcollection
+                final_run = run_manager.get_run(run_id)
+                if final_run:
+                    race_manager.save_run(race_id, final_run)
+            except Exception:
+                context_logger.warning("Failed to update race record after completion", exc_info=True)
+
         # Fire post-run Gemini Flash improvement analysis (non-blocking)
         race_id_for_analysis = request.payload.get("race_id", "unknown")
         asyncio.create_task(
@@ -193,6 +205,17 @@ async def run_step_async(step: str, request: RunRequest, run_id: Optional[str] =
         # Mark step and run as failed
         run_manager.update_step_status(run_id, step, RunStatus.FAILED, error=error_msg, duration_ms=duration_ms)
         run_manager.fail_run(run_id, error_msg, duration_ms)
+
+        # Update race record: mark failed, save run to subcollection
+        if race_id:
+            try:
+                race_manager.fail_run(race_id, run_id, error_msg)
+                final_run = run_manager.get_run(run_id)
+                if final_run:
+                    race_manager.save_run(race_id, final_run)
+            except Exception:
+                context_logger.warning("Failed to update race record after failure", exc_info=True)
+
         await logging_manager.send_run_status(run_id, "failed", error=error_msg, duration_ms=duration_ms)
 
         # Send run_failed message that frontend expects

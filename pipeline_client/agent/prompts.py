@@ -325,14 +325,17 @@ IMAGE_SEARCH_USER = """\
 Find a working, directly-accessible image file URL for: {candidate_name}
 
 SEARCH STRATEGIES (try in order):
-1. Search "{candidate_name} wikipedia" — find their Wikipedia article, then
+1. Search "{candidate_name} site:ballotpedia.org" — Ballotpedia covers nearly
+   every US candidate. Their images are at:
+   https://ballotpedia.org/wiki/images/thumb/.../*.jpg
+   Browse the candidate's Ballotpedia page and extract the direct image URL
+   from the <img> tag in the infobox (NOT the page URL itself).
+2. Search "{candidate_name} wikipedia" — find their Wikipedia article, then
    look for the image URL. Wikipedia images live at:
    https://upload.wikimedia.org/wikipedia/commons/...
    (NOT https://commons.wikimedia.org/wiki/File:... — that is a page, not an image)
-2. Search "{candidate_name} official photo site:house.gov OR site:senate.gov" —
+3. Search "{candidate_name} official photo site:house.gov OR site:senate.gov" —
    government sites sometimes serve .jpg files directly.
-3. Search "{candidate_name} headshot site:ballotpedia.org" — Ballotpedia
-   stores images at https://ballotpedia.org/wiki/images/...
 4. Search "{candidate_name} campaign site photo" — campaign sites often have
    /wp-content/uploads/*.jpg or similar direct image paths.
 
