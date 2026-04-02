@@ -18,8 +18,9 @@
   let selectedOffice: string | null = null;
   let searchQuery = "";
 
-  // jurisdictions that have races
-  $: activeStates = new Set(races.map((r) => r.jurisdiction).filter(Boolean) as string[]);
+  // States that have races — prefer explicit `state` field, fall back to `jurisdiction` for
+  // older records where jurisdiction is already a plain state name.
+  $: activeStates = new Set(races.map((r) => r.state ?? r.jurisdiction).filter(Boolean) as string[]);
 
   // race counts per state for tooltip
   $: raceCounts = races.reduce<Record<string, number>>((acc, r) => {

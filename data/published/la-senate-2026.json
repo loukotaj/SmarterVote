@@ -1,0 +1,315 @@
+{
+  "id": "la-senate-2026",
+  "title": "2026 U.S. Senate race in Louisiana",
+  "office": "United States Senate",
+  "jurisdiction": "Louisiana",
+  "election_date": "2026-11-03",
+  "description": "Louisiana will elect one U.S. senator in 2026 for the Class II seat currently held by Bill Cassidy. The race matters because it will help determine control of the U.S. Senate, and Louisiana is now using closed partisan primaries and a runoff system for this office. The Republican primary is the main contest so far, with Cassidy facing challengers including John Fleming and Julia Letlow; the state is widely rated Republican-leaning, but the primary has drawn attention because of Trump and Gov. Jeff Landry\u2019s endorsement of Letlow and Cassidy\u2019s history of breaking with Trump on impeachment.",
+  "polling": [
+    {
+      "pollster": "Quantus Insights",
+      "date": "2026-02-25",
+      "sample_size": 1428,
+      "matchups": [
+        {
+          "candidates": [
+            "John Fleming",
+            "Julia Letlow",
+            "Bill Cassidy"
+          ],
+          "percentages": [
+            34,
+            25,
+            20
+          ]
+        }
+      ],
+      "source_url": "https://www.270towin.com/2026-senate-polls/louisiana"
+    }
+  ],
+  "polling_note": null,
+  "candidates": [
+    {
+      "name": "Bill Cassidy",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Bill Cassidy is the incumbent U.S. senator from Louisiana and a physician by training. He has emphasized his record on health care, energy, border security, disaster recovery, and conservative priorities, while also highlighting his work with President Trump on some legislation. Cassidy has served in the Senate since 2015 after earlier service in the Louisiana state Senate and U.S. House.",
+      "summary_sources": [
+        {
+          "url": "https://www.cassidy.senate.gov/about/about-bill/",
+          "type": "website",
+          "title": "About Bill | U.S. Senator Bill Cassidy",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Louisiana,_2026",
+          "type": "website",
+          "title": "United States Senate election in Louisiana, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Bill_Cassidy_official_Senate_photo.jpg/512px-Bill_Cassidy_official_Senate_photo.jpg",
+      "website": "https://www.billcassidy.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/SenBillCassidy/",
+        "x": "https://x.com/SenBillCassidy",
+        "instagram": "https://www.instagram.com/senbillcassidy/"
+      },
+      "career_history": [
+        {
+          "title": "United States Senator",
+          "organization": "U.S. Senate",
+          "start_year": 2015,
+          "end_year": null,
+          "description": "Represents Louisiana in the U.S. Senate; currently seeking re-election."
+        },
+        {
+          "title": "U.S. Representative, Louisiana's 6th District",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2009,
+          "end_year": 2015,
+          "description": "Served in the House before winning election to the Senate."
+        },
+        {
+          "title": "Louisiana State Senator",
+          "organization": "Louisiana State Senate",
+          "start_year": 2006,
+          "end_year": 2008,
+          "description": "Served in the Louisiana legislature before moving to Congress."
+        },
+        {
+          "title": "Physician",
+          "organization": "Louisiana charity hospital system / Greater Baton Rouge Community Clinic",
+          "start_year": 1990,
+          "end_year": 2009,
+          "description": "Worked as a physician in Louisiana\u2019s charity hospital system and co-founded a free clinic for uninsured patients."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Louisiana State University",
+          "degree": "Bachelor's degree",
+          "field": "Unknown/unspecified",
+          "year": null
+        },
+        {
+          "institution": "Louisiana State University",
+          "degree": "Medical degree",
+          "field": "Medicine",
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [
+        "https://www.cassidy.senate.gov/about/about-bill/",
+        "https://www.billcassidy.com/"
+      ],
+      "issues": {}
+    },
+    {
+      "name": "John Fleming",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "John Fleming is a Republican candidate in the Louisiana Senate primary and, as of 2026, serves as Louisiana state treasurer. He previously represented Louisiana\u2019s 4th Congressional District in the U.S. House and has also worked as a physician, business owner, and Navy officer. His campaign has framed him as a conservative aligned with President Trump and focused on border security, Louisiana jobs, and traditional Republican priorities.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Louisiana,_2026",
+          "type": "website",
+          "title": "United States Senate election in Louisiana, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Louisiana State Treasurer",
+          "organization": "State of Louisiana",
+          "start_year": 2024,
+          "end_year": null,
+          "description": "Serves as Louisiana\u2019s state treasurer."
+        },
+        {
+          "title": "U.S. Representative, Louisiana's 4th District",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2009,
+          "end_year": 2017,
+          "description": "Represented western Louisiana in Congress."
+        },
+        {
+          "title": "Coroner",
+          "organization": "Webster Parish",
+          "start_year": 1996,
+          "end_year": 2000,
+          "description": "Served as parish coroner."
+        },
+        {
+          "title": "Physician",
+          "organization": "Private practice / medical work",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked as a physician before and during his political career."
+        },
+        {
+          "title": "Business owner",
+          "organization": "Private sector",
+          "start_year": null,
+          "end_year": null,
+          "description": "Owned and operated businesses."
+        },
+        {
+          "title": "U.S. Navy officer",
+          "organization": "United States Navy",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served in the Navy."
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Mississippi",
+          "degree": "Bachelor's degree",
+          "field": "Unknown/unspecified",
+          "year": null
+        },
+        {
+          "institution": "University of Mississippi",
+          "degree": "Medical degree",
+          "field": "Medicine",
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [
+        "https://ballotpedia.org/United_States_Senate_election_in_Louisiana,_2026"
+      ],
+      "issues": {}
+    },
+    {
+      "name": "Julia Letlow",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Julia Letlow is a Republican U.S. representative from Louisiana\u2019s 5th Congressional District and a candidate for the Senate seat in 2026. Before Congress, she worked in higher education and university administration, and her campaign has emphasized conservative themes such as border security, law enforcement, education, and support for President Trump. She entered Congress in 2021 after winning a special election to succeed her late husband, Luke Letlow.",
+      "summary_sources": [
+        {
+          "url": "https://letlow.house.gov/about",
+          "type": "government",
+          "title": "Biography | Representative Julia Letlow - House.gov",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Louisiana,_2026",
+          "type": "website",
+          "title": "United States Senate election in Louisiana, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.julialetlow.com/",
+          "type": "website",
+          "title": "Julia Letlow for Louisiana",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Julia_Letlow_117th_%28cropped%29.jpg/512px-Julia_Letlow_117th_%28cropped%29.jpg",
+      "website": "https://www.julialetlow.com/",
+      "social_media": {
+        "x": "https://x.com/jbletlow",
+        "instagram": "https://www.instagram.com/julialetlowla05/",
+        "facebook": "https://www.facebook.com/RepJuliaLetlow/"
+      },
+      "career_history": [
+        {
+          "title": "U.S. Representative, Louisiana's 5th District",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Represents Louisiana\u2019s 5th Congressional District."
+        },
+        {
+          "title": "Executive Director of External Affairs and Strategic Communications",
+          "organization": "University of Louisiana Monroe",
+          "start_year": 2018,
+          "end_year": 2019,
+          "description": "Led external affairs and strategic communications at ULM."
+        },
+        {
+          "title": "Director of Marketing and Communications",
+          "organization": "University of Louisiana Monroe",
+          "start_year": null,
+          "end_year": 2018,
+          "description": "Worked in university communications and marketing."
+        },
+        {
+          "title": "Director of Education / Resident Patient Safety and Quality Improvement / Clinical Instructor",
+          "organization": "Tulane University School of Medicine",
+          "start_year": null,
+          "end_year": null,
+          "description": "Held multiple education and administrative roles at Tulane."
+        },
+        {
+          "title": "Instructor and Teaching Associate",
+          "organization": "University of Louisiana Monroe / Tulane University / University of South Florida",
+          "start_year": null,
+          "end_year": null,
+          "description": "Taught in higher education settings."
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Louisiana Monroe",
+          "degree": "Bachelor of Arts",
+          "field": "Speech communication",
+          "year": null
+        },
+        {
+          "institution": "University of Louisiana Monroe",
+          "degree": "Master of Arts",
+          "field": "Speech communication",
+          "year": null
+        },
+        {
+          "institution": "University of South Florida",
+          "degree": "Doctorate",
+          "field": "Communication",
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [
+        "https://letlow.house.gov/about",
+        "https://www.julialetlow.com/"
+      ],
+      "issues": {}
+    }
+  ],
+  "updated_utc": "2026-04-01T05:50:39.448099+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "gpt-5-nano"
+  ],
+  "reviews": [],
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 65858,
+    "completion_tokens": 2627,
+    "total_tokens": 68485,
+    "estimated_usd": 0.0115,
+    "model_breakdown": {
+      "gpt-5.4-mini": {
+        "prompt_tokens": 65858,
+        "completion_tokens": 2627
+      }
+    },
+    "duration_s": 25.5
+  }
+}

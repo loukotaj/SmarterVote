@@ -1,14 +1,15 @@
 """Server-side persistent queue for pipeline runs.
 
 Races are added to the queue and processed sequentially. Queue state is
-persisted to a JSON file so it survives server restarts. The processing
-loop automatically picks up the next pending item when the current one
-completes or fails.
+persisted to Firestore on Cloud Run (durable across restarts), or to a
+local JSON file in dev mode. The processing loop automatically picks up
+the next pending item when the current one completes or fails.
 """
 
 import asyncio
 import json
 import logging
+import os
 import uuid
 from datetime import datetime, timezone
 from pathlib import Path
@@ -41,17 +42,90 @@ class QueueItem(BaseModel):
 
 
 class QueueManager:
-    """Persistent queue that auto-processes pipeline runs sequentially."""
+    """Persistent queue that auto-processes pipeline runs sequentially.
+
+    On Cloud Run: uses Firestore (persists across restarts)
+    In local dev: uses local JSON file (ephemeral, but fast)
+    """
 
     def __init__(self, storage_path: str = "pipeline_client/queue.json"):
         self._storage_path = Path(storage_path)
         self._items: List[QueueItem] = []
         self._processing = False
+        self._db: Optional[Any] = None  # Firestore client if available
+        self._use_firestore = False
+        self._init_storage()
         self._load()
+
+    def _init_storage(self) -> None:
+        """Initialize Firestore if FIRESTORE_PROJECT is set, otherwise use JSON file.
+
+        On Cloud Run: FIRESTORE_PROJECT is required. Fail fast if missing.
+        """
+        project = os.getenv("FIRESTORE_PROJECT")
+
+        # Check if running on Cloud Run
+        is_cloud_run = bool(os.getenv("K_SERVICE") or os.getenv("CLOUD_RUN_SERVICE"))
+
+        if not project:
+            if is_cloud_run:
+                raise RuntimeError(
+                    "Cloud Run detected but FIRESTORE_PROJECT is not set. "
+                    "Queue requires Firestore for durability across restarts. "
+                    "Set FIRESTORE_PROJECT via Terraform/deployment scripts."
+                )
+            logging.getLogger(__name__).debug("QueueManager: FIRESTORE_PROJECT not set — using local JSON file (dev mode)")
+            return
+
+        try:
+            from google.cloud import firestore  # type: ignore
+            self._db = firestore.Client(project=project)
+            self._use_firestore = True
+            logging.getLogger(__name__).info(f"QueueManager: using Firestore project={project} collection=pipeline_queue")
+        except ImportError:
+            if is_cloud_run:
+                raise RuntimeError("Cloud Run detected but google-cloud-firestore not installed. Install with: pip install google-cloud-firestore")
+            logging.getLogger(__name__).warning("google-cloud-firestore not installed; using local JSON file")
+        except Exception as e:
+            if is_cloud_run:
+                raise RuntimeError(f"Cloud Run detected but failed to initialize Firestore: {e}")
+            logging.getLogger(__name__).exception("Firestore init failed; falling back to local JSON file")
 
     # -- Persistence --------------------------------------------------------
 
     def _load(self):
+        """Load queue state from Firestore or local JSON file."""
+        if self._use_firestore:
+            self._load_from_firestore()
+        else:
+            self._load_from_json()
+
+    def _load_from_firestore(self):
+        """Load all queue items from Firestore."""
+        try:
+            collection = self._db.collection("pipeline_queue")
+            docs = collection.stream()
+            self._items = []
+            for doc in docs:
+                data = doc.to_dict()
+                self._items.append(QueueItem(**data))
+
+            # Mark interrupted runs as failed on restart
+            for item in self._items:
+                if item.status == "running":
+                    item.status = "failed"
+                    item.error = "Server restarted during processing"
+                    item.completed_at = datetime.now(timezone.utc).isoformat()
+                    # Save the failed state back to Firestore
+                    collection.document(item.id).set(item.model_dump(mode="json"))
+
+            logging.getLogger(__name__).info(f"QueueManager: loaded {len(self._items)} items from Firestore")
+        except Exception:
+            logging.getLogger(__name__).exception("Failed to load queue from Firestore; starting with empty queue")
+            self._items = []
+
+    def _load_from_json(self):
+        """Load all queue items from local JSON file."""
         if not self._storage_path.exists():
             return
         try:
@@ -65,10 +139,28 @@ class QueueManager:
                     item.completed_at = datetime.now(timezone.utc).isoformat()
             self._save()
         except Exception:
-            logging.exception("Failed to load queue state")
+            logging.getLogger(__name__).exception("Failed to load queue state from JSON")
             self._items = []
 
     def _save(self):
+        """Save queue state to Firestore or JSON file."""
+        if self._use_firestore:
+            self._save_to_firestore()
+        else:
+            self._save_to_json()
+
+    def _save_to_firestore(self):
+        """Persist queue items to Firestore."""
+        try:
+            collection = self._db.collection("pipeline_queue")
+            # Write all items
+            for item in self._items:
+                collection.document(item.id).set(item.model_dump(mode="json"))
+        except Exception:
+            logging.getLogger(__name__).exception("Failed to save queue to Firestore; data may be lost on restart")
+
+    def _save_to_json(self):
+        """Persist queue items to local JSON file."""
         self._storage_path.parent.mkdir(parents=True, exist_ok=True)
         data = [item.model_dump(mode="json") for item in self._items]
         self._storage_path.write_text(json.dumps(data, indent=2), encoding="utf-8")
@@ -97,24 +189,59 @@ class QueueManager:
             if item.id == item_id and item.status == "pending":
                 self._items.pop(i)
                 self._save()
+                # Also delete from Firestore
+                if self._use_firestore:
+                    try:
+                        self._db.collection("pipeline_queue").document(item_id).delete()
+                    except Exception:
+                        logging.getLogger(__name__).exception(f"Failed to delete queue item {item_id} from Firestore")
                 return True
         return False
 
     def cancel(self, item_id: str) -> bool:
-        """Cancel a pending or running item."""
+        """Cancel a pending or running item.
+
+        If the item is running (has an active run), also cancel the run via run_manager.
+        """
         for item in self._items:
             if item.id == item_id and item.status in ("pending", "running"):
+                was_running = item.status == "running"
+                run_id = item.run_id if was_running else None
+
                 item.status = "cancelled"
                 item.completed_at = datetime.now(timezone.utc).isoformat()
                 self._save()
+
+                # If the item had an active run, cancel it too
+                if was_running and run_id:
+                    try:
+                        from .run_manager import run_manager
+                        run_manager.cancel_run(run_id)
+                        logger = logging.getLogger(__name__)
+                        logger.info(f"Queue: cancelled queue item {item_id}, also cancelled run {run_id}")
+                    except Exception:
+                        logger = logging.getLogger(__name__)
+                        logger.exception(f"Queue: failed to cancel run {run_id} for queue item {item_id}")
+
                 return True
         return False
 
     def clear_finished(self) -> int:
         """Remove completed/failed/cancelled items. Returns count removed."""
         before = len(self._items)
+        finished_ids = [i.id for i in self._items if i.status in ("completed", "failed", "cancelled")]
         self._items = [i for i in self._items if i.status in ("pending", "running")]
         self._save()
+
+        # Clean up Firestore documents for removed items
+        if self._use_firestore:
+            try:
+                collection = self._db.collection("pipeline_queue")
+                for item_id in finished_ids:
+                    collection.document(item_id).delete()
+            except Exception:
+                logging.getLogger(__name__).exception("Failed to delete finished items from Firestore")
+
         return before - len(self._items)
 
     def get_all(self) -> List[QueueItem]:

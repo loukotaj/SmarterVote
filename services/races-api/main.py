@@ -103,6 +103,7 @@ def get_race_summaries(request: Request) -> List[RaceSummary]:
                 title=race_data.get("title"),
                 office=race_data.get("office"),
                 jurisdiction=race_data.get("jurisdiction"),
+                state=race_data.get("state"),
                 election_date=race_data.get("election_date", ""),
                 updated_utc=race_data.get("updated_utc", ""),
                 candidates=candidate_summaries,

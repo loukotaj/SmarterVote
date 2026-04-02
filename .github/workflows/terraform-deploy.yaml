@@ -116,6 +116,25 @@ jobs:
     steps:
     - uses: actions/checkout@v6
 
+    - name: Validate required secrets
+      run: |
+        MISSING=()
+        [ -z "${{ secrets.GCP_PROJECT_ID }}" ]    && MISSING+=("GCP_PROJECT_ID")
+        [ -z "${{ secrets.GCP_SA_KEY }}" ]         && MISSING+=("GCP_SA_KEY")
+        [ -z "${{ secrets.OPENAI_API_KEY }}" ]     && MISSING+=("OPENAI_API_KEY")
+        [ -z "${{ secrets.SERPER_API_KEY }}" ]     && MISSING+=("SERPER_API_KEY")
+        [ -z "${{ secrets.AUTH0_DOMAIN }}" ]        && MISSING+=("AUTH0_DOMAIN")
+        [ -z "${{ secrets.AUTH0_AUDIENCE }}" ]      && MISSING+=("AUTH0_AUDIENCE")
+
+        if [ ${#MISSING[@]} -ne 0 ]; then
+          echo "::error::Required GitHub secrets are missing: ${MISSING[*]}"
+          echo "These secrets must be set in GitHub repo settings before deploying."
+          echo "Missing secrets would cause Cloud Run services to start without"
+          echo "required env vars, leading to silent fallbacks or crashes."
+          exit 1
+        fi
+        echo "✅ All required secrets are configured"
+
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
       with:

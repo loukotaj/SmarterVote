@@ -1,0 +1,723 @@
+{
+  "id": "ca-governor-2026",
+  "title": "2026 California gubernatorial election",
+  "office": "Governor of California",
+  "jurisdiction": "California",
+  "election_date": "2026-11-03",
+  "description": "California\u2019s 2026 gubernatorial race is for governor, the state\u2019s top executive office. Because Gov. Gavin Newsom is term-limited, the race is an open seat, and California\u2019s top-two primary system means the June primary will determine which two candidates advance to November. The contest is drawing attention because California is heavily Democratic overall, but the field is crowded and recent polling has shown multiple candidates with plausible paths to the top two. Key contrasts in the race include public safety and cost-of-living messaging from Republicans Chad Bianco and Steve Hilton, versus Democratic candidates emphasizing affordability, consumer protection, and opposition to Donald Trump.",
+  "polling": [
+    {
+      "pollster": "Berkeley IGS",
+      "date": "2026-03-18",
+      "sample_size": 3889,
+      "matchups": [
+        {
+          "candidates": [
+            "Steve Hilton",
+            "Chad Bianco",
+            "Eric Swalwell",
+            "Katie Porter",
+            "Tom Steyer",
+            "Xavier Becerra",
+            "Antonio Villaraigosa",
+            "Matt Mahan",
+            "Betty Yee",
+            "Tony Thurmond",
+            "Leo Zacky",
+            "Other"
+          ],
+          "percentages": [
+            17,
+            16,
+            13,
+            13,
+            10,
+            5,
+            4,
+            4,
+            1,
+            1,
+            0,
+            16
+          ]
+        }
+      ],
+      "source_url": "https://www.270towin.com/2026-governor-polls/california"
+    },
+    {
+      "pollster": "Citrin Center / Politico",
+      "date": "2026-03-11",
+      "sample_size": 1004,
+      "matchups": [
+        {
+          "candidates": [
+            "Steve Hilton",
+            "Chad Bianco",
+            "Eric Swalwell",
+            "Katie Porter",
+            "Tom Steyer",
+            "Xavier Becerra",
+            "Antonio Villaraigosa",
+            "Matt Mahan",
+            "Betty Yee",
+            "Tony Thurmond",
+            "Leo Zacky",
+            "Other"
+          ],
+          "percentages": [
+            19,
+            11,
+            11,
+            11,
+            13,
+            5,
+            4,
+            3,
+            2,
+            1,
+            0,
+            20
+          ]
+        }
+      ],
+      "source_url": "https://www.270towin.com/2026-governor-polls/california"
+    },
+    {
+      "pollster": "Emerson College",
+      "date": "2026-03-11",
+      "sample_size": 1000,
+      "matchups": [
+        {
+          "candidates": [
+            "Steve Hilton",
+            "Chad Bianco",
+            "Eric Swalwell",
+            "Katie Porter",
+            "Tom Steyer",
+            "Xavier Becerra",
+            "Antonio Villaraigosa",
+            "Matt Mahan",
+            "Betty Yee",
+            "Tony Thurmond",
+            "Leo Zacky",
+            "Other"
+          ],
+          "percentages": [
+            13,
+            11,
+            17,
+            8,
+            11,
+            3,
+            3,
+            3,
+            2,
+            1,
+            0,
+            28
+          ]
+        }
+      ],
+      "source_url": "https://emersoncollegepolling.com/california-2026-poll-swalwell-takes-lead-in-governor-primary-25-undecided-election-for-la-mayor-wide-open/"
+    },
+    {
+      "pollster": "PPIC",
+      "date": "2026-02-26",
+      "sample_size": 1049,
+      "matchups": [
+        {
+          "candidates": [
+            "Steve Hilton",
+            "Chad Bianco",
+            "Eric Swalwell",
+            "Katie Porter",
+            "Tom Steyer",
+            "Xavier Becerra",
+            "Antonio Villaraigosa",
+            "Matt Mahan",
+            "Betty Yee",
+            "Tony Thurmond",
+            "Leo Zacky",
+            "Other"
+          ],
+          "percentages": [
+            14,
+            12,
+            11,
+            13,
+            10,
+            5,
+            5,
+            3,
+            5,
+            2,
+            1,
+            19
+          ]
+        }
+      ],
+      "source_url": "https://www.270towin.com/2026-governor-polls/california"
+    },
+    {
+      "pollster": "Independent Voter News",
+      "date": "2026-02-23",
+      "sample_size": 868,
+      "matchups": [
+        {
+          "candidates": [
+            "Steve Hilton",
+            "Chad Bianco",
+            "Eric Swalwell",
+            "Katie Porter",
+            "Tom Steyer",
+            "Xavier Becerra",
+            "Antonio Villaraigosa",
+            "Matt Mahan",
+            "Betty Yee",
+            "Tony Thurmond",
+            "Leo Zacky",
+            "Other"
+          ],
+          "percentages": [
+            15,
+            23,
+            18,
+            12,
+            8,
+            3,
+            3,
+            2,
+            2,
+            1,
+            0,
+            13
+          ]
+        }
+      ],
+      "source_url": "https://www.270towin.com/2026-governor-polls/california"
+    }
+  ],
+  "polling_note": null,
+  "candidates": [
+    {
+      "name": "Chad Bianco",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Chad Bianco is the Riverside County sheriff and a Republican candidate for governor. His campaign has emphasized public safety, lower taxes, and reducing regulation, and Ballotpedia lists him as a candidate in California\u2019s June 2, 2026 top-two primary. He is running as a law-and-order conservative with support from some Republican elected officials and law-enforcement groups.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Chad_Bianco",
+          "type": "website",
+          "title": "Chad Bianco - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.riversidesheriff.org/689/Sheriff-Chad-Bianco",
+          "type": "government",
+          "title": "Sheriff Chad Bianco | Riverside County Sheriff, CA",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://che4ca.com/",
+          "type": "website",
+          "title": "Ch\u00e9 Ahn California Governor | Official Campaign Website",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Chad_Bianco%2C_2025.jpg",
+      "website": "https://biancoforgovernor.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/SheriffChadBianco/",
+        "x": "https://x.com/ChadBianco",
+        "instagram": "https://www.instagram.com/sheriffbianco/"
+      },
+      "career_history": [
+        {
+          "title": "Sheriff-Coroner-Public Administrator",
+          "organization": "Riverside County",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Elected county sheriff; oversees the Riverside County Sheriff\u2019s Department."
+        },
+        {
+          "title": "Deputy / law enforcement officer",
+          "organization": "Riverside County Sheriff's Department",
+          "start_year": 1990,
+          "end_year": 2018,
+          "description": "Worked in the sheriff\u2019s department for about 26 years before becoming sheriff."
+        }
+      ],
+      "education": [
+        {
+          "institution": "San Bernardino Sheriff's Academy",
+          "degree": "Academy training",
+          "field": "Law enforcement",
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Steve Hilton",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Steve Hilton is a Republican candidate for governor and a former political adviser and media commentator. His campaign site and Ballotpedia profile describe him as a conservative candidate focused on housing, taxes, education, and making California more business-friendly. He is running as an outsider with prior experience in U.K. politics and U.S. media.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Steve_Hilton",
+          "type": "website",
+          "title": "Steve Hilton - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://stevehiltonforgovernor.com/",
+          "type": "website",
+          "title": "Steve Hilton for California Governor | Official Campaign Site",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Steve_Hilton",
+          "type": "website",
+          "title": "Steve Hilton - Wikipedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Steve_Hilton_2025.jpg",
+      "website": "https://stevehiltonforgovernor.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/TheSteveHilton/",
+        "x": "https://x.com/SteveHiltonx",
+        "instagram": "https://www.instagram.com/stevehiltonx/"
+      },
+      "career_history": [
+        {
+          "title": "Senior policy and strategy adviser",
+          "organization": "Office of U.K. Prime Minister David Cameron",
+          "start_year": 2010,
+          "end_year": 2016,
+          "description": "Served as a senior adviser in the Cameron government."
+        },
+        {
+          "title": "Political commentator / contributor",
+          "organization": "Fox News Channel",
+          "start_year": 2017,
+          "end_year": null,
+          "description": "Worked as a media commentator and contributor."
+        },
+        {
+          "title": "Entrepreneur / broadcaster",
+          "organization": "Various media and business ventures",
+          "start_year": 2016,
+          "end_year": null,
+          "description": "Built a career in media, commentary, and entrepreneurship."
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Oxford",
+          "degree": "Bachelor's degree",
+          "field": null,
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Eric Swalwell",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Eric Swalwell is a Democratic member of Congress from California\u2019s 14th District and a candidate for governor. His background includes service as a prosecutor and city councilmember, and his campaign has framed the race around affordability, public safety, and opposition to Donald Trump. He is one of several high-profile Democrats in a crowded top-two primary.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Eric_Swalwell",
+          "type": "website",
+          "title": "Eric Swalwell - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.ericswalwell.com/",
+          "type": "website",
+          "title": "Eric Swalwell for Governor",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "http://swalwell.house.gov/about/full-biography",
+          "type": "government",
+          "title": "Meet Eric | Representative Swalwell - House.gov",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Eric_Swalwell_2024.jpg",
+      "website": "https://www.ericswalwell.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/EricMSwalwell/",
+        "x": "https://x.com/ericswalwell",
+        "instagram": "https://www.instagram.com/ericswalwell/",
+        "youtube": "https://www.youtube.com/@Eric_Swalwell"
+      },
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives, California's 14th District",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Represents California\u2019s 14th Congressional District."
+        },
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives, California's 15th District",
+          "start_year": 2013,
+          "end_year": 2023,
+          "description": "Previously represented California\u2019s 15th Congressional District."
+        },
+        {
+          "title": "Deputy District Attorney",
+          "organization": "Alameda County",
+          "start_year": 2006,
+          "end_year": 2012,
+          "description": "Worked as a prosecutor before entering Congress."
+        },
+        {
+          "title": "City Councilmember",
+          "organization": "City of Dublin, California",
+          "start_year": 2010,
+          "end_year": 2012,
+          "description": "Entered elected office on the Dublin City Council."
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Maryland, College Park",
+          "degree": "Bachelor's degree",
+          "field": null,
+          "year": null
+        },
+        {
+          "institution": "University of Maryland, College Park",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": null
+        },
+        {
+          "institution": "Dublin High School",
+          "degree": "High school diploma",
+          "field": null,
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Katie Porter",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Katie Porter is a former U.S. representative from Orange County and a Democratic candidate for governor. Her campaign and biography emphasize consumer protection, affordability, and a confrontational style toward corporate and political power. She is running as a progressive-leaning Democrat with a record in Congress and as a law professor.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Katie_Porter",
+          "type": "website",
+          "title": "Katie Porter - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://katieporter.com/",
+          "type": "website",
+          "title": "Katie Porter for Governor | Official Campaign Website",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://katieporter.com/about/",
+          "type": "website",
+          "title": "Meet Katie | Katie Porter for Governor",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6f/Katie_Porter_2024.jpg",
+      "website": "https://katieporter.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/katieporterca/",
+        "x": "https://x.com/katieporterca",
+        "instagram": "https://www.instagram.com/katieporterca/",
+        "youtube": "https://www.youtube.com/c/RepKatiePorter/about"
+      },
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives, California's 47th District",
+          "start_year": 2023,
+          "end_year": 2025,
+          "description": "Represented Orange County in Congress."
+        },
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives, California's 45th District",
+          "start_year": 2019,
+          "end_year": 2023,
+          "description": "Previously represented California\u2019s 45th Congressional District."
+        },
+        {
+          "title": "Professor",
+          "organization": "University of California, Irvine",
+          "start_year": 2011,
+          "end_year": 2018,
+          "description": "Taught law at UC Irvine."
+        },
+        {
+          "title": "Consumer and bankruptcy attorney",
+          "organization": "Various organizations including CFPB, World Bank, Federal Judicial Center, and Uniform Law Commission",
+          "start_year": 2001,
+          "end_year": 2018,
+          "description": "Worked on consumer and bankruptcy law and related policy work."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Yale University",
+          "degree": "Bachelor's degree",
+          "field": null,
+          "year": 1996
+        },
+        {
+          "institution": "Harvard University",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": 2001
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Antonio Villaraigosa",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Antonio Villaraigosa is a former Los Angeles mayor and former speaker of the California State Assembly who is running for governor as a Democrat. His campaign and biography stress experience, problem-solving, and a focus on affordability, jobs, and public services. He is one of the most experienced candidates in the field and is seeking a return to statewide office after earlier runs for governor.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Antonio_Villaraigosa",
+          "type": "website",
+          "title": "Antonio Villaraigosa - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.antonio2026.com/",
+          "type": "website",
+          "title": "Antonio Villaraigosa for Governor 2026",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.antonio2026.com/about-antonio",
+          "type": "website",
+          "title": "About Antonio Villaraigosa \u2014 Antonio Villaraigosa for Governor 2026",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://ballotpedia.org/wiki/images/Antonio_Villaraigosa_Headshot.jpg",
+      "website": "https://www.antonio2026.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/AntonioVillaraigosa/",
+        "instagram": "https://www.instagram.com/antonioforcalifornia/"
+      },
+      "career_history": [
+        {
+          "title": "Mayor",
+          "organization": "City of Los Angeles",
+          "start_year": 2005,
+          "end_year": 2013,
+          "description": "Served two terms as mayor of Los Angeles."
+        },
+        {
+          "title": "Speaker",
+          "organization": "California State Assembly",
+          "start_year": 1998,
+          "end_year": 2000,
+          "description": "Led the state Assembly as speaker."
+        },
+        {
+          "title": "Member",
+          "organization": "California State Assembly",
+          "start_year": 1994,
+          "end_year": 2000,
+          "description": "Served in the California State Assembly."
+        },
+        {
+          "title": "City Councilmember",
+          "organization": "City of Los Angeles",
+          "start_year": 2003,
+          "end_year": 2005,
+          "description": "Served on the Los Angeles City Council before becoming mayor."
+        },
+        {
+          "title": "Union organizer",
+          "organization": "SEIU / UTLA and related labor organizations",
+          "start_year": 1980,
+          "end_year": 1994,
+          "description": "Worked as a union organizer and labor advocate."
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of California, Los Angeles",
+          "degree": "Bachelor's degree",
+          "field": null,
+          "year": null
+        },
+        {
+          "institution": "People's College of Law",
+          "degree": "Law degree",
+          "field": "Law",
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Xavier Becerra",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Xavier Becerra is a former U.S. secretary of health and human services, former California attorney general, and former longtime member of Congress. His campaign presents him as a defender of the California Dream, and his background includes decades in state and federal office. He is running as a high-profile Democrat with extensive executive and legislative experience.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Xavier_Becerra",
+          "type": "website",
+          "title": "Xavier Becerra - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.xavierbecerra2026.com/",
+          "type": "website",
+          "title": "Xavier Becerra - Build, Protect, and Lead California",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.congress.gov/117/meeting/house/112595/witnesses/HHRG-117-IF14-Bio-BecerraX-20210512.pdf",
+          "type": "government",
+          "title": "Bio of Secretary of Health and Human Services Xavier Becerra",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://ballotpedia.org/wiki/images/Xavier_Becerra.jpg",
+      "website": "https://www.xavierbecerra2026.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/becerraforgovernor/",
+        "x": "https://x.com/XavierBecerra",
+        "instagram": "https://www.instagram.com/becerraforgovernor/"
+      },
+      "career_history": [
+        {
+          "title": "U.S. Secretary of Health and Human Services",
+          "organization": "U.S. Department of Health and Human Services",
+          "start_year": 2021,
+          "end_year": 2025,
+          "description": "Served in President Biden\u2019s cabinet."
+        },
+        {
+          "title": "Attorney General",
+          "organization": "State of California",
+          "start_year": 2017,
+          "end_year": 2021,
+          "description": "Served as California\u2019s attorney general."
+        },
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives, California's 34th District",
+          "start_year": 2013,
+          "end_year": 2017,
+          "description": "Represented California\u2019s 34th Congressional District."
+        },
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives, California's 31st District",
+          "start_year": 2003,
+          "end_year": 2013,
+          "description": "Represented California\u2019s 31st Congressional District."
+        },
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives, California's 30th District",
+          "start_year": 1993,
+          "end_year": 2003,
+          "description": "Represented California\u2019s 30th Congressional District."
+        },
+        {
+          "title": "Member",
+          "organization": "California State Assembly",
+          "start_year": 1990,
+          "end_year": 1992,
+          "description": "Served in the California State Assembly."
+        },
+        {
+          "title": "Deputy Attorney General",
+          "organization": "State of California",
+          "start_year": 1987,
+          "end_year": 1990,
+          "description": "Worked in the California Attorney General\u2019s office."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Stanford University",
+          "degree": "Bachelor's degree",
+          "field": null,
+          "year": 1980
+        },
+        {
+          "institution": "Stanford University",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": 1984
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "updated_utc": "2026-04-01T05:41:07.601117+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "gpt-5-nano"
+  ],
+  "reviews": [],
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 724025,
+    "completion_tokens": 5379,
+    "total_tokens": 729404,
+    "estimated_usd": 0.1118,
+    "model_breakdown": {
+      "gpt-5.4-mini": {
+        "prompt_tokens": 724025,
+        "completion_tokens": 5379
+      }
+    },
+    "duration_s": 60.2
+  }
+}

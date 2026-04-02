@@ -1,0 +1,331 @@
+{
+  "id": "tn-senate-2026",
+  "title": "2026 U.S. Senate election in Tennessee",
+  "office": "United States Senate",
+  "jurisdiction": "Tennessee",
+  "election_date": "2026-11-03",
+  "description": "This race is for Tennessee\u2019s Class II seat in the U.S. Senate, currently held by Republican Bill Hagerty. Tennessee is a strongly Republican state in recent federal elections, and most forecasters rate the seat as safely or solidly Republican, but the contest still matters because Senate control can hinge on a small number of seats. The main contrast is between Hagerty\u2019s incumbent Republican record and a Democratic field trying to make the race competitive in a state that has not elected a Democrat to the U.S. Senate since 1990.",
+  "polling": [],
+  "polling_note": "No public polling found for this race as of 2026-04-01.",
+  "candidates": [
+    {
+      "name": "Bill Hagerty",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Bill Hagerty is the incumbent U.S. senator from Tennessee and is seeking a second term. He previously served as U.S. ambassador to Japan and built a career in business and public service before entering the Senate.",
+      "summary_sources": [
+        {
+          "url": "https://www.hagerty.senate.gov/about/",
+          "type": "government",
+          "title": "About Senator Hagerty",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://bioguide.congress.gov/search/bio/H000601",
+          "type": "government",
+          "title": "HAGERTY, William Francis (Bill) - Bioguide Search",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://teamhagerty.com/",
+          "type": "website",
+          "title": "Bill Hagerty for U.S. Senate",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://www.hagerty.senate.gov/wp-content/uploads/2021/01/Bill-Hagerty-Official-Photo.jpg",
+      "website": "https://teamhagerty.com/",
+      "social_media": {
+        "x": "https://x.com/BillHagertyTN",
+        "facebook": "https://www.facebook.com/BillHagertyTN/",
+        "instagram": "https://www.instagram.com/billhagertytn/",
+        "youtube": "https://www.youtube.com/@billhagertytn3403"
+      },
+      "career_history": [
+        {
+          "title": "U.S. Senator",
+          "organization": "United States Senate",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Represents Tennessee in the U.S. Senate."
+        },
+        {
+          "title": "U.S. Ambassador to Japan",
+          "organization": "U.S. Department of State",
+          "start_year": 2017,
+          "end_year": 2019,
+          "description": "Served as ambassador during the Trump administration."
+        },
+        {
+          "title": "Managing director / businessman",
+          "organization": "Private sector",
+          "start_year": null,
+          "end_year": 2017,
+          "description": "Worked in business and investment roles before entering public office."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Vanderbilt University",
+          "degree": "B.A.",
+          "field": "Economics and History",
+          "year": 1981
+        },
+        {
+          "institution": "University of Tennessee College of Law",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": 1984
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Marquita Bradshaw",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Marquita Bradshaw is a Memphis-based environmental justice advocate and the Democratic nominee in Tennessee\u2019s 2020 U.S. Senate race. She is running again in 2026 and has centered her campaign on affordability, environmental justice, and public accountability.",
+      "summary_sources": [
+        {
+          "url": "https://www.marquitabradshaw.com/meet-marquita",
+          "type": "website",
+          "title": "MEET MARQUITA | Bradshaw For Senate",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.marquitabradshaw.com/",
+          "type": "website",
+          "title": "Marquita Bradshaw for U. S. Senate | Tennessee",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Marquita_Bradshaw",
+          "type": "news",
+          "title": "Marquita Bradshaw - Wikipedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/7d/Marquita_Bradshaw_2020.jpg",
+      "website": "https://www.marquitabradshaw.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/BradshawforTN/",
+        "instagram": "https://www.instagram.com/bradshawfortn/",
+        "youtube": "https://www.youtube.com/@MarquitaBradshawTN"
+      },
+      "career_history": [
+        {
+          "title": "Environmental justice advocate",
+          "organization": "Sierra Club / environmental justice movement",
+          "start_year": null,
+          "end_year": null,
+          "description": "Has worked on environmental justice and community advocacy issues."
+        },
+        {
+          "title": "Democratic nominee for U.S. Senate",
+          "organization": "Tennessee Democratic Party",
+          "start_year": 2020,
+          "end_year": 2020,
+          "description": "Won the Democratic nomination for U.S. Senate in 2020."
+        },
+        {
+          "title": "U.S. Senate candidate",
+          "organization": "Tennessee Democratic Party",
+          "start_year": 2024,
+          "end_year": 2024,
+          "description": "Ran in the 2024 Democratic primary for U.S. Senate."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Maria Brewer",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Maria Brewer is a Tennessee Democratic Party organizer and staff leader who entered the 2026 U.S. Senate race. Public reporting describes her as a longtime party operative focused on organizing and party affairs rather than prior elected office.",
+      "summary_sources": [
+        {
+          "url": "https://www.linkedin.com/in/mariabrewer",
+          "type": "website",
+          "title": "Maria Brewer - Tennessee Democratic Party | LinkedIn",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.facebook.com/tndem/posts/lets-give-a-big-tennessee-democrat-welcome-to-our-team-members-maria-brewer-tama/10158755923470831/",
+          "type": "news",
+          "title": "Tennessee Democratic Party staff announcement",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Maria_Brewer_(Tennessee)",
+          "type": "website",
+          "title": "Maria Brewer (Tennessee) - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Director of Party Affairs",
+          "organization": "Tennessee Democratic Party",
+          "start_year": 2015,
+          "end_year": null,
+          "description": "Reportedly served in a statewide party-organizing role."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Northwestern University",
+          "degree": null,
+          "field": null,
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Civil Miller-Watkins",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Civil Miller-Watkins is a teacher and local Democratic leader from Rossville, Tennessee, who is running for the U.S. Senate. Her campaign profile and reporting describe her as emphasizing education, community leadership, and kitchen-table issues.",
+      "summary_sources": [
+        {
+          "url": "https://nashvillebanner.com/2024/07/20/senate-candidate-democrat-civil-miller-watkins/",
+          "type": "news",
+          "title": "Tennessee Democrat Miller-Watkins runs for U.S. Senate",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Civil_Miller-Watkins",
+          "type": "website",
+          "title": "Civil Miller-Watkins - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.tennessean.com/story/opinion/editorials/2024/07/01/tennessee-election-congress-civil-miller-watkins-senate/74270330007/",
+          "type": "news",
+          "title": "Tennessee election for U.S. Congress: Civil Miller-Watkins for Senate",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://www.youtube.com/@civilforsenate",
+      "social_media": {
+        "youtube": "https://www.youtube.com/@civilforsenate"
+      },
+      "career_history": [
+        {
+          "title": "Middle school math teacher",
+          "organization": "Local school system",
+          "start_year": null,
+          "end_year": null,
+          "description": "Reportedly works as a middle school math teacher."
+        },
+        {
+          "title": "County Democratic Party chair",
+          "organization": "Fayette County Democratic Party",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as a local party chair in Fayette County."
+        },
+        {
+          "title": "Tennessee state Senate candidate",
+          "organization": "Tennessee Democratic Party",
+          "start_year": 2020,
+          "end_year": 2020,
+          "description": "Previously ran for the Tennessee state Senate."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Diana Onyejiaka",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Diana Onyejiaka is a Nashville Democrat running for the U.S. Senate in 2026. Reporting describes her as the only Democratic candidate in the race against Hagerty at the time of her announcement, and her campaign has focused on presenting an alternative to the incumbent in a heavily Republican state.",
+      "summary_sources": [
+        {
+          "url": "https://www.knoxnews.com/story/news/politics/elections/2026/01/07/nashville-democrat-diana-onyejiaka-running-for-us-senate-tennessee/88036871007/",
+          "type": "news",
+          "title": "Nashville Democrat Diana Onyejiaka is running for U.S. Senate",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Diana_Onyejiaka",
+          "type": "website",
+          "title": "Diana Onyejiaka - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Businesswoman",
+          "organization": "Private sector",
+          "start_year": null,
+          "end_year": null,
+          "description": "Described in reporting as a businesswoman."
+        },
+        {
+          "title": "Professor",
+          "organization": "Higher education",
+          "start_year": null,
+          "end_year": null,
+          "description": "Described in reporting as a professor."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "updated_utc": "2026-04-01T06:05:57.163124+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "gpt-5-nano"
+  ],
+  "reviews": [],
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 132915,
+    "completion_tokens": 3171,
+    "total_tokens": 136086,
+    "estimated_usd": 0.0218,
+    "model_breakdown": {
+      "gpt-5.4-mini": {
+        "prompt_tokens": 132915,
+        "completion_tokens": 3171
+      }
+    },
+    "duration_s": 35.9
+  }
+}

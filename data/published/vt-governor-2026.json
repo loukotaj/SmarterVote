@@ -1,0 +1,192 @@
+{
+  "id": "vt-governor-2026",
+  "title": "2026 Vermont Governor Election",
+  "office": "Governor of Vermont",
+  "jurisdiction": "Vermont",
+  "election_date": "2026-11-03",
+  "description": "The 2026 race is for governor of Vermont, the state\u2019s chief executive office. It is an open primary cycle in the sense that the general-election field has not yet been finalized, but incumbent Republican Phil Scott is already running for renomination, and Democrat Amanda Janoo has announced a challenge. Vermont has recently been a strongly Republican governor\u2019s race despite voting heavily Democratic in federal elections, so the contest will likely center on affordability, education, taxes, and Scott\u2019s long tenure in office.",
+  "polling": [
+    {
+      "pollster": "University of New Hampshire Survey Center",
+      "date": "2025-10-24",
+      "sample_size": null,
+      "matchups": [
+        {
+          "candidates": [
+            "Phil Scott",
+            "No named opponent / undecided"
+          ],
+          "percentages": [
+            57.0,
+            null
+          ]
+        }
+      ],
+      "source_url": "https://scholars.unh.edu/survey_center_polls/898/"
+    }
+  ],
+  "polling_note": null,
+  "candidates": [
+    {
+      "name": "Phil Scott",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Phil Scott is the incumbent governor of Vermont and a longtime statewide officeholder. He has emphasized economic growth, affordability, and education reform, and he has governed as a socially moderate Republican in a state that leans Democratic in federal elections.",
+      "summary_sources": [
+        {
+          "url": "https://governor.vermont.gov/about-us",
+          "type": "government",
+          "title": "About the Governor | Office of Governor Phil Scott",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Phil_Scott_(Vermont)",
+          "type": "website",
+          "title": "Phil Scott (Vermont) - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6f/Phil_Scott.jpg",
+      "website": "https://www.philscott.org/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/GovPhilScott/",
+        "x": "https://x.com/GovPhilScott",
+        "instagram": "https://www.instagram.com/philscottvt/?hl=en",
+        "youtube": "https://www.youtube.com/@GovPhilScott"
+      },
+      "career_history": [
+        {
+          "title": "Governor of Vermont",
+          "organization": "State of Vermont",
+          "start_year": 2017,
+          "end_year": null,
+          "description": "Serves as Vermont's chief executive; reelected to a fifth term in 2024."
+        },
+        {
+          "title": "Lieutenant Governor of Vermont",
+          "organization": "State of Vermont",
+          "start_year": 2011,
+          "end_year": 2017,
+          "description": "Served three terms before becoming governor."
+        },
+        {
+          "title": "Vermont State Senator",
+          "organization": "Vermont State Senate",
+          "start_year": 2001,
+          "end_year": 2010,
+          "description": "Represented Washington County; served as vice chair of the Transportation Committee and chair of the Institutions Committee."
+        },
+        {
+          "title": "Co-owner",
+          "organization": "Dubois Construction",
+          "start_year": null,
+          "end_year": 2016,
+          "description": "Co-owned his family's construction business for more than 30 years."
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Vermont",
+          "degree": "Bachelor's degree",
+          "field": "Technical education",
+          "year": 1980
+        },
+        {
+          "institution": "Spaulding High School",
+          "degree": "High school diploma",
+          "field": null,
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Amanda Janoo",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Amanda Janoo is a Democratic candidate for governor who entered the race in 2026. Her campaign has highlighted affordability, housing, education, and health care, and she has described herself as an economist and policy expert with international experience.",
+      "summary_sources": [
+        {
+          "url": "https://janooforvt.com/",
+          "type": "website",
+          "title": "Amanda Janoo for Governor of Vermont",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://vtdigger.org/2026/03/10/first-democratic-challenger-to-phil-scott-enters-governors-race/",
+          "type": "news",
+          "title": "First Democratic candidate enters governor's race - VTDigger",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://vt.emergeamerica.org/staff/amanda-janoo-2/",
+          "type": "website",
+          "title": "Amanda Janoo - Emerge Vermont",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://janooforvt.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/JanooForVT/",
+        "instagram": "https://www.instagram.com/amandajanoo/",
+        "linkedin": "https://www.linkedin.com/in/amandajanoo"
+      },
+      "career_history": [
+        {
+          "title": "Knowledge & Policy Lead",
+          "organization": "Wellbeing Economy Alliance (WEAll)",
+          "start_year": null,
+          "end_year": null,
+          "description": "Leads policy and knowledge work focused on wellbeing economy and industrial policy."
+        },
+        {
+          "title": "Economic Security and Wellbeing Fellow",
+          "organization": "New America",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked as a fellow focused on economic security and wellbeing."
+        },
+        {
+          "title": "Policy and economic development roles",
+          "organization": "International development and policy organizations",
+          "start_year": null,
+          "end_year": null,
+          "description": "Has worked with governments and international development institutions on participatory economic policy design."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "updated_utc": "2026-04-01T06:08:24.063764+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "gpt-5-nano"
+  ],
+  "reviews": [],
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 106077,
+    "completion_tokens": 1919,
+    "total_tokens": 107996,
+    "estimated_usd": 0.0171,
+    "model_breakdown": {
+      "gpt-5.4-mini": {
+        "prompt_tokens": 106077,
+        "completion_tokens": 1919
+      }
+    },
+    "duration_s": 32.2
+  }
+}

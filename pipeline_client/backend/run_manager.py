@@ -36,9 +36,20 @@ class RunManager:
         self._init_store()
 
     def _init_store(self) -> None:
-        """Connect to Firestore if FIRESTORE_PROJECT is set, else use in-memory fallback."""
+        """Connect to Firestore if FIRESTORE_PROJECT is set, else use in-memory fallback.
+
+        On Cloud Run: FIRESTORE_PROJECT is required. Fail fast if missing.
+        """
         project = os.getenv("FIRESTORE_PROJECT")
+        is_cloud_run = bool(os.getenv("K_SERVICE") or os.getenv("CLOUD_RUN_SERVICE"))
+
         if not project:
+            if is_cloud_run:
+                raise RuntimeError(
+                    "Cloud Run detected but FIRESTORE_PROJECT is not set. "
+                    "Run history requires Firestore for durability. "
+                    "Set FIRESTORE_PROJECT via Terraform/deployment scripts."
+                )
             logging.getLogger(__name__).info("RunManager: FIRESTORE_PROJECT not set — using in-memory run history (local dev mode)")
             return
         try:
@@ -46,8 +57,12 @@ class RunManager:
             self._db = firestore.Client(project=project)
             logging.getLogger(__name__).info("RunManager: using Firestore project=%s collection=%s", project, _COLLECTION)
         except ImportError:
+            if is_cloud_run:
+                raise RuntimeError("Cloud Run detected but google-cloud-firestore not installed.")
             logging.getLogger(__name__).warning("google-cloud-firestore not installed; using in-memory run history")
-        except Exception:
+        except Exception as e:
+            if is_cloud_run:
+                raise RuntimeError(f"Cloud Run detected but failed to initialize Firestore: {e}")
             logging.getLogger(__name__).exception("Firestore init failed; using in-memory run history")
 
     class RunLogHandler(logging.Handler):

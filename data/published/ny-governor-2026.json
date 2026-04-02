@@ -1,0 +1,364 @@
+{
+  "id": "ny-governor-2026",
+  "title": "2026 New York Governor Election",
+  "office": "Governor of New York",
+  "jurisdiction": "New York",
+  "election_date": "2026-11-03",
+  "description": "This race is for governor of New York, the state\u2019s top executive office. It is a high-profile contest in a large, heavily Democratic state, and the 2026 race is drawing attention because the incumbent governor is seeking reelection while major party challengers are trying to define the race around affordability, public safety, and the direction of state government. Ballotpedia rates the general election as Solid Democratic by The Cook Political Report, Likely Democratic by Inside Elections, and Safe Democratic by Sabato\u2019s Crystal Ball, reflecting New York\u2019s recent Democratic lean and the state\u2019s 2022 gubernatorial result. The main contrast so far is between Governor Kathy Hochul\u2019s record in office and challengers\u2019 arguments for change, with both parties also navigating primary contests.",
+  "polling": [
+    {
+      "pollster": "Marist University",
+      "date": "2026-02-19",
+      "sample_size": 1442,
+      "matchups": [
+        {
+          "candidates": [
+            "Kathy Hochul",
+            "Bruce Blakeman"
+          ],
+          "percentages": [
+            50,
+            33
+          ]
+        }
+      ],
+      "source_url": "https://maristpoll.marist.edu/polls/the-state-of-new-york-in-an-election-year-february-2026/"
+    },
+    {
+      "pollster": "Siena University",
+      "date": "2026-02-26",
+      "sample_size": 805,
+      "matchups": [
+        {
+          "candidates": [
+            "Kathy Hochul",
+            "Bruce Blakeman"
+          ],
+          "percentages": [
+            51,
+            31
+          ]
+        }
+      ],
+      "source_url": "https://ballotpedia.org/New_York_gubernatorial_and_lieutenant_gubernatorial_election,_2026"
+    },
+    {
+      "pollster": "MAD Global Strategy",
+      "date": "2026-02-04",
+      "sample_size": 600,
+      "matchups": [
+        {
+          "candidates": [
+            "Kathy Hochul",
+            "Bruce Blakeman"
+          ],
+          "percentages": [
+            47,
+            34
+          ]
+        }
+      ],
+      "source_url": "https://ballotpedia.org/New_York_gubernatorial_and_lieutenant_gubernatorial_election,_2026"
+    },
+    {
+      "pollster": "Siena University",
+      "date": "2025-11-12",
+      "sample_size": 802,
+      "matchups": [
+        {
+          "candidates": [
+            "Kathy Hochul",
+            "Elise Stefanik"
+          ],
+          "percentages": [
+            52,
+            32
+          ]
+        }
+      ],
+      "source_url": "https://ballotpedia.org/New_York_gubernatorial_and_lieutenant_gubernatorial_election,_2026"
+    }
+  ],
+  "polling_note": null,
+  "candidates": [
+    {
+      "name": "Kathy Hochul",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Kathy Hochul is the incumbent governor of New York and the state\u2019s first female governor. She has emphasized affordability, public safety, and state investment in areas such as housing, child care, and mental health, while her campaign frames the race as a choice between continuing her agenda and a Republican alternative.",
+      "summary_sources": [
+        {
+          "url": "https://www.governor.ny.gov/about-governor-hochul",
+          "type": "government",
+          "title": "About - Governor Kathy Hochul - NY.Gov",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://kathyhochul.com/about/",
+          "type": "website",
+          "title": "About - Kathy Hochul",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/New_York_gubernatorial_and_lieutenant_gubernatorial_election,_2026",
+          "type": "website",
+          "title": "New York gubernatorial and lieutenant gubernatorial election, 2026",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Kathy_Hochul_official_portrait.jpg",
+      "website": "https://kathyhochul.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/KathyHochul",
+        "x": "https://x.com/KathyHochul",
+        "instagram": "https://www.instagram.com/kathyhochul/",
+        "youtube": "https://www.youtube.com/@KathyHochul"
+      },
+      "career_history": [
+        {
+          "title": "Governor",
+          "organization": "State of New York",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Serving as governor since 2021."
+        },
+        {
+          "title": "Lieutenant Governor",
+          "organization": "State of New York",
+          "start_year": 2015,
+          "end_year": 2021,
+          "description": "Served as lieutenant governor before becoming governor."
+        },
+        {
+          "title": "Member of Congress",
+          "organization": "U.S. House of Representatives, New York's 26th Congressional District",
+          "start_year": 2011,
+          "end_year": 2013,
+          "description": "Represented western New York in Congress."
+        },
+        {
+          "title": "Erie County Clerk",
+          "organization": "Erie County, New York",
+          "start_year": 2007,
+          "end_year": 2011,
+          "description": "Served as county clerk."
+        },
+        {
+          "title": "Town Board member",
+          "organization": "Hamburg Town Board",
+          "start_year": 1994,
+          "end_year": 2007,
+          "description": "Began her public service career in local government."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Catholic University of America, Columbus School of Law",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": 1983
+        },
+        {
+          "institution": "University at Buffalo",
+          "degree": "B.A.",
+          "field": "Political science",
+          "year": 1980
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Antonio Delgado",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Antonio Delgado is New York\u2019s lieutenant governor and a former member of Congress. His campaign has centered on progressive themes including housing affordability, child care, health care, climate policy, and economic fairness, presenting him as a challenger from the party\u2019s left flank.",
+      "summary_sources": [
+        {
+          "url": "https://delgadoforny.com/meet-antonio/",
+          "type": "website",
+          "title": "Meet Antonio - Antonio Delgado for New York",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.governor.ny.gov/lt-governor-antonio-delgado",
+          "type": "government",
+          "title": "Antonio Delgado - Governor Kathy Hochul - NY.Gov",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Antonio_Delgado_(New_York)",
+          "type": "website",
+          "title": "Antonio Delgado (New York) - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Antonio_Delgado_official_portrait.jpg",
+      "website": "https://delgadoforny.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/AntonioDelgadoNY",
+        "x": "https://x.com/AntonioDelgadoNY",
+        "instagram": "https://www.instagram.com/antoniodelgadony/",
+        "youtube": "https://www.youtube.com/@AntonioDelgadoNY"
+      },
+      "career_history": [
+        {
+          "title": "Lieutenant Governor",
+          "organization": "State of New York",
+          "start_year": 2022,
+          "end_year": null,
+          "description": "Appointed in 2022 and later elected to a full term."
+        },
+        {
+          "title": "Member of Congress",
+          "organization": "U.S. House of Representatives, New York's 19th Congressional District",
+          "start_year": 2019,
+          "end_year": 2022,
+          "description": "Represented a largely rural Hudson Valley district in Congress."
+        },
+        {
+          "title": "Attorney",
+          "organization": "Private practice",
+          "start_year": 2005,
+          "end_year": 2018,
+          "description": "Worked as a lawyer before entering elected office."
+        },
+        {
+          "title": "Hip-hop artist",
+          "organization": "Independent",
+          "start_year": 2000,
+          "end_year": 2005,
+          "description": "Worked as a recording artist before his legal and political career."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Harvard Law School",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": 2005
+        },
+        {
+          "institution": "University of Oxford",
+          "degree": "M.Phil.",
+          "field": "Philosophy",
+          "year": 2003
+        },
+        {
+          "institution": "Colgate University",
+          "degree": "B.A.",
+          "field": "Philosophy and political science",
+          "year": 1999
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Bruce Blakeman",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Bruce Blakeman is the Nassau County executive and a Republican candidate for governor. His campaign has focused on crime, taxes, and criticism of Democratic leadership in Albany, positioning him as a conservative alternative in a state that still leans Democratic statewide.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/New_York_gubernatorial_and_lieutenant_gubernatorial_election,_2026",
+          "type": "website",
+          "title": "New York gubernatorial and lieutenant gubernatorial election, 2026",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.cityandstateny.com/politics/2026/01/candidates-governor-begin-charting-course-june-and-november/410457/",
+          "type": "news",
+          "title": "Candidates for governor begin charting course for June and November",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6f/Bruce_Blakeman_2023.jpg",
+      "website": "https://blakemanforny.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/BruceBlakemanNY",
+        "x": "https://x.com/BruceBlakemanNY",
+        "instagram": "https://www.instagram.com/bruceblakemanny/",
+        "youtube": "https://www.youtube.com/@BruceBlakemanNY"
+      },
+      "career_history": [
+        {
+          "title": "Nassau County Executive",
+          "organization": "Nassau County, New York",
+          "start_year": 2022,
+          "end_year": null,
+          "description": "Serves as county executive."
+        },
+        {
+          "title": "Town Supervisor",
+          "organization": "Town of Hempstead",
+          "start_year": 2015,
+          "end_year": 2019,
+          "description": "Led the Town of Hempstead."
+        },
+        {
+          "title": "Member",
+          "organization": "Nassau County Legislature",
+          "start_year": 1996,
+          "end_year": 2001,
+          "description": "Served in county government."
+        },
+        {
+          "title": "Member",
+          "organization": "New York State Senate",
+          "start_year": 2003,
+          "end_year": 2005,
+          "description": "Served in the state Senate."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Hofstra University",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": 1980
+        },
+        {
+          "institution": "Hofstra University",
+          "degree": "B.A.",
+          "field": "Political science",
+          "year": 1977
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "updated_utc": "2026-04-01T06:00:33.477817+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "gpt-5-nano"
+  ],
+  "reviews": [],
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 98853,
+    "completion_tokens": 2865,
+    "total_tokens": 101718,
+    "estimated_usd": 0.0165,
+    "model_breakdown": {
+      "gpt-5.4-mini": {
+        "prompt_tokens": 98853,
+        "completion_tokens": 2865
+      }
+    },
+    "duration_s": 27.5
+  }
+}

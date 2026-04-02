@@ -4,8 +4,26 @@
   "office": "United States Senate",
   "jurisdiction": "Florida",
   "election_date": "2026-11-03",
-  "description": "This is a special election for Florida\u2019s U.S. Senate seat to fill the remainder of Marco Rubio\u2019s term after his departure from the Senate. The winner will serve the final two years of the term, making the race relevant to Senate control and Florida\u2019s federal representation. Florida has trended Republican in recent federal elections, but recent polling and campaign activity suggest the general election could be more competitive than in past cycles. The main contrast is between Republican incumbent Ashley Moody, who was appointed to the seat, and Democrat Alex Vindman, a retired Army officer and former National Security Council official.",
+  "description": "Florida’s 2026 special U.S. Senate election will fill the final two years of Marco Rubio’s term after his departure from the seat. The race is shaping up as a contrast between appointed Republican incumbent Ashley Moody, who has statewide experience as Florida attorney general, and Democrat Alexander Vindman, a retired Army lieutenant colonel and impeachment whistleblower. Early polling suggests Moody has the advantage, but recent surveys show the race within single digits and still potentially competitive.",
   "polling": [
+    {
+      "pollster": "University of North Florida Public Opinion Research Lab",
+      "date": "2026-03-02",
+      "matchups": [
+        {
+          "candidates": [
+            "Ashley Moody",
+            "Alexander Vindman"
+          ],
+          "percentages": [
+            45,
+            38
+          ]
+        }
+      ],
+      "source_url": "https://floridapolitics.com/archives/783202-unf-poll-shows-ashley-moody-lead-in-single-digits-against-either-angie-nixon-or-alex-vindman/",
+      "sample_size": 786
+    },
     {
       "pollster": "University of North Florida",
       "date": "2026-03-02",
@@ -58,22 +76,17 @@
       "name": "Ashley Moody",
       "party": "Republican",
       "incumbent": true,
-      "summary": "Ashley Moody is Florida\u2019s appointed U.S. senator and the Republican candidate in the special election. She previously served as Florida attorney general and earlier worked as a judge and prosecutor. Her public messaging emphasizes law enforcement, border security, conservative policy priorities, and support for President Trump\u2019s agenda.",
+      "summary": "Ashley Moody is the Republican incumbent in Florida’s 2026 special U.S. Senate election, appointed by Gov. Ron DeSantis to fill the seat after Marco Rubio left for the Trump administration. She previously served as Florida attorney general and is seeking election to the remainder of the term in November. ",
       "summary_sources": [
         {
-          "url": "https://www.moody.senate.gov/about/",
-          "type": "website",
-          "title": "About - Senator Moody"
+          "url": "https://floridapolitics.com/archives/783202-unf-poll-shows-ashley-moody-lead-in-single-digits-against-either-angie-nixon-or-alex-vindman/",
+          "type": "news",
+          "title": "Poll shows Ashley Moody lead in single digits against Democratic challengers"
         },
         {
-          "url": "https://ashleymoody.com/about/",
-          "type": "website",
-          "title": "Ashley Moody for US Senate - About"
-        },
-        {
-          "url": "https://bioguide.congress.gov/search/bio/M001244",
-          "type": "government",
-          "title": "MOODY, Ashley Brooke - Bioguide Search"
+          "url": "https://ashleymoody.com/news/",
+          "type": "campaign",
+          "title": "Ashley Moody for U.S. Senate News"
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Senator_Ashley_Moody_Official_Portrait.jpg/500px-Senator_Ashley_Moody_Official_Portrait.jpg",
@@ -89,14 +102,14 @@
           "organization": "U.S. Senate",
           "start_year": 2025,
           "end_year": null,
-          "description": "Appointed to fill Florida\u2019s Senate vacancy and serving in the seat up for special election."
+          "description": "Appointed to fill Florida’s Senate vacancy and serving in the seat up for special election."
         },
         {
           "title": "Attorney General",
           "organization": "State of Florida",
           "start_year": 2019,
           "end_year": 2025,
-          "description": "Served as Florida\u2019s attorney general before joining the Senate."
+          "description": "Served as Florida’s attorney general before joining the Senate."
         },
         {
           "title": "Circuit Judge",
@@ -245,7 +258,7 @@
       ],
       "issues": {
         "Healthcare": {
-          "stance": "Moody\u2019s public record emphasizes health-care fraud enforcement and opposition to pandemic-era mandates. In the Senate, she has also voted against extending ACA premium subsidies, indicating a conservative approach to federal health-care policy.",
+          "stance": "Moody’s public record emphasizes health-care fraud enforcement and opposition to pandemic-era mandates. In the Senate, she has also voted against extending ACA premium subsidies, indicating a conservative approach to federal health-care policy.",
           "confidence": "high",
           "sources": [
             {
@@ -263,7 +276,7 @@
           ]
         },
         "Economy": {
-          "stance": "Moody\u2019s campaign says she supports policies aimed at economic prosperity, and her Senate messaging emphasizes lowering costs through housing and tax-related measures. Her public materials also stress cutting red tape and supporting working families.",
+          "stance": "Moody’s campaign says she supports policies aimed at economic prosperity, and her Senate messaging emphasizes lowering costs through housing and tax-related measures. Her public materials also stress cutting red tape and supporting working families.",
           "confidence": "high",
           "sources": [
             {
@@ -323,13 +336,13 @@
           ]
         },
         "Immigration": {
-          "stance": "Moody has taken a hard-line immigration stance, backing President Trump\u2019s immigration agenda and introducing legislation to speed the removal of certain criminal noncitizens. Her Senate messaging also emphasizes border security and enforcement.",
+          "stance": "Moody has taken a hard-line immigration stance, backing President Trump’s immigration agenda and introducing legislation to speed the removal of certain criminal noncitizens. Her Senate messaging also emphasizes border security and enforcement.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://www.moody.senate.gov/press-releases/senator-ashley-moody-leads-efforts-to-codify-president-trumps-immigration-priorities-introduces-expedited-removal-of-criminal-aliens-act/",
               "type": "website",
-              "title": "Senator Ashley Moody Leads Efforts to Codify President Trump\u2019s Immigration Priorities, Introduces Expedited Removal of Criminal Aliens Act",
+              "title": "Senator Ashley Moody Leads Efforts to Codify President Trump’s Immigration Priorities, Introduces Expedited Removal of Criminal Aliens Act",
               "last_accessed": "2026-03-29T17:59:44.305877+00:00"
             },
             {
@@ -365,7 +378,7 @@
           ]
         },
         "Foreign Policy": {
-          "stance": "Moody\u2019s public materials emphasize support for President Trump\u2019s agenda and American sovereignty, but they do not lay out a detailed foreign-policy platform. Her available Senate messaging is more focused on immigration, law enforcement, and domestic priorities than on specific foreign-policy proposals.",
+          "stance": "Moody’s public materials emphasize support for President Trump’s agenda and American sovereignty, but they do not lay out a detailed foreign-policy platform. Her available Senate messaging is more focused on immigration, law enforcement, and domestic priorities than on specific foreign-policy proposals.",
           "confidence": "medium",
           "sources": [
             {
@@ -383,7 +396,7 @@
           ]
         },
         "Social Justice": {
-          "stance": "Moody\u2019s public record and messaging emphasize law enforcement, tougher criminal enforcement, and border/security priorities rather than social-justice reforms. The sources reviewed did not show a detailed public platform on broader civil-rights or social-justice policy changes.",
+          "stance": "Moody’s public record and messaging emphasize law enforcement, tougher criminal enforcement, and border/security priorities rather than social-justice reforms. The sources reviewed did not show a detailed public platform on broader civil-rights or social-justice policy changes.",
           "confidence": "medium",
           "sources": [
             {
@@ -401,19 +414,19 @@
           ]
         },
         "Education": {
-          "stance": "Moody has publicly backed school choice and educational freedom, saying student needs, not zip codes, should determine opportunities. She has also promoted Florida\u2019s school-choice model nationally.",
+          "stance": "Moody has publicly backed school choice and educational freedom, saying student needs, not zip codes, should determine opportunities. She has also promoted Florida’s school-choice model nationally.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://www.moody.senate.gov/press-releases/video-release-as-co-chair-of-national-school-choice-week-senator-moody-promotes-educational-freedom-in-america-touts-success-in-floridas-model/",
               "type": "government",
-              "title": "VIDEO RELEASE: As Co-Chair of National School Choice Week, Senator Moody Promotes Educational Freedom in America, Touts Success in Florida\u2019s Model",
+              "title": "VIDEO RELEASE: As Co-Chair of National School Choice Week, Senator Moody Promotes Educational Freedom in America, Touts Success in Florida’s Model",
               "last_accessed": "2026-03-29T17:59:44.305877+00:00"
             },
             {
               "url": "https://www.moody.senate.gov/press-releases/video-release-senator-moody-works-to-bring-floridas-educational-success-to-all-americans-during-national-school-choice-week/",
               "type": "government",
-              "title": "VIDEO RELEASE: Senator Moody Works to Bring Florida\u2019s Educational Success to All Americans During National School Choice Week",
+              "title": "VIDEO RELEASE: Senator Moody Works to Bring Florida’s Educational Success to All Americans During National School Choice Week",
               "last_accessed": "2026-03-29T17:59:44.305877+00:00"
             },
             {
@@ -425,7 +438,7 @@
           ]
         },
         "Tech & AI": {
-          "stance": "Moody has called for Congress to investigate AI\u2019s harms, especially its use in child exploitation and deepfakes, and has supported stronger restrictions on AI-generated abuse material. She has also backed AI use in agriculture and has discussed holding AI companies accountable for harmful outputs.",
+          "stance": "Moody has called for Congress to investigate AI’s harms, especially its use in child exploitation and deepfakes, and has supported stronger restrictions on AI-generated abuse material. She has also backed AI use in agriculture and has discussed holding AI companies accountable for harmful outputs.",
           "confidence": "high",
           "sources": [
             {
@@ -449,7 +462,7 @@
           ]
         },
         "Election Reform": {
-          "stance": "Moody\u2019s public record reviewed here does not show a detailed election-reform platform. Her campaign messaging instead focuses on election integrity, law and order, and opposition to corruption.",
+          "stance": "Moody’s public record reviewed here does not show a detailed election-reform platform. Her campaign messaging instead focuses on election integrity, law and order, and opposition to corruption.",
           "confidence": "low",
           "sources": [
             {
@@ -467,7 +480,7 @@
           ]
         },
         "Local Issues": {
-          "stance": "Moody\u2019s campaign and Senate messaging highlight Florida-specific concerns such as property insurance, disaster recovery, housing affordability, and support for Florida agriculture. She also frames her work around protecting Floridians from crime, border-related spillovers, and consumer fraud.",
+          "stance": "Moody’s campaign and Senate messaging highlight Florida-specific concerns such as property insurance, disaster recovery, housing affordability, and support for Florida agriculture. She also frames her work around protecting Floridians from crime, border-related spillovers, and consumer fraud.",
           "confidence": "high",
           "sources": [
             {
@@ -490,23 +503,25 @@
             }
           ]
         }
-      }
+      },
+      "donor_summary": null,
+      "links": []
     },
     {
-      "name": "Alex Vindman",
+      "name": "Alexander Vindman",
       "party": "Democratic",
       "incumbent": false,
-      "summary": "Alex Vindman is a retired U.S. Army lieutenant colonel and former National Security Council official running as a Democrat in Florida\u2019s Senate special election. He became nationally known for his role in the Trump impeachment inquiry and is campaigning on public service, anti-corruption themes, and affordability. His background is in the military and foreign policy rather than elected office.",
+      "summary": "Alexander Vindman is a Democratic candidate in Florida’s 2026 special U.S. Senate election. A retired U.S. Army lieutenant colonel and former National Security Council official, he became widely known for his role as a whistleblower in President Donald Trump’s first impeachment. He moved to Broward County in 2023 and launched his Senate campaign in January 2026.",
       "summary_sources": [
         {
-          "url": "https://alexvindman.com/",
-          "type": "website",
-          "title": "Alex Vindman for Florida - Alex Vindman for Florida"
+          "url": "https://floridaphoenix.com/2026/01/27/whistleblower-alexander-vindman-to-seek-florida-democratic-nomination-for-senate/",
+          "type": "news",
+          "title": "Whistleblower Alexander Vindman to seek Florida Democratic nomination for Senate"
         },
         {
-          "url": "https://www.pbs.org/newshour/politics/alex-vindman-key-figure-in-trumps-first-impeachment-enters-florida-senate-race",
+          "url": "https://floridapolitics.com/archives/783202-unf-poll-shows-ashley-moody-lead-in-single-digits-against-either-angie-nixon-or-alex-vindman/",
           "type": "news",
-          "title": "Alex Vindman, key figure in Trump's first impeachment, enters Florida Senate race"
+          "title": "Poll shows Ashley Moody lead in single digits against Democratic challengers"
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/07/Alexander_Vindman_on_May_20%2C_2019.jpg",
@@ -598,7 +613,7 @@
           ]
         },
         "Climate/Energy": {
-          "stance": "Vindman\u2019s public campaign materials reviewed here do not lay out a detailed climate platform. His broader messaging emphasizes affordability, infrastructure, and disaster-related concerns in Florida, but a specific climate or energy agenda was not clearly stated in the sources found.",
+          "stance": "Vindman’s public campaign materials reviewed here do not lay out a detailed climate platform. His broader messaging emphasizes affordability, infrastructure, and disaster-related concerns in Florida, but a specific climate or energy agenda was not clearly stated in the sources found.",
           "confidence": "low",
           "sources": [
             {
@@ -634,7 +649,7 @@
           ]
         },
         "Immigration": {
-          "stance": "Vindman criticized Trump\u2019s immigration crackdown, calling federal immigration agents \u201cthug militias\u201d in his campaign announcement video. His campaign framing suggests opposition to aggressive enforcement tactics, but the available sources do not provide a detailed immigration policy platform.",
+          "stance": "Vindman criticized Trump’s immigration crackdown, calling federal immigration agents “thug militias” in his campaign announcement video. His campaign framing suggests opposition to aggressive enforcement tactics, but the available sources do not provide a detailed immigration policy platform.",
           "confidence": "medium",
           "sources": [
             {
@@ -664,7 +679,7 @@
           ]
         },
         "Foreign Policy": {
-          "stance": "Vindman\u2019s foreign-policy views are strongly pro-Ukraine and focused on national security. He has said the U.S. turned its back on Ukraine and has argued that Russia\u2019s war against Ukraine reflects a long-running threat to Ukrainian statehood and culture.",
+          "stance": "Vindman’s foreign-policy views are strongly pro-Ukraine and focused on national security. He has said the U.S. turned its back on Ukraine and has argued that Russia’s war against Ukraine reflects a long-running threat to Ukrainian statehood and culture.",
           "confidence": "high",
           "sources": [
             {
@@ -688,7 +703,7 @@
           ]
         },
         "Social Justice": {
-          "stance": "Vindman\u2019s campaign messaging is centered on opposition to Trump, corruption, and democratic norms, but the sources reviewed did not provide a detailed, explicit social-justice platform. His public comments are more focused on accountability and public service than on a specific social-justice agenda.",
+          "stance": "Vindman’s campaign messaging is centered on opposition to Trump, corruption, and democratic norms, but the sources reviewed did not provide a detailed, explicit social-justice platform. His public comments are more focused on accountability and public service than on a specific social-justice agenda.",
           "confidence": "low",
           "sources": [
             {
@@ -736,7 +751,7 @@
           ]
         },
         "Election Reform": {
-          "stance": "Vindman\u2019s campaign is explicitly framed around defending democracy and checking corruption. The sources reviewed do not show a detailed election-reform bill agenda, but his public messaging strongly emphasizes democratic accountability and opposition to abuses of power.",
+          "stance": "Vindman’s campaign is explicitly framed around defending democracy and checking corruption. The sources reviewed do not show a detailed election-reform bill agenda, but his public messaging strongly emphasizes democratic accountability and opposition to abuses of power.",
           "confidence": "medium",
           "sources": [
             {
@@ -754,7 +769,7 @@
           ]
         },
         "Local Issues": {
-          "stance": "Vindman says Florida families face high costs, high rents, high health-care premiums, and some of the nation\u2019s highest property insurance rates. His campaign also ties his local message to disaster recovery, affordability, and opposition to what he describes as corruption and special interests.",
+          "stance": "Vindman says Florida families face high costs, high rents, high health-care premiums, and some of the nation’s highest property insurance rates. His campaign also ties his local message to disaster recovery, affordability, and opposition to what he describes as corruption and special interests.",
           "confidence": "high",
           "sources": [
             {
@@ -771,15 +786,15 @@
             }
           ]
         }
-      }
+      },
+      "donor_summary": null,
+      "links": []
     }
   ],
-  "updated_utc": "2026-03-29T17:59:44.305877+00:00",
+  "updated_utc": "2026-04-01T05:44:06.303589+00:00",
   "generator": [
     "gpt-5.4-mini",
-    "claude-haiku-4-5-20251001",
-    "gemini-2.0-flash",
-    "grok-3-mini"
+    "gpt-5-nano"
   ],
   "reviews": [
     {
@@ -843,7 +858,7 @@
         },
         {
           "field": "candidates[1].career_history[2]",
-          "concern": "The role 'Senior Fellow / Scholar' at 'Harvard University and related policy institutions' (2020\u2013present) is vague. 'And related policy institutions' is imprecise. The end_year shows null, which is fine if ongoing, but the organization name should be more specific.",
+          "concern": "The role 'Senior Fellow / Scholar' at 'Harvard University and related policy institutions' (2020–present) is vague. 'And related policy institutions' is imprecise. The end_year shows null, which is fine if ongoing, but the organization name should be more specific.",
           "suggestion": "Specify which Harvard institute/center and name specific policy institutions where Vindman has held fellowships since 2020 (e.g., Kennedy School, Center for Strategic and International Studies, etc.).",
           "severity": "warning"
         },
@@ -854,7 +869,7 @@
           "severity": "info"
         }
       ],
-      "summary": "This profile demonstrates strong sourcing discipline and generally accurate candidate backgrounds. The Ashley Moody candidate profile is particularly well-documented with high-confidence issue stances backed by official sources and credible news outlets. However, there are several material issues that require revision: (1) a critical factual error in the race description about who won the seat, (2) significant asymmetry in Alex Vindman's profile\u2014particularly missing donor data and a suspicious voting record entry citing a nonexistent congressional position, and (3) duplicate/redundant polling entries. These gaps and errors undermine confidence in the overall accuracy of the profile."
+      "summary": "This profile demonstrates strong sourcing discipline and generally accurate candidate backgrounds. The Ashley Moody candidate profile is particularly well-documented with high-confidence issue stances backed by official sources and credible news outlets. However, there are several material issues that require revision: (1) a critical factual error in the race description about who won the seat, (2) significant asymmetry in Alex Vindman's profile—particularly missing donor data and a suspicious voting record entry citing a nonexistent congressional position, and (3) duplicate/redundant polling entries. These gaps and errors undermine confidence in the overall accuracy of the profile."
     },
     {
       "model": "grok-3-mini",
@@ -876,5 +891,24 @@
       ],
       "summary": "This profile is a well-constructed and reliable resource, with thorough sourcing from credible outlets like official campaign websites, government databases such as Congress.gov and Bioguide, and established news sources like PBS and Florida Politics. It accurately captures candidate backgrounds, including detailed career histories and education for both Ashley Moody and Alex Vindman, while maintaining neutral language across issues and providing high-confidence stances where evidence is strong."
     }
-  ]
+  ],
+  "polling_note": "Recent polling found Ashley Moody leading Alexander Vindman 45% to 38% in a University of North Florida Public Opinion Research Lab survey of 786 likely midterm voters conducted Feb. 21 to Mar. 2, 2026. No additional polls from the last 90 days were identified in this update.",
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 128218,
+    "completion_tokens": 10403,
+    "total_tokens": 138621,
+    "estimated_usd": 0.0208,
+    "model_breakdown": {
+      "gpt-5-nano": {
+        "prompt_tokens": 56665,
+        "completion_tokens": 9298
+      },
+      "gpt-5.4-mini": {
+        "prompt_tokens": 71553,
+        "completion_tokens": 1105
+      }
+    },
+    "duration_s": 87.6
+  }
 }

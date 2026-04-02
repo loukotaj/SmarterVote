@@ -1,0 +1,441 @@
+{
+  "id": "md-governor-2026",
+  "title": "2026 Maryland Governor and Lieutenant Governor Election",
+  "office": "Governor and Lieutenant Governor of Maryland",
+  "jurisdiction": "Maryland",
+  "election_date": "2026-11-03",
+  "description": "Maryland will elect its governor and lieutenant governor on November 3, 2026; the two offices are elected together on a single ticket. The race is being held in a state that recent nonpartisan ratings describe as solidly Democratic, and the incumbent governor, Wes Moore, is seeking re-election. The contest matters because it will determine control of the state executive branch and test whether Moore\u2019s first-term record and the Democratic lean of the state outweigh Republican efforts to make the race about taxes, affordability, and public safety.",
+  "polling": [
+    {
+      "pollster": "Gonzales Research & Media Services",
+      "date": "2026-01-13",
+      "sample_size": 808,
+      "matchups": [
+        {
+          "candidates": [
+            "Wes Moore",
+            "Larry Hogan"
+          ],
+          "percentages": [
+            50,
+            38
+          ]
+        }
+      ],
+      "source_url": "https://marylandmatters.org/wp-content/uploads/2026/01/260113-Gonzales_20Poll_2C_20Part_201_20-_20January_202026.pdf"
+    },
+    {
+      "pollster": "Gonzales Research & Media Services",
+      "date": "2025-01-07",
+      "sample_size": null,
+      "matchups": [
+        {
+          "candidates": [
+            "Wes Moore",
+            "Larry Hogan"
+          ],
+          "percentages": [
+            52,
+            38
+          ]
+        }
+      ],
+      "source_url": "https://marylandmatters.org/wp-content/uploads/2025/01/Report-Gonzales-Poll-Part-1-January-2025-.pdf"
+    }
+  ],
+  "polling_note": null,
+  "candidates": [
+    {
+      "name": "Wes Moore",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Wes Moore is Maryland\u2019s incumbent governor and is seeking a second term. Before entering elected office, he served in the U.S. Army, led nonprofit and philanthropic organizations, and became a best-selling author; as governor, he has emphasized economic opportunity, education, child poverty reduction, and public safety.",
+      "summary_sources": [
+        {
+          "url": "https://governor.maryland.gov/leadership/pages/governor.aspx",
+          "type": "government",
+          "title": "Our Leadership - Office of Governor Wes Moore",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://wesmoore.com/about/",
+          "type": "website",
+          "title": "Meet Wes - Wes Moore for Maryland",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Wes_Moore_Official_Governor_Portrait.jpg",
+      "website": "https://wesmoore.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/iamwesmoore/?hl=en",
+        "facebook": "https://www.facebook.com/iamwesmoore/",
+        "x": "https://x.com/iamwesmoore",
+        "youtube": "https://www.youtube.com/channel/UCdxota7dx7862DWyTbHN1nA/about"
+      },
+      "career_history": [
+        {
+          "title": "Governor",
+          "organization": "State of Maryland",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Serves as Maryland\u2019s 63rd governor."
+        },
+        {
+          "title": "CEO",
+          "organization": "Robin Hood Foundation",
+          "start_year": null,
+          "end_year": null,
+          "description": "Led one of the country\u2019s largest anti-poverty organizations before entering office."
+        },
+        {
+          "title": "Founder and leader",
+          "organization": "BridgeEdU",
+          "start_year": null,
+          "end_year": null,
+          "description": "Launched and led an education-focused nonprofit aimed at improving first-year college success."
+        },
+        {
+          "title": "Paratrooper",
+          "organization": "U.S. Army, 82nd Airborne Division",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served in the Army and led soldiers in Afghanistan."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Johns Hopkins University",
+          "degree": "Bachelor's degree",
+          "field": "unknown",
+          "year": null
+        },
+        {
+          "institution": "University of Oxford",
+          "degree": "Rhodes Scholar",
+          "field": "unknown",
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Aruna Miller",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Aruna Miller is Maryland\u2019s lieutenant governor and is running for re-election on the Democratic ticket with Wes Moore. Her background is in civil and transportation engineering, and in elected office she has focused on transportation, STEM education, working families, and public safety-related issues.",
+      "summary_sources": [
+        {
+          "url": "https://governor.maryland.gov/leadership/ltgovernor/Pages/biography.aspx",
+          "type": "government",
+          "title": "Biography - Lt. Governor - Our Leadership - Office of Governor Wes Moore",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://arunamiller.com/",
+          "type": "website",
+          "title": "Wes Moore & Aruna Miller for Maryland",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://arunamiller.com/",
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Lieutenant Governor",
+          "organization": "State of Maryland",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Serves as Maryland\u2019s 10th lieutenant governor."
+        },
+        {
+          "title": "Member, Maryland House of Delegates",
+          "organization": "Maryland General Assembly, District 15",
+          "start_year": 2010,
+          "end_year": 2018,
+          "description": "Represented District 15 and served on the Ways and Means and Appropriations committees."
+        },
+        {
+          "title": "Civil and transportation engineer",
+          "organization": "Montgomery County Department of Transportation",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked for 25 years on transportation safety and access projects."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Missouri University of Science and Technology",
+          "degree": "Bachelor of Science",
+          "field": "civil engineering",
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Dan Cox",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Dan Cox is a Republican candidate for governor and a former member of the Maryland House of Delegates. He previously represented District 4, worked as an attorney and teacher, and was the Republican nominee for governor in 2022.",
+      "summary_sources": [
+        {
+          "url": "https://msa.maryland.gov/msa/mdmanual/06hse/former/html/msa18012.html",
+          "type": "government",
+          "title": "Daniel L. Cox, Maryland State Delegate",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Dan_Cox_(Maryland)",
+          "type": "website",
+          "title": "Dan Cox (Maryland) - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Dan_Cox.jpg",
+      "website": null,
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Member, Maryland House of Delegates",
+          "organization": "Maryland General Assembly, District 4",
+          "start_year": 2019,
+          "end_year": 2023,
+          "description": "Served on the Judiciary Committee and related subcommittees."
+        },
+        {
+          "title": "Chief of Staff",
+          "organization": "Office of State Senator Douglas V. Mastriano",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Served as chief of staff to a Pennsylvania state senator."
+        },
+        {
+          "title": "Attorney",
+          "organization": "Cox Law Center LLC",
+          "start_year": 2007,
+          "end_year": null,
+          "description": "Operated a solo law practice."
+        },
+        {
+          "title": "High school teacher",
+          "organization": "Walkersville Christian Family Schools",
+          "start_year": 1995,
+          "end_year": 2005,
+          "description": "Taught at a Christian family school in Maryland."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Mount St. Mary's University",
+          "degree": "attended",
+          "field": "unknown",
+          "year": null
+        },
+        {
+          "institution": "University of Maryland University College",
+          "degree": "Bachelor of Science",
+          "field": "government & politics",
+          "year": 2002
+        },
+        {
+          "institution": "Regent University School of Law",
+          "degree": "Juris Doctor",
+          "field": "law",
+          "year": 2006
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Ed Hale",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Ed Hale is a Baltimore businessman and former banker running for governor as a Republican after previously identifying as a Democrat. His campaign emphasizes taxes, regulation, business competitiveness, and public safety, and he presents himself as a non-career politician with private-sector experience.",
+      "summary_sources": [
+        {
+          "url": "https://haleforgov.com/",
+          "type": "website",
+          "title": "Hale for Gov",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://marylandmatters.org/2025/08/21/hale-cites-pragmatism-as-he-switches-party-affiliation-to-run-for-governor/",
+          "type": "news",
+          "title": "Hale cites pragmatism as he switches party affiliation to run for governor",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://haleforgov.com/",
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Founder / chairman / chief executive",
+          "organization": "First Mariner Bank",
+          "start_year": null,
+          "end_year": null,
+          "description": "Built and led a Baltimore banking business."
+        },
+        {
+          "title": "Businessman",
+          "organization": "Shipping, banking, and real estate ventures",
+          "start_year": null,
+          "end_year": null,
+          "description": "Campaign materials describe him as having built businesses and buildings and employed thousands of Marylanders."
+        },
+        {
+          "title": "Owner",
+          "organization": "Baltimore Blast",
+          "start_year": null,
+          "end_year": null,
+          "description": "Known publicly as the owner of the Baltimore Blast soccer team."
+        },
+        {
+          "title": "CIA operative",
+          "organization": "Central Intelligence Agency",
+          "start_year": 1991,
+          "end_year": 2001,
+          "description": "Hale has said he worked covertly for the CIA for nearly a decade."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Andy Ellis",
+      "party": "Green",
+      "incumbent": false,
+      "summary": "Andy Ellis is the Green Party candidate for governor and is running with Owen Silverman Andrews on the ticket. He is a longtime debate coach and civic activist in Baltimore, and his campaign biography says he has worked on education, debate programs, and local political organizing for years.",
+      "summary_sources": [
+        {
+          "url": "https://www.gogreen2026.com/bio-andy",
+          "type": "website",
+          "title": "Andy Biography | Get Involved Today - Andy Ellis For Governor 2026",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Andy_Ellis",
+          "type": "website",
+          "title": "Andy Ellis - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://www.gogreen2026.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/gogreenmd/",
+        "x": "https://x.com/gogreen2026"
+      },
+      "career_history": [
+        {
+          "title": "Debate coach",
+          "organization": "Universities and high schools",
+          "start_year": null,
+          "end_year": null,
+          "description": "Coached college and high school debate teams for decades."
+        },
+        {
+          "title": "Program coordinator",
+          "organization": "Baltimore Urban Debate League",
+          "start_year": null,
+          "end_year": null,
+          "description": "Helped start debate programs at Baltimore City middle schools."
+        },
+        {
+          "title": "Co-chair",
+          "organization": "Baltimore City Green Party",
+          "start_year": 2015,
+          "end_year": 2017,
+          "description": "Served in local Green Party leadership."
+        },
+        {
+          "title": "Co-chair",
+          "organization": "Maryland Green Party",
+          "start_year": 2019,
+          "end_year": 2020,
+          "description": "Served in state Green Party leadership."
+        },
+        {
+          "title": "Business owner",
+          "organization": "Debate Strategies, LLC",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Founded a small business focused on public debate and argumentation workshops."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Governor Thomas Johnson High School",
+          "degree": "high school diploma",
+          "field": "unknown",
+          "year": null
+        },
+        {
+          "institution": "St. Mary's College of Maryland",
+          "degree": "attended",
+          "field": "unknown",
+          "year": null
+        },
+        {
+          "institution": "Towson University",
+          "degree": "attended",
+          "field": "unknown",
+          "year": null
+        },
+        {
+          "institution": "University of Maryland Global Campus",
+          "degree": "studying",
+          "field": "business",
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "updated_utc": "2026-04-01T05:53:14.854330+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "gpt-5-nano"
+  ],
+  "reviews": [],
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 207610,
+    "completion_tokens": 3597,
+    "total_tokens": 211207,
+    "estimated_usd": 0.0333,
+    "model_breakdown": {
+      "gpt-5.4-mini": {
+        "prompt_tokens": 207610,
+        "completion_tokens": 3597
+      }
+    },
+    "duration_s": 43.4
+  }
+}

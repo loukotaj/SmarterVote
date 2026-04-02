@@ -1,0 +1,251 @@
+{
+  "id": "oh-senate-2026-special",
+  "title": "2026 Ohio U.S. Senate special election",
+  "office": "United States Senate",
+  "jurisdiction": "Ohio",
+  "election_date": "2026-11-03",
+  "description": "This race is for the U.S. Senate seat in Ohio created when J.D. Vance left the chamber to become vice president. It matters because it is a special election that will determine who serves the remainder of the term and could affect the partisan balance of the Senate. Ohio has recently leaned Republican in federal races, but Sherrod Brown\u2019s entry makes the contest more competitive and highlights a contrast between Brown\u2019s labor-focused populism and Jon Husted\u2019s Republican governing record.",
+  "polling": [
+    {
+      "pollster": "OnMessage Public Strategies",
+      "date": "2026-03-08",
+      "sample_size": 600,
+      "matchups": [
+        {
+          "candidates": [
+            "Sherrod Brown",
+            "Jon Husted"
+          ],
+          "percentages": [
+            47,
+            45
+          ]
+        }
+      ],
+      "source_url": "https://ballotpedia.org/United_States_Senate_special_election_in_Ohio,_2026"
+    },
+    {
+      "pollster": "Emerson College Polling",
+      "date": "2026-02-22",
+      "sample_size": 1347,
+      "matchups": [
+        {
+          "candidates": [
+            "Sherrod Brown",
+            "Jon Husted"
+          ],
+          "percentages": [
+            47,
+            45
+          ]
+        }
+      ],
+      "source_url": "https://ballotpedia.org/United_States_Senate_special_election_in_Ohio,_2026"
+    },
+    {
+      "pollster": "Emerson College Polling",
+      "date": "2025-12-08",
+      "sample_size": 850,
+      "matchups": [
+        {
+          "candidates": [
+            "Sherrod Brown",
+            "Jon Husted"
+          ],
+          "percentages": [
+            46,
+            49
+          ]
+        }
+      ],
+      "source_url": "https://ballotpedia.org/United_States_Senate_special_election_in_Ohio,_2026"
+    }
+  ],
+  "polling_note": null,
+  "candidates": [
+    {
+      "name": "Jon Husted",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Jon Husted is the appointed incumbent U.S. senator from Ohio and a longtime Republican officeholder in the state. He has emphasized economic growth, workforce issues, and a conservative governing approach in his Senate campaign and official Senate materials.",
+      "summary_sources": [
+        {
+          "url": "https://www.husted.senate.gov/about/",
+          "type": "website",
+          "title": "About - Senator Jon Husted",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.jonhustedforsenate.com/",
+          "type": "website",
+          "title": "Jon Husted for Senate | Working for Us. Delivering for Ohio.",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Jon_Husted",
+          "type": "website",
+          "title": "Jon Husted - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Jon_Husted_official_portrait.jpg",
+      "website": "https://www.jonhustedforsenate.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/hustedforohio/",
+        "x": "https://x.com/JonHusted",
+        "instagram": "https://www.instagram.com/senjonhusted/"
+      },
+      "career_history": [
+        {
+          "title": "United States Senator",
+          "organization": "U.S. Senate",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Appointed to fill Ohio\u2019s Senate vacancy in 2025."
+        },
+        {
+          "title": "Lieutenant Governor",
+          "organization": "State of Ohio",
+          "start_year": 2019,
+          "end_year": 2025,
+          "description": "Served as Ohio\u2019s lieutenant governor before joining the Senate."
+        },
+        {
+          "title": "Secretary of State",
+          "organization": "State of Ohio",
+          "start_year": 2011,
+          "end_year": 2019,
+          "description": "Served two terms as Ohio secretary of state."
+        },
+        {
+          "title": "Speaker",
+          "organization": "Ohio House of Representatives",
+          "start_year": 2005,
+          "end_year": 2009,
+          "description": "Led the Ohio House as speaker."
+        },
+        {
+          "title": "State Representative",
+          "organization": "Ohio House of Representatives",
+          "start_year": 2001,
+          "end_year": 2009,
+          "description": "Served in the Ohio House before becoming speaker."
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Dayton",
+          "degree": "Bachelor of Arts",
+          "field": "Political science",
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Sherrod Brown",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Sherrod Brown is a former U.S. senator from Ohio who is seeking a return to the Senate in this special election. His campaign and biography emphasize a long record focused on workers, labor issues, consumer protection, and middle-class economic policy.",
+      "summary_sources": [
+        {
+          "url": "https://www.sherrodbrown.com/",
+          "type": "website",
+          "title": "Sherrod Brown - Fighting for Ohioans",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.congress.gov/member/sherrod-brown/B000944",
+          "type": "government",
+          "title": "Sherrod Brown - Congress.gov",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.banking.senate.gov/download/brown-biography",
+          "type": "government",
+          "title": "Sherrod Brown Biography | Senate Banking Committee",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/5f/Sherrod_Brown_official_portrait.jpg",
+      "website": "https://www.sherrodbrown.com/",
+      "social_media": {
+        "bluesky": "https://bsky.app/profile/sherrodbrown.com",
+        "facebook": "https://www.facebook.com/sherrod/",
+        "instagram": "https://www.instagram.com/sherrod/",
+        "threads": "https://www.threads.net/@sherrod",
+        "tiktok": "https://www.tiktok.com/@sherrodbrown",
+        "x": "https://x.com/SherrodBrown",
+        "youtube": "https://www.youtube.com/@SherrodBrown"
+      },
+      "career_history": [
+        {
+          "title": "United States Senator",
+          "organization": "U.S. Senate",
+          "start_year": 2007,
+          "end_year": 2025,
+          "description": "Represented Ohio in the U.S. Senate for nearly two decades."
+        },
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 1993,
+          "end_year": 2007,
+          "description": "Served in the House before moving to the Senate."
+        },
+        {
+          "title": "Ohio Secretary of State",
+          "organization": "State of Ohio",
+          "start_year": 1983,
+          "end_year": 1991,
+          "description": "Held statewide office as Ohio secretary of state."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Yale University",
+          "degree": "Bachelor of Arts",
+          "field": "Russian studies",
+          "year": 1974
+        },
+        {
+          "institution": "Ohio State University",
+          "degree": "Master of Arts",
+          "field": "Education",
+          "year": 1979
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "updated_utc": "2026-04-01T06:02:04.466035+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "gpt-5-nano"
+  ],
+  "reviews": [],
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 43315,
+    "completion_tokens": 1995,
+    "total_tokens": 45310,
+    "estimated_usd": 0.0077,
+    "model_breakdown": {
+      "gpt-5.4-mini": {
+        "prompt_tokens": 43315,
+        "completion_tokens": 1995
+      }
+    },
+    "duration_s": 22.6
+  }
+}

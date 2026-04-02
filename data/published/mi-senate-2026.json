@@ -4,8 +4,58 @@
   "office": "United States Senate",
   "jurisdiction": "Michigan",
   "election_date": "2026-11-03",
-  "description": "Michigan\u2019s 2026 U.S. Senate race is for the state\u2019s Class II seat and is an open-seat contest after incumbent Democrat Gary Peters announced he will not seek reelection. The race is expected to be highly competitive in a state that has often been closely divided in recent federal elections. Democrats are contesting a crowded primary featuring Abdul El-Sayed, Mallory McMorrow, and Haley Stevens, while Republicans are rallying around former U.S. Rep. Mike Rogers. Key contrasts in the race include health care, abortion rights, immigration, manufacturing, and broader views on Donald Trump and federal governance.",
+  "description": "Michigan’s 2026 U.S. Senate race is for an open seat after Sen. Gary Peters said he would not seek reelection. The contest matters because Michigan is a closely divided swing state and control of the Senate could hinge on the seat; the Democratic primary has featured a three-way affordability-focused race among Abdul El-Sayed, Mallory McMorrow, and Haley Stevens, while Republican Mike Rogers is the party’s leading contender.",
   "polling": [
+    {
+      "pollster": "Emerson College Polling / Nexstar Media",
+      "date": "2026-01-29",
+      "matchups": [
+        {
+          "candidates": [
+            "Mallory McMorrow",
+            "Haley Stevens",
+            "Abdul El-Sayed"
+          ],
+          "percentages": [
+            22,
+            17,
+            16
+          ]
+        },
+        {
+          "candidates": [
+            "Mallory McMorrow",
+            "Mike Rogers"
+          ],
+          "percentages": [
+            46,
+            43
+          ]
+        },
+        {
+          "candidates": [
+            "Haley Stevens",
+            "Mike Rogers"
+          ],
+          "percentages": [
+            47,
+            42
+          ]
+        },
+        {
+          "candidates": [
+            "Abdul El-Sayed",
+            "Mike Rogers"
+          ],
+          "percentages": [
+            43,
+            43
+          ]
+        }
+      ],
+      "source_url": "https://emersoncollegepolling.com/michigan-2026-poll-crowded-democratic-senate-primary-remains-wide-open/",
+      "sample_size": 1000
+    },
     {
       "pollster": "Emerson College Polling / Nexstar Media",
       "date": "2026-01-29",
@@ -80,25 +130,17 @@
       "name": "Abdul El-Sayed",
       "party": "Democratic",
       "incumbent": false,
-      "summary": "Abdul El-Sayed is a physician and former public health official running for the Democratic nomination for U.S. Senate in Michigan. His campaign emphasizes health care, affordability, labor, and a more progressive approach to government and corporate power.",
+      "summary": "Abdul El-Sayed is a physician and former Wayne County health director running for Michigan’s open U.S. Senate seat as a Democrat. He has emphasized affordability and health care in the race and has received an endorsement from Sen. Bernie Sanders.",
       "summary_sources": [
         {
-          "url": "https://abdulforsenate.com/",
-          "type": "website",
-          "title": "Abdul for U.S. Senate | Official Campaign Website",
-          "last_accessed": "2026-03-29T00:00:00Z"
+          "url": "https://apnews.com/article/michigan-senate-race-democrat-abdul-elsayed-fb8b90a59ae5df53f5c6b524968b205e",
+          "title": "Ex-Michigan health officer Abdul El-Sayed enters Democratic US Senate race",
+          "type": "article"
         },
         {
-          "url": "https://www.detroitchamber.com/bios/abdul-el-sayed/",
-          "type": "website",
-          "title": "Abdul El-Sayed Bio - Detroit Regional Chamber",
-          "last_accessed": "2026-03-29T00:00:00Z"
-        },
-        {
-          "url": "https://ballotpedia.org/Abdul_El-Sayed",
-          "type": "website",
-          "title": "Abdul El-Sayed - Ballotpedia",
-          "last_accessed": "2026-03-29T00:00:00Z"
+          "url": "https://emersoncollegepolling.com/michigan-2026-poll-crowded-democratic-senate-primary-remains-wide-open/",
+          "title": "Michigan 2026 Poll: Crowded Democratic Senate Primary Remains Wide Open",
+          "type": "poll"
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Abdul_El-Sayed.jpg/500px-Abdul_El-Sayed.jpg",
@@ -117,7 +159,7 @@
           "organization": "Abdul for U.S. Senate",
           "start_year": 2025,
           "end_year": null,
-          "description": "Declared candidate in Michigan\u2019s 2026 U.S. Senate race."
+          "description": "Declared candidate in Michigan’s 2026 U.S. Senate race."
         },
         {
           "title": "Director",
@@ -131,7 +173,7 @@
           "organization": "Detroit Health Department",
           "start_year": 2015,
           "end_year": 2017,
-          "description": "Managed Detroit\u2019s public health department."
+          "description": "Managed Detroit’s public health department."
         },
         {
           "title": "Public health professor",
@@ -164,7 +206,7 @@
           "source": {
             "url": "https://www.opensecrets.org/donor-lookup/results?order=asc&page=2&sort=N&zip=10026",
             "type": "website",
-            "title": "Donor Lookup \u2022 OpenSecrets",
+            "title": "Donor Lookup • OpenSecrets",
             "last_accessed": "2026-03-29T17:20:01.604900+00:00"
           }
         },
@@ -175,7 +217,7 @@
           "source": {
             "url": "https://www.opensecrets.org/donor-lookup/results?employ=medtronic&page=1",
             "type": "website",
-            "title": "Donor Lookup \u2022 OpenSecrets",
+            "title": "Donor Lookup • OpenSecrets",
             "last_accessed": "2026-03-29T17:20:01.604900+00:00"
           }
         },
@@ -186,7 +228,7 @@
           "source": {
             "url": "https://www.opensecrets.org/donor-lookup/results?order=asc&page=9&sort=D&zip=49659",
             "type": "website",
-            "title": "Donor Lookup \u2022 OpenSecrets",
+            "title": "Donor Lookup • OpenSecrets",
             "last_accessed": "2026-03-29T17:20:01.604900+00:00"
           }
         },
@@ -197,7 +239,7 @@
           "source": {
             "url": "https://www.opensecrets.org/donor-lookup/results?order=asc&page=5&sort=N&zip=48188",
             "type": "website",
-            "title": "Donor Lookup \u2022 OpenSecrets",
+            "title": "Donor Lookup • OpenSecrets",
             "last_accessed": "2026-03-29T17:20:01.604900+00:00"
           }
         },
@@ -208,7 +250,7 @@
           "source": {
             "url": "https://www.opensecrets.org/donor-lookup/results?order=asc&page=7&sort=N&zip=48126",
             "type": "website",
-            "title": "Donor Lookup \u2022 OpenSecrets",
+            "title": "Donor Lookup • OpenSecrets",
             "last_accessed": "2026-03-29T17:20:01.604900+00:00"
           }
         }
@@ -227,7 +269,7 @@
             {
               "url": "https://abdulforsenate.com/2026/01/dr-abdul-el-sayed-ive-worked-to-expand-rx-kids-but-we-still-need-medicare-for-all/",
               "type": "website",
-              "title": "Dr. Abdul El-Sayed: \u201cI\u2019ve Worked to Expand Rx Kids. But We Still Need Medicare for All.\u201d",
+              "title": "Dr. Abdul El-Sayed: “I’ve Worked to Expand Rx Kids. But We Still Need Medicare for All.”",
               "last_accessed": "2026-03-29T17:20:01.604900+00:00"
             }
           ]
@@ -251,7 +293,7 @@
           ]
         },
         "Climate/Energy": {
-          "stance": "El-Sayed has emphasized protecting Michigan\u2019s water resources and limiting the impact of data centers on utility bills and energy use. His campaign messaging ties climate and energy policy to affordability, public health, and community benefits.",
+          "stance": "El-Sayed has emphasized protecting Michigan’s water resources and limiting the impact of data centers on utility bills and energy use. His campaign messaging ties climate and energy policy to affordability, public health, and community benefits.",
           "confidence": "medium",
           "sources": [
             {
@@ -263,7 +305,7 @@
             {
               "url": "https://bridgemi.com/michigan-government/6-major-issues-in-michigans-us-senate-race/",
               "type": "news",
-              "title": "6 major issues in Michigan\u2019s US Senate race",
+              "title": "6 major issues in Michigan’s US Senate race",
               "last_accessed": "2026-03-29T17:20:01.604900+00:00"
             },
             {
@@ -299,7 +341,7 @@
             {
               "url": "https://bridgemi.com/michigan-government/6-major-issues-in-michigans-us-senate-race/",
               "type": "news",
-              "title": "6 major issues in Michigan\u2019s US Senate race",
+              "title": "6 major issues in Michigan’s US Senate race",
               "last_accessed": "2026-03-29T17:20:01.604900+00:00"
             },
             {
@@ -323,7 +365,7 @@
           ]
         },
         "Foreign Policy": {
-          "stance": "El-Sayed\u2019s campaign describes his approach as sensible foreign policy, but the materials reviewed do not lay out a detailed doctrine. Available messaging suggests a pragmatic and restrained posture rather than a highly specific foreign-policy agenda.",
+          "stance": "El-Sayed’s campaign describes his approach as sensible foreign policy, but the materials reviewed do not lay out a detailed doctrine. Available messaging suggests a pragmatic and restrained posture rather than a highly specific foreign-policy agenda.",
           "confidence": "low",
           "sources": [
             {
@@ -347,7 +389,7 @@
           ]
         },
         "Education": {
-          "stance": "El-Sayed\u2019s campaign says it supports more and better education, not less, and links education to affordability and opportunity for children. His public comments also connect education to preparing young people for future careers and a dignified life.",
+          "stance": "El-Sayed’s campaign says it supports more and better education, not less, and links education to affordability and opportunity for children. His public comments also connect education to preparing young people for future careers and a dignified life.",
           "confidence": "high",
           "sources": [
             {
@@ -377,7 +419,7 @@
             {
               "url": "https://bridgemi.com/michigan-government/6-major-issues-in-michigans-us-senate-race/",
               "type": "news",
-              "title": "6 major issues in Michigan\u2019s US Senate race",
+              "title": "6 major issues in Michigan’s US Senate race",
               "last_accessed": "2026-03-29T17:20:01.604900+00:00"
             }
           ]
@@ -419,7 +461,7 @@
             {
               "url": "https://bridgemi.com/michigan-government/6-major-issues-in-michigans-us-senate-race/",
               "type": "news",
-              "title": "6 major issues in Michigan\u2019s US Senate race",
+              "title": "6 major issues in Michigan’s US Senate race",
               "last_accessed": "2026-03-29T17:20:01.604900+00:00"
             },
             {
@@ -430,31 +472,25 @@
             }
           ]
         }
-      }
+      },
+      "donor_summary": null,
+      "links": []
     },
     {
       "name": "Mallory McMorrow",
       "party": "Democratic",
       "incumbent": false,
-      "summary": "Mallory McMorrow is a Michigan state senator running for the Democratic nomination for U.S. Senate. Her campaign highlights her legislative record in Lansing and focuses on protecting rights, lowering costs, and opposing Trump-era policies.",
+      "summary": "Mallory McMorrow is a Michigan state senator running for the state’s open U.S. Senate seat as a Democrat. Her campaign has centered on affordability and she has been among the top contenders in early polling.",
       "summary_sources": [
         {
-          "url": "https://www.mcmorrowformichigan.com/",
-          "type": "website",
-          "title": "Mallory McMorrow for U.S. Senate",
-          "last_accessed": "2026-03-29T00:00:00Z"
+          "url": "https://apnews.com/article/mallory-mcmorrow-2026-election-michigan-senate-1e5f694a199cac0b48c37cb0bd99298d",
+          "title": "Michigan lawmaker Mallory McMorrow announces Democratic bid for US Senate",
+          "type": "article"
         },
         {
-          "url": "https://senatedems.com/mcmorrow/bio/",
-          "type": "website",
-          "title": "Bio - Senator Mallory McMorrow - Michigan Senate Democrats",
-          "last_accessed": "2026-03-29T00:00:00Z"
-        },
-        {
-          "url": "https://ballotpedia.org/Mallory_McMorrow",
-          "type": "website",
-          "title": "Mallory McMorrow - Ballotpedia",
-          "last_accessed": "2026-03-29T00:00:00Z"
+          "url": "https://emersoncollegepolling.com/michigan-2026-poll-crowded-democratic-senate-primary-remains-wide-open/",
+          "title": "Michigan 2026 Poll: Crowded Democratic Senate Primary Remains Wide Open",
+          "type": "poll"
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Mallory_McMorrow_in_2023_-_8R4A5252.jpg/500px-Mallory_McMorrow_in_2023_-_8R4A5252.jpg",
@@ -472,7 +508,7 @@
           "organization": "Michigan Senate",
           "start_year": 2019,
           "end_year": null,
-          "description": "Represents Michigan\u2019s 8th Senate District."
+          "description": "Represents Michigan’s 8th Senate District."
         },
         {
           "title": "Senior Director of Brand Strategy",
@@ -650,7 +686,7 @@
           "source": {
             "url": "https://www.opensecrets.org/donor-lookup/results?cand=mallory+mcmorrow&order=desc&sort=A",
             "type": "website",
-            "title": "Donor Lookup \u2022 OpenSecrets",
+            "title": "Donor Lookup • OpenSecrets",
             "last_accessed": "2026-03-29T17:20:01.604900+00:00"
           }
         },
@@ -661,7 +697,7 @@
           "source": {
             "url": "https://www.opensecrets.org/donor-lookup/results?cand=mallory+mcmorrow&order=desc&sort=A",
             "type": "website",
-            "title": "Donor Lookup \u2022 OpenSecrets",
+            "title": "Donor Lookup • OpenSecrets",
             "last_accessed": "2026-03-29T17:20:01.604900+00:00"
           }
         },
@@ -672,7 +708,7 @@
           "source": {
             "url": "https://www.opensecrets.org/donor-lookup/results?cand=mallory+mcmorrow&order=desc&sort=A",
             "type": "website",
-            "title": "Donor Lookup \u2022 OpenSecrets",
+            "title": "Donor Lookup • OpenSecrets",
             "last_accessed": "2026-03-29T17:20:01.604900+00:00"
           }
         },
@@ -683,7 +719,7 @@
           "source": {
             "url": "https://www.opensecrets.org/donor-lookup/results?cand=mallory+mcmorrow&order=desc&sort=A",
             "type": "website",
-            "title": "Donor Lookup \u2022 OpenSecrets",
+            "title": "Donor Lookup • OpenSecrets",
             "last_accessed": "2026-03-29T17:20:01.604900+00:00"
           }
         },
@@ -694,7 +730,7 @@
           "source": {
             "url": "https://www.opensecrets.org/donor-lookup/results?cand=mallory+mcmorrow&order=desc&sort=A",
             "type": "website",
-            "title": "Donor Lookup \u2022 OpenSecrets",
+            "title": "Donor Lookup • OpenSecrets",
             "last_accessed": "2026-03-29T17:20:01.604900+00:00"
           }
         }
@@ -725,7 +761,7 @@
             {
               "url": "https://www.mcmorrowformichigan.com/agenda",
               "type": "website",
-              "title": "Agenda \u2014 Mallory McMorrow for U.S. Senate",
+              "title": "Agenda — Mallory McMorrow for U.S. Senate",
               "last_accessed": "2026-03-29T17:20:01.604900+00:00"
             },
             {
@@ -737,7 +773,7 @@
           ]
         },
         "Climate/Energy": {
-          "stance": "McMorrow says data centers should not raise residents\u2019 rates, should use at least 90% renewable energy, should protect water resources, and should create union jobs and local tax revenue. Her broader agenda ties energy policy to affordability and environmental protection.",
+          "stance": "McMorrow says data centers should not raise residents’ rates, should use at least 90% renewable energy, should protect water resources, and should create union jobs and local tax revenue. Her broader agenda ties energy policy to affordability and environmental protection.",
           "confidence": "high",
           "sources": [
             {
@@ -761,7 +797,7 @@
           ]
         },
         "Reproductive Rights": {
-          "stance": "McMorrow says she supports reproductive freedom and points to her record of helping repeal Michigan\u2019s abortion ban. Her campaign presents her as defending fundamental rights and freedoms, including abortion access.",
+          "stance": "McMorrow says she supports reproductive freedom and points to her record of helping repeal Michigan’s abortion ban. Her campaign presents her as defending fundamental rights and freedoms, including abortion access.",
           "confidence": "high",
           "sources": [
             {
@@ -785,7 +821,7 @@
             {
               "url": "https://www.mcmorrowformichigan.com/agenda",
               "type": "website",
-              "title": "Agenda \u2014 Mallory McMorrow for U.S. Senate",
+              "title": "Agenda — Mallory McMorrow for U.S. Senate",
               "last_accessed": "2026-03-29T17:20:01.604900+00:00"
             },
             {
@@ -797,7 +833,7 @@
             {
               "url": "https://bridgemi.com/michigan-government/6-major-issues-in-michigans-us-senate-race/",
               "type": "news",
-              "title": "6 major issues in Michigan\u2019s US Senate race",
+              "title": "6 major issues in Michigan’s US Senate race",
               "last_accessed": "2026-03-29T17:20:01.604900+00:00"
             }
           ]
@@ -809,7 +845,7 @@
             {
               "url": "https://www.mcmorrowformichigan.com/agenda",
               "type": "website",
-              "title": "Agenda \u2014 Mallory McMorrow for U.S. Senate",
+              "title": "Agenda — Mallory McMorrow for U.S. Senate",
               "last_accessed": "2026-03-29T17:20:01.604900+00:00"
             },
             {
@@ -833,25 +869,25 @@
             {
               "url": "https://www.mcmorrowformichigan.com/agenda",
               "type": "website",
-              "title": "Agenda \u2014 Mallory McMorrow for U.S. Senate",
+              "title": "Agenda — Mallory McMorrow for U.S. Senate",
               "last_accessed": "2026-03-29T17:20:01.604900+00:00"
             },
             {
               "url": "https://www.mcmorrowformichigan.com/news",
               "type": "website",
-              "title": "News \u2014 Mallory McMorrow for U.S. Senate",
+              "title": "News — Mallory McMorrow for U.S. Senate",
               "last_accessed": "2026-03-29T17:20:01.604900+00:00"
             }
           ]
         },
         "Social Justice": {
-          "stance": "McMorrow\u2019s agenda emphasizes civil rights, privacy, voting rights, equitable economic opportunity, and support for underserved communities. Her platform explicitly references equity and community investment.",
+          "stance": "McMorrow’s agenda emphasizes civil rights, privacy, voting rights, equitable economic opportunity, and support for underserved communities. Her platform explicitly references equity and community investment.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://www.mcmorrowformichigan.com/agenda",
               "type": "website",
-              "title": "Agenda \u2014 Mallory McMorrow for U.S. Senate",
+              "title": "Agenda — Mallory McMorrow for U.S. Senate",
               "last_accessed": "2026-03-29T17:20:01.604900+00:00"
             }
           ]
@@ -863,7 +899,7 @@
             {
               "url": "https://www.mcmorrowformichigan.com/agenda",
               "type": "website",
-              "title": "Agenda \u2014 Mallory McMorrow for U.S. Senate",
+              "title": "Agenda — Mallory McMorrow for U.S. Senate",
               "last_accessed": "2026-03-29T17:20:01.604900+00:00"
             },
             {
@@ -899,7 +935,7 @@
             {
               "url": "https://www.wdet.org/2026/01/09/mallory-mcmorrow-runs-for-michigans-open-u-s-senate-seat/",
               "type": "news",
-              "title": "Mallory McMorrow runs for Michigan\u2019s open U.S. Senate seat",
+              "title": "Mallory McMorrow runs for Michigan’s open U.S. Senate seat",
               "last_accessed": "2026-03-29T17:20:01.604900+00:00"
             },
             {
@@ -917,13 +953,13 @@
           ]
         },
         "Local Issues": {
-          "stance": "McMorrow focuses on Michigan affordability issues, especially housing, energy costs, and data centers. She says data centers should not raise residents\u2019 rates, should use renewable energy, should protect water resources, and should create union jobs and local tax revenue.",
+          "stance": "McMorrow focuses on Michigan affordability issues, especially housing, energy costs, and data centers. She says data centers should not raise residents’ rates, should use renewable energy, should protect water resources, and should create union jobs and local tax revenue.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://www.wdet.org/2026/01/09/mallory-mcmorrow-runs-for-michigans-open-u-s-senate-seat/",
               "type": "news",
-              "title": "Mallory McMorrow runs for Michigan\u2019s open U.S. Senate Seat - WDET 101.9 FM",
+              "title": "Mallory McMorrow runs for Michigan’s open U.S. Senate Seat - WDET 101.9 FM",
               "last_accessed": "2026-03-29T17:20:01.604900+00:00"
             },
             {
@@ -940,31 +976,25 @@
             }
           ]
         }
-      }
+      },
+      "donor_summary": null,
+      "links": []
     },
     {
       "name": "Haley Stevens",
       "party": "Democratic",
       "incumbent": false,
-      "summary": "Haley Stevens is a U.S. representative from Michigan running for the Democratic nomination for Senate. Her campaign presents her as a pragmatic, pro-manufacturing candidate focused on lowering costs, protecting earned benefits, and defending personal freedoms.",
+      "summary": "Haley Stevens is a U.S. representative from Michigan who entered the Democratic primary for the state’s open U.S. Senate seat. She has framed her campaign around the economy and affordability and has been competitive in early polling.",
       "summary_sources": [
         {
-          "url": "https://haleyformi.com/",
-          "type": "website",
-          "title": "Haley Stevens for Senate",
-          "last_accessed": "2026-03-29T00:00:00Z"
+          "url": "https://apnews.com/article/michigan-senate-race-2026-haley-stevens-70cdfce62c91aa4c1b5e801dd141e3ff",
+          "title": "Michigan Democrat Haley Stevens joins Mallory McMorrow in Senate primary",
+          "type": "article"
         },
         {
-          "url": "http://stevens.house.gov/haleys-bio",
-          "type": "website",
-          "title": "Haley's Bio - Congresswoman Haley Stevens | - House.gov",
-          "last_accessed": "2026-03-29T00:00:00Z"
-        },
-        {
-          "url": "https://ballotpedia.org/Haley_Stevens",
-          "type": "website",
-          "title": "Haley Stevens - Ballotpedia",
-          "last_accessed": "2026-03-29T00:00:00Z"
+          "url": "https://emersoncollegepolling.com/michigan-2026-poll-crowded-democratic-senate-primary-remains-wide-open/",
+          "title": "Michigan 2026 Poll: Crowded Democratic Senate Primary Remains Wide Open",
+          "type": "poll"
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Haley_Stevens%2C_official_portrait%2C_116th_Congress.jpg/500px-Haley_Stevens%2C_official_portrait%2C_116th_Congress.jpg",
@@ -983,7 +1013,7 @@
           "organization": "U.S. House of Representatives",
           "start_year": 2019,
           "end_year": null,
-          "description": "Represents Michigan\u2019s 11th Congressional District."
+          "description": "Represents Michigan’s 11th Congressional District."
         },
         {
           "title": "Chief of Staff",
@@ -1161,7 +1191,7 @@
           "source": {
             "url": "https://www.opensecrets.org/donor-lookup/results?cand=haley+stevens&order=desc&sort=A",
             "type": "website",
-            "title": "Donor Lookup \u2022 OpenSecrets",
+            "title": "Donor Lookup • OpenSecrets",
             "last_accessed": "2026-03-29T17:20:01.604900+00:00"
           }
         },
@@ -1172,7 +1202,7 @@
           "source": {
             "url": "https://www.opensecrets.org/donor-lookup/results?cand=haley+stevens&order=desc&sort=A",
             "type": "website",
-            "title": "Donor Lookup \u2022 OpenSecrets",
+            "title": "Donor Lookup • OpenSecrets",
             "last_accessed": "2026-03-29T17:20:01.604900+00:00"
           }
         },
@@ -1183,7 +1213,7 @@
           "source": {
             "url": "https://www.opensecrets.org/donor-lookup/results?cand=haley+stevens&order=desc&sort=A",
             "type": "website",
-            "title": "Donor Lookup \u2022 OpenSecrets",
+            "title": "Donor Lookup • OpenSecrets",
             "last_accessed": "2026-03-29T17:20:01.604900+00:00"
           }
         },
@@ -1194,7 +1224,7 @@
           "source": {
             "url": "https://www.opensecrets.org/donor-lookup/results?cand=haley+stevens&order=desc&sort=A",
             "type": "website",
-            "title": "Donor Lookup \u2022 OpenSecrets",
+            "title": "Donor Lookup • OpenSecrets",
             "last_accessed": "2026-03-29T17:20:01.604900+00:00"
           }
         },
@@ -1205,7 +1235,7 @@
           "source": {
             "url": "https://www.opensecrets.org/donor-lookup/results?cand=haley+stevens&order=desc&sort=A",
             "type": "website",
-            "title": "Donor Lookup \u2022 OpenSecrets",
+            "title": "Donor Lookup • OpenSecrets",
             "last_accessed": "2026-03-29T17:20:01.604900+00:00"
           }
         }
@@ -1230,7 +1260,7 @@
           ]
         },
         "Economy": {
-          "stance": "Stevens says she is focused on lowering costs, protecting workers, and strengthening Michigan\u2019s manufacturing and workforce base. She points to her record on the auto rescue and CHIPS Act and says billionaires should pay their fair share while labor rights and middle-class bargaining power are central to addressing inequality.",
+          "stance": "Stevens says she is focused on lowering costs, protecting workers, and strengthening Michigan’s manufacturing and workforce base. She points to her record on the auto rescue and CHIPS Act and says billionaires should pay their fair share while labor rights and middle-class bargaining power are central to addressing inequality.",
           "confidence": "high",
           "sources": [
             {
@@ -1260,7 +1290,7 @@
             {
               "url": "https://bridgemi.com/michigan-government/6-major-issues-in-michigans-us-senate-race/",
               "type": "news",
-              "title": "6 major issues in Michigan\u2019s US Senate race",
+              "title": "6 major issues in Michigan’s US Senate race",
               "last_accessed": "2026-03-29T17:20:01.604900+00:00"
             }
           ]
@@ -1284,13 +1314,13 @@
             {
               "url": "https://stevens.house.gov/issues/how-were-responding-trump-administration?page=1",
               "type": "website",
-              "title": "How We\u2019re Responding to the Trump Administration | Congresswoman Haley Stevens",
+              "title": "How We’re Responding to the Trump Administration | Congresswoman Haley Stevens",
               "last_accessed": "2026-03-29T17:20:01.604900+00:00"
             },
             {
               "url": "https://bridgemi.com/michigan-government/6-major-issues-in-michigans-us-senate-race/",
               "type": "news",
-              "title": "6 major issues in Michigan\u2019s US Senate race",
+              "title": "6 major issues in Michigan’s US Senate race",
               "last_accessed": "2026-03-29T17:20:01.604900+00:00"
             }
           ]
@@ -1308,19 +1338,19 @@
           ]
         },
         "Foreign Policy": {
-          "stance": "Stevens\u2019s publicly available campaign and congressional messaging reviewed here does not lay out a detailed foreign-policy platform, but she has commented on specific international issues and trade policy. Her overall posture appears oversight-oriented and cautious about reckless escalation.",
+          "stance": "Stevens’s publicly available campaign and congressional messaging reviewed here does not lay out a detailed foreign-policy platform, but she has commented on specific international issues and trade policy. Her overall posture appears oversight-oriented and cautious about reckless escalation.",
           "confidence": "low",
           "sources": [
             {
               "url": "https://stevens.house.gov/issues/how-were-responding-trump-administration?page=1",
               "type": "website",
-              "title": "How We\u2019re Responding to the Trump Administration | Congresswoman Haley Stevens",
+              "title": "How We’re Responding to the Trump Administration | Congresswoman Haley Stevens",
               "last_accessed": "2026-03-29T17:20:01.604900+00:00"
             },
             {
               "url": "https://bridgemi.com/michigan-government/6-major-issues-in-michigans-us-senate-race/",
               "type": "news",
-              "title": "6 major issues in Michigan\u2019s US Senate race",
+              "title": "6 major issues in Michigan’s US Senate race",
               "last_accessed": "2026-03-29T17:20:01.604900+00:00"
             }
           ]
@@ -1374,7 +1404,7 @@
           ]
         },
         "Election Reform": {
-          "stance": "Stevens\u2019s public comments in the race focus more on protecting voting access and democratic institutions than on sweeping structural changes. In the available reporting, she is described as supporting accountability in government and opposing efforts she sees as undermining rights.",
+          "stance": "Stevens’s public comments in the race focus more on protecting voting access and democratic institutions than on sweeping structural changes. In the available reporting, she is described as supporting accountability in government and opposing efforts she sees as undermining rights.",
           "confidence": "medium",
           "sources": [
             {
@@ -1386,7 +1416,7 @@
             {
               "url": "https://bridgemi.com/michigan-government/6-major-issues-in-michigans-us-senate-race/",
               "type": "news",
-              "title": "6 major issues in Michigan\u2019s US Senate race",
+              "title": "6 major issues in Michigan’s US Senate race",
               "last_accessed": "2026-03-29T17:20:01.604900+00:00"
             }
           ]
@@ -1398,7 +1428,7 @@
             {
               "url": "https://bridgemi.com/michigan-government/6-major-issues-in-michigans-us-senate-race/",
               "type": "news",
-              "title": "6 major issues in Michigan\u2019s US Senate race",
+              "title": "6 major issues in Michigan’s US Senate race",
               "last_accessed": "2026-03-29T17:20:01.604900+00:00"
             },
             {
@@ -1409,31 +1439,25 @@
             }
           ]
         }
-      }
+      },
+      "donor_summary": null,
+      "links": []
     },
     {
       "name": "Mike Rogers",
       "party": "Republican",
       "incumbent": false,
-      "summary": "Mike Rogers is a former U.S. representative and former FBI agent running for the Republican nomination for Senate in Michigan. His campaign emphasizes public safety, support for Donald Trump, manufacturing, and a more conservative approach to federal policy.",
+      "summary": "Mike Rogers is a former Republican U.S. representative and former House Intelligence Committee chair running for Michigan’s open U.S. Senate seat. He is the Republican candidate in the race and has been positioned as the party’s nominee in early general-election polling.",
       "summary_sources": [
         {
-          "url": "https://rogersforsenate.com/",
-          "type": "website",
-          "title": "Mike Rogers for Senate",
-          "last_accessed": "2026-03-29T00:00:00Z"
+          "url": "https://apnews.com/article/michigan-senate-mike-rogers-elissa-slotkin-4090100478bd1f84813e96a94e83cceb",
+          "title": "Former Republican congressman Mike Rogers expected to run for US Senate in Michigan, AP sources say",
+          "type": "article"
         },
         {
-          "url": "https://www.congress.gov/member/mike-rogers/R000572",
-          "type": "government",
-          "title": "Mike Rogers | Congress.gov",
-          "last_accessed": "2026-03-29T00:00:00Z"
-        },
-        {
-          "url": "https://en.wikipedia.org/wiki/Mike_Rogers_(Michigan_politician)",
-          "type": "website",
-          "title": "Mike Rogers (Michigan politician) - Wikipedia",
-          "last_accessed": "2026-03-29T00:00:00Z"
+          "url": "https://emersoncollegepolling.com/michigan-2026-poll-crowded-democratic-senate-primary-remains-wide-open/",
+          "title": "Michigan 2026 Poll: Crowded Democratic Senate Primary Remains Wide Open",
+          "type": "poll"
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/4c/Mike_Rogers_119th_Congress.jpg",
@@ -1450,7 +1474,7 @@
           "organization": "U.S. House of Representatives",
           "start_year": 2001,
           "end_year": 2015,
-          "description": "Represented Michigan\u2019s 8th Congressional District."
+          "description": "Represented Michigan’s 8th Congressional District."
         },
         {
           "title": "Chair",
@@ -1635,7 +1659,7 @@
           "source": {
             "url": "https://www.opensecrets.org/donor-lookup/results?cand=mike+rogers&order=desc&sort=A",
             "type": "website",
-            "title": "Donor Lookup \u2022 OpenSecrets",
+            "title": "Donor Lookup • OpenSecrets",
             "last_accessed": "2026-03-29T17:20:01.604900+00:00"
           }
         },
@@ -1646,7 +1670,7 @@
           "source": {
             "url": "https://www.opensecrets.org/donor-lookup/results?cand=mike+rogers&order=desc&sort=A",
             "type": "website",
-            "title": "Donor Lookup \u2022 OpenSecrets",
+            "title": "Donor Lookup • OpenSecrets",
             "last_accessed": "2026-03-29T17:20:01.604900+00:00"
           }
         },
@@ -1657,7 +1681,7 @@
           "source": {
             "url": "https://www.opensecrets.org/donor-lookup/results?cand=mike+rogers&order=desc&sort=A",
             "type": "website",
-            "title": "Donor Lookup \u2022 OpenSecrets",
+            "title": "Donor Lookup • OpenSecrets",
             "last_accessed": "2026-03-29T17:20:01.604900+00:00"
           }
         },
@@ -1668,7 +1692,7 @@
           "source": {
             "url": "https://www.opensecrets.org/donor-lookup/results?cand=mike+rogers&order=desc&sort=A",
             "type": "website",
-            "title": "Donor Lookup \u2022 OpenSecrets",
+            "title": "Donor Lookup • OpenSecrets",
             "last_accessed": "2026-03-29T17:20:01.604900+00:00"
           }
         },
@@ -1679,7 +1703,7 @@
           "source": {
             "url": "https://www.opensecrets.org/donor-lookup/results?cand=mike+rogers&order=desc&sort=A",
             "type": "website",
-            "title": "Donor Lookup \u2022 OpenSecrets",
+            "title": "Donor Lookup • OpenSecrets",
             "last_accessed": "2026-03-29T17:20:01.604900+00:00"
           }
         }
@@ -1728,7 +1752,7 @@
             {
               "url": "https://bridgemi.com/michigan-government/6-major-issues-in-michigans-us-senate-race/",
               "type": "news",
-              "title": "6 major issues in Michigan\u2019s US Senate race",
+              "title": "6 major issues in Michigan’s US Senate race",
               "last_accessed": "2026-03-29T17:20:01.604900+00:00"
             }
           ]
@@ -1752,13 +1776,13 @@
           ]
         },
         "Immigration": {
-          "stance": "Rogers has defended Trump\u2019s immigration strategy and said keeping DHS fully funded is vital to national security. He has criticized efforts to cut or redirect immigration-enforcement funding and frames the issue as one of public safety and border/security enforcement.",
+          "stance": "Rogers has defended Trump’s immigration strategy and said keeping DHS fully funded is vital to national security. He has criticized efforts to cut or redirect immigration-enforcement funding and frames the issue as one of public safety and border/security enforcement.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://bridgemi.com/michigan-government/6-major-issues-in-michigans-us-senate-race/",
               "type": "news",
-              "title": "6 major issues in Michigan\u2019s US Senate race",
+              "title": "6 major issues in Michigan’s US Senate race",
               "last_accessed": "2026-03-29T17:20:01.604900+00:00"
             },
             {
@@ -1770,7 +1794,7 @@
           ]
         },
         "Guns & Safety": {
-          "stance": "Rogers\u2019s campaign materials reviewed here do not present a detailed gun-safety agenda. His site emphasizes law-and-order themes and public safety, but it does not specify positions such as background checks, assault-weapons bans, or red-flag laws on the campaign page reviewed.",
+          "stance": "Rogers’s campaign materials reviewed here do not present a detailed gun-safety agenda. His site emphasizes law-and-order themes and public safety, but it does not specify positions such as background checks, assault-weapons bans, or red-flag laws on the campaign page reviewed.",
           "confidence": "low",
           "sources": [
             {
@@ -1800,13 +1824,13 @@
             {
               "url": "https://bridgemi.com/michigan-government/6-major-issues-in-michigans-us-senate-race/",
               "type": "news",
-              "title": "6 major issues in Michigan\u2019s US Senate race",
+              "title": "6 major issues in Michigan’s US Senate race",
               "last_accessed": "2026-03-29T17:20:01.604900+00:00"
             }
           ]
         },
         "Social Justice": {
-          "stance": "Rogers\u2019s campaign materials reviewed here do not lay out a social-justice platform. The site focuses on economic concerns, education, public safety, and backing Trump, rather than civil-rights, racial-equity, or justice-system reform proposals.",
+          "stance": "Rogers’s campaign materials reviewed here do not lay out a social-justice platform. The site focuses on economic concerns, education, public safety, and backing Trump, rather than civil-rights, racial-equity, or justice-system reform proposals.",
           "confidence": "low",
           "sources": [
             {
@@ -1848,7 +1872,7 @@
           ]
         },
         "Election Reform": {
-          "stance": "Rogers\u2019s campaign materials emphasize law-and-order themes, support for Trump, and criticism of opponents as out of step with Michigan voters. In the sources reviewed, he does not present a detailed election-reform agenda.",
+          "stance": "Rogers’s campaign materials emphasize law-and-order themes, support for Trump, and criticism of opponents as out of step with Michigan voters. In the sources reviewed, he does not present a detailed election-reform agenda.",
           "confidence": "low",
           "sources": [
             {
@@ -1884,20 +1908,20 @@
             {
               "url": "https://bridgemi.com/michigan-government/6-major-issues-in-michigans-us-senate-race/",
               "type": "news",
-              "title": "6 major issues in Michigan\u2019s US Senate race",
+              "title": "6 major issues in Michigan’s US Senate race",
               "last_accessed": "2026-03-29T17:20:01.604900+00:00"
             }
           ]
         }
-      }
+      },
+      "donor_summary": null,
+      "links": []
     }
   ],
-  "updated_utc": "2026-03-29T17:20:01.604900+00:00",
+  "updated_utc": "2026-04-01T05:55:07.978289+00:00",
   "generator": [
     "gpt-5.4-mini",
-    "claude-haiku-4-5-20251001",
-    "gemini-2.0-flash",
-    "grok-3-mini"
+    "gpt-5-nano"
   ],
   "reviews": [
     {
@@ -1931,18 +1955,18 @@
         },
         {
           "field": "polling[1].source_url",
-          "concern": "The Detroit News/WDIV poll (Jan 14, 2026) only includes one matchup (Rogers vs. Stevens, 44.1%\u201343.7%), while the Emerson poll (Jan 29) includes three Democratic primary matchups plus a three-way. The limited data from the earlier poll makes cross-candidate comparison difficult.",
+          "concern": "The Detroit News/WDIV poll (Jan 14, 2026) only includes one matchup (Rogers vs. Stevens, 44.1%–43.7%), while the Emerson poll (Jan 29) includes three Democratic primary matchups plus a three-way. The limited data from the earlier poll makes cross-candidate comparison difficult.",
           "suggestion": "Note in context that this earlier poll's limited matchup scope reflects its smaller sample size (600 vs. 1000), or search for more complete Detroit News polling data if available.",
           "severity": "info"
         },
         {
           "field": "candidates[0].career_history[2] and [3]",
-          "concern": "Abdul El-Sayed's career timeline shows he was a 'Public health professor' at University of Michigan (2017\u20132019) while also serving as 'Executive Director' of Detroit Health Department (2015\u20132017). The dates do not overlap, but it's worth verifying he did not hold both roles simultaneously.",
+          "concern": "Abdul El-Sayed's career timeline shows he was a 'Public health professor' at University of Michigan (2017–2019) while also serving as 'Executive Director' of Detroit Health Department (2015–2017). The dates do not overlap, but it's worth verifying he did not hold both roles simultaneously.",
           "suggestion": "Confirm with official University of Michigan or Detroit Health Department records that these roles were sequential and non-overlapping.",
           "severity": "info"
         }
       ],
-      "summary": "This is a comprehensive, well-sourced candidate profile for the 2026 Michigan Senate race. The profile demonstrates strong factual accuracy across all four candidates, with balanced and neutral language throughout. Career histories are accurate and properly documented via credible sources (Congress.gov, House.gov, Ballotpedia). The issues section is thorough, covering 12 policy areas per candidate with confidence ratings that appropriately reflect source availability. Sources are current (predominantly from 2025\u20132026), drawn from a strong mix of official campaign sites, credible news outlets (WDET, Bridge Michigan, Michigan Public), and government records. Polling data includes proper sample sizes and recent dates. Notable strengths: (1) Confidence ratings honestly reflect gaps (e.g., Rogers on Tech & AI marked 'low'); (2) issue stances are tied to specific candidate statements and voting records, not inferred; (3) the race description accurately reflects the open-seat contest and key Democratic primary dynamics; (4) language remains neutral even when describing controversial positions (e.g., Rogers' abortion record)."
+      "summary": "This is a comprehensive, well-sourced candidate profile for the 2026 Michigan Senate race. The profile demonstrates strong factual accuracy across all four candidates, with balanced and neutral language throughout. Career histories are accurate and properly documented via credible sources (Congress.gov, House.gov, Ballotpedia). The issues section is thorough, covering 12 policy areas per candidate with confidence ratings that appropriately reflect source availability. Sources are current (predominantly from 2025–2026), drawn from a strong mix of official campaign sites, credible news outlets (WDET, Bridge Michigan, Michigan Public), and government records. Polling data includes proper sample sizes and recent dates. Notable strengths: (1) Confidence ratings honestly reflect gaps (e.g., Rogers on Tech & AI marked 'low'); (2) issue stances are tied to specific candidate statements and voting records, not inferred; (3) the race description accurately reflects the open-seat contest and key Democratic primary dynamics; (4) language remains neutral even when describing controversial positions (e.g., Rogers' abortion record)."
     },
     {
       "model": "grok-3-mini",
@@ -1976,5 +2000,23 @@
       ],
       "summary": "This profile is a robust and meticulously compiled overview of the 2026 Michigan Senate race, with accurate representations of candidate positions drawn directly from credible sources like official campaign websites, Ballotpedia, and reputable news outlets such as WDET and Bridgemi. The inclusion of polling data, detailed career histories, and well-documented issue stances demonstrates thorough research, while the neutral language ensures a balanced, nonpartisan presentation across all candidates."
     }
-  ]
+  ],
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 207640,
+    "completion_tokens": 7816,
+    "total_tokens": 215456,
+    "estimated_usd": 0.0334,
+    "model_breakdown": {
+      "gpt-5-nano": {
+        "prompt_tokens": 24120,
+        "completion_tokens": 6051
+      },
+      "gpt-5.4-mini": {
+        "prompt_tokens": 183520,
+        "completion_tokens": 1765
+      }
+    },
+    "duration_s": 69.7
+  }
 }

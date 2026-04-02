@@ -229,7 +229,8 @@ class RaceJSON(BaseModel):
     # Metadata
     title: Optional[str] = None
     office: Optional[str] = None
-    jurisdiction: Optional[str] = None
+    jurisdiction: Optional[str] = None  # Full geographic scope (e.g. "Missouri's 1st Congressional District", "United States")
+    state: Optional[str] = None  # US state name for map highlighting (e.g. "Missouri"); null for national races
     district: Optional[str] = None
     description: Optional[str] = None
 

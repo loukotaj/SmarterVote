@@ -1,0 +1,191 @@
+{
+  "id": "hi-governor-2026",
+  "title": "2026 Hawaii gubernatorial election",
+  "office": "Governor of Hawaii",
+  "jurisdiction": "Hawaii",
+  "election_date": "2026-11-03",
+  "description": "The 2026 Hawaii gubernatorial election will choose the next governor of Hawaii, a statewide executive office. Incumbent Democratic Gov. Josh Green is eligible to seek a second term, and the race is currently viewed as strongly favorable to Democrats in a state that has voted reliably blue in recent statewide elections. The main contrast is likely to be between Green\u2019s record on housing, affordability, health care, and wildfire recovery and any Republican challenger\u2019s critique of cost of living, government performance, and economic conditions.",
+  "polling": [
+    {
+      "pollster": "Cook Political Report",
+      "date": "2026-01-27",
+      "sample_size": null,
+      "matchups": [
+        {
+          "candidates": [
+            "Josh Green",
+            "Unnamed/No serious challenger identified"
+          ],
+          "percentages": [
+            56,
+            null
+          ]
+        }
+      ],
+      "source_url": "https://www.cookpolitical.com/governor/race/479491"
+    }
+  ],
+  "polling_note": null,
+  "candidates": [
+    {
+      "name": "Josh Green",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Josh Green is Hawaii\u2019s incumbent governor and a physician by training. He has centered his public profile on housing affordability, homelessness, health care access, and recovery from the Maui wildfires, while emphasizing his experience in state government and medicine.",
+      "summary_sources": [
+        {
+          "url": "https://governor.hawaii.gov/about/",
+          "type": "government",
+          "title": "About the Governor and First Lady",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://joshgreenforhawaii.com/",
+          "type": "website",
+          "title": "Dr. Josh Green | Trusted, Caring Leadership",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://governor.hawaii.gov/wp-content/uploads/2022/12/Governor-Green-Headshot.jpg",
+      "website": "https://joshgreenforhawaii.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/GovJoshGreen/",
+        "x": "https://x.com/GovJoshGreenMD",
+        "instagram": "https://www.instagram.com/govjoshgreen/",
+        "youtube": "https://www.youtube.com/@GovJoshGreen"
+      },
+      "career_history": [
+        {
+          "title": "Governor",
+          "organization": "State of Hawaii",
+          "start_year": 2022,
+          "end_year": null,
+          "description": "Serves as the ninth governor of Hawaii."
+        },
+        {
+          "title": "Lieutenant Governor",
+          "organization": "State of Hawaii",
+          "start_year": 2018,
+          "end_year": 2022,
+          "description": "Served as lieutenant governor before becoming governor."
+        },
+        {
+          "title": "State Senator",
+          "organization": "Hawaii State Senate",
+          "start_year": 2008,
+          "end_year": 2018,
+          "description": "Held leadership roles including Majority Floor Leader and Chair of the Health and Human Services Committee."
+        },
+        {
+          "title": "State Representative",
+          "organization": "Hawaii State House of Representatives",
+          "start_year": 2004,
+          "end_year": 2008,
+          "description": "Served in the Hawaii House before moving to the state Senate."
+        },
+        {
+          "title": "Physician",
+          "organization": "Private practice / rural health care in Hawaii",
+          "start_year": null,
+          "end_year": 2018,
+          "description": "Worked as a family physician and emergency room doctor, including service in Ka\u2018\u016b on Hawaii Island."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Swarthmore College",
+          "degree": "Bachelor's degree",
+          "field": "Biology and anthropology",
+          "year": null
+        },
+        {
+          "institution": "Penn State",
+          "degree": "M.D.",
+          "field": "Medicine",
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Gary Cordery",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Gary Cordery is a Republican candidate for governor who describes himself as a lifelong builder and contractor. His campaign messaging focuses on housing, cost of living, local jobs, and integrity in government, with an emphasis on listening to residents across the islands.",
+      "summary_sources": [
+        {
+          "url": "https://www.garycorderyforgovernor.com/about-gary",
+          "type": "website",
+          "title": "ABOUT GARY",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.garycorderyforgovernor.com/",
+          "type": "website",
+          "title": "Gary Cordery for Governor 2026",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Gary_Cordery",
+          "type": "news",
+          "title": "Gary Cordery - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://www.garycorderyforgovernor.com/_next/image?url=https%3A%2F%2Fstatic.wixstatic.com%2Fmedia%2Fplaceholder&w=3840&q=75",
+      "website": "https://www.garycorderyforgovernor.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/garycorderyforgovernor/",
+        "instagram": "https://www.instagram.com/garycorderyforgovernor/"
+      },
+      "career_history": [
+        {
+          "title": "Builder / Contractor",
+          "organization": "Self-employed / construction work in Oahu",
+          "start_year": null,
+          "end_year": null,
+          "description": "Campaign biography describes him as a lifelong builder and contractor on Oahu."
+        },
+        {
+          "title": "Governor candidate",
+          "organization": "Republican Party",
+          "start_year": 2026,
+          "end_year": null,
+          "description": "Running for governor in 2026."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "updated_utc": "2026-04-01T05:46:07.410443+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "gpt-5-nano"
+  ],
+  "reviews": [],
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 143618,
+    "completion_tokens": 1868,
+    "total_tokens": 145486,
+    "estimated_usd": 0.0227,
+    "model_breakdown": {
+      "gpt-5.4-mini": {
+        "prompt_tokens": 143618,
+        "completion_tokens": 1868
+      }
+    },
+    "duration_s": 29.9
+  }
+}

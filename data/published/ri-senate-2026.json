@@ -1,0 +1,339 @@
+{
+  "id": "ri-senate-2026",
+  "title": "2026 U.S. Senate election in Rhode Island",
+  "office": "U.S. Senate",
+  "jurisdiction": "Rhode Island",
+  "election_date": "2026-11-03",
+  "description": "Rhode Island voters will elect one U.S. senator in 2026 for the state\u2019s Class II seat. The race matters because it will help determine control of the U.S. Senate, and Rhode Island is widely rated as safely Democratic based on recent election history and current race ratings. The Democratic primary features incumbent Jack Reed and challenger Connor Burbridge, while the Republican primary includes Raymond McKay and Allen Waters; independent Jon Lindley is also running in the general election. The main contrasts so far are between Reed\u2019s long incumbency and institutional record, Burbridge\u2019s progressive insurgent campaign, and the Republican candidates\u2019 efforts to break through in a heavily Democratic state.",
+  "polling": [],
+  "polling_note": "No public polling found for this race as of 2026-04-01.",
+  "candidates": [
+    {
+      "name": "Jack Reed",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Jack Reed is the incumbent U.S. senator from Rhode Island and has held the seat since 1997. His campaign and Senate biography emphasize his work on climate change, clean energy, Medicare and Social Security, and bipartisan legislating.",
+      "summary_sources": [
+        {
+          "url": "https://www.reed.senate.gov/",
+          "type": "website",
+          "title": "Senator Jack Reed",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://bioguide.congress.gov/search/bio/r000122",
+          "type": "government",
+          "title": "REED, John F. (Jack) - Bioguide Search",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Rhode_Island,_2026",
+          "type": "website",
+          "title": "United States Senate election in Rhode Island, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/7f/Senator_Jack_Reed_Official_Portrait.jpg",
+      "website": "https://www.reed.senate.gov/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/SenJackReed/",
+        "x": "https://x.com/SenJackReed",
+        "instagram": "https://www.instagram.com/senjackreed_ri/",
+        "youtube": null
+      },
+      "career_history": [
+        {
+          "title": "U.S. Senator",
+          "organization": "United States Senate",
+          "start_year": 1997,
+          "end_year": null,
+          "description": "Represents Rhode Island in the Senate; currently the senior senator from the state."
+        },
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 1991,
+          "end_year": 1997,
+          "description": "Represented Rhode Island in the House before election to the Senate."
+        },
+        {
+          "title": "Officer",
+          "organization": "U.S. Army",
+          "start_year": 1971,
+          "end_year": 1979,
+          "description": "Served as an Army officer after graduating from West Point; later taught at West Point."
+        },
+        {
+          "title": "Attorney",
+          "organization": "Private practice",
+          "start_year": 1982,
+          "end_year": 1990,
+          "description": "Practiced law after military service."
+        }
+      ],
+      "education": [
+        {
+          "institution": "United States Military Academy at West Point",
+          "degree": "B.S.",
+          "field": "Engineering",
+          "year": 1971
+        },
+        {
+          "institution": "Harvard Law School",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": 1982
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Connor Burbridge",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Connor Burbridge is challenging Reed in the Democratic primary as a progressive candidate. His campaign website says he is running against the Democratic establishment and is focused on Medicare for All, climate action, income inequality, education, and rebuilding the social safety net.",
+      "summary_sources": [
+        {
+          "url": "https://www.burbridgeforri.com/",
+          "type": "website",
+          "title": "Burbridge for RI | Connor Burbridge Progressive Democratic Candidate for U.S. Senate Rhode Island",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Connor_Burbridge",
+          "type": "website",
+          "title": "Connor Burbridge - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.theindy.org/article/4034",
+          "type": "news",
+          "title": "Connor Burbridge is running for Senate in Rhode Island ... - The Indy",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://www.burbridgeforri.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/burbridge.for.ri/",
+        "facebook": "https://www.facebook.com/p/Burbridge-for-Rhode-Island-61575554737221/",
+        "x": null,
+        "youtube": null
+      },
+      "career_history": [
+        {
+          "title": "Elder-care worker",
+          "organization": "Social services nonprofit",
+          "start_year": null,
+          "end_year": null,
+          "description": "Reportedly works in elder care and at a social services nonprofit providing housing and healthcare support."
+        },
+        {
+          "title": "Fundraising strategist",
+          "organization": "Social services nonprofit / campaign work",
+          "start_year": null,
+          "end_year": null,
+          "description": "LinkedIn and campaign materials describe him as working in fundraising and advocacy-related roles."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Raymond McKay",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Raymond McKay is running in the Republican primary for Rhode Island\u2019s U.S. Senate seat. Public descriptions of his campaign portray him as a longtime Rhode Island resident and veteran with a business background, and his prior Senate run makes him one of the more established Republican contenders in the race.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Raymond_McKay",
+          "type": "website",
+          "title": "Raymond McKay - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.mckayforussenate.com/meet-ray-mckay/",
+          "type": "website",
+          "title": "MEET RAY MCKAY - McKay for U.S. Senate",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.wpri.com/news/elections/where-they-stand/where-they-stand-us-senate-candidate-raymond-mckay/",
+          "type": "news",
+          "title": "Where They Stand: US Senate candidate Ray McKay - WPRI.com",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://www.mckayforussenate.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/mckayforsenate/?locale=lt_LT",
+        "x": null,
+        "instagram": null,
+        "youtube": null
+      },
+      "career_history": [
+        {
+          "title": "U.S. Senate candidate",
+          "organization": "Campaigns in Rhode Island",
+          "start_year": 2024,
+          "end_year": null,
+          "description": "Ran for U.S. Senate in 2024 and is again seeking the Republican nomination in 2026."
+        },
+        {
+          "title": "Business professional",
+          "organization": "Private sector",
+          "start_year": null,
+          "end_year": null,
+          "description": "Campaign biography and media coverage describe extensive business experience."
+        },
+        {
+          "title": "U.S. Army veteran",
+          "organization": "U.S. Army",
+          "start_year": null,
+          "end_year": null,
+          "description": "Campaign materials describe him as an Army veteran."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Allen Waters",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Allen Waters is also running in the Republican primary for the Rhode Island Senate seat. He has previously run for U.S. Senate and other offices, and his campaign branding presents him as a Providence-based, working-class candidate focused on conservative themes and local identity.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Allen_Waters",
+          "type": "website",
+          "title": "Allen Waters - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.wpri.com/meet-the-candidates-allen-waters/",
+          "type": "news",
+          "title": "Meet the Candidates: Allen Waters | WPRI.com",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.allenrwaters.com/",
+          "type": "website",
+          "title": "Allen Waters",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://www.allenrwaters.com/",
+      "social_media": {
+        "x": "https://x.com/AllenWatersUSA",
+        "instagram": "https://www.instagram.com/allenrwaters/",
+        "facebook": null,
+        "youtube": null
+      },
+      "career_history": [
+        {
+          "title": "Business owner / private-sector professional",
+          "organization": "Private sector",
+          "start_year": null,
+          "end_year": null,
+          "description": "Campaign and profile materials describe him as having a long business background."
+        },
+        {
+          "title": "Candidate for U.S. Senate",
+          "organization": "Rhode Island elections",
+          "start_year": 2020,
+          "end_year": null,
+          "description": "Ran for U.S. Senate in 2020 and is again active in Rhode Island politics."
+        },
+        {
+          "title": "Candidate for U.S. House",
+          "organization": "Rhode Island elections",
+          "start_year": 2022,
+          "end_year": null,
+          "description": "Previously ran for Congress in Rhode Island."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Classical High School",
+          "degree": "High school diploma",
+          "field": null,
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Jon Lindley",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Jon Lindley is running as an independent in the general election for Rhode Island\u2019s U.S. Senate seat. Ballotpedia lists him as an official candidate, but there is limited publicly available biographical information in the sources reviewed.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Jon_Lindley",
+          "type": "website",
+          "title": "Jon Lindley - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Rhode_Island,_2026",
+          "type": "website",
+          "title": "United States Senate election in Rhode Island, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://commons.wikimedia.org/wiki/File:JLindley.jpg",
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "updated_utc": "2026-04-01T06:04:07.349831+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "gpt-5-nano"
+  ],
+  "reviews": [],
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 110163,
+    "completion_tokens": 3144,
+    "total_tokens": 113307,
+    "estimated_usd": 0.0184,
+    "model_breakdown": {
+      "gpt-5.4-mini": {
+        "prompt_tokens": 110163,
+        "completion_tokens": 3144
+      }
+    },
+    "duration_s": 32.8
+  }
+}

@@ -1,0 +1,166 @@
+{
+  "id": "va-senate-2026",
+  "title": "2026 U.S. Senate election in Virginia",
+  "office": "United States Senate",
+  "jurisdiction": "Virginia",
+  "election_date": "2026-11-03",
+  "description": "This race is for Virginia\u2019s U.S. Senate seat, currently held by Democrat Mark Warner. It matters because Warner is an incumbent seeking another term in a state that has leaned Democratic in recent federal elections, but where statewide races can still be competitive depending on turnout and candidate quality. The contest also has national implications because Senate control can hinge on a small number of seats. The main contrast so far is between Warner\u2019s long record in elected office and Jason Reynolds\u2019 progressive challenge from within the Democratic primary.",
+  "polling": [],
+  "polling_note": "No public polling found for this race as of 2026-04-01.",
+  "candidates": [
+    {
+      "name": "Mark Warner",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Mark Warner is the incumbent U.S. senator from Virginia and a former governor. His campaign emphasizes bipartisan problem-solving, infrastructure, broadband expansion, national security, and lowering health care costs. Warner\u2019s long tenure and statewide profile make him the best-known candidate in the race.",
+      "summary_sources": [
+        {
+          "url": "https://www.warner.senate.gov/public/index.cfm/biography",
+          "type": "government",
+          "title": "Biography - Mark R. Warner",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.markwarnerva.com/",
+          "type": "website",
+          "title": "Mark Warner - Delivering for Virginia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Mark_Warner_2025.jpg",
+      "website": "https://www.markwarnerva.com/",
+      "social_media": {
+        "x": "https://x.com/MarkWarner",
+        "facebook": "https://www.facebook.com/MarkRWarner/",
+        "instagram": "https://www.instagram.com/markwarnerva/"
+      },
+      "career_history": [
+        {
+          "title": "United States Senator",
+          "organization": "U.S. Senate",
+          "start_year": 2009,
+          "end_year": null,
+          "description": "Represents Virginia in the U.S. Senate; serves as vice chairman of the Senate Intelligence Committee and on Finance, Banking, Budget, and Rules."
+        },
+        {
+          "title": "Governor",
+          "organization": "Commonwealth of Virginia",
+          "start_year": 2002,
+          "end_year": 2006,
+          "description": "Served as governor of Virginia."
+        },
+        {
+          "title": "Technology and business executive",
+          "organization": "Various Virginia technology ventures",
+          "start_year": 1980,
+          "end_year": 2002,
+          "description": "Worked for about 20 years in technology and business; early investor in cellular telephone business and co-founder of a company that became Nextel."
+        }
+      ],
+      "education": [
+        {
+          "institution": "George Washington University",
+          "degree": "B.A.",
+          "field": "unknown",
+          "year": 1977
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Jason Reynolds",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Jason Reynolds is a Democratic primary challenger to incumbent Mark Warner. His campaign presents him as a progressive alternative focused on democracy reform, universal health care, reproductive rights, campaign finance reform, and economic fairness. Reynolds says he is running as a grassroots candidate to give Virginia Democrats a choice in the Senate primary.",
+      "summary_sources": [
+        {
+          "url": "https://www.jasonreynoldsforsenate.com/",
+          "type": "website",
+          "title": "Jason Reynolds for Senate",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Jason_Reynolds_(Virginia)",
+          "type": "news",
+          "title": "Jason Reynolds (Virginia) - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://www.jasonreynoldsforsenate.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/jason_reynolds_for_senate/",
+        "tiktok": "https://www.tiktok.com/@jasonreynoldsforsenate"
+      },
+      "career_history": [
+        {
+          "title": "Project/program manager",
+          "organization": "Various employers",
+          "start_year": 2015,
+          "end_year": null,
+          "description": "Has worked for the last decade as a project/program manager."
+        },
+        {
+          "title": "IT support staff",
+          "organization": "Various employers",
+          "start_year": 2007,
+          "end_year": 2015,
+          "description": "Worked supporting several IT teams."
+        },
+        {
+          "title": "Wireless telecommunications studies writer",
+          "organization": "Various employers",
+          "start_year": 2007,
+          "end_year": 2015,
+          "description": "Returned to work writing wireless telecommunications studies after being a stay-at-home dad."
+        },
+        {
+          "title": "Stay-at-home dad",
+          "organization": "Family",
+          "start_year": 1998,
+          "end_year": 2007,
+          "description": "Stayed home to care for his children for nine years."
+        },
+        {
+          "title": "SIGINT analyst",
+          "organization": "U.S. Army",
+          "start_year": null,
+          "end_year": null,
+          "description": "Had a brief stint in the Army as a SIGINT analyst and was honorably discharged."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "updated_utc": "2026-04-01T06:08:50.942392+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "gpt-5-nano"
+  ],
+  "reviews": [],
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 80253,
+    "completion_tokens": 1767,
+    "total_tokens": 82020,
+    "estimated_usd": 0.0131,
+    "model_breakdown": {
+      "gpt-5.4-mini": {
+        "prompt_tokens": 80253,
+        "completion_tokens": 1767
+      }
+    },
+    "duration_s": 26.6
+  }
+}

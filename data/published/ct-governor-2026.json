@@ -1,0 +1,386 @@
+{
+  "id": "ct-governor-2026",
+  "title": "2026 Connecticut Governor Election",
+  "office": "Governor of Connecticut",
+  "jurisdiction": "Connecticut",
+  "election_date": "2026-11-03",
+  "description": "Connecticut is holding an election for governor on November 3, 2026, with the primary scheduled for August 11, 2026. The race is notable because Gov. Ned Lamont is seeking re-election and faces primary challenges in both parties, while Ballotpedia and major race-ratings outlets currently rate the general election as safely or solidly Democratic. The contest is likely to center on affordability, taxes, housing, education, and the state\u2019s overall direction, with Democrats defending an incumbent record and Republicans arguing for a change in leadership.",
+  "polling": [
+    {
+      "pollster": "University of New Hampshire Survey Center",
+      "date": "2026-02-12",
+      "sample_size": 174,
+      "matchups": [
+        {
+          "candidates": [
+            "Ned Lamont",
+            "Josh Elliott"
+          ],
+          "percentages": [
+            57.0,
+            13.0
+          ]
+        }
+      ],
+      "source_url": "https://ctmirror.org/2026/02/25/poll-lamont-elliott-stewart-fazio-governor-approval/"
+    },
+    {
+      "pollster": "University of New Hampshire Survey Center",
+      "date": "2025-11-24",
+      "sample_size": 235,
+      "matchups": [
+        {
+          "candidates": [
+            "Ned Lamont",
+            "Josh Elliott"
+          ],
+          "percentages": [
+            55.0,
+            7.0
+          ]
+        }
+      ],
+      "source_url": "https://www.270towin.com/2026-governor-polls/connecticut"
+    }
+  ],
+  "polling_note": null,
+  "candidates": [
+    {
+      "name": "Ned Lamont",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Ned Lamont is the incumbent governor of Connecticut and is seeking another term in 2026. His campaign emphasizes affordability, tax relief, housing, workforce development, and continued investment in public services, while his official biography highlights his prior local government and investment-advisory experience.",
+      "summary_sources": [
+        {
+          "url": "https://portal.ct.gov/governor/about-governor-ned-lamont",
+          "type": "government",
+          "title": "Learn About Connecticut Governor Ned Lamont - CT.gov",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.nedlamont.com/",
+          "type": "website",
+          "title": "Ned Lamont for Governor",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8f/Governor_Ned_Lamont_of_Connecticut%2C_official_portrait.jpg",
+      "website": "https://www.nedlamont.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/NedLamontCT/",
+        "instagram": "https://www.instagram.com/govnedlamont/",
+        "tiktok": "https://www.tiktok.com/@governornedlamont",
+        "x": "https://x.com/GovNedLamont"
+      },
+      "career_history": [
+        {
+          "title": "Governor",
+          "organization": "State of Connecticut",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Elected governor in 2018 and took office in 2019; re-elected in 2022."
+        },
+        {
+          "title": "Chairman",
+          "organization": "Connecticut State Investment Advisory Council",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served for four years overseeing the state pension fund, according to his official biography."
+        },
+        {
+          "title": "Member",
+          "organization": "Greenwich Board of Selectmen and Board of Estimate and Taxation",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served in local government in Greenwich before becoming governor."
+        },
+        {
+          "title": "Founder",
+          "organization": "A weekly newspaper in a Connecticut town",
+          "start_year": null,
+          "end_year": null,
+          "description": "Founded a weekly newspaper early in his public-service career, according to the state biography."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Harvard University",
+          "degree": "Bachelor's degree",
+          "field": "Sociology",
+          "year": 1976
+        },
+        {
+          "institution": "Yale University",
+          "degree": "Master of Business Administration",
+          "field": "Business Administration",
+          "year": 1980
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Joshua Elliott",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Joshua Elliott is a Democratic state representative from Hamden and the main primary challenger to Gov. Ned Lamont. Public reporting describes him as a long-shot challenger who is running to offer a different direction within the Democratic Party, though the race remains heavily tilted toward the incumbent.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Connecticut_gubernatorial_and_lieutenant_gubernatorial_election,_2026",
+          "type": "website",
+          "title": "Connecticut gubernatorial and lieutenant gubernatorial election, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ctmirror.org/2026/02/25/poll-lamont-elliott-stewart-fazio-governor-approval/",
+          "type": "news",
+          "title": "Poll: Lamont's long-shot challenger is far behind, but slightly less so",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "State Representative",
+          "organization": "Connecticut General Assembly",
+          "start_year": null,
+          "end_year": null,
+          "description": "Serves as a member of the Connecticut House of Representatives from Hamden."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Ryan Fazio",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Ryan Fazio is a Republican state senator from Greenwich and one of the leading contenders for the GOP nomination. Coverage and polling suggest he has relatively strong favorability among Republican primary voters, and his campaign is positioned as a more traditional Republican alternative in a field that also includes former New Britain Mayor Erin Stewart.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Connecticut_gubernatorial_and_lieutenant_gubernatorial_election,_2026",
+          "type": "website",
+          "title": "Connecticut gubernatorial and lieutenant gubernatorial election, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ctmirror.org/2026/02/25/poll-lamont-elliott-stewart-fazio-governor-approval/",
+          "type": "news",
+          "title": "Poll: Lamont's long-shot challenger is far behind, but slightly less so",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "State Senator",
+          "organization": "Connecticut General Assembly",
+          "start_year": null,
+          "end_year": null,
+          "description": "Serves in the Connecticut State Senate representing Greenwich-area constituents."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Erin Stewart",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Erin Stewart is the former mayor of New Britain and a Republican candidate for governor in 2026. Her campaign biography emphasizes her record as a long-serving mayor focused on fiscal management, school and park investment, downtown development, and local public-safety and social-service initiatives.",
+      "summary_sources": [
+        {
+          "url": "https://erinforct.com/bio/",
+          "type": "website",
+          "title": "Bio - Erin Stewart \u2013 Republican For Governor 2026",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Erin_Stewart",
+          "type": "website",
+          "title": "Erin Stewart - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://ballotpedia.org/wiki/images/thumb/Erin_Stewart.jpg/300px-Erin_Stewart.jpg",
+      "website": "https://erinforct.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/ErinStewartCT/",
+        "instagram": "https://www.instagram.com/erinstewartct/",
+        "tiktok": "https://www.tiktok.com/@erinstewartct",
+        "x": "https://x.com/erinstewartct"
+      },
+      "career_history": [
+        {
+          "title": "Mayor",
+          "organization": "City of New Britain, Connecticut",
+          "start_year": 2013,
+          "end_year": 2025,
+          "description": "Served as the 40th mayor of New Britain and was first elected at age 26."
+        },
+        {
+          "title": "Member",
+          "organization": "Connecticut Board of Regents",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served on the state higher-education governing board, according to her campaign biography."
+        },
+        {
+          "title": "Chairwoman",
+          "organization": "Capitol Region Council of Governments",
+          "start_year": null,
+          "end_year": null,
+          "description": "Led the regional council of governments."
+        },
+        {
+          "title": "Member",
+          "organization": "Connecticut Conference of Municipalities Board of Directors",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served on the board of the municipal advocacy organization."
+        }
+      ],
+      "education": [
+        {
+          "institution": "New Britain High School",
+          "degree": "High school diploma",
+          "field": null,
+          "year": 2005
+        },
+        {
+          "institution": "Central Connecticut State University",
+          "degree": "Bachelor of Arts",
+          "field": "Public Administration; minor in Communications",
+          "year": 2009
+        },
+        {
+          "institution": "University of New Haven",
+          "degree": "Master of Public Administration",
+          "field": "Finance",
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Betsy McCaughey",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Betsy McCaughey is a Republican candidate in the 2026 Connecticut governor primary and a late entrant into the race. She is best known nationally as a former New York lieutenant governor and as a media commentator, and early polling shows low name recognition among Connecticut Republican primary voters.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Connecticut_gubernatorial_and_lieutenant_gubernatorial_election,_2026",
+          "type": "website",
+          "title": "Connecticut gubernatorial and lieutenant gubernatorial election, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ctmirror.org/2026/02/25/poll-lamont-elliott-stewart-fazio-governor-approval/",
+          "type": "news",
+          "title": "Poll: Lamont's long-shot challenger is far behind, but slightly less so",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Lieutenant Governor",
+          "organization": "State of New York",
+          "start_year": 1995,
+          "end_year": 1998,
+          "description": "Served as New York's lieutenant governor."
+        },
+        {
+          "title": "Commentator",
+          "organization": "News media",
+          "start_year": null,
+          "end_year": null,
+          "description": "Has worked as a political commentator and media personality."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Timothy Wilcox",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Timothy Wilcox is a Republican candidate in the 2026 Connecticut governor primary. Ballotpedia and reporting indicate he is running a minimal campaign and has filed paperwork saying he would not be raising or spending money, making him a low-profile candidate in the field.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Connecticut_gubernatorial_and_lieutenant_gubernatorial_election,_2026",
+          "type": "website",
+          "title": "Connecticut gubernatorial and lieutenant gubernatorial election, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ctmirror.org/2026/02/25/poll-lamont-elliott-stewart-fazio-governor-approval/",
+          "type": "news",
+          "title": "Poll: Lamont's long-shot challenger is far behind, but slightly less so",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "updated_utc": "2026-04-01T05:42:09.216268+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "gpt-5-nano"
+  ],
+  "reviews": [],
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 158727,
+    "completion_tokens": 3279,
+    "total_tokens": 162006,
+    "estimated_usd": 0.0258,
+    "model_breakdown": {
+      "gpt-5.4-mini": {
+        "prompt_tokens": 158727,
+        "completion_tokens": 3279
+      }
+    },
+    "duration_s": 30.3
+  }
+}

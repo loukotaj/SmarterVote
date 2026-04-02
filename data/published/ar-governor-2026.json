@@ -15,7 +15,7 @@
   "office": "Governor of Arkansas",
   "jurisdiction": "Arkansas",
   "election_date": "2026-11-03",
-  "description": "The 2026 Arkansas gubernatorial election will choose the state’s chief executive, who oversees the budget, state agencies, and implementation of state policy. Incumbent Republican Gov. Sarah Huckabee Sanders is seeking reelection in a state that Ballotpedia rates as solid or safe Republican, while Democrats nominated state Sen. Fred Love and Libertarian Colt Shelby also qualified for the general election. The race is expected to turn on Sanders’ record in office and the candidates’ positions on education, taxes, public safety, health care, and the size and role of state government.",
+  "description": "The 2026 Arkansas gubernatorial election will decide the state’s chief executive, who oversees the budget, executive agencies, and implementation of state law. Incumbent Republican Gov. Sarah Huckabee Sanders is seeking a second term, Democrat Fred Love won his party’s March 3 primary, and Libertarian Colt Shelby was nominated at his party’s February convention. The race matters because Arkansas remains a Republican-leaning state, but the candidates are offering different approaches on education, health care, taxes, criminal justice, and the role of state government.",
   "polling": [
     {
       "pollster": "No public polling located in sources reviewed",
@@ -35,7 +35,7 @@
       "name": "Sarah Huckabee Sanders",
       "party": "Republican",
       "incumbent": true,
-      "summary": "Sarah Huckabee Sanders is the incumbent governor of Arkansas and a Republican seeking reelection in 2026. Before becoming governor, she served as White House press secretary under President Donald Trump and worked in Republican campaigns and administration roles. Her administration has emphasized education policy, tax cuts, public safety, and state-government streamlining.",
+      "summary": "Sarah Huckabee Sanders is the incumbent Republican governor of Arkansas and is seeking reelection in 2026. Before becoming governor in 2023, she served as White House press secretary under President Donald Trump and previously worked in Republican campaigns and administration roles. Her reelection campaign has highlighted her record on education policy, tax cuts, and public safety.",
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Sarah_Huckabee_Sanders_%28cropped_and_rotated%29.jpg/500px-Sarah_Huckabee_Sanders_%28cropped_and_rotated%29.jpg",
       "website": "https://governor.arkansas.gov/administration/governor-sanders/",
       "social_media": {
@@ -405,23 +405,71 @@
         {
           "url": "https://governor.arkansas.gov/administration/governor-sanders/",
           "type": "government",
-          "title": "The Governor - Arkansas Governor - Sarah Huckabee Sanders"
+          "title": "Governor Sanders biography"
         },
         {
           "url": "https://ballotpedia.org/Sarah_Huckabee_Sanders",
           "type": "reference",
-          "title": "Sarah Huckabee Sanders - Ballotpedia"
+          "title": "Ballotpedia: Sarah Huckabee Sanders"
+        },
+        {
+          "url": "https://www.sarahforgovernor.com/news/",
+          "type": "campaign",
+          "title": "Sarah for Governor news"
         }
       ],
-      "voting_summary": "Sarah Huckabee Sanders is a governor, so she does not have a legislative roll-call voting record like a legislator. The available public record here is primarily gubernatorial bill-signing actions and policy positions rather than yes/no votes on roll calls.",
-      "voting_source_url": "https://votesmart.org/bill/40039/109138/202301/sarah-huckabee-sanders-signed-sb-632-requires-warning-labels-for-hair-relaxers-that-contain-certain-chemicals",
-      "donor_source_url": "https://www.opensecrets.org/donor-lookup/results?cand=sanders&order=desc&sort=A"
+      "voting_summary": "Sanders is an incumbent governor, not a legislator, so no legislative roll-call voting record exists for this race. Her public record is instead reflected through executive actions and official policy positions from the governor's office and campaign, where she presents herself as backing conservative state policies and a reelection agenda centered on her administration's priorities. Confidence: high.",
+      "voting_source_url": "https://governor.arkansas.gov/administration/governor-sanders/",
+      "donor_source_url": "https://ethics-disclosures.sos.arkansas.gov/public/cf/candidateprofile?guid=689c554c-5120-46a4-828e-6798f3298f22&tabName=TEXP",
+      "donor_summary": "Arkansas state disclosures and news reports indicate Sanders began her 2026 reelection campaign with more than $1 million raised at kickoff fundraisers in Little Rock and Jonesboro, and later reporting showed she continued to add six-figure monthly totals. The Arkansas Secretary of State ethics portal is the best public source for her state-level donor filings; OpenSecrets does not provide a standard candidate fundraising page for this gubernatorial race, and the available OpenSecrets result is a revolving-door profile rather than a state campaign-finance summary. Confidence: medium.",
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Sarah_Huckabee_Sanders",
+          "title": "Sarah Huckabee Sanders - Ballotpedia",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Sarah_Huckabee_Sanders",
+          "title": "Sarah Huckabee Sanders - Wikipedia",
+          "type": "wiki"
+        },
+        {
+          "url": "https://governor.arkansas.gov/",
+          "title": "Home Page - Arkansas Governor - Sarah Huckabee Sanders",
+          "type": "official"
+        },
+        {
+          "url": "https://governor.arkansas.gov/administration/governor-sanders/",
+          "title": "The Governor - Arkansas Governor - Sarah Huckabee Sanders",
+          "type": "legislature"
+        },
+        {
+          "url": "https://www.sarahforgovernor.com/news/",
+          "title": "News - Sarah Huckabee Sanders for Arkansas Governor",
+          "type": "official"
+        },
+        {
+          "url": "https://ethics-disclosures.sos.arkansas.gov/public/cf/candidateprofile?guid=689c554c-5120-46a4-828e-6798f3298f22&tabName=TEXP",
+          "title": "Governor Sarah Huckabee Sanders - Financial Disclosure",
+          "type": "finance"
+        },
+        {
+          "url": "https://www.arkansasonline.com/news/2025/jan/17/sanders-2026-campaign-raises-more-than-1m-so-far/",
+          "title": "Sanders’ 2026 campaign raises more than $1M so far this year",
+          "type": "news"
+        },
+        {
+          "url": "https://ballotpedia.org/Arkansas_gubernatorial_election,_2026",
+          "title": "Arkansas gubernatorial election, 2026 - Ballotpedia",
+          "type": "other"
+        }
+      ]
     },
     {
       "name": "Fred Love",
       "party": "Democratic",
       "incumbent": false,
-      "summary": "Fred Love is a Democratic state senator from Little Rock and the Democratic nominee for Arkansas governor in 2026. His campaign says he is running on faith, hard work, community, education, economic development, public safety, and health care, and it highlights his personal story of overcoming hardship through those values.",
+      "summary": "Fred Love is a Democratic Arkansas state senator and former state representative who won his party’s 2026 gubernatorial nomination on March 3. His campaign says he is running on education, health care, public safety, criminal justice reform, and economic development, drawing on a background that includes legislative service and community work in central Arkansas.",
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Rep_Fredrick_J_Love.jpg/500px-Rep_Fredrick_J_Love.jpg",
       "website": "https://www.fredloveforarkansas.com/",
       "social_media": {
@@ -804,40 +852,88 @@
       ],
       "summary_sources": [
         {
-          "url": "https://www.fredloveforarkansas.com/values-priorities",
-          "type": "website",
-          "title": "Values & Priorities | Fred Love for Governor"
+          "url": "https://katv.com/news/local/fred-love-wins-democratic-nomination-for-governor-looks-to-unseat-huckabee-sanders",
+          "type": "news",
+          "title": "KATV: Fred Love wins Democratic nomination for Governor"
+        },
+        {
+          "url": "https://www.fredloveforarkansas.com/",
+          "type": "campaign",
+          "title": "Fred Love for Governor home"
+        },
+        {
+          "url": "https://ballotpedia.org/Fredrick_Love",
+          "type": "reference",
+          "title": "Ballotpedia: Fredrick Love"
+        }
+      ],
+      "voting_summary": "As an Arkansas state senator and former state representative, Love has an established legislative voting record. Vote Smart's key-vote page shows him frequently voting against 2025 Republican-backed measures on DEI restrictions, bathroom restrictions, anti-canvasser changes, and fetal-development curriculum mandates, while supporting some health and consumer measures such as doula certification and PBM restrictions; the Arkansas Senate bio also highlights his sponsorship of 'Lux's Law' and a bill requiring warning labels for hair relaxers containing potentially harmful chemicals. Confidence: high.",
+      "voting_source_url": "https://justfacts.votesmart.org/candidate/key-votes/27882/fred-love",
+      "donor_source_url": "https://ethics-disclosures.sos.arkansas.gov/public/cf/candidateprofile?guid=8ff5f131-6808-48ac-9ef8-4088e857b108&tabName=CAN",
+      "donor_summary": "Arkansas ethics filings show Love's fundraising is reported through the state campaign-finance portal rather than federal FEC filings for this gubernatorial race. The available Arkansas disclosure pages show contributions from business/organization sources and PACs, with one filing page listing $2,263.30 from business/organization/unlisted PAC sources and $1,500 from PACs, but the public search results reviewed did not surface a comprehensive 2026 statewide total comparable to Sanders' reporting. Confidence: medium.",
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Fredrick_Love",
+          "title": "Fredrick Love - Ballotpedia",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Fredrick_Love",
+          "title": "Fredrick Love - Wikipedia",
+          "type": "wiki"
+        },
+        {
+          "url": "https://www.fredloveforarkansas.com/",
+          "title": "Fred Love for Governor: Home",
+          "type": "official"
+        },
+        {
+          "url": "https://senate.arkansas.gov/senators/640/",
+          "title": "Senator Fredrick J. Love - Arkansas Senate",
+          "type": "legislature"
+        },
+        {
+          "url": "https://justfacts.votesmart.org/candidate/27882/fred-love",
+          "title": "Fred Love - Vote Smart",
+          "type": "votesmart"
+        },
+        {
+          "url": "https://justfacts.votesmart.org/candidate/key-votes/27882/fred-love",
+          "title": "Fred Love's Voting Records - Vote Smart",
+          "type": "votesmart"
+        },
+        {
+          "url": "https://ethics-disclosures.sos.arkansas.gov/public/cf/candidateprofile?guid=8ff5f131-6808-48ac-9ef8-4088e857b108&tabName=CAN",
+          "title": "Senator Fredrick J Love - Financial Disclosure",
+          "type": "finance"
         },
         {
           "url": "https://arkansasadvocate.com/2026/03/03/love-wins-democratic-nomination-for-arkansas-governor/",
-          "type": "news",
-          "title": "Love wins Democratic nomination for Arkansas governor"
+          "title": "Love wins Democratic nomination for Arkansas governor",
+          "type": "news"
         }
-      ],
-      "voting_summary": "Fred Love has an active Arkansas legislative voting record and, in the sampled 2025 votes, split between supporting some health, education, and administrative measures while opposing several Republican-backed bills on immigration, DEI-related rules, and procurement restrictions. His record suggests a generally Democratic pattern with occasional support for bipartisan or policy-specific measures.",
-      "voting_source_url": "https://justfacts.votesmart.org/candidate/27882/fred-love",
-      "donor_source_url": "https://www.opensecrets.org/officeholders/fred-love/contributors?cycle=2018&id=6459312&recs=100"
+      ]
     },
     {
       "name": "Colt Shelby",
       "party": "Libertarian",
       "incumbent": false,
-      "summary": "Colt Shelby is the Libertarian nominee for Arkansas governor in 2026 and lives in Cecil, Arkansas. His campaign website describes him as a conservative Libertarian focused on limited, local, and accountable government, lower taxes, reduced regulation, gun rights, and community-based solutions. Local coverage says he entered the race after suing over the timing of a special election and has also been identified as an opponent of the proposed Franklin County prison project.",
+      "summary": "Colt Shelby is the Libertarian nominee for Arkansas governor in 2026 after advancing from the party’s February 22 convention. Public race listings identify him as a Franklin County resident and gubernatorial candidate, but detailed campaign policy materials were limited in the sources reviewed.",
       "summary_sources": [
         {
-          "url": "https://www.colt4arkansas.org/issues",
-          "type": "campaign_platform",
-          "title": "Colt's Platform - Colt Shelby for Arkansas Governor"
+          "url": "https://ballotpedia.org/Colt_Shelby",
+          "type": "reference",
+          "title": "Ballotpedia: Colt Shelby"
+        },
+        {
+          "url": "https://ballotpedia.org/Arkansas_gubernatorial_election,_2026",
+          "type": "reference",
+          "title": "Ballotpedia: Arkansas gubernatorial election, 2026"
         },
         {
           "url": "https://www.arkansasonline.com/news/2026/feb/23/colt-shelby-opponent-of-franklin-county-prison/",
           "type": "news",
-          "title": "Colt Shelby, opponent of Franklin County prison, becomes ..."
-        },
-        {
-          "url": "https://www.5newsonline.com/article/news/politics/elections/franklin-county-man-sued-gov-sanders-challenging-gubernatorial-race/527-39b53cef-a94c-446b-bc35-136c3cb4cf2f",
-          "type": "news",
-          "title": "Franklin County man that sued Gov. Sanders now challenging her in ..."
+          "title": "Arkansas Online: Colt Shelby opponent of Franklin County prison becomes Libertarian nominee"
         }
       ],
       "image_url": null,
@@ -993,18 +1089,53 @@
           ]
         }
       },
-      "voting_summary": "Colt Shelby is a 2026 gubernatorial candidate and, based on the sources reviewed, has no legislative voting record because he is not a current or former legislator in the available records. No verified public roll-call votes were found in the searched sources.",
-      "voting_source_url": "https://ballotpedia.org/Colt_Shelby",
-      "donor_source_url": "https://www.ballotpedia.org/Colt_Shelby"
+      "voting_summary": "Shelby does not appear to have served as a legislator, so no legislative voting record exists. Public reporting instead identifies him as the Libertarian nominee for governor and notes his prior lawsuit challenging the timing of Arkansas Senate District 26's special election, which he argued should occur sooner to preserve representation for district residents. Confidence: medium.",
+      "voting_source_url": "https://residentnewsnetwork.com/libertarian-nominee-colt-shelby-announces-bid-for-governor/",
+      "donor_source_url": "https://ballotpedia.org/Colt_Shelby",
+      "donor_summary": "No campaign finance data found in public disclosures as of 2026-04-02. Ballotpedia's candidate page states campaign-finance information for Shelby is not yet available from OpenSecrets, and the searches reviewed did not surface a state disclosure page or detailed donor breakdown. Confidence: medium.",
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Colt_Shelby",
+          "title": "Colt Shelby - Ballotpedia",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://ballotpedia.org/Arkansas_gubernatorial_election,_2026",
+          "title": "Arkansas gubernatorial election, 2026 - Ballotpedia",
+          "type": "other"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_Arkansas_gubernatorial_election",
+          "title": "2026 Arkansas gubernatorial election - Wikipedia",
+          "type": "wiki"
+        },
+        {
+          "url": "https://residentnewsnetwork.com/libertarian-nominee-colt-shelby-announces-bid-for-governor/",
+          "title": "Libertarian Nominee Colt Shelby Announces Bid for Governor",
+          "type": "news"
+        },
+        {
+          "url": "https://arkansasadvocate.com/briefs/libertarian-party-of-arkansas-nominates-2026-general-election-candidates/",
+          "title": "Libertarian Party of Arkansas nominates 2026 general election candidates",
+          "type": "news"
+        },
+        {
+          "url": "https://www.4029tv.com/article/franklin-county-resident-lawsuit/68881629",
+          "title": "Franklin County resident sues governor, secretary of state over special election timing",
+          "type": "news"
+        },
+        {
+          "url": "https://www.5newsonline.com/article/news/politics/elections/court-rules-favor-franklin-county-citizen-challenging-timeline-senate-district-26-special-election/527-fcae8bf3-4d2c-40fa-a872-5af2d4483fb6",
+          "title": "Judge orders earlier District 26 special election date in Arkansas",
+          "type": "news"
+        }
+      ]
     }
   ],
-  "updated_utc": "2026-03-31T17:43:35.530479+00:00",
+  "updated_utc": "2026-04-02T00:14:58.603253+00:00",
   "generator": [
-    "gpt-5.4-mini",
-    "gpt-5-nano",
-    "claude-haiku-4-5-20251001",
-    "gemini-3.1-flash-lite-preview",
-    "grok-3-mini"
+    "gpt-5.4",
+    "gpt-5.4-mini"
   ],
   "reviews": [
     {
@@ -1153,33 +1284,22 @@
     }
   ],
   "agent_metrics": {
-    "model": "gpt-5.4-mini",
-    "prompt_tokens": 5004042,
-    "completion_tokens": 241370,
-    "total_tokens": 5245412,
-    "estimated_usd": 0.6879,
+    "model": "gpt-5.4",
+    "prompt_tokens": 174523,
+    "completion_tokens": 4896,
+    "total_tokens": 179419,
+    "estimated_usd": 0.3803,
     "model_breakdown": {
-      "gpt-5-nano": {
-        "prompt_tokens": 4169069,
-        "completion_tokens": 220978
-      },
       "gpt-5.4-mini": {
-        "prompt_tokens": 734116,
-        "completion_tokens": 12270
+        "prompt_tokens": 42484,
+        "completion_tokens": 544
       },
-      "gemini-3.1-flash-lite-preview": {
-        "prompt_tokens": 36312,
-        "completion_tokens": 1002
-      },
-      "grok-3-mini": {
-        "prompt_tokens": 29781,
-        "completion_tokens": 612
-      },
-      "claude-haiku-4-5-20251001": {
-        "prompt_tokens": 34764,
-        "completion_tokens": 6508
+      "gpt-5.4": {
+        "prompt_tokens": 132039,
+        "completion_tokens": 4352
       }
     },
-    "duration_s": 2840.7
-  }
+    "duration_s": 111.0
+  },
+  "polling_note": "No new reliable public general-election polls for the 2026 Arkansas governor’s race were found in sources reviewed since 2026-03-31. Sources checked included Ballotpedia’s race page and broad web searches for recent Arkansas governor polling."
 }

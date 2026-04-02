@@ -1,0 +1,569 @@
+{
+  "id": "mt-senate-2026",
+  "title": "2026 U.S. Senate election in Montana",
+  "office": "United States Senate",
+  "jurisdiction": "Montana",
+  "election_date": "2026-11-03",
+  "description": "Montana voters will elect one U.S. senator in 2026 for the state\u2019s Class II seat. The race matters because it will help determine control of the U.S. Senate, and Ballotpedia rates the contest as leaning strongly Republican with the seat currently held by Steve Daines. The field includes a crowded set of primary candidates across parties, with Republicans emphasizing continuity and Democrats highlighting affordability, health care, and public services.",
+  "polling": [
+    {
+      "pollster": "Public Policy Polling",
+      "date": "2026-02-24",
+      "sample_size": 600,
+      "matchups": [
+        {
+          "candidates": [
+            "Steve Daines",
+            "Reilly Neill"
+          ],
+          "percentages": [
+            52,
+            38
+          ]
+        },
+        {
+          "candidates": [
+            "Steve Daines",
+            "Seth Bodnar"
+          ],
+          "percentages": [
+            51,
+            39
+          ]
+        }
+      ],
+      "source_url": "https://dailymontanan.com/2026/02/24/poll-shows-daines-with-sizable-lead-over-democratic-independent-challengers/"
+    }
+  ],
+  "polling_note": null,
+  "candidates": [
+    {
+      "name": "Steve Daines",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Steve Daines is the sitting U.S. senator from Montana and a former businessman. He entered the 2026 cycle as the incumbent in the race for Montana\u2019s Class II Senate seat, but Ballotpedia notes he withdrew from the Republican primary filing process, so his status in the race should be treated cautiously. His public profile and campaign messaging have emphasized conservative priorities such as jobs, freedom, border security, and Montana values.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Montana,_2026",
+          "type": "government",
+          "title": "United States Senate election in Montana, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://stevedaines.com/",
+          "type": "website",
+          "title": "Steve Daines for Montana | Faith, Freedom & Opportunity",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Steve_Daines",
+          "type": "government",
+          "title": "Steve Daines - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/7f/Steve_Daines_official_portrait.jpg",
+      "website": "https://stevedaines.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/SteveDainesMT/",
+        "instagram": "https://www.instagram.com/stevedaines/",
+        "x": "https://x.com/SteveDaines"
+      },
+      "career_history": [
+        {
+          "title": "United States Senator",
+          "organization": "U.S. Senate",
+          "start_year": 2015,
+          "end_year": null,
+          "description": "Represents Montana in the U.S. Senate."
+        },
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2013,
+          "end_year": 2015,
+          "description": "Represented Montana\u2019s at-large congressional district."
+        },
+        {
+          "title": "Business executive",
+          "organization": "Private sector",
+          "start_year": null,
+          "end_year": 2012,
+          "description": "Worked in business before entering elected office."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Montana State University",
+          "degree": "Bachelor of Science",
+          "field": "Chemical Engineering",
+          "year": 1984
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Reilly Neill",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Reilly Neill is a Democratic candidate for U.S. Senate in Montana and a former state legislator. Her campaign describes her as a different kind of Democrat focused on affordability, public education, agriculture, health care, and listening to voters across the state. She has framed her campaign as a grassroots effort aimed at challenging the status quo and restoring trust in leadership.",
+      "summary_sources": [
+        {
+          "url": "https://reillyformontana.com/",
+          "type": "website",
+          "title": "Reilly Neill for U.S. Senate",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://reillyformontana.com/meet-reilly/",
+          "type": "website",
+          "title": "Meet Reilly - Reilly Neill for Montana",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Reilly_Neill",
+          "type": "government",
+          "title": "Reilly Neill - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/3a/Reilly_Neill.jpg",
+      "website": "https://reillyformontana.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/reillyformontana/",
+        "instagram": "https://www.instagram.com/reillyformontana/",
+        "x": "https://x.com/RepRNeill"
+      },
+      "career_history": [
+        {
+          "title": "State legislator",
+          "organization": "Montana Legislature",
+          "start_year": null,
+          "end_year": null,
+          "description": "Ballotpedia and campaign materials identify her as a former state legislator."
+        },
+        {
+          "title": "Publisher",
+          "organization": "Private sector",
+          "start_year": null,
+          "end_year": null,
+          "description": "Campaign biography and social media describe her as a publisher."
+        },
+        {
+          "title": "Small business owner",
+          "organization": "Private sector",
+          "start_year": null,
+          "end_year": null,
+          "description": "Campaign biography describes her as a small business owner and mother."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Kurt Alme",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Kurt Alme is a Republican candidate for U.S. Senate in Montana and previously served as the U.S. attorney for the District of Montana. His background is in law and federal prosecution, and his entry into the race came late in the filing period. Public reporting and Ballotpedia identify him as one of the Republican primary contenders.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Kurt_Alme",
+          "type": "government",
+          "title": "Kurt Alme - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://dailymontanan.com/2026/03/04/kurt-alme-files-for-u-s-senate-immediately-endorsed-by-outgoing-sen-daines-president-trump/",
+          "type": "news",
+          "title": "Kurt Alme files for U.S. Senate, immediately endorsed by outgoing Sen. Daines, president Trump",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Kurt_Alme.jpg",
+      "website": null,
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "United States Attorney",
+          "organization": "U.S. Department of Justice, District of Montana",
+          "start_year": 2025,
+          "end_year": 2026,
+          "description": "Served as the top federal prosecutor in Montana."
+        },
+        {
+          "title": "Attorney",
+          "organization": "Private legal practice / public service",
+          "start_year": null,
+          "end_year": null,
+          "description": "Career centered on law and federal service."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Lee Calhoun",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Lee Calhoun is a Republican candidate in Montana\u2019s 2026 U.S. Senate primary. Ballotpedia lists him among the Republican contenders, and campaign materials describe him as a Montana conservative focused on economic opportunity, health care, and community issues. Public reporting indicates he later suspended or withdrew his bid, so his active status should be checked against the latest filing records.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Lee_Calhoun",
+          "type": "government",
+          "title": "Lee Calhoun - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.charleswalkingchildforussenate.com/",
+          "type": "website",
+          "title": "Charles Walking Child for US Senate",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://montana1stnews.com/2026/03/21/breaking-republican-candidate-lee-calhoun-withdraws-from-montana-senate-race/",
+          "type": "news",
+          "title": "BREAKING: Republican Candidate Lee Calhoun Withdraws from Montana Senate Race",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://lee.calhounformt.com/",
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Charles A. Walking Child",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Charles A. Walking Child is a Republican candidate in Montana\u2019s 2026 U.S. Senate primary. His campaign says he is focused on economic opportunity, accessible health care, and conservative values, and Ballotpedia lists him among the Republican contenders. Public biographical material describes him as a Montana native with Blackfeet heritage and a background shaped by both hardship and faith.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Charles_A._Walking_Child",
+          "type": "government",
+          "title": "Charles A. Walking Child - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.charleswalkingchildforussenate.com/",
+          "type": "website",
+          "title": "Charles Walking Child for US Senate",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://apps.montanafreepress.org/election-guide-2024/candidates/charles-walkingchild/",
+          "type": "news",
+          "title": "Charles Walkingchild | U.S. Senate | 2024 Montana Election Guide",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://www.charleswalkingchildforussenate.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/walkingchildforcongress/"
+      },
+      "career_history": [],
+      "education": [
+        {
+          "institution": "University of Montana",
+          "degree": null,
+          "field": null,
+          "year": null
+        },
+        {
+          "institution": "Russell High",
+          "degree": null,
+          "field": null,
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Seth Bodnar",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Seth Bodnar is an independent candidate for U.S. Senate in Montana and previously served as president of the University of Montana. His background combines higher education leadership, military service, and business experience, and he entered the race as a late-filed general-election candidate. Ballotpedia lists him as the current general-election candidate, making him the main independent option in the race.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Montana,_2026",
+          "type": "government",
+          "title": "United States Senate election in Montana, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Seth_Bodnar",
+          "type": "news",
+          "title": "Seth Bodnar - Wikipedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.facebook.com/Q2News/posts/on-the-final-day-of-filing-for-montanas-2026-elections-former-university-of-mont/1384380307064718/",
+          "type": "news",
+          "title": "On the final day of filing for Montana's 2026 elections, former University of Montana president Seth Bodnar confirmed he is jumping into the ...",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/5d/Seth_Bodnar.jpg",
+      "website": null,
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "President",
+          "organization": "University of Montana",
+          "start_year": 2018,
+          "end_year": 2025,
+          "description": "Led the University of Montana before entering the Senate race."
+        },
+        {
+          "title": "Business executive",
+          "organization": "Private sector",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked in business before his university presidency."
+        },
+        {
+          "title": "Army officer",
+          "organization": "U.S. Army",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as an Army officer and veteran."
+        }
+      ],
+      "education": [
+        {
+          "institution": "United States Military Academy at West Point",
+          "degree": "Bachelor of Science",
+          "field": null,
+          "year": 2001
+        },
+        {
+          "institution": "Stanford University",
+          "degree": "Master of Business Administration",
+          "field": "Business",
+          "year": 2009
+        },
+        {
+          "institution": "Stanford University",
+          "degree": "Master of Arts",
+          "field": "Education",
+          "year": 2009
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Michael Black Wolf",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Michael Black Wolf is listed by Ballotpedia as a Democratic primary candidate for Montana\u2019s 2026 U.S. Senate race. Publicly available biographical detail is limited in the sources reviewed, so his background and issue profile are not well documented in the materials found. He remains one of several Democrats competing for the nomination.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Montana,_2026",
+          "type": "government",
+          "title": "United States Senate election in Montana, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Michael Hummert",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Michael Hummert is a Democratic candidate in Montana\u2019s 2026 U.S. Senate primary and previously ran in the 2024 Democratic primary for the same seat. Ballotpedia lists him among the current Democratic contenders, but the sources reviewed did not provide much additional biographical detail. He is part of a crowded Democratic field that is competing to challenge the Republican nominee in November.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Michael_Hummert",
+          "type": "government",
+          "title": "Michael Hummert - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Montana,_2026",
+          "type": "government",
+          "title": "United States Senate election in Montana, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Christopher Kehoe",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Christopher Kehoe is listed by Ballotpedia as a Democratic primary candidate in Montana\u2019s 2026 U.S. Senate race. The sources reviewed did not provide substantial public biographical information about his career or education. He is one of several Democrats seeking the nomination.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Montana,_2026",
+          "type": "government",
+          "title": "United States Senate election in Montana, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Alani Bankhead",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Alani Bankhead is listed by Ballotpedia as a Democratic primary candidate in Montana\u2019s 2026 U.S. Senate race. The reviewed sources did not yield enough reliable public biographical detail to summarize her career or education in depth. She is part of the Democratic primary field seeking the nomination.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Montana,_2026",
+          "type": "government",
+          "title": "United States Senate election in Montana, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Kyle Austin",
+      "party": "Libertarian",
+      "incumbent": false,
+      "summary": "Kyle Austin is a Libertarian candidate in Montana\u2019s 2026 U.S. Senate primary. Ballotpedia lists him among the Libertarian contenders, but the reviewed sources provided little additional biographical detail. He is part of a smaller third-party field in the race.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Kyle_Austin_(Montana)",
+          "type": "government",
+          "title": "Kyle Austin (Montana) - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Montana,_2026",
+          "type": "government",
+          "title": "United States Senate election in Montana, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Tom Jandron",
+      "party": "Libertarian",
+      "incumbent": false,
+      "summary": "Tom Jandron is listed by Ballotpedia as a Libertarian candidate in Montana\u2019s 2026 U.S. Senate primary. The sources reviewed did not provide enough reliable public biographical information to detail his career or education. He is one of the Libertarian contenders in the race.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Montana,_2026",
+          "type": "government",
+          "title": "United States Senate election in Montana, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "updated_utc": "2026-04-01T05:57:27.918287+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "gpt-5-nano"
+  ],
+  "reviews": [],
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 84370,
+    "completion_tokens": 4896,
+    "total_tokens": 89266,
+    "estimated_usd": 0.0156,
+    "model_breakdown": {
+      "gpt-5.4-mini": {
+        "prompt_tokens": 84370,
+        "completion_tokens": 4896
+      }
+    },
+    "duration_s": 38.0
+  }
+}

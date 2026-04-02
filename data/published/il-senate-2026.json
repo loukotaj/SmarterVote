@@ -1,0 +1,305 @@
+{
+  "id": "il-senate-2026",
+  "title": "2026 U.S. Senate election in Illinois",
+  "office": "United States Senate",
+  "jurisdiction": "Illinois",
+  "election_date": "2026-11-03",
+  "description": "Illinois is holding a regular U.S. Senate election for the Class II seat currently held by Dick Durbin, who announced he would not seek re-election. The race matters because it is an open seat in a large, reliably Democratic state, making the Democratic primary the decisive contest and giving the winner a strong advantage in the general election. The campaign has centered on experience, party leadership, and how aggressively to confront the Trump administration, with candidates also emphasizing affordability, health care, and labor issues. The general election is expected to reflect Illinois\u2019s partisan lean, while the primary highlighted different styles of Democratic leadership and coalition-building.",
+  "polling": [
+    {
+      "pollster": "Emerson College Polling / WGN-TV",
+      "date": "2026-01-09",
+      "sample_size": 600,
+      "matchups": [
+        {
+          "candidates": [
+            "Raja Krishnamoorthi",
+            "Juliana Stratton"
+          ],
+          "percentages": [
+            31.0,
+            18.0
+          ]
+        },
+        {
+          "candidates": [
+            "Raja Krishnamoorthi",
+            "Robin Kelly"
+          ],
+          "percentages": [
+            31.0,
+            12.0
+          ]
+        }
+      ],
+      "source_url": "https://wgntv.com/politics-3/wgn-emerson-poll-january-2026/"
+    }
+  ],
+  "polling_note": null,
+  "candidates": [
+    {
+      "name": "Juliana Stratton",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Juliana Stratton is the lieutenant governor of Illinois and a former member of the Illinois House of Representatives. She ran for the open U.S. Senate seat in 2026 and won the Democratic nomination, positioning herself as a continuation of the Pritzker administration\u2019s agenda and a progressive voice on issues such as health care and economic fairness.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Juliana_Stratton",
+          "type": "website",
+          "title": "Juliana Stratton - Wikipedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Illinois,_2026",
+          "type": "website",
+          "title": "United States Senate election in Illinois, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8f/Juliana_Stratton_20180807_%28040%29.jpg",
+      "website": "https://www.julianastratton.com/",
+      "social_media": {
+        "x": "https://x.com/JulianaStratton",
+        "facebook": "https://www.facebook.com/JulianaForIL",
+        "instagram": "https://www.instagram.com/julianastratton/"
+      },
+      "career_history": [
+        {
+          "title": "Lieutenant Governor",
+          "organization": "State of Illinois",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Serves as Illinois\u2019s 48th lieutenant governor, elected on the Pritzker ticket."
+        },
+        {
+          "title": "Member",
+          "organization": "Illinois House of Representatives",
+          "start_year": 2017,
+          "end_year": 2019,
+          "description": "Represented the 5th district in the Illinois House."
+        },
+        {
+          "title": "Executive Director",
+          "organization": "Cook County Justice Advisory Council",
+          "start_year": 2011,
+          "end_year": 2014,
+          "description": "Led county criminal justice reform coordination efforts."
+        },
+        {
+          "title": "Director",
+          "organization": "Center for Public Safety and Justice, University of Illinois at Chicago",
+          "start_year": 2015,
+          "end_year": 2017,
+          "description": "Directed a public safety and justice research center."
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Illinois Urbana-Champaign",
+          "degree": "BS",
+          "field": "unknown",
+          "year": 1987
+        },
+        {
+          "institution": "DePaul University",
+          "degree": "JD",
+          "field": "law",
+          "year": 1992
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Raja Krishnamoorthi",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Raja Krishnamoorthi is a U.S. representative from Illinois\u2019s 8th congressional district and a former state and federal policy aide. He ran for the Senate in 2026, emphasizing his congressional experience, anti-corruption and oversight work, and a message focused on working families, affordability, and opposition to Donald Trump\u2019s policies.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Raja_Krishnamoorthi",
+          "type": "website",
+          "title": "Raja Krishnamoorthi - Wikipedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Illinois,_2026",
+          "type": "website",
+          "title": "United States Senate election in Illinois, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/4f/Raja_Krishnamoorthi_official_photo.jpg",
+      "website": null,
+      "social_media": {
+        "x": "https://x.com/RajaForIL",
+        "facebook": "https://www.facebook.com/RajaForIL/",
+        "instagram": "https://www.instagram.com/rajaforil/"
+      },
+      "career_history": [
+        {
+          "title": "Member of Congress",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2017,
+          "end_year": null,
+          "description": "Represents Illinois\u2019s 8th congressional district."
+        },
+        {
+          "title": "Special Assistant Attorney General",
+          "organization": "State of Illinois",
+          "start_year": 2000,
+          "end_year": 2006,
+          "description": "Helped start the state\u2019s anti-corruption unit under the Illinois attorney general."
+        },
+        {
+          "title": "Deputy State Treasurer",
+          "organization": "Office of the Illinois Treasurer",
+          "start_year": 2007,
+          "end_year": 2009,
+          "description": "Served under Treasurer Alexi Giannoulias."
+        },
+        {
+          "title": "President",
+          "organization": "High-tech small businesses in the Chicago area",
+          "start_year": 2009,
+          "end_year": 2016,
+          "description": "Led small businesses before entering Congress."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Princeton University",
+          "degree": "BS",
+          "field": "mechanical engineering",
+          "year": 1995
+        },
+        {
+          "institution": "Harvard Law School",
+          "degree": "JD",
+          "field": "law",
+          "year": 1998
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Robin Kelly",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Robin Kelly is a U.S. representative from Illinois\u2019s 2nd congressional district and previously served in the Illinois House and in state and county government. She ran for the Senate in 2026, presenting herself as an experienced legislator focused on health care, gun violence prevention, and economic issues, with an emphasis on representing diverse urban, suburban, and rural constituencies.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Robin_Kelly",
+          "type": "website",
+          "title": "Robin Kelly - Wikipedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Illinois,_2026",
+          "type": "website",
+          "title": "United States Senate election in Illinois, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Robin_Kelly_official_photo.jpg",
+      "website": null,
+      "social_media": {
+        "x": "https://x.com/RepRobinKelly",
+        "facebook": "https://www.facebook.com/reprobinkelly/",
+        "instagram": "https://www.instagram.com/robinlynnekelly/"
+      },
+      "career_history": [
+        {
+          "title": "Member of Congress",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2013,
+          "end_year": null,
+          "description": "Represents Illinois\u2019s 2nd congressional district."
+        },
+        {
+          "title": "Chair",
+          "organization": "Illinois Democratic Party",
+          "start_year": 2021,
+          "end_year": 2022,
+          "description": "Led the state party for part of 2021-2022."
+        },
+        {
+          "title": "Chief Administrative Officer",
+          "organization": "Cook County",
+          "start_year": 2011,
+          "end_year": 2013,
+          "description": "Served in county government before entering Congress."
+        },
+        {
+          "title": "Chief of Staff",
+          "organization": "Illinois State Treasurer Alexi Giannoulias",
+          "start_year": 2007,
+          "end_year": 2010,
+          "description": "Worked in the state treasurer\u2019s office after leaving the Illinois House."
+        },
+        {
+          "title": "Member",
+          "organization": "Illinois House of Representatives",
+          "start_year": 2003,
+          "end_year": 2007,
+          "description": "Represented the 38th district in the Illinois House."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Bradley University",
+          "degree": "BA",
+          "field": "psychology",
+          "year": 1978
+        },
+        {
+          "institution": "Bradley University",
+          "degree": "MA",
+          "field": "counseling",
+          "year": 1982
+        },
+        {
+          "institution": "Northern Illinois University",
+          "degree": "PhD",
+          "field": "political science",
+          "year": 2004
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "updated_utc": "2026-04-01T05:47:27.937362+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "gpt-5-nano"
+  ],
+  "reviews": [],
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 97669,
+    "completion_tokens": 2653,
+    "total_tokens": 100322,
+    "estimated_usd": 0.0162,
+    "model_breakdown": {
+      "gpt-5.4-mini": {
+        "prompt_tokens": 97669,
+        "completion_tokens": 2653
+      }
+    },
+    "duration_s": 29.8
+  }
+}

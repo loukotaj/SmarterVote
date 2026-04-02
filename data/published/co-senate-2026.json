@@ -1,0 +1,454 @@
+{
+  "id": "co-senate-2026",
+  "title": "2026 U.S. Senate election in Colorado",
+  "office": "United States Senate",
+  "jurisdiction": "Colorado",
+  "election_date": "2026-11-03",
+  "description": "Colorado will elect one U.S. senator in 2026 for the Class II seat currently held by Democrat John Hickenlooper. The race matters because it will help determine control of the U.S. Senate, and Colorado is generally viewed as a Democratic-leaning state in recent federal elections. The contest is likely to center on partisan control, candidate experience, and policy differences on issues such as the economy, health care, climate, and federal governance.",
+  "polling": [],
+  "polling_note": "No public general-election polling found for this race as of 2026-04-01.",
+  "candidates": [
+    {
+      "name": "John Hickenlooper",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "John Hickenlooper is the incumbent U.S. senator from Colorado and a former governor and Denver mayor. He has emphasized a problem-solving, bipartisan style and has framed his Senate work around issues such as health care, climate, the economy, and public lands.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Colorado,_2026",
+          "type": "government",
+          "title": "United States Senate election in Colorado, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.hickenlooper.senate.gov/",
+          "type": "government",
+          "title": "Senator John Hickenlooper | Senator for Colorado",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://hickenlooper.com/",
+          "type": "website",
+          "title": "Hickenlooper for Colorado: Join the team",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/John_Hickenlooper",
+          "type": "news",
+          "title": "John Hickenlooper - Wikipedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/John_Hickenlooper_official_portrait.jpg/512px-John_Hickenlooper_official_portrait.jpg",
+      "website": "https://hickenlooper.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/JohnHickenlooper",
+        "instagram": "https://www.instagram.com/johnhickenlooper/",
+        "x": "https://x.com/Hickenlooper",
+        "youtube": "https://www.youtube.com/@JohnHickenlooper",
+        "spotify": "https://open.spotify.com/show/"
+      },
+      "career_history": [
+        {
+          "title": "U.S. Senator",
+          "organization": "United States Senate",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Serves as Colorado's junior senator."
+        },
+        {
+          "title": "Governor",
+          "organization": "State of Colorado",
+          "start_year": 2011,
+          "end_year": 2019,
+          "description": "Served two terms as governor of Colorado."
+        },
+        {
+          "title": "Mayor",
+          "organization": "City and County of Denver",
+          "start_year": 2003,
+          "end_year": 2011,
+          "description": "Served two terms as Denver mayor."
+        },
+        {
+          "title": "Geologist and businessman",
+          "organization": "Wynkoop Brewing Company / petroleum industry",
+          "start_year": 1980,
+          "end_year": 2003,
+          "description": "Worked as a petroleum geologist and later co-founded one of Colorado's first brewpubs."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Wesleyan University",
+          "degree": "B.A.",
+          "field": "English",
+          "year": 1974
+        },
+        {
+          "institution": "Wesleyan University",
+          "degree": "M.S.",
+          "field": "Geology",
+          "year": 1980
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Karen Breslin",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Karen Breslin is listed by Ballotpedia as a candidate in the Democratic primary for Colorado's 2026 U.S. Senate race. Publicly available biographical information was limited in the sources reviewed, so her broader career history and education could not be confirmed from the materials found.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Colorado,_2026",
+          "type": "government",
+          "title": "United States Senate election in Colorado, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Julie Gonzales",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Julie Gonzales is listed by Ballotpedia as a candidate in the Democratic primary for Colorado's 2026 U.S. Senate race. She is known in Colorado politics as a state legislator and progressive organizer, and her campaign is likely to emphasize a more activist policy approach than the incumbent.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Colorado,_2026",
+          "type": "government",
+          "title": "United States Senate election in Colorado, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Julie_Gonzales",
+          "type": "government",
+          "title": "Julie Gonzales - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Colorado State Senator",
+          "organization": "Colorado State Senate",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Serves in the Colorado legislature."
+        },
+        {
+          "title": "Community organizer",
+          "organization": "Advocacy and nonprofit organizations",
+          "start_year": null,
+          "end_year": 2019,
+          "description": "Worked in advocacy and organizing before elected office."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Brashad Hasley",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Brashad Hasley is listed by Ballotpedia as a Democratic primary candidate in the Colorado Senate race. The sources reviewed did not provide enough reliable biographical detail to confirm his career history or education.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Colorado,_2026",
+          "type": "government",
+          "title": "United States Senate election in Colorado, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Jessica Williams",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Jessica Williams is listed by Ballotpedia as a Democratic primary candidate in Colorado's 2026 U.S. Senate race. The available sources did not provide enough verified background information to summarize her career or education in detail.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Colorado,_2026",
+          "type": "government",
+          "title": "United States Senate election in Colorado, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Anthony Zimpfer",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Anthony Zimpfer is listed by Ballotpedia as a Democratic primary candidate in Colorado's 2026 U.S. Senate race. The sources reviewed did not yield enough reliable biographical detail to confirm his career history or education.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Colorado,_2026",
+          "type": "government",
+          "title": "United States Senate election in Colorado, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Mark Baisley",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Mark Baisley is a Colorado state senator and a Republican candidate in the 2026 U.S. Senate race. His public profile in state politics has centered on conservative positions and legislative service in the Colorado Senate.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Colorado,_2026",
+          "type": "government",
+          "title": "United States Senate election in Colorado, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Mark_Baisley",
+          "type": "government",
+          "title": "Mark Baisley - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Colorado State Senator",
+          "organization": "Colorado State Senate",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Represents Senate District 4."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Amanda Calderon",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Amanda Calderon is listed by Ballotpedia as a Republican primary candidate in Colorado's 2026 U.S. Senate race. The sources reviewed did not provide enough verified background information to confirm her career history or education.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Colorado,_2026",
+          "type": "government",
+          "title": "United States Senate election in Colorado, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Dathan Jones",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Dathan Jones is listed by Ballotpedia as a Republican primary candidate in Colorado's 2026 U.S. Senate race. The sources reviewed did not provide enough reliable biographical detail to confirm his career history or education.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Colorado,_2026",
+          "type": "government",
+          "title": "United States Senate election in Colorado, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Janak Joshi",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Janak Joshi is a Republican candidate in Colorado's 2026 U.S. Senate race and has previously served in Colorado state politics. His campaign profile is associated with conservative policy positions and prior legislative experience.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Colorado,_2026",
+          "type": "government",
+          "title": "United States Senate election in Colorado, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Janak_Joshi",
+          "type": "government",
+          "title": "Janak Joshi - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Colorado State Representative",
+          "organization": "Colorado House of Representatives",
+          "start_year": 2011,
+          "end_year": 2013,
+          "description": "Served in the Colorado legislature."
+        },
+        {
+          "title": "Physician",
+          "organization": "Medical practice",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked as a physician outside politics."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "George Washington Markert",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "George Washington Markert is listed by Ballotpedia as a Republican primary candidate in Colorado's 2026 U.S. Senate race. The sources reviewed did not provide enough verified biographical detail to confirm his career history or education.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Colorado,_2026",
+          "type": "government",
+          "title": "United States Senate election in Colorado, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Sean Pond",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Sean Pond is listed by Ballotpedia as a Republican primary candidate in Colorado's 2026 U.S. Senate race. The sources reviewed did not provide enough reliable biographical detail to confirm his career history or education.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Colorado,_2026",
+          "type": "government",
+          "title": "United States Senate election in Colorado, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "updated_utc": "2026-04-01T05:41:38.639648+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "gpt-5-nano"
+  ],
+  "reviews": [],
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 95753,
+    "completion_tokens": 3692,
+    "total_tokens": 99445,
+    "estimated_usd": 0.0166,
+    "model_breakdown": {
+      "gpt-5.4-mini": {
+        "prompt_tokens": 95753,
+        "completion_tokens": 3692
+      }
+    },
+    "duration_s": 30.7
+  }
+}

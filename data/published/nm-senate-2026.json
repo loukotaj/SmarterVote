@@ -1,0 +1,252 @@
+{
+  "id": "nm-senate-2026",
+  "title": "2026 U.S. Senate election in New Mexico",
+  "office": "United States Senate",
+  "jurisdiction": "New Mexico",
+  "election_date": "2026-11-03",
+  "description": "This race is for New Mexico\u2019s Class II seat in the U.S. Senate. It matters because it is one of the Senate seats up in 2026 and will help determine control of the chamber, though current race ratings and the state\u2019s recent voting history suggest Democrats have the advantage. The main contrast so far is between incumbent Sen. Ben Ray Luj\u00e1n, a well-known statewide Democrat, and primary challengers including Matt Dodson on the Democratic side and Larry Marker as a Republican write-in effort.",
+  "polling": [],
+  "polling_note": "No public polling found for this race as of 2026-04-01.",
+  "candidates": [
+    {
+      "name": "Ben Ray Luj\u00e1n",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Ben Ray Luj\u00e1n is the incumbent U.S. senator from New Mexico and is seeking reelection in 2026. He previously served in the U.S. House and has held other leadership roles in Congress, making him the best-known candidate in the race.",
+      "summary_sources": [
+        {
+          "url": "https://www.lujan.senate.gov/about/",
+          "type": "website",
+          "title": "About Ben - Senator Ben Ray Luj\u00e1n",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_Senate_election_in_New_Mexico",
+          "type": "news",
+          "title": "2026 United States Senate election in New Mexico",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8f/Ben_Ray_Lujan%2C_117th_Congress_portrait_2.jpg",
+      "website": "https://benraylujan.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/SenatorLujan/",
+        "instagram": "https://www.instagram.com/senatorlujan/",
+        "x": "https://x.com/SenatorLujan"
+      },
+      "career_history": [
+        {
+          "title": "United States Senator",
+          "organization": "U.S. Senate",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Serves as New Mexico\u2019s junior senator."
+        },
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2009,
+          "end_year": 2021,
+          "description": "Represented New Mexico\u2019s 3rd Congressional District."
+        },
+        {
+          "title": "Assistant Speaker",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2019,
+          "end_year": 2021,
+          "description": "Served in House leadership."
+        },
+        {
+          "title": "Chair",
+          "organization": "Democratic Congressional Campaign Committee",
+          "start_year": 2017,
+          "end_year": 2019,
+          "description": "Led House Democratic campaign efforts."
+        }
+      ],
+      "education": [
+        {
+          "institution": "New Mexico Highlands University",
+          "degree": "B.B.A.",
+          "field": "Business administration",
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [
+        "https://www.lujan.senate.gov/",
+        "https://benraylujan.com/",
+        "https://www.facebook.com/SenatorLujan/",
+        "https://www.instagram.com/senatorlujan/",
+        "https://x.com/SenatorLujan"
+      ],
+      "issues": {}
+    },
+    {
+      "name": "Matt Dodson",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Matt Dodson is a Democratic primary challenger to Sen. Ben Ray Luj\u00e1n. Public descriptions identify him as a U.S. Air Force veteran and a democratic socialist; his campaign says it is focused on universal healthcare, opposition to corporate PAC money, and other progressive priorities.",
+      "summary_sources": [
+        {
+          "url": "https://mattdodsonfornm.com/",
+          "type": "website",
+          "title": "Matt Dodson for US Senate NM",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://nmpoliticalreport.com/2026/03/09/heres-everyone-running-for-congress-in-new-mexico-this-year/",
+          "type": "news",
+          "title": "Here\u2019s everyone running for Congress in New Mexico this year",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Matt_Dodson",
+          "type": "website",
+          "title": "Matt Dodson - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://mattdodsonfornm.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/mattdodsonfornm/",
+        "instagram": "https://www.instagram.com/mattdodsonfornm/"
+      },
+      "career_history": [
+        {
+          "title": "U.S. Air Force veteran",
+          "organization": "United States Air Force",
+          "start_year": null,
+          "end_year": null,
+          "description": "Campaign and news coverage identify him as a veteran."
+        },
+        {
+          "title": "Landlord",
+          "organization": "Private sector",
+          "start_year": null,
+          "end_year": null,
+          "description": "News coverage described him as a landlord from Farmington."
+        },
+        {
+          "title": "Candidate for New Mexico state office",
+          "organization": "New Mexico elections",
+          "start_year": 2016,
+          "end_year": 2022,
+          "description": "Previously ran for state legislative office, according to New Mexico Secretary of State election records."
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Nebraska-Lincoln",
+          "degree": null,
+          "field": null,
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [
+        "https://mattdodsonfornm.com/",
+        "https://www.facebook.com/mattdodsonfornm/",
+        "https://www.instagram.com/mattdodsonfornm/"
+      ],
+      "issues": {}
+    },
+    {
+      "name": "Larry E. Marker",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Larry E. Marker is the Republican write-in candidate associated with the 2026 New Mexico Senate race. Available reporting describes him as a former oil and gas operator who was recruited to qualify as a write-in after the party did not have a standard ballot candidate.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_Senate_election_in_New_Mexico",
+          "type": "news",
+          "title": "2026 United States Senate election in New Mexico",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_New_Mexico,_2026",
+          "type": "website",
+          "title": "United States Senate election in New Mexico, 2026",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://nmpoliticalreport.com/2026/03/09/heres-everyone-running-for-congress-in-new-mexico-this-year/",
+          "type": "news",
+          "title": "Here\u2019s everyone running for Congress in New Mexico this year",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Former oil and gas operator",
+          "organization": "Private sector",
+          "start_year": null,
+          "end_year": null,
+          "description": "Described in reporting as a former oil and gas operator."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Toby Smith",
+      "party": "Jewish/Christian National Party",
+      "incumbent": false,
+      "summary": "Toby Smith is a third-party candidate listed for the general election in New Mexico\u2019s 2026 Senate race. Ballotpedia lists him as the Jewish/Christian National Party nominee, but there is limited public information available about his background.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_New_Mexico,_2026",
+          "type": "website",
+          "title": "United States Senate election in New Mexico, 2026",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "updated_utc": "2026-04-01T06:00:05.639728+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "gpt-5-nano"
+  ],
+  "reviews": [],
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 112621,
+    "completion_tokens": 2363,
+    "total_tokens": 114984,
+    "estimated_usd": 0.0183,
+    "model_breakdown": {
+      "gpt-5.4-mini": {
+        "prompt_tokens": 112621,
+        "completion_tokens": 2363
+      }
+    },
+    "duration_s": 27.3
+  }
+}

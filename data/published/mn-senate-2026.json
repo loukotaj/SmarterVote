@@ -1,0 +1,341 @@
+{
+  "id": "mn-senate-2026",
+  "title": "2026 U.S. Senate election in Minnesota",
+  "office": "United States Senate",
+  "jurisdiction": "Minnesota",
+  "election_date": "2026-11-03",
+  "description": "This race is for Minnesota\u2019s Class II U.S. Senate seat, currently held by Sen. Tina Smith, who announced she will not seek re-election. It is an open-seat contest in a state that has leaned Democratic in recent federal elections, but Republicans have narrowed margins in Minnesota in recent years, making the race politically important for both parties. The Democratic field has featured Lt. Gov. Peggy Flanagan and Rep. Angie Craig, while the Republican field includes several declared candidates such as Adam Schwarze, Christopher Brooks, Raymond Petersen, and others. The main contrasts so far are experience in elected office versus outsider or nontraditional backgrounds, along with differences over economic policy, public safety, and national partisan direction.",
+  "polling": [
+    {
+      "pollster": "Emerson College Polling",
+      "date": "2026-03-17",
+      "sample_size": null,
+      "matchups": [
+        {
+          "candidates": [
+            "Democratic candidates",
+            "Republican candidates"
+          ],
+          "percentages": [
+            null,
+            null
+          ]
+        }
+      ],
+      "source_url": "https://emersoncollegepolling.com/minnesota-2026-poll-democrats-lead-gop-as-voters-cite-threats-to-democracy/"
+    }
+  ],
+  "polling_note": "No candidate-specific public head-to-head polling for the Minnesota U.S. Senate race was confirmed from credible sources in the available search results; one broader Minnesota 2026 poll was found but did not provide a Senate matchup in the accessible snippet.",
+  "candidates": [
+    {
+      "name": "Peggy Flanagan",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Peggy Flanagan is Minnesota\u2019s lieutenant governor and a former state representative. Her campaign presents her as a progressive Democrat focused on working families, rights, and economic opportunity, and she has emphasized her background as an organizer and her Indigenous identity in public messaging.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Peggy_Flanagan",
+          "type": "government",
+          "title": "Peggy Flanagan - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://peggyflanagan.com/",
+          "type": "website",
+          "title": "Peggy Flanagan for Minnesota | Democrat for U.S. Senate",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://x.com/peggyflanagan",
+          "type": "website",
+          "title": "Peggy Flanagan (@peggyflanagan) / Posts / X",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://peggyflanagan.com/",
+      "social_media": {
+        "x": "https://x.com/peggyflanagan",
+        "instagram": "https://www.instagram.com/peggyflanagan/",
+        "facebook": "https://www.facebook.com/peggyflanaganMN/"
+      },
+      "career_history": [
+        {
+          "title": "Lieutenant Governor",
+          "organization": "State of Minnesota",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Serves as Minnesota\u2019s lieutenant governor."
+        },
+        {
+          "title": "State Representative",
+          "organization": "Minnesota House of Representatives",
+          "start_year": 2015,
+          "end_year": 2019,
+          "description": "Represented a Minnesota House district before becoming lieutenant governor."
+        },
+        {
+          "title": "Organizer / advocacy leader",
+          "organization": "Community and advocacy organizations",
+          "start_year": null,
+          "end_year": 2015,
+          "description": "Worked in organizing and advocacy before elected office."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Adam Schwarze",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Adam Schwarze is a former Navy SEAL and Marine infantry veteran running as a Republican in Minnesota\u2019s Senate race. His campaign emphasizes service, leadership, and a conservative approach to government, presenting him as an outsider with military experience rather than a career politician.",
+      "summary_sources": [
+        {
+          "url": "https://www.schwarzeforsenate.com/about/",
+          "type": "website",
+          "title": "Conservative Leadership for a Stronger America - Adam Schwarze",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.schwarzeforsenate.com/",
+          "type": "website",
+          "title": "Adam Schwarze: Minnesota Veteran for U.S. Senate",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.fec.gov/data/committee/C00898817/",
+          "type": "government",
+          "title": "SCHWARZE FOR SENATE - committee overview - FEC",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://www.schwarzeforsenate.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/adamschwarze/",
+        "facebook": "https://www.facebook.com/TeamSchwarze/",
+        "linkedin": "https://www.linkedin.com/in/adamschwarze"
+      },
+      "career_history": [
+        {
+          "title": "Navy SEAL",
+          "organization": "U.S. Navy",
+          "start_year": null,
+          "end_year": null,
+          "description": "Campaign biography describes him as a former Navy SEAL."
+        },
+        {
+          "title": "Marine infantry veteran",
+          "organization": "U.S. Marine Corps",
+          "start_year": null,
+          "end_year": null,
+          "description": "Campaign biography describes him as a former Marine infantry servicemember."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Christopher Brooks",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Christopher Brooks is a Republican candidate in Minnesota\u2019s 2026 U.S. Senate race. Publicly available search results identify him as a non-incumbent candidate, but the accessible campaign materials in search results provide limited biographical detail compared with some other candidates.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Christopher_Brooks_(Minnesota)",
+          "type": "website",
+          "title": "Christopher Brooks (Minnesota) - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://brooksforussenate.com/",
+          "type": "website",
+          "title": "Chris Brooks for US Senate",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://brooksforussenate.com/about/",
+          "type": "website",
+          "title": "Meet Chris - Brooks for U.S. Senate",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://brooksforussenate.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/chrisdbrooks/"
+      },
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Raymond Petersen",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Raymond Petersen is a Republican candidate for Minnesota\u2019s U.S. Senate seat and describes himself as a common-sense conservative and independent Republican. His campaign materials emphasize anti-establishment themes, term limits, and opposition to what he characterizes as entrenched or \u201cbought and paid for\u201d politics.",
+      "summary_sources": [
+        {
+          "url": "https://www.rayforsenate.com/",
+          "type": "website",
+          "title": "Raymond Petersen for US Senator from Minnesota",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.rayforsenate.com/about-the-campaign",
+          "type": "website",
+          "title": "About the Campaign \u2014 Raymond Petersen for US Senator from Minnesota",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Raymond_Petersen",
+          "type": "website",
+          "title": "Raymond Petersen - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://www.rayforsenate.com/",
+      "social_media": {
+        "x": "https://x.com/RayForSenate24",
+        "facebook": "https://www.facebook.com/raymond.petersen.37/"
+      },
+      "career_history": [
+        {
+          "title": "Candidate / community resident",
+          "organization": "Minnesota",
+          "start_year": null,
+          "end_year": null,
+          "description": "Campaign biography says he is a lifelong Minnesota resident; no prior elected office was identified in the accessible sources."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Tina Smith",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Tina Smith is the incumbent U.S. senator from Minnesota and announced she will not seek re-election in 2026. Before the Senate, she served as Minnesota\u2019s lieutenant governor and worked in business and public service roles; her Senate biography highlights a focus on health care, education, and family economic issues.",
+      "summary_sources": [
+        {
+          "url": "https://www.smith.senate.gov/about-tina/biography/",
+          "type": "government",
+          "title": "Biography - Senator Tina Smith",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.smith.senate.gov/u-s-senator-tina-smith-pens-op-ed-announcing-she-will-not-seek-reelection-in-2026/",
+          "type": "government",
+          "title": "U.S. Senator Tina Smith Pens Op-Ed Announcing She Will Not Seek Re-election in 2026",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.congress.gov/member/tina-smith/S001203",
+          "type": "government",
+          "title": "Senator Tina Smith - Congress.gov",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://tinaforminnesota.com/",
+      "social_media": {
+        "x": "https://x.com/SenTinaSmith",
+        "facebook": "https://www.facebook.com/USSenTinaSmith/",
+        "instagram": "https://www.instagram.com/tinasmithmn/",
+        "linkedin": "https://www.linkedin.com/in/tina-smith-b498504"
+      },
+      "career_history": [
+        {
+          "title": "United States Senator",
+          "organization": "U.S. Senate",
+          "start_year": 2018,
+          "end_year": null,
+          "description": "Represents Minnesota in the U.S. Senate."
+        },
+        {
+          "title": "Lieutenant Governor",
+          "organization": "State of Minnesota",
+          "start_year": 2015,
+          "end_year": 2018,
+          "description": "Served as Minnesota\u2019s lieutenant governor before appointment to the Senate."
+        },
+        {
+          "title": "Chief of staff",
+          "organization": "Office of the Governor of Minnesota",
+          "start_year": null,
+          "end_year": 2015,
+          "description": "Worked in the governor\u2019s office before statewide elected office."
+        },
+        {
+          "title": "Executive in business and public affairs",
+          "organization": "General Mills and related roles",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked in corporate and public-affairs roles before entering elected office."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Stanford University",
+          "degree": "Bachelor's degree",
+          "field": "Political science",
+          "year": 1980
+        },
+        {
+          "institution": "Dartmouth College, Tuck School of Business",
+          "degree": "MBA",
+          "field": "Business administration",
+          "year": 1984
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "updated_utc": "2026-04-01T05:55:41.375746+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "gpt-5-nano"
+  ],
+  "reviews": [],
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 72887,
+    "completion_tokens": 3143,
+    "total_tokens": 76030,
+    "estimated_usd": 0.0128,
+    "model_breakdown": {
+      "gpt-5.4-mini": {
+        "prompt_tokens": 72887,
+        "completion_tokens": 3143
+      }
+    },
+    "duration_s": 33.1
+  }
+}

@@ -1,0 +1,257 @@
+{
+  "id": "sd-senate-2026",
+  "title": "2026 U.S. Senate election in South Dakota",
+  "office": "U.S. Senate",
+  "jurisdiction": "South Dakota",
+  "election_date": "2026-11-03",
+  "description": "South Dakota voters will choose one U.S. senator in 2026 for the state\u2019s Class II seat. The race matters because it will help determine control of the U.S. Senate, and South Dakota is generally considered a strongly Republican state, making the incumbent GOP seat the central benchmark. The contest features incumbent Republican Mike Rounds, Democrat Julian Beaudion, and independent Brian Bengs, with the main contrasts centered on party control, governing style, and policy priorities such as public safety, healthcare, the economy, and government accountability.",
+  "polling": [],
+  "polling_note": "No public polling found for this race as of 2026-04-01.",
+  "candidates": [
+    {
+      "name": "Mike Rounds",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Mike Rounds is the incumbent U.S. senator from South Dakota, first elected in 2014. His campaign and Senate office emphasize national security, veterans, agriculture, cybersecurity, tribal relations, and pro-business policies. He is seeking reelection in a state that has leaned strongly Republican in recent federal elections.",
+      "summary_sources": [
+        {
+          "url": "https://www.rounds.senate.gov/",
+          "type": "website",
+          "title": "Home | U.S. Senator Mike Rounds",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_South_Dakota,_2026",
+          "type": "website",
+          "title": "United States Senate election in South Dakota, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.congress.gov/member/mike-rounds/R000605",
+          "type": "government",
+          "title": "Senator Mike Rounds (1954 - )",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8f/Mike_Rounds_113th_Congress.jpg",
+      "website": "https://roundsforsenate.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/SenatorMikeRounds/",
+        "instagram": "https://www.instagram.com/senatorrounds/?hl=en",
+        "x": "https://x.com/SenatorRounds",
+        "youtube": "https://www.youtube.com/channel/UC-pvzimyBdpdkcIfsicrfrQ"
+      },
+      "career_history": [
+        {
+          "title": "U.S. Senator",
+          "organization": "United States Senate",
+          "start_year": 2015,
+          "end_year": null,
+          "description": "Represents South Dakota in the U.S. Senate."
+        },
+        {
+          "title": "Governor",
+          "organization": "State of South Dakota",
+          "start_year": 2003,
+          "end_year": 2011,
+          "description": "Served two terms as governor."
+        },
+        {
+          "title": "State legislator",
+          "organization": "South Dakota Legislature",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served in the South Dakota Legislature before becoming governor."
+        }
+      ],
+      "education": [
+        {
+          "institution": "South Dakota State University",
+          "degree": "Bachelor of Science",
+          "field": "Political Science",
+          "year": 1977
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Julian Beaudion",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Julian Beaudion is a Democratic candidate for U.S. Senate in South Dakota. His background includes more than a decade with the South Dakota Highway Patrol, nonprofit leadership, and small-business ownership, and his campaign says he is focused on public safety, healthcare, infrastructure, education, and support for working families. He presents himself as a pragmatic, community-oriented candidate who emphasizes accountability and coalition-building.",
+      "summary_sources": [
+        {
+          "url": "https://www.julianforsd.com/about",
+          "type": "website",
+          "title": "About \u2014 Julian Beaudion for U.S. Senate | South Dakota",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Julian_Beaudion",
+          "type": "website",
+          "title": "Julian Beaudion - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://www.julianforsd.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/julianforsd",
+        "instagram": "https://www.instagram.com/julianforsd/"
+      },
+      "career_history": [
+        {
+          "title": "Executive Director",
+          "organization": "The HUB SD",
+          "start_year": null,
+          "end_year": null,
+          "description": "Leads a statewide nonprofit focused on engagement, leadership development, and community-centered communication strategies."
+        },
+        {
+          "title": "South Dakota State Trooper",
+          "organization": "South Dakota Highway Patrol",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served for 13 years in law enforcement, including recruiting and executive-protection roles."
+        },
+        {
+          "title": "Owner",
+          "organization": "Swamp Daddy\u2019s Cajun Kitchen",
+          "start_year": null,
+          "end_year": null,
+          "description": "Owns a family restaurant in Sioux Falls."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Pineville High School",
+          "degree": "High school diploma",
+          "field": null,
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Brian Bengs",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Brian Bengs is an independent candidate for U.S. Senate in South Dakota and previously ran for the seat in 2022 as a Democrat. His background includes military service, legal work, and teaching, and his campaign focuses on reducing corruption, limiting the influence of big money, and addressing affordability, healthcare, and fiscal policy. He positions himself as a nonpartisan alternative to the major parties.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Brian_Bengs",
+          "type": "website",
+          "title": "Brian Bengs - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.ontheissues.org/2026_SD_Senate.htm",
+          "type": "website",
+          "title": "2026 South Dakota Senator's race - OnTheIssues.org",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {
+        "facebook": "https://www.facebook.com/BBengs1970?locale=zh_CN",
+        "instagram": "https://www.instagram.com/briangbengs/",
+        "x": "https://x.com/BrianBengs",
+        "linkedin": "https://www.linkedin.com/in/brian-bengs-0b6b5a1a/",
+        "personal_facebook": "https://www.facebook.com/BBengs1970?locale=zh_CN"
+      },
+      "career_history": [
+        {
+          "title": "Attorney",
+          "organization": "Private practice / legal work",
+          "start_year": null,
+          "end_year": null,
+          "description": "Works as an attorney."
+        },
+        {
+          "title": "Assistant professor",
+          "organization": "Northern State University",
+          "start_year": null,
+          "end_year": null,
+          "description": "Taught at Northern State University."
+        },
+        {
+          "title": "Chief of general law / assistant general counsel",
+          "organization": "U.S. Air Force",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served in a senior legal role for the Air Force."
+        },
+        {
+          "title": "Military officer",
+          "organization": "U.S. Navy and U.S. Air Force",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served in both the Navy and Air Force."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Iowa State University",
+          "degree": "Bachelor's degree",
+          "field": "History and international studies",
+          "year": 1994
+        },
+        {
+          "institution": "University of Iowa",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": 1996
+        },
+        {
+          "institution": "Louisiana Tech University",
+          "degree": "Master's degree",
+          "field": "History",
+          "year": 2007
+        },
+        {
+          "institution": "George Washington University",
+          "degree": "Master's degree",
+          "field": "International and comparative law",
+          "year": 2007
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "updated_utc": "2026-04-01T06:05:20.934087+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "gpt-5-nano"
+  ],
+  "reviews": [],
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 152982,
+    "completion_tokens": 2419,
+    "total_tokens": 155401,
+    "estimated_usd": 0.0244,
+    "model_breakdown": {
+      "gpt-5.4-mini": {
+        "prompt_tokens": 152982,
+        "completion_tokens": 2419
+      }
+    },
+    "duration_s": 32.6
+  }
+}

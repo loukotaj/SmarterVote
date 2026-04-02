@@ -1,0 +1,244 @@
+{
+  "id": "nc-senate-2026",
+  "title": "2026 U.S. Senate election in North Carolina",
+  "office": "United States Senate",
+  "jurisdiction": "North Carolina",
+  "election_date": "2026-11-03",
+  "description": "North Carolina\u2019s 2026 U.S. Senate race is for one of the state\u2019s two U.S. Senate seats. It is an open-seat contest because incumbent Republican Sen. Thom Tillis said he would not seek re-election, making the race a major partisan battleground with potential implications for control of the U.S. Senate. The race is widely viewed as competitive: North Carolina has been closely divided in recent presidential and statewide elections, and the matchup features former Democratic Gov. Roy Cooper against Republican former RNC chair Michael Whatley.",
+  "polling": [
+    {
+      "pollster": "Public Policy Polling",
+      "date": "2026-03-13",
+      "sample_size": 556,
+      "matchups": [
+        {
+          "candidates": [
+            "Roy Cooper",
+            "Michael Whatley"
+          ],
+          "percentages": [
+            47,
+            44
+          ]
+        }
+      ],
+      "source_url": "https://www.publicpolicypolling.com/polls/north-carolina-is-always-close/"
+    },
+    {
+      "pollster": "Emerson College Polling",
+      "date": "2025-07-28",
+      "sample_size": 1000,
+      "matchups": [
+        {
+          "candidates": [
+            "Roy Cooper",
+            "Michael Whatley"
+          ],
+          "percentages": [
+            47,
+            41
+          ]
+        }
+      ],
+      "source_url": "https://emersoncollegepolling.com/north-carolina-2026-poll-cooper-starts-us-senate-race-with-six-point-lead-and-clear-name-recognition-advantage-over-whatley/"
+    }
+  ],
+  "polling_note": null,
+  "candidates": [
+    {
+      "name": "Roy Cooper",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Roy Cooper is the Democratic nominee for U.S. Senate in North Carolina and previously served as the state\u2019s governor from 2017 to 2025. His campaign emphasizes his record on public education, health care expansion, job growth, and bipartisan governing in a closely divided state.",
+      "summary_sources": [
+        {
+          "url": "https://roycooper.com/about/",
+          "type": "website",
+          "title": "Meet Roy | Roy Cooper for North Carolina",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Roy_Cooper",
+          "type": "website",
+          "title": "Roy Cooper - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Roy_Cooper_2019.jpg",
+      "website": "https://roycooper.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/roycoopernc/",
+        "instagram": "https://www.instagram.com/roycoopernc/",
+        "x": "https://x.com/roycoopernc",
+        "tiktok": "https://www.tiktok.com/@roycoopernc",
+        "flickr": "https://www.flickr.com/photos/roycoopernc/"
+      },
+      "career_history": [
+        {
+          "title": "Governor",
+          "organization": "State of North Carolina",
+          "start_year": 2017,
+          "end_year": 2025,
+          "description": "Served two terms as North Carolina governor."
+        },
+        {
+          "title": "Attorney General",
+          "organization": "State of North Carolina",
+          "start_year": 2001,
+          "end_year": 2017,
+          "description": "Served four terms as North Carolina attorney general."
+        },
+        {
+          "title": "State Senator",
+          "organization": "North Carolina General Assembly",
+          "start_year": 1991,
+          "end_year": 2001,
+          "description": "Served in the North Carolina Senate, including leadership roles."
+        },
+        {
+          "title": "Private attorney",
+          "organization": "Law practice in Rocky Mount, North Carolina",
+          "start_year": null,
+          "end_year": null,
+          "description": "Practiced law representing individuals and small businesses."
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of North Carolina at Chapel Hill",
+          "degree": "Bachelor's degree",
+          "field": "Unknown",
+          "year": null
+        },
+        {
+          "institution": "University of North Carolina at Chapel Hill",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Michael Whatley",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Michael Whatley is the Republican nominee for U.S. Senate in North Carolina and previously served as chair of the Republican National Committee. His campaign presents him as a conservative aligned with Donald Trump, with a focus on lower costs, safe communities, and economic growth.",
+      "summary_sources": [
+        {
+          "url": "https://www.michaelwhatley.com/",
+          "type": "website",
+          "title": "Home | Whatley for Senate",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Michael_Whatley",
+          "type": "website",
+          "title": "Michael Whatley - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/4f/Michael_Whatley_(54670563614)_(cropped).jpg",
+      "website": "https://www.michaelwhatley.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/whatleyfornc/",
+        "instagram": "https://www.instagram.com/whatleyfornc/",
+        "x": "https://x.com/WhatleyNC"
+      },
+      "career_history": [
+        {
+          "title": "Chair",
+          "organization": "Republican National Committee",
+          "start_year": 2024,
+          "end_year": 2025,
+          "description": "Led the Republican National Committee."
+        },
+        {
+          "title": "Chair",
+          "organization": "North Carolina Republican Party",
+          "start_year": 2019,
+          "end_year": 2024,
+          "description": "Led the North Carolina Republican Party."
+        },
+        {
+          "title": "Chief of Staff",
+          "organization": "Office of U.S. Sen. Elizabeth Dole",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as chief of staff to Sen. Elizabeth Dole."
+        },
+        {
+          "title": "Senior official",
+          "organization": "U.S. Department of Energy",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served in the George W. Bush administration."
+        },
+        {
+          "title": "Federal law clerk",
+          "organization": "Charlotte, North Carolina",
+          "start_year": null,
+          "end_year": null,
+          "description": "Began his public service career as a federal law clerk."
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of North Carolina at Charlotte",
+          "degree": "Bachelor's degree",
+          "field": "History",
+          "year": null
+        },
+        {
+          "institution": "Wake Forest University",
+          "degree": "Master's degree",
+          "field": "Religion",
+          "year": null
+        },
+        {
+          "institution": "University of Notre Dame",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": null
+        },
+        {
+          "institution": "University of Notre Dame",
+          "degree": "Master's degree",
+          "field": "Theology",
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "updated_utc": "2026-04-01T06:01:07.606931+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "gpt-5-nano"
+  ],
+  "reviews": [],
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 149718,
+    "completion_tokens": 2396,
+    "total_tokens": 152114,
+    "estimated_usd": 0.0239,
+    "model_breakdown": {
+      "gpt-5.4-mini": {
+        "prompt_tokens": 149718,
+        "completion_tokens": 2396
+      }
+    },
+    "duration_s": 33.8
+  }
+}

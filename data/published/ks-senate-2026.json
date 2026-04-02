@@ -1,0 +1,476 @@
+{
+  "id": "ks-senate-2026",
+  "title": "2026 U.S. Senate election in Kansas",
+  "office": "U.S. Senate",
+  "jurisdiction": "Kansas",
+  "election_date": "2026-11-03",
+  "description": "Kansas\u2019s 2026 U.S. Senate race is for the Class II Senate seat held by Republican Roger Marshall, with the primary on August 4, 2026 and the general election on November 3, 2026. The race matters because it will help determine control of the U.S. Senate, and Kansas has been a reliably Republican state in recent federal elections. Ballotpedia rates the seat Solid Republican, while other forecasters also currently lean Republican, so Democrats are trying to make the contest competitive by recruiting a broad field of challengers. The main contrast so far is between Marshall\u2019s incumbent record and a Democratic field that includes candidates with backgrounds in law, business, public service, and state politics.",
+  "polling": [],
+  "polling_note": "No public polling found for this race as of 2026-04-01.",
+  "candidates": [
+    {
+      "name": "Roger Marshall",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Roger Marshall is the incumbent U.S. senator from Kansas, first elected in 2020 and seeking reelection in 2026. Before the Senate, he served one term in the U.S. House and worked as a physician; his campaign and public profile emphasize his medical background, agriculture roots, and conservative positions on health care, abortion, and immigration.",
+      "summary_sources": [
+        {
+          "url": "https://www.marshall.senate.gov/about/",
+          "type": "website",
+          "title": "About Doc - Senator Roger Marshall",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.kansansformarshall.com/",
+          "type": "website",
+          "title": "Kansans for Marshall: Dr. Roger Marshall for U.S. Senate",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.kcur.org/politics-elections-and-government/2025-12-30/whos-running-to-represent-kansas-in-the-u-s-senate-in-2026-heres-a-guide-to-the-candidates",
+          "type": "news",
+          "title": "Who's running to represent Kansas in the U.S. Senate in 2026? Here's a guide to the candidates",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8f/Roger_Marshall%2C_Official_Portrait%2C_116th_Congress.jpg",
+      "website": "https://www.marshall.senate.gov/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/RogerMarshallMD/",
+        "instagram": "https://www.instagram.com/senrogermarshall/",
+        "x": "https://x.com/RogerMarshallMD"
+      },
+      "career_history": [
+        {
+          "title": "U.S. Senator",
+          "organization": "United States Senate",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Represents Kansas in the U.S. Senate."
+        },
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2017,
+          "end_year": 2021,
+          "description": "Represented Kansas's 1st Congressional District."
+        },
+        {
+          "title": "Physician (OB-GYN)",
+          "organization": "Private practice",
+          "start_year": null,
+          "end_year": 2017,
+          "description": "Worked as an obstetrician-gynecologist before entering Congress."
+        },
+        {
+          "title": "U.S. Army Reserve officer",
+          "organization": "U.S. Army Reserve",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served in the Army Reserve for seven years."
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Kansas",
+          "degree": "M.D.",
+          "field": "Medicine",
+          "year": 1987
+        },
+        {
+          "institution": "University of Kansas",
+          "degree": "B.S.",
+          "field": "Biochemistry",
+          "year": 1983
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Christy Davis",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Christy Davis is a Democratic candidate for U.S. Senate who previously served in the Biden administration as Kansas director for USDA Rural Development. Her campaign presents her as a fifth-generation Kansan focused on rural development, affordable housing, health care, and community-based public service.",
+      "summary_sources": [
+        {
+          "url": "https://www.christydavisforkansas.com/",
+          "type": "website",
+          "title": "HOME | Christy Davis for Kansas",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.kcur.org/politics-elections-and-government/2025-12-30/whos-running-to-represent-kansas-in-the-u-s-senate-in-2026-heres-a-guide-to-the-candidates",
+          "type": "news",
+          "title": "Who's running to represent Kansas in the U.S. Senate in 2026? Here's a guide to the candidates",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://kansasreflector.com/2025/08/18/democratic-u-s-senate-candidate-eager-to-broaden-kansas-voice-in-d-c-politics/",
+          "type": "news",
+          "title": "Democratic U.S. Senate candidate eager to broaden Kansas voice in D.C. politics",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://ballotpedia.org/wiki/images/Christy_Davis.jpg",
+      "website": "https://www.christydavisforkansas.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/christydavisforkansas/",
+        "instagram": "https://www.instagram.com/cdavis4kansas/"
+      },
+      "career_history": [
+        {
+          "title": "Kansas director",
+          "organization": "USDA Rural Development",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served in the Biden administration overseeing rural development in Kansas."
+        },
+        {
+          "title": "Board member",
+          "organization": "Chase County Chamber of Commerce",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served on the chamber board."
+        },
+        {
+          "title": "Leader",
+          "organization": "Symphony in the Flint Hills",
+          "start_year": null,
+          "end_year": null,
+          "description": "Led the regional arts and conservation organization."
+        },
+        {
+          "title": "Candidate for U.S. House",
+          "organization": "Kansas's 1st Congressional District",
+          "start_year": 2020,
+          "end_year": 2020,
+          "description": "Ran unsuccessfully for Congress in 2020."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Erik Murray",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Erik Murray is a Kansas City, Kansas-based commercial real estate developer running as a Democrat. His campaign emphasizes economic development, small-business growth, and practical problem-solving, and he has highlighted his work on large redevelopment projects in the Kansas City area.",
+      "summary_sources": [
+        {
+          "url": "https://erikforkansas.com/",
+          "type": "website",
+          "title": "Erik Murray for Kansas",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://erikforkansas.com/meet-erik/",
+          "type": "website",
+          "title": "Meet Erik - Erik Murray for Kansas",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.kcur.org/politics-elections-and-government/2025-12-30/whos-running-to-represent-kansas-in-the-u-s-senate-in-2026-heres-a-guide-to-the-candidates",
+          "type": "news",
+          "title": "Who's running to represent Kansas in the U.S. Senate in 2026? Here's a guide to the candidates",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://ballotpedia.org/wiki/images/Erik_Murray.jpg",
+      "website": "https://erikforkansas.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/erik.murray.820582/",
+        "instagram": "https://www.instagram.com/erikforkansas/"
+      },
+      "career_history": [
+        {
+          "title": "Commercial real estate developer",
+          "organization": "Private sector",
+          "start_year": null,
+          "end_year": null,
+          "description": "Works in commercial real estate and redevelopment."
+        },
+        {
+          "title": "Lead developer",
+          "organization": "Indian Springs redevelopment project",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "His firm was selected to help lead redevelopment of the former Indian Springs mall site in Kansas City, Kansas."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Anne Parelkar",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Anne Parelkar is an immigration attorney from Overland Park running in the Democratic primary for U.S. Senate. Her campaign frames her as a community-focused outsider who wants to lower costs, strengthen health care access, and pursue immigration reform and consumer protections.",
+      "summary_sources": [
+        {
+          "url": "https://www.anneforkansas.com/",
+          "type": "website",
+          "title": "Anne Parelkar for Senate | Get Involved Today",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.anneforkansas.com/about",
+          "type": "website",
+          "title": "About | Learn More, Get Involved Today \u2014 Anne Parelkar for Senate",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://kansasreflector.com/2025/08/25/democratic-immigration-lawyer-wants-to-fix-broken-system-with-run-for-u-s-senate-in-kansas/",
+          "type": "news",
+          "title": "Democratic immigration lawyer wants to fix broken system with run for U.S. Senate in Kansas",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://www.anneforkansas.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/AnneForKansas/",
+        "instagram": "https://www.instagram.com/AnneForKansas/"
+      },
+      "career_history": [
+        {
+          "title": "Immigration attorney",
+          "organization": "Private practice",
+          "start_year": null,
+          "end_year": null,
+          "description": "Practices immigration law."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Lyon College",
+          "degree": "B.A.",
+          "field": "History",
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Patrick Schmidt",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Patrick Schmidt is a Democratic state senator from Topeka who entered the U.S. Senate race in 2026. He is a former Navy intelligence officer and has focused in the Kansas Senate on property taxes and other state policy issues.",
+      "summary_sources": [
+        {
+          "url": "https://patrickforkansas.com/",
+          "type": "website",
+          "title": "Patrick Schmidt for US Senate \u2013 Patrick Schmidt is a former U.S. Navy Intelligence Officer running to represent Kansas in the U.S. Senate.",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.kslegislature.gov/li/b2025_26/members/sen_schmidt_patrick_1/",
+          "type": "government",
+          "title": "Senator Patrick Schmidt | Legislators | Kansas State Legislature",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.cjonline.com/story/news/politics/elections/congressional/2026/02/04/topeka-democrat-patrick-schmidt-joins-senate-race-vs-roger-marshall/88507396007/",
+          "type": "news",
+          "title": "Topeka Democrat Patrick Schmidt joins Senate race vs. Roger Marshall",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://patrickforkansas.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/patrickforkansas/",
+        "instagram": "https://www.instagram.com/patrickforks/"
+      },
+      "career_history": [
+        {
+          "title": "Kansas state senator",
+          "organization": "Kansas Senate",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Represents District 19 in the Kansas Senate."
+        },
+        {
+          "title": "U.S. Navy intelligence officer",
+          "organization": "U.S. Navy",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as a Navy intelligence officer before entering politics."
+        },
+        {
+          "title": "Candidate for U.S. House",
+          "organization": "Kansas's 2nd Congressional District",
+          "start_year": 2022,
+          "end_year": 2022,
+          "description": "Ran unsuccessfully for Congress in 2022."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Michael Soetaert",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Michael Soetaert is a Democratic candidate from Wellington and a former city council member. He has run for several offices over the years and presents himself as a local-government-oriented candidate with a background in community service.",
+      "summary_sources": [
+        {
+          "url": "https://www.kcur.org/politics-elections-and-government/2025-12-30/whos-running-to-represent-kansas-in-the-u-s-senate-in-2026-heres-a-guide-to-the-candidates",
+          "type": "news",
+          "title": "Who's running to represent Kansas in the U.S. Senate in 2026? Here's a guide to the candidates",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Michael_Soetaert",
+          "type": "website",
+          "title": "Michael Soetaert - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "City council member",
+          "organization": "City of Wellington",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served on the Wellington city council."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Sandy Spidel Neumann",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Sandy Spidel Neumann is a Democratic candidate in the Kansas Senate race and a former local official. Public reporting describes her as a candidate with experience in local government and community leadership, though detailed campaign information is more limited than for some other contenders.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Sandy_Spidel_Neumann",
+          "type": "website",
+          "title": "Sandy Spidel Neumann - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.kcur.org/politics-elections-and-government/2025-12-30/whos-running-to-represent-kansas-in-the-u-s-senate-in-2026-heres-a-guide-to-the-candidates",
+          "type": "news",
+          "title": "Who's running to represent Kansas in the U.S. Senate in 2026? Here's a guide to the candidates",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Noah Taylor",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Noah Taylor is listed by Ballotpedia as a Democratic primary candidate in the Kansas U.S. Senate race. Publicly available reporting and campaign information were limited in the sources reviewed, so only basic candidate status could be confirmed.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Kansas,_2026",
+          "type": "website",
+          "title": "United States Senate election in Kansas, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Chase LaPorte",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Chase LaPorte is a Republican primary challenger to incumbent Roger Marshall. Publicly available information in the sources reviewed was limited, but Ballotpedia confirms he is on the ballot in the Republican primary.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Kansas,_2026",
+          "type": "website",
+          "title": "United States Senate election in Kansas, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "updated_utc": "2026-04-01T05:49:29.672503+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "gpt-5-nano"
+  ],
+  "reviews": [],
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 125173,
+    "completion_tokens": 4506,
+    "total_tokens": 129679,
+    "estimated_usd": 0.0215,
+    "model_breakdown": {
+      "gpt-5.4-mini": {
+        "prompt_tokens": 125173,
+        "completion_tokens": 4506
+      }
+    },
+    "duration_s": 43.4
+  }
+}

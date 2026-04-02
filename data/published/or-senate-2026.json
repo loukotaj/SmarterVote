@@ -1,0 +1,529 @@
+{
+  "id": "or-senate-2026",
+  "title": "2026 U.S. Senate election in Oregon",
+  "office": "United States Senate",
+  "jurisdiction": "Oregon",
+  "election_date": "2026-11-03",
+  "description": "Oregon\u2019s 2026 U.S. Senate race is for the state\u2019s Class II seat in the U.S. Senate, currently held by Democrat Jeff Merkley. It is an open-and-shut incumbent reelection race in a strongly Democratic state, and multiple nonpartisan race ratings currently classify it as safely or solidly Democratic. The main contrast is between Merkley, a long-serving progressive incumbent, and a Republican field that includes several lesser-known challengers, with issues such as the economy, public safety, climate, and federal governance likely to frame the contest.",
+  "polling": [],
+  "polling_note": "No public head-to-head polling found for this race as of 2026-04-01.",
+  "candidates": [
+    {
+      "name": "Jeff Merkley",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Jeff Merkley is the incumbent U.S. senator from Oregon and is seeking a fourth term in 2026. He has built his brand around progressive priorities including democracy reform, climate policy, consumer protection, and working-family economics.",
+      "summary_sources": [
+        {
+          "url": "https://www.jeffmerkley.com/",
+          "type": "website",
+          "title": "Jeff Merkley for U.S. Senate, Oregon",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.merkley.senate.gov/about/",
+          "type": "government",
+          "title": "About Jeff - Merkley",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Oregon,_2026",
+          "type": "news",
+          "title": "United States Senate election in Oregon, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8b/Jeff_Merkley%2C_official_portrait%2C_113th_Congress.jpg",
+      "website": "https://www.jeffmerkley.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/jeffmerkley/",
+        "instagram": "https://www.instagram.com/jeffmerkley/",
+        "x": "https://x.com/SenJeffMerkley"
+      },
+      "career_history": [
+        {
+          "title": "United States Senator",
+          "organization": "U.S. Senate",
+          "start_year": 2009,
+          "end_year": null,
+          "description": "Represents Oregon in the U.S. Senate."
+        },
+        {
+          "title": "Speaker",
+          "organization": "Oregon House of Representatives",
+          "start_year": 2007,
+          "end_year": 2009,
+          "description": "Led the Oregon House before election to the Senate."
+        },
+        {
+          "title": "State representative",
+          "organization": "Oregon House of Representatives",
+          "start_year": 1999,
+          "end_year": 2009,
+          "description": "Served in the Oregon House prior to becoming Speaker."
+        },
+        {
+          "title": "Director of strategic planning",
+          "organization": "Portland Housing Center",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked in housing and community development before elected office."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Stanford University",
+          "degree": "Bachelor of Arts",
+          "field": "International relations",
+          "year": 1979
+        },
+        {
+          "institution": "Princeton University",
+          "degree": "Master of Public Affairs",
+          "field": "Public policy",
+          "year": 1982
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Paul Damian Wells",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Paul Damian Wells is a Democratic primary challenger to Jeff Merkley in Oregon\u2019s 2026 U.S. Senate race. Publicly available information on his background and campaign is limited compared with the incumbent, and he appears to be running as a lesser-known challenger in the primary.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Paul_Damian_Wells",
+          "type": "news",
+          "title": "Paul Damian Wells - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://secure.sos.state.or.us/orestar/cfDetail.do?page=search&cfRsn=23320&OWASP_CSRFTOKEN=NOLR-HM1D-TIIU-C029-955B-2ZCT-VEFN-POSK",
+          "type": "government",
+          "title": "Candidate Information - Oregon Secretary of State",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Design engineer",
+          "organization": "Purdue University",
+          "start_year": null,
+          "end_year": null,
+          "description": "Listed in Oregon Secretary of State candidate filing export as a design engineer."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Purdue University",
+          "degree": null,
+          "field": null,
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Brent Barker",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Brent Barker is a Republican candidate in Oregon\u2019s 2026 U.S. Senate primary. Ballotpedia and news coverage describe him as a commercial real estate broker, but detailed public campaign information is limited.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Oregon,_2026",
+          "type": "news",
+          "title": "United States Senate election in Oregon, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_Senate_election_in_Oregon",
+          "type": "news",
+          "title": "2026 United States Senate election in Oregon - Wikipedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Commercial real estate broker",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Described by Ballotpedia/Wikipedia as a commercial real estate broker."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Deborah Brown",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Deborah Brown is a Republican candidate in Oregon\u2019s 2026 U.S. Senate primary. Publicly available reporting identifies her as a retired civil engineer, but there is limited campaign-specific information available in the sources reviewed.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Oregon,_2026",
+          "type": "news",
+          "title": "United States Senate election in Oregon, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_Senate_election_in_Oregon",
+          "type": "news",
+          "title": "2026 United States Senate election in Oregon - Wikipedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Civil engineer",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Described as a retired civil engineer."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "David Burch",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "David Burch is a Republican candidate in Oregon\u2019s 2026 U.S. Senate primary. Available public sources describe him as a perennial candidate, but detailed biographical information is sparse in the materials reviewed.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Oregon,_2026",
+          "type": "news",
+          "title": "United States Senate election in Oregon, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_Senate_election_in_Oregon",
+          "type": "news",
+          "title": "2026 United States Senate election in Oregon - Wikipedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Perennial candidate",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Described in public sources as a perennial candidate."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Russell McAlmond",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Russell McAlmond is a Republican candidate in Oregon\u2019s 2026 U.S. Senate primary. Public sources reviewed describe him as a businessman, but there is limited additional biographical detail available in the search results.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Oregon,_2026",
+          "type": "news",
+          "title": "United States Senate election in Oregon, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_Senate_election_in_Oregon",
+          "type": "news",
+          "title": "2026 United States Senate election in Oregon - Wikipedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Businessman",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Described in public sources as a businessman."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Jo Rae Perkins",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Jo Rae Perkins is a Republican candidate in Oregon\u2019s 2026 U.S. Senate primary and has previously been the party\u2019s nominee for U.S. Senate in 2020 and 2022. She is a recurring figure in Oregon Republican politics and has also held local party leadership roles.",
+      "summary_sources": [
+        {
+          "url": "https://joraeperkins.com/",
+          "type": "website",
+          "title": "Jo Rae Perkins: Your Voice for 5th Congressional District",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Jo_Rae_Perkins",
+          "type": "news",
+          "title": "Jo Rae Perkins - Wikipedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Jo_Rae_Perkins",
+          "type": "news",
+          "title": "Jo Rae Perkins - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://ballotpedia.org/wiki/images/0/0f/Jo_Rae_Perkins.jpg",
+      "website": "https://joraeperkins.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/JoRaePerkins/",
+        "x": "https://x.com/JoRaePerkins"
+      },
+      "career_history": [
+        {
+          "title": "Chair",
+          "organization": "Linn County Republican Party",
+          "start_year": null,
+          "end_year": null,
+          "description": "Former county party chair."
+        },
+        {
+          "title": "Republican nominee for U.S. Senate",
+          "organization": "Statewide Oregon elections",
+          "start_year": 2020,
+          "end_year": 2022,
+          "description": "Nominee in the 2020 and 2022 Oregon U.S. Senate races."
+        },
+        {
+          "title": "Office specialist",
+          "organization": "Oregon State University",
+          "start_year": null,
+          "end_year": null,
+          "description": "Listed in candidate profile sources as an office specialist."
+        },
+        {
+          "title": "Financial advisor",
+          "organization": "Eagle Financial Planning & Investments LLC",
+          "start_year": null,
+          "end_year": null,
+          "description": "Listed in candidate profile sources as a financial advisor."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Timothy Skelton",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Timothy Skelton is a Republican candidate in Oregon\u2019s 2026 U.S. Senate primary. His campaign materials emphasize jobs, schools, and forest policy, and describe him as a Scoutmaster and job creator.",
+      "summary_sources": [
+        {
+          "url": "https://timskeltonfororegon.com/",
+          "type": "website",
+          "title": "Tim Skelton for U.S. Senate \u2013 A Stronger Oregon Starts Here",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://timskeltonfororegon.com/about",
+          "type": "website",
+          "title": "Sandy Dad, Scoutmaster, Fighting for All Oregonians!",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Timothy_Skelton",
+          "type": "news",
+          "title": "Timothy Skelton - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://timskeltonfororegon.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/p/Tim-Skelton-for-Oregon-2026-61575274496151/",
+        "x": "https://x.com/TimSkelton2026"
+      },
+      "career_history": [
+        {
+          "title": "Scoutmaster",
+          "organization": "Boy Scouts / local troop",
+          "start_year": null,
+          "end_year": null,
+          "description": "Campaign biography identifies him as a Scoutmaster."
+        },
+        {
+          "title": "Job creator",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Campaign materials describe him as a job creator."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "David Brock Smith",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "David Brock Smith is a Republican Oregon state senator who entered the 2026 U.S. Senate race. He has represented coastal southwest Oregon in the state legislature and is running on a platform that his campaign says focuses on working families, public safety, addiction, and homelessness.",
+      "summary_sources": [
+        {
+          "url": "https://www.davidbrocksmithfororegon.com/",
+          "type": "website",
+          "title": "David Brock Smith for Oregon: HOME",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.oregonlegislature.gov/smithd",
+          "type": "government",
+          "title": "Senator David Brock Smith Home Page - Oregon State Legislature",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://oregoncapitalchronicle.com/2026/03/03/coastal-oregon-conservative-announces-run-for-u-s-senate/",
+          "type": "news",
+          "title": "Coastal Oregon conservative announces run for U.S. Senate",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://www.davidbrocksmithfororegon.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/SenatorDavidBrockSmith/",
+        "x": "https://x.com/DavidBrockSmith"
+      },
+      "career_history": [
+        {
+          "title": "Oregon state senator",
+          "organization": "Oregon State Senate",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Represents Senate District 1."
+        },
+        {
+          "title": "Oregon state representative",
+          "organization": "Oregon House of Representatives",
+          "start_year": 2019,
+          "end_year": 2023,
+          "description": "Previously served in the Oregon House."
+        },
+        {
+          "title": "Local government official",
+          "organization": "Various local bodies in southwest Oregon",
+          "start_year": null,
+          "end_year": 2019,
+          "description": "Campaign and news sources describe prior local government roles."
+        },
+        {
+          "title": "Small business owner",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Listed in voter guide materials as a small business owner."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Pacific High School",
+          "degree": "High school diploma",
+          "field": null,
+          "year": null
+        },
+        {
+          "institution": "Southwestern Oregon Community College",
+          "degree": null,
+          "field": null,
+          "year": null
+        },
+        {
+          "institution": "Southern Oregon University",
+          "degree": null,
+          "field": null,
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "updated_utc": "2026-04-01T06:02:58.489533+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "gpt-5-nano"
+  ],
+  "reviews": [],
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 104416,
+    "completion_tokens": 4237,
+    "total_tokens": 108653,
+    "estimated_usd": 0.0182,
+    "model_breakdown": {
+      "gpt-5.4-mini": {
+        "prompt_tokens": 104416,
+        "completion_tokens": 4237
+      }
+    },
+    "duration_s": 33.3
+  }
+}

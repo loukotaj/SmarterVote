@@ -1,0 +1,488 @@
+{
+  "id": "id-senate-2026",
+  "title": "2026 U.S. Senate election in Idaho",
+  "office": "U.S. Senate",
+  "jurisdiction": "Idaho",
+  "election_date": "2026-11-03",
+  "description": "Idaho voters will elect one U.S. senator in 2026 for the Class II seat currently held by Jim Risch. The race matters because it will help determine control of the U.S. Senate, and Idaho is widely rated as strongly Republican even though the general election includes multiple independent and minor-party candidates. The contest features an incumbent Republican senator seeking reelection against primary challengers, plus Democratic and independent candidates who are emphasizing affordability, public lands, government accountability, and party independence.",
+  "polling": [],
+  "polling_note": "No public polling found for this race as of 2026-04-01.",
+  "candidates": [
+    {
+      "name": "Jim Risch",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Jim Risch is the incumbent U.S. senator from Idaho and is seeking another term in 2026. His campaign and Senate biography emphasize conservative positions, including support for the Second Amendment, energy independence, limited federal government, and Idaho agriculture and natural resources.",
+      "summary_sources": [
+        {
+          "url": "https://www.risch.senate.gov/about/about-jim/",
+          "type": "website",
+          "title": "About Jim - Senator James Risch",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Idaho,_2026",
+          "type": "website",
+          "title": "United States Senate election in Idaho, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://www.risch.senate.gov/public/index.cfm?p=download-official-portrait",
+      "website": "https://senatorrisch.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/SenatorJimRisch/",
+        "x": "https://x.com/SenatorRisch",
+        "instagram": "https://www.instagram.com/senatorrisch/",
+        "youtube": "https://www.youtube.com/@SenatorRisch"
+      },
+      "career_history": [
+        {
+          "title": "U.S. Senator",
+          "organization": "United States Senate",
+          "start_year": 2009,
+          "end_year": null,
+          "description": "Represents Idaho in the Senate; currently serves as chair of the Senate Foreign Relations Committee."
+        },
+        {
+          "title": "Governor",
+          "organization": "State of Idaho",
+          "start_year": 2006,
+          "end_year": 2009,
+          "description": "Served as Idaho governor after previously holding other statewide and legislative offices."
+        },
+        {
+          "title": "Lieutenant Governor",
+          "organization": "State of Idaho",
+          "start_year": 2003,
+          "end_year": 2006,
+          "description": "Served two terms as Idaho lieutenant governor."
+        },
+        {
+          "title": "President Pro Tempore / Majority Leader",
+          "organization": "Idaho State Senate",
+          "start_year": 1981,
+          "end_year": 1988,
+          "description": "Served in the Idaho Senate and was elected by peers as Republican Majority Leader and President Pro Tempore."
+        },
+        {
+          "title": "Ada County Prosecuting Attorney",
+          "organization": "Ada County, Idaho",
+          "start_year": 1970,
+          "end_year": 1978,
+          "description": "Served two terms as Ada County prosecuting attorney."
+        },
+        {
+          "title": "Rancher and lawyer",
+          "organization": "Private sector",
+          "start_year": null,
+          "end_year": null,
+          "description": "Has worked as a rancher, small business owner, and senior partner at a law firm."
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Idaho",
+          "degree": "Bachelor's degree",
+          "field": "Forestry",
+          "year": null
+        },
+        {
+          "institution": "University of Idaho",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Joe Evans",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Joe Evans is a Republican candidate in the Idaho Senate primary who presents himself as a conservative outsider and U.S. Army veteran. His campaign website says he is focused on limited government, constitutional principles, border security, and reducing federal regulation.",
+      "summary_sources": [
+        {
+          "url": "https://joeevansforidaho.com/about/",
+          "type": "website",
+          "title": "About - Joe Evans",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://joeevansforidaho.com/",
+          "type": "website",
+          "title": "Joe Evans \u2013 for U.S. Senate",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://joeevansforidaho.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/joeforidaho/",
+        "instagram": "https://www.instagram.com/cupojoewithjoe/"
+      },
+      "career_history": [
+        {
+          "title": "U.S. Army veteran",
+          "organization": "United States Army",
+          "start_year": null,
+          "end_year": null,
+          "description": "Campaign biography identifies him as a veteran."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Denny LaVe",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Denny LaVe is listed by Ballotpedia as a Republican primary candidate for Idaho\u2019s U.S. Senate seat. Public biographical information was not readily available in the sources reviewed, so his background and campaign profile could not be confirmed beyond his candidacy.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Idaho,_2026",
+          "type": "website",
+          "title": "United States Senate election in Idaho, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Josh Roy",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Josh Roy is a Republican primary candidate who describes himself as an engineer, husband, father, and non-career politician. His campaign centers on industrial experience, limited government, lower regulation, support for manufacturing and agriculture, and a promise to bring a working-class perspective to Washington.",
+      "summary_sources": [
+        {
+          "url": "https://joshroyforidaho.com/",
+          "type": "website",
+          "title": "Josh Roy for Idaho | U.S. Senate 2026",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Josh_Roy",
+          "type": "website",
+          "title": "Josh Roy - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://joshroyforidaho.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/JoshRoyforIdaho/"
+      },
+      "career_history": [
+        {
+          "title": "Operations assistant superintendent",
+          "organization": "Clearwater Paper",
+          "start_year": 2018,
+          "end_year": null,
+          "description": "Works in heavy industry in Idaho, according to his campaign website."
+        },
+        {
+          "title": "Engineer / maintenance and operations roles",
+          "organization": "Weyerhaeuser and other pulp and paper operations",
+          "start_year": 2004,
+          "end_year": 2018,
+          "description": "Campaign biography says he spent about 20 years in heavy industry, including engineering and operations roles."
+        },
+        {
+          "title": "Volunteer in juvenile detention",
+          "organization": "Juvenile detention program",
+          "start_year": null,
+          "end_year": null,
+          "description": "Campaign website says he has 11 years of volunteering experience in juvenile detention."
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Idaho",
+          "degree": "Bachelor's degree",
+          "field": "Mechanical Engineering",
+          "year": 2004
+        },
+        {
+          "institution": "Washington State University",
+          "degree": "MBA",
+          "field": "Business Administration",
+          "year": 2025
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Matt Loesby",
+      "party": "Libertarian",
+      "incumbent": false,
+      "summary": "Matt Loesby is listed by Ballotpedia as the Libertarian primary candidate for Idaho\u2019s U.S. Senate seat. The sources reviewed did not provide enough reliable biographical detail to summarize his background beyond his candidacy.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Idaho,_2026",
+          "type": "website",
+          "title": "United States Senate election in Idaho, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Nickolas Bonds",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Nickolas Bonds is a Democratic primary candidate for Idaho\u2019s U.S. Senate seat. The sources reviewed confirmed his candidacy but did not provide enough reliable biographical detail to summarize his background or policy profile.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Idaho,_2026",
+          "type": "website",
+          "title": "United States Senate election in Idaho, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Brad Moore",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Brad Moore is a Democratic primary candidate for Idaho\u2019s U.S. Senate seat. Publicly available biographical information was limited in the sources reviewed, so only his candidacy could be confirmed with confidence.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Brad_Moore",
+          "type": "website",
+          "title": "Brad Moore - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Idaho,_2026",
+          "type": "website",
+          "title": "United States Senate election in Idaho, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {
+        "linkedin": "https://www.linkedin.com/"
+      },
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "David Roth",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "David Roth is a Democratic primary candidate in Idaho\u2019s 2026 U.S. Senate race and previously ran for the seat in 2022. His campaign and Ballotpedia profile identify him as an Idaho father and nonprofit leader, and his campaign says it is focused on affordability, health care, and practical economic concerns.",
+      "summary_sources": [
+        {
+          "url": "https://rothforidaho.org/",
+          "type": "website",
+          "title": "David Roth for Idaho: Home",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/David_Roth",
+          "type": "website",
+          "title": "David Roth - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://rothforidaho.org/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/rothforIdaho/",
+        "instagram": "https://www.instagram.com/rothforidaho/"
+      },
+      "career_history": [
+        {
+          "title": "Idaho Democratic Party chair",
+          "organization": "Idaho Democratic Party",
+          "start_year": null,
+          "end_year": null,
+          "description": "Ballotpedia and campaign materials identify him as a party leader."
+        },
+        {
+          "title": "Nonprofit leader",
+          "organization": "Nonprofit sector",
+          "start_year": null,
+          "end_year": null,
+          "description": "Campaign materials describe him as a nonprofit leader."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Todd Achilles",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Todd Achilles is an independent candidate in Idaho\u2019s 2026 U.S. Senate race. His campaign says he is a former Army tank commander and armor officer who later worked in the tech sector and now teaches public policy, and he frames his run as an alternative to the two-party system.",
+      "summary_sources": [
+        {
+          "url": "https://www.achillesforidaho.com/meet-todd",
+          "type": "website",
+          "title": "Meet Todd | Empower Idahoans Today \u2014 Todd Achilles for Idaho",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Idaho,_2026",
+          "type": "website",
+          "title": "United States Senate election in Idaho, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://www.achillesforidaho.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/achilles4idaho/",
+        "instagram": "https://www.instagram.com/achilles4idaho/"
+      },
+      "career_history": [
+        {
+          "title": "Public policy instructor",
+          "organization": "Unspecified / campaign biography",
+          "start_year": null,
+          "end_year": null,
+          "description": "Campaign biography says he currently teaches public policy."
+        },
+        {
+          "title": "Advocate for veterans",
+          "organization": "Veterans advocacy",
+          "start_year": null,
+          "end_year": null,
+          "description": "Campaign biography says he advocates for veterans."
+        },
+        {
+          "title": "Tech sector leader",
+          "organization": "T-Mobile, Hewlett-Packard, and startups",
+          "start_year": null,
+          "end_year": null,
+          "description": "Campaign biography says he spent over 20 years in the tech sector leading teams."
+        },
+        {
+          "title": "U.S. Army tank commander and armor officer",
+          "organization": "United States Army",
+          "start_year": null,
+          "end_year": null,
+          "description": "Campaign biography says he served in the Army in armored leadership roles."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Natalie Fleming",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Natalie Fleming is an independent candidate in Idaho\u2019s 2026 U.S. Senate race. The sources reviewed confirm her candidacy and campaign presence, but they did not provide enough reliable biographical detail to summarize her career or education with confidence.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Natalie_Fleming_(Idaho)",
+          "type": "website",
+          "title": "Natalie Fleming (Idaho) - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://nataliefleming.info/about-natalie-m-fleming/",
+          "type": "website",
+          "title": "About Natalie M Fleming",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://nataliefleming.info/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/nataliemfleming/",
+        "facebook": "https://www.facebook.com/hashtag/flemingforsenate/"
+      },
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "updated_utc": "2026-04-01T05:46:57.873329+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "gpt-5-nano"
+  ],
+  "reviews": [],
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 322235,
+    "completion_tokens": 4379,
+    "total_tokens": 326614,
+    "estimated_usd": 0.051,
+    "model_breakdown": {
+      "gpt-5.4-mini": {
+        "prompt_tokens": 322235,
+        "completion_tokens": 4379
+      }
+    },
+    "duration_s": 50.1
+  }
+}

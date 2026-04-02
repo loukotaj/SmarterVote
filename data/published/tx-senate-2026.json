@@ -4,8 +4,53 @@
   "office": "United States Senate",
   "jurisdiction": "Texas",
   "election_date": "2026-11-03",
-  "description": "Texas will elect one U.S. senator in 2026. The race matters because the seat is part of the national battle for Senate control, and Texas remains a Republican-leaning state even as Democrats have sought to make the contest more competitive. The general election features Republican John Cornyn, a long-serving incumbent, and Democrat James Talarico, a state representative who won the Democratic nomination; Ken Paxton is the Republican challenger in the primary runoff.",
+  "description": "Texas’s 2026 U.S. Senate race features incumbent Republican John Cornyn, Texas Attorney General Ken Paxton, and Democratic state Rep. James Talarico. The contest matters because Texas is a large, closely watched Senate battleground that could affect control of the chamber, and the Republican side is defined by a Cornyn-Paxton runoff while Talarico is the Democratic nominee.",
   "polling": [
+    {
+      "pollster": "Emerson College Polling / Nexstar Media",
+      "date": "2026-02-27",
+      "matchups": [
+        {
+          "candidates": [
+            "Ken Paxton",
+            "John Cornyn"
+          ],
+          "percentages": [
+            40,
+            36
+          ]
+        }
+      ],
+      "source_url": "https://emersoncollegepolling.com/texas-2026-primary-poll-talarico-paxton-with-narrow-edges-in-senate-primaries/",
+      "sample_size": 547
+    },
+    {
+      "pollster": "Public Policy Polling",
+      "date": "2026-03-10",
+      "matchups": [
+        {
+          "candidates": [
+            "James Talarico",
+            "John Cornyn"
+          ],
+          "percentages": [
+            49,
+            48
+          ]
+        },
+        {
+          "candidates": [
+            "James Talarico",
+            "Ken Paxton"
+          ],
+          "percentages": [
+            49,
+            47
+          ]
+        }
+      ],
+      "source_url": "https://www.houstonpublicmedia.org/articles/news/politics/election-2026/2026/03/10/545755/as-republicans-await-trumps-endorsement-democrats-float-poll-showing-talarico-tied-with-cornyn-and-paxton/"
+    },
     {
       "pollster": "Emerson College Polling / Nexstar Media",
       "date": "2026-03-01",
@@ -70,24 +115,17 @@
       "name": "John Cornyn",
       "party": "Republican",
       "incumbent": true,
-      "summary": "John Cornyn is the senior U.S. senator from Texas and a longtime Republican officeholder. He is seeking reelection in 2026 and faces a Republican primary runoff against Texas Attorney General Ken Paxton before the general election.",
+      "summary": "John Cornyn is the incumbent U.S. senator from Texas and is seeking another term in 2026. He finished first in the March 3 Republican primary and advanced to a May 26 runoff against Texas Attorney General Ken Paxton, with the race shaped in part by debate over the SAVE America Act and the Senate filibuster.",
       "summary_sources": [
         {
-          "url": "https://www.cornyn.senate.gov/about/about-john-cornyn/",
-          "type": "website",
-          "title": "About John | Senator Cornyn",
-          "last_accessed": "2026-03-29T00:00:00Z"
+          "url": "https://www.texastribune.org/2026/03/17/texas-senate-gop-primary-runoff-deadline-remove-name-from-ballot-cornyn-paxton/",
+          "title": "Cornyn, Paxton decline to withdraw from Texas Senate runoff ballot as deadline passes",
+          "type": "article"
         },
         {
-          "url": "https://www.fec.gov/data/candidate/S2TX00106/",
-          "type": "government",
-          "title": "CORNYN, JOHN SEN - Candidate overview | FEC"
-        },
-        {
-          "url": "https://ballotpedia.org/United_States_Senate_election_in_Texas,_2026",
-          "type": "website",
-          "title": "United States Senate election in Texas, 2026 - Ballotpedia",
-          "last_accessed": "2026-03-29T00:00:00Z"
+          "url": "https://www.cnn.com/2026/03/03/politics/john-cornyn-ken-paxton-texas-senate-primary-runoff",
+          "title": "John Cornyn and Ken Paxton will advance to a runoff in Texas",
+          "type": "article"
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/John_Cornyn.jpg/500px-John_Cornyn.jpg",
@@ -290,7 +328,7 @@
           "source": {
             "url": "https://www.opensecrets.org/members-of-congress/john-cornyn/summary?cid=N00024852",
             "type": "website",
-            "title": "Sen. John Cornyn - Campaign Finance Summary \u2022 OpenSecrets",
+            "title": "Sen. John Cornyn - Campaign Finance Summary • OpenSecrets",
             "last_accessed": "2026-03-29T18:43:29.960309+00:00"
           }
         },
@@ -301,7 +339,7 @@
           "source": {
             "url": "https://www.opensecrets.org/members-of-congress/john-cornyn/summary?cid=N00024852",
             "type": "website",
-            "title": "Sen. John Cornyn - Campaign Finance Summary \u2022 OpenSecrets",
+            "title": "Sen. John Cornyn - Campaign Finance Summary • OpenSecrets",
             "last_accessed": "2026-03-29T18:43:29.960309+00:00"
           }
         },
@@ -312,7 +350,7 @@
           "source": {
             "url": "https://www.opensecrets.org/members-of-congress/john-cornyn/summary?cid=N00024852",
             "type": "website",
-            "title": "Sen. John Cornyn - Campaign Finance Summary \u2022 OpenSecrets",
+            "title": "Sen. John Cornyn - Campaign Finance Summary • OpenSecrets",
             "last_accessed": "2026-03-29T18:43:29.960309+00:00"
           }
         },
@@ -323,7 +361,7 @@
           "source": {
             "url": "https://www.opensecrets.org/members-of-congress/john-cornyn/summary?cid=N00024852",
             "type": "website",
-            "title": "Sen. John Cornyn - Campaign Finance Summary \u2022 OpenSecrets",
+            "title": "Sen. John Cornyn - Campaign Finance Summary • OpenSecrets",
             "last_accessed": "2026-03-29T18:43:29.960309+00:00"
           }
         },
@@ -334,7 +372,7 @@
           "source": {
             "url": "https://www.opensecrets.org/members-of-congress/john-cornyn/summary?cid=N00024852",
             "type": "website",
-            "title": "Sen. John Cornyn - Campaign Finance Summary \u2022 OpenSecrets",
+            "title": "Sen. John Cornyn - Campaign Finance Summary • OpenSecrets",
             "last_accessed": "2026-03-29T18:43:29.960309+00:00"
           }
         }
@@ -538,30 +576,25 @@
             }
           ]
         }
-      }
+      },
+      "donor_summary": null,
+      "links": []
     },
     {
       "name": "Ken Paxton",
       "party": "Republican",
       "incumbent": false,
-      "summary": "Ken Paxton is the Texas attorney general and a prominent conservative figure in state politics. He is challenging John Cornyn in the Republican primary runoff and has campaigned on a more confrontational style toward Washington and the Republican establishment.",
+      "summary": "Ken Paxton is the Texas attorney general and a Republican candidate for U.S. Senate in 2026. He advanced to a May 26 runoff against Sen. John Cornyn after the March 3 primary and has tied his campaign to hard-line voting legislation and criticism of Cornyn’s record in Washington.",
       "summary_sources": [
         {
-          "url": "https://www.texasattorneygeneral.gov/about-office",
-          "type": "government",
-          "title": "About the Attorney General | Office of the Attorney General",
-          "last_accessed": "2026-03-29T00:00:00Z"
+          "url": "https://www.texastribune.org/2026/03/17/texas-senate-gop-primary-runoff-deadline-remove-name-from-ballot-cornyn-paxton/",
+          "title": "Cornyn, Paxton decline to withdraw from Texas Senate runoff ballot as deadline passes",
+          "type": "article"
         },
         {
-          "url": "https://www.fec.gov/data/candidate/S6TX00388/",
-          "type": "government",
-          "title": "PAXTON, WARREN KENNETH JR. - Candidate overview | FEC"
-        },
-        {
-          "url": "https://ballotpedia.org/United_States_Senate_election_in_Texas,_2026",
-          "type": "website",
-          "title": "United States Senate election in Texas, 2026 - Ballotpedia",
-          "last_accessed": "2026-03-29T00:00:00Z"
+          "url": "https://www.houstonpublicmedia.org/articles/news/politics/election-2026/2026/03/10/545755/as-republicans-await-trumps-endorsement-democrats-float-poll-showing-talarico-tied-with-cornyn-and-paxton/",
+          "title": "As Republicans await Trump’s endorsement, Democrats float poll showing Talarico tied with Cornyn and Paxton",
+          "type": "article"
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/K_Paxton.jpg/500px-K_Paxton.jpg",
@@ -877,36 +910,25 @@
             }
           ]
         }
-      }
+      },
+      "donor_summary": null,
+      "links": []
     },
     {
       "name": "James Talarico",
       "party": "Democratic",
       "incumbent": false,
-      "summary": "James Talarico is a Texas state representative and former public school teacher who won the Democratic nomination for U.S. Senate. His campaign has focused on corruption, affordability, and public education, and he is running as the Democratic nominee in the general election.",
+      "summary": "James Talarico is a Democratic state representative from the Austin area and the Democratic nominee for U.S. Senate in Texas. He won the party’s March 3 primary and enters the general election as the Democrat facing the winner of the Cornyn-Paxton runoff.",
       "summary_sources": [
         {
-          "url": "https://house.texas.gov/members/3685/biography",
-          "type": "government",
-          "title": "Rep. Talarico, James - Texas House of Representatives",
-          "last_accessed": "2026-03-29T00:00:00Z"
+          "url": "https://apnews.com/article/texas-election-senate-crockett-talarico-cornyn-paxton-hunt-4d2fa601c0dab451c2cbd7c6f1483547",
+          "title": "Talarico wins Texas Senate Democratic nomination while Cornyn and Paxton head to Republican runoff",
+          "type": "article"
         },
         {
-          "url": "https://jamestalarico.com/meet-james-talarico/",
-          "type": "website",
-          "title": "Talarico for Texas - Meet James Talarico",
-          "last_accessed": "2026-03-29T00:00:00Z"
-        },
-        {
-          "url": "https://www.fec.gov/data/candidate/S6TX00479/",
-          "type": "government",
-          "title": "TALARICO, JAMES - Candidate overview | FEC"
-        },
-        {
-          "url": "https://ballotpedia.org/United_States_Senate_election_in_Texas,_2026",
-          "type": "website",
-          "title": "United States Senate election in Texas, 2026 - Ballotpedia",
-          "last_accessed": "2026-03-29T00:00:00Z"
+          "url": "https://www.npr.org/2026/03/03/nx-s1-5734515/texas-primary-election-results-james-talarico-jasmine-crockett-john-cornyn-ken-paxton",
+          "title": "Trump teases GOP endorsement in Texas Senate race as Talarico wins Democratic nomination",
+          "type": "article"
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/James_Talarico_Press_Conference_%28cropped%29.jpg/500px-James_Talarico_Press_Conference_%28cropped%29.jpg",
@@ -965,7 +987,7 @@
           "source": {
             "url": "https://journals.house.texas.gov/HJRNL/89R/HTML/89RDAY18FINAL.HTM",
             "type": "government",
-            "title": "Tuesday, February 25, 2025 \u2014 18th Day - Texas House Journals",
+            "title": "Tuesday, February 25, 2025 — 18th Day - Texas House Journals",
             "last_accessed": "2026-03-29T18:43:29.960309+00:00"
           }
         }
@@ -1215,7 +1237,7 @@
             {
               "url": "https://www.texastribune.org/2026/02/04/on-the-issues-a-qa-with-the-texas-democrats-running-for-u-s-senate/",
               "type": "news",
-              "title": "Q&A: Democratic candidates in Texas\u2019 2026 Senate primary",
+              "title": "Q&A: Democratic candidates in Texas’ 2026 Senate primary",
               "last_accessed": "2026-03-29T18:43:29.960309+00:00"
             }
           ]
@@ -1238,15 +1260,15 @@
             }
           ]
         }
-      }
+      },
+      "donor_summary": null,
+      "links": []
     }
   ],
-  "updated_utc": "2026-03-29T18:43:29.960309+00:00",
+  "updated_utc": "2026-04-01T06:07:17.206339+00:00",
   "generator": [
     "gpt-5.4-mini",
-    "claude-haiku-4-5-20251001",
-    "gemini-3.1-flash-lite-preview",
-    "grok-3-mini"
+    "gpt-5-nano"
   ],
   "reviews": [
     {
@@ -1280,7 +1302,7 @@
         },
         {
           "field": "candidates[1].voting_record",
-          "concern": "Paxton's voting record section states 'No legislative voting record found in the sources reviewed' because he has not served in the U.S. Congress. However, the entry is formatted as a voting record with a placeholder vote of 'absent' and a generic Ballotpedia link. This is confusing\u2014it should clarify that no federal legislative record exists, not imply one was searched for and not found.",
+          "concern": "Paxton's voting record section states 'No legislative voting record found in the sources reviewed' because he has not served in the U.S. Congress. However, the entry is formatted as a voting record with a placeholder vote of 'absent' and a generic Ballotpedia link. This is confusing—it should clarify that no federal legislative record exists, not imply one was searched for and not found.",
           "suggestion": "Revise the voting_record entry to explicitly state 'No federal legislative voting record (Paxton has not served in U.S. Congress)' or remove the voting_record section entirely for Paxton, with a note in the summary or metadata explaining why it is absent.",
           "severity": "warning"
         },
@@ -1333,7 +1355,7 @@
           "severity": "info"
         }
       ],
-      "summary": "This is a well-researched and generally credible profile with strong sourcing on John Cornyn and James Talarico. However, there are significant gaps and inconsistencies that require attention: (1) the primary race status is unclear and potentially outdated\u2014the description states a 'runoff' but polling shows competing matchups, suggesting the primary structure may not be accurately reflected; (2) Ken Paxton's issue coverage is notably thinner and lower-confidence than the other candidates, with several 'low' and 'medium' confidence scores and missing detailed campaign platform information; (3) James Talarico's donor section relies on a single news article without official FEC verification, and one source appears to be from a future date (November 2025, before the March 2026 profile date); and (4) several voting records are vague or placeholder entries that should be replaced with specific legislative votes. The profile is substantively sound where detail exists, but these gaps and inconsistencies should be resolved."
+      "summary": "This is a well-researched and generally credible profile with strong sourcing on John Cornyn and James Talarico. However, there are significant gaps and inconsistencies that require attention: (1) the primary race status is unclear and potentially outdated—the description states a 'runoff' but polling shows competing matchups, suggesting the primary structure may not be accurately reflected; (2) Ken Paxton's issue coverage is notably thinner and lower-confidence than the other candidates, with several 'low' and 'medium' confidence scores and missing detailed campaign platform information; (3) James Talarico's donor section relies on a single news article without official FEC verification, and one source appears to be from a future date (November 2025, before the March 2026 profile date); and (4) several voting records are vague or placeholder entries that should be replaced with specific legislative votes. The profile is substantively sound where detail exists, but these gaps and inconsistencies should be resolved."
     },
     {
       "model": "gemini-3.1-flash-lite-preview",
@@ -1417,5 +1439,23 @@
       ],
       "summary": "The profile is generally well-structured with accurate candidate backgrounds and strong sourcing for most issues, but it requires revisions for incomplete data in areas like top donors for James Talarico and low-confidence stances for Ken Paxton, which could enhance overall completeness and reliability."
     }
-  ]
+  ],
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 252582,
+    "completion_tokens": 7912,
+    "total_tokens": 260494,
+    "estimated_usd": 0.0391,
+    "model_breakdown": {
+      "gpt-5-nano": {
+        "prompt_tokens": 44639,
+        "completion_tokens": 6307
+      },
+      "gpt-5.4-mini": {
+        "prompt_tokens": 207943,
+        "completion_tokens": 1605
+      }
+    },
+    "duration_s": 79.7
+  }
 }

@@ -1,0 +1,518 @@
+{
+  "id": "sc-senate-2026",
+  "title": "2026 U.S. Senate election in South Carolina",
+  "office": "U.S. Senate",
+  "jurisdiction": "South Carolina",
+  "election_date": "2026-11-03",
+  "description": "South Carolina\u2019s 2026 U.S. Senate race will decide the state\u2019s Class II Senate seat, currently held by Republican Lindsey Graham. The race matters because it affects control of the U.S. Senate and is being watched as a test of whether Democrats can make the contest more competitive in a state that recent ratings still classify as strongly Republican. The main contrast is between Graham\u2019s long incumbency and national-security-focused brand and the challengers\u2019 efforts to frame the race around cost of living, health care, accountability, and broader dissatisfaction with Washington.",
+  "polling": [
+    {
+      "pollster": "Impact Research",
+      "date": "2026-03-01",
+      "sample_size": null,
+      "matchups": [
+        {
+          "candidates": [
+            "Lindsey Graham",
+            "Annie Andrews"
+          ],
+          "percentages": [
+            47,
+            42
+          ]
+        }
+      ],
+      "source_url": "https://www.facebook.com/100083614030796/posts/south-carolina-senate-polling-graham-47-andrews-42impact-march-1-2026andrews-int/905142045616255/"
+    }
+  ],
+  "polling_note": null,
+  "candidates": [
+    {
+      "name": "Lindsey Graham",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Lindsey Graham is the incumbent U.S. senator from South Carolina and is seeking another term in 2026. His campaign emphasizes conservative priorities, support for Donald Trump, national security, lower spending, and conservative judicial appointments.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_South_Carolina,_2026",
+          "type": "government",
+          "title": "United States Senate election in South Carolina, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://lindseygraham.com/",
+          "type": "website",
+          "title": "Lindsey Graham | Fighting for America First & Conservative Values",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.lgraham.senate.gov/public/index.cfm/biography",
+          "type": "government",
+          "title": "Biography - United States Senator Lindsey Graham",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/5f/Lindsey_Graham%2C_official_portrait%2C_113th_Congress.jpg",
+      "website": "https://lindseygraham.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/LindseyGrahamSC/",
+        "x": "https://x.com/LindseyGrahamSC"
+      },
+      "career_history": [
+        {
+          "title": "U.S. Senator",
+          "organization": "United States Senate",
+          "start_year": 2003,
+          "end_year": null,
+          "description": "Represents South Carolina in the Senate; first took office in 2003."
+        },
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 1995,
+          "end_year": 2003,
+          "description": "Represented South Carolina in the House before winning election to the Senate."
+        },
+        {
+          "title": "Judge Advocate / Air Force officer",
+          "organization": "U.S. Air Force and South Carolina Air National Guard",
+          "start_year": 1982,
+          "end_year": 1995,
+          "description": "Served as a military lawyer and officer before entering Congress."
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of South Carolina",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": 1981
+        },
+        {
+          "institution": "University of South Carolina",
+          "degree": "B.A.",
+          "field": "Psychology",
+          "year": 1977
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Annie Andrews",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Annie Andrews is a pediatrician and child-health advocate running for the Democratic nomination for U.S. Senate in South Carolina. Her campaign centers on health care, affordability, reproductive freedom, gun violence prevention, and what she describes as a need to fight for South Carolina families and children left behind by Washington.",
+      "summary_sources": [
+        {
+          "url": "https://drannieandrews.com/",
+          "type": "website",
+          "title": "Dr. Annie Andrews for Senate",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Annie_Andrews",
+          "type": "government",
+          "title": "Annie Andrews - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://alumni.cincinnatichildrens.org/s/resources/winter-2023-newsletter/alumni-spotlight-annie-andrews",
+          "type": "news",
+          "title": "Alumni Spotlight - Annie Andrews - Cincinnati Children's Hospital",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8f/Annie_Andrews.jpg",
+      "website": "https://drannieandrews.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/AnnieAndrewsMD/",
+        "instagram": "https://www.instagram.com/annieandrewsmd/",
+        "x": "https://x.com/AnnieAndrewsMD",
+        "youtube": "https://www.youtube.com/@DrAnnieAndrews",
+        "threads": "https://www.threads.net/@annieandrewsmd",
+        "tiktok": "https://www.tiktok.com/@annieandrewsmd"
+      },
+      "career_history": [
+        {
+          "title": "Pediatrician / pediatric hospitalist",
+          "organization": "Medical University of South Carolina and related clinical roles",
+          "start_year": 2006,
+          "end_year": null,
+          "description": "Has spent nearly two decades caring for children in South Carolina, including hospital-based pediatric care."
+        },
+        {
+          "title": "Clinical professor of pediatrics",
+          "organization": "George Washington University",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Listed in public bios as a clinical professor of pediatrics."
+        },
+        {
+          "title": "Child health advocate",
+          "organization": "Everytown for Gun Safety and related advocacy work",
+          "start_year": 2020,
+          "end_year": null,
+          "description": "Has been active in child health and gun-violence-prevention advocacy."
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Cincinnati College of Medicine",
+          "degree": "M.D.",
+          "field": "Medicine",
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Paul Dans",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Paul Dans is a Republican candidate for U.S. Senate in South Carolina and a former Trump administration official. His campaign presents him as a conservative reformer and highlights his role as an architect of Project 2025, along with themes such as faith-based values, debt reduction, and opposition to endless wars.",
+      "summary_sources": [
+        {
+          "url": "https://www.pauldans.com/",
+          "type": "website",
+          "title": "Paul Dans for US Senate",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.pauldans.com/meet-paul",
+          "type": "website",
+          "title": "Meet Paul | Paul Dans for US Senate",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Paul_Dans",
+          "type": "government",
+          "title": "Paul Dans - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Paul_Dans.jpg",
+      "website": "https://www.pauldans.com/",
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Director",
+          "organization": "2025 Presidential Transition Project (Heritage Foundation)",
+          "start_year": 2022,
+          "end_year": 2024,
+          "description": "Led the Project 2025 transition effort until stepping down in 2024."
+        },
+        {
+          "title": "Chief of staff",
+          "organization": "Office of Personnel Management",
+          "start_year": 2020,
+          "end_year": 2021,
+          "description": "Served in the Trump administration at OPM."
+        },
+        {
+          "title": "White House liaison / senior advisor",
+          "organization": "Office of Personnel Management",
+          "start_year": 2020,
+          "end_year": 2021,
+          "description": "Held senior roles in the Trump administration."
+        },
+        {
+          "title": "Senior advisor",
+          "organization": "U.S. Department of Housing and Urban Development",
+          "start_year": 2019,
+          "end_year": 2020,
+          "description": "Served in HUD before moving to OPM."
+        },
+        {
+          "title": "Attorney in private practice",
+          "organization": "Debevoise & Plimpton; LeBoeuf, Lamb, Greene & MacRae; solo practice",
+          "start_year": 1990,
+          "end_year": 2019,
+          "description": "Practiced commercial litigation in New York City for roughly two decades."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Massachusetts Institute of Technology",
+          "degree": "B.S.",
+          "field": "Economics",
+          "year": null
+        },
+        {
+          "institution": "Massachusetts Institute of Technology",
+          "degree": "M.C.P.",
+          "field": "City planning",
+          "year": null
+        },
+        {
+          "institution": "University of Virginia School of Law",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Kyle Freeman",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Kyle Freeman is a Democratic candidate for U.S. Senate in South Carolina who describes himself as a logistics professional and essential worker. His campaign says he is running to restore integrity and accountability in Washington and focuses on jobs, health care, infrastructure, veterans, and government transparency.",
+      "summary_sources": [
+        {
+          "url": "https://kylefreemanforsenate.com/about",
+          "type": "website",
+          "title": "About Kyle Freeman",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://kylefreemanforsenate.com/",
+          "type": "website",
+          "title": "Kyle Freeman For Senate",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Kyle_Freeman",
+          "type": "government",
+          "title": "Kyle Freeman - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://kylefreemanforsenate.com/",
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Logistics professional",
+          "organization": "Private sector",
+          "start_year": null,
+          "end_year": null,
+          "description": "Campaign website describes him as a logistics professional."
+        },
+        {
+          "title": "Essential worker",
+          "organization": "Critical systems / logistics during COVID-19",
+          "start_year": 2020,
+          "end_year": 2021,
+          "description": "Campaign says he worked as an essential worker during the pandemic."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Cindy Glaser",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Cindy Glaser is listed by Ballotpedia as an independent candidate in the South Carolina U.S. Senate race. Publicly available biographical information was limited in the sources reviewed, so only her ballot status can be confirmed here.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_South_Carolina,_2026",
+          "type": "government",
+          "title": "United States Senate election in South Carolina, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Jack Ellison",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Jack Ellison is listed by Ballotpedia as an independent candidate in the South Carolina U.S. Senate race. The sources reviewed did not provide enough reliable biographical detail to summarize his background beyond his candidacy.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_South_Carolina,_2026",
+          "type": "government",
+          "title": "United States Senate election in South Carolina, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Don Louis",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Don Louis is listed by Ballotpedia as an independent candidate in the South Carolina U.S. Senate race. The reviewed sources did not provide enough reliable biographical detail to summarize his career or education.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_South_Carolina,_2026",
+          "type": "government",
+          "title": "United States Senate election in South Carolina, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Paul Sedletsky",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Paul Sedletsky is listed by Ballotpedia as an independent candidate in the South Carolina U.S. Senate race. No reliable biographical details were found in the reviewed sources beyond his candidacy.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_South_Carolina,_2026",
+          "type": "government",
+          "title": "United States Senate election in South Carolina, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Reece Wright-McDonald",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Reece Wright-McDonald is listed by Ballotpedia as an independent candidate in the South Carolina U.S. Senate race. The sources reviewed did not provide enough reliable biographical detail to summarize his background.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_South_Carolina,_2026",
+          "type": "government",
+          "title": "United States Senate election in South Carolina, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Catherine Fleming Bruce",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Catherine Fleming Bruce is listed by Ballotpedia as a Democratic candidate in the South Carolina U.S. Senate primary. The sources reviewed did not provide enough reliable biographical detail to summarize her background beyond her candidacy.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_South_Carolina,_2026",
+          "type": "government",
+          "title": "United States Senate election in South Carolina, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Brandon Brown",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Brandon Brown is listed by Ballotpedia as a Democratic candidate in the South Carolina U.S. Senate primary. The reviewed sources did not provide enough reliable biographical detail to summarize his background beyond his candidacy.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_South_Carolina,_2026",
+          "type": "government",
+          "title": "United States Senate election in South Carolina, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "updated_utc": "2026-04-01T06:04:48.029036+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "gpt-5-nano"
+  ],
+  "reviews": [],
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 92577,
+    "completion_tokens": 4260,
+    "total_tokens": 96837,
+    "estimated_usd": 0.0164,
+    "model_breakdown": {
+      "gpt-5.4-mini": {
+        "prompt_tokens": 92577,
+        "completion_tokens": 4260
+      }
+    },
+    "duration_s": 40.4
+  }
+}

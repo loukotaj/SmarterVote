@@ -1,0 +1,1105 @@
+{
+  "id": "mo-house-01-2026",
+  "title": "Missouri 1st Congressional District U.S. House race (2026)",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Missouri's 1st Congressional District",
+  "state": "Missouri",
+  "district": "1st Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Missouri's 1st Congressional District is expected to feature a competitive 2026 Democratic primary and general election.",
+  "polling": [
+    {
+      "pollster": "Democratic Majority for Israel",
+      "date": "2024-07-26",
+      "sample_size": 600,
+      "matchups": [
+        {
+          "candidates": [
+            "Wesley Bell",
+            "Cori Bush"
+          ],
+          "percentages": [
+            48.0,
+            42.0
+          ]
+        }
+      ],
+      "source_url": "https://dmfipac.org/wp-content/uploads/2024/07/Bush-Bell-Poll-7.26.pdf"
+    }
+  ],
+  "polling_note": "The only publicly identified poll in this matchup is a July 26, 2024 Democratic Majority for Israel survey of 600 respondents. DMFI is an advocacy organization, so the poll should be read as a partisan-source snapshot rather than neutral 2026 polling.",
+  "candidates": [
+    {
+      "name": "Wesley Bell",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Wesley Bell is the U.S. representative for Missouri\u2019s 1st Congressional District and a former St. Louis County prosecuting attorney. Before Congress, he served in local government and the legal system in the St. Louis area, and his campaign highlights public safety, economic opportunity, and constituent services.",
+      "summary_sources": [
+        {
+          "url": "https://bell.house.gov/about/biography",
+          "type": "official biography",
+          "title": "Biography | Representative Wesley Bell"
+        },
+        {
+          "url": "https://ballotpedia.org/Wesley_Bell",
+          "type": "reference",
+          "title": "Wesley Bell - Ballotpedia"
+        },
+        {
+          "url": "https://www.congress.gov/member/wesley-bell/B001324",
+          "type": "official government",
+          "title": "Wesley Bell | Congress.gov"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Wesley_Bell%2C_official_portrait_%28119th_Congress%29.jpg/500px-Wesley_Bell%2C_official_portrait_%28119th_Congress%29.jpg",
+      "website": "https://www.bell4mo.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/bell4mo/",
+        "x": "https://x.com/WesleyBell4MO",
+        "instagram": "https://www.instagram.com/wesleybell4mo/"
+      },
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Represents Missouri's 1st Congressional District."
+        },
+        {
+          "title": "St. Louis County Prosecuting Attorney",
+          "organization": "St. Louis County, Missouri",
+          "start_year": 2019,
+          "end_year": 2024,
+          "description": "Led Missouri's largest prosecutor's office and created specialized units focused on violent crime, domestic violence, and auto theft."
+        },
+        {
+          "title": "Ferguson City Council member",
+          "organization": "City of Ferguson",
+          "start_year": 2015,
+          "end_year": 2018,
+          "description": "Helped implement police and court reforms after the Ferguson unrest."
+        },
+        {
+          "title": "Municipal judge and prosecutor",
+          "organization": "Velda City and Riverview, Missouri",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served in local judicial and prosecutorial roles before countywide office."
+        },
+        {
+          "title": "Public defender and professor",
+          "organization": "St. Louis-area legal and educational institutions",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked as a public defender and later as a criminology professor."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Hazelwood East High School",
+          "degree": "High school diploma",
+          "field": null,
+          "year": null
+        },
+        {
+          "institution": "Lindenwood University",
+          "degree": "Attended",
+          "field": null,
+          "year": null
+        },
+        {
+          "institution": "University of Missouri-Columbia School of Law",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": null
+        }
+      ],
+      "donor_summary": "Wesley Bell\u2019s federal campaign finance filings show a campaign funded primarily by individual contributions, with additional support from other committees. The FEC candidate page provides the official filing record and cash-on-hand totals for his committee.",
+      "donor_source_url": "https://www.fec.gov/data/candidate/H4MO01134/",
+      "voting_summary": "Wesley Bell has a federal voting record as a member of the U.S. House since 2025. GovTrack shows he generally votes with the Democratic caucus on major House roll calls and has missed a small number of votes during the 119th Congress.",
+      "voting_source_url": "https://www.govtrack.us/congress/members/wesley_bell/456997",
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Wesley_Bell",
+          "title": "Wesley Bell - Ballotpedia",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Wesley_Bell",
+          "title": "Wesley Bell - Wikipedia",
+          "type": "wiki"
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/H4MO01134/",
+          "title": "BELL, WESLEY - Candidate overview - FEC",
+          "type": "finance"
+        },
+        {
+          "url": "https://www.govtrack.us/congress/members/wesley_bell/456997",
+          "title": "Rep. Wesley Bell - GovTrack.us",
+          "type": "govtrack"
+        },
+        {
+          "url": "https://justfacts.votesmart.org/candidate/key-votes/217416/wesley-bell",
+          "title": "See Wesley Bell's Key Votes - Vote Smart - Facts For All",
+          "type": "votesmart"
+        },
+        {
+          "url": "https://www.bell4mo.com/",
+          "title": "Wesley Bell for Congress",
+          "type": "official"
+        },
+        {
+          "url": "http://bell.house.gov/about/biography",
+          "title": "Biography | Representative Wesley Bell",
+          "type": "legislature"
+        },
+        {
+          "url": "https://www.congress.gov/member/wesley-bell/B001324",
+          "title": "Wesley Bell | Congress.gov",
+          "type": "other"
+        }
+      ],
+      "issues": {
+        "Economy": {
+          "stance": "Wesley Bell advocates for expanding economic mobility and reducing costs for households by supporting workforce development and cost-saving energy policies; notably, he introduced the BRIDGE Act to expand the Work Opportunity Tax Credit for justice-impacted individuals and opportunity youth, and the Home Energy Relief Act to simplify access to energy rebates for families.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "http://bell.house.gov/media/press-releases/bell-introduces-bridge-act-expand-pathways-economic-mobility-and-employment",
+              "type": "official press release",
+              "title": "Bell Introduces BRIDGE Act to Expand Pathways to Economic Mobility and Employment for Justice-Impacted Individuals and Opportunity Youth",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "http://bell.house.gov/media/press-releases/bell-introduces-legislation-fight-lower-energy-costs-st-louis-families",
+              "type": "official press release",
+              "title": "Bell Introduces Legislation to Fight for Lower Energy Costs for St. Louis Families",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Wesley Bell advocates for a world-class public education for all students, emphasizing multiple pathways\u2014including four-year colleges, community colleges, trade schools, and apprenticeships\u2014and supports Biden-Harris administration initiatives to bolster historically Black colleges and universities.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.bell4mo.com/issues",
+              "type": "campaign-website",
+              "title": "On the Issues - Wesley Bell for Congress (Education section)",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://ballotpedia.org/Wesley_Bell",
+              "type": "ballotpedia",
+              "title": "Wesley Bell - Ballotpedia",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://bell.house.gov/issues/education",
+              "type": "official-congress-website",
+              "title": "Education | Representative Wesley Bell - House.gov",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            }
+          ]
+        },
+        "Healthcare": {
+          "stance": "Bell supports strengthening and expanding affordable health care, ensuring people have access to quality coverage without facing financial ruin. He advocates policies to lower costs, broaden insurance access, and defend the ACA against rollback.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.bell4mo.com/issues",
+              "type": "campaign site",
+              "title": "Issues - Healthcare (Bell for Missouri)",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://bell.house.gov/issues/health",
+              "type": "official congressional page",
+              "title": "Health - Representative Wesley Bell (Health policy)",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://x.com/WesleyBell4MO/status/2036103659486925192",
+              "type": "social media",
+              "title": "Healthcare is a human right - Wesley Bell",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Axbfqv3v-pw",
+              "type": "video",
+              "title": "Americans Are Screaming For Relief With Healthcare Costs - Wesley Bell",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            }
+          ]
+        },
+        "Reproductive Rights": {
+          "stance": "Wesley Bell supports reproductive rights and abortion access; he has publicly advocated for the freedom to make healthcare decisions without government interference and has been endorsed by Planned Parenthood Action Fund.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.stltoday.com/news/local/column/joe-holleman/article_29c0b609-e75e-42f5-974d-a2ac202bdac9.html",
+              "type": "news-article",
+              "title": "Planned Parenthood shifts support, endorses Wesley Bell in reelection race vs. Cori Bush",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://www.stlpr.org/show/st-louis-on-the-air/2024-07-01/bell-backs-israel-abortion-rights-and-radiation-victims-in-challenge-of-incumbent-bush",
+              "type": "radio-news",
+              "title": "Bell backs Israel, abortion rights and radiation victims in challenge of incumbent Bush",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://www.facebook.com/bell4mo/posts/im-honored-to-be-endorsed-by-planned-parenthood-action-fundeveryone-deserves-the/880223868383054/",
+              "type": "social-media",
+              "title": "I'm honored to be endorsed by Planned Parenthood Action Fund",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Bell treats climate change as a crisis and emphasizes environmental justice, prioritizing the cleanup of radioactive waste at West Lake Landfill and Coldwater Creek and pursuing policies that protect Missouri waterways while fostering clean-energy job growth.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.bell4mo.com/issues",
+              "type": "campaign page",
+              "title": "On the Issues - Wesley Bell for Congress",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://bell.house.gov/media/press-releases/bell-calls-department-energy-lead-long-delayed-cleanup-west-lake-landfill",
+              "type": "press release",
+              "title": "Bell Calls on Department of Energy to Lead Long-Delayed Cleanup of West Lake Landfill",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://www.lcv.org/bio/wesley-bell/",
+              "type": "organization profile",
+              "title": "Wesley Bell - League of Conservation Voters",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://www.givegreen.com/candidates/wesley-bell",
+              "type": "organization profile",
+              "title": "GiveGreen - Wesley Bell",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "No explicit public policy on artificial intelligence or technology regulation has been identified in Wesley Bell's campaign materials; his messaging emphasizes broad priorities (infrastructure, public safety, education, and economic development) with no stated stance on AI-specific policy.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.bell4mo.com/issues",
+              "type": "website",
+              "title": "On the Issues - Wesley Bell for Congress",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "http://bell.house.gov/issues",
+              "type": "website",
+              "title": "Issues | Representative Wesley Bell - House.gov",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Bell supports comprehensive immigration reform that balances border security with dignity for migrants, including a pathway to citizenship for those who are already here, while safeguarding asylum rights; he also backs limiting DHS funding for ICE propaganda and ensuring DHS resources are focused on humane, lawful enforcement.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.bell4mo.com/issues",
+              "type": "campaign website",
+              "title": "Wesley Bell \u2013 Immigration (Issues)",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://bell.house.gov/media/press-releases/bell-calls-block-ice-using-taxpayer-funds-propaganda-ads",
+              "type": "campaign press release",
+              "title": "Bell Calls to Block ICE from Using Taxpayer Funds on Propaganda Ads",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://www.instagram.com/p/DUT2ilMEk1S/",
+              "type": "social media",
+              "title": "Wesley Bell Instagram post opposing ICE funding",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://www.congress.gov/bill/119th-congress/house-bill/7395",
+              "type": "legislation",
+              "title": "H.R. 7395 - NO ICE Ads Act (119th Congress)",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://bell.house.gov/119th-Congress",
+              "type": "official government page",
+              "title": "Wesley Bell \u2013 119th Congress",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Bell favors a robust, alliance-based foreign policy, supporting Ukraine and Baltic security initiatives and keeping Israel as a key ally, while advocating for stronger congressional oversight on defense legislation and opposing measures that dilute Democratic amendments.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.bell4mo.com/issues",
+              "type": "official campaign page",
+              "title": "On the Issues - Foreign Policy",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://battlegroundvote.com/missouri/wesley-bell",
+              "type": "nonpartisan voter guide",
+              "title": "Wesley Bell \u2014 Democrat U.S. House Candidate 2026",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            }
+          ]
+        },
+        "Guns & Safety": {
+          "stance": "Wesley Bell supports common-sense gun safety laws to reduce gun violence, including backing gun buyback programs funded at the federal/state level and collaborating with local law enforcement to remove unwanted firearms from communities.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.bell4mo.com/issues",
+              "type": "campaign page",
+              "title": "On the Issues - Wesley Bell for Congress",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://hayes.house.gov/2025/4/hayes-mciver-bell-introduce-legislation-to-fund-gun-buybacks-and-remove-firearms-from-communities",
+              "type": "press release",
+              "title": "Hayes, McIver, Bell Introduce Safer Neighborhoods Gun Buyback Act",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://bell.house.gov/media/press-releases/bell-hayes-mciver-introduce-legislation-fund-gun-buybacks-and-remove-firearms",
+              "type": "press release",
+              "title": "Bell-Hayes-McIver Introduce Legislation to Fund Gun Buybacks and Remove Firearms from Communities",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://www.stlamerican.com/business/congressman-wesley-bell-helps-launch-gun-buyback-effort/",
+              "type": "news article",
+              "title": "Congressman Wesley Bell helps launch gun buyback effort",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            }
+          ]
+        },
+        "Social Justice": {
+          "stance": "Wesley Bell frames social justice as a core priority, advocating reforms to the criminal-legal system that reduce incarceration and promote fairness for marginalized communities. He supports bail reform, diversion programs, independent review of police shootings and wrongful convictions, and community-based approaches that prioritize prevention and treatment over punishment.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "http://bell.house.gov/media/press-releases/rep-bell-introduces-first-major-legislation-reform-pretrial-detention-and",
+              "type": "official",
+              "title": "Rep. Bell Introduces First Major Legislation to Reform Pretrial Detention and Expand Community-Based Alternatives",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://www.ksdk.com/article/news/politics/national-politics/missouri-wesley-bell-justice-forward-plan-reform-local-criminal-justice-systems/63-674ec601-5cb3-4508-97b0-c8d89c38e757",
+              "type": "news",
+              "title": "Missouri Wesley Bell Justice Forward Plan Reform Local Criminal Justice Systems",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://theintercept.com/2019/07/04/st-louis-prosecutor-wesley-bell-police-accountability-wrongful-conviction/",
+              "type": "news",
+              "title": "St. Louis Prosecutor Wesley Bell police accountability wrongful conviction unit",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://www.stlpr.org/government-politics-issues/2024-07-19/report-from-racial-justice-groups-says-wesley-bells-office-has-not-kept-its-promises",
+              "type": "news",
+              "title": "Report from racial justice groups says Wesley Bell\u2019s office has not kept its promises",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://www.bell4mo.com/issues",
+              "type": "official",
+              "title": "Wesley Bell issues page",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://ballotpedia.org/Wesley_Bell",
+              "type": "reference",
+              "title": "Wesley Bell - Ballotpedia",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Wesley Bell advocates using federal resources to deliver local improvements for Missouri's CD-01, prioritizing infrastructure funding and community development in the St. Louis region. He supports common-sense gun safety measures to improve public safety and maintains a proactive disaster-recovery approach that helps constituents after severe weather events.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.bell4mo.com/issues",
+              "type": "campaign website",
+              "title": "On the Issues - Wesley Bell for Congress",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://bell.house.gov/2025-tornado-recovery-resources",
+              "type": "official government site",
+              "title": "2025 Tornado Recovery Resources | Representative Wesley Bell",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://bell.house.gov/storms",
+              "type": "official government site",
+              "title": "Natural Disaster Resources | Representative Wesley Bell",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Cori Bush",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Cori Bush is a former U.S. representative from Missouri's 1st Congressional District who is running to return to the seat in 2026. A St. Louis native, she previously worked as a nurse, pastor, teacher, and community organizer before serving in Congress from 2021 to 2025.",
+      "summary_sources": [
+        {
+          "url": "https://history.house.gov/People/Detail/25769816936",
+          "type": "government",
+          "title": "BUSH, Cori | US House of Representatives - History, Art & Archives"
+        },
+        {
+          "url": "https://www.coribush.org/about",
+          "type": "campaign",
+          "title": "About \u2014 Cori Bush for Congress"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Cori_Bush_117th_U.S_Congress.jpg/500px-Cori_Bush_117th_U.S_Congress.jpg",
+      "website": "https://www.coribush.org/",
+      "social_media": {
+        "x": "https://x.com/CoriBush",
+        "facebook": "https://www.facebook.com/VoteCoriBush",
+        "instagram": "https://www.instagram.com/coribush/"
+      },
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2021,
+          "end_year": 2025,
+          "description": "Represented Missouri's 1st Congressional District in the 117th and 118th Congresses."
+        },
+        {
+          "title": "Nurse",
+          "organization": "Healthcare settings in St. Louis",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked as a registered nurse before entering Congress."
+        },
+        {
+          "title": "Pastor",
+          "organization": "Church ministry",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked in pastoral ministry."
+        },
+        {
+          "title": "Community organizer and activist",
+          "organization": "St. Louis/Ferguson-area organizing efforts",
+          "start_year": null,
+          "end_year": null,
+          "description": "Became widely known for activism after the Ferguson protests and other local organizing."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Cardinal Ritter College Prep High School",
+          "degree": "High school diploma",
+          "field": null,
+          "year": 1994
+        },
+        {
+          "institution": "Harris-Stowe State University",
+          "degree": "Attended",
+          "field": null,
+          "year": null
+        },
+        {
+          "institution": "Lutheran School of Nursing",
+          "degree": "RN Diploma",
+          "field": "Nursing",
+          "year": 2008
+        }
+      ],
+      "donor_summary": "OpenSecrets shows Cori Bush's 2023-2024 fundraising was driven mostly by large individual contributions, with smaller shares from small donors and PACs. Her campaign has also said it does not take corporate PAC money.",
+      "donor_source_url": "https://www.opensecrets.org/members-of-congress/cori-bush/summary?cid=N00039373",
+      "voting_summary": "GovTrack shows Cori Bush's House voting record from 2021 to 2024 aligned with a consistently progressive pattern on major issues, including support for war-powers and ceasefire-related measures and opposition to several defense, border, and energy bills. GovTrack also indicates she missed votes during parts of 2023-2024.",
+      "voting_source_url": "https://www.govtrack.us/congress/members/cori_bush/456829",
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Cori_Bush",
+          "title": "Cori Bush - Ballotpedia",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Cori_Bush",
+          "title": "Cori Bush - Wikipedia",
+          "type": "wiki"
+        },
+        {
+          "url": "https://www.govtrack.us/congress/members/cori_bush/456829",
+          "title": "Rep. Cori Bush [D-MO1, 2021-2024], former Representative for Missouri's 1st Congressional District - GovTrack.us",
+          "type": "govtrack"
+        },
+        {
+          "url": "https://justfacts.votesmart.org/candidate/key-votes/169020/cori-bush",
+          "title": "See Cori Bush's Key Votes",
+          "type": "votesmart"
+        },
+        {
+          "url": "https://www.coribush.org/what-voters-should-know",
+          "title": "What Voters Should Know \u2014 Cori Bush for Congress",
+          "type": "official"
+        },
+        {
+          "url": "https://www.coribush.org/category/all-updates/press-releases/",
+          "title": "Press Releases Archives - Cori Bush",
+          "type": "official"
+        },
+        {
+          "url": "https://www.congress.gov/member/cori-bush/B001224",
+          "title": "Representative Cori Bush (1976 - ) In Congress 2021 - 2025",
+          "type": "other"
+        },
+        {
+          "url": "https://www.fec.gov/data/legal/administrative-fine/4664/",
+          "title": "Administrative Fine #4664 | FEC",
+          "type": "finance"
+        }
+      ],
+      "issues": {
+        "Economy": {
+          "stance": "Cori Bush advocates a pro-worker, pro-labor economic agenda focused on lowering costs through federal investment and stronger social safety nets, including Medicare for All and expanded Social Security. She supports a $15 minimum wage and expansive housing and health-care policies to lower everyday costs for working families.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.coribush.org/priorities",
+              "type": "campaign",
+              "title": "Priorities \u2013 Cori Bush for Congress",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://www.coribush.org/about",
+              "type": "campaign",
+              "title": "About \u2013 Cori Bush for Congress",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://time.com/6085841/cori-bush-homelessness-crisis/",
+              "type": "news",
+              "title": "We Need to Solve America\u2019s Housing Crisis \u2013 Time (Cori Bush op-ed)",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://fox2now.com/news/congresswoman-cori-bush-pushes-for-15-minimum-wage-in-letter-to-biden-administration/",
+              "type": "news",
+              "title": "Congresswoman Cori Bush pushes for $15 minimum wage in letter to Biden administration",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://patch.com/missouri/stlouis/democracy-america-progressive-group-backs-cori-bush-mo-1",
+              "type": "news",
+              "title": "Democracy For America Progressive Group Backs Cori Bush For MO-1",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://aflcio.org/scorecard/legislators/cori-bush",
+              "type": "organization",
+              "title": "AFL-CIO scorecard for Cori Bush",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://www.sierraclub.org/missouri/blog/2023/12/sierra-club-endorses-rep-cori-bush-mo-01",
+              "type": "organization",
+              "title": "Sierra Club Endorses Rep. Cori Bush for MO-01",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://nlihc.org/resource/congresswoman-cori-bush-introduces-unhoused-bill-rights",
+              "type": "organization",
+              "title": "Congresswoman Cori Bush Introduces 'Unhoused Bill of Rights'",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://www.openSecrets.org/members-of-congress/cori-bush/bills?cid=N00039373&cycle=2022",
+              "type": "organization",
+              "title": "OpenSecrets \u2013 Cori Bush \u2013 Bills Sponsored",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Cori Bush advocates expanding federal investment in education, including funding for K-12 schools through the American Rescue Plan and increased funding to make higher education more affordable.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.newsweek.com/cori-bush-announces-100-million-st-louis-colleges-students-under-american-rescue-plan-1593881",
+              "type": "news",
+              "title": "Cori Bush Announces $100 Million for St. Louis Colleges and Students",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://justfacts.votesmart.org/public-statement/1565154/cori-bush-announces-distribution-of-american-rescue-plan-funding-for-missouri-schools-and-students/?search=vaccine",
+              "type": "news",
+              "title": "Cori Bush Announces Distribution of American Rescue Plan Funding for Missouri Schools and Students",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://www.stlpr.org/government-politics-issues/2022-03-14/rep-bush-wants-to-hear-from-young-people-so-she-set-up-a-way-to-do-so",
+              "type": "news",
+              "title": "Rep. Cori Bush wants to hear from young people so she set up a way to do so",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            }
+          ]
+        },
+        "Healthcare": {
+          "stance": "Cori Bush advocates for universal, publicly funded healthcare, supporting Medicare for All and policies to lower costs and expand access.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.coribush.org/about",
+              "type": "campaign",
+              "title": "About - Cori Bush for Congress",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            }
+          ]
+        },
+        "Reproductive Rights": {
+          "stance": "Cori Bush is strongly pro-choice and champions abortion access and reproductive rights. She has publicly shared her personal abortion story and supports federal protections for abortion access, including access to medication abortion via telehealth.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.npr.org/2021/09/30/1041852950/it-was-really-difficult-rep-cori-bush-speaks-about-her-abortion-testimony",
+              "type": "article",
+              "title": "NPR: It was really difficult \u2014 Rep. Cori Bush speaks about her abortion testimony",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://www.washingtonpost.com/politics/2022/07/20/cori-bush-abortion-campaign-ad/",
+              "type": "article",
+              "title": "Rep. Cori Bush abortion campaign ad",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://www.plannedparenthoodaction.org/planned-parenthood-great-rivers-action/pressroom/interested-parties-memos/ipm_091021",
+              "type": "press release",
+              "title": "The First Time Rep. Cori Bush Shares Abortion Story",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://reproductivefreedomforall.org/lawmaker/cori-bush/",
+              "type": "scorecard",
+              "title": "Cori Bush - Reproductive Freedom for All",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://reproductivefreedomforall.org/news/naral-pro-choice-america-celebrates-cori-bushs-victory-in-missouris-1st-congressional-district/",
+              "type": "article",
+              "title": "NARAL Pro-Choice America Celebrates Cori Bush's Victory",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://www.coribush.org/priorities",
+              "type": "page",
+              "title": "Priorities - Cori Bush for Congress",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://www.coribush.org/",
+              "type": "website",
+              "title": "Cori Bush for Congress",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Cori Bush co-sponsored the Green New Deals for Cities Act (H.R. 2644), proposing $1 trillion in direct federal funding to cities, towns, and tribes to advance decarbonization, infrastructure, and climate resilience. The bill emphasizes environmental justice and local control, and excludes nuclear energy from its scope.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.thenation.com/article/politics/cori-bush-st-louis-gnd/",
+              "type": "article",
+              "title": "Cori Bush on Her Green New Deals for Cities | The Nation",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://grist.org/politics/green-new-deal-aoc-cori-bush-cities-infrastructure/",
+              "type": "article",
+              "title": "This new bill wants to bring the Green New Deal to a city near you",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://www.kbia.org/missouri-news/2021-04-19/rep-cori-bush-co-sponsors-1-trillion-green-new-deal-for-cities",
+              "type": "news",
+              "title": "Rep. Cori Bush Proposes $1 Trillion Green New Deal For Cities",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "Cori Bush has not published a detailed campaign platform specifically on Tech & AI. Public remarks indicate she sees artificial intelligence as having significant potential while also raising concerns about its impacts and risks.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.youtube.com/watch?v=xDcJBsyaXGs",
+              "type": "video",
+              "title": "Cori Bush Warns That Artificial Intelligence Has A 'Huge' Potential ...",
+              "last_accessed": "2026-04-02T03:22:04.437041+00:00"
+            },
+            {
+              "url": "https://www.congress.gov/event/118th-congress/house-event/115432/text",
+              "type": "government",
+              "title": "Advances in AI: Are We Ready For a Tech Revolution?",
+              "last_accessed": "2026-04-02T03:22:04.437041+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Cori Bush supports comprehensive immigration reform that includes humane treatment of immigrants and a pathway to citizenship, while opposing aggressive, enforcement-heavy measures that target immigrant communities.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://missouriindependent.com/2023/01/27/democrats-in-congress-condemn-biden-administration-expansion-of-title-42/",
+              "type": "article",
+              "title": "Democrats in Congress condemn Biden administration expansion of Title 42",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Cori Bush has publicly advocated for an immediate ceasefire in Gaza, increased humanitarian aid to Palestinians, and U.S. pressure on Israel to de-escalate and halt military operations; she has criticized Israel's actions in Gaza.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.npr.org/2023/11/07/1211333589/missouri-rep-cori-bushs-criticism-of-israels-actions-in-gaza-sparks-pushback",
+              "type": "news",
+              "title": "Missouri Rep. Cori Bush's criticism of Israel's actions in Gaza sparks pushback",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://thehill.com/homenews/house/4258869-cori-bush-ceasefire-israel-hamas/",
+              "type": "news",
+              "title": "Cori Bush Ceasefire in Israel-Hamas war",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://jacobin.com/2023/10/cori-bush-cease-fire-gaza-war-israel-palestinians",
+              "type": "analysis",
+              "title": "Cori Bush: Cease Fire in Gaza War",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://tlaib.house.gov/posts/tlaib-bush-lead-war-powers-letter-to-president-biden",
+              "type": "official",
+              "title": "Tlaib, Bush Lead War Powers Letter to President Biden",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://www.theguardian.com/us-news/2024/aug/07/cori-bush-pro-israel-lobby-warning",
+              "type": "news",
+              "title": "Cori Bush warns pro-Israel lobby 'to be afraid' after primary loss",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            }
+          ]
+        },
+        "Guns & Safety": {
+          "stance": "Cori Bush advocates for stronger gun-safety measures, including closing loopholes and supporting comprehensive background checks, red-flag laws, and other commonsense gun-safety reforms; she has publicly praised measures like closing the 'boyfriend loophole' in federal gun legislation.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://truthout.org/articles/cori-bush-shares-her-experience-with-gun-violence-in-an-abusive-relationship/",
+              "type": "article",
+              "title": "Cori Bush Shares Her Experience With Gun Violence In An Abusive Relationship | Truthout",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://oversightdemocrats.house.gov/imo/media/doc/2023-03-23%20Bush%20Opening%20Statement.pdf",
+              "type": "document",
+              "title": "Bush Opening Statement at ATF Hearing - Opening Statement (gun violence)",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            }
+          ]
+        },
+        "Social Justice": {
+          "stance": "Cori Bush centers social justice in her policy agenda, advocating for a health-centered public-safety model, criminal-justice reform, civil rights protections, and human-rights\u2013based policies\u2014supporting Medicare for All, expanding Social Security, reproductive freedom, and community-led safety initiatives.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.coribush.org/priorities",
+              "title": "Priorities \u2014 Cori Bush for Congress",
+              "type": "campaign",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://www.coribush.org/about",
+              "title": "About \u2014 Cori Bush for Congress",
+              "type": "campaign",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://www.nbcnews.com/news/nbcblk/rep-cori-bush-wants-transform-policing-public-safety-new-bill-n1272490",
+              "title": "Rep. Cori Bush wants to transform policing and public safety with new bill",
+              "type": "news",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://www.kcur.org/politics-elections-and-government/2021-06-28/rep-cori-bush-proposes-new-federal-agency-to-deploy-social-workers-for-crisis-response",
+              "title": "Rep. Cori Bush proposes new federal agency to deploy social workers for crisis response",
+              "type": "news",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://pressley.house.gov/2021/06/28/pressley-bush-jayapal-schakowsky-unveil-people-s-response-act-bold-legislation/",
+              "title": "Pressley, Bush, Jayapal, Schakowsky Unveil The People's Response Act",
+              "type": "press release",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://campaignzero.org/ending-solitary-confinement-campaign-zero-endorses-rep-cori-bushs-bold-step-towards-justice/",
+              "title": "Ending Solitary Confinement Act endorsed by Campaign Zero",
+              "type": "advocacy",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            }
+          ]
+        },
+        "Election Reform": {
+          "stance": "She supports expanding voting rights protections and ballot access. She has introduced amendments aimed at extending voting rights to incarcerated voters and advancing democracy reform.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.coribush.org/news/news-1",
+              "type": "campaign-website",
+              "title": "Cori Bush Announces Campaign for U.S. Congress in MO-01",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://truthout.org/articles/house-rejects-cori-bushs-amendment-on-voting-rights-for-incarcerated-people/",
+              "type": "news-article",
+              "title": "House Rejects Cori Bush's Amendment on Voting Rights for Incarcerated People",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://ballotpedia.org/Cori_Bush",
+              "type": "encyclopedia",
+              "title": "Cori Bush - Ballotpedia",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://justfacts.votesmart.org/candidate/political-courage-test/169020/cori-bush",
+              "type": "organization",
+              "title": "Cori Bush - Vote Smart Political Courage Test",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Cori Bush advocates a health-centered public-safety model and housing justice for local communities, pushing policies to reduce homelessness and expand affordable housing, including supporting the Unhoused Bill of Rights.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.coribush.org/news/news-1",
+              "type": "campaign_website",
+              "title": "Cori Bush Announces Campaign for U.S. Congress in MO-01",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://nlihc.org/resource/congresswoman-cori-bush-reintroduces-unhoused-bill-rights",
+              "type": "nonprofit_policy",
+              "title": "Congresswoman Cori Bush Reintroduces Unhoused Bill of Rights",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://www.congress.gov/bill/118th-congress/house-resolution/634",
+              "type": "legislation",
+              "title": "H.Res.634 - Unhoused Persons Bill of Rights",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://homelesslaw.org/unhoused-bill-of-rights-introduced-by-representative-cori-bush-mo-01/",
+              "type": "nonprofit_advocacy",
+              "title": "Unhoused Bill of Rights Introduced by Representative Cori Bush MO-01",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            },
+            {
+              "url": "https://www.democracynow.org/2023/8/2/headlines/rep_cori_bush_reintroduces_unhoused_bill_of_rights",
+              "type": "media",
+              "title": "Democracy Now! Rep. Cori Bush Reintroduces Unhoused Bill of Rights",
+              "last_accessed": "2026-04-02T03:21:00.082566+00:00"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "updated_utc": "2026-04-02T03:22:04.437041+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "gpt-5-nano",
+    "claude-haiku-4-5-20251001",
+    "gemini-3.1-flash-lite-preview",
+    "grok-3-mini"
+  ],
+  "reviews": [
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "reviewed_at": "2026-04-02T03:22:25.543251+00:00",
+      "verdict": "approved",
+      "flags": [
+        {
+          "field": "polling",
+          "concern": "The single poll is from July 2024 (nearly 20 months before the 2026 election) and originates from Democratic Majority for Israel, an advocacy organization. While the polling_note correctly identifies the source bias, this is the only quantitative data available for a race described as 'expected to feature a competitive' primary and general election.",
+          "suggestion": "The current treatment is appropriate\u2014the poll is flagged as partisan-source and framed as a 'snapshot.' Consider adding a note that more recent primary polling may emerge as the 2026 cycle intensifies. No change required if this accurately reflects available public data.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].education",
+          "concern": "Several education entries (Hazelwood East High School, Lindenwood University, University of Missouri-Columbia School of Law) lack graduation/completion years. This is minor given that the profile notes years are unavailable, but it leaves gaps in timeline verification.",
+          "suggestion": "If official biographies (bell.house.gov or Congress.gov) contain completion dates, add them. If not available, the current null values are acceptable; the sourcing is present.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].career_history[4] (Public defender and professor)",
+          "concern": "This career entry lacks start/end years and specific institution names ('St. Louis-area legal and educational institutions'). This is less granular than other entries and harder to verify independently.",
+          "suggestion": "If verifiable from official sources, add institution names and approximate years. If not fully documented in public record, this is acceptable but note the limitation. Current approach is reasonable given likely early-career obscurity.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].education[1] (Harris-Stowe State University)",
+          "concern": "Listed as 'Attended' with null degree, field, and year. This is less specific than the entry for Lutheran School of Nursing (which includes degree type and year).",
+          "suggestion": "Research whether Bush completed a degree at Harris-Stowe or attended without completing. Add approximate dates if available from official biography or credible news sources. If unknown, consider noting '(dates and completion status unclear)' for transparency.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].donor_summary",
+          "concern": "The statement 'her campaign also said it does not take corporate PAC money' is unsourced. While consistent with progressive candidate norms, it lacks a specific URL or citation to verify this claim against FEC filings or campaign statements.",
+          "suggestion": "Add a source URL pointing to either (a) a campaign press release or website statement to that effect, or (b) the FEC candidate page URL with a note that no corporate PACs appear in the filing record. This strengthens verifiability.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].issues.Tech & AI",
+          "concern": "Tech & AI stance is marked 'medium' confidence with only two sources (one YouTube video excerpt, one government hearing transcript reference). This is the weakest-sourced issue area for either candidate and relies heavily on a single video clip.",
+          "suggestion": "If additional interviews, op-eds, or policy statements by Bush on AI exist (press releases, campaign literature, legislative testimony text), add them. If this genuinely represents her limited public commentary on AI, the medium confidence is appropriate and well-justified. Current treatment is honest.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Foreign Policy.stance",
+          "concern": "The Foreign Policy section emphasizes Gaza/Israel heavily (4 of 5 sources focus on this) while offering minimal sourcing on other major foreign policy domains (Russia/Ukraine, China, trade, etc.). By contrast, Bell's Foreign Policy section is more balanced across multiple alliance and security themes.",
+          "suggestion": "This reflects genuine differences in the candidates' public emphasis and is not a factual error. However, if Bush has public positions on Ukraine, NATO, or China, adding them would provide a more complete picture. Current state is accurate to her actual public positioning.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Guns & Safety.confidence",
+          "concern": "Marked 'medium' confidence despite sourcing from a House hearing statement and established news article, both credible documents. The confidence may be calibrated conservatively relative to other issue areas with similar source strength.",
+          "suggestion": "Consider whether 'high' confidence is warranted given the source credibility (House hearing = primary source, Truthout = established publication). If additional recent legislative action or news coverage exists, adding it would justify high confidence. Current medium rating is defensible but possibly overly cautious.",
+          "severity": "info"
+        }
+      ],
+      "summary": "This is an exceptionally well-researched and balanced profile of a substantive 2026 Democratic primary rematch. Both candidates' positions are documented through a robust mix of primary sources (official campaign sites, congressional records, FEC filings, House press releases) and credible secondary sources (NPR, The Hill, St. Louis Public Radio, local news outlets). The profile maintains scrupulous neutrality throughout, presenting genuine policy differences\u2014particularly on Israel/Gaza, healthcare approach, and criminal justice philosophy\u2014without editorializing. Issue coverage is comprehensive and granular across 10+ policy areas for each candidate. Candidate backgrounds are accurate, well-sourced, and appropriately detailed. The profile appropriately flags the partisan origin of the single available poll and acknowledges low-confidence issue areas (Tech & AI for both candidates). Sources are current through April 2026. The three AI reviewers reached consensus that this profile demonstrates high factual accuracy, balanced presentation, and strong source quality, with only minor suggestions for completeness enhancement."
+    },
+    {
+      "model": "gemini-3.1-flash-lite-preview",
+      "reviewed_at": "2026-04-02T03:22:08.004435+00:00",
+      "verdict": "approved",
+      "flags": [
+        {
+          "field": "polling_note",
+          "concern": "The note states there is 'no publicly identified poll' despite the presence of a July 2024 survey in the polling array.",
+          "suggestion": "Update the note to specify: 'The only publicly identified poll in this matchup is a July 2024 Democratic Majority for Israel survey; no 2026-cycle polling has been identified.'",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].career_history[4]",
+          "concern": "The career history entry for 'Public defender and professor' lacks specific dates and institutions, making it less verifiable than other entries.",
+          "suggestion": "If verified, add approximate years to align with the precision of the other career history items.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].education[1]",
+          "concern": "Harris-Stowe State University is listed as 'Attended' without a degree or year, which is less specific than the candidate's other educational history.",
+          "suggestion": "Clarify if a degree was awarded or if this was partial attendance, and provide approximate dates if available from professional biographies.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].donor_summary",
+          "concern": "The claim regarding the rejection of corporate PAC money is cited generally but lacks a direct link to the candidate's official campaign policy page or FEC disclosure.",
+          "suggestion": "Append a link to the candidate's 'Financial Policy' or 'About' page where this commitment is explicitly stated.",
+          "severity": "info"
+        }
+      ],
+      "summary": "This profile is exceptionally well-researched, maintaining a strictly neutral, nonpartisan tone throughout. It excels in documenting substantive policy differences\u2014particularly regarding foreign policy and criminal justice\u2014with high-confidence citations from a robust mix of primary legislative sources, campaign platforms, and credible journalism. The background and education sections are sufficiently detailed, and the profile provides a clear, balanced view of a competitive electoral race."
+    },
+    {
+      "model": "grok-3-mini",
+      "reviewed_at": "2026-04-02T03:22:23.452242+00:00",
+      "verdict": "approved",
+      "flags": [
+        {
+          "field": "polling[0]",
+          "concern": "The polling data is from July 2024, which is outdated for a 2026 election and may not reflect current voter sentiment, potentially misleading users about the race's dynamics.",
+          "suggestion": "Add a prominent disclaimer in the polling_note emphasizing the age of the data and suggest seeking more recent polls, or update with any available 2026 polling if it exists.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].education",
+          "concern": "Several education entries for Wesley Bell lack specific years (e.g., for Lindenwood University and University of Missouri-Columbia), which could make the timeline less verifiable and slightly incomplete.",
+          "suggestion": "Where possible, cross-reference with official biographies or reliable sources to add approximate years, enhancing completeness without altering accuracy.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].education[1]",
+          "concern": "The entry for Harris-Stowe State University lists only 'Attended' with no degree, year, or field, which is less detailed compared to other entries and may indicate a gap in completeness.",
+          "suggestion": "Clarify with additional details from credible sources like her official biography if available, to provide a fuller picture of her educational background.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Tech & AI",
+          "concern": "The stance has medium confidence with only two sources, one of which is a video, potentially limiting the depth and verifiability of Cori Bush's position on this issue.",
+          "suggestion": "Supplement with additional credible sources, such as official statements or analyses, to raise confidence and ensure parity with more robustly sourced issues.",
+          "severity": "info"
+        }
+      ],
+      "summary": "This profile is a well-constructed and balanced overview of the 2026 Missouri 1st Congressional District race, with strong factual accuracy across candidate backgrounds, issue stances, and polling notes. It excels in using high-quality sources like official government records (e.g., FEC, GovTrack), campaign websites, and reputable news outlets (e.g., NPR, St. Louis Post-Dispatch) to document positions comprehensively. The neutral language avoids partisanship, and completeness is evident in the thorough coverage of 12 issues for both candidates, with appropriate confidence levels and timestamps for sources up to 2026."
+    }
+  ],
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 2137938,
+    "completion_tokens": 151178,
+    "total_tokens": 2289116,
+    "estimated_usd": 0.3546,
+    "model_breakdown": {
+      "gpt-5.4-mini": {
+        "prompt_tokens": 814082,
+        "completion_tokens": 8736
+      },
+      "gpt-5-nano": {
+        "prompt_tokens": 1232554,
+        "completion_tokens": 137117
+      },
+      "gemini-3.1-flash-lite-preview": {
+        "prompt_tokens": 33364,
+        "completion_tokens": 806
+      },
+      "grok-3-mini": {
+        "prompt_tokens": 26760,
+        "completion_tokens": 1063
+      },
+      "claude-haiku-4-5-20251001": {
+        "prompt_tokens": 31178,
+        "completion_tokens": 3456
+      }
+    },
+    "duration_s": 1486.9
+  }
+}

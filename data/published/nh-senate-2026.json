@@ -4,8 +4,84 @@
   "office": "United States Senate",
   "jurisdiction": "New Hampshire",
   "election_date": "2026-11-03",
-  "description": "This race is for New Hampshire\u2019s Class II U.S. Senate seat, which is open because incumbent Democrat Jeanne Shaheen announced she will not seek reelection in 2026. New Hampshire has been closely contested in recent federal elections, so the seat is expected to be highly competitive and important to control of the Senate. The main matchup is between Democrat Chris Pappas, a sitting U.S. representative, and Republican John E. Sununu, a former U.S. senator returning to the ballot after many years away from elected office. Sources: https://www.shaheen.senate.gov/news/press/after-30-years-making-a-difference-jeanne-shaheen-announces-she-will-not-seek-reelection-in-2026, https://scholars.unh.edu/survey_center_polls/922/, https://newhampshirebulletin.com/2025/10/23/nearly-two-decades-later-john-e-sununu-wants-new-hampshire-to-send-him-back-to-the-u-s-senate/",
+  "description": "New Hampshire’s 2026 U.S. Senate race is an open-seat contest to replace retiring Democratic Sen. Jeanne Shaheen. The race matters because control of the Senate is at stake, and early polling suggests a competitive general election with Chris Pappas running ahead of Scott Brown in a hypothetical matchup while Brown remains in a contested Republican primary against John E. Sununu. Sources: https://www.semafor.com/article/03/27/2026/scott-brown-isnt-leaving-new-hampshires-weird-senate-race ; https://emersoncollegepolling.com/new-hampshire-2026-sununu-leads-gop-nomination-ties-pappas-for-senate/ ; https://www.wmur.com/article/poll-sununu-brown-republican-senate-032326/70825858",
   "polling": [
+    {
+      "pollster": "Saint Anselm College Survey Center",
+      "date": "2026-03-18",
+      "matchups": [
+        {
+          "candidates": [
+            "Chris Pappas",
+            "John E. Sununu"
+          ],
+          "percentages": [
+            46,
+            43
+          ]
+        },
+        {
+          "candidates": [
+            "Chris Pappas",
+            "Scott Brown"
+          ],
+          "percentages": [
+            47,
+            38
+          ]
+        },
+        {
+          "candidates": [
+            "John E. Sununu",
+            "Scott Brown"
+          ],
+          "percentages": [
+            49,
+            28
+          ]
+        }
+      ],
+      "source_url": "https://www.wmur.com/article/poll-sununu-brown-republican-senate-032326/70825858",
+      "sample_size": 1491
+    },
+    {
+      "pollster": "Emerson College Polling",
+      "date": "2026-03-26",
+      "matchups": [
+        {
+          "candidates": [
+            "Chris Pappas",
+            "John E. Sununu"
+          ],
+          "percentages": [
+            45,
+            44
+          ]
+        },
+        {
+          "candidates": [
+            "Chris Pappas",
+            "Scott Brown"
+          ],
+          "percentages": [
+            48,
+            39
+          ]
+        },
+        {
+          "candidates": [
+            "John E. Sununu",
+            "Scott Brown"
+          ],
+          "percentages": [
+            48,
+            19
+          ]
+        }
+      ],
+      "source_url": "https://emersoncollegepolling.com/new-hampshire-2026-sununu-leads-gop-nomination-ties-pappas-for-senate/",
+      "sample_size": 1000
+    },
     {
       "pollster": "University of New Hampshire Survey Center",
       "date": "2026-01-21",
@@ -30,25 +106,17 @@
       "name": "Chris Pappas",
       "party": "Democratic",
       "incumbent": false,
-      "summary": "Chris Pappas is a Democratic U.S. representative from New Hampshire\u2019s 1st Congressional District and the party\u2019s leading candidate for the state\u2019s open Senate seat in 2026. His campaign emphasizes his Manchester roots, small-business background, and focus on affordability, health care, and protecting New Hampshire\u2019s interests in Washington.",
+      "summary": "Chris Pappas is the Democratic U.S. representative from New Hampshire’s 1st Congressional District and the party’s leading candidate in the 2026 Senate race. His campaign has recently emphasized lowering costs, including proposals on gas taxes, grocery prices, and health care, as he prepares for a competitive general election. Sources: https://chrispappas.org/news/ ; https://emersoncollegepolling.com/new-hampshire-2026-sununu-leads-gop-nomination-ties-pappas-for-senate/",
       "summary_sources": [
         {
-          "url": "https://chrispappas.org/",
-          "type": "website",
-          "title": "Chris Pappas for Senate | Official Campaign Website",
-          "last_accessed": "2026-03-29T00:00:00Z"
+          "url": "https://chrispappas.org/news/",
+          "type": "campaign news",
+          "title": "Chris Pappas for Senate Newsroom"
         },
         {
-          "url": "https://www.congress.gov/member/chris-pappas/P000614",
-          "type": "government",
-          "title": "Chris Pappas | Congress.gov",
-          "last_accessed": "2026-03-29T00:00:00Z"
-        },
-        {
-          "url": "https://pappas.house.gov/about",
-          "type": "government",
-          "title": "About | Congressman Chris Pappas - House.gov",
-          "last_accessed": "2026-03-29T00:00:00Z"
+          "url": "https://emersoncollegepolling.com/new-hampshire-2026-sununu-leads-gop-nomination-ties-pappas-for-senate/",
+          "type": "poll",
+          "title": "Emerson College Polling"
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Chris_Pappas%2C_official_portrait%2C_116th_Congress.jpg/500px-Chris_Pappas%2C_official_portrait%2C_116th_Congress.jpg",
@@ -111,7 +179,7 @@
           "source": {
             "url": "https://www.opensecrets.org/members-of-congress/chris-pappas/summary?cid=N00042161&cycle=CAREER&type=P",
             "type": "website",
-            "title": "Rep. Chris Pappas - Campaign Finance Summary \u2022 OpenSecrets",
+            "title": "Rep. Chris Pappas - Campaign Finance Summary • OpenSecrets",
             "last_accessed": "2026-03-29T18:34:19.464490+00:00"
           }
         },
@@ -122,7 +190,7 @@
           "source": {
             "url": "https://www.opensecrets.org/members-of-congress/chris-pappas/summary?cid=N00042161&cycle=CAREER&type=P",
             "type": "website",
-            "title": "Rep. Chris Pappas - Campaign Finance Summary \u2022 OpenSecrets",
+            "title": "Rep. Chris Pappas - Campaign Finance Summary • OpenSecrets",
             "last_accessed": "2026-03-29T18:34:19.464490+00:00"
           }
         },
@@ -133,7 +201,7 @@
           "source": {
             "url": "https://www.opensecrets.org/members-of-congress/chris-pappas/summary?cid=N00042161&cycle=CAREER&type=P",
             "type": "website",
-            "title": "Rep. Chris Pappas - Campaign Finance Summary \u2022 OpenSecrets",
+            "title": "Rep. Chris Pappas - Campaign Finance Summary • OpenSecrets",
             "last_accessed": "2026-03-29T18:34:19.464490+00:00"
           }
         },
@@ -144,7 +212,7 @@
           "source": {
             "url": "https://www.opensecrets.org/members-of-congress/chris-pappas/summary?cid=N00042161&cycle=CAREER&type=P",
             "type": "website",
-            "title": "Rep. Chris Pappas - Campaign Finance Summary \u2022 OpenSecrets",
+            "title": "Rep. Chris Pappas - Campaign Finance Summary • OpenSecrets",
             "last_accessed": "2026-03-29T18:34:19.464490+00:00"
           }
         },
@@ -155,7 +223,7 @@
           "source": {
             "url": "https://www.opensecrets.org/members-of-congress/chris-pappas/summary?cid=N00042161&cycle=CAREER&type=P",
             "type": "website",
-            "title": "Rep. Chris Pappas - Campaign Finance Summary \u2022 OpenSecrets",
+            "title": "Rep. Chris Pappas - Campaign Finance Summary • OpenSecrets",
             "last_accessed": "2026-03-29T18:34:19.464490+00:00"
           }
         }
@@ -168,7 +236,7 @@
             {
               "url": "https://chrispappas.org/2026/02/chris-pappas-for-senates-tax-cuts-and-lower-costs-blueprint-spotlights-efforts-to-make-health-care-affordable/",
               "type": "website",
-              "title": "Chris Pappas for Senate\u2019s Tax Cuts and Lower Costs Blueprint Spotlights Efforts to Make Health Care Affordable",
+              "title": "Chris Pappas for Senate’s Tax Cuts and Lower Costs Blueprint Spotlights Efforts to Make Health Care Affordable",
               "last_accessed": "2026-03-29T18:34:19.464490+00:00"
             },
             {
@@ -192,7 +260,7 @@
             {
               "url": "https://chrispappas.org/2026/03/icymi-manchester-ink-link-pappas-talks-about-food-prices-at-downtown-discussion/",
               "type": "website",
-              "title": "ICYMI: Manchester Ink Link \u2014 Pappas Talks About Food Prices at Downtown Discussion",
+              "title": "ICYMI: Manchester Ink Link — Pappas Talks About Food Prices at Downtown Discussion",
               "last_accessed": "2026-03-29T18:34:19.464490+00:00"
             },
             {
@@ -216,7 +284,7 @@
           ]
         },
         "Reproductive Rights": {
-          "stance": "Pappas\u2019s campaign describes him as a supporter of abortion access and reproductive freedom. It says he has backed Planned Parenthood funding and related legislation to protect abortion and birth control access.",
+          "stance": "Pappas’s campaign describes him as a supporter of abortion access and reproductive freedom. It says he has backed Planned Parenthood funding and related legislation to protect abortion and birth control access.",
           "confidence": "high",
           "sources": [
             {
@@ -258,7 +326,7 @@
           ]
         },
         "Guns & Safety": {
-          "stance": "Pappas supports universal background checks, closing loopholes such as the Charleston loophole and bump-stock loophole, and safe-storage measures like Ethan\u2019s Law.",
+          "stance": "Pappas supports universal background checks, closing loopholes such as the Charleston loophole and bump-stock loophole, and safe-storage measures like Ethan’s Law.",
           "confidence": "high",
           "sources": [
             {
@@ -336,7 +404,7 @@
             {
               "url": "https://chrispappas.org/2026/03/icymi-manchester-ink-link-pappas-talks-about-food-prices-at-downtown-discussion/",
               "type": "website",
-              "title": "ICYMI: Manchester Ink Link \u2014 Pappas Talks About Food Prices at Downtown Discussion",
+              "title": "ICYMI: Manchester Ink Link — Pappas Talks About Food Prices at Downtown Discussion",
               "last_accessed": "2026-03-29T18:34:19.464490+00:00"
             }
           ]
@@ -354,7 +422,7 @@
             {
               "url": "https://docs.house.gov/meetings/IF/IF00/20230323/115519/HHRG-118-IF00-20230323-SD030.pdf",
               "type": "government",
-              "title": "[PDF] Committee on Energy and Commerce Hearing entitled \u201cTikTok\u201d",
+              "title": "[PDF] Committee on Energy and Commerce Hearing entitled “TikTok”",
               "last_accessed": "2026-03-29T18:34:19.464490+00:00"
             },
             {
@@ -366,7 +434,7 @@
           ]
         },
         "Election Reform": {
-          "stance": "Pappas\u2019s public campaign materials reviewed here do not lay out a specific election-reform agenda. Available sources emphasize broader governance and constituent-service priorities rather than a detailed election-reform proposal.",
+          "stance": "Pappas’s public campaign materials reviewed here do not lay out a specific election-reform agenda. Available sources emphasize broader governance and constituent-service priorities rather than a detailed election-reform proposal.",
           "confidence": "low",
           "sources": [
             {
@@ -384,7 +452,7 @@
           ]
         },
         "Local Issues": {
-          "stance": "Pappas presents himself as focused on New Hampshire-specific concerns, especially infrastructure, affordability, health care, and the opioid crisis. His House issues page says he is fighting for federal investment in New Hampshire\u2019s roads, bridges, and waterways and highlights Medicaid expansion and local public-health needs.",
+          "stance": "Pappas presents himself as focused on New Hampshire-specific concerns, especially infrastructure, affordability, health care, and the opioid crisis. His House issues page says he is fighting for federal investment in New Hampshire’s roads, bridges, and waterways and highlights Medicaid expansion and local public-health needs.",
           "confidence": "high",
           "sources": [
             {
@@ -401,378 +469,44 @@
             }
           ]
         }
-      }
+      },
+      "donor_summary": null,
+      "links": []
     },
     {
-      "name": "John E. Sununu",
+      "name": "Scott Brown",
       "party": "Republican",
       "incumbent": false,
-      "summary": "John E. Sununu is a Republican former U.S. senator and former U.S. representative from New Hampshire who is seeking a return to the Senate in 2026. His campaign presents him as an experienced, fiscally conservative candidate with prior statewide and federal service.",
+      "summary": "Scott Brown is a former U.S. senator from Massachusetts and former U.S. ambassador to New Zealand and Samoa who is running in New Hampshire’s 2026 Senate race. In March 2026, he said he would stay in the Republican primary despite pressure from national Republicans to clear the field for John E. Sununu. Sources: https://www.semafor.com/article/03/27/2026/scott-brown-isnt-leaving-new-hampshires-weird-senate-race ; https://www.politico.com/news/2025/06/25/scott-brown-new-hampshire-senate-2026-midterms-00422703",
       "summary_sources": [
         {
-          "url": "https://www.sununusenator.com/",
-          "type": "website",
-          "title": "John Sununu for U.S. Senate",
-          "last_accessed": "2026-03-29T00:00:00Z"
+          "url": "https://www.semafor.com/article/03/27/2026/scott-brown-isnt-leaving-new-hampshires-weird-senate-race",
+          "type": "news article",
+          "title": "Semafor: Scott Brown isn’t leaving New Hampshire’s ‘weird’ Senate race"
         },
         {
-          "url": "https://ballotpedia.org/John_E._Sununu",
-          "type": "website",
-          "title": "John E. Sununu - Ballotpedia",
-          "last_accessed": "2026-03-29T00:00:00Z"
-        },
-        {
-          "url": "https://history.house.gov/People/Listing/S/SUNUNU,-John-E--(S001078)/",
-          "type": "government",
-          "title": "SUNUNU, John E. | US House of Representatives",
-          "last_accessed": "2026-03-29T00:00:00Z"
+          "url": "https://www.politico.com/news/2025/06/25/scott-brown-new-hampshire-senate-2026-midterms-00422703",
+          "type": "news article",
+          "title": "Politico: Scott Brown launches campaign for Senate in New Hampshire"
         }
       ],
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8f/John_E._Sununu.jpg",
-      "website": "https://www.sununusenator.com/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/SununuSenator/"
-      },
-      "career_history": [
-        {
-          "title": "U.S. Senator",
-          "organization": "United States Senate",
-          "start_year": 2003,
-          "end_year": 2009,
-          "description": "Represented New Hampshire in the Senate."
-        },
-        {
-          "title": "U.S. Representative",
-          "organization": "U.S. House of Representatives, New Hampshire's 1st Congressional District",
-          "start_year": 1997,
-          "end_year": 2003,
-          "description": "Served three terms in the House."
-        },
-        {
-          "title": "Management consultant",
-          "organization": "Private sector",
-          "start_year": 2009,
-          "end_year": null,
-          "description": "Worked in the private sector after leaving Congress."
-        }
-      ],
-      "education": [
-        {
-          "institution": "Massachusetts Institute of Technology",
-          "degree": "Bachelor of Science",
-          "field": "Mechanical Engineering",
-          "year": 1986
-        },
-        {
-          "institution": "Harvard University",
-          "degree": "Master of Business Administration",
-          "field": "Business Administration",
-          "year": 1991
-        }
-      ],
-      "voting_record": [
-        {
-          "bill_name": "S. 2271 USA PATRIOT Act Additional Reauthorizing Amendments Act of 2006",
-          "bill_description": "Extended and modified certain surveillance and national security authorities.",
-          "vote": "yes",
-          "date": "2006-03-02",
-          "source": {
-            "url": "https://www.congress.gov/bill/109th-congress/senate-bill/2271",
-            "type": "government",
-            "title": "S.2271 - USA PATRIOT Act Additional Reauthorizing Amendments Act of 2006",
-            "last_accessed": "2026-03-29T18:34:19.464490+00:00"
-          }
-        },
-        {
-          "bill_name": "S. 3 Partial-Birth Abortion Ban Act of 2003",
-          "bill_description": "Banned a specific abortion procedure in federal law.",
-          "vote": "yes",
-          "date": "2003-03-13",
-          "source": {
-            "url": "https://www.congress.gov/bill/108th-congress/senate-bill/3/all-info",
-            "type": "government",
-            "title": "S.3 - Partial-Birth Abortion Ban Act of 2003",
-            "last_accessed": "2026-03-29T18:34:19.464490+00:00"
-          }
-        },
-        {
-          "bill_name": "S. 4001 New England Wilderness Act of 2006",
-          "bill_description": "Designated and protected wilderness areas in New England.",
-          "vote": "yes",
-          "date": "2006-12-01",
-          "source": {
-            "url": "https://www.congress.gov/bill/109th-congress/senate-bill/4001/text",
-            "type": "government",
-            "title": "S.4001 - New England Wilderness Act of 2006",
-            "last_accessed": "2026-03-29T18:34:19.464490+00:00"
-          }
-        }
-      ],
-      "top_donors": [
-        {
-          "name": "Club for Growth",
-          "amount": 319041,
-          "organization": "PAC",
-          "source": {
-            "url": "https://www.opensecrets.org/members-of-congress/john-e-sununu/contributors?cid=N00000397&cycle=CAREER",
-            "type": "website",
-            "title": "Top contributors - Sen. John E Sununu - OpenSecrets",
-            "last_accessed": "2026-03-29T18:34:19.464490+00:00"
-          }
-        },
-        {
-          "name": "Citigroup Inc",
-          "amount": 101150,
-          "organization": "Corporation",
-          "source": {
-            "url": "https://www.opensecrets.org/members-of-congress/john-e-sununu/contributors?cid=N00000397&cycle=CAREER",
-            "type": "website",
-            "title": "Top contributors - Sen. John E Sununu - OpenSecrets",
-            "last_accessed": "2026-03-29T18:34:19.464490+00:00"
-          }
-        },
-        {
-          "name": "Fidelity Investments",
-          "amount": 84750,
-          "organization": "Corporation",
-          "source": {
-            "url": "https://www.opensecrets.org/members-of-congress/john-e-sununu/contributors?cid=N00000397&cycle=CAREER",
-            "type": "website",
-            "title": "Top contributors - Sen. John E Sununu - OpenSecrets",
-            "last_accessed": "2026-03-29T18:34:19.464490+00:00"
-          }
-        },
-        {
-          "name": "AXA",
-          "amount": 84450,
-          "organization": "Corporation",
-          "source": {
-            "url": "https://www.opensecrets.org/members-of-congress/john-e-sununu/contributors?cid=N00000397&cycle=CAREER",
-            "type": "website",
-            "title": "Top contributors - Sen. John E Sununu - OpenSecrets",
-            "last_accessed": "2026-03-29T18:34:19.464490+00:00"
-          }
-        },
-        {
-          "name": "Bank of New York Mellon",
-          "amount": 82150,
-          "organization": "Corporation",
-          "source": {
-            "url": "https://www.opensecrets.org/members-of-congress/john-e-sununu/contributors?cid=N00000397&cycle=CAREER",
-            "type": "website",
-            "title": "Top contributors - Sen. John E Sununu - OpenSecrets",
-            "last_accessed": "2026-03-29T18:34:19.464490+00:00"
-          }
-        }
-      ],
-      "issues": {
-        "Healthcare": {
-          "stance": "Sununu\u2019s 2026 campaign website says he will focus on affordability and says he has defended the rights and privacy of ordinary Americans, but it does not lay out a detailed health care platform in the sources reviewed.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.sununusenator.com/",
-              "type": "website",
-              "title": "John Sununu for U.S. Senate",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "Sununu says his campaign will be focused on the economy, jobs, and affordability. He says he wants to lower inflation and the cost of housing, health care, and energy, and frames his approach as fiscally conservative and opposed to tax increases.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.sununusenator.com/about",
-              "type": "website",
-              "title": "About | John Sununu for U.S. Senate",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
-            },
-            {
-              "url": "https://www.sununusenator.com/post/john-e-sununu-announces-run-for-u-s-senate-bringing-the-new-hampshire-way-back-to-washington",
-              "type": "website",
-              "title": "John E. Sununu Announces Run for U.S. Senate: Bringing the New Hampshire Way Back to Washington",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "Sununu\u2019s campaign materials reviewed here do not provide a detailed climate or energy platform. The available sources emphasize affordability, low taxes, and working with the Trump administration rather than specific climate policy proposals.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.foxnews.com/politics/former-gop-senator-running-flip-key-swing-state-seat-says-he-wants-work-president-trump",
-              "type": "news",
-              "title": "John Sununu launches 2026 GOP Senate campaign in New Hampshire race | Fox News",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
-            },
-            {
-              "url": "https://www.apnews.com/article/sununu-senate-new-hampshire-e806398a52e3878c5df164507c8e0cda",
-              "type": "news",
-              "title": "Republican John Sununu running for US Senate in New Hampshire",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
-            }
-          ]
-        },
-        "Reproductive Rights": {
-          "stance": "Sununu\u2019s current campaign materials reviewed do not present a detailed reproductive-rights platform. His past congressional record and contemporary reporting indicate opposition to abortion-rights expansion and abortion-related funding measures.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.sununusenator.com/",
-              "type": "website",
-              "title": "John Sununu for U.S. Senate",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
-            },
-            {
-              "url": "https://chrispappas.org/2026/01/roundup-reproductive-rights-leaders-rally-behind-chris-pappas-on-anniversary-of-roe-v-wade/",
-              "type": "website",
-              "title": "ROUNDUP: Reproductive Rights Leaders Rally Behind Chris Pappas on Anniversary of Roe v. Wade",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
-            },
-            {
-              "url": "https://apnews.com/article/sununu-senate-new-hampshire-e806398a52e3878c5df164507c8e0cda",
-              "type": "news",
-              "title": "Republican John Sununu running for US Senate in New Hampshire",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "Sununu\u2019s current campaign materials reviewed here do not lay out a detailed immigration platform. The launch coverage focused on taxes, affordability, and working with Trump rather than immigration.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.foxnews.com/politics/former-gop-senator-running-flip-key-swing-state-seat-says-he-wants-work-president-trump",
-              "type": "news",
-              "title": "John Sununu launches 2026 GOP Senate campaign in New Hampshire race | Fox News",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
-            }
-          ]
-        },
-        "Guns & Safety": {
-          "stance": "Sununu\u2019s public record shows he vetoed three gun bills in 2019, including universal background checks, a waiting period, and a school-property firearms restriction, saying they would not prevent harm and that New Hampshire\u2019s laws fit its culture of responsible gun ownership and individual freedom.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.nhpr.org/post/sununu-vetoes-gun-bills-says-they-wouldnt-stop-evil-individuals-doing-harm",
-              "type": "news",
-              "title": "Sununu Vetoes Gun Bills, Says They Wouldn't Stop 'Evil Individuals From Doing Harm'",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
-            },
-            {
-              "url": "https://www.sununusenator.com/about",
-              "type": "website",
-              "title": "About | John Sununu for U.S. Senate",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "Sununu says he wants to work with President Trump and the administration to get things done, but the available sources do not provide a detailed foreign-policy agenda. His launch message emphasized pragmatism and helping New Hampshire rather than specific positions on global issues.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.foxnews.com/politics/former-gop-senator-running-flip-key-swing-state-seat-says-he-wants-work-president-trump",
-              "type": "news",
-              "title": "John Sununu launches 2026 GOP Senate campaign in New Hampshire race | Fox News",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
-            }
-          ]
-        },
-        "Social Justice": {
-          "stance": "Sununu\u2019s campaign biography emphasizes bipartisan mental health reforms, protections for Americans with disabilities, and defending privacy and rights against government overreach, but it does not lay out a detailed social-justice agenda.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.sununusenator.com/about",
-              "type": "website",
-              "title": "About | John Sununu for U.S. Senate",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
-            },
-            {
-              "url": "https://www.nhpr.org/post/sununu-vetoes-gun-bills-says-they-wouldnt-stop-evil-individuals-doing-harm",
-              "type": "news",
-              "title": "Sununu Vetoes Gun Bills, Says They Wouldn't Stop 'Evil Individuals From Doing Harm'",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Sununu\u2019s campaign bio says he has served on charitable, educational, and nonprofit boards, but it does not present a detailed education policy agenda. The clearest education-related detail in the reviewed material is his family background, including a mother who served as chair of the Salem School Board.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.sununusenator.com/about",
-              "type": "website",
-              "title": "About | John Sununu for U.S. Senate",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "Sununu says he built a career in high tech, engineering, consulting, and manufacturing, and his campaign frames that background as part of the experience he would bring to Washington. The sources reviewed do not show a detailed AI policy agenda.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.sununusenator.com/about",
-              "type": "website",
-              "title": "About | John Sununu for U.S. Senate",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
-            },
-            {
-              "url": "https://www.foxnews.com/politics/former-gop-senator-running-flip-key-swing-state-seat-says-he-wants-work-president-trump",
-              "type": "news",
-              "title": "John Sununu launches 2026 GOP Senate campaign in New Hampshire race | Fox News",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
-            }
-          ]
-        },
-        "Election Reform": {
-          "stance": "Sununu\u2019s current campaign materials reviewed here do not lay out a detailed election-reform platform. The available sources emphasize a broad message of lowering the temperature and restoring functional government rather than a specific election-reform proposal.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.sununusenator.com/",
-              "type": "website",
-              "title": "John Sununu for U.S. Senate",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
-            },
-            {
-              "url": "https://newhampshirebulletin.com/2025/10/23/nearly-two-decades-later-john-e-sununu-wants-new-hampshire-to-send-him-back-to-the-u-s-senate/",
-              "type": "news",
-              "title": "Nearly two decades later, John E. Sununu wants New Hampshire to send him back to the U.S. Senate",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Sununu\u2019s campaign frames him as a New Hampshire-first candidate who will bring a practical, results-oriented approach to Washington. The campaign site says he will put New Hampshire first and focus on affordability and functional government.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.sununusenator.com/",
-              "type": "website",
-              "title": "John Sununu for U.S. Senate",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
-            },
-            {
-              "url": "https://newhampshirebulletin.com/2025/10/23/nearly-two-decades-later-john-e-sununu-wants-new-hampshire-to-send-him-back-to-the-u-s-senate/",
-              "type": "news",
-              "title": "Nearly two decades later, John E. Sununu wants New Hampshire to send him back to the U.S. Senate",
-              "last_accessed": "2026-03-29T18:34:19.464490+00:00"
-            }
-          ]
-        }
-      }
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
     }
   ],
-  "updated_utc": "2026-03-29T18:34:19.464490+00:00",
+  "updated_utc": "2026-04-01T05:58:55.772929+00:00",
   "generator": [
     "gpt-5.4-mini",
-    "claude-haiku-4-5-20251001",
-    "gemini-3.1-flash-lite-preview",
-    "grok-3-mini"
+    "gpt-5-nano"
   ],
   "reviews": [
     {
@@ -782,13 +516,13 @@
       "flags": [
         {
           "field": "candidates[1].career_history",
-          "concern": "John E. Sununu served as Governor of New Hampshire (2009\u20132017), a significant statewide executive position that is completely absent from his career history. This is a material omission given his campaign narrative about 'returning' to public service.",
-          "suggestion": "Add a governor entry covering 2009\u20132017 with description of executive duties and key initiatives.",
+          "concern": "John E. Sununu served as Governor of New Hampshire (2009–2017), a significant statewide executive position that is completely absent from his career history. This is a material omission given his campaign narrative about 'returning' to public service.",
+          "suggestion": "Add a governor entry covering 2009–2017 with description of executive duties and key initiatives.",
           "severity": "error"
         },
         {
           "field": "candidates[1].issues",
-          "concern": "Sununu's issue positions are dramatically under-detailed compared to Pappas. Of 12 issue areas, Sununu has 9 marked 'low' or 'medium' confidence with single-source or campaign-only sourcing, vs. Pappas's consistent 'high' confidence with 2\u20133 sources per issue. This creates a substantial fairness problem and suggests incomplete research.",
+          "concern": "Sununu's issue positions are dramatically under-detailed compared to Pappas. Of 12 issue areas, Sununu has 9 marked 'low' or 'medium' confidence with single-source or campaign-only sourcing, vs. Pappas's consistent 'high' confidence with 2–3 sources per issue. This creates a substantial fairness problem and suggests incomplete research.",
           "suggestion": "Substantially expand sourcing for Sununu across Healthcare, Climate/Energy, Reproductive Rights, Immigration, Foreign Policy, Social Justice, Education, and Tech & AI. Consult news archives, legislative records, and campaign materials to establish comparable depth.",
           "severity": "error"
         },
@@ -824,13 +558,13 @@
         },
         {
           "field": "candidates[1].issues.Social_Justice.stance",
-          "concern": "Marked 'low' confidence. Stance mentions mental health and disability rights but provides no detail on police reform, racial justice, LGBTQ+ rights, or voting rights\u2014key social-justice topics.",
+          "concern": "Marked 'low' confidence. Stance mentions mental health and disability rights but provides no detail on police reform, racial justice, LGBTQ+ rights, or voting rights—key social-justice topics.",
           "suggestion": "Research Sununu's record on criminal justice, civil rights, and LGBTQ+ issues. Include any relevant vetoes or legislative positions.",
           "severity": "warning"
         },
         {
           "field": "candidates[1].issues.Education.stance",
-          "concern": "Marked 'medium' confidence with minimal sourcing. States family connection to education but no policy detail on K\u201312 funding, higher education, student debt, or education priorities.",
+          "concern": "Marked 'medium' confidence with minimal sourcing. States family connection to education but no policy detail on K–12 funding, higher education, student debt, or education priorities.",
           "suggestion": "Add Sununu's statements on education policy, any House/Senate votes on education bills, and campaign priorities for schools and colleges.",
           "severity": "warning"
         },
@@ -842,7 +576,7 @@
         },
         {
           "field": "candidates[1].top_donors",
-          "concern": "Top donors appear to be historical (career-total) from opensecrets.org rather than 2026 campaign-cycle donors. For a candidate just launching in 2025\u20132026, these figures may not reflect current fundraising patterns.",
+          "concern": "Top donors appear to be historical (career-total) from opensecrets.org rather than 2026 campaign-cycle donors. For a candidate just launching in 2025–2026, these figures may not reflect current fundraising patterns.",
           "suggestion": "Clarify the time period (career vs. 2026 cycle) in the source or update to reflect the most recent FEC filings for the 2026 election cycle.",
           "severity": "info"
         },
@@ -854,19 +588,19 @@
         },
         {
           "field": "polling",
-          "concern": "Only one poll is provided (UNH Jan 2026), dated quite recently. For a competitive race, more polls\u2014especially from different pollsters\u2014would strengthen the polling section. Also, Jan 2026 poll is within 3 months of the profile access date, limiting temporal breadth.",
+          "concern": "Only one poll is provided (UNH Jan 2026), dated quite recently. For a competitive race, more polls—especially from different pollsters—would strengthen the polling section. Also, Jan 2026 poll is within 3 months of the profile access date, limiting temporal breadth.",
           "suggestion": "If available, add additional polls from other organizations (WMUR, Emerson, etc.) to provide a fuller picture of the race trajectory.",
           "severity": "info"
         },
         {
           "field": "candidates[0].image_url and candidates[1].image_url",
-          "concern": "Pappas image is from 116th Congress (2019\u20132021). Sununu image is undated. For a 2026 race, more recent photos would be preferable.",
+          "concern": "Pappas image is from 116th Congress (2019–2021). Sununu image is undated. For a 2026 race, more recent photos would be preferable.",
           "suggestion": "Update to 117th or 118th Congress images if available, or verify that images are appropriately recent and representative.",
           "severity": "info"
         },
         {
           "field": "candidates[1].voting_record",
-          "concern": "Only three historical votes (2003\u20132006) are included, all from Sununu's Senate tenure more than 15 years ago. No recent House record is documented (he served 1997\u20132003).",
+          "concern": "Only three historical votes (2003–2006) are included, all from Sununu's Senate tenure more than 15 years ago. No recent House record is documented (he served 1997–2003).",
           "suggestion": "If seeking to document his legislative record, consider including a mix of representative votes across his House and Senate service, or note in the profile that he has been out of elected office since 2009.",
           "severity": "warning"
         },
@@ -883,7 +617,7 @@
           "severity": "info"
         }
       ],
-      "summary": "This is a well-structured and generally well-sourced profile with strong coverage of Chris Pappas's detailed policy positions across 11 issue areas. However, there are significant asymmetries in the depth and confidence levels for John Sununu's positions\u2014most are marked 'low' or 'medium' confidence with minimal sourcing\u2014that undermine fairness and completeness. Additionally, there is a critical factual error regarding Sununu's gubernatorial role, and several source issues require attention before publication."
+      "summary": "This is a well-structured and generally well-sourced profile with strong coverage of Chris Pappas's detailed policy positions across 11 issue areas. However, there are significant asymmetries in the depth and confidence levels for John Sununu's positions—most are marked 'low' or 'medium' confidence with minimal sourcing—that undermine fairness and completeness. Additionally, there is a critical factual error regarding Sununu's gubernatorial role, and several source issues require attention before publication."
     },
     {
       "model": "gemini-3.1-flash-lite-preview",
@@ -893,7 +627,7 @@
         {
           "field": "candidates[1].career_history",
           "concern": "The career history mixes the record of former Senator John E. Sununu with the record of his brother, former Governor Chris Sununu.",
-          "suggestion": "Verify that the candidate is indeed John E. Sununu (the former Senator) and ensure that only his actions\u2014not those of the former Governor\u2014are listed.",
+          "suggestion": "Verify that the candidate is indeed John E. Sununu (the former Senator) and ensure that only his actions—not those of the former Governor—are listed.",
           "severity": "error"
         },
         {
@@ -961,5 +695,24 @@
       ],
       "summary": "The profile is generally accurate and unbiased, with strong sourcing for Chris Pappas's background and issues, drawing from official campaign sites, government records, and credible news outlets. However, it falls short in completeness for John E. Sununu, where several issues have low-confidence stances and rely on limited or indirect sources, potentially leaving gaps in a balanced representation."
     }
-  ]
+  ],
+  "polling_note": "Recent polling shows a competitive general election and a contested Republican primary. Emerson College Polling (Mar. 21-23, 2026) found Pappas 45%, John E. Sununu 44%, and Pappas 48%, Brown 39%; Saint Anselm College Survey Center (Mar. 16-18, 2026) found Pappas 46%, Sununu 43%, and Pappas 47%, Brown 38%. Sources: https://emersoncollegepolling.com/new-hampshire-2026-sununu-leads-gop-nomination-ties-pappas-for-senate/ ; https://www.wmur.com/article/poll-sununu-brown-republican-senate-032326/70825858",
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 148288,
+    "completion_tokens": 7086,
+    "total_tokens": 155374,
+    "estimated_usd": 0.024,
+    "model_breakdown": {
+      "gpt-5-nano": {
+        "prompt_tokens": 27733,
+        "completion_tokens": 5596
+      },
+      "gpt-5.4-mini": {
+        "prompt_tokens": 120555,
+        "completion_tokens": 1490
+      }
+    },
+    "duration_s": 69.0
+  }
 }

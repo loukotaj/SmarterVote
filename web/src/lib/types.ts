@@ -131,7 +131,8 @@ export interface Race {
   generator: string[];
   title?: string;
   office?: string;
-  jurisdiction?: string;
+  jurisdiction?: string;  // Full geographic scope (e.g. "Missouri's 1st Congressional District")
+  state?: string;         // US state name for map highlighting; null for national races
   district?: string;
   description?: string;
   polling?: PollEntry[];
@@ -167,6 +168,7 @@ export interface RaceSummary {
   title?: string;
   office?: string;
   jurisdiction?: string;
+  state?: string;
   election_date: string;
   updated_utc: string;
   candidates: CandidateSummary[];

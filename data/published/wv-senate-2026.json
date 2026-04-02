@@ -1,0 +1,359 @@
+{
+  "id": "wv-senate-2026",
+  "title": "2026 U.S. Senate race in West Virginia",
+  "office": "United States Senate",
+  "jurisdiction": "West Virginia",
+  "election_date": "2026-11-03",
+  "description": "West Virginia voters will elect one U.S. senator in 2026 for the state\u2019s Class II seat. The race is notable because it is an open-seat-style contest in the sense that the current senator, Shelley Moore Capito, is running for reelection while the seat is also part of the broader fight for Senate control; Ballotpedia rates the race as solid/safe Republican. West Virginia has trended strongly Republican in recent federal elections, and the main contrast in the race is likely to be between the GOP incumbent\u2019s record and the Democratic nominee chosen in the May primary.",
+  "polling": [],
+  "polling_note": "No public general-election polling found for this race as of 2026-04-01.",
+  "candidates": [
+    {
+      "name": "Shelley Moore Capito",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Shelley Moore Capito is the incumbent U.S. senator from West Virginia and is seeking reelection in 2026. Her campaign and Senate biography emphasize her long record in West Virginia politics, her work on infrastructure, broadband, and regulatory issues, and her alignment with conservative priorities.",
+      "summary_sources": [
+        {
+          "url": "https://www.capito.senate.gov/about/about-shelley",
+          "type": "government",
+          "title": "About Shelley | Senator Shelley Capito",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://shelleymoorecapito.com/",
+          "type": "website",
+          "title": "Shelley Moore Capito for U.S. Senate",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_West_Virginia,_2026",
+          "type": "news",
+          "title": "United States Senate election in West Virginia, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/0d/Shelley_Moore_Capito%2C_official_photo_portrait%2C_color.jpg",
+      "website": "https://shelleymoorecapito.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/senshelley",
+        "instagram": "https://www.instagram.com/sencapito/",
+        "x": "https://x.com/SenCapito",
+        "youtube": "https://www.youtube.com/@SenatorShelleyMooreCapito"
+      },
+      "career_history": [
+        {
+          "title": "United States Senator",
+          "organization": "U.S. Senate",
+          "start_year": 2015,
+          "end_year": null,
+          "description": "Represents West Virginia in the U.S. Senate; has served since 2015."
+        },
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2001,
+          "end_year": 2015,
+          "description": "Represented West Virginia\u2019s 2nd Congressional District for seven terms."
+        },
+        {
+          "title": "Member",
+          "organization": "West Virginia House of Delegates",
+          "start_year": 1996,
+          "end_year": 2000,
+          "description": "Served in the state House before election to Congress."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Duke University",
+          "degree": "B.S.",
+          "field": "Zoology",
+          "year": 1975
+        },
+        {
+          "institution": "University of Virginia",
+          "degree": "M.Ed.",
+          "field": "Education",
+          "year": 1976
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Thornton Cooper",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Thornton Cooper is a Democratic candidate in the 2026 West Virginia U.S. Senate primary. Ballotpedia lists him among the declared Democratic primary candidates, but a detailed public campaign biography was not readily available in the sources reviewed.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_West_Virginia,_2026",
+          "type": "news",
+          "title": "United States Senate election in West Virginia, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Rachel Fetty Anderson",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Rachel Fetty Anderson is a Democratic candidate in the 2026 West Virginia U.S. Senate primary. In the sources reviewed, she is listed as a declared candidate, but a detailed public biography, website, and official social accounts were not confirmed.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_West_Virginia,_2026",
+          "type": "news",
+          "title": "United States Senate election in West Virginia, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Jeffrey Kessler",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Jeffrey Kessler is a Democratic candidate in the 2026 West Virginia U.S. Senate primary. He is listed by Ballotpedia as a candidate in the race, but the sources reviewed did not provide a campaign website or a current campaign biography for this contest.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_West_Virginia,_2026",
+          "type": "news",
+          "title": "United States Senate election in West Virginia, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Rio Phillips",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Rio Phillips is a Democratic candidate in the 2026 West Virginia U.S. Senate primary. Ballotpedia lists him as a candidate and shows limited campaign finance activity, but the sources reviewed did not surface a detailed official biography or campaign website.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_West_Virginia,_2026",
+          "type": "news",
+          "title": "United States Senate election in West Virginia, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Zachary Shrewsbury",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Zachary Shrewsbury is a Democratic candidate in the 2026 West Virginia U.S. Senate primary and was also a 2024 Senate candidate in the state. Ballotpedia\u2019s race page shows him as an active candidate with notable fundraising relative to other Democrats in the field, but the sources reviewed did not provide a full current campaign biography for this cycle.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_West_Virginia,_2026",
+          "type": "news",
+          "title": "United States Senate election in West Virginia, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Alexander Gaaserud",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Alexander Gaaserud is a Republican candidate in the 2026 West Virginia U.S. Senate primary. He is listed by Ballotpedia as a declared candidate, but the sources reviewed did not identify a campaign website or a detailed public biography.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_West_Virginia,_2026",
+          "type": "news",
+          "title": "United States Senate election in West Virginia, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Bryan McKinney",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Bryan McKinney is a Republican candidate in the 2026 West Virginia U.S. Senate primary. Ballotpedia lists him among the declared candidates, but the reviewed sources did not provide a campaign website, social media, or biographical details.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_West_Virginia,_2026",
+          "type": "news",
+          "title": "United States Senate election in West Virginia, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Janet McNulty",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Janet McNulty is a Republican candidate in the 2026 West Virginia U.S. Senate primary. She appears on Ballotpedia\u2019s candidate list, but the sources reviewed did not confirm a current campaign website or detailed biography for this race.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_West_Virginia,_2026",
+          "type": "news",
+          "title": "United States Senate election in West Virginia, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "David Purkey",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "David Purkey is a Republican candidate in the 2026 West Virginia U.S. Senate primary. In the sources reviewed, he is listed as a candidate, but no official campaign website or biographical profile was confirmed.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_West_Virginia,_2026",
+          "type": "news",
+          "title": "United States Senate election in West Virginia, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Tom Willis",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Tom Willis is a Republican candidate in the 2026 West Virginia U.S. Senate primary. Ballotpedia lists him as a candidate, and the race page shows he has raised more money than most of the other non-incumbent challengers, but the reviewed sources did not provide a full biography or official campaign site.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_West_Virginia,_2026",
+          "type": "news",
+          "title": "United States Senate election in West Virginia, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "updated_utc": "2026-04-01T06:09:56.304806+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "gpt-5-nano"
+  ],
+  "reviews": [],
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 58507,
+    "completion_tokens": 3259,
+    "total_tokens": 61766,
+    "estimated_usd": 0.0107,
+    "model_breakdown": {
+      "gpt-5.4-mini": {
+        "prompt_tokens": 58507,
+        "completion_tokens": 3259
+      }
+    },
+    "duration_s": 26.5
+  }
+}

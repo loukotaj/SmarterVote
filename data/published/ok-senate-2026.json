@@ -1,0 +1,136 @@
+{
+  "id": "ok-senate-2026",
+  "title": "2026 U.S. Senate election in Oklahoma",
+  "office": "United States Senate",
+  "jurisdiction": "Oklahoma",
+  "election_date": "2026-11-03",
+  "description": "Oklahoma voters will elect one U.S. senator in 2026 for the Class II seat. The race matters because it will help determine control of the U.S. Senate, and current race ratings from major forecasters describe Oklahoma as strongly Republican. The contest is also notable because the seat is open following Markwayne Mullin\u2019s resignation in March 2026, and the primary fields include multiple candidates in both parties. Key contrasts so far include Republican candidates emphasizing conservative alignment and experience in office or business, while Democratic candidates are running on grassroots themes such as health care, education, and affordability.",
+  "polling": [],
+  "polling_note": "No public polling found for this race as of 2026-04-01.",
+  "candidates": [
+    {
+      "name": "N'Kiyla Thomas",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "N'Kiyla Thomas is a Democratic candidate for U.S. Senate in Oklahoma. Her campaign website presents her as a grassroots candidate focused on education, health care, workers, veterans, Native sovereignty, and LGBTQIA+ protections, and she says she is not a career politician. Public biographical coverage is limited, so her broader professional background is not well documented in the sources found.",
+      "summary_sources": [
+        {
+          "url": "https://www.jasmineforok.com/",
+          "type": "website",
+          "title": "Jasmine Thomas for Oklahoma | Join the Movement Now",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Oklahoma,_2026",
+          "type": "website",
+          "title": "United States Senate election in Oklahoma, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/N%27Kiyla_Thomas",
+          "type": "website",
+          "title": "N'Kiyla Thomas - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://www.jasmineforok.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/p/NKiyla-Jasmine-Thomas-US-Senate-2026-61573870225392/",
+        "instagram": "https://www.instagram.com/jasmineforok/",
+        "tiktok": "https://www.tiktok.com/@jasmineforok"
+      },
+      "career_history": [
+        {
+          "title": "U.S. Senate candidate",
+          "organization": "N'Kiyla Thomas campaign",
+          "start_year": 2026,
+          "end_year": null,
+          "description": "Running for the Oklahoma U.S. Senate seat in 2026."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Kevin Hern",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Kevin Hern is a Republican candidate for U.S. Senate in Oklahoma and a sitting member of the U.S. House from Oklahoma\u2019s 1st Congressional District. His public profile emphasizes business experience and conservative positions, and he entered the Senate race after Markwayne Mullin resigned from the seat. Hern\u2019s campaign and congressional materials present him as a pro-business, Trump-aligned Republican with prior federal legislative experience.",
+      "summary_sources": [
+        {
+          "url": "https://hern.house.gov/",
+          "type": "government",
+          "title": "U.S. Representative Kevin Hern",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.facebook.com/KevinRHern/",
+          "type": "news",
+          "title": "Kevin Hern (@KevinRHern) - Facebook",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Oklahoma,_2026",
+          "type": "website",
+          "title": "United States Senate election in Oklahoma, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/7f/Kevin_Hern_117th_Congress.jpg",
+      "website": "https://hern.house.gov/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/KevinRHern/",
+        "instagram": "https://www.instagram.com/repkevinhern/"
+      },
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives, Oklahoma's 1st Congressional District",
+          "start_year": 2018,
+          "end_year": null,
+          "description": "Represents Oklahoma's 1st District in Congress."
+        },
+        {
+          "title": "Business owner",
+          "organization": "Various business ventures",
+          "start_year": null,
+          "end_year": 2018,
+          "description": "Public materials describe him as a businessman before entering Congress."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "updated_utc": "2026-04-01T06:02:24.858443+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "gpt-5-nano"
+  ],
+  "reviews": [],
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 86982,
+    "completion_tokens": 1478,
+    "total_tokens": 88460,
+    "estimated_usd": 0.0139,
+    "model_breakdown": {
+      "gpt-5.4-mini": {
+        "prompt_tokens": 86982,
+        "completion_tokens": 1478
+      }
+    },
+    "duration_s": 20.1
+  }
+}

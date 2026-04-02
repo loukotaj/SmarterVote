@@ -1,0 +1,515 @@
+{
+  "id": "ma-senate-2026",
+  "title": "2026 U.S. Senate election in Massachusetts",
+  "office": "United States Senate",
+  "jurisdiction": "Massachusetts",
+  "election_date": "2026-11-03",
+  "description": "Massachusetts will elect one U.S. senator in 2026 for the state\u2019s Class II seat. The race matters because it will determine whether incumbent Democrat Ed Markey wins another term and because the seat is part of the broader balance of power in the U.S. Senate. Massachusetts is a strongly Democratic state in federal elections, so the main competition is expected to be in the Democratic primary, where Markey faces challengers including Rep. Seth Moulton. The race has centered on generational change, Markey\u2019s long record in Congress, and contrasting views on how aggressively Democrats should confront national politics and policy priorities.",
+  "polling": [
+    {
+      "pollster": "University of New Hampshire",
+      "date": "2025-11-17",
+      "sample_size": 341,
+      "matchups": [
+        {
+          "candidates": [
+            "Ed Markey",
+            "Seth Moulton"
+          ],
+          "percentages": [
+            34,
+            25
+          ]
+        }
+      ],
+      "source_url": "https://www.realclearpolling.com/polls/senate/democratic-primary/2026/massachusetts"
+    },
+    {
+      "pollster": "Boston Globe/Suffolk University",
+      "date": "2025-11-23",
+      "sample_size": 226,
+      "matchups": [
+        {
+          "candidates": [
+            "Ed Markey",
+            "Seth Moulton"
+          ],
+          "percentages": [
+            45,
+            22
+          ]
+        }
+      ],
+      "source_url": "https://www.realclearpolling.com/polls/senate/democratic-primary/2026/massachusetts"
+    }
+  ],
+  "polling_note": null,
+  "candidates": [
+    {
+      "name": "Edward J. Markey",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Ed Markey is the incumbent U.S. senator from Massachusetts and is seeking another term in 2026. His campaign and Senate biography emphasize a long record on climate, consumer protection, telecommunications, and other progressive policy areas, along with decades of prior service in the U.S. House and Massachusetts state legislature.",
+      "summary_sources": [
+        {
+          "url": "https://www.markey.senate.gov/about",
+          "type": "website",
+          "title": "About Ed | Senator Edward Markey of Massachusetts",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.congress.gov/member/edward-markey/M000133",
+          "type": "government",
+          "title": "Senator Edward J. Markey - Congress.gov",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8f/Edward_Markey%2C_official_portrait%2C_114th_Congress.jpg",
+      "website": "https://www.edmarkey.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/EdMarkeyforMA/",
+        "x": "https://x.com/SenMarkey",
+        "instagram": "https://www.instagram.com/edmarkey/",
+        "youtube": "https://www.youtube.com/@markeypress"
+      },
+      "career_history": [
+        {
+          "title": "U.S. Senator",
+          "organization": "United States Senate",
+          "start_year": 2013,
+          "end_year": null,
+          "description": "Represents Massachusetts in the Senate; elected in a 2013 special election and seeking reelection in 2026."
+        },
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 1976,
+          "end_year": 2013,
+          "description": "Served 37 years in the House representing Massachusetts districts."
+        },
+        {
+          "title": "Member",
+          "organization": "Massachusetts House of Representatives",
+          "start_year": 1973,
+          "end_year": 1976,
+          "description": "Served two terms in the Massachusetts state legislature."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Boston College",
+          "degree": "B.A.",
+          "field": "Political science",
+          "year": 1968
+        },
+        {
+          "institution": "Boston College Law School",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": 1972
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Seth Moulton",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Seth Moulton is a U.S. representative from Massachusetts\u2019s 6th Congressional District and a Democratic primary challenger to Markey. His campaign biography highlights his Marine Corps service, his work in Congress, and his pitch as a newer generation of Democratic leadership focused on change and urgency.",
+      "summary_sources": [
+        {
+          "url": "http://moulton.house.gov/about/biography",
+          "type": "website",
+          "title": "Biography - Congressman Seth Moulton - House.gov",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.congress.gov/member/seth-moulton/M001196",
+          "type": "government",
+          "title": "Seth Moulton - Congress.gov",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Seth_Moulton_portrait_%28118th_Congress%29.jpg",
+      "website": "https://sethmoulton.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/SethMoulton/",
+        "x": "https://x.com/sethmoulton?lang=en",
+        "instagram": "https://www.instagram.com/sethmoulton/?hl=en",
+        "youtube": "https://www.youtube.com/@sethmoulton/videos"
+      },
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2015,
+          "end_year": null,
+          "description": "Represents Massachusetts\u2019s 6th Congressional District."
+        },
+        {
+          "title": "Marine Corps officer",
+          "organization": "United States Marine Corps",
+          "start_year": 2001,
+          "end_year": 2008,
+          "description": "Served as a Marine officer, including combat service in Iraq."
+        },
+        {
+          "title": "Business and public service roles",
+          "organization": "Various",
+          "start_year": 2008,
+          "end_year": 2015,
+          "description": "Worked in business and public service before election to Congress."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Phillips Academy Andover",
+          "degree": "High school diploma",
+          "field": null,
+          "year": null
+        },
+        {
+          "institution": "Harvard University",
+          "degree": "B.A.",
+          "field": "Physics and economics",
+          "year": 2001
+        },
+        {
+          "institution": "Harvard Business School",
+          "degree": "M.B.A.",
+          "field": "Business administration",
+          "year": 2011
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "John Deaton",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "John Deaton is a Republican candidate for the Massachusetts Senate seat and previously ran statewide in Massachusetts. His campaign biography describes him as a Marine veteran, trial attorney, author, and advocate for people harmed by asbestos exposure and for cryptocurrency investors.",
+      "summary_sources": [
+        {
+          "url": "https://www.johndeatonforsenate.com/meet-john",
+          "type": "website",
+          "title": "Meet John | John Deaton for U.S. Senate",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.wgbh.org/news/politics/2025-11-11/5-things-to-know-about-republican-john-deaton-whos-launching-his-second-us-senate-run",
+          "type": "news",
+          "title": "5 things to know about Republican John Deaton, who's launching his second U.S. Senate run",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6d/John_Deaton%2C_2024.jpg",
+      "website": "https://www.johndeatonforsenate.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/deatonforsenate/"
+      },
+      "career_history": [
+        {
+          "title": "Trial attorney",
+          "organization": "Private practice",
+          "start_year": 1995,
+          "end_year": null,
+          "description": "Practiced law in Massachusetts and other states, focusing on asbestos and cancer victims."
+        },
+        {
+          "title": "Founder",
+          "organization": "Private law practice",
+          "start_year": 2006,
+          "end_year": null,
+          "description": "Founded his own law practice."
+        },
+        {
+          "title": "U.S. Marine Corps officer",
+          "organization": "United States Marine Corps",
+          "start_year": 1994,
+          "end_year": 2002,
+          "description": "Served as a Judge Advocate and later was medically retired."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Eastern Michigan University",
+          "degree": "B.A.",
+          "field": null,
+          "year": null
+        },
+        {
+          "institution": "New England School of Law",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": 1995
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "William Gates",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "William Gates is a Democratic candidate in the Massachusetts Senate race and is listed by Ballotpedia as a declared candidate in the Democratic primary. His campaign website presents him as aligned with democratic socialist ideas and focused on broad economic and social reform.",
+      "summary_sources": [
+        {
+          "url": "https://www.ballotpedia.org/William_Gates",
+          "type": "website",
+          "title": "William Gates - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.williamfgatesforsenate.com/",
+          "type": "website",
+          "title": "Home | William F. Gates for Senate",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://www.williamfgatesforsenate.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/wfgates1/"
+      },
+      "career_history": [
+        {
+          "title": "Professor and architect",
+          "organization": "Private sector / academia",
+          "start_year": null,
+          "end_year": null,
+          "description": "Ballotpedia identifies him as a professor and architect."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Alexander Rikleen",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Alexander Rikleen is a Democratic candidate in the Massachusetts Senate race and is challenging Markey in the primary. His campaign biography says he is a father, history teacher, and former sports writer who argues Democrats need a more forceful response to current national politics.",
+      "summary_sources": [
+        {
+          "url": "https://www.alexrikleen.us/meet-alex",
+          "type": "website",
+          "title": "Meet Alex | Democrat for Senate - Alex Rikleen",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.politico.com/newsletters/massachusetts-playbook/2025/05/30/meet-markeys-primary-challenger-00375839",
+          "type": "news",
+          "title": "Meet Markey's primary challenger - POLITICO",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://www.alexrikleen.us/",
+      "social_media": {
+        "x": "https://x.com/Rikleen",
+        "bluesky": "https://bsky.app/profile/rikleen.bsky.social",
+        "instagram": "https://www.instagram.com/rikleenalex/"
+      },
+      "career_history": [
+        {
+          "title": "History teacher",
+          "organization": "School system",
+          "start_year": null,
+          "end_year": null,
+          "description": "Campaign biography says he taught history before changing careers."
+        },
+        {
+          "title": "Sports analyst / writer",
+          "organization": "Media",
+          "start_year": 2016,
+          "end_year": null,
+          "description": "He says he moved into sports analysis and writing after leaving teaching."
+        },
+        {
+          "title": "Volunteer",
+          "organization": "School/community activities",
+          "start_year": null,
+          "end_year": null,
+          "description": "Campaign biography says he focused volunteer efforts at his children\u2019s school before running for office."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Graduate school",
+          "degree": "Certification / graduate study",
+          "field": "History teaching",
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Nathan Bech",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Nathan Bech is listed by Ballotpedia as a Republican primary candidate in the Massachusetts Senate race. Publicly available biographical detail was limited in the sources reviewed.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Massachusetts,_2026",
+          "type": "website",
+          "title": "United States Senate election in Massachusetts, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Philip Devincentis",
+      "party": "American Independent",
+      "incumbent": false,
+      "summary": "Philip Devincentis is listed by Ballotpedia as a general-election candidate in the Massachusetts Senate race. Publicly available biographical detail was limited in the sources reviewed.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Massachusetts,_2026",
+          "type": "website",
+          "title": "United States Senate election in Massachusetts, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Joseph Tache",
+      "party": "Party for Socialism and Liberation",
+      "incumbent": false,
+      "summary": "Joseph Tache is listed by Ballotpedia as a general-election candidate in the Massachusetts Senate race. Ballotpedia\u2019s candidate profile says his campaign emphasizes socialism, climate action, anti-war policy, and redistribution of wealth.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Massachusetts,_2026",
+          "type": "website",
+          "title": "United States Senate election in Massachusetts, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Shiva Ayyadurai",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Shiva Ayyadurai is listed by Ballotpedia as a general-election candidate in the Massachusetts Senate race. Publicly available biographical detail was limited in the sources reviewed.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Massachusetts,_2026",
+          "type": "website",
+          "title": "United States Senate election in Massachusetts, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Morgan Dawicki",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Morgan Dawicki is listed by Ballotpedia as a general-election candidate in the Massachusetts Senate race. Publicly available biographical detail was limited in the sources reviewed.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Massachusetts,_2026",
+          "type": "website",
+          "title": "United States Senate election in Massachusetts, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "updated_utc": "2026-04-01T05:53:57.982363+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "gpt-5-nano"
+  ],
+  "reviews": [],
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 201580,
+    "completion_tokens": 4294,
+    "total_tokens": 205874,
+    "estimated_usd": 0.0328,
+    "model_breakdown": {
+      "gpt-5.4-mini": {
+        "prompt_tokens": 201580,
+        "completion_tokens": 4294
+      }
+    },
+    "duration_s": 42.8
+  }
+}

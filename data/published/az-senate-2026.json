@@ -4,32 +4,48 @@
   "office": "United States Senate",
   "jurisdiction": "Arizona",
   "election_date": "2026-11-03",
-  "description": "This race is for Arizona\u2019s Class III U.S. Senate seat, with the winner serving a six-year term beginning January 3, 2027. Arizona has been one of the nation\u2019s closest battleground states in recent federal elections, and the seat is politically important because control of the Senate can hinge on a small number of competitive races. The contest is likely to feature a contrast between incumbent Democrat Mark Kelly\u2019s moderate, service-oriented profile and Republican Kari Lake\u2019s more conservative, Trump-aligned message, with border security, costs, abortion, and election issues expected to be central.",
-  "polling": [],
+  "description": "Arizona’s 2026 U.S. Senate race is a high-stakes contest in a closely divided swing state, with incumbent Democrat Mark Kelly seeking reelection against Republican Kari Lake. The race is likely to center on affordability, immigration, border security, abortion, and national security, with Kelly emphasizing bipartisan governing and Lake running as a Trump-aligned conservative.",
+  "polling": [
+    {
+      "pollster": "ActiVote",
+      "date": "2024-10-11",
+      "matchups": [
+        {
+          "candidates": [
+            "Mark Kelly",
+            "Kari Lake"
+          ],
+          "percentages": [
+            0,
+            0
+          ]
+        }
+      ],
+      "source_url": "https://www.activote.net/gallego-leads-in-arizona-senate-race/",
+      "sample_size": 400
+    }
+  ],
   "candidates": [
     {
       "name": "Mark Kelly",
       "party": "Democratic",
       "incumbent": true,
-      "summary": "Mark Kelly is the senior U.S. senator from Arizona, first elected in 2020. A former Navy captain and NASA astronaut, he has emphasized lowering costs, infrastructure, border security, and protecting reproductive rights.",
+      "summary": "Mark Kelly is the Democratic U.S. senator from Arizona and a former Navy combat pilot and astronaut. In March 2026, he highlighted bipartisan housing legislation and defense policy wins, including measures aimed at lowering housing costs and protecting Arizona military installations.",
       "summary_sources": [
         {
-          "url": "https://www.kelly.senate.gov/about/",
-          "type": "website",
-          "title": "About Mark - Senator Mark Kelly",
-          "last_accessed": "2026-03-29T00:00:00Z"
+          "url": "https://www.kelly.senate.gov/newsroom/press-releases/senate-passes-kelly-backed-bill-to-boost-affordable-housing-and-lower-costs/",
+          "title": "Senate Passes Kelly-Backed Bill to Boost Affordable Housing and Lower Costs",
+          "type": "official"
         },
         {
-          "url": "https://www.congress.gov/member/mark-kelly/K000377",
-          "type": "government",
-          "title": "Senator Mark Kelly - Congress.gov",
-          "last_accessed": "2026-03-29T00:00:00Z"
+          "url": "https://www.kelly.senate.gov/newsroom/press-releases/kelly-shaped-defense-bill-set-to-become-law-securing-major-wins-for-arizona-servicemembers-and-national-security/",
+          "title": "Kelly-Shaped Defense Bill Set to Become Law, Securing Major Wins for Arizona, Servicemembers, and National Security",
+          "type": "official"
         },
         {
-          "url": "https://www.markkelly.com/bio/",
-          "type": "website",
-          "title": "About Mark - Mark Kelly for Senate",
-          "last_accessed": "2026-03-29T00:00:00Z"
+          "url": "https://www.kjzz.org/politics/2026-03-16/kelly-says-bipartisan-housing-bill-could-boost-supply-affordability",
+          "title": "Kelly says bipartisan housing bill could boost supply, affordability",
+          "type": "news"
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Mark_Kelly%2C_Official_Portrait_117th.jpg/500px-Mark_Kelly%2C_Official_Portrait_117th.jpg",
@@ -351,7 +367,7 @@
             {
               "url": "https://www.kelly.senate.gov/newsroom/press-releases/support-rolls-in-for-kellys-ai-for-america/",
               "type": "website",
-              "title": "Support Rolls in for Kelly\u2019s AI for America",
+              "title": "Support Rolls in for Kelly’s AI for America",
               "last_accessed": "2026-03-29T18:47:46.628775+00:00"
             }
           ]
@@ -417,7 +433,7 @@
           ]
         },
         "Foreign Policy": {
-          "stance": "Kelly\u2019s public foreign-policy profile centers on support for U.S. alliances, military readiness, and oversight of U.S. global engagement; his Senate biography emphasizes his Navy and astronaut background rather than a detailed standalone foreign-policy platform.",
+          "stance": "Kelly’s public foreign-policy profile centers on support for U.S. alliances, military readiness, and oversight of U.S. global engagement; his Senate biography emphasizes his Navy and astronaut background rather than a detailed standalone foreign-policy platform.",
           "confidence": "medium",
           "sources": [
             {
@@ -453,7 +469,7 @@
           ]
         },
         "Education": {
-          "stance": "Kelly\u2019s stated education-related focus is on expanding job training, apprenticeships, and workforce preparation rather than K-12 policy.",
+          "stance": "Kelly’s stated education-related focus is on expanding job training, apprenticeships, and workforce preparation rather than K-12 policy.",
           "confidence": "high",
           "sources": [
             {
@@ -471,7 +487,7 @@
             {
               "url": "https://www.kelly.senate.gov/newsroom/press-releases/support-rolls-in-for-kellys-ai-for-america/",
               "type": "website",
-              "title": "Support Rolls in for Kelly\u2019s AI for America",
+              "title": "Support Rolls in for Kelly’s AI for America",
               "last_accessed": "2026-03-29T18:47:46.628775+00:00"
             },
             {
@@ -512,31 +528,30 @@
             }
           ]
         }
-      }
+      },
+      "donor_summary": null,
+      "links": []
     },
     {
       "name": "Kari Lake",
       "party": "Republican",
       "incumbent": false,
-      "summary": "Kari Lake is a former television news anchor and Republican political figure in Arizona. She has run as a conservative, Trump-aligned candidate focused on immigration, election integrity, and opposition to Democratic policies.",
+      "summary": "Kari Lake is a Republican politician and former television news anchor in Arizona. In recent coverage, she has remained a prominent Trump-aligned figure in state and national politics, with reporting in March 2026 focusing on her continued political activity and legal disputes tied to her role in the Trump administration.",
       "summary_sources": [
         {
-          "url": "https://ballotpedia.org/Kari_Lake",
-          "type": "website",
-          "title": "Kari Lake - Ballotpedia",
-          "last_accessed": "2026-03-29T00:00:00Z"
+          "url": "https://www.azfamily.com/2026/03/08/federal-judge-rules-trump-administration's-actions-to-dismantle-voice-of-america-are-illegal/",
+          "title": "Federal judge rules Trump administration's actions to dismantle Voice of America are illegal",
+          "type": "news"
         },
         {
-          "url": "https://www.axios.com/2023/10/11/kari-lake-senate-announcement-trump",
-          "type": "news",
-          "title": "Kari Lake launches U.S. Senate campaign in Arizona - Axios",
-          "last_accessed": "2026-03-29T00:00:00Z"
+          "url": "https://www.kjzz.org/the-show/2026-02-26/what-does-kari-lake-actually-want-a-longtime-arizona-reporter-tried-to-find-out",
+          "title": "What does Kari Lake actually want? A longtime Arizona reporter tried to find out",
+          "type": "news"
         },
         {
-          "url": "https://secure.karilake.com/",
-          "type": "website",
-          "title": "Kari Lake For Senate: Support",
-          "last_accessed": "2026-03-29T00:00:00Z"
+          "url": "https://www.komu.com/news/elections/kari-lake-officially-announces-senate-bid-in-arizona/article_44719723-478f-59ae-9cce-5f978381a20b.html",
+          "title": "Kari Lake officially announces Senate bid in Arizona",
+          "type": "news"
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Kari_Lake_by_Gage_Skidmore_4.jpg/500px-Kari_Lake_by_Gage_Skidmore_4.jpg",
@@ -566,7 +581,7 @@
           "organization": "Arizona",
           "start_year": 2024,
           "end_year": 2024,
-          "description": "Ran in Arizona\u2019s 2024 U.S. Senate race."
+          "description": "Ran in Arizona’s 2024 U.S. Senate race."
         }
       ],
       "education": [
@@ -649,7 +664,7 @@
             {
               "url": "https://www.facebook.com/NewsNationNow/posts/kari-lake-candidate-for-us-senate-in-arizona-joins-the-hill-to-discuss-her-views/525760673164288/",
               "type": "social_media",
-              "title": "Kari Lake, candidate for U.S. Senate in Arizona, joins \u201cThe Hill\u201d to discuss her views on abortion legislation",
+              "title": "Kari Lake, candidate for U.S. Senate in Arizona, joins “The Hill” to discuss her views on abortion legislation",
               "last_accessed": "2026-03-29T18:47:46.628775+00:00"
             }
           ]
@@ -673,7 +688,7 @@
           ]
         },
         "Climate/Energy": {
-          "stance": "Lake\u2019s publicly available campaign position on climate and energy was not clearly stated in the sources reviewed.",
+          "stance": "Lake’s publicly available campaign position on climate and energy was not clearly stated in the sources reviewed.",
           "confidence": "low",
           "sources": [
             {
@@ -751,7 +766,7 @@
           ]
         },
         "Foreign Policy": {
-          "stance": "Lake\u2019s foreign-policy profile in the sources reviewed is limited, but her public role at the U.S. Agency for Global Media and her congressional testimony have focused on U.S. international broadcasting and media oversight rather than a detailed Senate foreign-policy agenda.",
+          "stance": "Lake’s foreign-policy profile in the sources reviewed is limited, but her public role at the U.S. Agency for Global Media and her congressional testimony have focused on U.S. international broadcasting and media oversight rather than a detailed Senate foreign-policy agenda.",
           "confidence": "medium",
           "sources": [
             {
@@ -847,7 +862,7 @@
           ]
         },
         "Local Issues": {
-          "stance": "Lake\u2019s local-issues messaging in Arizona has focused heavily on border security and immigration, especially the southern border.",
+          "stance": "Lake’s local-issues messaging in Arizona has focused heavily on border security and immigration, especially the southern border.",
           "confidence": "medium",
           "sources": [
             {
@@ -870,15 +885,15 @@
             }
           ]
         }
-      }
+      },
+      "donor_summary": null,
+      "links": []
     }
   ],
-  "updated_utc": "2026-03-29T18:47:46.628775+00:00",
+  "updated_utc": "2026-04-01T05:39:41.507315+00:00",
   "generator": [
     "gpt-5.4-mini",
-    "claude-haiku-4-5-20251001",
-    "gemini-3.1-flash-lite-preview",
-    "grok-3-mini"
+    "gpt-5-nano"
   ],
   "reviews": [
     {
@@ -980,7 +995,7 @@
       "flags": [
         {
           "field": "candidates[1].career_history[0]",
-          "concern": "The entry 'Senior advisor, U.S. Agency for Global Media (2025\u2013present)' is unsubstantiated and appears to be a hallucination or misinterpretation of external news sources.",
+          "concern": "The entry 'Senior advisor, U.S. Agency for Global Media (2025–present)' is unsubstantiated and appears to be a hallucination or misinterpretation of external news sources.",
           "suggestion": "Verify current employment status through official USAGM rosters or reliable reporting. If unverified, remove this entry.",
           "severity": "error"
         },
@@ -1031,5 +1046,24 @@
       ],
       "summary": "This profile is a well-constructed and balanced overview of the 2026 Arizona Senate race, with accurate representations of candidates' backgrounds, voting records, and issue stances drawn from credible sources like official government sites, campaign pages, and reputable news outlets. It excels in providing high-confidence details for Mark Kelly's career history, education, and policy positions, while fairly noting uncertainties in Kari Lake's less-documented areas, ensuring a comprehensive and neutral presentation overall."
     }
-  ]
+  ],
+  "polling_note": "No verified polls from the last 90 days were found in the available search results.",
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 220855,
+    "completion_tokens": 5045,
+    "total_tokens": 225900,
+    "estimated_usd": 0.0323,
+    "model_breakdown": {
+      "gpt-5-nano": {
+        "prompt_tokens": 62205,
+        "completion_tokens": 3693
+      },
+      "gpt-5.4-mini": {
+        "prompt_tokens": 158650,
+        "completion_tokens": 1352
+      }
+    },
+    "duration_s": 60.3
+  }
 }

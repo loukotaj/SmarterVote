@@ -1,0 +1,574 @@
+{
+  "id": "ky-senate-2026",
+  "title": "2026 U.S. Senate election in Kentucky",
+  "office": "U.S. Senate",
+  "jurisdiction": "Kentucky",
+  "election_date": "2026-11-03",
+  "description": "Kentucky voters will elect one U.S. senator in 2026. The race is open because incumbent Mitch McConnell announced he will not seek re-election, making this one of the cycle\u2019s notable open-seat Senate contests. Kentucky has leaned strongly Republican in recent federal elections, but the GOP primary is competitive and has drawn attention because candidates are competing to define themselves as aligned with or distinct from McConnell and President Trump. The general election is expected to be shaped by Kentucky\u2019s partisan lean, the open-seat dynamic, and contrasts over ideology, governing style, and national Republican politics.",
+  "polling": [
+    {
+      "pollster": "Public Opinion Strategies",
+      "date": "2026-03-12",
+      "sample_size": 600,
+      "matchups": [
+        {
+          "candidates": [
+            "Andy Barr",
+            "Daniel Cameron"
+          ],
+          "percentages": [
+            29,
+            31
+          ]
+        },
+        {
+          "candidates": [
+            "Andy Barr",
+            "Nate Morris"
+          ],
+          "percentages": [
+            29,
+            13
+          ]
+        },
+        {
+          "candidates": [
+            "Daniel Cameron",
+            "Nate Morris"
+          ],
+          "percentages": [
+            31,
+            13
+          ]
+        }
+      ],
+      "source_url": "https://ballotpedia.org/United_States_Senate_election_in_Kentucky,_2026_(May_19_Republican_primary)"
+    },
+    {
+      "pollster": "Quantus Insights",
+      "date": "2026-02-04",
+      "sample_size": 870,
+      "matchups": [
+        {
+          "candidates": [
+            "Andy Barr",
+            "Daniel Cameron"
+          ],
+          "percentages": [
+            28,
+            27
+          ]
+        },
+        {
+          "candidates": [
+            "Andy Barr",
+            "Nate Morris"
+          ],
+          "percentages": [
+            28,
+            17
+          ]
+        },
+        {
+          "candidates": [
+            "Daniel Cameron",
+            "Nate Morris"
+          ],
+          "percentages": [
+            27,
+            17
+          ]
+        }
+      ],
+      "source_url": "https://ballotpedia.org/United_States_Senate_election_in_Kentucky,_2026_(May_19_Republican_primary)"
+    },
+    {
+      "pollster": "Emerson College",
+      "date": "2026-02-02",
+      "sample_size": 523,
+      "matchups": [
+        {
+          "candidates": [
+            "Andy Barr",
+            "Daniel Cameron"
+          ],
+          "percentages": [
+            24,
+            21
+          ]
+        },
+        {
+          "candidates": [
+            "Andy Barr",
+            "Nate Morris"
+          ],
+          "percentages": [
+            24,
+            14
+          ]
+        },
+        {
+          "candidates": [
+            "Daniel Cameron",
+            "Nate Morris"
+          ],
+          "percentages": [
+            21,
+            14
+          ]
+        }
+      ],
+      "source_url": "https://ballotpedia.org/United_States_Senate_election_in_Kentucky,_2026_(May_19_Republican_primary)"
+    },
+    {
+      "pollster": "Fabrizio, Lee & Associates",
+      "date": "2026-01-29",
+      "sample_size": 800,
+      "matchups": [
+        {
+          "candidates": [
+            "Andy Barr",
+            "Daniel Cameron"
+          ],
+          "percentages": [
+            21,
+            29
+          ]
+        },
+        {
+          "candidates": [
+            "Andy Barr",
+            "Nate Morris"
+          ],
+          "percentages": [
+            21,
+            18
+          ]
+        },
+        {
+          "candidates": [
+            "Daniel Cameron",
+            "Nate Morris"
+          ],
+          "percentages": [
+            29,
+            18
+          ]
+        }
+      ],
+      "source_url": "https://ballotpedia.org/United_States_Senate_election_in_Kentucky,_2026_(May_19_Republican_primary)"
+    },
+    {
+      "pollster": "OnMessage Inc.",
+      "date": "2026-01-08",
+      "sample_size": 600,
+      "matchups": [
+        {
+          "candidates": [
+            "Andy Barr",
+            "Daniel Cameron"
+          ],
+          "percentages": [
+            25,
+            40
+          ]
+        },
+        {
+          "candidates": [
+            "Andy Barr",
+            "Nate Morris"
+          ],
+          "percentages": [
+            25,
+            13
+          ]
+        },
+        {
+          "candidates": [
+            "Daniel Cameron",
+            "Nate Morris"
+          ],
+          "percentages": [
+            40,
+            13
+          ]
+        }
+      ],
+      "source_url": "https://ballotpedia.org/United_States_Senate_election_in_Kentucky,_2026_(May_19_Republican_primary)"
+    }
+  ],
+  "polling_note": null,
+  "candidates": [
+    {
+      "name": "Andy Barr",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Andy Barr is a U.S. representative from Kentucky\u2019s 6th Congressional District and a candidate for the open U.S. Senate seat. His campaign has emphasized support for President Trump, border security, tax cuts, energy production, and opposition to DEI initiatives. Barr is running as a Republican in a crowded primary that has centered on which candidate best fits Kentucky\u2019s current GOP coalition.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Andy_Barr",
+          "type": "website",
+          "title": "Andy Barr - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://barrforsenate.com/",
+          "type": "website",
+          "title": "Andy Barr for Senate",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/7d/Andy_Barr_official_congressional_photo.jpg",
+      "website": "https://barrforsenate.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/BarrForSenate/",
+        "x": "https://x.com/barrforsenate",
+        "instagram": "https://www.instagram.com/barrforsenate/"
+      },
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives, Kentucky's 6th Congressional District",
+          "start_year": 2013,
+          "end_year": null,
+          "description": "Represents Kentucky's 6th District in Congress."
+        },
+        {
+          "title": "Deputy general counsel",
+          "organization": "Office of Kentucky Gov. Ernie Fletcher",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served in the Fletcher administration."
+        },
+        {
+          "title": "Attorney",
+          "organization": "Private practice",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked as an attorney before entering Congress."
+        },
+        {
+          "title": "Legislative assistant",
+          "organization": "Office of Rep. Jim Talent",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked in congressional staff roles early in his career."
+        },
+        {
+          "title": "Part-time law professor",
+          "organization": "Morehead State University",
+          "start_year": null,
+          "end_year": null,
+          "description": "Taught law part time."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Henry Clay High School",
+          "degree": "High school diploma",
+          "field": null,
+          "year": null
+        },
+        {
+          "institution": "University of Virginia",
+          "degree": "Bachelor's degree",
+          "field": "Government and philosophy",
+          "year": null
+        },
+        {
+          "institution": "University of Kentucky College of Law",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": 2001
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Daniel Cameron",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Daniel Cameron is a former Kentucky attorney general and the Republican nominee for governor in 2023. In the Senate race, he has presented himself as an America First conservative aligned with Trump, focusing on law and order, anti-DEI politics, energy, and border security. Cameron enters the race with statewide name recognition from his prior office and a campaign built around his record as attorney general.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Daniel_Cameron",
+          "type": "website",
+          "title": "Daniel Cameron - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://cameronforkentucky.com/",
+          "type": "website",
+          "title": "Daniel Cameron for Kentucky | Daniel Cameron for U.S. Senate",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/4d/Attorney_General_Daniel_Cameron_-_Official_Portrait.jpg",
+      "website": "https://cameronforkentucky.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/DanielCameronKY/",
+        "x": "https://x.com/DanielCameronKY",
+        "instagram": "https://www.instagram.com/danielcameronky/",
+        "linkedin": "https://www.linkedin.com/in/daniel-cameron-ky/"
+      },
+      "career_history": [
+        {
+          "title": "Attorney General",
+          "organization": "Commonwealth of Kentucky",
+          "start_year": 2019,
+          "end_year": 2024,
+          "description": "Served as Kentucky's attorney general."
+        },
+        {
+          "title": "Republican nominee for governor",
+          "organization": "Commonwealth of Kentucky",
+          "start_year": 2023,
+          "end_year": 2023,
+          "description": "Ran as the Republican nominee in the 2023 gubernatorial election."
+        },
+        {
+          "title": "CEO",
+          "organization": "1792 Exchange",
+          "start_year": 2024,
+          "end_year": null,
+          "description": "Leads an organization focused on opposing DEI in corporate America."
+        },
+        {
+          "title": "Attorney",
+          "organization": "Frost Brown Todd; Stites & Harbison",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked in private legal practice."
+        },
+        {
+          "title": "Legal counsel",
+          "organization": "Office of U.S. Sen. Mitch McConnell",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as legal counsel to McConnell."
+        },
+        {
+          "title": "Law clerk",
+          "organization": "U.S. District Court, Judge Gregory F. VanTatenhove",
+          "start_year": null,
+          "end_year": null,
+          "description": "Clerked for a federal judge."
+        }
+      ],
+      "education": [
+        {
+          "institution": "John Hardin High School",
+          "degree": "High school diploma",
+          "field": null,
+          "year": null
+        },
+        {
+          "institution": "University of Louisville",
+          "degree": "B.S.",
+          "field": "Political science",
+          "year": 2008
+        },
+        {
+          "institution": "University of Louisville, Louis D. Brandeis School of Law",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": 2011
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Nate Morris",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Nate Morris is a businessman and founder of Morris Industries running for the open Kentucky Senate seat. His campaign casts him as a pro-Trump outsider focused on immigration enforcement, energy, gun rights, and opposition to what he calls the Washington establishment. Morris has tried to position himself as the anti-McConnell candidate in the Republican primary.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Nate_Morris",
+          "type": "website",
+          "title": "Nate Morris - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://natemorris.com/",
+          "type": "website",
+          "title": "Nate Morris for Senate",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Nate_Morris.jpg",
+      "website": "https://natemorris.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/nate.morris/",
+        "x": "https://x.com/NateMorris",
+        "instagram": "https://www.instagram.com/nate.morris/",
+        "linkedin": "https://www.linkedin.com/in/nate-morris/"
+      },
+      "career_history": [
+        {
+          "title": "Founder, chairman, and CEO",
+          "organization": "Morris Industries",
+          "start_year": null,
+          "end_year": null,
+          "description": "Leads Morris Industries."
+        },
+        {
+          "title": "Founder and CEO",
+          "organization": "Rubicon",
+          "start_year": 2009,
+          "end_year": 2021,
+          "description": "Founded and led the waste and recycling company Rubicon."
+        }
+      ],
+      "education": [
+        {
+          "institution": "George Washington University",
+          "degree": "B.A.",
+          "field": "Political science",
+          "year": null
+        },
+        {
+          "institution": "University of Oxford",
+          "degree": "M.B.A.",
+          "field": null,
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Amy McGrath",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Amy McGrath is a former Marine fighter pilot and the Democratic candidate in Kentucky\u2019s 2026 Senate primary. She is running on a message centered on lowering costs, protecting health care, supporting veterans, and defending democratic institutions, while criticizing tariffs and other policies she says hurt Kentucky families. McGrath previously ran for the U.S. Senate in 2020 and for Congress in 2018, giving her substantial statewide name recognition.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Amy_McGrath",
+          "type": "website",
+          "title": "Amy McGrath - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://amymcgrath.com/",
+          "type": "website",
+          "title": "Home - Amy McGrath",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/5f/Amy_McGrath_2018.jpg",
+      "website": "https://amymcgrath.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/AmyMcGrathKY/",
+        "x": "https://x.com/AmyMcGrathKY",
+        "instagram": "https://www.instagram.com/amymcgrathky/",
+        "youtube": "https://www.youtube.com/@AmyMcGrathKY",
+        "tiktok": "https://www.tiktok.com/@amymcgrathky",
+        "linkedin": "https://www.linkedin.com/in/amy-mcgrath-4a6b1b1b/"
+      },
+      "career_history": [
+        {
+          "title": "Marine Corps officer / fighter pilot",
+          "organization": "U.S. Marine Corps",
+          "start_year": 1997,
+          "end_year": 2017,
+          "description": "Served 20 years in the Marine Corps and reached the rank of lieutenant colonel."
+        },
+        {
+          "title": "Political science instructor",
+          "organization": "United States Naval Academy",
+          "start_year": null,
+          "end_year": null,
+          "description": "Taught political science at the Naval Academy."
+        },
+        {
+          "title": "Congressional fellow / defense adviser",
+          "organization": "U.S. House of Representatives; Rep. Susan Davis",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as a congressional fellow and defense adviser."
+        },
+        {
+          "title": "U.S. Senate candidate",
+          "organization": "Kentucky",
+          "start_year": 2020,
+          "end_year": 2020,
+          "description": "Democratic nominee against Mitch McConnell."
+        },
+        {
+          "title": "U.S. House candidate",
+          "organization": "Kentucky's 6th Congressional District",
+          "start_year": 2018,
+          "end_year": 2018,
+          "description": "Democratic nominee for Congress in 2018."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Notre Dame Academy",
+          "degree": "High school diploma",
+          "field": null,
+          "year": null
+        },
+        {
+          "institution": "United States Naval Academy",
+          "degree": "B.A.",
+          "field": "Political science",
+          "year": 1997
+        },
+        {
+          "institution": "Georgetown University",
+          "degree": "Graduate certificate",
+          "field": "Legislative studies",
+          "year": 2011
+        },
+        {
+          "institution": "Johns Hopkins University",
+          "degree": "M.A.",
+          "field": "International security",
+          "year": 2014
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "updated_utc": "2026-04-01T05:50:13.688735+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "gpt-5-nano"
+  ],
+  "reviews": [],
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 122661,
+    "completion_tokens": 3907,
+    "total_tokens": 126568,
+    "estimated_usd": 0.0207,
+    "model_breakdown": {
+      "gpt-5.4-mini": {
+        "prompt_tokens": 122661,
+        "completion_tokens": 3907
+      }
+    },
+    "duration_s": 43.5
+  }
+}

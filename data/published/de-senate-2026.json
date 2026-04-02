@@ -1,0 +1,306 @@
+{
+  "id": "de-senate-2026",
+  "title": "2026 U.S. Senate race in Delaware",
+  "office": "U.S. Senate",
+  "jurisdiction": "Delaware",
+  "election_date": "2026-11-03",
+  "description": "This race is for Delaware\u2019s Class II seat in the U.S. Senate, with the general election scheduled for November 3, 2026. It matters because it will help determine control of the Senate in the next Congress, though Delaware is widely rated as a strongly Democratic state and the seat is currently held by incumbent Democrat Chris Coons. The main contrast is between Coons\u2019 long tenure and bipartisan governing style and the challengers\u2019 efforts to present alternatives in a state where Democrats have a clear registration and electoral advantage.",
+  "polling": [],
+  "polling_note": "No public polling found for this race as of 2026-04-01.",
+  "candidates": [
+    {
+      "name": "Chris Coons",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Chris Coons is the incumbent U.S. senator from Delaware, first elected in 2010. His official biography describes him as a pragmatic, bipartisan lawmaker who previously served in New Castle County government and worked in the private sector before entering the Senate.",
+      "summary_sources": [
+        {
+          "url": "https://www.coons.senate.gov/meet-chris/",
+          "type": "website",
+          "title": "Meet Chris - Senator Christopher Coons",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.congress.gov/member/christopher-coons/C001088",
+          "type": "government",
+          "title": "Senator Christopher A. Coons - Congress.gov",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/7d/Chris_Coons%2C_official_portrait%2C_112th_Congress.jpg",
+      "website": "https://www.coons.senate.gov/",
+      "social_media": {
+        "x": "https://x.com/ChrisCoons",
+        "facebook": "https://www.facebook.com/chriscoons",
+        "instagram": "https://www.instagram.com/chriscoonsforde/",
+        "bluesky": "https://bsky.app/profile/did:plc:u653qd63piz6z2t6l3sd4duf",
+        "youtube": "https://www.youtube.com/@SenatorChrisCoons"
+      },
+      "career_history": [
+        {
+          "title": "U.S. Senator",
+          "organization": "United States Senate",
+          "start_year": 2010,
+          "end_year": null,
+          "description": "Represents Delaware in the Senate; serves on Appropriations, Foreign Relations, Judiciary, Small Business and Entrepreneurship, and Ethics committees."
+        },
+        {
+          "title": "New Castle County Executive",
+          "organization": "New Castle County, Delaware",
+          "start_year": 2005,
+          "end_year": 2010,
+          "description": "Led county government for six years before election to the Senate."
+        },
+        {
+          "title": "New Castle County Council President",
+          "organization": "New Castle County, Delaware",
+          "start_year": 2001,
+          "end_year": 2005,
+          "description": "Served four years as council president."
+        },
+        {
+          "title": "Employee",
+          "organization": "W.L. Gore & Associates",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked for the Delaware-based manufacturing company before entering county government."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Amherst College",
+          "degree": "BA",
+          "field": "chemistry and political science",
+          "year": 1985
+        },
+        {
+          "institution": "Yale University Law School",
+          "degree": "JD",
+          "field": "law",
+          "year": 1992
+        },
+        {
+          "institution": "University of Nairobi",
+          "degree": "study abroad",
+          "field": "political science/chemistry coursework",
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Christopher Beardsley",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Christopher Beardsley is a Democratic primary challenger to Chris Coons in Delaware\u2019s 2026 Senate race. His campaign website says he is running on issues including healthcare, housing, education, wages, and social justice, and social media bios describe him as a former HUD analyst and union member.",
+      "summary_sources": [
+        {
+          "url": "https://www.beardsleyfordelaware.com/",
+          "type": "website",
+          "title": "Beardsley | Join the Movement for Delaware",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.beardsleyfordelaware.com/issues",
+          "type": "website",
+          "title": "Issues | Take Action Now for Change \u2014 Beardsley",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.facebook.com/beardsleyfordelaware/",
+          "type": "website",
+          "title": "Christopher Beardsley (@beardsleyfordelaware) - Facebook",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://www.beardsleyfordelaware.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/beardsleyfordelaware/",
+        "instagram": "https://www.instagram.com/beardsleyfordelaware/"
+      },
+      "career_history": [
+        {
+          "title": "HUD analyst",
+          "organization": "U.S. Department of Housing and Urban Development",
+          "start_year": null,
+          "end_year": null,
+          "description": "Listed in campaign materials and social media bios as a former HUD analyst."
+        },
+        {
+          "title": "Union member",
+          "organization": "AFGE",
+          "start_year": null,
+          "end_year": null,
+          "description": "Described in campaign materials/social bios as an AFGE union member."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Michael Katz",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Michael Katz is running in the Republican primary for Delaware\u2019s 2026 U.S. Senate race. His campaign materials and social media present him as a physician, business owner, and problem-solver, but publicly available biographical detail is limited in the sources reviewed.",
+      "summary_sources": [
+        {
+          "url": "https://www.drmikekatz.com/",
+          "type": "website",
+          "title": "Dr. Mike Katz For U.S. Senate",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/S6DE00198/",
+          "type": "government",
+          "title": "SHULLI, JOHN - Candidate overview | FEC",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.instagram.com/drmikekatz/?hl=en",
+          "type": "website",
+          "title": "Dr. Mike Katz Republican for U.S. Senate - Delaware (@drmikekatz)",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://www.drmikekatz.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/michael.katz.16/",
+        "instagram": "https://www.instagram.com/drmikekatz/?hl=en"
+      },
+      "career_history": [
+        {
+          "title": "Physician",
+          "organization": "Private practice / medical work",
+          "start_year": null,
+          "end_year": null,
+          "description": "Campaign materials describe him as a physician, including pediatric critical care training."
+        },
+        {
+          "title": "Business owner",
+          "organization": "Private sector",
+          "start_year": null,
+          "end_year": null,
+          "description": "Campaign materials describe him as a business owner."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "John Shulli",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "John Shulli is a Republican candidate in Delaware\u2019s 2026 Senate primary. His campaign website frames his candidacy around an \u201cAmerican Renaissance\u201d theme focused on prosperity, technology, jobs, and restoring civic confidence.",
+      "summary_sources": [
+        {
+          "url": "https://shulli.org/",
+          "type": "website",
+          "title": "Shulli for U.S. Senate",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://shulli.org/platform",
+          "type": "website",
+          "title": "Platform | Shulli for Senate",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/S6DE00198/",
+          "type": "government",
+          "title": "SHULLI, JOHN - Candidate overview | FEC",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://shulli.org/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/john.shulli/videos/save-act-support/892561507095625/"
+      },
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Dexter Bland",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Dexter Bland is listed by Ballotpedia as an independent general-election candidate in Delaware\u2019s 2026 U.S. Senate race. Publicly available campaign material is sparse, but his social media and committee branding suggest a community- and advocacy-oriented campaign focused on education, democracy, and local issues.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Dexter_Bland",
+          "type": "news",
+          "title": "Dexter Bland - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.instagram.com/believeinbland/",
+          "type": "website",
+          "title": "Believe In Bland (@believeinbland) \u2022 Instagram photos and videos",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.instagram.com/reel/DQkIC68EZxG/",
+          "type": "website",
+          "title": "Sign My Petition To Be On The Ballot For 2026 US Senator For ...",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {
+        "instagram": "https://www.instagram.com/believeinbland/",
+        "facebook": "https://www.facebook.com/dexter.bland.9/"
+      },
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "updated_utc": "2026-04-01T05:42:38.373247+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "gpt-5-nano"
+  ],
+  "reviews": [],
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 75197,
+    "completion_tokens": 2845,
+    "total_tokens": 78042,
+    "estimated_usd": 0.013,
+    "model_breakdown": {
+      "gpt-5.4-mini": {
+        "prompt_tokens": 75197,
+        "completion_tokens": 2845
+      }
+    },
+    "duration_s": 28.8
+  }
+}

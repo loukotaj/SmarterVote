@@ -1,0 +1,466 @@
+{
+  "id": "ia-senate-2026",
+  "title": "2026 U.S. Senate election in Iowa",
+  "office": "United States Senate",
+  "jurisdiction": "Iowa",
+  "election_date": "2026-11-03",
+  "description": "Iowa\u2019s 2026 U.S. Senate race is for the state\u2019s Class II seat in the U.S. Senate. The seat is open because incumbent Republican Joni Ernst is not seeking re-election, making the contest one of the more closely watched Senate races of the cycle. Ballotpedia rates the race as likely Republican, but the open-seat dynamic and the candidates\u2019 contrasting profiles \u2014 including labor, military, and state-legislative backgrounds \u2014 give both parties a clear incentive to compete aggressively.",
+  "polling": [],
+  "polling_note": "No public, credible general-election polling for this race was found in the searched sources as of 2026-04-01.",
+  "candidates": [
+    {
+      "name": "Josh Turek",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Josh Turek is a Democratic candidate for U.S. Senate and a member of the Iowa House of Representatives. His campaign emphasizes middle-class economics, health care reform, public education, and environmental protection, and he highlights his background as a Paralympic athlete and advocate for people with disabilities.",
+      "summary_sources": [
+        {
+          "url": "https://turek4iowa.com/about",
+          "type": "website",
+          "title": "About Josh Turek",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Iowa,_2026",
+          "type": "website",
+          "title": "United States Senate election in Iowa, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8f/Josh_Turek_2022.jpg",
+      "website": "https://turek4iowa.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/Turek4Iowa",
+        "instagram": "https://www.instagram.com/turek4iowa/",
+        "x": "https://x.com/turek4iowa",
+        "threads": "https://www.threads.net/@turek4iowa",
+        "bluesky": "https://bsky.app/profile/turek4iowa.bsky.social",
+        "tiktok": "https://www.tiktok.com/@turek4iowa",
+        "youtube": "https://www.youtube.com/@turek4iowa"
+      },
+      "career_history": [
+        {
+          "title": "Member",
+          "organization": "Iowa House of Representatives",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Represents Council Bluffs area district in the Iowa House."
+        },
+        {
+          "title": "Professional wheelchair basketball player / Paralympian",
+          "organization": "Team USA",
+          "start_year": 2000,
+          "end_year": 2021,
+          "description": "Competed in four Paralympics and won two gold medals."
+        },
+        {
+          "title": "Volunteer Director",
+          "organization": "Ryan Martin Foundation",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked with an organization providing disabled children opportunities to play sports."
+        },
+        {
+          "title": "Mobility and rehab technology worker",
+          "organization": "Wheelchair and mobility assistance company",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked with patients and doctors to provide mobility devices and complex rehab technology."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Abraham Lincoln High School",
+          "degree": "High school diploma",
+          "field": null,
+          "year": null
+        },
+        {
+          "institution": "Southwest Minnesota State University",
+          "degree": "Bachelor's degree",
+          "field": null,
+          "year": 2002
+        },
+        {
+          "institution": "Unknown institution",
+          "degree": "MBA",
+          "field": null,
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [
+        "https://turek4iowa.com/",
+        "https://turek4iowa.com/about",
+        "https://ballotpedia.org/United_States_Senate_election_in_Iowa,_2026"
+      ],
+      "issues": {}
+    },
+    {
+      "name": "Zach Wahls",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Zach Wahls is a Democratic candidate for U.S. Senate and a sitting Iowa state senator. His campaign focuses on affordability, working families, anti-corruption measures, and economic opportunity, and he presents himself as a problem-solving legislator with experience in bipartisan work.",
+      "summary_sources": [
+        {
+          "url": "https://zachwahls.com/meet-zach-wahls/",
+          "type": "website",
+          "title": "Meet Zach Wahls - Wahls for Iowa",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Iowa,_2026",
+          "type": "website",
+          "title": "United States Senate election in Iowa, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/3f/Zach_Wahls_Iowa_Legislature_Portait.jpg",
+      "website": "https://zachwahls.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/zach.wahls",
+        "instagram": "https://www.instagram.com/zachwahls/",
+        "threads": "https://www.threads.net/@zachwahls",
+        "bluesky": "https://bsky.app/profile/zachwahls.bsky.social",
+        "youtube": "https://www.youtube.com/@zachwahls"
+      },
+      "career_history": [
+        {
+          "title": "State Senator",
+          "organization": "Iowa Senate",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Represents Iowa Senate District 43."
+        },
+        {
+          "title": "Vice President of Community Investment",
+          "organization": "GreenState Credit Union",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked in community investment at Iowa\u2019s largest independent financial cooperative."
+        },
+        {
+          "title": "Advocate and author",
+          "organization": "Independent / public advocacy",
+          "start_year": null,
+          "end_year": null,
+          "description": "Became nationally known for testimony on marriage equality and later worked as an advocate and author."
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Iowa",
+          "degree": "Degree",
+          "field": null,
+          "year": null
+        },
+        {
+          "institution": "Princeton University School of Public and International Affairs",
+          "degree": "Degree",
+          "field": null,
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [
+        "https://zachwahls.com/",
+        "https://zachwahls.com/meet-zach-wahls/",
+        "https://ballotpedia.org/United_States_Senate_election_in_Iowa,_2026"
+      ],
+      "issues": {}
+    },
+    {
+      "name": "Nathan Sage",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Nathan Sage is a Democratic candidate for U.S. Senate who built his campaign around working-class experience, military service, and local economic development. His background includes service in the Marine Corps and Army, work as a mechanic and broadcaster, and leadership at the Knoxville Chamber of Commerce.",
+      "summary_sources": [
+        {
+          "url": "https://www.sageforsenate.com/about",
+          "type": "website",
+          "title": "About \u2014 Nathan Sage | Democrat for U.S. Senate",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Iowa,_2026",
+          "type": "website",
+          "title": "United States Senate election in Iowa, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2c/Nathan_Sage_headshot.jpg",
+      "website": "https://www.sageforsenate.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/sageforiowa/",
+        "facebook": "https://www.facebook.com/sageforsenate"
+      },
+      "career_history": [
+        {
+          "title": "Executive Director",
+          "organization": "Knoxville Chamber of Commerce",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Leads local economic development and business support efforts."
+        },
+        {
+          "title": "News Director and Sports Director",
+          "organization": "Two Iowa radio stations",
+          "start_year": null,
+          "end_year": 2023,
+          "description": "Worked in local radio after returning to Iowa."
+        },
+        {
+          "title": "Mechanic",
+          "organization": "Private sector",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked as a mechanic after military service."
+        },
+        {
+          "title": "Corporal",
+          "organization": "United States Marine Corps",
+          "start_year": null,
+          "end_year": 2008,
+          "description": "Served two deployments to Iraq during Operation Iraqi Freedom."
+        },
+        {
+          "title": "Corporal",
+          "organization": "United States Army",
+          "start_year": 2008,
+          "end_year": 2013,
+          "description": "Served in the Army after Marine Corps service."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Mason City High School",
+          "degree": "High school diploma",
+          "field": null,
+          "year": null
+        },
+        {
+          "institution": "Kansas State University",
+          "degree": "Degree",
+          "field": null,
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [
+        "https://www.sageforsenate.com/",
+        "https://www.sageforsenate.com/about",
+        "https://ballotpedia.org/United_States_Senate_election_in_Iowa,_2026"
+      ],
+      "issues": {}
+    },
+    {
+      "name": "Jim Carlin",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Jim Carlin is a Republican candidate in Iowa\u2019s 2026 U.S. Senate race. He previously served in the Iowa Senate and is running in the Republican primary for the open seat.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Iowa,_2026",
+          "type": "website",
+          "title": "United States Senate election in Iowa, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Jim_Carlin",
+          "type": "website",
+          "title": "Jim Carlin - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "State Senator",
+          "organization": "Iowa Senate",
+          "start_year": 2017,
+          "end_year": 2023,
+          "description": "Served in the Iowa Senate before running for federal office."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [
+        "https://ballotpedia.org/United_States_Senate_election_in_Iowa,_2026",
+        "https://ballotpedia.org/Jim_Carlin"
+      ],
+      "issues": {}
+    },
+    {
+      "name": "Ashley Hinson",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Ashley Hinson is a Republican candidate in Iowa\u2019s 2026 U.S. Senate race and a sitting member of the U.S. House. She entered the Senate contest after Joni Ernst announced she would not seek re-election, bringing a congressional and media background to the race.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Iowa,_2026",
+          "type": "website",
+          "title": "United States Senate election in Iowa, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Ashley_Hinson",
+          "type": "website",
+          "title": "Ashley Hinson - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Member of Congress",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Represents Iowa\u2019s 2nd Congressional District."
+        },
+        {
+          "title": "Television news anchor and reporter",
+          "organization": "KCRG-TV9",
+          "start_year": null,
+          "end_year": 2021,
+          "description": "Worked in broadcast journalism before entering politics."
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Southern California",
+          "degree": "Degree",
+          "field": null,
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [
+        "https://ballotpedia.org/United_States_Senate_election_in_Iowa,_2026",
+        "https://ballotpedia.org/Ashley_Hinson"
+      ],
+      "issues": {}
+    },
+    {
+      "name": "Joni Ernst",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Joni Ernst is the incumbent Republican U.S. senator from Iowa, but she is not seeking re-election in 2026. Her Senate career and military background have been central to her public profile, and her retirement created the open-seat contest now underway.",
+      "summary_sources": [
+        {
+          "url": "https://www.ernst.senate.gov/about",
+          "type": "government",
+          "title": "About | U.S. Senator Joni Ernst of Iowa",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.cbsnews.com/news/joni-ernst-wont-seek-reelection-to-senate-in-2026-sources-say/",
+          "type": "news",
+          "title": "Joni Ernst won't seek reelection to Senate in 2026, sources say",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://www.ernst.senate.gov/wp-content/uploads/2024/01/Joni-Ernst-Official-Photo.jpg",
+      "website": "https://www.ernst.senate.gov/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/SenJoniErnst",
+        "instagram": "https://www.instagram.com/senjoni ernst/",
+        "x": "https://x.com/SenJoniErnst",
+        "youtube": "https://www.youtube.com/@SenJoniErnst"
+      },
+      "career_history": [
+        {
+          "title": "United States Senator",
+          "organization": "U.S. Senate",
+          "start_year": 2015,
+          "end_year": 2026,
+          "description": "Represents Iowa in the U.S. Senate."
+        },
+        {
+          "title": "Montgomery County Auditor",
+          "organization": "Montgomery County, Iowa",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as county auditor and local commissioner of elections."
+        },
+        {
+          "title": "State Senator",
+          "organization": "Iowa Senate",
+          "start_year": null,
+          "end_year": 2014,
+          "description": "Served in the Iowa Senate before election to Congress."
+        },
+        {
+          "title": "Lieutenant Colonel",
+          "organization": "Iowa Army National Guard",
+          "start_year": null,
+          "end_year": 2015,
+          "description": "Retired after 23 years of military service."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Iowa State University",
+          "degree": "B.A.",
+          "field": null,
+          "year": null
+        },
+        {
+          "institution": "Columbus State University",
+          "degree": "M.P.A.",
+          "field": null,
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [
+        "https://www.ernst.senate.gov/",
+        "https://www.ernst.senate.gov/about",
+        "https://ballotpedia.org/United_States_Senate_election_in_Iowa,_2026"
+      ],
+      "issues": {}
+    }
+  ],
+  "updated_utc": "2026-04-01T05:48:45.970877+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "gpt-5-nano"
+  ],
+  "reviews": [],
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 197907,
+    "completion_tokens": 4066,
+    "total_tokens": 201973,
+    "estimated_usd": 0.0321,
+    "model_breakdown": {
+      "gpt-5.4-mini": {
+        "prompt_tokens": 197907,
+        "completion_tokens": 4066
+      }
+    },
+    "duration_s": 45.5
+  }
+}

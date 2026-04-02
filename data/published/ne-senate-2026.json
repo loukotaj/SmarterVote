@@ -1,0 +1,201 @@
+{
+  "id": "ne-senate-2026",
+  "title": "2026 U.S. Senate election in Nebraska",
+  "office": "U.S. Senate",
+  "jurisdiction": "Nebraska",
+  "election_date": "2026-11-03",
+  "description": "Nebraska voters will elect one U.S. senator in 2026 for the Class II seat currently held by Pete Ricketts. The race matters because it will help determine control of the U.S. Senate, and Nebraska is generally a Republican-leaning state even though Dan Osborn ran competitively as an independent in 2024. The contest highlights a contrast between an incumbent Republican senator with statewide executive experience and an independent challenger emphasizing working-class and anti-establishment themes.",
+  "polling": [
+    {
+      "pollster": "Lake Research Partners",
+      "date": "2025-12-17",
+      "sample_size": 600,
+      "matchups": [
+        {
+          "candidates": [
+            "Dan Osborn",
+            "Pete Ricketts"
+          ],
+          "percentages": [
+            48.0,
+            48.0
+          ]
+        }
+      ],
+      "source_url": "https://www.nytimes.com/interactive/polls/nebraska-us-senate-election-polls-2026.html"
+    }
+  ],
+  "polling_note": null,
+  "candidates": [
+    {
+      "name": "Pete Ricketts",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Pete Ricketts is Nebraska\u2019s junior U.S. senator and a former two-term governor of the state. His campaign and Senate biography emphasize tax cuts, government efficiency, agriculture, and conservative policy priorities.",
+      "summary_sources": [
+        {
+          "url": "https://www.ricketts.senate.gov/about/",
+          "type": "government",
+          "title": "About - Senator Pete Ricketts",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://petericketts.com/",
+          "type": "website",
+          "title": "Pete Ricketts for Senate - Pete Delivers. Nebraskans Win.",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://bioguide.congress.gov/search/bio/R000618",
+          "type": "government",
+          "title": "RICKETTS, John Peter (Pete) - Bioguide Search",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Sen._Pete_Ricketts_official_portrait%2C_118th_Congress.jpg",
+      "website": "https://petericketts.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/PeteRickettsNE/",
+        "x": "https://x.com/PeteRicketts",
+        "instagram": "https://www.instagram.com/senatorricketts/",
+        "linkedin": "https://www.linkedin.com/in/pete-ricketts-9090a0162"
+      },
+      "career_history": [
+        {
+          "title": "U.S. Senator",
+          "organization": "United States Senate",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Represents Nebraska in the U.S. Senate."
+        },
+        {
+          "title": "Governor",
+          "organization": "State of Nebraska",
+          "start_year": 2015,
+          "end_year": 2023,
+          "description": "Served two terms as Nebraska governor."
+        },
+        {
+          "title": "Business executive",
+          "organization": "TD Ameritrade / family business background",
+          "start_year": null,
+          "end_year": 2014,
+          "description": "Worked in business before entering statewide elected office."
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Chicago",
+          "degree": "MBA",
+          "field": "Business Administration",
+          "year": 1993
+        },
+        {
+          "institution": "University of Nebraska\u2013Lincoln",
+          "degree": "BS",
+          "field": "Biology",
+          "year": 1986
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Dan Osborn",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Dan Osborn is a Navy veteran, industrial mechanic, and former labor union leader from Omaha. He is running as an independent and has framed his campaign around working-class economics, political independence, and a populist critique of both parties.",
+      "summary_sources": [
+        {
+          "url": "https://www.osbornforsenate.com/",
+          "type": "website",
+          "title": "Dan Osborn | Independent for U.S. Senate",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Dan_Osborn",
+          "type": "news",
+          "title": "Dan Osborn - Wikipedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Nebraska,_2026",
+          "type": "website",
+          "title": "United States Senate election in Nebraska, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/0a/Dan_Osborn_2024.jpg",
+      "website": "https://www.osbornforsenate.com/",
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "U.S. Navy storekeeper",
+          "organization": "United States Navy",
+          "start_year": 1994,
+          "end_year": 1998,
+          "description": "Served aboard USS Constellation after high school."
+        },
+        {
+          "title": "Industrial mechanic",
+          "organization": "Kellogg's Omaha plant",
+          "start_year": 2004,
+          "end_year": 2021,
+          "description": "Worked maintaining factory machinery before and during the 2021 strike."
+        },
+        {
+          "title": "Union president",
+          "organization": "Bakery, Confectionery, Tobacco Workers and Grain Millers International Union Local 50G",
+          "start_year": 2021,
+          "end_year": 2022,
+          "description": "Led the local union and became nationally known during the Kellogg's strike."
+        },
+        {
+          "title": "Nebraska Army National Guard member",
+          "organization": "Nebraska Army National Guard",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served in the Nebraska Army National Guard after his Navy service."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Roncalli Catholic High School",
+          "degree": "High school diploma",
+          "field": null,
+          "year": 1994
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "updated_utc": "2026-04-01T05:57:46.429622+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "gpt-5-nano"
+  ],
+  "reviews": [],
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 78438,
+    "completion_tokens": 1802,
+    "total_tokens": 80240,
+    "estimated_usd": 0.0128,
+    "model_breakdown": {
+      "gpt-5.4-mini": {
+        "prompt_tokens": 78438,
+        "completion_tokens": 1802
+      }
+    },
+    "duration_s": 18.2
+  }
+}

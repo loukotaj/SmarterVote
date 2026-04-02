@@ -1,0 +1,253 @@
+{
+  "id": "pa-governor-2026",
+  "title": "2026 Pennsylvania Governor Election",
+  "office": "Governor of Pennsylvania",
+  "jurisdiction": "Pennsylvania",
+  "election_date": "2026-11-03",
+  "description": "Pennsylvania is holding an election for governor and lieutenant governor on November 3, 2026, with the governor\u2019s race on the ballot statewide. The contest is notable because incumbent Democrat Josh Shapiro is seeking reelection, while Republican State Treasurer Stacy Garrity is the leading GOP candidate; Ballotpedia rates the race as Likely Democratic to Solid Democratic depending on the outlet. The race matters because Pennsylvania is a large swing state with national political significance, and the campaign is likely to center on taxes, state spending, public safety, abortion/reproductive rights, and Shapiro\u2019s record in office versus Garrity\u2019s fiscal and military background.",
+  "polling": [
+    {
+      "pollster": "Franklin & Marshall",
+      "date": "2026-03-05",
+      "sample_size": 834,
+      "matchups": [
+        {
+          "candidates": [
+            "Josh Shapiro",
+            "Stacy Garrity"
+          ],
+          "percentages": [
+            48.0,
+            28.0
+          ]
+        }
+      ],
+      "source_url": "https://www.270towin.com/2026-governor-polls/pennsylvania"
+    },
+    {
+      "pollster": "Quinnipiac University",
+      "date": "2026-02-25",
+      "sample_size": 836,
+      "matchups": [
+        {
+          "candidates": [
+            "Josh Shapiro",
+            "Stacy Garrity"
+          ],
+          "percentages": [
+            55.0,
+            37.0
+          ]
+        }
+      ],
+      "source_url": "https://www.270towin.com/2026-governor-polls/pennsylvania"
+    },
+    {
+      "pollster": "Quinnipiac University",
+      "date": "2025-10-01",
+      "sample_size": 1579,
+      "matchups": [
+        {
+          "candidates": [
+            "Josh Shapiro",
+            "Stacy Garrity"
+          ],
+          "percentages": [
+            55.0,
+            39.0
+          ]
+        }
+      ],
+      "source_url": "https://www.270towin.com/2026-governor-polls/pennsylvania"
+    }
+  ],
+  "polling_note": null,
+  "candidates": [
+    {
+      "name": "Josh Shapiro",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Josh Shapiro is the incumbent governor of Pennsylvania and is seeking reelection in 2026. He previously served as Pennsylvania attorney general, Montgomery County commissioner chair, and a state representative, and his campaign and official biography emphasize a record focused on public safety, education, infrastructure, and government management.",
+      "summary_sources": [
+        {
+          "url": "https://www.nga.org/governor/josh-shapiro/",
+          "type": "government",
+          "title": "Josh Shapiro - National Governors Association",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Pennsylvania_gubernatorial_and_lieutenant_gubernatorial_election,_2026",
+          "type": "news",
+          "title": "Pennsylvania gubernatorial and lieutenant gubernatorial election, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://joshshapiro.org/",
+          "type": "website",
+          "title": "Home - Shapiro For Governor",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/7d/Governor_Shapiro.jpg",
+      "website": "https://joshshapiro.org/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/JoshShapiroPA/",
+        "instagram": "https://www.instagram.com/joshshapiropa/",
+        "x": "https://x.com/JoshShapiroPA"
+      },
+      "career_history": [
+        {
+          "title": "Governor",
+          "organization": "Commonwealth of Pennsylvania",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Serving as the 48th governor of Pennsylvania."
+        },
+        {
+          "title": "Attorney General",
+          "organization": "Commonwealth of Pennsylvania",
+          "start_year": 2017,
+          "end_year": 2023,
+          "description": "Elected statewide attorney general."
+        },
+        {
+          "title": "Chair, Board of Commissioners",
+          "organization": "Montgomery County, Pennsylvania",
+          "start_year": 2011,
+          "end_year": 2017,
+          "description": "Led the county board of commissioners."
+        },
+        {
+          "title": "State Representative",
+          "organization": "Pennsylvania House of Representatives",
+          "start_year": 2005,
+          "end_year": 2011,
+          "description": "Represented a district in the Pennsylvania House."
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Rochester",
+          "degree": "Bachelor's degree",
+          "field": "Political science",
+          "year": 1995
+        },
+        {
+          "institution": "Georgetown University Law Center",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": 2002
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Stacy Garrity",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Stacy Garrity is Pennsylvania\u2019s state treasurer and the Republican candidate for governor in 2026. Her campaign and official biography highlight her military service, business background, and work in the Treasury Department, where she has focused on unclaimed property, fee reductions, and fiscal oversight.",
+      "summary_sources": [
+        {
+          "url": "https://www.patreasury.gov/treasurer/",
+          "type": "government",
+          "title": "Treasurer Garrity - Pennsylvania Treasury Department",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://garrityforpa.com/",
+          "type": "website",
+          "title": "Stacy Garrity for Governor",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Pennsylvania_gubernatorial_and_lieutenant_gubernatorial_election,_2026",
+          "type": "news",
+          "title": "Pennsylvania gubernatorial and lieutenant gubernatorial election, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8f/Stacy_Garrity%2C_2024.jpg",
+      "website": "https://garrityforpa.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/GarrityForPA/",
+        "instagram": "https://www.instagram.com/stacyforpa/",
+        "x": "https://x.com/GarrityForPA"
+      },
+      "career_history": [
+        {
+          "title": "State Treasurer",
+          "organization": "Commonwealth of Pennsylvania",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Elected statewide treasurer and reelected in 2024."
+        },
+        {
+          "title": "Vice President",
+          "organization": "Global Tungsten & Powders Corp.",
+          "start_year": null,
+          "end_year": 2021,
+          "description": "Business executive; rose from cost accountant to vice president."
+        },
+        {
+          "title": "Cost Accountant",
+          "organization": "Global Tungsten & Powders Corp.",
+          "start_year": null,
+          "end_year": null,
+          "description": "Early career role in business and finance."
+        },
+        {
+          "title": "Colonel, U.S. Army Reserve",
+          "organization": "United States Army Reserve",
+          "start_year": null,
+          "end_year": null,
+          "description": "Retired after three deployments and a long military career."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Bloomsburg University of Pennsylvania",
+          "degree": "Bachelor's degree",
+          "field": "Finance and economics",
+          "year": null
+        },
+        {
+          "institution": "Cornell University Business Management Institute",
+          "degree": "Certificate",
+          "field": "Business management",
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "updated_utc": "2026-04-01T06:03:34.237416+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "gpt-5-nano"
+  ],
+  "reviews": [],
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 98092,
+    "completion_tokens": 2257,
+    "total_tokens": 100349,
+    "estimated_usd": 0.0161,
+    "model_breakdown": {
+      "gpt-5.4-mini": {
+        "prompt_tokens": 98092,
+        "completion_tokens": 2257
+      }
+    },
+    "duration_s": 35.4
+  }
+}

@@ -84,8 +84,9 @@ Return JSON:
   "id": "{race_id}",
   "title": "<descriptive race title>",
   "office": "<office name>",
-  "jurisdiction": "<state or locality>",
-  "district": "<district number or name if applicable, else null>",
+  "jurisdiction": "<full geographic scope, e.g. \"Missouri's 1st Congressional District\", \"Missouri\", \"United States\">",
+  "state": "<US state name for map highlighting, e.g. \"Missouri\"; use null for national or multi-state races>",
+  "district": "<district identifier if applicable, e.g. \"1st Congressional District\", \"District 5\"; null otherwise>",
   "election_date": "<YYYY-MM-DD or best estimate>",
   "description": "<3-4 sentence nonpartisan overview of the race>",
   "polling": [

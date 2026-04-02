@@ -1,0 +1,268 @@
+{
+  "id": "wy-senate-2026",
+  "title": "2026 U.S. Senate election in Wyoming",
+  "office": "United States Senate",
+  "jurisdiction": "Wyoming",
+  "election_date": "2026-11-03",
+  "description": "Voters in Wyoming will elect one U.S. senator in 2026 for the state\u2019s Class II Senate seat. The race is notable because incumbent Cynthia Lummis is not seeking re-election, making it an open-seat contest in a state that has been strongly Republican in recent federal elections. Ballotpedia rates the general election as solid/safe Republican, and the main contrast so far is within the Republican primary between a sitting member of Congress and a challenger emphasizing term limits and outsider status.",
+  "polling": [],
+  "polling_note": "No public polling found for this race as of 2026-04-01.",
+  "candidates": [
+    {
+      "name": "Harriet Hageman",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Harriet Hageman is a Republican member of the U.S. House from Wyoming who is running for the state\u2019s open U.S. Senate seat in 2026. Her campaign emphasizes opposition to federal overreach, protection of private property and water rights, and conservative governance. She previously worked as a lawyer and served in the Wyoming attorney general\u2019s office before entering Congress.",
+      "summary_sources": [
+        {
+          "url": "https://history.house.gov/People/Detail/25769822962?current_search_qs=%3Ffilter%3D6%26PreviousSearch%3DSearch%252cLastName%252c%252c%252c%252c%252cFalse%252cFalse%252cTrue%252c65-66-67-68-69-70-71-72-73-74-75-76-77-78-79-80-81-82-83-84-85-86-87-88-89-90-91-92-93-94-95-96-97-98-99-100-101-102-103-104-105-106-107-108-109-110-111-112-113-114-115-116-117-118-119%252cState%26CurrentPage%3D6%26SortOrder%3DState%26ResultType%3DGrid%26Command%3D38",
+          "type": "government",
+          "title": "HAGEMAN, Harriet | US House of Representatives: History, Art & Archives",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.hagemanforwyoming.com/home",
+          "type": "website",
+          "title": "HOME | Harriet Hageman",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Harriet_Hageman",
+          "type": "news",
+          "title": "Harriet Hageman - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8f/Harriet_Hageman_118th_Congress.jpg",
+      "website": "https://www.hagemanforwyoming.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/harriethageman/",
+        "instagram": "https://www.instagram.com/rephageman/",
+        "x": "https://x.com/RepHageman?lang=en"
+      },
+      "career_history": [
+        {
+          "title": "Member of Congress",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Represents Wyoming\u2019s at-large congressional district."
+        },
+        {
+          "title": "Staff attorney",
+          "organization": "Wyoming Attorney General\u2019s Office",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as a staff attorney before entering elected office."
+        },
+        {
+          "title": "Lawyer",
+          "organization": "Private practice",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked as an attorney in private practice."
+        },
+        {
+          "title": "Judicial clerk",
+          "organization": "U.S. Court of Appeals for the Tenth Circuit",
+          "start_year": null,
+          "end_year": null,
+          "description": "Clerked for a federal appellate judge."
+        },
+        {
+          "title": "Adjunct professor",
+          "organization": "Central Michigan University",
+          "start_year": null,
+          "end_year": null,
+          "description": "Taught as an adjunct professor."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Lingle-Fort Laramie High School",
+          "degree": "High school diploma",
+          "field": null,
+          "year": 1981
+        },
+        {
+          "institution": "Casper College",
+          "degree": "Attended",
+          "field": null,
+          "year": 1983
+        },
+        {
+          "institution": "University of Wyoming",
+          "degree": "B.S.",
+          "field": null,
+          "year": 1986
+        },
+        {
+          "institution": "University of Wyoming",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": 1989
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Jimmy Skovgard",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Jimmy Skovgard is a Republican challenger in Wyoming\u2019s 2026 U.S. Senate race. His campaign presents him as an outsider focused on term limits, financial transparency, limited government, and a more citizen-driven style of representation. He says he served more than a decade in the Wyoming Army National Guard and has also run his own business.",
+      "summary_sources": [
+        {
+          "url": "https://www.skovgard2026.org/",
+          "type": "website",
+          "title": "Jimmy Skovgard U.S. Senate 2026",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.wyomingpublicmedia.org/politics-government/2026-01-28/a-second-wyomingite-has-announced-a-run-for-u-s-senate",
+          "type": "news",
+          "title": "A second Wyomingite has announced a run for U.S. Senate",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.basinrepublican-rustler.com/content/man-who-grew-big-horn-co-files-senate",
+          "type": "news",
+          "title": "Man who grew up in Big Horn Co. files for Senate",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://www.skovgard2026.org/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/skovgard2026/?locale=uk_UA"
+      },
+      "career_history": [
+        {
+          "title": "Captain",
+          "organization": "Wyoming Army National Guard",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served for more than a decade and was honorably discharged as a captain."
+        },
+        {
+          "title": "Business owner",
+          "organization": "Own business",
+          "start_year": null,
+          "end_year": null,
+          "description": "Campaign materials and reporting describe him as having run his own business."
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Wyoming",
+          "degree": "Attended",
+          "field": null,
+          "year": null
+        },
+        {
+          "institution": "Basin High School",
+          "degree": "High school diploma",
+          "field": null,
+          "year": null
+        },
+        {
+          "institution": "Greybull grade school",
+          "degree": "Attended",
+          "field": null,
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "James Byrd",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "James Byrd is the Democratic candidate in Wyoming\u2019s 2026 U.S. Senate race. His campaign says he is focused on energy, healthcare access, and public lands, and he has framed his candidacy around representing Wyoming interests in Washington. Byrd previously served in the Wyoming House of Representatives, giving him prior legislative experience in state government.",
+      "summary_sources": [
+        {
+          "url": "https://www.byrdforsenate.com/",
+          "type": "website",
+          "title": "James Byrd For United States Senate",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.wyomingpublicmedia.org/politics-government/2026-02-18/first-wyoming-democrat-announces-run-for-u-s-senate",
+          "type": "news",
+          "title": "First Wyoming Democrat announces run for U.S. Senate",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.jhnewsandguide.com/news/state/local/good-policy-knows-no-party-says-wyoming-democrat-running-for-u-s-senate-seat/article_6e0e69a8-c0ee-4b41-94c3-ea15bfdd096d.html",
+          "type": "news",
+          "title": "'Good policy knows no party,' says Wyoming Democrat running for U.S. Senate seat",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/0f/James_W._Byrd.jpg",
+      "website": "https://www.byrdforsenate.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/61588224903720?locale=zh_CN"
+      },
+      "career_history": [
+        {
+          "title": "Member of the Wyoming House of Representatives",
+          "organization": "State of Wyoming",
+          "start_year": 2009,
+          "end_year": 2019,
+          "description": "Served five terms representing Cheyenne\u2019s 44th district."
+        },
+        {
+          "title": "Business leader",
+          "organization": "Private sector",
+          "start_year": null,
+          "end_year": null,
+          "description": "Campaign and biographical coverage describe him as having a business background."
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Wyoming",
+          "degree": "Unknown",
+          "field": null,
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "updated_utc": "2026-04-01T06:11:32.342578+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "gpt-5-nano"
+  ],
+  "reviews": [],
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 200585,
+    "completion_tokens": 3034,
+    "total_tokens": 203619,
+    "estimated_usd": 0.0319,
+    "model_breakdown": {
+      "gpt-5.4-mini": {
+        "prompt_tokens": 200585,
+        "completion_tokens": 3034
+      }
+    },
+    "duration_s": 37.8
+  }
+}

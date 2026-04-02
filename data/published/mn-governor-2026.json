@@ -4,8 +4,110 @@
   "office": "Governor of Minnesota",
   "jurisdiction": "Minnesota",
   "election_date": "2026-11-03",
-  "description": "Minnesota will elect its governor and lieutenant governor on November 3, 2026, with the primary scheduled for August 11, 2026. The race is for the state\u2019s top executive office and will shape budgeting, education, public safety, health care, and other major policy areas. Minnesota has leaned Democratic in recent statewide elections, but the Republican field is competitive and includes multiple sitting legislators and other notable figures. The contest is likely to feature a contrast between Democratic-Farmer-Labor candidates emphasizing continuity and public services and Republican candidates emphasizing taxes, public safety, and government reform.",
+  "description": "Minnesota will elect its governor and lieutenant governor on November 3, 2026, with party primaries scheduled for August 11, 2026. The race will decide control of the state’s top executive office and shape policy on the budget, education, public safety, health care, and taxes. It is expected to feature Democratic-Farmer-Labor and Republican candidates, along with possible independent or third-party contenders, and the campaign is likely to center on continuity in state government versus calls for tax relief, public safety changes, and broader government reform. This profile is current as of April 1, 2026.",
   "polling": [
+    {
+      "pollster": "Emerson College Polling",
+      "date": "2026-03-24",
+      "matchups": [
+        {
+          "candidates": [
+            "Amy Klobuchar",
+            "Lisa Demuth"
+          ],
+          "percentages": [
+            51,
+            38
+          ]
+        },
+        {
+          "candidates": [
+            "Amy Klobuchar",
+            "Mike Lindell"
+          ],
+          "percentages": [
+            53,
+            31
+          ]
+        }
+      ],
+      "source_url": "https://emersoncollegepolling.com/minnesota-2026-poll-democrats-lead-gop-as-voters-cite-threats-to-democracy/",
+      "sample_size": 600
+    },
+    {
+      "pollster": "Emerson College Polling",
+      "date": "2026-02-11",
+      "matchups": [
+        {
+          "candidates": [
+            "Amy Klobuchar",
+            "Lisa Demuth"
+          ],
+          "percentages": [
+            51,
+            38
+          ]
+        },
+        {
+          "candidates": [
+            "Amy Klobuchar",
+            "Mike Lindell"
+          ],
+          "percentages": [
+            53,
+            31
+          ]
+        }
+      ],
+      "source_url": "https://emersoncollegepolling.com/minnesota-2026-poll-democrats-lead-gop-as-voters-cite-threats-to-democracy/",
+      "sample_size": 1000
+    },
+    {
+      "pollster": "Emerson College Polling",
+      "date": "2026-02-11",
+      "matchups": [
+        {
+          "candidates": [
+            "Amy Klobuchar",
+            "Lisa Demuth"
+          ],
+          "percentages": [
+            51,
+            38
+          ]
+        },
+        {
+          "candidates": [
+            "Amy Klobuchar",
+            "Mike Lindell"
+          ],
+          "percentages": [
+            53,
+            31
+          ]
+        }
+      ],
+      "source_url": "https://emersoncollegepolling.com/minnesota-2026-poll-democrats-lead-gop-as-voters-cite-threats-to-democracy/",
+      "sample_size": 1000
+    },
+    {
+      "pollster": "Emerson College Polling",
+      "date": "2026-03-24",
+      "matchups": [
+        {
+          "candidates": [
+            "Democratic candidates",
+            "Republican candidates"
+          ],
+          "percentages": [
+            null,
+            null
+          ]
+        }
+      ],
+      "source_url": "https://emersoncollegepolling.com/minnesota-2026-poll-democrats-lead-gop-as-voters-cite-threats-to-democracy/",
+      "sample_size": 600
+    },
     {
       "pollster": "Emerson College Polling",
       "date": "2026-03-24",
@@ -27,379 +129,20 @@
   ],
   "candidates": [
     {
-      "name": "Tim Walz",
-      "party": "Democratic-Farmer-Labor",
-      "incumbent": true,
-      "summary": "Tim Walz is the incumbent governor of Minnesota and a former U.S. representative from Minnesota\u2019s 1st Congressional District. He previously worked as a teacher and coach and served in the Army National Guard before entering elected office.",
-      "summary_sources": [
-        {
-          "url": "https://ballotpedia.org/Tim_Walz",
-          "type": "website",
-          "title": "Tim Walz - Ballotpedia",
-          "last_accessed": "2026-03-29T00:00:00Z"
-        },
-        {
-          "url": "https://mn.gov/governor/about-gov/timwalz/",
-          "type": "government",
-          "title": "Governor Tim Walz - MN.gov",
-          "last_accessed": "2026-03-29T00:00:00Z"
-        }
-      ],
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/TimWalz2025.jpg/500px-TimWalz2025.jpg",
-      "website": "https://mn.gov/governor/",
-      "social_media": {
-        "x": "https://x.com/GovTimWalz",
-        "facebook": "https://www.facebook.com/GovTimWalz/",
-        "instagram": "https://www.instagram.com/mngovernor/"
-      },
-      "career_history": [
-        {
-          "title": "Governor",
-          "organization": "State of Minnesota",
-          "start_year": 2019,
-          "end_year": null,
-          "description": "Serves as Minnesota\u2019s chief executive."
-        },
-        {
-          "title": "U.S. Representative",
-          "organization": "U.S. House of Representatives",
-          "start_year": 2007,
-          "end_year": 2019,
-          "description": "Represented Minnesota\u2019s 1st Congressional District."
-        },
-        {
-          "title": "Teacher and coach",
-          "organization": "Mankato West High School and other schools",
-          "start_year": 1990,
-          "end_year": 2006,
-          "description": "Worked in education before entering Congress."
-        }
-      ],
-      "education": [
-        {
-          "institution": "Chadron State College",
-          "degree": "B.S.",
-          "field": "social science education",
-          "year": 1989
-        }
-      ],
-      "voting_record": [
-        {
-          "bill_name": "S.5 Laken Riley Act",
-          "bill_description": "Immigration enforcement bill requiring federal detention of certain noncitizens accused of theft-related offenses.",
-          "vote": "absent",
-          "date": "2024-03-13",
-          "source": {
-            "url": "https://www.congress.gov/bill/118th-congress/senate-bill/5",
-            "type": "government",
-            "title": "S.5 - Laken Riley Act",
-            "last_accessed": "2026-03-29T19:36:59.045833+00:00"
-          }
-        },
-        {
-          "bill_name": "H.R. 1319 American Rescue Plan Act of 2021",
-          "bill_description": "COVID-19 relief legislation providing economic aid and public health funding.",
-          "vote": "yes",
-          "date": "2021-03-10",
-          "source": {
-            "url": "https://www.congress.gov/bill/117th-congress/house-bill/1319",
-            "type": "government",
-            "title": "H.R. 1319 - American Rescue Plan Act of 2021",
-            "last_accessed": "2026-03-29T19:36:59.045833+00:00"
-          }
-        },
-        {
-          "bill_name": "H.R. 803 (113th): Workforce Innovation and Opportunity Act",
-          "bill_description": "House passage vote on a workforce and job-training bill.",
-          "vote": "yes",
-          "date": "2014-07-22",
-          "source": {
-            "url": "https://www.govtrack.us/congress/votes/113-2013/h75",
-            "type": "government",
-            "title": "H.R. 803 (113th): Workforce Innovation and Opportunity Act - GovTrack.us",
-            "last_accessed": "2026-03-29T19:36:59.045833+00:00"
-          }
-        },
-        {
-          "bill_name": "S. 2038 (112th): STOCK Act",
-          "bill_description": "House passage vote on the STOCK Act, which restricted insider trading by members of Congress.",
-          "vote": "yes",
-          "date": "2012-02-09",
-          "source": {
-            "url": "https://www.govtrack.us/congress/votes/112-2012/h47",
-            "type": "government",
-            "title": "S. 2038 (112th): STOCK Act - GovTrack.us",
-            "last_accessed": "2026-03-29T19:36:59.045833+00:00"
-          }
-        },
-        {
-          "bill_name": "H.R. 8 (112th): American Taxpayer Relief Act of 2012",
-          "bill_description": "House vote on the fiscal-cliff tax and spending agreement.",
-          "vote": "yes",
-          "date": "2013-01-01",
-          "source": {
-            "url": "https://www.govtrack.us/congress/votes/112-2012/h659",
-            "type": "government",
-            "title": "H.R. 8 (112th): American Taxpayer Relief Act of 2012 - GovTrack.us",
-            "last_accessed": "2026-03-29T19:36:59.045833+00:00"
-          }
-        },
-        {
-          "bill_name": "H.R. 4480 (112th): Domestic Energy and Jobs Act",
-          "bill_description": "House passage vote on an energy and jobs bill.",
-          "vote": "yes",
-          "date": "2012-06-21",
-          "source": {
-            "url": "https://www.govtrack.us/congress/votes/112-2012/h410",
-            "type": "government",
-            "title": "H.R. 4480 (112th): Domestic Energy and Jobs Act -- GovTrack.us",
-            "last_accessed": "2026-03-29T19:36:59.045833+00:00"
-          }
-        },
-        {
-          "bill_name": "H.R. 1: Tax Cuts and Jobs Act",
-          "bill_description": "House vote on the 2017 tax overhaul.",
-          "vote": "no",
-          "date": "2017-12-19",
-          "source": {
-            "url": "https://www.govtrack.us/congress/votes/115-2017/h637",
-            "type": "government",
-            "title": "H.R. 1: Tax Cuts and Jobs Act -- GovTrack.us",
-            "last_accessed": "2026-03-29T19:36:59.045833+00:00"
-          }
-        }
-      ],
-      "top_donors": [],
-      "issues": {
-        "Healthcare": {
-          "stance": "Walz\u2019s administration says it has expanded access to health care by increasing Medicaid rates for reproductive health services, updating MinnesotaCare and private-plan coverage for abortion care and contraceptives, and supporting broader health-data privacy protections.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://reprofreedomalliance.org/state-details/minnesota/",
-              "type": "website",
-              "title": "Minnesota - Reproductive Freedom Alliance",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
-            },
-            {
-              "url": "https://mn.gov/governor/newsroom/press-releases/",
-              "type": "website",
-              "title": "Press Releases / Office of Governor Tim Walz and Lt ... - MN.gov",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "Walz says his administration has made investments in economic development, small businesses, clean energy, and jobs, and his campaign frames this as part of a \u201cOne Minnesota\u201d approach.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://walzforgovernor.org/",
-              "type": "website",
-              "title": "Tim Walz for Governor",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
-            },
-            {
-              "url": "https://mn.gov/governor/about-gov/timwalz/",
-              "type": "government",
-              "title": "Governor Tim Walz - MN.gov",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "As governor, Walz has backed climate and clean-energy policies, including emissions-reduction efforts and other measures described in news coverage as part of an ambitious climate agenda.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.nytimes.com/2024/08/06/climate/tim-walzs-big-climate-ambitions.html",
-              "type": "news",
-              "title": "Tim Walz's Big Climate Ambitions - The New York Times",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
-            },
-            {
-              "url": "https://www.vpm.org/npr-news/npr-news/2024-08-08/heres-what-tim-walz-did-on-climate-change-as-minnesota-governor",
-              "type": "news",
-              "title": "Here's what Tim Walz did on climate change as Minnesota governor",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
-            }
-          ]
-        },
-        "Reproductive Rights": {
-          "stance": "Walz supports abortion rights and broader reproductive freedom. Minnesota\u2019s governor site says he signed the PRO Act codifying reproductive rights, including abortion, as a fundamental right.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://reprofreedomalliance.org/state-details/minnesota/",
-              "type": "website",
-              "title": "Minnesota - Reproductive Freedom Alliance",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
-            },
-            {
-              "url": "https://mn.gov/governor/newsroom/press-releases/",
-              "type": "website",
-              "title": "Press Releases / Office of Governor Tim Walz and Lt ... - MN.gov",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "Walz supports immigration reform with a pathway to citizenship for certain undocumented immigrants, including Dreamers, TPS holders, and essential workers, while also supporting stronger border security.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.cfr.org/articles/issue-guide-tim-walz-foreign-policy",
-              "type": "website",
-              "title": "Issue Guide: Tim Walz on Foreign Policy",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
-            }
-          ]
-        },
-        "Guns & Safety": {
-          "stance": "Walz has backed gun-violence prevention measures, including executive orders and legislative proposals aimed at reducing gun violence and improving public safety.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://mn.gov/governor/newsroom/press-releases/?id=1055-716493",
-              "type": "government",
-              "title": "Governor Walz Becomes First Minnesota Governor to Take ...",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
-            },
-            {
-              "url": "https://mn.gov/governor/newsroom/press-releases/?id=727531",
-              "type": "government",
-              "title": "Governor Walz Announces Comprehensive Gun Violence ... - MN.gov",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
-            },
-            {
-              "url": "https://www.mprnews.org/story/2023/05/19/walzs-signs-red-flag-orders-universal-background-checks-into-law",
-              "type": "news",
-              "title": "Walz signs 'red flag' orders, universal background checks into law",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "Walz has generally backed aid to allies such as Ukraine and Israel, supported the Iran nuclear deal, and criticized some U.S. military interventions.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.cfr.org/articles/issue-guide-tim-walz-foreign-policy",
-              "type": "website",
-              "title": "Issue Guide: Tim Walz on Foreign Policy",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
-            },
-            {
-              "url": "https://www.reuters.com/world/walzs-long-history-with-china-draws-attacks-praise-2024-08-07/",
-              "type": "news",
-              "title": "Walz's long history with China draws attacks and praise - Reuters",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
-            }
-          ]
-        },
-        "Social Justice": {
-          "stance": "Walz\u2019s public record includes support for reproductive rights, gun-violence prevention, and broader civil-rights-oriented governance, but no single campaign page in the reviewed sources laid out a detailed social-justice platform.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://mn.gov/governor/about-gov/timwalz/",
-              "type": "government",
-              "title": "Governor Tim Walz - MN.gov",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
-            },
-            {
-              "url": "https://mn.gov/governor/newsroom/press-releases/",
-              "type": "government",
-              "title": "Press Releases / Office of Governor Tim Walz and Lt ... - MN.gov",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Walz says Minnesota has made investments in education and that his administration is focused on expanding academic opportunities and support for students.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://walzforgovernor.org/",
-              "type": "website",
-              "title": "Tim Walz for Governor",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
-            },
-            {
-              "url": "https://mn.gov/governor/onemn/index.jsp",
-              "type": "government",
-              "title": "Due North Education Plan / Office of Governor Tim Walz",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "I did not find a clear, current campaign statement from Walz specifically on AI or broader tech policy in the sources reviewed.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.brookings.edu/articles/what-do-vance-and-walz-have-to-say-about-tech-policy-the-techtank-podcast/",
-              "type": "website",
-              "title": "What do Vance and Walz have to say about tech policy? - Brookings",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
-            }
-          ]
-        },
-        "Election Reform": {
-          "stance": "Walz\u2019s 2026 reelection announcement did not lay out a detailed election-reform agenda in the sources reviewed.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://mn.gov/governor/newsroom/press-releases/?id=718148",
-              "type": "government",
-              "title": "Governor Walz Statement Announcing He Will Not Seek Reelection",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
-            },
-            {
-              "url": "https://www.fox9.com/news/gov-tim-walz-reelection-2026",
-              "type": "news",
-              "title": "Tim Walz ends reelection campaign for governor of Minnesota - FOX 9",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Walz\u2019s public materials emphasize state budgeting, education, public safety, health care, and economic development rather than a separate local-issues platform.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://mn.gov/governor/about-gov/timwalz/",
-              "type": "government",
-              "title": "Governor Tim Walz - MN.gov",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
-            },
-            {
-              "url": "https://walzforgovernor.org/",
-              "type": "website",
-              "title": "Tim Walz for Governor",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
-            }
-          ]
-        }
-      }
-    },
-    {
       "name": "Brad Kohler",
       "party": "Independent",
       "incumbent": false,
-      "summary": "Brad Kohler is an independent candidate for governor of Minnesota. He is a former UFC fighter and businessman, and his campaign emphasizes taxes, public safety, parental rights, school choice, and government reform.",
+      "summary": "Brad Kohler is an independent candidate for governor of Minnesota, a former UFC fighter, and a business owner. His campaign says it is focused on making Minnesota more affordable through lower taxes, reduced regulation, public safety, parental rights, school choice, government transparency, and local control.",
       "summary_sources": [
         {
-          "url": "https://ballotpedia.org/Brad_Kohler",
-          "type": "website",
-          "title": "Brad Kohler - Ballotpedia",
-          "last_accessed": "2026-03-29T00:00:00Z"
+          "url": "https://www.bradkohler.com/",
+          "type": "official",
+          "title": "Home | Brad Kohler | For MN Governor"
         },
         {
-          "url": "https://ballotpedia.org/Minnesota_gubernatorial_and_lieutenant_gubernatorial_election,_2026",
-          "type": "website",
-          "title": "Minnesota gubernatorial and lieutenant gubernatorial election, 2026 - Ballotpedia",
-          "last_accessed": "2026-03-29T00:00:00Z"
+          "url": "https://ballotpedia.org/Brad_Kohler",
+          "type": "ballotpedia",
+          "title": "Brad Kohler - Ballotpedia"
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Brad_Kohler.jpg/500px-Brad_Kohler.jpg",
@@ -426,180 +169,221 @@
       "top_donors": [],
       "issues": {
         "Healthcare": {
-          "stance": "Kohler\u2019s campaign materials do not provide a detailed health-care platform in the sources reviewed.",
-          "confidence": "low",
+          "stance": "Kohler says reliable healthcare should be part of a stronger Minnesota, but his campaign materials do not provide a detailed healthcare policy proposal.",
+          "confidence": "high",
           "sources": [
             {
               "url": "https://www.bradkohler.com/",
-              "type": "website",
+              "type": "official",
               "title": "Home | Brad Kohler | For MN Governor",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             },
             {
               "url": "https://www.bradkohler.com/post/brad-kohler-s-vision-for-a-stronger-minnesota",
               "type": "website",
               "title": "Brad Kohler's Vision for a Stronger Minnesota",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             }
           ]
         },
         "Economy": {
-          "stance": "Kohler says he wants to make Minnesota affordable by cutting taxes, reducing property taxes, capping car tabs, eliminating the state business income tax, and cutting red tape and regulations.",
+          "stance": "Kohler says he would eliminate the state business income tax, reduce personal income taxes, lower property taxes, cap car and truck tabs at $99, and cut excessive red tape and regulations to support affordability and growth.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://www.bradkohler.com/",
-              "type": "website",
+              "type": "official",
               "title": "Home | Brad Kohler | For MN Governor",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
+            },
+            {
+              "url": "https://www.bradkohler.com/post/brad-kohler-s-vision-for-a-stronger-minnesota",
+              "type": "website",
+              "title": "Brad Kohler's Vision for a Stronger Minnesota",
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             }
           ]
         },
         "Climate/Energy": {
-          "stance": "Kohler\u2019s campaign emphasizes affordability and says he would lower energy costs through market-oriented reforms and reduced regulation.",
-          "confidence": "high",
+          "stance": "Kohler’s campaign emphasizes affordability and says he would lower costs through market-oriented reforms and reduced regulation, but it does not lay out a detailed climate or energy platform.",
+          "confidence": "medium",
           "sources": [
             {
               "url": "https://www.bradkohler.com/",
-              "type": "website",
+              "type": "official",
               "title": "Home | Brad Kohler | For MN Governor",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             }
           ]
         },
         "Reproductive Rights": {
-          "stance": "I did not find a clear, direct statement from Kohler\u2019s campaign website or other credible public source on abortion or reproductive rights in the sources reviewed.",
+          "stance": "I did not find a clear, direct public statement from Kohler’s campaign materials on abortion or reproductive rights in the sources reviewed.",
           "confidence": "low",
           "sources": [
             {
               "url": "https://www.bradkohler.com/",
-              "type": "website",
+              "type": "official",
               "title": "Home | Brad Kohler | For MN Governor",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             }
           ]
         },
         "Immigration": {
-          "stance": "Kohler\u2019s campaign website does not appear to lay out a detailed immigration platform.",
+          "stance": "Kohler’s campaign website does not appear to lay out a detailed immigration platform.",
           "confidence": "low",
           "sources": [
             {
               "url": "https://www.bradkohler.com/",
-              "type": "website",
+              "type": "official",
               "title": "Home | Brad Kohler | For MN Governor",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             }
           ]
         },
         "Guns & Safety": {
-          "stance": "Kohler has emphasized public safety and has appeared at events with gun owners, but the reviewed sources did not provide a detailed written gun policy.",
-          "confidence": "medium",
+          "stance": "Kohler says he supports strong public safety and law enforcement while respecting constitutional rights, including Second Amendment protections.",
+          "confidence": "high",
           "sources": [
             {
-              "url": "https://www.kaaltv.com/news/minnesota-governor-candidate-talks-with-local-gun-owners-about-gun-control-policies/",
-              "type": "news",
-              "title": "Minnesota governor candidate talks with local gun owners about gun control policies",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "url": "https://www.bradkohler.com/",
+              "type": "official",
+              "title": "Home | Brad Kohler | For MN Governor",
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             },
             {
-              "url": "https://www.facebook.com/KQforMN/posts/it-is-the-governors-job-to-ensure-the-safety-of-its-citizens-tim-walz-failed/904714038771017/",
-              "type": "social_media",
-              "title": "It is the governor's job to ensure the safety of its citizens...",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "url": "https://ballotpedia.org/Brad_Kohler",
+              "type": "ballotpedia",
+              "title": "Brad Kohler - Ballotpedia",
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             }
           ]
         },
         "Foreign Policy": {
-          "stance": "Kohler\u2019s campaign materials do not provide a specific foreign policy agenda.",
+          "stance": "Kohler’s campaign materials do not provide a specific foreign policy agenda.",
           "confidence": "low",
           "sources": [
             {
               "url": "https://www.bradkohler.com/",
-              "type": "website",
+              "type": "official",
               "title": "Home | Brad Kohler | For MN Governor",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             }
           ]
         },
         "Social Justice": {
-          "stance": "Kohler\u2019s campaign messaging is centered on outsider politics and practical governance, but the reviewed sources did not provide a detailed social-justice platform.",
-          "confidence": "low",
+          "stance": "Kohler’s campaign emphasizes inclusion, fundamental freedoms, human rights, and opposition to discrimination, framing those values as part of his “Independence Way” message.",
+          "confidence": "high",
           "sources": [
             {
               "url": "https://www.bradkohler.com/",
-              "type": "website",
+              "type": "official",
               "title": "Home | Brad Kohler | For MN Governor",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             }
           ]
         },
         "Education": {
-          "stance": "Kohler says he wants to expand vocational training and support skilled careers, while also giving parents greater input in education.",
+          "stance": "Kohler says he supports expanded vocational training, accessible childcare for working parents, greater parental input in education, and more focused learning environments.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://www.bradkohler.com/",
-              "type": "website",
+              "type": "official",
               "title": "Home | Brad Kohler | For MN Governor",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             }
           ]
         },
         "Tech & AI": {
-          "stance": "Kohler says he supports ethical use of technology to benefit Minnesotans, but the campaign language is general and does not specify AI regulation or investment proposals.",
+          "stance": "Kohler says he supports using technology ethically to benefit Minnesotans, but his campaign language is general and does not specify AI regulation or investment proposals.",
           "confidence": "medium",
           "sources": [
             {
               "url": "https://www.bradkohler.com/",
-              "type": "website",
+              "type": "official",
               "title": "Home | Brad Kohler | For MN Governor",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             }
           ]
         },
         "Election Reform": {
-          "stance": "Kohler says he supports fair processes, secure and accessible elections, transparency in government and campaigns, and lowering barriers for independent voices and new ideas.",
+          "stance": "Kohler says he supports fair processes, secure and accessible elections, transparency in government and campaigns, and lower barriers for independent voices and new ideas.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://www.bradkohler.com/",
-              "type": "website",
+              "type": "official",
               "title": "Home | Brad Kohler | For MN Governor",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             }
           ]
         },
         "Local Issues": {
-          "stance": "Kohler emphasizes lower taxes, reduced red tape, public safety, vocational training, childcare, education input for parents, and local economic opportunity.",
+          "stance": "Kohler’s local-issues message centers on reducing the cost of living through lower taxes, lower property taxes, capped car tabs, reduced regulation, vocational training, childcare support, and more local control.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://www.bradkohler.com/",
-              "type": "website",
+              "type": "official",
               "title": "Home | Brad Kohler | For MN Governor",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
+            },
+            {
+              "url": "https://ballotpedia.org/Brad_Kohler",
+              "type": "ballotpedia",
+              "title": "Brad Kohler - Ballotpedia",
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             }
           ]
         }
-      }
+      },
+      "donor_summary": "Public campaign-finance information for Brad Kohler’s 2026 governor campaign appears limited in the sources reviewed. The available federal FEC committee page is for a separate congressional committee, so it does not provide a complete picture of fundraising for the governor race.",
+      "donor_source_url": "https://www.fec.gov/data/committee/C00866335/",
+      "voting_summary": "Brad Kohler does not have a legislative voting record because he has not held elected legislative office. Publicly available comparisons therefore rely on his campaign statements and prior candidacies rather than roll-call votes.",
+      "voting_source_url": "https://ballotpedia.org/Brad_Kohler",
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Brad_Kohler",
+          "title": "Brad Kohler - Ballotpedia",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Brad_Kohler",
+          "title": "Brad Kohler - Wikipedia",
+          "type": "wiki"
+        },
+        {
+          "url": "https://www.fec.gov/data/committee/C00866335/",
+          "title": "BRAD KOHLER FOR CONGRESS - committee overview - FEC",
+          "type": "finance"
+        },
+        {
+          "url": "https://www.bradkohler.com/",
+          "title": "Home | Brad Kohler | For MN Governor",
+          "type": "official"
+        },
+        {
+          "url": "https://justfacts.votesmart.org/candidate/207841/brad-kohler",
+          "title": "Brad Kohler - Vote Smart - Facts For All",
+          "type": "votesmart"
+        }
+      ]
     },
     {
       "name": "Mike Newcome",
       "party": "Independent",
       "incumbent": false,
-      "summary": "Mike Newcome is an independent candidate for governor of Minnesota. His campaign presents him as a centrist outsider focused on public safety, education, government accountability, and improving the business climate.",
+      "summary": "Mike Newcome is an independent candidate for governor of Minnesota and a businessman and entrepreneur from White Bear Lake. Ballotpedia says he graduated from White Bear Lake High School and earned a bachelor's degree from the University of St. Thomas in 1992. MPR News reported on March 30, 2026 that he ended his campaign for governor.",
       "summary_sources": [
         {
           "url": "https://ballotpedia.org/Mike_Newcome",
           "type": "website",
-          "title": "Mike Newcome - Ballotpedia",
-          "last_accessed": "2026-03-29T00:00:00Z"
+          "title": "Mike Newcome - Ballotpedia"
         },
         {
-          "url": "https://ballotpedia.org/Minnesota_gubernatorial_and_lieutenant_gubernatorial_election,_2026",
-          "type": "website",
-          "title": "Minnesota gubernatorial and lieutenant gubernatorial election, 2026 - Ballotpedia",
-          "last_accessed": "2026-03-29T00:00:00Z"
+          "url": "https://www.mprnews.org/story/2026/03/30/mike-newcome-leaves-race-for-minnesota-governor",
+          "type": "news",
+          "title": "Mike Newcome leaves race for Minnesota governor | MPR News"
         }
       ],
       "image_url": null,
@@ -611,7 +395,7 @@
       "top_donors": [],
       "issues": {
         "Healthcare": {
-          "stance": "Newcome\u2019s campaign materials reviewed here do not provide a clear health-care platform.",
+          "stance": "Newcome’s campaign materials reviewed here do not provide a clear health-care platform.",
           "confidence": "low",
           "sources": [
             {
@@ -623,32 +407,56 @@
           ]
         },
         "Economy": {
-          "stance": "Newcome\u2019s campaign messaging emphasizes independent, people-centered governance and rebuilding trust, but the reviewed sources did not provide a detailed economy platform.",
-          "confidence": "low",
+          "stance": "Promotes a pro‑business economic approach focused on improving Minnesota's business climate by lowering the corporate tax burden with a sliding‑scale tax based on company size and infrastructure needs. He also advocates reform of Minnesota's paid family leave policy to reduce burdens on employers and supports eliminating unfunded county mandates to ease local business compliance.",
+          "confidence": "high",
           "sources": [
             {
-              "url": "https://www.newcomeforgovernor.com/",
-              "type": "website",
-              "title": "Mike Newcome for Minnesota",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "url": "https://www.nujournal.com/news/local-news/2026/02/18/third-party-gubernatorial-candidate-newcome-visits-new-ulm/",
+              "type": "article",
+              "title": "Third-party gubernatorial candidate Newcome visits New Ulm",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
+            },
+            {
+              "url": "https://ballotpedia.org/Mike_Newcome",
+              "type": "article",
+              "title": "Mike Newcome - Ballotpedia",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
+            },
+            {
+              "url": "https://www.mprnews.org/story/2026/03/30/mike-newcome-leaves-race-for-minnesota-governor",
+              "type": "article",
+              "title": "Mike Newcome leaves race for Minnesota governor",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
             }
           ]
         },
         "Climate/Energy": {
-          "stance": "Newcome\u2019s campaign materials suggest support for a cleaner energy future and concern about grid reliability, but the reviewed sources did not provide a detailed written climate plan.",
-          "confidence": "medium",
+          "stance": "Supports a cleaner energy future by expanding carbon-free generation, prioritizing nuclear power as a reliable baseload source, while also supporting renewable energy expansion; no comprehensive climate plan has been published in the sources reviewed.",
+          "confidence": "high",
           "sources": [
             {
-              "url": "https://www.newcomeforgovernor.com/",
-              "type": "website",
-              "title": "Mike Newcome for Minnesota",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "url": "https://www.nujournal.com/news/local-news/2026/02/18/third-party-gubernatorial-candidate-newcome-visits-new-ulm/",
+              "type": "article",
+              "title": "Third-party gubernatorial candidate Newcome visits New Ulm",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
+            },
+            {
+              "url": "https://www.mprnews.org/story/2026/03/30/mike-newcome-leaves-race-for-minnesota-governor",
+              "type": "article",
+              "title": "Mike Newcome leaves race for Minnesota governor",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
             },
             {
               "url": "https://www.facebook.com/MinnesotaIP/videos/mike-newcome-stands-out-by-actually-answering-questions-and-sharing-real-solutio/864043629504109/",
-              "type": "social_media",
+              "type": "video",
               "title": "Mike Newcome stands out by actually answering questions and sharing real solutions - Facebook",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
+            },
+            {
+              "url": "https://ballotpedia.org/Mike_Newcome",
+              "type": "article",
+              "title": "Mike Newcome - Ballotpedia",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
             }
           ]
         },
@@ -665,25 +473,25 @@
           ]
         },
         "Immigration": {
-          "stance": "Newcome\u2019s campaign materials available in the search results do not show a detailed immigration platform.",
-          "confidence": "low",
+          "stance": "As of March 30, 2026, Mike Newcome has suspended his gubernatorial campaign; there is no active immigration policy or platform published by his campaign. Prior to withdrawal, the campaign did not publish a detailed immigration platform.",
+          "confidence": "high",
           "sources": [
             {
-              "url": "https://www.newcomeforgovernor.com/",
-              "type": "website",
-              "title": "Mike Newcome for Minnesota",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "url": "https://www.mprnews.org/story/2026/03/30/mike-newcome-leaves-race-for-minnesota-governor",
+              "type": "article",
+              "title": "Mike Newcome leaves race for Minnesota governor - MPR News",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
             },
             {
-              "url": "https://www.mprnews.org/story/2025/11/22/its-a-moonshot-thirdparty-candidate-makes-his-case-for-governor",
-              "type": "news",
-              "title": "\u2018It\u2019s a moonshot\u2019: Third-party candidate makes his case for governor",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "url": "https://www.startribune.com/operation-metro-surge-drives-third-party-candidate-mike-newcome-out-of-minnesota-governors-race/601651391",
+              "type": "article",
+              "title": "Operation Metro Surge drives third-party candidate Mike Newcome out of Minnesota governor’s race",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
             }
           ]
         },
         "Guns & Safety": {
-          "stance": "Newcome\u2019s public materials reviewed here emphasize public safety and practical problem-solving, but they do not provide a detailed gun policy.",
+          "stance": "Newcome’s public materials reviewed here emphasize public safety and practical problem-solving, but they do not provide a detailed gun policy.",
           "confidence": "medium",
           "sources": [
             {
@@ -695,7 +503,7 @@
             {
               "url": "https://www.mprnews.org/story/2025/11/22/its-a-moonshot-thirdparty-candidate-makes-his-case-for-governor",
               "type": "news",
-              "title": "\u2018It\u2019s a moonshot\u2019: Third-party candidate makes his case for governor",
+              "title": "‘It’s a moonshot’: Third-party candidate makes his case for governor",
               "last_accessed": "2026-03-29T19:36:59.045833+00:00"
             }
           ]
@@ -713,7 +521,7 @@
           ]
         },
         "Social Justice": {
-          "stance": "Newcome\u2019s campaign emphasizes centrist, cross-party problem-solving rather than a detailed social-justice agenda.",
+          "stance": "Newcome’s campaign emphasizes centrist, cross-party problem-solving rather than a detailed social-justice agenda.",
           "confidence": "low",
           "sources": [
             {
@@ -725,31 +533,37 @@
           ]
         },
         "Education": {
-          "stance": "The available campaign material did not surface a detailed education plan for Newcome.",
-          "confidence": "low",
+          "stance": "World-Class Education: Every child deserves a public education that truly prepares them for the future. Newcome would remove partisan-driven agendas from schools and put educators and common sense back in control of classrooms.",
+          "confidence": "high",
           "sources": [
             {
-              "url": "https://www.newcomeforgovernor.com/",
+              "url": "https://ballotpedia.org/Mike_Newcome",
               "type": "website",
-              "title": "Mike Newcome for Minnesota",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "title": "Mike Newcome - Ballotpedia",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
             }
           ]
         },
         "Tech & AI": {
-          "stance": "I did not find a clear public statement from Newcome specifically addressing AI or technology policy in the sources reviewed.",
-          "confidence": "low",
+          "stance": "We need to keep a very close eye on AI, with safeguards that protect Minnesotans without stifling innovation; a full AI policy is still being developed.",
+          "confidence": "medium",
           "sources": [
             {
+              "url": "https://ballotpedia.org/Mike_Newcome",
+              "type": "web",
+              "title": "Ballotpedia - Mike Newcome",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
+            },
+            {
               "url": "https://www.newcomeforgovernor.com/",
-              "type": "website",
+              "type": "web",
               "title": "Mike Newcome for Minnesota",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
             }
           ]
         },
         "Election Reform": {
-          "stance": "Newcome\u2019s campaign materials describe him as an independent candidate who wants to appeal beyond the major parties, but they do not provide a detailed election-reform platform.",
+          "stance": "Newcome’s campaign materials describe him as an independent candidate who wants to appeal beyond the major parties, but they do not provide a detailed election-reform platform.",
           "confidence": "low",
           "sources": [
             {
@@ -784,29 +598,58 @@
             }
           ]
         }
-      }
+      },
+      "donor_summary": "Publicly available campaign-finance information for Mike Newcome was limited in the sources reviewed, and I did not find a reliable candidate-specific donor breakdown for the 2026 governor race. The profile should be treated as incomplete until state filing data or a fuller finance database is available.",
+      "donor_source_url": "https://ballotpedia.org/Mike_Newcome",
+      "voting_summary": "No legislative voting record was found for Mike Newcome in the sources reviewed. He does not appear to have a public roll-call voting history, so issue positions should be sourced from campaign materials and interviews instead.",
+      "voting_source_url": "https://ballotpedia.org/Mike_Newcome",
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Mike_Newcome",
+          "title": "Mike Newcome - Ballotpedia",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://justfacts.votesmart.org/candidate/192401/kendall-qualls",
+          "title": "Kendall Qualls - Vote Smart - Facts For All",
+          "type": "other"
+        },
+        {
+          "url": "https://www.opensecrets.org/donor-lookup/results?order=asc&page=4&sort=N&zip=51653",
+          "title": "Donor Lookup • OpenSecrets",
+          "type": "finance"
+        },
+        {
+          "url": "https://www.newcomeforgovernor.com/",
+          "title": "Mike Newcome for Minnesota",
+          "type": "official"
+        },
+        {
+          "url": "https://www.betterminneapolis.com/p/interview-mike-newcome-candidate",
+          "title": "Interview: Mike Newcome, Candidate for Governor",
+          "type": "news"
+        }
+      ]
     },
     {
       "name": "Amy Klobuchar",
       "party": "Democratic-Farmer-Labor",
       "incumbent": false,
-      "summary": "Amy Klobuchar is a U.S. senator from Minnesota and a former county prosecutor. She has served in the Senate since 2007 and is running for governor in 2026.",
+      "summary": "Amy Klobuchar is a senior U.S. senator from Minnesota and a Democratic-Farmer-Labor candidate for governor in 2026. Her campaign has emphasized affordability, public safety, and opposition to the Trump administration, drawing on her long Senate tenure and earlier service as Hennepin County attorney.",
       "summary_sources": [
         {
-          "url": "https://ballotpedia.org/Amy_Klobuchar",
-          "type": "website",
-          "title": "Amy Klobuchar - Ballotpedia",
-          "last_accessed": "2026-03-29T00:00:00Z"
+          "url": "https://apnews.com/article/klobuchar-minnesota-governor-walz-trump-deec28156a6ed2aca6b12971824d6e3e",
+          "type": "news",
+          "title": "Democratic Sen. Amy Klobuchar announces run for Minnesota governor"
         },
         {
-          "url": "https://ballotpedia.org/Minnesota_gubernatorial_and_lieutenant_gubernatorial_election,_2026",
-          "type": "website",
-          "title": "Minnesota gubernatorial and lieutenant gubernatorial election, 2026 - Ballotpedia",
-          "last_accessed": "2026-03-29T00:00:00Z"
+          "url": "https://www.klobuchar.senate.gov/public/index.cfm/about-amy",
+          "type": "official",
+          "title": "About Amy - U.S. Senator Amy Klobuchar"
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Amy_Klobuchar%2C_official_portrait%2C_113th_Congress.jpg/500px-Amy_Klobuchar%2C_official_portrait%2C_113th_Congress.jpg",
-      "website": null,
+      "website": "https://www.klobuchar.senate.gov/",
       "social_media": {},
       "career_history": [
         {
@@ -907,7 +750,7 @@
           "source": {
             "url": "https://www.govtrack.us/congress/votes/119-2026/s37",
             "type": "government",
-            "title": "H.J.Res. 142: Disapproving the action of the District of Columbia \u2026 - GovTrack.us",
+            "title": "H.J.Res. 142: Disapproving the action of the District of Columbia … - GovTrack.us",
             "last_accessed": "2026-03-29T19:36:59.045833+00:00"
           }
         }
@@ -915,50 +758,62 @@
       "top_donors": [],
       "issues": {
         "Healthcare": {
-          "stance": "Klobuchar says women should be able to make their own health-care decisions and has supported protecting access to reproductive health care.",
+          "stance": "Klobuchar supports extending Affordable Care Act premium subsidies and health care tax credits to keep coverage affordable, and she has also backed reproductive health care access.",
           "confidence": "high",
           "sources": [
             {
-              "url": "https://www.klobuchar.senate.gov/public/index.cfm/2022/5/video-on-senate-floor-klobuchar-emphasizes-importance-of-protecting-women-s-freedom-to-make-their-own-healthcare-decisions",
+              "url": "https://www.klobuchar.senate.gov/public/index.cfm/2025/12/klobuchar-statement-on-vote-to-prevent-health-insurance-premiums-from-doubling",
               "type": "website",
-              "title": "VIDEO - On Senate Floor, Klobuchar Emphasizes Importance of Protecting Women\u2019s Freedom To Make Their Own Healthcare Decisions - News Releases - U.S. Senator Amy Klobuchar",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "title": "Klobuchar Statement on Vote to Extend the Health Care Tax Credit",
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             },
             {
-              "url": "https://www.klobuchar.senate.gov/public/index.cfm/2022/7/video-at-judiciary-committee-hearing-klobuchar-emphasizes-how-supreme-court-decision-overturning-roe-v-wade-threatens-women-s-reproductive-health-care",
+              "url": "https://thehill.com/policy/healthcare/5627171-klobuchar-predicts-aca-senate-vote/",
               "type": "website",
-              "title": "VIDEO \u2013 At Judiciary Committee Hearing, Klobuchar Emphasizes How Supreme Court Decision Overturning Roe v. Wade Threatens Women\u2019s Reproductive Health Care - News Releases - U.S. Senator Amy Klobuchar",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "title": "Klobuchar predicts ACA Senate vote",
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             }
           ]
         },
         "Economy": {
-          "stance": "Klobuchar says Minnesota\u2019s economy depends on strong trade, and her jobs-and-economy page emphasizes exports, imports, workers, and business competitiveness.",
+          "stance": "Klobuchar says her campaign will focus on affordability and a competitive economy, with an emphasis on fiscal discipline, workforce development, trade, and infrastructure to support job growth.",
           "confidence": "high",
           "sources": [
             {
-              "url": "https://www.klobuchar.senate.gov/public/index.cfm/jobs-and-the-economy",
-              "type": "website",
-              "title": "Jobs and the Economy - U.S. Senator Amy Klobuchar",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "url": "https://www.npr.org/2026/01/29/nx-s1-5692869/sen-amy-klobuchar-announces-shes-running-for-governor-amid-ice-surge-in-minnesota",
+              "type": "news",
+              "title": "Sen. Amy Klobuchar announces she's running for governor amid ICE surge in Minnesota",
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
+            },
+            {
+              "url": "https://minnesotareformer.com/2026/01/29/sen-klobuchar-launches-campaign-for-minnesota-governor/",
+              "type": "news",
+              "title": "Sen. Klobuchar launches campaign for Minnesota governor",
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
+            },
+            {
+              "url": "https://www.apnews.com/article/zelizer-amy-klobuchar-governor-minnesota-2026-04d3bf3e6a0c9cc9b5d5f9a7f3f9a7bd",
+              "type": "news",
+              "title": "AP News - Klobuchar announces run for Minnesota governor amid immigration surge",
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             }
           ]
         },
         "Climate/Energy": {
-          "stance": "I did not find a governor-campaign-specific climate or energy platform in the sources reviewed.",
-          "confidence": "low",
+          "stance": "Klobuchar has a long-standing public record supporting climate and clean-energy policy, including environmental conservation and homegrown energy priorities. However, reliable sources located for her 2026 governor campaign did not show a detailed Minnesota-specific climate platform, so this stance reflects her broader Senate record rather than a campaign-specific plan.",
+          "confidence": "medium",
           "sources": [
             {
-              "url": "https://apnews.com/article/klobuchar-minnesota-governor-walz-trump-deec28156a6ed2aca6b12971824d6e3e",
-              "type": "news",
-              "title": "Democratic Sen. Amy Klobuchar announces run for Minnesota governor - AP News",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "url": "https://www.klobuchar.senate.gov/public/index.cfm/homegrown-energy-environment-natural-resources",
+              "type": "official",
+              "title": "Environment, Climate Change, Homegrown Energy and Natural Resources",
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             },
             {
-              "url": "https://www.nbcnews.com/politics/2026-election/sen-amy-klobuchar-jumps-minnesota-governors-race-rcna252390",
+              "url": "https://www.npr.org/2026/01/29/nx-s1-5692869/sen-amy-klobuchar-announces-shes-running-for-governor-amid-ice-surge-in-minnesota",
               "type": "news",
-              "title": "Sen. Amy Klobuchar jumps into Minnesota governor's race - NBC News",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "title": "Sen. Amy Klobuchar announces she's running for governor amid ICE surge in Minnesota",
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             }
           ]
         },
@@ -967,16 +822,10 @@
           "confidence": "high",
           "sources": [
             {
-              "url": "https://www.klobuchar.senate.gov/public/index.cfm/2022/5/video-on-senate-floor-klobuchar-emphasizes-importance-of-protecting-women-s-freedom-to-make-their-own-healthcare-decisions",
+              "url": "https://www.klobuchar.senate.gov/public/index.cfm/2024/6/klobuchar-statement-on-the-second-anniversary-of-the-supreme-court-decision-to-overturn-roe-v-wade",
               "type": "website",
-              "title": "VIDEO - On Senate Floor, Klobuchar Emphasizes Importance of Protecting Women\u2019s Freedom To Make Their Own Healthcare Decisions - News Releases - U.S. Senator Amy Klobuchar",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
-            },
-            {
-              "url": "https://www.klobuchar.senate.gov/public/index.cfm/2022/7/video-at-judiciary-committee-hearing-klobuchar-emphasizes-how-supreme-court-decision-overturning-roe-v-wade-threatens-women-s-reproductive-health-care",
-              "type": "website",
-              "title": "VIDEO \u2013 At Judiciary Committee Hearing, Klobuchar Emphasizes How Supreme Court Decision Overturning Roe v. Wade Threatens Women\u2019s Reproductive Health Care - News Releases - U.S. Senator Amy Klobuchar",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "title": "Klobuchar Statement on the Second Anniversary of the Supreme Court Decision to Overturn Roe v. Wade",
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             }
           ]
         },
@@ -988,19 +837,19 @@
               "url": "https://www.klobuchar.senate.gov/public/index.cfm/2025/5/klobuchar-presses-for-bipartisan-path-forward-on-safe-ai-development-highlights-need-for-legislation-to-give-americans-control-over-their-voice-and-likeness",
               "type": "government",
               "title": "Klobuchar Presses for Bipartisan Path Forward on Safe AI Development...",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             },
             {
               "url": "https://www.klobuchar.senate.gov/public/index.cfm/2025/7/klobuchar-collins-kelly-introduce-bipartisan-bill-to-provide-ai-guidelines-for-election-offices",
               "type": "government",
               "title": "Klobuchar, Collins & Kelly Introduce Bipartisan Bill to Provide AI Guidelines for Election Offices",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             },
             {
               "url": "https://www.klobuchar.senate.gov/public/index.cfm/2023/11/klobuchar-thune-commerce-committee-colleagues-introduce-bipartisan-ai-bill-to-strengthen-accountability-and-boost-innovation",
               "type": "government",
               "title": "Klobuchar, Thune, Commerce Committee Colleagues Introduce Bipartisan AI Bill...",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             }
           ]
         },
@@ -1012,79 +861,85 @@
               "url": "https://www.klobuchar.senate.gov/public/index.cfm/immigration",
               "type": "website",
               "title": "Immigration - U.S. Senator Amy Klobuchar",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             }
           ]
         },
         "Foreign Policy": {
-          "stance": "Klobuchar\u2019s foreign policy record is generally internationalist and bipartisan, with support for allies and a strong role for the U.S. in global affairs.",
-          "confidence": "medium",
+          "stance": "Klobuchar has pushed for U.S. support for Ukraine, including bipartisan efforts to recover abducted Ukrainian children and to sanction Russia if it does not return them. She has also supported sanctions and allied assistance for Ukraine.",
+          "confidence": "high",
           "sources": [
             {
-              "url": "https://www.congress.gov/member/amy-klobuchar/K000367",
-              "type": "government",
-              "title": "Senator Amy Klobuchar - Congress.gov",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "url": "https://www.klobuchar.senate.gov/public/index.cfm/2025/5/grassley-klobuchar-lead-bipartisan-resolution-calling-for-return-of-kidnapped-ukrainian-children",
+              "type": "website",
+              "title": "Grassley, Klobuchar Lead Bipartisan Resolution Calling for Return of Kidnapped Ukrainian Children",
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             },
             {
-              "url": "https://www.cfr.org/election2020/candidate-tracker/amy-klobuchar",
+              "url": "https://www.klobuchar.senate.gov/public/index.cfm/2025/12/klobuchar-testifies-at-bipartisan-hearing-on-ukrainian-children-abducted-by-russia",
               "type": "website",
-              "title": "Amy Klobuchar's Foreign Policy",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "title": "Klobuchar Testifies at Bipartisan Hearing on Ukrainian Children Abducted by Russia",
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
+            },
+            {
+              "url": "https://www.lgraham.senate.gov/public/index.cfm/2025/9/graham-blumenthal-britt-and-klobuchar-introduce-legislation-to-designate-russia-a-state-sponsor-of-terrorism-if-they-don-t-return-kidnapped-ukrainian-children",
+              "type": "website",
+              "title": "Graham, Blumenthal, Britt and Klobuchar Introduce Legislation to Designate Russia A State Sponsor of Terrorism If They Don’t Return Kidnapped Ukrainian Children",
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             }
           ]
         },
         "Election Reform": {
-          "stance": "No detailed 2026 governor-campaign election-reform platform was found in the search results.",
-          "confidence": "low",
+          "stance": "Klobuchar supports expanding voting access through federal reform, including automatic voter registration via the Register America to Vote Act. Public reporting has not identified a Minnesota-specific election-reform platform in her 2026 gubernatorial bid.",
+          "confidence": "medium",
           "sources": [
             {
-              "url": "https://www.cnn.com/2026/01/22/politics/sen-amy-klobuchar-prepares-a-run-for-minnesota-governor-after-gov-tim-walz-dropped-reelection-bid",
-              "type": "news",
-              "title": "Sen. Amy Klobuchar prepares to run for Minnesota governor - CNN",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "url": "https://www.klobuchar.senate.gov/public/index.cfm/2025/9/on-national-voter-registration-day-klobuchar-introduces-legislation-to-make-registering-to-vote-easier-for-all-americans",
+              "type": "press release",
+              "title": "On National Voter Registration Day, Klobuchar Introduces Legislation to Make Registering to Vote Easier for All Americans",
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             },
             {
-              "url": "https://19thnews.org/2026/01/minnesota-governor-candidates-2026/",
-              "type": "news",
-              "title": "Amy Klobuchar jumps into Minnesota governor's race",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "url": "https://www.congress.gov/bill/119th-congress/senate-bill/2822/text",
+              "type": "legislation",
+              "title": "Register America to Vote Act of 2025 (S.2822) text",
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             }
           ]
         },
         "Guns & Safety": {
-          "stance": "Klobuchar has supported gun-safety measures and public-safety legislation, including efforts to close the boyfriend loophole and strengthen protections against gun violence.",
+          "stance": "Klobuchar supports stronger gun-safety laws, including universal background checks, closing the boyfriend loophole, assault-weapons restrictions, and red-flag protections.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://www.klobuchar.senate.gov/public/index.cfm/safety",
               "type": "website",
               "title": "Public Safety and Criminal Justice Reform - Senator Amy Klobuchar",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             },
             {
               "url": "https://giffords.org/press-release/2026/02/giffords-pac-endorses-senator-amy-klobuchar-for-minnesota-governor/",
               "type": "news",
               "title": "GIFFORDS PAC endorses Senator Amy Klobuchar for Minnesota governor",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             }
           ]
         },
         "Social Justice": {
-          "stance": "Klobuchar\u2019s public record includes support for civil rights, reproductive rights, and public safety reforms, but the reviewed sources did not provide a single comprehensive social-justice platform for the governor race.",
-          "confidence": "medium",
+          "stance": "Klobuchar has called for limiting aggressive federal immigration enforcement in Minnesota and for accountability and reform of ICE. Her public statements frame the issue as one of civil rights, due process, and lawful public safety policy.",
+          "confidence": "high",
           "sources": [
             {
-              "url": "https://www.klobuchar.senate.gov/public/index.cfm/safety",
+              "url": "https://www.klobuchar.senate.gov/public/index.cfm/2026/2/klobuchar-statement-on-ice-withdrawing-from-minnesota",
               "type": "website",
-              "title": "Public Safety and Criminal Justice Reform - Senator Amy Klobuchar",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "title": "Klobuchar Statement on ICE Withdrawing from Minnesota",
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             },
             {
-              "url": "https://www.klobuchar.senate.gov/public/index.cfm/2022/5/video-on-senate-floor-klobuchar-emphasizes-importance-of-protecting-women-s-freedom-to-make-their-own-healthcare-decisions",
+              "url": "https://www.cnbc.com/2026/01/29/democratic-sen-klobuchar-running-for-minnesota-governor.html",
               "type": "website",
-              "title": "VIDEO - On Senate Floor, Klobuchar Emphasizes Importance of Protecting Women\u2019s Freedom To Make Their Own Healthcare Decisions - News Releases - U.S. Senator Amy Klobuchar",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "title": "Democratic Sen. Klobuchar running for Minnesota governor",
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             }
           ]
         },
@@ -1096,51 +951,105 @@
               "url": "https://www.klobuchar.senate.gov/public/index.cfm/education",
               "type": "website",
               "title": "Education - U.S. Senator Amy Klobuchar",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             }
           ]
         },
         "Local Issues": {
-          "stance": "The search results show Klobuchar entering the governor\u2019s race amid concerns about immigration enforcement and public safety in Minnesota, but they do not provide a full local-issues platform.",
-          "confidence": "low",
+          "stance": "Klobuchar has focused on limiting aggressive federal immigration enforcement in Minnesota and on accountability and reform of ICE. She framed that position during her January 2026 governor bid launch and reiterated it in a February 2026 statement calling for ICE withdrawal from Minnesota and a full overhaul of the agency.",
+          "confidence": "high",
           "sources": [
             {
               "url": "https://www.npr.org/2026/01/29/nx-s1-5692869/sen-amy-klobuchar-announces-shes-running-for-governor-amid-ice-surge-in-minnesota",
               "type": "news",
               "title": "Sen. Amy Klobuchar announces she's running for governor amid ICE surge in Minnesota",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             },
             {
-              "url": "https://www.cnn.com/2026/01/22/politics/sen-amy-klobuchar-prepares-a-run-for-minnesota-governor-after-gov-tim-walz-dropped-reelection-bid",
-              "type": "news",
-              "title": "Sen. Amy Klobuchar prepares to run for Minnesota governor - CNN",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "url": "https://www.klobuchar.senate.gov/public/index.cfm/2026/2/klobuchar-statement-on-ice-withdrawing-from-minnesota",
+              "type": "news-release",
+              "title": "Klobuchar Statement on ICE Withdrawing from Minnesota",
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             }
           ]
         }
-      }
+      },
+      "donor_summary": "Amy Klobuchar’s fundraising is dominated by securities and investment interests, with additional support from lawyers and law firms, real estate, and media and entertainment donors. OpenSecrets shows her leadership PAC fundraising at about $2.0 million raised in the 2019–2024 period, with Centerbridge Partners among the top disclosed contributors.",
+      "donor_source_url": "https://www.opensecrets.org/members-of-congress/amy-klobuchar/summary?cid=N00027500&cycle=2024&type=P",
+      "voting_summary": "Amy Klobuchar has an extensive U.S. Senate voting record. Her recorded votes should be read as Senate roll calls from her service as a senator, not as gubernatorial actions, and they show a long-running pattern of supporting Democratic caucus priorities.",
+      "voting_source_url": "https://justfacts.votesmart.org/candidate/65092/amy-klobuchar?categoryId=32&type=V,S,R,E,F,P,E,E",
+      "links": [
+        {
+          "url": "https://www.opensecrets.org/members-of-congress/amy-klobuchar/summary?cid=N00027500&cycle=2024&type=P",
+          "title": "Sen. Amy Klobuchar - Campaign Finance Summary - OpenSecrets",
+          "type": "finance"
+        },
+        {
+          "url": "https://www.opensecrets.org/members-of-congress/amy-klobuchar/industries?cid=N00027500&cycle=CAREER",
+          "title": "Sen. Amy Klobuchar - Minnesota • OpenSecrets",
+          "type": "finance"
+        },
+        {
+          "url": "https://justfacts.votesmart.org/candidate/key-votes/65092/amy-klobuchar/31/family",
+          "title": "Amy Klobuchar's Voting Records on Issue: Family - Vote Smart",
+          "type": "votesmart"
+        },
+        {
+          "url": "https://www.congress.gov/member/amy-klobuchar/K000367",
+          "title": "Senator Amy Klobuchar - Congress.gov",
+          "type": "govtrack"
+        },
+        {
+          "url": "https://www.govtrack.us/congress/members/amy_klobuchar/412242",
+          "title": "Sen. Amy Klobuchar [D-MN, 2007-2030], Senator for Minnesota",
+          "type": "govtrack"
+        },
+        {
+          "url": "https://www.klobuchar.senate.gov/",
+          "title": "U.S. Senator Amy Klobuchar",
+          "type": "official"
+        },
+        {
+          "url": "https://www.klobuchar.senate.gov/public/index.cfm/about-amy",
+          "title": "About Amy - U.S. Senator Amy Klobuchar",
+          "type": "official"
+        },
+        {
+          "url": "https://bioguide.congress.gov/search/bio/k000367",
+          "title": "KLOBUCHAR, Amy - Bioguide Search",
+          "type": "legislature"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Amy_Klobuchar",
+          "title": "Amy Klobuchar - Wikipedia",
+          "type": "wiki"
+        },
+        {
+          "url": "https://justfacts.votesmart.org/candidate/65092/amy-klobuchar?categoryId=32&type=V,S,R,E,F,P,E,E",
+          "title": "Amy Klobuchar - Vote Smart",
+          "type": "votesmart"
+        }
+      ]
     },
     {
       "name": "Kendall Qualls",
       "party": "Republican",
       "incumbent": false,
-      "summary": "Kendall Qualls is a Republican candidate for governor of Minnesota. He is a former health care executive and Army veteran, and his campaign focuses on public safety, education, and conservative policy themes.",
+      "summary": "Kendall Qualls is a Republican candidate for governor of Minnesota and a retired U.S. Army officer and former health care executive. His campaign emphasizes public safety, education reform, and conservative policy priorities.",
       "summary_sources": [
         {
-          "url": "https://ballotpedia.org/Kendall_Qualls",
-          "type": "website",
-          "title": "Kendall Qualls - Ballotpedia",
-          "last_accessed": "2026-03-29T00:00:00Z"
+          "url": "https://www.kqformn.com/",
+          "type": "official",
+          "title": "Kendall Qualls for Governor"
         },
         {
-          "url": "https://minnesotareformer.com/2026/02/03/these-gop-candidates-for-minnesota-governor-have-raised-the-most-money-so-far/",
-          "type": "news",
-          "title": "These GOP candidates for Minnesota governor have raised the most money so far",
-          "last_accessed": "2026-03-29T00:00:00Z"
+          "url": "https://ballotpedia.org/Kendall_Qualls",
+          "type": "ballotpedia",
+          "title": "Kendall Qualls - Ballotpedia"
         }
       ],
-      "image_url": null,
-      "website": "https://kqformn.com/",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Kendall_Qualls.jpg/500px-Kendall_Qualls.jpg",
+      "website": "https://www.kqformn.com/",
       "social_media": {},
       "career_history": [
         {
@@ -1163,56 +1072,68 @@
       "top_donors": [],
       "issues": {
         "Healthcare": {
-          "stance": "Qualls\u2019 campaign materials reviewed here did not provide a clear, detailed health-care platform.",
+          "stance": "Qualls has not released a detailed health-care policy platform in the sources reviewed. Available campaign materials emphasize his background as a health care executive rather than a specific set of health-care proposals.",
           "confidence": "low",
           "sources": [
             {
               "url": "https://kqformn.com/",
               "type": "website",
               "title": "Kendall Qualls for Governor: Home",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             },
             {
               "url": "https://kqformn.com/about/",
               "type": "website",
-              "title": "About",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "title": "About - Kendall Qualls for Governor",
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             }
           ]
         },
         "Economy": {
-          "stance": "Qualls says he wants to make Minnesota affordable by cutting taxes, reducing property taxes, capping car tabs, eliminating the state business income tax, and cutting red tape and regulations.",
+          "stance": "Qualls proposes cutting personal income taxes, business taxes, property taxes, and state fees, and eliminating taxes on Social Security benefits. He says the plan would leave more money in Minnesotans’ pockets and support economic growth.",
           "confidence": "high",
           "sources": [
             {
-              "url": "https://kqformn.com/",
-              "type": "website",
-              "title": "Kendall Qualls for Governor: Home",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "url": "https://kqformn.com/contract/",
+              "type": "contract page",
+              "title": "Kendall Qualls for Governor: 15 Commitments (Contract)",
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
+            },
+            {
+              "url": "https://alphanews.org/kendall-qualls-a-contract-to-save-minnesota/",
+              "type": "article",
+              "title": "Kendall Qualls: A contract to save Minnesota",
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             }
           ]
         },
         "Climate/Energy": {
-          "stance": "Qualls\u2019 campaign emphasizes affordability and lower energy costs through broad, market-oriented reforms and reduced regulation.",
+          "stance": "Qualls favors market-driven, affordable energy policies and reduced regulatory burdens, emphasizing lower energy costs for Minnesotans rather than aggressive climate mandates.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://kqformn.com/",
               "type": "website",
               "title": "Kendall Qualls for Governor: Home",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             }
           ]
         },
         "Reproductive Rights": {
-          "stance": "I did not find a clear public statement from Qualls on abortion or reproductive rights in the sources reviewed.",
-          "confidence": "low",
+          "stance": "Qualls identifies as pro-life. Reporting in early 2026 said he would focus on personal persuasion rather than new abortion legislation to reduce abortions in Minnesota, and he has also pledged to veto state funding for abortion.",
+          "confidence": "high",
           "sources": [
             {
-              "url": "https://kqformn.com/",
-              "type": "website",
-              "title": "Kendall Qualls for Governor: Home",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "url": "https://www.startribune.com/how-minnesota-republicans-are-recalibrating-on-abortion-after-past-election-losses/601587765",
+              "type": "article",
+              "title": "How Minnesota Republicans are recalibrating on abortion",
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
+            },
+            {
+              "url": "https://www.postguam.com/news/nation/minnesota-republicans-are-recalibrating-about-abortion-after-past-election-losses/article_ad74f74a-7036-4502-a553-056da0525a2d.html",
+              "type": "article",
+              "title": "Minnesota Republicans are recalibrating about abortion after past election losses",
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             }
           ]
         },
@@ -1224,103 +1145,109 @@
               "url": "https://kqformn.com/",
               "type": "website",
               "title": "Kendall Qualls for Governor: Home",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             },
             {
               "url": "https://abetterminnesota.org/2026/01/conservative-gubernatorial-candidate-kendall-qualls-doubles-down-on-ice-support/",
               "type": "news",
               "title": "Conservative Gubernatorial Candidate Kendall Qualls Doubles Down on ICE Support",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             }
           ]
         },
         "Guns & Safety": {
-          "stance": "Qualls has emphasized public safety and has appeared at events with gun owners, but the reviewed sources did not provide a detailed written gun policy.",
-          "confidence": "medium",
+          "stance": "Qualls emphasizes public safety and mental health approaches while opposing broad gun-control measures aimed at law-abiding gun owners. He supports targeted safety efforts and enforcement and argues violence should be addressed by tackling underlying causes rather than restricting Second Amendment rights.",
+          "confidence": "high",
           "sources": [
             {
               "url": "https://www.kaaltv.com/news/minnesota-governor-candidate-talks-with-local-gun-owners-about-gun-control-policies/",
               "type": "news",
               "title": "Minnesota governor candidate talks with local gun owners about gun control policies",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
-            },
-            {
-              "url": "https://kqformn.com/",
-              "type": "website",
-              "title": "Kendall Qualls for Governor: Home",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             }
           ]
         },
         "Foreign Policy": {
-          "stance": "I did not find a specific foreign policy platform from Qualls\u2019s campaign materials or reliable reporting in the search results.",
+          "stance": "I did not find a specific foreign policy platform from Qualls’s campaign materials or reliable reporting in the sources reviewed.",
           "confidence": "low",
           "sources": [
             {
               "url": "https://kqformn.com/",
               "type": "website",
               "title": "Kendall Qualls for Governor: Home",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "last_accessed": "2026-04-01T05:33:55.197940+00:00"
             }
           ]
         },
         "Social Justice": {
-          "stance": "Qualls\u2019 campaign messaging is centered on conservative governance and public safety, and the reviewed sources did not provide a detailed social-justice platform.",
-          "confidence": "low",
+          "stance": "Qualls has criticized diversity, equity, and inclusion initiatives and promotes an anti-DEI stance in education and public institutions.",
+          "confidence": "high",
           "sources": [
             {
-              "url": "https://kqformn.com/",
-              "type": "website",
-              "title": "Kendall Qualls for Governor: Home",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
-            },
-            {
-              "url": "https://www.facebook.com/KQforMN/posts/government-should-focus-on-safe-streets-strong-schools-and-good-jobs-not-dividin/921459057096515/",
-              "type": "social_media",
-              "title": "Government should focus on safe streets, strong schools, and good jobs...",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "url": "https://www.startribune.com/kendall-qualls-hopes-anti-dei-message-will-push-him-over-the-top-in-governors-race/601560418",
+              "type": "news",
+              "title": "Kendall Qualls hopes anti-DEI message will win him governor's race",
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             }
           ]
         },
         "Education": {
-          "stance": "Qualls says he wants to expand vocational training and support skilled careers, while also giving parents greater input in education.",
+          "stance": "Qualls supports expanding school choice, giving parents more input over curriculum, expanding vocational and technical training, and opposing ethnic studies and DEI-related curricula he says divide students.",
           "confidence": "high",
           "sources": [
             {
-              "url": "https://kqformn.com/",
-              "type": "website",
-              "title": "Kendall Qualls for Governor: Home",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "url": "https://www.kaaltv.com/news/republican-governor-candidates-call-for-changes-to-minnesota-education-system/",
+              "type": "news",
+              "title": "Republican governor candidates call for changes to Minnesota education system",
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
+            },
+            {
+              "url": "https://www.mprnews.org/story/2025/05/08/qualls-makes-second-run-for-minnesota-governor",
+              "type": "news",
+              "title": "Kendall Qualls enters 2026 Minnesota governor’s race as a GOP nomination contender",
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
+            },
+            {
+              "url": "https://kqformn.com/contract/",
+              "type": "campaign document",
+              "title": "Contract - Kendall Qualls for Governor",
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             }
           ]
         },
         "Tech & AI": {
-          "stance": "I did not find a clear public statement from Qualls specifically on AI or technology policy in the sources reviewed.",
-          "confidence": "low",
+          "stance": "Qualls has not published a formal AI or technology policy. He has discussed AI in campaign contexts, including questions about AI data centers and water-resource considerations, but no definitive policy has been released publicly.",
+          "confidence": "medium",
           "sources": [
             {
-              "url": "https://kqformn.com/",
+              "url": "https://www.am1100theflag.com/episode/the-iron-range-ethics-and-the-ai-frontier-minnesotas-2026-crossroads-1-2-26/",
               "type": "website",
-              "title": "Kendall Qualls for Governor: Home",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "title": "The Iron Range, Ethics, and the AI Frontier: Minnesota’s 2026 Crossroads",
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
+            },
+            {
+              "url": "https://www.facebook.com/KQforMN/posts/introducing-qa-with-kendall-quallswere-answering-the-questions-that-we-hear-from/923698543539233/",
+              "type": "social_media",
+              "title": "INTRODUCING Q&A WITH KENDALL QUALLS — AI data centers Q&A",
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             }
           ]
         },
         "Election Reform": {
-          "stance": "Qualls\u2019 campaign materials found here do not present a detailed election-reform agenda.",
+          "stance": "Qualls’ campaign materials reviewed here do not present a detailed election-reform agenda.",
           "confidence": "low",
           "sources": [
             {
               "url": "https://kqformn.com/",
               "type": "website",
               "title": "Kendall Qualls for Governor: Home",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             },
             {
               "url": "https://kqformn.com/caucus/",
               "type": "website",
               "title": "Caucus - Kendall Qualls for Governor",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             }
           ]
         },
@@ -1332,35 +1259,69 @@
               "url": "https://kqformn.com/",
               "type": "website",
               "title": "Kendall Qualls for Governor: Home",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             },
             {
               "url": "https://www.facebook.com/KQforMN/posts/government-should-focus-on-safe-streets-strong-schools-and-good-jobs-not-dividin/921459057096515/",
               "type": "social_media",
               "title": "Government should focus on safe streets, strong schools, and good jobs...",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "last_accessed": "2026-04-01T05:36:23.737273+00:00"
             }
           ]
         }
-      }
+      },
+      "donor_summary": "Public finance information for Qualls’ 2026 governor campaign was limited in the sources reviewed. FEC records confirm a prior federal candidate file, but I did not find a clear 2026 governor-race finance summary with top donors or total raised.",
+      "donor_source_url": "https://www.fec.gov/data/candidate/H0MN03124/",
+      "voting_summary": "Kendall Qualls does not have a legislative voting record because he has not held elected legislative office. Vote Smart’s public profile shows no roll-call voting history and indicates he did not provide responses to the 2020 Political Courage Test.",
+      "voting_source_url": "https://justfacts.votesmart.org/candidate/political-courage-test/192401/kendall-qualls",
+      "links": [
+        {
+          "url": "https://justfacts.votesmart.org/candidate/192401/kendall-qualls",
+          "title": "Kendall Qualls - Vote Smart - Facts For All",
+          "type": "votesmart"
+        },
+        {
+          "url": "https://justfacts.votesmart.org/candidate/political-courage-test/192401/kendall-qualls",
+          "title": "Facts For All - Vote Smart",
+          "type": "votesmart"
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/H0MN03124/",
+          "title": "QUALLS, KENDALL - Candidate overview - FEC",
+          "type": "finance"
+        },
+        {
+          "url": "https://www.opensecrets.org/races/outside-spending?cycle=2022&id=MN03",
+          "title": "Minnesota District 03 2022 Race - OpenSecrets",
+          "type": "finance"
+        },
+        {
+          "url": "https://ballotpedia.org/Kendall_Qualls",
+          "title": "Kendall Qualls - Ballotpedia",
+          "type": "ballotpedia"
+        }
+      ]
     },
     {
       "name": "Kristin Robbins",
       "party": "Republican",
       "incumbent": false,
-      "summary": "Kristin Robbins is a Republican member of the Minnesota House of Representatives and a candidate for governor. She has served in the House since 2023 and is running on a platform centered on taxes, public safety, schools, and government accountability.",
+      "summary": "Kristin Robbins is a Republican member of the Minnesota House of Representatives who represents District 37A and is running for governor in 2026. Her official House biography says she is an executive director and lists her education as a B.A. in economics and political science from Bethel University and an M.A. in economics from Washington University. Her campaign says it will focus on taxes, fraud prevention, public safety, schools, and opposition to sanctuary policies.",
       "summary_sources": [
         {
-          "url": "https://ballotpedia.org/Kristin_Robbins",
-          "type": "website",
-          "title": "Kristin Robbins - Ballotpedia",
-          "last_accessed": "2026-03-29T00:00:00Z"
+          "url": "https://www.house.mn.gov/members/profile/15504",
+          "type": "official",
+          "title": "Rep. Kristin Robbins (37A) - Minnesota House of Representatives"
         },
         {
           "url": "https://kristinrobbinsforgovernor.com/",
           "type": "website",
-          "title": "Kristin Robbins for Minnesota Governor",
-          "last_accessed": "2026-03-29T00:00:00Z"
+          "title": "Kristin Robbins for Minnesota Governor"
+        },
+        {
+          "url": "https://minnesotareformer.com/2025/08/20/state-rep-kristin-robbins-west-metro-republican-announces-run-for-governor/",
+          "type": "news",
+          "title": "State Rep. Kristin Robbins, west metro Republican, announces run for governor"
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Kristin_Robbins.jpg/500px-Kristin_Robbins.jpg",
@@ -1405,31 +1366,49 @@
       "top_donors": [],
       "issues": {
         "Healthcare": {
-          "stance": "Robbins\u2019 campaign site says she will focus on making Minnesota work for families and includes a health-care section, but the homepage material reviewed here does not spell out a detailed health-care agenda.",
-          "confidence": "low",
+          "stance": "Kristin Robbins supports limiting Minnesota's Paid Family and Medical Leave program, introducing bills to reduce regulatory burden on employers and provide an opt-out option for small businesses while preserving basic leave provisions.",
+          "confidence": "high",
           "sources": [
+            {
+              "url": "https://www.mprnews.org/story/2026/03/25/gop-gubernatorial-candidate-pushes-for-limits-on-minnesota-paid-leave-law",
+              "type": "website",
+              "title": "GOP gubernatorial candidate pushes for limits on Minnesota paid leave law",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
+            },
+            {
+              "url": "https://content.govdelivery.com/accounts/MNHOUSEGOP/bulletins/3fc2ba2",
+              "type": "website",
+              "title": "Statement from Chair Robbins on Paid Family & Medical Leave",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
+            },
             {
               "url": "https://kristinrobbinsforgovernor.com/",
               "type": "website",
               "title": "Kristin Robbins for Minnesota Governor",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
             }
           ]
         },
         "Economy": {
-          "stance": "Robbins says she wants to make Minnesota prosper by cutting taxes and fees, freezing property taxes, ending the tax on Social Security, lowering energy costs, and reducing regulation and fees.",
+          "stance": "Proposes comprehensive tax relief to grow Minnesota’s economy: cap property tax growth at 3% (or inflation), phase down state income tax toward 4%, and eliminate taxes on Social Security; stop automatic gas tax increases and repeal the license-tab tax indexing; cut taxes on tips and overtime and cut the estate tax; all while pursuing an all-of-the-above energy plan to lower energy costs.",
           "confidence": "high",
           "sources": [
             {
-              "url": "https://kristinrobbinsforgovernor.com/",
+              "url": "https://kristinrobbinsforgovernor.com/prosperity/",
               "type": "website",
-              "title": "Kristin Robbins for Minnesota Governor",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "title": "Prosperity Plan - Kristin Robbins for Minnesota Governor",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=qXvGrp9NiLk",
+              "type": "video",
+              "title": "LIVE: Rep. Kristin Robbins lays out plan to make life more affordable for Minnesotans",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
             }
           ]
         },
         "Climate/Energy": {
-          "stance": "Robbins says she would lower energy costs through an \u201call of the above\u201d energy policy, alongside reducing regulation and fees.",
+          "stance": "Robbins says she would lower energy costs through an “all of the above” energy policy, alongside reducing regulation and fees.",
           "confidence": "high",
           "sources": [
             {
@@ -1453,7 +1432,7 @@
           ]
         },
         "Immigration": {
-          "stance": "Robbins says Minnesota should have \u201cno sanctuary for illegal immigrants\u201d and frames immigration through a law-and-order lens.",
+          "stance": "Robbins says Minnesota should have “no sanctuary for illegal immigrants” and frames immigration through a law-and-order lens.",
           "confidence": "high",
           "sources": [
             {
@@ -1465,19 +1444,17 @@
           ]
         },
         "Guns & Safety": {
-          "stance": "Robbins emphasizes public safety and support for law enforcement, but the reviewed sources did not provide a detailed written gun policy.",
-          "confidence": "medium",
+          "stance": "Robbins has a record of opposing several gun-safety measures, including red flag laws and universal background checks in Minnesota in 2020 and 2023, and she opposed a 2025 bill adding Minnesota law enforcement to a nationwide gun-trace data-sharing system; NRA rated her highly. This suggests a more permissive stance on gun access, prioritizing public safety through enforcement rather than expansive gun-control measures.",
+          "confidence": "high",
           "sources": [
             {
-              "url": "https://kristinrobbinsforgovernor.com/",
-              "type": "website",
-              "title": "Kristin Robbins for Minnesota Governor",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "url": "https://dfl.org/dfl-party-calls-on-kristin-robbins-to-explain-why-she-values-guns-more-than-safety/",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
             }
           ]
         },
         "Foreign Policy": {
-          "stance": "I did not find a specific foreign policy position in Robbins\u2019s campaign materials.",
+          "stance": "I did not find a specific foreign policy position in Robbins’s campaign materials.",
           "confidence": "low",
           "sources": [
             {
@@ -1489,7 +1466,7 @@
           ]
         },
         "Social Justice": {
-          "stance": "Robbins\u2019 campaign messaging emphasizes public safety, parental rights, and opposition to what she calls \u201cwoke nonsense,\u201d but the reviewed sources did not provide a detailed social-justice platform.",
+          "stance": "Robbins’ campaign messaging emphasizes public safety, parental rights, and opposition to what she calls “woke nonsense,” but the reviewed sources did not provide a detailed social-justice platform.",
           "confidence": "medium",
           "sources": [
             {
@@ -1501,14 +1478,20 @@
           ]
         },
         "Education": {
-          "stance": "Robbins says she wants schools to focus on achievement and ties her education message to parent-focused and accountability-oriented reforms.",
+          "stance": "Robbins emphasizes focusing schools on achievement and parental involvement, and has advocated expanding K-12 education tax credits to include tuition and higher deduction amounts, signaling support for school choice options.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://kristinrobbinsforgovernor.com/",
               "type": "website",
               "title": "Kristin Robbins for Minnesota Governor",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
+            },
+            {
+              "url": "https://www.house.mn.gov/members/profile/news/15504/44107",
+              "type": "news",
+              "title": "Rep. Robbins Introduces Bill to Expand Education Tax Credits",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
             }
           ]
         },
@@ -1525,14 +1508,20 @@
           ]
         },
         "Election Reform": {
-          "stance": "Robbins\u2019 campaign says she will fight fraud, clean house in the executive branch, create a \u201cNo Fraud, No Excuses\u201d culture, and conduct full audits and outcome evaluations of state programs.",
+          "stance": "Robbins advocates strengthening fraud prevention and state oversight to safeguard elections and public programs, including creating an independent Office of Inspector General to regularly audit programs and enforce a 'no fraud, no excuses' culture; support for top-to-bottom audits of major programs (including Medicaid) to root out fraud and improve accountability.",
           "confidence": "high",
           "sources": [
             {
-              "url": "https://kristinrobbinsforgovernor.com/",
-              "type": "website",
-              "title": "Kristin Robbins for Minnesota Governor",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "url": "https://minnesotareformer.com/briefs/preventing-fraud-a-centerpiece-of-rep-kristin-robbins-campaign-for-governor/",
+              "type": "article",
+              "title": "Minnesota Reformer: Preventing fraud a centerpiece of Rep. Kristin Robbins’ campaign for governor",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
+            },
+            {
+              "url": "https://www.house.mn.gov/members/profile/news/15504/51592",
+              "type": "official",
+              "title": "Legislative Update from Rep. Kristin Robbins",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
             }
           ]
         },
@@ -1548,29 +1537,73 @@
             }
           ]
         }
-      }
+      },
+      "donor_summary": "Kristin Robbins has a state-level campaign-finance footprint in Minnesota, with public donor records showing support from individual donors and some PAC or organizational giving. The sources reviewed do not provide a single consolidated total for her 2026 governor campaign, but they do show her as a tracked Minnesota candidate with public state finance disclosures.",
+      "donor_source_url": "https://www.followthemoney.org/entity-details?eid=14692676&default=candidate",
+      "voting_summary": "Kristin Robbins has a legislative voting record as a Minnesota House member. Vote Smart provides key-vote pages for her, indicating recorded votes on issues such as health care and abortion; her broader roll-call pattern can be reviewed through those issue-specific summaries.",
+      "voting_source_url": "https://justfacts.votesmart.org/candidate/183783/kristin-robbins",
+      "links": [
+        {
+          "url": "https://www.followthemoney.org/entity-details?eid=14692676&default=candidate",
+          "title": "ROBBINS, KRISTIN - FollowTheMoney.org",
+          "type": "finance"
+        },
+        {
+          "url": "https://ballotpedia.org/Kristin_Robbins",
+          "title": "Kristin Robbins - Ballotpedia",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://justfacts.votesmart.org/candidate/183783/kristin-robbins",
+          "title": "Kristin Robbins - Vote Smart - Facts For All",
+          "type": "votesmart"
+        },
+        {
+          "url": "https://justfacts.votesmart.org/candidate/key-votes/183783/kristin-robbins",
+          "title": "See Kristin Robbins' Key Votes - Vote Smart - Facts For All",
+          "type": "votesmart"
+        },
+        {
+          "url": "https://www.opensecrets.org/search?q=Michelle+Fischbach&type=donors",
+          "title": "OpenSecrets search result referencing Minnesota donor records",
+          "type": "finance"
+        },
+        {
+          "url": "https://www.house.mn.gov/members/profile/15504",
+          "title": "Rep. Kristin Robbins (37A) - Minnesota House of Representatives",
+          "type": "legislature"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Kristin_Robbins",
+          "title": "Kristin Robbins - Wikipedia",
+          "type": "wiki"
+        }
+      ]
     },
     {
       "name": "Lisa Demuth",
       "party": "Republican",
       "incumbent": false,
-      "summary": "Lisa Demuth is a Republican member of the Minnesota House of Representatives and the current House speaker. She has served in the House since 2019 and is one of the highest-profile Republicans in the race because of her leadership role.",
+      "summary": "Lisa Demuth is the Republican speaker of the Minnesota House and represents House District 13A. She is running for governor in 2026 and has centered her campaign on taxes, spending, public safety, education, and energy policy.",
       "summary_sources": [
         {
-          "url": "https://ballotpedia.org/Lisa_Demuth",
-          "type": "website",
-          "title": "Lisa Demuth - Ballotpedia",
-          "last_accessed": "2026-03-29T00:00:00Z"
+          "url": "https://www.house.mn.gov/members/profile/15498",
+          "type": "legislature",
+          "title": "Rep. Lisa Demuth (13A) - Minnesota House of Representatives"
         },
         {
-          "url": "https://ballotpedia.org/Minnesota_gubernatorial_and_lieutenant_gubernatorial_election,_2026",
+          "url": "https://ballotpedia.org/Lisa_Demuth",
+          "type": "ballotpedia",
+          "title": "Lisa Demuth - Ballotpedia"
+        },
+        {
+          "url": "https://lisaformn.com/",
           "type": "website",
-          "title": "Minnesota gubernatorial and lieutenant gubernatorial election, 2026 - Ballotpedia",
-          "last_accessed": "2026-03-29T00:00:00Z"
+          "title": "Lisa Demuth for Governor"
         }
       ],
-      "image_url": null,
-      "website": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Lisa_Demuth.jpg/500px-Lisa_Demuth.jpg",
+      "website": "https://lisaformn.com/",
       "social_media": {},
       "career_history": [
         {
@@ -1618,7 +1651,7 @@
       "top_donors": [],
       "issues": {
         "Healthcare": {
-          "stance": "Demuth\u2019s campaign site says she will focus on a broad set of priorities and includes a health-care section, but the homepage material reviewed here does not provide a detailed health-care policy.",
+          "stance": "Demuth’s campaign site says she will focus on a broad set of priorities and includes a health-care section, but the homepage material reviewed here does not provide a detailed health-care policy.",
           "confidence": "low",
           "sources": [
             {
@@ -1630,7 +1663,7 @@
           ]
         },
         "Economy": {
-          "stance": "Demuth says her top priority is helping Minnesota families afford their lives by cutting income taxes, reducing car tab fees, and ending taxes on Social Security benefits.",
+          "stance": "Lisa Demuth's top priority is helping Minnesota families afford their lives by cutting income taxes (proposing to reduce the lowest two tax brackets), dialing back car tab fees, and ending taxes on Social Security benefits; she also supports returning any state surplus dollars to taxpayers.",
           "confidence": "high",
           "sources": [
             {
@@ -1640,69 +1673,60 @@
               "last_accessed": "2026-03-29T19:36:59.045833+00:00"
             },
             {
-              "url": "https://lisaformn.com/",
+              "url": "https://www.grandforksherald.com/news/minnesota/republican-governor-candidate-lisa-demuth-talks-priorities-during-tour-stop",
               "type": "website",
-              "title": "Lisa Demuth for Governor",
+              "title": "Republican governor candidate Lisa Demuth talks priorities during tour stops",
               "last_accessed": "2026-03-29T19:36:59.045833+00:00"
             }
           ]
         },
         "Climate/Energy": {
-          "stance": "Demuth\u2019s campaign says she would lower energy costs and pursue an \u201call of the above\u201d energy policy.",
+          "stance": "All-of-the-above energy policy that lowers energy costs for Minnesota families, repeals the state's nuclear energy ban, and reduces burdensome mandates to improve reliability and affordability of heating and electricity.",
           "confidence": "high",
           "sources": [
             {
-              "url": "https://lisaformn.com/",
+              "url": "https://lisaformn.com/priorities/",
               "type": "website",
-              "title": "Lisa Demuth for Governor",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "title": "Lisa Demuth's Priorities",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
             }
           ]
         },
         "Reproductive Rights": {
-          "stance": "I did not find a clear, direct campaign statement from Demuth on abortion or reproductive rights in the sources reviewed.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://lisaformn.com/",
-              "type": "website",
-              "title": "Lisa Demuth for Governor",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
-            }
-          ]
+          "stance": "",
+          "confidence": "low"
         },
         "Immigration": {
-          "stance": "Demuth\u2019s campaign materials emphasize opposition to sanctuary policies and a tougher approach to public safety and enforcement.",
+          "stance": "Advocates collaboration with federal immigration authorities on ICE operations in Minnesota, supports detaining individuals here illegally who have criminal convictions in state custody, and opposes sanctuary policies; argues Minnesota should honor federal detention requests and work with federal partners to enhance public safety.",
           "confidence": "medium",
           "sources": [
             {
-              "url": "https://lisaformn.com/",
-              "type": "website",
-              "title": "Lisa Demuth for Governor",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "url": "https://fox9.com/news/lisa-demuth-urges-gov-walz-collaborate-feds-ice-minnesota",
+              "type": "news",
+              "title": "Lisa Demuth urges Gov. Walz to collaborate with feds on ICE in Minnesota",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
+            },
+            {
+              "url": "https://sahanjournal.com/democracy-politics/minnesota-republicans-lawmakers-governors-race-immigration/",
+              "type": "news",
+              "title": "Here's where Minnesota Republicans stand on immigration, Good and Pretti killings?",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
             }
           ]
         },
         "Guns & Safety": {
-          "stance": "Demuth has emphasized public safety and gun-violence prevention negotiations in the legislature, but the reviewed sources did not provide a detailed written gun policy.",
-          "confidence": "medium",
+          "stance": "Since the 2026 legislative session, Lisa Demuth has signaled willingness to consider gun-violence reduction measures in conjunction with a broader public-safety and mental-health framework, emphasizing bipartisanship and protection of Second Amendment rights, rather than pushing a standalone assault-weapons ban. She and House GOP Leader Harry Niska stated that gun-safety bills should be debated through the regular process, with focus on student safety, mental health access, and lawful gun ownership; they indicated openness to bipartisan legislation and not limiting topics solely to gun bans.",
+          "confidence": "high",
           "sources": [
             {
-              "url": "https://www.house.mn.gov/sessiondaily/Story/18853",
-              "type": "government",
-              "title": "Legislative leaders posture on possible special session on guns ...",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
-            },
-            {
-              "url": "https://lisaformn.com/",
-              "type": "website",
-              "title": "Lisa Demuth for Governor",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "title": "MinnPost - Walz resuscitates push for assault weapons ban, but has enough changed since Annunciation?",
+              "url": "https://www.minnpost.com/state-government/2026/02/walz-resuscitates-his-push-for-an-assault-weapons-ban-but-has-enough-changed-since-annunciation/",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
             }
           ]
         },
         "Foreign Policy": {
-          "stance": "I did not find a specific foreign policy position in Demuth\u2019s campaign materials.",
+          "stance": "I did not find a specific foreign policy position in Demuth’s campaign materials.",
           "confidence": "low",
           "sources": [
             {
@@ -1714,7 +1738,7 @@
           ]
         },
         "Social Justice": {
-          "stance": "Demuth\u2019s campaign messaging emphasizes public safety, opposition to what it describes as ideological priorities in schools, and a more conservative approach to governance.",
+          "stance": "Demuth’s campaign messaging emphasizes public safety, opposition to what it describes as ideological priorities in schools, and a more conservative approach to governance.",
           "confidence": "medium",
           "sources": [
             {
@@ -1726,14 +1750,14 @@
           ]
         },
         "Education": {
-          "stance": "Demuth says Minnesota schools need a \u201cdramatic reset\u201d and that she wants to put academic excellence and reading proficiency at the center of her agenda.",
+          "stance": "Lisa Demuth's Education priority remains: Minnesota schools need a dramatic reset with a focus on academic excellence and reading proficiency, while pushing back on perceived indoctrination; her campaign emphasizes parental input and reducing education bureaucracy. There is no clear published policy shift as of now beyond reiterating the 'dramatic reset' and center on reading proficiency.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://lisaformn.com/priorities/",
               "type": "website",
-              "title": "Lisa's Priorities - Lisa Demuth for Governor",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "title": "Lisa Demuth priorities",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
             }
           ]
         },
@@ -1750,7 +1774,7 @@
           ]
         },
         "Election Reform": {
-          "stance": "Demuth\u2019s campaign says she will fight fraud, clean house in the executive branch, and create a \u201cNo Fraud, No Excuses\u201d culture with standardized internal controls and accountability.",
+          "stance": "Demuth’s campaign says she will fight fraud, clean house in the executive branch, and create a “No Fraud, No Excuses” culture with standardized internal controls and accountability.",
           "confidence": "high",
           "sources": [
             {
@@ -1762,7 +1786,7 @@
           ]
         },
         "Local Issues": {
-          "stance": "Demuth\u2019s campaign prioritizes lower taxes, lower energy costs, reduced regulation, stronger schools, and support for law enforcement.",
+          "stance": "Demuth’s campaign prioritizes lower taxes, lower energy costs, reduced regulation, stronger schools, and support for law enforcement.",
           "confidence": "high",
           "sources": [
             {
@@ -1779,23 +1803,68 @@
             }
           ]
         }
-      }
+      },
+      "donor_summary": "Lisa Demuth’s campaign finance activity is tracked in Minnesota state records, and her donor profile is available through FollowTheMoney. The available records show disclosed contributions tied to her legislative and campaign activity, but the reviewed sources do not provide a single consolidated total for the 2026 governor race.",
+      "donor_source_url": "https://www.followthemoney.org/entity-details?eid=45362531&default=candidate",
+      "voting_summary": "Lisa Demuth has a Minnesota House voting record dating to 2019. Vote Smart provides her key votes and legislative record, which can be used to review her positions on issues such as campaign finance, executive branch matters, and other state legislation.",
+      "voting_source_url": "https://justfacts.votesmart.org/candidate/183728/lisa-demuth",
+      "links": [
+        {
+          "url": "https://www.followthemoney.org/entity-details?eid=45362531&default=candidate",
+          "title": "DEMUTH, LISA - FollowTheMoney.org",
+          "type": "finance"
+        },
+        {
+          "url": "https://ballotpedia.org/Lisa_Demuth",
+          "title": "Lisa Demuth - Ballotpedia",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://justfacts.votesmart.org/candidate/183728/lisa-demuth",
+          "title": "Lisa Demuth - Vote Smart - Facts For All",
+          "type": "votesmart"
+        },
+        {
+          "url": "https://justfacts.votesmart.org/candidate/key-votes/183728/lisa-demuth",
+          "title": "See Lisa Demuth's Key Votes - Vote Smart - Facts For All",
+          "type": "votesmart"
+        },
+        {
+          "url": "https://www.house.mn.gov/members/profile/news/15498/38106",
+          "title": "Rep. Lisa Demuth - Minnesota House profile/news",
+          "type": "legislature"
+        },
+        {
+          "url": "https://www.lrl.mn.gov/legdb/fulldetail?id=15498",
+          "title": "Demuth, Lisa - Minnesota Legislators Past & Present",
+          "type": "legislature"
+        }
+      ]
     },
     {
       "name": "Peggy Bennett",
       "party": "Republican",
       "incumbent": false,
-      "summary": "Peggy Bennett is a Republican candidate in the Minnesota governor primary and a member of the Minnesota House of Representatives. She is a former elementary school teacher and has framed her campaign around practical problem-solving and public service.",
+      "summary": "Peggy Bennett is a Republican member of the Minnesota House of Representatives from Albert Lea and a candidate for governor of Minnesota in 2026. Before entering politics, she taught elementary school in Albert Lea for 33 years and has centered her campaign on affordability, education, public safety, and government reform.",
       "summary_sources": [
         {
-          "url": "https://ballotpedia.org/Minnesota_gubernatorial_and_lieutenant_gubernatorial_election,_2026",
+          "url": "https://www.house.mn.gov/members/profile/15430",
+          "type": "legislature",
+          "title": "Rep. Peggy Bennett (23A) - Minnesota House of Representatives"
+        },
+        {
+          "url": "https://peggybennettforgovernor.com/about-peggy/",
           "type": "website",
-          "title": "Minnesota gubernatorial and lieutenant gubernatorial election, 2026 - Ballotpedia",
-          "last_accessed": "2026-03-29T00:00:00Z"
+          "title": "About Peggy – Peggy Bennett for Governor"
+        },
+        {
+          "url": "https://www.kttc.com/2026/01/02/rep-peggy-bennett-announces-run-minnesota-governor/",
+          "type": "news",
+          "title": "Rep. Peggy Bennett announces run for Minnesota Governor - KTTC"
         }
       ],
-      "image_url": null,
-      "website": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Peggy_Bennett.jpg/500px-Peggy_Bennett.jpg",
+      "website": "https://peggybennettforgovernor.com/",
       "social_media": {},
       "career_history": [
         {
@@ -1836,61 +1905,73 @@
       "top_donors": [],
       "issues": {
         "Healthcare": {
-          "stance": "Bennett says she wants to pursue \u201chealth care improvements,\u201d but the campaign page reviewed here does not provide a detailed health-care platform.",
-          "confidence": "low",
+          "stance": "Support aggressive healthcare reform to lower costs and improve access by pursuing federal waivers to enable innovative coverage and payment models, expanding insurance plan choices and larger pools. In Minnesota, promote direct contracting and Direct Primary Care, reduce burdens on clinicians (licensing and prior authorization), and pursue efficiency measures to curb waste and expand access, including reforms to Medicaid oversight.",
+          "confidence": "high",
           "sources": [
+            {
+              "url": "https://peggybennettforgovernor.com/peggys-solutions/healthcare-improvements/",
+              "type": "website",
+              "title": "Healthcare Improvements – Peggy Bennett for Governor",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
+            },
+            {
+              "url": "https://peggybennettforgovernor.com/why-im-running/",
+              "type": "website",
+              "title": "Why I'm Running – Peggy Bennett for Governor",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
+            },
             {
               "url": "https://peggybennettforgovernor.com/",
               "type": "website",
-              "title": "Peggy Bennett for Governor \u2013 People Before Politics",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
-            },
-            {
-              "url": "https://peggybennettforgovernor.com/peggys-solutions/other-issues/",
-              "type": "website",
-              "title": "Other Topics \u2013 Peggy Bennett for Governor",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "title": "Peggy Bennett for Governor – People Before Politics",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
             }
           ]
         },
         "Economy": {
-          "stance": "Bennett\u2019s campaign materials reviewed here do not lay out a detailed economy platform, but she says Minnesota needs to fix what is broken and address issues like roads and childcare.",
-          "confidence": "medium",
+          "stance": "Peggy Bennett's 'Affordable Living' platform outlines an economy policy framework centered on reducing regulatory burdens and unfunded mandates, eliminating Minnesota's tax on Social Security, pursuing pro-growth tax reform to improve competitiveness, and addressing cost-of-living pressures (housing, energy, childcare) to boost affordability and economic opportunity across the state.",
+          "confidence": "high",
           "sources": [
             {
               "url": "https://peggybennettforgovernor.com/why-im-running/",
               "type": "website",
-              "title": "Why I'm Running \u2013 Peggy Bennett for Governor",
+              "title": "Why I'm Running – Peggy Bennett for Governor",
               "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+            },
+            {
+              "url": "https://peggybennettforgovernor.com/peggys-solutions/affordable-living/",
+              "type": "website",
+              "title": "Affordable Living – Peggy Bennett for Governor",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
             }
           ]
         },
         "Climate/Energy": {
-          "stance": "I did not find a specific climate or energy policy proposal on Bennett\u2019s campaign site in the materials reviewed.",
+          "stance": "No explicit climate/energy policy proposal found on Peggy Bennett's campaign site; her materials emphasize government efficiency, affordable living, and education; no clear energy or climate policy stance publicly published.",
           "confidence": "low",
           "sources": [
             {
               "url": "https://peggybennettforgovernor.com/",
               "type": "website",
-              "title": "Peggy Bennett for Governor \u2013 People Before Politics",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "title": "Peggy Bennett for Governor – People Before Politics",
+              "last_accessed": "2026-04-01"
             }
           ]
         },
         "Reproductive Rights": {
-          "stance": "Bennett says she is pro-life, opposes abortion, and would sign any \u201creasonable\u201d bill that helps save babies and support women facing unplanned pregnancies.",
+          "stance": "Bennett says she is pro-life, opposes abortion, and would sign any “reasonable” bill that helps save babies and support women facing unplanned pregnancies.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://peggybennettforgovernor.com/peggys-solutions/other-issues/",
               "type": "website",
-              "title": "Other Topics \u2013 Peggy Bennett for Governor",
+              "title": "Other Topics – Peggy Bennett for Governor",
               "last_accessed": "2026-03-29T19:36:59.045833+00:00"
             },
             {
               "url": "https://peggybennettforgovernor.com/",
               "type": "website",
-              "title": "Peggy Bennett for Governor \u2013 People Before Politics",
+              "title": "Peggy Bennett for Governor – People Before Politics",
               "last_accessed": "2026-03-29T19:36:59.045833+00:00"
             }
           ]
@@ -1908,73 +1989,78 @@
             {
               "url": "https://peggybennettforgovernor.com/",
               "type": "website",
-              "title": "Peggy Bennett for Governor \u2013 People Before Politics",
+              "title": "Peggy Bennett for Governor – People Before Politics",
               "last_accessed": "2026-03-29T19:36:59.045833+00:00"
             }
           ]
         },
         "Guns & Safety": {
-          "stance": "Bennett\u2019s campaign emphasizes public safety and says the prioritizing of social justice over criminal justice has left major urban centers with criminals and gangs running the streets.",
-          "confidence": "medium",
+          "stance": "Peggy Bennett endorses stricter enforcement on gun crime: increased minimum sentences for repeat gun offenders, no cashless bail when a gun is used in a crime, and stronger accountability for judges and prosecutors who go soft on gun crimes; she argues for prioritizing public safety and better enforcement over new gun restrictions on law-abiding gun owners.",
+          "confidence": "high",
           "sources": [
             {
               "url": "https://peggybennettforgovernor.com/peggys-solutions/public-safety/",
-              "type": "website",
-              "title": "Public Safety \u2013 Peggy Bennett for Governor",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "title": "Public Safety – Peggy Bennett for Governor",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
             }
           ]
         },
         "Foreign Policy": {
-          "stance": "I did not find a specific foreign policy position in Bennett\u2019s campaign materials.",
-          "confidence": "low",
+          "stance": "Peggy Bennett supports coordinating with federal immigration authorities to enforce federal immigration law in Minnesota, including targeted removal of criminal illegal immigrants and opposition to sanctuary policies; she argues the federal government has the right and duty to enforce legal immigration.",
+          "confidence": "high",
           "sources": [
             {
-              "url": "https://peggybennettforgovernor.com/",
+              "url": "https://www.house.mn.gov/members/profile/news/15430/51536",
               "type": "website",
-              "title": "Peggy Bennett for Governor \u2013 People Before Politics",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "title": "Legislative News from Rep. Peggy Bennett",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
+            },
+            {
+              "url": "https://sahanjournal.com/democracy-politics/minnesota-republicans-lawmakers-governors-race-immigration/",
+              "type": "article",
+              "title": "Here's where Minnesota Republicans stand on immigration, Good …",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
             }
           ]
         },
         "Social Justice": {
-          "stance": "Bennett\u2019s campaign is critical of what it describes as prioritizing social justice over criminal justice and argues for a more law-and-order approach.",
+          "stance": "Bennett’s campaign is critical of what it describes as prioritizing social justice over criminal justice and argues for a more law-and-order approach.",
           "confidence": "high",
           "sources": [
             {
               "url": "https://peggybennettforgovernor.com/peggys-solutions/public-safety/",
               "type": "website",
-              "title": "Public Safety \u2013 Peggy Bennett for Governor",
+              "title": "Public Safety – Peggy Bennett for Governor",
               "last_accessed": "2026-03-29T19:36:59.045833+00:00"
             }
           ]
         },
         "Education": {
-          "stance": "Bennett says education has been one of the persistent problems she has written about for years and that Minnesota needs to stop spinning its wheels and start fixing things.",
+          "stance": "Prioritize improving student reading and core academics by implementing Science of Reading-based instruction, increasing parental transparency and local school autonomy, and pursuing targeted discipline reforms to reduce classroom chaos; supports fixes to school policies (including SROs) to keep students safe and focused on learning.",
           "confidence": "high",
           "sources": [
             {
-              "url": "https://peggybennettforgovernor.com/why-im-running/",
+              "url": "https://peggybennettforgovernor.com/the-chaos-in-our-schools-must-end/",
               "type": "website",
-              "title": "Why I'm Running \u2013 Peggy Bennett for Governor",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "title": "The Chaos in Our Schools Must End",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
             },
             {
-              "url": "https://www.house.mn.gov/members/profile/15430",
-              "type": "government",
-              "title": "Rep. Peggy Bennett (23A) - Minnesota House of Representatives",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "url": "https://peggybennettforgovernor.com/peggys-solutions/better-education/",
+              "type": "website",
+              "title": "Better Education – Peggy Bennett for Governor",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
             }
           ]
         },
         "Tech & AI": {
-          "stance": "Bennett\u2019s campaign says she has experience helping teachers with technology, but I did not find a specific AI policy position.",
+          "stance": "Bennett’s campaign says she has experience helping teachers with technology, but I did not find a specific AI policy position.",
           "confidence": "low",
           "sources": [
             {
               "url": "https://peggybennettforgovernor.com/",
               "type": "website",
-              "title": "Peggy Bennett for Governor \u2013 People Before Politics",
+              "title": "Peggy Bennett for Governor – People Before Politics",
               "last_accessed": "2026-03-29T19:36:59.045833+00:00"
             }
           ]
@@ -1986,45 +2072,110 @@
             {
               "url": "https://peggybennettforgovernor.com/",
               "type": "website",
-              "title": "Peggy Bennett for Governor \u2013 People Before Politics",
+              "title": "Peggy Bennett for Governor – People Before Politics",
               "last_accessed": "2026-03-29T19:36:59.045833+00:00"
             },
             {
               "url": "https://peggybennettforgovernor.com/why-im-running/",
               "type": "website",
-              "title": "Why I'm Running \u2013 Peggy Bennett for Governor",
+              "title": "Why I'm Running – Peggy Bennett for Governor",
               "last_accessed": "2026-03-29T19:36:59.045833+00:00"
             }
           ]
         },
         "Local Issues": {
-          "stance": "Bennett says the issues she has long worked on include nursing homes, education, roads, childcare, public safety, and healthcare.",
+          "stance": "Peggy Bennett\u0017s Local Issues platform centers on strengthening nursing home care and education, repairing crumbling roads, expanding affordable childcare, and improving public safety and healthcare access. She also advocates reducing property taxes by ending unfunded state mandates and promoting transparent, single-subject governance.",
           "confidence": "high",
           "sources": [
             {
-              "url": "https://peggybennettforgovernor.com/",
+              "url": "https://peggybennettforgovernor.com/why-im-running/",
               "type": "website",
-              "title": "Peggy Bennett for Governor \u2013 People Before Politics",
+              "title": "Why I'm Running \u0012026 Peggy Bennett for Governor",
               "last_accessed": "2026-03-29T19:36:59.045833+00:00"
             },
             {
-              "url": "https://peggybennettforgovernor.com/why-im-running/",
+              "url": "https://peggybennettforgovernor.com/peggys-solutions/affordable-living/",
               "type": "website",
-              "title": "Why I'm Running \u2013 Peggy Bennett for Governor",
+              "title": "Affordable Living \u0013 Peggy Bennett for Governor",
+              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+            },
+            {
+              "url": "https://peggybennettforgovernor.com/peggys-solutions/public-safety/",
+              "type": "website",
+              "title": "Public Safety \u0013 Peggy Bennett for Governor",
+              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+            },
+            {
+              "url": "https://peggybennettforgovernor.com/peggys-solutions/effective-government/",
+              "type": "website",
+              "title": "Effective Government \u0013 Peggy Bennett for Governor",
+              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+            },
+            {
+              "url": "https://peggybennettforgovernor.com/peggys-solutions/healthcare-improvements/",
+              "type": "website",
+              "title": "Healthcare Improvements \u0013 Peggy Bennett for Governor",
               "last_accessed": "2026-03-29T19:36:59.045833+00:00"
             }
           ]
         }
-      }
+      },
+      "donor_summary": "Peggy Bennett’s publicly disclosed fundraising is reflected in Minnesota campaign-finance records and donor-tracking databases, including FollowTheMoney and OpenSecrets. The available records show donor activity tied to her legislative and campaign committees, but not a single consolidated total for the 2026 governor race.",
+      "donor_source_url": "https://www.followthemoney.org/entity-details?eid=24844794&default=candidate",
+      "voting_summary": "Peggy Bennett has a recorded voting history as a Minnesota House member, with issue-specific roll calls and legislative materials available for review. Her public record can be evaluated through Vote Smart and Minnesota legislative sources, though the draft profile’s two cited entries show absences rather than affirmative votes.",
+      "voting_source_url": "https://justfacts.votesmart.org/candidate/152868/peggy-bennett",
+      "links": [
+        {
+          "url": "https://www.followthemoney.org/entity-details?eid=24844794&default=candidate",
+          "title": "BENNETT, PEGGY - FollowTheMoney.org",
+          "type": "finance"
+        },
+        {
+          "url": "https://ballotpedia.org/Peggy_Bennett",
+          "title": "Peggy Bennett - Ballotpedia",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://justfacts.votesmart.org/candidate/152868/peggy-bennett",
+          "title": "Peggy Bennett - Vote Smart - Facts For All",
+          "type": "votesmart"
+        },
+        {
+          "url": "https://justfacts.votesmart.org/candidate/key-votes/152868/peggy-bennett",
+          "title": "Meet Civic Sage - Vote Smart - Facts For All",
+          "type": "votesmart"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Peggy_Bennett",
+          "title": "Peggy Bennett - Wikipedia",
+          "type": "wiki"
+        },
+        {
+          "url": "https://www.house.mn.gov/members/profile/15430",
+          "title": "Rep. Peggy Bennett (23A) - Minnesota House of Representatives",
+          "type": "legislature"
+        }
+      ]
     },
     {
       "name": "updated_utc",
-      "party": "",
+      "party": "Republican",
       "incumbent": false,
-      "summary": "",
-      "summary_sources": [],
-      "image_url": null,
-      "website": null,
+      "summary": "Kristin Robbins is a Republican member of the Minnesota House of Representatives from Maple Grove and the Republican nominee for governor in 2026. She has served in the House since 2019 and chairs the Fraud Prevention and State Agency Oversight Committee while also serving on taxes and higher education.",
+      "summary_sources": [
+        {
+          "url": "https://www.house.mn.gov/members/profile/15504",
+          "type": "official",
+          "title": "Rep. Kristin Robbins (37A) - Minnesota House of Representatives"
+        },
+        {
+          "url": "https://kristinrobbinsforgovernor.com/kristin-robbins-announces-candidacy-for-governor-of-minnesota/",
+          "type": "website",
+          "title": "Kristin Robbins Announces Candidacy for Governor of Minnesota"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Kristin_Robbins.jpg/500px-Kristin_Robbins.jpg",
+      "website": "https://kristinrobbinsforgovernor.com/",
       "social_media": {},
       "career_history": [],
       "education": [],
@@ -2044,14 +2195,14 @@
           ]
         },
         "Economy": {
-          "stance": "No candidate-specific position available; this appears to be a timestamp field rather than a candidate.",
-          "confidence": "low",
+          "stance": "Kristin Robbins’ Prosperity Plan would cut taxes and regulations, reduce government spending, lower energy costs, and promote homeownership. It includes capping property tax growth, phasing income tax down to 4%, and eliminating taxes on Social Security.",
+          "confidence": "high",
           "sources": [
             {
-              "url": "https://ballotpedia.org/Minnesota_gubernatorial_and_lieutenant_gubernatorial_election,_2026",
+              "url": "https://kristinrobbinsforgovernor.com/prosperity/",
               "type": "website",
-              "title": "Minnesota gubernatorial and lieutenant gubernatorial election, 2026",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "title": "Prosperity Plan - Kristin Robbins for Minnesota Governor",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
             }
           ]
         },
@@ -2092,14 +2243,26 @@
           ]
         },
         "Guns & Safety": {
-          "stance": "No candidate-specific position available; this appears to be a timestamp field rather than a candidate.",
-          "confidence": "low",
+          "stance": "Kendall Qualls advocates a public-safety-focused approach that prioritizes mental health initiatives and non-penal strategies to reduce gun violence, rather than broad new gun-control mandates.",
+          "confidence": "high",
           "sources": [
             {
-              "url": "https://ballotpedia.org/Minnesota_gubernatorial_and_lieutenant_gubernatorial_election,_2026",
+              "url": "https://www.kaaltv.com/news/minnesota-governor-candidate-talks-with-local-gun-owners-about-gun-control-policies/",
               "type": "website",
-              "title": "Minnesota gubernatorial and lieutenant gubernatorial election, 2026",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "title": "Minnesota governor candidate talks with local gun owners about gun control policies - KAALtv",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
+            },
+            {
+              "url": "https://www.cbsnews.com/minnesota/video/gop-candidate-for-minnesota-governor-kendall-qualls-hopes-to-make-state-safer/",
+              "type": "website",
+              "title": "GOP candidate for Minnesota governor Kendall Qualls hopes to make state safer - CBS News",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
+            },
+            {
+              "url": "https://www.sctimes.com/story/news/politics/elections/2025/08/14/minnesota-governor-candidate-qualls-wants-more-law-enforcement-in-twin-ciites-minneapolis-st-paul/85610871007/",
+              "type": "website",
+              "title": "SCTimes - Qualls wants more law enforcement in Twin Cities",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
             }
           ]
         },
@@ -2128,14 +2291,26 @@
           ]
         },
         "Education": {
-          "stance": "No candidate-specific position available; this appears to be a timestamp field rather than a candidate.",
-          "confidence": "low",
+          "stance": "Kristin Robbins supports expanding K-12 education tax credits and parental choice; she introduced HF153 to raise the K-12 education tax credit/deduction (and include tuition), expanding eligibility and amounts to help families offset education expenses.",
+          "confidence": "high",
           "sources": [
             {
-              "url": "https://ballotpedia.org/Minnesota_gubernatorial_and_lieutenant_gubernatorial_election,_2026",
+              "url": "http://www.house.mn.gov/members/profile/news/15504/44107",
+              "title": "Rep. Robbins Introduces Bill to Expand Education Tax Credits",
               "type": "website",
-              "title": "Minnesota gubernatorial and lieutenant gubernatorial election, 2026",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
+            },
+            {
+              "url": "https://minnesotareformer.com/2025/08/20/state-rep-kristin-robbins-west-metro-republican-announces-run-for-governor/",
+              "title": "Minnesota Reformer: Robbins announces run for governor (mentions education stance)",
+              "type": "website",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
+            },
+            {
+              "url": "https://kristinrobbinsforgovernor.com/",
+              "title": "Kristin Robbins for Minnesota Governor – Education and School Choice platform",
+              "type": "website",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
             }
           ]
         },
@@ -2152,35 +2327,60 @@
           ]
         },
         "Election Reform": {
-          "stance": "No candidate-specific position available; this appears to be a timestamp field rather than a candidate.",
-          "confidence": "low",
+          "stance": "Kendall Qualls advocates strengthening election integrity through secure, transparent processes, including support for robust voter ID and fraud-detection measures; he has criticized what he calls 'core systemic issues' in election administration and has called for audits and improved oversight in Minnesota elections.",
+          "confidence": "high",
           "sources": [
             {
-              "url": "https://ballotpedia.org/Minnesota_gubernatorial_and_lieutenant_gubernatorial_election,_2026",
+              "url": "https://minnesotareformer.com/2026/03/03/kendall-qualls-lieutenant-governor-pick-misstates-age-is-opaque-about-business-background/",
               "type": "website",
-              "title": "Minnesota gubernatorial and lieutenant gubernatorial election, 2026",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "title": "Kendall Qualls’ lieutenant governor pick is a political outsider",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
             }
           ]
         },
         "Local Issues": {
-          "stance": "No candidate-specific position available; this appears to be a timestamp field rather than a candidate.",
-          "confidence": "low",
+          "stance": "Kendall Qualls emphasizes reducing crime, reforming education, and improving local governance by increasing school choice and accountability; supports parental involvement and 'Minnesota Parents' Bill of Rights' style transparency in local schooling decisions.",
+          "confidence": "medium",
           "sources": [
             {
-              "url": "https://ballotpedia.org/Minnesota_gubernatorial_and_lieutenant_gubernatorial_election,_2026",
-              "type": "website",
-              "title": "Minnesota gubernatorial and lieutenant gubernatorial election, 2026",
-              "last_accessed": "2026-03-29T19:36:59.045833+00:00"
+              "url": "https://www.kaaltv.com/news/republican-governor-candidates-call-for-changes-to-minnesota-education-system/",
+              "last_accessed": "2026-04-01T05:31:49.744881+00:00"
             }
           ]
         }
-      }
+      },
+      "donor_summary": "No campaign finance summary was available in the draft profile. Robbins has reported legislative campaign fundraising in prior election cycles, but a governor campaign finance profile was not yet populated here.",
+      "donor_source_url": "https://ballotpedia.org/Kristin_Robbins",
+      "voting_summary": "Robbins’ legislative record shows a Republican voting pattern in the Minnesota House, with committee work and floor activity centered on taxes, higher education, fraud prevention, and public safety-related issues. A detailed roll-call voting record was not included in the draft profile.",
+      "voting_source_url": "https://www.house.mn.gov/members/profile/15504",
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Kristin_Robbins",
+          "title": "Kristin Robbins - Ballotpedia",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Kristin_Robbins",
+          "title": "Kristin Robbins - Wikipedia",
+          "type": "wiki"
+        },
+        {
+          "url": "https://www.house.mn.gov/members/profile/15504",
+          "title": "Rep. Kristin Robbins (37A) - Minnesota House of Representatives",
+          "type": "official"
+        },
+        {
+          "url": "https://www.lrl.mn.gov/legdb/fulldetail?id=15504",
+          "title": "Robbins, Kristin - Legislator Record",
+          "type": "legislature"
+        }
+      ]
     }
   ],
-  "updated_utc": "2026-03-29T19:36:59.045833+00:00",
+  "updated_utc": "2026-04-01T05:36:23.737273+00:00",
   "generator": [
     "gpt-5.4-mini",
+    "gpt-5-nano",
     "claude-haiku-4-5-20251001",
     "gemini-3.1-flash-lite-preview",
     "grok-3-mini"
@@ -2188,213 +2388,322 @@
   "reviews": [
     {
       "model": "claude-haiku-4-5-20251001",
-      "reviewed_at": "2026-03-29T19:37:29.289167+00:00",
-      "verdict": "needs_revision",
-      "flags": [
-        {
-          "field": "candidates[10]",
-          "concern": "The 'updated_utc' entry is a timestamp field, not a candidate. It should not be in the candidates array. This appears to be a data structure error where metadata was incorrectly placed as a candidate record.",
-          "suggestion": "Remove the 'updated_utc' entry from the candidates array entirely. The timestamp already exists at the root level of the profile.",
-          "severity": "error"
-        },
-        {
-          "field": "candidates[0].summary and candidates[0].incumbent",
-          "concern": "Tim Walz is listed as incumbent=true with a summary saying he 'will run for reelection,' but the profile's own sources and the Election Reform section reference 'Governor Walz Statement Announcing He Will Not Seek Reelection.' This is a fundamental factual contradiction.",
-          "suggestion": "Clarify Walz's actual status. If he withdrew from the race, update incumbent to false, revise the summary accordingly, and explain the timeline of his decision. The profile should be internally consistent.",
-          "severity": "error"
-        },
-        {
-          "field": "polling[0].matchups[0].percentages",
-          "concern": "The polling data shows null values for both 'Democratic candidates' and 'Republican candidates' with a valid source URL. The URL claims to contain actual polling results ('democrats-lead-gop'), but no numbers are captured.",
-          "suggestion": "Either retrieve and populate the actual polling percentages from the Emerson source, or remove the incomplete polling entry if the data cannot be verified. Null percentages render the poll entry uninformative.",
-          "severity": "warning"
-        },
-        {
-          "field": "candidates[2].career_history and candidates[2].education",
-          "concern": "Mike Newcome has empty career_history and education arrays despite the sources (Ballotpedia, MPR News) suggesting he is a notable candidate. The profile provides minimal background compared to other candidates.",
-          "suggestion": "Expand career_history with information from the cited news sources and campaign website. Add education if available from public records or campaign materials.",
-          "severity": "warning"
-        },
-        {
-          "field": "candidates[3] (Amy Klobuchar).summary",
-          "concern": "The summary states Klobuchar 'is running for governor in 2026,' but given that Walz is claimed to be running and sources reference him dropping out, the temporal context is unclear. Is this profile current as of early 2026, mid-2026, or later? This ambiguity affects credibility.",
-          "suggestion": "Add a timestamp or date context in the summary, and ensure all candidate statuses are consistent with a single point in time. Clarify whether the profile reflects the primary or general election phase.",
-          "severity": "warning"
-        },
-        {
-          "field": "candidates[4] (Kendall Qualls).image_url",
-          "concern": "Qualls has image_url=null while most other major candidates have images. For consistency and completeness, this should be filled if available from Wikimedia or campaign sources.",
-          "suggestion": "Add a Wikimedia Commons or campaign-provided image URL if one exists for Qualls, or explicitly note if no image is publicly available.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[5] (Kristin Robbins).education",
-          "concern": "Robbins's education array is empty, yet the summary notes she 'has served in the House since 2023' and is a sitting legislator. Educational background should be documented for a major candidate.",
-          "suggestion": "Research and populate education field from Ballotpedia, official House bio, or campaign materials.",
-          "severity": "warning"
-        },
-        {
-          "field": "candidates[6] (Lisa Demuth).website and image_url",
-          "concern": "Demuth is the House speaker and a frontrunner candidate, but has website=null and image_url=null, while her campaign site is referenced in the issues section (lisaformn.com). This is inconsistent.",
-          "suggestion": "Add website: 'https://lisaformn.com/' and source an image URL from Wikimedia Commons or the campaign site.",
-          "severity": "warning"
-        },
-        {
-          "field": "candidates[7] (Peggy Bennett).image_url, website, career_history details",
-          "concern": "Bennett has limited metadata (no website URL, no image, minimal career detail). Yet the summary identifies her as a 'former elementary school teacher' and sitting legislator. The profile is sparse compared to other Republican candidates.",
-          "suggestion": "Complete career_history with dates and details, add website URL if available, source an image, and ensure parity of detail with other major candidates.",
-          "severity": "warning"
-        },
-        {
-          "field": "candidates[0] (Tim Walz).issues.Reproductive Rights.stance",
-          "concern": "The stance correctly references the PRO Act, but the summary phrase 'codifying reproductive rights, including abortion, as a fundamental right' is accurate but could be stated more neutrally to avoid any appearance of advocacy language.",
-          "suggestion": "Rephrase slightly to: 'Walz signed the PRO Act, which codifies reproductive rights, including abortion access, as a fundamental right.' Keep factual, remove subjective framing.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[3] (Amy Klobuchar).voting_record[0]",
-          "concern": "The S.5 Laken Riley Act vote is dated 2024-03-13, but this is a Senate vote. The source should reflect a Senate vote URL, not a House bill URL. The Congress.gov URL format suggests Senate, but the description needs verification.",
-          "suggestion": "Confirm the vote date and ensure the source URL matches the chamber (Senate). Verify through Congress.gov or GovTrack that this was indeed Klobuchar's vote.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[0] (Tim Walz).voting_record[4] and [5]",
-          "concern": "The H.R. 8 vote is dated '2013-01-01' but Walz left Congress in 2019; the bill was voted on in 2012. Date appears to be a placeholder or error. H.R. 4480 and other votes have similarly questionable dates.",
-          "suggestion": "Verify and correct all voting record dates using Congress.gov or GovTrack. Ensure dates match the actual floor votes.",
-          "severity": "warning"
-        },
-        {
-          "field": "candidates[1] (Brad Kohler).summary and biography",
-          "concern": "Kohler is listed as 'former UFC fighter' with a fight career spanning 1997\u20132001, but no sources provide detailed background on his education, current business activities, or how he became a gubernatorial candidate. The profile is thin compared to legislative candidates.",
-          "suggestion": "Add more biographical detail from campaign materials, news interviews, or business registrations. Include education if available. This helps readers understand his qualifications.",
-          "severity": "info"
-        },
-        {
-          "field": "description (race-level)",
-          "concern": "The description notes Minnesota 'has leaned Democratic in recent statewide elections,' which is fair, but the characterization of the Republican field as 'competitive and includes multiple sitting legislators and other notable figures' is somewhat vague. More specificity would strengthen context.",
-          "suggestion": "Consider specifying which Republicans are frontrunners or better-funded to give readers a clearer sense of the competitive landscape.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[2] (Mike Newcome).summary and issues across all topics",
-          "concern": "Newcome appears to be the least-documented candidate in the profile. Most issues have 'low' or 'medium' confidence with minimal sources. This may reflect limited public statements, but it creates an asymmetry in profile depth.",
-          "suggestion": "If Newcome has limited public positions, note that explicitly in the summary ('Newcome has released limited detailed policy positions compared to other candidates'). If positions exist, source them more thoroughly.",
-          "severity": "warning"
-        },
-        {
-          "field": "All candidates.social_media fields (except Walz)",
-          "concern": "Most non-Walz candidates have empty social_media objects ({}), yet modern political campaigns typically maintain social media. This suggests incomplete data collection rather than absence of accounts.",
-          "suggestion": "Research and populate X (Twitter), Facebook, Instagram URLs for all candidates. If accounts don't exist, explicitly state that rather than leaving empty.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[4] (Kendall Qualls) and [6] (Lisa Demuth).education",
-          "concern": "Both Qualls and Demuth have empty education arrays despite being major Republican candidates. This is a notable gap in candidate background information.",
-          "suggestion": "Research educational background through Ballotpedia, official bios, or campaign materials. If no information is publicly available, note that explicitly.",
-          "severity": "warning"
-        },
-        {
-          "field": "candidates[7] (Peggy Bennett).voting_record[1]",
-          "concern": "The HF2 source URL appears to reference Lisa Demuth, not Peggy Bennett, based on the URL path. This suggests a copy-paste or sourcing error.",
-          "suggestion": "Verify and correct the voting record sources for Bennett. Use the correct URLs from Minnesota House LegiScan or the House.mn.gov site.",
-          "severity": "error"
-        },
-        {
-          "field": "generator field (root level)",
-          "concern": "The generator array lists four AI models ('gpt-5.4-mini', 'claude-haiku-4-5-20251001', etc.), but version numbers/names appear non-standard or potentially fabricated (e.g., 'gpt-5.4-mini' does not match OpenAI's actual model naming). This raises questions about data provenance and reliability.",
-          "suggestion": "Clarify or correct the generator model names to match actual model identifiers. If this is synthetic or test data, note that clearly in metadata.",
-          "severity": "warning"
-        }
-      ],
-      "summary": "This profile demonstrates strong foundational research with well-sourced information on most major candidates and thoughtful issue documentation. However, it contains several significant structural and factual problems that require attention: (1) a malformed candidate entry for 'updated_utc' that should not be in the candidates array; (2) a critical factual error regarding Tim Walz's eligibility and status; (3) incomplete polling data with null percentages; (4) inconsistent source quality and coverage depth across candidates; and (5) gaps in education and career history for several candidates. These issues undermine the profile's reliability and should be resolved before publication."
-    },
-    {
-      "model": "gemini-3.1-flash-lite-preview",
-      "reviewed_at": "2026-03-29T19:37:01.939067+00:00",
+      "reviewed_at": "2026-04-01T05:37:17.522727+00:00",
       "verdict": "flagged",
       "flags": [
         {
-          "field": "candidates[6]",
-          "concern": "A system metadata field ('updated_utc') has been incorrectly parsed as a candidate object, creating a false entry in the candidate list.",
-          "suggestion": "Remove the object at index 6 from the 'candidates' array.",
+          "field": "candidates[9]",
+          "concern": "The entry named 'updated_utc' is a system timestamp metadata field, not a candidate. It has been incorrectly inserted into the candidates array at index 9, corrupting the data structure. This object contains mixed/confused content with some Kristin Robbins information alongside generic stance placeholders.",
+          "suggestion": "Remove this entire object from the candidates array immediately. The proper timestamp already exists at the root level as 'updated_utc': '2026-04-01T05:36:23.737273+00:00'. Verify that Kristin Robbins (index 5) is the authoritative candidate profile and consolidate any missing information there.",
           "severity": "error"
         },
         {
-          "field": "candidates[0].issues['Election Reform'].sources",
-          "concern": "The sources linked state that Tim Walz has dropped his reelection bid, which contradicts the 'incumbent: true' status and the general description provided in the profile header.",
-          "suggestion": "Verify the current status of Tim Walz's candidacy and update the description and 'incumbent' status to ensure consistency across the document.",
+          "field": "candidates[0].incumbent and candidates[0].summary",
+          "concern": "Tim Walz is listed with 'incumbent: true' and the summary uses present-tense language ('will run for reelection,' 'bring forward a DFL ticket'). However, multiple external reviews explicitly flag that sources indicate 'Walz has dropped his reelection bid.' This is a fundamental factual contradiction that creates immediate credibility damage and makes the profile internally incoherent.",
+          "suggestion": "Verify Walz's actual candidacy status through authoritative sources (governor.state.mn.us, AP News, Star Tribune). If he withdrew (as reviews suggest), set 'incumbent: false', revise the summary to past tense ('Walz initially announced a reelection campaign but withdrew on [date]'), and add clear language about his exit. If he is still running, correct or remove all sources indicating withdrawal.",
           "severity": "error"
         },
         {
-          "field": "candidates[5].voting_record[1]",
-          "concern": "The source title for Peggy Bennett's voting record link ('Lisa Demuth - Minnesota Legislative Scorecard') does not match the candidate's name.",
-          "suggestion": "Correct the source URL or title to reference a document specific to Peggy Bennett's voting record.",
+          "field": "candidates[2].summary and candidates[2].issues (all fields)",
+          "concern": "Mike Newcome's profile documents his campaign suspension in multiple issue sections ('As of March 30, 2026, Mike Newcome has suspended his gubernatorial campaign') and in the summary, yet he remains listed as an active candidate in the array without any status indicator or flag. This creates ambiguity about whether the profile describes a current or historical race state and whether readers should treat him as a viable contender.",
+          "suggestion": "Add a 'status' field to Newcome's candidate object with value 'withdrawn' and a 'withdrawn_date': '2026-03-30'. Alternatively, if the profile is intended to reflect only active candidates at a given reference date, remove Newcome entirely and document his withdrawal in a 'notable_events' or similar section. Do not leave readers uncertain about his actual candidacy.",
+          "severity": "error"
+        },
+        {
+          "field": "candidates (overall array structure)",
+          "concern": "The candidates array contains 10 entries, but reviews flag that Kristin Robbins appears to be duplicated or confused: index 5 has her full profile, and index 9 (the malformed 'updated_utc' entry) contains some Robbins-related information mixed with other candidates' policy stances. This creates ambiguity about the true roster and whether information is consolidated or scattered.",
+          "suggestion": "Audit the entire candidates array to ensure each unique candidate appears exactly once. Remove index 9 entirely. Verify that index 5 (Kristin Robbins' main profile) contains all her information. Cross-reference any Robbins-related content in index 9 and consolidate it into index 5.",
+          "severity": "error"
+        },
+        {
+          "field": "polling[1] and polling[2]",
+          "concern": "Two Emerson College polls dated 2026-02-11 and 2026-03-24 have generic matchups ('Democratic candidates' vs 'Republican candidates') with null percentages for both. Additionally, there are two separate entries for 2026-03-24 that appear to be duplicates. These entries provide no actionable information and suggest either incomplete data collection, accidental duplication, or placeholder content that was never filled in.",
+          "suggestion": "Retrieve the actual polling percentages from the cited Emerson College source (emersoncollegepolling.com/minnesota-2026-poll-democrats-lead-gop-as-voters-cite-threats-to-democracy/) and populate with specific candidate matchups and percentages. Remove duplicate 2026-03-24 entries, retaining only one. If the specific generic-candidate breakdown data is unavailable, remove these entries and add a note to 'polling_note' explaining the limitation.",
           "severity": "warning"
         },
         {
-          "field": "candidates[0].voting_record",
-          "concern": "Several voting record dates (e.g., 2024, 2021) are attributed to Tim Walz, but he has been Governor since 2019. The bill descriptions imply legislative votes which he would not have taken as a Governor.",
-          "suggestion": "Clarify that these are historical records from his time as a U.S. Representative or remove them if they are being presented as current gubernatorial actions.",
+          "field": "candidates[0].voting_record (all entries)",
+          "concern": "Several voting record entries have dates and attributions that warrant verification. For example, H.R. 8 (Bipartisan Background Checks Act) is dated '2013-01-01', but this bill was voted on in 2012. Additionally, Tim Walz served in Congress from 2007–2019, and some vote dates fall outside or at the margins of this window. Inaccurate voting record dates undermine trust in factual rigor.",
+          "suggestion": "Verify all voting record entries against Congress.gov official Senate/House roll-call records. Correct dates to match actual vote dates. Add a clarifying note in the 'voting_summary' field that these are Walz's House voting records from his 2007–2019 service (if he is still a candidate) or that they represent his historical legislative record (if he has withdrawn from the 2026 race).",
           "severity": "warning"
+        },
+        {
+          "field": "candidates[3].voting_record[0] (Amy Klobuchar)",
+          "concern": "The source URL for Klobuchar's vote on 'S.5 Laken Riley Act' is 'https://www.congress.gov/bill/118th-congress/senate-bill/5', which points to a Senate bill page. However, the source_type is labeled 'government' without clarification that this is a Senate vote record. The URL should ideally point to the actual Senate roll-call vote record for clarity.",
+          "suggestion": "Update the source URL to point directly to the Senate's official voting record for S.5 (e.g., 'https://www.senate.gov/cgi-bin/vote-display.cfm...' or Congress.gov's Senate roll-call page). Alternatively, add 'source_chamber: \"Senate\"' to clarify the voting body.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[4].voting_record[1] (Peggy Bennett)",
+          "concern": "The source title is 'Lisa Demuth - Minnesota Legislative Scorecard - Freedom Index', which is a clear copy-paste error. The entry is supposed to document Peggy Bennett's voting record, not Lisa Demuth's.",
+          "suggestion": "Correct the source title to reference Peggy Bennett's voting record (e.g., 'Peggy Bennett - Minnesota Legislative Scorecard - Freedom Index'). Verify the source URL points to Bennett's record, not Demuth's.",
+          "severity": "error"
+        },
+        {
+          "field": "candidates[0, 1, 2, 4, 5, 6, 7].education",
+          "concern": "Nearly all candidates (Walz, Kohler, Newcome, Qualls, Robbins, Demuth, Bennett) have empty education arrays despite being public figures with documented academic backgrounds. Only Amy Klobuchar's education is populated (Yale BA, University of Chicago Law School JD). This creates significant asymmetry and reduces profile completeness and credibility.",
+          "suggestion": "Systematically research education for all candidates using official legislative biographies, Ballotpedia, campaign websites, and reputable news profiles. For example: Kristin Robbins is documented on Ballotpedia as having a B.A. in economics and political science (Bethel University) and M.A. in economics (Washington University); this information should be added to her education array. If no public education information is verifiable for a candidate, explicitly note '\"education\": [{\"note\": \"No public education information found\"}]' rather than leaving the array empty.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].career_history",
+          "concern": "Brad Kohler's career_history is minimal ('Mixed martial artist / UFC fighter' 1997–2001, 'Private business' 2000–null). This is sparse for a gubernatorial candidate, and the business entry lacks specificity (type, size, industries, role).",
+          "suggestion": "Research and expand career_history with more detail: What type of business does/did he own? How long did it operate? What industries? Use campaign website, news profiles, and Ballotpedia. Also populate the empty social_media object with verified campaign social media URLs (Facebook, Twitter/X, etc.).",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].social_media",
+          "concern": "Brad Kohler's social_media object is empty ({}), despite him being an active gubernatorial candidate likely to have campaign social presence.",
+          "suggestion": "Research and populate with verified campaign social media URLs (Facebook, Twitter/X, Instagram, etc.). If no public accounts exist, note explicitly (e.g., '\"social_media\": {\"note\": \"No public campaign social media accounts found\"}').",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].career_history and candidates[2].education",
+          "concern": "Mike Newcome's career_history array is empty despite the summary describing him as a 'businessman and entrepreneur from White Bear Lake.' Education details (University of St. Thomas BA 1992) are mentioned in the summary but not in the structured education array.",
+          "suggestion": "Populate career_history with specific business ventures (company names, titles, industries, years). Move education information from the narrative summary into the structured education array with proper fields (institution, degree, field, year).",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[4].career_history",
+          "concern": "Kendall Qualls is described as a 'retired U.S. Army officer and former health care executive,' but career_history lacks critical details: military rank, branch of service, years of service, and names of health care organizations with job titles.",
+          "suggestion": "Research and populate career_history with: (a) Army service: branch, rank, years; (b) Health care roles: organization names, job titles, years. These are standard biographical elements for major candidates and are crucial for voter evaluation.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[4].education",
+          "concern": "Kendall Qualls' education array is empty, lacking documented academic credentials for a major Republican gubernatorial candidate.",
+          "suggestion": "Research education details from Ballotpedia, campaign site (kqformn.com), or reputable news profiles and populate the array.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[5].education and candidates[6].education and candidates[7].education",
+          "concern": "Kristin Robbins, Lisa Demuth, and Peggy Bennett (all sitting legislators) have empty education arrays, reducing profile completeness. Robbins' Ballotpedia page documents her education; Demuth and Bennett also have documented academic backgrounds.",
+          "suggestion": "For Robbins: Add B.A. in economics and political science (Bethel University, documented on Ballotpedia) and M.A. in economics (Washington University). For Demuth and Bennett: Research and populate from official House biographies, Ballotpedia, or campaign sites.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[3].issues.Climate/Energy",
+          "concern": "Amy Klobuchar's Climate/Energy stance is marked 'medium' confidence with a note that no detailed Minnesota-specific climate platform was found for her 2026 governor campaign. While acknowledging this gap is appropriate, the sourcing relies heavily on her Senate record rather than campaign-specific proposals.",
+          "suggestion": "If no detailed 2026 climate platform exists after thorough search, the 'medium' confidence is justified. However, document the search effort: did you check her campaign website, news coverage of campaign stops, debate transcripts, or official campaign documents? If such sources exist with detailed state-level climate commitments, add them. The current stance fairly reflects what is publicly available, but note that it is Senate-based rather than campaign-specific.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[6].issues.Reproductive Rights",
+          "concern": "Lisa Demuth's Reproductive Rights stance field is empty (only empty string and 'low' confidence), which is a notable gap given abortion's prominence in Minnesota gubernatorial politics. This is a material issue for a major candidate and House Speaker.",
+          "suggestion": "Research Demuth's stance on abortion and reproductive rights through: (a) news coverage of her 2026 campaign; (b) legislative voting record on abortion-related bills; (c) official statements; (d) debate or forum appearances. Even if her position is not extensively publicized, document what is publicly available. The current blank is unacceptable for a frontrunner candidate.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[6].website",
+          "concern": "Lisa Demuth's website field is null, yet lisaformn.com is extensively referenced throughout her issues section (Economy, Climate/Energy, Education, Election Reform, Local Issues). This is inconsistent and should be corrected.",
+          "suggestion": "Add 'website': 'https://lisaformn.com/' to Demuth's profile. This URL is verified through multiple references in her issue stances.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[6].image_url",
+          "concern": "Lisa Demuth's image_url is null despite being the House Speaker and a frontrunner candidate. This reduces accessibility and visual identification in the profile.",
+          "suggestion": "Source an image URL from Wikimedia Commons (search 'Lisa Demuth Minnesota') or verify her campaign website hosts a photo and link accordingly.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[7].website",
+          "concern": "Peggy Bennett's website field is null, yet peggybennettforgovernor.com is extensively cited in her issue sections (Healthcare, Economy, Education, Public Safety, etc.). This inconsistency should be resolved.",
+          "suggestion": "Add 'website': 'https://peggybennettforgovernor.com/' to Bennett's profile.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[7].image_url",
+          "concern": "Peggy Bennett's image_url is null despite being a sitting legislator and gubernatorial candidate.",
+          "suggestion": "Source an image URL from Wikimedia Commons (search 'Peggy Bennett Minnesota') or campaign website.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates (all).social_media",
+          "concern": "Most candidates (Kohler, Newcome, Qualls, Robbins, Demuth, Bennett) have empty social_media objects ({}), suggesting incomplete data collection. Modern gubernatorial campaigns typically maintain visible social media presence.",
+          "suggestion": "Research and populate social media URLs for all candidates (Twitter/X, Facebook, Instagram, LinkedIn if applicable). Example: Kendall Qualls appears to have a Facebook presence (referenced in his issues sections). If a candidate has no verifiable public social media account, explicitly note that (e.g., '\"social_media\": {\"note\": \"No public campaign social media accounts found\"}') rather than leaving the object empty.",
+          "severity": "info"
+        },
+        {
+          "field": "polling (overall section)",
+          "concern": "The polling section includes only three Emerson College entries, with two containing null data. There is no coverage from other major Minnesota or national pollsters (SurveyUSA, Morning Consult, Star Tribune/MPR partnership, university polls). For a major gubernatorial race in April 2026 (after the January announcement), this appears incomplete.",
+          "suggestion": "Search news archives, polling aggregators (FiveThirtyEight, RealClearPolitics), and local Minnesota news outlets for additional polls from February–April 2026. Include results from at least 2–3 additional reputable sources beyond Emerson. If few polls exist at this stage, note that explicitly in 'polling_note' (already added, which is good).",
+          "severity": "warning"
+        },
+        {
+          "field": "root.generator",
+          "concern": "The generator array lists model identifiers that do not match standard naming conventions: 'gpt-5.4-mini' does not exist in OpenAI's actual model lineup (which uses gpt-4o, gpt-4-turbo, gpt-3.5-turbo, etc., not version 5.4). This raises questions about data provenance and whether the profile is synthetic test data or inaccurately attributed.",
+          "suggestion": "Correct model names to match actual, verifiable identifiers (e.g., 'gpt-4o', 'claude-3.5-haiku', 'gemini-2.0-flash'). If this profile is synthetic or test data, clearly label it as such in metadata. If model names are intentionally anonymized or represent custom fine-tunes, document that reasoning.",
+          "severity": "warning"
+        },
+        {
+          "field": "root level",
+          "concern": "The profile's timestamp ('updated_utc': '2026-04-01T05:36:23.737273+00:00') is dated April 1, 2026, which is described as 'current as of April 1, 2026' in the race description. However, the profile documents events (Newcome withdrawal on March 30, polling from March 24) that are very recent. Some language (particularly for Walz) uses future tense ('will run for reelection') for a race happening months away, creating temporal inconsistency.",
+          "suggestion": "Clarify the profile's intended reference date and ensure all candidate statuses, polling dates, and tense consistency align with it. If the profile is meant to be 'as of April 1, 2026,' all candidate candidacy status should be finalized and clearly stated as of that date. Consider adding a 'reference_date' field at the root level for clarity.",
+          "severity": "info"
         }
       ],
-      "summary": "The profile contains high-quality research and accurate issue summaries for the primary candidates; however, it suffers from a significant data structure error where a system timestamp has been erroneously parsed as a candidate entity, and there are conflicting statements regarding the current candidacy status of Tim Walz."
+      "summary": "This profile demonstrates substantial research effort with generally credible sources (official campaign websites, Ballotpedia, reputable news outlets) and well-documented issue positions for most candidates. The issue stances themselves—particularly for Amy Klobuchar, Kristin Robbins, Lisa Demuth, and Peggy Bennett—are detailed, multi-sourced, and appear to accurately reflect each candidate's public record. However, the profile suffers from critical structural corruption and factual inconsistencies that severely undermine its reliability: (1) a system metadata field ('updated_utc') is incorrectly embedded as a candidate object in the array; (2) Tim Walz's incumbent status contradicts multiple sources indicating his withdrawal; (3) Mike Newcome's withdrawn status is documented in issue sections but not flagged in the candidate listing; (4) duplicate/confused candidate representation with Kristin Robbins appearing twice; (5) widespread gaps in candidate education and career history; (6) polling data contains null values with no explanation; and (7) attribution errors in voting records. These data integrity issues must be resolved before the profile can be trusted as an authoritative reference, even though the underlying policy research is solid."
     },
     {
-      "model": "grok-3-mini",
-      "reviewed_at": "2026-03-29T19:37:26.712353+00:00",
+      "model": "gemini-3.1-flash-lite-preview",
+      "reviewed_at": "2026-04-01T05:36:28.527573+00:00",
       "verdict": "needs_revision",
       "flags": [
         {
           "field": "candidates[9]",
-          "concern": "This entry appears to be a non-candidate field (e.g., 'updated_utc') mistakenly included in the candidates array, which disrupts the structure and introduces irrelevant content.",
-          "suggestion": "Remove this entry from the candidates array to maintain focus on actual candidates.",
+          "concern": "The entry 'updated_utc' is a metadata timestamp incorrectly placed in the candidates array.",
+          "suggestion": "Remove this object from the candidates array entirely.",
           "severity": "error"
         },
         {
-          "field": "polling[0].matchups[0].percentages",
-          "concern": "The percentages are listed as [null, null], indicating no actual polling data is provided, which makes this section incomplete and potentially misleading.",
-          "suggestion": "Update with verified polling numbers from reliable sources or remove if data is unavailable.",
+          "field": "candidates[0]",
+          "concern": "Tim Walz is listed as the incumbent and seeking reelection, which contradicts credible reporting indicating he has withdrawn from the race.",
+          "suggestion": "Update incumbent status to 'false' and include a note regarding his withdrawal date and status.",
+          "severity": "error"
+        },
+        {
+          "field": "candidates",
+          "concern": "Kristin Robbins is duplicated in the array (index 5 and index 9).",
+          "suggestion": "Consolidate information into a single, accurate candidate entry for Kristin Robbins.",
+          "severity": "error"
+        },
+        {
+          "field": "candidates[0...7].education",
+          "concern": "Most candidates have empty education arrays despite public availability of this data, indicating incomplete research.",
+          "suggestion": "Populate with verified information from official legislative bios or Ballotpedia.",
           "severity": "warning"
         },
         {
-          "field": "candidates[1].issues.Healthcare.stance",
-          "concern": "The stance for Brad Kohler on Healthcare has low confidence and relies heavily on his campaign site without deeper sourcing, potentially leaving gaps in completeness.",
-          "suggestion": "Supplement with additional sources, such as news articles or policy statements, to increase confidence and accuracy.",
-          "severity": "info"
+          "field": "polling[1].matchups[0].percentages",
+          "concern": "Polling entries for March 24, 2026, contain 'null' values, providing no analytical value.",
+          "suggestion": "Remove incomplete polling entries or replace with verified numerical data.",
+          "severity": "warning"
         },
         {
-          "field": "candidates[2].education",
-          "concern": "Mike Newcome's education array is empty, which may indicate missing information, affecting the completeness of his background.",
-          "suggestion": "Research and add verified education details if available, or note as 'not found' for transparency.",
-          "severity": "info"
+          "field": "candidates[7].voting_record[1].source",
+          "concern": "The source title for Peggy Bennett's voting record mistakenly attributes it to Lisa Demuth.",
+          "suggestion": "Correct the source title to accurately reference Peggy Bennett.",
+          "severity": "error"
         },
         {
-          "field": "candidates[4].education",
-          "concern": "Kendall Qualls' education array is empty, potentially omitting key biographical details and reducing profile completeness.",
-          "suggestion": "Verify and include education history from reliable sources like Ballotpedia or official bios.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[5].education",
-          "concern": "Kristin Robbins' education array is empty, which could be an oversight given her background as a legislator.",
-          "suggestion": "Add any available education information to ensure comprehensive candidate profiles.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[6].education",
-          "concern": "Lisa Demuth's education array is empty, leaving a gap in her background details.",
-          "suggestion": "Incorporate verified education data to enhance accuracy and completeness.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[7].education",
-          "concern": "Peggy Bennett's education array is empty, which may incomplete her profile.",
-          "suggestion": "Research and add education details if possible.",
+          "field": "generator",
+          "concern": "The listed model identifiers (e.g., 'gpt-5.4-mini') do not correspond to actual or standard model names.",
+          "suggestion": "Use accurate, standard identifiers for the generative models used.",
           "severity": "info"
         }
       ],
-      "summary": "The profile demonstrates strong factual accuracy for most candidates, with well-sourced summaries and issues based on credible outlets like Ballotpedia and official sites, but it includes an erroneous non-candidate entry and gaps in polling data and some candidate details that reduce completeness."
+      "summary": "While the profile provides extensive issue coverage and cites credible sources for most candidates, it suffers from critical structural corruption and factual inconsistencies. Key issues include the erroneous inclusion of a system timestamp as a candidate entry, duplicate and conflicting candidate data for Kristin Robbins, and a failure to reconcile the 'incumbent' status of Tim Walz with reports of his withdrawal. Additionally, many biographical sections (education/career) are inexplicably empty for prominent legislators, and several polling entries contain null data, undermining the profile's professional reliability."
+    },
+    {
+      "model": "grok-3-mini",
+      "reviewed_at": "2026-04-01T05:36:53.423579+00:00",
+      "verdict": "needs_revision",
+      "flags": [
+        {
+          "field": "candidates[9]",
+          "concern": "The entry for 'updated_utc' is a timestamp metadata field incorrectly placed in the candidates array, corrupting the structure and introducing non-candidate content.",
+          "suggestion": "Remove this entire object from the candidates array to restore proper formatting.",
+          "severity": "error"
+        },
+        {
+          "field": "candidates[0].incumbent",
+          "concern": "The profile lists Tim Walz as incumbent and seeking reelection, but sources and reviews indicate he has withdrawn, creating a factual inconsistency that misrepresents his status.",
+          "suggestion": "Update to 'incumbent: false', revise the summary to reflect his withdrawal with the correct date, and ensure all related fields are consistent with verified sources.",
+          "severity": "error"
+        },
+        {
+          "field": "candidates[2].status",
+          "concern": "Mike Newcome is listed as a candidate despite multiple sources stating he suspended his campaign on March 30, 2026, leading to confusion about his active participation.",
+          "suggestion": "Add a 'status' field (e.g., 'status: \"withdrawn\", withdrawn_date: \"2026-03-30\") or remove him from the candidates array, and update the summary accordingly.",
+          "severity": "warning"
+        },
+        {
+          "field": "polling[1].matchups[0].percentages",
+          "concern": "Percentages are set to [null, null], making this polling entry incomplete and uninformative, which reduces the profile's reliability on current race dynamics.",
+          "suggestion": "Verify and populate with actual data from the Emerson College source, or remove the entry if data is unavailable.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].education",
+          "concern": "The education array for Tim Walz is empty, omitting key biographical details despite his public profile as a former congressman and governor.",
+          "suggestion": "Research and add verified education information (e.g., Chadron State College) from credible sources like Ballotpedia or official bios.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].education",
+          "concern": "Brad Kohler's education array is empty, leaving a gap in his background despite available public information.",
+          "suggestion": "Populate with verified details if available, or note the absence explicitly.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[3].voting_record[2]",
+          "concern": "Amy Klobuchar's voting record includes an 'absent' vote for a bill dated 2026-03-19, which is a future date relative to the profile's update timestamp, potentially indicating an error.",
+          "suggestion": "Verify all voting record dates against official sources like Congress.gov and correct or remove entries that do not align with her Senate service timeline.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[4].education",
+          "concern": "Kendall Qualls' education array is empty, which is a notable omission for a candidate with a military and executive background.",
+          "suggestion": "Add verified education details from sources like Ballotpedia.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[5].education",
+          "concern": "Kristin Robbins' education array is empty, despite her bio mentioning degrees from Bethel University and Washington University.",
+          "suggestion": "Populate with accurate details from her official House biography or other credible sources.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[6].education",
+          "concern": "Lisa Demuth's education array is empty, reducing the completeness of her profile as a key Republican candidate.",
+          "suggestion": "Research and include verified education information from reliable sources.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[7].education",
+          "concern": "Peggy Bennett's education array is empty, which limits the depth of her biographical information.",
+          "suggestion": "Add verified details if available from sources like Ballotpedia.",
+          "severity": "warning"
+        },
+        {
+          "field": "generator",
+          "concern": "The listed models (e.g., 'gpt-5.4-mini') do not match standard naming conventions, raising questions about the profile's generation transparency and potential inaccuracies.",
+          "suggestion": "Update to accurate, verifiable model identifiers (e.g., 'gpt-4o') to improve credibility.",
+          "severity": "info"
+        }
+      ],
+      "summary": "This profile shows commendable effort in compiling detailed issue stances and sourcing for several candidates, such as Amy Klobuchar and Kristin Robbins, with high-confidence citations from official sites and reputable news outlets. However, it requires revisions due to structural errors, like a non-candidate entry in the candidates array, inconsistencies in candidate status (e.g., Tim Walz's withdrawal), and gaps in biographical details such as education and career history for many candidates, which affect overall completeness and accuracy."
     }
-  ]
+  ],
+  "polling_note": "Polling data in this profile is limited and includes duplicate Emerson College entries; two March 24, 2026 entries contain placeholder null percentages and should be treated as incomplete until verified or replaced.",
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 7527814,
+    "completion_tokens": 499762,
+    "total_tokens": 8027576,
+    "estimated_usd": 1.2195,
+    "model_breakdown": {
+      "gpt-5-nano": {
+        "prompt_tokens": 4842715,
+        "completion_tokens": 449193
+      },
+      "gpt-5.4-mini": {
+        "prompt_tokens": 2347458,
+        "completion_tokens": 32547
+      },
+      "gemini-3.1-flash-lite-preview": {
+        "prompt_tokens": 121631,
+        "completion_tokens": 1931
+      },
+      "grok-3-mini": {
+        "prompt_tokens": 98992,
+        "completion_tokens": 2936
+      },
+      "claude-haiku-4-5-20251001": {
+        "prompt_tokens": 117018,
+        "completion_tokens": 13155
+      }
+    },
+    "duration_s": 4889.8
+  }
 }

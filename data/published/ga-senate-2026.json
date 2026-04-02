@@ -25,8 +25,46 @@
   "office": "United States Senate",
   "jurisdiction": "Georgia",
   "election_date": "2026-11-03",
-  "description": "Georgia’s 2026 U.S. Senate race is for the seat held by Democratic Sen. Jon Ossoff, who is seeking reelection in a state that has voted narrowly in recent statewide contests. The race matters because control of the seat could affect the Senate majority, and the main contrast so far is between Ossoff’s incumbent fundraising and healthcare-focused message and a crowded Republican primary featuring Reps. Buddy Carter and Mike Collins plus former coach Derek Dooley.",
+  "description": "The 2026 United States Senate election in Georgia will decide a U.S. Senate seat in a state that has been closely contested in recent cycles and is central to control of the chamber. Incumbent Democrat Jon Ossoff is seeking re-election while Republicans are competing in a primary featuring Buddy Carter, Mike Collins, and Derek Dooley; early polling has shown Ossoff ahead of each potential Republican opponent, and the race is being shaped by issues including the economy, health care, housing affordability, and the broader national balance of power in the Senate.",
   "polling": [
+    {
+      "pollster": "Emerson College Polling / Nexstar Media",
+      "date": "2026-03-02",
+      "matchups": [
+        {
+          "candidates": [
+            "Jon Ossoff",
+            "Buddy Carter"
+          ],
+          "percentages": [
+            47,
+            44
+          ]
+        },
+        {
+          "candidates": [
+            "Jon Ossoff",
+            "Mike Collins"
+          ],
+          "percentages": [
+            48,
+            43
+          ]
+        },
+        {
+          "candidates": [
+            "Jon Ossoff",
+            "Derek Dooley"
+          ],
+          "percentages": [
+            49,
+            41
+          ]
+        }
+      ],
+      "source_url": "https://emersoncollegepolling.com/georgia-2026-poll-senator-ossoff-starts-re-election-near-50-and-outpaces-gop-field/",
+      "sample_size": 1000
+    },
     {
       "pollster": "Emerson College Polling / Nexstar Media",
       "date": "2026-03-02",
@@ -243,22 +281,12 @@
       "name": "Jon Ossoff",
       "party": "Democratic",
       "incumbent": true,
-      "summary": "Jon Ossoff is the incumbent Democratic U.S. senator from Georgia and is running for reelection in 2026. His campaign has emphasized healthcare costs, Affordable Care Act tax credits, and building a statewide grassroots operation, while highlighting a large cash-on-hand advantage over Republican challengers.",
+      "summary": "Jon Ossoff is the incumbent Democratic U.S. senator from Georgia and is seeking re-election in 2026. In March 2026, his office highlighted a series of constituent-service and policy announcements focused on infrastructure, health care, housing, public safety, and consumer protection.",
       "summary_sources": [
         {
-          "url": "https://www.cbsnews.com/atlanta/news/jon-ossoff-enters-2026-race-with-25-million-on-hand-as-georgia-senate-battle-heats-up/",
-          "title": "Jon Ossoff enters 2026 race with $25 million on hand as Georgia Senate battle heats up",
-          "type": "article"
-        },
-        {
-          "url": "https://www.wjcl.com/article/ossoff-holds-first-savannah-campaign-stop-of-2026/70440291",
-          "title": "Ossoff holds first Savannah campaign stop of 2026",
-          "type": "article"
-        },
-        {
-          "url": "https://www.c-span.org/program/campaign-2026/sen-jon-ossoff-holds-rally-in-georgia/673122",
-          "title": "Sen. Jon Ossoff Holds Rally in Georgia",
-          "type": "video"
+          "url": "https://www.ossoff.senate.gov/category/georgia/",
+          "title": "U.S. Senator for Georgia Jon Ossoff – Georgia press releases",
+          "type": "official"
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Jon_Ossoff_Senate_Portrait_2021.jpg/500px-Jon_Ossoff_Senate_Portrait_2021.jpg",
@@ -768,17 +796,17 @@
       "name": "Buddy Carter",
       "party": "Republican",
       "incumbent": false,
-      "summary": "Buddy Carter is a Republican U.S. representative from Georgia who entered the 2026 Senate race to challenge Jon Ossoff. His campaign is part of a crowded Republican primary, and early reporting has focused on his status as one of several GOP contenders seeking the nomination.",
+      "summary": "Buddy Carter is a Republican U.S. representative from Georgia who entered the 2026 Senate race in May 2025. His campaign has framed him as a conservative challenger to Jon Ossoff, and he is one of three major Republicans competing for the nomination.",
       "summary_sources": [
+        {
+          "url": "https://www.gpb.org/news/2025/05/08/georgia-congressman-buddy-carter-launches-maga-warrior-gop-bid-for-2026-senate-race",
+          "title": "Georgia congressman Buddy Carter launches 'MAGA warrior' GOP bid for 2026 Senate race",
+          "type": "news"
+        },
         {
           "url": "https://www.politico.com/news/2025/05/08/buddy-carter-georgia-senate-00335393",
           "title": "Republican Rep. Buddy Carter launches Georgia Senate campaign",
-          "type": "article"
-        },
-        {
-          "url": "https://georgiarecorder.com/2025/05/09/georgia-gop-u-s-rep-buddy-carter-enters-2026-senate-race-that-shapes-up-as-referendum-on-trump-policies/",
-          "title": "Georgia GOP U.S. Rep. Buddy Carter enters 2026 Senate race",
-          "type": "article"
+          "type": "news"
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Official_portrait_of_Congressman_Buddy_Carter_2025.jpg/500px-Official_portrait_of_Congressman_Buddy_Carter_2025.jpg",
@@ -1339,22 +1367,17 @@
       "name": "Mike Collins",
       "party": "Republican",
       "incumbent": false,
-      "summary": "Mike Collins is a Republican U.S. representative from Georgia who launched a Senate bid in 2025 to run against Jon Ossoff. Recent coverage has centered on his fundraising and his effort to build a statewide campaign in a competitive GOP primary.",
+      "summary": "Mike Collins is a Republican U.S. representative from Georgia who entered the 2026 Senate race in July 2025. He is running for the GOP nomination against Buddy Carter and Derek Dooley, and early polling has shown him with notable support in the primary field.",
       "summary_sources": [
         {
-          "url": "https://rollcall.com/2025/07/28/georgia-senate-election-mike-collins-ossoff/",
-          "title": "Georgia Rep. Mike Collins enters GOP primary to take on Sen. Jon Ossoff",
-          "type": "article"
+          "url": "https://georgiarecorder.com/2025/07/28/georgia-congressman-mike-collins-enters-u-s-senate-race-with-pro-trump-message/",
+          "title": "Georgia congressman Mike Collins enters U.S. Senate race with pro-Trump message",
+          "type": "news"
         },
         {
-          "url": "https://www.gpb.org/news/2025/08/20/mike-collins-kicks-off-us-senate-campaign",
-          "title": "Mike Collins kicks off U.S. Senate campaign",
-          "type": "article"
-        },
-        {
-          "url": "https://apnews.com/article/georgia-senate-2026-fundraising-republican-dooley-collins-36eb6bf302e1074886da9847d001fc6d",
-          "title": "Mike Collins, Derek Dooley each raise nearly $2M to challenge Sen. Jon Ossoff",
-          "type": "article"
+          "url": "https://news.ballotpedia.org/2025/07/30/rep-mike-collins-becomes-the-eighth-representative-to-announce-a-u-s-senate-bid-for-2026/",
+          "title": "Rep. Mike Collins becomes the eighth representative to announce a U.S. Senate bid for 2026",
+          "type": "news"
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Rep._Mike_Collins_official_photo%2C_118th_Congress.jpg/500px-Rep._Mike_Collins_official_photo%2C_118th_Congress.jpg",
@@ -1817,22 +1840,17 @@
       "name": "Derek Dooley",
       "party": "Republican",
       "incumbent": false,
-      "summary": "Derek Dooley is a Republican former college football coach and attorney who entered Georgia’s 2026 Senate race. As a political newcomer, his campaign has been defined by his launch, his family name, and early fundraising reports as he competes in the GOP primary.",
+      "summary": "Derek Dooley is a former college football coach and attorney who entered the Georgia Republican Senate primary in August 2025. He is running as a political newcomer against U.S. Reps. Buddy Carter and Mike Collins for the chance to challenge Jon Ossoff in the general election.",
       "summary_sources": [
         {
-          "url": "https://apnews.com/article/derek-dooley-reepublican-senate-georgia-tennessee-ossoff-a1b7705b3b8d585ba3e5fd683f59f81c",
-          "title": "Derek Dooley announces 2026 Senate bid in Georgia",
-          "type": "article"
+          "url": "https://www.gpb.org/news/2025/08/04/former-tennessee-coach-derek-dooley-announces-2026-senate-bid-in-georgia",
+          "title": "Former Tennessee coach Derek Dooley announces 2026 Senate bid in Georgia",
+          "type": "news"
         },
         {
-          "url": "https://www.11alive.com/article/news/politics/derek-dooley-2026-senate-campaign-georgia/85-a3d5bfd2-dd6c-4896-afe6-0be2680b9675",
-          "title": "Derek Dooley announces 2026 campaign for Senate in Georgia",
-          "type": "article"
-        },
-        {
-          "url": "https://apnews.com/article/georgia-senate-2026-fundraising-republican-dooley-collins-36eb6bf302e1074886da9847d001fc6d",
-          "title": "Mike Collins, Derek Dooley each raise nearly $2M to challenge Sen. Jon Ossoff",
-          "type": "article"
+          "url": "https://www.nbcnews.com/politics/2026-election/republican-derek-dooley-football-coach-senate-georgia-jon-ossoff-rcna222574",
+          "title": "Republican Derek Dooley, ex-football coach, launches Senate bid in Georgia",
+          "type": "news"
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Derekdooleyorangewhite.jpg/500px-Derekdooleyorangewhite.jpg",
@@ -2171,7 +2189,7 @@
       ]
     }
   ],
-  "updated_utc": "2026-04-01T03:07:50.823688+00:00",
+  "updated_utc": "2026-04-01T05:45:37.210982+00:00",
   "generator": [
     "gpt-5.4-mini",
     "gpt-5-nano"
@@ -2406,23 +2424,23 @@
       "summary": "This profile demonstrates thorough research and transparency in iteration notes, with accurate corrections to candidate backgrounds and strong official sourcing for most issues. However, it includes critical factual errors in Jon Ossoff's voting records, significant gaps in top donors for Mike Collins and Derek Dooley, and unverified or incomplete source URLs that undermine overall reliability and completeness."
     }
   ],
-  "polling_note": "As of late March 2026, only one independent public poll of this race has been published. Additional surveys are expected as the May 2026 primary approaches.",
+  "polling_note": "Recent public polling in the last 90 days has shown Jon Ossoff leading each of the main Republican contenders in hypothetical general-election matchups; the most recent publicly available survey located was Emerson College Polling/Nexstar Media, fielded Feb. 28-Mar. 2, 2026.",
   "agent_metrics": {
     "model": "gpt-5.4-mini",
-    "prompt_tokens": 240991,
-    "completion_tokens": 6728,
-    "total_tokens": 247719,
-    "estimated_usd": 0.0354,
+    "prompt_tokens": 184881,
+    "completion_tokens": 7678,
+    "total_tokens": 192559,
+    "estimated_usd": 0.0265,
     "model_breakdown": {
       "gpt-5-nano": {
-        "prompt_tokens": 75754,
-        "completion_tokens": 4870
+        "prompt_tokens": 94649,
+        "completion_tokens": 5625
       },
       "gpt-5.4-mini": {
-        "prompt_tokens": 165237,
-        "completion_tokens": 1858
+        "prompt_tokens": 90232,
+        "completion_tokens": 2053
       }
     },
-    "duration_s": 75.9
+    "duration_s": 90.5
   }
 }

@@ -1,0 +1,378 @@
+{
+  "id": "ms-senate-2026",
+  "title": "2026 U.S. Senate election in Mississippi",
+  "office": "U.S. Senate",
+  "jurisdiction": "Mississippi",
+  "election_date": "2026-11-03",
+  "description": "This race is for Mississippi\u2019s Class II seat in the U.S. Senate, currently held by Republican Cindy Hyde-Smith. It matters because it will help determine control of the Senate in the 120th Congress, and Mississippi is widely rated as a solid Republican state, making the general election more about candidate contrast than overall partisan balance. The contest features an incumbent Republican, a Democratic district attorney, and an independent candidate, with themes centered on jobs, healthcare, fiscal policy, and public safety.",
+  "polling": [],
+  "polling_note": "No public polling found for this race as of 2026-04-01.",
+  "candidates": [
+    {
+      "name": "Cindy Hyde-Smith",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Cindy Hyde-Smith is the incumbent U.S. senator from Mississippi, first taking office in 2018. Before the Senate, she served as Mississippi commissioner of agriculture and commerce and in the state legislature. Her campaign and official Senate materials present her as a conservative aligned with Republican priorities.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Mississippi,_2026",
+          "type": "government",
+          "title": "United States Senate election in Mississippi, 2026 - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.hydesmith.senate.gov/about-cindy",
+          "type": "government",
+          "title": "About Cindy | Senator Cindy Hyde-Smith",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://cindyhydesmith.com/",
+          "type": "website",
+          "title": "Cindy Hyde-Smith for United State Senate: Homepage",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/7f/Official_portrait_of_US_Senator_Cindy_Hyde-Smith.jpg",
+      "website": "https://cindyhydesmith.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/SenatorCindyHydeSmith/",
+        "instagram": "https://www.instagram.com/sencindyhydesmith/?hl=en",
+        "x": "https://x.com/SenHydeSmith/with_replies"
+      },
+      "career_history": [
+        {
+          "title": "U.S. Senator",
+          "organization": "United States Senate",
+          "start_year": 2018,
+          "end_year": null,
+          "description": "Represents Mississippi in the U.S. Senate."
+        },
+        {
+          "title": "Commissioner of Agriculture and Commerce",
+          "organization": "State of Mississippi",
+          "start_year": 2012,
+          "end_year": 2018,
+          "description": "Served as Mississippi\u2019s agriculture commissioner before joining the Senate."
+        },
+        {
+          "title": "State Senator",
+          "organization": "Mississippi State Senate",
+          "start_year": 2000,
+          "end_year": 2012,
+          "description": "Served in the Mississippi legislature."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Scott Colom",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Scott Colom is the Democratic nominee for U.S. Senate in Mississippi and currently serves as district attorney for Mississippi\u2019s 16th Judicial District. His campaign emphasizes lowering costs, protecting hospitals, and bringing jobs to the state, while highlighting his record as a prosecutor and his earlier judicial nomination by President Biden. He is running as a reform-minded Democrat in a state that remains strongly Republican at the federal level.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Scott_Colom",
+          "type": "government",
+          "title": "Scott Colom - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://scottcolom.com/",
+          "type": "website",
+          "title": "Scott Colom for Senate \u2013 Mississippi Matters",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.nbcnews.com/politics/2026-election/senate-primary-mississippi-cindy-hyde-smith-scott-colom-rcna262587",
+          "type": "news",
+          "title": "GOP Sen. Cindy Hyde-Smith and Democrat Scott Colom to face off ...",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://scottcolom.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/ScottColomForSenate/",
+        "instagram": "https://www.instagram.com/scottcolomforsenate/",
+        "x": "https://x.com/ScottColomMS",
+        "youtube": "https://www.youtube.com/@ScottColomForSenate",
+        "tiktok": "https://www.tiktok.com/@scottcolomforsenate"
+      },
+      "career_history": [
+        {
+          "title": "District Attorney",
+          "organization": "16th Judicial District of Mississippi",
+          "start_year": 2016,
+          "end_year": null,
+          "description": "Serves as district attorney for the 16th Judicial District."
+        },
+        {
+          "title": "City prosecutor",
+          "organization": "City of Columbus, Mississippi",
+          "start_year": 2013,
+          "end_year": 2016,
+          "description": "Worked as a city prosecutor."
+        },
+        {
+          "title": "Municipal court judge",
+          "organization": "Aberdeen, Mississippi",
+          "start_year": 2012,
+          "end_year": 2013,
+          "description": "Served as a municipal court judge."
+        },
+        {
+          "title": "Interim justice court judge",
+          "organization": "Lowndes County, Mississippi",
+          "start_year": 2012,
+          "end_year": 2013,
+          "description": "Served as an interim justice court judge."
+        },
+        {
+          "title": "Lawyer",
+          "organization": "Colom Law Firm LLC",
+          "start_year": 2011,
+          "end_year": 2016,
+          "description": "Practiced law in private practice."
+        },
+        {
+          "title": "Staff lawyer and Skadden Fellow",
+          "organization": "Mississippi Center for Justice",
+          "start_year": 2009,
+          "end_year": 2011,
+          "description": "Worked on legal advocacy and public-interest matters."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Millsaps College",
+          "degree": "Bachelor's degree",
+          "field": "unknown",
+          "year": 2005
+        },
+        {
+          "institution": "University of Wisconsin Law School",
+          "degree": "J.D.",
+          "field": "law",
+          "year": 2009
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Ty Pinkins",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Ty Pinkins is an independent candidate for U.S. Senate in Mississippi and previously ran for the seat in 2024. He is a U.S. Army veteran and attorney whose campaign focuses on housing, education, healthcare, and jobs, and he has framed his candidacy as a challenge to the state\u2019s two-party system. Pinkins has also run for statewide office before, including Mississippi secretary of state in 2023.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Ty_Pinkins",
+          "type": "government",
+          "title": "Ty Pinkins - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.typinkins.com/",
+          "type": "website",
+          "title": "Ty Pinkins for US Senate | Mississippi",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.typinkins.com/meet-ty-pinkins",
+          "type": "website",
+          "title": "About | Ty Pinkins for US Senate | Mississippi",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://www.typinkins.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/typinkins",
+        "linkedin": "https://www.linkedin.com/in/ty-pinkins"
+      },
+      "career_history": [
+        {
+          "title": "Business owner",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "Owns a business, according to Ballotpedia."
+        },
+        {
+          "title": "Attorney",
+          "organization": "Mississippi Center for Justice",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked as an attorney with the Mississippi Center for Justice."
+        },
+        {
+          "title": "Presidential communications aide",
+          "organization": "White House Communications Agency",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked as a communications aide supporting presidential communications."
+        },
+        {
+          "title": "U.S. Army service member",
+          "organization": "United States Army",
+          "start_year": 1996,
+          "end_year": 2017,
+          "description": "Served 21 years in the Army."
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Maryland Global Campus",
+          "degree": "Bachelor's degree",
+          "field": "political science and government",
+          "year": 2012
+        },
+        {
+          "institution": "Georgetown University Law Center",
+          "degree": "J.D.",
+          "field": "law",
+          "year": 2020
+        },
+        {
+          "institution": "Georgetown University Law Center",
+          "degree": "LL.M.",
+          "field": "national security law",
+          "year": 2021
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Sarah Adlakha",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Sarah Adlakha ran in the Republican primary for U.S. Senate in Mississippi and is a physician by profession. Her campaign emphasized healthcare, affordability, education, border security, fiscal restraint, and ethics reform, presenting her as an outsider with experience in medicine and business. She lost the Republican primary to incumbent Cindy Hyde-Smith.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Sarah_Adlakha",
+          "type": "government",
+          "title": "Sarah Adlakha - Ballotpedia",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.wtok.com/2025/09/11/republican-candidate-sarah-adlakha-adds-her-name-us-senate-race/",
+          "type": "news",
+          "title": "Republican candidate Sarah Adlakha adds her name to the U.S. Senate race",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        },
+        {
+          "url": "https://www.facebook.com/sarahforsenate/",
+          "type": "website",
+          "title": "Sarah Adlakha for US Senate (@sarahforsenate) - Facebook",
+          "last_accessed": "2026-04-01T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://www.facebook.com/sarahforsenate/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/sarahforsenate/",
+        "instagram": "https://www.instagram.com/sarahadlakha/",
+        "x": "https://x.com/sarahforsenate"
+      },
+      "career_history": [
+        {
+          "title": "Physician",
+          "organization": "Medical practice",
+          "start_year": null,
+          "end_year": null,
+          "description": "Works as a physician."
+        },
+        {
+          "title": "Paramedic",
+          "organization": "Unknown",
+          "start_year": null,
+          "end_year": null,
+          "description": "Ballotpedia lists prior work as a paramedic."
+        },
+        {
+          "title": "Author",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "Has worked as an author."
+        },
+        {
+          "title": "Business manager",
+          "organization": "Unknown",
+          "start_year": null,
+          "end_year": null,
+          "description": "Ballotpedia lists prior work as a business manager."
+        },
+        {
+          "title": "Real estate developer",
+          "organization": "Unknown",
+          "start_year": null,
+          "end_year": null,
+          "description": "Ballotpedia lists prior work in real estate development."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Trinity Presbyterian High School",
+          "degree": "High school diploma",
+          "field": "unknown",
+          "year": null
+        },
+        {
+          "institution": "Huntingdon College",
+          "degree": "Bachelor's degree",
+          "field": "unknown",
+          "year": 1996
+        },
+        {
+          "institution": "Touro University",
+          "degree": "D.O.",
+          "field": "medicine",
+          "year": 2003
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "updated_utc": "2026-04-01T05:56:12.150406+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "gpt-5-nano"
+  ],
+  "reviews": [],
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 96917,
+    "completion_tokens": 3123,
+    "total_tokens": 100040,
+    "estimated_usd": 0.0164,
+    "model_breakdown": {
+      "gpt-5.4-mini": {
+        "prompt_tokens": 96917,
+        "completion_tokens": 3123
+      }
+    },
+    "duration_s": 30.5
+  }
+}
