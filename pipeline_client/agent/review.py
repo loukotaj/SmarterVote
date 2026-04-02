@@ -178,3 +178,76 @@ async def run_reviews(
 
     results = await asyncio.gather(*tasks)
     return [r for r in results if r is not None]
+
+
+# ---------------------------------------------------------------------------
+# Post-run improvement analysis via Gemini Flash
+# ---------------------------------------------------------------------------
+
+# Max characters of logs to send — Gemini Flash has a large context window but
+# we cap here to keep costs reasonable (~300k chars ≈ ~75k tokens).
+_MAX_LOG_CHARS = 300_000
+
+
+async def run_post_run_analysis(
+    run_id: str,
+    race_id: str,
+    logs: List[Dict[str, Any]],
+    *,
+    model: Optional[str] = None,
+) -> Dict[str, Any]:
+    """Call Gemini Flash with the full run logs + system prompts and ask for
+    improvement suggestions.  Returns a dict suitable for JSON serialisation."""
+    from .prompts import (
+        DISCOVERY_SYSTEM,
+        FINANCE_VOTING_SYSTEM,
+        ISSUE_SUBAGENT_SYSTEM,
+        ITERATE_SYSTEM,
+        POST_RUN_ANALYSIS_SYSTEM,
+        POST_RUN_ANALYSIS_USER,
+        REFINE_SYSTEM,
+    )
+
+    api_key = os.environ.get("GEMINI_API_KEY", "")
+    if not api_key:
+        logger.info("Post-run analysis skipped: GEMINI_API_KEY not set")
+        return {"skipped": True, "reason": "GEMINI_API_KEY not set"}
+
+    effective_model = model or DEFAULT_GEMINI_MODEL
+
+    # Format logs as plain text, newest-last, truncated if necessary
+    log_lines = [
+        f"[{e.get('timestamp', '')}] {e.get('level', 'info').upper():7s} {e.get('message', '')}"
+        for e in logs
+    ]
+    logs_text = "\n".join(log_lines)
+    if len(logs_text) > _MAX_LOG_CHARS:
+        logs_text = "... (truncated — showing last portion) ...\n" + logs_text[-_MAX_LOG_CHARS:]
+
+    user_prompt = POST_RUN_ANALYSIS_USER.format(
+        run_id=run_id,
+        race_id=race_id,
+        discovery_system=DISCOVERY_SYSTEM,
+        issue_system=ISSUE_SUBAGENT_SYSTEM,
+        refine_system=REFINE_SYSTEM,
+        finance_system=FINANCE_VOTING_SYSTEM,
+        iterate_system=ITERATE_SYSTEM,
+        log_count=len(logs),
+        logs_text=logs_text,
+    )
+
+    logger.info(f"Post-run analysis: sending {len(logs)} log entries to {effective_model}")
+    try:
+        analysis_text = await _call_gemini(POST_RUN_ANALYSIS_SYSTEM, user_prompt, model=effective_model)
+    except Exception as exc:
+        logger.warning(f"Post-run analysis failed: {exc}")
+        return {"skipped": True, "reason": str(exc)}
+
+    return {
+        "run_id": run_id,
+        "race_id": race_id,
+        "model": effective_model,
+        "analyzed_at": datetime.now(timezone.utc).isoformat(),
+        "log_count": len(logs),
+        "analysis": analysis_text,
+    }

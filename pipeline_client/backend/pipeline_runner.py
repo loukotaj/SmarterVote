@@ -1,7 +1,10 @@
 import asyncio
+import json
 import logging
 import time
 import traceback
+from datetime import datetime, timezone
+from pathlib import Path
 from typing import Any, Dict, Optional
 
 from .logging_manager import logging_manager
@@ -9,6 +12,27 @@ from .models import RunRequest, RunResponse, RunStatus
 from .run_manager import run_manager
 from .step_registry import get_handler
 from .storage import new_artifact_id, save_artifact
+
+_ANALYSES_DIR = Path(__file__).resolve().parents[2] / "pipeline_client" / "post_run_analyses"
+
+
+async def _run_and_save_post_analysis(run_id: str, race_id: str, logs: list) -> None:
+    """Run Gemini Flash post-run analysis and persist the result to disk."""
+    _log = logging.getLogger("pipeline")
+    try:
+        from pipeline_client.agent.review import run_post_run_analysis
+
+        result = await run_post_run_analysis(run_id, race_id, logs)
+        if result.get("skipped"):
+            _log.info(f"Post-run analysis skipped for {run_id}: {result.get('reason')}")
+            return
+
+        _ANALYSES_DIR.mkdir(parents=True, exist_ok=True)
+        out_path = _ANALYSES_DIR / f"{run_id}.json"
+        out_path.write_text(json.dumps(result, indent=2, ensure_ascii=False), encoding="utf-8")
+        _log.info(f"Post-run analysis saved: {out_path}")
+    except Exception:
+        _log.warning("Post-run analysis failed", exc_info=True)
 
 
 def _merge_options(req_opts) -> Dict[str, Any]:
@@ -124,8 +148,17 @@ async def run_step_async(step: str, request: RunRequest, run_id: Optional[str] =
         # Mark step as completed
         run_manager.update_step_status(run_id, step, RunStatus.COMPLETED, artifact_id, duration_ms)
 
+        # Collect logs before complete_run removes the run from active memory
+        run_logs = list(run_manager.get_run_logs(run_id) or [])
+
         # Mark the overall run as completed (persists to Firestore, detaches log handler)
         run_manager.complete_run(run_id, artifact_id, duration_ms)
+
+        # Fire post-run Gemini Flash improvement analysis (non-blocking)
+        race_id_for_analysis = request.payload.get("race_id", "unknown")
+        asyncio.create_task(
+            _run_and_save_post_analysis(run_id, race_id_for_analysis, run_logs)
+        )
 
         await logging_manager.send_run_status(run_id, "completed", artifact_id=artifact_id, duration_ms=duration_ms)
 

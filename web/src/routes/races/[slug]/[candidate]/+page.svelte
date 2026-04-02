@@ -16,6 +16,7 @@
   let error: string | null = null;
   let othersExpanded = false;
   let isDraftPreview = false;
+  let summarySourcesOpen = false;
 
   let slug: string;
   let candidateParam: string;
@@ -204,6 +205,42 @@
 
       <p class="candidate-summary">{candidate.summary}</p>
 
+      {#if candidate.summary_sources && candidate.summary_sources.length > 0}
+        <div class="summary-sources">
+          <button
+            class="summary-sources-toggle"
+            on:click={() => (summarySourcesOpen = !summarySourcesOpen)}
+            aria-expanded={summarySourcesOpen}
+          >
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+            </svg>
+            Sources ({candidate.summary_sources.length})
+            <svg
+              class="w-3 h-3 transition-transform duration-150"
+              class:rotate-180={summarySourcesOpen}
+              fill="none" stroke="currentColor" viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          {#if summarySourcesOpen}
+            <ul class="summary-sources-list">
+              {#each candidate.summary_sources as src}
+                <li>
+                  <a href={src.url} target="_blank" rel="noopener noreferrer" class="summary-source-link">
+                    <svg class="w-3 h-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                    {src.title ?? src.url}
+                  </a>
+                </li>
+              {/each}
+            </ul>
+          {/if}
+        </div>
+      {/if}
+
       <!-- Quick links -->
       <div class="quick-links">
         {#if candidate.website}
@@ -255,6 +292,14 @@
                     {#if entry.description}
                       <p class="timeline-desc">{entry.description}</p>
                     {/if}
+                    {#if entry.source}
+                      <a href={entry.source.url} target="_blank" rel="noopener noreferrer" class="entry-source-link">
+                        <svg class="w-3 h-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                        {entry.source.title ?? 'Source'}
+                      </a>
+                    {/if}
                   </div>
                 {/each}
               </div>
@@ -272,6 +317,14 @@
                         {[edu.degree, edu.field].filter(Boolean).join(" in ")}
                         {#if edu.year}({edu.year}){/if}
                       </span>
+                    {/if}
+                    {#if edu.source}
+                      <a href={edu.source.url} target="_blank" rel="noopener noreferrer" class="entry-source-link">
+                        <svg class="w-3 h-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                        {edu.source.title ?? 'Source'}
+                      </a>
                     {/if}
                   </div>
                 {/each}
@@ -484,6 +537,31 @@
 
   .edu-degree {
     @apply text-xs text-content-muted;
+  }
+
+  /* Summary sources */
+  .summary-sources {
+    @apply mb-4;
+  }
+
+  .summary-sources-toggle {
+    @apply inline-flex items-center gap-1.5 text-xs text-content-subtle hover:text-blue-600
+           dark:hover:text-blue-400 transition-colors duration-150 font-medium;
+  }
+
+  .summary-sources-list {
+    @apply mt-2 space-y-1 pl-1;
+  }
+
+  .summary-source-link {
+    @apply inline-flex items-center gap-1 text-xs text-blue-600 dark:text-blue-400
+           hover:underline truncate max-w-xs sm:max-w-sm no-underline;
+  }
+
+  /* Entry source link (career + education) */
+  .entry-source-link {
+    @apply inline-flex items-center gap-1 mt-1 text-xs text-blue-600 dark:text-blue-400
+           hover:underline no-underline;
   }
 
   /* Data note */

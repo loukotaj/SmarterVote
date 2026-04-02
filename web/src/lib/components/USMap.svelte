@@ -187,6 +187,7 @@
       {#each baseFeatures as state (state.id)}
         {@const isActive = activeStates.has(state.name)}
         {@const count = raceCounts[state.name] ?? 0}
+        <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
         <path
           d={state.pathData}
           fill={getFill(state.name)}

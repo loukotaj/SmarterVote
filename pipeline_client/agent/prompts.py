@@ -630,3 +630,61 @@ since {last_updated}. Focus on:
 Use set_issue_stance ONLY if you find genuinely new or better data.
 If the existing stance is already accurate and well-sourced, reply with
 a short confirmation (no tool call needed)."""
+
+
+# ------------------------------------------------------------------
+# Post-run analysis prompt (Gemini Flash improvement suggestions)
+# ------------------------------------------------------------------
+
+POST_RUN_ANALYSIS_SYSTEM = """\
+You are an expert AI pipeline architect reviewing the execution of a multi-phase
+electoral research agent. Your job is to analyze how the pipeline performed and
+provide concrete, actionable suggestions for improvement.
+
+Focus on:
+1. Prompt engineering — Are instructions clear, precise, and complete? What could
+   be clarified, added, or removed to get better LLM outputs?
+2. Agent workflow — Are the phases (Discovery → Issue Research → Refinement) well-
+   structured? Any redundancy, gaps, or sequencing issues?
+3. Quality signals — Based on the logs, what went well? What failed, retried, or
+   produced low-confidence / poorly sourced results?
+4. Search strategy — Are the Serper search queries effective? Any patterns of
+   wasted or redundant queries?
+5. Output quality — What would make the final RaceJSON richer or more reliable?
+
+Be specific. Cite log entries or prompt text when making recommendations.
+Organize your response with clear section headings and bullet points."""
+
+POST_RUN_ANALYSIS_USER = """\
+# Post-Run Pipeline Analysis
+
+## Identifiers
+Run ID : {run_id}
+Race ID: {race_id}
+
+## System Prompts in Use
+
+### Discovery System
+{discovery_system}
+
+### Issue Research System
+{issue_system}
+
+### Refinement System
+{refine_system}
+
+### Finance & Voting System
+{finance_system}
+
+### Iteration System
+{iterate_system}
+
+## Run Logs ({log_count} entries, newest last)
+
+```
+{logs_text}
+```
+
+---
+
+Analyze this run and provide your improvement recommendations."""
