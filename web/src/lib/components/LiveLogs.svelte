@@ -67,9 +67,9 @@
       {#each filteredLogs as log}
         <div class="log-line {getLogClass(log.level)}">
           <span class="text-content-subtle">
-            [{new Date(log.timestamp).toLocaleTimeString()}]
+            [{log.timestamp ? new Date(log.timestamp).toLocaleTimeString() : ""}]
           </span>
-          <span class="font-medium">[{log.level.toUpperCase()}]</span>
+          <span class="font-medium">[{(log.level ?? "info").toUpperCase()}]</span>
           {log.message}
         </div>
       {/each}

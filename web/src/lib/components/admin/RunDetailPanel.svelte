@@ -80,11 +80,18 @@
   $: progressMsg = isLiveAndRunning ? liveProgressMessage : lastStepMessage(pipelineSteps);
   $: elapsed = isLiveAndRunning ? liveElapsed : (run?.duration_ms ? Math.floor(run.duration_ms / 1000) : 0);
 
+  // Scroll the logs container to the bottom (called via tick to avoid Svelte reactive loop).
+  // Must be a named function so that logsContainer is NOT syntactically inside the $: block;
+  // if it were inline, Svelte would include logsContainer in the reactive dirty-bit mask and
+  // the $$invalidate(logsContainer, ...) call made when setting scrollTop would re-trigger the
+  // reactive statement on every scroll, creating an infinite loop that crashes the page.
+  function scrollLogsToBottom() {
+    if (logsContainer) logsContainer.scrollTop = logsContainer.scrollHeight;
+  }
+
   // Auto-scroll logs when new entries arrive
   $: if (filteredLogs.length && autoScrollLogs && activeSection === "logs") {
-    tick().then(() => {
-      if (logsContainer) logsContainer.scrollTop = logsContainer.scrollHeight;
-    });
+    tick().then(scrollLogsToBottom);
   }
 
   function computeProgress(steps: RunStep[]): number {
