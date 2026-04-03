@@ -21,7 +21,7 @@
   let error = "";
   let search = "";
   let statusFilter: RaceStatusType | "all" = "all";
-  let sortKey: keyof RaceRecord = "updated_at";
+  let sortKey: keyof RaceRecord = "draft_updated_at";
   let sortAsc = false;
   let selected = new Set<string>();
   let publishing = new Set<string>();
@@ -278,8 +278,8 @@
                 Jurisdiction {sortIcon("jurisdiction")}
               </th>
               <th class="px-3 py-3 text-left font-medium text-content-muted text-center">Cands</th>
-              <th class="px-3 py-3 text-left font-medium text-content-muted cursor-pointer hover:text-content whitespace-nowrap" on:click={() => toggleSort("updated_at")}>
-                Updated {sortIcon("updated_at")}
+              <th class="px-3 py-3 text-left font-medium text-content-muted cursor-pointer hover:text-content whitespace-nowrap" on:click={() => toggleSort("draft_updated_at")}>
+                Updated {sortIcon("draft_updated_at")}
               </th>
               <th class="px-3 py-3 text-left font-medium text-content-muted whitespace-nowrap">Freshness</th>
               <th class="px-3 py-3 text-left font-medium text-content-muted cursor-pointer hover:text-content whitespace-nowrap" on:click={() => toggleSort("status")}>
@@ -327,7 +327,7 @@
                 <td class="px-3 py-3 text-content max-w-40 truncate" title={row.title ?? ""}>{row.title ?? "—"}</td>
                 <td class="px-3 py-3 text-content-muted max-w-32 truncate">{row.jurisdiction ?? "—"}</td>
                 <td class="px-3 py-3 text-content-muted text-center font-mono">{row.candidate_count || "—"}</td>
-                <td class="px-3 py-3 text-content-muted whitespace-nowrap">{formatDate(row.updated_at)}</td>
+                <td class="px-3 py-3 text-content-muted whitespace-nowrap">{formatDate(row.draft_updated_at)}</td>
                 <td class="px-3 py-3">
                   {#if row.freshness}
                     <span class="px-2 py-0.5 rounded-full text-xs font-medium {freshnessBadgeClass(row.freshness)}">{row.freshness}</span>

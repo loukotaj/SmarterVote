@@ -38,7 +38,7 @@
   }
 </script>
 
-<div class="min-h-screen bg-page">
+<div class="min-h-screen bg-page overflow-x-hidden">
   <!-- Navigation loading bar -->
   {#if $navigating}
     <div class="fixed top-0 left-0 right-0 z-50 h-0.5 overflow-hidden">
@@ -98,7 +98,7 @@
   <footer class="bg-surface border-t border-stroke mt-12 sm:mt-16">
     <div class="container mx-auto px-4 py-6 sm:py-8 max-w-7xl">
       <div class="text-center text-content-muted text-sm">
-        <p class="mb-2">© 2025 Smarter.vote. Analyzing public information to help voters make informed decisions.</p>
+        <p class="mb-2">© {new Date().getFullYear()} Smarter.vote. Analyzing public information to help voters make informed decisions.</p>
         <p class="text-xs text-content-subtle">Always verify information by visiting candidate websites directly. This tool provides analysis for informational purposes only.</p>
         <div class="mt-4">
           <a
@@ -108,7 +108,7 @@
             class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-pink-300 dark:border-pink-700 text-pink-600 dark:text-pink-400 text-xs font-medium hover:bg-pink-50 dark:hover:bg-pink-950 transition-colors"
           >
             <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12 21.593c-.425-.396-8.107-7.112-8.107-12.633C3.893 4.534 7.01 2 10.237 2c1.812 0 3.499.81 4.763 2.12C16.264 2.81 17.951 2 19.763 2 22.99 2 26.107 4.534 26.107 8.96c0 5.521-7.682 12.237-8.107 12.633L12 21.593z"/>
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
             </svg>
             Sponsor
           </a>

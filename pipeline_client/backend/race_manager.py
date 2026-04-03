@@ -414,7 +414,41 @@ class RaceManager:
             candidate_count=candidate_count,
             quality_score=quality,
             freshness=freshness,
+            draft_updated_at=updated_utc,
         )
+
+    def _update_metadata_only(self, race_id: str, race_data: Dict[str, Any]) -> None:
+        """Update metadata fields on an existing race WITHOUT bumping updated_at.
+
+        Used during hydration so server restarts don't make every race appear
+        freshly modified.
+        """
+        existing = self.get_race(race_id)
+        if not existing:
+            return
+
+        candidates = race_data.get("candidates", [])
+        candidate_count = len(candidates)
+        quality = _compute_quality(candidate_count)
+        updated_utc = race_data.get("updated_utc")
+        freshness = _compute_freshness(updated_utc)
+
+        data = existing.model_dump()
+        changes: Dict[str, Any] = {
+            "title": race_data.get("title"),
+            "office": race_data.get("office"),
+            "jurisdiction": race_data.get("jurisdiction"),
+            "election_date": race_data.get("election_date"),
+            "candidate_count": candidate_count,
+            "quality_score": quality,
+            "freshness": freshness,
+        }
+        if updated_utc:
+            changes["draft_updated_at"] = updated_utc
+
+        data.update({k: v for k, v in changes.items() if v is not None})
+        record = RaceRecord(**data)
+        self._save_race(record)
 
     # ── Run Subcollection ─────────────────────────────────────────────────
 
@@ -544,8 +578,8 @@ class RaceManager:
         for race_id, info in seen.items():
             existing = self.get_race(race_id)
             if existing:
-                # Update metadata but don't overwrite status
-                self.update_race_metadata(race_id, info["data"])
+                # Update metadata without bumping updated_at (hydration only)
+                self._update_metadata_only(race_id, info["data"])
                 continue
 
             data = info["data"]
@@ -617,7 +651,8 @@ class RaceManager:
             for race_id, info in seen.items():
                 existing = self.get_race(race_id)
                 if existing:
-                    self.update_race_metadata(race_id, info["data"])
+                    # Update metadata without bumping updated_at (hydration only)
+                    self._update_metadata_only(race_id, info["data"])
                     continue
 
                 data = info["data"]

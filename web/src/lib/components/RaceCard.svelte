@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { RaceSummary } from "$lib/types";
+  import { partyAbbr, partyRing, partyInitialBg } from "$lib/utils/party";
 
   export let race: RaceSummary;
 
@@ -18,37 +19,6 @@
     if (o.includes("attorney")) return { label: "Atty. General", cls: "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200" };
     // Truncate long office names
     return { label: office.length > 22 ? office.slice(0, 22) + "…" : office, cls: "bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-200" };
-  }
-
-  function getPartyRing(party: string | undefined): string {
-    if (!party) return "ring-gray-300";
-    const p = party.toLowerCase();
-    if (p.includes("democrat")) return "ring-blue-500";
-    if (p.includes("republican")) return "ring-red-500";
-    if (p.includes("green")) return "ring-green-500";
-    if (p.includes("libertarian")) return "ring-yellow-500";
-    return "ring-gray-400";
-  }
-
-  function getPartyInitialBg(party: string | undefined): string {
-    if (!party) return "bg-gray-400";
-    const p = party.toLowerCase();
-    if (p.includes("democrat")) return "bg-blue-500";
-    if (p.includes("republican")) return "bg-red-500";
-    if (p.includes("green")) return "bg-green-500";
-    if (p.includes("libertarian")) return "bg-yellow-500";
-    return "bg-gray-500";
-  }
-
-  function getPartyAbbr(party: string | undefined): string {
-    if (!party) return "?";
-    const p = party.toLowerCase();
-    if (p.includes("democrat")) return "D";
-    if (p.includes("republican")) return "R";
-    if (p.includes("independent")) return "I";
-    if (p.includes("green")) return "G";
-    if (p.includes("libertarian")) return "L";
-    return party[0].toUpperCase();
   }
 
   $: badge = getOfficeBadge(race.office);
@@ -96,13 +66,13 @@
               <img
                 src={candidate.image_url}
                 alt={candidate.name}
-                class="w-9 h-9 rounded-full object-cover ring-2 {getPartyRing(candidate.party)}"
+                class="w-9 h-9 rounded-full object-cover ring-2 {partyRing(candidate.party)}"
                 loading="lazy"
                 on:error={() => handleImageError(candidate.name)}
               />
             {:else}
               <div
-                class="w-9 h-9 rounded-full ring-2 {getPartyRing(candidate.party)} {getPartyInitialBg(candidate.party)} flex items-center justify-center text-white text-sm font-bold"
+                class="w-9 h-9 rounded-full ring-2 {partyRing(candidate.party)} {partyInitialBg(candidate.party)} flex items-center justify-center text-white text-sm font-bold"
                 aria-hidden="true"
               >
                 {candidate.name ? candidate.name[0].toUpperCase() : "?"}
@@ -113,7 +83,7 @@
           <div class="min-w-0">
             <p class="text-xs font-medium text-content truncate max-w-[110px]">{candidate.name}</p>
             {#if candidate.party}
-              <p class="text-xs text-content-subtle">{getPartyAbbr(candidate.party)}</p>
+              <p class="text-xs text-content-subtle">{partyAbbr(candidate.party)}</p>
             {/if}
           </div>
         </div>

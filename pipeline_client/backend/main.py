@@ -385,6 +385,10 @@ async def publish_draft(race_id: str) -> Dict[str, Any]:
         except Exception:
             logging.exception("Failed to publish %s to GCS", race_id)
 
+    # Update race record in Firestore
+    race_manager.publish_race(race_id)
+    race_manager.update_race_metadata(race_id, draft_data)
+
     return {"message": f"Race {race_id} published", "id": race_id}
 
 
@@ -402,6 +406,10 @@ async def unpublish_race(race_id: str) -> Dict[str, Any]:
         deleted = True
     if not deleted:
         raise HTTPException(status_code=404, detail="Published race not found")
+
+    # Update race record in Firestore
+    race_manager.unpublish_race(race_id)
+
     return {"message": f"Race {race_id} unpublished (draft retained)", "id": race_id}
 
 

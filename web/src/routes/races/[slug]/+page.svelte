@@ -8,6 +8,7 @@
   import type { Race } from "$lib/types";
   import { getRace, getDraftRace } from "$lib/api";
   import { formatModelName, candidateSlug } from "$lib/utils/format";
+  import { partySlug, partyAbbr } from "$lib/utils/party";
 
   let race: Race | null = null;
   let loading = true;
@@ -54,13 +55,9 @@
     race.candidates.every(c => !c.issues || Object.keys(c.issues).length === 0 ||
       Object.values(c.issues).every(i => !i?.stance));
 
-  function partyClass(name: string): string {
+  function partyClassForName(name: string): string {
     const candidate = race?.candidates?.find(c => c.name === name);
-    if (!candidate?.party) return "";
-    const p = candidate.party.toLowerCase();
-    if (p.includes("democrat")) return "dem";
-    if (p.includes("republican")) return "rep";
-    return "";
+    return partySlug(candidate?.party);
   }
 </script>
 
@@ -150,7 +147,7 @@
                 {/if}
                 <span class="chip-name">{candidate.name}</span>
                 {#if candidate.party}
-                  <span class="chip-party chip-party-{partyClass(candidate.name)}">{candidate.party.toLowerCase().includes('democrat') ? 'D' : candidate.party.toLowerCase().includes('republican') ? 'R' : candidate.party[0]}</span>
+                  <span class="chip-party chip-party-{partyClassForName(candidate.name)}">{partyAbbr(candidate.party)}</span>
                 {/if}
                 {#if candidate.incumbent}
                   <span class="chip-incumbent">Incumbent</span>
@@ -175,7 +172,7 @@
                 <div class="poll-snap-row">
                   <span class="poll-snap-name">{name.split(' ').pop()}</span>
                   <div class="poll-snap-bar-wrap">
-                    <div class="poll-snap-bar {partyClass(name)}" style="width:{Math.min(latestMatchup.percentages[i] ?? 0, 100)}%"></div>
+                    <div class="poll-snap-bar {partyClassForName(name)}" style="width:{Math.min(latestMatchup.percentages[i] ?? 0, 100)}%"></div>
                   </div>
                   <span class="poll-snap-pct">{latestMatchup.percentages[i]}%</span>
                 </div>
@@ -239,7 +236,7 @@
                 {#if mi > 0}<div class="poll-matchup-divider"></div>{/if}
                 <div class="poll-matchup">
                   {#each matchup.candidates as name, i}
-                    {@const pc = partyClass(name)}
+                    {@const pc = partyClassForName(name)}
                     <div class="poll-bar-row">
                       <span class="poll-bar-name">{name}</span>
                       <div class="poll-bar-track">
@@ -320,15 +317,15 @@
   }
 
   .error-box {
-    @apply bg-red-50 border border-red-200 rounded-lg p-6 text-center;
+    @apply bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-lg p-6 text-center;
   }
 
   .error-title {
-    @apply text-2xl font-bold text-red-800 mb-2;
+    @apply text-2xl font-bold text-red-800 dark:text-red-200 mb-2;
   }
 
   .error-button {
-    @apply mt-4 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700;
+    @apply mt-4 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition-colors;
   }
 
   :global(.header-card) {
@@ -386,7 +383,7 @@
 
   .overview-candidate-chip {
     @apply flex items-center gap-1.5 px-3 py-1.5 bg-surface border border-stroke rounded-full
-           hover:border-blue-300 hover:bg-blue-50 transition-colors duration-200 text-sm no-underline text-content-muted;
+           hover:border-blue-300 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-colors duration-200 text-sm no-underline text-content-muted;
   }
 
   .chip-avatar {
@@ -404,7 +401,7 @@
   .chip-party-rep { @apply text-red-600; }
 
   .chip-incumbent {
-    @apply bg-green-100 text-green-700 text-xs px-1.5 py-0.5 rounded-full;
+    @apply bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 text-xs px-1.5 py-0.5 rounded-full;
   }
 
   /* Poll Snapshot Widget */
@@ -534,19 +531,19 @@
 
   /* Misc */
   .data-note {
-    @apply mt-8 sm:mt-10 bg-blue-50 border border-blue-200 rounded-lg p-4 sm:p-6 text-center;
+    @apply mt-8 sm:mt-10 bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg p-4 sm:p-6 text-center;
   }
 
   .data-note-title {
-    @apply text-blue-800 font-medium mb-2 text-sm sm:text-base;
+    @apply text-blue-800 dark:text-blue-200 font-medium mb-2 text-sm sm:text-base;
   }
 
   .data-note-text {
-    @apply text-blue-700 text-xs sm:text-sm;
+    @apply text-blue-700 dark:text-blue-300 text-xs sm:text-sm;
   }
 
   .fallback-notice {
-    @apply bg-yellow-50 border border-yellow-200 rounded-lg p-3 sm:p-4 mb-6 sm:mb-8;
+    @apply bg-yellow-50 dark:bg-yellow-950/30 border border-yellow-200 dark:border-yellow-800 rounded-lg p-3 sm:p-4 mb-6 sm:mb-8;
   }
 
   .fallback-content {
@@ -554,11 +551,11 @@
   }
 
   .fallback-title {
-    @apply font-medium text-yellow-800 text-sm sm:text-base;
+    @apply font-medium text-yellow-800 dark:text-yellow-200 text-sm sm:text-base;
   }
 
   .fallback-text {
-    @apply text-yellow-700 text-xs sm:text-sm mt-1;
+    @apply text-yellow-700 dark:text-yellow-300 text-xs sm:text-sm mt-1;
   }
 
   .back-to-top {
