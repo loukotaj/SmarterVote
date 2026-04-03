@@ -1,8 +1,9 @@
 <script lang="ts">
-  import { onMount, onDestroy, createEventDispatcher } from "svelte";
+  import { onMount, onDestroy, createEventDispatcher, tick } from "svelte";
   import { PipelineApiService } from "$lib/services/pipelineApiService";
   import { formatDuration, getStatusClass, safeJsonStringify, downloadAsJson } from "$lib/utils/pipelineUtils";
-  import type { RunInfo, RunStep, LogEntry } from "$lib/types";
+  import type { RunInfo, RunStep, LogEntry, PipelineStepId } from "$lib/types";
+  import { PIPELINE_STEPS } from "$lib/types";
 
   export let runId: string;
   export let isLive = false;
@@ -11,7 +12,7 @@
   export let liveProgressMessage = "";
   export let liveElapsed = 0;
 
-  const dispatch = createEventDispatcher<{ back: void }>();
+  const dispatch = createEventDispatcher<{ back: void; deleted: string }>();
   const API_BASE = import.meta.env.VITE_API_BASE || "http://127.0.0.1:8001";
   const apiService = new PipelineApiService(API_BASE);
 
@@ -27,6 +28,13 @@
   type LogLevel = "all" | "info" | "warning" | "error";
   const LOG_LEVELS: LogLevel[] = ["all", "info", "warning", "error"];
   let logFilter: LogLevel = "all";
+  let copiedRunId = false;
+  let deleting = false;
+  let logsContainer: HTMLDivElement;
+  let autoScrollLogs = true;
+
+  /** Canonical step order for sorting */
+  const STEP_ORDER = PIPELINE_STEPS.map((s) => s.id);
 
   $: raceId = (run?.payload?.race_id as string) ?? runId;
   // A run is only "live" if the backend actually reports it as running/pending.
@@ -53,8 +61,14 @@
     return found ? found.message.replace(/^\[post-run analysis\]\n?/, "").trim() : null;
   })();
   $: steps = run?.steps ?? [];
-  // Filter to only pipeline sub-steps (exclude the top-level "agent" step)
-  $: pipelineSteps = steps.filter((s) => s.name !== "agent");
+  // Filter to only pipeline sub-steps (exclude the top-level "agent" step), sorted by canonical order
+  $: pipelineSteps = steps
+    .filter((s) => s.name !== "agent")
+    .sort((a, b) => {
+      const ai = STEP_ORDER.indexOf(a.name as PipelineStepId);
+      const bi = STEP_ORDER.indexOf(b.name as PipelineStepId);
+      return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
+    });
   $: hasPipelineSteps = pipelineSteps.length > 0;
   $: sections = [
     { id: "steps" as SectionId, label: `Steps (${pipelineSteps.length})` },
@@ -65,6 +79,13 @@
   $: progress = isLiveAndRunning ? liveProgress : computeProgress(pipelineSteps);
   $: progressMsg = isLiveAndRunning ? liveProgressMessage : lastStepMessage(pipelineSteps);
   $: elapsed = isLiveAndRunning ? liveElapsed : (run?.duration_ms ? Math.floor(run.duration_ms / 1000) : 0);
+
+  // Auto-scroll logs when new entries arrive
+  $: if (filteredLogs.length && autoScrollLogs && activeSection === "logs") {
+    tick().then(() => {
+      if (logsContainer) logsContainer.scrollTop = logsContainer.scrollHeight;
+    });
+  }
 
   function computeProgress(steps: RunStep[]): number {
     if (!steps.length) return 0;
@@ -166,6 +187,35 @@
     }
   }
 
+  async function copyRunId() {
+    try {
+      await navigator.clipboard.writeText(runId);
+      copiedRunId = true;
+      setTimeout(() => (copiedRunId = false), 2000);
+    } catch {}
+  }
+
+  async function handleDelete() {
+    if (!run || isRunning) return;
+    if (!confirm(`Delete run ${runId.substring(0, 8)}… for ${raceId}? This cannot be undone.`)) return;
+    deleting = true;
+    try {
+      await apiService.deleteRun(runId);
+      dispatch("deleted", runId);
+      dispatch("back");
+    } catch (e) {
+      error = `Delete failed: ${e}`;
+    } finally {
+      deleting = false;
+    }
+  }
+
+  function handleLogsScroll() {
+    if (!logsContainer) return;
+    const { scrollTop, scrollHeight, clientHeight } = logsContainer;
+    autoScrollLogs = scrollHeight - scrollTop - clientHeight < 40;
+  }
+
   onMount(async () => {
     await loadRun();
     if (isRunning) {
@@ -220,7 +270,9 @@
         {/if}
       </div>
       <div class="flex items-center gap-4 mt-0.5 text-xs text-content-subtle">
-        <span>Run {runId.substring(0, 8)}</span>
+        <button type="button" class="font-mono hover:text-content-muted transition-colors" on:click={copyRunId} title="Copy run ID">
+          {copiedRunId ? '✓ Copied' : `Run ${runId.substring(0, 8)}`}
+        </button>
         {#if run}
           <span>Started {formatTimestamp(run.started_at)}</span>
           {#if run.completed_at}
@@ -228,12 +280,51 @@
           {/if}
           {#if run.options?.research_model}
             <span class="font-mono">{run.options.research_model}</span>
-          {/if}          {#if run.options?.note}
+          {/if}
+          {#if run.options?.note}
             <span class="italic text-content-faint">"{run.options.note}"</span>
-          {/if}        {/if}
+          {/if}
+        {/if}
       </div>
     </div>
+    <!-- Action buttons -->
+    <div class="flex items-center gap-2 shrink-0">
+      {#if run && !isRunning}
+        <button
+          type="button"
+          class="p-1.5 rounded-lg text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 disabled:opacity-40 transition-colors"
+          on:click={handleDelete}
+          disabled={deleting}
+          title="Delete this run"
+        >
+          <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+          </svg>
+        </button>
+      {/if}
+    </div>
   </div>
+
+  <!-- Run configuration summary (when options are interesting) -->
+  {#if run && (run.options?.cheap_mode === false || run.options?.enable_review || run.options?.max_candidates || run.options?.target_no_info || run.options?.enabled_steps)}
+    <div class="flex flex-wrap items-center gap-2 text-xs">
+      {#if run.options.cheap_mode === false}
+        <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300 font-medium">Full Mode</span>
+      {/if}
+      {#if run.options.enable_review}
+        <span class="px-2 py-0.5 rounded-full bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300 font-medium">AI Review</span>
+      {/if}
+      {#if run.options.max_candidates}
+        <span class="px-2 py-0.5 rounded-full bg-surface-alt text-content-muted font-medium">Max {run.options.max_candidates} candidates</span>
+      {/if}
+      {#if run.options.target_no_info}
+        <span class="px-2 py-0.5 rounded-full bg-surface-alt text-content-muted font-medium">No-info priority</span>
+      {/if}
+      {#if run.options.enabled_steps && run.options.enabled_steps.length < 7}
+        <span class="px-2 py-0.5 rounded-full bg-surface-alt text-content-muted font-medium">{run.options.enabled_steps.length} steps enabled</span>
+      {/if}
+    </div>
+  {/if}
 
   {#if loading}
     <div class="card p-8 text-center">
@@ -306,6 +397,17 @@
                       <span class="text-[10px] text-content-subtle shrink-0">{step.progress_pct}%</span>
                     </div>
                   {/if}
+                  {#if step.started_at && !isSkipped}
+                    <div class="flex items-center gap-3 mt-0.5 text-[10px] text-content-faint">
+                      <span>Started {formatTimestamp(step.started_at)}</span>
+                      {#if step.completed_at}
+                        <span>→ {formatTimestamp(step.completed_at)}</span>
+                      {/if}
+                    </div>
+                  {/if}
+                  {#if step.error}
+                    <p class="mt-1 text-xs text-red-500 truncate">{step.error}</p>
+                  {/if}
                 </div>
 
                 <!-- Duration -->
@@ -346,8 +448,18 @@
             >{level}</button>
           {/each}
           <span class="ml-auto text-xs text-content-faint">{filteredLogs.length} entries</span>
+          <button
+            type="button"
+            class="px-2 py-0.5 rounded text-xs font-medium transition-colors {autoScrollLogs ? 'text-blue-600 dark:text-blue-400' : 'text-content-faint hover:text-content-subtle'}"
+            on:click={() => { autoScrollLogs = !autoScrollLogs; if (autoScrollLogs && logsContainer) logsContainer.scrollTop = logsContainer.scrollHeight; }}
+            title="{autoScrollLogs ? 'Auto-scroll on' : 'Auto-scroll off'}"
+          >↓ Auto</button>
         </div>
-        <div class="max-h-96 overflow-y-auto font-mono text-xs p-3 space-y-0.5 bg-surface-alt">
+        <div
+          bind:this={logsContainer}
+          on:scroll={handleLogsScroll}
+          class="max-h-96 overflow-y-auto font-mono text-xs p-3 space-y-0.5 bg-surface-alt"
+        >
           {#each filteredLogs as log}
             <div class="flex gap-2 leading-5">
               <span class="text-content-faint shrink-0 select-none">{log.timestamp ? new Date(log.timestamp).toLocaleTimeString() : ""}</span>

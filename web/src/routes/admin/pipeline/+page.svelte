@@ -439,9 +439,14 @@
   <!-- Tab navigation -->
   <AdminTabs bind:activeTab alertCount={alertBadgeCount} />
 
-  <!-- Running banner (visible across tabs) -->
+  <!-- Running banner (visible across tabs) — clickable to open run detail -->
   {#if pipeline.isExecuting}
-    <div class="mb-4 card p-4 border-blue-200 bg-blue-50 dark:bg-blue-900/20">
+    <button
+      type="button"
+      class="mb-4 card p-4 border-blue-200 bg-blue-50 dark:bg-blue-900/20 w-full text-left hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors cursor-pointer"
+      on:click={() => { if (pipeline.currentRunId) { activeTab = "races"; setDetailRunId(pipeline.currentRunId); } }}
+      title="View run details"
+    >
       <div class="flex items-center gap-3">
         <svg class="animate-spin h-5 w-5 text-blue-600 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
           <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
@@ -456,14 +461,17 @@
             {#if queuePending > 0} · {queuePending} more in queue{/if}
           </p>
         </div>
-        <div class="text-right shrink-0">
+        <div class="flex items-center gap-3 shrink-0">
           <p class="text-lg font-bold text-blue-800 dark:text-blue-200">{pipeline.progress}%</p>
+          <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
         </div>
       </div>
       <div class="mt-2 w-full bg-blue-200 dark:bg-blue-800 rounded-full h-1.5">
         <div class="bg-blue-600 h-1.5 rounded-full transition-all duration-700" style="width: {pipeline.progress}%" />
       </div>
-    </div>
+    </button>
   {/if}
 
   <!-- Dashboard tab -->
@@ -485,6 +493,7 @@
         liveProgressMessage={pipeline.progressMessage}
         liveElapsed={pipeline.elapsedTime}
         on:back={() => setDetailRunId(null)}
+        on:deleted={() => { setDetailRunId(null); racesTabRef?.refresh(); }}
       />
     {:else}
       <RacesTab
