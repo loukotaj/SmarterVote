@@ -193,6 +193,101 @@ SET_CANDIDATE_SUMMARY_TOOL: Dict = {
 CANDIDATE_TOOLS: List[Dict] = [SET_CANDIDATE_FIELD_TOOL, SET_CANDIDATE_SUMMARY_TOOL]
 
 # ---------------------------------------------------------------------------
+# Career, education, and social media tools
+# ---------------------------------------------------------------------------
+
+ADD_CAREER_ENTRY_TOOL: Dict = {
+    "type": "function",
+    "function": {
+        "name": "add_career_entry",
+        "description": "Add a career history entry to a candidate's profile.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "candidate_name": {"type": "string", "description": "Exact candidate name."},
+                "title": {"type": "string", "description": "Role or position title."},
+                "organization": {"type": "string", "description": "Employer or body."},
+                "start_year": {"type": "integer", "description": "Year started (null if unknown)."},
+                "end_year": {"type": "integer", "description": "Year ended (null if current/unknown)."},
+                "description": {"type": "string", "description": "Brief description of the role."},
+            },
+            "required": ["candidate_name", "title", "organization"],
+        },
+    },
+}
+
+ADD_EDUCATION_ENTRY_TOOL: Dict = {
+    "type": "function",
+    "function": {
+        "name": "add_education_entry",
+        "description": "Add an education entry to a candidate's profile.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "candidate_name": {"type": "string", "description": "Exact candidate name."},
+                "institution": {"type": "string", "description": "School or university name."},
+                "degree": {"type": "string", "description": "Degree type (e.g. 'Bachelor of Arts', 'Juris Doctor')."},
+                "field": {"type": "string", "description": "Major or field of study (null if unknown)."},
+                "year": {"type": "integer", "description": "Graduation year (null if unknown)."},
+            },
+            "required": ["candidate_name", "institution", "degree"],
+        },
+    },
+}
+
+SET_SOCIAL_MEDIA_TOOL: Dict = {
+    "type": "function",
+    "function": {
+        "name": "set_social_media",
+        "description": "Set a social media URL for a candidate (e.g. twitter, facebook, instagram).",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "candidate_name": {"type": "string", "description": "Exact candidate name."},
+                "platform": {"type": "string", "description": "Platform name (e.g. 'twitter', 'facebook', 'instagram')."},
+                "url": {"type": "string", "description": "Full URL to the candidate's profile."},
+            },
+            "required": ["candidate_name", "platform", "url"],
+        },
+    },
+}
+
+CLEAR_CAREER_TOOL: Dict = {
+    "type": "function",
+    "function": {
+        "name": "clear_career_history",
+        "description": "Clear all career history entries for a candidate before re-adding correct data.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "candidate_name": {"type": "string", "description": "Exact candidate name."},
+            },
+            "required": ["candidate_name"],
+        },
+    },
+}
+
+CLEAR_EDUCATION_TOOL: Dict = {
+    "type": "function",
+    "function": {
+        "name": "clear_education",
+        "description": "Clear all education entries for a candidate before re-adding correct data.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "candidate_name": {"type": "string", "description": "Exact candidate name."},
+            },
+            "required": ["candidate_name"],
+        },
+    },
+}
+
+BACKGROUND_TOOLS: List[Dict] = [
+    ADD_CAREER_ENTRY_TOOL, ADD_EDUCATION_ENTRY_TOOL, SET_SOCIAL_MEDIA_TOOL,
+    CLEAR_CAREER_TOOL, CLEAR_EDUCATION_TOOL,
+]
+
+# ---------------------------------------------------------------------------
 # Issue stance tool
 # ---------------------------------------------------------------------------
 

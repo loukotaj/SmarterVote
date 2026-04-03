@@ -87,7 +87,7 @@
   {:else if error}
     <div class="bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800 rounded-lg p-6 text-center">
       <h2 class="text-2xl font-bold text-red-800 dark:text-red-200 mb-2">{error}</h2>
-      <a href="/races/{slug}" class="mt-4 inline-block text-blue-600 hover:text-blue-400 font-medium">
+      <a href="/races/{slug}{isDraftPreview ? '?draft=true' : ''}" class="mt-4 inline-block text-blue-600 hover:text-blue-400 font-medium">
         &larr; Back to race overview
       </a>
     </div>
@@ -109,7 +109,7 @@
     {/if}
     <!-- Navigation Bar -->
     <nav class="nav-bar">
-      <a href="/races/{slug}" class="back-link">
+      <a href="/races/{slug}{isDraftPreview ? '?draft=true' : ''}" class="back-link">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
         </svg>
@@ -145,7 +145,7 @@
           <div class="others-list">
             {#each otherCandidates as other}
               <a
-                href="/races/{race.id}/{candidateSlug(other.name)}"
+                href="/races/{race.id}/{candidateSlug(other.name)}{isDraftPreview ? '?draft=true' : ''}"
                 class="other-chip"
               >
                 {#if other.image_url}

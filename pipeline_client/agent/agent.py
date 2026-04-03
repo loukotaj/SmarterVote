@@ -58,6 +58,7 @@ from .tools import (
     ADD_CANDIDATE_TOOL,
     ADD_LINK_TOOL,
     ADD_POLL_TOOL,
+    BACKGROUND_TOOLS,
     BALLOTPEDIA_TOOL,
     CANDIDATE_TOOLS,
     FETCH_TOOL,
@@ -1222,7 +1223,7 @@ async def _run_fresh(
                     max_iterations=max(8, refine_iters // max(len(candidate_names_in_json), 1)),
                     phase_name=f"refine-{cname[:20]}",
                     max_tokens=8192,
-                    extra_tools=CANDIDATE_TOOLS + RECORD_TOOLS + [READ_PROFILE_TOOL],
+                    extra_tools=CANDIDATE_TOOLS + RECORD_TOOLS + BACKGROUND_TOOLS + [READ_PROFILE_TOOL],
                     extra_tool_handlers=handlers,
                     tools_mode=True,
                 )
@@ -1452,7 +1453,7 @@ async def _run_update(
                     max_iterations=max(8, refine_iters // max(len(cand_list), 1)),
                     phase_name=f"upd-refine-{cname[:20]}",
                     max_tokens=8192,
-                    extra_tools=CANDIDATE_TOOLS + RECORD_TOOLS + [READ_PROFILE_TOOL],
+                    extra_tools=CANDIDATE_TOOLS + RECORD_TOOLS + BACKGROUND_TOOLS + [READ_PROFILE_TOOL],
                     extra_tool_handlers=handlers,
                     tools_mode=True,
                 )
@@ -1728,7 +1729,7 @@ async def _run_iteration_pass(
 
     working = copy.deepcopy(race_json)
     handlers = _make_editing_handlers(working, log)
-    all_tools = ROSTER_TOOLS + CANDIDATE_TOOLS + ISSUE_TOOLS + RECORD_TOOLS + RACE_TOOLS + [READ_PROFILE_TOOL]
+    all_tools = ROSTER_TOOLS + CANDIDATE_TOOLS + ISSUE_TOOLS + RECORD_TOOLS + BACKGROUND_TOOLS + RACE_TOOLS + [READ_PROFILE_TOOL]
     any_success = False
 
     # Per-candidate iteration

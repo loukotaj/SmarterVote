@@ -116,6 +116,67 @@ def _make_editing_handlers(
         log("info", f"    📝 {name} / {issue} [{args['confidence']}]")
         return f"Set {name}'s {issue} stance (confidence: {args['confidence']})."
 
+    # --- Career, education, social media handlers ---
+
+    def add_career_entry(args: Dict[str, Any]) -> str:
+        name = args["candidate_name"]
+        c = _find_candidate(name)
+        if not c:
+            return f"Candidate '{name}' not found."
+        entry = {
+            "title": args["title"],
+            "organization": args["organization"],
+            "start_year": args.get("start_year"),
+            "end_year": args.get("end_year"),
+            "description": args.get("description", ""),
+        }
+        c.setdefault("career_history", []).append(entry)
+        log("info", f"    📝 Added career entry for {name}: {args['title']} at {args['organization']}")
+        return f"Added career entry for '{name}': {args['title']} at {args['organization']}."
+
+    def add_education_entry(args: Dict[str, Any]) -> str:
+        name = args["candidate_name"]
+        c = _find_candidate(name)
+        if not c:
+            return f"Candidate '{name}' not found."
+        entry = {
+            "institution": args["institution"],
+            "degree": args["degree"],
+            "field": args.get("field"),
+            "year": args.get("year"),
+        }
+        c.setdefault("education", []).append(entry)
+        log("info", f"    📝 Added education for {name}: {args['degree']} from {args['institution']}")
+        return f"Added education for '{name}': {args['degree']} from {args['institution']}."
+
+    def set_social_media(args: Dict[str, Any]) -> str:
+        name = args["candidate_name"]
+        c = _find_candidate(name)
+        if not c:
+            return f"Candidate '{name}' not found."
+        platform = args["platform"].lower()
+        c.setdefault("social_media", {})[platform] = args["url"]
+        log("info", f"    📝 {name}.social_media.{platform} = {args['url']}")
+        return f"Set {name}'s {platform} to {args['url']}."
+
+    def clear_career_history(args: Dict[str, Any]) -> str:
+        name = args["candidate_name"]
+        c = _find_candidate(name)
+        if not c:
+            return f"Candidate '{name}' not found."
+        c["career_history"] = []
+        log("info", f"    🗑️ Cleared career_history for {name}")
+        return f"Cleared career_history for '{name}'. Use add_career_entry to add correct entries."
+
+    def clear_education(args: Dict[str, Any]) -> str:
+        name = args["candidate_name"]
+        c = _find_candidate(name)
+        if not c:
+            return f"Candidate '{name}' not found."
+        c["education"] = []
+        log("info", f"    🗑️ Cleared education for {name}")
+        return f"Cleared education for '{name}'. Use add_education_entry to add correct entries."
+
     # --- Record handlers (summary setters) ---
 
     def set_donor_summary(args: Dict[str, Any]) -> str:
@@ -225,4 +286,9 @@ def _make_editing_handlers(
         "add_poll": add_poll,
         "update_race_field": update_race_field,
         "read_profile": read_profile,
+        "add_career_entry": add_career_entry,
+        "add_education_entry": add_education_entry,
+        "set_social_media": set_social_media,
+        "clear_career_history": clear_career_history,
+        "clear_education": clear_education,
     }

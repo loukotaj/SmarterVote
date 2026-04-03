@@ -208,6 +208,53 @@
   // True when a draft exists (regardless of publish state)
   $: hasDraft = !!race.draft_updated_at;
 
+  let deletingDraft = false;
+  let deletingRace = false;
+  let deletingRunId: string | null = null;
+
+  async function handleDeleteDraft() {
+    if (!confirm(`Delete the draft for "${race.race_id}"? The published version will not be affected.`)) return;
+    deletingDraft = true;
+    error = "";
+    try {
+      await apiService.deleteDraftRace(race.race_id);
+      dispatch("updated");
+    } catch (e) {
+      error = `Delete draft failed: ${e}`;
+    } finally {
+      deletingDraft = false;
+    }
+  }
+
+  async function handleDeleteRace() {
+    if (!confirm(`Delete "${race.race_id}" entirely? This removes all data (draft, published, metadata) and cannot be undone.`)) return;
+    deletingRace = true;
+    error = "";
+    try {
+      await apiService.deleteRaceRecord(race.race_id);
+      dispatch("updated");
+      dispatch("close");
+    } catch (e) {
+      error = `Delete race failed: ${e}`;
+    } finally {
+      deletingRace = false;
+    }
+  }
+
+  async function handleDeleteRun(runId: string) {
+    if (!confirm(`Delete run ${runId.substring(0, 8)}…? This cannot be undone.`)) return;
+    deletingRunId = runId;
+    error = "";
+    try {
+      await apiService.deleteRaceRun(race.race_id, runId);
+      await loadRuns();
+    } catch (e) {
+      error = `Delete run failed: ${e}`;
+    } finally {
+      deletingRunId = null;
+    }
+  }
+
   function handleClose() {
     dispatch("close");
   }
@@ -292,16 +339,16 @@
             {/if}
             {cancelling ? "Stopping…" : race.status === "running" ? "Stop Run" : "Remove from Queue"}
           </button>
-          <button
-            type="button"
-            class="px-3 py-1.5 text-sm border border-amber-300 dark:border-amber-700 rounded-lg text-amber-700 dark:text-amber-300 hover:bg-amber-50 dark:hover:bg-amber-900/20 disabled:opacity-40 text-xs"
-            disabled={recovering}
-            title="Re-check status from storage — use if run completed but status is stuck"
-            on:click={handleRecover}
-          >
-            {recovering ? "Checking…" : "Recover"}
-          </button>
         {/if}
+        <button
+          type="button"
+          class="px-3 py-1.5 text-sm border border-amber-300 dark:border-amber-700 rounded-lg text-amber-700 dark:text-amber-300 hover:bg-amber-50 dark:hover:bg-amber-900/20 disabled:opacity-40 text-xs"
+          disabled={recovering}
+          title="Re-check status from storage — use if run completed but status is stuck"
+          on:click={handleRecover}
+        >
+          {recovering ? "Checking…" : "Recover"}
+        </button>
         {#if race.status === "draft" || (race.draft_updated_at && race.status !== "published")}
           <button
             type="button"
@@ -345,6 +392,15 @@
             Configure &amp; Run →
           </button>
         {/if}
+        <button
+          type="button"
+          class="px-3 py-1.5 text-sm border border-red-300 dark:border-red-700 rounded-lg text-red-700 dark:text-red-300 hover:bg-red-50 dark:hover:bg-red-900/20 disabled:opacity-40"
+          disabled={deletingRace}
+          on:click={handleDeleteRace}
+          title="Delete this race entirely"
+        >
+          {deletingRace ? "Deleting…" : "Delete Race"}
+        </button>
       </div>
 
       {#if error}
@@ -443,11 +499,19 @@
                     <span class="text-xs font-medium {hasPendingUpdate ? 'text-amber-700 dark:text-amber-300' : 'text-content-muted'}">Draft</span>
                     <p class="text-xs text-content-faint">{formatDate(race.draft_updated_at)}</p>
                   </div>
-                  <button
-                    type="button"
-                    class="text-xs text-blue-600 dark:text-blue-400 hover:underline font-medium"
-                    on:click={handleExportDraft}
-                  >Export draft →</button>
+                  <div class="flex items-center gap-2">
+                    <button
+                      type="button"
+                      class="text-xs text-blue-600 dark:text-blue-400 hover:underline font-medium"
+                      on:click={handleExportDraft}
+                    >Export draft →</button>
+                    <button
+                      type="button"
+                      class="text-xs text-red-500 dark:text-red-400 hover:underline font-medium disabled:opacity-40"
+                      disabled={deletingDraft}
+                      on:click={handleDeleteDraft}
+                    >{deletingDraft ? "Deleting…" : "Delete"}</button>
+                  </div>
                 </div>
               {/if}
 
@@ -485,28 +549,43 @@
               <div class="py-8 text-center text-content-faint text-sm">No runs yet</div>
             {:else}
               {#each runs as run (run.run_id)}
-                <button
-                  type="button"
-                  class="w-full text-left card p-3 hover:bg-surface-alt transition-colors"
-                  on:click={() => handleViewRun(run.run_id)}
-                >
+                <div class="card p-3 hover:bg-surface-alt transition-colors">
                   <div class="flex items-center justify-between">
-                    <span class="text-sm font-mono text-content">{run.run_id.substring(0, 12)}…</span>
-                    <span class="text-xs px-2 py-0.5 rounded-full {statusBadge(run.status)}">{run.status}</span>
+                    <button
+                      type="button"
+                      class="flex-1 text-left"
+                      on:click={() => handleViewRun(run.run_id)}
+                    >
+                      <div class="flex items-center justify-between">
+                        <span class="text-sm font-mono text-content">{run.run_id.substring(0, 12)}…</span>
+                        <span class="text-xs px-2 py-0.5 rounded-full {statusBadge(run.status)}">{run.status}</span>
+                      </div>
+                      <div class="flex items-center gap-3 mt-1 text-xs text-content-faint">
+                        <span>{formatDate(run.started_at)}</span>
+                        {#if run.duration_ms}
+                          <span>· {formatDuration(run.duration_ms)}</span>
+                        {/if}
+                        {#if run.options?.research_model}
+                          <span class="ml-auto font-mono">{run.options.research_model}</span>
+                        {/if}
+                      </div>
+                      {#if run.error}
+                        <p class="text-xs text-red-500 mt-1 truncate">{run.error}</p>
+                      {/if}
+                    </button>
+                    <button
+                      type="button"
+                      class="ml-2 p-1.5 rounded hover:bg-red-50 dark:hover:bg-red-900/20 text-content-faint hover:text-red-600 dark:hover:text-red-400 disabled:opacity-40 shrink-0"
+                      title="Delete run"
+                      disabled={deletingRunId === run.run_id}
+                      on:click|stopPropagation={() => handleDeleteRun(run.run_id)}
+                    >
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                      </svg>
+                    </button>
                   </div>
-                  <div class="flex items-center gap-3 mt-1 text-xs text-content-faint">
-                    <span>{formatDate(run.started_at)}</span>
-                    {#if run.duration_ms}
-                      <span>· {formatDuration(run.duration_ms)}</span>
-                    {/if}
-                    {#if run.options?.research_model}
-                      <span class="ml-auto font-mono">{run.options.research_model}</span>
-                    {/if}
-                  </div>
-                  {#if run.error}
-                    <p class="text-xs text-red-500 mt-1 truncate">{run.error}</p>
-                  {/if}
-                </button>
+                </div>
               {/each}
             {/if}
           </div>

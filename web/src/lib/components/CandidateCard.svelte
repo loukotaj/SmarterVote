@@ -10,6 +10,9 @@
 
   export let candidate: Candidate;
   export let raceId: string = "";
+  export let draft: boolean = false;
+
+  $: draftQuery = draft ? "?draft=true" : "";
 
   let expanded = false;
   let imageError = false;
@@ -63,7 +66,7 @@
         <div>
           <h3 class="candidate-name">
             <a
-              href="/races/{raceId}/{candidateSlug(candidate.name)}"
+              href="/races/{raceId}/{candidateSlug(candidate.name)}{draftQuery}"
               class="candidate-name-link"
             >
               {candidate.name}

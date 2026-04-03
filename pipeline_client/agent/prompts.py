@@ -389,6 +389,13 @@ Reserve "error" severity for cases of clear, egregious bias, fabricated
 placeholders (e.g. '[INSERT CANDIDATE NAME]'), or broken formatting — not
 factual disagreements with your training data.
 
+## Generator / model names — DO NOT FLAG
+The "generator" field lists the actual AI model identifiers used by this
+pipeline. These are internal model names from the providers' APIs and are
+correct by construction — the pipeline records them programmatically.
+Do NOT flag generator or model names as "hallucinated", "fabricated", or
+"unverifiable". They are metadata, not research claims.
+
 ## Tone
 Be thorough but fair. Flag specific problems with field paths.
 When the profile is accurate and well-sourced, say so warmly and specifically."""
@@ -408,6 +415,8 @@ Check for:
 5. Candidate background – is career history and education internally consistent
    with the sources cited? (Note: do not reject background facts just because
    they differ from your parametric knowledge of the candidate.)
+6. Generator metadata – the "generator" array is pipeline-managed metadata.
+   Do NOT flag model names as invalid, hallucinated, or unverifiable.
 
 For the "summary" field:
 - If verdict is "approved": write a warm, specific positive statement about what

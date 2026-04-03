@@ -104,10 +104,13 @@ npx vite dev --port 5173 --host
 2. Enter a race ID (e.g. `az-senate-2024` or a new slug like `pa-senate-2024`)
 3. Click "Research Race"
 4. Watch live logs via WebSocket — the pipeline will:
-   - **Phase 1 (Discovery)**: Identify candidates, career history, images
-   - **Phase 2 (Issue Research)**: 6 LLM calls, one per issue group (economy, healthcare, etc.)
-   - **Phase 3 (Refinement)**: Merge and clean the full profile
-   - **Phase 4 (Review)**: Optional fact-check via Claude, Gemini, and Grok (if "AI Review" is checked)
+   - **Step 1 (Discovery)**: Identify candidates, career history, polls, images
+   - **Step 2 (Image Resolution)**: Verify/find candidate headshot URLs
+   - **Step 3 (Issue Research)**: 12 per-candidate sub-agent calls, one per canonical issue
+   - **Step 4 (Finance & Voting)**: Research donor records and voting history
+   - **Step 5 (Refinement)**: Tools-mode cleanup per candidate and meta
+   - **Step 6 (Review)**: Optional fact-check via Claude, Gemini, and Grok (if "AI Review" is checked)
+   - **Step 7 (Iteration)**: Address review flags (up to 2 cycles)
 
    Toggle **Cheap Mode** for faster/cheaper runs, or expand **Advanced Model Settings** to override specific models.
 5. Results are automatically published to `data/published/{race_id}.json`
@@ -163,8 +166,9 @@ When triggering a run, the `options` object supports:
 | Phase | Cheap Mode (default) | Full Mode |
 |-------|---------------------|----------|
 | Research (OpenAI) | gpt-5.4-mini | gpt-5.4 |
-| Review: Claude | claude-haiku-4-20250514 | claude-sonnet-4-6 |
-| Review: Gemini | gemini-3.0-flash | gemini-3.0-flash |
+| Sub-tasks (OpenAI) | gpt-5-nano | gpt-5.4-mini |
+| Review: Claude | claude-haiku-4-5-20251001 | claude-sonnet-4-6 |
+| Review: Gemini | gemini-3.1-flash-lite-preview | gemini-3-flash-preview |
 | Review: Grok | grok-3-mini | grok-3 |
 
 You can override any model from the admin dashboard's "Advanced Model Settings" panel, or by passing the option in the API request body.
@@ -190,15 +194,30 @@ You can override any model from the admin dashboard's "Advanced Model Settings" 
 ```
 data/
 ├── cache/          # SQLite search cache (auto-created)
-└── published/      # Output JSON files (served by races API)
+├── drafts/         # Agent output before publish
+└── published/      # Published JSON files (served by races API)
 
 pipeline_client/
 ├── agent/          # AI research agent
-│   ├── agent.py    # Multi-phase agent loop with web search
+│   ├── agent.py    # Multi-phase agent loop (7 steps)
 │   ├── prompts.py  # Prompt templates for each phase
-│   └── search_cache.py # SQLite-backed search result cache
+│   ├── tools.py    # Agent tool definitions
+│   ├── handlers.py # LLM request/response handling
+│   ├── review.py   # Multi-LLM review (Claude, Gemini, Grok)
+│   ├── images.py   # Candidate image URL resolution
+│   ├── ballotpedia.py # Ballotpedia lookup helper
+│   ├── cost.py     # Token counting + cost estimation
+│   └── search_cache.py # SQLite search result cache (7-day TTL)
 ├── backend/        # FastAPI app, WebSocket logging, run management
-│   ├── main.py     # API endpoints
+│   ├── main.py     # API endpoints (40+)
+│   ├── models.py   # PipelineStep, RunOptions, RunInfo
+│   ├── pipeline_runner.py # Async step execution
+│   ├── run_manager.py  # Run lifecycle management
+│   ├── queue_manager.py # Persistent queue (Firestore/JSON)
+│   ├── race_manager.py # Unified race records + metadata
+│   ├── settings.py # App settings from env
+│   ├── storage.py  # Storage routing
+│   ├── storage_backend.py # Local/GCP storage abstraction
 │   ├── handlers/   # Pipeline step handlers (agent.py)
 │   └── ...
 └── run.py          # CLI entry point

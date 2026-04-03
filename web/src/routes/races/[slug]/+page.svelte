@@ -141,7 +141,7 @@
           {/if}
           <div class="overview-candidates">
             {#each (race.candidates ?? []) as candidate}
-              <a href="/races/{race.id}/{candidateSlug(candidate.name)}" class="overview-candidate-chip">
+              <a href="/races/{race.id}/{candidateSlug(candidate.name)}{isDraftPreview ? '?draft=true' : ''}" class="overview-candidate-chip">
                 {#if candidate.image_url}
                   <img src={candidate.image_url} alt="" class="chip-avatar" on:error={(e) => { if (e.currentTarget instanceof HTMLImageElement) e.currentTarget.style.display = 'none'; }} />
                 {/if}
@@ -208,7 +208,7 @@
       <h2 class="candidates-title">Candidates</h2>
       <div class="candidate-grid">
         {#each (race.candidates ?? []) as candidate}
-          <CandidateCard {candidate} raceId={race.id} />
+          <CandidateCard {candidate} raceId={race.id} draft={isDraftPreview} />
         {/each}
       </div>
     </section>

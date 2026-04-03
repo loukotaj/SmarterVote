@@ -33,13 +33,26 @@ tests/                      # Python integration tests
 
 | Purpose | Path |
 |---------|------|
-| Agent loop | `pipeline_client/agent/agent.py` |
+| Agent loop + orchestration | `pipeline_client/agent/agent.py` |
 | Prompt templates | `pipeline_client/agent/prompts.py` |
+| Agent tool definitions | `pipeline_client/agent/tools.py` |
+| LLM request/response handling | `pipeline_client/agent/handlers.py` |
+| Multi-LLM review (Claude/Gemini/Grok) | `pipeline_client/agent/review.py` |
+| Candidate image resolution | `pipeline_client/agent/images.py` |
+| Ballotpedia lookup | `pipeline_client/agent/ballotpedia.py` |
+| Search cache (SQLite) | `pipeline_client/agent/search_cache.py` |
+| Token counting + cost | `pipeline_client/agent/cost.py` |
 | Agent step handler | `pipeline_client/backend/handlers/agent.py` |
-| Pipeline API | `pipeline_client/backend/main.py` |
+| Pipeline API (40+ endpoints) | `pipeline_client/backend/main.py` |
+| Pipeline step models | `pipeline_client/backend/models.py` |
+| Async step execution | `pipeline_client/backend/pipeline_runner.py` |
 | Run lifecycle manager | `pipeline_client/backend/run_manager.py` |
 | Queue manager | `pipeline_client/backend/queue_manager.py` |
-| Pipeline step models | `pipeline_client/backend/models.py` |
+| Race metadata manager | `pipeline_client/backend/race_manager.py` |
+| App settings (from env) | `pipeline_client/backend/settings.py` |
+| Storage routing | `pipeline_client/backend/storage.py` |
+| Local/GCP storage backends | `pipeline_client/backend/storage_backend.py` |
+| WebSocket log broadcasting | `pipeline_client/backend/logging_manager.py` |
 | Pydantic models (v0.3) | `shared/models.py` |
 | TypeScript types | `web/src/lib/types.ts` |
 | Frontend pipeline service | `web/src/lib/services/pipelineApiService.ts` |
@@ -98,21 +111,68 @@ The races-api reads exclusively from `GCS races/` in cloud mode (with 300s TTL c
 
 ## Pipeline API Endpoints (all Auth0-protected except `/health`)
 
+### Race Management (`/api/races/`)
+
 | Endpoint | Method | Purpose |
-|----------|--------|---------|
-| `/api/run` | POST | Run the research agent for a race_id |
-| `/queue` | GET/POST/DELETE | Manage the processing queue |
+|----------|--------|--------|
+| `/api/races` | GET | List all races with metadata |
+| `/api/races/{race_id}` | GET/DELETE | Get or delete race metadata |
+| `/api/races/queue` | POST | Add race_ids to batch queue |
+| `/api/races/{race_id}/run` | POST | Run agent for a race |
+| `/api/races/{race_id}/cancel` | POST | Cancel queued/running race |
+| `/api/races/{race_id}/recheck` | POST | Re-check race status |
+| `/api/races/{race_id}/publish` | POST | Promote draft → published |
+| `/api/races/{race_id}/unpublish` | POST | Move published → draft |
+| `/api/races/{race_id}/runs` | GET | List runs for a race |
+| `/api/races/{race_id}/runs/{run_id}` | GET/DELETE | Get or delete a specific run |
+| `/api/races/{race_id}/data` | GET | Get race JSON data |
+
+### Legacy / Quick-access
+
+| Endpoint | Method | Purpose |
+|----------|--------|--------|
+| `/api/run` | POST | Start agent run (legacy) |
+| `/races` | GET | List published races |
+| `/races/{race_id}` | GET/DELETE | Get or delete published race |
 | `/drafts` | GET | List all drafts |
 | `/drafts/{race_id}` | GET/DELETE | Get or delete a draft |
-| `/drafts/{race_id}/publish` | POST | Promote draft → published |
-| `/races` | GET | List published races |
-| `/races/{race_id}` | GET/DELETE | Get or delete a published race |
-| `/races/{race_id}/unpublish` | POST | Remove from published (keeps draft) |
-| `/runs` | GET | List recent runs (from Firestore) |
+| `/drafts/{race_id}/publish` | POST | Publish a draft |
+| `/races/{race_id}/unpublish` | POST | Unpublish a race |
+
+### Pipeline Infrastructure
+
+| Endpoint | Method | Purpose |
+|----------|--------|--------|
+| `/queue` | GET/POST | Manage the processing queue |
+| `/queue/{item_id}` | DELETE | Remove queue item |
+| `/queue/finished` | DELETE | Clear finished queue items |
+| `/runs` | GET | List recent runs |
+| `/runs/active` | GET | List active runs |
 | `/runs/{run_id}` | GET/DELETE | Get or delete a run record |
 | `/run/{step}` | POST | Run a named pipeline step directly |
-| `/artifact/{artifact_id}` | GET | Retrieve a stored artifact |
+| `/steps` | GET | List available pipeline steps |
+| `/artifacts` | GET | List artifacts |
+| `/artifacts/{artifact_id}` | GET | Retrieve a stored artifact |
 | `/health` | GET | Health check (unauthenticated) |
+
+### Monitoring
+
+| Endpoint | Method | Purpose |
+|----------|--------|--------|
+| `/alerts` | GET | Active alerts |
+| `/alerts/{alert_id}/acknowledge` | POST | Acknowledge alert |
+| `/analytics/overview` | GET | Request analytics |
+| `/analytics/races` | GET | Per-race request counts |
+| `/analytics/timeseries` | GET | Request timeseries |
+| `/pipeline/metrics` | GET | Token usage + cost metrics |
+| `/pipeline/metrics/summary` | GET | Metrics summary |
+
+### WebSocket
+
+| Endpoint | Purpose |
+|----------|--------|
+| `/ws/logs` | Live log streaming (all runs) |
+| `/ws/logs/{run_id}` | Live logs for a specific run |
 
 ### RunOptions (passed in `POST /api/run`)
 
@@ -131,14 +191,17 @@ The races-api reads exclusively from `GCS races/` in cloud mode (with 300s TTL c
 
 ## Run Management
 
-- **Active runs** — held in-memory on the Cloud Run instance; progress broadcast via WebSocket (`/ws`)
-- **Completed/failed runs** — persisted to Firestore (`pipeline_runs` collection) in background
-- **Local dev** — no Firestore → in-memory only, lost on restart (acceptable)
-- Run status flow: `pending → running → completed | failed | cancelled`
+- **Active runs** — held in-memory on the Cloud Run instance; progress broadcast via WebSocket (`/ws/logs`)
+- **Completed/failed runs** — persisted to Firestore (`pipeline_runs` collection, plus `races/{race_id}/runs/` subcollection) in background
+- **Race records** — unified metadata in Firestore `races/` collection (status, quality score, run history, analytics)
+- **Local dev** — no Firestore → in-memory only, lost on restart (acceptable); queue persists to `queue.json`
+- Run status flow: `pending → running → completed | failed | cancelled | skipped`
 
 ## Agent Phases
 
-DISCOVER → RESEARCH (×6 issue groups) → REFINE → REVIEW (optional, multi-LLM)
+DISCOVERY (15%) → IMAGES (5%) → ISSUES ×12 per-candidate (35%) → FINANCE (10%) → REFINEMENT (15%) → REVIEW (12%, optional) → ITERATION (8%)
+
+Update runs add Phase 0: Roster Sync + Meta Update before the main phases.
 
 Post-run: Gemini Flash analysis saved to `pipeline_client/post_run_analyses/`
 
