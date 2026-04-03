@@ -173,6 +173,38 @@
   function formatTokens(n: number) {
     return n >= 1000 ? `${(n / 1000).toFixed(1)}k` : String(n);
   }
+
+  function shortModel(m: string): string {
+    // Shorten common model names for compact display
+    return m
+      .replace("gpt-5.4-mini", "GPT-5 mini")
+      .replace("gpt-5-nano", "GPT-5 nano")
+      .replace("gpt-5.4", "GPT-5")
+      .replace("gpt-4o-mini", "4o-mini")
+      .replace("gpt-4o", "4o")
+      .replace("gpt-4.1-mini", "4.1-mini")
+      .replace("gpt-4.1-nano", "4.1-nano")
+      .replace("gpt-4.1", "4.1")
+      .replace("claude-", "claude-")
+      .replace("gemini-flash", "gem-flash");
+  }
+
+  // Derived pipeline computed values
+  $: successCount = pipelineRecords.filter((r) => r.status === "completed").length;
+  $: successRate = pipelineRecords.length ? Math.round((successCount / pipelineRecords.length) * 100) : null;
+
+  // Model usage distribution from recent records
+  $: modelCounts = pipelineRecords.reduce(
+    (acc, r) => {
+      const m = shortModel(r.model || "unknown");
+      acc[m] = (acc[m] || 0) + 1;
+      return acc;
+    },
+    {} as Record<string, number>
+  );
+  $: topModels = Object.entries(modelCounts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5);
 </script>
 
 <!-- Time range selector -->
@@ -337,35 +369,103 @@
     </div>
   </div>
 
-  <!-- Pipeline Cost Metrics -->
+  <!-- Pipeline Research Metrics -->
   <div class="mt-6">
-    <h2 class="text-base font-semibold text-content mb-3">Pipeline Cost & Usage</h2>
+    <h2 class="text-base font-semibold text-content mb-3">Pipeline Research Metrics</h2>
 
     <!-- Summary stat cards -->
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+      <!-- Total runs + success rate -->
       <div class="card p-4">
         <p class="text-xs font-medium text-content-subtle uppercase tracking-wide">Total Runs</p>
         <p class="mt-1 text-2xl font-bold text-content">{pipelineSummary?.total_runs ?? "—"}</p>
+        {#if pipelineSummary && pipelineSummary.total_runs > 0}
+          <p class="mt-1 text-xs text-content-faint">
+            <span class="{(pipelineSummary.success_rate ?? 0) >= 0.9 ? 'text-green-600' : (pipelineSummary.success_rate ?? 0) >= 0.7 ? 'text-yellow-600' : 'text-red-500'}">
+              {Math.round((pipelineSummary.success_rate ?? 0) * 100)}% success
+            </span>
+          </p>
+        {/if}
       </div>
+
+      <!-- Total spend + 30d -->
       <div class="card p-4">
         <p class="text-xs font-medium text-content-subtle uppercase tracking-wide">Total Spend</p>
         <p class="mt-1 text-2xl font-bold text-content">
           {pipelineSummary ? formatUsd(pipelineSummary.total_usd) : "—"}
         </p>
+        {#if pipelineSummary}
+          <p class="mt-1 text-xs text-content-faint">{formatUsd(pipelineSummary.recent_30d_usd)} last 30d</p>
+        {/if}
       </div>
+
+      <!-- Avg cost by mode -->
       <div class="card p-4">
-        <p class="text-xs font-medium text-content-subtle uppercase tracking-wide">Avg / Run</p>
-        <p class="mt-1 text-2xl font-bold text-content">
-          {pipelineSummary ? formatUsd(pipelineSummary.avg_usd) : "—"}
-        </p>
+        <p class="text-xs font-medium text-content-subtle uppercase tracking-wide">Avg Cost / Run</p>
+        {#if pipelineSummary && (pipelineSummary.cheap_runs > 0 || pipelineSummary.full_runs > 0)}
+          <div class="mt-1 space-y-1">
+            {#if pipelineSummary.cheap_runs > 0}
+              <div class="flex items-center justify-between">
+                <span class="text-xs px-1.5 py-0.5 rounded bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300">cheap</span>
+                <span class="text-sm font-bold text-content">{formatUsd(pipelineSummary.avg_cheap_usd)}</span>
+              </div>
+            {/if}
+            {#if pipelineSummary.full_runs > 0}
+              <div class="flex items-center justify-between">
+                <span class="text-xs px-1.5 py-0.5 rounded bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300">full</span>
+                <span class="text-sm font-bold text-content">{formatUsd(pipelineSummary.avg_full_usd)}</span>
+              </div>
+            {/if}
+          </div>
+        {:else}
+          <p class="mt-1 text-2xl font-bold text-content">{pipelineSummary ? formatUsd(pipelineSummary.avg_usd) : "—"}</p>
+        {/if}
       </div>
+
+      <!-- Avg cost per candidate -->
       <div class="card p-4">
-        <p class="text-xs font-medium text-content-subtle uppercase tracking-wide">Last 30 Days</p>
+        <p class="text-xs font-medium text-content-subtle uppercase tracking-wide">Avg Cost / Candidate</p>
         <p class="mt-1 text-2xl font-bold text-content">
-          {pipelineSummary ? formatUsd(pipelineSummary.recent_30d_usd) : "—"}
+          {pipelineSummary && pipelineSummary.avg_usd_per_candidate > 0
+            ? formatUsd(pipelineSummary.avg_usd_per_candidate)
+            : "—"}
         </p>
+        {#if pipelineSummary && pipelineSummary.avg_usd_per_candidate > 0}
+          <p class="mt-1 text-xs text-content-faint">across runs with tracked candidates</p>
+        {:else}
+          <p class="mt-1 text-xs text-content-faint">available after next run</p>
+        {/if}
       </div>
     </div>
+
+    <!-- Mode run count bar -->
+    {#if pipelineSummary && pipelineSummary.total_runs > 0 && (pipelineSummary.cheap_runs > 0 || pipelineSummary.full_runs > 0)}
+      <div class="card p-3 mb-4 flex items-center gap-4">
+        <span class="text-xs text-content-muted shrink-0">Run modes:</span>
+        {#if pipelineSummary.cheap_runs > 0}
+          <div class="flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-sm bg-blue-500 inline-block" />
+            <span class="text-xs text-content-muted"><strong>{pipelineSummary.cheap_runs}</strong> cheap ({formatUsd(pipelineSummary.avg_cheap_usd)} avg)</span>
+          </div>
+        {/if}
+        {#if pipelineSummary.full_runs > 0}
+          <div class="flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-sm bg-purple-500 inline-block" />
+            <span class="text-xs text-content-muted"><strong>{pipelineSummary.full_runs}</strong> full ({formatUsd(pipelineSummary.avg_full_usd)} avg)</span>
+          </div>
+        {/if}
+        {#if topModels.length > 0}
+          <div class="ml-auto flex items-center gap-2 flex-wrap">
+            <span class="text-xs text-content-faint">Models:</span>
+            {#each topModels as [model, count]}
+              <span class="text-xs px-1.5 py-0.5 rounded bg-surface-alt text-content-muted font-mono">
+                {model} ×{count}
+              </span>
+            {/each}
+          </div>
+        {/if}
+      </div>
+    {/if}
 
     <!-- Per-run table -->
     <div class="card overflow-hidden">
@@ -381,15 +481,19 @@
               <tr>
                 <th class="px-3 py-2 text-left font-medium text-content-subtle">Race</th>
                 <th class="px-3 py-2 text-left font-medium text-content-subtle">Status</th>
+                <th class="px-3 py-2 text-left font-medium text-content-subtle">Mode</th>
                 <th class="px-3 py-2 text-left font-medium text-content-subtle">Model</th>
+                <th class="px-3 py-2 text-right font-medium text-content-subtle">Cands</th>
                 <th class="px-3 py-2 text-right font-medium text-content-subtle">Tokens</th>
                 <th class="px-3 py-2 text-right font-medium text-content-subtle">Cost</th>
+                <th class="px-3 py-2 text-right font-medium text-content-subtle">$/Cand</th>
                 <th class="px-3 py-2 text-right font-medium text-content-subtle">Duration</th>
                 <th class="px-3 py-2 text-left font-medium text-content-subtle">Time</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-stroke">
               {#each pipelineRecords as rec (rec.run_id)}
+                {@const perCand = rec.candidate_count > 0 ? rec.estimated_usd / rec.candidate_count : null}
                 <tr class="hover:bg-surface-alt">
                   <td class="px-3 py-2 font-mono text-content-muted max-w-32 truncate">{rec.race_id}</td>
                   <td class="px-3 py-2">
@@ -400,14 +504,27 @@
                       {rec.status}
                     </span>
                   </td>
+                  <td class="px-3 py-2">
+                    {#if rec.cheap_mode}
+                      <span class="px-1.5 py-0.5 rounded text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300">cheap</span>
+                    {:else if rec.cheap_mode === false}
+                      <span class="px-1.5 py-0.5 rounded text-xs bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300">full</span>
+                    {:else}
+                      <span class="text-content-faint">—</span>
+                    {/if}
+                  </td>
                   <td class="px-3 py-2 text-content-muted max-w-36">
-                    <span class="truncate block font-mono text-xs" title={rec.model}>{rec.model || "—"}</span>
+                    <span class="truncate block font-mono text-xs" title={rec.model}>{shortModel(rec.model) || "—"}</span>
                     {#if rec.model_breakdown && Object.keys(rec.model_breakdown).length > 1}
                       <span class="text-content-faint text-xs">+{Object.keys(rec.model_breakdown).length - 1} model{Object.keys(rec.model_breakdown).length > 2 ? "s" : ""}</span>
                     {/if}
                   </td>
+                  <td class="px-3 py-2 text-right text-content-muted">{rec.candidate_count || "—"}</td>
                   <td class="px-3 py-2 text-right text-content-muted">{formatTokens(rec.total_tokens)}</td>
                   <td class="px-3 py-2 text-right font-medium text-content">{formatUsd(rec.estimated_usd)}</td>
+                  <td class="px-3 py-2 text-right text-content-muted">
+                    {perCand != null ? formatUsd(perCand) : "—"}
+                  </td>
                   <td class="px-3 py-2 text-right text-content-muted">{rec.duration_s ? `${rec.duration_s}s` : "—"}</td>
                   <td class="px-3 py-2 text-content-faint">{formatDate(rec.timestamp)}</td>
                 </tr>

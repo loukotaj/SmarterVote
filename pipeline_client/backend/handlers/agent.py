@@ -227,7 +227,13 @@ class AgentHandler:
             from pipeline_client.backend.pipeline_metrics import get_pipeline_metrics_store
             agent_metrics = race_json.get("agent_metrics")
             rid = run_id or f"{race_id}-{int(t0)}"
-            await get_pipeline_metrics_store().record_run(rid, race_id, agent_metrics, "completed")
+            candidate_count = len(race_json.get("candidates") or [])
+            _cheap_mode = bool(options.get("cheap_mode", True))
+            await get_pipeline_metrics_store().record_run(
+                rid, race_id, agent_metrics, "completed",
+                candidate_count=candidate_count,
+                cheap_mode=_cheap_mode,
+            )
         except Exception:
             logger.warning("Failed to record pipeline metrics", exc_info=True)
 

@@ -92,12 +92,20 @@ class PipelineMetricsStore:
                 total_tokens      INTEGER NOT NULL DEFAULT 0,
                 estimated_usd     REAL NOT NULL DEFAULT 0,
                 model_breakdown   TEXT NOT NULL DEFAULT '{}',
-                duration_s        REAL NOT NULL DEFAULT 0
+                duration_s        REAL NOT NULL DEFAULT 0,
+                candidate_count   INTEGER NOT NULL DEFAULT 0,
+                cheap_mode        INTEGER NOT NULL DEFAULT 0
             )
             """
         )
         self._sqlite_conn.execute("CREATE INDEX IF NOT EXISTS idx_pm_ts  ON pipeline_metrics(timestamp)")
         self._sqlite_conn.execute("CREATE INDEX IF NOT EXISTS idx_pm_rid ON pipeline_metrics(race_id)")
+        # Migrate existing DBs that were created before these columns existed
+        for col_def in ["candidate_count INTEGER NOT NULL DEFAULT 0", "cheap_mode INTEGER NOT NULL DEFAULT 0"]:
+            try:
+                self._sqlite_conn.execute(f"ALTER TABLE pipeline_metrics ADD COLUMN {col_def}")
+            except sqlite3.OperationalError:
+                pass  # column already exists
         self._sqlite_conn.commit()
         logger.info("PipelineMetrics: using SQLite %s", self._db_path)
 
@@ -111,6 +119,8 @@ class PipelineMetricsStore:
         race_id: str,
         agent_metrics: Optional[Dict[str, Any]],
         status: str = "completed",
+        candidate_count: int = 0,
+        cheap_mode: bool = True,
     ) -> None:
         """Persist a pipeline run record. Safe to call fire-and-forget."""
         if not agent_metrics:
@@ -129,6 +139,8 @@ class PipelineMetricsStore:
             "estimated_usd": agent_metrics.get("estimated_usd", 0.0),
             "model_breakdown": agent_metrics.get("model_breakdown", {}),
             "duration_s": agent_metrics.get("duration_s", 0.0),
+            "candidate_count": candidate_count,
+            "cheap_mode": cheap_mode,
         }
 
         if self._client is not None:
@@ -153,8 +165,9 @@ class PipelineMetricsStore:
                 INSERT OR REPLACE INTO pipeline_metrics
                     (run_id, race_id, timestamp, status, model,
                      prompt_tokens, completion_tokens, total_tokens,
-                     estimated_usd, model_breakdown, duration_s)
-                VALUES (?,?,?,?,?,?,?,?,?,?,?)
+                     estimated_usd, model_breakdown, duration_s,
+                     candidate_count, cheap_mode)
+                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)
                 """,
                 (
                     record["run_id"],
@@ -168,6 +181,8 @@ class PipelineMetricsStore:
                     record["estimated_usd"],
                     json.dumps(record["model_breakdown"]),
                     record["duration_s"],
+                    record.get("candidate_count", 0),
+                    int(record.get("cheap_mode", True)),
                 ),
             )
             self._sqlite_conn.commit()
@@ -209,7 +224,8 @@ class PipelineMetricsStore:
                 """
                 SELECT run_id, race_id, timestamp, status, model,
                        prompt_tokens, completion_tokens, total_tokens,
-                       estimated_usd, model_breakdown, duration_s
+                       estimated_usd, model_breakdown, duration_s,
+                       candidate_count, cheap_mode
                 FROM pipeline_metrics
                 ORDER BY timestamp DESC
                 LIMIT ?
@@ -222,6 +238,7 @@ class PipelineMetricsStore:
                     run_id, race_id, timestamp, status, model,
                     prompt_tokens, completion_tokens, total_tokens,
                     estimated_usd, model_breakdown_json, duration_s,
+                    candidate_count, cheap_mode_int,
                 ) = row
                 rows.append({
                     "run_id": run_id,
@@ -235,6 +252,8 @@ class PipelineMetricsStore:
                     "estimated_usd": estimated_usd,
                     "model_breakdown": json.loads(model_breakdown_json or "{}"),
                     "duration_s": duration_s,
+                    "candidate_count": candidate_count or 0,
+                    "cheap_mode": bool(cheap_mode_int),
                 })
             return rows
         except Exception:
@@ -253,8 +272,15 @@ class PipelineMetricsStore:
             assert self._client is not None
             docs = self._client.collection(self._COLLECTION).stream()
             total_runs = 0
+            completed_runs = 0
             total_usd = 0.0
             recent_usd = 0.0
+            cheap_runs = 0
+            cheap_usd = 0.0
+            full_runs = 0
+            full_usd = 0.0
+            total_candidates = 0
+            total_usd_with_candidates = 0.0
             from datetime import timedelta
             cutoff = (datetime.now(timezone.utc) - timedelta(days=30)).isoformat()
             async for doc in docs:
@@ -262,41 +288,89 @@ class PipelineMetricsStore:
                 total_runs += 1
                 usd = data.get("estimated_usd", 0.0)
                 total_usd += usd
+                if data.get("status") == "completed":
+                    completed_runs += 1
                 if data.get("timestamp", "") >= cutoff:
                     recent_usd += usd
+                if data.get("cheap_mode", True):
+                    cheap_runs += 1
+                    cheap_usd += usd
+                else:
+                    full_runs += 1
+                    full_usd += usd
+                cands = data.get("candidate_count", 0) or 0
+                if cands > 0:
+                    total_candidates += cands
+                    total_usd_with_candidates += usd
             return {
                 "total_runs": total_runs,
                 "total_usd": round(total_usd, 4),
                 "avg_usd": round(total_usd / total_runs, 4) if total_runs else 0.0,
                 "recent_30d_usd": round(recent_usd, 4),
+                "success_rate": round(completed_runs / total_runs, 3) if total_runs else 0.0,
+                "cheap_runs": cheap_runs,
+                "avg_cheap_usd": round(cheap_usd / cheap_runs, 4) if cheap_runs else 0.0,
+                "full_runs": full_runs,
+                "avg_full_usd": round(full_usd / full_runs, 4) if full_runs else 0.0,
+                "avg_usd_per_candidate": round(total_usd_with_candidates / total_candidates, 4) if total_candidates else 0.0,
             }
         except Exception:
             logger.exception("Failed to compute Firestore pipeline metrics summary")
-            return {"total_runs": 0, "total_usd": 0.0, "avg_usd": 0.0, "recent_30d_usd": 0.0}
+            return {"total_runs": 0, "total_usd": 0.0, "avg_usd": 0.0, "recent_30d_usd": 0.0,
+                    "success_rate": 0.0, "cheap_runs": 0, "avg_cheap_usd": 0.0,
+                    "full_runs": 0, "avg_full_usd": 0.0, "avg_usd_per_candidate": 0.0}
 
     def _summary_sqlite(self) -> Dict[str, Any]:
         try:
             assert self._sqlite_conn is not None
-            row = self._sqlite_conn.execute(
-                "SELECT COUNT(*), COALESCE(SUM(estimated_usd),0) FROM pipeline_metrics"
-            ).fetchone()
-            total_runs, total_usd = row
             from datetime import timedelta
             cutoff = (datetime.now(timezone.utc) - timedelta(days=30)).isoformat()
+
+            row = self._sqlite_conn.execute(
+                "SELECT COUNT(*), COALESCE(SUM(estimated_usd),0), "
+                "SUM(CASE WHEN status='completed' THEN 1 ELSE 0 END) FROM pipeline_metrics"
+            ).fetchone()
+            total_runs, total_usd, completed_runs = row
+
             recent_row = self._sqlite_conn.execute(
                 "SELECT COALESCE(SUM(estimated_usd),0) FROM pipeline_metrics WHERE timestamp >= ?",
                 (cutoff,),
             ).fetchone()
             recent_usd = recent_row[0]
+
+            cheap_row = self._sqlite_conn.execute(
+                "SELECT COUNT(*), COALESCE(SUM(estimated_usd),0) FROM pipeline_metrics WHERE cheap_mode = 1"
+            ).fetchone()
+            cheap_runs, cheap_usd = cheap_row
+
+            full_row = self._sqlite_conn.execute(
+                "SELECT COUNT(*), COALESCE(SUM(estimated_usd),0) FROM pipeline_metrics WHERE cheap_mode = 0"
+            ).fetchone()
+            full_runs, full_usd = full_row
+
+            cand_row = self._sqlite_conn.execute(
+                "SELECT COALESCE(SUM(candidate_count),0), COALESCE(SUM(estimated_usd),0) "
+                "FROM pipeline_metrics WHERE candidate_count > 0"
+            ).fetchone()
+            total_candidates, usd_with_candidates = cand_row
+
             return {
                 "total_runs": total_runs,
                 "total_usd": round(total_usd, 4),
                 "avg_usd": round(total_usd / total_runs, 4) if total_runs else 0.0,
                 "recent_30d_usd": round(recent_usd, 4),
+                "success_rate": round(completed_runs / total_runs, 3) if total_runs else 0.0,
+                "cheap_runs": cheap_runs,
+                "avg_cheap_usd": round(cheap_usd / cheap_runs, 4) if cheap_runs else 0.0,
+                "full_runs": full_runs,
+                "avg_full_usd": round(full_usd / full_runs, 4) if full_runs else 0.0,
+                "avg_usd_per_candidate": round(usd_with_candidates / total_candidates, 4) if total_candidates else 0.0,
             }
         except Exception:
             logger.exception("Failed to compute SQLite pipeline metrics summary")
-            return {"total_runs": 0, "total_usd": 0.0, "avg_usd": 0.0, "recent_30d_usd": 0.0}
+            return {"total_runs": 0, "total_usd": 0.0, "avg_usd": 0.0, "recent_30d_usd": 0.0,
+                    "success_rate": 0.0, "cheap_runs": 0, "avg_cheap_usd": 0.0,
+                    "full_runs": 0, "avg_full_usd": 0.0, "avg_usd_per_candidate": 0.0}
 
 
 # ---------------------------------------------------------------------------

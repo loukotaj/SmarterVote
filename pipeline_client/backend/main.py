@@ -527,6 +527,19 @@ async def cancel_race_queue(race_id: str) -> Dict[str, Any]:
     return {"message": f"Race {race_id} cancelled", "race": record.model_dump(mode="json") if record else None}
 
 
+@app.post("/api/races/{race_id}/recheck", dependencies=[Depends(verify_token)])
+async def recheck_race_status(race_id: str) -> Dict[str, Any]:
+    """Re-derive race status from actual storage state.
+
+    Use when a race is stuck in 'running' after a process crash or
+    serialisation error.  Safe to call at any time — if the run is
+    genuinely still active the status is left unchanged.
+    """
+    _validate_race_id(race_id)
+    record = race_manager.recheck_status(race_id)
+    return {"message": f"Race {race_id} rechecked", "race": record.model_dump(mode="json")}
+
+
 @app.post("/api/races/{race_id}/run", dependencies=[Depends(verify_token)])
 async def run_race_pipeline(race_id: str, options: RunOptions | None = None) -> Dict[str, Any]:
     """Run the pipeline for a single race (direct, not queued)."""

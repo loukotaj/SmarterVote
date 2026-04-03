@@ -825,7 +825,7 @@ async def run_agent(
                 cycle_budget = int(max_iterations * (0.6 if cycle == 1 else 0.4))
                 improved = await _run_iteration_pass(
                     race_id, race_json, reviews,
-                    model=model, on_log=on_log, max_iterations=max(cycle_budget, 8),
+                    model=model, on_log=on_log, max_iterations=max(cycle_budget, 14),
                 )
                 if improved is not None:
                     race_json = improved
@@ -1301,9 +1301,9 @@ async def _run_update(
             model=small_model,
             on_log=on_log,
             race_id=race_id,
-            max_iterations=max(8, max_iterations // 2),
+            max_iterations=max(12, max_iterations // 2),
             phase_name="roster-sync",
-            max_tokens=4096,
+            max_tokens=8192,
             extra_tools=ROSTER_TOOLS + [READ_PROFILE_TOOL],
             extra_tool_handlers=handlers,
             tools_mode=True,
@@ -1702,8 +1702,8 @@ async def _run_iteration_pass(
     flags_text = _format_review_flags(reviews)
     candidates = race_json.get("candidates", [])
     n = len(candidates)
-    iterate_iters = _scale_iterations(max_iterations, n, per_candidate=3, minimum=12)
-    iters_per_cand = max(6, iterate_iters // max(n, 1))
+    iterate_iters = _scale_iterations(max_iterations, n, per_candidate=5, minimum=15)
+    iters_per_cand = max(10, iterate_iters // max(n, 1))
 
     log("info", f"  Iteration: addressing review flags for {n} candidates (tools mode)")
 

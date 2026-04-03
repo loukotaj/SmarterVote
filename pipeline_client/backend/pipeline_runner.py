@@ -131,20 +131,25 @@ async def run_step_async(step: str, request: RunRequest, run_id: Optional[str] =
 
         artifact_id = None
         if options.get("save_artifact", True):
-            context_logger.info("Saving artifact...")
-            artifact_id = new_artifact_id(step)
-            save_artifact(
-                artifact_id,
-                {
-                    "step": step,
-                    "input": request.payload,
-                    "options": options,
-                    "output": output,
-                    "duration_ms": duration_ms,
-                    "run_id": run_id,
-                },
-            )
-            context_logger.info(f"Artifact saved with ID: {artifact_id}")
+            try:
+                context_logger.info("Saving artifact...")
+                artifact_id = new_artifact_id(step)
+                import json as _json
+                save_artifact(
+                    artifact_id,
+                    {
+                        "step": step,
+                        "input": request.payload,
+                        "options": options,
+                        "output": _json.loads(_json.dumps(output, default=str)),
+                        "duration_ms": duration_ms,
+                        "run_id": run_id,
+                    },
+                )
+                context_logger.info(f"Artifact saved with ID: {artifact_id}")
+            except Exception:
+                context_logger.warning("Artifact save failed; run will still complete", exc_info=True)
+                artifact_id = None
 
         # Mark step as completed
         run_manager.update_step_status(run_id, step, RunStatus.COMPLETED, artifact_id, duration_ms)

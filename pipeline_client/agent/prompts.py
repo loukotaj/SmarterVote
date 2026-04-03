@@ -52,7 +52,11 @@ Research the U.S. election race "{race_id}".
 
 Search for:
 1. What office is this for? What state/district?
-2. Who are the candidates? (name, party, incumbent status)
+2. Who are ALL the candidates? Search broadly across ALL parties — Democrat,
+   Republican, Libertarian, Green, Independent, and any other qualified parties.
+   Check Ballotpedia, the official state election authority, and recent news.
+   Do NOT limit to just the major-party candidates.
+   (name, party, incumbent status)
 3. Each candidate's official campaign website and social media.
 4. A brief 2-3 sentence nonpartisan summary of each candidate. Do NOT append inline "Sources: ..." text to the summary — put sources in the summary_sources array instead.
 5. Each candidate's career history (political offices held, major jobs).
@@ -381,17 +385,25 @@ For the "summary" field:
 - If verdict is "needs_revision" or "flagged": summarize the key concerns concisely.
 
 Also assign an overall quality score from 0-100 based on:
-- Factual accuracy and source quality (40%)
-- Completeness across all canonical issues (30%)
-- Neutrality and lack of bias (20%)
-- Background accuracy (10%)
+- Factual accuracy and source quality (45%)
+- Neutrality and lack of bias (30%)
+- Background accuracy (15%)
+- Coverage effort (10%)
+
+IMPORTANT — Missing data policy:
+- If an issue has a low-confidence stance OR an empty stance BUT the profile shows the agent searched
+  (i.e., sources were checked, or the candidate is genuinely obscure), do NOT penalize the score.
+  Absence of public information is NOT a quality failure.
+- Only penalize for completeness if an issue has NO stance AND NO evidence of a search attempt,
+  or if the candidate is prominent enough that information clearly exists but wasn't found.
+- A "no public position found" result after a good-faith search is entirely acceptable.
 
 Score guidelines:
-- 90-100 (A): Excellent — well-sourced, complete, unbiased, accurate
-- 80-89 (B): Good — minor gaps or weak sources but overall solid
-- 70-79 (C): Acceptable — noticeable gaps, some unsourced claims, or mild bias
-- 60-69 (D): Poor — significant issues with accuracy, sourcing, or completeness
-- 0-59 (F): Failing — major factual errors, heavy bias, or severely incomplete
+- 90-100 (A): Excellent — factually accurate, well-sourced, unbiased; any gaps are documented
+- 80-89 (B): Good — minor accuracy or sourcing issues; gaps on obscure/minor candidates acceptable
+- 70-79 (C): Acceptable — some unsourced or unverified claims, or mild bias
+- 60-69 (D): Poor — notable factual errors, weak sourcing on key claims, or noticeable bias
+- 0-59 (F): Failing — major factual errors, heavy bias, or clearly incomplete on a prominent candidate
 
 Return JSON:
 {{
@@ -568,20 +580,32 @@ tools. Do NOT change any other data — only the candidate roster.
 
 ROSTER_SYNC_USER = """\
 Race: "{race_id}" — last updated {last_updated}
-Current candidates: {candidate_names}
+Current candidates in profile: {candidate_names}
 
-Search for whether any candidates have:
-1. Dropped out, withdrawn, or been disqualified since {last_updated}
-2. Newly entered the race since {last_updated}
-3. Had their name corrected (e.g. legal name change, common misspelling)
+STEP 1 — Verify the COMPLETE current roster (not just changes):
+Search for "{race_id}" on Ballotpedia, official election authority sites, and
+recent news to get the FULL list of declared candidates across ALL parties
+(Democrat, Republican, Libertarian, Green, Independent, etc.).
 
-Use your editing tools to make corrections:
-- add_candidate — for new entrants
+Compare the full current roster against the candidates currently in the profile.
+
+STEP 2 — Make corrections:
+1. Any candidate NOT in the profile who is currently in the race → add_candidate
+2. Any candidate in the profile who has dropped out, withdrawn, or been
+   disqualified since {last_updated} → remove_candidate (include reason)
+3. Any name corrections (e.g. legal name, common misspelling) → rename_candidate
+
+IMPORTANT: Pay special attention to third-party candidates (Libertarian, Green,
+Independent), write-in candidates who qualified, and convention nominees who may
+not appear in initial profile data.
+
+Use your editing tools to record every correction:
+- add_candidate — for missing candidates
 - remove_candidate — for withdrawals (include reason)
 - rename_candidate — for name corrections
 
-If the roster is already correct, reply with a short confirmation. Do NOT
-modify any other data (issues, summaries, polls, etc.)."""
+If the roster is already complete and correct, reply with a short confirmation.
+Do NOT modify any other data (issues, summaries, polls, etc.)."""
 
 
 # ------------------------------------------------------------------

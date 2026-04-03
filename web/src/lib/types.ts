@@ -331,6 +331,8 @@ export interface PipelineRunRecord {
   estimated_usd: number;
   model_breakdown: Record<string, { prompt_tokens: number; completion_tokens: number }>;
   duration_s: number;
+  candidate_count: number;
+  cheap_mode: boolean;
 }
 
 export interface PipelineMetricsSummary {
@@ -338,6 +340,12 @@ export interface PipelineMetricsSummary {
   total_usd: number;
   avg_usd: number;
   recent_30d_usd: number;
+  success_rate: number;
+  cheap_runs: number;
+  avg_cheap_usd: number;
+  full_runs: number;
+  avg_full_usd: number;
+  avg_usd_per_candidate: number;
 }
 
 // ---------------------------------------------------------------------------

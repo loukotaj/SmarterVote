@@ -323,6 +323,69 @@ class RaceManager:
             queue_options=None,
         )
 
+    def recheck_status(self, race_id: str) -> RaceRecord:
+        """Re-derive race status from actual storage (GCS/local files + active runs).
+
+        Safe to call at any time.  Used to recover races stuck in 'running'
+        after a process crash or serialisation error.
+        """
+        from .run_manager import run_manager as _run_manager
+
+        race = self.get_race(race_id)
+
+        # If there is a genuinely active run for this race, don't touch status.
+        active = [r for r in _run_manager.list_active_runs() if r.payload.get("race_id") == race_id]
+        if active:
+            return race or self.upsert_race(race_id, status="running")
+
+        # Check for a local draft file
+        draft_path = ROOT / "data" / "drafts" / f"{race_id}.json"
+        has_local_draft = draft_path.exists()
+
+        # Check GCS
+        has_gcs_draft = False
+        has_gcs_published = False
+        try:
+            from .settings import settings
+            gcs_bucket = settings.gcs_bucket
+            if gcs_bucket:
+                from google.cloud import storage as _gcs  # type: ignore
+                client = _gcs.Client()
+                bucket = client.bucket(gcs_bucket)
+                has_gcs_draft = bucket.blob(f"drafts/{race_id}.json").exists()
+                has_gcs_published = bucket.blob(f"races/{race_id}.json").exists()
+        except Exception:
+            logger.debug("GCS check during recheck failed (non-fatal)", exc_info=True)
+
+        # Check local published
+        pub_path = ROOT / "data" / "published" / f"{race_id}.json"
+        has_local_published = pub_path.exists()
+
+        now = _now_iso()
+        if has_local_published or has_gcs_published:
+            published_at = (race.published_at if race else None) or now
+            return self.upsert_race(
+                race_id,
+                status="published",
+                published_at=published_at,
+                draft_updated_at=(race.draft_updated_at if race else None) or now,
+                current_run_id=None,
+            )
+        if has_local_draft or has_gcs_draft:
+            return self.upsert_race(
+                race_id,
+                status="draft",
+                draft_updated_at=(race.draft_updated_at if race else None) or now,
+                current_run_id=None,
+            )
+        # Nothing found: mark as empty (or failed if we had a run)
+        had_run = race and race.last_run_id
+        return self.upsert_race(
+            race_id,
+            status="failed" if had_run else "empty",
+            current_run_id=None,
+        )
+
     def publish_race(self, race_id: str) -> RaceRecord:
         """Mark race as published."""
         now = _now_iso()
