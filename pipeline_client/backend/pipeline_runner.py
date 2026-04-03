@@ -17,6 +17,17 @@ from .storage import new_artifact_id, save_artifact
 async def _run_and_save_post_analysis(run_id: str, race_id: str, logs: list) -> None:
     """Run Gemini Flash post-run analysis and broadcast the result as log lines."""
     _log = logging.getLogger("pipeline")
+
+    async def _broadcast_log(message: str, level: str = "info") -> None:
+        """Broadcast a single log line directly via the logging manager (we are already async)."""
+        await logging_manager.broadcast_message({
+            "type": "log",
+            "level": level,
+            "message": message,
+            "run_id": run_id,
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+        })
+
     try:
         from pipeline_client.agent.review import run_post_run_analysis
 
@@ -27,18 +38,11 @@ async def _run_and_save_post_analysis(run_id: str, race_id: str, logs: list) -> 
 
         analysis_text: str = result.get("analysis", "").strip()
         model = result.get("model", "?")
-        _log.info(f"━━━ Post-run analysis ({model}) ━━━")
-        for line in analysis_text.splitlines():
-            _log.info(line)
-        _log.info("━━━ End post-run analysis ━━━")
 
-        # Also push the full block as a single broadcast so the live log panel shows it
-        _safe_broadcast({
-            "type": "log",
-            "level": "info",
-            "message": f"[post-run analysis]\n{analysis_text}",
-            "run_id": run_id,
-        })
+        await _broadcast_log(f"━━━ Post-run pipeline analysis ({model}) ━━━")
+        for line in analysis_text.splitlines():
+            await _broadcast_log(line)
+        await _broadcast_log("━━━ End post-run analysis ━━━")
     except Exception:
         _log.warning("Post-run analysis failed", exc_info=True)
 

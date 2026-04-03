@@ -800,6 +800,16 @@ async def run_agent(
             grok_model=grok_model,
         )
         race_json["reviews"] = reviews
+        # Log review results to live logs
+        for rev in reviews:
+            model_name = rev.get("model", "unknown")
+            verdict = rev.get("verdict", "?")
+            score = rev.get("score", "?")
+            summary = rev.get("summary", "")
+            n_flags = len(rev.get("flags", []))
+            log("info", f"  {model_name}: {verdict} (score {score}/100, {n_flags} flags)")
+            if summary:
+                log("info", f"    → {summary}")
         _track("complete", "review", duration_ms=int((time.perf_counter() - review_t0) * 1000))
 
         # --- Phase 5: Iterate on review feedback (up to 2 cycles) ---
@@ -847,6 +857,15 @@ async def run_agent(
                         grok_model=grok_model,
                     )
                     race_json["reviews"] = reviews
+                    for rev in reviews:
+                        model_name = rev.get("model", "unknown")
+                        verdict = rev.get("verdict", "?")
+                        score = rev.get("score", "?")
+                        summary = rev.get("summary", "")
+                        n_flags = len(rev.get("flags", []))
+                        log("info", f"  {model_name}: {verdict} (score {score}/100, {n_flags} flags)")
+                        if summary:
+                            log("info", f"    → {summary}")
                 else:
                     log("warning", f"  Cycle {cycle}: iteration failed — stopping")
                     break

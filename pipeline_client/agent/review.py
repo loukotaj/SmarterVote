@@ -158,7 +158,9 @@ async def run_reviews(
     grok_model: Optional[str] = None,
 ) -> List[Dict[str, Any]]:
     """Run reviews with all available providers in parallel."""
-    profile_json = json.dumps(race_json, indent=2, default=str)
+    # Strip old reviews/grades so each review round gets a fresh, unbiased look
+    clean = {k: v for k, v in race_json.items() if k not in ("reviews", "validation_grade")}
+    profile_json = json.dumps(clean, indent=2, default=str)
     log = make_logger(on_log)
     model_overrides = {"claude": claude_model, "gemini": gemini_model, "grok": grok_model}
 
