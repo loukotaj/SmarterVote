@@ -283,6 +283,9 @@
         debouncedRefresh();
         refreshQueue();
         break;
+      case "log":
+        addLog(data.level ?? "info", data.message ?? "", data.timestamp, data.run_id);
+        break;
     }
   }
 

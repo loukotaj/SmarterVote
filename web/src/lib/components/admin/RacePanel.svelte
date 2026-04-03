@@ -190,6 +190,24 @@
     }
   }
 
+  async function handleExportDraft() {
+    try {
+      const data = await apiService.getRaceData(race.race_id, true);
+      downloadAsJson(data, `${race.race_id}-draft.json`);
+    } catch (e) {
+      error = `Export draft failed: ${e}`;
+    }
+  }
+
+  // True when a draft exists and is newer than the published version
+  $: hasPendingUpdate =
+    !!race.draft_updated_at &&
+    !!race.published_at &&
+    race.draft_updated_at > race.published_at;
+
+  // True when a draft exists (regardless of publish state)
+  $: hasDraft = !!race.draft_updated_at;
+
   function handleClose() {
     dispatch("close");
   }
@@ -352,50 +370,98 @@
       <div class="flex-1 overflow-y-auto px-5 py-4">
         {#if activeTab === "overview"}
           <div class="space-y-4">
-            <div class="grid grid-cols-2 gap-4">
-              <div>
-                <span class="text-xs text-content-muted font-medium">Status</span>
-                <p class="mt-1">
-                  <span class="px-2 py-0.5 rounded-full text-xs font-medium {statusBadge(race.status)}">{race.status}</span>
-                </p>
+
+            <!-- Pending-update banner -->
+            {#if hasPendingUpdate}
+              <div class="flex items-center gap-2.5 rounded-lg px-3 py-2.5 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 text-sm text-amber-800 dark:text-amber-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+                </svg>
+                <span class="flex-1">Draft is newer than published — unpublished changes exist.</span>
+                <button
+                  type="button"
+                  class="shrink-0 text-xs font-semibold underline hover:no-underline"
+                  on:click={handlePublish}
+                  disabled={publishing}
+                >Publish Now</button>
               </div>
-              <div>
-                <span class="text-xs text-content-muted font-medium">Quality</span>
-                <p class="mt-1">
-                  {#if race.quality_score != null}
-                    <QualityBadge score={race.quality_score} />
-                  {:else}
-                    <span class="text-content-faint">—</span>
-                  {/if}
-                </p>
-              </div>
+            {/if}
+
+            <!-- Status + quality hero row -->
+            <div class="flex items-center gap-3">
+              <span class="px-2.5 py-1 rounded-full text-xs font-semibold {statusBadge(race.status)} capitalize">{race.status}</span>
+              {#if race.quality_score != null}
+                <QualityBadge score={race.quality_score} />
+              {/if}
+              {#if race.freshness}
+                <span class="text-xs text-content-faint capitalize ml-auto">{race.freshness} freshness</span>
+              {/if}
+            </div>
+
+            <!-- Race facts grid -->
+            <div class="grid grid-cols-2 gap-x-6 gap-y-3">
               <div>
                 <span class="text-xs text-content-muted font-medium">Office</span>
-                <p class="mt-1 text-sm text-content">{race.office ?? "—"}</p>
+                <p class="mt-0.5 text-sm text-content">{race.office ?? "—"}</p>
               </div>
               <div>
                 <span class="text-xs text-content-muted font-medium">Jurisdiction</span>
-                <p class="mt-1 text-sm text-content">{race.jurisdiction ?? "—"}</p>
+                <p class="mt-0.5 text-sm text-content">{race.jurisdiction ?? "—"}</p>
               </div>
               <div>
                 <span class="text-xs text-content-muted font-medium">Election Date</span>
-                <p class="mt-1 text-sm text-content">{race.election_date ?? "—"}</p>
+                <p class="mt-0.5 text-sm text-content">{race.election_date ?? "—"}</p>
               </div>
               <div>
                 <span class="text-xs text-content-muted font-medium">Candidates</span>
-                <p class="mt-1 text-sm text-content">{race.candidate_count || "—"}</p>
+                <p class="mt-0.5 text-sm text-content">{race.candidate_count || "—"}</p>
               </div>
-              <div>
-                <span class="text-xs text-content-muted font-medium">Published At</span>
-                <p class="mt-1 text-sm text-content">{formatDate(race.published_at)}</p>
-              </div>
-              <div>
-                <span class="text-xs text-content-muted font-medium">Draft Updated</span>
-                <p class="mt-1 text-sm text-content">{formatDate(race.draft_updated_at)}</p>
-              </div>
+            </div>
+
+            <!-- Versions section -->
+            <div class="border-t border-stroke pt-3 space-y-2">
+              <span class="text-xs font-semibold text-content-muted uppercase tracking-wide">Versions</span>
+
+              {#if race.published_at}
+                <div class="flex items-center justify-between rounded-md px-3 py-2 bg-green-50 dark:bg-green-900/10 border border-green-200 dark:border-green-800">
+                  <div>
+                    <span class="text-xs font-medium text-green-700 dark:text-green-300">Published</span>
+                    <p class="text-xs text-content-faint">{formatDate(race.published_at)}</p>
+                  </div>
+                  <a
+                    href="/races/{race.race_id}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-xs text-blue-600 dark:text-blue-400 hover:underline font-medium"
+                  >View page →</a>
+                </div>
+              {/if}
+
+              {#if hasDraft}
+                <div class="flex items-center justify-between rounded-md px-3 py-2 {hasPendingUpdate ? 'bg-amber-50 dark:bg-amber-900/10 border border-amber-200 dark:border-amber-800' : 'bg-surface-alt border border-stroke'}">
+                  <div>
+                    <span class="text-xs font-medium {hasPendingUpdate ? 'text-amber-700 dark:text-amber-300' : 'text-content-muted'}">Draft</span>
+                    <p class="text-xs text-content-faint">{formatDate(race.draft_updated_at)}</p>
+                  </div>
+                  <button
+                    type="button"
+                    class="text-xs text-blue-600 dark:text-blue-400 hover:underline font-medium"
+                    on:click={handleExportDraft}
+                  >Export draft →</button>
+                </div>
+              {/if}
+
+              {#if !race.published_at && !hasDraft}
+                <p class="text-xs text-content-faint py-1">No versions yet — run the pipeline to generate a draft.</p>
+              {/if}
+            </div>
+
+            <!-- Pipeline activity -->
+            <div class="border-t border-stroke pt-3 grid grid-cols-2 gap-x-6 gap-y-3">
               <div>
                 <span class="text-xs text-content-muted font-medium">Last Run</span>
-                <p class="mt-1 text-sm text-content">{formatDate(race.last_run_at)}
+                <p class="mt-0.5 text-sm text-content">
+                  {formatDate(race.last_run_at)}
                   {#if race.last_run_status}
                     <span class="ml-1 text-xs px-1.5 py-0.5 rounded {statusBadge(race.last_run_status)}">{race.last_run_status}</span>
                   {/if}
@@ -403,15 +469,10 @@
               </div>
               <div>
                 <span class="text-xs text-content-muted font-medium">Total Runs</span>
-                <p class="mt-1 text-sm text-content">{race.total_runs}</p>
+                <p class="mt-0.5 text-sm text-content">{race.total_runs}</p>
               </div>
             </div>
-            {#if race.freshness}
-              <div>
-                <span class="text-xs text-content-muted font-medium">Freshness</span>
-                <p class="mt-1 text-sm text-content capitalize">{race.freshness}</p>
-              </div>
-            {/if}
+
           </div>
 
         {:else if activeTab === "runs"}

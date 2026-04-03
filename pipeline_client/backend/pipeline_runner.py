@@ -4,7 +4,6 @@ import logging
 import time
 import traceback
 from datetime import datetime, timezone
-from pathlib import Path
 from typing import Any, Dict, Optional
 
 from .logging_manager import logging_manager
@@ -14,24 +13,32 @@ from .run_manager import run_manager
 from .step_registry import get_handler
 from .storage import new_artifact_id, save_artifact
 
-_ANALYSES_DIR = Path(__file__).resolve().parents[2] / "pipeline_client" / "post_run_analyses"
-
 
 async def _run_and_save_post_analysis(run_id: str, race_id: str, logs: list) -> None:
-    """Run Gemini Flash post-run analysis and persist the result to disk."""
+    """Run Gemini Flash post-run analysis and broadcast the result as log lines."""
     _log = logging.getLogger("pipeline")
     try:
         from pipeline_client.agent.review import run_post_run_analysis
 
         result = await run_post_run_analysis(run_id, race_id, logs)
         if result.get("skipped"):
-            _log.info(f"Post-run analysis skipped for {run_id}: {result.get('reason')}")
+            _log.info(f"Post-run analysis skipped: {result.get('reason')}")
             return
 
-        _ANALYSES_DIR.mkdir(parents=True, exist_ok=True)
-        out_path = _ANALYSES_DIR / f"{run_id}.json"
-        out_path.write_text(json.dumps(result, indent=2, ensure_ascii=False), encoding="utf-8")
-        _log.info(f"Post-run analysis saved: {out_path}")
+        analysis_text: str = result.get("analysis", "").strip()
+        model = result.get("model", "?")
+        _log.info(f"━━━ Post-run analysis ({model}) ━━━")
+        for line in analysis_text.splitlines():
+            _log.info(line)
+        _log.info("━━━ End post-run analysis ━━━")
+
+        # Also push the full block as a single broadcast so the live log panel shows it
+        _safe_broadcast({
+            "type": "log",
+            "level": "info",
+            "message": f"[post-run analysis]\n{analysis_text}",
+            "run_id": run_id,
+        })
     except Exception:
         _log.warning("Post-run analysis failed", exc_info=True)
 

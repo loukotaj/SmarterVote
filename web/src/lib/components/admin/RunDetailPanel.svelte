@@ -20,7 +20,7 @@
   let error = "";
   let pollTimer: ReturnType<typeof setInterval> | null = null;
   let showRawJson = false;
-  type SectionId = "steps" | "logs" | "output";
+  type SectionId = "steps" | "logs" | "output" | "analysis";
   let activeSection: SectionId = "steps";
   let artifactData: any = null;
   let artifactLoading = false;
@@ -46,6 +46,12 @@
   })();
   $: runLogs = isLiveAndRunning ? liveLogs : ((run?.logs ?? []).length > 0 ? (run?.logs ?? []) : artifactAgentLogs);
   $: filteredLogs = logFilter === "all" ? runLogs : runLogs.filter((l) => l.level === logFilter);
+  // Post-run analysis: broadcast as a single log entry starting with "[post-run analysis]"
+  $: analysisContent = (() => {
+    const all = [...liveLogs, ...(run?.logs ?? []), ...artifactAgentLogs];
+    const found = all.find((l) => l.message?.startsWith("[post-run analysis]"));
+    return found ? found.message.replace(/^\[post-run analysis\]\n?/, "").trim() : null;
+  })();
   $: steps = run?.steps ?? [];
   // Filter to only pipeline sub-steps (exclude the top-level "agent" step)
   $: pipelineSteps = steps.filter((s) => s.name !== "agent");
@@ -54,6 +60,7 @@
     { id: "steps" as SectionId, label: `Steps (${pipelineSteps.length})` },
     { id: "logs" as SectionId, label: `Logs (${runLogs.length})` },
     { id: "output" as SectionId, label: "Output" },
+    ...(analysisContent ? [{ id: "analysis" as SectionId, label: "✦ Analysis" }] : []),
   ];
   $: progress = isLiveAndRunning ? liveProgress : computeProgress(pipelineSteps);
   $: progressMsg = isLiveAndRunning ? liveProgressMessage : lastStepMessage(pipelineSteps);
@@ -395,7 +402,9 @@
           </div>
         </div>
 
-        {#if artifactData}
+        {#if artifactLoading}
+          <div class="py-6 text-center text-sm text-content-faint">Loading output…</div>
+        {:else if artifactData}
           {#if showRawJson}
             <pre class="bg-surface-alt rounded-lg p-3 text-xs font-mono overflow-auto max-h-[600px] whitespace-pre-wrap break-words text-content">{safeJsonStringify(artifactData).content}</pre>
           {:else}
@@ -505,6 +514,21 @@
           <p class="text-sm text-content-faint py-4 text-center">
             {run.artifact_id ? "Click \"Load Artifact\" to view output" : "No output recorded for this run"}
           </p>
+        {/if}
+      </div>
+    {/if}
+
+    <!-- Analysis section -->
+    {#if activeSection === "analysis"}
+      <div class="card p-0 overflow-hidden">
+        <div class="px-4 py-2.5 border-b border-stroke bg-surface-alt flex items-center gap-2">
+          <span class="text-xs font-semibold text-content-muted uppercase tracking-wide">Post-Run Analysis</span>
+          <span class="text-xs text-content-faint ml-auto">Gemini Flash — pipeline improvement suggestions</span>
+        </div>
+        {#if analysisContent}
+          <div class="p-4 prose prose-sm dark:prose-invert max-w-none text-content-muted text-sm leading-relaxed whitespace-pre-wrap font-sans">{analysisContent}</div>
+        {:else}
+          <div class="p-6 text-center text-sm text-content-faint">Analysis runs after the pipeline completes. Keep the page open to capture it.</div>
         {/if}
       </div>
     {/if}
