@@ -86,7 +86,7 @@ variable "auth0_audience" {
 variable "allowed_origins" {
   description = "Allowed CORS origins for pipeline client"
   type        = list(string)
-  default     = [
+  default = [
     "https://smarter.vote",
     "https://www.smarter.vote",
     "http://localhost:5173",
