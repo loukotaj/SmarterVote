@@ -108,6 +108,8 @@ export interface Candidate {
   links: CandidateLink[];
   website?: string;
   social_media: Record<string, string>;
+  withdrawn?: boolean;
+  withdrawal_reason?: string;
 }
 
 export interface PollMatchup {

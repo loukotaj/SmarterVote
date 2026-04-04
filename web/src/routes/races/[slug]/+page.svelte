@@ -45,14 +45,17 @@
     }
   });
 
-  $: candidateCount = race?.candidates?.length ?? 0;
-  $: incumbents = race?.candidates?.filter(c => c.incumbent) ?? [];
-  $: parties = [...new Set(race?.candidates?.map(c => c.party).filter(Boolean))];
+  $: activeCandidates = race?.candidates?.filter(c => !c.withdrawn) ?? [];
+  $: withdrawnCandidates = race?.candidates?.filter(c => c.withdrawn) ?? [];
+  $: candidateCount = activeCandidates.length;
+  $: incumbents = activeCandidates.filter(c => c.incumbent);
+  $: parties = [...new Set(activeCandidates.map(c => c.party).filter(Boolean))];
+  let withdrawnExpanded = false;
   $: polls = race?.polling ?? [];
   $: latestPoll = polls.length > 0 ? polls[0] : null;
   $: latestMatchup = latestPoll?.matchups?.[0] ?? null;
-  $: discoveryOnly = race?.candidates != null && race.candidates.length > 0 &&
-    race.candidates.every(c => !c.issues || Object.keys(c.issues).length === 0 ||
+  $: discoveryOnly = activeCandidates.length > 0 &&
+    activeCandidates.every(c => !c.issues || Object.keys(c.issues).length === 0 ||
       Object.values(c.issues).every(i => !i?.stance));
 
   function partyClassForName(name: string): string {
@@ -140,7 +143,7 @@
             <p class="overview-description">{race.description}</p>
           {/if}
           <div class="overview-candidates">
-            {#each (race.candidates ?? []) as candidate}
+            {#each activeCandidates as candidate}
               <a href="/races/{race.id}/{candidateSlug(candidate.name)}{isDraftPreview ? '?draft=true' : ''}" class="overview-candidate-chip">
                 {#if candidate.image_url}
                   <img src={candidate.image_url} alt="" class="chip-avatar" on:error={(e) => { if (e.currentTarget instanceof HTMLImageElement) e.currentTarget.style.display = 'none'; }} />
@@ -207,11 +210,34 @@
     <section>
       <h2 class="candidates-title">Candidates</h2>
       <div class="candidate-grid">
-        {#each (race.candidates ?? []) as candidate}
+        {#each activeCandidates as candidate}
           <CandidateCard {candidate} raceId={race.id} draft={isDraftPreview} />
         {/each}
       </div>
     </section>
+
+    <!-- Withdrawn Candidates -->
+    {#if withdrawnCandidates.length > 0}
+      <section class="mt-4">
+        <button
+          class="flex items-center gap-2 text-sm text-content-muted hover:text-content transition-colors"
+          on:click={() => (withdrawnExpanded = !withdrawnExpanded)}
+          aria-expanded={withdrawnExpanded}
+        >
+          <svg class="w-4 h-4 transition-transform {withdrawnExpanded ? 'rotate-90' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+          Withdrawn / Not Running ({withdrawnCandidates.length})
+        </button>
+        {#if withdrawnExpanded}
+          <div class="candidate-grid mt-3 opacity-60">
+            {#each withdrawnCandidates as candidate}
+              <CandidateCard {candidate} raceId={race.id} draft={isDraftPreview} />
+            {/each}
+          </div>
+        {/if}
+      </section>
+    {/if}
 
     <!-- Detailed Polls Section -->
     {#if polls.length > 0}

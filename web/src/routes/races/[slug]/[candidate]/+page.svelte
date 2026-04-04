@@ -48,7 +48,7 @@
         ) ?? null;
       otherCandidates =
         race.candidates?.filter(
-          (c) => candidateSlug(c.name) !== candidateParam
+          (c) => candidateSlug(c.name) !== candidateParam && !c.withdrawn
         ) ?? [];
       if (!candidate) {
         error = "Candidate not found";
@@ -96,6 +96,15 @@
       <div class="mb-4 rounded-lg border-2 border-amber-400 bg-amber-50 dark:bg-amber-900/20 dark:border-amber-600 px-4 py-3 text-sm text-amber-800 dark:text-amber-200 flex items-center gap-2">
         <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" /></svg>
         <span><strong>Draft Preview</strong> — This data has not been published. Only admins can see this page.</span>
+      </div>
+    {/if}
+    {#if candidate.withdrawn}
+      <div class="mb-4 rounded-lg border-2 border-gray-400 bg-gray-50 dark:bg-gray-900/20 dark:border-gray-600 px-4 py-3 text-sm text-gray-700 dark:text-gray-300 flex items-start gap-3">
+        <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /></svg>
+        <div>
+          <p class="font-semibold">Candidate Withdrawn</p>
+          <p class="mt-1">{candidate.name} is no longer running in this race.{candidate.withdrawal_reason ? ` ${candidate.withdrawal_reason}.` : ''} This profile is preserved for reference.</p>
+        </div>
       </div>
     {/if}
     {#if candidateDiscoveryOnly}

@@ -189,6 +189,10 @@ class Candidate(BaseModel):
     website: Optional[HttpUrl] = None
     social_media: Dict[str, HttpUrl] = Field(default_factory=dict)
 
+    # Withdrawal status — set when a candidate exits the race; data is preserved
+    withdrawn: bool = False
+    withdrawal_reason: Optional[str] = None
+
 
 # ---------------------------------------------------------------------------
 # Polling

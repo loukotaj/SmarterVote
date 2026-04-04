@@ -92,11 +92,12 @@ def _make_editing_handlers(
             )
 
         candidates = race_json.get("candidates", [])
-        for i, c in enumerate(candidates):
+        for c in candidates:
             if c.get("name") == name:
-                candidates.pop(i)
-                log("info", f"    ❌ Removed candidate: {name} ({reason or 'no reason given'})")
-                return f"Removed candidate '{name}' ({reason or 'no reason given'})."
+                c["withdrawn"] = True
+                c["withdrawal_reason"] = reason or None
+                log("info", f"    🚪 Marked withdrawn: {name} ({reason or 'no reason given'})")
+                return f"Marked candidate '{name}' as withdrawn ({reason or 'no reason given'}). Data preserved; candidate will be hidden from main race view."
         return f"Candidate '{name}' not found — no action taken."
 
     def rename_candidate(args: Dict[str, Any]) -> str:
