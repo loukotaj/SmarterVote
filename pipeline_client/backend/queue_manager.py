@@ -30,6 +30,7 @@ class QueueItemOptions(BaseModel):
     max_candidates: Optional[int] = None
     target_no_info: bool = False
     candidate_names: Optional[List[str]] = None
+    candidate_names: Optional[List[str]] = None
 
 
 class QueueItem(BaseModel):
@@ -103,10 +104,21 @@ class QueueManager:
         else:
             self._load_from_json()
 
+    def _get_collection(self):
+        if self._db is None:
+            raise RuntimeError("Firestore client unavailable")
+        return self._db.collection("pipeline_queue")
+
+    def _persist_item_firestore(self, item: QueueItem) -> None:
+        self._get_collection().document(item.id).set(item.model_dump(mode="json"))
+
+    def _delete_item_firestore(self, item_id: str) -> None:
+        self._get_collection().document(item_id).delete()
+
     def _load_from_firestore(self):
         """Load all queue items from Firestore."""
         try:
-            collection = self._db.collection("pipeline_queue")
+            collection = self._get_collection()
             docs = collection.stream()
             self._items = []
             for doc in docs:
@@ -155,7 +167,7 @@ class QueueManager:
     def _save_to_firestore(self):
         """Persist queue items to Firestore."""
         try:
-            collection = self._db.collection("pipeline_queue")
+            collection = self._get_collection()
             # Write all items
             for item in self._items:
                 collection.document(item.id).set(item.model_dump(mode="json"))
@@ -183,7 +195,10 @@ class QueueManager:
             created_at=datetime.now(timezone.utc).isoformat(),
         )
         self._items.append(item)
-        self._save()
+        if self._use_firestore:
+            self._persist_item_firestore(item)
+        else:
+            self._save_to_json()
         return item
 
     def remove(self, item_id: str) -> bool:
@@ -191,13 +206,13 @@ class QueueManager:
         for i, item in enumerate(self._items):
             if item.id == item_id and item.status == "pending":
                 self._items.pop(i)
-                self._save()
-                # Also delete from Firestore
                 if self._use_firestore:
                     try:
-                        self._db.collection("pipeline_queue").document(item_id).delete()
+                        self._delete_item_firestore(item_id)
                     except Exception:
                         logging.getLogger(__name__).exception(f"Failed to delete queue item {item_id} from Firestore")
+                else:
+                    self._save_to_json()
                 return True
         return False
 
@@ -213,7 +228,10 @@ class QueueManager:
 
                 item.status = "cancelled"
                 item.completed_at = datetime.now(timezone.utc).isoformat()
-                self._save()
+                if self._use_firestore:
+                    self._persist_item_firestore(item)
+                else:
+                    self._save_to_json()
 
                 # If the item had an active run, cancel it too
                 if was_running and run_id:
@@ -234,14 +252,14 @@ class QueueManager:
         before = len(self._items)
         finished_ids = [i.id for i in self._items if i.status in ("completed", "failed", "cancelled")]
         self._items = [i for i in self._items if i.status in ("pending", "running")]
-        self._save()
+        if not self._use_firestore:
+            self._save_to_json()
 
         # Clean up Firestore documents for removed items
         if self._use_firestore:
             try:
-                collection = self._db.collection("pipeline_queue")
                 for item_id in finished_ids:
-                    collection.document(item_id).delete()
+                    self._delete_item_firestore(item_id)
             except Exception:
                 logging.getLogger(__name__).exception("Failed to delete finished items from Firestore")
 
@@ -274,7 +292,10 @@ class QueueManager:
                 item.status = "running"
                 item.run_id = run_id
                 item.started_at = datetime.now(timezone.utc).isoformat()
-                self._save()
+                if self._use_firestore:
+                    self._persist_item_firestore(item)
+                else:
+                    self._save_to_json()
                 return
 
     def mark_completed(self, item_id: str):
@@ -282,7 +303,10 @@ class QueueManager:
             if item.id == item_id:
                 item.status = "completed"
                 item.completed_at = datetime.now(timezone.utc).isoformat()
-                self._save()
+                if self._use_firestore:
+                    self._persist_item_firestore(item)
+                else:
+                    self._save_to_json()
                 return
 
     def mark_failed(self, item_id: str, error: str):
@@ -291,7 +315,10 @@ class QueueManager:
                 item.status = "failed"
                 item.error = error
                 item.completed_at = datetime.now(timezone.utc).isoformat()
-                self._save()
+                if self._use_firestore:
+                    self._persist_item_firestore(item)
+                else:
+                    self._save_to_json()
                 return
 
     # -- Processing ---------------------------------------------------------

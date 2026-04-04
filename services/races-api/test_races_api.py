@@ -12,6 +12,7 @@ import json
 import os
 import sys
 import tempfile
+from typing import Any
 
 import pytest
 from fastapi.testclient import TestClient
@@ -23,6 +24,27 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 # ---------------------------------------------------------------------------
 # Fixtures
 # ---------------------------------------------------------------------------
+
+
+def _load_main_module(data_dir: str, monkeypatch) -> Any:
+    """Reload config/main against an isolated temp data directory."""
+    monkeypatch.setenv("DATA_DIR", data_dir)
+    monkeypatch.delenv("GCS_BUCKET_NAME", raising=False)
+    monkeypatch.delenv("GOOGLE_CLOUD_PROJECT", raising=False)
+    monkeypatch.delenv("CLOUD_RUN_SERVICE", raising=False)
+    monkeypatch.delenv("K_SERVICE", raising=False)
+    monkeypatch.delenv("GAE_APPLICATION", raising=False)
+
+    import importlib
+
+    import config as cfg_mod
+    import main as main_mod
+
+    importlib.reload(cfg_mod)
+    main_mod = importlib.reload(main_mod)
+    setattr(main_mod, "publish_service", main_mod.SimplePublishService(data_directory=data_dir))
+    main_mod.limiter.reset()
+    return main_mod
 
 
 @pytest.fixture
@@ -66,18 +88,7 @@ def data_dir(sample_race):
 @pytest.fixture
 def client(data_dir, monkeypatch):
     """Create a test client with DATA_DIR pointed at the temp directory."""
-    monkeypatch.setenv("DATA_DIR", data_dir)
-    # Re-import to pick up patched env
-    import importlib
-
-    import config as cfg_mod
-
-    importlib.reload(cfg_mod)
-
-    import main as main_mod
-
-    # Reinitialize the publish service with the new data dir
-    main_mod.publish_service = main_mod.SimplePublishService(data_directory=data_dir)
+    main_mod = _load_main_module(data_dir, monkeypatch)
     with TestClient(main_mod.app) as c:
         yield c
 
@@ -124,17 +135,10 @@ def test_get_race_not_found(client):
     assert resp.status_code == 404
 
 
-def test_list_races_empty():
+def test_list_races_empty(monkeypatch):
     """GET /races returns empty list when no data directory exists."""
     with tempfile.TemporaryDirectory() as tmpdir:
-        import importlib
-
-        import config as cfg_mod
-        import main as main_mod
-
-        os.environ["DATA_DIR"] = tmpdir
-        importlib.reload(cfg_mod)
-        main_mod.publish_service = main_mod.SimplePublishService(data_directory=tmpdir)
+        main_mod = _load_main_module(tmpdir, monkeypatch)
         test_client = TestClient(main_mod.app)
         resp = test_client.get("/races")
         assert resp.status_code == 200
@@ -237,5 +241,33 @@ def test_analytics_no_key_configured(client):
     try:
         resp = client.get("/analytics/overview")
         assert resp.status_code == 200
+    finally:
+        main_mod._ADMIN_API_KEY = original
+
+
+def test_analytics_overview_hours_bounds(client):
+    """GET /analytics/overview enforces hours bounds."""
+    import main as main_mod
+
+    original = main_mod._ADMIN_API_KEY
+    main_mod._ADMIN_API_KEY = "secret"
+    try:
+        assert client.get("/analytics/overview?hours=0", headers={"X-Admin-Key": "secret"}).status_code == 422
+        assert client.get("/analytics/overview?hours=720", headers={"X-Admin-Key": "secret"}).status_code == 200
+        assert client.get("/analytics/overview?hours=721", headers={"X-Admin-Key": "secret"}).status_code == 422
+    finally:
+        main_mod._ADMIN_API_KEY = original
+
+
+def test_analytics_timeseries_bucket_bounds(client):
+    """GET /analytics/timeseries enforces bucket bounds."""
+    import main as main_mod
+
+    original = main_mod._ADMIN_API_KEY
+    main_mod._ADMIN_API_KEY = "secret"
+    try:
+        assert client.get("/analytics/timeseries?bucket=4", headers={"X-Admin-Key": "secret"}).status_code == 422
+        assert client.get("/analytics/timeseries?bucket=5", headers={"X-Admin-Key": "secret"}).status_code == 200
+        assert client.get("/analytics/timeseries?bucket=361", headers={"X-Admin-Key": "secret"}).status_code == 422
     finally:
         main_mod._ADMIN_API_KEY = original

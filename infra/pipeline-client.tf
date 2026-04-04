@@ -174,7 +174,7 @@ resource "google_cloud_run_v2_service" "pipeline_client" {
 # Authentication is enforced at the application level using Auth0 JWT tokens
 # All sensitive endpoints require valid Auth0 authentication via verify_token dependency
 resource "google_cloud_run_v2_service_iam_binding" "pipeline_client_invoker" {
-  count    = var.enable_pipeline_client ? 1 : 0
+  count    = var.enable_pipeline_client && var.pipeline_client_public_invoker ? 1 : 0
   location = google_cloud_run_v2_service.pipeline_client[0].location
   name     = google_cloud_run_v2_service.pipeline_client[0].name
   role     = "roles/run.invoker"

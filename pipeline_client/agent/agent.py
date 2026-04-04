@@ -135,10 +135,25 @@ def _strip_html(html: str) -> str:
 
 
 _PAGE_MAX_CHARS = 16000
+_PAGE_MIN_USEFUL_CHARS = 300
 _BROWSER_UA = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
 )
+
+_UNUSABLE_PAGE_MARKERS = [
+    "enable javascript",
+    "please enable javascript",
+    "turn javascript on",
+    "access denied",
+    "forbidden",
+    "attention required",
+    "verify you are human",
+    "captcha",
+    "cloudflare",
+    "security check",
+    "temporarily unavailable",
+]
 
 _fetch_clients_by_loop: Dict[int, httpx.AsyncClient] = {}
 _serper_clients_by_loop: Dict[int, httpx.AsyncClient] = {}
@@ -169,7 +184,7 @@ def _get_serper_client() -> httpx.AsyncClient:
 
 
 async def _fetch_page(url: str) -> str:
-    """Fetch a URL and return stripped text content, with caching."""
+    """Fetch a URL and return stripped text content, with caching and fallback."""
     cache = _get_search_cache()
     if cache:
         cached = cache.get_page(url)
@@ -177,26 +192,75 @@ async def _fetch_page(url: str) -> str:
             logger.debug(f"Page cache HIT: {url[:60]}")
             return cached
 
+    client = _get_fetch_client()
+    failure_reasons: List[str] = []
+
+    # Some campaign sites block one header/profile but allow another.
+    header_profiles = [
+        {},
+        {
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+            "Accept-Language": "en-US,en;q=0.9",
+            "Cache-Control": "no-cache",
+            "Pragma": "no-cache",
+        },
+    ]
+
+    for headers in header_profiles:
+        try:
+            resp = await client.get(url, headers=headers or None)
+            resp.raise_for_status()
+            content_type = resp.headers.get("content-type", "")
+            if "html" in content_type or "text" in content_type:
+                text = _strip_html(resp.text)
+            else:
+                text = f"[Non-text content: {content_type}]"
+
+            if _is_unusable_page_text(text):
+                failure_reasons.append("primary_fetch_unusable_content")
+                continue
+
+            if len(text) > _PAGE_MAX_CHARS:
+                text = text[:_PAGE_MAX_CHARS] + f"\n\n[...truncated at {_PAGE_MAX_CHARS} chars]"
+
+            if cache:
+                cache.set_page(url, text)
+            return text
+        except Exception as exc:
+            failure_reasons.append(str(exc))
+
+    # Fallback: jina text proxy often succeeds when direct fetches hit bot checks.
+    proxy_url = f"https://r.jina.ai/http://{url.replace('https://', '').replace('http://', '')}"
     try:
-        client = _get_fetch_client()
-        resp = await client.get(url)
-        resp.raise_for_status()
-        content_type = resp.headers.get("content-type", "")
-        if "html" in content_type or "text" in content_type:
-            text = _strip_html(resp.text)
-        else:
-            text = f"[Non-text content: {content_type}]"
+        proxy_resp = await client.get(proxy_url)
+        proxy_resp.raise_for_status()
+        proxy_text = proxy_resp.text.strip()
+        if not _is_unusable_page_text(proxy_text):
+            if len(proxy_text) > _PAGE_MAX_CHARS:
+                proxy_text = proxy_text[:_PAGE_MAX_CHARS] + f"\n\n[...truncated at {_PAGE_MAX_CHARS} chars]"
+            if cache:
+                cache.set_page(url, proxy_text)
+            return proxy_text
+        failure_reasons.append("proxy_unusable_content")
     except Exception as exc:
-        return f"[Failed to fetch {url}: {exc}]"
+        failure_reasons.append(f"proxy: {exc}")
 
-    # Truncate and add a note if we cut it
-    if len(text) > _PAGE_MAX_CHARS:
-        text = text[:_PAGE_MAX_CHARS] + f"\n\n[...truncated at {_PAGE_MAX_CHARS} chars]"
+    return f"[Failed to fetch {url}: {' | '.join(failure_reasons[:3])}]"
 
-    if cache:
-        cache.set_page(url, text)
 
-    return text
+def _is_unusable_page_text(text: str) -> bool:
+    """Return True for empty/blocked/placeholder pages that lack usable substance."""
+    if not text or not text.strip():
+        return True
+
+    lowered = text.lower()
+    if any(marker in lowered for marker in _UNUSABLE_PAGE_MARKERS):
+        return True
+
+    if len(text.strip()) < _PAGE_MIN_USEFUL_CHARS and "[failed to fetch" not in lowered:
+        return True
+
+    return False
 
 
 async def _serper_search(

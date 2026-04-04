@@ -7,14 +7,10 @@ providing smooth access regardless of the data source.
 import json
 import logging
 import os
-import sys
 import threading
 import time
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
-
-# Add project root to path for shared imports
-sys.path.append(os.path.join(os.path.dirname(__file__), "..", ".."))
 
 from shared.models import RaceJSON
 
@@ -46,6 +42,7 @@ class SimplePublishService:
         self.cache_ttl = int(os.getenv("CACHE_TTL_SECONDS", str(_DEFAULT_CACHE_TTL)))
         self._race_list_cache: Optional[Tuple[List[str], float]] = None
         self._race_data_cache: Dict[str, Tuple[Dict, float]] = {}
+        self._race_summaries_cache: Optional[Tuple[List[Dict], float]] = None
         self._cache_lock = threading.Lock()
 
         logger.info(
@@ -113,6 +110,7 @@ class SimplePublishService:
         with self._cache_lock:
             self._race_list_cache = None
             self._race_data_cache.clear()
+            self._race_summaries_cache = None
         logger.info("In-memory cache cleared")
 
     def _cache_get_race_list(self) -> Optional[List[str]]:
@@ -147,6 +145,54 @@ class SimplePublishService:
             return
         with self._cache_lock:
             self._race_data_cache[race_id] = (data, time.monotonic() + self.cache_ttl)
+
+    def _cache_get_race_summaries(self) -> Optional[List[Dict]]:
+        with self._cache_lock:
+            if self._race_summaries_cache is None:
+                return None
+            data, expiry = self._race_summaries_cache
+            if time.monotonic() < expiry:
+                return data
+            self._race_summaries_cache = None
+            return None
+
+    def _cache_set_race_summaries(self, data: List[Dict]) -> None:
+        if self.cache_ttl <= 0:
+            return
+        with self._cache_lock:
+            self._race_summaries_cache = (data, time.monotonic() + self.cache_ttl)
+
+    @staticmethod
+    def _summary_from_race_data(race_id: str, race_data: Dict) -> Dict:
+        agent_metrics = race_data.get("agent_metrics") or None
+        return {
+            "id": race_data.get("id", race_id),
+            "title": race_data.get("title"),
+            "office": race_data.get("office"),
+            "jurisdiction": race_data.get("jurisdiction"),
+            "state": race_data.get("state"),
+            "election_date": race_data.get("election_date", ""),
+            "updated_utc": race_data.get("updated_utc", ""),
+            "candidates": [
+                {
+                    "name": candidate.get("name", ""),
+                    "party": candidate.get("party"),
+                    "incumbent": candidate.get("incumbent", False),
+                    "image_url": candidate.get("image_url"),
+                }
+                for candidate in race_data.get("candidates", [])
+                if isinstance(candidate, dict)
+            ],
+            "agent_metrics": (
+                {
+                    "estimated_usd": agent_metrics.get("estimated_usd"),
+                    "model": agent_metrics.get("model"),
+                    "total_tokens": agent_metrics.get("total_tokens"),
+                }
+                if isinstance(agent_metrics, dict)
+                else None
+            ),
+        }
 
     def get_published_races(self) -> List[str]:
         """List available race IDs.
@@ -190,6 +236,48 @@ class SimplePublishService:
                     race_ids.add(file_path.stem)
 
         return sorted(race_ids)
+
+    def get_race_summaries(self) -> List[Dict]:
+        """Return cached race summaries built directly from stored race JSON."""
+        cached = self._cache_get_race_summaries()
+        if cached is not None:
+            return cached
+
+        summaries: List[Dict] = []
+        client = self._get_gcs_client()
+
+        if client:
+            try:
+                bucket = client.bucket(self.gcs_bucket_name)
+                for blob in bucket.list_blobs(prefix="races/"):
+                    if not blob.name.endswith(".json"):
+                        continue
+                    try:
+                        race_data = json.loads(blob.download_as_text())
+                    except (json.JSONDecodeError, OSError, ValueError):
+                        logger.warning("Failed to parse race summary blob %s", blob.name, exc_info=True)
+                        continue
+                    race_id = blob.name[len("races/") : -len(".json")]
+                    summaries.append(self._summary_from_race_data(race_id, race_data))
+                summaries.sort(key=lambda item: item.get("id", ""))
+                self._cache_set_race_summaries(summaries)
+                return summaries
+            except Exception as e:
+                logger.warning("Error building summaries from GCS, falling back to local: %s", e, exc_info=True)
+
+        if self.data_directory.exists():
+            for file_path in sorted(self.data_directory.glob("*.json")):
+                try:
+                    with open(file_path, "r", encoding="utf-8") as f:
+                        race_data = json.load(f)
+                    if "race_json" in race_data and isinstance(race_data["race_json"], dict):
+                        race_data = race_data["race_json"]
+                    summaries.append(self._summary_from_race_data(file_path.stem, race_data))
+                except (json.JSONDecodeError, IOError, ValueError):
+                    logger.warning("Failed to parse local race summary file %s", file_path, exc_info=True)
+
+        self._cache_set_race_summaries(summaries)
+        return summaries
 
     def get_race_data(self, race_id: str) -> Optional[Dict]:
         """Retrieve race data by ID from local files or cloud storage.

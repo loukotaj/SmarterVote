@@ -26,6 +26,8 @@ from pipeline_client.agent.agent import (
     SEARCH_TOOL,
     _agent_loop,
     _extract_json,
+    _fetch_page,
+    _is_unusable_page_text,
     _load_existing,
     _select_target_candidates,
     _serper_search,
@@ -465,6 +467,43 @@ async def test_serper_search_uses_cache():
 
     assert results == [{"title": "Cached", "snippet": "...", "url": "https://cached.com"}]
     mock_cache.get.assert_called_once_with("test query", "my-race")
+
+
+def test_is_unusable_page_text_detects_block_pages():
+    """Blocked placeholder content is treated as unusable."""
+    blocked = "Please enable JavaScript to continue. Attention required by security check."
+    assert _is_unusable_page_text(blocked) is True
+
+
+@pytest.mark.asyncio
+async def test_fetch_page_uses_proxy_fallback_when_primary_unusable():
+    """_fetch_page falls back to proxy when direct fetch is too short/useless."""
+
+    class _Resp:
+        def __init__(self, text: str, content_type: str = "text/html; charset=utf-8"):
+            self.text = text
+            self.headers = {"content-type": content_type}
+
+        def raise_for_status(self):
+            return None
+
+    mock_client = MagicMock()
+    mock_client.get = AsyncMock(
+        side_effect=[
+            _Resp("<html><body>Please enable JavaScript</body></html>"),
+            _Resp("<html><body>Please enable JavaScript</body></html>"),
+            _Resp("Proxy recovered page text " + ("x" * 500), "text/plain"),
+        ]
+    )
+
+    with (
+        patch("pipeline_client.agent.agent._get_search_cache", return_value=None),
+        patch("pipeline_client.agent.agent._get_fetch_client", return_value=mock_client),
+    ):
+        result = await _fetch_page("https://www.example.com/issues")
+
+    assert "Proxy recovered page text" in result
+    assert "[Failed to fetch" not in result
 
 
 # ---------------------------------------------------------------------------

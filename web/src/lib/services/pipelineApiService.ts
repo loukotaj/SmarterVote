@@ -17,9 +17,10 @@ export interface PublishedRaceSummary {
   title?: string;
   office?: string;
   jurisdiction?: string;
+  state?: string;
   election_date: string;
   updated_utc: string;
-  candidates: { name: string; party?: string }[];
+  candidates: { name: string; party?: string; incumbent?: boolean; image_url?: string }[];
   agent_metrics?: { estimated_usd?: number; model?: string; total_tokens?: number } | null;
 }
 

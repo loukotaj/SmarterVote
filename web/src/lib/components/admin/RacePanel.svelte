@@ -1,6 +1,14 @@
 <script lang="ts">
   import { createEventDispatcher, onMount } from "svelte";
   import { PipelineApiService } from "$lib/services/pipelineApiService";
+  import {
+    applyReviewerModelOptions,
+    createDefaultReviewerEnabled,
+    createDefaultReviewerModels,
+    REVIEWER_DEFS,
+    RESEARCH_MODELS,
+    type ReviewerKey,
+  } from "$lib/config/pipelineOptions";
   import QualityBadge from "./QualityBadge.svelte";
   import type { RaceRecord, RunInfo, RunOptions } from "$lib/types";
   import { PIPELINE_STEPS } from "$lib/types";
@@ -43,33 +51,8 @@
   );
   let researchModel = "";
 
-  type ReviewerKey = "claude" | "gemini" | "grok";
-  const REVIEWER_DEFS: { key: ReviewerKey; name: string; options: { value: string; label: string }[] }[] = [
-    { key: "claude", name: "Claude", options: [
-      { value: "claude-sonnet-4-6", label: "Claude Sonnet 4.6" },
-      { value: "claude-haiku-4-5-20251001", label: "Claude Haiku 4.5" },
-    ]},
-    { key: "gemini", name: "Gemini", options: [
-      { value: "gemini-3-flash-preview", label: "Gemini 3 Flash" },
-      { value: "gemini-3.1-flash-lite-preview", label: "Gemini 3.1 Flash Lite" },
-    ]},
-    { key: "grok", name: "Grok", options: [
-      { value: "grok-3", label: "Grok 3" },
-      { value: "grok-3-mini", label: "Grok 3 mini" },
-    ]},
-  ];
-  const RESEARCH_MODELS = [
-    { value: "", label: "Auto (cheap mode selects)" },
-    { value: "gpt-5.4", label: "GPT-5.4 — best quality" },
-    { value: "gpt-5.4-mini", label: "GPT-5.4 mini — fast & smart" },
-    { value: "gpt-5-nano", label: "GPT-5 nano — fastest & cheapest" },
-  ];
-  let reviewerEnabled: Record<ReviewerKey, boolean> = { claude: false, gemini: false, grok: false };
-  let reviewerModels: Record<ReviewerKey, string> = {
-    claude: "claude-sonnet-4-6",
-    gemini: "gemini-3-flash-preview",
-    grok: "grok-3",
-  };
+  let reviewerEnabled: Record<ReviewerKey, boolean> = createDefaultReviewerEnabled();
+  let reviewerModels: Record<ReviewerKey, string> = createDefaultReviewerModels();
 
   // Action states
   let running = false;
@@ -110,10 +93,7 @@
     if (maxCandidates !== null && maxCandidates > 0) opts.max_candidates = maxCandidates;
     if (targetNoInfo) opts.target_no_info = true;
     if (candidateNames.length > 0) opts.candidate_names = candidateNames;
-    if (reviewerEnabled.claude) opts.claude_model = reviewerModels.claude;
-    if (reviewerEnabled.gemini) opts.gemini_model = reviewerModels.gemini;
-    if (reviewerEnabled.grok) opts.grok_model = reviewerModels.grok;
-    return opts;
+    return applyReviewerModelOptions(opts, reviewerEnabled, reviewerModels);
   }
 
   async function handleRun() {

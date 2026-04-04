@@ -2,7 +2,7 @@ from datetime import datetime
 from enum import Enum
 from typing import Any, Dict, List, Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator, model_validator
 
 
 class RunStatus(str, Enum):
@@ -72,6 +72,35 @@ class RunOptions(BaseModel):
     # Candidate analysis limits
     max_candidates: Optional[int] = None  # Max candidates to research (None = all)
     target_no_info: bool = False  # Prioritise candidates with least existing info
+    candidate_names: Optional[List[str]] = None  # Restrict update/research to named candidates
+
+    @field_validator("enabled_steps")
+    @classmethod
+    def validate_enabled_steps(cls, value: Optional[List[str]]) -> Optional[List[str]]:
+        if value is None:
+            return None
+        normalized = [step.strip() for step in value if isinstance(step, str) and step.strip()]
+        if not normalized:
+            raise ValueError("enabled_steps cannot be empty when provided")
+        deduped = list(dict.fromkeys(normalized))
+        invalid = [step for step in deduped if step not in ALL_STEPS]
+        if invalid:
+            raise ValueError(f"Unknown enabled_steps: {', '.join(invalid)}")
+        return deduped
+
+    @field_validator("candidate_names")
+    @classmethod
+    def normalize_candidate_names(cls, value: Optional[List[str]]) -> Optional[List[str]]:
+        if value is None:
+            return None
+        normalized = [name.strip() for name in value if isinstance(name, str) and name.strip()]
+        return list(dict.fromkeys(normalized)) or None
+
+    @model_validator(mode="after")
+    def validate_step_dependencies(self) -> "RunOptions":
+        if self.enabled_steps and "iteration" in self.enabled_steps and "review" not in self.enabled_steps:
+            raise ValueError("'iteration' requires 'review' in enabled_steps")
+        return self
     candidate_names: Optional[List[str]] = None  # Exact candidate names to target
 
 

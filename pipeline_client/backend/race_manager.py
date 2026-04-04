@@ -399,7 +399,12 @@ class RaceManager:
     def publish_race(self, race_id: str) -> RaceRecord:
         """Mark race as published."""
         now = _now_iso()
-        return self.upsert_race(race_id, status="published", published_at=now)
+        record = self.upsert_race(race_id, status="published", published_at=now)
+        # Ensure read-after-write consistency in cloud mode. Publish endpoints
+        # call update_race_metadata() immediately after this, and that method
+        # re-reads from storage before writing.
+        self._flush_race_to_firestore(record)
+        return record
 
     def delete_draft(self, race_id: str) -> RaceRecord:
         """Clear draft state from race record. status becomes published (if published) or empty."""

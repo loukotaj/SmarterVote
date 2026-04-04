@@ -12,6 +12,12 @@ class CandidateSummary(BaseModel):
     image_url: str | None = None
 
 
+class AgentMetricsSummary(BaseModel):
+    estimated_usd: float | None = None
+    model: str | None = None
+    total_tokens: int | None = None
+
+
 class RaceSummary(BaseModel):
     """Summary of race for search and listing purposes."""
 
@@ -23,3 +29,4 @@ class RaceSummary(BaseModel):
     election_date: str
     updated_utc: str
     candidates: List[CandidateSummary]
+    agent_metrics: AgentMetricsSummary | None = None

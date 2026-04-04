@@ -97,6 +97,12 @@ variable "enable_pipeline_client" {
   default     = false
 }
 
+variable "pipeline_client_public_invoker" {
+  description = "Expose the pipeline client Cloud Run service to unauthenticated invokers. Keep false unless application-level auth and network exposure are intentionally desired."
+  type        = bool
+  default     = false
+}
+
 # Monitoring / alerting
 variable "alert_email" {
   description = "Email address to receive GCP monitoring alerts. Leave empty to disable alert policies."
