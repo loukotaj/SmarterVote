@@ -5,17 +5,25 @@ Storage strategy:
 - Active (pending/running) runs are kept in-memory only — Cloud Run is single-instance,
   so this is safe and fast for hot-path updates.
 - Completed/failed/cancelled runs are persisted to Firestore (collection: "pipeline_runs")
-  in a background thread so the hot path is never blocked.
+  via a single-threaded background writer so the hot path is never blocked.
 - Local dev (no FIRESTORE_PROJECT env var): completed runs live in an in-memory dict and
   are lost on restart — acceptable for local experimentation.
 
 Firestore is the single source of truth; there is no local-file sync and no GCS run storage.
+
+Write ordering guarantee: all Firestore writes go through a single-threaded executor
+(ThreadPoolExecutor with max_workers=1). Snapshots are taken in the calling thread
+before submitting, so each submission captures the exact state at the moment of the call
+and writes are always applied in FIFO order. This prevents the race condition where
+multiple writes spawned in rapid succession (e.g. step-upfront creation, fast step
+transitions) could land on Firestore out of order and produce an inconsistent step-status
+view on page reload.
 """
 
 import logging
 import os
-import threading
 import uuid
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 
@@ -33,6 +41,12 @@ class RunManager:
         # Completed-run store: Firestore client in production, in-memory dict in local dev
         self._db: Optional[Any] = None  # google.cloud.firestore.Client when available
         self._local_history: Dict[str, RunInfo] = {}  # local dev fallback
+        # Single-threaded executor ensures Firestore writes are always applied in FIFO
+        # order, preventing stale out-of-order writes from producing inconsistent state
+        # on page reload.
+        self._write_executor: ThreadPoolExecutor = ThreadPoolExecutor(
+            max_workers=1, thread_name_prefix="fs-writer"
+        )
         self._init_store()
 
     def _init_store(self) -> None:
@@ -318,38 +332,39 @@ class RunManager:
         return []
 
     def _save_run(self, run_info: RunInfo):
-        """Persist active run state to Firestore so step progress survives page refreshes."""
+        """Persist active run state to Firestore so step progress survives page refreshes.
+
+        The snapshot is taken in the calling thread so it captures the exact run state
+        at the moment of the call. The write is submitted to a single-threaded executor
+        so all writes are applied in FIFO order, preventing out-of-order Firestore updates.
+        """
         if self._db is not None:
-            threading.Thread(
-                target=self._write_firestore,
-                args=(run_info,),
-                daemon=True,
-                name=f"fs-save-run-{run_info.run_id[:8]}",
-            ).start()
+            # Snapshot NOW in the calling thread (not inside the background task).
+            # This guarantees: (a) each write reflects the state at the moment _save_run
+            # was called, and (b) the single-threaded executor ensures writes land in the
+            # order they were submitted — no stale write can overwrite a newer one.
+            data = run_info.model_dump(mode="json")
+            data.pop("logs", None)  # logs are ephemeral; not stored in Firestore
+            self._write_executor.submit(self._write_firestore_data, run_info.run_id, data)
 
     def _persist_background(self, run_info: RunInfo) -> None:
         """Fire-and-forget: persist a completed/failed/cancelled run to Firestore (or local dict)."""
         if self._db is not None:
-            threading.Thread(
-                target=self._write_firestore,
-                args=(run_info,),
-                daemon=True,
-                name=f"fs-write-run-{run_info.run_id[:8]}",
-            ).start()
+            data = run_info.model_dump(mode="json")
+            data.pop("logs", None)  # logs are ephemeral; not stored in Firestore
+            self._write_executor.submit(self._write_firestore_data, run_info.run_id, data)
         else:
             # Local dev: store in-memory (ephemeral)
             self._local_history[run_info.run_id] = run_info
 
-    def _write_firestore(self, run_info: RunInfo) -> None:
-        """Write run metadata to Firestore. Logs are excluded (in-memory only, can be large)."""
+    def _write_firestore_data(self, run_id: str, data: dict) -> None:
+        """Write a pre-serialized run snapshot to Firestore (runs inside the write executor)."""
         if self._db is None:
             return
         try:
-            data = run_info.model_dump(mode="json")
-            data.pop("logs", None)  # logs are ephemeral; not stored in Firestore
-            self._db.collection(_COLLECTION).document(run_info.run_id).set(data)
+            self._db.collection(_COLLECTION).document(run_id).set(data)
         except Exception:
-            logging.getLogger(__name__).exception("Firestore write failed for run %s", run_info.run_id)
+            logging.getLogger(__name__).exception("Firestore write failed for run %s", run_id)
 
     # sync_from_gcs is intentionally removed: Firestore is now the source of truth.
 
