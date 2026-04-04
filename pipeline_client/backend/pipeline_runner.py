@@ -252,6 +252,18 @@ async def run_step_async(step: str, request: RunRequest, run_id: Optional[str] =
 
         await logging_manager.send_run_status(run_id, "failed", error=error_msg, duration_ms=duration_ms)
 
+        # Record pipeline metrics for failed run
+        try:
+            from pipeline_client.backend.pipeline_metrics import get_pipeline_metrics_store
+            _cheap_mode = bool(_merge_options(request.options).get("cheap_mode", True))
+            await get_pipeline_metrics_store().record_run(
+                run_id, race_id or "unknown", None, "failed",
+                candidate_count=0,
+                cheap_mode=_cheap_mode,
+            )
+        except Exception:
+            context_logger.warning("Failed to record pipeline metrics for failed run", exc_info=True)
+
         # Send run_failed message that frontend expects
         _safe_broadcast({"type": "run_failed", "run_id": run_id, "error": error_msg, "duration_ms": duration_ms})
 

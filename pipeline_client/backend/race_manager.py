@@ -140,21 +140,22 @@ class RaceManager:
     # ── Race CRUD ─────────────────────────────────────────────────────────
 
     def get_race(self, race_id: str) -> Optional[RaceRecord]:
-        # Always prefer local cache — it is updated synchronously on every write,
-        # so it is always at least as fresh as Firestore (which is written async).
-        if race_id in self._local_races:
-            return self._local_races[race_id]
+        # In cloud mode always read from Firestore so every Cloud Run instance sees
+        # the latest state (local cache is per-instance and goes stale after writes
+        # on other instances).  Local cache is only used in local-dev mode or as a
+        # fallback when Firestore is unreachable.
         if self._db is not None:
             try:
                 doc = self._db.collection(_COLLECTION).document(race_id).get()
                 if doc.exists:
                     record = RaceRecord(**(doc.to_dict() or {}))
-                    self._local_races[race_id] = record  # populate cache on Firestore hit
+                    self._local_races[race_id] = record  # keep warm for fallback
                     return record
+                return None
             except Exception:
-                logger.exception("Firestore get failed for race %s", race_id)
-            return None
-        return None
+                logger.exception("Firestore get failed for race %s — falling back to local cache", race_id)
+                return self._local_races.get(race_id)
+        return self._local_races.get(race_id)
 
     def list_races(self, limit: int = 200) -> List[RaceRecord]:
         if self._db is not None:

@@ -28,7 +28,7 @@ class PipelineMetricsStore:
         run_id          str   — unique run ID (UUID)
         race_id         str   — race identifier (e.g. ``mo-senate-2024``)
         timestamp       str   — ISO-8601 UTC
-        status          str   — ``"completed"`` | ``"failed"`` | ``"partial"``
+        status          str   — ``"completed"`` | ``"failed"``
         model           str   — primary LLM model used
         prompt_tokens   int
         completion_tokens int
@@ -36,6 +36,8 @@ class PipelineMetricsStore:
         estimated_usd   float — total estimated spend including review models
         model_breakdown dict  — per-model token breakdown
         duration_s      float — wall-clock run time in seconds
+        candidate_count int   — number of candidates in the output (0 for failed runs)
+        cheap_mode      bool  — whether the run used cheap/fast model variants
     """
 
     _COLLECTION = "pipeline_metrics"
@@ -288,7 +290,10 @@ class PipelineMetricsStore:
                 total_runs += 1
                 usd = data.get("estimated_usd", 0.0)
                 total_usd += usd
-                if data.get("status") == "completed":
+                # Older docs written before the status field was added lack this field;
+                # treat missing/empty status as "completed" since the collection was
+                # only written in the success path at that time.
+                if (data.get("status") or "completed") == "completed":
                     completed_runs += 1
                 if data.get("timestamp", "") >= cutoff:
                     recent_usd += usd
