@@ -20,7 +20,6 @@ from pydantic import BaseModel
 
 class QueueItemOptions(BaseModel):
     cheap_mode: bool = True
-    enable_review: bool = True
     save_artifact: bool = True
     force_fresh: bool = False
     research_model: Optional[str] = None
@@ -30,6 +29,7 @@ class QueueItemOptions(BaseModel):
     enabled_steps: Optional[List[str]] = None
     max_candidates: Optional[int] = None
     target_no_info: bool = False
+    candidate_names: Optional[List[str]] = None
 
 
 class QueueItem(BaseModel):

@@ -100,9 +100,6 @@
             <span>· {formatDuration(run.duration_ms)}</span>
           {/if}
           <span class="ml-auto font-mono">{modelLabel(run)}</span>
-          {#if run.options?.enable_review}
-            <span title="AI review enabled" class="text-purple-400">✦</span>
-          {/if}
         </div>
       </button>
     {:else}

@@ -24,7 +24,8 @@
 
   // race counts per state for tooltip
   $: raceCounts = races.reduce<Record<string, number>>((acc, r) => {
-    if (r.jurisdiction) acc[r.jurisdiction] = (acc[r.jurisdiction] ?? 0) + 1;
+    const stateKey = r.state ?? r.jurisdiction;
+    if (stateKey) acc[stateKey] = (acc[stateKey] ?? 0) + 1;
     return acc;
   }, {});
 
@@ -47,7 +48,8 @@
 
   // filtering chain: state > office > text
   $: filteredRaces = races.filter((race) => {
-    if (selectedState && race.jurisdiction !== selectedState) return false;
+    const raceState = race.state ?? race.jurisdiction;
+    if (selectedState && raceState !== selectedState) return false;
     if (selectedOffice && officeShort(race.office) !== selectedOffice) return false;
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();

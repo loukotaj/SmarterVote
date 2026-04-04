@@ -40,6 +40,7 @@ export interface Source {
 }
 
 export interface IssueStance {
+  issue?: CanonicalIssue;
   stance: string;
   confidence: ConfidenceLevel;
   sources: Source[];
@@ -141,6 +142,7 @@ export interface Race {
   polling_note?: string;
   reviews?: AgentReview[];
   validation_grade?: ValidationGrade;
+  agent_metrics?: AgentMetrics;
 }
 
 export const CANONICAL_ISSUES: CanonicalIssue[] = [
@@ -174,6 +176,11 @@ export interface RaceSummary {
   election_date: string;
   updated_utc: string;
   candidates: CandidateSummary[];
+  agent_metrics?: {
+    estimated_usd?: number;
+    model?: string;
+    total_tokens?: number;
+  } | null;
 }
 
 // Pipeline run types
@@ -208,7 +215,6 @@ export const PIPELINE_STEPS: { id: PipelineStepId; label: string; weight: number
 export interface RunOptions {
   save_artifact?: boolean;
   note?: string;
-  enable_review?: boolean;
   cheap_mode?: boolean;
   force_fresh?: boolean;
   research_model?: string;
@@ -218,6 +224,7 @@ export interface RunOptions {
   enabled_steps?: string[];
   max_candidates?: number;
   target_no_info?: boolean;
+  candidate_names?: string[];
 }
 
 export interface RunStep {

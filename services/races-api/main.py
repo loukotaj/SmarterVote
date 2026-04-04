@@ -19,7 +19,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "..", ".."))
 from analytics_middleware import AnalyticsMiddleware
 from analytics_store import AnalyticsStore
 from config import DATA_DIR
-from fastapi import FastAPI, Header, HTTPException, Request
+from fastapi import FastAPI, Header, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from schemas import CandidateSummary, RaceSummary
@@ -142,14 +142,24 @@ def clear_cache(request: Request, x_admin_key: str = Header(default="")):
 
 
 @app.get("/analytics/overview")
-async def analytics_overview(request: Request, hours: int = 24, x_admin_key: str = Header(default="")):
+@limiter.limit("20/minute")
+async def analytics_overview(
+    request: Request,
+    hours: int = Query(default=24, ge=1, le=720),
+    x_admin_key: str = Header(default=""),
+):
     """Summary stats: total requests, unique visitors, avg latency, error rate, timeseries."""
     _require_admin_key(x_admin_key)
     return await request.app.state.analytics.get_overview(hours=hours)
 
 
 @app.get("/analytics/races")
-async def analytics_races(request: Request, hours: int = 24, x_admin_key: str = Header(default="")):
+@limiter.limit("20/minute")
+async def analytics_races(
+    request: Request,
+    hours: int = Query(default=24, ge=1, le=720),
+    x_admin_key: str = Header(default=""),
+):
     """Per-race request counts for the last *hours* hours."""
     _require_admin_key(x_admin_key)
     stats = await request.app.state.analytics.get_race_stats(hours=hours)
@@ -164,10 +174,11 @@ async def analytics_races(request: Request, hours: int = 24, x_admin_key: str = 
 
 
 @app.get("/analytics/timeseries")
+@limiter.limit("20/minute")
 async def analytics_timeseries(
     request: Request,
-    hours: int = 24,
-    bucket: int = 60,
+    hours: int = Query(default=24, ge=1, le=720),
+    bucket: int = Query(default=60, ge=5, le=360),
     x_admin_key: str = Header(default=""),
 ):
     """Bucketed request counts for charting. *bucket* is the bucket size in minutes."""

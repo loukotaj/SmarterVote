@@ -59,7 +59,6 @@ STEP_WEIGHTS: Dict[str, int] = {
 class RunOptions(BaseModel):
     cheap_mode: bool = True  # Use cheaper/faster model variants
     save_artifact: bool = True
-    enable_review: bool = False  # Send to Claude/Gemini/Grok for fact-checking
     note: Optional[str] = None
     force_fresh: bool = False  # Ignore existing data and start from scratch
     # Model overrides (None = use default based on cheap_mode)
@@ -73,6 +72,7 @@ class RunOptions(BaseModel):
     # Candidate analysis limits
     max_candidates: Optional[int] = None  # Max candidates to research (None = all)
     target_no_info: bool = False  # Prioritise candidates with least existing info
+    candidate_names: Optional[List[str]] = None  # Exact candidate names to target
 
 
 class RunRequest(BaseModel):

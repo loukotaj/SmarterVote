@@ -67,6 +67,7 @@ export async function getRaceSummaries(
         title: race.title,
         office: race.office,
         jurisdiction: race.jurisdiction,
+        state: race.state,
         election_date: race.election_date,
         updated_utc: race.updated_utc,
         candidates: race.candidates.map((candidate) => ({

@@ -297,17 +297,29 @@ class SearchCache:
         }
 
     def cleanup_expired(self) -> int:
-        """Remove expired cache entries. Returns count of removed entries."""
+        """Remove expired cache entries from both search and page caches."""
+        now = datetime.utcnow().isoformat()
         with sqlite3.connect(self.db_path) as conn:
-            cursor = conn.execute(
+            search_cursor = conn.execute(
                 "DELETE FROM search_cache WHERE expires_at <= ?",
-                (datetime.utcnow().isoformat(),),
+                (now,),
+            )
+            page_cursor = conn.execute(
+                "DELETE FROM page_cache WHERE expires_at <= ?",
+                (now,),
             )
             conn.commit()
-            removed = cursor.rowcount
+            removed_search = search_cursor.rowcount
+            removed_pages = page_cursor.rowcount
 
+        removed = removed_search + removed_pages
         if removed > 0:
-            logger.info(f"Cleaned up {removed} expired search cache entries")
+            logger.info(
+                "Cleaned up %s expired cache entries (%s search, %s page)",
+                removed,
+                removed_search,
+                removed_pages,
+            )
 
         return removed
 
@@ -321,7 +333,7 @@ class SearchCache:
         logger.info(f"Cleared {removed} search cache entries for race {race_id}")
         return removed
 
-    def list_cached_for_race(self, race_id: str) -> Dict[str, List[str]]:
+    def list_cached_for_race(self, race_id: str) -> Dict[str, Any]:
         """Return cached search queries and their result URLs for a race.
 
         Returns ``{"searches": [{"query": ..., "urls": [...]}], "page_urls": [...]}``
@@ -354,13 +366,14 @@ class SearchCache:
         return {"searches": searches, "page_urls": page_urls}
 
     def clear_all(self) -> int:
-        """Clear all cache entries."""
+        """Clear all cache entries across search and page caches."""
         with sqlite3.connect(self.db_path) as conn:
-            cursor = conn.execute("DELETE FROM search_cache")
+            search_cursor = conn.execute("DELETE FROM search_cache")
+            page_cursor = conn.execute("DELETE FROM page_cache")
             conn.commit()
-            removed = cursor.rowcount
+            removed = search_cursor.rowcount + page_cursor.rowcount
 
-        logger.info(f"Cleared all {removed} search cache entries")
+        logger.info(f"Cleared all {removed} cache entries")
         return removed
 
 

@@ -155,7 +155,7 @@ When triggering a run, the `options` object supports:
 |--------|------|---------|---------|
 | `cheap_mode` | bool | `true` | Use cheaper/faster model variants |
 | `save_artifact` | bool | `true` | Save full run artifact for later inspection |
-| `enable_review` | bool | `false` | Send output to Claude, Gemini, and Grok |
+| `enabled_steps` | string[] | `null` (all steps) | Select which pipeline steps to run; include `review` (and optionally `iteration`) to run multi-model review |
 | `research_model` | string | `null` | Override OpenAI research model |
 | `claude_model` | string | `null` | Override Claude review model |
 | `gemini_model` | string | `null` | Override Gemini review model |

@@ -358,19 +358,21 @@
   </div>
 
   <!-- Run configuration summary (when options are interesting) -->
-  {#if run && (run.options?.cheap_mode === false || run.options?.enable_review || run.options?.max_candidates || run.options?.target_no_info || run.options?.enabled_steps)}
+  {#if run && (run.options?.cheap_mode === false || run.options?.max_candidates || run.options?.target_no_info || run.options?.candidate_names || run.options?.enabled_steps)}
     <div class="flex flex-wrap items-center gap-2 text-xs">
       {#if run.options.cheap_mode === false}
         <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300 font-medium">Full Mode</span>
-      {/if}
-      {#if run.options.enable_review}
-        <span class="px-2 py-0.5 rounded-full bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300 font-medium">AI Review</span>
       {/if}
       {#if run.options.max_candidates}
         <span class="px-2 py-0.5 rounded-full bg-surface-alt text-content-muted font-medium">Max {run.options.max_candidates} candidates</span>
       {/if}
       {#if run.options.target_no_info}
         <span class="px-2 py-0.5 rounded-full bg-surface-alt text-content-muted font-medium">No-info priority</span>
+      {/if}
+      {#if run.options.candidate_names && run.options.candidate_names.length > 0}
+        <span class="px-2 py-0.5 rounded-full bg-surface-alt text-content-muted font-medium">
+          Targets: {run.options.candidate_names.join(", ")}
+        </span>
       {/if}
       {#if run.options.enabled_steps && run.options.enabled_steps.length < 7}
         <span class="px-2 py-0.5 rounded-full bg-surface-alt text-content-muted font-medium">{run.options.enabled_steps.length} steps enabled</span>

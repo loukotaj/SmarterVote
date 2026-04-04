@@ -229,22 +229,7 @@ async def _resolve_single_image(
     context_parts = [p for p in (jurisdiction, office) if p]
     search_context = " ".join(context_parts)
 
-    # Fast path 1: query Wikipedia API directly (no LLM call needed)
-    log("info", f"  [{name}] Trying Wikipedia API lookup...")
-    wiki_url = await _lookup_wikipedia_image(name, context=search_context)
-    if wiki_url:
-        log("info", f"  [{name}] Wikipedia API returned: {wiki_url[:80]}")
-        accessible, final_url = await _check_url_accessible(wiki_url)
-        if accessible:
-            store_url = final_url if _is_valid_image_url(final_url) else wiki_url
-            candidate["image_url"] = store_url
-            log("info", f"  [{name}] Wikipedia image confirmed → {store_url[:80]}")
-            return
-        log("info", f"  [{name}] Wikipedia URL not accessible — trying Ballotpedia")
-    else:
-        log("info", f"  [{name}] Wikipedia API found no image — trying Ballotpedia")
-
-    # Fast path 2: Ballotpedia API (covers virtually every US candidate)
+    # Fast path 1: Ballotpedia API (politics-specific, no name-collision risk)
     log("info", f"  [{name}] Trying Ballotpedia API lookup...")
     bp_url = await _lookup_ballotpedia_image(name)
     if bp_url:
@@ -255,9 +240,26 @@ async def _resolve_single_image(
             candidate["image_url"] = store_url
             log("info", f"  [{name}] Ballotpedia image confirmed → {store_url[:80]}")
             return
-        log("info", f"  [{name}] Ballotpedia URL not accessible — falling back to agent search")
+        log("info", f"  [{name}] Ballotpedia URL not accessible — trying Wikipedia")
     else:
-        log("info", f"  [{name}] Ballotpedia API found no image — falling back to agent search")
+        log("info", f"  [{name}] Ballotpedia API found no image — trying Wikipedia")
+
+    # Fast path 2: query Wikipedia API directly (no LLM call needed)
+    # Note: tried after Ballotpedia to avoid name-collision false positives
+    # (e.g. "Jeff Wadlin" matching "Jeff Wadlow" the film director).
+    log("info", f"  [{name}] Trying Wikipedia API lookup...")
+    wiki_url = await _lookup_wikipedia_image(name, context=search_context)
+    if wiki_url:
+        log("info", f"  [{name}] Wikipedia API returned: {wiki_url[:80]}")
+        accessible, final_url = await _check_url_accessible(wiki_url)
+        if accessible:
+            store_url = final_url if _is_valid_image_url(final_url) else wiki_url
+            candidate["image_url"] = store_url
+            log("info", f"  [{name}] Wikipedia image confirmed → {store_url[:80]}")
+            return
+        log("info", f"  [{name}] Wikipedia URL not accessible — falling back to agent search")
+    else:
+        log("info", f"  [{name}] Wikipedia API found no image — falling back to agent search")
 
     # Ask the agent to find a working image URL
     from .prompts import IMAGE_SEARCH_SYSTEM, IMAGE_SEARCH_USER

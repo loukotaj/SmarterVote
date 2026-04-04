@@ -86,7 +86,7 @@ variable "auth0_audience" {
 variable "allowed_origins" {
   description = "Allowed CORS origins for pipeline client"
   type        = list(string)
-  default     = ["*"]
+  default     = ["http://localhost:5173", "http://127.0.0.1:5173"]
 }
 
 # Pipeline Client Deployment Toggle

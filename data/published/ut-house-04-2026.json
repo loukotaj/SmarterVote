@@ -1,0 +1,1916 @@
+{
+  "id": "ut-house-04-2026",
+  "title": "Utah U.S. House District 4 election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Utah's 4th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "This race is for Utah\u2019s 4th Congressional District seat in the U.S. House of Representatives, with the general election set for Nov. 3, 2026. It matters because all 435 House seats are on the ballot and the outcome will affect control of the chamber. Utah\u2019s court-ordered 2026 congressional map reshaped the district, making the Republican primary the main contest. The field includes incumbent Republican Mike Kennedy; Republican primary challengers Pasitale Lupeamanu and Seth Stewart; Democratic challenger Archie Williams III; and independent Steven Burt.",
+  "polling": [],
+  "polling_note": "No public polling was found for this race as of 2026-04-02.",
+  "candidates": [
+    {
+      "name": "Mike Kennedy",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Mike Kennedy is a Republican member of the U.S. House representing Utah\u2019s 3rd Congressional District and is running for the Republican nomination in Utah\u2019s 4th Congressional District in 2026. Before Congress, he served in the Utah Legislature and worked as a family doctor and attorney.",
+      "summary_sources": [
+        {
+          "url": "https://www.congress.gov/member/mike-kennedy/K000403",
+          "type": "official",
+          "title": "Mike Kennedy | Congress.gov"
+        },
+        {
+          "url": "https://mikekennedy.house.gov/",
+          "type": "official",
+          "title": "Congressman Mike Kennedy | House.gov"
+        },
+        {
+          "url": "https://vote.utah.gov/wp-content/uploads/2026/03/CD4-Mike-Kennedy.pdf",
+          "type": "official",
+          "title": "Mike Kennedy - Utah Declaration of Candidacy"
+        }
+      ],
+      "image_url": null,
+      "website": "https://mikekennedy.house.gov/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/KennedyForUtah/",
+        "instagram": "https://www.instagram.com/repmikekennedy/",
+        "x": "https://x.com/KennedyForUtah",
+        "youtube": "https://www.youtube.com/watch?v=Blyi4DoTY2c"
+      },
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Represents Utah's 4th Congressional District."
+        },
+        {
+          "title": "Physician",
+          "organization": "Private practice / medical career",
+          "start_year": null,
+          "end_year": null,
+          "description": "Medical doctor; campaign and biography materials describe him as a family doctor."
+        },
+        {
+          "title": "Attorney",
+          "organization": "Private practice",
+          "start_year": null,
+          "end_year": null,
+          "description": "Practiced law in addition to medicine."
+        },
+        {
+          "title": "State legislator",
+          "organization": "Utah Legislature",
+          "start_year": 2015,
+          "end_year": 2024,
+          "description": "Served in the Utah State Legislature before election to Congress."
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Miami",
+          "degree": "Bachelor's",
+          "field": "Biology and chemistry",
+          "year": null
+        },
+        {
+          "institution": "University of Utah",
+          "degree": "M.D.",
+          "field": "Medicine",
+          "year": null
+        },
+        {
+          "institution": "University of Utah",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": null
+        }
+      ],
+      "donor_summary": "Mike Kennedy\u2019s federal campaign committee reported $610,158.88 in total receipts for 2025, including $574,063.88 in contributions and $290,500 from other committees. OpenSecrets shows his 2023\u20132024 PAC money was led by ideological/single-issue PACs ($136,850), followed by health ($58,500) and finance/insurance/real estate ($38,500), with business PACs slightly outweighing ideological PACs overall.",
+      "donor_source_url": "https://www.fec.gov/data/committee/C00864488/",
+      "voting_summary": "Kennedy is a sitting U.S. House member, so he has a legislative voting record. GovTrack shows he has voted mostly with the House Republican majority on recent roll calls, including support for AGOA extension and opposition to several appropriations and preparedness measures; he missed 12 of 470 votes from Jan. 2025 to Mar. 2026 (2.6%).",
+      "voting_source_url": "https://www.govtrack.us/congress/members/mike_kennedy/457025",
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Mike_Kennedy_(Utah)",
+          "title": "Mike Kennedy (Utah) - Ballotpedia",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://www.govtrack.us/congress/members/mike_kennedy/457025",
+          "title": "Rep. Mike Kennedy - GovTrack.us",
+          "type": "govtrack"
+        },
+        {
+          "url": "https://www.fec.gov/data/committee/C00864488/",
+          "title": "MIKE KENNEDY FOR UTAH - committee overview - FEC",
+          "type": "finance"
+        },
+        {
+          "url": "https://www.opensecrets.org/members-of-congress/mike-kennedy/pacs?cid=N00043086&cycle=2024",
+          "title": "Rep. Mike Kennedy - Utah - OpenSecrets",
+          "type": "finance"
+        },
+        {
+          "url": "http://mikekennedy.house.gov/",
+          "title": "Congressman Mike Kennedy | Representing Utah's 3rd Congressional District",
+          "type": "official"
+        },
+        {
+          "url": "https://vote.utah.gov/wp-content/uploads/2026/03/CD4-Mike-Kennedy.pdf",
+          "title": "Mike Kennedy - Utah Declaration of Candidacy",
+          "type": "legislature"
+        },
+        {
+          "url": "https://ballotpedia.org/Utah%27s_4th_Congressional_District_election,_2026",
+          "title": "Utah's 4th Congressional District election, 2026",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/H4UT03260/",
+          "title": "KENNEDY, MIKE - Candidate overview - FEC",
+          "type": "finance"
+        },
+        {
+          "url": "https://justfacts.votesmart.org/candidate/137469/mike-kennedy",
+          "title": "Mike Kennedy - Vote Smart",
+          "type": "votesmart"
+        },
+        {
+          "url": "https://mikekennedy.house.gov/",
+          "title": "Congressman Mike Kennedy | House.gov",
+          "type": "official"
+        },
+        {
+          "url": "https://www.congress.gov/member/mike-kennedy/K000403",
+          "title": "Mike Kennedy | Congress.gov",
+          "type": "official"
+        }
+      ],
+      "issues": {
+        "Economy": {
+          "stance": "Mike Kennedy advocates a pro-growth, fiscally conservative approach to the economy, prioritizing lower taxes, shrinking red tape for businesses, and policies aimed at reducing costs for families and supporting small-business growth. He emphasizes making life affordable and economic opportunity through limited government and accountable budgeting.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://mikekennedyforutah.com/",
+              "type": "campaign_website",
+              "title": "Mike Kennedy for Utah - Home",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://www.nfib.com/news/news/utah-small-businesses-endorse-mike-kennedy-for-election-to-congress/",
+              "type": "endorsement",
+              "title": "Utah Small Businesses Endorse Mike Kennedy for Election to Congress - NFIB",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "http://mikekennedy.house.gov/issues/economy",
+              "type": "official_site",
+              "title": "Economy - Congressman Mike Kennedy - House.gov",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://mikekennedy.house.gov/issues",
+              "type": "official_site",
+              "title": "Issues | Congressman Mike Kennedy - House.gov",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Kennedy supports expanding federal resources for technical and career-technical education by broadening eligibility for existing grant programs to qualified technical colleges through the TECH Act, arguing this levels the playing field with traditional four-year institutions. He has also backed bipartisan efforts to boost rural STEM teaching in K-12 schools.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "http://mikekennedy.house.gov/issues/education",
+              "type": "official",
+              "title": "Education - Congressman Mike Kennedy - House.gov",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://www.deseret.com/utah/2026/03/31/utah-representative-mike-kennedy-tech-college-bill/",
+              "type": "news",
+              "title": "Rep. Mike Kennedy's bill would boost funding at tech colleges \u2013 Deseret News",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "http://mikekennedy.house.gov/media/press-releases",
+              "type": "official",
+              "title": "Press Releases - Rep. Kennedy",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://ballotpedia.org/Mike_Kennedy_(Utah)",
+              "type": "ballotpedia",
+              "title": "Mike Kennedy (Utah) - Ballotpedia",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Kennedy supports expanding domestic energy production by streamlining federal permitting for energy projects, including the License to Drill Act, to reduce bureaucratic delays. He also promotes public lands access to facilitate energy development and recreation.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://mikekennedy.house.gov/issues/energy",
+              "type": "official_policy_page",
+              "title": "Energy - Congressman Mike Kennedy - House.gov",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://mikekennedy.house.gov/media/press-releases/rep-kennedy-leads-bill-keep-american-energy-permitting-track",
+              "type": "press_release",
+              "title": "Rep. Kennedy Leads Bill to Keep American Energy Permitting on Track",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://mikekennedy.house.gov/media/press-releases/rep-kennedy-introduces-bipartisan-energy-legislation-unleash-american-energy",
+              "type": "press_release",
+              "title": "Rep. Kennedy Introduces Bipartisan Energy Legislation to Unleash American Energy",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "http://mikekennedy.house.gov/media/press-releases/reps-kennedy-and-crank-co-lead-bill-protect-access-public-land-recreation-0",
+              "type": "press_release",
+              "title": "Reps. Kennedy and Crank Co-Lead Bill to Protect Access for Public Land Recreation",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://www.congress.gov/member/mike-kennedy/K000403",
+              "type": "official_profile",
+              "title": "Mike Kennedy \u2013 Congress.gov",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "Kennedy supports technology accountability and workforce development: he introduced the Algorithm Accountability Act to hold social media platforms accountable for harms caused by their algorithms, and the TECH Act to level the playing field for technical colleges by expanding eligibility for existing federal grant programs, aiming to improve AI safety and tech workforce training.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "http://mikekennedy.house.gov/media/press-releases/utah-rep-mike-kennedy-introduces-algorithm-accountability-act-protect-families",
+              "type": "official-press-release",
+              "title": "Utah Rep. Mike Kennedy introduces the Algorithm Accountability Act to protect families online",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "http://mikekennedy.house.gov/media/press-releases/rep-mike-kennedy-introduces-tech-act-level-playing-field-technical-colleges",
+              "type": "official-press-release",
+              "title": "Rep. Mike Kennedy introduces the TECH Act to Level the Playing Field for Technical Colleges",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://www.deseret.com/utah/2026/03/31/utah-representative-mike-kennedy-tech-college-bill/",
+              "type": "news-article",
+              "title": "Rep. Mike Kennedy's TECH Act would boost funding at tech colleges",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://abc4.com/news/politics/social-media-algorithm-regulation/",
+              "type": "news-article",
+              "title": "Utah Rep. Mike Kennedy introduces 'Algorithm Accountability Act'",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Kennedy supports tightening immigration enforcement by standardizing detention facilities nationwide to match the U.S. Marshals Service standards, ensuring consistent safety and care for detainees. He also emphasizes expanding local detention capacity and stronger federal-local cooperation to address resource gaps and improve enforcement.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "http://mikekennedy.house.gov/media/press-releases/rep-kennedy-introduces-equal-detention-standards-act-standardize-immigration",
+              "type": "official press release",
+              "title": "Rep. Kennedy Introduces Equal Detention Standards Act to Standardize Immigration Detention and Support Local Law Enforcement",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://www.congress.gov/bill/119th-congress/house-bill/5585/committees",
+              "type": "legislation",
+              "title": "H.R. 5585 - Equal Detention Standards Act of 2025",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "http://mikekennedy.house.gov/issues/border-security",
+              "type": "official issue page",
+              "title": "Border Security - Congressman Mike Kennedy",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        },
+        "Guns & Safety": {
+          "stance": "Mike Kennedy positions himself as a defender of the Second Amendment and supports constitutional carry/expanded gun rights, emphasizing the need to protect firearm ownership and oppose federal gun restrictions.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://mikekennedyforutah.com/",
+              "type": "campaign_site",
+              "title": "Mike Kennedy for Utah - Campaign Website",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        },
+        "Social Justice": {
+          "stance": "To be determined",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://mikekennedy.house.gov/issues/congress",
+              "type": "Official campaign/issues page",
+              "title": "Congress - Mike Kennedy",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        },
+        "Election Reform": {
+          "stance": "[To be determined]",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://mikekennedyforutah.com/",
+              "type": "Campaign site",
+              "title": "Mike Kennedy for Utah - Campaign site",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Mike Kennedy supports protecting Utah's public lands and increasing local access by backing legislation like the Public Lands Access Restoration Act and advocating for reform of federal land management to reduce bureaucracy.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://mikekennedy.house.gov/issues/public-lands",
+              "type": "official-issue-page",
+              "title": "Public Lands - Congressman Mike Kennedy - House.gov",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://mikekennedy.house.gov/media/press-releases/rep-kennedy-co-leads-legislation-protect-utahs-public-lands-foreign",
+              "type": "press-release",
+              "title": "Kennedy co-leads legislation to protect Utah's public lands",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Steven Burt",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Steven Burt is an independent candidate for Utah\u2019s 4th Congressional District in the 2026 U.S. House election. He is an attorney who previously practiced at Ballard Spahr, spent more than nine years in in-house roles at solar energy companies, and has an active pro bono practice.",
+      "summary_sources": [
+        {
+          "url": "https://www.ballardspahr.com/people/attorneys/b/burt-steven",
+          "type": "law firm bio",
+          "title": "Steven Burt | People | Ballard Spahr"
+        },
+        {
+          "url": "https://stevenburt.com/f/policy-focus",
+          "type": "official campaign site",
+          "title": "Policy Focus - Steven Burt"
+        },
+        {
+          "url": "https://ballotpedia.org/Steven_Burt",
+          "type": "Ballotpedia",
+          "title": "Steven Burt - Ballotpedia"
+        }
+      ],
+      "image_url": null,
+      "website": "https://stevenburt.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/voteforstevenburt/",
+        "facebook": "https://www.facebook.com/p/Voteforstevenburt-61582445464153/"
+      },
+      "career_history": [],
+      "education": [],
+      "donor_summary": "Steven Burt\u2019s campaign finance profile on Ballotpedia reports $19,549 in contributions and $12,619 in expenditures for his 2026 U.S. House campaign. The available disclosures reviewed do not show a dominant PAC or industry source of support.",
+      "donor_source_url": "https://ballotpedia.org/Steven_Burt",
+      "voting_summary": "Steven Burt is not a current or former legislator in the sources reviewed, so there is no legislative voting record to summarize. His public campaign materials instead describe his background in law, solar-energy policy, and pro bono immigration-related work.",
+      "voting_source_url": "https://stevenburt.com/f/policy-focus",
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Steven_Burt",
+          "title": "Steven Burt - Ballotpedia",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://stevenburt.com/",
+          "title": "Vote Steven Burt for Congress!",
+          "type": "official"
+        },
+        {
+          "url": "https://ballotpedia.org/Utah%27s_4th_Congressional_District_election,_2026",
+          "title": "Utah's 4th Congressional District election, 2026",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://www.ksl.com/article/51460049/heres-who-is-running-for-each-of-utahs-4-congressional-seats",
+          "title": "Here's who is running for each of Utah's 4 congressional seats",
+          "type": "news"
+        },
+        {
+          "url": "https://www.deseret.com/politics/2026/03/13/utah-congressional-candidates-2026/",
+          "title": "Here's who is running for Congress in Utah - Deseret News",
+          "type": "news"
+        },
+        {
+          "url": "https://www.ballardspahr.com/people/attorneys/b/burt-steven",
+          "title": "Steven Burt | People | Ballard Spahr",
+          "type": "other"
+        }
+      ],
+      "issues": {
+        "Economy": {
+          "stance": "Burt says he favors a pro-growth, free-market approach that reduces regulatory burdens and taxes to lower the cost of living and support small-business growth. He frames his campaign as independent and people-powered rather than party-driven.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://stevenburt.com/f/policy-focus",
+              "type": "official campaign site",
+              "title": "Policy Focus - Steven Burt",
+              "last_accessed": "2026-04-02T04:37:18.301796+00:00"
+            },
+            {
+              "url": "https://stevenburt.com/f/your-priorities?blogcategory=Priorities",
+              "type": "official campaign site",
+              "title": "Priorities - Steven Burt",
+              "last_accessed": "2026-04-02T04:37:18.301796+00:00"
+            },
+            {
+              "url": "https://ballotpedia.org/Steven_Burt",
+              "type": "Ballotpedia",
+              "title": "Steven Burt - Ballotpedia",
+              "last_accessed": "2026-04-02T04:37:18.301796+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Burt has not publicly released a formal education policy in the sources reviewed. His campaign materials emphasize independence and energy policy rather than education-specific proposals.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://stevenburt.com/",
+              "type": "campaign website",
+              "title": "Vote Steven Burt",
+              "last_accessed": "2026-04-02T04:37:18.301796+00:00"
+            },
+            {
+              "url": "https://stevenburt.com/f/policy-focus",
+              "type": "campaign website",
+              "title": "Policy Focus - Steven Burt",
+              "last_accessed": "2026-04-02T04:37:18.301796+00:00"
+            },
+            {
+              "url": "https://ballotpedia.org/Steven_Burt",
+              "type": "encyclopedic resource",
+              "title": "Steven Burt - Ballotpedia",
+              "last_accessed": "2026-04-02T04:37:18.301796+00:00"
+            }
+          ]
+        },
+        "Healthcare": {
+          "stance": "No publicly stated healthcare policy was identified in the sources reviewed. Burt\u2019s campaign materials emphasize independence and energy policy rather than healthcare.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://stevenburt.com/f/policy-focus",
+              "type": "webpage",
+              "title": "Policy Focus - Steven Burt",
+              "last_accessed": "2026-04-02T04:37:18.301796+00:00"
+            },
+            {
+              "url": "https://stevenburt.com/f/your-priorities",
+              "type": "webpage",
+              "title": "Priorities - Steven Burt",
+              "last_accessed": "2026-04-02T04:37:18.301796+00:00"
+            },
+            {
+              "url": "https://ballotpedia.org/Steven_Burt",
+              "type": "webpage",
+              "title": "Steven Burt - Ballotpedia",
+              "last_accessed": "2026-04-02T04:37:18.301796+00:00"
+            }
+          ]
+        },
+        "Reproductive Rights": {
+          "stance": "No publicly stated position on reproductive rights was identified in the sources reviewed. Burt\u2019s campaign materials emphasize independence and energy policy, with immigration issues mentioned but no abortion stance disclosed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://stevenburt.com/",
+              "type": "campaign_website",
+              "title": "Vote Steven Burt for Congress!",
+              "last_accessed": "2026-04-02T04:37:18.301796+00:00"
+            },
+            {
+              "url": "https://stevenburt.com/f/your-priorities",
+              "type": "campaign_website",
+              "title": "Priorities - Steven Burt",
+              "last_accessed": "2026-04-02T04:37:18.301796+00:00"
+            },
+            {
+              "url": "https://ballotpedia.org/Steven_Burt",
+              "type": "ballotpedia",
+              "title": "Steven Burt - Ballotpedia",
+              "last_accessed": "2026-04-02T04:37:18.301796+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Burt advocates for common-sense energy policy that supports solar energy and energy innovation through market-based approaches, emphasizing domestic energy independence and jobs in the energy sector.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://stevenburt.com/",
+              "type": "official_website",
+              "title": "Steven Burt \u2013 Official Campaign Site",
+              "last_accessed": "2026-04-02T04:37:18.301796+00:00"
+            },
+            {
+              "url": "https://stevenburt.com/f/policy-focus",
+              "type": "official_website",
+              "title": "Policy Focus \u2013 Steven Burt",
+              "last_accessed": "2026-04-02T04:37:18.301796+00:00"
+            },
+            {
+              "url": "https://stevenburt.com/f/your-priorities",
+              "type": "official_website",
+              "title": "Your Priorities \u2013 Steven Burt",
+              "last_accessed": "2026-04-02T04:37:18.301796+00:00"
+            },
+            {
+              "url": "https://ballotpedia.org/Steven_Burt",
+              "type": "news_encyclopedia",
+              "title": "Steven Burt \u2013 Ballotpedia",
+              "last_accessed": "2026-04-02T04:37:18.301796+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "Burt says current policy does not adequately address the risks posed by artificial intelligence and calls for action to protect people, systems, and the economy from AI-related threats.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://stevenburt.com/declare-your-independence",
+              "type": "campaign page",
+              "title": "Declare Your Independence - Steven Burt",
+              "last_accessed": "2026-04-02T04:37:18.301796+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Burt\u2019s campaign materials do not publish a detailed immigration platform, but he says he has done pro bono representation associated with immigration issues. His public materials emphasize independence and broader policy themes rather than a specific immigration plan.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://stevenburt.com/f/policy-focus",
+              "type": "official site",
+              "title": "Policy Focus - Steven Burt",
+              "last_accessed": "2026-04-02T04:37:18.301796+00:00"
+            },
+            {
+              "url": "https://stevenburt.com/",
+              "type": "official site",
+              "title": "Vote Steven Burt for Congress!",
+              "last_accessed": "2026-04-02T04:37:18.301796+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Burt has not published a formal foreign policy platform in the sources reviewed. His campaign materials focus on independence and domestic policy areas such as energy and the economy.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://stevenburt.com/",
+              "type": "official campaign website",
+              "title": "Vote Steven Burt for Congress - Home",
+              "last_accessed": "2026-04-02T04:37:18.301796+00:00"
+            },
+            {
+              "url": "https://stevenburt.com/f/your-priorities",
+              "type": "official campaign website",
+              "title": "Priorities",
+              "last_accessed": "2026-04-02T04:37:18.301796+00:00"
+            },
+            {
+              "url": "https://stevenburt.com/f/policy-focus",
+              "type": "official campaign website",
+              "title": "Policy Focus",
+              "last_accessed": "2026-04-02T04:37:18.301796+00:00"
+            },
+            {
+              "url": "https://ballotpedia.org/Steven_Burt",
+              "type": "Ballotpedia",
+              "title": "Steven Burt - Ballotpedia",
+              "last_accessed": "2026-04-02T04:37:18.301796+00:00"
+            }
+          ]
+        },
+        "Guns & Safety": {
+          "stance": "No explicit policy positions on guns or gun safety were identified in the sources reviewed. Burt\u2019s campaign materials emphasize independence and general policy themes without specific gun-control or safety proposals.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Steven_Burt",
+              "type": "policy_profile",
+              "title": "Steven Burt - Ballotpedia",
+              "last_accessed": "2026-04-02T04:37:18.301796+00:00"
+            },
+            {
+              "url": "https://stevenburt.com/",
+              "type": "campaign_site",
+              "title": "Steven Burt Campaign Website",
+              "last_accessed": "2026-04-02T04:37:18.301796+00:00"
+            }
+          ]
+        },
+        "Social Justice": {
+          "stance": "No publicly stated position on social justice was identified in the sources reviewed. Burt\u2019s public materials emphasize independence and policy areas such as energy and immigration rather than a social-justice platform.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://stevenburt.com/",
+              "type": "campaign_homepage",
+              "title": "Vote Steven Burt for Congress - Home",
+              "last_accessed": "2026-04-02T04:37:18.301796+00:00"
+            },
+            {
+              "url": "https://stevenburt.com/f/your-priorities",
+              "type": "campaign_policy",
+              "title": "Priorities - Steven Burt",
+              "last_accessed": "2026-04-02T04:37:18.301796+00:00"
+            },
+            {
+              "url": "https://stevenburt.com/f/policy-focus",
+              "type": "campaign_policy",
+              "title": "Policy Focus - Steven Burt",
+              "last_accessed": "2026-04-02T04:37:18.301796+00:00"
+            },
+            {
+              "url": "https://ballotpedia.org/Steven_Burt",
+              "type": "encyclopedic",
+              "title": "Steven Burt - Ballotpedia",
+              "last_accessed": "2026-04-02T04:37:18.301796+00:00"
+            }
+          ]
+        },
+        "Election Reform": {
+          "stance": "Burt has not published a specific election reform platform in the sources reviewed. His campaign emphasizes independence and reducing partisanship but does not set out concrete election reform proposals.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://stevenburt.com/f/policy-focus",
+              "type": "campaign webpage",
+              "title": "Policy Focus - Steven Burt",
+              "last_accessed": "2026-04-02T04:37:18.301796+00:00"
+            },
+            {
+              "url": "https://stevenburt.com/",
+              "type": "campaign website",
+              "title": "Steven Burt \u2013 Home",
+              "last_accessed": "2026-04-02T04:37:18.301796+00:00"
+            },
+            {
+              "url": "https://ballotpedia.org/Steven_Burt",
+              "type": "encyclopedia",
+              "title": "Steven Burt - Ballotpedia",
+              "last_accessed": "2026-04-02T04:37:18.301796+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "No explicit local-issues policy was identified in the sources reviewed. Burt\u2019s materials emphasize unaffiliated independence and national priorities such as energy policy rather than Utah-specific local proposals.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://stevenburt.com/",
+              "type": "website",
+              "title": "Vote Steven Burt for Congress - stevenburt.com",
+              "last_accessed": "2026-04-02T04:37:18.301796+00:00"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Archie Williams III",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Archie Williams III is a Democratic candidate for Utah\u2019s 4th Congressional District in 2026. Ballotpedia identifies him as a Provo-born heavy equipment operator with a bachelor\u2019s degree from Salt Lake Baptist College, and it notes prior campaigns for Utah and federal office.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Archie_Williams_III",
+          "type": "website",
+          "title": "Archie Williams III - Ballotpedia"
+        },
+        {
+          "url": "https://justfacts.votesmart.org/candidate/biography/151662/archie-williams-iii",
+          "type": "website",
+          "title": "Archie Williams III - Vote Smart"
+        },
+        {
+          "url": "https://vote.utah.gov/wp-content/uploads/2026/03/CD4-Archie-Williams.pdf",
+          "type": "website",
+          "title": "2026 declaration of candidacy - Utah Voter Information"
+        }
+      ],
+      "image_url": null,
+      "website": "https://standfororem.org/archie-williams-iii",
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": "Public campaign finance disclosures were not readily available in the sources reviewed, and Ballotpedia indicates campaign finance information was not yet available. The candidate\u2019s public profile therefore does not currently show a documented donor base in the materials reviewed.",
+      "donor_source_url": "https://ballotpedia.org/Archie_Williams_III",
+      "voting_summary": "Archie Williams III has no legislative voting record because he has not held elected legislative office in the sources reviewed. Public records instead show prior candidacies for federal, state, and statewide office.",
+      "voting_source_url": "https://ballotpedia.org/Archie_Williams_III",
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Archie_Williams_III",
+          "title": "Archie Williams III - Ballotpedia",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://justfacts.votesmart.org/candidate/biography/151662/archie-williams-iii",
+          "title": "Archie Williams III - Vote Smart biography",
+          "type": "votesmart"
+        },
+        {
+          "url": "https://vote.utah.gov/wp-content/uploads/2026/01/H57-Archie-Williams.pdf",
+          "title": "2026 declaration of candidacy - Utah State Legislature",
+          "type": "legislature"
+        },
+        {
+          "url": "https://ballotpedia.org/United_States_House_of_Representatives_elections_in_Utah,_2026",
+          "title": "United States House of Representatives elections in Utah, 2026",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://www.ksl.com/article/51460049/heres-who-is-running-for-each-of-utahs-4-congressional-seats",
+          "title": "Here's who is running for each of Utah's 4 congressional seats",
+          "type": "news"
+        },
+        {
+          "url": "https://vote.utah.gov/wp-content/uploads/2026/03/CD4-Archie-Williams.pdf",
+          "title": "2026 declaration of candidacy - Utah Voter Information",
+          "type": "legislature"
+        }
+      ],
+      "issues": {
+        "Economy": {
+          "stance": "No explicit federal economy policy identified in publicly available campaign materials; publicly available sources do not publish a comprehensive economic platform for Archie Williams III.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Archie_Williams_III",
+              "type": "primary",
+              "title": "Archie Williams III - Ballotpedia",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://www.fec.gov/data/candidate/H2UT03298/",
+              "type": "primary",
+              "title": "FEC - Archie Williams III candidate overview",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://justfacts.votesmart.org/candidate/biography/151662/archie-williams-iii",
+              "type": "primary",
+              "title": "Vote Smart - Archie Williams III biography",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://vote.utah.gov/wp-content/uploads/2026/03/CD4-Archie-Williams.pdf",
+              "type": "primary",
+              "title": "CD4 Archie Williams - Declaration of Candidacy (Utah)",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Archie Williams III has not publicly released a formal federal education policy; campaign materials do not outline a specific education agenda.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Archie_Williams_III",
+              "type": "page",
+              "title": "Archie Williams III - Ballotpedia",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://justfacts.votesmart.org/candidate/biography/151662/archie-williams-iii",
+              "type": "page",
+              "title": "Vote Smart - Archie Williams III biography",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        },
+        "Reproductive Rights": {
+          "stance": "No publicly stated position on reproductive rights has been published by Archie Williams III; campaign materials do not outline abortion policy.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Archie_Williams_III",
+              "type": "profile",
+              "title": "Archie Williams III - Ballotpedia",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://justfacts.votesmart.org/candidate/biography/151662/archie-williams-iii",
+              "type": "profile",
+              "title": "Vote Smart - Archie Williams III",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "No publicly stated climate/energy policy has been published by Archie Williams III; available campaign materials and public records do not address specific climate or energy positions.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Archie_Williams_III",
+              "type": "website",
+              "title": "Archie Williams III - Ballotpedia",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://ballotpedia.org/Utah%27s_4th_Congressional_District_election,_2026",
+              "type": "website",
+              "title": "Utah's 4th Congressional District election, 2026 - Ballotpedia",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://justfacts.votesmart.org/candidate/biography/151662/archie-williams-iii",
+              "type": "website",
+              "title": "Vote Smart: Archie Williams III",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://www.fec.gov/data/candidate/H2UT03298/",
+              "type": "official",
+              "title": "FEC candidate overview for Archie Williams III",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://standfororem.org/archie-williams-iii",
+              "type": "campaign",
+              "title": "Archie Williams III - Stand For Orem",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "There is no publicly published position on technology or artificial intelligence from Archie Williams III; his campaign materials do not outline a Tech & AI policy.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Archie_Williams_III",
+              "type": "web",
+              "title": "Archie Williams III - Ballotpedia",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://vote.utah.gov/wp-content/uploads/2026/03/CD4-Archie-Williams.pdf",
+              "type": "web",
+              "title": "Archie Williams Utah - Voter Information (CD4)",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "No publicly stated immigration policy identified in Archie Williams III's campaign materials; there is no documented official stance or voting record on immigration publicly available.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Archie_Williams_III",
+              "type": "profile",
+              "title": "Archie Williams III - Ballotpedia",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Archie Williams III has not publicly published a formal foreign policy platform or positions; no voting record or foreign policy statements identified in campaign materials.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Archie_Williams_III",
+              "type": "website",
+              "title": "Archie Williams III - Ballotpedia",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://justfacts.votesmart.org/candidate/biography/151662/archie-williams-iii",
+              "type": "website",
+              "title": "Votesmart - Archie Williams III biography",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        },
+        "Guns & Safety": {
+          "stance": "There is no publicly documented stance on firearms policy or gun safety in Archie Williams III's campaign materials or official profiles; no voting record or policy positions on gun-related issues are readily available.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Archie_Williams_III",
+              "type": "article",
+              "title": "Archie Williams III - Ballotpedia",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://justfacts.votesmart.org/candidate/biography/151662/archie-williams-iii",
+              "type": "article",
+              "title": "Archie Williams III - Vote Smart",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        },
+        "Social Justice": {
+          "stance": "Publicly, Archie Williams III has not published a formal stance on social justice; there is no easily verifiable policy page, voting record, or campaign statement addressing social-justice issues in widely cited sources. Available campaign materials and bios do not specify a defined social-justice platform.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Archie_Williams_III",
+              "type": "website",
+              "title": "Archie Williams III - Ballotpedia",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        },
+        "Election Reform": {
+          "stance": "There is no publicly documented stance on election reform published by Archie Williams III; credible public sources do not list an election reform policy.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Archie_Williams_III",
+              "type": "web",
+              "title": "Archie Williams III - Ballotpedia",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://justfacts.votesmart.org/candidate/biography/151662/archie-williams-iii",
+              "type": "web",
+              "title": "Vote Smart - Archie Williams III",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "There is no publicly published stance on Local Issues from Archie Williams III; available campaign materials emphasize national issues and general themes rather than local District 4 Utah concerns.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Archie_Williams_III",
+              "type": "web",
+              "title": "Archie Williams III - Ballotpedia",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://standfororem.org/archie-williams-iii",
+              "type": "web",
+              "title": "Stand For Orem - Archie Williams III",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://justfacts.votesmart.org/candidate/biography/151662/archie-williams-iii",
+              "type": "web",
+              "title": "Vote Smart - Archie Williams III biography",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Pasitale Lupeamanu",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Pasilete Lupeamanu is a Republican candidate running for Utah's 4th Congressional District in 2026. Ballotpedia lists him as running in the Republican primary and notes that he has not yet completed its candidate survey, so publicly available biographical details remain limited.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Pasitale_Lupeamanu",
+          "type": "website",
+          "title": "Pasitale Lupeamanu - Ballotpedia"
+        },
+        {
+          "url": "https://ballotpedia.org/Utah%27s_4th_Congressional_District_election,_2026",
+          "type": "website",
+          "title": "Utah's 4th Congressional District election, 2026 - Ballotpedia"
+        },
+        {
+          "url": "https://vote.utah.gov/wp-content/uploads/2026/03/CD4-Pasitale-F.-Lupeamanu.pdf",
+          "type": "document",
+          "title": "CD4-Pasitale-F.-Lupeamanu.pdf (Utah Voter Information)"
+        }
+      ],
+      "image_url": null,
+      "website": "No campaign website identified as of 2026-04-02.",
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": "No campaign finance data found in public disclosures as of 2026-04-02. Ballotpedia says FEC campaign finance information for Lupeamanu is not yet available, and the searches reviewed did not surface an OpenSecrets or FEC candidate finance page with disclosed totals.",
+      "donor_source_url": "https://ballotpedia.org/Pasitale_Lupeamanu",
+      "voting_summary": "Pasitale Lupeamanu is not a current or former legislator in the sources reviewed, so no legislative voting record exists. The available public record in the sources reviewed is limited to candidacy and ballot-access information.",
+      "voting_source_url": "https://ballotpedia.org/Pasitale_Lupeamanu",
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Pasitale_Lupeamanu",
+          "title": "Pasitale Lupeamanu - Ballotpedia",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://ballotpedia.org/United_States_House_elections_in_Utah,_2026_(June_23_Republican_primaries)",
+          "title": "United States House elections in Utah, 2026 (June 23 Republican primaries)",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://vote.utah.gov/wp-content/uploads/2026/03/CD4-Pasitale-F.-Lupeamanu.pdf",
+          "title": "pasilete f. lupeamanu - Utah Voter Information",
+          "type": "legislature"
+        },
+        {
+          "url": "https://www.fec.gov/data/elections/house/UT/04/2026/",
+          "title": "2026 Election United States House - Utah - District 04 - FEC",
+          "type": "finance"
+        },
+        {
+          "url": "https://www.msn.com/en-us/news/politics/new-maps-new-names-here-s-who-s-running-in-utah-s-crowded-congressional-primaries/ar-AA1YB34i?apiversion=v2&domshim=1&noservercache=1&noservertelemetry=1&batchservertelemetry=1&renderwebcomponents=1&wcseo=1",
+          "title": "Here's who's running in Utah's crowded congressional primaries",
+          "type": "news"
+        },
+        {
+          "url": "https://ballotpedia.org/Utah%27s_4th_Congressional_District_election,_2026",
+          "title": "Utah's 4th Congressional District election, 2026 - Ballotpedia",
+          "type": "ballotpedia"
+        }
+      ],
+      "issues": {
+        "Economy": {
+          "stance": "Lupeamanu has not published a formal federal economic policy; available materials indicate a focus on community-driven economic empowerment, supporting small businesses, veterans, and workforce development as part of Utah's economic growth.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Pasitale_Lupeamanu",
+              "type": "web",
+              "title": "Pasitale Lupeamanu - Ballotpedia",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://www.ksl.com/article/50690102/samoan-heritage-festival-is-all-about-sharing-our-love-for-the-community",
+              "type": "web",
+              "title": "Samoan Heritage Festival is all about 'sharing our love for the community' - KSL",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Pasitale Lupeamanu has not publicly released a formal federal education policy; available campaign materials do not specify education policy.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Pasitale_Lupeamanu",
+              "type": "website",
+              "title": "Pasitale Lupeamanu - Ballotpedia",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        },
+        "Healthcare": {
+          "stance": "Lupeamanu has not publicly published a defined federal healthcare policy; there is no verifiable public stance on healthcare policy in campaign materials or official statements available.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Pasitale_Lupeamanu",
+              "type": "web",
+              "title": "Pasitale Lupeamanu - Ballotpedia",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://www.sltrib.com/news/politics/2026/03/10/midterm-elections-these-utahns/",
+              "type": "web",
+              "title": "Midterm elections: These Utahns running for Congress in 2026 - Salt Lake Tribune",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://ballotpedia.org/Utah%27s_4th_Congressional_District_election,_2026",
+              "type": "web",
+              "title": "Utah's 4th Congressional District election, 2026 - Ballotpedia",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        },
+        "Reproductive Rights": {
+          "stance": "Publicly available sources reviewed for Lupeamanu do not provide a direct campaign statement on reproductive rights. Ballotpedia notes that he has not completed its candidate survey, so no verified issue position is available from the sources reviewed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Pasitale_Lupeamanu",
+              "type": "website",
+              "title": "Pasitale Lupeamanu - Ballotpedia",
+              "last_accessed": "2026-04-02T04:37:18.301796+00:00"
+            },
+            {
+              "url": "https://ballotpedia.org/Utah%27s_4th_Congressional_District_election,_2026",
+              "type": "website",
+              "title": "Utah's 4th Congressional District election, 2026 - Ballotpedia",
+              "last_accessed": "2026-04-02T04:37:18.301796+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Lupeamanu has not publicly published a defined federal climate/energy policy; there are no verifiable public statements or policy pages on climate or energy from her campaign.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Pasitale_Lupeamanu",
+              "title": "Pasitale Lupeamanu - Ballotpedia",
+              "type": "article",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://ballotpedia.org/Utah%27s_4th_Congressional_District_election,_2026",
+              "title": "Utah's 4th Congressional District election, 2026 - Ballotpedia",
+              "type": "article",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://www.yahoo.com/news/articles/maps-names-running-utah-crowded-024504817.html",
+              "title": "Here's who's running for each of Utah's 4 congressional seats",
+              "type": "article",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "No publicly published federal policy on technology or artificial intelligence; available public materials do not show specific positions on AI regulation or tech policy.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Pasitale_Lupeamanu",
+              "title": "Pasitale Lupeamanu - Ballotpedia",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "No publicly published immigration policy or documented statements found; campaign materials do not disclose a defined stance on federal immigration policy.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Pasitale_Lupeamanu",
+              "type": "web",
+              "title": "Pasitale Lupeamanu - Ballotpedia",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://vote.utah.gov/wp-content/uploads/2026/03/CD4-Pasitale-F.-Lupeamanu.pdf",
+              "type": "document",
+              "title": "CD4 - Pasitale F. Lupeamanu filing (Utah)",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://www.sltrib.com/news/politics/2026/03/10/midterm-elections-these-utahns/",
+              "type": "news",
+              "title": "2026 midterm elections: Here are the Utahns running for Congress",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "No publicly published foreign policy platform or statements identified; campaign materials do not disclose explicit positions on foreign policy.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Pasitale_Lupeamanu",
+              "type": "online-encyclopedic",
+              "title": "Pasitale Lupeamanu - Ballotpedia",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        },
+        "Guns & Safety": {
+          "stance": "No publicly published gun safety policy or stance identified; campaign materials do not disclose a defined position on gun safety.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Pasitale_Lupeamanu",
+              "type": "ballotpedia",
+              "title": "Pasitale Lupeamanu - Ballotpedia",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://ballotpedia.org/United_States_House_elections_in_Utah,_2026_(June_23_Republican_primaries)",
+              "type": "ballotpedia",
+              "title": "United States House elections in Utah, 2026 (June 23 Republican primaries)",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://www.ksl.com/article/51460049/heres-who-is-running-for-each-of-utahs-4-congressional-seats",
+              "type": "news",
+              "title": "Here's who is running for each of Utah's 4 congressional seats - KSL.com",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        },
+        "Social Justice": {
+          "stance": "Lupeamanu has not publicly published a policy on social justice, and no explicit social-justice stance is documented in campaign materials or major reference sites. Available public sources do not confirm a defined position on social justice.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Pasitale_Lupeamanu",
+              "type": "web",
+              "title": "Pasitale Lupeamanu - Ballotpedia",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://ballotpedia.org/Utah%27s_4th_Congressional_District_election,_2026",
+              "type": "web",
+              "title": "Utah's 4th Congressional District election, 2026 - Ballotpedia",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        },
+        "Election Reform": {
+          "stance": "Lupeamanu has not publicly published a formal position on election reform; publicly available campaign materials do not indicate a specific stance on voting laws or redistricting reform.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Pasitale_Lupeamanu",
+              "type": "web",
+              "title": "Pasitale Lupeamanu - Ballotpedia",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://vote.utah.gov/wp-content/uploads/2026/03/CD4-Pasitale-F.-Lupeamanu.pdf",
+              "type": "web",
+              "title": "CD4-Pasitale-F.-Lupeamanu.pdf (Utah Voter Information)",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Lupeamanu has not publicly published a formal policy on local issues; publicly available materials do not document a local-issues platform.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Pasitale_Lupeamanu",
+              "type": "article",
+              "title": "Pasitale Lupeamanu - Ballotpedia",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://kiowacountypress.net/content/utahs-new-court-ordered-map-draws-41-candidates-congress",
+              "type": "article",
+              "title": "Utah\u2019s new court-ordered map draws 41 candidates for Congress",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Seth Stewart",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Seth Stewart is a Republican candidate for Utah\u2019s 4th Congressional District. Public materials identify him as a software engineer and AI/ML researcher, and his campaign messaging emphasizes constitutional government and Utah\u2019s caucus system.",
+      "summary_sources": [
+        {
+          "url": "https://www.americanfork.gov/DocumentCenter/View/18550",
+          "type": "official document",
+          "title": "Seth Stewart - American Fork"
+        },
+        {
+          "url": "https://ballotpedia.org/Seth_Stewart_(Utah)",
+          "type": "ballotpedia",
+          "title": "Seth Stewart (Utah) - Ballotpedia"
+        },
+        {
+          "url": "https://sethandrewstewart.com/",
+          "type": "campaign website",
+          "title": "Restore the Republic \u2013 Seth Stewart"
+        }
+      ],
+      "image_url": null,
+      "website": "https://sethandrewstewart.com/",
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "City council candidate",
+          "organization": "American Fork",
+          "start_year": null,
+          "end_year": null,
+          "description": "A city document identifies Seth Stewart as a city council candidate."
+        },
+        {
+          "title": "Software engineer",
+          "organization": "Private sector",
+          "start_year": null,
+          "end_year": null,
+          "description": "A city document lists his occupation as software engineer."
+        }
+      ],
+      "education": [],
+      "donor_summary": "No public campaign finance totals or major donor disclosures were identified in the sources reviewed. Ballotpedia indicates federal campaign finance information is not yet available for Stewart.",
+      "donor_source_url": "https://ballotpedia.org/Seth_Stewart_(Utah)",
+      "voting_summary": "Seth Stewart does not have a legislative voting record in the sources reviewed because he is not a current or former legislator. The available public record instead shows his candidacies and campaign messaging, not roll-call votes.",
+      "voting_source_url": "https://ballotpedia.org/Seth_Stewart_(Utah)",
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Seth_Stewart_(Utah)",
+          "title": "Seth Stewart (Utah) - Ballotpedia",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://ballotpedia.org/Utah%27s_4th_Congressional_District_election,_2026",
+          "title": "Utah's 4th Congressional District election, 2026",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://vote.utah.gov/wp-content/uploads/2026/03/CD4-Seth-Stewart.pdf",
+          "title": "Seth Stewart - Utah Voter Information",
+          "type": "legislature"
+        },
+        {
+          "url": "https://www.ksl.com/article/51460049/heres-who-is-running-for-each-of-utahs-4-congressional-seats",
+          "title": "Here's who is running for each of Utah's 4 congressional seats",
+          "type": "news"
+        },
+        {
+          "url": "https://www.deseret.com/politics/2026/03/13/utah-congressional-candidates-2026/",
+          "title": "Here's who is running for Congress in Utah - Deseret News",
+          "type": "news"
+        },
+        {
+          "url": "https://sethandrewstewart.com/",
+          "title": "Restore the Republic \u2013 Seth Stewart",
+          "type": "official"
+        },
+        {
+          "url": "https://www.americanfork.gov/DocumentCenter/View/18550",
+          "title": "Seth Stewart - American Fork",
+          "type": "other"
+        }
+      ],
+      "issues": {
+        "Economy": {
+          "stance": "No explicit published economy policy found directly from candidate statements; available sources indicate Seth Stewart is campaigning as a Republican advocating for limited government and constitutional governance. Specific policy proposals on economy not clearly documented in official campaign pages; further review of campaign materials recommended.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Seth_Stewart_(Utah)",
+              "type": "article",
+              "title": "Seth Stewart (Utah) - Ballotpedia",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "No formal federal education policy has been published by Seth Stewart; publicly available statements indicate he and his wife homeschool their six children, suggesting support for homeschooling and parental control over education.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Seth_Stewart_(Utah)",
+              "type": "ballotpedia",
+              "title": "Seth Stewart (Utah) - Ballotpedia",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://www.facebook.com/groups/2714647925481943/posts/4363817063898346/",
+              "type": "facebook-post",
+              "title": "Seth Stewart homeschooling statement",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://vote.utah.gov/wp-content/uploads/2026/01/S21-Seth-Stewart.pdf",
+              "type": "state-candidate-document",
+              "title": "Seth Stewart - Utah Voter Information PDF",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        },
+        "Healthcare": {
+          "stance": "To date, Seth Stewart has not published a formal healthcare policy or clearly stated positions on healthcare issues. Public records and campaign materials reviewed do not reveal any explicit stance.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Seth_Stewart_(Utah)",
+              "type": "web",
+              "title": "Seth Stewart (Utah) - Ballotpedia",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://www.americanfork.gov/DocumentCenter/View/18550",
+              "type": "web",
+              "title": "PDF: Seth Stewart - American Fork",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://sethandrewstewart.com/",
+              "type": "web",
+              "title": "Restore the Republic \u2013 Seth Stewart",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        },
+        "Reproductive Rights": {
+          "stance": "No publicly stated position on reproductive rights identified; campaign materials and public records do not publish abortion policy; available material focuses on constitutional governance.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Seth_Stewart_(Utah)",
+              "type": "campaign-profile",
+              "title": "Seth Stewart (Utah) - Ballotpedia",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://www.americanfork.gov/DocumentCenter/View/18550",
+              "type": "official-doc",
+              "title": "Seth Stewart \u2013 American Fork City Council Candidate",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://ballotpedia.org/Utah%27s_4th_Congressional_District_election,_2026",
+              "type": "campaign-profile",
+              "title": "Utah's 4th Congressional District election, 2026 - Ballotpedia",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "No publicly stated climate or energy policy identified; available campaign materials and profiles do not publish a stance on climate/energy.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Seth_Stewart_(Utah)",
+              "type": "encyclopedia",
+              "title": "Seth Stewart (Utah) - Ballotpedia",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://www.ksl.com/article/51460049/heres-who-is-running-for-each-of-utahs-4-congressional-seats",
+              "type": "news",
+              "title": "Here's who is running for each of Utah's 4 congressional seats - KSL",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "Stewart\u2019s public materials identify him as a software engineer and AI/ML researcher, and his campaign website centers on constitutional government and caucus reform rather than a detailed technology platform. The available record does not show a formal AI policy, so any regulatory views should be treated as limited and inferred from his public comments rather than a published platform.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.americanfork.gov/DocumentCenter/View/18550",
+              "type": "official document",
+              "title": "Seth Stewart - American Fork",
+              "last_accessed": "2026-04-02T04:37:18.301796+00:00"
+            },
+            {
+              "url": "https://sethandrewstewart.com/",
+              "type": "campaign website",
+              "title": "Restore the Republic \u2013 Seth Stewart",
+              "last_accessed": "2026-04-02T04:37:18.301796+00:00"
+            },
+            {
+              "url": "https://le.utah.gov/interim/2026/html/00000663.htm",
+              "type": "legislative minutes",
+              "title": "Minutes - Utah.gov",
+              "last_accessed": "2026-04-02T04:37:18.301796+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "No publicly published stance on immigration identified; available campaign materials focus on caucus reform, constitutional government, and SB54-related issues; no voting record on immigration found in public sources.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Seth_Stewart_(Utah)",
+              "type": "article",
+              "title": "Seth Stewart (Utah) - Ballotpedia",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://sethandrewstewart.com/",
+              "type": "website",
+              "title": "Restore the Republic \u2013 Seth Stewart",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://vote.utah.gov/wp-content/uploads/2026/01/S21-Seth-Stewart.pdf",
+              "type": "pdf",
+              "title": "Seth Stewart - Utah Voter Information",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://www.americanfork.gov/DocumentCenter/View/18550",
+              "type": "document",
+              "title": "Seth Stewart - American Fork City Council Candidate",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "No publicly published foreign policy platform or specific positions identified; his campaign focuses on caucus-based governance and constitutional government rather than international policy.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://sethandrewstewart.com/",
+              "type": "campaign_site",
+              "title": "Restore the Republic \u2013 Seth Stewart",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://sethandrewstewart.com/",
+              "type": "campaign_site",
+              "title": "Why caucus is the GOAT",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        },
+        "Guns & Safety": {
+          "stance": "No publicly published position on firearms policy has been identified; available campaign materials focus on caucus-based governance and constitutional government rather than specific gun-related policy positions.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Seth_Stewart_(Utah)",
+              "type": "main",
+              "title": "Seth Stewart (Utah) - Ballotpedia",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        },
+        "Social Justice": {
+          "stance": "No explicit public stance on social justice identified in major campaign materials; his messaging emphasizes constitutional government and caucus-based governance rather than specific social-justice policy proposals.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://sethandrewstewart.com/",
+              "type": "website",
+              "title": "Restore the Republic \u2013 Seth Stewart",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        },
+        "Election Reform": {
+          "stance": "No publicly published position on election reform identified; available materials emphasize constitutional government and general governance, with no specific policy on voting access, election administration, or reform.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://sethandrewstewart.com/",
+              "type": "website",
+              "title": "Restore the Republic \u2013 Seth Stewart",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "No explicit local-issues policy identified in publicly available materials; campaign materials emphasize constitutional government and broader policy themes rather than local governance specifics.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://vote.utah.gov/wp-content/uploads/2026/01/S21-Seth-Stewart.pdf",
+              "type": "PDF",
+              "title": "S21 Seth Stewart - Utah Candidate Filing",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://www.americanfork.gov/DocumentCenter/View/18550",
+              "type": "Document",
+              "title": "Seth Stewart - American Fork City Council Candidate",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            },
+            {
+              "url": "https://sethandrewstewart.com/",
+              "type": "Website",
+              "title": "Restore the Republic \u2013 Seth Stewart",
+              "last_accessed": "2026-04-02T04:35:36.315262+00:00"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "updated_utc": "2026-04-02T04:38:50.026781+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "gpt-5-nano",
+    "claude-haiku-4-5-20251001",
+    "gemini-3.1-flash-lite-preview",
+    "grok-3-mini"
+  ],
+  "reviews": [
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "reviewed_at": "2026-04-02T04:39:35.189844+00:00",
+      "verdict": "needs_revision",
+      "flags": [
+        {
+          "field": "candidates[0].summary & candidates[0].career_history[0]",
+          "concern": "Contradictory district assignment: The summary states Kennedy 'is running for the Republican nomination in Utah's 4th Congressional District' (correct per the race), but also says he 'is a Republican member of the U.S. House representing Utah's 3rd Congressional District' (outdated). The House.gov link metadata reinforces this error ('Congressman Mike Kennedy | Representing Utah's 3rd Congressional District'). His career_history correctly lists the 4th since 2025, indicating redistricting occurred, but the summary reflects pre-redistricting language.",
+          "suggestion": "Revise the summary to: 'Mike Kennedy is a Republican member of the U.S. House representing Utah's 4th Congressional District (as of 2026 redistricting) and is seeking re-election in 2026. Before his current House service, he served in the Utah Legislature and worked as a family doctor and attorney.' Update the House.gov link metadata title or add a clarifying note about redistricting.",
+          "severity": "error"
+        },
+        {
+          "field": "candidates[1].image_url",
+          "concern": "The image URL appears to reference a professional basketball player (Steven Burtt Jr.) rather than Steven Burt, the independent political candidate. This is a factual error that misrepresents the candidate.",
+          "suggestion": "Remove the image_url entirely and set to null, or replace with a verified campaign photo of Steven Burt. If no verified image is available, document this as 'No verified campaign image available as of 2026-04-02.'",
+          "severity": "error"
+        },
+        {
+          "field": "candidates[2].image_url",
+          "concern": "The image URL points to Archie Williams High School (a building in California), not a portrait of candidate Archie Williams III. This is a factual mismatch.",
+          "suggestion": "Remove the image_url entirely and set to null, or replace with a verified candidate portrait. If no verified image is available, document this limitation.",
+          "severity": "error"
+        },
+        {
+          "field": "candidates[1].career_history",
+          "concern": "The career_history array is empty despite the summary stating Burt 'spent more than nine years in in-house roles at solar energy companies' and 'previously practiced at Ballard Spahr' and 'has an active pro bono practice.' The Ballard Spahr law firm bio is cited in sources but the professional history is not structured in the profile.",
+          "suggestion": "Populate career_history with entries: (1) Attorney, Ballard Spahr LLP (private practice); (2) Solar Energy Sector (in-house counsel, 9+ years); (3) Pro Bono Counsel (immigration-related work). Reference the Ballard Spahr bio and campaign website.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[1].education",
+          "concern": "The education array is empty. Burt's professional roles (attorney, in-house counsel) imply a law degree and undergraduate degree, but these are not documented in the profile.",
+          "suggestion": "Research and add education entries (law school, undergraduate institution, degree awarded) or explicitly document that education details are not publicly available.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].career_history",
+          "concern": "The career_history array is empty despite Ballotpedia identifying Williams as 'a heavy equipment operator.' The summary references this occupation but does not structure it in the profile's career history.",
+          "suggestion": "Add a career_history entry: Heavy Equipment Operator (organization and dates if available). Reference Ballotpedia and Vote Smart.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].education",
+          "concern": "The education array is empty. Ballotpedia explicitly states Williams has 'a bachelor's degree from Salt Lake Baptist College,' but this is not reflected in the profile.",
+          "suggestion": "Add education entry: Bachelor's degree, Salt Lake Baptist College (field if known). This is a straightforward factual addition.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[3].career_history",
+          "concern": "The career_history array is empty for Pasitale Lupeamanu. While public information is limited (Ballotpedia notes the candidate has not completed their survey), no professional background is documented.",
+          "suggestion": "Research additional sources (news articles, social media, local community records) to populate career history. If minimal information is found, add a note: 'Limited professional background information publicly available as of 2026-04-02.'",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[3].education",
+          "concern": "The education array is empty for Lupeamanu. No public education records are documented.",
+          "suggestion": "Research education background or document that this information is not publicly available.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[4].career_history",
+          "concern": "The career_history is incomplete. The summary identifies Stewart as 'a software engineer and AI/ML researcher,' but the career_history array only lists generic entries ('City council candidate' and 'Software engineer') without specifics. The AI/ML researcher role is absent, and the software engineer entry lacks company name or dates.",
+          "suggestion": "Add or expand entries: (1) AI/ML Researcher (organization/dates if publicly known); (2) Software Engineer (add company name if available, with dates). Reference the American Fork city document and campaign website.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[4].education",
+          "concern": "The education array is empty for Seth Stewart. Given his roles as a software engineer and AI/ML researcher, post-secondary credentials (computer science degree, etc.) are likely, but none are documented.",
+          "suggestion": "Research Stewart's educational background or explicitly document that this information is not publicly available.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues (Healthcare, Reproductive Rights, Immigration, Foreign Policy, Guns & Safety, Social Justice, Election Reform, Local Issues)",
+          "concern": "Eight of Steven Burt's 12 issue categories have 'low' confidence with minimal sourcing and generic 'no publicly stated position' language. By contrast, Mike Kennedy has 'high' confidence across 7 major issues with detailed sourcing. This asymmetry creates an appearance of unequal profiling, even though it may reflect real differences in candidate disclosure.",
+          "suggestion": "Add a transparency note in the race-level description or candidate overview: 'Issue coverage varies significantly across candidates based on public disclosure of positions. Candidates vary in detail and accessibility of policy statements; gaps may reflect candidate communication choices rather than data collection limitations.' Conduct additional research to identify any Burt statements on healthcare or reproductive rights (e.g., social media, interviews, questionnaire responses).",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].issues (all categories)",
+          "concern": "All 12 issue stances for Archie Williams III are marked 'low' confidence with nearly identical language: 'No publicly stated position identified' or 'has not published a formal [policy area] platform.' This near-total absence of policy documentation is unusual and suggests either minimal campaign activity or insufficient research effort.",
+          "suggestion": "Conduct targeted research: (1) Visit Williams' campaign website (standfororem.org/archie-williams-iii) to extract any policy statements; (2) Search news archives (KSL, Deseret News, Salt Lake Tribune) for interviews or candidate forum coverage; (3) Check FEC finance filings for candidate contact information to request positions; (4) Review Vote Smart and Ballotpedia comments for any voter-submitted responses. If truly minimal disclosure exists after this effort, add a candidate-level note explaining the limitation rather than leaving readers with 12 identical 'low' entries.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[3].issues (all categories)",
+          "concern": "Pasitale Lupeamanu has no 'high' confidence issue positions. Most entries are 'low' or 'medium' confidence, with heavy reliance on Ballotpedia's note that the candidate 'has not yet completed' their survey. No official campaign website is listed, and no campaign materials are directly sourced.",
+          "suggestion": "Conduct additional research: (1) Search for an official campaign website, social media accounts, or press releases; (2) Review local Utah news for any coverage; (3) Check FEC records for campaign committee contact information. If limited public information exists after this effort, add a candidate-level note acknowledging the gap, as recommended for Williams.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[4].issues.Tech & AI.confidence",
+          "concern": "The confidence level is marked 'high' with the primary source being a Utah legislative minutes snippet (HB 76 testimony). However, this does not constitute a formal campaign policy statement; the stance appears inferred from legislative testimony on data-center regulation rather than directly articulated campaign messaging.",
+          "suggestion": "Downgrade confidence to 'medium' and revise the stance language to clarify: 'Based on his legislative testimony on HB 76 (data-center regulation), Stewart appears to support balanced regulation of technology, though he has not published a comprehensive campaign platform on AI or tech policy.' This avoids overstating the confidence level.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[3].issues.Climate/Energy.stance",
+          "concern": "Pronoun inconsistency: the stance text refers to Pasitale Lupeamanu as 'her,' but earlier sections and standard convention refer to 'him.' Verify the candidate's pronouns.",
+          "suggestion": "Confirm the candidate's correct pronouns and ensure consistency throughout the profile. If the candidate uses 'her/she,' update all references; if 'he/him,' correct this stance field.",
+          "severity": "info"
+        },
+        {
+          "field": "description",
+          "concern": "The description reads awkwardly: 'The field includes incumbent Republican Mike Kennedy; Republican primary challengers Pasitale Lupeamanu and Seth Stewart; Democratic challenger Archie Williams III; and independent Steven Burt.' While accurate, the phrasing could mislead readers about whether all five candidates are accounted for in the profiling or whether additional candidates exist.",
+          "suggestion": "Revise for clarity: 'This race is for Utah's 4th Congressional District seat in the U.S. House of Representatives, with the general election set for Nov. 3, 2026. The field consists of five candidates: incumbent Republican Mike Kennedy, Republican primary challengers Pasitale Lupeamanu and Seth Stewart, Democratic challenger Archie Williams III, and independent Steven Burt.'",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].donor_summary",
+          "concern": "The summary mixes two distinct reporting periods without clear temporal boundaries: '2025 total receipts' ($610,158.88) are followed immediately by '2023\u20132024 PAC money' data. While both are accurate, the temporal blending could confuse readers about the most current fundraising status.",
+          "suggestion": "Revise for clarity: 'Through year-end 2025, Kennedy's federal campaign committee reported $610,158.88 in total receipts, including $574,063.88 in contributions and $290,500 from other committees. For the 2023\u20132024 cycle, OpenSecrets data shows his PAC support was led by ideological/single-issue PACs ($136,850), followed by health ($58,500) and finance/insurance/real estate ($38,500).' This makes reporting periods explicit.",
+          "severity": "info"
+        },
+        {
+          "field": "polling_note",
+          "concern": "The note states 'No public polling was found for this race as of 2026-04-02' but does not clarify whether no polls have been conducted, polls exist but are unpublished, or polling is expected later.",
+          "suggestion": "Expand to: 'As of April 2, 2026, no publicly released polling was found for this race. Polling activity may increase closer to the June 23 primary and November 3 general election dates.'",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].social_media",
+          "concern": "Social media object is empty {} despite Burt having a campaign website and a professional background. This may be accurate, but should be explicitly documented.",
+          "suggestion": "If Burt has no public social media accounts, add a note: 'No public social media accounts identified as of 2026-04-02.' If accounts exist (Facebook, X, LinkedIn), populate them.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].social_media",
+          "concern": "Social media object is empty for Archie Williams III, consistent with the overall lack of campaign visibility.",
+          "suggestion": "Search for Williams social media accounts (Facebook, X, Instagram). If none exist, document: 'No public social media accounts identified as of 2026-04-02.'",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].website",
+          "concern": "Website field is null for Pasitale Lupeamanu despite being a major-party (Republican) primary candidate. This is either a data gap or reflects lack of a campaign website.",
+          "suggestion": "Search for Lupeamanu's official campaign website. If none exists, document: 'No campaign website identified as of 2026-04-02.' If one exists, add the URL.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[4].social_media",
+          "concern": "Social media object is empty for Seth Stewart despite him having a campaign website (sethandrewstewart.com).",
+          "suggestion": "Research Stewart's social media presence (Facebook, X, Instagram, LinkedIn) and populate if accounts exist. If not, document: 'No public social media accounts identified as of 2026-04-02.'",
+          "severity": "info"
+        },
+        {
+          "field": "generator",
+          "concern": "The profile lists five AI models as generators with version numbers that do not correspond to publicly known releases as of April 2, 2026: 'gpt-5.4-mini,' 'gpt-5-nano,' 'claude-haiku-4-5-20251001,' 'gemini-3.1-flash-lite-preview,' and 'grok-3-mini.' These version strings appear speculative or inaccurate and undermine confidence in the profile's metadata.",
+          "suggestion": "Verify and update the generator array to reflect actual models and versions used. If this profile was generated by a known tool or multiple tools, document the accurate tooling. If the versions are correct, provide context for their release dates or capabilities.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[0].issues.Election Reform.stance & candidates[0].issues.Social Justice.stance",
+          "concern": "Two issue stances for Mike Kennedy are marked 'To be determined' with low confidence, creating an incomplete profile for the incumbent. By contrast, seven other major issues have high confidence.",
+          "suggestion": "Research Kennedy's website, press releases, and voting record to identify any statements on social justice (criminal justice reform, civil rights) and election reform (voting access, redistricting). If no clear stance exists, update the confidence note to clarify this represents a genuine lack of public position rather than incomplete data collection.",
+          "severity": "info"
+        }
+      ],
+      "summary": "This profile demonstrates excellent sourcing and depth for the incumbent candidate, Mike Kennedy, with comprehensive issue coverage backed by official congressional sources, campaign materials, and credible outlets. However, the profile has critical factual errors (image URLs pointing to wrong subjects, district representation confusion), significant coverage asymmetry (three challengers with minimal policy documentation and low-confidence entries), and incomplete biographical data (missing career histories and education for most non-incumbents). These issues\u2014particularly the factual errors and the stark imbalance between the incumbent and challengers\u2014require correction before publication to ensure accuracy and fairness."
+    },
+    {
+      "model": "gemini-3.1-flash-lite-preview",
+      "reviewed_at": "2026-04-02T04:38:54.625282+00:00",
+      "verdict": "needs_revision",
+      "flags": [
+        {
+          "field": "candidates[0].summary",
+          "concern": "Contradictory district representation (references 3rd District while the profile is for the 4th).",
+          "suggestion": "Update to consistently reflect CD-4 status.",
+          "severity": "error"
+        },
+        {
+          "field": "candidates[1].image_url",
+          "concern": "Image appears to point to a basketball player rather than the political candidate.",
+          "suggestion": "Remove the invalid image URL and set to null.",
+          "severity": "error"
+        },
+        {
+          "field": "candidates[2].image_url",
+          "concern": "Image points to a high school building, not the candidate.",
+          "suggestion": "Remove the invalid image URL and set to null.",
+          "severity": "error"
+        },
+        {
+          "field": "candidates[1].career_history",
+          "concern": "Empty array despite the summary describing specific professional legal and solar industry experience.",
+          "suggestion": "Populate with verified professional background details.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].career_history",
+          "concern": "Empty array for a candidate with stated professional experience as a heavy equipment operator.",
+          "suggestion": "Populate with verified professional background details.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].education",
+          "concern": "Education data is missing despite the summary mentioning a bachelor's degree from Salt Lake Baptist College.",
+          "suggestion": "Populate the education array.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[3].issues.Climate/Energy.stance",
+          "concern": "Inconsistent gender pronouns used to refer to the candidate ('he' vs 'her').",
+          "suggestion": "Standardize to 'he'.",
+          "severity": "info"
+        },
+        {
+          "field": "description",
+          "concern": "The candidate list phrasing in the description is slightly ambiguous regarding the total number of primary challengers.",
+          "suggestion": "Clarify that there are three Republican candidates in the primary alongside a Democrat and an independent.",
+          "severity": "info"
+        },
+        {
+          "field": "generator",
+          "concern": "The listed AI models (e.g., gpt-5.4-mini) are not verifiable as public versions as of April 2026.",
+          "suggestion": "Verify and correct the generator metadata to reflect accurate tools used.",
+          "severity": "warning"
+        }
+      ],
+      "summary": "The profile is well-researched regarding the incumbent, Mike Kennedy, but requires significant revision to correct factual errors in candidate metadata and imagery. Specifically, the profile contains incorrect image references for challengers, contradictory district information, and substantial gaps in career and education histories for non-incumbents. The stark contrast in issue-category confidence levels suggests a need for more diligent sourcing regarding the challengers to ensure a balanced, neutral representation of the full field."
+    },
+    {
+      "model": "grok-3-mini",
+      "reviewed_at": "2026-04-02T04:39:08.925098+00:00",
+      "verdict": "needs_revision",
+      "flags": [
+        {
+          "field": "candidates[0].summary",
+          "concern": "The summary incorrectly references Mike Kennedy as representing Utah's 3rd Congressional District, contradicting his career_history (which lists the 4th since 2025) and official sources, indicating a factual inaccuracy likely from outdated redistricting information.",
+          "suggestion": "Update the summary to consistently reflect his current representation of the 4th District and cross-reference with Congress.gov for accuracy.",
+          "severity": "error"
+        },
+        {
+          "field": "candidates[1].image_url",
+          "concern": "The image URL incorrectly links to a professional basketball player named Steven Burtt Jr., rather than the candidate Steven Burt, which is a factual error and unrelated.",
+          "suggestion": "Replace with a verified campaign photo of Steven Burt or set to null if unavailable.",
+          "severity": "error"
+        },
+        {
+          "field": "candidates[2].image_url",
+          "concern": "The image URL points to an image of Archie Williams High School, not a portrait of candidate Archie Williams III, representing a factual mismatch.",
+          "suggestion": "Remove or replace with a verified candidate image.",
+          "severity": "error"
+        },
+        {
+          "field": "candidates[1].career_history",
+          "concern": "The array is empty despite the summary detailing Steven Burt's 20 years of legal practice and solar industry work, leaving a gap in completeness.",
+          "suggestion": "Populate with entries based on sources like his Ballard Spahr bio, including his attorney role and solar energy positions.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[2].career_history",
+          "concern": "The array is empty, even though sources describe Archie Williams III as a heavy equipment operator with prior campaign experience, resulting in incomplete biographical coverage.",
+          "suggestion": "Add relevant entries from Ballotpedia and Vote Smart sources to include his professional background.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[3].issues",
+          "concern": "Most issue stances for Pasitale Lupeamanu have low confidence and rely on limited sources like Ballotpedia, with no official campaign website, leading to incomplete and potentially biased representation compared to the incumbent.",
+          "suggestion": "Incorporate additional sources, such as news interviews or campaign statements, to improve confidence and balance coverage across candidates.",
+          "severity": "warning"
+        },
+        {
+          "field": "candidates[4].education",
+          "concern": "The array is empty for Seth Stewart, despite his summary describing him as a software engineer and AI/ML researcher, which typically involves educational credentials, indicating a completeness gap.",
+          "suggestion": "Research and add education details from reliable sources or note their unavailability explicitly.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues",
+          "concern": "While Kennedy's issues are well-covered with high confidence, the profile's uneven depth across candidates (e.g., many 'low' confidence entries for others) may introduce unintentional bias toward the incumbent.",
+          "suggestion": "Ensure balanced sourcing and detail for all candidates by adding notes on data limitations for challengers, promoting fairness in presentation.",
+          "severity": "warning"
+        },
+        {
+          "field": "generator",
+          "concern": "The listed AI models (e.g., gpt-5.4-mini) do not correspond to publicly known releases as of April 2026, potentially misrepresenting the profile's generation method and affecting source quality transparency.",
+          "suggestion": "Verify and update the generator array to accurately reflect the models used, or document the actual generation process.",
+          "severity": "info"
+        }
+      ],
+      "summary": "This profile provides strong, well-sourced details for the incumbent candidate, Mike Kennedy, with high-confidence issue positions and credible official sources, but it requires revisions due to factual inconsistencies (e.g., district representation errors), incomplete biographical data for non-incumbent candidates, and uneven coverage that may inadvertently favor the incumbent, highlighting gaps in career histories, education, and issue stances."
+    }
+  ],
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 4747103,
+    "completion_tokens": 329006,
+    "total_tokens": 5076109,
+    "estimated_usd": 0.7839,
+    "model_breakdown": {
+      "gpt-5.4-mini": {
+        "prompt_tokens": 1459213,
+        "completion_tokens": 18970
+      },
+      "gpt-5-nano": {
+        "prompt_tokens": 3065834,
+        "completion_tokens": 295355
+      },
+      "gemini-3.1-flash-lite-preview": {
+        "prompt_tokens": 80358,
+        "completion_tokens": 1824
+      },
+      "grok-3-mini": {
+        "prompt_tokens": 65407,
+        "completion_tokens": 2145
+      },
+      "claude-haiku-4-5-20251001": {
+        "prompt_tokens": 76291,
+        "completion_tokens": 10712
+      }
+    },
+    "duration_s": 3400.5
+  }
+}

@@ -1,7 +1,7 @@
 """CLI entry point for running the agent as a Cloud Run Job.
 
 Usage:
-    python -m pipeline_client.agent <race_id> [--cheap-mode] [--enable-review]
+    python -m pipeline_client.agent <race_id> [--cheap-mode]
 
 Used by the Cloud Run Job (infra/run-job.tf) to process a single race.
 """
@@ -31,7 +31,6 @@ async def main() -> None:
     parser.add_argument("race_id", help="Race slug, e.g. mo-senate-2024")
     parser.add_argument("--cheap-mode", action="store_true", default=True)
     parser.add_argument("--no-cheap-mode", dest="cheap_mode", action="store_false")
-    parser.add_argument("--enable-review", action="store_true", default=False)
     args = parser.parse_args()
 
     from pipeline_client.agent.agent import run_agent
@@ -44,7 +43,6 @@ async def main() -> None:
         args.race_id,
         on_log=on_log,
         cheap_mode=args.cheap_mode,
-        enable_review=args.enable_review,
     )
 
     # Write result to published dir

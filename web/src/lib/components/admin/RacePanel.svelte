@@ -37,6 +37,7 @@
   let forceFresh = false;
   let maxCandidates: number | null = null;
   let targetNoInfo = false;
+  let candidateNamesInput = "";
   let stepToggles: Record<string, boolean> = Object.fromEntries(
     PIPELINE_STEPS.map((s) => [s.id, true])
   );
@@ -94,6 +95,11 @@
   }
 
   function buildOptions(): RunOptions {
+    const candidateNames = candidateNamesInput
+      .split(/[,\n]/)
+      .map((n) => n.trim())
+      .filter((n) => n.length > 0);
+
     const opts: RunOptions = {
       save_artifact: true,
       cheap_mode: cheapMode,
@@ -103,8 +109,7 @@
     if (researchModel) opts.research_model = researchModel;
     if (maxCandidates !== null && maxCandidates > 0) opts.max_candidates = maxCandidates;
     if (targetNoInfo) opts.target_no_info = true;
-    const anyReviewer = REVIEWER_DEFS.some((r) => reviewerEnabled[r.key]);
-    opts.enable_review = anyReviewer;
+    if (candidateNames.length > 0) opts.candidate_names = candidateNames;
     if (reviewerEnabled.claude) opts.claude_model = reviewerModels.claude;
     if (reviewerEnabled.gemini) opts.gemini_model = reviewerModels.gemini;
     if (reviewerEnabled.grok) opts.grok_model = reviewerModels.grok;
@@ -612,6 +617,18 @@
                 <input type="checkbox" bind:checked={targetNoInfo} class="rounded border-stroke text-blue-600 focus:ring-blue-500 h-3.5 w-3.5" />
                 <span>Prioritize no-info candidates</span>
               </label>
+            </div>
+
+            <div>
+              <label for="panelCandidateNames" class="block text-xs text-content-muted mb-1">Target candidate names (optional)</label>
+              <input
+                id="panelCandidateNames"
+                type="text"
+                bind:value={candidateNamesInput}
+                placeholder="e.g. Jeff Wadlin"
+                class="w-full px-3 py-2 border border-stroke rounded text-xs bg-surface text-content focus:outline-none focus:border-blue-500"
+              />
+              <p class="mt-1 text-[11px] text-content-faint">Comma-separated. Names must match candidate names in this race.</p>
             </div>
 
             <!-- Pipeline Steps -->

@@ -140,6 +140,33 @@ _BROWSER_UA = (
     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
 )
 
+_fetch_clients_by_loop: Dict[int, httpx.AsyncClient] = {}
+_serper_clients_by_loop: Dict[int, httpx.AsyncClient] = {}
+
+
+def _get_fetch_client() -> httpx.AsyncClient:
+    """Return a per-event-loop AsyncClient for page fetches."""
+    loop_id = id(asyncio.get_running_loop())
+    client = _fetch_clients_by_loop.get(loop_id)
+    if client is None or client.is_closed:
+        client = httpx.AsyncClient(
+            timeout=20,
+            follow_redirects=True,
+            headers={"User-Agent": _BROWSER_UA},
+        )
+        _fetch_clients_by_loop[loop_id] = client
+    return client
+
+
+def _get_serper_client() -> httpx.AsyncClient:
+    """Return a per-event-loop AsyncClient for Serper API calls."""
+    loop_id = id(asyncio.get_running_loop())
+    client = _serper_clients_by_loop.get(loop_id)
+    if client is None or client.is_closed:
+        client = httpx.AsyncClient(timeout=15)
+        _serper_clients_by_loop[loop_id] = client
+    return client
+
 
 async def _fetch_page(url: str) -> str:
     """Fetch a URL and return stripped text content, with caching."""
@@ -151,18 +178,14 @@ async def _fetch_page(url: str) -> str:
             return cached
 
     try:
-        async with httpx.AsyncClient(
-            timeout=20,
-            follow_redirects=True,
-            headers={"User-Agent": _BROWSER_UA},
-        ) as client:
-            resp = await client.get(url)
-            resp.raise_for_status()
-            content_type = resp.headers.get("content-type", "")
-            if "html" in content_type or "text" in content_type:
-                text = _strip_html(resp.text)
-            else:
-                text = f"[Non-text content: {content_type}]"
+        client = _get_fetch_client()
+        resp = await client.get(url)
+        resp.raise_for_status()
+        content_type = resp.headers.get("content-type", "")
+        if "html" in content_type or "text" in content_type:
+            text = _strip_html(resp.text)
+        else:
+            text = f"[Non-text content: {content_type}]"
     except Exception as exc:
         return f"[Failed to fetch {url}: {exc}]"
 
@@ -195,14 +218,14 @@ async def _serper_search(
     if not api_key:
         return [{"error": "SERPER_API_KEY not configured"}]
 
-    async with httpx.AsyncClient(timeout=15) as client:
-        resp = await client.post(
-            "https://google.serper.dev/search",
-            headers={"X-API-KEY": api_key, "Content-Type": "application/json"},
-            json={"q": query, "num": num_results},
-        )
-        resp.raise_for_status()
-        data = resp.json()
+    client = _get_serper_client()
+    resp = await client.post(
+        "https://google.serper.dev/search",
+        headers={"X-API-KEY": api_key, "Content-Type": "application/json"},
+        json={"q": query, "num": num_results},
+    )
+    resp.raise_for_status()
+    data = resp.json()
 
     results: List[Dict[str, Any]] = []
     for item in data.get("organic", []):
@@ -268,6 +291,9 @@ async def _call_openai(
     400 bad-request errors: raised immediately as RuntimeError (unretryable).
     The Retry-After response header always takes precedence.
 
+    Policy violation errors (400 with "policy" in message) are attempted once
+    more with simplified messaging; if still rejected, fail with clear error.
+
     Returns an ``openai.types.chat.ChatCompletion`` object.
     """
     from openai import BadRequestError, RateLimitError, APIStatusError
@@ -296,10 +322,44 @@ async def _call_openai(
                 accumulate(resp.usage.prompt_tokens or 0, resp.usage.completion_tokens or 0, model)
             return resp
         except BadRequestError as exc:
-            # 400 errors are never transient — retrying the same request will
-            # always fail.  Wrap as RuntimeError so pipeline phase handlers
-            # (which catch RuntimeError) can skip the step and continue.
-            logger.error(f"OpenAI bad request (400) for model={model}: {exc}")
+            error_str = str(exc)
+            is_policy_violation = "policy" in error_str.lower() or "invalid_prompt" in error_str.lower()
+
+            if is_policy_violation and attempt == 0:
+                # For policy violations on first attempt, try ONE more time with
+                # simplified prompt (remove user tool instructions, keep only core request).
+                logger.warning(
+                    f"OpenAI policy violation (400) for model={model}: {exc}\n"
+                    f"Attempting one retry with simplified prompt..."
+                )
+                # Keep only system + first two user messages (system, original request, current request)
+                simplified_msgs = [
+                    m for i, m in enumerate(messages)
+                    if i < 2 or (i == len(messages) - 1 and m.get("role") == "user")
+                ]
+                if len(simplified_msgs) < len(messages):
+                    # Reconstruct kwargs with simplified messages
+                    kwargs["messages"] = simplified_msgs
+                    try:
+                        resp = await client.chat.completions.create(**kwargs)
+                        if resp.usage:
+                            accumulate(resp.usage.prompt_tokens or 0, resp.usage.completion_tokens or 0, model)
+                        logger.warning("Simplified prompt accepted; continuing.")
+                        return resp
+                    except BadRequestError as retry_exc:
+                        logger.error(
+                            f"OpenAI policy violation persists even with simplified prompt for {model}: {retry_exc}"
+                        )
+                        raise RuntimeError(
+                            f"OpenAI policy violation (unrecoverable): {exc}"
+                        ) from retry_exc
+                # If couldn't simplify, fall through to normal error handling below
+
+            # Non-policy 400 errors, or policy violation after attempted recovery
+            logger.error(
+                f"OpenAI bad request (400) for model={model}: {exc}"
+                f"{' (policy violation)' if is_policy_violation else ''}"
+            )
             raise RuntimeError(f"OpenAI bad request: {exc}") from exc
         except RateLimitError as exc:
             if attempt >= max_retries - 1:
@@ -432,9 +492,17 @@ async def _agent_loop(
             tools_for_call = (base_tools + _extra_tools) if (base_tools or _extra_tools) else None
 
         t_call = time.perf_counter()
-        result = await _call_openai(
-            messages, model=model, tools=tools_for_call, max_tokens=max_tokens
-        )
+        try:
+            result = await _call_openai(
+                messages, model=model, tools=tools_for_call, max_tokens=max_tokens
+            )
+        except RuntimeError as e:
+            # Detect and exit early for policy violations (don't retry the same flagged prompt)
+            if "policy violation" in str(e).lower():
+                log("error", f"  [{phase_name}] policy violation detected; exiting iteration loop")
+                raise
+            # Re-raise other RuntimeErrors (e.g., bad request for other reasons)
+            raise
         elapsed_call = time.perf_counter() - t_call
 
         choice = result.choices[0]
@@ -659,6 +727,93 @@ def _select_candidates_for_research(
     return selected
 
 
+def _select_target_candidates(
+    available_names: List[str],
+    target_names: Optional[List[str]],
+    log: Any,
+) -> List[str]:
+    """Filter available candidates to an explicit target list, if provided.
+
+    Matching is case-insensitive but requires exact name equality.
+    Raises ValueError when no requested candidate names are found.
+    """
+    if not target_names:
+        return available_names
+
+    wanted = [n.strip() for n in target_names if isinstance(n, str) and n.strip()]
+    if not wanted:
+        return available_names
+
+    by_lower = {n.lower(): n for n in available_names}
+    selected: List[str] = []
+    missing: List[str] = []
+    for name in wanted:
+        match = by_lower.get(name.lower())
+        if match:
+            if match not in selected:
+                selected.append(match)
+        else:
+            missing.append(name)
+
+    if missing:
+        log("warning", f"  Candidate filter ignored unknown names: {', '.join(missing)}")
+    if not selected:
+        raise ValueError(
+            "No candidate names in candidate_names matched this race. "
+            f"Available: {', '.join(available_names)}"
+        )
+
+    log("info", f"  Candidate filter active: {', '.join(selected)}")
+    return selected
+
+
+def _candidate_source_hints(
+    race_json: Dict[str, Any],
+    candidate_name: str,
+) -> tuple[str, List[str]]:
+    """Return known website and likely issue/policy URLs for candidate prompts."""
+    candidate = next(
+        (c for c in race_json.get("candidates", []) if isinstance(c, dict) and c.get("name") == candidate_name),
+        None,
+    )
+    if not candidate:
+        return "(unknown)", []
+
+    website = candidate.get("website") or "(unknown)"
+    hints: List[str] = []
+
+    if isinstance(website, str) and website.startswith("http"):
+        base = website.rstrip("/")
+        hints.extend([
+            f"{base}/issues",
+            f"{base}/issue",
+            f"{base}/policy",
+            f"{base}/policies",
+            f"{base}/priorities",
+            f"{base}/platform",
+        ])
+
+    for link in candidate.get("links", []):
+        if not isinstance(link, dict):
+            continue
+        url = link.get("url")
+        if not isinstance(url, str) or not url.startswith("http"):
+            continue
+        lowered = url.lower()
+        if any(token in lowered for token in ("/issues", "/issue", "policy", "priorities", "platform")):
+            hints.append(url)
+
+    deduped: List[str] = []
+    seen: set[str] = set()
+    for url in hints:
+        if url in seen:
+            continue
+        deduped.append(url)
+        seen.add(url)
+
+    return website, deduped[:8]
+
+
 async def run_agent(
     race_id: str,
     *,
@@ -666,7 +821,6 @@ async def run_agent(
     cheap_mode: bool = True,
     max_iterations: int = 20,
     existing_data: Optional[Dict[str, Any]] = None,
-    enable_review: bool = True,
     research_model: Optional[str] = None,
     claude_model: Optional[str] = None,
     gemini_model: Optional[str] = None,
@@ -675,6 +829,7 @@ async def run_agent(
     step_tracker: Optional[Dict[str, Any]] = None,
     max_candidates: Optional[int] = None,
     target_no_info: bool = False,
+    candidate_names: Optional[List[str]] = None,
 ) -> Dict[str, Any]:
     """Run the multi-phase research agent for a given race_id.
 
@@ -693,8 +848,6 @@ async def run_agent(
         the agent checks ``data/published/{race_id}.json`` for a previously
         published profile and enters update mode if found.
         Pass an empty dict to force a fresh research run.
-    enable_review : bool
-        When *True*, send the final profile to Claude, Gemini, and Grok.
     research_model : str, optional
         Override the OpenAI model for research phases.
     claude_model / gemini_model / grok_model : str, optional
@@ -710,6 +863,8 @@ async def run_agent(
         info density; the top *max_candidates* are researched.
     target_no_info : bool
         When *True*, prioritise candidates with the least existing info.
+    candidate_names : list[str], optional
+        Exact candidate names to update/research (case-insensitive exact match).
     """
     from .review import (
         DEFAULT_CLAUDE_MODEL, CHEAP_CLAUDE_MODEL,
@@ -751,6 +906,7 @@ async def run_agent(
             on_log=on_log, max_iterations=max_iterations,
             step_enabled=_step_enabled, track=_track,
             max_candidates=max_candidates, target_no_info=target_no_info,
+            target_candidate_names=candidate_names,
         )
     else:
         log("info", f"🆕 New research for {race_id} (model={model}, small_model={small_model})")
@@ -759,6 +915,7 @@ async def run_agent(
             on_log=on_log, max_iterations=max_iterations,
             step_enabled=_step_enabled, track=_track,
             max_candidates=max_candidates, target_no_info=target_no_info,
+            target_candidate_names=candidate_names,
         )
 
     # LLMs sometimes wrap their output in {"race_json": {...}} — unwrap it so
@@ -771,9 +928,12 @@ async def run_agent(
     now_iso = datetime.now(timezone.utc).isoformat()
     race_json["updated_utc"] = now_iso
 
+    should_review = _step_enabled("review")
+    should_iterate = should_review and _step_enabled("iteration")
+
     # Record the models actually used (deduplicated — nano == model in full mode)
     generators = list(dict.fromkeys([model, small_model]))  # preserves order, drops duplicates
-    if _step_enabled("review"):
+    if should_review:
         if os.getenv("ANTHROPIC_API_KEY"):
             generators.append(claude_model or (CHEAP_CLAUDE_MODEL if cheap_mode else DEFAULT_CLAUDE_MODEL))
         if os.getenv("GEMINI_API_KEY"):
@@ -788,7 +948,7 @@ async def run_agent(
 
     race_json.setdefault("polling", [])
 
-    if _step_enabled("review"):
+    if should_review:
         _track("start", "review")
         review_t0 = time.perf_counter()
         log("info", "Phase 4: Sending to review agents (Claude, Gemini, Grok)...")
@@ -814,7 +974,7 @@ async def run_agent(
         _track("complete", "review", duration_ms=int((time.perf_counter() - review_t0) * 1000))
 
         # --- Phase 5: Iterate on review feedback (up to 2 cycles) ---
-        if _step_enabled("iteration"):
+        if should_iterate:
             _track("start", "iteration")
             iter_t0 = time.perf_counter()
             max_review_cycles = 2
@@ -978,6 +1138,7 @@ async def _run_issue_research_for_candidate(
     max_iterations: int = 12,
     is_update: bool = False,
     last_updated: str = "",
+    on_issue_progress: Any | None = None,
 ) -> None:
     """Run per-issue research for one candidate, mutating race_json in place.
 
@@ -990,10 +1151,18 @@ async def _run_issue_research_for_candidate(
     handlers = _make_editing_handlers(race_json, log)
     cache = _get_search_cache()
     cached_info = cache.list_cached_for_race(race_id) if cache else None
+    candidate_website, candidate_issue_urls = _candidate_source_hints(race_json, candidate_name)
+    issue_hint_text = ", ".join(candidate_issue_urls) if candidate_issue_urls else "(none found)"
 
     handoffs: List[Dict[str, Any]] = []
 
     for issue_idx, issue in enumerate(CANONICAL_ISSUES):
+        if on_issue_progress:
+            try:
+                on_issue_progress(issue_idx, issue)
+            except Exception:
+                pass
+
         handoff_ctx = _build_handoff_context(handoffs, cached_info)
 
         # Find existing stance for this candidate/issue (for update mode)
@@ -1021,6 +1190,8 @@ async def _run_issue_research_for_candidate(
                 last_updated=last_updated,
                 existing_stance=existing_stance or "  MISSING",
                 handoff_context=handoff_ctx,
+                candidate_website=candidate_website,
+                candidate_issue_urls=issue_hint_text,
             )
         else:
             sys_prompt = ISSUE_SUBAGENT_SYSTEM
@@ -1029,6 +1200,8 @@ async def _run_issue_research_for_candidate(
                 race_id=race_id,
                 issue=issue,
                 handoff_context=handoff_ctx,
+                candidate_website=candidate_website,
+                candidate_issue_urls=issue_hint_text,
             )
 
         log("info", f"    Issue {issue_idx + 1}/12: {issue}")
@@ -1047,6 +1220,16 @@ async def _run_issue_research_for_candidate(
                 extra_tool_handlers=handlers,
                 tools_mode=True,
             )
+        except RuntimeError as exc:
+            error_msg = str(exc)
+            if "policy violation" in error_msg.lower():
+                log(
+                    "error",
+                    f"    Issue sub-agent skipped for {candidate_name}/{issue} "
+                    f"due to OpenAI policy violation (prompt flagged as inappropriate)"
+                )
+            else:
+                log("warning", f"    Issue sub-agent failed for {candidate_name}/{issue}: {exc}")
         except Exception as exc:
             log("warning", f"    Issue sub-agent failed for {candidate_name}/{issue}: {exc}")
 
@@ -1082,6 +1265,7 @@ async def _run_fresh(
     track: Any = None,
     max_candidates: Optional[int] = None,
     target_no_info: bool = False,
+    target_candidate_names: Optional[List[str]] = None,
 ) -> Dict[str, Any]:
     """Phase 1 → 2 → 3: Discovery → Issue research → Refinement.
 
@@ -1110,6 +1294,8 @@ async def _run_fresh(
     ), "discovery", log)
 
     candidate_names = [c["name"] for c in race_json.get("candidates", [])]
+    candidate_names = _select_target_candidates(candidate_names, target_candidate_names, log)
+    selected_name_set = set(candidate_names)
     n = len(candidate_names)
     if not candidate_names:
         log("warning", "No candidates found in discovery phase")
@@ -1130,7 +1316,11 @@ async def _run_fresh(
             track("progress", "images", pct=pct, message=f"Image Resolution: {cand_name}")
 
         await resolve_candidate_images(
-            race_json,
+            {
+                "candidates": [c for c in race_json.get("candidates", []) if c.get("name") in selected_name_set],
+                "office": race_json.get("office", ""),
+                "jurisdiction": race_json.get("jurisdiction", ""),
+            },
             agent_loop_fn=_agent_loop,
             model=small_model,
             on_log=on_log,
@@ -1152,10 +1342,19 @@ async def _run_fresh(
             max_candidates=max_candidates, target_no_info=target_no_info, log=log,
         )
         rn = len(research_names)
-        log("info", f"Phase 2/3: Researching issues for {rn} candidates (12 issues each)...")
+        n_issues = len(CANONICAL_ISSUES)
+        total_units = max(rn * n_issues, 1)
+        log("info", f"Phase 2/3: Researching issues for {rn} candidates ({n_issues} issues each)...")
         for ci, cand_name in enumerate(research_names):
             log("info", f"  Researching {cand_name}...")
-            track("progress", "issues", pct=int((ci / max(rn, 1)) * 100), message=f"Issue Research: {cand_name} ({ci + 1}/{rn})")
+
+            def _make_issue_tracker(ci=ci, cand_name=cand_name):
+                def _on_issue(issue_idx: int, issue: str) -> None:
+                    combined_pct = int((ci * n_issues + issue_idx) / total_units * 100)
+                    track("progress", "issues", pct=combined_pct,
+                          message=f"Issues · {cand_name} ({ci + 1}/{rn}) · {issue} ({issue_idx + 1}/{n_issues})")
+                return _on_issue
+
             await _run_issue_research_for_candidate(
                 cand_name,
                 race_json,
@@ -1164,6 +1363,7 @@ async def _run_fresh(
                 on_log=on_log,
                 max_iterations=max_iterations,
                 is_update=False,
+                on_issue_progress=_make_issue_tracker(),
             )
         track("complete", "issues", duration_ms=int((time.perf_counter() - iss_t0) * 1000))
     else:
@@ -1207,9 +1407,10 @@ async def _run_fresh(
         ref_t0 = time.perf_counter()
         log("info", "Phase 3/3: Refining profile (one candidate at a time, tools mode)...")
         handlers = _make_editing_handlers(race_json, log)
-        candidate_names_in_json = [c["name"] for c in race_json.get("candidates", [])]
+        candidate_names_in_json = [c["name"] for c in race_json.get("candidates", []) if c.get("name") in selected_name_set]
+        selected_candidates = [c for c in race_json.get("candidates", []) if c.get("name") in selected_name_set]
         n_cands = len(candidate_names_in_json)
-        for ci, candidate in enumerate(race_json.get("candidates", [])):
+        for ci, candidate in enumerate(selected_candidates):
             cname = candidate["name"]
             log("info", f"  Refining {cname}...")
             track("progress", "refinement", pct=int((ci / max(n_cands, 1)) * 100), message=f"Refinement: {cname} ({ci + 1}/{n_cands})")
@@ -1284,6 +1485,7 @@ async def _run_update(
     track: Any = None,
     max_candidates: Optional[int] = None,
     target_no_info: bool = False,
+    target_candidate_names: Optional[List[str]] = None,
 ) -> Dict[str, Any]:
     """Phase-based update mirroring _run_fresh but starting from existing data.
 
@@ -1302,12 +1504,25 @@ async def _run_update(
 
     existing_candidates = existing.get("candidates", [])
     candidate_names = [c["name"] for c in existing_candidates]
+    candidate_names = _select_target_candidates(candidate_names, target_candidate_names, log)
+    selected_name_set = set(candidate_names)
     n = len(candidate_names)
     last_updated = existing.get("updated_utc", "unknown")
 
     if not candidate_names:
         log("warning", "No candidates in existing data — falling back to fresh run")
-        return await _run_fresh(race_id, model=model, small_model=small_model, on_log=on_log, max_iterations=max_iterations, step_enabled=step_enabled, track=track, max_candidates=max_candidates, target_no_info=target_no_info)
+        return await _run_fresh(
+            race_id,
+            model=model,
+            small_model=small_model,
+            on_log=on_log,
+            max_iterations=max_iterations,
+            step_enabled=step_enabled,
+            track=track,
+            max_candidates=max_candidates,
+            target_no_info=target_no_info,
+            target_candidate_names=target_candidate_names,
+        )
 
     refine_iters = _scale_iterations(max_iterations, n, per_candidate=2, minimum=12)
     handlers = _make_editing_handlers(race_json, log)
@@ -1341,12 +1556,25 @@ async def _run_update(
 
         # Refresh candidate names after roster sync (may have changed)
         candidate_names = [c["name"] for c in race_json.get("candidates", [])]
+        candidate_names = _select_target_candidates(candidate_names, target_candidate_names, log)
+        selected_name_set = set(candidate_names)
         n = len(candidate_names)
 
         if not candidate_names:
             log("warning", "No candidates after roster sync — falling back to fresh run")
             track("skip", "discovery")
-            return await _run_fresh(race_id, model=model, small_model=small_model, on_log=on_log, max_iterations=max_iterations, step_enabled=step_enabled, track=track, max_candidates=max_candidates, target_no_info=target_no_info)
+            return await _run_fresh(
+                race_id,
+                model=model,
+                small_model=small_model,
+                on_log=on_log,
+                max_iterations=max_iterations,
+                step_enabled=step_enabled,
+                track=track,
+                max_candidates=max_candidates,
+                target_no_info=target_no_info,
+                target_candidate_names=target_candidate_names,
+            )
 
         track("progress", "discovery", pct=50, message="Discovery: updating race metadata")
 
@@ -1380,6 +1608,8 @@ async def _run_update(
         track("skip", "discovery")
         # Refresh candidate names in case they changed independently
         candidate_names = [c["name"] for c in race_json.get("candidates", [])]
+        candidate_names = _select_target_candidates(candidate_names, target_candidate_names, log)
+        selected_name_set = set(candidate_names)
         n = len(candidate_names)
 
     # --- Phase 1b: Image URL verification & resolution (same position as fresh run) ---
@@ -1392,7 +1622,11 @@ async def _run_update(
             track("progress", "images", pct=pct, message=f"Image Resolution: {cand_name}")
 
         await resolve_candidate_images(
-            race_json,
+            {
+                "candidates": [c for c in race_json.get("candidates", []) if c.get("name") in selected_name_set],
+                "office": race_json.get("office", ""),
+                "jurisdiction": race_json.get("jurisdiction", ""),
+            },
             agent_loop_fn=_agent_loop,
             model=small_model,
             on_log=on_log,
@@ -1414,10 +1648,19 @@ async def _run_update(
             max_candidates=max_candidates, target_no_info=target_no_info, log=log,
         )
         rn = len(research_names)
-        log("info", f"Update Phase 2: Refreshing issue positions for {rn} candidates (12 issues each)...")
+        n_issues = len(CANONICAL_ISSUES)
+        total_units = max(rn * n_issues, 1)
+        log("info", f"Update Phase 2: Refreshing issue positions for {rn} candidates ({n_issues} issues each)...")
         for ci, cand_name in enumerate(research_names):
             log("info", f"  Updating issues for {cand_name}...")
-            track("progress", "issues", pct=int((ci / max(rn, 1)) * 100), message=f"Issue Research: {cand_name} ({ci + 1}/{rn})")
+
+            def _make_issue_tracker(ci=ci, cand_name=cand_name):
+                def _on_issue(issue_idx: int, issue: str) -> None:
+                    combined_pct = int((ci * n_issues + issue_idx) / total_units * 100)
+                    track("progress", "issues", pct=combined_pct,
+                          message=f"Issues · {cand_name} ({ci + 1}/{rn}) · {issue} ({issue_idx + 1}/{n_issues})")
+                return _on_issue
+
             await _run_issue_research_for_candidate(
                 cand_name,
                 race_json,
@@ -1427,6 +1670,7 @@ async def _run_update(
                 max_iterations=max_iterations,
                 is_update=True,
                 last_updated=last_updated,
+                on_issue_progress=_make_issue_tracker(),
             )
         track("complete", "issues", duration_ms=int((time.perf_counter() - iss_t0) * 1000))
     else:
@@ -1469,7 +1713,7 @@ async def _run_update(
         track("start", "refinement")
         ref_t0 = time.perf_counter()
         log("info", "Update Phase 3: Refining updated profile (one candidate at a time, tools mode)...")
-        cand_list = race_json.get("candidates", [])
+        cand_list = [c for c in race_json.get("candidates", []) if c.get("name") in selected_name_set]
         n_cands = len(cand_list)
         for ci, candidate in enumerate(cand_list):
             cname = candidate["name"]

@@ -726,6 +726,8 @@ ISSUE_SUBAGENT_USER = """\
 Candidate: {candidate_name}
 Race: {race_id}
 Issue to research: {issue}
+Known candidate website: {candidate_website}
+Known issue/policy URLs: {candidate_issue_urls}
 
 {handoff_context}
 
@@ -734,6 +736,11 @@ Research this candidate's position on "{issue}". Look for:
 - Voting record on relevant legislation
 - Public statements, interviews, debate answers
 - Endorsements or scorecards from issue-focused organizations
+
+Source prioritization:
+- Start with official campaign pages when available (especially issue/policy URLs above).
+- If a known issue URL appears relevant, fetch it directly before broader web searches.
+- Prefer sources that directly substantiate the stance for this issue.
 
 Then use the set_issue_stance tool to record:
 - stance: 1-2 sentence factual description of their position
@@ -759,6 +766,8 @@ UPDATE_ISSUE_SUBAGENT_USER = """\
 Candidate: {candidate_name}
 Race: {race_id} — updating since {last_updated}
 Issue to update: {issue}
+Known candidate website: {candidate_website}
+Known issue/policy URLs: {candidate_issue_urls}
 
 Current stance:
 {existing_stance}
@@ -770,6 +779,10 @@ since {last_updated}. Focus on:
 - New statements, votes, or policy changes
 - Better sources if current confidence is "low" or "medium"
 - Corrections if the current stance is inaccurate
+
+Source prioritization:
+- Start with official campaign pages when available (especially issue/policy URLs above).
+- If a known issue URL appears relevant, fetch it directly before broader web searches.
 
 Use set_issue_stance ONLY if you find genuinely new or better data.
 If the existing stance is already accurate and well-sourced, reply with

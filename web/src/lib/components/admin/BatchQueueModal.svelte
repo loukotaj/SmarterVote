@@ -64,8 +64,6 @@
     if (researchModel) opts.research_model = researchModel;
     if (maxCandidates !== null && maxCandidates > 0) opts.max_candidates = maxCandidates;
     if (targetNoInfo) opts.target_no_info = true;
-    const anyReviewer = REVIEWER_DEFS.some((r) => reviewerEnabled[r.key]);
-    opts.enable_review = anyReviewer;
     if (reviewerEnabled.claude) opts.claude_model = reviewerModels.claude;
     if (reviewerEnabled.gemini) opts.gemini_model = reviewerModels.gemini;
     if (reviewerEnabled.grok) opts.grok_model = reviewerModels.grok;

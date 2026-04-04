@@ -1,7 +1,6 @@
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
-  import { goto } from "$app/navigation";
 
   // Stores
   import {
@@ -63,19 +62,57 @@
 
   // Run detail view
   let detailRunId: string | null = null;
+  let detailRaceId: string | null = null;
   $: showingDetail = !!detailRunId;
 
-  function setDetailRunId(runId: string | null) {
+  function openRunDetail(runId: string, raceId: string | null = null) {
     detailRunId = runId;
+    detailRaceId = raceId;
     if (!browser) return;
     const url = new URL(window.location.href);
-    if (runId) {
-      url.searchParams.set("run", runId);
-      url.searchParams.set("tab", "races");
-    } else {
+    url.searchParams.set("run", runId);
+    url.searchParams.set("tab", "races");
+    if (raceId) url.searchParams.set("race", raceId);
+    else url.searchParams.delete("race");
+    history.pushState({ runId, raceId }, "", url.pathname + url.search);
+  }
+
+  function closeRunDetail(skipHistoryUpdate = false) {
+    const raceId = detailRaceId;
+    detailRunId = null;
+    detailRaceId = null;
+    if (browser && !skipHistoryUpdate) {
+      const url = new URL(window.location.href);
       url.searchParams.delete("run");
+      url.searchParams.delete("race");
+      history.replaceState(null, "", url.pathname + url.search);
     }
-    goto(url.pathname + url.search, { replaceState: true, noScroll: true, keepFocus: true });
+    if (raceId) reopenRacePanel(raceId);
+  }
+
+  async function reopenRacePanel(raceId: string) {
+    if (selectedRace?.race_id === raceId) {
+      racePanelOpen = true;
+    } else {
+      try {
+        selectedRace = await apiService.getRaceRecord(raceId);
+        racePanelOpen = true;
+      } catch {
+        // silently fall back to just the races tab
+      }
+    }
+  }
+
+  function handlePopState() {
+    const params = new URLSearchParams(window.location.search);
+    const runParam = params.get("run");
+    const raceParam = params.get("race");
+    if (!runParam && detailRunId) {
+      closeRunDetail(true);
+    } else if (runParam) {
+      detailRunId = runParam;
+      detailRaceId = raceParam;
+    }
   }
 
   // Reactive computed
@@ -119,9 +156,12 @@
       if (runParam) {
         activeTab = "races";
         detailRunId = runParam;
+        detailRaceId = params.get("race");
       }
 
       addLog("info", "Pipeline dashboard initialized");
+
+      window.addEventListener("popstate", handlePopState);
     } catch (error) {
       logger.error("Failed to initialize pipeline dashboard:", error);
       addLog("error", `Initialization failed: ${error}`);
@@ -133,6 +173,7 @@
     stopAutoRefresh();
     if (queuePollTimer) clearInterval(queuePollTimer);
     websocketActions.disconnect();
+    if (browser) window.removeEventListener("popstate", handlePopState);
   });
 
   async function loadInitialData() {
@@ -148,10 +189,11 @@
       }
 
       if (queueResult.status === "fulfilled") {
-        queueItems = queueResult.value.items;
+        const queueData = queueResult.value;
+        queueItems = queueData.items;
         const running = queueItems.find((i) => i.status === "running");
-        if (running && running.run_id) {
-          pipelineActions.setCurrentRun(running.run_id, "agent");
+        if (queueData.running || running) {
+          pipelineActions.setCurrentRun(running?.run_id ?? null, "agent");
           pipelineActions.setExecutionState(true);
           pipelineActions.setRunStatus("running");
           startAutoRefresh();
@@ -176,18 +218,23 @@
       queueItems = data.items;
       const nowRunning = queueItems.find((i) => i.status === "running");
 
-      if (nowRunning && nowRunning.run_id) {
+      if (data.running || nowRunning) {
         if (!pipeline.isExecuting) {
-          pipelineActions.setCurrentRun(nowRunning.run_id, "agent");
+          pipelineActions.setCurrentRun(nowRunning?.run_id ?? null, "agent");
           pipelineActions.setExecutionState(true);
           pipelineActions.setRunStatus("running");
           startAutoRefresh();
           startElapsedTimer();
+        } else if (nowRunning?.run_id && pipeline.currentRunId !== nowRunning.run_id) {
+          pipelineActions.setCurrentRun(nowRunning.run_id, "agent");
         }
       } else {
         if (pipeline.isExecuting) {
           pipelineActions.setExecutionState(false);
+          pipelineActions.setCurrentRun(null, null);
+          pipelineActions.setRunStatus("idle");
           stopElapsedTimer();
+          stopAutoRefresh();
           debouncedRefresh();
           racesTabRef?.refresh();
         }
@@ -253,9 +300,11 @@
     switch (data.type) {
       case "run_started":
         pipelineActions.setCurrentRun(data.run_id, data.step);
+        pipelineActions.setExecutionState(true);
         pipelineActions.setRunStatus("running");
         pipelineActions.updateRunProgress(0, "Initializing...");
         startAutoRefresh();
+        startElapsedTimer();
         break;
       case "run_progress":
         pipelineActions.updateRunProgress(
@@ -331,7 +380,7 @@
 
   function handleRacePanelViewRun(event: CustomEvent<string>) {
     racePanelOpen = false;
-    setDetailRunId(event.detail);
+    openRunDetail(event.detail, selectedRace?.race_id ?? null);
   }
 
   function handleBatchQueued(event: CustomEvent<{ added: number; errors: string[] }>) {
@@ -431,7 +480,7 @@
     <button
       type="button"
       class="mb-4 card p-4 border-blue-200 bg-blue-50 dark:bg-blue-900/20 w-full text-left hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors cursor-pointer"
-      on:click={() => { if (pipeline.currentRunId) { activeTab = "races"; setDetailRunId(pipeline.currentRunId); } }}
+      on:click={() => { if (pipeline.currentRunId) { activeTab = "races"; openRunDetail(pipeline.currentRunId, null); } }}
       title="View run details"
     >
       <div class="flex items-center gap-3">
@@ -479,8 +528,8 @@
         liveProgress={pipeline.progress}
         liveProgressMessage={pipeline.progressMessage}
         liveElapsed={pipeline.elapsedTime}
-        on:back={() => setDetailRunId(null)}
-        on:deleted={() => { setDetailRunId(null); racesTabRef?.refresh(); }}
+        on:back={() => closeRunDetail()}
+        on:deleted={() => { closeRunDetail(); racesTabRef?.refresh(); }}
       />
     {:else}
       <RacesTab

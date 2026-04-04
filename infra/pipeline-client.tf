@@ -17,17 +17,7 @@ resource "google_cloud_run_v2_service" "pipeline_client" {
       }
 
       env {
-        name  = "BUCKET_NAME"
-        value = google_storage_bucket.sv_data.name
-      }
-
-      env {
         name  = "GCS_BUCKET"
-        value = google_storage_bucket.sv_data.name
-      }
-
-      env {
-        name  = "GCS_BUCKET_NAME"
         value = google_storage_bucket.sv_data.name
       }
 

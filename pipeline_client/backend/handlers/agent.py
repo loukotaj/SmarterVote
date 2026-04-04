@@ -72,19 +72,16 @@ class AgentHandler:
             raise ValueError("AgentHandler: Missing 'race_id' in payload")
 
         cheap_mode = options.get("cheap_mode", True)
-        enable_review = options.get("enable_review", True)
         enabled_steps_raw = options.get("enabled_steps")
         t0 = time.perf_counter()
 
-        logger.info(f"Agent: researching race {race_id} (cheap_mode={cheap_mode}, review={enable_review})")
+        logger.info(f"Agent: researching race {race_id} (cheap_mode={cheap_mode})")
 
         # Resolve enabled steps: explicit list > derive from options > all
         if enabled_steps_raw:
             enabled_steps = [s for s in enabled_steps_raw if s in {e.value for e in PipelineStep}]
         else:
             enabled_steps = list(ALL_STEPS)
-            if not enable_review:
-                enabled_steps = [s for s in enabled_steps if s not in ("review", "iteration")]
         enabled_set = set(enabled_steps)
 
         # Pre-load existing data from GCS if running in cloud
@@ -201,7 +198,6 @@ class AgentHandler:
             race_id,
             on_log=on_log,
             cheap_mode=cheap_mode,
-            enable_review="review" in enabled_set,
             existing_data=existing_data,
             research_model=options.get("research_model"),
             claude_model=options.get("claude_model"),
@@ -211,6 +207,7 @@ class AgentHandler:
             step_tracker=step_tracker,
             max_candidates=options.get("max_candidates"),
             target_no_info=options.get("target_no_info", False),
+            candidate_names=options.get("candidate_names"),
         )
 
         # Save as draft (not published) — admin must explicitly publish

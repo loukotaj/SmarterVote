@@ -22,7 +22,15 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
-from pipeline_client.agent.agent import SEARCH_TOOL, _agent_loop, _extract_json, _load_existing, _serper_search, run_agent
+from pipeline_client.agent.agent import (
+    SEARCH_TOOL,
+    _agent_loop,
+    _extract_json,
+    _load_existing,
+    _select_target_candidates,
+    _serper_search,
+    run_agent,
+)
 from pipeline_client.agent.prompts import (
     CANONICAL_ISSUES,
     DISCOVERY_SYSTEM,
@@ -515,7 +523,11 @@ async def test_run_agent_fresh():
         mock_loop.return_value = {}
         mock_loop.side_effect = [discovery_result] + [{"image_url": None}] + [{}] * 15
 
-        result = await run_agent("test-2024", cheap_mode=True, enable_review=False)
+        result = await run_agent(
+            "test-2024",
+            cheap_mode=True,
+            enabled_steps=["discovery", "images", "issues", "finance", "refinement"],
+        )
 
     assert result["id"] == "test-2024"
     assert "updated_utc" in result
@@ -537,7 +549,11 @@ async def test_run_agent_fresh_no_candidates():
         patch("pipeline_client.agent.agent._load_existing", return_value=None),
     ):
         mock_loop.return_value = discovery_result
-        result = await run_agent("empty-2024", cheap_mode=True, enable_review=False)
+        result = await run_agent(
+            "empty-2024",
+            cheap_mode=True,
+            enabled_steps=["discovery", "images", "issues", "finance", "refinement"],
+        )
 
     assert result["id"] == "empty-2024"
     assert result["candidates"] == []
@@ -559,7 +575,11 @@ async def test_run_agent_update_mode():
         # discovery + image (Bob) + 12 issue sub-agents + finance + refine + meta refine = 17
         mock_loop.return_value = {}
         mock_loop.side_effect = [updated, {"image_url": None}] + [{}] * 15
-        result = await run_agent("test-2024", cheap_mode=True, enable_review=False)
+        result = await run_agent(
+            "test-2024",
+            cheap_mode=True,
+            enabled_steps=["discovery", "images", "issues", "finance", "refinement"],
+        )
 
     assert result["id"] == "test-2024"
     # Falls back to fresh: 1 + 1 + 12 + 1 + 1 + 1 = 17
@@ -595,7 +615,12 @@ async def test_run_agent_normalizes_output():
         patch("pipeline_client.agent.agent._load_existing", return_value=None),
     ):
         mock_loop.return_value = minimal
-        result = await run_agent("race-2024", cheap_mode=True, existing_data={}, enable_review=False)
+        result = await run_agent(
+            "race-2024",
+            cheap_mode=True,
+            existing_data={},
+            enabled_steps=["discovery", "images", "issues", "finance", "refinement"],
+        )
 
     assert result["id"] == "race-2024"
     assert "updated_utc" in result
@@ -853,8 +878,8 @@ async def test_run_agent_normalizes_new_fields():
 
 
 @pytest.mark.asyncio
-async def test_run_agent_enable_review_false():
-    """run_agent with enable_review=False skips reviews."""
+async def test_run_agent_skips_reviews_when_step_disabled():
+    """run_agent skips reviews when the review step is disabled."""
     discovery_result = {"id": "no-review-2024", "candidates": []}
 
     with (
@@ -862,14 +887,19 @@ async def test_run_agent_enable_review_false():
         patch("pipeline_client.agent.agent._load_existing", return_value=None),
     ):
         mock_loop.return_value = discovery_result
-        result = await run_agent("no-review-2024", cheap_mode=True, existing_data={}, enable_review=False)
+        result = await run_agent(
+            "no-review-2024",
+            cheap_mode=True,
+            existing_data={},
+            enabled_steps=["discovery", "images", "issues", "finance", "refinement"],
+        )
 
     assert result.get("reviews") == []
 
 
 @pytest.mark.asyncio
-async def test_run_agent_enable_review_skips_without_keys():
-    """run_agent with enable_review=True skips providers without API keys."""
+async def test_run_agent_review_skips_without_keys():
+    """run_agent review step skips providers without API keys."""
     discovery_result = {"id": "review-2024", "candidates": []}
 
     env = os.environ.copy()
@@ -883,7 +913,7 @@ async def test_run_agent_enable_review_skips_without_keys():
         patch.dict(os.environ, env, clear=True),
     ):
         mock_loop.return_value = discovery_result
-        result = await run_agent("review-2024", cheap_mode=True, existing_data={}, enable_review=True)
+        result = await run_agent("review-2024", cheap_mode=True, existing_data={})
 
     # No reviews because no API keys are set
     assert result.get("reviews") == []
@@ -955,8 +985,8 @@ async def test_run_single_review_handles_failure():
 
 
 @pytest.mark.asyncio
-async def test_v2_handler_passes_enable_review():
-    """AgentHandler passes enable_review option to run_agent."""
+async def test_v2_handler_passes_enabled_steps():
+    """AgentHandler passes enabled_steps option to run_agent."""
     from pipeline_client.backend.handlers.agent import AgentHandler
 
     handler = AgentHandler()
@@ -971,12 +1001,17 @@ async def test_v2_handler_passes_enable_review():
 
         await handler.handle(
             {"race_id": "test-race"},
-            {"cheap_mode": True, "enable_review": True},
+            {
+                "cheap_mode": True,
+                "enabled_steps": ["discovery", "images", "issues"],
+                "candidate_names": ["Jeff Wadlin"],
+            },
         )
 
     mock_agent.assert_called_once()
     call_kwargs = mock_agent.call_args
-    assert call_kwargs.kwargs["enable_review"] is True
+    assert call_kwargs.kwargs["enabled_steps"] == ["discovery", "images", "issues"]
+    assert call_kwargs.kwargs["candidate_names"] == ["Jeff Wadlin"]
 
 
 # ---------------------------------------------------------------------------
@@ -1002,10 +1037,13 @@ def test_issue_subagent_prompt_formats():
         candidate_name="Jane Doe",
         race_id="mi-senate-2026",
         issue="Healthcare",
+        candidate_website="https://example.com/",
+        candidate_issue_urls="https://example.com/issues",
         handoff_context="No prior context available.",
     )
     assert "Jane Doe" in result
     assert "Healthcare" in result
+    assert "https://example.com/issues" in result
     assert "set_issue_stance" in result
 
 
@@ -1017,11 +1055,24 @@ def test_update_issue_subagent_prompt_formats():
         issue="Healthcare",
         last_updated="2025-01-01T00:00:00Z",
         existing_stance="  Stance: Supports ACA.\n  Confidence: high",
+        candidate_website="https://example.com/",
+        candidate_issue_urls="https://example.com/issues",
         handoff_context="No prior context available.",
     )
     assert "Jane Doe" in result
     assert "Healthcare" in result
     assert "Supports ACA" in result
+    assert "https://example.com/issues" in result
+
+
+def test_select_target_candidates_case_insensitive():
+    """Candidate targeting matches names case-insensitively and returns canonical names."""
+    selected = _select_target_candidates(
+        ["Tom Cotton", "Jeff Wadlin"],
+        ["jeff wadlin"],
+        log=lambda *_: None,
+    )
+    assert selected == ["Jeff Wadlin"]
 
 
 def test_editing_tool_schemas_exist():
@@ -1257,7 +1308,11 @@ async def test_run_agent_update_with_candidates():
         # Total: 1 + 1 + 1 + 12 + 1 + 1 + 1 = 18
         mock_loop.return_value = {}
 
-        result = await run_agent("test-2024", cheap_mode=True, enable_review=False)
+        result = await run_agent(
+            "test-2024",
+            cheap_mode=True,
+            enabled_steps=["discovery", "images", "issues", "finance", "refinement"],
+        )
 
     assert result["id"] == "test-2024"
     assert "updated_utc" in result
