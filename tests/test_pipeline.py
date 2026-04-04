@@ -506,6 +506,74 @@ async def test_fetch_page_uses_proxy_fallback_when_primary_unusable():
     assert "[Failed to fetch" not in result
 
 
+@pytest.mark.asyncio
+async def test_fetch_page_attempts_jeff_wadlin_issues_url():
+    """_fetch_page issues a direct request to the exact Wadlin issues URL."""
+
+    class _Resp:
+        def __init__(self, text: str, content_type: str = "text/html; charset=utf-8"):
+            self.text = text
+            self.headers = {"content-type": content_type}
+
+        def raise_for_status(self):
+            return None
+
+    target_url = "https://www.jeffwadlin.com/issues"
+    mock_client = MagicMock()
+    mock_client.get = AsyncMock(return_value=_Resp("Valid issue content " + ("x" * 500)))
+
+    with (
+        patch("pipeline_client.agent.agent._get_search_cache", return_value=None),
+        patch("pipeline_client.agent.agent._get_fetch_client", return_value=mock_client),
+    ):
+        result = await _fetch_page(target_url)
+
+    requested_urls = [call.args[0] for call in mock_client.get.call_args_list if call.args]
+    assert requested_urls[0] == target_url, "First HTTP call must be directly to the Wadlin issues URL"
+    assert "Valid issue content" in result
+
+
+@pytest.mark.asyncio
+async def test_fetch_page_jeff_wadlin_blocked_falls_back_to_proxy_with_correct_url():
+    """When jeffwadlin.com returns a JS stub (~214 chars), _fetch_page retries via jina proxy
+    using the original https:// URL (not a downgraded http:// version)."""
+
+    class _Resp:
+        def __init__(self, text: str, content_type: str = "text/html; charset=utf-8"):
+            self.text = text
+            self.headers = {"content-type": content_type}
+
+        def raise_for_status(self):
+            return None
+
+    target_url = "https://www.jeffwadlin.com/issues"
+    expected_proxy_url = f"https://r.jina.ai/{target_url}"
+    proxy_content = "Healthcare: I support a universal 80/20 Medicare-for-all option. " + ("x" * 400)
+
+    mock_client = MagicMock()
+    mock_client.get = AsyncMock(
+        side_effect=[
+            # Both direct header profiles return a tiny JS shell (~214 chars after stripping)
+            _Resp("<html><body>Please enable JavaScript</body></html>"),
+            _Resp("<html><body>Please enable JavaScript</body></html>"),
+            # Jina proxy returns real content
+            _Resp(proxy_content, "text/plain"),
+        ]
+    )
+
+    with (
+        patch("pipeline_client.agent.agent._get_search_cache", return_value=None),
+        patch("pipeline_client.agent.agent._get_fetch_client", return_value=mock_client),
+    ):
+        result = await _fetch_page(target_url)
+
+    requested_urls = [call.args[0] for call in mock_client.get.call_args_list if call.args]
+    assert requested_urls[0] == target_url, "First call must be the direct Wadlin issues URL"
+    assert expected_proxy_url in requested_urls, f"Proxy call must use the original https:// URL — got: {requested_urls}"
+    assert "Medicare-for-all" in result
+    assert "[Failed to fetch" not in result
+
+
 # ---------------------------------------------------------------------------
 # Load existing data tests
 # ---------------------------------------------------------------------------

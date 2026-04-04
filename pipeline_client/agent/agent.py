@@ -230,7 +230,7 @@ async def _fetch_page(url: str) -> str:
             failure_reasons.append(str(exc))
 
     # Fallback: jina text proxy often succeeds when direct fetches hit bot checks.
-    proxy_url = f"https://r.jina.ai/http://{url.replace('https://', '').replace('http://', '')}"
+    proxy_url = f"https://r.jina.ai/{url}"
     try:
         proxy_resp = await client.get(proxy_url)
         proxy_resp.raise_for_status()
