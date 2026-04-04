@@ -1125,6 +1125,10 @@ async def _run_fresh(
         track("start", "images")
         img_t0 = time.perf_counter()
         log("info", "Phase 1b/3: Verifying and resolving candidate image URLs...")
+
+        def _on_image_progress(pct: int, cand_name: str) -> None:
+            track("progress", "images", pct=pct, message=f"Image Resolution: {cand_name}")
+
         await resolve_candidate_images(
             race_json,
             agent_loop_fn=_agent_loop,
@@ -1132,6 +1136,7 @@ async def _run_fresh(
             on_log=on_log,
             race_id=race_id,
             max_iterations=min(max_iterations, 10),
+            on_progress=_on_image_progress,
         )
         track("complete", "images", duration_ms=int((time.perf_counter() - img_t0) * 1000))
     else:
@@ -1203,9 +1208,11 @@ async def _run_fresh(
         log("info", "Phase 3/3: Refining profile (one candidate at a time, tools mode)...")
         handlers = _make_editing_handlers(race_json, log)
         candidate_names_in_json = [c["name"] for c in race_json.get("candidates", [])]
-        for candidate in race_json.get("candidates", []):
+        n_cands = len(candidate_names_in_json)
+        for ci, candidate in enumerate(race_json.get("candidates", [])):
             cname = candidate["name"]
             log("info", f"  Refining {cname}...")
+            track("progress", "refinement", pct=int((ci / max(n_cands, 1)) * 100), message=f"Refinement: {cname} ({ci + 1}/{n_cands})")
             try:
                 await _agent_loop(
                     REFINE_SYSTEM,
@@ -1306,67 +1313,97 @@ async def _run_update(
     handlers = _make_editing_handlers(race_json, log)
 
     # --- Phase 0+1: Discovery (roster sync + meta update) ---
-    track("start", "discovery")
-    disc_t0 = time.perf_counter()
+    if step_enabled("discovery"):
+        track("start", "discovery")
+        disc_t0 = time.perf_counter()
 
-    log("info", "Update Phase 0: Verifying candidate roster...")
-    try:
-        await _agent_loop(
-            ROSTER_SYNC_SYSTEM,
-            ROSTER_SYNC_USER.format(
+        log("info", "Update Phase 0: Verifying candidate roster...")
+        try:
+            await _agent_loop(
+                ROSTER_SYNC_SYSTEM,
+                ROSTER_SYNC_USER.format(
+                    race_id=race_id,
+                    last_updated=last_updated,
+                    candidate_names=", ".join(candidate_names),
+                ),
+                model=model,
+                on_log=on_log,
                 race_id=race_id,
-                last_updated=last_updated,
-                candidate_names=", ".join(candidate_names),
-            ),
-            model=model,
-            on_log=on_log,
-            race_id=race_id,
-            max_iterations=max(12, max_iterations // 2),
-            phase_name="roster-sync",
-            max_tokens=8192,
-            extra_tools=ROSTER_TOOLS + CANDIDATE_TOOLS + [READ_PROFILE_TOOL],
-            extra_tool_handlers=handlers,
-            tools_mode=True,
-        )
-    except (RuntimeError, ValueError) as exc:
-        log("warning", f"  Roster sync failed: {exc} — keeping existing roster")
+                max_iterations=max(12, max_iterations // 2),
+                phase_name="roster-sync",
+                max_tokens=8192,
+                extra_tools=ROSTER_TOOLS + CANDIDATE_TOOLS + [READ_PROFILE_TOOL],
+                extra_tool_handlers=handlers,
+                tools_mode=True,
+            )
+        except (RuntimeError, ValueError) as exc:
+            log("warning", f"  Roster sync failed: {exc} — keeping existing roster")
 
-    # Refresh candidate names after roster sync (may have changed)
-    candidate_names = [c["name"] for c in race_json.get("candidates", [])]
-    n = len(candidate_names)
+        # Refresh candidate names after roster sync (may have changed)
+        candidate_names = [c["name"] for c in race_json.get("candidates", [])]
+        n = len(candidate_names)
 
-    if not candidate_names:
-        log("warning", "No candidates after roster sync — falling back to fresh run")
+        if not candidate_names:
+            log("warning", "No candidates after roster sync — falling back to fresh run")
+            track("skip", "discovery")
+            return await _run_fresh(race_id, model=model, small_model=small_model, on_log=on_log, max_iterations=max_iterations, step_enabled=step_enabled, track=track, max_candidates=max_candidates, target_no_info=target_no_info)
+
+        track("progress", "discovery", pct=50, message="Discovery: updating race metadata")
+
+        # --- Phase 1: Meta update (tools mode — summaries, polls, race fields) ---
+        meta_iters = _scale_iterations(max_iterations, n, per_candidate=2, minimum=10)
+        log("info", "Update Phase 1: Searching for new summaries, donors, polls, voting records...")
+        try:
+            await _agent_loop(
+                UPDATE_META_SYSTEM,
+                UPDATE_META_USER.format(
+                    race_id=race_id,
+                    last_updated=last_updated,
+                    candidate_names=", ".join(candidate_names),
+                ),
+                model=model,
+                on_log=on_log,
+                race_id=race_id,
+                max_iterations=meta_iters,
+                phase_name="update-meta",
+                max_tokens=16384,
+                extra_tools=RACE_TOOLS + CANDIDATE_TOOLS + RECORD_TOOLS + [READ_PROFILE_TOOL],
+                extra_tool_handlers=handlers,
+                tools_mode=True,
+            )
+        except (RuntimeError, ValueError) as exc:
+            log("warning", f"  Update meta phase failed: {exc} — keeping existing meta")
+
         track("complete", "discovery", duration_ms=int((time.perf_counter() - disc_t0) * 1000))
-        return await _run_fresh(race_id, model=model, small_model=small_model, on_log=on_log, max_iterations=max_iterations, step_enabled=step_enabled, track=track, max_candidates=max_candidates, target_no_info=target_no_info)
+    else:
+        log("info", "Update Phase 0+1: Discovery — SKIPPED")
+        track("skip", "discovery")
+        # Refresh candidate names in case they changed independently
+        candidate_names = [c["name"] for c in race_json.get("candidates", [])]
+        n = len(candidate_names)
 
-    track("progress", "discovery", pct=50)
+    # --- Phase 1b: Image URL verification & resolution (same position as fresh run) ---
+    if step_enabled("images"):
+        track("start", "images")
+        img_t0 = time.perf_counter()
+        log("info", "Update Phase 1b: Verifying and resolving candidate image URLs...")
 
-    # --- Phase 1: Meta update (tools mode — summaries, polls, race fields) ---
-    meta_iters = _scale_iterations(max_iterations, n, per_candidate=2, minimum=10)
-    log("info", "Update Phase 1: Searching for new summaries, donors, polls, voting records...")
-    try:
-        await _agent_loop(
-            UPDATE_META_SYSTEM,
-            UPDATE_META_USER.format(
-                race_id=race_id,
-                last_updated=last_updated,
-                candidate_names=", ".join(candidate_names),
-            ),
-            model=model,
+        def _on_image_progress(pct: int, cand_name: str) -> None:
+            track("progress", "images", pct=pct, message=f"Image Resolution: {cand_name}")
+
+        await resolve_candidate_images(
+            race_json,
+            agent_loop_fn=_agent_loop,
+            model=small_model,
             on_log=on_log,
             race_id=race_id,
-            max_iterations=meta_iters,
-            phase_name="update-meta",
-            max_tokens=16384,
-            extra_tools=RACE_TOOLS + CANDIDATE_TOOLS + RECORD_TOOLS + [READ_PROFILE_TOOL],
-            extra_tool_handlers=handlers,
-            tools_mode=True,
+            max_iterations=min(max_iterations, 10),
+            on_progress=_on_image_progress,
         )
-    except (RuntimeError, ValueError) as exc:
-        log("warning", f"  Update meta phase failed: {exc} — keeping existing meta")
-
-    track("complete", "discovery", duration_ms=int((time.perf_counter() - disc_t0) * 1000))
+        track("complete", "images", duration_ms=int((time.perf_counter() - img_t0) * 1000))
+    else:
+        log("info", "Update Phase 1b: Image resolution — SKIPPED")
+        track("skip", "images")
 
     # --- Phase 2: Per-candidate, per-issue research (tools mode) ---
     if step_enabled("issues"):
@@ -1433,9 +1470,11 @@ async def _run_update(
         ref_t0 = time.perf_counter()
         log("info", "Update Phase 3: Refining updated profile (one candidate at a time, tools mode)...")
         cand_list = race_json.get("candidates", [])
-        for candidate in cand_list:
+        n_cands = len(cand_list)
+        for ci, candidate in enumerate(cand_list):
             cname = candidate["name"]
             log("info", f"  Refining {cname}...")
+            track("progress", "refinement", pct=int((ci / max(n_cands, 1)) * 100), message=f"Refinement: {cname} ({ci + 1}/{n_cands})")
             try:
                 await _agent_loop(
                     REFINE_SYSTEM,
@@ -1486,24 +1525,6 @@ async def _run_update(
     else:
         log("info", "Update Phase 3: Refinement — SKIPPED")
         track("skip", "refinement")
-
-    # --- Post-update: image URL verification ---
-    if step_enabled("images"):
-        track("start", "images")
-        img_t0 = time.perf_counter()
-        log("info", "Post-update: Verifying and resolving candidate image URLs...")
-        await resolve_candidate_images(
-            race_json,
-            agent_loop_fn=_agent_loop,
-            model=small_model,
-            on_log=on_log,
-            race_id=race_id,
-            max_iterations=min(max_iterations, 10),
-        )
-        track("complete", "images", duration_ms=int((time.perf_counter() - img_t0) * 1000))
-    else:
-        log("info", "Post-update: Image verification — SKIPPED")
-        track("skip", "images")
 
     return race_json
 

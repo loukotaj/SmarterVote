@@ -1101,16 +1101,19 @@ def test_add_candidate_handler():
 
 
 def test_remove_candidate_handler():
-    """remove_candidate handler removes a candidate from race_json."""
+    """remove_candidate handler soft-deletes a candidate (marks withdrawn, keeps in list)."""
     from pipeline_client.agent.agent import _make_editing_handlers
 
     race_json = {"candidates": [{"name": "Alice", "party": "D"}, {"name": "Bob", "party": "R"}]}
     handlers = _make_editing_handlers(race_json, lambda l, m: None)
 
     result = handlers["remove_candidate"]({"name": "Alice", "reason": "withdrew"})
-    assert "Removed" in result
-    assert len(race_json["candidates"]) == 1
-    assert race_json["candidates"][0]["name"] == "Bob"
+    assert "withdrawn" in result.lower()
+    # Soft-delete: candidate stays in the list but is flagged
+    assert len(race_json["candidates"]) == 2
+    alice = next(c for c in race_json["candidates"] if c["name"] == "Alice")
+    assert alice.get("withdrawn") is True
+    assert alice.get("withdrawal_reason") == "withdrew"
 
 
 def test_set_issue_stance_handler():
@@ -1246,17 +1249,17 @@ async def test_run_agent_update_with_candidates():
     ):
         # roster sync (tools) → {}
         # meta update (tools) → {}
+        # image resolution (1 candidate, agent fallback) → {}
         # 12 issue sub-agents (tools) → {} each
         # finance (json) → {}
         # refine per-candidate (tools) → {}
         # refine meta (tools) → {}
-        # image resolution → {}
-        # Total: 1 + 1 + 12 + 1 + 1 + 1 + 1 = 18
+        # Total: 1 + 1 + 1 + 12 + 1 + 1 + 1 = 18
         mock_loop.return_value = {}
 
         result = await run_agent("test-2024", cheap_mode=True, enable_review=False)
 
     assert result["id"] == "test-2024"
     assert "updated_utc" in result
-    # roster sync + meta + 12 issues + finance + refine + meta refine + images = 18
+    # roster sync + meta + images + 12 issues + finance + refine + meta refine = 18
     assert mock_loop.call_count == 18

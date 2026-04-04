@@ -315,15 +315,25 @@ async def resolve_candidate_images(
     on_log: Optional[Callable] = None,
     race_id: Optional[str] = None,
     max_iterations: int = 10,
+    on_progress: Optional[Callable[[int, str], None]] = None,
 ) -> None:
-    """Validate and resolve image URLs for all candidates, running in parallel."""
+    """Validate and resolve image URLs for all candidates, running in parallel.
+
+    *on_progress* is an optional ``(pct: int, candidate_name: str) -> None`` callback
+    invoked after each candidate's image is resolved, with cumulative completion
+    percentage (0-100) and the candidate name.
+    """
     candidates = [c for c in race_json.get("candidates", []) if isinstance(c, dict)]
     if not candidates:
         return
     office = race_json.get("office", "")
     jurisdiction = race_json.get("jurisdiction", "")
-    await asyncio.gather(*[
-        _resolve_single_image(
+    total = len(candidates)
+    done = 0
+
+    async def _resolve_with_progress(c: Dict[str, Any]) -> None:
+        nonlocal done
+        await _resolve_single_image(
             c,
             agent_loop_fn=agent_loop_fn,
             model=model,
@@ -333,5 +343,11 @@ async def resolve_candidate_images(
             office=office,
             jurisdiction=jurisdiction,
         )
-        for c in candidates
-    ])
+        done += 1
+        if on_progress:
+            try:
+                on_progress(int(done / total * 100), c.get("name", ""))
+            except Exception:
+                pass
+
+    await asyncio.gather(*[_resolve_with_progress(c) for c in candidates])

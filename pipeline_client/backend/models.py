@@ -18,8 +18,8 @@ class PipelineStep(str, Enum):
     """Canonical pipeline step identifiers.
 
     Fresh runs execute: discovery → images → issues → finance → refinement → review → iteration.
-    Update runs execute the same steps but 'discovery' maps to roster sync + meta update,
-    and 'images' runs after refinement instead of after discovery.
+    Update runs execute the same steps in the same order: 'discovery' maps to roster sync +
+    meta update, and 'images' runs right after discovery (same position as fresh runs).
     """
     DISCOVERY = "discovery"
     IMAGES = "images"
