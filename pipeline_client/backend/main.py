@@ -733,9 +733,17 @@ async def delete_race_run(race_id: str, run_id: str) -> Dict[str, Any]:
     """Cancel or delete a run for a race."""
     _validate_race_id(race_id)
     run_info = run_manager.get_run(run_id)
-    if run_info and run_info.status in ("pending", "running"):
+    was_active = run_info and run_info.status in ("pending", "running")
+    if was_active:
         run_manager.cancel_run(run_id)
         await logging_manager.send_run_status(run_id, "cancelled")
+
+    # If a running run is being force-deleted, reset the race status so it
+    # no longer shows as "running".
+    if was_active:
+        race = race_manager.get_race(race_id)
+        if race and race.status in ("running", "queued"):
+            race_manager.cancel_race(race_id)
 
     # Always attempt deletion after cancellation (or if already completed/failed)
     if race_manager.delete_run(race_id, run_id):
@@ -963,6 +971,12 @@ async def cancel_or_delete_run(run_id: str) -> Dict[str, Any]:
     if run_info.status in ["pending", "running"]:
         run_manager.cancel_run(run_id)
         await logging_manager.send_run_status(run_id, "cancelled")
+        # Update the race record so it no longer shows as "running"
+        race_id_from_payload = run_info.payload.get("race_id")
+        if race_id_from_payload:
+            race = race_manager.get_race(race_id_from_payload)
+            if race and race.status in ("running", "queued"):
+                race_manager.cancel_race(race_id_from_payload)
         return {"message": "Run cancelled", "run_id": run_id}
     else:
         deleted = run_manager.delete_run(run_id)

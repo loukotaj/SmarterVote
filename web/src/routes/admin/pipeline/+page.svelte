@@ -301,24 +301,11 @@
     batchModalOpen = true;
   }
 
-  async function handleAddRaces(event: CustomEvent<string>) {
+  function handleAddRaces(event: CustomEvent<string>) {
     const raw = event.detail;
     const ids = raw.split(",").map((s: string) => s.trim()).filter(Boolean);
     if (ids.length === 0) return;
-
-    try {
-      const result = await apiService.queueRaces(ids, { cheap_mode: true });
-      if (result.added.length > 0) {
-        addLog("info", `Queued ${result.added.length} race(s): ${result.added.map((a) => a.race_id).join(", ")}`);
-      }
-      for (const err of result.errors) {
-        addLog("warning", `${err.race_id}: ${err.error}`);
-      }
-      await racesTabRef?.refresh();
-      await refreshQueue();
-    } catch (e) {
-      addLog("error", `Failed to queue: ${e}`);
-    }
+    handleBatchQueue(ids);
   }
 
   function handleRacePanelClose() {

@@ -73,7 +73,6 @@
   // Action states
   let running = false;
   let cancelling = false;
-  let recovering = false;
   let publishing = false;
   let error = "";
 
@@ -169,19 +168,6 @@
     }
   }
 
-  async function handleRecover() {
-    recovering = true;
-    error = "";
-    try {
-      await apiService.recheckRace(race.race_id);
-      dispatch("updated");
-      await loadRuns();
-    } catch (e) {
-      error = `Recover failed: ${e}`;
-    } finally {
-      recovering = false;
-    }
-  }
 
   async function handleExport() {
     try {
@@ -342,15 +328,6 @@
             {cancelling ? "Stopping…" : race.status === "running" ? "Stop Run" : "Remove from Queue"}
           </button>
         {/if}
-        <button
-          type="button"
-          class="px-3 py-1.5 text-sm border border-amber-300 dark:border-amber-700 rounded-lg text-amber-700 dark:text-amber-300 hover:bg-amber-50 dark:hover:bg-amber-900/20 disabled:opacity-40 text-xs"
-          disabled={recovering}
-          title="Re-check status from storage — use if run completed but status is stuck"
-          on:click={handleRecover}
-        >
-          {recovering ? "Checking…" : "Recover"}
-        </button>
         {#if race.status === "draft" || (race.draft_updated_at && race.status !== "published")}
           <button
             type="button"
