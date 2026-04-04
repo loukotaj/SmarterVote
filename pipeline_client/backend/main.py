@@ -425,10 +425,17 @@ async def delete_draft_race(race_id: str) -> Dict[str, Any]:
         deleted = True
     if _delete_race_gcs(race_id, "drafts"):
         deleted = True
-    if not deleted:
-        raise HTTPException(status_code=404, detail="Draft not found")
-    race_manager.delete_draft(race_id)
-    return {"message": f"Draft {race_id} deleted", "id": race_id}
+
+    # Reconcile stale race metadata: if no draft file exists but the race record
+    # still indicates draft state, clear it instead of returning a hard 404.
+    race = race_manager.get_race(race_id)
+    has_stale_draft_state = bool(race and (race.draft_updated_at or race.status == "draft"))
+    if deleted or has_stale_draft_state:
+        race_manager.delete_draft(race_id)
+        suffix = " (metadata reconciled)" if (not deleted and has_stale_draft_state) else ""
+        return {"message": f"Draft {race_id} deleted{suffix}", "id": race_id}
+
+    raise HTTPException(status_code=404, detail="Draft not found")
 
 
 # ---------------------------------------------------------------------------

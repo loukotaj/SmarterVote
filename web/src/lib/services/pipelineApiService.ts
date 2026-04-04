@@ -264,6 +264,10 @@ export class PipelineApiService {
     );
     if (!res.ok) {
       const errorText = await res.text().catch(() => "Unknown error");
+      // Idempotent behavior: treat missing draft as already deleted.
+      if (res.status === 404 && errorText.toLowerCase().includes("draft not found")) {
+        return;
+      }
       throw new Error(`HTTP ${res.status}: ${res.statusText}. ${errorText}`);
     }
   }
