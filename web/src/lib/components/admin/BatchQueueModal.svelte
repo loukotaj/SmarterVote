@@ -32,7 +32,7 @@
   );
   let researchModel = "";
 
-  let reviewerEnabled: Record<ReviewerKey, boolean> = createDefaultReviewerEnabled();
+  let reviewerEnabled: Record<ReviewerKey, boolean> = createDefaultReviewerEnabled(Boolean(stepToggles.review));
   let reviewerModels: Record<ReviewerKey, string> = createDefaultReviewerModels();
   let queuing = false;
   let error = "";

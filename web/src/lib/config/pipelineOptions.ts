@@ -40,7 +40,10 @@ export const RESEARCH_MODELS = [
   { value: "gpt-5-nano", label: "GPT-5 nano — fastest & cheapest" },
 ];
 
-export function createDefaultReviewerEnabled(): Record<ReviewerKey, boolean> {
+export function createDefaultReviewerEnabled(reviewEnabled: boolean = false): Record<ReviewerKey, boolean> {
+  if (reviewEnabled) {
+    return { claude: true, gemini: true, grok: true };
+  }
   return { claude: false, gemini: false, grok: false };
 }
 
