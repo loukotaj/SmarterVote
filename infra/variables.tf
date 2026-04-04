@@ -86,7 +86,12 @@ variable "auth0_audience" {
 variable "allowed_origins" {
   description = "Allowed CORS origins for pipeline client"
   type        = list(string)
-  default     = ["http://localhost:5173", "http://127.0.0.1:5173"]
+  default     = [
+    "https://smarter.vote",
+    "https://www.smarter.vote",
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+  ]
 }
 
 # Pipeline Client Deployment Toggle
@@ -98,9 +103,9 @@ variable "enable_pipeline_client" {
 }
 
 variable "pipeline_client_public_invoker" {
-  description = "Expose the pipeline client Cloud Run service to unauthenticated invokers. Keep false unless application-level auth and network exposure are intentionally desired."
+  description = "Expose the pipeline client Cloud Run service to unauthenticated invokers. Defaults to true for backward compatibility; set false only when using private invoker IAM or other edge auth."
   type        = bool
-  default     = false
+  default     = true
 }
 
 # Monitoring / alerting
