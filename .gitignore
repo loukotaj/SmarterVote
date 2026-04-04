@@ -290,3 +290,6 @@ data/pipeline_metrics.db-wal
 services/races-api/data/analytics.db-wal
 services/races-api/data/analytics.db-shm
 data/analytics.db
+data/analytics.db-shm
+.gitignore
+data/analytics.db-wal

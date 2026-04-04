@@ -270,15 +270,20 @@ Search for NEW information since {last_updated}:
    Set polling_note if no polls are found.
 4. Updated race description (office context, why it matters, key contrasts).
 
-Use your editing tools to record every improvement directly:
+IMPORTANT — only make changes if you find genuinely new or better information:
+- If nothing meaningful has changed since {last_updated}, do NOT make edits. Just reply "No changes needed."
+- Do not update a field simply to rephrase it or because you could say it differently.
+- Do not add polls that predate {last_updated} or are already captured in the profile.
+
+When you do find improvements, use your editing tools to record them:
 - update_race_field for description
 - add_poll for each new poll
 - set_candidate_summary for updated summaries
 - set_donor_summary if new funding/donor information is available
 - set_candidate_field for other candidate fields
 
-When you are done, reply with a short plain-text summary of what changed
-(e.g. "Updated description, added 1 poll, refreshed summary for Candidate A.")."""
+When you are done, reply with a short plain-text summary of what changed, or
+"No changes needed" if the profile is already up to date."""
 
 UPDATE_ISSUE_SYSTEM = f"""\
 You are a nonpartisan political research agent updating issue positions in an existing profile.
@@ -298,7 +303,12 @@ Search for the LATEST positions on these issues. Focus on:
 - Statements, votes, or actions since {last_updated}
 - Filling any gaps where confidence is "low" or stance is missing
 
-IMPORTANT — stance field rules:
+IMPORTANT — only update if you find genuinely new or better data:
+- If the existing stance is already accurate and well-sourced, omit that candidate/issue from your response entirely.
+- If nothing meaningful has changed since {last_updated}, return an empty JSON object {{}} and briefly explain why no changes were made.
+- Do NOT rephrase existing stances just to return something — omit them instead.
+
+Stance field rules:
 - Write only the candidate's actual position, never process notes.
 - NEVER write stances like "Pending update", "Updating to reflect...", "Under review", or any text that describes the research or pipeline state.
 - If no new information is found for an issue, omit that issue from the response entirely — do not overwrite existing data with a placeholder.
@@ -557,16 +567,37 @@ Your job is to address each flag by researching and fixing the issues.
 
 CRITICAL — SOURCE-VERIFICATION RULE:
 Before changing ANY factual claim (a vote, a donor amount, a stated position),
-you MUST first verify the flag by searching the original source cited in the
-profile. If the source confirms the original data is correct, REJECT the
-reviewer's flag — do NOT change accurate data to satisfy a mistaken reviewer.
-When you reject a flag, add an entry to "dismissed_flags" in your output
-explaining why (e.g. "Source confirms the vote was real").
+verify the flag by searching for the specific detail the reviewer questioned.
+"Source confirms" means the source confirms the SPECIFIC DETAIL (dates, names,
+amounts, event) — not just the general topic. For example: a source confirming
+that a candidate worked at a company does NOT confirm specific years; you must
+find a source that confirms the specific years claimed.
 
-Only modify data when:
-- The source contradicts the profile, OR
-- The source is unavailable/broken, OR
-- Additional sources disprove the claim.
+Only reject a reviewer's flag when:
+- A source explicitly confirms the exact specific detail being challenged.
+When a flag is rejected, note it in your final reply (e.g. "Dismissed: source
+confirms the vote on date X").
+
+Fix the data when:
+- The source contradicts the specific detail in the profile, OR
+- No source can be found to confirm the specific detail, OR
+- The original source is unavailable/broken.
+
+CAREER HISTORY — special rule:
+Career history entries have NO inline source URLs. For any flagged career entry:
+1. Search for the candidate name + organization + "career" to find evidence.
+2. If your search confirms the entry but with DIFFERENT dates/title/description,
+   use update_career_entry to correct only the wrong fields in-place.
+3. If your search finds NO evidence the entry is real (fabricated), use
+   remove_career_entry to delete it entirely.
+4. Do NOT keep a career entry with wrong dates just because the organization
+   itself is real.
+
+DONOR SUMMARY — special rule:
+If a reviewer flags a specific organization name as wrong or unverifiable,
+fetch the cited OpenSecrets/FEC URL directly (fetch_page) and check the
+actual top-donor names on the page. Do not rely on search snippets alone —
+the correct name must come from the source page itself.
 
 {_SHARED_RULES}"""
 
@@ -587,10 +618,17 @@ For EACH flag above:
 4. If the flag identifies bias, rewrite the text to be neutral.
 5. If the flag is informational only (severity "info"), address if easily fixable.
 
-CRITICAL — SOURCE-VERIFICATION RULE: Before changing ANY factual claim, verify it
-by re-fetching the original source. Only change data when the source actually
-contradicts the profile, or when the source is unavailable. If the source confirms
-the original data, skip that flag and leave the data unchanged.
+CAREER HISTORY flags: search for the specific organization + candidate + dates.
+If wrong dates/title: use update_career_entry to patch only the incorrect fields.
+If wholly fabricated (no source found): remove_career_entry to delete it.
+
+DONOR SUMMARY flags about wrong organization names: use fetch_page on the
+cited OpenSecrets/FEC URL and read the actual top-donor names from the page.
+
+CRITICAL — SOURCE-VERIFICATION RULE: A source must confirm the SPECIFIC DETAIL
+being questioned (exact dates, amounts, names) — not just the general topic.
+If the source only confirms the general fact but not the specific detail, that
+detail should be corrected or removed.
 
 Also ensure:
 - All canonical issues covered: {all_issues}

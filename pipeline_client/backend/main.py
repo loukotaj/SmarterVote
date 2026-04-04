@@ -427,6 +427,7 @@ async def delete_draft_race(race_id: str) -> Dict[str, Any]:
         deleted = True
     if not deleted:
         raise HTTPException(status_code=404, detail="Draft not found")
+    race_manager.delete_draft(race_id)
     return {"message": f"Draft {race_id} deleted", "id": race_id}
 
 
@@ -735,8 +736,8 @@ async def delete_race_run(race_id: str, run_id: str) -> Dict[str, Any]:
     if run_info and run_info.status in ("pending", "running"):
         run_manager.cancel_run(run_id)
         await logging_manager.send_run_status(run_id, "cancelled")
-        return {"message": "Run cancelled", "run_id": run_id}
 
+    # Always attempt deletion after cancellation (or if already completed/failed)
     if race_manager.delete_run(race_id, run_id):
         return {"message": "Run deleted", "run_id": run_id}
 

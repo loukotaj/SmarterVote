@@ -159,6 +159,52 @@ def _make_editing_handlers(
         log("info", f"    📝 {name}.social_media.{platform} = {args['url']}")
         return f"Set {name}'s {platform} to {args['url']}."
 
+    def remove_career_entry(args: Dict[str, Any]) -> str:
+        name = args["candidate_name"]
+        c = _find_candidate(name)
+        if not c:
+            return f"Candidate '{name}' not found."
+        org = args["organization"].lower()
+        before = len(c.get("career_history", []))
+        c["career_history"] = [e for e in c.get("career_history", []) if org not in e.get("organization", "").lower()]
+        removed = before - len(c["career_history"])
+        log("info", f"    🗑️ Removed {removed} career entry/entries matching '{args['organization']}' for {name}")
+        return f"Removed {removed} career entry/entries matching '{args['organization']}' for '{name}'."
+
+    def update_career_entry(args: Dict[str, Any]) -> str:
+        name = args["candidate_name"]
+        c = _find_candidate(name)
+        if not c:
+            return f"Candidate '{name}' not found."
+        org = args["organization"].lower()
+        matched = [e for e in c.get("career_history", []) if org in e.get("organization", "").lower()]
+        if not matched:
+            return f"No career entry matching '{args['organization']}' found for '{name}'."
+        for entry in matched:
+            for field in ("title", "start_year", "end_year", "description"):
+                if field in args:
+                    entry[field] = args[field]
+        changes = {k: v for k, v in args.items() if k not in ("candidate_name", "organization")}
+        log("info", f"    ✏️ Updated career entry '{args['organization']}' for {name}: {changes}")
+        return f"Updated {len(matched)} career entry/entries for '{name}' matching '{args['organization']}'."
+
+    def update_education_entry(args: Dict[str, Any]) -> str:
+        name = args["candidate_name"]
+        c = _find_candidate(name)
+        if not c:
+            return f"Candidate '{name}' not found."
+        inst = args["institution"].lower()
+        matched = [e for e in c.get("education", []) if inst in e.get("institution", "").lower()]
+        if not matched:
+            return f"No education entry matching '{args['institution']}' found for '{name}'."
+        for entry in matched:
+            for field in ("degree", "field", "year"):
+                if field in args:
+                    entry[field] = args[field]
+        changes = {k: v for k, v in args.items() if k not in ("candidate_name", "institution")}
+        log("info", f"    ✏️ Updated education entry '{args['institution']}' for {name}: {changes}")
+        return f"Updated {len(matched)} education entry/entries for '{name}' matching '{args['institution']}'."
+
     def clear_career_history(args: Dict[str, Any]) -> str:
         name = args["candidate_name"]
         c = _find_candidate(name)
@@ -287,7 +333,10 @@ def _make_editing_handlers(
         "update_race_field": update_race_field,
         "read_profile": read_profile,
         "add_career_entry": add_career_entry,
+        "remove_career_entry": remove_career_entry,
+        "update_career_entry": update_career_entry,
         "add_education_entry": add_education_entry,
+        "update_education_entry": update_education_entry,
         "set_social_media": set_social_media,
         "clear_career_history": clear_career_history,
         "clear_education": clear_education,

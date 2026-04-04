@@ -391,6 +391,12 @@ class RaceManager:
         now = _now_iso()
         return self.upsert_race(race_id, status="published", published_at=now)
 
+    def delete_draft(self, race_id: str) -> RaceRecord:
+        """Clear draft state from race record. status becomes published (if published) or empty."""
+        race = self.get_race(race_id)
+        new_status = "published" if (race and race.published_at) else "empty"
+        return self.upsert_race(race_id, status=new_status, draft_updated_at=None)
+
     def unpublish_race(self, race_id: str) -> RaceRecord:
         """Remove published status. Race becomes draft if draft exists, else empty."""
         race = self.get_race(race_id)

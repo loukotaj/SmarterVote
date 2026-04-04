@@ -1,11 +1,16 @@
-"""Ballotpedia MediaWiki API helpers.
+"""Ballotpedia HTML scraping helpers.
 
-Provides structured lookups against ``ballotpedia.org/w/api.php``.  Used both
-by the image-resolution pipeline (images.py) and exposed as a first-class agent
-tool so the LLM can retrieve clean candidate data without burning Serper quota.
+Provides structured lookups against ``ballotpedia.org`` candidate pages.  Used
+both by the image-resolution pipeline (images.py) and exposed as a first-class
+agent tool so the LLM can retrieve clean candidate data without burning Serper
+quota.
+
+Note: The Ballotpedia MediaWiki API (``/w/api.php``) was disabled; this module
+now scrapes the public HTML pages directly.
 """
 
 import logging
+import re
 from typing import Any, Dict, List, Optional
 
 import httpx
@@ -69,13 +74,10 @@ async def lookup_candidate_image(candidate_name: str) -> Optional[str]:
 
 
 async def lookup_candidate_data(candidate_name: str) -> Dict[str, Any]:
-    """Query the Ballotpedia MediaWiki API for structured candidate data.
+    """Scrape a Ballotpedia candidate page for structured data.
 
-    Makes two parallel API calls:
-    - ``pageimages`` — thumbnail URL (reused by images.py)
-    - ``extracts``   — plain-text intro paragraph (clean bio, no HTML)
-    - ``extlinks``   — external links on the page (campaign site, FEC, VoteSmart, …)
-    - ``info``       — canonical page URL
+    Tries the direct URL first (``/First_Last``), then falls back to
+    ``Special:Search`` which redirects on a unique match.
 
     Returns a dict with keys:
         found (bool), page_url (str|None), extract (str|None),
@@ -86,74 +88,56 @@ async def lookup_candidate_data(candidate_name: str) -> Dict[str, Any]:
     empty: Dict[str, Any] = {"found": False}
     try:
         async with httpx.AsyncClient(timeout=10, follow_redirects=True) as client:
-            # Step 1: find the best-matching Ballotpedia page title
-            search_resp = await client.get(
-                "https://ballotpedia.org/w/api.php",
-                params={
-                    "action": "opensearch",
-                    "search": candidate_name,
-                    "limit": "3",
-                    "format": "json",
-                },
+            # Step 1: try the canonical URL derived from the name
+            url_name = candidate_name.strip().replace(" ", "_")
+            resp = await client.get(
+                f"https://ballotpedia.org/{url_name}",
                 headers={"User-Agent": _BROWSER_UA},
             )
-            search_resp.raise_for_status()
-            search_data = search_resp.json()
-            titles: List[str] = search_data[1] if len(search_data) > 1 else []
-            if not titles:
+
+            # Step 2: fall back to Special:Search (redirects when there is a unique match)
+            if resp.status_code != 200:
+                resp = await client.get(
+                    "https://ballotpedia.org/Special:Search",
+                    params={"search": candidate_name},
+                    headers={"User-Agent": _BROWSER_UA},
+                )
+
+            if resp.status_code != 200:
                 return empty
 
-            # Use the first (best-match) title
-            title = titles[0]
+            page_url = str(resp.url)
 
-            # Step 2: fetch pageimages + extracts + extlinks + info in one call
-            detail_resp = await client.get(
-                "https://ballotpedia.org/w/api.php",
-                params={
-                    "action": "query",
-                    "titles": title,
-                    "prop": "pageimages|extracts|extlinks|info",
-                    "pithumbsize": "400",
-                    "exintro": "1",
-                    "explaintext": "1",
-                    "inprop": "url",
-                    "format": "json",
-                    "redirects": "1",
-                },
-                headers={"User-Agent": _BROWSER_UA},
-            )
-            detail_resp.raise_for_status()
-            data = detail_resp.json()
-
-            pages = data.get("query", {}).get("pages", {})
-            if not pages:
+            # If we ended up on the search-results page the candidate wasn't found
+            if "Special:Search" in page_url:
                 return empty
 
-            page = next(iter(pages.values()))
-            if page.get("missing") is not None:
-                return empty
+            html = resp.text
 
-            # Extract thumbnail
-            image_url: Optional[str] = page.get("thumbnail", {}).get("source") or None
+            # --- Image: first widget-img inside the infobox -----------------
+            image_url: Optional[str] = None
+            # The infobox renders as: <img src="https://s3.amazonaws.com/..." class="widget-img" />
+            infobox_m = re.search(r'class="infobox person".*?<img\s[^>]*src="([^"]+)"[^>]*>', html, re.DOTALL)
+            if infobox_m:
+                image_url = infobox_m.group(1)
 
-            # Extract plain-text intro (may be empty for stubs)
-            extract: Optional[str] = (page.get("extract") or "").strip() or None
+            # --- Extract: first non-trivial <p> inside mw-parser-output -----
+            extract: Optional[str] = None
+            parser_idx = html.find("mw-parser-output")
+            if parser_idx >= 0:
+                for para_m in re.finditer(r"<p>(.*?)</p>", html[parser_idx : parser_idx + 30000], re.DOTALL):
+                    text = re.sub(r"<[^>]+>", "", para_m.group(1))
+                    # Unescape common HTML entities
+                    text = text.replace("&#91;", "[").replace("&#93;", "]").replace("&amp;", "&").strip()
+                    if len(text) > 30:
+                        extract = text[:1200]
+                        break
 
-            # Canonical page URL
-            page_url: Optional[str] = page.get("fullurl") or None
-
-            # External links — filter to research-useful ones
-            raw_links: List[Dict] = page.get("extlinks", [])
-            external_links: List[str] = [
-                lnk.get("*", "") or lnk.get("url", "")
-                for lnk in raw_links
-                if _is_useful_link(lnk.get("*", "") or lnk.get("url", ""))
-            ]
-            # Deduplicate while preserving order
+            # --- External links filtered to research-useful domains ---------
             seen: set = set()
             deduped_links: List[str] = []
-            for lnk in external_links:
-                if lnk and lnk not in seen:
+            for lnk in re.findall(r'href="(https?://[^"]+)"', html):
+                if lnk not in seen and _is_useful_link(lnk):
                     seen.add(lnk)
                     deduped_links.append(lnk)
 

@@ -252,11 +252,78 @@ SET_SOCIAL_MEDIA_TOOL: Dict = {
     },
 }
 
+REMOVE_CAREER_ENTRY_TOOL: Dict = {
+    "type": "function",
+    "function": {
+        "name": "remove_career_entry",
+        "description": (
+            "Remove a single career history entry from a candidate's profile by matching "
+            "title and organization. Use this to surgically delete a fabricated or incorrect "
+            "entry without disturbing the rest of the career history."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "candidate_name": {"type": "string", "description": "Exact candidate name."},
+                "organization": {"type": "string", "description": "Organization name to match (case-insensitive, partial match ok)."},
+            },
+            "required": ["candidate_name", "organization"],
+        },
+    },
+}
+
+UPDATE_CAREER_ENTRY_TOOL: Dict = {
+    "type": "function",
+    "function": {
+        "name": "update_career_entry",
+        "description": (
+            "Update specific fields of an existing career history entry in-place, matched by "
+            "organization name. Use this to correct dates, title, or description without "
+            "removing and re-adding the entry. Only provided fields are changed."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "candidate_name": {"type": "string", "description": "Exact candidate name."},
+                "organization": {"type": "string", "description": "Organization name to match (case-insensitive, partial match ok)."},
+                "title": {"type": "string", "description": "Corrected role title (omit if unchanged)."},
+                "start_year": {"type": "integer", "description": "Corrected start year (omit if unchanged)."},
+                "end_year": {"type": "integer", "description": "Corrected end year (omit if unchanged)."},
+                "description": {"type": "string", "description": "Corrected description (omit if unchanged)."},
+            },
+            "required": ["candidate_name", "organization"],
+        },
+    },
+}
+
+UPDATE_EDUCATION_ENTRY_TOOL: Dict = {
+    "type": "function",
+    "function": {
+        "name": "update_education_entry",
+        "description": (
+            "Update specific fields of an existing education entry in-place, matched by "
+            "institution name. Use this to fill in a missing field or year without "
+            "removing and re-adding the entry. Only provided fields are changed."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "candidate_name": {"type": "string", "description": "Exact candidate name."},
+                "institution": {"type": "string", "description": "Institution name to match (case-insensitive, partial match ok)."},
+                "degree": {"type": "string", "description": "Corrected degree type (omit if unchanged)."},
+                "field": {"type": "string", "description": "Corrected field of study (omit if unchanged)."},
+                "year": {"type": "integer", "description": "Corrected graduation year (omit if unchanged)."},
+            },
+            "required": ["candidate_name", "institution"],
+        },
+    },
+}
+
 CLEAR_CAREER_TOOL: Dict = {
     "type": "function",
     "function": {
         "name": "clear_career_history",
-        "description": "Clear all career history entries for a candidate before re-adding correct data.",
+        "description": "Clear ALL career history entries for a candidate before re-adding correct data. Prefer remove_career_entry for single-entry corrections.",
         "parameters": {
             "type": "object",
             "properties": {
@@ -283,8 +350,9 @@ CLEAR_EDUCATION_TOOL: Dict = {
 }
 
 BACKGROUND_TOOLS: List[Dict] = [
-    ADD_CAREER_ENTRY_TOOL, ADD_EDUCATION_ENTRY_TOOL, SET_SOCIAL_MEDIA_TOOL,
-    CLEAR_CAREER_TOOL, CLEAR_EDUCATION_TOOL,
+    ADD_CAREER_ENTRY_TOOL, REMOVE_CAREER_ENTRY_TOOL, UPDATE_CAREER_ENTRY_TOOL,
+    ADD_EDUCATION_ENTRY_TOOL, UPDATE_EDUCATION_ENTRY_TOOL,
+    SET_SOCIAL_MEDIA_TOOL, CLEAR_CAREER_TOOL, CLEAR_EDUCATION_TOOL,
 ]
 
 # ---------------------------------------------------------------------------

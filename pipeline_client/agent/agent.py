@@ -1223,7 +1223,7 @@ async def _run_fresh(
                     max_iterations=max(8, refine_iters // max(len(candidate_names_in_json), 1)),
                     phase_name=f"refine-{cname[:20]}",
                     max_tokens=8192,
-                    extra_tools=CANDIDATE_TOOLS + RECORD_TOOLS + BACKGROUND_TOOLS + [READ_PROFILE_TOOL],
+                    extra_tools=CANDIDATE_TOOLS + ISSUE_TOOLS + RECORD_TOOLS + BACKGROUND_TOOLS + [READ_PROFILE_TOOL],
                     extra_tool_handlers=handlers,
                     tools_mode=True,
                 )
@@ -1318,13 +1318,13 @@ async def _run_update(
                 last_updated=last_updated,
                 candidate_names=", ".join(candidate_names),
             ),
-            model=small_model,
+            model=model,
             on_log=on_log,
             race_id=race_id,
             max_iterations=max(12, max_iterations // 2),
             phase_name="roster-sync",
             max_tokens=8192,
-            extra_tools=ROSTER_TOOLS + [READ_PROFILE_TOOL],
+            extra_tools=ROSTER_TOOLS + CANDIDATE_TOOLS + [READ_PROFILE_TOOL],
             extra_tool_handlers=handlers,
             tools_mode=True,
         )
@@ -1359,7 +1359,7 @@ async def _run_update(
             max_iterations=meta_iters,
             phase_name="update-meta",
             max_tokens=16384,
-            extra_tools=RACE_TOOLS + CANDIDATE_TOOLS + [READ_PROFILE_TOOL],
+            extra_tools=RACE_TOOLS + CANDIDATE_TOOLS + RECORD_TOOLS + [READ_PROFILE_TOOL],
             extra_tool_handlers=handlers,
             tools_mode=True,
         )
@@ -1453,7 +1453,7 @@ async def _run_update(
                     max_iterations=max(8, refine_iters // max(len(cand_list), 1)),
                     phase_name=f"upd-refine-{cname[:20]}",
                     max_tokens=8192,
-                    extra_tools=CANDIDATE_TOOLS + RECORD_TOOLS + BACKGROUND_TOOLS + [READ_PROFILE_TOOL],
+                    extra_tools=CANDIDATE_TOOLS + ISSUE_TOOLS + RECORD_TOOLS + BACKGROUND_TOOLS + [READ_PROFILE_TOOL],
                     extra_tool_handlers=handlers,
                     tools_mode=True,
                 )

@@ -52,6 +52,22 @@
       timestamp: l.timestamp ?? "",
     })) as LogEntry[];
   })();
+  // Extract the RaceJSON from the artifact regardless of wrapping structure
+  $: artifactRaceJson = (() => {
+    if (!artifactData || typeof artifactData !== "object") return null;
+    const d = artifactData as any;
+    // Wrapped: { step, input, options, output: { race_json: RaceJSON } }
+    if (d.output?.race_json && Array.isArray(d.output.race_json.candidates)) return d.output.race_json;
+    // Direct RaceJSON at top level
+    if (Array.isArray(d.candidates)) return d;
+    return null;
+  })();
+  // Extract agent metrics from wherever they live in the artifact
+  $: artifactMetrics = (() => {
+    if (!artifactData || typeof artifactData !== "object") return null;
+    const d = artifactData as any;
+    return d.output?.agent_metrics ?? d.output?.race_json?.agent_metrics ?? d.agent_metrics ?? null;
+  })();
   $: runLogs = isLiveAndRunning ? liveLogs : ((run?.logs ?? []).length > 0 ? (run?.logs ?? []) : artifactAgentLogs);
   $: filteredLogs = logFilter === "all" ? runLogs : runLogs.filter((l) => l.level === logFilter);
   // Post-run analysis: broadcast as a single log entry starting with "[post-run analysis]"
@@ -169,6 +185,32 @@
   function breakdownTokens(counts: unknown): number {
     const c = counts as { prompt_tokens?: number; completion_tokens?: number };
     return (c?.prompt_tokens ?? 0) + (c?.completion_tokens ?? 0);
+  }
+
+  function sumBreakdownTokens(breakdown: unknown): number {
+    if (!breakdown || typeof breakdown !== "object") return 0;
+    return Object.values(breakdown as Record<string, unknown>).reduce((acc: number, c) => acc + breakdownTokens(c), 0);
+  }
+
+  function breakdownPct(breakdown: unknown, counts: unknown): number {
+    const total = sumBreakdownTokens(breakdown);
+    return total > 0 ? Math.round((breakdownTokens(counts) / total) * 100) : 0;
+  }
+
+  function candidateInitials(name: string): string {
+    return name.split(" ").map((n: string) => n[0]).slice(0, 2).join("");
+  }
+
+  function issueConf(stance: unknown): string {
+    return (stance as { confidence?: string })?.confidence ?? "unknown";
+  }
+
+  function issueStanceText(stance: unknown): string {
+    return (stance as { stance?: string })?.stance ?? "No stance recorded";
+  }
+
+  function findCandidate(candidates: unknown[], name: string): { party?: string } | undefined {
+    return (candidates as { name: string; party?: string }[]).find((c) => c.name === name);
   }
 
   async function loadRun() {
@@ -526,100 +568,261 @@
         {:else if artifactData}
           {#if showRawJson}
             <pre class="bg-surface-alt rounded-lg p-3 text-xs font-mono overflow-auto max-h-[600px] whitespace-pre-wrap break-words text-content">{safeJsonStringify(artifactData).content}</pre>
-          {:else}
-            {@const d = artifactData}
-            {#if typeof d === "object" && d !== null}
-              <div class="space-y-4">
-                <!-- Quick summary if it looks like RaceJSON -->
-                {#if Array.isArray(d.candidates)}
-                  {@const metrics = d.agent_metrics ?? d.output?.race_json?.agent_metrics ?? d.output?.agent_metrics ?? null}
-                  <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
-                    <div class="bg-surface-alt rounded-lg p-3">
-                      <p class="text-xs text-content-subtle">Race</p>
-                      <p class="text-sm font-semibold text-content">{d.id ?? d.race_id ?? "—"}</p>
+          {:else if artifactRaceJson}
+            {@const rj = artifactRaceJson}
+            <div class="space-y-4">
+              <!-- Race header card -->
+              <div class="rounded-xl border border-stroke p-4 bg-gradient-to-br from-surface to-surface-alt">
+                <div class="flex items-start justify-between gap-4">
+                  <div class="flex-1 min-w-0">
+                    <h3 class="text-base font-bold text-content">{rj.title ?? rj.id}</h3>
+                    <div class="flex flex-wrap items-center gap-x-2 gap-y-1 mt-1 text-xs text-content-subtle">
+                      {#if rj.office}<span class="font-medium">{rj.office}</span>{/if}
+                      {#if rj.jurisdiction}<span class="text-content-faint">·</span><span>{rj.jurisdiction}</span>{/if}
+                      {#if rj.election_date}<span class="text-content-faint">·</span><span>Election: {rj.election_date}</span>{/if}
                     </div>
-                    <div class="bg-surface-alt rounded-lg p-3">
-                      <p class="text-xs text-content-subtle">Candidates</p>
-                      <p class="text-sm font-semibold text-content">{d.candidates.length}</p>
+                    {#if rj.description}
+                      <p class="mt-2 text-xs text-content-muted leading-relaxed">{rj.description}</p>
+                    {/if}
+                  </div>
+                  <div class="flex flex-col items-end gap-1.5 shrink-0">
+                    {#if rj.validation_grade}
+                      <div class="flex items-center gap-2 bg-surface rounded-lg px-3 py-1.5 border border-stroke">
+                        <span class="text-[10px] text-content-faint uppercase tracking-wide">Quality</span>
+                        <span class="text-2xl font-black leading-none {rj.validation_grade.grade === 'A' ? 'text-green-500' : rj.validation_grade.grade === 'B' ? 'text-lime-500' : rj.validation_grade.grade === 'C' ? 'text-yellow-500' : rj.validation_grade.grade === 'D' ? 'text-orange-500' : 'text-red-500'}">{rj.validation_grade.grade}</span>
+                        <span class="text-xs text-content-subtle font-semibold">{rj.validation_grade.score}/100</span>
+                      </div>
+                      {#if rj.validation_grade.summary}
+                        <p class="text-[10px] text-content-faint text-right max-w-40 leading-snug">{rj.validation_grade.summary}</p>
+                      {/if}
+                    {/if}
+                    <span class="text-xs text-content-faint">{rj.candidates.length} candidate{rj.candidates.length !== 1 ? 's' : ''}</span>
+                    {#if rj.updated_utc}
+                      <span class="text-[10px] text-content-faint">Updated {new Date(rj.updated_utc).toLocaleString()}</span>
+                    {/if}
+                  </div>
+                </div>
+              </div>
+
+              <!-- Agent metrics -->
+              {#if artifactMetrics}
+                <div class="rounded-xl border border-stroke p-4">
+                  <h4 class="text-[10px] font-semibold uppercase tracking-wider text-content-faint mb-3">Agent Metrics</h4>
+                  <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-3">
+                    <div>
+                      <p class="text-[10px] text-content-faint uppercase tracking-wide">Est. Cost</p>
+                      <p class="text-xl font-bold text-content">{artifactMetrics.estimated_usd != null ? (artifactMetrics.estimated_usd < 0.001 ? '<$0.001' : `$${artifactMetrics.estimated_usd.toFixed(3)}`) : '—'}</p>
                     </div>
-                    <div class="bg-surface-alt rounded-lg p-3">
-                      <p class="text-xs text-content-subtle">Office</p>
-                      <p class="text-sm font-semibold text-content">{d.office ?? "—"}</p>
+                    <div>
+                      <p class="text-[10px] text-content-faint uppercase tracking-wide">Tokens</p>
+                      <p class="text-xl font-bold text-content">{(artifactMetrics.total_tokens ?? 0).toLocaleString()}</p>
                     </div>
-                    <div class="bg-surface-alt rounded-lg p-3">
-                      <p class="text-xs text-content-subtle">Updated</p>
-                      <p class="text-sm font-semibold text-content">{d.updated_utc ? new Date(d.updated_utc).toLocaleDateString() : "—"}</p>
+                    <div>
+                      <p class="text-[10px] text-content-faint uppercase tracking-wide">Duration</p>
+                      <p class="text-xl font-bold text-content">{artifactMetrics.duration_s != null ? `${Math.round(artifactMetrics.duration_s)}s` : '—'}</p>
+                    </div>
+                    <div>
+                      <p class="text-[10px] text-content-faint uppercase tracking-wide">Model</p>
+                      <p class="text-sm font-semibold text-content truncate">{artifactMetrics.model ?? '—'}</p>
                     </div>
                   </div>
-                  {#if metrics}
-                    <!-- Agent metrics card -->
-                    <div class="border border-stroke rounded-lg p-4 bg-surface-alt">
-                      <h4 class="text-xs font-semibold text-content-subtle uppercase tracking-wide mb-3">Agent Metrics</h4>
-                      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-3">
-                        <div>
-                          <p class="text-xs text-content-faint">Total Tokens</p>
-                          <p class="text-sm font-semibold text-content">{(metrics.total_tokens ?? 0).toLocaleString()}</p>
+                  {#if artifactMetrics.model_breakdown && Object.keys(artifactMetrics.model_breakdown).length > 0}
+                    <div class="border-t border-stroke pt-3">
+                      <p class="text-[10px] text-content-faint uppercase tracking-wide mb-2">Token Usage by Model</p>
+                      <div class="space-y-1.5">
+                        {#each Object.entries(artifactMetrics.model_breakdown) as [model, counts]}
+                          {@const tok = breakdownTokens(counts)}
+                          {@const pct = breakdownPct(artifactMetrics.model_breakdown, counts)}
+                          <div class="flex items-center gap-2 text-xs">
+                            <span class="font-mono text-content-subtle w-44 truncate shrink-0">{model}</span>
+                            <div class="flex-1 h-1.5 bg-surface-alt rounded-full overflow-hidden">
+                              <div class="h-full bg-blue-500 rounded-full" style="width: {pct}%"></div>
+                            </div>
+                            <span class="text-content-faint shrink-0 w-20 text-right">{tok.toLocaleString()} tok</span>
+                          </div>
+                        {/each}
+                      </div>
+                    </div>
+                  {/if}
+                </div>
+              {/if}
+
+              <!-- Candidates -->
+              <div>
+                <h4 class="text-[10px] font-semibold uppercase tracking-wider text-content-faint mb-2">Candidates ({rj.candidates.length})</h4>
+                <div class="space-y-3">
+                  {#each rj.candidates as candidate}
+                    {@const issueEntries = candidate.issues ? Object.entries(candidate.issues) : []}
+                    {@const partyBorder = candidate.party === 'Democratic' ? 'border-l-blue-400' : candidate.party === 'Republican' ? 'border-l-red-400' : 'border-l-stroke'}
+                    <div class="rounded-xl border border-stroke border-l-4 {partyBorder} p-4 bg-surface">
+                      <!-- Header row -->
+                      <div class="flex items-start gap-3">
+                        <!-- Avatar -->
+                        <div class="shrink-0">
+                          {#if candidate.image_url}
+                            <img src={candidate.image_url} alt={candidate.name} class="w-11 h-11 rounded-full object-cover border border-stroke" />
+                          {:else}
+                            <div class="w-11 h-11 rounded-full flex items-center justify-center text-sm font-bold text-white {candidate.party === 'Democratic' ? 'bg-blue-500' : candidate.party === 'Republican' ? 'bg-red-500' : 'bg-content-subtle'}">
+                              {candidateInitials(candidate.name)}
+                            </div>
+                          {/if}
                         </div>
-                        <div>
-                          <p class="text-xs text-content-faint">Est. Cost</p>
-                          <p class="text-sm font-semibold text-content">{metrics.estimated_usd != null ? (metrics.estimated_usd < 0.001 ? '<$0.001' : `$${metrics.estimated_usd.toFixed(4)}`) : '—'}</p>
+                        <!-- Info -->
+                        <div class="flex-1 min-w-0">
+                          <div class="flex items-center flex-wrap gap-2">
+                            <h4 class="text-sm font-bold text-content">{candidate.name}</h4>
+                            {#if candidate.party}
+                              <span class="text-xs px-2 py-0.5 rounded-full font-medium {candidate.party === 'Democratic' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300' : candidate.party === 'Republican' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300' : 'bg-surface-alt text-content-muted'}">{candidate.party}</span>
+                            {/if}
+                            {#if candidate.incumbent}
+                              <span class="text-xs px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300 font-medium">Incumbent</span>
+                            {/if}
+                          </div>
+                          {#if candidate.summary}
+                            <p class="mt-1 text-xs text-content-muted leading-relaxed line-clamp-3">{candidate.summary}</p>
+                          {/if}
                         </div>
-                        <div>
-                          <p class="text-xs text-content-faint">Duration</p>
-                          <p class="text-sm font-semibold text-content">{metrics.duration_s != null ? `${Math.round(metrics.duration_s)}s` : '—'}</p>
-                        </div>
-                        <div>
-                          <p class="text-xs text-content-faint">Primary Model</p>
-                          <p class="text-sm font-semibold text-content truncate">{metrics.model ?? '—'}</p>
+                        <!-- External links -->
+                        <div class="flex items-center gap-1.5 shrink-0 flex-wrap justify-end">
+                          {#if candidate.website}
+                            <a href={String(candidate.website)} target="_blank" rel="noopener noreferrer" class="p-1.5 rounded-lg text-content-faint hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors" title="Official website">
+                              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                            </a>
+                          {/if}
+                          {#each (candidate.links ?? []).slice(0, 4) as link}
+                            <a href={link.url} target="_blank" rel="noopener noreferrer" class="text-[10px] px-1.5 py-0.5 rounded border border-stroke bg-surface-alt text-content-subtle hover:text-content-muted hover:border-content-faint transition-colors capitalize" title={link.title}>{link.type}</a>
+                          {/each}
                         </div>
                       </div>
-                      {#if metrics.model_breakdown && Object.keys(metrics.model_breakdown).length > 1}
-                        <div class="border-t border-stroke pt-2">
-                          <p class="text-xs text-content-faint mb-1.5">Model Breakdown</p>
-                          <div class="space-y-1">
-                            {#each Object.entries(metrics.model_breakdown) as [model, counts]}
-                              <div class="flex items-center justify-between text-xs">
-                                <span class="font-mono text-content-muted truncate max-w-48">{model}</span>
-                                <span class="text-content-subtle shrink-0 ml-2">{breakdownTokens(counts).toLocaleString()} tok</span>
+
+                      <!-- Issues coverage grid -->
+                      {#if issueEntries.length > 0}
+                        <div class="mt-3 pt-3 border-t border-stroke">
+                          <p class="text-[10px] text-content-faint uppercase tracking-wide mb-2">Issue Coverage ({issueEntries.length}/12)</p>
+                          <div class="flex flex-wrap gap-1.5">
+                            {#each issueEntries as [issueName, stance]}
+                              {@const conf = issueConf(stance)}
+                              <div
+                                class="flex items-center gap-1 text-xs px-2 py-0.5 rounded-full border {conf === 'high' ? 'border-green-300 bg-green-50 dark:border-green-800 dark:bg-green-900/20' : conf === 'medium' ? 'border-yellow-300 bg-yellow-50 dark:border-yellow-800 dark:bg-yellow-900/20' : conf === 'low' ? 'border-red-300 bg-red-50 dark:border-red-800 dark:bg-red-900/20' : 'border-stroke bg-surface-alt'}"
+                                title="{issueName}: {issueStanceText(stance)}"
+                              >
+                                <span class="w-1.5 h-1.5 rounded-full shrink-0 {conf === 'high' ? 'bg-green-500' : conf === 'medium' ? 'bg-yellow-500' : conf === 'low' ? 'bg-red-500' : 'bg-content-faint'}"></span>
+                                <span class="text-content-muted">{issueName}</span>
                               </div>
                             {/each}
                           </div>
                         </div>
                       {/if}
-                    </div>
-                  {/if}
-                  <!-- Candidate cards -->
-                  {#each d.candidates as candidate}
-                    <div class="border border-stroke rounded-lg p-4">
-                      <div class="flex items-center gap-3 mb-2">
-                        <h4 class="text-sm font-bold text-content">{candidate.name}</h4>
-                        {#if candidate.party}
-                          <span class="text-xs px-2 py-0.5 rounded-full {candidate.party === 'Democratic' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300' : candidate.party === 'Republican' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300' : 'bg-surface-alt text-content-muted'}">{candidate.party}</span>
-                        {/if}
-                        {#if candidate.incumbent}
-                          <span class="text-xs text-content-subtle">Incumbent</span>
-                        {/if}
-                      </div>
-                      {#if candidate.summary}
-                        <p class="text-xs text-content-muted mb-2 line-clamp-2">{candidate.summary}</p>
-                      {/if}
-                      {#if candidate.issues && typeof candidate.issues === "object"}
-                        <div class="flex flex-wrap gap-1">
-                          {#each Object.keys(candidate.issues) as issue}
-                            <span class="text-xs px-2 py-0.5 rounded bg-surface-alt text-content-muted">{issue}</span>
-                          {/each}
+
+                      <!-- Finance + voting record -->
+                      {#if candidate.donor_summary || candidate.voting_summary}
+                        <div class="mt-3 pt-3 border-t border-stroke grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          {#if candidate.donor_summary}
+                            <div>
+                              <p class="text-[10px] text-content-faint uppercase tracking-wide mb-1">Finance</p>
+                              <p class="text-xs text-content-muted leading-relaxed line-clamp-2">{candidate.donor_summary}</p>
+                              {#if candidate.donor_source_url}
+                                <a href={candidate.donor_source_url} target="_blank" rel="noopener noreferrer" class="text-[10px] text-blue-600 hover:underline mt-0.5 inline-block">View source →</a>
+                              {/if}
+                            </div>
+                          {/if}
+                          {#if candidate.voting_summary}
+                            <div>
+                              <p class="text-[10px] text-content-faint uppercase tracking-wide mb-1">Voting Record</p>
+                              <p class="text-xs text-content-muted leading-relaxed line-clamp-2">{candidate.voting_summary}</p>
+                              {#if candidate.voting_source_url}
+                                <a href={candidate.voting_source_url} target="_blank" rel="noopener noreferrer" class="text-[10px] text-blue-600 hover:underline mt-0.5 inline-block">View source →</a>
+                              {/if}
+                            </div>
+                          {/if}
                         </div>
                       {/if}
                     </div>
                   {/each}
-                {:else}
-                  <!-- Generic object display -->
-                  <pre class="bg-surface-alt rounded-lg p-3 text-xs font-mono overflow-auto max-h-[600px] whitespace-pre-wrap break-words text-content">{safeJsonStringify(d).content}</pre>
-                {/if}
+                </div>
               </div>
-            {:else}
-              <p class="text-sm text-content-subtle">No structured output available</p>
-            {/if}
+
+              <!-- Polling data -->
+              {#if rj.polling && rj.polling.length > 0}
+                <div>
+                  <h4 class="text-[10px] font-semibold uppercase tracking-wider text-content-faint mb-2">Polling ({rj.polling.length})</h4>
+                  <div class="space-y-2">
+                    {#each rj.polling as poll}
+                      <div class="rounded-xl border border-stroke p-3">
+                        <div class="flex items-center justify-between mb-3">
+                          <span class="text-xs font-semibold text-content">{poll.pollster}</span>
+                          <div class="flex items-center gap-3 text-xs text-content-faint">
+                            {#if poll.date}<span>{poll.date}</span>{/if}
+                            {#if poll.sample_size}<span>n={poll.sample_size.toLocaleString()}</span>{/if}
+                            {#if poll.source_url}<a href={poll.source_url} target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Source</a>{/if}
+                          </div>
+                        </div>
+                        {#each poll.matchups as matchup}
+                          <div class="space-y-1.5">
+                            {#each matchup.candidates as name, i}
+                              {@const pct = matchup.percentages?.[i] ?? 0}
+                              {@const candidateObj = findCandidate(rj.candidates, name)}
+                              <div class="flex items-center gap-2 text-xs">
+                                <span class="w-28 text-content-muted truncate shrink-0">{name}</span>
+                                <div class="flex-1 h-4 bg-surface-alt rounded-md overflow-hidden">
+                                  <div
+                                    class="h-full rounded-md transition-all duration-500 {candidateObj?.party === 'Democratic' ? 'bg-blue-500' : candidateObj?.party === 'Republican' ? 'bg-red-500' : 'bg-content-subtle'}"
+                                    style="width: {pct}%"
+                                  ></div>
+                                </div>
+                                <span class="w-8 text-right font-semibold text-content shrink-0">{pct}%</span>
+                              </div>
+                            {/each}
+                          </div>
+                        {/each}
+                      </div>
+                    {/each}
+                  </div>
+                </div>
+              {:else if rj.polling_note}
+                <div class="rounded-xl border border-stroke p-3 text-xs text-content-faint italic">
+                  Polling: {rj.polling_note}
+                </div>
+              {/if}
+
+              <!-- AI Reviews -->
+              {#if rj.reviews && rj.reviews.length > 0}
+                <div>
+                  <h4 class="text-[10px] font-semibold uppercase tracking-wider text-content-faint mb-2">AI Reviews ({rj.reviews.length})</h4>
+                  <div class="space-y-2">
+                    {#each rj.reviews as review}
+                      <div class="rounded-xl border border-stroke p-3">
+                        <div class="flex items-start justify-between gap-2">
+                          <div class="flex items-center gap-2 flex-wrap">
+                            <span class="text-xs font-semibold text-content font-mono">{review.model}</span>
+                            <span class="text-xs px-1.5 py-0.5 rounded font-medium {review.verdict === 'approved' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300' : review.verdict === 'needs_revision' ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300' : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300'}">{review.verdict}</span>
+                          </div>
+                          {#if review.score != null}
+                            <span class="text-sm font-bold text-content shrink-0">{review.score}/100</span>
+                          {/if}
+                        </div>
+                        {#if review.summary}
+                          <p class="mt-1.5 text-xs text-content-muted leading-relaxed">{review.summary}</p>
+                        {/if}
+                        {#if review.flags && review.flags.length > 0}
+                          <div class="mt-2 space-y-1 border-t border-stroke pt-2">
+                            {#each review.flags as flag}
+                              <div class="text-xs flex items-start gap-1.5">
+                                <span class="shrink-0 mt-0.5 {flag.severity === 'error' ? 'text-red-500' : flag.severity === 'warning' ? 'text-yellow-500' : 'text-blue-500'}">●</span>
+                                <span class="text-content-muted"><span class="font-medium">{flag.field}:</span> {flag.concern}</span>
+                              </div>
+                            {/each}
+                          </div>
+                        {/if}
+                      </div>
+                    {/each}
+                  </div>
+                </div>
+              {/if}
+            </div>
+          {:else}
+            <!-- Generic fallback for non-RaceJSON artifacts -->
+            <pre class="bg-surface-alt rounded-lg p-3 text-xs font-mono overflow-auto max-h-[600px] whitespace-pre-wrap break-words text-content">{safeJsonStringify(artifactData).content}</pre>
           {/if}
         {:else if isLiveAndRunning}
           <div class="flex items-center gap-2 p-6 text-content-faint justify-center">
