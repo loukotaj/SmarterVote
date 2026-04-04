@@ -137,6 +137,7 @@ async def run_step_async(step: str, request: RunRequest, run_id: Optional[str] =
         _safe_broadcast({"type": "run_started", "run_id": run_id, "step": step, "race_id": race_id})
 
         t0 = time.perf_counter()
+        run_started_utc = datetime.now(timezone.utc).isoformat()
         options = _merge_options(request.options)
 
         context_logger.info(f"Merged options: {options}")
@@ -173,6 +174,7 @@ async def run_step_async(step: str, request: RunRequest, run_id: Optional[str] =
                         "input": request.payload,
                         "options": options,
                         "output": _json.loads(_json.dumps(output, default=str)),
+                        "run_started_utc": run_started_utc,
                         "duration_ms": duration_ms,
                         "run_id": run_id,
                     },

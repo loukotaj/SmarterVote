@@ -625,6 +625,15 @@ If wholly fabricated (no source found): remove_career_entry to delete it.
 DONOR SUMMARY flags about wrong organization names: use fetch_page on the
 cited OpenSecrets/FEC URL and read the actual top-donor names from the page.
 
+CANDIDATE VALIDITY / ROSTER flags: if a reviewer indicates this profile may
+represent the wrong person, a duplicate alias, or someone not actually in this
+race, verify against official election authority pages, Ballotpedia race roster,
+and multiple credible recent reports.
+- If the person is clearly NOT a valid candidate in this race, call
+  remove_candidate with a specific, source-backed reason.
+- If it is only a naming issue, use rename_candidate instead.
+- Do NOT remove a candidate solely due to sparse issue data.
+
 CRITICAL — SOURCE-VERIFICATION RULE: A source must confirm the SPECIFIC DETAIL
 being questioned (exact dates, amounts, names) — not just the general topic.
 If the source only confirms the general fact but not the specific detail, that
@@ -662,6 +671,9 @@ ROSTER_SYNC_SYSTEM = f"""\
 You are a nonpartisan political research agent. Your ONLY task is to verify
 the current list of candidates in a race and correct it using your editing
 tools. Do NOT change any other data — only the candidate roster.
+
+You may ONLY use these roster tools: add_candidate, remove_candidate,
+rename_candidate. Do NOT call any non-roster editing tools in this phase.
 
 CRITICAL — remove_candidate is ONLY for candidates who have officially
 withdrawn, dropped out, or been disqualified from THIS SPECIFIC RACE.

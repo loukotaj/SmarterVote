@@ -41,6 +41,7 @@ from pipeline_client.agent.prompts import (
     ISSUE_RESEARCH_USER,
     ISSUE_SUBAGENT_SYSTEM,
     ISSUE_SUBAGENT_USER,
+    ITERATE_USER,
     REFINE_SYSTEM,
     REFINE_USER,
     ROSTER_SYNC_SYSTEM,
@@ -162,6 +163,21 @@ def test_prompts_mention_confidence_levels():
         assert "high" in prompt.lower()
         assert "medium" in prompt.lower()
         assert "low" in prompt.lower()
+
+
+def test_roster_sync_system_restricts_to_roster_tools_only():
+    """Roster sync prompt explicitly restricts edits to roster tools."""
+    assert "add_candidate" in ROSTER_SYNC_SYSTEM
+    assert "remove_candidate" in ROSTER_SYNC_SYSTEM
+    assert "rename_candidate" in ROSTER_SYNC_SYSTEM
+    assert "Do NOT call any non-roster editing tools" in ROSTER_SYNC_SYSTEM
+
+
+def test_iterate_prompt_allows_candidate_removal_for_invalid_roster_entries():
+    """Iteration prompt allows removing clearly invalid candidates with evidence."""
+    assert "CANDIDATE VALIDITY / ROSTER flags" in ITERATE_USER
+    assert "remove_candidate" in ITERATE_USER
+    assert "Do NOT remove a candidate solely due to sparse issue data" in ITERATE_USER
 
 
 # ---------------------------------------------------------------------------
@@ -572,6 +588,43 @@ async def test_fetch_page_jeff_wadlin_blocked_falls_back_to_proxy_with_correct_u
     assert expected_proxy_url in requested_urls, f"Proxy call must use the original https:// URL — got: {requested_urls}"
     assert "Medicare-for-all" in result
     assert "[Failed to fetch" not in result
+
+
+@pytest.mark.asyncio
+async def test_fetch_page_short_low_signal_content_prefers_proxy_text():
+    """Short low-signal content should trigger proxy probe and prefer richer proxy text."""
+
+    class _Resp:
+        def __init__(self, text: str, content_type: str = "text/html; charset=utf-8"):
+            self.text = text
+            self.headers = {"content-type": content_type}
+
+        def raise_for_status(self):
+            return None
+
+    target_url = "https://www.example.com/issues"
+    expected_proxy_url = f"https://r.jina.ai/{target_url}"
+    short_primary = "Issue overview page with minimal content and no detailed policy text." + ("x" * 340)
+    rich_proxy = "Healthcare section: supports public option and PBM reform. " + ("y" * 2200)
+
+    mock_client = MagicMock()
+    mock_client.get = AsyncMock(
+        side_effect=[
+            _Resp(short_primary),
+            _Resp(rich_proxy, "text/plain"),
+        ]
+    )
+
+    with (
+        patch("pipeline_client.agent.agent._get_search_cache", return_value=None),
+        patch("pipeline_client.agent.agent._get_fetch_client", return_value=mock_client),
+    ):
+        result = await _fetch_page(target_url)
+
+    requested_urls = [call.args[0] for call in mock_client.get.call_args_list if call.args]
+    assert requested_urls[0] == target_url
+    assert expected_proxy_url in requested_urls
+    assert "public option" in result
 
 
 # ---------------------------------------------------------------------------
