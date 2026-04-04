@@ -1246,17 +1246,17 @@ async def test_run_agent_update_with_candidates():
     ):
         # roster sync (tools) → {}
         # meta update (tools) → {}
+        # image resolution (1 candidate, agent fallback) → {}
         # 12 issue sub-agents (tools) → {} each
         # finance (json) → {}
         # refine per-candidate (tools) → {}
         # refine meta (tools) → {}
-        # image resolution → {}
-        # Total: 1 + 1 + 12 + 1 + 1 + 1 + 1 = 18
+        # Total: 1 + 1 + 1 + 12 + 1 + 1 + 1 = 18
         mock_loop.return_value = {}
 
         result = await run_agent("test-2024", cheap_mode=True, enable_review=False)
 
     assert result["id"] == "test-2024"
     assert "updated_utc" in result
-    # roster sync + meta + 12 issues + finance + refine + meta refine + images = 18
+    # roster sync + meta + images + 12 issues + finance + refine + meta refine = 18
     assert mock_loop.call_count == 18
