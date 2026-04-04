@@ -411,7 +411,7 @@ async def _agent_loop(
                     "content": (
                         "You have used several searches. Stop searching and use your "
                         "editing tools to commit your findings now. When you are done "
-                        "editing, reply with a short confirmation message (no JSON needed)."
+                        "editing, make no further tool calls — do not produce a text reply."
                     ),
                 })
                 log("info", f"  [{phase_name}] nudging model to commit edits (iteration {iteration + 1})")

@@ -15,11 +15,12 @@ from .storage import new_artifact_id, save_artifact
 
 
 async def _run_and_save_post_analysis(run_id: str, race_id: str, logs: list) -> None:
-    """Run Gemini Flash post-run analysis and broadcast the result as log lines."""
+    """Run Gemini Flash post-run analysis, broadcast log lines, and save as artifact."""
     _log = logging.getLogger("pipeline")
 
-    async def _broadcast_log(message: str, level: str = "info") -> None:
-        """Broadcast a single log line directly via the logging manager (we are already async)."""
+    async def _emit(message: str, level: str = "info") -> None:
+        """Log to Python logger (Cloud Run logs) AND broadcast to any connected WebSocket clients."""
+        getattr(_log, level, _log.info)(f"[post-analysis] {message}")
         await logging_manager.broadcast_message({
             "type": "log",
             "level": level,
@@ -39,10 +40,29 @@ async def _run_and_save_post_analysis(run_id: str, race_id: str, logs: list) -> 
         analysis_text: str = result.get("analysis", "").strip()
         model = result.get("model", "?")
 
-        await _broadcast_log(f"━━━ Post-run pipeline analysis ({model}) ━━━")
+        # 1. Save as its own artifact so it's always retrievable regardless of WebSocket state
+        try:
+            analysis_artifact_id = new_artifact_id("post-analysis")
+            save_artifact(analysis_artifact_id, {
+                "type": "post_run_analysis",
+                "run_id": run_id,
+                "race_id": race_id,
+                "model": model,
+                "analyzed_at": result.get("analyzed_at"),
+                "log_count": result.get("log_count", len(logs)),
+                "analysis": analysis_text,
+            })
+            _log.info(f"Post-run analysis saved as artifact {analysis_artifact_id}")
+        except Exception:
+            _log.warning("Failed to save post-run analysis artifact", exc_info=True)
+
+        # 2. Emit each line to Python logger + WebSocket so it appears in Cloud Run logs
+        #    and in the UI log panel for any still-connected clients.
+        await _emit(f"━━━ Post-run pipeline analysis ({model}) ━━━")
         for line in analysis_text.splitlines():
-            await _broadcast_log(line)
-        await _broadcast_log("━━━ End post-run analysis ━━━")
+            await _emit(line)
+        await _emit("━━━ End post-run analysis ━━━")
+
     except Exception:
         _log.warning("Post-run analysis failed", exc_info=True)
 
@@ -169,24 +189,23 @@ async def run_step_async(step: str, request: RunRequest, run_id: Optional[str] =
         run_logs = list(run_manager.get_run_logs(run_id) or [])
 
         # Mark the overall run as completed (persists to Firestore, detaches log handler)
-        run_manager.complete_run(run_id, artifact_id, duration_ms)
+        # Returns the final RunInfo directly — don't call get_run() after this as the
+        # background Firestore write may not have landed yet.
+        final_run = run_manager.complete_run(run_id, artifact_id, duration_ms)
 
         # Update race record: mark completed, save run to subcollection
         if race_id:
             try:
                 race_manager.complete_run(race_id, run_id, artifact_id)
-                # Save final run state to subcollection
-                final_run = run_manager.get_run(run_id)
                 if final_run:
                     race_manager.save_run(race_id, final_run)
             except Exception:
                 context_logger.warning("Failed to update race record after completion", exc_info=True)
 
-        # Fire post-run Gemini Flash improvement analysis (non-blocking)
+        # Run Gemini post-run analysis BEFORE broadcasting run_completed so the
+        # frontend WebSocket is still subscribed and receives the log lines.
         race_id_for_analysis = request.payload.get("race_id", "unknown")
-        asyncio.create_task(
-            _run_and_save_post_analysis(run_id, race_id_for_analysis, run_logs)
-        )
+        await _run_and_save_post_analysis(run_id, race_id_for_analysis, run_logs)
 
         await logging_manager.send_run_status(run_id, "completed", artifact_id=artifact_id, duration_ms=duration_ms)
 
@@ -220,13 +239,12 @@ async def run_step_async(step: str, request: RunRequest, run_id: Optional[str] =
 
         # Mark step and run as failed
         run_manager.update_step_status(run_id, step, RunStatus.FAILED, error=error_msg, duration_ms=duration_ms)
-        run_manager.fail_run(run_id, error_msg, duration_ms)
+        final_run = run_manager.fail_run(run_id, error_msg, duration_ms)
 
         # Update race record: mark failed, save run to subcollection
         if race_id:
             try:
                 race_manager.fail_run(race_id, run_id, error_msg)
-                final_run = run_manager.get_run(run_id)
                 if final_run:
                     race_manager.save_run(race_id, final_run)
             except Exception:

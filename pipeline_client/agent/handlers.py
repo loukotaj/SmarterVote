@@ -57,13 +57,46 @@ def _make_editing_handlers(
 
     def remove_candidate(args: Dict[str, Any]) -> str:
         name = args["name"]
+        reason = args.get("reason", "").strip()
+
+        # Guard: reject removals that are clearly data-quality fixes rather than
+        # actual race withdrawals. Withdrawal reasons must mention the race exit.
+        _WITHDRAWAL_KEYWORDS = {
+            "withdrew", "withdrawal", "dropped out", "drop out", "suspended",
+            "disqualified", "disqualification", "ended campaign", "exited race",
+            "no longer running", "not running", "retired from race", "lost primary",
+            "primary loss",
+        }
+        reason_lower = reason.lower()
+        has_withdrawal_signal = any(kw in reason_lower for kw in _WITHDRAWAL_KEYWORDS)
+
+        # Also reject if reason sounds like a data-quality fix
+        _DATA_FIX_KEYWORDS = {
+            "fabricated", "incorrect", "wrong", "replace", "fix", "error",
+            "bad data", "inaccurate", "verified", "update", "correction",
+        }
+        has_data_fix_signal = any(kw in reason_lower for kw in _DATA_FIX_KEYWORDS)
+
+        if has_data_fix_signal or (reason and not has_withdrawal_signal):
+            log(
+                "warning",
+                f"    ⚠️ remove_candidate('{name}') BLOCKED — reason does not confirm "
+                f"a race withdrawal: {reason!r}. Use this tool only when a candidate "
+                f"has officially left the race.",
+            )
+            return (
+                f"ERROR: remove_candidate blocked. The reason '{reason}' does not indicate "
+                f"that '{name}' has withdrawn from the race. Only call remove_candidate when "
+                f"a candidate has officially withdrawn, dropped out, or been disqualified. "
+                f"Do NOT use this tool to fix data quality issues."
+            )
+
         candidates = race_json.get("candidates", [])
         for i, c in enumerate(candidates):
             if c.get("name") == name:
                 candidates.pop(i)
-                reason = args.get("reason", "no reason given")
-                log("info", f"    ❌ Removed candidate: {name} ({reason})")
-                return f"Removed candidate '{name}' ({reason})."
+                log("info", f"    ❌ Removed candidate: {name} ({reason or 'no reason given'})")
+                return f"Removed candidate '{name}' ({reason or 'no reason given'})."
         return f"Candidate '{name}' not found — no action taken."
 
     def rename_candidate(args: Dict[str, Any]) -> str:

@@ -184,8 +184,8 @@ class RunManager:
             self.attach_run_logger(run_id)
             self._save_run(self.active_runs[run_id])
 
-    def complete_run(self, run_id: str, artifact_id: Optional[str] = None, duration_ms: Optional[int] = None):
-        """Mark a run as completed."""
+    def complete_run(self, run_id: str, artifact_id: Optional[str] = None, duration_ms: Optional[int] = None) -> Optional["RunInfo"]:
+        """Mark a run as completed. Returns the final RunInfo (or None if not found)."""
         if run_id in self.active_runs:
             run_info = self.active_runs[run_id]
             run_info.status = RunStatus.COMPLETED
@@ -195,9 +195,11 @@ class RunManager:
             del self.active_runs[run_id]
             self.detach_run_logger(run_id)
             self._persist_background(run_info)
+            return run_info
+        return None
 
-    def fail_run(self, run_id: str, error: str, duration_ms: Optional[int] = None):
-        """Mark a run as failed."""
+    def fail_run(self, run_id: str, error: str, duration_ms: Optional[int] = None) -> Optional["RunInfo"]:
+        """Mark a run as failed. Returns the final RunInfo (or None if not found)."""
         if run_id in self.active_runs:
             run_info = self.active_runs[run_id]
             run_info.status = RunStatus.FAILED
@@ -207,9 +209,11 @@ class RunManager:
             del self.active_runs[run_id]
             self.detach_run_logger(run_id)
             self._persist_background(run_info)
+            return run_info
+        return None
 
-    def cancel_run(self, run_id: str):
-        """Cancel a running process."""
+    def cancel_run(self, run_id: str) -> Optional["RunInfo"]:
+        """Cancel a running process. Returns the final RunInfo (or None if not found)."""
         if run_id in self.active_runs:
             run_info = self.active_runs[run_id]
             run_info.status = RunStatus.CANCELLED
@@ -217,6 +221,8 @@ class RunManager:
             del self.active_runs[run_id]
             self.detach_run_logger(run_id)
             self._persist_background(run_info)
+            return run_info
+        return None
 
     def delete_run(self, run_id: str) -> bool:
         """Delete a completed/failed/cancelled run from history. Returns True if deleted."""
