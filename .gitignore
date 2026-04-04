@@ -293,3 +293,4 @@ data/analytics.db
 data/analytics.db-shm
 .gitignore
 data/analytics.db-wal
+.claude/settings.local.json

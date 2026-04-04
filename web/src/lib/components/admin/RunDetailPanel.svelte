@@ -92,8 +92,8 @@
     { id: "output" as SectionId, label: "Output" },
     ...(analysisContent ? [{ id: "analysis" as SectionId, label: "✦ Analysis" }] : []),
   ];
-  $: progress = isLiveAndRunning ? liveProgress : computeProgress(pipelineSteps);
-  $: progressMsg = isLiveAndRunning ? liveProgressMessage : lastStepMessage(pipelineSteps);
+  $: progress = isLiveAndRunning ? Math.max(liveProgress, computeProgress(pipelineSteps)) : computeProgress(pipelineSteps);
+  $: progressMsg = isLiveAndRunning && liveProgressMessage ? liveProgressMessage : lastStepMessage(pipelineSteps);
   $: elapsed = isLiveAndRunning ? liveElapsed : (run?.duration_ms ? Math.floor(run.duration_ms / 1000) : 0);
 
   // Scroll the logs container to the bottom (called via tick to avoid Svelte reactive loop).

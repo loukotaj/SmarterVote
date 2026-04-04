@@ -22,11 +22,14 @@ class QueueItemOptions(BaseModel):
     cheap_mode: bool = True
     enable_review: bool = True
     save_artifact: bool = True
+    force_fresh: bool = False
     research_model: Optional[str] = None
     claude_model: Optional[str] = None
     gemini_model: Optional[str] = None
     grok_model: Optional[str] = None
     enabled_steps: Optional[List[str]] = None
+    max_candidates: Optional[int] = None
+    target_no_info: bool = False
 
 
 class QueueItem(BaseModel):
