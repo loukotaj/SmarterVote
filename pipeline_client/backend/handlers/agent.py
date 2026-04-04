@@ -88,7 +88,11 @@ class AgentHandler:
         enabled_set = set(enabled_steps)
 
         # Pre-load existing data from GCS if running in cloud
-        existing_data = await self._load_existing_from_gcs(race_id)
+        # force_fresh: pass empty dict to skip update mode entirely
+        if options.get("force_fresh"):
+            existing_data = {}
+        else:
+            existing_data = await self._load_existing_from_gcs(race_id)
 
         # Get run context for broadcasting
         run_id: str | None = None

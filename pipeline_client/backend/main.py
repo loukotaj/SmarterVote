@@ -634,6 +634,64 @@ async def unpublish_race_api(race_id: str) -> Dict[str, Any]:
     return {"message": f"Race {race_id} unpublished", "id": race_id}
 
 
+class BatchPublishRequest(BaseModel):
+    """Request body for batch publishing races."""
+
+    race_ids: List[str]
+
+
+@app.post("/api/races/publish", dependencies=[Depends(verify_token)])
+async def batch_publish_races(request: BatchPublishRequest) -> Dict[str, Any]:
+    """Publish multiple races at once (draft -> published)."""
+    published = []
+    errors = []
+
+    for race_id in request.race_ids:
+        try:
+            _validate_race_id(race_id)
+
+            draft_data = None
+            drafts_dir = ROOT / "data" / "drafts"
+            draft_path = drafts_dir / f"{race_id}.json"
+            if draft_path.exists():
+                with draft_path.open("r", encoding="utf-8") as f:
+                    draft_data = json.load(f)
+
+            if draft_data is None:
+                draft_data = _get_race_gcs(race_id, "drafts")
+
+            if draft_data is None:
+                errors.append({"race_id": race_id, "error": "Draft not found"})
+                continue
+
+            published_dir = ROOT / "data" / "published"
+            published_dir.mkdir(parents=True, exist_ok=True)
+            published_path = published_dir / f"{race_id}.json"
+            json_str = json.dumps(draft_data, indent=2, default=str)
+            with published_path.open("w", encoding="utf-8") as f:
+                f.write(json_str)
+
+            gcs_bucket = settings.gcs_bucket
+            if gcs_bucket:
+                try:
+                    from google.cloud import storage as gcs  # type: ignore
+
+                    client = gcs.Client()
+                    bucket = client.bucket(gcs_bucket)
+                    blob = bucket.blob(f"races/{race_id}.json")
+                    blob.upload_from_string(json_str, content_type="application/json")
+                except Exception:
+                    logging.exception("Failed to publish %s to GCS", race_id)
+
+            race_manager.publish_race(race_id)
+            race_manager.update_race_metadata(race_id, draft_data)
+            published.append(race_id)
+        except Exception as exc:
+            errors.append({"race_id": race_id, "error": str(exc)})
+
+    return {"published": published, "errors": errors}
+
+
 @app.get("/api/races/{race_id}/runs", dependencies=[Depends(verify_token)])
 async def list_race_runs(race_id: str, limit: int = 20) -> Dict[str, Any]:
     """List runs for a specific race (from subcollection)."""

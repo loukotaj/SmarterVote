@@ -439,6 +439,22 @@ export class PipelineApiService {
   }
 
   /**
+   * Batch publish multiple races at once
+   */
+  async batchPublishRaces(raceIds: string[]): Promise<{ published: string[]; errors: Array<{ race_id: string; error: string }> }> {
+    const res = await fetchWithAuth(`${this.apiBase}/api/races/publish`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ race_ids: raceIds }),
+    }, 30000);
+    if (!res.ok) {
+      const errorText = await res.text().catch(() => "Unknown error");
+      throw new Error(`HTTP ${res.status}: ${res.statusText}. ${errorText}`);
+    }
+    return await res.json();
+  }
+
+  /**
    * Unpublish a race
    */
   async unpublishRaceRecord(raceId: string): Promise<void> {

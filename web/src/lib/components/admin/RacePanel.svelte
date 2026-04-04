@@ -34,6 +34,7 @@
 
   // Pipeline options
   let cheapMode = true;
+  let forceFresh = false;
   let maxCandidates: number | null = null;
   let targetNoInfo = false;
   let stepToggles: Record<string, boolean> = Object.fromEntries(
@@ -97,6 +98,7 @@
     const opts: RunOptions = {
       save_artifact: true,
       cheap_mode: cheapMode,
+      force_fresh: forceFresh,
       enabled_steps: PIPELINE_STEPS.filter((s) => stepToggles[s.id]).map((s) => s.id),
     };
     if (researchModel) opts.research_model = researchModel;
@@ -613,6 +615,10 @@
                 <input type="checkbox" bind:checked={cheapMode} class="rounded border-stroke text-blue-600 focus:ring-blue-500" />
                 <span>Cheap Mode</span>
               </label>
+              <label class="flex items-center gap-2 text-sm cursor-pointer" title="Ignore existing data and research from scratch">
+                <input type="checkbox" bind:checked={forceFresh} class="rounded border-stroke text-orange-500 focus:ring-orange-500" />
+                <span class="text-orange-600 dark:text-orange-400 font-medium">Fresh Run</span>
+              </label>
               <div class="flex items-center gap-2">
                 <label for="panelMaxCandidates" class="text-xs text-content-muted whitespace-nowrap">Max candidates</label>
                 <input
@@ -692,9 +698,18 @@
 
             <!-- Run Button -->
             <div class="pt-3 border-t border-stroke">
+              {#if forceFresh}
+                <div class="mb-2 flex items-center gap-2 rounded-lg px-3 py-2 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-700 text-xs text-orange-700 dark:text-orange-300">
+                  <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+                  </svg>
+                  <span>Fresh run will ignore existing data and research from scratch.</span>
+                </div>
+              {/if}
               <button
                 type="button"
-                class="btn-primary w-full py-2.5 text-sm rounded-lg font-semibold disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                class="w-full py-2.5 text-sm rounded-lg font-semibold disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2
+                  {forceFresh ? 'bg-orange-600 hover:bg-orange-700 text-white' : 'btn-primary'}"
                 disabled={running || race.status === "running" || race.status === "queued"}
                 on:click={handleRun}
               >
@@ -709,7 +724,7 @@
                 {:else if race.status === "queued"}
                   Already Queued
                 {:else}
-                  Run Pipeline
+                  {forceFresh ? "Fresh Run Pipeline" : "Run Pipeline"}
                 {/if}
               </button>
             </div>

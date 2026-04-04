@@ -208,6 +208,7 @@ export interface RunOptions {
   note?: string;
   enable_review?: boolean;
   cheap_mode?: boolean;
+  force_fresh?: boolean;
   research_model?: string;
   claude_model?: string;
   gemini_model?: string;

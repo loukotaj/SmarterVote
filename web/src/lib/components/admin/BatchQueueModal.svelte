@@ -16,6 +16,7 @@
   const apiService = new PipelineApiService(API_BASE);
 
   let cheapMode = true;
+  let forceFresh = false;
   let maxCandidates: number | null = null;
   let targetNoInfo = false;
   let stepToggles: Record<string, boolean> = Object.fromEntries(
@@ -57,6 +58,7 @@
     const opts: RunOptions = {
       save_artifact: true,
       cheap_mode: cheapMode,
+      force_fresh: forceFresh,
       enabled_steps: PIPELINE_STEPS.filter((s) => stepToggles[s.id]).map((s) => s.id),
     };
     if (researchModel) opts.research_model = researchModel;
@@ -148,6 +150,10 @@
           <label class="flex items-center gap-2 text-sm text-content-muted cursor-pointer">
             <input type="checkbox" bind:checked={cheapMode} class="rounded border-stroke text-blue-600 focus:ring-blue-500" />
             <span>Cheap Mode</span>
+          </label>
+          <label class="flex items-center gap-2 text-sm cursor-pointer" title="Ignore existing data and research from scratch">
+            <input type="checkbox" bind:checked={forceFresh} class="rounded border-stroke text-orange-500 focus:ring-orange-500" />
+            <span class="text-orange-600 dark:text-orange-400 font-medium">Fresh Run</span>
           </label>
           <div class="flex items-center gap-2">
             <label for="batchMax" class="text-xs text-content-muted">Max candidates</label>

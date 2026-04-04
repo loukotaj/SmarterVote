@@ -25,6 +25,7 @@
   let sortAsc = false;
   let selected = new Set<string>();
   let publishing = new Set<string>();
+  let bulkPublishing = false;
   let addInput = "";
 
   async function loadData() {
@@ -97,6 +98,37 @@
 
   function handleAddKeydown(e: KeyboardEvent) {
     if (e.key === "Enter") handleAddRaces();
+  }
+
+  function hasPendingDraft(row: RaceRecord): boolean {
+    return (
+      !!row.draft_updated_at &&
+      (row.status === "draft" ||
+        (row.status === "published" && !!row.published_at && row.draft_updated_at > row.published_at))
+    );
+  }
+
+  $: selectedWithDrafts = [...selected].filter((id) => {
+    const row = rows.find((r) => r.race_id === id);
+    return row && hasPendingDraft(row);
+  });
+
+  async function handleBulkPublish() {
+    if (selectedWithDrafts.length === 0) return;
+    if (!confirm(`Publish ${selectedWithDrafts.length} race${selectedWithDrafts.length !== 1 ? "s" : ""}?`)) return;
+    bulkPublishing = true;
+    try {
+      const result = await apiService.batchPublishRaces(selectedWithDrafts);
+      if (result.errors.length > 0) {
+        error = `Published ${result.published.length}, failed: ${result.errors.map((e) => `${e.race_id}: ${e.error}`).join(", ")}`;
+      }
+      selected = new Set();
+      await loadData();
+    } catch (e) {
+      error = `Bulk publish failed: ${e}`;
+    } finally {
+      bulkPublishing = false;
+    }
   }
 
   async function handlePublish(race_id: string) {
@@ -236,6 +268,16 @@
         >
           Queue {selected.size} Selected
         </button>
+        {#if selectedWithDrafts.length > 0}
+          <button
+            type="button"
+            class="px-4 py-2 text-sm rounded-lg border border-green-300 dark:border-green-700 text-green-700 dark:text-green-300 hover:bg-green-50 dark:hover:bg-green-900/20 font-medium disabled:opacity-40"
+            disabled={bulkPublishing}
+            on:click={handleBulkPublish}
+          >
+            {bulkPublishing ? "Publishing…" : `Publish ${selectedWithDrafts.length} Draft${selectedWithDrafts.length !== 1 ? "s" : ""}`}
+          </button>
+        {/if}
       {/if}
       <button
         type="button"
@@ -297,7 +339,7 @@
           <tbody class="divide-y divide-stroke">
             {#each filteredRows as row (row.race_id)}
               <tr
-                class="hover:bg-surface-alt cursor-pointer {selected.has(row.race_id) ? 'bg-blue-50 dark:bg-blue-900/20' : ''}"
+                class="hover:bg-surface-alt cursor-pointer {selected.has(row.race_id) ? 'bg-blue-50 dark:bg-blue-900/20' : hasPendingDraft(row) ? 'bg-amber-50/40 dark:bg-amber-900/10' : ''}"
                 on:click={() => onSelectRace(row)}
               >
                 <td class="pl-4 pr-2 py-3" on:click|stopPropagation>
@@ -336,9 +378,22 @@
                   {/if}
                 </td>
                 <td class="px-3 py-3">
-                  <span class="px-2 py-0.5 rounded-full text-xs font-medium {statusBadgeClass(row.status)}">
-                    {row.status}
-                  </span>
+                  <div class="flex items-center gap-1.5">
+                    <span class="px-2 py-0.5 rounded-full text-xs font-medium {statusBadgeClass(row.status)}">
+                      {row.status}
+                    </span>
+                    {#if hasPendingDraft(row)}
+                      <span
+                        class="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100 dark:bg-amber-900 text-amber-700 dark:text-amber-200 border border-amber-300 dark:border-amber-700"
+                        title="Draft available — newer than published version"
+                      >
+                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                        </svg>
+                        draft
+                      </span>
+                    {/if}
+                  </div>
                 </td>
                 <td class="px-3 py-3 text-content-muted text-center font-mono">{row.total_runs}</td>
                 <td class="px-3 py-3">
@@ -350,27 +405,25 @@
                 </td>
                 <td class="px-3 py-3" on:click|stopPropagation>
                   <div class="flex items-center space-x-1">
-                    {#if row.status === "draft" || row.status === "published"}
-                      {#if row.status === "draft"}
-                        <button
-                          type="button"
-                          class="px-2 py-1 text-xs border border-green-300 dark:border-green-700 rounded text-green-700 dark:text-green-300 hover:bg-green-50 dark:hover:bg-green-900/20 disabled:opacity-40"
-                          disabled={publishing.has(row.race_id)}
-                          on:click={() => handlePublish(row.race_id)}
-                        >
-                          {publishing.has(row.race_id) ? "…" : "Publish"}
-                        </button>
-                      {/if}
-                      {#if row.status === "published"}
-                        <button
-                          type="button"
-                          class="px-2 py-1 text-xs border border-amber-300 dark:border-amber-700 rounded text-amber-700 dark:text-amber-300 hover:bg-amber-50 dark:hover:bg-amber-900/20 disabled:opacity-40"
-                          disabled={publishing.has(row.race_id)}
-                          on:click={() => handleUnpublish(row.race_id)}
-                        >
-                          Unpublish
-                        </button>
-                      {/if}
+                    {#if hasPendingDraft(row)}
+                      <button
+                        type="button"
+                        class="px-2 py-1 text-xs border border-green-300 dark:border-green-700 rounded text-green-700 dark:text-green-300 hover:bg-green-50 dark:hover:bg-green-900/20 disabled:opacity-40 font-medium"
+                        disabled={publishing.has(row.race_id)}
+                        on:click={() => handlePublish(row.race_id)}
+                      >
+                        {publishing.has(row.race_id) ? "…" : "Publish"}
+                      </button>
+                    {/if}
+                    {#if row.status === "published"}
+                      <button
+                        type="button"
+                        class="px-2 py-1 text-xs border border-amber-300 dark:border-amber-700 rounded text-amber-700 dark:text-amber-300 hover:bg-amber-50 dark:hover:bg-amber-900/20 disabled:opacity-40"
+                        disabled={publishing.has(row.race_id)}
+                        on:click={() => handleUnpublish(row.race_id)}
+                      >
+                        Unpublish
+                      </button>
                     {/if}
                     <button
                       type="button"

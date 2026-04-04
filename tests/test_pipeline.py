@@ -1075,6 +1075,11 @@ def test_make_editing_handlers():
         "add_poll",
         "update_race_field",
         "read_profile",
+        "add_education_entry",
+        "add_career_entry",
+        "set_social_media",
+        "clear_education",
+        "clear_career_history",
     }
     assert set(handlers.keys()) == expected_names
 

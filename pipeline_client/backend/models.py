@@ -61,6 +61,7 @@ class RunOptions(BaseModel):
     save_artifact: bool = True
     enable_review: bool = False  # Send to Claude/Gemini/Grok for fact-checking
     note: Optional[str] = None
+    force_fresh: bool = False  # Ignore existing data and start from scratch
     # Model overrides (None = use default based on cheap_mode)
     research_model: Optional[str] = None   # OpenAI model for research phases
     claude_model: Optional[str] = None     # Claude model for review
