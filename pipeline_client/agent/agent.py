@@ -1047,7 +1047,7 @@ async def _run_issue_research_for_candidate(
                 extra_tool_handlers=handlers,
                 tools_mode=True,
             )
-        except (RuntimeError, ValueError) as exc:
+        except Exception as exc:
             log("warning", f"    Issue sub-agent failed for {candidate_name}/{issue}: {exc}")
 
         # Build handoff entry from what was just written
@@ -1194,7 +1194,7 @@ async def _run_fresh(
                 _apply_finance_patch(race_json, finance_result, log)
             else:
                 log("warning", "  Finance/voting phase returned non-dict — skipping")
-        except (RuntimeError, ValueError) as exc:
+        except Exception as exc:
             log("warning", f"  Finance/voting phase failed: {exc} — continuing without")
         track("complete", "finance", duration_ms=int((time.perf_counter() - fin_t0) * 1000))
     else:
@@ -1234,7 +1234,7 @@ async def _run_fresh(
                     extra_tool_handlers=handlers,
                     tools_mode=True,
                 )
-            except (RuntimeError, ValueError) as exc:
+            except Exception as exc:
                 log("warning", f"  Refine failed for {cname}: {exc} — keeping existing")
 
         # Meta refinement (description + polling) — tools mode
@@ -1257,7 +1257,7 @@ async def _run_fresh(
                 extra_tool_handlers=handlers,
                 tools_mode=True,
             )
-        except (RuntimeError, ValueError) as exc:
+        except Exception as exc:
             log("warning", f"  Refine meta failed: {exc} — keeping existing meta")
         track("complete", "refinement", duration_ms=int((time.perf_counter() - ref_t0) * 1000))
     else:
@@ -1336,7 +1336,7 @@ async def _run_update(
                 extra_tool_handlers=handlers,
                 tools_mode=True,
             )
-        except (RuntimeError, ValueError) as exc:
+        except Exception as exc:
             log("warning", f"  Roster sync failed: {exc} — keeping existing roster")
 
         # Refresh candidate names after roster sync (may have changed)
@@ -1371,7 +1371,7 @@ async def _run_update(
                 extra_tool_handlers=handlers,
                 tools_mode=True,
             )
-        except (RuntimeError, ValueError) as exc:
+        except Exception as exc:
             log("warning", f"  Update meta phase failed: {exc} — keeping existing meta")
 
         track("complete", "discovery", duration_ms=int((time.perf_counter() - disc_t0) * 1000))
@@ -1457,7 +1457,7 @@ async def _run_update(
                 _apply_finance_patch(race_json, finance_result, log)
             else:
                 log("warning", "  Finance/voting phase returned non-dict — skipping")
-        except (RuntimeError, ValueError) as exc:
+        except Exception as exc:
             log("warning", f"  Finance/voting phase failed: {exc} — continuing without")
         track("complete", "finance", duration_ms=int((time.perf_counter() - fin_t0) * 1000))
     else:
@@ -1496,7 +1496,7 @@ async def _run_update(
                     extra_tool_handlers=handlers,
                     tools_mode=True,
                 )
-            except (RuntimeError, ValueError) as exc:
+            except Exception as exc:
                 log("warning", f"  Refine failed for {cname}: {exc} — keeping existing")
 
         # Meta refinement (description + polling) — tools mode
@@ -1519,7 +1519,7 @@ async def _run_update(
                 extra_tool_handlers=handlers,
                 tools_mode=True,
             )
-        except (RuntimeError, ValueError) as exc:
+        except Exception as exc:
             log("warning", f"  Refine meta failed: {exc} — keeping existing meta")
         track("complete", "refinement", duration_ms=int((time.perf_counter() - ref_t0) * 1000))
     else:
@@ -1654,7 +1654,7 @@ def _apply_finance_patch(race_json: Dict[str, Any], patch: Dict[str, Any], log: 
         # Merge links — deduplicate by URL
         new_links = data.get("links", [])
         if isinstance(new_links, list) and new_links:
-            existing_urls = {lnk.get("url") for lnk in candidate.get("links", [])}
+            existing_urls = {lnk.get("url") for lnk in candidate.get("links", []) if isinstance(lnk, dict)}
             for lnk in new_links:
                 if isinstance(lnk, dict) and lnk.get("url") not in existing_urls:
                     candidate.setdefault("links", []).append(lnk)
@@ -1778,7 +1778,7 @@ async def _run_iteration_pass(
                 tools_mode=True,
             )
             any_success = True
-        except (RuntimeError, ValueError) as exc:
+        except Exception as exc:
             log("warning", f"  Iteration failed for {cname}: {exc} — keeping existing")
 
     # Meta iteration (description + polling flags)
@@ -1803,7 +1803,7 @@ async def _run_iteration_pass(
             tools_mode=True,
         )
         any_success = True
-    except (RuntimeError, ValueError) as exc:
+    except Exception as exc:
         log("warning", f"  Iteration meta failed: {exc} — keeping existing meta")
 
     if not any_success:
