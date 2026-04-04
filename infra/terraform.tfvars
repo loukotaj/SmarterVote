@@ -6,9 +6,6 @@
 environment = "dev"
 region      = "us-central1"
 
-# Application Configuration
-app_version = "latest"
-
 # Development Settings
 force_update           = false
 prevent_destroy_prod   = true

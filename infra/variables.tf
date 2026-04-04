@@ -56,7 +56,7 @@ variable "xai_api_key" {
 variable "app_version" {
   description = "Application version for tracking updates"
   type        = string
-  default     = ""
+  default     = "latest"
 }
 
 variable "force_update" {
