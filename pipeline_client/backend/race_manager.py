@@ -157,23 +157,22 @@ class RaceManager:
         return None
 
     def list_races(self, limit: int = 200) -> List[RaceRecord]:
-        # Use local cache if available (populated by hydration and all writes)
-        if self._local_races:
-            return sorted(self._local_races.values(), key=lambda r: r.race_id)[:limit]
         if self._db is not None:
             try:
                 docs = self._db.collection(_COLLECTION).limit(limit).stream()
                 races = []
                 for doc in docs:
                     try:
-                        races.append(RaceRecord(**(doc.to_dict() or {})))
+                        record = RaceRecord(**(doc.to_dict() or {}))
+                        self._local_races[record.race_id] = record  # keep cache warm
+                        races.append(record)
                     except Exception:
                         pass
                 return sorted(races, key=lambda r: r.race_id)
             except Exception:
-                logger.exception("Firestore list_races failed")
-                return []
-        return []
+                logger.exception("Firestore list_races failed — falling back to local cache")
+                return sorted(self._local_races.values(), key=lambda r: r.race_id)
+        return sorted(self._local_races.values(), key=lambda r: r.race_id)
 
     def upsert_race(self, race_id: str, **fields) -> RaceRecord:
         """Create or update a race record. Only provided fields are changed."""
@@ -405,7 +404,11 @@ class RaceManager:
         """Clear draft state from race record. status becomes published (if published) or empty."""
         race = self.get_race(race_id)
         new_status = "published" if (race and race.published_at) else "empty"
-        return self.upsert_race(race_id, status=new_status, draft_updated_at=None)
+        record = self.upsert_race(race_id, status=new_status, draft_updated_at=None)
+        # Write synchronously so all Cloud Run instances see the updated record
+        # immediately when the endpoint returns 200 — not after a background thread.
+        self._flush_race_to_firestore(record)
+        return record
 
     def unpublish_race(self, race_id: str) -> RaceRecord:
         """Remove published status. Race becomes draft if draft exists, else empty."""
@@ -506,11 +509,6 @@ class RaceManager:
         return None
 
     def list_runs(self, race_id: str, limit: int = 20) -> List[RunInfo]:
-        # Use local cache if available for this race
-        race_runs = self._local_runs.get(race_id)
-        if race_runs is not None:
-            runs = sorted(race_runs.values(), key=lambda r: r.started_at or datetime.min, reverse=True)
-            return runs[:limit]
         if self._db is not None:
             try:
                 from google.cloud.firestore import Query  # type: ignore
@@ -523,19 +521,31 @@ class RaceManager:
                     .limit(limit)
                     .stream()
                 )
+                firestore_ids: set = set()
                 runs = []
                 for doc in docs:
                     try:
                         run = RunInfo(**(doc.to_dict() or {}))
+                        firestore_ids.add(run.run_id)
+                        self._local_runs.setdefault(race_id, {})[run.run_id] = run  # keep cache warm
                         runs.append(run)
-                        self._local_runs.setdefault(race_id, {})[run.run_id] = run  # populate cache
                     except Exception:
                         pass
-                return runs
+                # Include any pending local writes not yet flushed to Firestore,
+                # excluding runs that have been deleted on this instance.
+                for run_id, run in self._local_runs.get(race_id, {}).items():
+                    if run_id not in firestore_ids and run_id not in self._deleted_run_ids:
+                        runs.append(run)
+                runs.sort(key=lambda r: r.started_at or datetime.min, reverse=True)
+                return runs[:limit]
             except Exception:
-                logger.exception("Firestore list_runs failed for %s", race_id)
-                return []
-        return []
+                logger.exception("Firestore list_runs failed for %s — falling back to local cache", race_id)
+                race_runs = self._local_runs.get(race_id, {})
+                fallback = [r for rid, r in race_runs.items() if rid not in self._deleted_run_ids]
+                return sorted(fallback, key=lambda r: r.started_at or datetime.min, reverse=True)[:limit]
+        race_runs = self._local_runs.get(race_id, {})
+        runs = [r for rid, r in race_runs.items() if rid not in self._deleted_run_ids]
+        return sorted(runs, key=lambda r: r.started_at or datetime.min, reverse=True)[:limit]
 
     def delete_run(self, race_id: str, run_id: str) -> bool:
         # Remove from local cache immediately and track deletion to prevent ghost writes
@@ -727,6 +737,22 @@ class RaceManager:
                 args=(record,),
                 daemon=True,
             ).start()
+
+    def _flush_race_to_firestore(self, record: RaceRecord) -> None:
+        """Synchronously write a race record to Firestore.
+
+        Call this after delete operations that must be immediately visible to ALL
+        Cloud Run instances.  Normal upserts use the async background thread; only
+        deletes need this guaranteed-flush.
+        """
+        if self._db is None:
+            return
+        try:
+            self._db.collection(_COLLECTION).document(record.race_id).set(
+                record.model_dump(mode="json")
+            )
+        except Exception:
+            logger.exception("Firestore synchronous flush failed for race %s", record.race_id)
 
     def _write_race_firestore(self, record: RaceRecord) -> None:
         if self._db is None:
