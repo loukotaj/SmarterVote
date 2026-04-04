@@ -368,6 +368,15 @@ class RunManager:
 
     # sync_from_gcs is intentionally removed: Firestore is now the source of truth.
 
+    def shutdown(self, wait: bool = True) -> None:
+        """Shut down the background write executor.
+
+        Called automatically on process exit via Python's atexit (ThreadPoolExecutor
+        registers this internally), but can also be called explicitly — e.g. in tests
+        or when replacing the singleton.  *wait=True* blocks until pending writes finish.
+        """
+        self._write_executor.shutdown(wait=wait)
+
 
 # Global run manager instance
 run_manager = RunManager()
