@@ -12,7 +12,7 @@ resource "google_storage_bucket" "sv_data" {
 
   lifecycle_rule {
     condition {
-      age = 90
+      age            = 90
       matches_prefix = ["retired/"]
     }
     action {
