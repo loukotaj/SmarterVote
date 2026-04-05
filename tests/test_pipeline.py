@@ -152,6 +152,8 @@ def test_refine_prompt_mentions_donor_sources():
     result = REFINE_USER.format(
         race_id="mo-senate-2024",
         candidate_name="Jane Doe",
+        candidate_website="https://janedoe.com",
+        candidate_issue_urls="https://janedoe.com/issues",
         candidate_json='{"name": "Jane Doe"}',
         race_description="A senate race.",
         other_candidates="John Smith",

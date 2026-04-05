@@ -1,5 +1,5 @@
-import { fireEvent, render } from "@testing-library/svelte";
-import { describe, it, expect } from "vitest";
+import { cleanup, fireEvent, render } from "@testing-library/svelte";
+import { afterEach, describe, it, expect } from "vitest";
 import CandidateCard from "./CandidateCard.svelte";
 import type { Candidate, CanonicalIssue, IssueStance } from "$lib/types";
 
@@ -18,6 +18,10 @@ const candidate: Candidate = {
 };
 
 describe("CandidateCard", () => {
+  afterEach(() => {
+    cleanup();
+  });
+
   it("renders candidate details", () => {
     const { container } = render(CandidateCard, { candidate });
     const text = container.textContent || "";
