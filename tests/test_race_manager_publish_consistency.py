@@ -37,8 +37,40 @@ def test_publish_then_metadata_keeps_published_status_with_stale_remote_reads(mo
             "updated_utc": "2026-04-04T00:01:00+00:00",
             "candidates": [{"name": "Candidate A"}],
         },
+        active_draft=False,
     )
 
     final_record = manager._local_races["ga-senate-2026"]
     assert final_record.status == "published"
     assert final_record.published_at is not None
+    assert final_record.draft_updated_at is None
+
+
+def test_publish_race_clears_active_draft_state(monkeypatch):
+    manager = RaceManager()
+    manager._db = object()
+
+    remote_record = RaceRecord(
+        race_id="ar-senate-2026",
+        status="draft",
+        draft_updated_at="2026-04-04T00:00:00+00:00",
+        created_at="2026-04-04T00:00:00+00:00",
+        updated_at="2026-04-04T00:00:00+00:00",
+    )
+
+    def fake_get_race(race_id: str):
+        _ = race_id
+        return remote_record
+
+    def fake_flush(record: RaceRecord):
+        nonlocal remote_record
+        remote_record = record
+
+    monkeypatch.setattr(manager, "_save_race", lambda record: manager._local_races.__setitem__(record.race_id, record))
+    monkeypatch.setattr(manager, "get_race", fake_get_race)
+    monkeypatch.setattr(manager, "_flush_race_to_firestore", fake_flush)
+
+    published = manager.publish_race("ar-senate-2026")
+
+    assert published.status == "published"
+    assert published.draft_updated_at is None

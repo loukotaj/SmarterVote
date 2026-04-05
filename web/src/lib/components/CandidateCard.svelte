@@ -219,6 +219,14 @@
                       {#if entry.description}
                         <p class="timeline-desc">{entry.description}</p>
                       {/if}
+                      {#if entry.source}
+                        <a href={entry.source.url} target="_blank" rel="noopener noreferrer" class="entry-source-link">
+                          <svg class="w-3 h-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                          </svg>
+                          {entry.source.title ?? 'Source'}
+                        </a>
+                      {/if}
                     </div>
                   {/each}
                 </div>
@@ -240,6 +248,14 @@
                             ({edu.year})
                           {/if}
                         </span>
+                      {/if}
+                      {#if edu.source}
+                        <a href={edu.source.url} target="_blank" rel="noopener noreferrer" class="entry-source-link">
+                          <svg class="w-3 h-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                          </svg>
+                          {edu.source.title ?? 'Source'}
+                        </a>
                       {/if}
                     </div>
                   {/each}
@@ -407,6 +423,10 @@
 
   .timeline-desc {
     @apply text-xs text-content-subtle mt-1;
+  }
+
+  .entry-source-link {
+    @apply inline-flex items-center gap-1 mt-2 text-xs text-blue-600 dark:text-blue-400 hover:underline;
   }
 
   .education-list {

@@ -203,6 +203,8 @@ Here is a draft candidate profile for the race "{race_id}".
 You are improving ONE candidate at a time to keep responses small.
 
 Candidate name: {candidate_name}
+Known candidate website: {candidate_website}
+Known issue/policy URLs: {candidate_issue_urls}
 Candidate data:
 {candidate_json}
 
@@ -212,6 +214,8 @@ Race-level context:
 - All canonical issues that must be covered: {all_issues}
 
 Research and improve this ONE candidate:
+0. When fetch_page is useful, start with the known campaign issue/policy URLs above.
+  Prefer direct fetches of those URLs before broad web searches.
 1. Fix factual inconsistencies you can verify with web_search.
 2. Fill missing or low-confidence stances with better sourced data.
 3. Ensure every stance has at least one source URL.
@@ -605,6 +609,8 @@ ITERATE_USER = """\
 Race "{race_id}" — addressing review flags for ONE candidate at a time.
 
 Candidate name: {candidate_name}
+Known candidate website: {candidate_website}
+Known issue/policy URLs: {candidate_issue_urls}
 Candidate data:
 {candidate_json}
 
@@ -612,6 +618,8 @@ Review flags to address for this candidate:
 {review_flags}
 
 For EACH flag above:
+0. When fetch_page is useful, start with the known campaign issue/policy URLs above.
+  Prefer direct fetches of those URLs before broad web searches.
 1. If the flag identifies a factual error, use web_search to verify and fix it.
 2. If the flag identifies missing data, search for it and add it.
 3. If the flag identifies weak sourcing, find better/additional sources.

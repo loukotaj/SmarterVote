@@ -248,7 +248,7 @@ class AgentHandler:
         }
 
     async def _save_draft(self, race_id: str, race_json: Dict[str, Any]) -> Path:
-        """Write RaceJSON to the drafts directory and optionally to GCS drafts/."""
+        """Write RaceJSON to drafts/, retiring the previous active draft if present."""
         logger = logging.getLogger("pipeline")
         drafts_dir = Path(__file__).resolve().parents[3] / "data" / "drafts"
         drafts_dir.mkdir(parents=True, exist_ok=True)
@@ -265,13 +265,63 @@ class AgentHandler:
             )
 
         json_str = json.dumps(race_json, indent=2, default=str)
+
+        if output_path.exists():
+            self._archive_local_version(output_path, race_id, source="draft")
+
         with output_path.open("w", encoding="utf-8") as f:
             f.write(json_str)
 
-        # Also upload to GCS drafts/ prefix
+        # Also upload to GCS drafts/ prefix, retiring the previous active draft first.
+        await self._archive_gcs_version(race_id, src_prefix="drafts", source="draft")
         await self._upload_to_gcs(race_id, json_str, prefix="drafts")
 
         return output_path
+
+    def _retired_blob_name(self, race_id: str, source: str) -> str:
+        stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+        return f"retired/{race_id}/{stamp}-{source}.json"
+
+    def _archive_local_version(self, source_path: Path, race_id: str, *, source: str) -> Path:
+        retired_dir = Path(__file__).resolve().parents[3] / "data" / "retired" / race_id
+        retired_dir.mkdir(parents=True, exist_ok=True)
+        stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+        retired_path = retired_dir / f"{stamp}-{source}.json"
+        source_path.replace(retired_path)
+        return retired_path
+
+    async def _archive_gcs_version(self, race_id: str, *, src_prefix: str, source: str) -> bool:
+        """Move an active GCS object into retired/ if it exists."""
+        logger = logging.getLogger("pipeline")
+        gcs_bucket = os.getenv("GCS_BUCKET_NAME") or os.getenv("GCS_BUCKET") or os.getenv("BUCKET_NAME")
+        if not gcs_bucket:
+            return False
+
+        try:
+            from google.cloud import storage  # type: ignore
+
+            client = storage.Client()
+            bucket = client.bucket(gcs_bucket)
+            src_blob = bucket.blob(f"{src_prefix}/{race_id}.json")
+            if not src_blob.exists():
+                return False
+
+            retired_blob = bucket.blob(self._retired_blob_name(race_id, source))
+            bucket.copy_blob(src_blob, bucket, retired_blob.name)
+            src_blob.delete()
+            logger.info(
+                "Archived %s from GCS %s/ to gs://%s/%s",
+                race_id,
+                src_prefix,
+                gcs_bucket,
+                retired_blob.name,
+            )
+            return True
+        except ImportError:
+            logger.warning("google-cloud-storage not installed; skipping GCS archive")
+        except Exception as e:
+            logger.warning("Failed to archive %s from GCS %s/: %s", race_id, src_prefix, e)
+        return False
 
     async def _upload_to_gcs(self, race_id: str, json_str: str, prefix: str = "drafts") -> None:
         """Upload race JSON to Google Cloud Storage under the given prefix.

@@ -399,7 +399,7 @@ class RaceManager:
     def publish_race(self, race_id: str) -> RaceRecord:
         """Mark race as published."""
         now = _now_iso()
-        record = self.upsert_race(race_id, status="published", published_at=now)
+        record = self.upsert_race(race_id, status="published", published_at=now, draft_updated_at=None)
         # Ensure read-after-write consistency in cloud mode. Publish endpoints
         # call update_race_metadata() immediately after this, and that method
         # re-reads from storage before writing.
@@ -422,7 +422,7 @@ class RaceManager:
         new_status = "draft" if (race and race.draft_updated_at) else "empty"
         return self.upsert_race(race_id, status=new_status, published_at=None)
 
-    def update_race_metadata(self, race_id: str, race_data: Dict[str, Any]) -> RaceRecord:
+    def update_race_metadata(self, race_id: str, race_data: Dict[str, Any], *, active_draft: bool = True) -> RaceRecord:
         """Update race metadata from RaceJSON content (e.g. after agent run or on hydration)."""
         candidates = race_data.get("candidates", [])
         candidate_count = len(candidates)
@@ -430,17 +430,19 @@ class RaceManager:
         updated_utc = race_data.get("updated_utc")
         freshness = _compute_freshness(updated_utc)
 
-        return self.upsert_race(
-            race_id,
-            title=race_data.get("title"),
-            office=race_data.get("office"),
-            jurisdiction=race_data.get("jurisdiction"),
-            election_date=race_data.get("election_date"),
-            candidate_count=candidate_count,
-            quality_score=quality,
-            freshness=freshness,
-            draft_updated_at=updated_utc,
-        )
+        fields: Dict[str, Any] = {
+            "title": race_data.get("title"),
+            "office": race_data.get("office"),
+            "jurisdiction": race_data.get("jurisdiction"),
+            "election_date": race_data.get("election_date"),
+            "candidate_count": candidate_count,
+            "quality_score": quality,
+            "freshness": freshness,
+        }
+        if active_draft:
+            fields["draft_updated_at"] = updated_utc
+
+        return self.upsert_race(race_id, **fields)
 
     def _update_metadata_only(self, race_id: str, race_data: Dict[str, Any]) -> None:
         """Update metadata fields on an existing race WITHOUT bumping updated_at.

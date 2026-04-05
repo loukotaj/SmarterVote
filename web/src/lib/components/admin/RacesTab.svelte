@@ -101,11 +101,8 @@
   }
 
   function hasPendingDraft(row: RaceRecord): boolean {
-    return (
-      !!row.draft_updated_at &&
-      (row.status === "draft" ||
-        (row.status === "published" && !!row.published_at && row.draft_updated_at > row.published_at))
-    );
+    if (row.status === "draft") return true;
+    return !!row.draft_updated_at && row.status === "published" && !!row.published_at && row.draft_updated_at > row.published_at;
   }
 
   $: selectedWithDrafts = [...selected].filter((id) => {

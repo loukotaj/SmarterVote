@@ -13,6 +13,7 @@ resource "google_storage_bucket" "sv_data" {
   lifecycle_rule {
     condition {
       age = 90
+      matches_prefix = ["retired/"]
     }
     action {
       type = "Delete"
@@ -23,6 +24,7 @@ resource "google_storage_bucket" "sv_data" {
     condition {
       age                   = 60
       matches_storage_class = ["STANDARD"]
+      matches_prefix        = ["retired/"]
     }
     action {
       type          = "SetStorageClass"
@@ -47,7 +49,9 @@ resource "google_storage_bucket" "sv_data" {
 # Create folder structure for published data
 resource "google_storage_bucket_object" "folders" {
   for_each = toset([
-    "published/",
+    "races/",
+    "drafts/",
+    "retired/",
   ])
 
   name    = each.value

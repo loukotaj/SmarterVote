@@ -178,8 +178,9 @@
     !!race.published_at &&
     race.draft_updated_at > race.published_at;
 
-  // True when a draft exists (regardless of publish state)
-  $: hasDraft = !!race.draft_updated_at;
+  // True when a draft exists (regardless of publish state).
+  // Include status="draft" to tolerate legacy records missing draft_updated_at.
+  $: hasDraft = race.status === "draft" || !!race.draft_updated_at;
 
   let deletingDraft = false;
   let deletingRace = false;
@@ -313,7 +314,7 @@
             {cancelling ? "Stopping…" : race.status === "running" ? "Stop Run" : "Remove from Queue"}
           </button>
         {/if}
-        {#if race.status === "draft" || (race.draft_updated_at && race.status !== "published")}
+        {#if hasDraft}
           <button
             type="button"
             class="px-3 py-1.5 text-sm border border-green-300 dark:border-green-700 rounded-lg text-green-700 dark:text-green-300 hover:bg-green-50 dark:hover:bg-green-900/20 disabled:opacity-40"

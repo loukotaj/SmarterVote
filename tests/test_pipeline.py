@@ -17,6 +17,7 @@ Covers:
 import json
 import os
 import tempfile
+from datetime import datetime
 from pathlib import Path
 from unittest.mock import AsyncMock, MagicMock, patch
 
@@ -98,6 +99,8 @@ def test_refine_user_formats():
     result = REFINE_USER.format(
         race_id="mo-senate-2024",
         candidate_name="Jane Doe",
+        candidate_website="https://janedoe.com",
+        candidate_issue_urls="https://janedoe.com/issues, https://janedoe.com/platform",
         candidate_json='{"name": "Jane Doe"}',
         race_description="A senate race.",
         other_candidates="John Smith",
@@ -106,6 +109,7 @@ def test_refine_user_formats():
     assert "mo-senate-2024" in result
     assert "Jane Doe" in result
     assert "Healthcare, Economy" in result
+    assert "https://janedoe.com/issues" in result
 
 
 def test_update_meta_user_formats():
@@ -117,6 +121,23 @@ def test_update_meta_user_formats():
     )
     assert "mo-senate-2024" in result
     assert "2024-01-01" in result
+
+
+def test_iterate_user_formats():
+    """Iterate prompt accepts candidate source hints and review flags."""
+    result = ITERATE_USER.format(
+        race_id="mo-senate-2024",
+        candidate_name="Jane Doe",
+        candidate_website="https://janedoe.com",
+        candidate_issue_urls="https://janedoe.com/issues, https://janedoe.com/platform",
+        candidate_json='{"name": "Jane Doe"}',
+        review_flags="[WARNING] issues.Healthcare: weak sourcing",
+        all_issues="Healthcare, Economy",
+    )
+    assert "mo-senate-2024" in result
+    assert "Jane Doe" in result
+    assert "https://janedoe.com/issues" in result
+    assert "weak sourcing" in result
 
 
 def test_discovery_prompt_mentions_donor_sources():
@@ -988,8 +1009,9 @@ def test_shared_models_have_new_fields():
     # AgentReview
     review = AgentReview(
         model="claude-sonnet-4-6",
-        reviewed_at="2024-01-01T00:00:00",
+        reviewed_at=datetime(2024, 1, 1),
         verdict="approved",
+        score=100,
     )
     assert review.verdict == "approved"
     assert review.flags == []

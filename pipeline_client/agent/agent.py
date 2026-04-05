@@ -1501,6 +1501,8 @@ async def _run_fresh(
         n_cands = len(candidate_names_in_json)
         for ci, candidate in enumerate(selected_candidates):
             cname = candidate["name"]
+            candidate_website, candidate_issue_urls = _candidate_source_hints(race_json, cname)
+            issue_hint_text = ", ".join(candidate_issue_urls) if candidate_issue_urls else "(none found)"
             log("info", f"  Refining {cname}...")
             track("progress", "refinement", pct=int((ci / max(n_cands, 1)) * 100), message=f"Refinement: {cname} ({ci + 1}/{n_cands})")
             try:
@@ -1509,6 +1511,8 @@ async def _run_fresh(
                     REFINE_USER.format(
                         race_id=race_id,
                         candidate_name=cname,
+                        candidate_website=candidate_website,
+                        candidate_issue_urls=issue_hint_text,
                         candidate_json=json.dumps(candidate, indent=2, default=str),
                         race_description=race_json.get("description", ""),
                         other_candidates=", ".join(cn for cn in candidate_names_in_json if cn != cname),
@@ -1806,6 +1810,8 @@ async def _run_update(
         n_cands = len(cand_list)
         for ci, candidate in enumerate(cand_list):
             cname = candidate["name"]
+            candidate_website, candidate_issue_urls = _candidate_source_hints(race_json, cname)
+            issue_hint_text = ", ".join(candidate_issue_urls) if candidate_issue_urls else "(none found)"
             log("info", f"  Refining {cname}...")
             track("progress", "refinement", pct=int((ci / max(n_cands, 1)) * 100), message=f"Refinement: {cname} ({ci + 1}/{n_cands})")
             try:
@@ -1814,6 +1820,8 @@ async def _run_update(
                     REFINE_USER.format(
                         race_id=race_id,
                         candidate_name=cname,
+                        candidate_website=candidate_website,
+                        candidate_issue_urls=issue_hint_text,
                         candidate_json=json.dumps(candidate, indent=2, default=str),
                         race_description=race_json.get("description", ""),
                         other_candidates=", ".join(c["name"] for c in cand_list if c["name"] != cname),
@@ -2089,6 +2097,8 @@ async def _run_iteration_pass(
     # Per-candidate iteration
     for candidate in working.get("candidates", []):
         cname = candidate["name"]
+        candidate_website, candidate_issue_urls = _candidate_source_hints(working, cname)
+        issue_hint_text = ", ".join(candidate_issue_urls) if candidate_issue_urls else "(none found)"
         log("info", f"  Iterating on {cname}...")
         try:
             await _agent_loop(
@@ -2096,6 +2106,8 @@ async def _run_iteration_pass(
                 ITERATE_USER.format(
                     race_id=race_id,
                     candidate_name=cname,
+                    candidate_website=candidate_website,
+                    candidate_issue_urls=issue_hint_text,
                     candidate_json=json.dumps(candidate, indent=2, default=str),
                     review_flags=flags_text,
                     all_issues=", ".join(CANONICAL_ISSUES),

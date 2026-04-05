@@ -269,6 +269,84 @@ def _copy_race_gcs(race_id: str, src_prefix: str, dst_prefix: str) -> bool:
     return False
 
 
+def _retired_blob_name(race_id: str, source: str) -> str:
+    stamp = datetime.utcnow().strftime("%Y%m%dT%H%M%SZ")
+    return f"retired/{race_id}/{stamp}-{source}.json"
+
+
+def _archive_race_local(path: Path, race_id: str, source: str) -> Path | None:
+    """Move a local race file into data/retired/{race_id}/ if it exists."""
+    if not path.exists():
+        return None
+    retired_dir = ROOT / "data" / "retired" / race_id
+    retired_dir.mkdir(parents=True, exist_ok=True)
+    stamp = datetime.utcnow().strftime("%Y%m%dT%H%M%SZ")
+    retired_path = retired_dir / f"{stamp}-{source}.json"
+    path.replace(retired_path)
+    return retired_path
+
+
+def _archive_race_gcs(race_id: str, src_prefix: str, source: str) -> bool:
+    """Copy an active GCS race object to retired/ and delete the active copy."""
+    gcs_bucket = settings.gcs_bucket
+    if not gcs_bucket:
+        return False
+    try:
+        from google.cloud import storage as gcs  # type: ignore
+
+        client = gcs.Client()
+        bucket = client.bucket(gcs_bucket)
+        src_blob = bucket.blob(f"{src_prefix}/{race_id}.json")
+        if not src_blob.exists():
+            return False
+
+        retired_name = _retired_blob_name(race_id, source)
+        bucket.copy_blob(src_blob, bucket, retired_name)
+        src_blob.delete()
+        logging.info("Archived %s from GCS %s/ to gs://%s/%s", race_id, src_prefix, gcs_bucket, retired_name)
+        return True
+    except ImportError:
+        logging.warning("google-cloud-storage not installed; skipping GCS archive")
+    except Exception as e:
+        logging.warning("Failed to archive %s from GCS %s/: %s", race_id, src_prefix, e)
+    return False
+
+
+def _publish_race_data(race_id: str, draft_data: Dict[str, Any], draft_path: Path | None = None) -> None:
+    """Publish draft data, retire replaced published versions, and clear the active draft."""
+    published_dir = ROOT / "data" / "published"
+    published_dir.mkdir(parents=True, exist_ok=True)
+    published_path = published_dir / f"{race_id}.json"
+    json_str = json.dumps(draft_data, indent=2, default=str)
+
+    if published_path.exists():
+        _archive_race_local(published_path, race_id, "published")
+    with published_path.open("w", encoding="utf-8") as f:
+        f.write(json_str)
+
+    gcs_bucket = settings.gcs_bucket
+    if gcs_bucket:
+        try:
+            from google.cloud import storage as gcs  # type: ignore
+
+            client = gcs.Client()
+            bucket = client.bucket(gcs_bucket)
+            existing_blob = bucket.blob(f"races/{race_id}.json")
+            if existing_blob.exists():
+                bucket.copy_blob(existing_blob, bucket, _retired_blob_name(race_id, "published"))
+            blob = bucket.blob(f"races/{race_id}.json")
+            blob.upload_from_string(json_str, content_type="application/json")
+        except Exception:
+            logging.exception("Failed to publish %s to GCS", race_id)
+
+    if draft_path and draft_path.exists():
+        draft_path.unlink()
+    _delete_race_gcs(race_id, "drafts")
+
+    race_manager.publish_race(race_id)
+    race_manager.update_race_metadata(race_id, draft_data, active_draft=False)
+
+
 # ---------------------------------------------------------------------------
 # Published races endpoints
 # ---------------------------------------------------------------------------
@@ -347,7 +425,7 @@ async def get_draft_race(race_id: str) -> Dict[str, Any]:
 
 @app.post("/drafts/{race_id}/publish", dependencies=[Depends(verify_token)])
 async def publish_draft(race_id: str) -> Dict[str, Any]:
-    """Promote a draft to published: copy drafts/ -> races/ in GCS + local."""
+    """Promote a draft to published and retire any replaced published version."""
     _validate_race_id(race_id)
 
     # Load the draft data
@@ -364,30 +442,7 @@ async def publish_draft(race_id: str) -> Dict[str, Any]:
     if draft_data is None:
         raise HTTPException(status_code=404, detail="Draft not found")
 
-    # Write to published (local)
-    published_dir = ROOT / "data" / "published"
-    published_dir.mkdir(parents=True, exist_ok=True)
-    published_path = published_dir / f"{race_id}.json"
-    json_str = json.dumps(draft_data, indent=2, default=str)
-    with published_path.open("w", encoding="utf-8") as f:
-        f.write(json_str)
-
-    # Copy to published (GCS)
-    gcs_bucket = settings.gcs_bucket
-    if gcs_bucket:
-        try:
-            from google.cloud import storage as gcs  # type: ignore
-            client = gcs.Client()
-            bucket = client.bucket(gcs_bucket)
-            blob = bucket.blob(f"races/{race_id}.json")
-            blob.upload_from_string(json_str, content_type="application/json")
-            logging.info("Published %s to GCS: gs://%s/races/%s.json", race_id, gcs_bucket, race_id)
-        except Exception:
-            logging.exception("Failed to publish %s to GCS", race_id)
-
-    # Update race record in Firestore
-    race_manager.publish_race(race_id)
-    race_manager.update_race_metadata(race_id, draft_data)
+    _publish_race_data(race_id, draft_data, draft_path=draft_path if draft_path.exists() else None)
 
     return {"message": f"Race {race_id} published", "id": race_id}
 
@@ -595,30 +650,7 @@ async def publish_race(race_id: str) -> Dict[str, Any]:
     if draft_data is None:
         raise HTTPException(status_code=404, detail="Draft not found")
 
-    # Write to published (local)
-    published_dir = ROOT / "data" / "published"
-    published_dir.mkdir(parents=True, exist_ok=True)
-    published_path = published_dir / f"{race_id}.json"
-    json_str = json.dumps(draft_data, indent=2, default=str)
-    with published_path.open("w", encoding="utf-8") as f:
-        f.write(json_str)
-
-    # Copy to published (GCS)
-    gcs_bucket = settings.gcs_bucket
-    if gcs_bucket:
-        try:
-            from google.cloud import storage as gcs  # type: ignore
-
-            client = gcs.Client()
-            bucket = client.bucket(gcs_bucket)
-            blob = bucket.blob(f"races/{race_id}.json")
-            blob.upload_from_string(json_str, content_type="application/json")
-        except Exception:
-            logging.exception("Failed to publish %s to GCS", race_id)
-
-    # Update race record
-    race_manager.publish_race(race_id)
-    race_manager.update_race_metadata(race_id, draft_data)
+    _publish_race_data(race_id, draft_data, draft_path=draft_path if draft_path.exists() else None)
 
     return {"message": f"Race {race_id} published", "id": race_id}
 
@@ -672,27 +704,7 @@ async def batch_publish_races(request: BatchPublishRequest) -> Dict[str, Any]:
                 errors.append({"race_id": race_id, "error": "Draft not found"})
                 continue
 
-            published_dir = ROOT / "data" / "published"
-            published_dir.mkdir(parents=True, exist_ok=True)
-            published_path = published_dir / f"{race_id}.json"
-            json_str = json.dumps(draft_data, indent=2, default=str)
-            with published_path.open("w", encoding="utf-8") as f:
-                f.write(json_str)
-
-            gcs_bucket = settings.gcs_bucket
-            if gcs_bucket:
-                try:
-                    from google.cloud import storage as gcs  # type: ignore
-
-                    client = gcs.Client()
-                    bucket = client.bucket(gcs_bucket)
-                    blob = bucket.blob(f"races/{race_id}.json")
-                    blob.upload_from_string(json_str, content_type="application/json")
-                except Exception:
-                    logging.exception("Failed to publish %s to GCS", race_id)
-
-            race_manager.publish_race(race_id)
-            race_manager.update_race_metadata(race_id, draft_data)
+            _publish_race_data(race_id, draft_data, draft_path=draft_path if draft_path.exists() else None)
             published.append(race_id)
         except Exception as exc:
             errors.append({"race_id": race_id, "error": str(exc)})
