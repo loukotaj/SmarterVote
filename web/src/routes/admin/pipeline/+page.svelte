@@ -135,6 +135,26 @@
     return ages.length ? Math.max(...ages) : 0;
   })();
   $: queueLikelyStalled = queuePending > 0 && queueRunningItems.length === 0 && oldestPendingMs >= 180000;
+  // Runs that appear stuck: in "running" state for >15 min with no completion.
+  // Cloud Functions time out around 9 min, so 15 min means it almost certainly timed out.
+  const STUCK_THRESHOLD_MS = 15 * 60 * 1000;
+  $: stuckRunItems = queueRunningItems.filter((i) => {
+    const startMs = i.started_at ? Date.parse(i.started_at) : NaN;
+    return Number.isFinite(startMs) && Date.now() - startMs > STUCK_THRESHOLD_MS;
+  });
+
+  function itemElapsedSec(startedAt: string | undefined): number {
+    if (!startedAt) return 0;
+    const ms = Date.now() - Date.parse(startedAt);
+    return Number.isFinite(ms) ? Math.max(0, Math.floor(ms / 1000)) : 0;
+  }
+
+  function formatElapsed(seconds: number): string {
+    if (seconds <= 0) return "";
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return m > 0 ? `${m}m ${s}s` : `${s}s`;
+  }
 
   // Reactive subscriptions
   $: pipeline = $pipelineStore;
@@ -578,16 +598,22 @@
       <div class="divide-y divide-blue-100 dark:divide-blue-900/40">
         {#each queueRunningItems as item (item.id)}
           {@const isPrimary = item.run_id === pipeline.currentRunId}
+          {@const elapsedSec = itemElapsedSec(item.started_at)}
+          {@const isStuck = stuckRunItems.some((s) => s.id === item.id)}
           <button
             type="button"
-            class="w-full text-left px-4 py-2.5 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors"
+            class="w-full text-left px-4 py-2.5 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors {isStuck ? 'bg-amber-50 dark:bg-amber-900/10' : ''}"
             on:click={() => handleActiveRunClick(item.run_id, item.race_id)}
             title="View run details"
           >
             <div class="flex items-center gap-3">
               <span class="font-mono text-sm font-medium text-blue-900 dark:text-blue-100 truncate flex-1">{item.race_id || item.run_id || 'Unknown race'}</span>
-              {#if isPrimary && pipeline.progress > 0}
+              {#if isStuck}
+                <span class="text-xs px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300 shrink-0">likely timed out</span>
+              {:else if isPrimary && pipeline.progress > 0}
                 <span class="text-sm font-bold text-blue-800 dark:text-blue-200 shrink-0">{pipeline.progress}%</span>
+              {:else if elapsedSec > 0}
+                <span class="text-xs text-blue-600 dark:text-blue-400 shrink-0">{formatElapsed(elapsedSec)}</span>
               {/if}
               <svg class="w-4 h-4 text-blue-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -597,16 +623,30 @@
               <div class="mt-1.5">
                 <p class="text-xs text-blue-700 dark:text-blue-300 truncate">
                   {pipeline.progressMessage || 'Running'}
-                  {#if pipeline.elapsedTime > 0}· {Math.floor(pipeline.elapsedTime / 60) > 0 ? `${Math.floor(pipeline.elapsedTime / 60)}m ` : ''}{pipeline.elapsedTime % 60}s{/if}
+                  {#if pipeline.elapsedTime > 0}· {formatElapsed(pipeline.elapsedTime)}{/if}
                 </p>
                 <div class="mt-1 w-full bg-blue-200 dark:bg-blue-800 rounded-full h-1">
                   <div class="bg-blue-600 h-1 rounded-full transition-all duration-700" style="width: {pipeline.progress}%" />
                 </div>
               </div>
+            {:else if !isPrimary && elapsedSec > 0}
+              <p class="mt-0.5 text-xs text-blue-600 dark:text-blue-400">Running · {formatElapsed(elapsedSec)}</p>
             {/if}
           </button>
         {/each}
       </div>
+    </div>
+  {/if}
+
+  {#if stuckRunItems.length > 0}
+    <div class="mb-4 card p-3 border-amber-300 bg-amber-50 dark:bg-amber-900/20">
+      <p class="text-sm font-medium text-amber-800 dark:text-amber-200">
+        {stuckRunItems.length} run{stuckRunItems.length !== 1 ? 's' : ''} may have timed out
+      </p>
+      <p class="text-xs text-amber-700 dark:text-amber-300 mt-1">
+        {stuckRunItems.map((i) => i.race_id).join(", ")} — still showing "running" after {Math.floor(STUCK_THRESHOLD_MS / 60000)} minutes.
+        Cloud Functions typically time out at ~9 minutes. Click the run to force-cancel it.
+      </p>
     </div>
   {/if}
 
@@ -636,7 +676,7 @@
       <RunDetailPanel
         runId={detailRunId}
         {apiService}
-        isLive={pipeline.isExecuting && pipeline.currentRunId === detailRunId}
+        isLive={queueRunningItems.some((q) => q.run_id === detailRunId)}
         liveLogs={logs}
         liveProgress={pipeline.progress}
         liveProgressMessage={pipeline.progressMessage}
@@ -680,7 +720,7 @@
       <RunDetailPanel
         runId={detailRunId}
         {apiService}
-        isLive={pipeline.isExecuting && pipeline.currentRunId === detailRunId}
+        isLive={queueRunningItems.some((q) => q.run_id === detailRunId)}
         liveLogs={logs}
         liveProgress={pipeline.progress}
         liveProgressMessage={pipeline.progressMessage}

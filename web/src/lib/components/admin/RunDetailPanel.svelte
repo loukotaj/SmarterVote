@@ -7,6 +7,7 @@
 
   export let runId: string;
   export let isLive = false;
+  // Page-level props kept for backward compat but the panel now self-polls when isLive=true.
   export let liveLogs: LogEntry[] = [];
   export let liveProgress = 0;
   export let liveProgressMessage = "";
@@ -41,6 +42,13 @@
   let outputSource: "draft" | "published" | null = null;
   let logsContainer: HTMLDivElement;
   let autoScrollLogs = true;
+
+  // Internal self-polling — used when isLive=true so each panel independently
+  // tracks logs/status for its own run_id regardless of which run the page is watching.
+  let internalLiveLogs: LogEntry[] = [];
+  let internalLogsSeen = 0;
+  let internalPollTimer: ReturnType<typeof setInterval> | null = null;
+  let _elapsedTick = 0; // incremented every second to drive the elapsed reactive expression
 
   /** Canonical step order for sorting */
   const STEP_ORDER = PIPELINE_STEPS.map((s) => s.id);
@@ -130,11 +138,15 @@
       .map(s => stepMap.get(s.id as PipelineStepId))
       .filter((s): s is Partial<RunStep> & { name: PipelineStepId; status: string } => !!s);
   })();
-  // Logs: use live stream when running, fetched logs after completion.
-  $: runLogs = isLiveAndRunning ? liveLogs : fetchedLogs;
+  // Logs: when live, prefer self-polled internalLiveLogs over the parent's shared liveLogs
+  // (avoids mixing logs from parallel runs). Fall back to parent liveLogs only as a bridge
+  // while the first internal poll is in flight.
+  $: runLogs = isLiveAndRunning
+    ? (internalLiveLogs.length > 0 ? internalLiveLogs : liveLogs)
+    : fetchedLogs;
   $: filteredLogs = logFilter === "all" ? runLogs : runLogs.filter((l) => l.level === logFilter);
   $: analysisContent = (() => {
-    const all = [...liveLogs, ...fetchedLogs];
+    const all = [...internalLiveLogs, ...liveLogs, ...fetchedLogs];
     const found = all.find((l) => l.message?.startsWith("[post-run analysis]"));
     return found ? found.message.replace(/^\[post-run analysis\]\n?/, "").trim() : null;
   })();
@@ -160,7 +172,18 @@
     ? Math.max(liveProgress, serverProgress ?? 0, computedProgress)
     : (serverProgress ?? computedProgress);
   $: progressMsg = isLiveAndRunning && liveProgressMessage ? liveProgressMessage : lastStepMessage(pipelineSteps as RunStep[]);
-  $: elapsed = isLiveAndRunning ? liveElapsed : (activeRun?.duration_ms ? Math.floor(activeRun.duration_ms / 1000) : 0);
+  // Elapsed: derive from run.started_at for live runs so non-primary runs tick correctly.
+  // We reference _elapsedTick through an unused void expression so Svelte tracks it as a
+  // dependency and re-evaluates this block every second.
+  function _elapsedFromStart(): number {
+    void _elapsedTick;
+    if (!run?.started_at) return liveElapsed;
+    const ms = Date.now() - new Date(run.started_at).getTime();
+    return Number.isFinite(ms) ? Math.max(0, Math.floor(ms / 1000)) : liveElapsed;
+  }
+  $: elapsed = isLiveAndRunning
+    ? _elapsedFromStart()
+    : (activeRun?.duration_ms ? Math.floor(activeRun.duration_ms / 1000) : 0);
 
   // Scroll the logs container to the bottom (called via tick to avoid Svelte reactive loop).
   // Must be a named function so that logsContainer is NOT syntactically inside the $: block;
@@ -280,6 +303,55 @@
     return (candidates as { name: string; party?: string }[]).find((c) => c.name === name);
   }
 
+  // -------------------------------------------------------------------------
+  // Internal self-polling: each RunDetailPanel independently polls its own
+  // run_id when isLive=true, so parallel runs never share / mix log streams
+  // and switching between run views works correctly.
+  // -------------------------------------------------------------------------
+
+  async function _pollStatus() {
+    try {
+      const data = await _api.getRunDetails(runId);
+      run = data;
+      if (data.status !== "running" && data.status !== "pending") {
+        stopInternalPolling();
+        loadCompletedRunData();
+      }
+    } catch { /* transient failures are expected */ }
+  }
+
+  async function _pollLogs() {
+    try {
+      const data = await _api.getRunLogs(runId, internalLogsSeen);
+      if (data.logs?.length) {
+        internalLiveLogs = [...internalLiveLogs, ...data.logs];
+        internalLogsSeen += data.logs.length;
+      }
+    } catch { /* transient failures are expected */ }
+  }
+
+  function stopInternalPolling() {
+    if (internalPollTimer) {
+      clearInterval(internalPollTimer);
+      internalPollTimer = null;
+    }
+  }
+
+  function startInternalPolling() {
+    if (internalPollTimer) return; // already running
+    internalLiveLogs = [];
+    internalLogsSeen = 0;
+    void _pollStatus();
+    void _pollLogs();
+    internalPollTimer = setInterval(() => {
+      _elapsedTick++;
+      void _pollStatus();
+      void _pollLogs();
+    }, 2500);
+  }
+
+  // -------------------------------------------------------------------------
+
   async function loadRun() {
     try {
       error = "";
@@ -395,12 +467,27 @@
     _prevIsLiveAndRunning = isLiveAndRunning;
   }
 
-  onMount(async () => {
-    await loadRun();
-    // If the run was already complete when we opened the panel, load its data now.
-    if (!isLiveAndRunning) {
-      loadCompletedRunData();
+  // Start/stop self-polling when the isLive prop changes after mount.
+  let _prevIsLive = false;
+  $: {
+    if (isLive && !_prevIsLive && !internalPollTimer && run && (run.status === "running" || run.status === "pending")) {
+      startInternalPolling();
+    } else if (!isLive && _prevIsLive) {
+      stopInternalPolling();
     }
+    _prevIsLive = isLive;
+  }
+
+  onMount(() => {
+    void loadRun().then(() => {
+      if (isLive && (run?.status === "running" || run?.status === "pending")) {
+        startInternalPolling();
+      } else {
+        // Run was already complete (or not live), load its log + race data now.
+        loadCompletedRunData();
+      }
+    });
+    return () => stopInternalPolling();
   });
 </script>
 
