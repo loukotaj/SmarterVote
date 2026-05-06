@@ -32,9 +32,11 @@ export const runPollingStore = writable<PollingState>(initialState);
 
 let apiBase = "";
 let token = "";
-let runPollTimer: ReturnType<typeof setInterval> | null = null;
-let logPollTimer: ReturnType<typeof setInterval> | null = null;
-let logsSeen = 0;
+const watchedRuns = new Map<string, {
+  runPollTimer: ReturnType<typeof setInterval> | null;
+  logPollTimer: ReturnType<typeof setInterval> | null;
+  logsSeen: number;
+}>();
 
 let onMessage: ((event: PipelineEvent) => void) | null = null;
 let onLog: ((level: string, msg: string, ts?: string, run_id?: string) => void) | null = null;
@@ -69,16 +71,16 @@ async function pollRunStatus(runId: string): Promise<void> {
     });
 
     if (status === "completed") {
-      stopPolling();
+      stopPolling(runId);
       onMessage?.({ type: "run_completed", result: run });
-      runPollingStore.update((s) => ({ ...s, connected: false }));
+      if (watchedRuns.size === 0) runPollingStore.update((s) => ({ ...s, connected: false }));
     } else if (status === "failed") {
-      stopPolling();
+      stopPolling(runId);
       onMessage?.({ type: "run_failed", error: run.error ?? "Run failed" });
-      runPollingStore.update((s) => ({ ...s, connected: false }));
+      if (watchedRuns.size === 0) runPollingStore.update((s) => ({ ...s, connected: false }));
     } else if (status === "cancelled" || status === "continued") {
-      stopPolling();
-      runPollingStore.update((s) => ({ ...s, connected: false }));
+      stopPolling(runId);
+      if (watchedRuns.size === 0) runPollingStore.update((s) => ({ ...s, connected: false }));
     }
   } catch {
     // Transient poll failures are expected during deploys and cold starts.
@@ -87,8 +89,10 @@ async function pollRunStatus(runId: string): Promise<void> {
 
 async function pollLogs(runId: string): Promise<void> {
   if (!apiBase) return;
+  const watched = watchedRuns.get(runId);
+  if (!watched) return;
   try {
-    const res = await fetch(`${apiBase}/runs/${runId}/logs?since=${logsSeen}`, {
+    const res = await fetch(`${apiBase}/runs/${runId}/logs?since=${watched.logsSeen}`, {
       headers: authHeaders(),
       signal: AbortSignal.timeout(8000),
     });
@@ -98,7 +102,7 @@ async function pollLogs(runId: string): Promise<void> {
       data.logs ?? [];
     if (entries.length === 0) return;
 
-    logsSeen += entries.length;
+    watched.logsSeen += entries.length;
 
     for (const entry of entries) {
       onLog?.(entry.level ?? "info", entry.message ?? "", entry.timestamp, entry.run_id ?? runId);
@@ -108,14 +112,14 @@ async function pollLogs(runId: string): Promise<void> {
   }
 }
 
-function stopPolling(): void {
-  if (runPollTimer) {
-    clearInterval(runPollTimer);
-    runPollTimer = null;
-  }
-  if (logPollTimer) {
-    clearInterval(logPollTimer);
-    logPollTimer = null;
+function stopPolling(runId?: string): void {
+  const entries = runId
+    ? Array.from(watchedRuns.entries()).filter(([id]) => id === runId)
+    : Array.from(watchedRuns.entries());
+  for (const [id, watched] of entries) {
+    if (watched.runPollTimer) clearInterval(watched.runPollTimer);
+    if (watched.logPollTimer) clearInterval(watched.logPollTimer);
+    watchedRuns.delete(id);
   }
 }
 
@@ -137,25 +141,29 @@ export const runPollingActions = {
 
   disconnect() {
     stopPolling();
-    logsSeen = 0;
     runPollingStore.update((s) => ({ ...s, connected: false }));
   },
 
   send(_message: Record<string, unknown>) {},
 
   watchRun(runId: string) {
-    stopPolling();
-    logsSeen = 0;
+    if (watchedRuns.has(runId)) return;
     runPollingStore.update((s) => ({ ...s, connected: true }));
+    watchedRuns.set(runId, { runPollTimer: null, logPollTimer: null, logsSeen: 0 });
     void pollRunStatus(runId);
     void pollLogs(runId);
-    runPollTimer = setInterval(() => void pollRunStatus(runId), 2000);
-    logPollTimer = setInterval(() => void pollLogs(runId), 3000);
+    const watched = watchedRuns.get(runId);
+    if (watched) {
+      watched.runPollTimer = setInterval(() => void pollRunStatus(runId), 2000);
+      watched.logPollTimer = setInterval(() => void pollLogs(runId), 3000);
+    }
   },
 
-  stopWatching() {
-    stopPolling();
-    runPollingStore.update((s) => ({ ...s, connected: false }));
+  stopWatching(runId?: string) {
+    stopPolling(runId);
+    if (watchedRuns.size === 0) {
+      runPollingStore.update((s) => ({ ...s, connected: false }));
+    }
   },
 
   updateToken(nextToken: string) {

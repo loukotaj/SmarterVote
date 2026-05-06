@@ -177,6 +177,8 @@ class AgentHandler:
 
         # Compute completed steps so far (used for remaining_steps on handoff)
         _completed_steps: List[str] = []
+        _handoff_started = False
+        _current_step: str | None = None
 
         def _fallback_progress(current_step: str | None = None, current_step_pct: int = 0) -> int:
             """Compute weighted progress without run_manager state."""
@@ -212,12 +214,33 @@ class AgentHandler:
             except Exception as exc:
                 logger.debug("Cancellation check failed for queue item %s: %s", queue_item_id, exc)
 
+        def _maybe_handoff(reason: str, *, step: str | None = None, pct: int = 0) -> None:
+            """Handoff when the deadline has passed. Safe to call from deep callbacks."""
+            nonlocal _handoff_started
+            if _handoff_started or not run_id or time.time() <= deadline_at:
+                return
+            active_step = step or _current_step
+            remaining = [s for s in enabled_steps if s not in _completed_steps]
+            if not remaining:
+                return
+            _handoff_started = True
+            current_pct = _fallback_progress(active_step, pct)
+            logger.warning(
+                "Deadline exceeded %s%s; handing off to continuation. Remaining steps: %s",
+                reason,
+                f" during step '{active_step}'" if active_step else "",
+                remaining,
+            )
+            _trigger_handoff(run_id, race_id, remaining, current_pct)
+
         # --- Step tracker callbacks ---
         def _on_step_start(step: str, **_kw):
+            nonlocal _current_step
             _raise_if_cancelled()
             if not run_id:
                 return
             try:
+                _current_step = step
                 if _run_manager:
                     _run_manager.update_step_status(run_id, step, RunStatus.RUNNING)
                 label = STEP_LABELS.get(step, step)
@@ -230,11 +253,13 @@ class AgentHandler:
                 if _fs_logger:
                     _fs_logger.update_progress(pct, current_step=step)
                     _fs_logger.log("info", f"Step started: {label}", step=step, race_id=race_id)
+            except (HandoffTriggered, HandoffFailed):
+                raise
             except Exception as _e:
                 logger.debug("_on_step_start tracking failed for '%s': %s", step, _e)
 
         def _on_step_complete(step: str, *, duration_ms: int = 0, **_kw):
-            nonlocal _completed_steps
+            nonlocal _completed_steps, _current_step
             if not run_id:
                 return
             try:
@@ -256,19 +281,7 @@ class AgentHandler:
                 # --- Checkpoint / handoff check ---
                 # Must happen AFTER the step is marked complete so the saved
                 # race_json is the latest version.
-                if time.time() > deadline_at:
-                    _remaining = [
-                        s for s in enabled_steps
-                        if s not in _completed_steps
-                    ]
-                    if _remaining:
-                        logger.warning(
-                            "Deadline exceeded after step '%s'; handing off to continuation. "
-                            "Remaining steps: %s",
-                            step,
-                            _remaining,
-                        )
-                        _trigger_handoff(run_id, race_id, _remaining, pct)
+                _maybe_handoff("after step completion", step=step, pct=100)
 
                 if _fs_logger:
                     remaining = [s for s in enabled_steps if s not in _completed_steps]
@@ -279,12 +292,15 @@ class AgentHandler:
                         step=step,
                         race_id=race_id,
                     )
+                if _current_step == step:
+                    _current_step = None
             except (HandoffTriggered, HandoffFailed):
                 raise
             except Exception as _e:
                 logger.debug("_on_step_complete tracking failed for '%s': %s", step, _e)
 
         def _on_step_skip(step: str, **_kw):
+            nonlocal _current_step
             if not run_id:
                 return
             try:
@@ -292,14 +308,20 @@ class AgentHandler:
                     _run_manager.update_step_status(run_id, step, RunStatus.SKIPPED)
                 if _fs_logger:
                     _fs_logger.log("info", f"Step skipped: {step}", step=step, race_id=race_id)
+                if _current_step == step:
+                    _current_step = None
             except Exception as _e:
                 logger.debug("_on_step_skip tracking failed for '%s': %s", step, _e)
 
         def _on_step_progress(step: str, *, pct: int = 0, message: str = "", **_kw):
+            nonlocal _current_step
             _raise_if_cancelled()
             if not run_id:
                 return
             try:
+                _current_step = step
+                _maybe_handoff("during progress callback", step=step, pct=pct)
+
                 # Update per-step progress
                 if _run_manager:
                     run_info = _run_manager.get_run(run_id)
@@ -317,6 +339,8 @@ class AgentHandler:
                 _broadcast_progress(overall, label)
                 if _fs_logger:
                     _fs_logger.update_progress(overall, current_step=step)
+            except (HandoffTriggered, HandoffFailed):
+                raise
             except Exception as _e:
                 logger.debug("_on_step_progress tracking failed for '%s': %s", step, _e)
 
@@ -397,12 +421,13 @@ class AgentHandler:
         # Mutable holder so _trigger_handoff can read the latest race_json
         # (which is only known after run_agent returns, but we need the ref
         # before we define on_log below)
-        race_json_holder: List[Optional[Dict[str, Any]]] = [None]
+        race_json_holder: List[Optional[Dict[str, Any]]] = [existing_data if isinstance(existing_data, dict) else None]
 
         # --- Log collector ---
         agent_logs: list[Dict[str, Any]] = []
 
         def on_log(level: str, message: str) -> None:
+            _maybe_handoff("during log callback", step=_current_step, pct=0)
             log_entry = {
                 "level": level,
                 "message": message,

@@ -41,6 +41,7 @@
   let outputSource: "draft" | "published" | null = null;
   let logsContainer: HTMLDivElement;
   let autoScrollLogs = true;
+  let loadedRunId = "";
 
   /** Canonical step order for sorting */
   const STEP_ORDER = PIPELINE_STEPS.map((s) => s.id);
@@ -396,12 +397,26 @@
   }
 
   onMount(async () => {
+    loadedRunId = runId;
     await loadRun();
     // If the run was already complete when we opened the panel, load its data now.
     if (!isLiveAndRunning) {
       loadCompletedRunData();
     }
   });
+
+  $: if (runId && loadedRunId && runId !== loadedRunId) {
+    loadedRunId = runId;
+    run = null;
+    fetchedLogs = [];
+    raceJsonData = null;
+    outputSource = null;
+    activeSection = "steps";
+    loading = true;
+    loadRun().then(() => {
+      if (run?.status !== "running" && run?.status !== "pending") loadCompletedRunData();
+    });
+  }
 </script>
 
 <div class="space-y-4">

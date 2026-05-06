@@ -65,17 +65,42 @@
   }
 
   function payloadRaceId(run: RunHistoryItem): string | null {
-    const id = run.payload?.race_id;
+    const id = run.race_id ?? run.payload?.race_id;
     return typeof id === "string" && id ? id : null;
+  }
+
+  function runProgress(run: RunHistoryItem): number {
+    return Math.max(0, Math.min(100, Number(run.progress ?? 0)));
+  }
+
+  function currentStepLabel(run: RunHistoryItem): string {
+    const step = run.current_step ?? run.last_step;
+    return step ? String(step).replaceAll("_", " ") : run.status;
   }
 
   $: liveRunIds = new Set(
     queueItems.filter((q) => q.status === "running" || q.status === "pending").map((q) => q.run_id).filter(Boolean)
   );
 
-  $: activeRuns = runs.filter(
+  $: activeQueueRuns = queueItems
+    .filter((q) => (q.status === "running" || q.status === "pending") && q.run_id && !runs.some((r) => r.run_id === q.run_id))
+    .map((q, idx) => ({
+      run_id: q.run_id!,
+      race_id: q.race_id,
+      status: q.status,
+      progress: 0,
+      current_step: q.status,
+      payload: { race_id: q.race_id },
+      options: q.options ?? {},
+      started_at: q.started_at ?? q.created_at,
+      updated_at: q.started_at ?? q.created_at,
+      display_id: -(idx + 1),
+      steps: [],
+    } as RunHistoryItem));
+
+  $: activeRuns = [...runs.filter(
     (r) => r.status === "running" || r.status === "pending" || liveRunIds.has(r.run_id)
-  );
+  ), ...activeQueueRuns];
   $: pendingQueue = queueItems.filter((q) => q.status === "pending");
   $: historicalRuns = runs.filter(
     (r) => r.status !== "running" && r.status !== "pending" && !liveRunIds.has(r.run_id)
@@ -153,15 +178,23 @@
                   </svg>
                 {/if}
                 <span class="font-mono text-sm font-medium text-content flex-1 truncate">{raceId(run)}</span>
+                <span class="text-xs text-content-subtle capitalize truncate max-w-40">{currentStepLabel(run)}</span>
+                <span class="text-xs font-mono text-content-muted w-10 text-right">{runProgress(run)}%</span>
                 <span class="text-xs px-2 py-0.5 rounded-full border {getStatusClass(run.status)}">{run.status}</span>
                 <svg class="h-4 w-4 text-content-faint shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                 </svg>
               </div>
-              <div class="mt-1 flex items-center gap-3 text-xs text-content-faint">
+              <div class="hidden">
                 <span>{timeAgo(run.started_at)}</span>
                 {#if run.last_step}<span>· {run.last_step}</span>{/if}
                 <span>· {modelLabel(run)}</span>                {#if run.options?.goal}<span class="text-content-subtle truncate">\u00b7 {run.options.goal}</span>{/if}              </div>
+              <div class="mt-2 grid grid-cols-[1fr_auto] items-center gap-3">
+                <div class="h-1.5 rounded-full bg-surface-alt overflow-hidden">
+                  <div class="h-full rounded-full bg-blue-500 transition-all duration-500" style="width: {runProgress(run)}%"></div>
+                </div>
+                <div class="text-xs text-content-faint whitespace-nowrap">{modelLabel(run)}</div>
+              </div>
             </button>
             <button
               type="button"

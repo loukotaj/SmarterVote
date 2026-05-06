@@ -76,6 +76,27 @@ def _make_run_agent_calling_tracker(step: str, *, complete: bool = True, race_js
     return _fake_run_agent
 
 
+def _make_run_agent_calling_progress(step: str):
+    async def _fake_run_agent(race_id, *, step_tracker=None, enabled_steps=None, **_kw):
+        if step_tracker:
+            step_tracker["start"](step)
+            step_tracker["progress"](step, pct=25, message="Working")
+        return {"id": race_id, "candidates": []}
+
+    return _fake_run_agent
+
+
+def _make_run_agent_calling_log_after_start(step: str):
+    async def _fake_run_agent(race_id, *, on_log=None, step_tracker=None, **_kw):
+        if step_tracker:
+            step_tracker["start"](step)
+        if on_log:
+            on_log("info", "deep loop log")
+        return {"id": race_id, "candidates": []}
+
+    return _fake_run_agent
+
+
 @pytest.mark.asyncio
 async def test_continuation_uses_checkpoint_payload_instead_of_gcs():
     """Continuation runs must resume from the checkpoint loaded by the Cloud Function."""
@@ -142,6 +163,107 @@ async def test_handoff_raised_when_deadline_exceeded():
     exc = exc_info.value
     # "issues" was not yet completed, so it should be in remaining_steps
     assert "issues" in exc.remaining_steps
+
+
+@pytest.mark.asyncio
+async def test_handoff_raised_during_step_progress_when_deadline_exceeded():
+    """Long steps should hand off on progress, before Cloud Function hard timeout."""
+    from pipeline_client.backend.handlers.agent import AgentHandler
+
+    handler = AgentHandler()
+    past_deadline = time.time() - 10.0
+
+    options = {
+        "run_id": "run-progress-handoff-test",
+        "deadline_at": past_deadline,
+        "enabled_steps": ["discovery", "issues"],
+    }
+    payload = {
+        "race_id": "az-01-senate-2026",
+        "existing_data": {"id": "az-01-senate-2026", "candidates": [{"name": "Alice"}]},
+    }
+
+    queue_doc_ref = MagicMock()
+    queue_collection = MagicMock()
+    queue_collection.document.return_value = queue_doc_ref
+    mock_db = MagicMock()
+    mock_db.collection.return_value = queue_collection
+
+    mock_blob = MagicMock()
+    mock_bucket = MagicMock()
+    mock_bucket.blob.return_value = mock_blob
+    mock_storage_client = MagicMock()
+    mock_storage_client.bucket.return_value = mock_bucket
+
+    with (
+        patch(
+            "pipeline_client.agent.agent.run_agent",
+            side_effect=_make_run_agent_calling_progress("discovery"),
+        ),
+        patch.object(handler, "_save_draft", new_callable=AsyncMock),
+        patch.object(handler, "_get_storage_client", return_value=mock_storage_client),
+        patch("pipeline_client.backend.firestore_logger.FirestoreLogger") as mock_fs_logger_cls,
+        patch("pipeline_client.backend.firestore_logger._get_db", return_value=mock_db),
+        patch("pipeline_client.backend.settings.settings.gcs_bucket", "test-bucket"),
+    ):
+        with pytest.raises(HandoffTriggered) as exc_info:
+            await handler.handle(payload, options)
+
+    continuation_doc = queue_doc_ref.set.call_args.args[0]
+    assert continuation_doc["options"]["enabled_steps"] == ["discovery", "issues"]
+    assert continuation_doc["existing_data_gcs_path"] == "gs://test-bucket/checkpoints/run-progress-handoff-test.json"
+    assert exc_info.value.continuation_run_id == continuation_doc["run_id"]
+    mock_fs_logger_cls.return_value.mark_continued.assert_called_with(continuation_doc["run_id"])
+
+
+@pytest.mark.asyncio
+async def test_handoff_raised_during_log_callback_when_deadline_exceeded():
+    """Deep log callbacks should also check the handoff deadline."""
+    from pipeline_client.backend.handlers.agent import AgentHandler
+
+    handler = AgentHandler()
+    options = {
+        "run_id": "run-log-handoff-test",
+        "deadline_at": 100.0,
+        "enabled_steps": ["discovery", "issues"],
+    }
+    payload = {
+        "race_id": "az-01-senate-2026",
+        "existing_data": {"id": "az-01-senate-2026", "candidates": [{"name": "Alice"}]},
+    }
+
+    queue_doc_ref = MagicMock()
+    queue_collection = MagicMock()
+    queue_collection.document.return_value = queue_doc_ref
+    mock_db = MagicMock()
+    mock_db.collection.return_value = queue_collection
+
+    mock_blob = MagicMock()
+    mock_bucket = MagicMock()
+    mock_bucket.blob.return_value = mock_blob
+    mock_storage_client = MagicMock()
+    mock_storage_client.bucket.return_value = mock_bucket
+
+    with (
+        patch(
+            "pipeline_client.agent.agent.run_agent",
+            side_effect=_make_run_agent_calling_log_after_start("discovery"),
+        ),
+        patch("pipeline_client.backend.handlers.agent.time.time", return_value=200.0),
+        patch.object(handler, "_save_draft", new_callable=AsyncMock),
+        patch.object(handler, "_get_storage_client", return_value=mock_storage_client),
+        patch("pipeline_client.backend.firestore_logger.FirestoreLogger") as mock_fs_logger_cls,
+        patch("pipeline_client.backend.firestore_logger._get_db", return_value=mock_db),
+        patch("pipeline_client.backend.settings.settings.gcs_bucket", "test-bucket"),
+    ):
+        with pytest.raises(HandoffTriggered) as exc_info:
+            await handler.handle(payload, options)
+
+    continuation_doc = queue_doc_ref.set.call_args.args[0]
+    assert continuation_doc["options"]["enabled_steps"] == ["discovery", "issues"]
+    assert continuation_doc["existing_data_gcs_path"] == "gs://test-bucket/checkpoints/run-log-handoff-test.json"
+    assert exc_info.value.continuation_run_id == continuation_doc["run_id"]
+    mock_fs_logger_cls.return_value.mark_continued.assert_called_with(continuation_doc["run_id"])
 
 
 @pytest.mark.asyncio

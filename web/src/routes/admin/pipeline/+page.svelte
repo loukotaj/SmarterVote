@@ -66,7 +66,10 @@
   let detailRunId: string | null = null;
   let detailRaceId: string | null = null;
   let liveRun: Partial<RunInfo> | null = null;
+  let liveRunsById: Record<string, Partial<RunInfo>> = {};
   $: showingDetail = !!detailRunId;
+  $: detailLogs = detailRunId ? logs.filter((log) => log.run_id === detailRunId) : [];
+  $: detailLiveRun = detailRunId ? liveRunsById[detailRunId] ?? liveRun : liveRun;
 
   function openRunDetail(runId: string, raceId: string | null = null) {
     detailRunId = runId;
@@ -218,7 +221,7 @@
           pipelineActions.setRunStatus("running");
           startAutoRefresh();
           startElapsedTimer();
-          if (running?.run_id) runPollingActions.watchRun(running.run_id);
+          watchActiveQueueRuns();
         } else {
           pipelineActions.setExecutionState(false);
           pipelineActions.setRunStatus("idle");
@@ -238,6 +241,7 @@
       const data = await apiService.loadQueue();
       queueItems = data.items;
       const nowRunning = queueItems.find((i) => i.status === "running");
+      watchActiveQueueRuns();
 
       if (data.running || nowRunning) {
         if (!pipeline.isExecuting) {
@@ -246,10 +250,10 @@
           pipelineActions.setRunStatus("running");
           startAutoRefresh();
           startElapsedTimer();
-          if (nowRunning?.run_id) runPollingActions.watchRun(nowRunning.run_id);
+          watchActiveQueueRuns();
         } else if (nowRunning?.run_id && pipeline.currentRunId !== nowRunning.run_id) {
           pipelineActions.setCurrentRun(nowRunning.run_id, "agent");
-          runPollingActions.watchRun(nowRunning.run_id);
+          watchActiveQueueRuns();
         }
       } else {
         if (pipeline.isExecuting) {
@@ -319,6 +323,14 @@
     });
   }
 
+  function watchActiveQueueRuns() {
+    for (const item of queueItems) {
+      if ((item.status === "running" || item.status === "pending") && item.run_id) {
+        runPollingActions.watchRun(item.run_id);
+      }
+    }
+  }
+
   // Polling event handling
   function handlePollingMessage(data: any) {
     switch (data.type) {
@@ -338,8 +350,18 @@
         );
         break;
       case "run_status":
-        if (data.data?.run_id === pipeline.currentRunId || data.data?.run_id === detailRunId) {
-          liveRun = data.data;
+        if (data.data?.run_id) {
+          liveRunsById = { ...liveRunsById, [data.data.run_id]: data.data };
+          pipelineActions.setRunHistory(
+            (pipeline.runHistory ?? []).map((run) =>
+              run.run_id === data.data.run_id
+                ? { ...run, ...data.data, options: data.data.options ?? run.options }
+                : run
+            )
+          );
+          if (data.data.run_id === pipeline.currentRunId || data.data.run_id === detailRunId) {
+            liveRun = data.data;
+          }
         }
         break;
       case "run_completed":
@@ -636,12 +658,12 @@
       <RunDetailPanel
         runId={detailRunId}
         {apiService}
-        isLive={pipeline.isExecuting && pipeline.currentRunId === detailRunId}
-        liveLogs={logs}
+        isLive={!!detailLiveRun && (detailLiveRun.status === "running" || detailLiveRun.status === "pending")}
+        liveLogs={detailLogs}
         liveProgress={pipeline.progress}
         liveProgressMessage={pipeline.progressMessage}
         liveElapsed={pipeline.elapsedTime}
-        {liveRun}
+        liveRun={detailLiveRun}
         on:back={() => closeRunDetail()}
         on:deleted={() => { closeRunDetail(); racesTabRef?.refresh(); debouncedRefresh(); refreshQueue(); }}
         on:cancelled={() => { closeRunDetail(); refreshQueue(); debouncedRefresh(); racesTabRef?.refresh(); }}
@@ -680,12 +702,12 @@
       <RunDetailPanel
         runId={detailRunId}
         {apiService}
-        isLive={pipeline.isExecuting && pipeline.currentRunId === detailRunId}
-        liveLogs={logs}
+        isLive={!!detailLiveRun && (detailLiveRun.status === "running" || detailLiveRun.status === "pending")}
+        liveLogs={detailLogs}
         liveProgress={pipeline.progress}
         liveProgressMessage={pipeline.progressMessage}
         liveElapsed={pipeline.elapsedTime}
-        {liveRun}
+        liveRun={detailLiveRun}
         on:back={() => closeRunDetail()}
         on:deleted={() => { closeRunDetail(); debouncedRefresh(); refreshQueue(); }}
         on:cancelled={() => { closeRunDetail(); refreshQueue(); debouncedRefresh(); }}
