@@ -317,7 +317,9 @@
         stopInternalPolling();
         loadCompletedRunData();
       }
-    } catch { /* transient failures are expected */ }
+    } catch (e) {
+      console.debug("[RunDetailPanel] _pollStatus transient failure:", e);
+    }
   }
 
   async function _pollLogs() {
@@ -327,7 +329,9 @@
         internalLiveLogs = [...internalLiveLogs, ...data.logs];
         internalLogsSeen += data.logs.length;
       }
-    } catch { /* transient failures are expected */ }
+    } catch (e) {
+      console.debug("[RunDetailPanel] _pollLogs transient failure:", e);
+    }
   }
 
   function stopInternalPolling() {

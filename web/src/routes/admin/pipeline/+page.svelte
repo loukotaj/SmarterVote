@@ -137,7 +137,8 @@
   $: queueLikelyStalled = queuePending > 0 && queueRunningItems.length === 0 && oldestPendingMs >= 180000;
   // Runs that appear stuck: in "running" state for >15 min with no completion.
   // Cloud Functions time out around 9 min, so 15 min means it almost certainly timed out.
-  const STUCK_THRESHOLD_MS = 15 * 60 * 1000;
+  const STUCK_THRESHOLD_MINUTES = 15;
+  const STUCK_THRESHOLD_MS = STUCK_THRESHOLD_MINUTES * 60 * 1000;
   $: stuckRunItems = queueRunningItems.filter((i) => {
     const startMs = i.started_at ? Date.parse(i.started_at) : NaN;
     return Number.isFinite(startMs) && Date.now() - startMs > STUCK_THRESHOLD_MS;
@@ -644,7 +645,7 @@
         {stuckRunItems.length} run{stuckRunItems.length !== 1 ? 's' : ''} may have timed out
       </p>
       <p class="text-xs text-amber-700 dark:text-amber-300 mt-1">
-        {stuckRunItems.map((i) => i.race_id).join(", ")} — still showing "running" after {Math.floor(STUCK_THRESHOLD_MS / 60000)} minutes.
+        {stuckRunItems.map((i) => i.race_id).join(", ")} — still showing "running" after {STUCK_THRESHOLD_MINUTES} minutes.
         Cloud Functions typically time out at ~9 minutes. Click the run to force-cancel it.
       </p>
     </div>
