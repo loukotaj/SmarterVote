@@ -320,6 +320,9 @@ class AgentHandler:
                 return
             try:
                 _current_step = step
+                latest_race_json = _kw.get("race_json")
+                if isinstance(latest_race_json, dict):
+                    race_json_holder[0] = latest_race_json
                 _maybe_handoff("during progress callback", step=step, pct=pct)
 
                 # Update per-step progress
@@ -459,6 +462,7 @@ class AgentHandler:
             target_no_info=options.get("target_no_info", False),
             candidate_names=options.get("candidate_names"),
             goal=options.get("goal"),
+            resume_partial=bool(options.get("is_continuation")),
         )
 
         # Update checkpoint holder so handoff (if somehow triggered post-agent) has latest data

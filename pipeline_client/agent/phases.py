@@ -107,6 +107,8 @@ async def _run_issue_research_for_candidate(
     is_update: bool = False,
     last_updated: str = "",
     on_issue_progress: Any | None = None,
+    on_issue_checkpoint: Any | None = None,
+    resume_partial: bool = False,
 ) -> None:
     """Run per-issue research for one candidate, mutating race_json in place."""
     log = make_logger(on_log)
@@ -119,11 +121,33 @@ async def _run_issue_research_for_candidate(
     handoffs: List[Dict[str, Any]] = []
 
     for issue_idx, issue in enumerate(CANONICAL_ISSUES):
+        existing_issue_data: Dict[str, Any] | None = None
+        for c in race_json.get("candidates", []):
+            if c.get("name") == candidate_name:
+                sd = c.get("issues", {}).get(issue)
+                if isinstance(sd, dict) and sd.get("stance"):
+                    existing_issue_data = sd
+                break
+
         if on_issue_progress:
             try:
                 on_issue_progress(issue_idx, issue)
             except Exception as _e:
                 logger.debug("Issue progress callback failed: %s", _e)
+
+        if resume_partial and existing_issue_data is not None:
+            log("info", f"    Issue {issue_idx + 1}/12: {issue} already present; skipping")
+            handoffs.append({
+                "issue": issue,
+                "stance": existing_issue_data.get("stance", "(not set)"),
+                "confidence": existing_issue_data.get("confidence", "?"),
+            })
+            if on_issue_checkpoint:
+                try:
+                    on_issue_checkpoint(issue_idx, issue)
+                except Exception as _e:
+                    logger.debug("Issue checkpoint callback failed: %s", _e)
+            continue
 
         handoff_ctx = _build_handoff_context(handoffs, cached_info)
 
@@ -216,6 +240,12 @@ async def _run_issue_research_for_candidate(
         if cache:
             cached_info = cache.list_cached_for_race(race_id)
 
+        if on_issue_checkpoint:
+            try:
+                on_issue_checkpoint(issue_idx, issue)
+            except Exception as _e:
+                logger.debug("Issue checkpoint callback failed: %s", _e)
+
 
 # ---------------------------------------------------------------------------
 # Shared phase runner — images → issues → finance → refinement
@@ -240,6 +270,7 @@ async def _run_shared_phases(
     last_updated: str,
     refine_iters: int,
     log: Any,
+    resume_partial: bool = False,
 ) -> None:
     """Run images, issues, finance, and refinement phases.
 
@@ -297,6 +328,18 @@ async def _run_shared_phases(
                           message=f"Issues · {cand_name} ({ci + 1}/{rn}) · {issue} ({issue_idx + 1}/{n_issues})")
                 return _on_issue
 
+            def _make_issue_checkpoint(ci=ci, cand_name=cand_name):
+                def _on_issue_checkpoint(issue_idx: int, issue: str) -> None:
+                    combined_pct = int((ci * n_issues + issue_idx + 1) / total_units * 100)
+                    track(
+                        "progress",
+                        "issues",
+                        pct=combined_pct,
+                        message=f"Issues checkpoint - {cand_name} ({ci + 1}/{rn}) - {issue} ({issue_idx + 1}/{n_issues})",
+                        race_json=race_json,
+                    )
+                return _on_issue_checkpoint
+
             await _run_issue_research_for_candidate(
                 cand_name,
                 race_json,
@@ -307,6 +350,8 @@ async def _run_shared_phases(
                 is_update=is_update,
                 last_updated=last_updated,
                 on_issue_progress=_make_issue_tracker(),
+                on_issue_checkpoint=_make_issue_checkpoint(),
+                resume_partial=resume_partial,
             )
         track("complete", "issues", duration_ms=int((time.perf_counter() - iss_t0) * 1000), race_json=race_json)
     else:
@@ -432,6 +477,7 @@ async def _run_fresh(
     target_no_info: bool = False,
     target_candidate_names: Optional[List[str]] = None,
     goal: Optional[str] = None,
+    resume_partial: bool = False,
 ) -> Dict[str, Any]:
     """Phase 1 → 2 → 3: Discovery → Issue research → Refinement."""
     log = make_logger(on_log)
@@ -495,6 +541,7 @@ async def _run_fresh(
         last_updated="",
         refine_iters=refine_iters,
         log=log,
+        resume_partial=resume_partial,
     )
 
     return race_json
@@ -519,6 +566,7 @@ async def _run_update(
     target_no_info: bool = False,
     target_candidate_names: Optional[List[str]] = None,
     goal: Optional[str] = None,
+    resume_partial: bool = False,
 ) -> Dict[str, Any]:
     """Phase-based update mirroring _run_fresh but starting from existing data."""
     log = make_logger(on_log)
@@ -549,6 +597,7 @@ async def _run_update(
             max_candidates=max_candidates,
             target_no_info=target_no_info,
             target_candidate_names=target_candidate_names,
+            resume_partial=resume_partial,
         )
 
     refine_iters = _scale_iterations(max_iterations, n, per_candidate=2, minimum=12)
@@ -610,6 +659,7 @@ async def _run_update(
                 max_candidates=max_candidates,
                 target_no_info=target_no_info,
                 target_candidate_names=target_candidate_names,
+                resume_partial=resume_partial,
             )
 
         track("progress", "discovery", pct=50, message="Discovery: updating race metadata")
@@ -664,6 +714,7 @@ async def _run_update(
         last_updated=last_updated,
         refine_iters=refine_iters,
         log=log,
+        resume_partial=resume_partial,
     )
 
     return race_json

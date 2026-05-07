@@ -8,6 +8,7 @@ from unittest.mock import AsyncMock, patch
 import pytest
 
 from pipeline_client.agent.agent import _load_existing, run_agent
+from pipeline_client.agent.prompts import CANONICAL_ISSUES
 
 
 @pytest.fixture(autouse=True)
@@ -364,3 +365,69 @@ async def test_run_agent_update_with_candidates():
     assert "updated_utc" in result
     # roster sync + meta + images + 12 issues + finance + refine + meta refine = 18
     assert mock_loop.call_count == 18
+
+
+@pytest.mark.asyncio
+async def test_run_agent_continuation_skips_completed_issue_stances():
+    """Continuation mode resumes issue research at the next missing issue."""
+    existing = {
+        "id": "test-2024",
+        "candidates": [
+            {
+                "name": "Alice",
+                "party": "D",
+                "issues": {
+                    CANONICAL_ISSUES[0]: {
+                        "issue": CANONICAL_ISSUES[0],
+                        "stance": "Existing stance",
+                        "confidence": "high",
+                        "sources": [],
+                    }
+                },
+            }
+        ],
+        "updated_utc": "2024-01-01T00:00:00Z",
+    }
+
+    with patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock) as mock_loop:
+        mock_loop.return_value = {}
+
+        result = await run_agent(
+            "test-2024",
+            cheap_mode=True,
+            existing_data=existing,
+            enabled_steps=["issues"],
+            resume_partial=True,
+        )
+
+    assert result["candidates"][0]["issues"][CANONICAL_ISSUES[0]]["stance"] == "Existing stance"
+    assert mock_loop.call_count == len(CANONICAL_ISSUES) - 1
+
+
+@pytest.mark.asyncio
+async def test_issue_checkpoint_progress_includes_partial_race_json():
+    """Issue checkpoints send the mutated RaceJSON to the handler for handoff storage."""
+    existing = {
+        "id": "test-2024",
+        "candidates": [{"name": "Alice", "party": "D", "issues": {}}],
+        "updated_utc": "2024-01-01T00:00:00Z",
+    }
+    progress_payloads = []
+
+    def _progress(step: str, **kwargs):
+        if step == "issues" and "race_json" in kwargs:
+            progress_payloads.append(kwargs["race_json"])
+
+    with patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock) as mock_loop:
+        mock_loop.return_value = {}
+
+        await run_agent(
+            "test-2024",
+            cheap_mode=True,
+            existing_data=existing,
+            enabled_steps=["issues"],
+            step_tracker={"progress": _progress},
+        )
+
+    assert len(progress_payloads) == len(CANONICAL_ISSUES)
+    assert progress_payloads[-1]["id"] == "test-2024"

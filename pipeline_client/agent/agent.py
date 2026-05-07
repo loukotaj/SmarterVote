@@ -120,6 +120,7 @@ async def run_agent(
     target_no_info: bool = False,
     candidate_names: Optional[List[str]] = None,
     goal: Optional[str] = None,
+    resume_partial: bool = False,
 ) -> Dict[str, Any]:
     """Run the multi-phase research agent for a given race_id.
 
@@ -155,6 +156,9 @@ async def run_agent(
         When *True*, prioritise candidates with the least existing info.
     candidate_names : list[str], optional
         Exact candidate names to update/research (case-insensitive exact match).
+    resume_partial : bool
+        When True, issue research skips candidate/issue stances already present
+        in existing_data. Used by Cloud Function continuation handoff.
     """
     from .cost import (
         DEFAULT_CLAUDE_MODEL, CHEAP_CLAUDE_MODEL,
@@ -200,6 +204,7 @@ async def run_agent(
             max_candidates=max_candidates, target_no_info=target_no_info,
             target_candidate_names=candidate_names,
             goal=goal,
+            resume_partial=resume_partial,
         )
     else:
         log("info", f"New research for {race_id} (model={model}, small_model={small_model})")
@@ -212,6 +217,7 @@ async def run_agent(
             max_candidates=max_candidates, target_no_info=target_no_info,
             target_candidate_names=candidate_names,
             goal=goal,
+            resume_partial=resume_partial,
         )
 
     # LLMs sometimes wrap their output in {"race_json": {...}} - unwrap it so
