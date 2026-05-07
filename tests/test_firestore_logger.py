@@ -44,13 +44,21 @@ def test_log_swallows_exceptions():
 def test_update_progress_merges_run_doc(mock_db):
     """update_progress() merges fields into pipeline_runs/{run_id}."""
     logger = FirestoreLogger("run-003")
-    logger.update_progress(42, current_step="issues", status="running")
+    logger.update_progress(
+        42,
+        current_step="issues",
+        current_step_progress=17,
+        progress_message="Issues checkpoint - Alice - Healthcare",
+        status="running",
+    )
 
     run_ref = mock_db.collection.return_value.document.return_value
     run_ref.set.assert_called_once()
     merged = run_ref.set.call_args[0][0]
     assert merged["progress"] == 42
     assert merged["current_step"] == "issues"
+    assert merged["current_step_progress"] == 17
+    assert merged["progress_message"] == "Issues checkpoint - Alice - Healthcare"
     assert merged["status"] == "running"
 
 

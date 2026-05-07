@@ -107,6 +107,8 @@ class FirestoreLogger:
         pct: int,
         *,
         current_step: Optional[str] = None,
+        current_step_progress: Optional[int] = None,
+        progress_message: Optional[str] = None,
         remaining_steps: Optional[list] = None,
         status: Optional[str] = None,
     ) -> None:
@@ -121,6 +123,10 @@ class FirestoreLogger:
             }
             if current_step is not None:
                 update["current_step"] = current_step
+            if current_step_progress is not None:
+                update["current_step_progress"] = max(0, min(100, int(current_step_progress)))
+            if progress_message is not None:
+                update["progress_message"] = progress_message
             if remaining_steps is not None:
                 update["remaining_steps"] = remaining_steps
             if status is not None:

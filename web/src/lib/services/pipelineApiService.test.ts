@@ -126,7 +126,9 @@ describe("PipelineApiService production admin API contract", () => {
         race_id: "az-senate-2026",
         status: "running",
         progress: 20,
+        progress_message: "Issues checkpoint - Alice - Healthcare",
         current_step: "issues",
+        current_step_progress: 37,
         remaining_steps: ["issues", "finance"],
         started_at: "2026-05-01T00:00:00Z",
         options: { enabled_steps: ["discovery", "issues", "finance"] },
@@ -139,8 +141,11 @@ describe("PipelineApiService production admin API contract", () => {
     expect(fetchWithAuth).toHaveBeenCalledWith("https://api.example.test/runs/run-1", {}, expect.any(Number));
     expect(run.current_step).toBe("issues");
     expect(run.progress).toBe(20);
+    expect(run.progress_message).toBe("Issues checkpoint - Alice - Healthcare");
+    expect(run.current_step_progress).toBe(37);
     expect(run.steps?.find((s) => s.name === "discovery")?.status).toBe("completed");
     expect(run.steps?.find((s) => s.name === "issues")?.status).toBe("running");
+    expect(run.steps?.find((s) => s.name === "issues")?.progress_pct).toBe(37);
     expect(run.steps?.find((s) => s.name === "images")?.status).toBe("skipped");
   });
 });

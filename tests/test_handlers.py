@@ -155,6 +155,8 @@ async def test_v2_handler_tracks_step_progress_in_firestore_without_run_manager(
     assert mock_fs_logger_cls.return_value.update_progress.call_count >= 3
     args_list = mock_fs_logger_cls.return_value.update_progress.call_args_list
     assert any(call.kwargs.get("current_step") == "issues" for call in args_list)
+    assert any(call.kwargs.get("current_step_progress") == 42 for call in args_list)
+    assert any(call.kwargs.get("progress_message") == "Working issues" for call in args_list)
 
 
 @pytest.mark.asyncio

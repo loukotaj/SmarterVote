@@ -289,7 +289,9 @@ export interface RunInfo {
   race_id?: string;
   status: RunStatus;
   progress?: number;
+  progress_message?: string;
   current_step?: PipelineStepId | string | null;
+  current_step_progress?: number;
   remaining_steps?: string[];
   payload?: Record<string, unknown>;
   options: RunOptions;

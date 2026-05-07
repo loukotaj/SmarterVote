@@ -74,6 +74,7 @@
   }
 
   function currentStepLabel(run: RunHistoryItem): string {
+    if (run.progress_message) return run.progress_message;
     const step = run.current_step ?? run.last_step;
     return step ? String(step).replaceAll("_", " ") : run.status;
   }
@@ -93,6 +94,7 @@
       race_id: q.race_id,
       status: q.status,
       progress: 0,
+      progress_message: q.is_continuation ? "Waiting for continuation" : undefined,
       current_step: q.status,
       payload: { race_id: q.race_id },
       options: q.options ?? {},

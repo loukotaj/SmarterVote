@@ -83,6 +83,9 @@
         label: meta.label,
         weight: meta.weight,
         status,
+        progress_pct: enabled && meta.id === currentStep && typeof activeRun?.current_step_progress === "number"
+          ? activeRun.current_step_progress
+          : undefined,
       });
     }
 
@@ -160,7 +163,7 @@
   $: progress = isLiveAndRunning
     ? Math.max(liveProgress, serverProgress ?? 0, computedProgress)
     : (serverProgress ?? computedProgress);
-  $: progressMsg = isLiveAndRunning && liveProgressMessage ? liveProgressMessage : lastStepMessage(pipelineSteps as RunStep[]);
+  $: progressMsg = activeRun?.progress_message ?? (isLiveAndRunning && liveProgressMessage ? liveProgressMessage : lastStepMessage(pipelineSteps as RunStep[]));
   $: elapsed = isLiveAndRunning ? liveElapsed : (activeRun?.duration_ms ? Math.floor(activeRun.duration_ms / 1000) : 0);
 
   // Scroll the logs container to the bottom (called via tick to avoid Svelte reactive loop).

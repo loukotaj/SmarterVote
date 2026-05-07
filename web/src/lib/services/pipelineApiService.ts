@@ -131,6 +131,7 @@ export class PipelineApiService {
       : PIPELINE_STEPS.map((s) => s.id);
     const remainingSteps = Array.isArray(r.remaining_steps) ? r.remaining_steps.map(String) : undefined;
     const currentStep = typeof r.current_step === "string" ? r.current_step : undefined;
+    const currentStepProgress = typeof r.current_step_progress === "number" ? r.current_step_progress : undefined;
     const status = (r.status || "pending") as RunInfo["status"];
     const steps = existingSteps.length
       ? existingSteps
@@ -151,6 +152,7 @@ export class PipelineApiService {
             label: step.label,
             weight: step.weight,
             status: stepStatus,
+            progress_pct: enabled && step.id === currentStep ? currentStepProgress : undefined,
           };
         });
 
@@ -162,7 +164,9 @@ export class PipelineApiService {
       payload: r.payload ?? (raceId ? { race_id: raceId } : {}),
       options,
       progress: typeof r.progress === "number" ? r.progress : undefined,
+      progress_message: typeof r.progress_message === "string" ? r.progress_message : undefined,
       current_step: currentStep ?? null,
+      current_step_progress: currentStepProgress,
       remaining_steps: remainingSteps,
       steps,
     };
@@ -192,7 +196,9 @@ export class PipelineApiService {
         steps: normalized.steps,
         payload: normalized.payload,
         progress: normalized.progress,
+        progress_message: normalized.progress_message,
         current_step: normalized.current_step,
+        current_step_progress: normalized.current_step_progress,
       } as RunHistoryItem);
     });
   }

@@ -251,7 +251,14 @@ class AgentHandler:
                 )
                 _broadcast_progress(pct, label)
                 if _fs_logger:
-                    _fs_logger.update_progress(pct, current_step=step)
+                    remaining = [s for s in enabled_steps if s not in _completed_steps]
+                    _fs_logger.update_progress(
+                        pct,
+                        current_step=step,
+                        current_step_progress=0,
+                        progress_message=label,
+                        remaining_steps=remaining,
+                    )
                     _fs_logger.log("info", f"Step started: {label}", step=step, race_id=race_id)
             except (HandoffTriggered, HandoffFailed):
                 raise
@@ -285,7 +292,13 @@ class AgentHandler:
 
                 if _fs_logger:
                     remaining = [s for s in enabled_steps if s not in _completed_steps]
-                    _fs_logger.update_progress(pct, current_step=step, remaining_steps=remaining)
+                    _fs_logger.update_progress(
+                        pct,
+                        current_step=step,
+                        current_step_progress=100,
+                        progress_message=label,
+                        remaining_steps=remaining,
+                    )
                     _fs_logger.log(
                         "info",
                         f"Step completed in {duration_ms}ms: {label}",
@@ -341,7 +354,14 @@ class AgentHandler:
                 label = message or STEP_LABELS.get(step, step)
                 _broadcast_progress(overall, label)
                 if _fs_logger:
-                    _fs_logger.update_progress(overall, current_step=step)
+                    remaining = [s for s in enabled_steps if s not in _completed_steps]
+                    _fs_logger.update_progress(
+                        overall,
+                        current_step=step,
+                        current_step_progress=pct,
+                        progress_message=label,
+                        remaining_steps=remaining,
+                    )
             except (HandoffTriggered, HandoffFailed):
                 raise
             except Exception as _e:

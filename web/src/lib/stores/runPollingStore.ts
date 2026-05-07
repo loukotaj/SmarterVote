@@ -58,11 +58,12 @@ async function pollRunStatus(runId: string): Promise<void> {
     const status: string = run.status ?? "";
     const progress: number = run.progress ?? 0;
     const currentStep: string | undefined = run.current_step ?? undefined;
+    const progressMessage: string | undefined = run.progress_message ?? undefined;
 
     onMessage?.({
       type: "run_progress",
       progress,
-      message: currentStep ? `Running: ${currentStep}` : undefined,
+      message: progressMessage ?? (currentStep ? `Running: ${currentStep}` : undefined),
     });
 
     onMessage?.({
