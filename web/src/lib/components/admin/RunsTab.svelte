@@ -81,8 +81,12 @@
   $: liveRunIds = new Set(
     queueItems.filter((q) => q.status === "running" || q.status === "pending").map((q) => q.run_id).filter(Boolean)
   );
+  $: continuationParentRunIds = new Set(queueItems.map((q) => q.parent_run_id).filter(Boolean));
+  $: activeQueueItems = queueItems.filter(
+    (q) => (q.status === "running" || q.status === "pending") && !continuationParentRunIds.has(q.run_id)
+  );
 
-  $: activeQueueRuns = queueItems
+  $: activeQueueRuns = activeQueueItems
     .filter((q) => (q.status === "running" || q.status === "pending") && q.run_id && !runs.some((r) => r.run_id === q.run_id))
     .map((q, idx) => ({
       run_id: q.run_id!,
@@ -99,9 +103,9 @@
     } as RunHistoryItem));
 
   $: activeRuns = [...runs.filter(
-    (r) => r.status === "running" || r.status === "pending" || liveRunIds.has(r.run_id)
+    (r) => (r.status === "running" || r.status === "pending" || liveRunIds.has(r.run_id)) && !continuationParentRunIds.has(r.run_id)
   ), ...activeQueueRuns];
-  $: pendingQueue = queueItems.filter((q) => q.status === "pending");
+  $: pendingQueue = activeQueueItems.filter((q) => q.status === "pending");
   $: historicalRuns = runs.filter(
     (r) => r.status !== "running" && r.status !== "pending" && !liveRunIds.has(r.run_id)
   );

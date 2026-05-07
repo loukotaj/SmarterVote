@@ -76,6 +76,8 @@ export interface QueueItem {
   started_at?: string;
   completed_at?: string;
   error?: string;
+  parent_run_id?: string;
+  is_continuation?: boolean;
 }
 
 interface QueueResponse {

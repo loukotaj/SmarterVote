@@ -135,6 +135,57 @@ def test_get_queue_empty(client):
     assert body["running"] is False
 
 
+def test_get_queue_does_not_count_continuation_parent_as_running():
+    """Continuation ancestors should not inflate active run counts."""
+    os.environ["SKIP_AUTH"] = "true"
+    os.environ["ADMIN_API_KEY"] = "test-key"
+
+    import main as app_module
+
+    firestore_helpers._fs_db = None
+
+    parent_doc = _make_existing_doc(
+        {
+            "id": "item-parent",
+            "race_id": "az-senate-2026",
+            "run_id": "run-parent",
+            "status": "running",
+            "created_at": "2026-05-06T00:00:00+00:00",
+        }
+    )
+    child_doc = _make_existing_doc(
+        {
+            "id": "item-child",
+            "race_id": "az-senate-2026",
+            "run_id": "run-child",
+            "status": "running",
+            "parent_run_id": "run-parent",
+            "is_continuation": True,
+            "created_at": "2026-05-06T00:10:00+00:00",
+        }
+    )
+    queue_coll = MagicMock()
+    queue_coll.order_by.return_value = queue_coll
+    queue_coll.stream.return_value = iter([parent_doc, child_doc])
+
+    db = _build_empty_firestore_mock()
+    db.collection.side_effect = lambda name: queue_coll if name == "pipeline_queue" else MagicMock()
+
+    from fastapi.testclient import TestClient
+
+    with patch("firestore_helpers._get_fs", return_value=db):
+        tc = TestClient(app_module.app)
+        resp = tc.get("/api/queue")
+
+    assert resp.status_code == 200
+    body = resp.json()
+    by_id = {item["id"]: item for item in body["items"]}
+    assert by_id["item-parent"]["status"] == "continued"
+    assert by_id["item-child"]["status"] == "running"
+    assert body["running"] is True
+    assert sum(1 for item in body["items"] if item["status"] == "running") == 1
+
+
 # ---------------------------------------------------------------------------
 # /api/races/queue — POST queues a valid race ID
 # ---------------------------------------------------------------------------

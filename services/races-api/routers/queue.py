@@ -27,6 +27,18 @@ _PIPELINE_STEP_DETAILS = [
 ]
 
 
+def _normalize_continuation_ancestors(items: list[Dict[str, Any]]) -> list[Dict[str, Any]]:
+    """Do not report parent queue items as active after a continuation exists."""
+    parent_run_ids = {item.get("parent_run_id") for item in items if item.get("parent_run_id")}
+    normalized = []
+    for item in items:
+        next_item = dict(item)
+        if next_item.get("run_id") in parent_run_ids and next_item.get("status") in ("pending", "running"):
+            next_item["status"] = "continued"
+        normalized.append(next_item)
+    return normalized
+
+
 @router.get("/steps", dependencies=[Depends(verify_token)])
 async def list_steps() -> Dict[str, Any]:
     """Return the ordered list of available pipeline steps."""
@@ -43,6 +55,7 @@ async def get_queue(active_only: bool = False, limit: int = 200) -> Dict[str, An
     docs = db.collection("pipeline_queue").order_by("created_at").stream()
     items = [firestore_helpers._doc_to_plain(d) for d in docs]
     items = [i for i in items if i is not None]
+    items = _normalize_continuation_ancestors(items)
     if active_only:
         items = [i for i in items if i.get("status") in ("pending", "running")]
     if limit > 0:

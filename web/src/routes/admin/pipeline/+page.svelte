@@ -123,11 +123,15 @@
   }
 
   // Reactive computed
-  $: queueRunningItems = queueItems.filter((i) => i.status === "running");
+  $: continuationParentRunIds = new Set(queueItems.map((i) => i.parent_run_id).filter(Boolean));
+  $: activeQueueItems = queueItems.filter(
+    (i) => (i.status === "running" || i.status === "pending") && !continuationParentRunIds.has(i.run_id)
+  );
+  $: queueRunningItems = activeQueueItems.filter((i) => i.status === "running");
   $: queueRunning = queueRunningItems[0] ?? null;
-  $: queuePending = queueItems.filter((i) => i.status === "pending").length;
+  $: queuePending = activeQueueItems.filter((i) => i.status === "pending").length;
   $: oldestPendingMs = (() => {
-    const pending = queueItems.filter((i) => i.status === "pending");
+    const pending = activeQueueItems.filter((i) => i.status === "pending");
     if (pending.length === 0) return 0;
     const ages = pending
       .map((i) => {
@@ -325,7 +329,7 @@
 
   function watchActiveQueueRuns() {
     for (const item of queueItems) {
-      if ((item.status === "running" || item.status === "pending") && item.run_id) {
+      if ((item.status === "running" || item.status === "pending") && item.run_id && !continuationParentRunIds.has(item.run_id)) {
         runPollingActions.watchRun(item.run_id);
       }
     }
@@ -577,7 +581,7 @@
   <AdminTabs
     bind:activeTab
     alertCount={alertBadgeCount}
-    runsBadgeCount={queueItems.filter((q) => q.status === "running" || q.status === "pending").length}
+    runsBadgeCount={activeQueueItems.length}
   />
 
   <!-- Running banner (visible across tabs) — shows all active runs -->
