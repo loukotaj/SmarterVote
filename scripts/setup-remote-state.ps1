@@ -109,7 +109,7 @@ $secretsContent = Get-Content $secretsTfvars -Raw
 if ($secretsContent -match "your-gcp-project-id" -or $secretsContent -match "sk-your-openai-api-key") {
     Write-Host ""
     Write-Host "Warning: secrets.tfvars contains placeholder values" -ForegroundColor Yellow
-    Write-Host "Please update the following in $secretsTfvars:" -ForegroundColor Yellow
+    Write-Host "Please update the following in ${secretsTfvars}:" -ForegroundColor Yellow
     Write-Host "  1. Replace 'your-gcp-project-id' with your actual GCP project ID: $ProjectId" -ForegroundColor Gray
     Write-Host "  2. Replace 'sk-your-openai-api-key' with your actual OpenAI API key" -ForegroundColor Gray
     Write-Host "  3. Replace 'your-anthropic-api-key' with your actual Anthropic API key" -ForegroundColor Gray

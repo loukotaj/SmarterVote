@@ -32,9 +32,9 @@ You are a specialized agent for editing the SmarterVote AI research pipeline. Yo
 
 ## Key Rules
 
-1. **Absolute imports only**: `from pipeline_client.agent.agent import ...`
+1. **Imports**: follow established package-relative imports inside `pipeline_client.agent`; use absolute imports across package boundaries
 2. **Pydantic v2**: `model_dump()` / `model_validate()` — never `.dict()` / `.parse_obj()`
-3. **Logger**: `logging.getLogger("pipeline")` — not `__name__`
+3. **Logger**: pipeline agent code uses `logging.getLogger("pipeline")` or the local `make_logger` helper
 4. **Async HTTP**: `httpx.AsyncClient`, never `requests`
 5. **Canonical issues are frozen**: Do not add/remove/rename without explicit instruction (12 total, defined in `CanonicalIssue` enum)
 6. **If adding network calls**: Add an `autouse=True` mock fixture in `tests/conftest.py`

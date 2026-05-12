@@ -19,7 +19,7 @@ pip install -e shared/
 copy .env.example .env
 
 cd web
-npm install
+npm ci
 cd ..
 
 .\dev-start.ps1
@@ -64,11 +64,14 @@ Direct runner debugging -> local pipeline dev API -> in-process agent run
 ## Checks
 
 ```powershell
-pytest -q
+$env:PYTHONPATH = "."
+python -m pytest
 
 cd web
+npm ci
 npm run check
-npm run test:unit
+npm run build
+npm run test:unit -- --run
 ```
 
 ## Docs

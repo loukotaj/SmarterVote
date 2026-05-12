@@ -26,7 +26,7 @@ cd web && npm ci && npm run check && npm run build && npm run test:unit -- --run
 ## Step 4 — Terraform validate
 
 ```bash
-cd infra && terraform fmt -check -recursive && terraform validate
+cd infra && terraform fmt -check -recursive && terraform init -backend=false && terraform validate
 ```
 
 After running all steps, produce a summary table:

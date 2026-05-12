@@ -1,17 +1,17 @@
 # SmarterVote Development Environment Setup Script
 # Installs pre-commit hooks and ensures proper development setup
 
-Write-Host "🚀 Setting up SmarterVote development environment..." -ForegroundColor Green
+Write-Host "Setting up SmarterVote development environment..." -ForegroundColor Green
 
 # Check if we're in the right directory
 if (-not (Test-Path ".pre-commit-config.yaml")) {
-    Write-Host "❌ Error: .pre-commit-config.yaml not found. Are you in the project root?" -ForegroundColor Red
+    Write-Host "ERROR: .pre-commit-config.yaml not found. Are you in the project root?" -ForegroundColor Red
     exit 1
 }
 
 # Check if virtual environment exists
 if (-not (Test-Path ".venv")) {
-    Write-Host "❌ Error: Virtual environment not found. Please run 'python -m venv .venv' first." -ForegroundColor Red
+    Write-Host "ERROR: Virtual environment not found. Please run 'python -m venv .venv' first." -ForegroundColor Red
     exit 1
 }
 
@@ -25,20 +25,20 @@ function Invoke-SafeCommand {
         [string]$Description
     )
 
-    Write-Host "🔧 $Description..." -ForegroundColor Cyan
+    Write-Host "Running: $Description..." -ForegroundColor Cyan
 
     try {
         Invoke-Expression $Command
         if ($LASTEXITCODE -eq 0) {
-            Write-Host "✅ $Description completed successfully" -ForegroundColor Green
+            Write-Host "OK: $Description completed successfully" -ForegroundColor Green
             return $true
         } else {
-            Write-Host "❌ $Description failed with exit code $LASTEXITCODE" -ForegroundColor Red
+            Write-Host "ERROR: $Description failed with exit code $LASTEXITCODE" -ForegroundColor Red
             return $false
         }
     }
     catch {
-        Write-Host "❌ $Description failed: $($_.Exception.Message)" -ForegroundColor Red
+        Write-Host "ERROR: $Description failed: $($_.Exception.Message)" -ForegroundColor Red
         return $false
     }
 }
@@ -46,7 +46,7 @@ function Invoke-SafeCommand {
 $success = $true
 
 # Install shared schema package first
-$success = $success -and (Invoke-SafeCommand "python scripts/install_shared.py" "Installing shared schema package")
+$success = $success -and (Invoke-SafeCommand "python -m pip install -e shared/" "Installing shared schema package")
 
 # Install pre-commit hooks
 $success = $success -and (Invoke-SafeCommand "$precommitPath install" "Installing pre-commit hooks")
@@ -55,28 +55,28 @@ $success = $success -and (Invoke-SafeCommand "$precommitPath install" "Installin
 $success = $success -and (Invoke-SafeCommand "$precommitPath install --hook-type commit-msg" "Installing commit-msg hook")
 
 # Run pre-commit on all files to ensure everything is properly formatted
-Write-Host "🔧 Running pre-commit on all files (this may take a moment)..." -ForegroundColor Cyan
+Write-Host "Running pre-commit on all files (this may take a moment)..." -ForegroundColor Cyan
 try {
     & $precommitPath run --all-files
     if ($LASTEXITCODE -eq 0) {
-        Write-Host "✅ All files are properly formatted" -ForegroundColor Green
+        Write-Host "OK: All files are properly formatted" -ForegroundColor Green
     } else {
-        Write-Host "⚠️  Some files needed formatting. Please review and commit the changes." -ForegroundColor Yellow
+        Write-Host "WARNING: Some files needed formatting. Please review and commit the changes." -ForegroundColor Yellow
         $success = $false
     }
 }
 catch {
-    Write-Host "❌ Pre-commit run failed: $($_.Exception.Message)" -ForegroundColor Red
+    Write-Host "ERROR: Pre-commit run failed: $($_.Exception.Message)" -ForegroundColor Red
     $success = $false
 }
 
 if ($success) {
     Write-Host ""
-    Write-Host "🎉 Development environment setup complete!" -ForegroundColor Green
-    Write-Host "📝 Pre-commit hooks will now run automatically before each commit." -ForegroundColor Cyan
-    Write-Host "💡 To manually run all hooks: $precommitPath run --all-files" -ForegroundColor Cyan
+    Write-Host "Development environment setup complete!" -ForegroundColor Green
+    Write-Host "Pre-commit hooks will now run automatically before each commit." -ForegroundColor Cyan
+    Write-Host "To manually run all hooks: $precommitPath run --all-files" -ForegroundColor Cyan
 } else {
     Write-Host ""
-    Write-Host "⚠️  Setup completed with some issues. Please review the errors above." -ForegroundColor Yellow
+    Write-Host "WARNING: Setup completed with some issues. Please review the errors above." -ForegroundColor Yellow
     exit 1
 }

@@ -27,7 +27,7 @@
             "label": "Run Pipeline Tests",
             "type": "shell",
             "command": "python",
-            "args": ["-m", "pytest", "pipeline/", "-v"],
+            "args": ["-m", "pytest", "pipeline_client/", "-v"],
             "group": "test",
             "presentation": {
                 "echo": true,
@@ -89,8 +89,9 @@
             "command": "python",
             "args": [
                 "-m", "pytest",
-                "--cov=pipeline",
+                "--cov=pipeline_client",
                 "--cov=services",
+                "--cov=shared",
                 "--cov-report=html",
                 "--cov-report=term",
                 "-v"

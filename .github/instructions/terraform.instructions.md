@@ -30,5 +30,5 @@ Every push to `main` auto-deploys via CD workflow. For manual deploys see `docs/
 
 Validate before committing:
 ```bash
-cd infra && terraform fmt -recursive && terraform validate
+cd infra && terraform fmt -recursive && terraform init -backend=false && terraform validate
 ```

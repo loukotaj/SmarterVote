@@ -27,7 +27,7 @@ pip install -r requirements.txt
 pip install -e shared/
 
 cd web
-npm install
+npm ci
 cd ..
 ```
 
@@ -51,6 +51,7 @@ Expected services:
 | Web | 5173 | SvelteKit app |
 | Races API | 8080 | Production-shaped API used by the frontend |
 | Pipeline dev API | 8001 | Local-only in-process agent runner |
+| MCP server | stdio | Optional local assistant/tool integration backed by Races API |
 
 ## Manual Start
 
@@ -74,8 +75,65 @@ Terminal 3, web:
 
 ```powershell
 cd web
-npx vite dev --port 5173 --host
+npm run dev -- --host 0.0.0.0 --port 5173
 ```
+
+Optional MCP server, backed by the Races API:
+
+```powershell
+python -m venv .venv-mcp
+.venv-mcp\Scripts\Activate.ps1
+pip install -r requirements-mcp.txt
+$env:SMARTERVOTE_RACES_API_URL = "http://127.0.0.1:8080"
+python -m smartervote_mcp.server
+```
+
+The separate `.venv-mcp` keeps MCP SDK dependency updates from changing the pinned FastAPI/races-api environment.
+
+For local admin tools, start `races-api` with `SKIP_AUTH=true`, or set `SMARTERVOTE_RACES_API_TOKEN`
+to a valid Auth0 bearer token for a deployed API. `SMARTERVOTE_RACES_API_ADMIN_KEY` is also forwarded
+as `X-Admin-Key` for legacy admin-key endpoints such as analytics/cache operations.
+
+For a long-running local HTTP MCP endpoint instead of stdio, set:
+
+```powershell
+$env:SMARTERVOTE_MCP_TRANSPORT = "streamable-http"
+python -m smartervote_mcp.server
+```
+
+The default endpoint is `http://127.0.0.1:8000/mcp`.
+
+Example MCP client config:
+
+```json
+{
+  "mcpServers": {
+    "smartervote-races": {
+      "command": ".venv-mcp/Scripts/python.exe",
+      "args": ["-m", "smartervote_mcp.server"],
+      "env": {
+        "SMARTERVOTE_RACES_API_URL": "http://127.0.0.1:8080"
+      }
+    }
+  }
+}
+```
+
+Use absolute paths for `command` or set the client working directory if your MCP client does not launch
+servers from the repository root.
+
+For Codex against the deployed dev races API, use the GCP launcher so the admin key is fetched from
+Secret Manager at startup instead of being stored in Codex config:
+
+```powershell
+codex mcp add smartervote-races `
+  --env SMARTERVOTE_RACES_API_URL=https://races-api-dev-ddsvfazica-uc.a.run.app `
+  --env SMARTERVOTE_GCP_PROJECT=smartervote `
+  --env SMARTERVOTE_GCP_ENVIRONMENT=dev `
+  -- .venv-mcp\Scripts\python.exe -m smartervote_mcp.gcp_launcher
+```
+
+The launcher requires local `gcloud` auth with access to `races-api-admin-key-dev`.
 
 ## Using the App
 
@@ -103,11 +161,14 @@ Examples:
 ## Checks
 
 ```powershell
-pytest -q
+$env:PYTHONPATH = "."
+python -m pytest
 
 cd web
+npm ci
 npm run check
-npm run test:unit
+npm run build
+npm run test:unit -- --run
 ```
 
 ## Troubleshooting

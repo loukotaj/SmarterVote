@@ -1070,3 +1070,53 @@ def test_verify_token_missing_credentials():
         asyncio.run(auth.verify_token(None))
 
     assert exc_info.value.status_code == 401
+
+
+def test_verify_token_accepts_admin_api_key():
+    """With ADMIN_API_KEY set, X-Admin-Key authorizes non-browser admin clients."""
+    os.environ["SKIP_AUTH"] = "false"
+    os.environ["ADMIN_API_KEY"] = "secret"
+    os.environ.pop("AUTH0_DOMAIN", None)
+    os.environ.pop("AUTH0_AUDIENCE", None)
+
+    import asyncio
+
+    import auth
+
+    result = asyncio.run(auth.verify_token(None, x_admin_key="secret"))
+    assert result == {"auth": "admin_api_key"}
+
+
+def test_verify_token_rejects_wrong_admin_api_key_without_bearer():
+    """Wrong X-Admin-Key returns 401 before Auth0 fallback when no bearer token is present."""
+    os.environ["SKIP_AUTH"] = "false"
+    os.environ["ADMIN_API_KEY"] = "secret"
+    os.environ.pop("AUTH0_DOMAIN", None)
+    os.environ.pop("AUTH0_AUDIENCE", None)
+
+    import asyncio
+
+    import auth
+    from fastapi import HTTPException
+
+    with pytest.raises(HTTPException) as exc_info:
+        asyncio.run(auth.verify_token(None, x_admin_key="wrong"))
+
+    assert exc_info.value.status_code == 401
+
+
+def test_admin_endpoint_accepts_admin_api_key_header(monkeypatch):
+    """Any verify_token-protected admin route should accept X-Admin-Key."""
+    monkeypatch.setenv("SKIP_AUTH", "false")
+    monkeypatch.setenv("ADMIN_API_KEY", "secret")
+    monkeypatch.delenv("AUTH0_DOMAIN", raising=False)
+    monkeypatch.delenv("AUTH0_AUDIENCE", raising=False)
+
+    import main as app_module
+    from fastapi.testclient import TestClient
+
+    tc = TestClient(app_module.app)
+    resp = tc.get("/steps", headers={"X-Admin-Key": "secret"})
+
+    assert resp.status_code == 200
+    assert "steps" in resp.json()

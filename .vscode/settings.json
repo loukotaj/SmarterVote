@@ -1,6 +1,6 @@
 {
     // Python Configuration
-    "python.defaultInterpreterPath": "./venv/Scripts/python.exe",
+    "python.defaultInterpreterPath": "./.venv/Scripts/python.exe",
     "python.terminal.activateEnvironment": true,
 
     // Test Discovery and Execution
@@ -26,8 +26,9 @@
 
     // Python Path for Imports
     "python.analysis.extraPaths": [
-        "./pipeline",
+        "./pipeline_client",
         "./services",
+        "./shared",
         "./tests"
     ],
 
@@ -36,7 +37,7 @@
     "files.autoSaveDelay": 1000,
 
     // Editor Configuration
-    "editor.rulers": [88],
+    "editor.rulers": [127],
     "python.formatting.provider": "black",
     "python.linting.enabled": true,
     "python.linting.pylintEnabled": false,

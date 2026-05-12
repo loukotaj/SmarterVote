@@ -1,10 +1,11 @@
 """Auth0 JWT verification dependency for the races-api admin endpoints."""
 
 import os
+import secrets
 from typing import Optional
 
 import httpx
-from fastapi import Depends, HTTPException
+from fastapi import Depends, Header, HTTPException
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from jose import JWTError, jwt
 
@@ -32,15 +33,26 @@ async def _decode_jwt(token: str) -> dict:
 
 async def verify_token(
     credentials: Optional[HTTPAuthorizationCredentials] = Depends(_http_bearer),
+    x_admin_key: str = Header(default=""),
 ) -> dict:
-    """Dependency: verify Auth0 JWT bearer token.
+    """Dependency: verify Auth0 JWT bearer token or admin API key.
 
     Set SKIP_AUTH=true (or 1 or yes) to bypass verification in local dev.
+    Set ADMIN_API_KEY to allow non-browser admin clients with X-Admin-Key.
     """
     # Read env at call time so tests can set it without module reload.
     skip_auth = os.getenv("SKIP_AUTH", "").lower() in ("1", "true", "yes")
     if skip_auth:
         return {}
+
+    if not isinstance(x_admin_key, str):
+        x_admin_key = ""
+    admin_api_key = os.getenv("ADMIN_API_KEY", "")
+    if admin_api_key and x_admin_key:
+        if secrets.compare_digest(x_admin_key, admin_api_key):
+            return {"auth": "admin_api_key"}
+        if credentials is None:
+            raise HTTPException(status_code=401, detail="Invalid or missing X-Admin-Key")
 
     auth0_domain = os.getenv("AUTH0_DOMAIN", "")
     auth0_audience = os.getenv("AUTH0_AUDIENCE", "")

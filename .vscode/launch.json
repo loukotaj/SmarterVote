@@ -16,35 +16,15 @@
             "stopOnEntry": false
         },
         {
-            "name": "Debug Pipeline Script",
+            "name": "Debug Pipeline Dev API",
             "type": "debugpy",
             "request": "launch",
-            "program": "${workspaceFolder}/scripts/run_local.py",
+            "module": "pipeline_client.run",
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}",
             "env": {
                 "PYTHONPATH": "${workspaceFolder}"
             },
-            "args": [
-                "tx-governor-2024"
-            ],
-            "justMyCode": false,
-            "stopOnEntry": false
-        },
-        {
-            "name": "Debug Pipeline Main",
-            "type": "debugpy",
-            "request": "launch",
-            "module": "pipeline.app",
-            "console": "integratedTerminal",
-            "cwd": "${workspaceFolder}",
-            "env": {
-                "PYTHONPATH": "${workspaceFolder}"
-            },
-            "args": [
-                "--race-id",
-                "tx-governor-2024"
-            ],
             "justMyCode": false,
             "stopOnEntry": false
         },

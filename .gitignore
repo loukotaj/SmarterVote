@@ -137,6 +137,7 @@ celerybeat.pid
 .env
 .envrc
 .venv
+.venv-mcp/
 env/
 venv/
 ENV/
@@ -300,3 +301,4 @@ data/analytics.db-shm
 data/analytics.db-wal
 .claude/settings.local.json
 .tmp_cf_staging/
+.tmp_*.log

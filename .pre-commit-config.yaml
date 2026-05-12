@@ -18,14 +18,14 @@ repos:
     hooks:
       - id: black
         language_version: python3
-        files: ^(pipeline|services|scripts|tests)/.*\.py$
+        files: ^(pipeline_client|services|scripts|shared|tests|functions)/.*\.py$
 
   - repo: https://github.com/pycqa/isort
     rev: 5.13.2
     hooks:
       - id: isort
         args: ["--profile", "black"]
-        files: ^(pipeline|services|scripts|tests)/.*\.py$
+        files: ^(pipeline_client|services|scripts|shared|tests|functions)/.*\.py$
 
   # Note: flake8 and mypy are run in CI but not as pre-commit hooks
   # to avoid blocking commits on legacy code issues
@@ -35,12 +35,12 @@ repos:
   #   hooks:
   #     - id: flake8
   #       args: ["--max-line-length=127", "--extend-ignore=E203,W503"]
-  #       files: ^(pipeline|services|scripts|tests)/.*\.py$
+  #       files: ^(pipeline_client|services|scripts|shared|tests|functions)/.*\.py$
 
   # - repo: https://github.com/pre-commit/mirrors-mypy
   #   rev: v1.8.0
   #   hooks:
   #     - id: mypy
-  #       files: ^(pipeline|services|scripts)/.*\.py$
+  #       files: ^(pipeline_client|services|scripts|shared|functions)/.*\.py$
   #       additional_dependencies: [types-requests, types-PyYAML]
   #       args: ["--ignore-missing-imports"]

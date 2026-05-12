@@ -34,7 +34,7 @@ isort --profile black --line-length 127 <file>
 cd web && npm ci && npm run check && npm run build && npm run test:unit -- --run
 
 # Terraform
-cd infra && terraform fmt -check -recursive && terraform validate
+cd infra && terraform fmt -check -recursive && terraform init -backend=false && terraform validate
 ```
 
 CI (`.github/workflows/ci.yaml`) runs all four on push/PR to `main`/`develop`. CD auto-deploys on `main` via Terraform.
@@ -43,9 +43,9 @@ CI (`.github/workflows/ci.yaml`) runs all four on push/PR to `main`/`develop`. C
 
 - **Black** (line-length 127, py310) + **isort** (profile "black") — config in `pyproject.toml`
 - **Pydantic v2 only** — use `model_dump()` / `model_validate()`, never v1 `.dict()` / `.parse_obj()`
-- **Absolute imports** — `from pipeline_client.agent.agent import run_agent`, not relative
+- **Imports** — use established package-relative imports inside a package; use absolute imports across package boundaries (for example, `from shared.models import RaceJSON`)
 - **Lazy imports in handlers** to break circular dependencies — import inside functions, not at module top
-- **Logging** — all loggers use `logging.getLogger("pipeline")`, not `__name__`
+- **Logging** — pipeline runner/agent code uses `logging.getLogger("pipeline")`; service modules may use module loggers where already established
 - **Async** with `httpx.AsyncClient` for HTTP; FastAPI endpoints are async where applicable
 - **Race ID format** — lowercase only, validated via `^[a-z0-9][a-z0-9_-]{0,99}$` (e.g., `ga-senate-2026`)
 - **Auth0 on endpoints** — protected routes use `dependencies=[Depends(verify_token)]`; local dev can set `SKIP_AUTH=true`
