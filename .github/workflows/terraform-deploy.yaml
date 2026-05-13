@@ -162,6 +162,10 @@ jobs:
             echo "Skipping $name (not set)"
             return
           fi
+          if ! gcloud secrets describe "$name" --project=${{ env.PROJECT_ID }} >/dev/null 2>&1; then
+            echo "Creating $name..."
+            gcloud secrets create "$name" --replication-policy=automatic --project=${{ env.PROJECT_ID }}
+          fi
           # Get the current latest value and compare
           current=$(gcloud secrets versions access latest --secret="$name" --project=${{ env.PROJECT_ID }} 2>/dev/null || echo "")
           if [ "$current" = "$value" ]; then
@@ -176,6 +180,7 @@ jobs:
         sync_secret "anthropic-api-key-${{ env.ENVIRONMENT }}" "$ANTHROPIC_API_KEY"
         sync_secret "gemini-api-key-${{ env.ENVIRONMENT }}"   "$GEMINI_API_KEY"
         sync_secret "xai-api-key-${{ env.ENVIRONMENT }}"      "$XAI_API_KEY"
+        sync_secret "races-api-admin-key-${{ env.ENVIRONMENT }}" "$ADMIN_API_KEY"
 
     - name: Check if state bucket exists
       run: |

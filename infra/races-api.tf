@@ -120,7 +120,7 @@ resource "google_cloud_run_v2_service" "races_api" {
   }
 
   lifecycle {
-    prevent_destroy = false
+    prevent_destroy = true
 
     ignore_changes = [
       template[0].annotations,

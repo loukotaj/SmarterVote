@@ -8,6 +8,7 @@
 # The zip is created by the CI workflow before `terraform apply` runs.
 # Using the git SHA in the object name forces a rebuild on every deploy.
 resource "google_storage_bucket_object" "agent_function_source" {
+  count        = var.enable_agent_function ? 1 : 0
   name         = "functions/agent-source-${var.app_version}.zip"
   bucket       = google_storage_bucket.sv_data.name
   source       = "${path.module}/functions-agent-source.zip"
@@ -20,6 +21,7 @@ resource "google_storage_bucket_object" "agent_function_source" {
 
 # Service account for the agent function
 resource "google_service_account" "agent_function" {
+  count        = var.enable_agent_function ? 1 : 0
   project      = var.project_id
   account_id   = "agent-function-${var.environment}"
   display_name = "SmarterVote Agent Cloud Function SA (${var.environment})"
@@ -27,38 +29,44 @@ resource "google_service_account" "agent_function" {
 
 # IAM roles for the agent function SA
 resource "google_project_iam_member" "agent_function_firestore" {
+  count   = var.enable_agent_function ? 1 : 0
   project = var.project_id
   role    = "roles/datastore.user"
-  member  = "serviceAccount:${google_service_account.agent_function.email}"
+  member  = "serviceAccount:${google_service_account.agent_function[0].email}"
 }
 
 resource "google_project_iam_member" "agent_function_gcs" {
+  count   = var.enable_agent_function ? 1 : 0
   project = var.project_id
   role    = "roles/storage.objectAdmin"
-  member  = "serviceAccount:${google_service_account.agent_function.email}"
+  member  = "serviceAccount:${google_service_account.agent_function[0].email}"
 }
 
 resource "google_project_iam_member" "agent_function_secret" {
+  count   = var.enable_agent_function ? 1 : 0
   project = var.project_id
   role    = "roles/secretmanager.secretAccessor"
-  member  = "serviceAccount:${google_service_account.agent_function.email}"
+  member  = "serviceAccount:${google_service_account.agent_function[0].email}"
 }
 
 resource "google_project_iam_member" "agent_function_eventarc" {
+  count   = var.enable_agent_function ? 1 : 0
   project = var.project_id
   role    = "roles/eventarc.eventReceiver"
-  member  = "serviceAccount:${google_service_account.agent_function.email}"
+  member  = "serviceAccount:${google_service_account.agent_function[0].email}"
 }
 
 resource "google_project_iam_member" "agent_function_run_invoker" {
+  count   = var.enable_agent_function ? 1 : 0
   project = var.project_id
   role    = "roles/run.invoker"
-  member  = "serviceAccount:${google_service_account.agent_function.email}"
+  member  = "serviceAccount:${google_service_account.agent_function[0].email}"
 }
 
 # Cloud Functions service agent needs read access to the source object bucket
 # to copy the uploaded zip into the internal gcf-v2-sources bucket.
 resource "google_storage_bucket_iam_member" "gcf_admin_source_reader" {
+  count  = var.enable_agent_function ? 1 : 0
   bucket = google_storage_bucket.sv_data.name
   role   = "roles/storage.objectViewer"
   member = "serviceAccount:service-${data.google_project.project.number}@gcf-admin-robot.iam.gserviceaccount.com"
@@ -66,6 +74,7 @@ resource "google_storage_bucket_iam_member" "gcf_admin_source_reader" {
 
 # Ensure Eventarc's Google-managed service agent has its required project role.
 resource "google_project_iam_member" "eventarc_service_agent" {
+  count   = var.enable_agent_function ? 1 : 0
   project = var.project_id
   role    = "roles/eventarc.serviceAgent"
   member  = "serviceAccount:service-${data.google_project.project.number}@gcp-sa-eventarc.iam.gserviceaccount.com"
@@ -73,6 +82,7 @@ resource "google_project_iam_member" "eventarc_service_agent" {
 
 # Cloud Function v2 (backed by Cloud Run gen2)
 resource "google_cloudfunctions2_function" "agent" {
+  count    = var.enable_agent_function ? 1 : 0
   name     = "agent-${var.environment}"
   location = var.region
   project  = var.project_id
@@ -83,7 +93,7 @@ resource "google_cloudfunctions2_function" "agent" {
     source {
       storage_source {
         bucket = google_storage_bucket.sv_data.name
-        object = google_storage_bucket_object.agent_function_source.name
+        object = google_storage_bucket_object.agent_function_source[0].name
       }
     }
     environment_variables = {
@@ -101,7 +111,7 @@ resource "google_cloudfunctions2_function" "agent" {
     available_memory = "2Gi"
     available_cpu    = "2"
 
-    service_account_email = google_service_account.agent_function.email
+    service_account_email = google_service_account.agent_function[0].email
 
     environment_variables = {
       PROJECT_ID             = var.project_id
@@ -127,7 +137,7 @@ resource "google_cloudfunctions2_function" "agent" {
     }
 
     dynamic "secret_environment_variables" {
-      for_each = length(google_secret_manager_secret.anthropic_key) > 0 ? [1] : []
+      for_each = var.anthropic_api_key != "" ? [1] : []
       content {
         key        = "ANTHROPIC_API_KEY"
         project_id = var.project_id
@@ -137,7 +147,7 @@ resource "google_cloudfunctions2_function" "agent" {
     }
 
     dynamic "secret_environment_variables" {
-      for_each = length(google_secret_manager_secret.gemini_key) > 0 ? [1] : []
+      for_each = var.gemini_api_key != "" ? [1] : []
       content {
         key        = "GEMINI_API_KEY"
         project_id = var.project_id
@@ -147,7 +157,7 @@ resource "google_cloudfunctions2_function" "agent" {
     }
 
     dynamic "secret_environment_variables" {
-      for_each = length(google_secret_manager_secret.xai_key) > 0 ? [1] : []
+      for_each = var.xai_api_key != "" ? [1] : []
       content {
         key        = "XAI_API_KEY"
         project_id = var.project_id
@@ -170,7 +180,7 @@ resource "google_cloudfunctions2_function" "agent" {
       value     = "pipeline_queue/{item_id}"
       operator  = "match-path-pattern"
     }
-    service_account_email = google_service_account.agent_function.email
+    service_account_email = google_service_account.agent_function[0].email
     retry_policy          = "RETRY_POLICY_DO_NOT_RETRY"
   }
 
@@ -189,9 +199,10 @@ data "google_project" "project" {
 }
 
 resource "google_cloud_run_v2_service_iam_member" "agent_function_invoker" {
+  count    = var.enable_agent_function ? 1 : 0
   project  = var.project_id
   location = var.region
-  name     = google_cloudfunctions2_function.agent.name
+  name     = google_cloudfunctions2_function.agent[0].name
   role     = "roles/run.invoker"
   member   = "serviceAccount:service-${data.google_project.project.number}@gcp-sa-eventarc.iam.gserviceaccount.com"
 }
@@ -199,5 +210,5 @@ resource "google_cloud_run_v2_service_iam_member" "agent_function_invoker" {
 # Output the function URL for reference
 output "agent_function_url" {
   description = "URL of the agent Cloud Function (not publicly invocable — Eventarc only)"
-  value       = google_cloudfunctions2_function.agent.service_config[0].uri
+  value       = var.enable_agent_function ? google_cloudfunctions2_function.agent[0].service_config[0].uri : null
 }

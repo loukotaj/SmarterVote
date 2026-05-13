@@ -5,6 +5,7 @@ resource "google_storage_bucket" "sv_data" {
   project  = var.project_id
 
   uniform_bucket_level_access = true
+  force_destroy               = !(var.environment == "prod" && var.prevent_destroy_prod)
 
   versioning {
     enabled = true
@@ -34,7 +35,7 @@ resource "google_storage_bucket" "sv_data" {
 
   # Prevent accidental deletion and ignore certain changes
   lifecycle {
-    prevent_destroy = false
+    prevent_destroy = true
     ignore_changes = [
       # Ignore changes to labels that might be managed externally
       labels,

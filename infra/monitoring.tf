@@ -57,7 +57,7 @@ resource "google_monitoring_notification_channel" "email" {
   }
 }
 
-# Alert: races-api 5xx error rate > 5% sustained for 5 minutes
+# Alert: races-api 5xx response rate sustained for 5 minutes
 resource "google_monitoring_alert_policy" "races_api_errors" {
   count        = var.alert_email != "" ? 1 : 0
   project      = var.project_id
@@ -65,7 +65,7 @@ resource "google_monitoring_alert_policy" "races_api_errors" {
   combiner     = "OR"
 
   conditions {
-    display_name = "5xx responses > 5% for 5 minutes"
+    display_name = "5xx responses > 0.05/sec for 5 minutes"
 
     condition_threshold {
       filter          = "resource.type = \"cloud_run_revision\" AND resource.labels.service_name = \"races-api-${var.environment}\" AND metric.type = \"run.googleapis.com/request_count\" AND metric.labels.response_code_class = \"5xx\""

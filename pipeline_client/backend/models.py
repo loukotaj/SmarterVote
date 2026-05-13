@@ -2,7 +2,7 @@ from datetime import datetime
 from enum import Enum
 from typing import Any, Dict, List, Optional
 
-from pydantic import BaseModel, field_validator, model_validator
+from pydantic import BaseModel, Field, field_validator, model_validator
 
 
 class RunStatus(str, Enum):
@@ -22,6 +22,7 @@ class PipelineStep(str, Enum):
     Update runs execute the same steps in the same order: 'discovery' maps to roster sync +
     meta update, and 'images' runs right after discovery (same position as fresh runs).
     """
+
     DISCOVERY = "discovery"
     IMAGES = "images"
     ISSUES = "issues"
@@ -64,10 +65,10 @@ class RunOptions(BaseModel):
     goal: Optional[str] = None  # Short description of why this run is being triggered (shown in Runs tab)
     force_fresh: bool = False  # Ignore existing data and start from scratch
     # Model overrides (None = use default based on cheap_mode)
-    research_model: Optional[str] = None   # OpenAI model for research phases
-    claude_model: Optional[str] = None     # Claude model for review
-    gemini_model: Optional[str] = None     # Gemini model for review
-    grok_model: Optional[str] = None       # Grok model for review
+    research_model: Optional[str] = None  # OpenAI model for research phases
+    claude_model: Optional[str] = None  # Claude model for review
+    gemini_model: Optional[str] = None  # Gemini model for review
+    grok_model: Optional[str] = None  # Grok model for review
     # Step-level configuration: list of step names to run.
     # None/empty = all steps (backward compatible). Steps not listed are SKIPPED.
     enabled_steps: Optional[List[str]] = None
@@ -103,11 +104,10 @@ class RunOptions(BaseModel):
         if self.enabled_steps and "iteration" in self.enabled_steps and "review" not in self.enabled_steps:
             raise ValueError("'iteration' requires 'review' in enabled_steps")
         return self
-    candidate_names: Optional[List[str]] = None  # Exact candidate names to target
 
 
 class RunRequest(BaseModel):
-    payload: Dict[str, Any] = {}
+    payload: Dict[str, Any] = Field(default_factory=dict)
     options: Optional[RunOptions] = None
 
 
@@ -118,7 +118,7 @@ class RunResponse(BaseModel):
     error: Optional[str] = None
     artifact_id: Optional[str] = None
     duration_ms: Optional[int] = None
-    meta: Dict[str, Any] = {}
+    meta: Dict[str, Any] = Field(default_factory=dict)
 
 
 class RunStep(BaseModel):
@@ -148,8 +148,8 @@ class RunInfo(BaseModel):
     duration_ms: Optional[int] = None
     artifact_id: Optional[str] = None
     error: Optional[str] = None
-    steps: List[RunStep] = []
-    logs: Optional[List[Dict]] = []
+    steps: List[RunStep] = Field(default_factory=list)
+    logs: Optional[List[Dict]] = Field(default_factory=list)
 
 
 class LogEntry(BaseModel):

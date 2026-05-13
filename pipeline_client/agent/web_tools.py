@@ -25,6 +25,7 @@ def _get_search_cache():
     """Return the shared SearchCache instance, or None if unavailable."""
     try:
         from pipeline_client.agent.search_cache import get_search_cache
+
         return get_search_cache()
     except Exception:
         return None
@@ -47,8 +48,12 @@ def _strip_html(html: str) -> str:
     text = re.sub(r"<[^>]+>", " ", text)
     # Decode common HTML entities
     for entity, char in [
-        ("&amp;", "&"), ("&lt;", "<"), ("&gt;", ">"),
-        ("&nbsp;", " "), ("&quot;", '"'), ("&#39;", "'"),
+        ("&amp;", "&"),
+        ("&lt;", "<"),
+        ("&gt;", ">"),
+        ("&nbsp;", " "),
+        ("&quot;", '"'),
+        ("&#39;", "'"),
     ]:
         text = text.replace(entity, char)
     # Collapse whitespace
@@ -67,23 +72,20 @@ def _strip_html(html: str) -> str:
 _PAGE_MAX_CHARS = 16000
 _PAGE_MIN_USEFUL_CHARS = 300
 _PAGE_PROXY_RETRY_CHARS = 900
-_BROWSER_UA = (
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-    "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
-)
+_BROWSER_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) " "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
 
 # ---------------------------------------------------------------------------
 # URL validation (SSRF protection)
 # ---------------------------------------------------------------------------
 
 _PRIVATE_NETWORKS = [
-    ipaddress.ip_network("127.0.0.0/8"),    # loopback
-    ipaddress.ip_network("10.0.0.0/8"),     # RFC 1918
+    ipaddress.ip_network("127.0.0.0/8"),  # loopback
+    ipaddress.ip_network("10.0.0.0/8"),  # RFC 1918
     ipaddress.ip_network("172.16.0.0/12"),  # RFC 1918
-    ipaddress.ip_network("192.168.0.0/16"), # RFC 1918
-    ipaddress.ip_network("169.254.0.0/16"), # link-local / GCP metadata
-    ipaddress.ip_network("::1/128"),        # IPv6 loopback
-    ipaddress.ip_network("fc00::/7"),       # IPv6 ULA
+    ipaddress.ip_network("192.168.0.0/16"),  # RFC 1918
+    ipaddress.ip_network("169.254.0.0/16"),  # link-local / GCP metadata
+    ipaddress.ip_network("::1/128"),  # IPv6 loopback
+    ipaddress.ip_network("fc00::/7"),  # IPv6 ULA
 ]
 
 
@@ -104,6 +106,28 @@ def _validate_url(url: str) -> None:
     except socket.gaierror:
         # DNS failure — let the actual fetch fail naturally; don't block
         pass
+
+
+async def _get_validated(
+    client: httpx.AsyncClient,
+    url: str,
+    *,
+    headers: Dict[str, str] | None = None,
+    max_redirects: int = 5,
+) -> httpx.Response:
+    """GET a URL while validating each redirect target before following it."""
+    current_url = url
+    for _ in range(max_redirects + 1):
+        _validate_url(current_url)
+        resp = await client.get(current_url, headers=headers)
+        if not getattr(resp, "is_redirect", False):
+            return resp
+        location = resp.headers.get("location")
+        if not location:
+            return resp
+        current_url = urljoin(str(resp.url), location)
+    raise ValueError(f"Too many redirects while fetching {url}")
+
 
 _UNUSABLE_PAGE_MARKERS = [
     "enable javascript",
@@ -234,7 +258,7 @@ def _get_fetch_client() -> httpx.AsyncClient:
     if client is None or client.is_closed:
         client = httpx.AsyncClient(
             timeout=20,
-            follow_redirects=True,
+            follow_redirects=False,
             headers={"User-Agent": _BROWSER_UA},
         )
         _fetch_clients_by_loop[loop_id] = client
@@ -290,7 +314,7 @@ async def _fetch_page(url: str) -> str:
 
     for headers in header_profiles:
         try:
-            resp = await client.get(url, headers=headers or None)
+            resp = await _get_validated(client, url, headers=headers or None)
             resp.raise_for_status()
             content_type = resp.headers.get("content-type", "")
             if "html" in content_type or "text" in content_type:
@@ -307,7 +331,7 @@ async def _fetch_page(url: str) -> str:
             if len(text.strip()) < _PAGE_PROXY_RETRY_CHARS:
                 try:
                     proxy_url = f"https://r.jina.ai/{url}"
-                    proxy_resp = await client.get(proxy_url)
+                    proxy_resp = await _get_validated(client, proxy_url)
                     proxy_resp.raise_for_status()
                     proxy_text = proxy_resp.text.strip()
                     if (not _is_unusable_page_text(proxy_text)) and (len(proxy_text) > len(text) + 200):
@@ -331,7 +355,7 @@ async def _fetch_page(url: str) -> str:
     # Fallback: jina text proxy often succeeds when direct fetches hit bot checks.
     proxy_url = f"https://r.jina.ai/{url}"
     try:
-        proxy_resp = await client.get(proxy_url)
+        proxy_resp = await _get_validated(client, proxy_url)
         proxy_resp.raise_for_status()
         proxy_text = proxy_resp.text.strip()
         if not _is_unusable_page_text(proxy_text):
@@ -478,7 +502,7 @@ async def _try_sitemap_policy_fallback(url: str, client: httpx.AsyncClient, fail
     discovered_pages.append(homepage_url)
     for sitemap_url in sitemap_urls:
         try:
-            resp = await client.get(sitemap_url, headers=headers)
+            resp = await _get_validated(client, sitemap_url, headers=headers)
             resp.raise_for_status()
             discovered = _extract_sitemap_urls(resp.text, parsed.netloc)
             for page_url in discovered:
@@ -506,7 +530,7 @@ async def _try_sitemap_policy_fallback(url: str, client: httpx.AsyncClient, fail
 
     for candidate_url in candidates:
         try:
-            resp = await client.get(candidate_url, headers=headers)
+            resp = await _get_validated(client, candidate_url, headers=headers)
             resp.raise_for_status()
             content_type = resp.headers.get("content-type", "")
             if "html" in content_type or "text" in content_type:
@@ -592,9 +616,7 @@ def _page_fetch_log_hint(url: str, page_text: str) -> Optional[str]:
 # ---------------------------------------------------------------------------
 
 
-async def _serper_search(
-    query: str, *, num_results: int = 8, race_id: Optional[str] = None
-) -> List[Dict[str, Any]]:
+async def _serper_search(query: str, *, num_results: int = 8, race_id: Optional[str] = None) -> List[Dict[str, Any]]:
     """Execute a web search via the Serper API, with caching."""
     if not query or not query.strip():
         logger.warning("_serper_search called with empty query — skipping")
@@ -622,20 +644,25 @@ async def _serper_search(
 
     results: List[Dict[str, Any]] = []
     for item in data.get("organic", []):
-        results.append({
-            "title": item.get("title", ""),
-            "snippet": item.get("snippet", ""),
-            "url": item.get("link", ""),
-        })
+        results.append(
+            {
+                "title": item.get("title", ""),
+                "snippet": item.get("snippet", ""),
+                "url": item.get("link", ""),
+            }
+        )
 
     kg = data.get("knowledgeGraph")
     if kg:
-        results.insert(0, {
-            "title": kg.get("title", ""),
-            "snippet": kg.get("description", ""),
-            "url": kg.get("website", kg.get("descriptionLink", "")),
-            "type": "knowledge_graph",
-        })
+        results.insert(
+            0,
+            {
+                "title": kg.get("title", ""),
+                "snippet": kg.get("description", ""),
+                "url": kg.get("website", kg.get("descriptionLink", "")),
+                "type": "knowledge_graph",
+            },
+        )
 
     if cache:
         cache.set(query, results, race_id=race_id, provider="serper")

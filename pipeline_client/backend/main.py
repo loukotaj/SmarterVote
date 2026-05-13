@@ -77,8 +77,10 @@ app.add_middleware(
 
 async def _decode_token(token: str) -> Dict[str, Any]:
     jwks_url = f"https://{settings.auth0_domain}/.well-known/jwks.json"
-    async with httpx.AsyncClient() as client:
-        jwks = (await client.get(jwks_url)).json()
+    async with httpx.AsyncClient(timeout=10) as client:
+        resp = await client.get(jwks_url)
+        resp.raise_for_status()
+        jwks = resp.json()
     unverified = jwt.get_unverified_header(token)
     rsa_key = next((k for k in jwks["keys"] if k.get("kid") == unverified.get("kid")), None)
     if not rsa_key:
@@ -86,7 +88,7 @@ async def _decode_token(token: str) -> Dict[str, Any]:
     return jwt.decode(
         token,
         rsa_key,
-        algorithms=[unverified.get("alg", "RS256")],
+        algorithms=["RS256"],
         audience=settings.auth0_audience,
         issuer=f"https://{settings.auth0_domain}/",
     )
@@ -106,7 +108,7 @@ async def verify_token(
         raise HTTPException(status_code=401, detail="Missing token")
     try:
         return await _decode_token(credentials.credentials)
-    except (JWTError, httpx.HTTPError) as exc:
+    except (JWTError, httpx.HTTPError, KeyError, ValueError) as exc:
         raise HTTPException(status_code=401, detail="Invalid authentication") from exc
 
 

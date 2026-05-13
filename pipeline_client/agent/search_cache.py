@@ -343,8 +343,7 @@ class SearchCache:
         searches: List[Dict[str, Any]] = []
         with sqlite3.connect(self.db_path) as conn:
             rows = conn.execute(
-                "SELECT query_text, results FROM search_cache "
-                "WHERE race_id = ? AND expires_at > ?",
+                "SELECT query_text, results FROM search_cache " "WHERE race_id = ? AND expires_at > ?",
                 (race_id, now),
             )
             all_urls: set = set()
@@ -358,10 +357,8 @@ class SearchCache:
                 all_urls.update(urls)
 
             # Also list page-cache URLs that are still valid
-            page_rows = conn.execute(
-                "SELECT url FROM page_cache WHERE expires_at > ?", (now,)
-            )
-            page_urls = [r[0] for r in page_rows if r[0] in all_urls or True]
+            page_rows = conn.execute("SELECT url FROM page_cache WHERE expires_at > ?", (now,))
+            page_urls = [r[0] for r in page_rows if r[0] in all_urls]
 
         return {"searches": searches, "page_urls": page_urls}
 

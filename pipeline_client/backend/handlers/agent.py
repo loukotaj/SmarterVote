@@ -8,6 +8,7 @@ import json
 import logging
 import os
 import re
+import shutil
 import time
 import uuid
 from datetime import datetime, timezone
@@ -99,9 +100,7 @@ class AgentHandler:
         then passes a step_tracker to the agent so phases report back directly.
         """
         from pipeline_client.agent.agent import run_agent
-        from pipeline_client.backend.models import (
-            ALL_STEPS, PipelineStep, RunStatus, STEP_LABELS, STEP_WEIGHTS,
-        )
+        from pipeline_client.backend.models import ALL_STEPS, STEP_LABELS, STEP_WEIGHTS, PipelineStep, RunStatus
 
         logger = logging.getLogger("pipeline")
         race_id = payload.get("race_id")
@@ -135,9 +134,7 @@ class AgentHandler:
 
         # Deadline for Cloud Function handoff.  Callers (CF entry point) can
         # inject a tighter deadline via options; default is 55 min from now.
-        deadline_at: float = options.get(
-            "deadline_at", time.time() + DEFAULT_DEADLINE_SECONDS
-        )
+        deadline_at: float = options.get("deadline_at", time.time() + DEFAULT_DEADLINE_SECONDS)
 
         # Firestore logger (fire-and-forget; no-ops locally when Firestore is absent)
         from pipeline_client.backend.firestore_logger import FirestoreLogger
@@ -151,6 +148,7 @@ class AgentHandler:
         try:
             from pipeline_client.backend.pipeline_runner import _safe_broadcast
             from pipeline_client.backend.run_manager import run_manager as _run_manager
+
             if not run_id:
                 # Fallback: pick the first active run (legacy path)
                 active = next(iter(_run_manager.list_active_runs()), None)
@@ -410,6 +408,7 @@ class AgentHandler:
             wrote_continuation = False
             try:
                 from pipeline_client.backend.firestore_logger import _get_db
+
                 db = _get_db()
                 if not db:
                     raise RuntimeError("Firestore is not available for continuation handoff")
@@ -417,17 +416,19 @@ class AgentHandler:
                 continuation_options["enabled_steps"] = remaining
                 continuation_options["is_continuation"] = True
                 continuation_options["parent_run_id"] = current_run_id
-                db.collection("pipeline_queue").document(item_id).set({
-                    "id": item_id,
-                    "race_id": current_race_id,
-                    "run_id": continuation_run_id,
-                    "status": "pending",
-                    "options": continuation_options,
-                    "created_at": datetime.now(timezone.utc).isoformat(),
-                    "is_continuation": True,
-                    "parent_run_id": current_run_id,
-                    "existing_data_gcs_path": checkpoint_gcs_path,
-                })
+                db.collection("pipeline_queue").document(item_id).set(
+                    {
+                        "id": item_id,
+                        "race_id": current_race_id,
+                        "run_id": continuation_run_id,
+                        "status": "pending",
+                        "options": continuation_options,
+                        "created_at": datetime.now(timezone.utc).isoformat(),
+                        "is_continuation": True,
+                        "parent_run_id": current_run_id,
+                        "existing_data_gcs_path": checkpoint_gcs_path,
+                    }
+                )
                 wrote_continuation = True
                 logger.info("Continuation queue item %s written for steps: %s", item_id, remaining)
             except Exception as _e:
@@ -494,6 +495,7 @@ class AgentHandler:
         # Update race record metadata from the new draft data
         try:
             from pipeline_client.backend.race_manager import race_manager
+
             race_manager.update_race_metadata(race_id, race_json)
         except Exception:
             logger.warning("Failed to update race metadata after draft save", exc_info=True)
@@ -504,12 +506,16 @@ class AgentHandler:
         # Record pipeline metrics (fire-and-forget)
         try:
             from pipeline_client.backend.pipeline_metrics import get_pipeline_metrics_store
+
             agent_metrics = race_json.get("agent_metrics")
             rid = run_id or f"{race_id}-{int(t0)}"
             candidate_count = len(race_json.get("candidates") or [])
             _cheap_mode = bool(options.get("cheap_mode", True))
             await get_pipeline_metrics_store().record_run(
-                rid, race_id, agent_metrics, "completed",
+                rid,
+                race_id,
+                agent_metrics,
+                "completed",
                 candidate_count=candidate_count,
                 cheap_mode=_cheap_mode,
             )
@@ -547,13 +553,17 @@ class AgentHandler:
 
         json_str = json.dumps(race_json, indent=2, default=str)
 
-        if output_path.exists():
-            self._archive_local_version(output_path, race_id, source="draft")
-
-        with output_path.open("w", encoding="utf-8") as f:
+        tmp_path = output_path.with_suffix(".json.tmp")
+        with tmp_path.open("w", encoding="utf-8") as f:
             f.write(json_str)
 
-        # Also upload to GCS drafts/ prefix, retiring the previous active draft first.
+        if output_path.exists():
+            self._archive_local_version(output_path, race_id, source="draft")
+        tmp_path.replace(output_path)
+
+        # Also upload to GCS drafts/ prefix. Archive the previous active draft
+        # before overwriting it, but do not delete it first; if upload fails, the
+        # old active object remains available.
         await self._archive_gcs_version(race_id, src_prefix="drafts", source="draft")
         await self._upload_to_gcs(race_id, json_str, prefix="drafts")
 
@@ -568,11 +578,11 @@ class AgentHandler:
         retired_dir.mkdir(parents=True, exist_ok=True)
         stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
         retired_path = retired_dir / f"{stamp}-{source}.json"
-        source_path.replace(retired_path)
+        shutil.copy2(source_path, retired_path)
         return retired_path
 
     async def _archive_gcs_version(self, race_id: str, *, src_prefix: str, source: str) -> bool:
-        """Move an active GCS object into retired/ if it exists."""
+        """Copy an active GCS object into retired/ if it exists."""
         logger = logging.getLogger("pipeline")
         from pipeline_client.backend.settings import settings
 
@@ -591,7 +601,6 @@ class AgentHandler:
 
             retired_blob = bucket.blob(self._retired_blob_name(race_id, source))
             bucket.copy_blob(src_blob, bucket, retired_blob.name)
-            src_blob.delete()
             logger.info(
                 "Archived %s from GCS %s/ to gs://%s/%s",
                 race_id,
@@ -656,8 +665,7 @@ class AgentHandler:
                 data = json.loads(blob.download_as_text())
                 if not isinstance(data.get("candidates"), list) or len(data["candidates"]) == 0:
                     logger.warning(
-                        f"Existing GCS file {prefix}/{race_id} has no candidates "
-                        f"(keys: {list(data.keys())}) — skipping"
+                        f"Existing GCS file {prefix}/{race_id} has no candidates " f"(keys: {list(data.keys())}) — skipping"
                     )
                     continue
                 logger.info(f"Loaded existing {race_id} from GCS {prefix}/ for update mode")

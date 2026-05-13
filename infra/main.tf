@@ -106,7 +106,7 @@ resource "google_project_service" "apis" {
 
   project                    = var.project_id
   service                    = each.value
-  disable_dependent_services = true
+  disable_dependent_services = false
 }
 
 # Artifact Registry for enhanced container management (recommended over GCR)

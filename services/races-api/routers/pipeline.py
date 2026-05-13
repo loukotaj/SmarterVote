@@ -219,12 +219,38 @@ def _parse_admin_chat_reply(reply_text: str) -> Dict[str, Any]:
     }
 
 
-def _load_admin_race_context(limit: int = 500) -> list[Dict[str, Any]]:
+def _compact_admin_race_context(records: list[Dict[str, Any]]) -> list[Dict[str, Any]]:
+    """Keep only bounded, low-volume fields needed for admin chat grounding."""
+    allowed = (
+        "race_id",
+        "id",
+        "title",
+        "status",
+        "quality_grade",
+        "freshness",
+        "candidate_count",
+        "last_run_at",
+        "last_run_status",
+        "published_at",
+        "draft_updated_at",
+        "office",
+        "jurisdiction",
+        "election_date",
+    )
+    compact: list[Dict[str, Any]] = []
+    for record in records:
+        item = {key: record.get(key) for key in allowed if record.get(key) is not None}
+        if item:
+            compact.append(item)
+    return compact
+
+
+def _load_admin_race_context(limit: int = 100) -> list[Dict[str, Any]]:
     """Load compact race records for admin-chat grounding."""
     try:
         docs = firestore_helpers._get_fs().collection("races").limit(limit).stream()
         records = [firestore_helpers._doc_to_plain(doc) for doc in docs]
-        return [record for record in records if record is not None]
+        return _compact_admin_race_context([record for record in records if record is not None])
     except Exception as exc:
         logging.warning("Failed to load admin-chat race context: %s", exc)
         return []
@@ -349,7 +375,9 @@ async def admin_chat(request: AdminChatRequest) -> Dict[str, Any]:
         'QUESTION:{"text":"Your question"}\n'
         "Do not wrap ACTION or QUESTION blocks in markdown. Use exact race IDs."
     )
-    race_context = request.race_context or _load_admin_race_context()
+    race_context = (
+        _compact_admin_race_context(request.race_context[:100]) if request.race_context else _load_admin_race_context()
+    )
     if race_context:
         system_content += f"\n\nCurrent race context (JSON):\n{json.dumps(race_context, indent=2, default=str)}"
     messages = [{"role": "system", "content": system_content}]

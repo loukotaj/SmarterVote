@@ -28,13 +28,15 @@ async def _run_and_save_post_analysis(
     async def _emit(message: str, level: str = "info") -> None:
         """Log to Python and record a structured local status event."""
         getattr(_log, level, _log.info)(f"[post-analysis] {message}")
-        await logging_manager.broadcast_message({
-            "type": "log",
-            "level": level,
-            "message": message,
-            "run_id": run_id,
-            "timestamp": datetime.now(timezone.utc).isoformat(),
-        })
+        await logging_manager.broadcast_message(
+            {
+                "type": "log",
+                "level": level,
+                "message": message,
+                "run_id": run_id,
+                "timestamp": datetime.now(timezone.utc).isoformat(),
+            }
+        )
 
     try:
         from pipeline_client.agent.review import run_post_run_analysis
@@ -50,15 +52,18 @@ async def _run_and_save_post_analysis(
         # 1. Save as its own artifact so it is retrievable independently of UI polling.
         try:
             analysis_artifact_id = new_artifact_id("post-analysis")
-            save_artifact(analysis_artifact_id, {
-                "type": "post_run_analysis",
-                "run_id": run_id,
-                "race_id": race_id,
-                "model": model,
-                "analyzed_at": result.get("analyzed_at"),
-                "log_count": result.get("log_count", len(logs)),
-                "analysis": analysis_text,
-            })
+            save_artifact(
+                analysis_artifact_id,
+                {
+                    "type": "post_run_analysis",
+                    "run_id": run_id,
+                    "race_id": race_id,
+                    "model": model,
+                    "analyzed_at": result.get("analyzed_at"),
+                    "log_count": result.get("log_count", len(logs)),
+                    "analysis": analysis_text,
+                },
+            )
             _log.info(f"Post-run analysis saved as artifact {analysis_artifact_id}")
         except Exception:
             _log.warning("Failed to save post-run analysis artifact", exc_info=True)
@@ -68,7 +73,7 @@ async def _run_and_save_post_analysis(
             try:
                 from pathlib import Path as _Path
 
-                draft_path = _Path(__file__).resolve().parents[1] / "data" / "drafts" / f"{race_id}.json"
+                draft_path = _Path(__file__).resolve().parents[2] / "data" / "drafts" / f"{race_id}.json"
                 if draft_path.exists():
                     import json as _json
 
@@ -193,6 +198,7 @@ async def run_step_async(step: str, request: RunRequest, run_id: Optional[str] =
                 context_logger.info("Saving artifact...")
                 artifact_id = new_artifact_id(step)
                 import json as _json
+
                 save_artifact(
                     artifact_id,
                     {
@@ -283,9 +289,13 @@ async def run_step_async(step: str, request: RunRequest, run_id: Optional[str] =
         # Record pipeline metrics for failed run
         try:
             from pipeline_client.backend.pipeline_metrics import get_pipeline_metrics_store
+
             _cheap_mode = bool(_merge_options(request.options).get("cheap_mode", True))
             await get_pipeline_metrics_store().record_run(
-                run_id, race_id or "unknown", None, "failed",
+                run_id,
+                race_id or "unknown",
+                None,
+                "failed",
                 candidate_count=0,
                 cheap_mode=_cheap_mode,
             )

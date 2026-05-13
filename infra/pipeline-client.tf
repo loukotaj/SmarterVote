@@ -46,32 +46,41 @@ resource "google_cloud_run_v2_service" "pipeline_client" {
         }
       }
 
-      env {
-        name = "ANTHROPIC_API_KEY"
-        value_source {
-          secret_key_ref {
-            secret  = google_secret_manager_secret.anthropic_key[0].secret_id
-            version = "latest"
+      dynamic "env" {
+        for_each = var.anthropic_api_key != "" ? { anthropic_key = true } : {}
+        content {
+          name = "ANTHROPIC_API_KEY"
+          value_source {
+            secret_key_ref {
+              secret  = google_secret_manager_secret.anthropic_key[0].secret_id
+              version = "latest"
+            }
           }
         }
       }
 
-      env {
-        name = "GEMINI_API_KEY"
-        value_source {
-          secret_key_ref {
-            secret  = google_secret_manager_secret.gemini_key[0].secret_id
-            version = "latest"
+      dynamic "env" {
+        for_each = var.gemini_api_key != "" ? { gemini_key = true } : {}
+        content {
+          name = "GEMINI_API_KEY"
+          value_source {
+            secret_key_ref {
+              secret  = google_secret_manager_secret.gemini_key[0].secret_id
+              version = "latest"
+            }
           }
         }
       }
 
-      env {
-        name = "XAI_API_KEY"
-        value_source {
-          secret_key_ref {
-            secret  = google_secret_manager_secret.xai_key[0].secret_id
-            version = "latest"
+      dynamic "env" {
+        for_each = var.xai_api_key != "" ? { xai_key = true } : {}
+        content {
+          name = "XAI_API_KEY"
+          value_source {
+            secret_key_ref {
+              secret  = google_secret_manager_secret.xai_key[0].secret_id
+              version = "latest"
+            }
           }
         }
       }
