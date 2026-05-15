@@ -3,9 +3,12 @@
 import json
 from unittest.mock import AsyncMock, MagicMock, patch
 
+import httpx
 import pytest
+from openai import APIConnectionError
 
 from pipeline_client.agent.agent import _agent_loop
+from pipeline_client.agent.llm import _call_openai
 
 FAKE_RACE_JSON = {
     "id": "mo-senate-2024",
@@ -82,6 +85,33 @@ def _mock_openai_response(content=None, tool_calls=None, finish_reason="stop"):
 # ---------------------------------------------------------------------------
 # Standard mode tests
 # ---------------------------------------------------------------------------
+
+
+@pytest.mark.asyncio
+async def test_call_openai_retries_connection_error():
+    """_call_openai retries transient SDK connection failures."""
+    response = _mock_openai_response(content=json.dumps({"result": "ok"}))
+    client = MagicMock()
+    client.chat.completions.create = AsyncMock(
+        side_effect=[
+            APIConnectionError(request=httpx.Request("POST", "https://api.openai.com/v1/chat/completions")),
+            response,
+        ]
+    )
+
+    with (
+        patch("pipeline_client.agent.llm._get_openai_client", return_value=client),
+        patch("pipeline_client.agent.llm.asyncio.sleep", new_callable=AsyncMock) as mock_sleep,
+    ):
+        result = await _call_openai(
+            [{"role": "user", "content": "Return JSON."}],
+            model="gpt-5.4-mini",
+            max_retries=2,
+        )
+
+    assert result is response
+    assert client.chat.completions.create.call_count == 2
+    mock_sleep.assert_awaited_once_with(2)
 
 
 @pytest.mark.asyncio

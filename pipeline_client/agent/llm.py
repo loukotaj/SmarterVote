@@ -7,14 +7,10 @@ import os
 import time
 from typing import Any, Dict, List, Optional
 
-from .ballotpedia import lookup_candidate_data as _ballotpedia_lookup, lookup_election_page as _ballotpedia_election_lookup
-from .cost import DEFAULT_MODEL, CHEAP_MODEL, NANO_MODEL, accumulate
-from .tools import (
-    BALLOTPEDIA_ELECTION_TOOL,
-    BALLOTPEDIA_TOOL,
-    FETCH_TOOL,
-    SEARCH_TOOL,
-)
+from .ballotpedia import lookup_candidate_data as _ballotpedia_lookup
+from .ballotpedia import lookup_election_page as _ballotpedia_election_lookup
+from .cost import CHEAP_MODEL, DEFAULT_MODEL, NANO_MODEL, accumulate
+from .tools import BALLOTPEDIA_ELECTION_TOOL, BALLOTPEDIA_TOOL, FETCH_TOOL, SEARCH_TOOL
 from .utils import _extract_json, make_logger
 from .web_tools import _fetch_page, _page_fetch_log_hint, _serper_search
 
@@ -69,14 +65,11 @@ async def _call_openai(
 
     Returns an ``openai.types.chat.ChatCompletion`` object.
     """
-    from openai import BadRequestError, RateLimitError, APIStatusError
+    from openai import APIConnectionError, APIStatusError, APITimeoutError, BadRequestError, RateLimitError
 
     client = _get_openai_client()
 
-    _supports_temperature = not (
-        model.startswith("o1") or model.startswith("o3") or model.startswith("o4")
-        or "nano" in model
-    )
+    _supports_temperature = not (model.startswith("o1") or model.startswith("o3") or model.startswith("o4") or "nano" in model)
     kwargs: Dict[str, Any] = {
         "model": model,
         "messages": messages,
@@ -104,8 +97,7 @@ async def _call_openai(
                     f"Attempting one retry with simplified prompt..."
                 )
                 simplified_msgs = [
-                    m for i, m in enumerate(messages)
-                    if i < 2 or (i == len(messages) - 1 and m.get("role") == "user")
+                    m for i, m in enumerate(messages) if i < 2 or (i == len(messages) - 1 and m.get("role") == "user")
                 ]
                 if len(simplified_msgs) < len(messages):
                     kwargs["messages"] = simplified_msgs
@@ -116,16 +108,11 @@ async def _call_openai(
                         logger.warning("Simplified prompt accepted; continuing.")
                         return resp
                     except BadRequestError as retry_exc:
-                        logger.error(
-                            f"OpenAI policy violation persists even with simplified prompt for {model}: {retry_exc}"
-                        )
-                        raise RuntimeError(
-                            f"OpenAI policy violation (unrecoverable): {exc}"
-                        ) from retry_exc
+                        logger.error(f"OpenAI policy violation persists even with simplified prompt for {model}: {retry_exc}")
+                        raise RuntimeError(f"OpenAI policy violation (unrecoverable): {exc}") from retry_exc
 
             logger.error(
-                f"OpenAI bad request (400) for model={model}: {exc}"
-                f"{' (policy violation)' if is_policy_violation else ''}"
+                f"OpenAI bad request (400) for model={model}: {exc}" f"{' (policy violation)' if is_policy_violation else ''}"
             )
             raise RuntimeError(f"OpenAI bad request: {exc}") from exc
         except RateLimitError as exc:
@@ -134,7 +121,7 @@ async def _call_openai(
             retry_after = 0
             if exc.response is not None:
                 retry_after = int(exc.response.headers.get("retry-after", 0))
-            backoff = min(600, 30 * (2 ** attempt))
+            backoff = min(600, 30 * (2**attempt))
             wait = max(retry_after, backoff)
             logger.warning(f"OpenAI 429, retrying in {wait}s (attempt {attempt + 1}/{max_retries})")
             await asyncio.sleep(wait)
@@ -142,10 +129,13 @@ async def _call_openai(
             if attempt >= max_retries - 1 or exc.status_code < 500:
                 raise
             backoff = 2 ** (attempt + 1)
-            logger.warning(
-                f"OpenAI {exc.status_code}, retrying in {backoff}s "
-                f"(attempt {attempt + 1}/{max_retries})"
-            )
+            logger.warning(f"OpenAI {exc.status_code}, retrying in {backoff}s " f"(attempt {attempt + 1}/{max_retries})")
+            await asyncio.sleep(backoff)
+        except (APIConnectionError, APITimeoutError) as exc:
+            if attempt >= max_retries - 1:
+                raise
+            backoff = min(60, 2 ** (attempt + 1))
+            logger.warning(f"OpenAI connection error, retrying in {backoff}s " f"(attempt {attempt + 1}/{max_retries}): {exc}")
             await asyncio.sleep(backoff)
 
     raise RuntimeError("OpenAI: max retries exceeded")
@@ -252,28 +242,34 @@ async def _agent_loop(
         log("info", f"  [{phase_name}] iteration {iteration + 1}/{max_iterations} — calling {model}...")
 
         if tools_mode:
-            search_tools = [SEARCH_TOOL, FETCH_TOOL, BALLOTPEDIA_TOOL, BALLOTPEDIA_ELECTION_TOOL] if iteration < nudge_at else []
+            search_tools = (
+                [SEARCH_TOOL, FETCH_TOOL, BALLOTPEDIA_TOOL, BALLOTPEDIA_ELECTION_TOOL] if iteration < nudge_at else []
+            )
             tools_for_call = search_tools + _extra_tools if (search_tools or _extra_tools) else None
 
             if iteration == nudge_at and len(messages) > 2:
-                messages.append({
-                    "role": "user",
-                    "content": (
-                        "You have used several searches. Stop searching and use your "
-                        "editing tools to commit your findings now. When you are done "
-                        "editing, make no further tool calls — do not produce a text reply."
-                    ),
-                })
+                messages.append(
+                    {
+                        "role": "user",
+                        "content": (
+                            "You have used several searches. Stop searching and use your "
+                            "editing tools to commit your findings now. When you are done "
+                            "editing, make no further tool calls — do not produce a text reply."
+                        ),
+                    }
+                )
                 log("info", f"  [{phase_name}] nudging model to commit edits (iteration {iteration + 1})")
         else:
             if iteration == nudge_at and len(messages) > 2:
-                messages.append({
-                    "role": "user",
-                    "content": (
-                        "You have used several searches. Please now compile your findings "
-                        "and return ONLY the final JSON response. No more searches."
-                    ),
-                })
+                messages.append(
+                    {
+                        "role": "user",
+                        "content": (
+                            "You have used several searches. Please now compile your findings "
+                            "and return ONLY the final JSON response. No more searches."
+                        ),
+                    }
+                )
                 log("info", f"  [{phase_name}] nudging model to produce output (iteration {iteration + 1})")
 
             base_tools = [SEARCH_TOOL, FETCH_TOOL, BALLOTPEDIA_TOOL, BALLOTPEDIA_ELECTION_TOOL] if iteration < nudge_at else []
@@ -281,9 +277,7 @@ async def _agent_loop(
 
         t_call = time.perf_counter()
         try:
-            result = await _call_openai(
-                messages, model=model, tools=tools_for_call, max_tokens=max_tokens
-            )
+            result = await _call_openai(messages, model=model, tools=tools_for_call, max_tokens=max_tokens)
         except RuntimeError as e:
             if "policy violation" in str(e).lower():
                 log("error", f"  [{phase_name}] policy violation detected; exiting iteration loop")
@@ -318,11 +312,13 @@ async def _agent_loop(
                     log("info", f"    🔍 {query}")
                     search_results = await _serper_search(query, race_id=race_id)
                     log("debug", f"    🔍 got {len(search_results)} results")
-                    messages.append({
-                        "role": "tool",
-                        "tool_call_id": tool_call.id,
-                        "content": json.dumps(search_results),
-                    })
+                    messages.append(
+                        {
+                            "role": "tool",
+                            "tool_call_id": tool_call.id,
+                            "content": json.dumps(search_results),
+                        }
+                    )
                 elif fn.name == "fetch_page":
                     args = json.loads(fn.arguments)
                     url = args.get("url", "")
@@ -332,22 +328,26 @@ async def _agent_loop(
                     fetch_hint = _page_fetch_log_hint(url, page_text)
                     if fetch_hint:
                         log("warning", f"    📄 {fetch_hint}")
-                    messages.append({
-                        "role": "tool",
-                        "tool_call_id": tool_call.id,
-                        "content": page_text,
-                    })
+                    messages.append(
+                        {
+                            "role": "tool",
+                            "tool_call_id": tool_call.id,
+                            "content": page_text,
+                        }
+                    )
                 elif fn.name == "ballotpedia_lookup":
                     args = json.loads(fn.arguments)
                     candidate_name = args.get("candidate_name", "")
                     log("info", f"    📋 Ballotpedia lookup: {candidate_name}")
                     bp_data = await _ballotpedia_lookup(candidate_name)
                     log("debug", f"    📋 found={bp_data.get('found')}")
-                    messages.append({
-                        "role": "tool",
-                        "tool_call_id": tool_call.id,
-                        "content": json.dumps(bp_data),
-                    })
+                    messages.append(
+                        {
+                            "role": "tool",
+                            "tool_call_id": tool_call.id,
+                            "content": json.dumps(bp_data),
+                        }
+                    )
                 elif fn.name == "ballotpedia_election_lookup":
                     args = json.loads(fn.arguments)
                     election_race_id = args.get("race_id", race_id or "")
@@ -355,11 +355,13 @@ async def _agent_loop(
                     election_data = await _ballotpedia_election_lookup(election_race_id)
                     n_found = len(election_data.get("candidates", []))
                     log("debug", f"    🗳️  found={election_data.get('found')} candidates={n_found}")
-                    messages.append({
-                        "role": "tool",
-                        "tool_call_id": tool_call.id,
-                        "content": json.dumps(election_data),
-                    })
+                    messages.append(
+                        {
+                            "role": "tool",
+                            "tool_call_id": tool_call.id,
+                            "content": json.dumps(election_data),
+                        }
+                    )
                 elif fn.name in _extra_handlers:
                     args = json.loads(fn.arguments)
                     log("info", f"    🔧 {fn.name}({', '.join(f'{k}={v!r}' for k, v in args.items())})")
@@ -369,18 +371,22 @@ async def _agent_loop(
                     except Exception as exc:
                         handler_result = f"Error: {exc}"
                         log("warning", f"    🔧 {fn.name} → {exc}")
-                    messages.append({
-                        "role": "tool",
-                        "tool_call_id": tool_call.id,
-                        "content": str(handler_result),
-                    })
+                    messages.append(
+                        {
+                            "role": "tool",
+                            "tool_call_id": tool_call.id,
+                            "content": str(handler_result),
+                        }
+                    )
                 else:
                     log("warning", f"    ⚠️ Unknown tool: {fn.name}")
-                    messages.append({
-                        "role": "tool",
-                        "tool_call_id": tool_call.id,
-                        "content": f"Error: unknown tool '{fn.name}'",
-                    })
+                    messages.append(
+                        {
+                            "role": "tool",
+                            "tool_call_id": tool_call.id,
+                            "content": f"Error: unknown tool '{fn.name}'",
+                        }
+                    )
             continue
 
         # No tool calls — in tools_mode this means the LLM is done editing
@@ -394,15 +400,17 @@ async def _agent_loop(
         if finish_reason == "length":
             log("warning", f"  [{phase_name}] response truncated (finish_reason=length) — retrying with brevity prompt")
             messages.append(message.model_dump())
-            messages.append({
-                "role": "user",
-                "content": (
-                    "Your previous response was cut off because it was too long. "
-                    "Please return a shorter JSON object. Use concise string values "
-                    "(under 200 characters each), omit optional or redundant fields, "
-                    "and return ONLY the JSON with no markdown fences or extra text."
-                ),
-            })
+            messages.append(
+                {
+                    "role": "user",
+                    "content": (
+                        "Your previous response was cut off because it was too long. "
+                        "Please return a shorter JSON object. Use concise string values "
+                        "(under 200 characters each), omit optional or redundant fields, "
+                        "and return ONLY the JSON with no markdown fences or extra text."
+                    ),
+                }
+            )
             continue
 
         try:
@@ -413,27 +421,26 @@ async def _agent_loop(
             _json_parse_failures += 1
             if _json_parse_failures >= _MAX_JSON_RETRIES:
                 raise RuntimeError(
-                    f"[{phase_name}] failed to produce valid JSON after "
-                    f"{_json_parse_failures} attempts. Last error: {exc}"
+                    f"[{phase_name}] failed to produce valid JSON after " f"{_json_parse_failures} attempts. Last error: {exc}"
                 )
             log("warning", f"  [{phase_name}] bad JSON ({exc}) — retry {_json_parse_failures}/{_MAX_JSON_RETRIES}")
             messages.append(message.model_dump())
-            messages.append({
-                "role": "user",
-                "content": (
-                    f"Your response was not valid JSON. Parse error: {exc}. "
-                    "Common causes: using None/True/False instead of null/true/false, "
-                    "unescaped quotes or backslashes inside string values, or text "
-                    "appended after the closing brace. "
-                    "Return ONLY the raw JSON object — no markdown, no explanation, "
-                    "no trailing text whatsoever."
-                ),
-            })
+            messages.append(
+                {
+                    "role": "user",
+                    "content": (
+                        f"Your response was not valid JSON. Parse error: {exc}. "
+                        "Common causes: using None/True/False instead of null/true/false, "
+                        "unescaped quotes or backslashes inside string values, or text "
+                        "appended after the closing brace. "
+                        "Return ONLY the raw JSON object — no markdown, no explanation, "
+                        "no trailing text whatsoever."
+                    ),
+                }
+            )
             continue
 
     if tools_mode:
         log("warning", f"  [{phase_name}] tools-mode hit max iterations — returning")
         return {}
-    raise RuntimeError(
-        f"[{phase_name}] did not produce output within {max_iterations} iterations"
-    )
+    raise RuntimeError(f"[{phase_name}] did not produce output within {max_iterations} iterations")
