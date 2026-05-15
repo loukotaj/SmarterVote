@@ -10,7 +10,6 @@ from typing import Any, Dict, List, Literal, Optional
 
 from pydantic import BaseModel, Field, HttpUrl, field_validator, model_validator
 
-
 # ---------------------------------------------------------------------------
 # Enums
 # ---------------------------------------------------------------------------
@@ -106,8 +105,7 @@ class CandidateLink(BaseModel):
     url: str
     title: str
     type: Literal[
-        "finance", "ballotpedia", "wiki", "official",
-        "legislature", "votesmart", "govtrack", "news", "other"
+        "finance", "ballotpedia", "wiki", "official", "legislature", "votesmart", "govtrack", "news", "other"
     ] = "other"
 
 
@@ -232,6 +230,14 @@ class PollMatchup(BaseModel):
     candidates: List[str] = Field(default_factory=list)
     percentages: List[float] = Field(default_factory=list)
 
+    @field_validator("percentages", mode="before")
+    @classmethod
+    def coerce_missing_percentages(cls, v: Any) -> Any:
+        """Treat omitted/null percentages as an empty list."""
+        if v is None:
+            return []
+        return v
+
     @model_validator(mode="after")
     def validate_parallel_arrays(self) -> "PollMatchup":
         if self.candidates and self.percentages and len(self.candidates) != len(self.percentages):
@@ -270,6 +276,7 @@ class RaceJSON(BaseModel):
         if not re.match(r"^[a-z0-9][a-z0-9_-]{0,99}$", v):
             raise ValueError("race id must match ^[a-z0-9][a-z0-9_-]{0,99}$")
         return v
+
     candidates: List[Candidate]
     updated_utc: str = Field(..., description="Last updated timestamp in ISO format")
     generator: List[str] = Field(default_factory=list)

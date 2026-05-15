@@ -59,7 +59,7 @@
   let withdrawnExpanded = false;
   $: polls = race?.polling ?? [];
   $: latestPoll = polls.length > 0 ? polls[0] : null;
-  $: latestMatchup = latestPoll?.matchups?.[0] ?? null;
+  $: latestMatchup = latestPoll?.matchups?.find(matchup => Array.isArray(matchup.candidates) && matchup.candidates.length > 0) ?? null;
   $: discoveryOnly = activeCandidates.length > 0 &&
     activeCandidates.every(c => !c.issues || Object.keys(c.issues).length === 0 ||
       Object.values(c.issues).every(i => !i?.stance));
@@ -75,6 +75,19 @@
   function partyClassForName(name: string): string {
     const candidate = race?.candidates?.find(c => c.name === name);
     return partySlug(candidate?.party);
+  }
+
+  function matchupPercentages(matchup: { percentages?: number[] | null }): number[] {
+    return Array.isArray(matchup.percentages) ? matchup.percentages : [];
+  }
+
+  function matchupHasPercentages(matchup: { percentages?: number[] | null }): boolean {
+    return matchupPercentages(matchup).some(value => typeof value === "number");
+  }
+
+  function percentageAt(matchup: { percentages?: number[] | null }, index: number): number | null {
+    const value = matchupPercentages(matchup)[index];
+    return typeof value === "number" ? value : null;
   }
 </script>
 
@@ -219,12 +232,13 @@
             <p class="poll-snapshot-meta">{latestPoll.pollster}{latestPoll.date ? ` · ${new Date(latestPoll.date).toLocaleDateString('en-US', {month:'short', day:'numeric'})}` : ''}</p>
             <div class="poll-snapshot-bars">
               {#each latestMatchup.candidates as name, i}
+                {@const pct = percentageAt(latestMatchup, i)}
                 <div class="poll-snap-row">
                   <span class="poll-snap-name">{name.split(' ').pop()}</span>
                   <div class="poll-snap-bar-wrap">
-                    <div class="poll-snap-bar {partyClassForName(name)}" style="width:{Math.min(latestMatchup.percentages[i] ?? 0, 100)}%"></div>
+                    <div class="poll-snap-bar {partyClassForName(name)}" style="width:{Math.min(pct ?? 0, 100)}%"></div>
                   </div>
-                  <span class="poll-snap-pct">{latestMatchup.percentages[i]}%</span>
+                  <span class="poll-snap-pct">{pct !== null ? `${pct}%` : "n/a"}</span>
                 </div>
               {/each}
             </div>
@@ -310,15 +324,19 @@
                 <div class="poll-matchup">
                   {#each matchup.candidates as name, i}
                     {@const pc = partyClassForName(name)}
+                    {@const pct = percentageAt(matchup, i)}
                     <div class="poll-bar-row">
                       <span class="poll-bar-name">{name}</span>
                       <div class="poll-bar-track">
-                        <div class="poll-bar-fill {pc}" style="width:{Math.min(matchup.percentages[i] ?? 0, 100)}%">
-                          <span class="poll-bar-label">{matchup.percentages[i]}%</span>
+                        <div class="poll-bar-fill {pc}" class:poll-bar-fill--missing={pct === null} style="width:{Math.min(pct ?? 0, 100)}%">
+                          <span class="poll-bar-label">{pct !== null ? `${pct}%` : "n/a"}</span>
                         </div>
                       </div>
                     </div>
                   {/each}
+                  {#if !matchupHasPercentages(matchup)}
+                    <p class="poll-missing-note">Candidate matchup reported without percentage values.</p>
+                  {/if}
                 </div>
               {/each}
 
@@ -624,9 +642,14 @@
   }
   .poll-bar-fill.dem { @apply bg-blue-500; }
   .poll-bar-fill.rep { @apply bg-red-500; }
+  .poll-bar-fill--missing { @apply bg-content-faint; }
 
   .poll-bar-label {
     @apply text-xs font-bold text-white;
+  }
+
+  .poll-missing-note {
+    @apply text-xs text-content-faint italic;
   }
 
   .poll-card-source {

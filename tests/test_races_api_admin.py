@@ -191,6 +191,137 @@ def test_get_queue_does_not_count_continuation_parent_as_running():
 # ---------------------------------------------------------------------------
 
 
+def test_get_queue_hides_active_item_when_run_is_terminal():
+    """Queue listing should self-heal stale active queue items from the run record."""
+    os.environ["SKIP_AUTH"] = "true"
+    os.environ["ADMIN_API_KEY"] = "test-key"
+
+    import main as app_module
+
+    firestore_helpers._fs_db = None
+
+    stale_queue_doc = _make_existing_doc(
+        {
+            "id": "item-stale",
+            "race_id": "ga-senate-2026",
+            "run_id": "run-completed",
+            "status": "running",
+            "created_at": "2026-05-15T00:18:00+00:00",
+        }
+    )
+    stale_ref = MagicMock()
+
+    completed_run_doc = _make_existing_doc(
+        {
+            "run_id": "run-completed",
+            "race_id": "ga-senate-2026",
+            "status": "completed",
+            "completed_at": "2026-05-15T00:48:00+00:00",
+        }
+    )
+    run_ref = MagicMock()
+    run_ref.get.return_value = completed_run_doc
+
+    queue_coll = MagicMock()
+    queue_coll.order_by.return_value = queue_coll
+    queue_coll.stream.return_value = iter([stale_queue_doc])
+    queue_coll.document.return_value = stale_ref
+
+    runs_coll = MagicMock()
+    runs_coll.document.return_value = run_ref
+
+    db = _build_empty_firestore_mock()
+    db.collection.side_effect = lambda name: queue_coll if name == "pipeline_queue" else runs_coll
+
+    from fastapi.testclient import TestClient
+
+    with patch("firestore_helpers._get_fs", return_value=db):
+        tc = TestClient(app_module.app)
+        resp = tc.get("/api/queue?active_only=true")
+
+    assert resp.status_code == 200
+    body = resp.json()
+    assert body["items"] == []
+    assert body["running"] is False
+    stale_ref.update.assert_called_once_with({"status": "completed", "completed_at": "2026-05-15T00:48:00+00:00"})
+
+
+def test_get_queue_hides_superseded_active_item_when_race_is_inactive():
+    """A race that already moved to draft under another run should not keep an old queue item active."""
+    os.environ["SKIP_AUTH"] = "true"
+    os.environ["ADMIN_API_KEY"] = "test-key"
+
+    import main as app_module
+
+    firestore_helpers._fs_db = None
+
+    stale_queue_doc = _make_existing_doc(
+        {
+            "id": "item-stale",
+            "race_id": "ga-senate-2026",
+            "run_id": "run-stale",
+            "status": "running",
+            "created_at": "2026-05-15T00:18:00+00:00",
+        }
+    )
+    stale_ref = MagicMock()
+
+    active_run_doc = _make_existing_doc(
+        {
+            "run_id": "run-stale",
+            "race_id": "ga-senate-2026",
+            "status": "running",
+        }
+    )
+    run_ref = MagicMock()
+    run_ref.get.return_value = active_run_doc
+
+    race_doc = _make_existing_doc(
+        {
+            "race_id": "ga-senate-2026",
+            "status": "draft",
+            "current_run_id": "run-completed",
+        }
+    )
+    race_ref = MagicMock()
+    race_ref.get.return_value = race_doc
+
+    queue_coll = MagicMock()
+    queue_coll.order_by.return_value = queue_coll
+    queue_coll.stream.return_value = iter([stale_queue_doc])
+    queue_coll.document.return_value = stale_ref
+
+    runs_coll = MagicMock()
+    runs_coll.document.return_value = run_ref
+
+    races_coll = MagicMock()
+    races_coll.document.return_value = race_ref
+
+    def _coll(name):
+        if name == "pipeline_queue":
+            return queue_coll
+        if name == "pipeline_runs":
+            return runs_coll
+        return races_coll
+
+    db = _build_empty_firestore_mock()
+    db.collection.side_effect = _coll
+
+    from fastapi.testclient import TestClient
+
+    with patch("firestore_helpers._get_fs", return_value=db):
+        tc = TestClient(app_module.app)
+        resp = tc.get("/api/queue?active_only=true")
+
+    assert resp.status_code == 200
+    body = resp.json()
+    assert body["items"] == []
+    assert body["running"] is False
+    stale_ref.update.assert_called_once_with(
+        {"status": "cancelled", "error": "Superseded by race current_run_id run-completed"}
+    )
+
+
 def test_queue_race_success():
     """POST /api/races/queue with SKIP_AUTH writes to Firestore and returns added list."""
     os.environ["SKIP_AUTH"] = "true"

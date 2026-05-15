@@ -25,6 +25,9 @@ _PIPELINE_STEP_DETAILS = [
     {"id": "review", "label": "AI Review", "weight": 12},
     {"id": "iteration", "label": "Review Iteration", "weight": 8},
 ]
+_ACTIVE_STATUSES = {"pending", "running"}
+_TERMINAL_STATUSES = {"completed", "failed", "cancelled", "continued"}
+_INACTIVE_RACE_STATUSES = {"draft", "published", "empty", "failed", "cancelled"}
 
 
 def _normalize_continuation_ancestors(items: list[Dict[str, Any]]) -> list[Dict[str, Any]]:
@@ -35,6 +38,52 @@ def _normalize_continuation_ancestors(items: list[Dict[str, Any]]) -> list[Dict[
         next_item = dict(item)
         if next_item.get("run_id") in parent_run_ids and next_item.get("status") in ("pending", "running"):
             next_item["status"] = "continued"
+        normalized.append(next_item)
+    return normalized
+
+
+def _normalize_terminal_run_items(db: Any, items: list[Dict[str, Any]]) -> list[Dict[str, Any]]:
+    """Mirror authoritative run/race state onto stale active queue items."""
+    runs_ref = db.collection("pipeline_runs")
+    queue_ref = db.collection("pipeline_queue")
+    races_ref = db.collection("races")
+    normalized = []
+    for item in items:
+        next_item = dict(item)
+        if next_item.get("status") in _ACTIVE_STATUSES and next_item.get("run_id"):
+            updates = None
+            try:
+                run_doc = runs_ref.document(str(next_item["run_id"])).get()
+                run_data = firestore_helpers._doc_to_plain(run_doc)
+            except Exception:
+                run_data = None
+            run_status = (run_data or {}).get("status")
+            if run_status in _TERMINAL_STATUSES:
+                updates = {"status": run_status}
+                for field in ("completed_at", "error", "artifact_id", "duration_ms"):
+                    if (run_data or {}).get(field) is not None:
+                        updates[field] = run_data[field]
+            elif next_item.get("race_id"):
+                try:
+                    race_doc = races_ref.document(str(next_item["race_id"])).get()
+                    race_data = firestore_helpers._doc_to_plain(race_doc)
+                except Exception:
+                    race_data = None
+                race_status = (race_data or {}).get("status")
+                current_run_id = (race_data or {}).get("current_run_id")
+                if race_status in _INACTIVE_RACE_STATUSES and current_run_id and current_run_id != next_item.get("run_id"):
+                    updates = {
+                        "status": "cancelled",
+                        "error": f"Superseded by race current_run_id {current_run_id}",
+                    }
+            if updates:
+                next_item.update(updates)
+                item_id = next_item.get("id")
+                if item_id:
+                    try:
+                        queue_ref.document(str(item_id)).update(updates)
+                    except Exception:
+                        pass
         normalized.append(next_item)
     return normalized
 
@@ -56,8 +105,9 @@ async def get_queue(active_only: bool = False, limit: int = 200) -> Dict[str, An
     items = [firestore_helpers._doc_to_plain(d) for d in docs]
     items = [i for i in items if i is not None]
     items = _normalize_continuation_ancestors(items)
+    items = _normalize_terminal_run_items(db, items)
     if active_only:
-        items = [i for i in items if i.get("status") in ("pending", "running")]
+        items = [i for i in items if i.get("status") in _ACTIVE_STATUSES]
     if limit > 0:
         items = items[-limit:]
     running = sum(1 for i in items if i.get("status") == "running")

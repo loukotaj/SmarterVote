@@ -41,6 +41,17 @@ class AgentCancelled(Exception):
 
 # Default deadline: 55 minutes (gives 5-min buffer before CF's 60-min hard limit)
 DEFAULT_DEADLINE_SECONDS: int = 3300
+_PLACEHOLDER_CANDIDATE_NAMES = {"", "unknown", "tbd", "to be determined", "n/a", "na", "none"}
+
+
+def _candidate_name(candidate: Any) -> str:
+    if not isinstance(candidate, dict):
+        return ""
+    return str(candidate.get("name") or "").strip()
+
+
+def _is_placeholder_candidate_name(name: str) -> bool:
+    return name.strip().lower() in _PLACEHOLDER_CANDIDATE_NAMES
 
 
 def _compute_overall_progress(
@@ -549,6 +560,12 @@ class AgentHandler:
                 f"Refusing to save draft '{race_id}': 'candidates' is missing or empty. "
                 f"Top-level keys present: {list(race_json.keys())}. "
                 "This usually means the LLM returned a partial object. Re-queue the race."
+            )
+        candidate_names = [_candidate_name(candidate) for candidate in candidates]
+        if all(_is_placeholder_candidate_name(name) for name in candidate_names):
+            raise ValueError(
+                f"Refusing to save draft '{race_id}': all candidate names are placeholders: {candidate_names}. "
+                "Re-queue the race with candidate_names or inspect discovery output."
             )
 
         json_str = json.dumps(race_json, indent=2, default=str)

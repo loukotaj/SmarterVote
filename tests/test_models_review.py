@@ -58,6 +58,15 @@ def test_shared_models_have_new_fields():
     assert race.polling_note is None
 
 
+def test_poll_matchup_coerces_null_percentages():
+    """Legacy/generated poll data can omit percentages without breaking validation."""
+    from shared.models import PollMatchup
+
+    matchup = PollMatchup.model_validate({"candidates": ["Alice", "Bob"], "percentages": None})
+
+    assert matchup.percentages == []
+
+
 # ---------------------------------------------------------------------------
 # Review provider tests
 # ---------------------------------------------------------------------------

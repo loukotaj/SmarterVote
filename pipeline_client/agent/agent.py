@@ -55,8 +55,8 @@ from .tools import (  # noqa: F401 - re-exported for tests
     CANDIDATE_TOOLS,
     FETCH_TOOL,
     ISSUE_TOOLS,
-    READ_PROFILE_TOOL,
     RACE_TOOLS,
+    READ_PROFILE_TOOL,
     RECORD_TOOLS,
     REMOVE_CANDIDATE_TOOL,
     RENAME_CANDIDATE_TOOL,
@@ -81,6 +81,8 @@ from .web_tools import (  # noqa: F401 - re-exported for backward compat
 
 logger = logging.getLogger("pipeline")
 
+_PLACEHOLDER_CANDIDATE_NAMES = {"", "unknown", "tbd", "to be determined", "n/a", "na", "none"}
+
 
 # ---------------------------------------------------------------------------
 # Load existing published data for rerun/update mode
@@ -96,6 +98,61 @@ def _load_existing(race_id: str) -> Optional[Dict[str, Any]]:
             with path.open("r", encoding="utf-8") as f:
                 return json.load(f)
     return None
+
+
+def _candidate_name(candidate: Any) -> str:
+    if not isinstance(candidate, dict):
+        return ""
+    return str(candidate.get("name") or "").strip()
+
+
+def _is_placeholder_candidate_name(name: str) -> bool:
+    return name.strip().lower() in _PLACEHOLDER_CANDIDATE_NAMES
+
+
+def _sanitize_polling(race_json: Dict[str, Any], log: Any | None = None) -> None:
+    """Normalize malformed polling entries before validation and draft save."""
+    polling = race_json.get("polling")
+    if polling is None:
+        race_json["polling"] = []
+        return
+    if not isinstance(polling, list):
+        if log:
+            log("warning", "Polling field was not a list; dropping malformed polling data")
+        race_json["polling"] = []
+        return
+
+    for poll_index, poll in enumerate(polling):
+        if not isinstance(poll, dict):
+            continue
+        matchups = poll.get("matchups")
+        if matchups is None:
+            poll["matchups"] = []
+            continue
+        if not isinstance(matchups, list):
+            if log:
+                log("warning", f"Poll {poll_index} matchups was not a list; dropping malformed matchups")
+            poll["matchups"] = []
+            continue
+        for matchup_index, matchup in enumerate(matchups):
+            if not isinstance(matchup, dict):
+                continue
+            percentages = matchup.get("percentages")
+            if percentages is None:
+                matchup["percentages"] = []
+                if log:
+                    log(
+                        "warning",
+                        f"Poll {poll_index} matchup {matchup_index} had null percentages; normalized to an empty list",
+                    )
+                continue
+            if not isinstance(percentages, list):
+                matchup["percentages"] = []
+                if log:
+                    log(
+                        "warning",
+                        f"Poll {poll_index} matchup {matchup_index} percentages was not a list; normalized to an empty list",
+                    )
 
 
 # ---------------------------------------------------------------------------
@@ -161,9 +218,12 @@ async def run_agent(
         in existing_data. Used by Cloud Function continuation handoff.
     """
     from .cost import (
-        DEFAULT_CLAUDE_MODEL, CHEAP_CLAUDE_MODEL,
-        DEFAULT_GEMINI_MODEL, CHEAP_GEMINI_MODEL,
-        DEFAULT_GROK_MODEL, CHEAP_GROK_MODEL,
+        CHEAP_CLAUDE_MODEL,
+        CHEAP_GEMINI_MODEL,
+        CHEAP_GROK_MODEL,
+        DEFAULT_CLAUDE_MODEL,
+        DEFAULT_GEMINI_MODEL,
+        DEFAULT_GROK_MODEL,
     )
 
     model = research_model or (CHEAP_MODEL if cheap_mode else DEFAULT_MODEL)
@@ -198,10 +258,16 @@ async def run_agent(
         if goal:
             log("info", f"Run goal: {goal}")
         race_json = await _run_update(
-            race_id, existing_data, model=model, small_model=small_model,
-            on_log=on_log, max_iterations=max_iterations,
-            step_enabled=_step_enabled, track=_track,
-            max_candidates=max_candidates, target_no_info=target_no_info,
+            race_id,
+            existing_data,
+            model=model,
+            small_model=small_model,
+            on_log=on_log,
+            max_iterations=max_iterations,
+            step_enabled=_step_enabled,
+            track=_track,
+            max_candidates=max_candidates,
+            target_no_info=target_no_info,
             target_candidate_names=candidate_names,
             goal=goal,
             resume_partial=resume_partial,
@@ -211,10 +277,15 @@ async def run_agent(
         if goal:
             log("info", f"Run goal: {goal}")
         race_json = await _run_fresh(
-            race_id, model=model, small_model=small_model,
-            on_log=on_log, max_iterations=max_iterations,
-            step_enabled=_step_enabled, track=_track,
-            max_candidates=max_candidates, target_no_info=target_no_info,
+            race_id,
+            model=model,
+            small_model=small_model,
+            on_log=on_log,
+            max_iterations=max_iterations,
+            step_enabled=_step_enabled,
+            track=_track,
+            max_candidates=max_candidates,
+            target_no_info=target_no_info,
             target_candidate_names=candidate_names,
             goal=goal,
             resume_partial=resume_partial,
@@ -249,13 +320,15 @@ async def run_agent(
             _normalize_candidate(candidate, now_iso)
 
     race_json.setdefault("polling", [])
+    _sanitize_polling(race_json, log)
 
     if should_review:
         _track("start", "review")
         review_t0 = time.perf_counter()
         log("info", "Phase 4: Sending to review agents (Claude, Gemini, Grok)...")
         reviews = await run_reviews(
-            race_id, race_json,
+            race_id,
+            race_json,
             on_log=on_log,
             cheap_mode=cheap_mode,
             claude_model=claude_model,
@@ -297,8 +370,12 @@ async def run_agent(
                 # Split iteration budget: 60% cycle 1, 40% cycle 2
                 cycle_budget = int(max_iterations * (0.6 if cycle == 1 else 0.4))
                 improved = await _run_iteration_pass(
-                    race_id, race_json, reviews,
-                    model=model, on_log=on_log, max_iterations=max(cycle_budget, 14),
+                    race_id,
+                    race_json,
+                    reviews,
+                    model=model,
+                    on_log=on_log,
+                    max_iterations=max(cycle_budget, 14),
                 )
                 if improved is not None:
                     race_json = improved
@@ -312,7 +389,8 @@ async def run_agent(
 
                     log("info", f"  Cycle {cycle}: Re-running reviews...")
                     reviews = await run_reviews(
-                        race_id, race_json,
+                        race_id,
+                        race_json,
                         on_log=on_log,
                         cheap_mode=cheap_mode,
                         claude_model=claude_model,
@@ -356,10 +434,7 @@ async def run_agent(
     total_tokens = pt + ct
     breakdown = _acc.get("model_breakdown", {})
     total_cost = (
-        sum(
-            estimate_cost(m, bd.get("prompt_tokens", 0), bd.get("completion_tokens", 0))
-            for m, bd in breakdown.items()
-        )
+        sum(estimate_cost(m, bd.get("prompt_tokens", 0), bd.get("completion_tokens", 0)) for m, bd in breakdown.items())
         if breakdown
         else estimate_cost(model, pt, ct)
     )
@@ -388,12 +463,19 @@ async def run_agent(
             f"LLM response was returned instead of the full race profile. "
             f"Top-level keys present: {list(race_json.keys())}. Re-queue the race to retry."
         )
+    _candidate_names = [_candidate_name(candidate) for candidate in _candidates]
+    if not _candidate_names or all(_is_placeholder_candidate_name(name) for name in _candidate_names):
+        raise ValueError(
+            f"Agent output for '{race_id}' only contains placeholder candidate names: {_candidate_names}. "
+            "Refusing to save a draft that cannot identify any real candidate."
+        )
 
     # Full schema validation against RaceJSON — soft check so later phases
     # (refinement, iteration) can still fix issues.  Log every validation
     # error but never hard-fail here.
     try:
         from shared.models import RaceJSON as _RaceJSONModel
+
         _RaceJSONModel.model_validate(race_json)
         log("info", "Schema validation passed; output conforms to RaceJSON v0.3")
     except Exception as schema_exc:

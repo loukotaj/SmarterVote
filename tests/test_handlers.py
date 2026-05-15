@@ -194,3 +194,20 @@ async def test_v2_handler_stops_when_queue_item_cancelled():
                 {"race_id": "test-race"},
                 {"cheap_mode": True, "run_id": "run-cancel", "queue_item_id": "item-cancel"},
             )
+
+
+@pytest.mark.asyncio
+async def test_save_draft_rejects_placeholder_only_candidates():
+    """A one-candidate Unknown draft should not overwrite usable race data."""
+    handler = AgentHandler()
+
+    with pytest.raises(ValueError, match="all candidate names are placeholders"):
+        await handler._save_draft(
+            "ga-governor-2026",
+            {
+                "id": "ga-governor-2026",
+                "election_date": "2026-11-03",
+                "updated_utc": "2026-05-15T00:00:00+00:00",
+                "candidates": [{"name": "Unknown"}],
+            },
+        )
