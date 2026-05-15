@@ -82,6 +82,7 @@ from .web_tools import (  # noqa: F401 - re-exported for backward compat
 logger = logging.getLogger("pipeline")
 
 _PLACEHOLDER_CANDIDATE_NAMES = {"", "unknown", "tbd", "to be determined", "n/a", "na", "none"}
+_MISSING_STANCE_MARKERS = {"", "missing", "unknown", "n/a", "na", "none"}
 
 
 # ---------------------------------------------------------------------------
@@ -153,6 +154,73 @@ def _sanitize_polling(race_json: Dict[str, Any], log: Any | None = None) -> None
                         "warning",
                         f"Poll {poll_index} matchup {matchup_index} percentages was not a list; normalized to an empty list",
                     )
+
+
+def _issue_quality(issue_data: Any) -> tuple[int, int]:
+    if not isinstance(issue_data, dict):
+        return (0, 0)
+    stance = str(issue_data.get("stance") or "").strip()
+    sources = issue_data.get("sources") or []
+    source_count = len(sources) if isinstance(sources, list) else 0
+    is_missing = stance.lower() in _MISSING_STANCE_MARKERS or "no public position found" in stance.lower()
+    return (0 if is_missing else 1, source_count)
+
+
+def _sanitize_candidate_issues(race_json: Dict[str, Any], log: Any | None = None) -> None:
+    """Normalize issue keys and placeholder stances in raw agent output."""
+    try:
+        from shared.models import LEGACY_ISSUE_NAMES
+    except Exception:
+        LEGACY_ISSUE_NAMES = {}
+
+    for candidate_index, candidate in enumerate(race_json.get("candidates") or []):
+        if not isinstance(candidate, dict):
+            continue
+        issues = candidate.get("issues")
+        if not isinstance(issues, dict):
+            candidate["issues"] = {}
+            continue
+
+        normalized: Dict[str, Any] = {}
+        for raw_key, raw_issue in issues.items():
+            key = LEGACY_ISSUE_NAMES.get(str(raw_key), str(raw_key))
+            issue = dict(raw_issue) if isinstance(raw_issue, dict) else raw_issue
+            if isinstance(issue, dict):
+                issue["issue"] = LEGACY_ISSUE_NAMES.get(str(issue.get("issue") or key), str(issue.get("issue") or key))
+                stance = str(issue.get("stance") or "").strip()
+                if stance.lower() in _MISSING_STANCE_MARKERS:
+                    issue["stance"] = "No public position found"
+                    issue.setdefault("confidence", "low")
+                    issue.setdefault("sources", [])
+                    if log:
+                        log("warning", f"Normalized placeholder stance for candidates[{candidate_index}].issues.{key}")
+            if key not in normalized or _issue_quality(issue) > _issue_quality(normalized[key]):
+                normalized[key] = issue
+
+        if set(normalized) != set(issues):
+            candidate["issues"] = normalized
+            if log:
+                log("warning", f"Normalized legacy/duplicate issue keys for candidate '{_candidate_name(candidate)}'")
+
+
+def _normalize_schema_fields(race_json: Dict[str, Any], log: Any | None = None) -> None:
+    """Apply schema defaults and Pydantic migrations while preserving extra metadata."""
+    if not isinstance(race_json.get("schema_version"), str) or not race_json.get("schema_version"):
+        race_json["schema_version"] = "0.3"
+    _sanitize_candidate_issues(race_json, log)
+    _sanitize_polling(race_json, log)
+
+    try:
+        from shared.models import RaceJSON as _RaceJSONModel
+
+        normalized = _RaceJSONModel.model_validate(race_json).model_dump(mode="json")
+    except Exception:
+        return
+
+    # Keep pipeline-only extras such as agent_metrics, but replace schema-owned
+    # fields with the normalized model output so migrations are persisted.
+    for key, value in normalized.items():
+        race_json[key] = value
 
 
 # ---------------------------------------------------------------------------
@@ -320,7 +388,7 @@ async def run_agent(
             _normalize_candidate(candidate, now_iso)
 
     race_json.setdefault("polling", [])
-    _sanitize_polling(race_json, log)
+    _normalize_schema_fields(race_json, log)
 
     if should_review:
         _track("start", "review")
@@ -386,6 +454,7 @@ async def run_agent(
                         if isinstance(candidate, dict):
                             _normalize_candidate(candidate, now_iso)
                     race_json["generator"] = generators
+                    _normalize_schema_fields(race_json, log)
 
                     log("info", f"  Cycle {cycle}: Re-running reviews...")
                     reviews = await run_reviews(
@@ -464,7 +533,7 @@ async def run_agent(
             f"Top-level keys present: {list(race_json.keys())}. Re-queue the race to retry."
         )
     _candidate_names = [_candidate_name(candidate) for candidate in _candidates]
-    if not _candidate_names or all(_is_placeholder_candidate_name(name) for name in _candidate_names):
+    if _candidate_names and all(_is_placeholder_candidate_name(name) for name in _candidate_names):
         raise ValueError(
             f"Agent output for '{race_id}' only contains placeholder candidate names: {_candidate_names}. "
             "Refusing to save a draft that cannot identify any real candidate."
@@ -476,6 +545,7 @@ async def run_agent(
     try:
         from shared.models import RaceJSON as _RaceJSONModel
 
+        _normalize_schema_fields(race_json, log)
         _RaceJSONModel.model_validate(race_json)
         log("info", "Schema validation passed; output conforms to RaceJSON v0.3")
     except Exception as schema_exc:

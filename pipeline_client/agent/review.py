@@ -8,12 +8,12 @@ from datetime import datetime, timezone
 from typing import Any, Callable, Dict, List, Optional
 
 from .cost import (
-    DEFAULT_CLAUDE_MODEL,
     CHEAP_CLAUDE_MODEL,
-    DEFAULT_GEMINI_MODEL,
     CHEAP_GEMINI_MODEL,
-    DEFAULT_GROK_MODEL,
     CHEAP_GROK_MODEL,
+    DEFAULT_CLAUDE_MODEL,
+    DEFAULT_GEMINI_MODEL,
+    DEFAULT_GROK_MODEL,
     accumulate,
 )
 from .prompts import REVIEW_SYSTEM, REVIEW_USER
@@ -178,15 +178,16 @@ async def run_reviews(
         if not os.environ.get(env_key):
             log("info", f"  Skipping {provider} review ({env_key} not set)")
             continue
-        effective_model = model_overrides.get(provider) or (
-            cheap_model_name if cheap_mode else full_model
+        effective_model = model_overrides.get(provider) or (cheap_model_name if cheap_mode else full_model)
+        tasks.append(
+            _run_single_review(
+                race_id,
+                profile_json,
+                provider=provider,
+                model_override=effective_model,
+                on_log=on_log,
+            )
         )
-        tasks.append(_run_single_review(
-            race_id, profile_json,
-            provider=provider,
-            model_override=effective_model,
-            on_log=on_log,
-        ))
 
     results = await asyncio.gather(*tasks)
     return [r for r in results if r is not None]
@@ -204,6 +205,14 @@ def compute_validation_grade(reviews: List[Dict[str, Any]]) -> Optional[Dict[str
 
     avg = round(sum(scores) / len(scores))
     avg = max(0, min(100, avg))
+    error_flags = [
+        flag
+        for review in reviews
+        for flag in (review.get("flags") or [])
+        if isinstance(flag, dict) and flag.get("severity") == "error"
+    ]
+    if error_flags:
+        avg = min(avg, 79)
 
     if avg >= 90:
         grade = "A"
@@ -222,7 +231,12 @@ def compute_validation_grade(reviews: List[Dict[str, Any]]) -> Optional[Dict[str
     approved_count = sum(1 for v in verdicts if v == "approved")
     total = len(reviews)
 
-    if passed:
+    if error_flags:
+        summary = (
+            f"Below quality threshold - {approved_count}/{total} reviewers approved, average score capped at {avg}/100 "
+            f"because {len(error_flags)} error-severity flag(s) remain."
+        )
+    elif passed:
         summary = f"Validated by {approved_count}/{total} reviewers with an average score of {avg}/100."
     else:
         summary = f"Below quality threshold — {approved_count}/{total} reviewers approved, average score {avg}/100."
@@ -268,10 +282,7 @@ async def run_post_run_analysis(
     effective_model = model or DEFAULT_GEMINI_MODEL
 
     # Format logs as plain text, newest-last, truncated if necessary
-    log_lines = [
-        f"[{e.get('timestamp', '')}] {e.get('level', 'info').upper():7s} {e.get('message', '')}"
-        for e in logs
-    ]
+    log_lines = [f"[{e.get('timestamp', '')}] {e.get('level', 'info').upper():7s} {e.get('message', '')}" for e in logs]
     logs_text = "\n".join(log_lines)
     if len(logs_text) > _MAX_LOG_CHARS:
         logs_text = "... (truncated — showing last portion) ...\n" + logs_text[-_MAX_LOG_CHARS:]

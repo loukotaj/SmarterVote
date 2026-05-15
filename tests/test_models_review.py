@@ -67,6 +67,27 @@ def test_poll_matchup_coerces_null_percentages():
     assert matchup.percentages == []
 
 
+def test_validation_grade_caps_error_flags_below_passing():
+    """A high numeric average should not pass while error-severity review flags remain."""
+    from pipeline_client.agent.review import compute_validation_grade
+
+    grade = compute_validation_grade(
+        [
+            {"verdict": "approved", "score": 95, "flags": []},
+            {
+                "verdict": "flagged",
+                "score": 91,
+                "flags": [{"field": "candidates[0].name", "severity": "error", "concern": "Placeholder name"}],
+            },
+        ]
+    )
+
+    assert grade is not None
+    assert grade["score"] == 79
+    assert grade["grade"] == "C"
+    assert grade["passed"] is False
+
+
 # ---------------------------------------------------------------------------
 # Review provider tests
 # ---------------------------------------------------------------------------

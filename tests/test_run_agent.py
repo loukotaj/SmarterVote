@@ -299,6 +299,56 @@ async def test_run_agent_normalizes_new_fields():
 
 
 @pytest.mark.asyncio
+async def test_run_agent_normalizes_schema_version_legacy_issues_and_missing_stances():
+    """Final agent output should persist schema/default and issue migrations."""
+    discovery_result = {
+        "id": "normalize-2026",
+        "schema_version": None,
+        "election_date": "2026-11-03",
+        "candidates": [
+            {
+                "name": "Alice",
+                "issues": {
+                    "Reproductive Rights": {
+                        "stance": "Supports abortion access.",
+                        "confidence": "high",
+                        "sources": [],
+                    },
+                    "Abortion & Reproductive Health": {
+                        "stance": "MISSING",
+                        "confidence": "low",
+                        "sources": [],
+                    },
+                    "Tech & AI": {
+                        "stance": "MISSING",
+                        "confidence": "low",
+                        "sources": [],
+                    },
+                },
+            }
+        ],
+    }
+
+    with (
+        patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.agent._load_existing", return_value=None),
+    ):
+        mock_loop.return_value = discovery_result
+        result = await run_agent(
+            "normalize-2026",
+            cheap_mode=True,
+            existing_data={},
+            enabled_steps=["discovery", "images", "issues", "finance", "refinement"],
+        )
+
+    issues = result["candidates"][0]["issues"]
+    assert result["schema_version"] == "0.3"
+    assert "Reproductive Rights" not in issues
+    assert issues["Abortion & Reproductive Health"]["stance"] == "Supports abortion access."
+    assert issues["Tech & AI"]["stance"] == "No public position found"
+
+
+@pytest.mark.asyncio
 async def test_run_agent_skips_reviews_when_step_disabled():
     """run_agent skips reviews when the review step is disabled."""
     discovery_result = {"id": "no-review-2024", "candidates": []}
