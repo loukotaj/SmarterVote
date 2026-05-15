@@ -134,12 +134,13 @@ class AgentHandler:
 
         # Pre-load existing data. Continuation runs receive checkpoint data from
         # the Cloud Function payload; that is more precise than drafts/races GCS.
-        # force_fresh: pass empty dict to skip update mode entirely.
-        if options.get("force_fresh"):
-            existing_data = {}
-        elif isinstance(payload.get("existing_data"), dict):
+        # It must win over force_fresh, otherwise fresh runs restart from
+        # discovery after every deadline handoff instead of resuming.
+        if isinstance(payload.get("existing_data"), dict):
             existing_data = payload["existing_data"]
             logger.info("Agent: loaded checkpoint payload for continuation %s", race_id)
+        elif options.get("force_fresh"):
+            existing_data = {}
         else:
             existing_data = await self._load_existing_from_gcs(race_id)
 
@@ -426,6 +427,7 @@ class AgentHandler:
                 continuation_options = dict(options)
                 continuation_options["enabled_steps"] = remaining
                 continuation_options["is_continuation"] = True
+                continuation_options["force_fresh"] = False
                 continuation_options["parent_run_id"] = current_run_id
                 db.collection("pipeline_queue").document(item_id).set(
                     {

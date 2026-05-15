@@ -117,7 +117,7 @@ async def test_continuation_uses_checkpoint_payload_instead_of_gcs():
     ):
         result = await handler.handle(
             {"race_id": "az-01-senate-2026", "existing_data": checkpoint},
-            {"run_id": "run-continuation", "enabled_steps": ["issues"]},
+            {"run_id": "run-continuation", "enabled_steps": ["issues"], "force_fresh": True, "is_continuation": True},
         )
 
     assert result["status"] == "draft"
@@ -315,6 +315,7 @@ async def test_handoff_writes_continuation_run_and_checkpoint_path():
     assert continuation_doc["parent_run_id"] == "run-handoff-test"
     assert continuation_doc["existing_data_gcs_path"] == "gs://test-bucket/checkpoints/run-handoff-test.json"
     assert continuation_doc["options"]["enabled_steps"] == ["issues"]
+    assert continuation_doc["options"]["force_fresh"] is False
     assert "existing_data_gcs_path" not in continuation_doc["options"]
     assert exc_info.value.continuation_run_id == continuation_doc["run_id"]
     mock_fs_logger_cls.return_value.mark_continued.assert_called_with(continuation_doc["run_id"])
