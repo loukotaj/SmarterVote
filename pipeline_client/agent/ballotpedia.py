@@ -11,16 +11,14 @@ now scrapes the public HTML pages directly.
 
 import logging
 import re
+from html import unescape
 from typing import Any, Dict, List, Optional
 
 import httpx
 
 logger = logging.getLogger("pipeline")
 
-_BROWSER_UA = (
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-    "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
-)
+_BROWSER_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) " "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
 
 # External-link prefixes that are useful for electoral research.
 # We filter the full extlinks list down to these so the agent isn't buried in
@@ -159,19 +157,57 @@ async def lookup_candidate_data(candidate_name: str) -> Dict[str, Any]:
 # ---------------------------------------------------------------------------
 
 _STATE_NAMES = {
-    "AL": "Alabama", "AK": "Alaska", "AZ": "Arizona", "AR": "Arkansas",
-    "CA": "California", "CO": "Colorado", "CT": "Connecticut", "DE": "Delaware",
-    "FL": "Florida", "GA": "Georgia", "HI": "Hawaii", "ID": "Idaho",
-    "IL": "Illinois", "IN": "Indiana", "IA": "Iowa", "KS": "Kansas",
-    "KY": "Kentucky", "LA": "Louisiana", "ME": "Maine", "MD": "Maryland",
-    "MA": "Massachusetts", "MI": "Michigan", "MN": "Minnesota", "MS": "Mississippi",
-    "MO": "Missouri", "MT": "Montana", "NE": "Nebraska", "NV": "Nevada",
-    "NH": "New Hampshire", "NJ": "New Jersey", "NM": "New Mexico", "NY": "New York",
-    "NC": "North Carolina", "ND": "North Dakota", "OH": "Ohio", "OK": "Oklahoma",
-    "OR": "Oregon", "PA": "Pennsylvania", "RI": "Rhode Island", "SC": "South Carolina",
-    "SD": "South Dakota", "TN": "Tennessee", "TX": "Texas", "UT": "Utah",
-    "VT": "Vermont", "VA": "Virginia", "WA": "Washington", "WV": "West Virginia",
-    "WI": "Wisconsin", "WY": "Wyoming", "DC": "District of Columbia",
+    "AL": "Alabama",
+    "AK": "Alaska",
+    "AZ": "Arizona",
+    "AR": "Arkansas",
+    "CA": "California",
+    "CO": "Colorado",
+    "CT": "Connecticut",
+    "DE": "Delaware",
+    "FL": "Florida",
+    "GA": "Georgia",
+    "HI": "Hawaii",
+    "ID": "Idaho",
+    "IL": "Illinois",
+    "IN": "Indiana",
+    "IA": "Iowa",
+    "KS": "Kansas",
+    "KY": "Kentucky",
+    "LA": "Louisiana",
+    "ME": "Maine",
+    "MD": "Maryland",
+    "MA": "Massachusetts",
+    "MI": "Michigan",
+    "MN": "Minnesota",
+    "MS": "Mississippi",
+    "MO": "Missouri",
+    "MT": "Montana",
+    "NE": "Nebraska",
+    "NV": "Nevada",
+    "NH": "New Hampshire",
+    "NJ": "New Jersey",
+    "NM": "New Mexico",
+    "NY": "New York",
+    "NC": "North Carolina",
+    "ND": "North Dakota",
+    "OH": "Ohio",
+    "OK": "Oklahoma",
+    "OR": "Oregon",
+    "PA": "Pennsylvania",
+    "RI": "Rhode Island",
+    "SC": "South Carolina",
+    "SD": "South Dakota",
+    "TN": "Tennessee",
+    "TX": "Texas",
+    "UT": "Utah",
+    "VT": "Vermont",
+    "VA": "Virginia",
+    "WA": "Washington",
+    "WV": "West Virginia",
+    "WI": "Wisconsin",
+    "WY": "Wyoming",
+    "DC": "District of Columbia",
 }
 
 
@@ -180,7 +216,7 @@ def _race_id_to_ballotpedia_url(race_id: str) -> Optional[str]:
 
     Handles common patterns:
       {state}-senate-{year}          → United_States_Senate_election_in_{State},{year}
-      {state}-governor-{year}        → Gubernatorial_election_in_{State},{year}
+      {state}-governor-{year}        → {State}_gubernatorial_election,{year}
       {state}-house-{district}-{year}→ {State}'s_{N}th/st/nd/rd_congressional_district_election,{year}
       {state}-senate-{year}-special  → United_States_Senate_special_election_in_{State},{year}
     """
@@ -200,7 +236,7 @@ def _race_id_to_ballotpedia_url(race_id: str) -> Optional[str]:
     for i, p in enumerate(parts[1:], 1):
         if p.isdigit() and len(p) == 4:
             year = p
-            remaining = parts[i + 1:]
+            remaining = parts[i + 1 :]
             suffix = "_".join(remaining) if remaining else ""
             office_parts = parts[1:i]
             break
@@ -214,7 +250,7 @@ def _race_id_to_ballotpedia_url(race_id: str) -> Optional[str]:
     if office == "senate":
         title = f"United_States_Senate{special_infix}_election_in_{state_url},_{year}"
     elif office == "governor":
-        title = f"Gubernatorial{special_infix}_election_in_{state_url},_{year}"
+        title = f"{state_url}_gubernatorial{special_infix}_election,_{year}"
     elif office.startswith("house"):
         # Try to extract district number
         district_parts = office_parts[1:] if len(office_parts) > 1 else []
@@ -248,44 +284,96 @@ def _parse_candidate_list_from_html(html: str) -> List[Dict[str, Any]]:
     """
     candidates: List[Dict[str, Any]] = []
     seen: set = set()
+    current_html = html.split('id="Past_elections"', 1)[0]
 
-    # Ballotpedia election pages list candidates in tables or wikitables.
-    # Each row typically has: Name (link), Party, [Incumbent marker]
-    # Pattern: candidate links within table rows.
-    # We match <a href="/Candidate_Name"> links inside table rows.
-    for m in re.finditer(
-        r'<tr[^>]*>.*?</tr>',
-        html,
+    # Ballotpedia pages include many unrelated/historical tables. Only parse the
+    # current election's votebox sections headed "... primary election".
+    for section_m in re.finditer(
+        r"<h4>(?P<label>[^<]*primary election)</h4>(?P<body>.*?)(?=<h4>|<h3>|<h2>|$)",
+        current_html,
         re.DOTALL | re.IGNORECASE,
     ):
+        label = unescape(section_m.group("label"))
+        body = section_m.group("body")
+        party = "Unknown"
+        for p_kw, p_label in [
+            ("republican", "Republican"),
+            ("democratic", "Democratic"),
+            ("democrat", "Democratic"),
+            ("libertarian", "Libertarian"),
+            ("green", "Green"),
+            ("independent", "Independent"),
+            ("constitution", "Constitution"),
+        ]:
+            if p_kw in label.lower() or p_kw in body[:500].lower():
+                party = p_label
+                break
+
+        for row_m in re.finditer(r'<tr[^>]*class="[^"]*results_row[^"]*"[^>]*>.*?</tr>', body, re.DOTALL | re.IGNORECASE):
+            row_html = row_m.group(0)
+            name_m = re.search(
+                r'class="votebox-results-cell--text"[^>]*>.*?<a href="https://ballotpedia\.org/([^"#?]+)"[^>]*>(.*?)</a>',
+                row_html,
+                re.DOTALL | re.IGNORECASE,
+            )
+            if not name_m:
+                name_m = re.search(
+                    r'class="votebox-results-cell--text"[^>]*>.*?<a href="/([^"#?]+)"[^>]*>(.*?)</a>',
+                    row_html,
+                    re.DOTALL | re.IGNORECASE,
+                )
+            if not name_m:
+                continue
+
+            page_slug = unescape(name_m.group(1))
+            if any(kw in page_slug.lower() for kw in ("election", "primary", "general", "party", "district")):
+                continue
+            raw_name = re.sub(r"<[^>]+>", "", name_m.group(2)).strip()
+            raw_name = unescape(raw_name)
+            slug_name = re.sub(r"_\([^)]*\)$", "", page_slug).replace("_", " ").strip()
+            if slug_name and len(slug_name.split()) >= len(raw_name.split()):
+                raw_name = slug_name
+            if not raw_name or len(raw_name) < 3:
+                continue
+
+            incumbent = bool(re.search(r"incumbent", row_html, re.IGNORECASE))
+            key = raw_name.lower()
+            if key not in seen:
+                seen.add(key)
+                candidates.append({"name": raw_name, "party": party, "incumbent": incumbent})
+
+    if candidates:
+        return candidates
+
+    # Fallback for older/non-votebox pages: scan table rows, preserving legacy behavior.
+    for m in re.finditer(r"<tr[^>]*>.*?</tr>", html, re.DOTALL | re.IGNORECASE):
         row_html = m.group(0)
-        # Skip header rows
         if "<th" in row_html.lower() and "<td" not in row_html.lower():
             continue
-        # Find the candidate name link (first /Name link, not an anchor to a section)
         name_m = re.search(r'href="/([A-Z][^"#?]+)"[^>]*>([^<]+)</a>', row_html)
         if not name_m:
             continue
         raw_name = re.sub(r"<[^>]+>", "", name_m.group(2)).strip()
+        raw_name = unescape(raw_name)
         if not raw_name or len(raw_name) < 3:
             continue
-        # Skip rows that look like section links
         page_slug = name_m.group(1)
         if any(kw in page_slug for kw in ("election", "primary", "general", "party", "district")):
             continue
-        # Extract party from row text
         row_text = re.sub(r"<[^>]+>", " ", row_html)
         party = "Unknown"
         for p_kw, p_label in [
-            ("republican", "Republican"), ("democrat", "Democratic"),
-            ("libertarian", "Libertarian"), ("green", "Green"),
-            ("independent", "Independent"), ("constitution", "Constitution"),
+            ("republican", "Republican"),
+            ("democrat", "Democratic"),
+            ("libertarian", "Libertarian"),
+            ("green", "Green"),
+            ("independent", "Independent"),
+            ("constitution", "Constitution"),
         ]:
             if p_kw in row_text.lower():
                 party = p_label
                 break
         incumbent = bool(re.search(r"incumbent", row_text, re.IGNORECASE))
-
         key = raw_name.lower()
         if key not in seen:
             seen.add(key)
@@ -326,7 +414,7 @@ async def lookup_election_page(race_id: str) -> Dict[str, Any]:
             description: Optional[str] = None
             parser_idx = html.find("mw-parser-output")
             if parser_idx >= 0:
-                for para_m in re.finditer(r"<p>(.*?)</p>", html[parser_idx: parser_idx + 20000], re.DOTALL):
+                for para_m in re.finditer(r"<p>(.*?)</p>", html[parser_idx : parser_idx + 20000], re.DOTALL):
                     text = re.sub(r"<[^>]+>", "", para_m.group(1))
                     text = text.replace("&#91;", "[").replace("&#93;", "]").replace("&amp;", "&").strip()
                     if len(text) > 40:
