@@ -70,6 +70,11 @@ _TERM_LIMITED_NON_CANDIDATE_RE = re.compile(
 )
 MAX_RACE_CANDIDATES = 8
 _MAJOR_PARTY_KEYS = ("democratic", "republican")
+_CONTROL_FLOW_EXCEPTION_NAMES = {"AgentCancelled", "HandoffFailed", "HandoffTriggered"}
+
+
+def _is_control_flow_exception(exc: Exception) -> bool:
+    return exc.__class__.__name__ in _CONTROL_FLOW_EXCEPTION_NAMES
 
 
 def _candidate_roster_text(candidate: Dict[str, Any]) -> str:
@@ -244,6 +249,8 @@ async def _run_issue_research_for_candidate(
             try:
                 on_issue_progress(issue_idx, issue)
             except Exception as _e:
+                if _is_control_flow_exception(_e):
+                    raise
                 logger.debug("Issue progress callback failed: %s", _e)
 
         if resume_partial and existing_issue_data is not None:
@@ -259,6 +266,8 @@ async def _run_issue_research_for_candidate(
                 try:
                     on_issue_checkpoint(issue_idx, issue)
                 except Exception as _e:
+                    if _is_control_flow_exception(_e):
+                        raise
                     logger.debug("Issue checkpoint callback failed: %s", _e)
             continue
 
@@ -340,6 +349,8 @@ async def _run_issue_research_for_candidate(
             else:
                 log("warning", f"    Issue sub-agent failed for {candidate_name}/{issue}: {exc}")
         except Exception as exc:
+            if _is_control_flow_exception(exc):
+                raise
             log("warning", f"    Issue sub-agent failed for {candidate_name}/{issue}: {exc}")
 
         for c in race_json.get("candidates", []):
@@ -361,6 +372,8 @@ async def _run_issue_research_for_candidate(
             try:
                 on_issue_checkpoint(issue_idx, issue)
             except Exception as _e:
+                if _is_control_flow_exception(_e):
+                    raise
                 logger.debug("Issue checkpoint callback failed: %s", _e)
 
 

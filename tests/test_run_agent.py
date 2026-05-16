@@ -213,6 +213,33 @@ async def test_run_agent_propagates_control_exceptions_from_step_tracker():
 
 
 @pytest.mark.asyncio
+async def test_run_agent_propagates_control_exceptions_from_issue_progress():
+    """Deep issue progress callbacks must not swallow handoff/cancel signals."""
+    discovery_result = {
+        "id": "ga-governor-2026",
+        "candidates": [{"name": "Alice", "issues": {}}],
+    }
+
+    def _raise_handoff(step, **_kwargs):
+        if step == "issues":
+            raise HandoffTriggered("continuation-item", ["issues"], "continuation-run")
+
+    with (
+        patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.agent._load_existing", return_value=None),
+    ):
+        mock_loop.return_value = {}
+        mock_loop.side_effect = [discovery_result] + [{}] * 12
+        with pytest.raises(HandoffTriggered):
+            await run_agent(
+                "ga-governor-2026",
+                cheap_mode=True,
+                enabled_steps=["discovery", "issues"],
+                step_tracker={"progress": _raise_handoff},
+            )
+
+
+@pytest.mark.asyncio
 async def test_run_agent_update_mode():
     """run_agent with existing data but no candidates falls back to fresh run."""
     existing = {"id": "test-2024", "candidates": [], "updated_utc": "2024-01-01"}
