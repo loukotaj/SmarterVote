@@ -312,6 +312,8 @@ async def run_agent(
             try:
                 step_tracker[action](step, **kwargs)
             except Exception as _e:
+                if _e.__class__.__name__ in {"AgentCancelled", "HandoffFailed", "HandoffTriggered"}:
+                    raise
                 logger.debug("Step tracker callback '%s' for '%s' failed: %s", action, step, _e)
 
     # Initialise a fresh cost accumulator for this run

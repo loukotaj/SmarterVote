@@ -9,6 +9,7 @@ import pytest
 
 from pipeline_client.agent.agent import _load_existing, run_agent
 from pipeline_client.agent.prompts import CANONICAL_ISSUES
+from pipeline_client.backend.handlers.agent import HandoffTriggered
 
 
 @pytest.fixture(autouse=True)
@@ -184,6 +185,31 @@ async def test_run_agent_caps_fresh_roster_at_eight_candidates():
         "Candidate 9",
     ]
     assert "capped at 8" in result["candidate_limit_note"]
+
+
+@pytest.mark.asyncio
+async def test_run_agent_propagates_control_exceptions_from_step_tracker():
+    """Handoff/cancel signals from tracker callbacks must stop the current invocation."""
+    discovery_result = {
+        "id": "ga-governor-2026",
+        "candidates": [{"name": "Alice", "issues": {}}],
+    }
+
+    def _raise_handoff(_step, **_kwargs):
+        raise HandoffTriggered("continuation-item", ["issues"], "continuation-run")
+
+    with (
+        patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.agent._load_existing", return_value=None),
+    ):
+        mock_loop.return_value = discovery_result
+        with pytest.raises(HandoffTriggered):
+            await run_agent(
+                "ga-governor-2026",
+                cheap_mode=True,
+                enabled_steps=["discovery"],
+                step_tracker={"start": _raise_handoff},
+            )
 
 
 @pytest.mark.asyncio
