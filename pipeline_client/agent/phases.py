@@ -8,15 +8,16 @@ update flow runners, and review-iteration logic.  Selection helpers live in
 import copy
 import json
 import logging
+import re
 import time
 from typing import Any, Dict, List, Optional
 
 logger = logging.getLogger("pipeline")
 
-from .handlers import _make_editing_handlers
 from .ballotpedia import lookup_election_page as _ballotpedia_election_lookup
+from .handlers import _make_editing_handlers
 from .images import resolve_candidate_images
-from .llm import _agent_loop, _ensure_dict, _normalize_candidate, CHEAP_MODEL, DEFAULT_MODEL, NANO_MODEL
+from .llm import CHEAP_MODEL, DEFAULT_MODEL, NANO_MODEL, _agent_loop, _ensure_dict, _normalize_candidate
 from .patches import (  # noqa: F401 — re-exported for backward compat
     _apply_candidate_patch,
     _apply_finance_patch,
@@ -34,12 +35,12 @@ from .prompts import (
     FINANCE_VOTING_USER,
     ISSUE_SUBAGENT_SYSTEM,
     ISSUE_SUBAGENT_USER,
+    ITERATE_META_USER,
     ITERATE_SYSTEM,
     ITERATE_USER,
-    ITERATE_META_USER,
+    REFINE_META_USER,
     REFINE_SYSTEM,
     REFINE_USER,
-    REFINE_META_USER,
     ROSTER_SYNC_SYSTEM,
     ROSTER_SYNC_USER,
     UPDATE_ISSUE_SUBAGENT_SYSTEM,
@@ -54,22 +55,62 @@ from .selection import (  # noqa: F401 — re-exported for backward compat
     _select_candidates_for_research,
     _select_target_candidates,
 )
-from .tools import (
-    BACKGROUND_TOOLS,
-    CANDIDATE_TOOLS,
-    ISSUE_TOOLS,
-    RACE_TOOLS,
-    READ_PROFILE_TOOL,
-    RECORD_TOOLS,
-    ROSTER_TOOLS,
-)
+from .tools import BACKGROUND_TOOLS, CANDIDATE_TOOLS, ISSUE_TOOLS, RACE_TOOLS, READ_PROFILE_TOOL, RECORD_TOOLS, ROSTER_TOOLS
 from .utils import make_logger
 from .web_tools import _get_search_cache
-
 
 # ---------------------------------------------------------------------------
 # Per-candidate, per-issue sub-agent
 # ---------------------------------------------------------------------------
+
+_TERM_LIMITED_NON_CANDIDATE_RE = re.compile(
+    r"\b(term[- ]limited|cannot run|can't run|cannot seek|not seeking re-?election|"
+    r"not running|ineligible|not eligible|from running again)\b",
+    re.IGNORECASE,
+)
+
+
+def _candidate_roster_text(candidate: Dict[str, Any]) -> str:
+    """Return searchable text from candidate fields used for roster sanity checks."""
+    pieces: List[str] = []
+    for field in ("name", "summary"):
+        value = candidate.get(field)
+        if isinstance(value, str):
+            pieces.append(value)
+    for source in candidate.get("summary_sources") or []:
+        if isinstance(source, dict):
+            title = source.get("title")
+            if isinstance(title, str):
+                pieces.append(title)
+    return " ".join(pieces)
+
+
+def _remove_ineligible_officeholders(race_json: Dict[str, Any], log: Any | None = None) -> None:
+    """Drop current officeholders the discovery output says cannot run in this race."""
+    candidates = race_json.get("candidates")
+    if not isinstance(candidates, list):
+        return
+
+    kept: List[Any] = []
+    removed: List[str] = []
+    for candidate in candidates:
+        if not isinstance(candidate, dict):
+            kept.append(candidate)
+            continue
+        text = _candidate_roster_text(candidate)
+        if candidate.get("incumbent") is True and _TERM_LIMITED_NON_CANDIDATE_RE.search(text):
+            removed.append(str(candidate.get("name") or "unknown"))
+            continue
+        kept.append(candidate)
+
+    if removed:
+        race_json["candidates"] = kept
+        if log:
+            log(
+                "warning",
+                "Removed ineligible incumbent/non-candidate entries from discovery roster: " + ", ".join(removed),
+            )
+
 
 def _build_handoff_context(
     handoffs: List[Dict[str, Any]],
@@ -137,11 +178,13 @@ async def _run_issue_research_for_candidate(
 
         if resume_partial and existing_issue_data is not None:
             log("info", f"    Issue {issue_idx + 1}/12: {issue} already present; skipping")
-            handoffs.append({
-                "issue": issue,
-                "stance": existing_issue_data.get("stance", "(not set)"),
-                "confidence": existing_issue_data.get("confidence", "?"),
-            })
+            handoffs.append(
+                {
+                    "issue": issue,
+                    "stance": existing_issue_data.get("stance", "(not set)"),
+                    "confidence": existing_issue_data.get("confidence", "?"),
+                }
+            )
             if on_issue_checkpoint:
                 try:
                     on_issue_checkpoint(issue_idx, issue)
@@ -211,17 +254,19 @@ async def _run_issue_research_for_candidate(
                 log(
                     "error",
                     f"    Issue sub-agent skipped for {candidate_name}/{issue} "
-                    f"due to OpenAI policy violation — setting low-confidence placeholder"
+                    f"due to OpenAI policy violation — setting low-confidence placeholder",
                 )
                 # Set a low-confidence placeholder so the gap is visible and
                 # fixable in later phases (refinement / iteration).
-                handlers["set_issue_stance"]({
-                    "candidate_name": candidate_name,
-                    "issue": issue,
-                    "stance": "No public position found (research blocked by content policy)",
-                    "confidence": "low",
-                    "sources": [],
-                })
+                handlers["set_issue_stance"](
+                    {
+                        "candidate_name": candidate_name,
+                        "issue": issue,
+                        "stance": "No public position found (research blocked by content policy)",
+                        "confidence": "low",
+                        "sources": [],
+                    }
+                )
             else:
                 log("warning", f"    Issue sub-agent failed for {candidate_name}/{issue}: {exc}")
         except Exception as exc:
@@ -230,11 +275,13 @@ async def _run_issue_research_for_candidate(
         for c in race_json.get("candidates", []):
             if c.get("name") == candidate_name:
                 sd = c.get("issues", {}).get(issue, {})
-                handoffs.append({
-                    "issue": issue,
-                    "stance": sd.get("stance", "(not set)") if isinstance(sd, dict) else "(not set)",
-                    "confidence": sd.get("confidence", "?") if isinstance(sd, dict) else "?",
-                })
+                handoffs.append(
+                    {
+                        "issue": issue,
+                        "stance": sd.get("stance", "(not set)") if isinstance(sd, dict) else "(not set)",
+                        "confidence": sd.get("confidence", "?") if isinstance(sd, dict) else "?",
+                    }
+                )
                 break
 
         if cache:
@@ -311,8 +358,11 @@ async def _run_shared_phases(
         track("start", "issues")
         iss_t0 = time.perf_counter()
         research_names = _select_candidates_for_research(
-            candidate_names, race_json,
-            max_candidates=max_candidates, target_no_info=target_no_info, log=log,
+            candidate_names,
+            race_json,
+            max_candidates=max_candidates,
+            target_no_info=target_no_info,
+            log=log,
         )
         rn = len(research_names)
         n_issues = len(CANONICAL_ISSUES)
@@ -324,8 +374,13 @@ async def _run_shared_phases(
             def _make_issue_tracker(ci=ci, cand_name=cand_name):
                 def _on_issue(issue_idx: int, issue: str) -> None:
                     combined_pct = int((ci * n_issues + issue_idx) / total_units * 100)
-                    track("progress", "issues", pct=combined_pct,
-                          message=f"Issues · {cand_name} ({ci + 1}/{rn}) · {issue} ({issue_idx + 1}/{n_issues})")
+                    track(
+                        "progress",
+                        "issues",
+                        pct=combined_pct,
+                        message=f"Issues · {cand_name} ({ci + 1}/{rn}) · {issue} ({issue_idx + 1}/{n_issues})",
+                    )
+
                 return _on_issue
 
             def _make_issue_checkpoint(ci=ci, cand_name=cand_name):
@@ -338,6 +393,7 @@ async def _run_shared_phases(
                         message=f"Issues checkpoint - {cand_name} ({ci + 1}/{rn}) - {issue} ({issue_idx + 1}/{n_issues})",
                         race_json=race_json,
                     )
+
                 return _on_issue_checkpoint
 
             await _run_issue_research_for_candidate(
@@ -403,7 +459,12 @@ async def _run_shared_phases(
             candidate_website, candidate_issue_urls = _candidate_source_hints(race_json, cname)
             issue_hint_text = ", ".join(candidate_issue_urls) if candidate_issue_urls else "(none found)"
             log("info", f"  Refining {cname}...")
-            track("progress", "refinement", pct=int((ci / max(n_cands, 1)) * 100), message=f"Refinement: {cname} ({ci + 1}/{n_cands})")
+            track(
+                "progress",
+                "refinement",
+                pct=int((ci / max(n_cands, 1)) * 100),
+                message=f"Refinement: {cname} ({ci + 1}/{n_cands})",
+            )
             try:
                 refine_prefix = "upd-refine" if is_update else "refine"
                 await _agent_loop(
@@ -490,16 +551,21 @@ async def _run_fresh(
     track("start", "discovery")
     disc_t0 = time.perf_counter()
     log("info", "Phase 1/3: Discovering race and candidates...")
-    race_json = _ensure_dict(await _agent_loop(
-        DISCOVERY_SYSTEM,
-        (f"## Run Goal\n{goal}\n\n" if goal else "") + DISCOVERY_USER.format(race_id=race_id),
-        model=model,
-        on_log=on_log,
-        race_id=race_id,
-        max_iterations=max_iterations,
-        phase_name="discovery",
-        max_tokens=16384,
-    ), "discovery", log)
+    race_json = _ensure_dict(
+        await _agent_loop(
+            DISCOVERY_SYSTEM,
+            (f"## Run Goal\n{goal}\n\n" if goal else "") + DISCOVERY_USER.format(race_id=race_id),
+            model=model,
+            on_log=on_log,
+            race_id=race_id,
+            max_iterations=max_iterations,
+            phase_name="discovery",
+            max_tokens=16384,
+        ),
+        "discovery",
+        log,
+    )
+    _remove_ineligible_officeholders(race_json, log)
 
     candidate_names = [c["name"] for c in race_json.get("candidates", [])]
     candidate_names = _select_target_candidates(candidate_names, target_candidate_names, log)
@@ -576,8 +642,9 @@ async def _run_update(
         track = lambda a, s, **kw: None
 
     race_json: Dict[str, Any] = copy.deepcopy(existing)
+    _remove_ineligible_officeholders(race_json, log)
 
-    existing_candidates = existing.get("candidates", [])
+    existing_candidates = race_json.get("candidates", [])
     candidate_names = [c["name"] for c in existing_candidates]
     candidate_names = _select_target_candidates(candidate_names, target_candidate_names, log)
     selected_name_set = set(candidate_names)
@@ -640,6 +707,7 @@ async def _run_update(
         except Exception as exc:
             log("warning", f"  Roster sync failed: {exc} — keeping existing roster")
 
+        _remove_ineligible_officeholders(race_json, log)
         candidate_names = [c["name"] for c in race_json.get("candidates", [])]
         candidate_names = _select_target_candidates(candidate_names, target_candidate_names, log)
         selected_name_set = set(candidate_names)
@@ -692,6 +760,7 @@ async def _run_update(
     else:
         log("info", "Update Phase 0+1: Discovery — SKIPPED")
         track("skip", "discovery")
+        _remove_ineligible_officeholders(race_json, log)
         candidate_names = [c["name"] for c in race_json.get("candidates", [])]
         candidate_names = _select_target_candidates(candidate_names, target_candidate_names, log)
         selected_name_set = set(candidate_names)
@@ -784,7 +853,9 @@ async def _run_iteration_pass(
 
     working = copy.deepcopy(race_json)
     handlers = _make_editing_handlers(working, log)
-    all_tools = ROSTER_TOOLS + CANDIDATE_TOOLS + ISSUE_TOOLS + RECORD_TOOLS + BACKGROUND_TOOLS + RACE_TOOLS + [READ_PROFILE_TOOL]
+    all_tools = (
+        ROSTER_TOOLS + CANDIDATE_TOOLS + ISSUE_TOOLS + RECORD_TOOLS + BACKGROUND_TOOLS + RACE_TOOLS + [READ_PROFILE_TOOL]
+    )
     any_success = False
 
     for candidate in working.get("candidates", []):

@@ -109,6 +109,44 @@ async def test_run_agent_fresh_no_candidates():
 
 
 @pytest.mark.asyncio
+async def test_run_agent_removes_term_limited_incumbent_from_fresh_roster():
+    """Discovery may mention a term-limited officeholder, but issues should only run for candidates."""
+    discovery_result = {
+        "id": "ga-governor-2026",
+        "candidates": [
+            {
+                "name": "Brian Kemp",
+                "party": "Republican Party",
+                "incumbent": True,
+                "summary": "Brian Kemp is term-limited from running again in 2026.",
+                "issues": {},
+            },
+            {
+                "name": "Chris Carr",
+                "party": "Republican Party",
+                "incumbent": False,
+                "summary": "Chris Carr is running for governor.",
+                "issues": {},
+            },
+        ],
+    }
+
+    with (
+        patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.agent._load_existing", return_value=None),
+    ):
+        mock_loop.return_value = discovery_result
+        result = await run_agent(
+            "ga-governor-2026",
+            cheap_mode=True,
+            enabled_steps=["discovery"],
+        )
+
+    assert [candidate["name"] for candidate in result["candidates"]] == ["Chris Carr"]
+    assert mock_loop.call_count == 1
+
+
+@pytest.mark.asyncio
 async def test_run_agent_update_mode():
     """run_agent with existing data but no candidates falls back to fresh run."""
     existing = {"id": "test-2024", "candidates": [], "updated_utc": "2024-01-01"}

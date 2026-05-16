@@ -56,6 +56,11 @@ candidates based on search snippets or speculation. If a search result mentions 
 name that is not on Ballotpedia, verify via the official state election authority
 before including them.
 
+Do NOT include a sitting officeholder as a candidate when your own research says
+they are term-limited, ineligible, not seeking the office, or cannot run again.
+Mention that person in the race description only; do not put them in
+`candidates`.
+
 ## Step 2 — Gather details for each confirmed candidate
 For each candidate from Step 1:
 1. Call `ballotpedia_lookup` with their full name to get their bio, website, and image.
