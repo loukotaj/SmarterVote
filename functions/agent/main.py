@@ -183,6 +183,26 @@ def process_queue_item(cloud_event: CloudEvent) -> None:
             exc.continuation_item_id,
             len(exc.remaining_steps),
         )
+        current_item = item_ref.get()
+        current_item_data = current_item.to_dict() if getattr(current_item, "exists", False) else {}
+        if (current_item_data or {}).get("status") == "cancelled":
+            logger.info(
+                "Queue item %s was cancelled during handoff; cancelling continuation %s", item_id, exc.continuation_item_id
+            )
+            run_ref.update({"status": "cancelled", "completed_at": SERVER_TIMESTAMP})
+            try:
+                db.collection("pipeline_queue").document(exc.continuation_item_id).update(
+                    {
+                        "status": "cancelled",
+                        "cancelled_at": datetime.now(timezone.utc).isoformat(),
+                        "cancel_reason": f"Parent queue item {item_id} was cancelled during handoff",
+                    }
+                )
+            except Exception as cleanup_exc:
+                logger.warning(
+                    "Failed to cancel continuation %s after parent cancellation: %s", exc.continuation_item_id, cleanup_exc
+                )
+            return
         item_ref.update({"status": "continued", "continuation_item_id": exc.continuation_item_id})
         continuation_run_id = getattr(exc, "continuation_run_id", None) or exc.continuation_item_id
         run_ref.update(
@@ -312,7 +332,7 @@ def _run_agent(
     # Import here to avoid module-level import failures if pipeline_client
     # packages aren't fully initialised at module import time
     try:
-        from pipeline_client.backend.handlers.agent import AgentHandler, AgentCancelled, HandoffTriggered
+        from pipeline_client.backend.handlers.agent import AgentCancelled, AgentHandler, HandoffTriggered
     except ImportError as exc:
         raise RuntimeError(f"Failed to import AgentHandler: {exc}") from exc
 

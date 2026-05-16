@@ -229,6 +229,7 @@ class AgentHandler:
             nonlocal _handoff_started
             if _handoff_started or not run_id or time.time() <= deadline_at:
                 return
+            _raise_if_cancelled()
             active_step = step or _current_step
             remaining = [s for s in enabled_steps if s not in _completed_steps]
             if not remaining:

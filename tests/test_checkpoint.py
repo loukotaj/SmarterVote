@@ -360,6 +360,44 @@ async def test_handoff_fails_if_continuation_queue_write_fails():
 
 
 @pytest.mark.asyncio
+async def test_cancelled_queue_item_does_not_handoff_after_deadline():
+    """A run cancelled just before deadline handoff must not create a continuation."""
+    from pipeline_client.backend.handlers.agent import AgentCancelled, AgentHandler
+
+    handler = AgentHandler()
+    past_deadline = time.time() - 10.0
+    options = {
+        "run_id": "run-cancel-before-handoff",
+        "queue_item_id": "queue-cancel-before-handoff",
+        "deadline_at": past_deadline,
+        "enabled_steps": ["discovery", "issues"],
+    }
+    payload = {"race_id": "az-01-senate-2026"}
+
+    queue_doc = MagicMock()
+    queue_doc.exists = True
+    queue_doc.to_dict.return_value = {"status": "cancelled"}
+    queue_doc_ref = MagicMock()
+    queue_doc_ref.get.return_value = queue_doc
+    queue_collection = MagicMock()
+    queue_collection.document.return_value = queue_doc_ref
+    mock_db = MagicMock()
+    mock_db.collection.return_value = queue_collection
+
+    with (
+        patch("pipeline_client.agent.agent.run_agent", side_effect=_make_run_agent_calling_tracker("discovery")),
+        patch.object(handler, "_save_draft", new_callable=AsyncMock),
+        patch("pipeline_client.backend.firestore_logger.FirestoreLogger") as mock_fs_logger_cls,
+        patch("pipeline_client.backend.firestore_logger._get_db", return_value=mock_db),
+    ):
+        with pytest.raises(AgentCancelled):
+            await handler.handle(payload, options)
+
+    queue_doc_ref.set.assert_not_called()
+    mock_fs_logger_cls.return_value.mark_continued.assert_not_called()
+
+
+@pytest.mark.asyncio
 async def test_no_handoff_when_last_step_completes():
     """No HandoffTriggered when the last enabled step completes past deadline."""
     from pipeline_client.backend.handlers.agent import AgentHandler

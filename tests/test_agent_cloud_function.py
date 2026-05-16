@@ -446,6 +446,60 @@ def test_handoff_records_continuation_run_id():
     )
 
 
+def test_handoff_does_not_requeue_if_item_was_cancelled_during_run():
+    """Late handoff from a cancelled invocation must not overwrite race state."""
+    import functions.agent.main as cf_main
+    from functions.agent.main import _HandoffExit
+
+    item_data = {
+        "status": "pending",
+        "race_id": "az-01-senate-2026",
+        "run_id": "run-handoff-cancelled",
+        "options": {"enabled_steps": ["discovery", "issues"]},
+    }
+    db, item_ref, run_ref, race_ref = _make_firestore_mock(item_data=item_data)
+
+    pending_doc = MagicMock()
+    pending_doc.exists = True
+    pending_doc.to_dict.return_value = item_data
+    cancelled_doc = MagicMock()
+    cancelled_doc.exists = True
+    cancelled_doc.to_dict.return_value = {"status": "cancelled"}
+    item_ref.get.side_effect = [pending_doc, cancelled_doc]
+
+    continuation_ref = MagicMock()
+
+    def _collection(name):
+        coll = MagicMock()
+        if name == "pipeline_queue":
+            coll.document.side_effect = lambda doc_id: continuation_ref if doc_id == "item-continuation-abc" else item_ref
+        elif name == "pipeline_runs":
+            coll.document.return_value = run_ref
+        elif name == "races":
+            coll.document.return_value = race_ref
+        return coll
+
+    db.collection.side_effect = _collection
+    ev = _make_cloud_event("item-handoff-cancelled")
+
+    with (
+        patch("functions.agent.main._get_fs", return_value=db),
+        patch(
+            "functions.agent.main._run_agent",
+            side_effect=_HandoffExit("item-continuation-abc", ["issues"], "run-continuation-xyz"),
+        ),
+    ):
+        cf_main.process_queue_item(ev)
+
+    item_updates = [c.args[0] for c in item_ref.update.call_args_list]
+    assert not any(update.get("status") == "continued" for update in item_updates)
+    continuation_ref.update.assert_called_once()
+    assert continuation_ref.update.call_args.args[0]["status"] == "cancelled"
+
+    race_sets = [c.args[0] for c in race_ref.set.call_args_list]
+    assert not any(update.get("current_run_id") == "run-continuation-xyz" for update in race_sets)
+
+
 # ---------------------------------------------------------------------------
 # Unit: _load_gcs_json
 # ---------------------------------------------------------------------------
