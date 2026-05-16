@@ -9,7 +9,8 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
-    "build:gh-pages": "npm run build && node -e \"const fs=require('fs'); fs.copyFileSync('build/index.html','build/404.html'); fs.writeFileSync('build/.nojekyll','');\"",
+    "generate:sitemap": "node scripts/generate-sitemap.mjs",
+    "build:gh-pages": "npm run generate:sitemap && npm run build && node -e \"const fs=require('fs'); fs.copyFileSync('build/index.html','build/404.html'); fs.writeFileSync('build/.nojekyll','');\"",
     "preview": "vite preview",
     "deploy": "npm run build:gh-pages && gh-pages -d build",
     "test": "npm run test:unit",

@@ -10,8 +10,10 @@
   import { formatModelName, candidateSlug } from "$lib/utils/format";
   import { partySlug, partyAbbr } from "$lib/utils/party";
 
-  let race: Race | null = null;
-  let loading = true;
+  export let data: { prerenderedRace?: Race };
+
+  let race: Race | null = data.prerenderedRace ?? null;
+  let loading = !race;
   let error: string | null = null;
   let usingFallbackData = false;
   let isDraftPreview = false;
@@ -22,6 +24,11 @@
   onMount(async () => {
     const params = new URLSearchParams(window.location.search);
     isDraftPreview = params.get("draft") === "true";
+
+    if (race && !isDraftPreview) {
+      loading = false;
+      return;
+    }
 
     try {
       if (isDraftPreview) {

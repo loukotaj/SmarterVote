@@ -8,11 +8,14 @@
   import type { Race, Candidate } from "$lib/types";
   import { getRace, getDraftRace } from "$lib/api";
   import { candidateSlug, formatModelName } from "$lib/utils/format";
+  import { isExternalUrl } from "$lib/utils/url";
 
-  let race: Race | null = null;
+  export let data: { prerenderedRace?: Race };
+
+  let race: Race | null = data.prerenderedRace ?? null;
   let candidate: Candidate | null = null;
   let otherCandidates: Candidate[] = [];
-  let loading = true;
+  let loading = !race;
   let error: string | null = null;
   let othersExpanded = false;
   let isDraftPreview = false;
@@ -22,10 +25,17 @@
   let candidateParam: string;
   $: slug = $page.params.slug as string;
   $: candidateParam = $page.params.candidate as string;
+  $: if (race && candidateParam && !candidate) hydrateCandidate();
 
   onMount(async () => {
     const params = new URLSearchParams(window.location.search);
     isDraftPreview = params.get("draft") === "true";
+
+    if (race && !isDraftPreview) {
+      hydrateCandidate();
+      loading = false;
+      return;
+    }
 
     try {
       if (isDraftPreview) {
@@ -47,21 +57,24 @@
       }
     }
 
-    if (race) {
-      candidate =
-        race.candidates?.find(
-          (c) => candidateSlug(c.name) === candidateParam
-        ) ?? null;
-      otherCandidates =
-        race.candidates?.filter(
-          (c) => candidateSlug(c.name) !== candidateParam && !c.withdrawn
-        ) ?? [];
-      if (!candidate) {
-        error = "Candidate not found";
-      }
-    }
+    hydrateCandidate();
     loading = false;
   });
+
+  function hydrateCandidate() {
+    if (!race) return;
+    candidate =
+      race.candidates?.find(
+        (c) => candidateSlug(c.name) === candidateParam
+      ) ?? null;
+    otherCandidates =
+      race.candidates?.filter(
+        (c) => candidateSlug(c.name) !== candidateParam && !c.withdrawn
+      ) ?? [];
+    if (!candidate) {
+      error = "Candidate not found";
+    }
+  }
 
   $: hasCareer =
     candidate && candidate.career_history && candidate.career_history.length > 0;
@@ -72,6 +85,9 @@
   $: candidateDiscoveryOnly = candidate != null &&
     (!candidate.issues || Object.keys(candidate.issues).length === 0 ||
       Object.values(candidate.issues).every(i => !i?.stance));
+  $: socialLinks = Object.entries(candidate?.social_media ?? {}).filter((entry): entry is [string, string] =>
+    isExternalUrl(entry[1])
+  );
 </script>
 
 <svelte:head>
@@ -258,7 +274,7 @@
 
       <!-- Quick links -->
       <div class="quick-links">
-        {#if candidate.website}
+        {#if isExternalUrl(candidate.website)}
           <a href={candidate.website} target="_blank" rel="noopener noreferrer" class="quick-link">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9" />
@@ -266,7 +282,7 @@
             Campaign Website
           </a>
         {/if}
-        {#each Object.entries(candidate.social_media ?? {}) as [platform, url]}
+        {#each socialLinks as [platform, url]}
           <a href={url} target="_blank" rel="noopener noreferrer" class="quick-link">
             <span class="capitalize">{platform}</span>
           </a>

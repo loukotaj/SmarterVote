@@ -7,6 +7,7 @@
   import type { Candidate } from "$lib/types";
   import { candidateSlug } from "$lib/utils/format";
   import { partyAbbr, partyBadgeClass } from "$lib/utils/party";
+  import { isExternalUrl } from "$lib/utils/url";
 
   export let candidate: Candidate;
   export let raceId: string = "";
@@ -96,7 +97,7 @@
     </p>
 
     <!-- Website Link -->
-    {#if candidate.website}
+    {#if isExternalUrl(candidate.website)}
       <div class="mt-3">
         <a
           href={candidate.website}
