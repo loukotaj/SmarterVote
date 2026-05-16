@@ -15,6 +15,7 @@ from urllib.parse import urljoin, urlparse
 import httpx
 
 logger = logging.getLogger("pipeline")
+_SERPER_MAX_QUERY_CHARS = 500
 
 # ---------------------------------------------------------------------------
 # Search cache
@@ -618,15 +619,26 @@ def _page_fetch_log_hint(url: str, page_text: str) -> Optional[str]:
 
 async def _serper_search(query: str, *, num_results: int = 8, race_id: Optional[str] = None) -> List[Dict[str, Any]]:
     """Execute a web search via the Serper API, with caching."""
-    if not query or not query.strip():
+    normalized_query = re.sub(r"\s+", " ", query or "").strip()
+    if not normalized_query:
         logger.warning("_serper_search called with empty query — skipping")
         return []
+    if len(normalized_query) > _SERPER_MAX_QUERY_CHARS:
+        logger.warning(
+            "Truncating oversized Serper query from %s to %s chars: %s",
+            len(normalized_query),
+            _SERPER_MAX_QUERY_CHARS,
+            normalized_query[:120],
+        )
+        normalized_query = (
+            normalized_query[:_SERPER_MAX_QUERY_CHARS].rsplit(" ", 1)[0] or normalized_query[:_SERPER_MAX_QUERY_CHARS]
+        )
 
     cache = _get_search_cache()
     if cache:
-        cached = cache.get(query, race_id)
+        cached = cache.get(normalized_query, race_id)
         if cached:
-            logger.debug(f"Search cache HIT: {query[:60]}")
+            logger.debug(f"Search cache HIT: {normalized_query[:60]}")
             return cached["results"]
 
     api_key = os.environ.get("SERPER_API_KEY", "")
@@ -634,12 +646,25 @@ async def _serper_search(query: str, *, num_results: int = 8, race_id: Optional[
         return [{"error": "SERPER_API_KEY not configured"}]
 
     client = _get_serper_client()
-    resp = await client.post(
-        "https://google.serper.dev/search",
-        headers={"X-API-KEY": api_key, "Content-Type": "application/json"},
-        json={"q": query, "num": num_results},
-    )
-    resp.raise_for_status()
+    try:
+        resp = await client.post(
+            "https://google.serper.dev/search",
+            headers={"X-API-KEY": api_key, "Content-Type": "application/json"},
+            json={"q": normalized_query, "num": num_results},
+        )
+        resp.raise_for_status()
+    except httpx.HTTPStatusError as exc:
+        response_text = exc.response.text[:300] if exc.response is not None else ""
+        logger.warning(
+            "Serper search failed with HTTP %s for query %r: %s",
+            exc.response.status_code if exc.response is not None else "unknown",
+            normalized_query[:160],
+            response_text,
+        )
+        return [{"error": f"Serper search failed: HTTP {exc.response.status_code if exc.response else 'unknown'}"}]
+    except httpx.HTTPError as exc:
+        logger.warning("Serper search request failed for query %r: %s", normalized_query[:160], exc)
+        return [{"error": f"Serper search failed: {exc}"}]
     data = resp.json()
 
     results: List[Dict[str, Any]] = []
@@ -665,6 +690,6 @@ async def _serper_search(query: str, *, num_results: int = 8, race_id: Optional[
         )
 
     if cache:
-        cache.set(query, results, race_id=race_id, provider="serper")
+        cache.set(normalized_query, results, race_id=race_id, provider="serper")
 
     return results

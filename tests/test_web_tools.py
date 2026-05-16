@@ -40,6 +40,44 @@ async def test_serper_search_uses_cache():
     mock_cache.get.assert_called_once_with("test query", "my-race")
 
 
+@pytest.mark.asyncio
+async def test_serper_search_returns_tool_error_on_http_400():
+    """Bad model-generated search queries should not fail the whole pipeline."""
+    request = httpx.Request("POST", "https://google.serper.dev/search")
+    response = httpx.Response(400, request=request, text="bad request")
+    mock_client = MagicMock()
+    mock_client.post = AsyncMock(return_value=response)
+
+    with (
+        patch.dict(os.environ, {"SERPER_API_KEY": "test-key"}),
+        patch("pipeline_client.agent.web_tools._get_search_cache", return_value=None),
+        patch("pipeline_client.agent.web_tools._get_serper_client", return_value=mock_client),
+    ):
+        results = await _serper_search("bad query")
+
+    assert results == [{"error": "Serper search failed: HTTP 400"}]
+
+
+@pytest.mark.asyncio
+async def test_serper_search_truncates_oversized_queries():
+    """Oversized queries are trimmed before calling Serper."""
+    response = httpx.Response(200, json={"organic": []}, request=httpx.Request("POST", "https://google.serper.dev/search"))
+    mock_client = MagicMock()
+    mock_client.post = AsyncMock(return_value=response)
+    long_query = " ".join(["georgia governor"] * 80)
+
+    with (
+        patch.dict(os.environ, {"SERPER_API_KEY": "test-key"}),
+        patch("pipeline_client.agent.web_tools._get_search_cache", return_value=None),
+        patch("pipeline_client.agent.web_tools._get_serper_client", return_value=mock_client),
+    ):
+        results = await _serper_search(long_query)
+
+    sent_query = mock_client.post.call_args.kwargs["json"]["q"]
+    assert results == []
+    assert len(sent_query) <= 500
+
+
 # ---------------------------------------------------------------------------
 # Page content analysis tests
 # ---------------------------------------------------------------------------
