@@ -47,7 +47,7 @@ resource "google_cloud_run_v2_service" "pipeline_client" {
       }
 
       dynamic "env" {
-        for_each = var.anthropic_api_key != "" ? { anthropic_key = true } : {}
+        for_each = toset(var.anthropic_api_key != "" ? ["enabled"] : [])
         content {
           name = "ANTHROPIC_API_KEY"
           value_source {
@@ -60,7 +60,7 @@ resource "google_cloud_run_v2_service" "pipeline_client" {
       }
 
       dynamic "env" {
-        for_each = var.gemini_api_key != "" ? { gemini_key = true } : {}
+        for_each = toset(var.gemini_api_key != "" ? ["enabled"] : [])
         content {
           name = "GEMINI_API_KEY"
           value_source {
@@ -73,7 +73,7 @@ resource "google_cloud_run_v2_service" "pipeline_client" {
       }
 
       dynamic "env" {
-        for_each = var.xai_api_key != "" ? { xai_key = true } : {}
+        for_each = toset(var.xai_api_key != "" ? ["enabled"] : [])
         content {
           name = "XAI_API_KEY"
           value_source {

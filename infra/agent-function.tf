@@ -137,7 +137,7 @@ resource "google_cloudfunctions2_function" "agent" {
     }
 
     dynamic "secret_environment_variables" {
-      for_each = var.anthropic_api_key != "" ? [1] : []
+      for_each = toset(var.anthropic_api_key != "" ? ["enabled"] : [])
       content {
         key        = "ANTHROPIC_API_KEY"
         project_id = var.project_id
@@ -147,7 +147,7 @@ resource "google_cloudfunctions2_function" "agent" {
     }
 
     dynamic "secret_environment_variables" {
-      for_each = var.gemini_api_key != "" ? [1] : []
+      for_each = toset(var.gemini_api_key != "" ? ["enabled"] : [])
       content {
         key        = "GEMINI_API_KEY"
         project_id = var.project_id
@@ -157,7 +157,7 @@ resource "google_cloudfunctions2_function" "agent" {
     }
 
     dynamic "secret_environment_variables" {
-      for_each = var.xai_api_key != "" ? [1] : []
+      for_each = toset(var.xai_api_key != "" ? ["enabled"] : [])
       content {
         key        = "XAI_API_KEY"
         project_id = var.project_id
