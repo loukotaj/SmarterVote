@@ -68,6 +68,8 @@ _TERM_LIMITED_NON_CANDIDATE_RE = re.compile(
     r"not running|ineligible|not eligible|from running again)\b",
     re.IGNORECASE,
 )
+MAX_RACE_CANDIDATES = 8
+_MAJOR_PARTY_KEYS = ("democratic", "republican")
 
 
 def _candidate_roster_text(candidate: Dict[str, Any]) -> str:
@@ -110,6 +112,74 @@ def _remove_ineligible_officeholders(race_json: Dict[str, Any], log: Any | None 
                 "warning",
                 "Removed ineligible incumbent/non-candidate entries from discovery roster: " + ", ".join(removed),
             )
+
+
+def _candidate_party_key(candidate: Dict[str, Any]) -> str:
+    """Normalize common party labels for roster balancing."""
+    party = str(candidate.get("party") or "").lower()
+    if "democrat" in party:
+        return "democratic"
+    if "republican" in party or party == "gop":
+        return "republican"
+    return "other"
+
+
+def _select_capped_candidates(candidates: List[Any], limit: int) -> List[Any]:
+    """Select a bounded roster while avoiding one crowded primary field dominating."""
+    if len(candidates) <= limit:
+        return candidates
+
+    buckets: Dict[str, List[Any]] = {"democratic": [], "republican": [], "other": []}
+    for candidate in candidates:
+        if isinstance(candidate, dict):
+            buckets[_candidate_party_key(candidate)].append(candidate)
+        else:
+            buckets["other"].append(candidate)
+
+    if all(buckets[key] for key in _MAJOR_PARTY_KEYS):
+        per_major_party = max(1, limit // len(_MAJOR_PARTY_KEYS))
+        selected = buckets["democratic"][:per_major_party] + buckets["republican"][:per_major_party]
+        selected_ids = {id(candidate) for candidate in selected}
+        for candidate in candidates:
+            if len(selected) >= limit:
+                break
+            if id(candidate) not in selected_ids:
+                selected.append(candidate)
+                selected_ids.add(id(candidate))
+        selected_ids = {id(candidate) for candidate in selected[:limit]}
+        return [candidate for candidate in candidates if id(candidate) in selected_ids][:limit]
+
+    return candidates[:limit]
+
+
+def _enforce_candidate_cap(race_json: Dict[str, Any], log: Any | None = None, *, limit: int = MAX_RACE_CANDIDATES) -> None:
+    """Keep race profiles bounded until primary-specific race modeling exists."""
+    candidates = race_json.get("candidates")
+    if not isinstance(candidates, list) or len(candidates) <= limit:
+        return
+
+    kept = _select_capped_candidates(candidates, limit)
+    kept_ids = {id(candidate) for candidate in kept}
+    dropped = [candidate for candidate in candidates if id(candidate) not in kept_ids]
+    race_json["candidates"] = kept
+    dropped_names = [str(c.get("name") or "unknown") for c in dropped if isinstance(c, dict)]
+    race_json["candidate_limit_note"] = (
+        f"Candidate list capped at {limit} active candidates for this race. "
+        "Selection is balanced across major-party fields where possible; future primary-specific race pages should split "
+        "large primary fields."
+    )
+    if log:
+        log(
+            "warning",
+            f"Candidate roster capped at {limit}; skipped {len(dropped)} candidates"
+            + (f": {', '.join(dropped_names)}" if dropped_names else ""),
+        )
+
+
+def _sanitize_roster(race_json: Dict[str, Any], log: Any | None = None) -> None:
+    """Apply deterministic roster constraints before downstream fan-out."""
+    _remove_ineligible_officeholders(race_json, log)
+    _enforce_candidate_cap(race_json, log)
 
 
 def _build_handoff_context(
@@ -565,7 +635,7 @@ async def _run_fresh(
         "discovery",
         log,
     )
-    _remove_ineligible_officeholders(race_json, log)
+    _sanitize_roster(race_json, log)
 
     candidate_names = [c["name"] for c in race_json.get("candidates", [])]
     candidate_names = _select_target_candidates(candidate_names, target_candidate_names, log)
@@ -642,7 +712,7 @@ async def _run_update(
         track = lambda a, s, **kw: None
 
     race_json: Dict[str, Any] = copy.deepcopy(existing)
-    _remove_ineligible_officeholders(race_json, log)
+    _sanitize_roster(race_json, log)
 
     existing_candidates = race_json.get("candidates", [])
     candidate_names = [c["name"] for c in existing_candidates]
@@ -707,7 +777,7 @@ async def _run_update(
         except Exception as exc:
             log("warning", f"  Roster sync failed: {exc} — keeping existing roster")
 
-        _remove_ineligible_officeholders(race_json, log)
+        _sanitize_roster(race_json, log)
         candidate_names = [c["name"] for c in race_json.get("candidates", [])]
         candidate_names = _select_target_candidates(candidate_names, target_candidate_names, log)
         selected_name_set = set(candidate_names)
@@ -760,7 +830,7 @@ async def _run_update(
     else:
         log("info", "Update Phase 0+1: Discovery — SKIPPED")
         track("skip", "discovery")
-        _remove_ineligible_officeholders(race_json, log)
+        _sanitize_roster(race_json, log)
         candidate_names = [c["name"] for c in race_json.get("candidates", [])]
         candidate_names = _select_target_candidates(candidate_names, target_candidate_names, log)
         selected_name_set = set(candidate_names)

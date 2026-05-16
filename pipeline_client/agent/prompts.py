@@ -61,6 +61,11 @@ they are term-limited, ineligible, not seeking the office, or cannot run again.
 Mention that person in the race description only; do not put them in
 `candidates`.
 
+Return no more than 8 active candidates. If an authoritative roster has more
+than 8, keep a balanced major-party subset where possible (up to 4 Democratic
+and 4 Republican candidates, preserving authoritative order), and leave the
+remaining candidates for future primary-specific race pages.
+
 ## Step 2 — Gather details for each confirmed candidate
 For each candidate from Step 1:
 1. Call `ballotpedia_lookup` with their full name to get their bio, website, and image.
