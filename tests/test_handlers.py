@@ -7,6 +7,7 @@ from unittest.mock import AsyncMock, MagicMock, patch
 import pytest
 
 from pipeline_client.agent.handlers import _normalize_source
+from pipeline_client.agent.llm import _normalize_source as _normalize_llm_source
 from pipeline_client.backend.handlers.agent import AgentHandler
 
 
@@ -40,6 +41,18 @@ def test_normalize_source_maps_candidate_link_types_to_source_types():
 
     assert source is not None
     assert source["type"] == "government"
+
+
+def test_llm_source_normalization_maps_freeform_source_types():
+    source = {
+        "url": "https://www.warner.senate.gov/about/priorities/health-care/",
+        "type": "official campaign page",
+    }
+
+    _normalize_llm_source(source, "2026-05-17T00:00:00+00:00")
+
+    assert source["type"] == "government"
+    assert source["last_accessed"] == "2026-05-17T00:00:00+00:00"
 
 
 @pytest.mark.asyncio

@@ -10,6 +10,7 @@ from typing import Any, Dict, List, Optional
 from .ballotpedia import lookup_candidate_data as _ballotpedia_lookup
 from .ballotpedia import lookup_election_page as _ballotpedia_election_lookup
 from .cost import CHEAP_MODEL, DEFAULT_MODEL, NANO_MODEL, accumulate
+from .source_types import normalize_source_type
 from .tools import BALLOTPEDIA_ELECTION_TOOL, BALLOTPEDIA_TOOL, FETCH_TOOL, SEARCH_TOOL
 from .utils import _extract_json, make_logger
 from .web_tools import _fetch_page, _page_fetch_log_hint, _serper_search
@@ -150,6 +151,7 @@ def _normalize_source(source: Any, now_iso: str) -> None:
     """Apply required defaults to a single source object in-place."""
     if isinstance(source, dict):
         source.setdefault("last_accessed", now_iso)
+        source["type"] = normalize_source_type(source.get("type"), url=str(source.get("url") or ""))
 
 
 def _normalize_candidate(candidate: Dict[str, Any], now_iso: str) -> None:
