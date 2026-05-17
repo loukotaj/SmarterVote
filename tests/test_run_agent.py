@@ -287,8 +287,8 @@ async def test_run_agent_update_mode():
         )
 
     assert result["id"] == "test-2024"
-    # Falls back to fresh: 1 + 1 + 12 + 1 + 1 + 1 = 17
-    assert mock_loop.call_count == 17
+    # Falls back to fresh: 1 discovery + 1 image + 12 issues + 1 finance + 1 refinement = 16
+    assert mock_loop.call_count == 16
 
 
 @pytest.mark.asyncio
