@@ -377,7 +377,9 @@ def test_processes_multiple_queue_items_with_isolated_run_ids():
     assert calls[0].args[2]["queue_item_id"] == "item-az"
     assert calls[1].args[2]["queue_item_id"] == "item-ga"
     assert run_refs["run-az"].set.call_args.args[0]["race_id"] == "az-senate-2026"
+    assert run_refs["run-az"].set.call_args.args[0]["payload"] == {"race_id": "az-senate-2026"}
     assert run_refs["run-ga"].set.call_args.args[0]["race_id"] == "ga-governor-2026"
+    assert run_refs["run-ga"].set.call_args.args[0]["payload"] == {"race_id": "ga-governor-2026"}
     assert any(
         update.get("status") == "completed" for update in (c.args[0] for c in item_refs["item-az"].update.call_args_list)
     )

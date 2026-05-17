@@ -132,6 +132,7 @@ def process_queue_item(cloud_event: CloudEvent) -> None:
             {
                 "run_id": run_id,
                 "race_id": race_id,
+                "payload": {"race_id": race_id},
                 "status": "running",
                 "progress": 0,
                 "current_step": None,

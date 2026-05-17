@@ -50,9 +50,7 @@ class RunManager:
         # Single-threaded executor ensures Firestore writes are always applied in FIFO
         # order, preventing stale out-of-order writes from producing inconsistent state
         # on page reload.
-        self._write_executor: ThreadPoolExecutor = ThreadPoolExecutor(
-            max_workers=1, thread_name_prefix="fs-writer"
-        )
+        self._write_executor: ThreadPoolExecutor = ThreadPoolExecutor(max_workers=1, thread_name_prefix="fs-writer")
         self._init_store()
 
     def _init_store(self) -> None:
@@ -74,6 +72,7 @@ class RunManager:
             return
         try:
             from google.cloud import firestore  # type: ignore
+
             self._db = firestore.Client(project=project)
             logger.info("RunManager: using Firestore project=%s collection=%s", project, _COLLECTION)
         except ImportError:
@@ -204,7 +203,9 @@ class RunManager:
             self.attach_run_logger(run_id)
             self._save_run(self.active_runs[run_id])
 
-    def complete_run(self, run_id: str, artifact_id: Optional[str] = None, duration_ms: Optional[int] = None) -> Optional["RunInfo"]:
+    def complete_run(
+        self, run_id: str, artifact_id: Optional[str] = None, duration_ms: Optional[int] = None
+    ) -> Optional["RunInfo"]:
         """Mark a run as completed. Returns the final RunInfo (or None if not found)."""
         if run_id in self.active_runs:
             run_info = self.active_runs[run_id]
@@ -295,6 +296,11 @@ class RunManager:
                 doc = self._db.collection(_COLLECTION).document(run_id).get()
                 if doc.exists:
                     data = doc.to_dict() or {}
+                    if "payload" not in data:
+                        race_id = data.get("race_id")
+                        data["payload"] = {"race_id": race_id} if race_id else {}
+                    data.setdefault("options", {})
+                    data.setdefault("steps", [])
                     return RunInfo(**data)
             except Exception:
                 logger.exception("Firestore get failed for run %s", run_id)
@@ -344,11 +350,9 @@ class RunManager:
         if self._db is not None:
             try:
                 from google.cloud.firestore import Query  # type: ignore
+
                 docs = (
-                    self._db.collection(_COLLECTION)
-                    .order_by("started_at", direction=Query.DESCENDING)
-                    .limit(limit)
-                    .stream()
+                    self._db.collection(_COLLECTION).order_by("started_at", direction=Query.DESCENDING).limit(limit).stream()
                 )
                 for doc in docs:
                     data = doc.to_dict() or {}
