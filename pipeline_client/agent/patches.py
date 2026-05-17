@@ -61,8 +61,17 @@ def _summarize_existing_stances(candidates: List[Dict[str, Any]], issues: List[s
 def _apply_candidate_patch(candidate: Dict[str, Any], patch: Dict[str, Any], log: Any) -> None:
     """Merge a per-candidate patch dict into the candidate in-place."""
     cname = candidate.get("name", "?")
-    for key in ("summary", "image_url", "website", "incumbent", "party",
-                "donor_summary", "donor_source_url", "voting_summary", "voting_source_url"):
+    for key in (
+        "summary",
+        "image_url",
+        "website",
+        "incumbent",
+        "party",
+        "donor_summary",
+        "donor_source_url",
+        "voting_summary",
+        "voting_source_url",
+    ):
         if key in patch:
             candidate[key] = patch[key]
     for key in ("summary_sources", "career_history", "education"):
@@ -71,7 +80,7 @@ def _apply_candidate_patch(candidate: Dict[str, Any], patch: Dict[str, Any], log
             candidate[key] = val
     new_links = patch.get("links")
     if isinstance(new_links, list) and new_links:
-        existing_urls = {lnk.get("url") for lnk in candidate.get("links", [])}
+        existing_urls = {lnk.get("url") for lnk in candidate.get("links", []) if isinstance(lnk, dict)}
         for lnk in new_links:
             if isinstance(lnk, dict) and lnk.get("url") not in existing_urls:
                 candidate.setdefault("links", []).append(lnk)
@@ -82,9 +91,13 @@ def _apply_candidate_patch(candidate: Dict[str, Any], patch: Dict[str, Any], log
     log("debug", f"  Candidate patch applied for {cname}")
 
 
-def _apply_refine_patch(race_json: Dict[str, Any], meta_patch: Dict[str, Any],
-                        candidate_patches: List[Dict[str, Any]], log: Any,
-                        iteration_notes: List[str]) -> None:
+def _apply_refine_patch(
+    race_json: Dict[str, Any],
+    meta_patch: Dict[str, Any],
+    candidate_patches: List[Dict[str, Any]],
+    log: Any,
+    iteration_notes: List[str],
+) -> None:
     """Apply refine meta + per-candidate patches to race_json in-place."""
     if meta_patch.get("description"):
         race_json["description"] = meta_patch["description"]

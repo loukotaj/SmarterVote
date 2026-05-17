@@ -83,6 +83,17 @@ logger = logging.getLogger("pipeline")
 
 _PLACEHOLDER_CANDIDATE_NAMES = {"", "unknown", "tbd", "to be determined", "n/a", "na", "none"}
 _MISSING_STANCE_MARKERS = {"", "missing", "unknown", "n/a", "na", "none"}
+_VALID_CANDIDATE_LINK_TYPES = {
+    "finance",
+    "ballotpedia",
+    "wiki",
+    "official",
+    "legislature",
+    "votesmart",
+    "govtrack",
+    "news",
+    "other",
+}
 
 
 # ---------------------------------------------------------------------------
@@ -156,6 +167,61 @@ def _sanitize_polling(race_json: Dict[str, Any], log: Any | None = None) -> None
                     )
 
 
+def _sanitize_candidate_links(race_json: Dict[str, Any], log: Any | None = None) -> None:
+    """Normalize candidate reference links before validation and later saves."""
+    for candidate_index, candidate in enumerate(race_json.get("candidates") or []):
+        if not isinstance(candidate, dict):
+            continue
+        links = candidate.get("links")
+        if links is None:
+            candidate["links"] = []
+            continue
+        if not isinstance(links, list):
+            candidate["links"] = []
+            if log:
+                log("warning", f"Candidate {candidate_index} links was not a list; dropping malformed links")
+            continue
+
+        normalized: List[Dict[str, str]] = []
+        seen_urls: set[str] = set()
+        changed = False
+        for link in links:
+            if isinstance(link, str):
+                url = link.strip()
+                if not url:
+                    changed = True
+                    continue
+                normalized_link = {"url": url, "title": url, "type": "other"}
+                changed = True
+            elif isinstance(link, dict):
+                url = str(link.get("url") or "").strip()
+                if not url:
+                    changed = True
+                    continue
+                title = str(link.get("title") or url).strip()
+                link_type = str(link.get("type") or "other").strip()
+                if link_type not in _VALID_CANDIDATE_LINK_TYPES:
+                    link_type = "other"
+                    changed = True
+                normalized_link = {"url": url, "title": title or url, "type": link_type}
+                changed = changed or normalized_link != link
+            else:
+                changed = True
+                continue
+
+            if normalized_link["url"] in seen_urls:
+                changed = True
+                continue
+            normalized.append(normalized_link)
+            seen_urls.add(normalized_link["url"])
+
+        if changed:
+            candidate["links"] = normalized
+            if log:
+                name = _candidate_name(candidate) or f"candidate {candidate_index}"
+                log("warning", f"Normalized malformed reference links for {name}")
+
+
 def _issue_quality(issue_data: Any) -> tuple[int, int]:
     if not isinstance(issue_data, dict):
         return (0, 0)
@@ -209,6 +275,7 @@ def _normalize_schema_fields(race_json: Dict[str, Any], log: Any | None = None) 
         race_json["schema_version"] = "0.3"
     _sanitize_candidate_issues(race_json, log)
     _sanitize_polling(race_json, log)
+    _sanitize_candidate_links(race_json, log)
 
     try:
         from shared.models import RaceJSON as _RaceJSONModel

@@ -93,6 +93,30 @@ def test_make_editing_handlers():
     assert set(handlers.keys()) == expected_names
 
 
+def test_add_candidate_link_ignores_legacy_string_links_for_dedup():
+    """Legacy raw URL entries should not crash the editing handler."""
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"candidates": [{"name": "Alice", "links": ["https://example.com/legacy"]}]}
+    handlers = _make_editing_handlers(race_json, lambda l, m: None)
+
+    result = handlers["add_candidate_link"](
+        {
+            "candidate_name": "Alice",
+            "url": "https://example.com/new",
+            "title": "New Link",
+            "type": "news",
+        }
+    )
+
+    assert "Added" in result
+    assert race_json["candidates"][0]["links"][-1] == {
+        "url": "https://example.com/new",
+        "title": "New Link",
+        "type": "news",
+    }
+
+
 def test_add_candidate_handler():
     """add_candidate handler adds a candidate to race_json."""
     from pipeline_client.agent.agent import _make_editing_handlers

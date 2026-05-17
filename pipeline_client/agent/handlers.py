@@ -12,16 +12,14 @@ from difflib import get_close_matches
 from typing import Any, Callable, Dict, Optional
 
 # Pattern matching metadata field names (snake_case, no spaces) — clearly not human names
-_METADATA_KEY_RE = re.compile(r'^[a-z][a-z0-9_]+$')
+_METADATA_KEY_RE = re.compile(r"^[a-z][a-z0-9_]+$")
 
 from pipeline_client.agent.prompts import CANONICAL_ISSUES
 
 _CANONICAL_ISSUE_SET = set(CANONICAL_ISSUES)
 
 
-def _make_editing_handlers(
-    race_json: Dict[str, Any], log: Callable
-) -> Dict[str, Any]:
+def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str, Any]:
     """Build editing-tool handlers closed over *race_json*.
 
     Returns a ``{tool_name: handler_fn}`` dict compatible with the
@@ -29,8 +27,13 @@ def _make_editing_handlers(
     """
     _ALLOWED_CANDIDATE_FIELDS = {"party", "incumbent", "website", "image_url"}
     _ALLOWED_RACE_FIELDS = {
-        "description", "office", "election_date", "polling_note",
-        "ballotpedia_url", "register_to_vote_url", "how_to_vote_url",
+        "description",
+        "office",
+        "election_date",
+        "polling_note",
+        "ballotpedia_url",
+        "register_to_vote_url",
+        "how_to_vote_url",
     }
 
     def _find_candidate(name: str) -> Optional[Dict[str, Any]]:
@@ -74,9 +77,19 @@ def _make_editing_handlers(
         # Guard: reject removals that are clearly data-quality fixes rather than
         # actual race withdrawals. Withdrawal reasons must mention the race exit.
         _WITHDRAWAL_KEYWORDS = {
-            "withdrew", "withdrawal", "dropped out", "drop out", "suspended",
-            "disqualified", "disqualification", "ended campaign", "exited race",
-            "no longer running", "not running", "retired from race", "lost primary",
+            "withdrew",
+            "withdrawal",
+            "dropped out",
+            "drop out",
+            "suspended",
+            "disqualified",
+            "disqualification",
+            "ended campaign",
+            "exited race",
+            "no longer running",
+            "not running",
+            "retired from race",
+            "lost primary",
             "primary loss",
         }
         reason_lower = reason.lower()
@@ -84,8 +97,17 @@ def _make_editing_handlers(
 
         # Also reject if reason sounds like a data-quality fix
         _DATA_FIX_KEYWORDS = {
-            "fabricated", "incorrect", "wrong", "replace", "fix", "error",
-            "bad data", "inaccurate", "verified", "update", "correction",
+            "fabricated",
+            "incorrect",
+            "wrong",
+            "replace",
+            "fix",
+            "error",
+            "bad data",
+            "inaccurate",
+            "verified",
+            "update",
+            "correction",
         }
         has_data_fix_signal = any(kw in reason_lower for kw in _DATA_FIX_KEYWORDS)
 
@@ -200,7 +222,9 @@ def _make_editing_handlers(
         org_lower = args["organization"].lower()
         start = args.get("start_year")
         for existing in c.get("career_history", []):
-            same_org = org_lower in existing.get("organization", "").lower() or existing.get("organization", "").lower() in org_lower
+            same_org = (
+                org_lower in existing.get("organization", "").lower() or existing.get("organization", "").lower() in org_lower
+            )
             same_start = existing.get("start_year") == start
             if same_org and same_start:
                 return f"Career entry for '{args['organization']}' ({start}) already exists for '{name}' — skipping duplicate."
@@ -223,8 +247,7 @@ def _make_editing_handlers(
         inst_lower = args["institution"].lower()
         deg_lower = args["degree"].lower()
         for existing in c.get("education", []):
-            if (inst_lower in existing.get("institution", "").lower()
-                    and deg_lower in existing.get("degree", "").lower()):
+            if inst_lower in existing.get("institution", "").lower() and deg_lower in existing.get("degree", "").lower():
                 return f"Education entry for '{args['institution']}' ({args['degree']}) already exists for '{name}' — skipping duplicate."
         c.setdefault("education", []).append(entry)
         log("info", f"    Added education for {name}: {args['degree']} from {args['institution']}")
@@ -334,14 +357,16 @@ def _make_editing_handlers(
         if not c:
             return f"Candidate '{name}' not found."
         url = args["url"]
-        existing_urls = {lnk.get("url") for lnk in c.get("links", [])}
+        existing_urls = {lnk.get("url") for lnk in c.get("links", []) if isinstance(lnk, dict)}
         if url in existing_urls:
             return f"Link already exists for '{name}': {url}"
-        c.setdefault("links", []).append({
-            "url": url,
-            "title": args["title"],
-            "type": args.get("type", "other"),
-        })
+        c.setdefault("links", []).append(
+            {
+                "url": url,
+                "title": args["title"],
+                "type": args.get("type", "other"),
+            }
+        )
         log("info", f"    🔗 Added link for {name}: {url[:60]}")
         return f"Added {args.get('type', 'other')} link for '{name}'."
 
@@ -371,10 +396,7 @@ def _make_editing_handlers(
         polling = race_json.get("polling", [])
         orig_len = len(polling)
         if date:
-            race_json["polling"] = [
-                p for p in polling
-                if not (p.get("pollster") == pollster and p.get("date") == date)
-            ]
+            race_json["polling"] = [p for p in polling if not (p.get("pollster") == pollster and p.get("date") == date)]
             removed = orig_len - len(race_json["polling"])
             if removed:
                 log("info", f"    🗑️ Removed poll: {pollster} ({date}) — {reason}")
@@ -420,9 +442,11 @@ def _make_editing_handlers(
             return json.dumps(race_json.get("polling", []), indent=2, default=str)
         if section == "meta":
             return json.dumps(
-                {k: race_json.get(k) for k in
-                 ("id", "title", "office", "jurisdiction", "election_date", "description")
-                 if k in race_json},
+                {
+                    k: race_json.get(k)
+                    for k in ("id", "title", "office", "jurisdiction", "election_date", "description")
+                    if k in race_json
+                },
                 indent=2,
                 default=str,
             )

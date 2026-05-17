@@ -7,7 +7,7 @@ from unittest.mock import AsyncMock, patch
 
 import pytest
 
-from pipeline_client.agent.agent import _load_existing, run_agent
+from pipeline_client.agent.agent import _load_existing, _normalize_schema_fields, run_agent
 from pipeline_client.agent.prompts import CANONICAL_ISSUES
 from pipeline_client.backend.handlers.agent import HandoffTriggered
 
@@ -49,6 +49,35 @@ def test_load_existing_reads_file(tmp_path):
         result = _load_existing("__test_tmp_load_existing__")
     assert result is not None
     assert result["id"] == "test-race"
+
+
+def test_normalize_schema_fields_coerces_candidate_link_strings():
+    """Raw link strings from model output should be saved as CandidateLink objects."""
+    race_json = {
+        "id": "test-race",
+        "title": "Test Race",
+        "office": "Governor",
+        "jurisdiction": "Test",
+        "state": "TS",
+        "election_date": "2026-11-03",
+        "candidates": [
+            {
+                "name": "Alice",
+                "links": [
+                    "https://example.com/alice",
+                    {"url": "https://example.com/alice", "title": "Duplicate"},
+                    {"url": "https://example.com/news", "title": "News", "type": "bad-type"},
+                ],
+            }
+        ],
+    }
+
+    _normalize_schema_fields(race_json, lambda *_: None)
+
+    assert race_json["candidates"][0]["links"] == [
+        {"url": "https://example.com/alice", "title": "https://example.com/alice", "type": "other"},
+        {"url": "https://example.com/news", "title": "News", "type": "other"},
+    ]
 
 
 # ---------------------------------------------------------------------------
