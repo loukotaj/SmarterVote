@@ -245,14 +245,6 @@ async def _run_issue_research_for_candidate(
                     existing_issue_data = sd
                 break
 
-        if on_issue_progress:
-            try:
-                on_issue_progress(issue_idx, issue)
-            except Exception as _e:
-                if _is_control_flow_exception(_e):
-                    raise
-                logger.debug("Issue progress callback failed: %s", _e)
-
         if resume_partial and existing_issue_data is not None:
             log("info", f"    Issue {issue_idx + 1}/12: {issue} already present; skipping")
             handoffs.append(
@@ -270,6 +262,14 @@ async def _run_issue_research_for_candidate(
                         raise
                     logger.debug("Issue checkpoint callback failed: %s", _e)
             continue
+
+        if on_issue_progress:
+            try:
+                on_issue_progress(issue_idx, issue)
+            except Exception as _e:
+                if _is_control_flow_exception(_e):
+                    raise
+                logger.debug("Issue progress callback failed: %s", _e)
 
         handoff_ctx = _build_handoff_context(handoffs, cached_info)
 

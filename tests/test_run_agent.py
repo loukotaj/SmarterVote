@@ -624,6 +624,56 @@ async def test_run_agent_continuation_skips_completed_issue_stances():
 
 
 @pytest.mark.asyncio
+async def test_run_agent_continuation_does_not_report_skipped_issue_as_active():
+    """Skipped checkpointed issue stances should not look like active research."""
+    existing = {
+        "id": "test-2024",
+        "candidates": [
+            {
+                "name": "Alice",
+                "party": "D",
+                "issues": {
+                    CANONICAL_ISSUES[0]: {
+                        "issue": CANONICAL_ISSUES[0],
+                        "stance": "Existing stance",
+                        "confidence": "high",
+                        "sources": [],
+                    }
+                },
+            }
+        ],
+        "updated_utc": "2024-01-01T00:00:00Z",
+    }
+    active_messages = []
+    checkpoint_messages = []
+
+    def _progress(step: str, **kwargs):
+        if step != "issues":
+            return
+        message = kwargs.get("message", "")
+        if message.startswith("Issues ·"):
+            active_messages.append(message)
+        if message.startswith("Issues checkpoint"):
+            checkpoint_messages.append(message)
+
+    with patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock) as mock_loop:
+        mock_loop.return_value = {}
+
+        await run_agent(
+            "test-2024",
+            cheap_mode=True,
+            existing_data=existing,
+            enabled_steps=["issues"],
+            step_tracker={"progress": _progress},
+            resume_partial=True,
+        )
+
+    assert all(CANONICAL_ISSUES[0] not in message for message in active_messages)
+    assert any(CANONICAL_ISSUES[0] in message for message in checkpoint_messages)
+    assert mock_loop.call_count == len(CANONICAL_ISSUES) - 1
+
+
+@pytest.mark.asyncio
 async def test_issue_checkpoint_progress_includes_partial_race_json():
     """Issue checkpoints send the mutated RaceJSON to the handler for handoff storage."""
     existing = {
