@@ -45,6 +45,11 @@ def _latest_activity_at(data: Dict[str, Any]) -> datetime | None:
     return None
 
 
+def _run_sort_key(run: Dict[str, Any]) -> tuple[datetime, str]:
+    activity_at = _latest_activity_at(run) or datetime.min.replace(tzinfo=timezone.utc)
+    return (activity_at, str(run.get("run_id") or ""))
+
+
 def _is_stale_active_run(data: Dict[str, Any], now: datetime) -> bool:
     if data.get("status") not in _ACTIVE_STATUSES:
         return False
@@ -135,13 +140,32 @@ def _log_sort_key(entry: Dict[str, Any]) -> tuple[float, str]:
 
 @router.get("/runs", dependencies=[Depends(verify_token)])
 async def list_runs(limit: int = 50) -> Dict[str, Any]:
-    """List recent pipeline runs from Firestore, newest first."""
+    """List recent pipeline runs from Firestore, newest first.
+
+    Firestore ordering can miss active continuation docs when `started_at` has
+    mixed legacy string and server timestamp values. Merge in the active query so
+    dashboards always show the true active count and current parallel work.
+    """
     db = firestore_helpers._get_fs()
     docs = db.collection("pipeline_runs").order_by("started_at", direction="DESCENDING").limit(limit).stream()
     runs = [firestore_helpers._doc_to_plain(d) for d in docs]
     runs = [r for r in runs if r is not None]
-    active = sum(1 for r in runs if r.get("status") in ("pending", "running"))
-    return {"runs": runs, "active_count": active, "total_count": len(runs)}
+
+    active_docs = db.collection("pipeline_runs").where("status", "in", ["pending", "running"]).stream()
+    active_runs = [firestore_helpers._doc_to_plain(d) for d in active_docs]
+    active_runs = [r for r in active_runs if r is not None]
+    now = datetime.now(timezone.utc)
+    active_runs = [r for r in (_normalize_active_run(db, r, now) for r in active_runs) if r is not None]
+
+    merged: Dict[str, Dict[str, Any]] = {}
+    for run in runs + active_runs:
+        run_id = run.get("run_id")
+        if run_id:
+            merged[str(run_id)] = run
+
+    ordered = sorted(merged.values(), key=_run_sort_key, reverse=True)
+    active = sum(1 for r in active_runs if r.get("status") in _ACTIVE_STATUSES)
+    return {"runs": ordered[:limit], "active_count": active, "total_count": len(ordered)}
 
 
 @router.get("/runs/active", dependencies=[Depends(verify_token)])

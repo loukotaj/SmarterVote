@@ -448,6 +448,78 @@ def test_active_runs_hides_superseded_inactive_race_run():
     queue_doc.reference.update.assert_called_once_with(update)
 
 
+def test_list_runs_merges_active_runs_missing_from_recent_query():
+    """The dashboard run list should count active continuations even if recent ordering misses them."""
+    os.environ["SKIP_AUTH"] = "true"
+    os.environ["ADMIN_API_KEY"] = "test-key"
+
+    recent_doc = _make_existing_doc(
+        {
+            "run_id": "run-old",
+            "race_id": "old-race-2026",
+            "status": "completed",
+            "started_at": "2026-04-01T00:00:00+00:00",
+        }
+    )
+    active_doc = _make_existing_doc(
+        {
+            "run_id": "run-active",
+            "race_id": "ga-senate-2026",
+            "status": "running",
+            "progress_updated_at": "2026-05-17T22:00:00+00:00",
+            "started_at": "2026-05-17T21:59:00+00:00",
+        }
+    )
+
+    recent_query = MagicMock()
+    recent_query.limit.return_value = recent_query
+    recent_query.stream.return_value = iter([recent_doc])
+
+    active_query = MagicMock()
+    active_query.stream.return_value = iter([active_doc])
+
+    runs_coll = MagicMock()
+    runs_coll.order_by.return_value = recent_query
+    runs_coll.where.return_value = active_query
+    runs_coll.document.return_value = MagicMock()
+
+    races_coll = MagicMock()
+    races_coll.document.return_value = _make_missing_doc_ref()
+
+    queue_coll = MagicMock()
+    queue_coll.where.return_value = queue_coll
+    queue_coll.stream.return_value = iter([])
+
+    db = _build_empty_firestore_mock()
+
+    def _coll(name):
+        if name == "pipeline_runs":
+            return runs_coll
+        if name == "races":
+            return races_coll
+        if name == "pipeline_queue":
+            return queue_coll
+        return MagicMock()
+
+    db.collection.side_effect = _coll
+
+    import main as app_module
+
+    firestore_helpers._fs_db = None
+
+    from fastapi.testclient import TestClient
+
+    with patch("firestore_helpers._get_fs", return_value=db):
+        tc = TestClient(app_module.app)
+        resp = tc.get("/runs?limit=10")
+
+    assert resp.status_code == 200
+    body = resp.json()
+    assert body["active_count"] == 1
+    assert body["total_count"] == 2
+    assert [run["run_id"] for run in body["runs"]] == ["run-active", "run-old"]
+
+
 def test_queue_race_success():
     """POST /api/races/queue with SKIP_AUTH writes to Firestore and returns added list."""
     os.environ["SKIP_AUTH"] = "true"
