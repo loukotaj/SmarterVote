@@ -203,6 +203,7 @@ class Candidate(BaseModel):
     # Voting summary (narrative + link; raw record list removed in v0.4)
     voting_summary: Optional[str] = None
     voting_source_url: Optional[str] = None
+    voting_sources: List[Source] = Field(default_factory=list)
 
     # Financial (narrative + link; raw donor list removed in v0.4)
     donor_summary: Optional[str] = None

@@ -582,6 +582,7 @@
           <VotingRecordTable
             votingSummary={candidate.voting_summary || ""}
             votingSourceUrl={candidate.voting_source_url || ""}
+            votingSources={candidate.voting_sources || []}
             raceId={race.id}
             candidateName={candidate.name}
           />

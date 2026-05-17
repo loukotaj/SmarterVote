@@ -28,6 +28,8 @@ def _apply_meta_patch(race_json: Dict[str, Any], patch: Dict[str, Any], log: Any
             candidate["donor_summary"] = pc["donor_summary"]
         if isinstance(pc.get("donor_sources"), list):
             candidate["donor_sources"] = pc["donor_sources"]
+        if isinstance(pc.get("voting_sources"), list):
+            candidate["voting_sources"] = pc["voting_sources"]
     log("info", f"  Meta patch applied — {len(patch_candidates)} candidates updated")
 
 
@@ -74,6 +76,7 @@ def _apply_candidate_patch(candidate: Dict[str, Any], patch: Dict[str, Any], log
         "donor_sources",
         "voting_summary",
         "voting_source_url",
+        "voting_sources",
     ):
         if key in patch:
             candidate[key] = patch[key]

@@ -6,6 +6,7 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
+from pipeline_client.agent.handlers import _normalize_source
 from pipeline_client.backend.handlers.agent import AgentHandler
 
 
@@ -25,6 +26,20 @@ def fast_handler_side_effects(monkeypatch, tmp_path):
     ):
         metrics_store.return_value.record_run = AsyncMock()
         yield
+
+
+def test_normalize_source_maps_candidate_link_types_to_source_types():
+    source = _normalize_source(
+        {"url": "https://justfacts.votesmart.org/candidate/123", "type": "votesmart", "title": "Vote Smart"}
+    )
+
+    assert source is not None
+    assert source["type"] == "website"
+
+    source = _normalize_source({"url": "https://www.congress.gov/member/example", "type": "govtrack"})
+
+    assert source is not None
+    assert source["type"] == "government"
 
 
 @pytest.mark.asyncio

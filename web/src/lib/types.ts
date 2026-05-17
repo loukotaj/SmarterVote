@@ -125,6 +125,7 @@ export interface Candidate {
   education: EducationEntry[];
   voting_summary?: string;
   voting_source_url?: string;
+  voting_sources?: Source[];
   donor_summary?: string;
   donor_source_url?: string;
   donor_sources?: Source[];

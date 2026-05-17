@@ -18,15 +18,36 @@ _METADATA_KEY_RE = re.compile(r"^[a-z][a-z0-9_]+$")
 from pipeline_client.agent.prompts import CANONICAL_ISSUES
 
 _CANONICAL_ISSUE_SET = set(CANONICAL_ISSUES)
+_SOURCE_TYPE_ALIASES = {
+    "ballotpedia": "website",
+    "campaign": "website",
+    "campaign-issue-page": "website",
+    "campaign-issues": "website",
+    "campaign-policy-page": "website",
+    "campaign_issues": "website",
+    "govtrack": "government",
+    "legislature": "government",
+    "official": "government",
+    "official_policy": "government",
+    "official_policy_page": "government",
+    "policy-quote": "website",
+    "votesmart": "website",
+    "wiki": "website",
+}
+_VALID_SOURCE_TYPES = {"website", "finance", "pdf", "api", "social_media", "news", "government", "fresh_search"}
 
 
 def _normalize_source(source: Any, *, default_type: str = "finance") -> Dict[str, Any] | None:
     """Normalize a lightweight tool-provided source into the shared Source shape."""
     if not isinstance(source, dict) or not source.get("url"):
         return None
+    source_type = str(source.get("type") or default_type).strip().lower()
+    source_type = _SOURCE_TYPE_ALIASES.get(source_type, source_type)
+    if source_type not in _VALID_SOURCE_TYPES:
+        source_type = default_type if default_type in _VALID_SOURCE_TYPES else "website"
     normalized = {
         "url": source["url"],
-        "type": source.get("type") or default_type,
+        "type": source_type,
         "last_accessed": source.get("last_accessed") or datetime.now(timezone.utc).isoformat(),
     }
     for key in ("title", "description", "published_at", "checksum", "is_fresh", "is_official_campaign"):
@@ -366,6 +387,8 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
         c["voting_summary"] = args["summary"]
         if args.get("source_url"):
             c["voting_source_url"] = args["source_url"]
+        if isinstance(args.get("sources"), list):
+            c["voting_sources"] = [src for src in (_normalize_source(s) for s in args["sources"]) if src]
         log("info", f"    Updated voting summary for {name}")
         return f"Updated voting summary for '{name}'."
 

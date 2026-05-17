@@ -483,10 +483,31 @@ SET_VOTING_SUMMARY_TOOL: Dict = {
             "type": "object",
             "properties": {
                 "candidate_name": {"type": "string", "description": "Exact candidate name."},
-                "summary": {"type": "string", "description": "2-3 sentence summary of the candidate's voting patterns."},
+                "summary": {
+                    "type": "string",
+                    "description": "2-3 sentence summary of the candidate's voting patterns. Do not include inline 'Sources:' text or raw URLs.",
+                },
                 "source_url": {
                     "type": "string",
-                    "description": "URL to full voting record (VoteSmart, GovTrack, legislature, etc.).",
+                    "description": "Best single URL for the full voting record (VoteSmart, GovTrack, legislature, etc.).",
+                },
+                "sources": {
+                    "type": "array",
+                    "description": "Structured sources supporting the voting summary.",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "url": {"type": "string"},
+                            "type": {
+                                "type": "string",
+                                "description": "Use website, government, news, or finance. Put VoteSmart pages under website and GovTrack/legislature pages under government.",
+                            },
+                            "title": {"type": "string"},
+                            "description": {"type": "string"},
+                            "published_at": {"type": "string"},
+                        },
+                        "required": ["url"],
+                    },
                 },
             },
             "required": ["candidate_name", "summary"],

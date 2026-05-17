@@ -1,24 +1,88 @@
 <script lang="ts">
   import NoDataFallback from "./NoDataFallback.svelte";
+  import type { Source } from "$lib/types";
 
   export let votingSummary: string = "";
   export let votingSourceUrl: string = "";
+  export let votingSources: Source[] = [];
   export let raceId: string = "";
   export let candidateName: string = "";
+
+  type SourceLink = { url: string; title: string };
+
+  function titleForUrl(url: string): string {
+    try {
+      return new URL(url).hostname.replace(/^www\./, "");
+    } catch {
+      return url;
+    }
+  }
+
+  function stripInlineSources(summary: string): string {
+    const markerIndex = summary.search(/\bSources:\s*https?:\/\//i);
+    return (markerIndex >= 0 ? summary.slice(0, markerIndex) : summary).trim();
+  }
+
+  function extractInlineSourceUrls(summary: string): string[] {
+    return (summary.match(/https?:\/\/[^\s;,]+/g) ?? []).map((url) =>
+      url.replace(/[.)\]]+$/, "")
+    );
+  }
+
+  function mergeSourceLinks(
+    sources: Source[],
+    sourceUrl: string,
+    legacyUrls: string[]
+  ): SourceLink[] {
+    const links: SourceLink[] = [];
+    const seen = new Set<string>();
+    const add = (url: string | undefined, title?: string) => {
+      if (!url || seen.has(url)) return;
+      seen.add(url);
+      links.push({ url, title: title || titleForUrl(url) });
+    };
+
+    add(sourceUrl, "View full voting record");
+    for (const source of sources) add(source.url, source.title ?? undefined);
+    for (const url of legacyUrls) add(url);
+    return links;
+  }
+
+  $: cleanVotingSummary = stripInlineSources(votingSummary);
+  $: votingSourceLinks = mergeSourceLinks(
+    votingSources,
+    votingSourceUrl,
+    extractInlineSourceUrls(votingSummary)
+  );
 </script>
 
 <div class="voting-container">
-  {#if !votingSummary}
+  {#if !cleanVotingSummary && votingSourceLinks.length === 0}
     <NoDataFallback dataType="voting" {raceId} {candidateName} />
   {:else}
-    <div class="voting-summary">
-      <p class="summary-text">{votingSummary}</p>
-    </div>
+    {#if cleanVotingSummary}
+      <div class="voting-summary">
+        <p class="summary-text">{cleanVotingSummary}</p>
+      </div>
+    {/if}
 
-    {#if votingSourceUrl}
-      <a href={votingSourceUrl} target="_blank" rel="noopener noreferrer" class="source-link-btn">
-        View full voting record →
-      </a>
+    {#if votingSourceLinks.length > 0}
+      <div class="source-list" aria-label="Voting record sources">
+        <p class="source-list-title">Sources</p>
+        <div class="source-links">
+          {#each votingSourceLinks as source}
+            <a
+              href={source.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="source-link-btn"
+            >
+              {source.title}
+              <span aria-hidden="true">→</span>
+            </a>
+          {/each}
+        </div>
+      </div>
     {/if}
   {/if}
 </div>
@@ -35,6 +99,19 @@
   .summary-text {
     color: rgb(var(--sv-text));
     @apply text-sm leading-relaxed;
+  }
+
+  .source-list {
+    @apply space-y-2;
+  }
+
+  .source-list-title {
+    color: rgb(var(--sv-text-muted));
+    @apply text-xs font-semibold uppercase tracking-wide;
+  }
+
+  .source-links {
+    @apply flex flex-wrap gap-2;
   }
 
   .source-link-btn {

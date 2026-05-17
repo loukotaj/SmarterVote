@@ -159,6 +159,7 @@ def _normalize_candidate(candidate: Dict[str, Any], now_iso: str) -> None:
     candidate.setdefault("education", [])
     candidate.setdefault("donor_summary", None)
     candidate.setdefault("donor_sources", [])
+    candidate.setdefault("voting_sources", [])
     candidate.setdefault("links", [])
 
     if candidate.get("image_url") == "":
@@ -178,6 +179,9 @@ def _normalize_candidate(candidate: Dict[str, Any], now_iso: str) -> None:
             _normalize_source(entry.get("source"), now_iso)
 
     for src in candidate.get("donor_sources", []):
+        _normalize_source(src, now_iso)
+
+    for src in candidate.get("voting_sources", []):
         _normalize_source(src, now_iso)
 
 

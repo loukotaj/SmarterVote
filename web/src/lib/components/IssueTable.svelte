@@ -9,7 +9,7 @@
   export let raceId: string = "";
   export let candidateName: string = "";
 
-  const SPONSOR_URL = "https://github.com/sponsors/jacobfholland";
+  const SPONSOR_URL = "https://github.com/sponsors/loukotaj";
   const INITIAL_SOURCE_LIMIT = 3;
 
   $: issueEntries = Object.entries(issues) as [IssueKey, IssueStance][];
@@ -81,10 +81,6 @@
                         role="tooltip"
                       >
                         <p>{RENAMED_ISSUE_NOTES[issue]}</p>
-                        <p class="mt-2 text-content-faint text-xs">
-                          Trying to pay off student loans 😅 —
-                          <a href={SPONSOR_URL} target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">Sponsor us!</a>
-                        </p>
                         <button
                           class="mt-2 text-xs text-content-faint hover:text-content underline"
                           on:click|stopPropagation={() => { visibleTooltip = null; }}
@@ -155,10 +151,7 @@
                     role="tooltip"
                   >
                     <p>{RENAMED_ISSUE_NOTES[issue]}</p>
-                    <p class="mt-2 text-content-faint text-xs">
-                      Trying to pay off student loans 😅 —
-                      <a href={SPONSOR_URL} target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">Sponsor us!</a>
-                    </p>
+
                     <button
                       class="mt-2 text-xs text-content-faint hover:text-content underline"
                       on:click|stopPropagation={() => { visibleTooltip = null; }}

@@ -484,6 +484,9 @@ Write a 2-3 sentence donor_summary including:
   - Example bad summary (too vague — avoid): "Supported by various business interests."
   If no finance data is found after multiple searches, write:
   "No campaign finance data found in public disclosures as of [date]."
+  Verify every finance source belongs to the same candidate named in the
+  current JSON key. Never attach another candidate's FEC, OpenSecrets, VPAP,
+  FollowTheMoney, or campaign-finance page to this candidate.
   Do NOT put "Sources:" or raw URLs in donor_summary. Put every finance
   citation in donor_sources and set donor_source_url to the best single
   full-data page.
@@ -546,7 +549,7 @@ Return JSON keyed by candidate name:
     "voting_summary": "<2-3 sentence summary of voting patterns or executive record>",
     "voting_source_url": "<best URL for full voting record — prefer VoteSmart > GovTrack > legislature>",
     "voting_sources": [
-      {{"url": "<source URL>", "title": "<page title>", "type": "govtrack|votesmart|legislature|news|government"}}
+      {{"url": "<source URL>", "title": "<page title>", "type": "website|government|news|finance"}}
     ],
     "links": [
       {{"url": "<url>", "title": "<page title>", "type": "ballotpedia|wiki|finance|official|legislature|votesmart|govtrack|news|other"}}
