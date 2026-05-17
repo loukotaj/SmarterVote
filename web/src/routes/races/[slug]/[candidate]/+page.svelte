@@ -20,6 +20,7 @@
   let othersExpanded = false;
   let isDraftPreview = false;
   let summarySourcesOpen = false;
+  const SUMMARY_SOURCE_LIMIT = 3;
 
   let slug: string;
   let candidateParam: string;
@@ -30,11 +31,10 @@
   onMount(async () => {
     const params = new URLSearchParams(window.location.search);
     isDraftPreview = params.get("draft") === "true";
+    const hasPrerenderedRace = !!race && !isDraftPreview;
 
-    if (race && !isDraftPreview) {
+    if (hasPrerenderedRace) {
       hydrateCandidate();
-      loading = false;
-      return;
     }
 
     try {
@@ -54,6 +54,11 @@
         race = await getRace(slug);
       }
     } catch (err) {
+      if (hasPrerenderedRace && candidate) {
+        loading = false;
+        return;
+      }
+
       try {
         race = await getRace(slug, fetch, true);
       } catch {
@@ -346,11 +351,7 @@
 
       {#if candidate.summary_sources && candidate.summary_sources.length > 0}
         <div class="summary-sources">
-          <button
-            class="summary-sources-toggle"
-            on:click={() => (summarySourcesOpen = !summarySourcesOpen)}
-            aria-expanded={summarySourcesOpen}
-          >
+          <div class="summary-sources-heading">
             <svg
               class="w-3.5 h-3.5"
               fill="none"
@@ -365,49 +366,44 @@
               />
             </svg>
             Sources ({candidate.summary_sources.length})
-            <svg
-              class="w-3 h-3 transition-transform duration-150"
-              class:rotate-180={summarySourcesOpen}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-          </button>
-          {#if summarySourcesOpen}
-            <ul class="summary-sources-list">
-              {#each candidate.summary_sources as src}
-                <li>
-                  <a
-                    href={src.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="summary-source-link"
+          </div>
+          <ul class="summary-sources-list">
+            {#each (summarySourcesOpen ? candidate.summary_sources : candidate.summary_sources.slice(0, SUMMARY_SOURCE_LIMIT)) as src}
+              <li>
+                <a
+                  href={src.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="summary-source-link"
+                >
+                  <svg
+                    class="w-3 h-3 flex-shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
                   >
-                    <svg
-                      class="w-3 h-3 flex-shrink-0"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                      />
-                    </svg>
-                    {src.title ?? src.url}
-                  </a>
-                </li>
-              {/each}
-            </ul>
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                    />
+                  </svg>
+                  {src.title ?? src.url}
+                </a>
+              </li>
+            {/each}
+          </ul>
+          {#if candidate.summary_sources.length > SUMMARY_SOURCE_LIMIT}
+            <button
+              class="summary-sources-toggle"
+              on:click={() => (summarySourcesOpen = !summarySourcesOpen)}
+              aria-expanded={summarySourcesOpen}
+            >
+              {summarySourcesOpen
+                ? "Show fewer"
+                : `Show ${candidate.summary_sources.length - SUMMARY_SOURCE_LIMIT} more`}
+            </button>
           {/if}
         </div>
       {/if}
@@ -772,9 +768,13 @@
     @apply mb-4;
   }
 
-  .summary-sources-toggle {
+  .summary-sources-heading {
     @apply inline-flex items-center gap-1.5 text-xs text-content-subtle hover:text-blue-600
            dark:hover:text-blue-400 transition-colors duration-150 font-medium;
+  }
+
+  .summary-sources-toggle {
+    @apply mt-2 inline-flex text-xs text-blue-600 dark:text-blue-400 hover:underline font-medium;
   }
 
   .summary-sources-list {

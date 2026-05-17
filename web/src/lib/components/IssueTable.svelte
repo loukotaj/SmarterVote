@@ -10,6 +10,7 @@
   export let candidateName: string = "";
 
   const SPONSOR_URL = "https://github.com/sponsors/jacobfholland";
+  const INITIAL_SOURCE_LIMIT = 3;
 
   $: issueEntries = Object.entries(issues) as [IssueKey, IssueStance][];
   $: hasIssues = issueEntries.length > 0;
@@ -29,6 +30,11 @@
 
   function toggleTooltip(issue: string) {
     visibleTooltip = visibleTooltip === issue ? null : issue;
+  }
+
+  function visibleSources(stance: IssueStance, expanded: boolean) {
+    const sources = stance.sources ?? [];
+    return expanded ? sources : sources.slice(0, INITIAL_SOURCE_LIMIT);
   }
 </script>
 
@@ -97,21 +103,23 @@
             </td>
             <td class="py-3 px-4 text-center">
               {#if stance.sources?.length > 0}
-                <button
-                  class="text-blue-600 hover:text-blue-500 dark:hover:text-blue-400 text-sm underline"
-                  title="{expandedSources.has(issue) ? 'Hide' : 'View'} {stance.sources.length} source{stance.sources.length > 1 ? 's' : ''}"
-                  on:click={() => toggleSources(issue)}
-                >
-                  {expandedSources.has(issue) ? "Hide" : "View"} Sources ({stance.sources.length})
-                </button>
-                {#if expandedSources.has(issue)}
-                  <div class="mt-2 text-left space-y-1">
-                    {#each stance.sources as source}
-                      <div>
-                        <SourceLink {source} />
-                      </div>
-                    {/each}
-                  </div>
+                <div class="text-left space-y-1">
+                  {#each visibleSources(stance, expandedSources.has(issue)) as source}
+                    <div>
+                      <SourceLink {source} />
+                    </div>
+                  {/each}
+                </div>
+                {#if stance.sources.length > INITIAL_SOURCE_LIMIT}
+                  <button
+                    class="mt-2 text-blue-600 hover:text-blue-500 dark:hover:text-blue-400 text-sm underline"
+                    title="{expandedSources.has(issue) ? 'Show fewer sources' : `Show ${stance.sources.length - INITIAL_SOURCE_LIMIT} more sources`}"
+                    on:click={() => toggleSources(issue)}
+                  >
+                    {expandedSources.has(issue)
+                      ? "Show fewer"
+                      : `Show ${stance.sources.length - INITIAL_SOURCE_LIMIT} more`}
+                  </button>
                 {/if}
               {:else}
                 <span class="text-content-faint text-sm">No sources</span>
@@ -167,12 +175,22 @@
           <div class="text-sm">
             <span class="text-content-muted">Sources:</span>
             <div class="mt-1 space-y-1">
-              {#each stance.sources as source}
+              {#each visibleSources(stance, expandedSources.has(issue + '-mobile')) as source}
                 <div>
                   <SourceLink {source} />
                 </div>
               {/each}
             </div>
+            {#if stance.sources.length > INITIAL_SOURCE_LIMIT}
+              <button
+                class="mt-2 text-blue-600 hover:text-blue-500 dark:hover:text-blue-400 text-sm underline"
+                on:click={() => toggleSources(issue + '-mobile')}
+              >
+                {expandedSources.has(issue + '-mobile')
+                  ? "Show fewer"
+                  : `Show ${stance.sources.length - INITIAL_SOURCE_LIMIT} more`}
+              </button>
+            {/if}
           </div>
         {:else}
           <p class="text-content-faint text-sm">No sources available</p>
