@@ -302,3 +302,4 @@ data/analytics.db-wal
 .claude/settings.local.json
 .tmp_cf_staging/
 .tmp_*.log
+.vscode/mcp.json
