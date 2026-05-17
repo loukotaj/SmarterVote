@@ -55,12 +55,19 @@
             src={candidate.image_url}
             alt={candidate.name}
             class="candidate-image"
-            on:error={() => { imageError = true; }}
+            on:error={() => {
+              imageError = true;
+            }}
           />
         {:else}
           <div class="candidate-image-placeholder">
             <span class="candidate-initials">
-              {candidate.name.split(' ').filter(n => n.length > 0).map(n => n[0].toUpperCase()).slice(0, 2).join('')}
+              {candidate.name
+                .split(" ")
+                .filter((n) => n.length > 0)
+                .map((n) => n[0].toUpperCase())
+                .slice(0, 2)
+                .join("")}
             </span>
           </div>
         {/if}
@@ -71,14 +78,27 @@
               class="candidate-name-link"
             >
               {candidate.name}
-              <svg class="inline w-4 h-4 ml-1 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              <svg
+                class="inline w-4 h-4 ml-1 opacity-60"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                />
               </svg>
             </a>
           </h3>
           <div class="flex flex-wrap items-center gap-1 mt-1">
             {#if candidate.party}
-              <span class="badge {partyBadgeClass(candidate.party)}" title={candidate.party}>{partyAbbr(candidate.party)}</span>
+              <span
+                class="badge {partyBadgeClass(candidate.party)}"
+                title={candidate.party}>{partyAbbr(candidate.party)}</span
+              >
             {/if}
             {#if candidate.incumbent}
               <span class="badge incumbent-badge">Incumbent</span>
@@ -221,11 +241,26 @@
                         <p class="timeline-desc">{entry.description}</p>
                       {/if}
                       {#if entry.source}
-                        <a href={entry.source.url} target="_blank" rel="noopener noreferrer" class="entry-source-link">
-                          <svg class="w-3 h-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        <a
+                          href={entry.source.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="entry-source-link"
+                        >
+                          <svg
+                            class="w-3 h-3 flex-shrink-0"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                            />
                           </svg>
-                          {entry.source.title ?? 'Source'}
+                          {entry.source.title ?? "Source"}
                         </a>
                       {/if}
                     </div>
@@ -242,20 +277,33 @@
                       <span class="edu-institution">{edu.institution}</span>
                       {#if edu.degree || edu.field}
                         <span class="edu-degree">
-                          {[edu.degree, edu.field]
-                            .filter(Boolean)
-                            .join(" in ")}
+                          {[edu.degree, edu.field].filter(Boolean).join(" in ")}
                           {#if edu.year}
                             ({edu.year})
                           {/if}
                         </span>
                       {/if}
                       {#if edu.source}
-                        <a href={edu.source.url} target="_blank" rel="noopener noreferrer" class="entry-source-link">
-                          <svg class="w-3 h-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        <a
+                          href={edu.source.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="entry-source-link"
+                        >
+                          <svg
+                            class="w-3 h-3 flex-shrink-0"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                            />
                           </svg>
-                          {edu.source.title ?? 'Source'}
+                          {edu.source.title ?? "Source"}
                         </a>
                       {/if}
                     </div>
@@ -271,15 +319,16 @@
           </div>
         {:else if activeTab === "donors"}
           <DonorTable
-            donorSummary={candidate.donor_summary || ''}
-            donorSourceUrl={candidate.donor_source_url || ''}
+            donorSummary={candidate.donor_summary || ""}
+            donorSourceUrl={candidate.donor_source_url || ""}
+            donorSources={candidate.donor_sources || []}
             {raceId}
             candidateName={candidate.name}
           />
         {:else if activeTab === "voting"}
           <VotingRecordTable
-            votingSummary={candidate.voting_summary || ''}
-            votingSourceUrl={candidate.voting_source_url || ''}
+            votingSummary={candidate.voting_summary || ""}
+            votingSourceUrl={candidate.voting_source_url || ""}
             {raceId}
             candidateName={candidate.name}
           />

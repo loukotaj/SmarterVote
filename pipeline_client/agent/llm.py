@@ -158,6 +158,7 @@ def _normalize_candidate(candidate: Dict[str, Any], now_iso: str) -> None:
     candidate.setdefault("career_history", [])
     candidate.setdefault("education", [])
     candidate.setdefault("donor_summary", None)
+    candidate.setdefault("donor_sources", [])
     candidate.setdefault("links", [])
 
     if candidate.get("image_url") == "":
@@ -175,6 +176,9 @@ def _normalize_candidate(candidate: Dict[str, Any], now_iso: str) -> None:
     for entry in candidate.get("education", []):
         if isinstance(entry, dict):
             _normalize_source(entry.get("source"), now_iso)
+
+    for src in candidate.get("donor_sources", []):
+        _normalize_source(src, now_iso)
 
 
 # ---------------------------------------------------------------------------

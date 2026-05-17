@@ -147,6 +147,7 @@ Return JSON:
       ],
       "donor_summary": null,
       "donor_source_url": null,
+      "donor_sources": [],
       "voting_summary": null,
       "voting_source_url": null,
       "links": [],
@@ -482,6 +483,9 @@ Write a 2-3 sentence donor_summary including:
   - Example bad summary (too vague — avoid): "Supported by various business interests."
   If no finance data is found after multiple searches, write:
   "No campaign finance data found in public disclosures as of [date]."
+  Do NOT put "Sources:" or raw URLs in donor_summary. Put every finance
+  citation in donor_sources and set donor_source_url to the best single
+  full-data page.
 
 PART 2 — VOTING SUMMARY:
 First, determine whether the candidate is an INCUMBENT LEGISLATOR, a FORMER LEGISLATOR,
@@ -533,6 +537,9 @@ Return JSON keyed by candidate name:
   "<Candidate Name>": {{
     "donor_summary": "<2-3 sentence summary of campaign finance with specific amounts>",
     "donor_source_url": "<best URL for full donor data, e.g. OpenSecrets page or state portal>",
+    "donor_sources": [
+      {{"url": "<source URL>", "title": "<page title>", "type": "finance|news|government|website"}}
+    ],
     "voting_summary": "<2-3 sentence summary of voting patterns or executive record>",
     "voting_source_url": "<best URL for full voting record — prefer VoteSmart > GovTrack > legislature>",
     "links": [
@@ -632,7 +639,8 @@ Also ensure:
   For each issue a candidate is missing, search for their public position and
   add a stance with set_issue_stance (use "no public position found" only after
   genuinely searching their campaign site and recent news).
-- donor_summary is a plain-text paragraph (not a list of names)
+- donor_summary is a plain-text paragraph (not a list of names) and contains no inline "Sources:" text or raw URLs
+- donor_sources contains the finance citations that support donor_summary
 
 Use your editing tools to record every fix directly. When you have addressed all
 actionable flags, reply with a short plain-text summary of what you changed

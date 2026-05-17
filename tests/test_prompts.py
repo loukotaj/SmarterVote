@@ -4,6 +4,7 @@ from pipeline_client.agent.prompts import (
     CANONICAL_ISSUES,
     DISCOVERY_SYSTEM,
     DISCOVERY_USER,
+    FINANCE_VOTING_USER,
     ISSUE_SUBAGENT_SYSTEM,
     ISSUE_SUBAGENT_USER,
     ITERATE_USER,
@@ -184,6 +185,7 @@ def test_discovery_prompt_mentions_donor_sources():
     """Discovery prompt tells the model to include donor summary and links."""
     result = DISCOVERY_USER.format(race_id="mo-senate-2024")
     assert "donor_summary" in result
+    assert "donor_sources" in result
     assert "links" in result
 
 
@@ -200,6 +202,7 @@ def test_refine_prompt_mentions_donor_sources():
         all_issues="Healthcare, Economy",
     )
     assert "set_donor_summary" in result
+    assert "donor_sources" in ITERATE_USER
 
 
 def test_update_prompt_mentions_donor_sources():
@@ -210,6 +213,8 @@ def test_update_prompt_mentions_donor_sources():
         last_updated="2024-01-01T00:00:00Z",
     )
     assert "donor_summary" in result
+    assert "donor_sources" in FINANCE_VOTING_USER
+    assert 'Do NOT put "Sources:"' in FINANCE_VOTING_USER
     assert "top_donors" not in result
 
 

@@ -31,7 +31,18 @@ def test_shared_models_have_new_fields():
     assert c.education == []
     assert c.links == []
     assert c.donor_summary is None
+    assert c.donor_sources == []
     assert c.image_url is None
+
+    finance_source = {
+        "url": "https://www.fec.gov/data/candidate/H0EXAMPLE/",
+        "type": "finance",
+        "title": "FEC candidate profile",
+        "last_accessed": "2026-05-16T00:00:00Z",
+    }
+    c_with_finance = Candidate(name="Finance Test", donor_sources=[finance_source])
+    assert str(c_with_finance.donor_sources[0].url) == finance_source["url"]
+    assert c_with_finance.donor_sources[0].type == "finance"
 
     # AgentReview
     review = AgentReview(

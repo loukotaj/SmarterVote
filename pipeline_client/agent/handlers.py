@@ -8,6 +8,7 @@ LLM receives as the tool result.
 
 import json
 import re
+from datetime import datetime, timezone
 from difflib import get_close_matches
 from typing import Any, Callable, Dict, Optional
 
@@ -17,6 +18,21 @@ _METADATA_KEY_RE = re.compile(r"^[a-z][a-z0-9_]+$")
 from pipeline_client.agent.prompts import CANONICAL_ISSUES
 
 _CANONICAL_ISSUE_SET = set(CANONICAL_ISSUES)
+
+
+def _normalize_source(source: Any, *, default_type: str = "finance") -> Dict[str, Any] | None:
+    """Normalize a lightweight tool-provided source into the shared Source shape."""
+    if not isinstance(source, dict) or not source.get("url"):
+        return None
+    normalized = {
+        "url": source["url"],
+        "type": source.get("type") or default_type,
+        "last_accessed": source.get("last_accessed") or datetime.now(timezone.utc).isoformat(),
+    }
+    for key in ("title", "description", "published_at", "checksum", "is_fresh", "is_official_campaign"):
+        if source.get(key) is not None:
+            normalized[key] = source[key]
+    return normalized
 
 
 def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str, Any]:
@@ -337,6 +353,8 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
         c["donor_summary"] = args["summary"]
         if args.get("source_url"):
             c["donor_source_url"] = args["source_url"]
+        if isinstance(args.get("sources"), list):
+            c["donor_sources"] = [src for src in (_normalize_source(s) for s in args["sources"]) if src]
         log("info", f"    Updated donor summary for {name}")
         return f"Updated donor summary for '{name}'."
 

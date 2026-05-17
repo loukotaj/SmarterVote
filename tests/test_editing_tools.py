@@ -117,6 +117,44 @@ def test_add_candidate_link_ignores_legacy_string_links_for_dedup():
     }
 
 
+def test_set_donor_summary_accepts_structured_sources():
+    """Finance citations should be stored separately from donor prose."""
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"candidates": [{"name": "Alice"}]}
+    handlers = _make_editing_handlers(race_json, lambda l, m: None)
+
+    result = handlers["set_donor_summary"](
+        {
+            "candidate_name": "Alice",
+            "summary": "Alice raised $1.2M, mostly from individual donors.",
+            "source_url": "https://www.fec.gov/data/candidate/H0ALICE/",
+            "sources": [
+                {
+                    "url": "https://www.fec.gov/data/candidate/H0ALICE/",
+                    "title": "FEC profile",
+                    "type": "finance",
+                },
+                {
+                    "url": "https://example.com/alice-fundraising",
+                    "title": "Fundraising report",
+                    "type": "news",
+                },
+            ],
+        }
+    )
+
+    candidate = race_json["candidates"][0]
+    assert "Updated donor summary" in result
+    assert candidate["donor_summary"] == "Alice raised $1.2M, mostly from individual donors."
+    assert candidate["donor_source_url"] == "https://www.fec.gov/data/candidate/H0ALICE/"
+    assert [source["url"] for source in candidate["donor_sources"]] == [
+        "https://www.fec.gov/data/candidate/H0ALICE/",
+        "https://example.com/alice-fundraising",
+    ]
+    assert all(source["last_accessed"] for source in candidate["donor_sources"])
+
+
 def test_add_candidate_handler():
     """add_candidate handler adds a candidate to race_json."""
     from pipeline_client.agent.agent import _make_editing_handlers

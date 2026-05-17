@@ -44,7 +44,11 @@
         } catch {
           race = await getRace(slug, fetch, false);
           isDraftPreview = false;
-          window.history.replaceState({}, "", `/races/${slug}/${candidateParam}`);
+          window.history.replaceState(
+            {},
+            "",
+            `/races/${slug}/${candidateParam}`
+          );
         }
       } else {
         race = await getRace(slug);
@@ -64,9 +68,8 @@
   function hydrateCandidate() {
     if (!race) return;
     candidate =
-      race.candidates?.find(
-        (c) => candidateSlug(c.name) === candidateParam
-      ) ?? null;
+      race.candidates?.find((c) => candidateSlug(c.name) === candidateParam) ??
+      null;
     otherCandidates =
       race.candidates?.filter(
         (c) => candidateSlug(c.name) !== candidateParam && !c.withdrawn
@@ -77,16 +80,20 @@
   }
 
   $: hasCareer =
-    candidate && candidate.career_history && candidate.career_history.length > 0;
+    candidate &&
+    candidate.career_history &&
+    candidate.career_history.length > 0;
   $: hasEducation =
     candidate && candidate.education && candidate.education.length > 0;
   $: hasVoting = !!(candidate && candidate.voting_summary);
   $: hasDonors = !!(candidate && candidate.donor_summary);
-  $: candidateDiscoveryOnly = candidate != null &&
-    (!candidate.issues || Object.keys(candidate.issues).length === 0 ||
-      Object.values(candidate.issues).every(i => !i?.stance));
-  $: socialLinks = Object.entries(candidate?.social_media ?? {}).filter((entry): entry is [string, string] =>
-    isExternalUrl(entry[1])
+  $: candidateDiscoveryOnly =
+    candidate != null &&
+    (!candidate.issues ||
+      Object.keys(candidate.issues).length === 0 ||
+      Object.values(candidate.issues).every((i) => !i?.stance));
+  $: socialLinks = Object.entries(candidate?.social_media ?? {}).filter(
+    (entry): entry is [string, string] => isExternalUrl(entry[1])
   );
 </script>
 
@@ -96,58 +103,144 @@
   >
   <meta
     name="description"
-    content="Detailed profile for {candidate?.name ?? 'candidate'} in {race?.title ?? 'this election'}."
+    content="Detailed profile for {candidate?.name ??
+      'candidate'} in {race?.title ?? 'this election'}."
   />
 </svelte:head>
 
 <div class="container mx-auto px-4 py-6 sm:py-8 max-w-4xl">
   {#if loading}
     <div class="flex items-center justify-center py-20">
-      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600" />
+      <div
+        class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"
+      />
       <span class="ml-3 text-lg text-content-muted">Loading candidate...</span>
     </div>
   {:else if error}
-    <div class="bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800 rounded-lg p-6 text-center">
-      <h2 class="text-2xl font-bold text-red-800 dark:text-red-200 mb-2">{error}</h2>
-      <a href="/races/{slug}{isDraftPreview ? '?draft=true' : ''}" class="mt-4 inline-block text-blue-600 hover:text-blue-400 font-medium">
+    <div
+      class="bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800 rounded-lg p-6 text-center"
+    >
+      <h2 class="text-2xl font-bold text-red-800 dark:text-red-200 mb-2">
+        {error}
+      </h2>
+      <a
+        href="/races/{slug}{isDraftPreview ? '?draft=true' : ''}"
+        class="mt-4 inline-block text-blue-600 hover:text-blue-400 font-medium"
+      >
         &larr; Back to race overview
       </a>
     </div>
   {:else if candidate && race}
     {#if isDraftPreview}
-      <div class="mb-4 rounded-lg border-2 border-amber-400 bg-amber-50 dark:bg-amber-900/20 dark:border-amber-600 px-4 py-3 text-sm text-amber-800 dark:text-amber-200 flex items-center gap-2">
-        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" /></svg>
-        <span><strong>Draft Preview</strong> — This data has not been published. Only admins can see this page.</span>
+      <div
+        class="mb-4 rounded-lg border-2 border-amber-400 bg-amber-50 dark:bg-amber-900/20 dark:border-amber-600 px-4 py-3 text-sm text-amber-800 dark:text-amber-200 flex items-center gap-2"
+      >
+        <svg
+          class="w-5 h-5 flex-shrink-0"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          ><path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"
+          /></svg
+        >
+        <span
+          ><strong>Draft Preview</strong> — This data has not been published. Only
+          admins can see this page.</span
+        >
       </div>
     {/if}
     {#if candidate.withdrawn}
-      <div class="mb-4 rounded-lg border-2 border-gray-400 bg-gray-50 dark:bg-gray-900/20 dark:border-gray-600 px-4 py-3 text-sm text-gray-700 dark:text-gray-300 flex items-start gap-3">
-        <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /></svg>
+      <div
+        class="mb-4 rounded-lg border-2 border-gray-400 bg-gray-50 dark:bg-gray-900/20 dark:border-gray-600 px-4 py-3 text-sm text-gray-700 dark:text-gray-300 flex items-start gap-3"
+      >
+        <svg
+          class="w-5 h-5 flex-shrink-0 mt-0.5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          ><path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"
+          /></svg
+        >
         <div>
           <p class="font-semibold">Candidate Withdrawn</p>
-          <p class="mt-1">{candidate.name} is no longer running in this race.{candidate.withdrawal_reason ? ` ${candidate.withdrawal_reason}.` : ''} This profile is preserved for reference.</p>
+          <p class="mt-1">
+            {candidate.name} is no longer running in this race.{candidate.withdrawal_reason
+              ? ` ${candidate.withdrawal_reason}.`
+              : ""} This profile is preserved for reference.
+          </p>
         </div>
       </div>
     {/if}
     {#if candidateDiscoveryOnly}
-      <div class="mb-4 rounded-lg border-2 border-blue-300 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-600 px-4 py-3 text-sm text-blue-800 dark:text-blue-200 flex items-start gap-3">
-        <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+      <div
+        class="mb-4 rounded-lg border-2 border-blue-300 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-600 px-4 py-3 text-sm text-blue-800 dark:text-blue-200 flex items-start gap-3"
+      >
+        <svg
+          class="w-5 h-5 flex-shrink-0 mt-0.5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          ><path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          /></svg
+        >
         <div>
           <p class="font-semibold">Limited Data — Discovery Only</p>
-          <p class="mt-1 text-blue-700 dark:text-blue-300">This candidate has basic biographical information but detailed issue positions have not been researched yet. Want detailed data? <a href="https://github.com/loukotaj/SmarterVote/issues/new/choose" target="_blank" rel="noopener noreferrer" class="underline font-medium hover:text-blue-900 dark:hover:text-blue-100">Request a research run</a> or <a href="https://github.com/sponsors/loukotaj" target="_blank" rel="noopener noreferrer" class="underline font-medium hover:text-blue-900 dark:hover:text-blue-100">sponsor to help fund it</a>!</p>
+          <p class="mt-1 text-blue-700 dark:text-blue-300">
+            This candidate has basic biographical information but detailed issue
+            positions have not been researched yet. Want detailed data? <a
+              href="https://github.com/loukotaj/SmarterVote/issues/new/choose"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="underline font-medium hover:text-blue-900 dark:hover:text-blue-100"
+              >Request a research run</a
+            >
+            or
+            <a
+              href="https://github.com/sponsors/loukotaj"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="underline font-medium hover:text-blue-900 dark:hover:text-blue-100"
+              >sponsor to help fund it</a
+            >!
+          </p>
         </div>
       </div>
     {/if}
     <!-- Navigation Bar -->
     <nav class="nav-bar">
-      <a href="/races/{slug}{isDraftPreview ? '?draft=true' : ''}" class="back-link">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      <a
+        href="/races/{slug}{isDraftPreview ? '?draft=true' : ''}"
+        class="back-link"
+      >
+        <svg
+          class="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 19l-7-7 7-7"
+          />
         </svg>
         Back to {race.title}
       </a>
       <div class="model-label">
-        {#each (race.generator ?? []) as model}
+        {#each race.generator ?? [] as model}
           <span class="model-tag">{formatModelName(model)}</span>
         {/each}
       </div>
@@ -169,14 +262,21 @@
             stroke="currentColor"
             viewBox="0 0 24 24"
           >
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 9l-7 7-7-7"
+            />
           </svg>
         </button>
         {#if othersExpanded}
           <div class="others-list">
             {#each otherCandidates as other}
               <a
-                href="/races/{race.id}/{candidateSlug(other.name)}{isDraftPreview ? '?draft=true' : ''}"
+                href="/races/{race.id}/{candidateSlug(
+                  other.name
+                )}{isDraftPreview ? '?draft=true' : ''}"
                 class="other-chip"
               >
                 {#if other.image_url}
@@ -185,7 +285,8 @@
                     alt=""
                     class="other-avatar"
                     on:error={(e) => {
-                      if (e.currentTarget instanceof HTMLImageElement) e.currentTarget.style.display = "none";
+                      if (e.currentTarget instanceof HTMLImageElement)
+                        e.currentTarget.style.display = "none";
                     }}
                   />
                 {/if}
@@ -211,13 +312,20 @@
             alt={candidate.name}
             class="candidate-photo"
             on:error={(e) => {
-              if (e.currentTarget instanceof HTMLImageElement) e.currentTarget.style.display = "none";
+              if (e.currentTarget instanceof HTMLImageElement)
+                e.currentTarget.style.display = "none";
             }}
           />
         {:else}
           <div class="candidate-photo-placeholder">
-            <svg class="w-12 h-12 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+            <svg
+              class="w-12 h-12 text-gray-400"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+              />
             </svg>
           </div>
         {/if}
@@ -243,25 +351,57 @@
             on:click={() => (summarySourcesOpen = !summarySourcesOpen)}
             aria-expanded={summarySourcesOpen}
           >
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+            <svg
+              class="w-3.5 h-3.5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+              />
             </svg>
             Sources ({candidate.summary_sources.length})
             <svg
               class="w-3 h-3 transition-transform duration-150"
               class:rotate-180={summarySourcesOpen}
-              fill="none" stroke="currentColor" viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
             >
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              />
             </svg>
           </button>
           {#if summarySourcesOpen}
             <ul class="summary-sources-list">
               {#each candidate.summary_sources as src}
                 <li>
-                  <a href={src.url} target="_blank" rel="noopener noreferrer" class="summary-source-link">
-                    <svg class="w-3 h-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  <a
+                    href={src.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="summary-source-link"
+                  >
+                    <svg
+                      class="w-3 h-3 flex-shrink-0"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                      />
                     </svg>
                     {src.title ?? src.url}
                   </a>
@@ -275,15 +415,35 @@
       <!-- Quick links -->
       <div class="quick-links">
         {#if isExternalUrl(candidate.website)}
-          <a href={candidate.website} target="_blank" rel="noopener noreferrer" class="quick-link">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9" />
+          <a
+            href={candidate.website}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="quick-link"
+          >
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9"
+              />
             </svg>
             Campaign Website
           </a>
         {/if}
         {#each socialLinks as [platform, url]}
-          <a href={url} target="_blank" rel="noopener noreferrer" class="quick-link">
+          <a
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="quick-link"
+          >
             <span class="capitalize">{platform}</span>
           </a>
         {/each}
@@ -294,7 +454,11 @@
     <section class="detail-section">
       <h2 class="section-heading">Positions on Key Issues</h2>
       <Card class="section-card">
-        <IssueTable issues={candidate.issues} raceId={race.id} candidateName={candidate.name} />
+        <IssueTable
+          issues={candidate.issues}
+          raceId={race.id}
+          candidateName={candidate.name}
+        />
       </Card>
     </section>
 
@@ -313,7 +477,9 @@
                       <span class="timeline-title">{entry.title}</span>
                       {#if entry.start_year}
                         <span class="timeline-years">
-                          {entry.start_year}{entry.end_year ? ` – ${entry.end_year}` : " – Present"}
+                          {entry.start_year}{entry.end_year
+                            ? ` – ${entry.end_year}`
+                            : " – Present"}
                         </span>
                       {/if}
                     </div>
@@ -324,11 +490,26 @@
                       <p class="timeline-desc">{entry.description}</p>
                     {/if}
                     {#if entry.source}
-                      <a href={entry.source.url} target="_blank" rel="noopener noreferrer" class="entry-source-link">
-                        <svg class="w-3 h-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      <a
+                        href={entry.source.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="entry-source-link"
+                      >
+                        <svg
+                          class="w-3 h-3 flex-shrink-0"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                          />
                         </svg>
-                        {entry.source.title ?? 'Source'}
+                        {entry.source.title ?? "Source"}
                       </a>
                     {/if}
                   </div>
@@ -350,11 +531,26 @@
                       </span>
                     {/if}
                     {#if edu.source}
-                      <a href={edu.source.url} target="_blank" rel="noopener noreferrer" class="entry-source-link">
-                        <svg class="w-3 h-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      <a
+                        href={edu.source.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="entry-source-link"
+                      >
+                        <svg
+                          class="w-3 h-3 flex-shrink-0"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                          />
                         </svg>
-                        {edu.source.title ?? 'Source'}
+                        {edu.source.title ?? "Source"}
                       </a>
                     {/if}
                   </div>
@@ -372,8 +568,9 @@
         <h2 class="section-heading">Top Donors</h2>
         <Card class="section-card">
           <DonorTable
-            donorSummary={candidate.donor_summary || ''}
-            donorSourceUrl={candidate.donor_source_url || ''}
+            donorSummary={candidate.donor_summary || ""}
+            donorSourceUrl={candidate.donor_source_url || ""}
+            donorSources={candidate.donor_sources || []}
             raceId={race.id}
             candidateName={candidate.name}
           />
@@ -387,8 +584,8 @@
         <h2 class="section-heading">Voting Record</h2>
         <Card class="section-card">
           <VotingRecordTable
-            votingSummary={candidate.voting_summary || ''}
-            votingSourceUrl={candidate.voting_source_url || ''}
+            votingSummary={candidate.voting_summary || ""}
+            votingSourceUrl={candidate.voting_source_url || ""}
             raceId={race.id}
             candidateName={candidate.name}
           />

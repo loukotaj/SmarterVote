@@ -19,6 +19,7 @@ class SourceType(str, Enum):
     """Types of data sources."""
 
     WEBSITE = "website"
+    FINANCE = "finance"
     PDF = "pdf"
     API = "api"
     SOCIAL_MEDIA = "social_media"
@@ -206,6 +207,7 @@ class Candidate(BaseModel):
     # Financial (narrative + link; raw donor list removed in v0.4)
     donor_summary: Optional[str] = None
     donor_source_url: Optional[str] = None
+    donor_sources: List[Source] = Field(default_factory=list)
 
     # Reference links (Ballotpedia, Wikipedia, OpenSecrets, etc.)
     links: List[CandidateLink] = Field(default_factory=list)

@@ -373,6 +373,13 @@ async def test_run_agent_adds_donor_source_timestamps():
                 "issues": {},
                 "donor_summary": "Alice received most funding from tech industry PACs.",
                 "donor_source_url": "https://example.com/donors",
+                "donor_sources": [
+                    {
+                        "url": "https://example.com/donors",
+                        "type": "finance",
+                        "title": "Donor data",
+                    }
+                ],
             }
         ],
     }
@@ -387,6 +394,7 @@ async def test_run_agent_adds_donor_source_timestamps():
     candidate = result["candidates"][0]
     assert candidate["donor_summary"] == "Alice received most funding from tech industry PACs."
     assert candidate["donor_source_url"] == "https://example.com/donors"
+    assert candidate["donor_sources"][0]["last_accessed"]
 
 
 @pytest.mark.asyncio
@@ -455,6 +463,7 @@ async def test_run_agent_normalizes_new_fields():
     assert candidate["career_history"] == []
     assert candidate["education"] == []
     assert candidate["donor_summary"] is None
+    assert candidate["donor_sources"] == []
     assert candidate["links"] == []
 
 

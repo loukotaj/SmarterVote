@@ -26,6 +26,8 @@ def _apply_meta_patch(race_json: Dict[str, Any], patch: Dict[str, Any], log: Any
             candidate["summary"] = pc["summary"]
         if pc.get("donor_summary") is not None:
             candidate["donor_summary"] = pc["donor_summary"]
+        if isinstance(pc.get("donor_sources"), list):
+            candidate["donor_sources"] = pc["donor_sources"]
     log("info", f"  Meta patch applied — {len(patch_candidates)} candidates updated")
 
 
@@ -69,6 +71,7 @@ def _apply_candidate_patch(candidate: Dict[str, Any], patch: Dict[str, Any], log
         "party",
         "donor_summary",
         "donor_source_url",
+        "donor_sources",
         "voting_summary",
         "voting_source_url",
     ):
@@ -126,6 +129,8 @@ def _apply_finance_patch(race_json: Dict[str, Any], patch: Dict[str, Any], log: 
             candidate["donor_summary"] = data["donor_summary"]
         if data.get("donor_source_url"):
             candidate["donor_source_url"] = data["donor_source_url"]
+        if isinstance(data.get("donor_sources"), list):
+            candidate["donor_sources"] = data["donor_sources"]
         if data.get("voting_summary"):
             candidate["voting_summary"] = data["voting_summary"]
         if data.get("voting_source_url"):

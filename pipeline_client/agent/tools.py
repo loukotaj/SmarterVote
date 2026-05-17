@@ -171,16 +171,16 @@ SET_CANDIDATE_FIELD_TOOL: Dict = {
     "type": "function",
     "function": {
         "name": "set_candidate_field",
-        "description": (
-            "Update a scalar field on a candidate. Allowed fields: party, incumbent, "
-            "website, image_url."
-        ),
+        "description": ("Update a scalar field on a candidate. Allowed fields: party, incumbent, " "website, image_url."),
         "parameters": {
             "type": "object",
             "properties": {
                 "candidate_name": {"type": "string", "description": "Exact candidate name."},
-                "field": {"type": "string", "enum": ["party", "incumbent", "website", "image_url"],
-                          "description": "Field to update."},
+                "field": {
+                    "type": "string",
+                    "enum": ["party", "incumbent", "website", "image_url"],
+                    "description": "Field to update.",
+                },
                 "value": {"description": "New value for the field."},
             },
             "required": ["candidate_name", "field", "value"],
@@ -291,7 +291,10 @@ REMOVE_CAREER_ENTRY_TOOL: Dict = {
             "type": "object",
             "properties": {
                 "candidate_name": {"type": "string", "description": "Exact candidate name."},
-                "organization": {"type": "string", "description": "Organization name to match (case-insensitive, partial match ok)."},
+                "organization": {
+                    "type": "string",
+                    "description": "Organization name to match (case-insensitive, partial match ok).",
+                },
             },
             "required": ["candidate_name", "organization"],
         },
@@ -311,7 +314,10 @@ UPDATE_CAREER_ENTRY_TOOL: Dict = {
             "type": "object",
             "properties": {
                 "candidate_name": {"type": "string", "description": "Exact candidate name."},
-                "organization": {"type": "string", "description": "Organization name to match (case-insensitive, partial match ok)."},
+                "organization": {
+                    "type": "string",
+                    "description": "Organization name to match (case-insensitive, partial match ok).",
+                },
                 "title": {"type": "string", "description": "Corrected role title (omit if unchanged)."},
                 "start_year": {"type": "integer", "description": "Corrected start year (omit if unchanged)."},
                 "end_year": {"type": "integer", "description": "Corrected end year (omit if unchanged)."},
@@ -335,7 +341,10 @@ UPDATE_EDUCATION_ENTRY_TOOL: Dict = {
             "type": "object",
             "properties": {
                 "candidate_name": {"type": "string", "description": "Exact candidate name."},
-                "institution": {"type": "string", "description": "Institution name to match (case-insensitive, partial match ok)."},
+                "institution": {
+                    "type": "string",
+                    "description": "Institution name to match (case-insensitive, partial match ok).",
+                },
                 "degree": {"type": "string", "description": "Corrected degree type (omit if unchanged)."},
                 "field": {"type": "string", "description": "Corrected field of study (omit if unchanged)."},
                 "year": {"type": "integer", "description": "Corrected graduation year (omit if unchanged)."},
@@ -376,9 +385,14 @@ CLEAR_EDUCATION_TOOL: Dict = {
 }
 
 BIO_TOOLS: List[Dict] = [
-    ADD_CAREER_ENTRY_TOOL, REMOVE_CAREER_ENTRY_TOOL, UPDATE_CAREER_ENTRY_TOOL,
-    ADD_EDUCATION_ENTRY_TOOL, UPDATE_EDUCATION_ENTRY_TOOL,
-    SET_SOCIAL_MEDIA_TOOL, CLEAR_CAREER_TOOL, CLEAR_EDUCATION_TOOL,
+    ADD_CAREER_ENTRY_TOOL,
+    REMOVE_CAREER_ENTRY_TOOL,
+    UPDATE_CAREER_ENTRY_TOOL,
+    ADD_EDUCATION_ENTRY_TOOL,
+    UPDATE_EDUCATION_ENTRY_TOOL,
+    SET_SOCIAL_MEDIA_TOOL,
+    CLEAR_CAREER_TOOL,
+    CLEAR_EDUCATION_TOOL,
 ]
 BACKGROUND_TOOLS = BIO_TOOLS  # backward-compat alias
 
@@ -397,8 +411,7 @@ SET_ISSUE_STANCE_TOOL: Dict = {
                 "candidate_name": {"type": "string", "description": "Exact candidate name."},
                 "issue": {"type": "string", "description": "Canonical issue name (e.g. 'Healthcare')."},
                 "stance": {"type": "string", "description": "1-2 sentence position description."},
-                "confidence": {"type": "string", "enum": ["high", "medium", "low"],
-                               "description": "Confidence level."},
+                "confidence": {"type": "string", "enum": ["high", "medium", "low"], "description": "Confidence level."},
                 "sources": {
                     "type": "array",
                     "description": "Source URLs supporting this stance.",
@@ -432,8 +445,29 @@ SET_DONOR_SUMMARY_TOOL: Dict = {
             "type": "object",
             "properties": {
                 "candidate_name": {"type": "string", "description": "Exact candidate name."},
-                "summary": {"type": "string", "description": "2-3 sentence summary of who funds the candidate."},
-                "source_url": {"type": "string", "description": "URL to full donor data (OpenSecrets, FEC, state portal, etc.)."},
+                "summary": {
+                    "type": "string",
+                    "description": "2-3 sentence summary of who funds the candidate. Do not include inline 'Sources:' text.",
+                },
+                "source_url": {
+                    "type": "string",
+                    "description": "URL to full donor data (OpenSecrets, FEC, state portal, etc.).",
+                },
+                "sources": {
+                    "type": "array",
+                    "description": "Structured finance sources supporting the donor summary.",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "url": {"type": "string"},
+                            "type": {"type": "string", "description": "Use finance for campaign-finance records."},
+                            "title": {"type": "string"},
+                            "description": {"type": "string"},
+                            "published_at": {"type": "string"},
+                        },
+                        "required": ["url"],
+                    },
+                },
             },
             "required": ["candidate_name", "summary"],
         },
@@ -450,7 +484,10 @@ SET_VOTING_SUMMARY_TOOL: Dict = {
             "properties": {
                 "candidate_name": {"type": "string", "description": "Exact candidate name."},
                 "summary": {"type": "string", "description": "2-3 sentence summary of the candidate's voting patterns."},
-                "source_url": {"type": "string", "description": "URL to full voting record (VoteSmart, GovTrack, legislature, etc.)."},
+                "source_url": {
+                    "type": "string",
+                    "description": "URL to full voting record (VoteSmart, GovTrack, legislature, etc.).",
+                },
             },
             "required": ["candidate_name", "summary"],
         },
@@ -470,7 +507,17 @@ ADD_LINK_TOOL: Dict = {
                 "title": {"type": "string", "description": "Human-readable page title."},
                 "type": {
                     "type": "string",
-                    "enum": ["finance", "ballotpedia", "wiki", "official", "legislature", "votesmart", "govtrack", "news", "other"],
+                    "enum": [
+                        "finance",
+                        "ballotpedia",
+                        "wiki",
+                        "official",
+                        "legislature",
+                        "votesmart",
+                        "govtrack",
+                        "news",
+                        "other",
+                    ],
                     "description": "Link category.",
                 },
             },
@@ -551,8 +598,19 @@ UPDATE_RACE_FIELD_TOOL: Dict = {
         "parameters": {
             "type": "object",
             "properties": {
-                "field": {"type": "string", "enum": ["description", "office", "election_date", "polling_note", "ballotpedia_url", "register_to_vote_url", "how_to_vote_url"],
-                          "description": "Field to update."},
+                "field": {
+                    "type": "string",
+                    "enum": [
+                        "description",
+                        "office",
+                        "election_date",
+                        "polling_note",
+                        "ballotpedia_url",
+                        "register_to_vote_url",
+                        "how_to_vote_url",
+                    ],
+                    "description": "Field to update.",
+                },
                 "value": {"type": "string", "description": "New value."},
             },
             "required": ["field", "value"],

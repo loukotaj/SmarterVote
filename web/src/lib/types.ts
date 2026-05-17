@@ -6,6 +6,7 @@ export type ConfidenceLevel = "high" | "medium" | "low" | "unknown";
 
 export type SourceType =
   | "website"
+  | "finance"
   | "pdf"
   | "api"
   | "social_media"
@@ -31,7 +32,12 @@ export type CanonicalIssue =
  * All valid issue keys — includes current canonical names plus legacy names from
  * pre-rename published data. Used for the Candidate.issues record type.
  */
-export type IssueKey = CanonicalIssue | "Reproductive Rights" | "Guns & Safety" | "Social Justice" | "Election Reform";
+export type IssueKey =
+  | CanonicalIssue
+  | "Reproductive Rights"
+  | "Guns & Safety"
+  | "Social Justice"
+  | "Election Reform";
 
 export interface Source {
   url: string;
@@ -55,7 +61,16 @@ export interface IssueStance {
 export interface CandidateLink {
   url: string;
   title: string;
-  type: "finance" | "ballotpedia" | "wiki" | "official" | "legislature" | "votesmart" | "govtrack" | "news" | "other";
+  type:
+    | "finance"
+    | "ballotpedia"
+    | "wiki"
+    | "official"
+    | "legislature"
+    | "votesmart"
+    | "govtrack"
+    | "news"
+    | "other";
 }
 
 export interface CareerEntry {
@@ -112,6 +127,7 @@ export interface Candidate {
   voting_source_url?: string;
   donor_summary?: string;
   donor_source_url?: string;
+  donor_sources?: Source[];
   links: CandidateLink[];
   website?: string;
   social_media: Record<string, string>;
@@ -141,8 +157,8 @@ export interface Race {
   generator: string[];
   title?: string;
   office?: string;
-  jurisdiction?: string;  // Full geographic scope (e.g. "Missouri's 1st Congressional District")
-  state?: string;         // US state name for map highlighting; null for national races
+  jurisdiction?: string; // Full geographic scope (e.g. "Missouri's 1st Congressional District")
+  state?: string; // US state name for map highlighting; null for national races
   district?: string;
   description?: string;
   polling?: PollEntry[];
@@ -245,7 +261,11 @@ export type PipelineStepId =
   | "review"
   | "iteration";
 
-export const PIPELINE_STEPS: { id: PipelineStepId; label: string; weight: number }[] = [
+export const PIPELINE_STEPS: {
+  id: PipelineStepId;
+  label: string;
+  weight: number;
+}[] = [
   { id: "discovery", label: "Discovery", weight: 15 },
   { id: "images", label: "Image Resolution", weight: 5 },
   { id: "issues", label: "Issue Research", weight: 35 },
@@ -375,7 +395,10 @@ export interface AgentMetrics {
   completion_tokens: number;
   total_tokens: number;
   estimated_usd: number;
-  model_breakdown: Record<string, { prompt_tokens: number; completion_tokens: number }>;
+  model_breakdown: Record<
+    string,
+    { prompt_tokens: number; completion_tokens: number }
+  >;
   duration_s: number;
 }
 
@@ -389,7 +412,10 @@ export interface PipelineRunRecord {
   completion_tokens: number;
   total_tokens: number;
   estimated_usd: number;
-  model_breakdown: Record<string, { prompt_tokens: number; completion_tokens: number }>;
+  model_breakdown: Record<
+    string,
+    { prompt_tokens: number; completion_tokens: number }
+  >;
   duration_s: number;
   candidate_count: number;
   cheap_mode: boolean;
