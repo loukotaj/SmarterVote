@@ -1,6 +1,12 @@
-"""Tests for Ballotpedia election URL derivation."""
+"""Tests for Ballotpedia election URL derivation and candidate lookup."""
 
-from pipeline_client.agent.ballotpedia import _parse_candidate_list_from_html, _race_id_to_ballotpedia_url
+import pytest
+
+from pipeline_client.agent.ballotpedia import (
+    _parse_candidate_list_from_html,
+    _race_id_to_ballotpedia_url,
+    lookup_candidate_data,
+)
 
 
 def test_governor_race_uses_state_gubernatorial_url():
@@ -37,3 +43,51 @@ def test_candidate_parser_uses_current_primary_votebox_sections():
         {"name": "Keisha Lance Bottoms", "party": "Democratic", "incumbent": False},
         {"name": "Chris Carr", "party": "Republican", "incumbent": False},
     ]
+
+
+class _FakeBallotpediaClient:
+    def __init__(self, *args, **kwargs):
+        self.calls = []
+
+    async def __aenter__(self):
+        return self
+
+    async def __aexit__(self, exc_type, exc, tb):
+        return False
+
+    async def get(self, url, **kwargs):
+        self.calls.append(url)
+        if url.startswith("https://r.jina.ai/"):
+            return _FakeResponse(
+                url="https://r.jina.ai/https://ballotpedia.org/Roy_Cooper",
+                text="""
+                # Roy Cooper
+
+                ![](https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Roy_Cooper.jpg)
+
+                Roy Cooper (Democratic Party) is running for election to the U.S. Senate.
+                """,
+            )
+        return _FakeResponse(
+            url="https://ballotpedia.org/Roy_Cooper",
+            text="In order to continue, we need to verify that you're not a robot. Enable JavaScript.",
+        )
+
+
+class _FakeResponse:
+    status_code = 200
+
+    def __init__(self, url: str, text: str):
+        self.url = url
+        self.text = text
+
+
+@pytest.mark.asyncio
+async def test_ballotpedia_lookup_uses_proxy_for_blocked_candidate_page(monkeypatch):
+    monkeypatch.setattr("pipeline_client.agent.ballotpedia.httpx.AsyncClient", _FakeBallotpediaClient)
+
+    result = await lookup_candidate_data("Roy Cooper")
+
+    assert result["found"] is True
+    assert result["page_url"] == "https://ballotpedia.org/Roy_Cooper"
+    assert result["image_url"] == "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Roy_Cooper.jpg"

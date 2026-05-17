@@ -118,6 +118,11 @@
   <div class="flex items-center justify-between">
     <div>
       <h2 class="text-lg font-semibold text-content">All Runs</h2>
+      {#if activeRuns.length > 1}
+        <p class="text-xs font-medium text-blue-700 dark:text-blue-300 mt-0.5">
+          {activeRuns.length} active runs processing in parallel
+        </p>
+      {/if}
       <p class="text-xs text-content-muted mt-0.5">
         {runs.length} run{runs.length !== 1 ? "s" : ""}{pendingQueue.length > 0 ? ` · ${pendingQueue.length} queued` : ""}
       </p>
@@ -169,7 +174,7 @@
         Active
       </h3>
       <div class="card p-0 divide-y divide-stroke">
-        {#each activeRuns as run}
+        {#each activeRuns as run (run.run_id)}
           <div class="flex items-stretch hover:bg-surface-alt transition-colors {currentRunId === run.run_id ? 'bg-blue-50 dark:bg-blue-900/20' : ''}">
             <button
               type="button"

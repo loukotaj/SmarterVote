@@ -374,13 +374,264 @@ class SearchCache:
         return removed
 
 
+class FirestoreSearchCache:
+    """Firestore-backed cache for deployed pipeline workers.
+
+    Cloud Run and Cloud Functions have ephemeral local disks, so SQLite only
+    helps within one warm instance. This backend keeps Serper and page fetch
+    results shared across all deployed workers.
+    """
+
+    def __init__(self, project: Optional[str] = None, default_ttl_hours: int = 168):
+        self.default_ttl_hours = default_ttl_hours
+        self.project = project or os.getenv("FIRESTORE_PROJECT") or os.getenv("PROJECT_ID")
+        from google.cloud import firestore  # type: ignore
+
+        self._db = firestore.Client(project=self.project) if self.project else firestore.Client()
+        self._search_collection = os.getenv("SEARCH_CACHE_FIRESTORE_COLLECTION", "search_cache")
+        self._page_collection = os.getenv("PAGE_CACHE_FIRESTORE_COLLECTION", "page_cache")
+        logger.info(
+            "Search cache initialized in Firestore collection %s (TTL: %sh)",
+            self._search_collection,
+            default_ttl_hours,
+        )
+
+    def _query_hash(self, query_text: str, race_id: Optional[str] = None) -> str:
+        key = f"{query_text}:{race_id or ''}"
+        return hashlib.sha256(key.encode()).hexdigest()
+
+    def _page_hash(self, url: str) -> str:
+        return hashlib.sha256(url.encode()).hexdigest()
+
+    @staticmethod
+    def _active(data: Dict[str, Any], now: str) -> bool:
+        expires_at = data.get("expires_at")
+        if hasattr(expires_at, "isoformat"):
+            expires_at = expires_at.isoformat()
+        return isinstance(expires_at, str) and expires_at > now
+
+    @staticmethod
+    def _decode_results(raw: Any) -> List[Dict[str, Any]]:
+        if isinstance(raw, list):
+            return [r for r in raw if isinstance(r, dict)]
+        if isinstance(raw, str):
+            try:
+                decoded = json.loads(raw)
+            except (json.JSONDecodeError, TypeError):
+                return []
+            return [r for r in decoded if isinstance(r, dict)] if isinstance(decoded, list) else []
+        return []
+
+    def get(self, query_text: str, race_id: Optional[str] = None) -> Optional[Dict[str, Any]]:
+        query_hash = self._query_hash(query_text, race_id)
+        now = datetime.now(timezone.utc).isoformat()
+        try:
+            doc_ref = self._db.collection(self._search_collection).document(query_hash)
+            doc = doc_ref.get()
+            if not getattr(doc, "exists", False):
+                return None
+            data = doc.to_dict() or {}
+            if not self._active(data, now):
+                return None
+            doc_ref.update({"hit_count": int(data.get("hit_count") or 0) + 1})
+            return {
+                "query_text": data.get("query_text") or query_text,
+                "race_id": data.get("race_id"),
+                "provider": data.get("provider"),
+                "results": self._decode_results(data.get("results")),
+                "result_count": data.get("result_count"),
+                "searched_at": data.get("searched_at"),
+                "from_cache": True,
+            }
+        except Exception as exc:
+            logger.warning("Firestore search cache read failed: %s", exc)
+            return None
+
+    def set(
+        self,
+        query_text: str,
+        results: List[Dict[str, Any]],
+        race_id: Optional[str] = None,
+        provider: str = "unknown",
+        ttl_hours: Optional[int] = None,
+    ) -> bool:
+        query_hash = self._query_hash(query_text, race_id)
+        ttl = ttl_hours or self.default_ttl_hours
+        now = datetime.now(timezone.utc)
+        try:
+            self._db.collection(self._search_collection).document(query_hash).set(
+                {
+                    "query_hash": query_hash,
+                    "query_text": query_text,
+                    "race_id": race_id,
+                    "provider": provider,
+                    "results": results,
+                    "result_count": len(results),
+                    "searched_at": now.isoformat(),
+                    "expires_at": (now + timedelta(hours=ttl)).isoformat(),
+                    "hit_count": 0,
+                }
+            )
+            return True
+        except Exception as exc:
+            logger.warning("Firestore search cache write failed: %s", exc)
+            return False
+
+    def get_page(self, url: str) -> Optional[str]:
+        now = datetime.now(timezone.utc).isoformat()
+        try:
+            doc_ref = self._db.collection(self._page_collection).document(self._page_hash(url))
+            doc = doc_ref.get()
+            if not getattr(doc, "exists", False):
+                return None
+            data = doc.to_dict() or {}
+            if not self._active(data, now):
+                return None
+            doc_ref.update({"hit_count": int(data.get("hit_count") or 0) + 1})
+            content = data.get("content")
+            return content if isinstance(content, str) else None
+        except Exception as exc:
+            logger.warning("Firestore page cache read failed: %s", exc)
+            return None
+
+    def set_page(self, url: str, content: str, ttl_hours: int = 24) -> bool:
+        now = datetime.now(timezone.utc)
+        try:
+            self._db.collection(self._page_collection).document(self._page_hash(url)).set(
+                {
+                    "url_hash": self._page_hash(url),
+                    "url": url,
+                    "content": content,
+                    "content_length": len(content),
+                    "fetched_at": now.isoformat(),
+                    "expires_at": (now + timedelta(hours=ttl_hours)).isoformat(),
+                    "hit_count": 0,
+                }
+            )
+            return True
+        except Exception as exc:
+            logger.warning("Firestore page cache write failed: %s", exc)
+            return False
+
+    def list_cached_for_race(self, race_id: str) -> Dict[str, Any]:
+        now = datetime.now(timezone.utc).isoformat()
+        searches: List[Dict[str, Any]] = []
+        all_urls: set[str] = set()
+        try:
+            rows = self._db.collection(self._search_collection).where("race_id", "==", race_id).stream()
+            for doc in rows:
+                data = doc.to_dict() or {}
+                if not self._active(data, now):
+                    continue
+                results = self._decode_results(data.get("results"))
+                urls = [str(r.get("url")) for r in results if r.get("url")]
+                searches.append({"query": data.get("query_text") or "", "urls": urls})
+                all_urls.update(urls)
+
+            page_urls: List[str] = []
+            if all_urls:
+                for doc in self._db.collection(self._page_collection).stream():
+                    data = doc.to_dict() or {}
+                    url = data.get("url")
+                    if isinstance(url, str) and url in all_urls and self._active(data, now):
+                        page_urls.append(url)
+            return {"searches": searches, "page_urls": page_urls}
+        except Exception as exc:
+            logger.warning("Firestore search cache list failed: %s", exc)
+            return {"searches": searches, "page_urls": []}
+
+    def get_stats(self) -> Dict[str, Any]:
+        now = datetime.now(timezone.utc).isoformat()
+        total = 0
+        active = 0
+        total_hits = 0
+        provider_stats: Dict[str, Dict[str, int]] = {}
+        try:
+            for doc in self._db.collection(self._search_collection).stream():
+                total += 1
+                data = doc.to_dict() or {}
+                hits = int(data.get("hit_count") or 0)
+                total_hits += hits
+                provider = str(data.get("provider") or "unknown")
+                provider_stats.setdefault(provider, {"count": 0, "hits": 0})
+                provider_stats[provider]["count"] += 1
+                provider_stats[provider]["hits"] += hits
+                if self._active(data, now):
+                    active += 1
+        except Exception as exc:
+            logger.warning("Firestore search cache stats failed: %s", exc)
+        return {
+            "total_entries": total,
+            "active_entries": active,
+            "expired_entries": total - active,
+            "total_hits": total_hits,
+            "by_provider": provider_stats,
+            "backend": "firestore",
+        }
+
+    def cleanup_expired(self) -> int:
+        now = datetime.now(timezone.utc).isoformat()
+        removed = 0
+        try:
+            for collection in (self._search_collection, self._page_collection):
+                for doc in self._db.collection(collection).stream():
+                    data = doc.to_dict() or {}
+                    if not self._active(data, now):
+                        doc.reference.delete()
+                        removed += 1
+        except Exception as exc:
+            logger.warning("Firestore search cache cleanup failed: %s", exc)
+        return removed
+
+    def clear_for_race(self, race_id: str) -> int:
+        removed = 0
+        try:
+            for doc in self._db.collection(self._search_collection).where("race_id", "==", race_id).stream():
+                doc.reference.delete()
+                removed += 1
+        except Exception as exc:
+            logger.warning("Firestore search cache clear_for_race failed: %s", exc)
+        return removed
+
+    def clear_all(self) -> int:
+        removed = 0
+        try:
+            for collection in (self._search_collection, self._page_collection):
+                for doc in self._db.collection(collection).stream():
+                    doc.reference.delete()
+                    removed += 1
+        except Exception as exc:
+            logger.warning("Firestore search cache clear_all failed: %s", exc)
+        return removed
+
+
 # Singleton instance for easy access
-_search_cache_instance: Optional[SearchCache] = None
+_search_cache_instance: Optional[SearchCache | FirestoreSearchCache] = None
 
 
-def get_search_cache() -> SearchCache:
+def _should_use_firestore_cache() -> bool:
+    backend = os.getenv("SEARCH_CACHE_BACKEND", "").strip().lower()
+    if backend:
+        return backend == "firestore"
+    return (
+        os.getenv("STORAGE_MODE", "").strip().lower() == "gcp"
+        or bool(os.getenv("FIRESTORE_PROJECT"))
+        or bool(os.getenv("K_SERVICE") or os.getenv("CLOUD_RUN_SERVICE"))
+    )
+
+
+def get_search_cache() -> SearchCache | FirestoreSearchCache:
     """Get or create the global search cache instance."""
     global _search_cache_instance
     if _search_cache_instance is None:
-        _search_cache_instance = SearchCache()
+        if _should_use_firestore_cache():
+            try:
+                _search_cache_instance = FirestoreSearchCache()
+            except Exception as exc:
+                if os.getenv("K_SERVICE") or os.getenv("CLOUD_RUN_SERVICE"):
+                    raise RuntimeError("Firestore search cache is required for deployed pipeline workers") from exc
+                logger.warning("Could not initialize Firestore search cache; falling back to SQLite: %s", exc)
+                _search_cache_instance = SearchCache()
+        else:
+            _search_cache_instance = SearchCache()
     return _search_cache_instance

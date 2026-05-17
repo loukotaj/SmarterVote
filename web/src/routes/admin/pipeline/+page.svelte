@@ -130,6 +130,7 @@
   $: queueRunningItems = activeQueueItems.filter((i) => i.status === "running");
   $: queueRunning = queueRunningItems[0] ?? null;
   $: queuePending = activeQueueItems.filter((i) => i.status === "pending").length;
+  $: activeQueueCount = activeQueueItems.length;
   $: oldestPendingMs = (() => {
     const pending = activeQueueItems.filter((i) => i.status === "pending");
     if (pending.length === 0) return 0;
@@ -335,6 +336,53 @@
     }
   }
 
+  function setGlobalActiveStateFromQueue() {
+    const activeItems = queueItems.filter(
+      (item) =>
+        (item.status === "running" || item.status === "pending") &&
+        item.run_id &&
+        !continuationParentRunIds.has(item.run_id)
+    );
+    const preferred = activeItems.find((item) => item.run_id === pipeline.currentRunId) ?? activeItems[0];
+    if (preferred?.run_id) {
+      pipelineActions.setCurrentRun(preferred.run_id, "agent");
+      pipelineActions.setExecutionState(true);
+      pipelineActions.setRunStatus("running");
+      startAutoRefresh();
+      startElapsedTimer();
+      watchActiveQueueRuns();
+      return true;
+    }
+    pipelineActions.setExecutionState(false);
+    pipelineActions.setCurrentRun(null, null);
+    pipelineActions.setRunStatus("idle");
+    stopElapsedTimer();
+    stopAutoRefresh();
+    return false;
+  }
+
+  async function reconcileAfterRunTerminal(runId: string) {
+    await refreshQueue();
+    const stillActive = queueItems.some(
+      (item) =>
+        (item.status === "running" || item.status === "pending") &&
+        item.run_id &&
+        item.run_id !== runId &&
+        !continuationParentRunIds.has(item.run_id)
+    );
+    if (stillActive) {
+      setGlobalActiveStateFromQueue();
+    } else {
+      pipelineActions.setExecutionState(false);
+      pipelineActions.setCurrentRun(null, null);
+      pipelineActions.setRunStatus("idle");
+      stopAutoRefresh();
+      stopElapsedTimer();
+      debouncedRefresh();
+      racesTabRef?.refresh();
+    }
+  }
+
   // Polling event handling
   function handlePollingMessage(data: any) {
     switch (data.type) {
@@ -348,10 +396,12 @@
         startElapsedTimer();
         break;
       case "run_progress":
-        pipelineActions.updateRunProgress(
-          data.progress ?? pipeline.progress,
-          data.message ?? pipeline.progressMessage
-        );
+        if (data.run_id === pipeline.currentRunId || activeQueueCount <= 1) {
+          pipelineActions.updateRunProgress(
+            data.progress ?? pipeline.progress,
+            data.message ?? pipeline.progressMessage
+          );
+        }
         break;
       case "run_status":
         if (data.data?.run_id) {
@@ -369,24 +419,21 @@
         }
         break;
       case "run_completed":
-        pipelineActions.setRunStatus("completed");
-        pipelineActions.updateRunProgress(100, "Completed successfully");
-        pipelineActions.setExecutionState(false);
+        if (data.run_id === pipeline.currentRunId || activeQueueCount <= 1) {
+          pipelineActions.setRunStatus("completed");
+          pipelineActions.updateRunProgress(100, "Completed successfully");
+        }
         if (data.result !== undefined) pipelineActions.setOutput(data.result);
-        stopAutoRefresh();
-        stopElapsedTimer();
         debouncedRefresh();
-        racesTabRef?.refresh();
-        refreshQueue();
+        void reconcileAfterRunTerminal(data.run_id);
         break;
       case "run_failed":
-        pipelineActions.setRunStatus("failed");
-        pipelineActions.setExecutionState(false);
+        if (data.run_id === pipeline.currentRunId || activeQueueCount <= 1) {
+          pipelineActions.setRunStatus("failed");
+        }
         addLog("error", `Run failed: ${data.error || "Unknown error"}`);
-        stopAutoRefresh();
-        stopElapsedTimer();
         debouncedRefresh();
-        refreshQueue();
+        void reconcileAfterRunTerminal(data.run_id);
         break;
       case "log":
         addLog(data.level ?? "info", data.message ?? "", data.timestamp, data.run_id);

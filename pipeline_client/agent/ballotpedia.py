@@ -13,12 +13,20 @@ import logging
 import re
 from html import unescape
 from typing import Any, Dict, List, Optional
+from urllib.parse import quote
 
 import httpx
 
 logger = logging.getLogger("pipeline")
 
 _BROWSER_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) " "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+_UNUSABLE_MARKERS = (
+    "verify that you're not a robot",
+    "verify you are not a robot",
+    "enable javascript",
+    "captcha",
+    "access denied",
+)
 
 # External-link prefixes that are useful for electoral research.
 # We filter the full extlinks list down to these so the agent isn't buried in
@@ -102,15 +110,51 @@ async def lookup_candidate_data(candidate_name: str) -> Dict[str, Any]:
                 )
 
             if resp.status_code != 200:
+                fallback_image = await _lookup_candidate_thumbnail_by_convention(client, candidate_name)
+                if fallback_image:
+                    return {
+                        "found": True,
+                        "page_url": f"https://ballotpedia.org/{url_name}",
+                        "extract": None,
+                        "external_links": [],
+                        "image_url": fallback_image,
+                    }
                 return empty
 
             page_url = str(resp.url)
 
             # If we ended up on the search-results page the candidate wasn't found
             if "Special:Search" in page_url:
+                fallback_image = await _lookup_candidate_thumbnail_by_convention(client, candidate_name)
+                if fallback_image:
+                    return {
+                        "found": True,
+                        "page_url": f"https://ballotpedia.org/{url_name}",
+                        "extract": None,
+                        "external_links": [],
+                        "image_url": fallback_image,
+                    }
                 return empty
 
             html = resp.text
+            if _is_unusable_ballotpedia_html(html):
+                proxy_resp = await client.get(
+                    f"https://r.jina.ai/{page_url}",
+                    headers={"User-Agent": _BROWSER_UA},
+                )
+                if proxy_resp.status_code == 200 and not _is_unusable_ballotpedia_html(proxy_resp.text):
+                    html = proxy_resp.text
+                else:
+                    fallback_image = await _lookup_candidate_thumbnail_by_convention(client, candidate_name)
+                    if fallback_image:
+                        return {
+                            "found": True,
+                            "page_url": page_url,
+                            "extract": None,
+                            "external_links": [],
+                            "image_url": fallback_image,
+                        }
+                    return empty
 
             # --- Image: first widget-img inside the infobox -----------------
             image_url: Optional[str] = None
@@ -118,6 +162,16 @@ async def lookup_candidate_data(candidate_name: str) -> Dict[str, Any]:
             infobox_m = re.search(r'class="infobox person".*?<img\s[^>]*src="([^"]+)"[^>]*>', html, re.DOTALL)
             if infobox_m:
                 image_url = infobox_m.group(1)
+            if not image_url:
+                image_m = re.search(
+                    r"https://s3\.amazonaws\.com/ballotpedia-api4/files/thumbs/[^\s)\"'<]+",
+                    html,
+                    re.IGNORECASE,
+                )
+                if image_m:
+                    image_url = image_m.group(0)
+            if not image_url:
+                image_url = await _lookup_candidate_thumbnail_by_convention(client, candidate_name)
 
             # --- Extract: first non-trivial <p> inside mw-parser-output -----
             extract: Optional[str] = None
@@ -150,6 +204,31 @@ async def lookup_candidate_data(candidate_name: str) -> Dict[str, Any]:
     except Exception as exc:
         logger.warning("Ballotpedia lookup failed for %r: %s", candidate_name, exc)
         return empty
+
+
+def _is_unusable_ballotpedia_html(html: str) -> bool:
+    lowered = (html or "").lower()
+    return not lowered.strip() or any(marker in lowered for marker in _UNUSABLE_MARKERS)
+
+
+async def _lookup_candidate_thumbnail_by_convention(client: httpx.AsyncClient, candidate_name: str) -> Optional[str]:
+    """Try Ballotpedia's stable thumbnail path when page HTML is blocked."""
+    base_name = quote(candidate_name.strip().replace(" ", "_"), safe="_()")
+    if not base_name:
+        return None
+    for ext in (".jpg", ".jpeg", ".png"):
+        url = f"https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/{base_name}{ext}"
+        try:
+            resp = await client.head(url, headers={"User-Agent": _BROWSER_UA})
+            if resp.status_code < 400:
+                return url
+            if resp.status_code in (405, 501):
+                get_resp = await client.get(url, headers={"User-Agent": _BROWSER_UA, "Range": "bytes=0-0"})
+                if get_resp.status_code in (200, 206):
+                    return url
+        except Exception:
+            continue
+    return None
 
 
 # ---------------------------------------------------------------------------

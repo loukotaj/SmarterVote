@@ -10,9 +10,9 @@ import { writable } from "svelte/store";
 type PipelineEvent =
   | { type: "log"; level: string; message: string; timestamp?: string; run_id?: string }
   | { type: "run_started"; run_id: string; step: string }
-  | { type: "run_progress"; progress?: number; message?: string }
-  | { type: "run_completed"; result?: unknown; artifact_id?: string; duration_ms?: number }
-  | { type: "run_failed"; error?: string }
+  | { type: "run_progress"; run_id: string; progress?: number; message?: string }
+  | { type: "run_completed"; run_id: string; result?: unknown; artifact_id?: string; duration_ms?: number }
+  | { type: "run_failed"; run_id: string; error?: string }
   | { type: "run_status"; data: { run_id: string; status: string; [key: string]: unknown } }
   | { type: "buffered_logs"; data: { level: string; message: string; timestamp?: string; run_id?: string }[] };
 
@@ -62,6 +62,7 @@ async function pollRunStatus(runId: string): Promise<void> {
 
     onMessage?.({
       type: "run_progress",
+      run_id: runId,
       progress,
       message: progressMessage ?? (currentStep ? `Running: ${currentStep}` : undefined),
     });
@@ -73,11 +74,11 @@ async function pollRunStatus(runId: string): Promise<void> {
 
     if (status === "completed") {
       stopPolling(runId);
-      onMessage?.({ type: "run_completed", result: run });
+      onMessage?.({ type: "run_completed", run_id: runId, result: run });
       if (watchedRuns.size === 0) runPollingStore.update((s) => ({ ...s, connected: false }));
     } else if (status === "failed") {
       stopPolling(runId);
-      onMessage?.({ type: "run_failed", error: run.error ?? "Run failed" });
+      onMessage?.({ type: "run_failed", run_id: runId, error: run.error ?? "Run failed" });
       if (watchedRuns.size === 0) runPollingStore.update((s) => ({ ...s, connected: false }));
     } else if (status === "cancelled" || status === "continued") {
       stopPolling(runId);
