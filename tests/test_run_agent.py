@@ -8,6 +8,7 @@ from unittest.mock import AsyncMock, patch
 import pytest
 
 from pipeline_client.agent.agent import _load_existing, _normalize_schema_fields, run_agent
+from pipeline_client.agent.phases import _sanitize_roster
 from pipeline_client.agent.prompts import CANONICAL_ISSUES
 from pipeline_client.backend.handlers.agent import HandoffTriggered
 
@@ -584,6 +585,31 @@ async def test_run_agent_update_with_candidates():
     assert "updated_utc" in result
     # roster sync + meta + images + 12 issues + finance + refine + meta refine = 18
     assert mock_loop.call_count == 18
+
+
+def test_sanitize_roster_removes_incumbent_found_not_running():
+    race_json = {
+        "id": "mn-governor-2026",
+        "candidates": [
+            {
+                "name": "Tim Walz",
+                "party": "Democratic-Farmer-Labor",
+                "incumbent": True,
+                "summary": "Tim Walz is Minnesota's governor and announced he is not seeking re-election.",
+                "summary_sources": [
+                    {
+                        "title": "Governor Walz Statement Announcing He Will Not Seek Reelection",
+                        "url": "https://mn.gov/governor/newsroom/press-releases/?id=1055-718148",
+                    }
+                ],
+            },
+            {"name": "Jeff Johnson", "party": "Republican", "incumbent": False, "summary": "Declared candidate."},
+        ],
+    }
+
+    _sanitize_roster(race_json)
+
+    assert [candidate["name"] for candidate in race_json["candidates"]] == ["Jeff Johnson"]
 
 
 @pytest.mark.asyncio

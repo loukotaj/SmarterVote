@@ -150,6 +150,7 @@ Return JSON:
       "donor_sources": [],
       "voting_summary": null,
       "voting_source_url": null,
+      "voting_sources": [],
       "links": [],
       "issues": {{}}
     }}
@@ -518,6 +519,8 @@ or a NON-LEGISLATOR (challenger, executive, business person, etc.):
 
   If no relevant record exists for any category, write:
   "No public legislative voting record. No prior elected or executive office found."
+  Do NOT put "Sources:" or raw URLs in voting_summary. Put all citations in
+  voting_sources and set voting_source_url to the single best full-record page.
 
 PART 3 — REFERENCE LINKS:
 Using the pages you have already visited, collect the best reference links
@@ -542,6 +545,9 @@ Return JSON keyed by candidate name:
     ],
     "voting_summary": "<2-3 sentence summary of voting patterns or executive record>",
     "voting_source_url": "<best URL for full voting record — prefer VoteSmart > GovTrack > legislature>",
+    "voting_sources": [
+      {{"url": "<source URL>", "title": "<page title>", "type": "govtrack|votesmart|legislature|news|government"}}
+    ],
     "links": [
       {{"url": "<url>", "title": "<page title>", "type": "ballotpedia|wiki|finance|official|legislature|votesmart|govtrack|news|other"}}
     ]
@@ -641,6 +647,8 @@ Also ensure:
   genuinely searching their campaign site and recent news).
 - donor_summary is a plain-text paragraph (not a list of names) and contains no inline "Sources:" text or raw URLs
 - donor_sources contains the finance citations that support donor_summary
+- voting_summary is a plain-text paragraph and contains no inline "Sources:" text or raw URLs
+- voting_sources contains the citations that support voting_summary
 
 Use your editing tools to record every fix directly. When you have addressed all
 actionable flags, reply with a short plain-text summary of what you changed

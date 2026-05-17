@@ -692,6 +692,7 @@ async def _run_fresh(
         log=log,
         resume_partial=resume_partial,
     )
+    _sanitize_roster(race_json, log)
 
     return race_json
 
@@ -868,6 +869,7 @@ async def _run_update(
         log=log,
         resume_partial=resume_partial,
     )
+    _sanitize_roster(race_json, log)
 
     return race_json
 
