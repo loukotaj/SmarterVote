@@ -82,6 +82,7 @@ async def lifespan(app: FastAPI):
 # Initialize FastAPI app
 app = FastAPI(title="SmarterVote Races API", lifespan=lifespan)
 app.state.limiter = limiter
+app.state.publish_service = publish_service
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 # Analytics middleware - runs before CORS, records every tracked request

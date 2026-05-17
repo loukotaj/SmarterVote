@@ -124,7 +124,7 @@ def process_queue_item(cloud_event: CloudEvent) -> None:
     # ---------------------------------------------------------------------------
     # Initialise pipeline_runs document
     # ---------------------------------------------------------------------------
-    from google.cloud.firestore_v1 import SERVER_TIMESTAMP  # type: ignore
+    from google.cloud.firestore_v1 import SERVER_TIMESTAMP, Increment  # type: ignore
 
     run_ref = db.collection("pipeline_runs").document(run_id)
     if not run_ref.get().exists:
@@ -247,14 +247,28 @@ def process_queue_item(cloud_event: CloudEvent) -> None:
             }
         )
         db.collection("races").document(race_id).set(
-            {"status": "draft", "current_run_id": run_id},
+            {
+                "status": "draft",
+                "current_run_id": None,
+                "last_run_id": run_id,
+                "last_run_at": SERVER_TIMESTAMP,
+                "last_run_status": "completed",
+                "total_runs": Increment(1),
+            },
             merge=True,
         )
     else:
         item_ref.update({"status": "failed", "error": error_msg})
         run_ref.update({"status": "failed", "error": error_msg, "completed_at": SERVER_TIMESTAMP})
         db.collection("races").document(race_id).set(
-            {"status": "failed"},
+            {
+                "status": "failed",
+                "current_run_id": None,
+                "last_run_id": run_id,
+                "last_run_at": SERVER_TIMESTAMP,
+                "last_run_status": "failed",
+                "total_runs": Increment(1),
+            },
             merge=True,
         )
 

@@ -144,10 +144,26 @@ def _gcs_list_versions(race_id: str) -> List[Dict[str, Any]]:
     return versions
 
 
+def _assert_publishable_race(data: Dict[str, Any]) -> None:
+    """Block publishing data that the review gate explicitly failed."""
+    validation_grade = data.get("validation_grade")
+    if not isinstance(validation_grade, dict):
+        return
+    if validation_grade.get("passed") is False:
+        grade = validation_grade.get("grade") or "unknown"
+        score = validation_grade.get("score")
+        detail = f"Race failed validation ({grade}"
+        if score is not None:
+            detail += f", {score}/100"
+        detail += ") and cannot be published"
+        raise ValueError(detail)
+
+
 def publish_race_to_gcs(race_id: str, data: Dict[str, Any]) -> None:
     """Archive existing blobs, write new published blob, delete draft, update Firestore."""
     import firestore_helpers  # avoid circular at module load
 
+    _assert_publishable_race(data)
     _gcs_archive_race(race_id, "races", "published")
     _gcs_archive_race(race_id, "drafts", "draft")
     if not _gcs_put_race_json(race_id, "races", data):
@@ -163,6 +179,7 @@ def publish_race_to_gcs(race_id: str, data: Dict[str, Any]) -> None:
             "status": "published",
             "published_at": datetime.now(timezone.utc).isoformat(),
             "draft_updated_at": None,
+            "current_run_id": None,
         },
     )
 

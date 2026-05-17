@@ -24,11 +24,7 @@
   onMount(async () => {
     const params = new URLSearchParams(window.location.search);
     isDraftPreview = params.get("draft") === "true";
-
-    if (race && !isDraftPreview) {
-      loading = false;
-      return;
-    }
+    const hasPrerenderedRace = !!race && !isDraftPreview;
 
     try {
       if (isDraftPreview) {
@@ -44,6 +40,11 @@
       }
       usingFallbackData = false;
     } catch (err) {
+      if (hasPrerenderedRace && race) {
+        loading = false;
+        return;
+      }
+
       // Try to use fallback data
       try {
         race = await getRace(slug, fetch, true);

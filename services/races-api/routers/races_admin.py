@@ -10,7 +10,7 @@ from typing import Any, Dict
 import firestore_helpers
 import gcs_helpers
 from auth import verify_token
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
 from request_models import BatchPublishRequest, RaceQueueRequest, RunOptions, validate_race_id
 
 router = APIRouter()
@@ -149,6 +149,70 @@ def _race_summary(data: Dict[str, Any], fallback_id: str) -> Dict[str, Any]:
     }
 
 
+def _assert_publishable_race(data: Dict[str, Any]) -> None:
+    """Block publishing drafts that the review gate explicitly failed."""
+    try:
+        gcs_helpers._assert_publishable_race(data)
+    except ValueError as exc:
+        raise HTTPException(status_code=409, detail=str(exc).replace("Race failed", "Draft failed")) from exc
+
+
+def _published_race_update() -> Dict[str, Any]:
+    return {
+        "status": "published",
+        "published_at": datetime.now(timezone.utc).isoformat(),
+        "draft_updated_at": None,
+        "current_run_id": None,
+    }
+
+
+def _run_completed_at(data: Dict[str, Any]) -> datetime | None:
+    return (
+        _coerce_datetime(data.get("completed_at"))
+        or _coerce_datetime(data.get("updated_at"))
+        or _coerce_datetime(data.get("started_at"))
+    )
+
+
+def _pipeline_run_stats(db: Any) -> Dict[str, Dict[str, Any]]:
+    """Aggregate run counts from canonical pipeline_runs docs for the races table."""
+    stats: Dict[str, Dict[str, Any]] = {}
+    try:
+        docs = db.collection("pipeline_runs").stream()
+    except Exception as exc:
+        logging.warning("Failed to aggregate pipeline run counts: %s", exc)
+        return stats
+
+    for doc in docs:
+        data = firestore_helpers._doc_to_plain(doc)
+        if not data:
+            continue
+        race_id = data.get("race_id")
+        if not race_id:
+            payload = data.get("payload")
+            if isinstance(payload, dict):
+                race_id = payload.get("race_id")
+        if not race_id:
+            continue
+        item = stats.setdefault(str(race_id), {"total_runs": 0})
+        item["total_runs"] += 1
+        completed_at = _run_completed_at(data)
+        existing_at = _coerce_datetime(item.get("last_run_at"))
+        if completed_at and (existing_at is None or completed_at > existing_at):
+            item["last_run_at"] = completed_at.isoformat()
+            item["last_run_id"] = data.get("run_id") or getattr(doc, "id", None)
+            item["last_run_status"] = data.get("status")
+    return stats
+
+
+def _clear_public_race_cache(request: Request) -> None:
+    """Clear the public /races cache after admin storage mutations."""
+    service = getattr(request.app.state, "publish_service", None)
+    clear_cache = getattr(service, "clear_cache", None)
+    if callable(clear_cache):
+        clear_cache()
+
+
 # ---------------------------------------------------------------------------
 # Race records (Firestore metadata)
 # ---------------------------------------------------------------------------
@@ -161,6 +225,7 @@ async def list_all_races() -> Dict[str, Any]:
     docs = db.collection("races").limit(500).stream()
     races = [firestore_helpers._doc_to_plain(d) for d in docs]
     races = [r for r in races if r is not None]
+    run_stats = _pipeline_run_stats(db)
     draft_id_list = gcs_helpers._gcs_list_race_ids("drafts")
     published_id_list = gcs_helpers._gcs_list_race_ids("races")
     draft_ids = set(draft_id_list or [])
@@ -189,6 +254,14 @@ async def list_all_races() -> Dict[str, Any]:
                 race["status"] = "empty"
                 race["draft_updated_at"] = None
                 race["published_at"] = None
+        stats = run_stats.get(str(race_id))
+        if stats:
+            race["total_runs"] = stats["total_runs"]
+            race["last_run_id"] = stats.get("last_run_id")
+            race["last_run_at"] = stats.get("last_run_at")
+            race["last_run_status"] = stats.get("last_run_status")
+        else:
+            race["total_runs"] = int(race.get("total_runs") or 0)
     return {"races": races}
 
 
@@ -239,7 +312,7 @@ async def get_race_record(race_id: str) -> Dict[str, Any]:
 
 
 @router.delete("/api/races/{race_id}", dependencies=[Depends(verify_token)])
-async def delete_race_record(race_id: str) -> Dict[str, Any]:
+async def delete_race_record(request: Request, race_id: str) -> Dict[str, Any]:
     """Delete a race record and all associated GCS blobs."""
     validate_race_id(race_id)
     gcs_helpers._gcs_delete_race_json(race_id, "races")
@@ -248,6 +321,7 @@ async def delete_race_record(race_id: str) -> Dict[str, Any]:
         firestore_helpers._get_fs().collection("races").document(race_id).delete()
     except Exception as exc:
         logging.warning("Firestore delete race %s failed: %s", race_id, exc)
+    _clear_public_race_cache(request)
     return {"message": f"Race {race_id} deleted", "id": race_id}
 
 
@@ -337,22 +411,21 @@ async def delete_draft_race(race_id: str) -> Dict[str, Any]:
 
 
 @router.post("/api/races/{race_id}/publish", dependencies=[Depends(verify_token)])
-async def publish_race(race_id: str) -> Dict[str, Any]:
+async def publish_race(request: Request, race_id: str) -> Dict[str, Any]:
     """Publish a race (copy draft -> published in GCS)."""
     validate_race_id(race_id)
     data = gcs_helpers._gcs_get_race_json(race_id, "drafts")
     if data is None:
         raise HTTPException(status_code=404, detail="Draft not found")
+    _assert_publishable_race(data)
     gcs_helpers._publish_race_gcs(race_id, data)
-    firestore_helpers._fs_update_race(
-        race_id,
-        {"status": "published", "published_at": datetime.now(timezone.utc).isoformat(), "draft_updated_at": None},
-    )
+    firestore_helpers._fs_update_race(race_id, _published_race_update())
+    _clear_public_race_cache(request)
     return {"message": f"Race {race_id} published", "id": race_id}
 
 
 @router.post("/api/races/{race_id}/unpublish", dependencies=[Depends(verify_token)])
-async def unpublish_race(race_id: str) -> Dict[str, Any]:
+async def unpublish_race(request: Request, race_id: str) -> Dict[str, Any]:
     """Remove a race from published (keeps draft)."""
     validate_race_id(race_id)
     has_draft = gcs_helpers._gcs_get_race_json(race_id, "drafts") is not None
@@ -367,31 +440,32 @@ async def unpublish_race(race_id: str) -> Dict[str, Any]:
             "draft_updated_at": datetime.now(timezone.utc).isoformat() if has_draft else None,
         },
     )
+    _clear_public_race_cache(request)
     return {"message": f"Race {race_id} unpublished (draft retained)", "id": race_id}
 
 
 @router.post("/api/races/publish", dependencies=[Depends(verify_token)])
-async def batch_publish_races(request: BatchPublishRequest) -> Dict[str, Any]:
+async def batch_publish_races(request: Request, payload: BatchPublishRequest) -> Dict[str, Any]:
     """Publish multiple races at once (draft -> published)."""
     published = []
     errors = []
-    for race_id in request.race_ids:
+    for race_id in payload.race_ids:
         try:
             validate_race_id(race_id)
             data = gcs_helpers._gcs_get_race_json(race_id, "drafts")
             if data is None:
                 errors.append({"race_id": race_id, "error": "Draft not found"})
                 continue
+            _assert_publishable_race(data)
             gcs_helpers._publish_race_gcs(race_id, data)
-            firestore_helpers._fs_update_race(
-                race_id,
-                {"status": "published", "published_at": datetime.now(timezone.utc).isoformat(), "draft_updated_at": None},
-            )
+            firestore_helpers._fs_update_race(race_id, _published_race_update())
             published.append(race_id)
         except HTTPException as exc:
             errors.append({"race_id": race_id, "error": exc.detail})
         except Exception as exc:
             errors.append({"race_id": race_id, "error": str(exc)})
+    if published:
+        _clear_public_race_cache(request)
     return {"published": published, "errors": errors}
 
 

@@ -197,9 +197,14 @@ def test_marks_completed_on_success():
     statuses = [u.get("status") for u in update_calls]
     assert "completed" in statuses, f"Expected 'completed' in {statuses}"
 
-    # races doc updated with draft
+    # races doc updated with draft and run summary metadata
     race_set_calls = [c[0][0] for c in race_ref.set.call_args_list]
-    assert any(u.get("status") == "draft" for u in race_set_calls)
+    final_update = next(u for u in race_set_calls if u.get("status") == "draft")
+    assert final_update["current_run_id"] is None
+    assert final_update["last_run_id"] == "run-ok"
+    assert final_update["last_run_status"] == "completed"
+    assert "last_run_at" in final_update
+    assert "total_runs" in final_update
 
 
 # ---------------------------------------------------------------------------
@@ -234,6 +239,14 @@ def test_marks_failed_on_exception():
     # Error message should be recorded
     errors = [u.get("error") for u in update_calls if u.get("status") == "failed"]
     assert any("boom" in (e or "") for e in errors)
+
+    race_set_calls = [c[0][0] for c in race_ref.set.call_args_list]
+    final_update = next(u for u in race_set_calls if u.get("status") == "failed")
+    assert final_update["current_run_id"] is None
+    assert final_update["last_run_id"] == "run-fail"
+    assert final_update["last_run_status"] == "failed"
+    assert "last_run_at" in final_update
+    assert "total_runs" in final_update
 
 
 def test_marks_cancelled_on_agent_cancelled():

@@ -13,7 +13,7 @@ const config = {
       strict: true,
     }),
     prerender: {
-      entries: ["/", "/about"],
+      entries: ["/", "/about/"],
     },
     alias: {
       $lib: "src/lib",

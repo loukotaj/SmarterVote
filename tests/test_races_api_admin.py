@@ -857,6 +857,75 @@ def test_list_races_uses_storage_state_for_draft_flags():
     assert by_id["az-senate-2026"]["published_exists"] is True
 
 
+def test_list_races_derives_run_counts_from_pipeline_runs():
+    """The races table run count should reflect canonical pipeline_runs docs, not stale race metadata."""
+    os.environ["SKIP_AUTH"] = "true"
+    os.environ["ADMIN_API_KEY"] = "test-key"
+
+    import main as app_module
+
+    firestore_helpers._fs_db = None
+
+    race_doc = _make_existing_doc(
+        {
+            "race_id": "nh-senate-2026",
+            "status": "published",
+            "total_runs": 0,
+            "last_run_status": None,
+        }
+    )
+    races_coll = MagicMock()
+    races_coll.limit.return_value = races_coll
+    races_coll.stream.return_value = iter([race_doc])
+
+    run_docs = [
+        _make_existing_doc(
+            {
+                "run_id": "run-old",
+                "race_id": "nh-senate-2026",
+                "status": "failed",
+                "completed_at": "2026-05-17T01:00:00+00:00",
+            }
+        ),
+        _make_existing_doc(
+            {
+                "run_id": "run-new",
+                "race_id": "nh-senate-2026",
+                "status": "completed",
+                "completed_at": "2026-05-17T02:00:00+00:00",
+            }
+        ),
+    ]
+    runs_coll = MagicMock()
+    runs_coll.stream.return_value = iter(run_docs)
+
+    db = _build_empty_firestore_mock()
+
+    def _collection(name):
+        if name == "races":
+            return races_coll
+        if name == "pipeline_runs":
+            return runs_coll
+        return MagicMock()
+
+    db.collection.side_effect = _collection
+
+    from fastapi.testclient import TestClient
+
+    with (
+        patch("firestore_helpers._get_fs", return_value=db),
+        patch("gcs_helpers._gcs_list_race_ids", side_effect=lambda prefix: ["nh-senate-2026"] if prefix == "races" else []),
+    ):
+        tc = TestClient(app_module.app)
+        resp = tc.get("/api/races")
+
+    assert resp.status_code == 200
+    race = resp.json()["races"][0]
+    assert race["total_runs"] == 2
+    assert race["last_run_id"] == "run-new"
+    assert race["last_run_status"] == "completed"
+
+
 def test_recheck_marks_stale_running_race_failed():
     """A dead Cloud Function should not leave a race permanently running."""
     os.environ["SKIP_AUTH"] = "true"
@@ -1041,6 +1110,96 @@ def test_publish_race_clears_draft_timestamp():
     update = mock_update.call_args.args[1]
     assert update["status"] == "published"
     assert update["draft_updated_at"] is None
+    assert update["current_run_id"] is None
+
+
+def test_publish_race_rejects_failed_validation_grade():
+    """A draft that failed review should not be publishable."""
+    os.environ["SKIP_AUTH"] = "true"
+    os.environ["ADMIN_API_KEY"] = "test-key"
+
+    import main as app_module
+
+    firestore_helpers._fs_db = None
+
+    from fastapi.testclient import TestClient
+
+    draft_json = {
+        "id": "nh-senate-2026",
+        "title": "New Hampshire Senate 2026",
+        "candidates": [{"name": "Alice"}],
+        "validation_grade": {"grade": "C", "score": 75, "passed": False},
+    }
+
+    with (
+        patch("firestore_helpers._get_fs", return_value=_build_empty_firestore_mock()),
+        patch("gcs_helpers._gcs_get_race_json", return_value=draft_json),
+        patch("gcs_helpers._publish_race_gcs") as mock_publish,
+        patch("firestore_helpers._fs_update_race") as mock_update,
+    ):
+        tc = TestClient(app_module.app)
+        resp = tc.post("/api/races/nh-senate-2026/publish")
+
+    assert resp.status_code == 409
+    assert "failed validation" in resp.json()["detail"]
+    mock_publish.assert_not_called()
+    mock_update.assert_not_called()
+
+
+def test_gcs_publish_helper_rejects_failed_validation_grade():
+    """The lower-level publish helper should also reject failed-review data."""
+    failed_race = {
+        "id": "nh-senate-2026",
+        "validation_grade": {"grade": "C", "score": 75, "passed": False},
+    }
+
+    with (
+        patch("gcs_helpers._gcs_archive_race") as mock_archive,
+        patch("gcs_helpers._gcs_put_race_json") as mock_put,
+        patch("gcs_helpers._gcs_delete_race_json") as mock_delete,
+        pytest.raises(ValueError, match="failed validation"),
+    ):
+        gcs_helpers.publish_race_to_gcs("nh-senate-2026", failed_race)
+
+    mock_archive.assert_not_called()
+    mock_put.assert_not_called()
+    mock_delete.assert_not_called()
+
+
+def test_batch_publish_skips_failed_validation_grade():
+    """Batch publish should publish good drafts and report failed-review drafts as errors."""
+    os.environ["SKIP_AUTH"] = "true"
+    os.environ["ADMIN_API_KEY"] = "test-key"
+
+    import main as app_module
+
+    firestore_helpers._fs_db = None
+
+    from fastapi.testclient import TestClient
+
+    def fake_get(race_id, prefix):
+        if race_id == "az-senate-2026":
+            return {"id": race_id, "candidates": [{"name": "Alice"}], "validation_grade": {"passed": True}}
+        return {
+            "id": race_id,
+            "candidates": [{"name": "Bob"}],
+            "validation_grade": {"grade": "C", "score": 75, "passed": False},
+        }
+
+    with (
+        patch("firestore_helpers._get_fs", return_value=_build_empty_firestore_mock()),
+        patch("gcs_helpers._gcs_get_race_json", side_effect=fake_get),
+        patch("gcs_helpers._publish_race_gcs") as mock_publish,
+    ):
+        tc = TestClient(app_module.app)
+        resp = tc.post("/api/races/publish", json={"race_ids": ["az-senate-2026", "nh-senate-2026"]})
+
+    assert resp.status_code == 200
+    body = resp.json()
+    assert body["published"] == ["az-senate-2026"]
+    assert body["errors"][0]["race_id"] == "nh-senate-2026"
+    assert "failed validation" in body["errors"][0]["error"]
+    mock_publish.assert_called_once()
 
 
 def test_unpublish_without_draft_does_not_create_phantom_draft():
