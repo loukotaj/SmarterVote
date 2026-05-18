@@ -16,7 +16,11 @@ def _apply_meta_patch(race_json: Dict[str, Any], patch: Dict[str, Any], log: Any
     if patch.get("polling_note"):
         race_json["polling_note"] = patch["polling_note"]
 
-    patch_candidates = {c["name"]: c for c in patch.get("candidates", []) if isinstance(c, dict)}
+    patch_candidates = {
+        str(c.get("name")).strip(): c
+        for c in patch.get("candidates", [])
+        if isinstance(c, dict) and str(c.get("name") or "").strip()
+    }
     for candidate in race_json.get("candidates", []):
         name = candidate.get("name")
         pc = patch_candidates.get(name)
@@ -36,7 +40,11 @@ def _apply_meta_patch(race_json: Dict[str, Any], patch: Dict[str, Any], log: Any
 def _apply_issue_patch(race_json: Dict[str, Any], patch: Dict[str, Any], log: Any) -> None:
     """Merge an issue patch into race_json candidates in-place."""
     updated = 0
-    candidates_by_name = {c["name"]: c for c in race_json.get("candidates", [])}
+    candidates_by_name = {
+        str(c.get("name")).strip(): c
+        for c in race_json.get("candidates", [])
+        if isinstance(c, dict) and str(c.get("name") or "").strip()
+    }
     for cand_name, issues in patch.items():
         if not isinstance(issues, dict) or cand_name not in candidates_by_name:
             continue
@@ -109,7 +117,11 @@ def _apply_refine_patch(
         race_json["description"] = meta_patch["description"]
     if isinstance(meta_patch.get("polling"), list) and meta_patch["polling"]:
         race_json["polling"] = meta_patch["polling"]
-    candidates_by_name = {c["name"]: c for c in race_json.get("candidates", [])}
+    candidates_by_name = {
+        str(c.get("name")).strip(): c
+        for c in race_json.get("candidates", [])
+        if isinstance(c, dict) and str(c.get("name") or "").strip()
+    }
     for patch in candidate_patches:
         name = patch.get("name")
         if name and name in candidates_by_name:
@@ -121,7 +133,11 @@ def _apply_refine_patch(
 
 def _apply_finance_patch(race_json: Dict[str, Any], patch: Dict[str, Any], log: Any) -> None:
     """Merge finance/voting research results into race_json candidates in-place."""
-    candidates_by_name = {c["name"]: c for c in race_json.get("candidates", [])}
+    candidates_by_name = {
+        str(c.get("name")).strip(): c
+        for c in race_json.get("candidates", [])
+        if isinstance(c, dict) and str(c.get("name") or "").strip()
+    }
     updated = 0
     for cand_name, data in patch.items():
         if not isinstance(data, dict) or cand_name not in candidates_by_name:

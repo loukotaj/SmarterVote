@@ -643,6 +643,21 @@ def test_sanitize_roster_removes_inactive_candidates_from_primary_or_withdrawal(
     assert [candidate["name"] for candidate in race_json["candidates"]] == ["Jordan Active"]
 
 
+def test_sanitize_roster_drops_malformed_candidate_entries():
+    race_json = {
+        "id": "ar-governor-2026",
+        "candidates": [
+            "not a candidate object",
+            {"party": "Republican"},
+            {"name": "  Sarah Huckabee Sanders  ", "party": "Republican"},
+        ],
+    }
+
+    _sanitize_roster(race_json)
+
+    assert race_json["candidates"] == [{"name": "Sarah Huckabee Sanders", "party": "Republican"}]
+
+
 @pytest.mark.asyncio
 async def test_run_agent_continuation_skips_completed_issue_stances():
     """Continuation mode resumes issue research at the next missing issue."""

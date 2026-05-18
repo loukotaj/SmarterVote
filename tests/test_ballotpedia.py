@@ -45,6 +45,22 @@ def test_candidate_parser_uses_current_primary_votebox_sections():
     ]
 
 
+def test_candidate_parser_keeps_only_winners_from_completed_primary_sections():
+    html = """
+    <h4>Democratic primary election</h4>
+    <div class="votebox">
+      <tr class="results_row winner"><td class="votebox-results-cell--text">
+        <a href="https://ballotpedia.org/Winner_Candidate">Winner Candidate</a>
+      </td></tr>
+      <tr class="results_row"><td class="votebox-results-cell--text">
+        <a href="https://ballotpedia.org/Losing_Candidate">Losing Candidate</a>
+      </td></tr>
+    </div>
+    """
+
+    assert _parse_candidate_list_from_html(html) == [{"name": "Winner Candidate", "party": "Democratic", "incumbent": False}]
+
+
 class _FakeBallotpediaClient:
     def __init__(self, *args, **kwargs):
         self.calls = []

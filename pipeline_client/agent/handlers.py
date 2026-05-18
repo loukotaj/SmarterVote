@@ -55,7 +55,7 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
 
     def _find_candidate(name: str) -> Optional[Dict[str, Any]]:
         for c in race_json.get("candidates", []):
-            if c.get("name") == name:
+            if isinstance(c, dict) and c.get("name") == name:
                 return c
         return None
 
@@ -152,7 +152,7 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
         if is_structural_garbage:
             # Physically delete malformed/non-human entries from the list
             orig_len = len(candidates)
-            race_json["candidates"] = [c for c in candidates if c.get("name") != name]
+            race_json["candidates"] = [c for c in candidates if not isinstance(c, dict) or c.get("name") != name]
             removed = orig_len - len(race_json["candidates"])
             if removed:
                 log("info", f"    🗑️ Deleted malformed candidate entry '{name}' ({removed} removed)")
@@ -160,6 +160,8 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
             return f"Entry '{name}' not found — no action taken."
 
         for c in candidates:
+            if not isinstance(c, dict):
+                continue
             if c.get("name") == name:
                 c["withdrawn"] = True
                 c["withdrawal_reason"] = reason or None

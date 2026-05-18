@@ -86,6 +86,37 @@ def _is_control_flow_exception(exc: Exception) -> bool:
     return exc.__class__.__name__ in _CONTROL_FLOW_EXCEPTION_NAMES
 
 
+def _candidate_name(candidate: Any) -> str:
+    if not isinstance(candidate, dict):
+        return ""
+    return str(candidate.get("name") or "").strip()
+
+
+def _normalize_candidate_entries(race_json: Dict[str, Any], log: Any | None = None) -> None:
+    """Drop malformed candidate entries before phase fan-out touches them."""
+    candidates = race_json.get("candidates")
+    if not isinstance(candidates, list):
+        return
+
+    kept: List[Dict[str, Any]] = []
+    dropped = 0
+    for candidate in candidates:
+        if not isinstance(candidate, dict):
+            dropped += 1
+            continue
+        name = _candidate_name(candidate)
+        if not name:
+            dropped += 1
+            continue
+        candidate["name"] = name
+        kept.append(candidate)
+
+    if dropped:
+        race_json["candidates"] = kept
+        if log:
+            log("warning", f"Dropped {dropped} malformed candidate entr{'y' if dropped == 1 else 'ies'} before processing")
+
+
 def _candidate_roster_text(candidate: Dict[str, Any]) -> str:
     """Return searchable text from candidate fields used for roster sanity checks."""
     pieces: List[str] = []
@@ -222,6 +253,7 @@ def _enforce_candidate_cap(race_json: Dict[str, Any], log: Any | None = None, *,
 
 def _sanitize_roster(race_json: Dict[str, Any], log: Any | None = None) -> None:
     """Apply deterministic roster constraints before downstream fan-out."""
+    _normalize_candidate_entries(race_json, log)
     _remove_ineligible_officeholders(race_json, log)
     _remove_inactive_candidates(race_json, log)
     _enforce_candidate_cap(race_json, log)
@@ -279,7 +311,7 @@ async def _run_issue_research_for_candidate(
     for issue_idx, issue in enumerate(CANONICAL_ISSUES):
         existing_issue_data: Dict[str, Any] | None = None
         for c in race_json.get("candidates", []):
-            if c.get("name") == candidate_name:
+            if isinstance(c, dict) and c.get("name") == candidate_name:
                 sd = c.get("issues", {}).get(issue)
                 if isinstance(sd, dict) and sd.get("stance"):
                     existing_issue_data = sd
@@ -316,7 +348,7 @@ async def _run_issue_research_for_candidate(
         existing_stance = ""
         if is_update:
             for c in race_json.get("candidates", []):
-                if c.get("name") == candidate_name:
+                if isinstance(c, dict) and c.get("name") == candidate_name:
                     sd = c.get("issues", {}).get(issue)
                     if isinstance(sd, dict):
                         existing_stance = (
@@ -394,7 +426,7 @@ async def _run_issue_research_for_candidate(
             log("warning", f"    Issue sub-agent failed for {candidate_name}/{issue}: {exc}")
 
         for c in race_json.get("candidates", []):
-            if c.get("name") == candidate_name:
+            if isinstance(c, dict) and c.get("name") == candidate_name:
                 sd = c.get("issues", {}).get(issue, {})
                 handoffs.append(
                     {
@@ -460,7 +492,9 @@ async def _run_shared_phases(
 
         await resolve_candidate_images(
             {
-                "candidates": [c for c in race_json.get("candidates", []) if c.get("name") in selected_name_set],
+                "candidates": [
+                    c for c in race_json.get("candidates", []) if isinstance(c, dict) and c.get("name") in selected_name_set
+                ],
                 "office": race_json.get("office", ""),
                 "jurisdiction": race_json.get("jurisdiction", ""),
             },
@@ -573,7 +607,7 @@ async def _run_shared_phases(
         track("start", "refinement")
         ref_t0 = time.perf_counter()
         handlers = _make_editing_handlers(race_json, log)
-        cand_list = [c for c in race_json.get("candidates", []) if c.get("name") in selected_name_set]
+        cand_list = [c for c in race_json.get("candidates", []) if isinstance(c, dict) and c.get("name") in selected_name_set]
         cand_names_in_json = [c["name"] for c in cand_list]
         n_cands = len(cand_list)
         log("info", f"{prefix} 3: Refining profile (one candidate at a time, tools mode)...")
@@ -690,7 +724,7 @@ async def _run_fresh(
     )
     _sanitize_roster(race_json, log)
 
-    candidate_names = [c["name"] for c in race_json.get("candidates", [])]
+    candidate_names = [_candidate_name(c) for c in race_json.get("candidates", []) if _candidate_name(c)]
     candidate_names = _select_target_candidates(candidate_names, target_candidate_names, log)
     selected_name_set = set(candidate_names)
     n = len(candidate_names)
@@ -769,7 +803,7 @@ async def _run_update(
     _sanitize_roster(race_json, log)
 
     existing_candidates = race_json.get("candidates", [])
-    candidate_names = [c["name"] for c in existing_candidates]
+    candidate_names = [_candidate_name(c) for c in existing_candidates if _candidate_name(c)]
     candidate_names = _select_target_candidates(candidate_names, target_candidate_names, log)
     selected_name_set = set(candidate_names)
     n = len(candidate_names)
@@ -832,7 +866,7 @@ async def _run_update(
             log("warning", f"  Roster sync failed: {exc} — keeping existing roster")
 
         _sanitize_roster(race_json, log)
-        candidate_names = [c["name"] for c in race_json.get("candidates", [])]
+        candidate_names = [_candidate_name(c) for c in race_json.get("candidates", []) if _candidate_name(c)]
         candidate_names = _select_target_candidates(candidate_names, target_candidate_names, log)
         selected_name_set = set(candidate_names)
         n = len(candidate_names)
@@ -885,7 +919,7 @@ async def _run_update(
         log("info", "Update Phase 0+1: Discovery — SKIPPED")
         track("skip", "discovery")
         _sanitize_roster(race_json, log)
-        candidate_names = [c["name"] for c in race_json.get("candidates", [])]
+        candidate_names = [_candidate_name(c) for c in race_json.get("candidates", []) if _candidate_name(c)]
         candidate_names = _select_target_candidates(candidate_names, target_candidate_names, log)
         selected_name_set = set(candidate_names)
         n = len(candidate_names)
@@ -984,7 +1018,9 @@ async def _run_iteration_pass(
     any_success = False
 
     for candidate in working.get("candidates", []):
-        cname = candidate["name"]
+        if not isinstance(candidate, dict) or not _candidate_name(candidate):
+            continue
+        cname = _candidate_name(candidate)
         candidate_website, candidate_issue_urls = _candidate_source_hints(working, cname)
         issue_hint_text = ", ".join(candidate_issue_urls) if candidate_issue_urls else "(none found)"
         log("info", f"  Iterating on {cname}...")

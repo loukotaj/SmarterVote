@@ -35,7 +35,9 @@ def _select_candidates_for_research(
         return candidate_names
 
     cand_by_name: Dict[str, Dict[str, Any]] = {
-        c["name"]: c for c in race_json.get("candidates", []) if isinstance(c, dict)
+        str(c.get("name")).strip(): c
+        for c in race_json.get("candidates", [])
+        if isinstance(c, dict) and str(c.get("name") or "").strip()
     }
     scored = [(name, _candidate_info_score(cand_by_name.get(name, {}))) for name in candidate_names]
     scored.sort(key=lambda t: t[1], reverse=not target_no_info)
@@ -44,8 +46,10 @@ def _select_candidates_for_research(
     if max_candidates is not None and max_candidates < len(selected):
         skipped = selected[max_candidates:]
         selected = selected[:max_candidates]
-        log("info", f"  Candidate limit: researching {len(selected)} of {len(candidate_names)} "
-            f"(skipped: {', '.join(skipped)})")
+        log(
+            "info",
+            f"  Candidate limit: researching {len(selected)} of {len(candidate_names)} " f"(skipped: {', '.join(skipped)})",
+        )
     return selected
 
 
@@ -77,8 +81,7 @@ def _select_target_candidates(
         log("warning", f"  Candidate filter ignored unknown names: {', '.join(missing)}")
     if not selected:
         raise ValueError(
-            "No candidate names in candidate_names matched this race. "
-            f"Available: {', '.join(available_names)}"
+            "No candidate names in candidate_names matched this race. " f"Available: {', '.join(available_names)}"
         )
 
     log("info", f"  Candidate filter active: {', '.join(selected)}")
@@ -91,7 +94,11 @@ def _candidate_source_hints(
 ) -> tuple[str, List[str]]:
     """Return known website and likely issue/policy URLs for candidate prompts."""
     candidate = next(
-        (c for c in race_json.get("candidates", []) if isinstance(c, dict) and c.get("name") == candidate_name),
+        (
+            c
+            for c in race_json.get("candidates", [])
+            if isinstance(c, dict) and str(c.get("name") or "").strip() == candidate_name
+        ),
         None,
     )
     if not candidate:
@@ -102,14 +109,16 @@ def _candidate_source_hints(
 
     if isinstance(website, str) and website.startswith("http"):
         base = website.rstrip("/")
-        hints.extend([
-            f"{base}/issues",
-            f"{base}/issue",
-            f"{base}/policy",
-            f"{base}/policies",
-            f"{base}/priorities",
-            f"{base}/platform",
-        ])
+        hints.extend(
+            [
+                f"{base}/issues",
+                f"{base}/issue",
+                f"{base}/policy",
+                f"{base}/policies",
+                f"{base}/priorities",
+                f"{base}/platform",
+            ]
+        )
 
     for link in candidate.get("links", []):
         if not isinstance(link, dict):

@@ -366,15 +366,21 @@ def _parse_candidate_list_from_html(html: str) -> List[Dict[str, Any]]:
     current_html = html.split('id="Past_elections"', 1)[0]
 
     # Ballotpedia pages include many unrelated/historical tables. Only parse the
-    # current election's votebox sections headed "... primary election".
+    # current election's votebox sections headed "... election" or "... convention".
     for section_m in re.finditer(
-        r"<h4>(?P<label>[^<]*primary election)</h4>(?P<body>.*?)(?=<h4>|<h3>|<h2>|$)",
+        r"<h4>(?P<label>[^<]*(?:election|convention)[^<]*)</h4>(?P<body>.*?)(?=<h4>|<h3>|<h2>|$)",
         current_html,
         re.DOTALL | re.IGNORECASE,
     ):
         label = unescape(section_m.group("label"))
         body = section_m.group("body")
-        party = "Unknown"
+
+        is_primary = "primary" in label.lower()
+        # Completed primary tables mark the advancing candidate with a winner class or checkmark.
+        winner_pattern = r"class=['\"][^'\"]*winner[^'\"]*['\"]|&#10004;"
+        is_completed = bool(re.search(winner_pattern, body, re.IGNORECASE))
+
+        section_party = "Unknown"
         for p_kw, p_label in [
             ("republican", "Republican"),
             ("democratic", "Democratic"),
@@ -385,11 +391,32 @@ def _parse_candidate_list_from_html(html: str) -> List[Dict[str, Any]]:
             ("constitution", "Constitution"),
         ]:
             if p_kw in label.lower() or p_kw in body[:500].lower():
-                party = p_label
+                section_party = p_label
                 break
 
         for row_m in re.finditer(r'<tr[^>]*class="[^"]*results_row[^"]*"[^>]*>.*?</tr>', body, re.DOTALL | re.IGNORECASE):
             row_html = row_m.group(0)
+
+            # Skip candidates who lost the primary explicitly
+            if is_primary and is_completed:
+                is_winner = bool(re.search(winner_pattern, row_html, re.IGNORECASE))
+                if not is_winner:
+                    continue
+
+            party_m = re.search(r"\((R|D|L|I|G|C)\)", row_html)
+            if party_m:
+                party_map = {
+                    "R": "Republican",
+                    "D": "Democratic",
+                    "L": "Libertarian",
+                    "I": "Independent",
+                    "G": "Green",
+                    "C": "Constitution",
+                }
+                party = party_map.get(party_m.group(1), section_party)
+            else:
+                party = section_party
+
             name_m = re.search(
                 r'class="votebox-results-cell--text"[^>]*>.*?<a href="https://ballotpedia\.org/([^"#?]+)"[^>]*>(.*?)</a>',
                 row_html,
