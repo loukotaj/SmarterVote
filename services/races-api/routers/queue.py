@@ -30,6 +30,17 @@ _TERMINAL_STATUSES = {"completed", "failed", "cancelled", "continued"}
 _INACTIVE_RACE_STATUSES = {"draft", "published", "empty", "failed", "cancelled"}
 
 
+def _current_run_is_terminal_or_missing(db: Any, run_id: str) -> bool:
+    try:
+        run_doc = db.collection("pipeline_runs").document(run_id).get()
+        run_data = firestore_helpers._doc_to_plain(run_doc)
+    except Exception:
+        return False
+    if run_data is None:
+        return True
+    return run_data.get("status") in _TERMINAL_STATUSES
+
+
 def _normalize_continuation_ancestors(items: list[Dict[str, Any]]) -> list[Dict[str, Any]]:
     """Do not report parent queue items as active after a continuation exists."""
     parent_run_ids = {item.get("parent_run_id") for item in items if item.get("parent_run_id")}
@@ -72,10 +83,13 @@ def _normalize_terminal_run_items(db: Any, items: list[Dict[str, Any]]) -> list[
                 race_status = (race_data or {}).get("status")
                 current_run_id = (race_data or {}).get("current_run_id")
                 if race_status in _INACTIVE_RACE_STATUSES and current_run_id and current_run_id != next_item.get("run_id"):
-                    updates = {
-                        "status": "cancelled",
-                        "error": f"Superseded by race current_run_id {current_run_id}",
-                    }
+                    if _current_run_is_terminal_or_missing(db, str(current_run_id)):
+                        firestore_helpers._fs_update_race(str(next_item["race_id"]), {"current_run_id": None})
+                    else:
+                        updates = {
+                            "status": "cancelled",
+                            "error": f"Superseded by race current_run_id {current_run_id}",
+                        }
             if updates:
                 next_item.update(updates)
                 item_id = next_item.get("id")
@@ -193,7 +207,7 @@ async def clear_pending_queue() -> Dict[str, Any]:
             removed += 1
             race_id = data.get("race_id")
             if race_id:
-                firestore_helpers._fs_update_race(race_id, {"status": "idle"})
+                firestore_helpers._fs_update_race(race_id, {"status": "idle", "current_run_id": None})
     return {"removed": removed}
 
 
@@ -216,13 +230,13 @@ async def remove_queue_item(item_id: str, force: bool = False) -> Dict[str, Any]
     if force:
         doc.reference.delete()
         if race_id:
-            firestore_helpers._fs_update_race(race_id, {"status": "cancelled"})
+            firestore_helpers._fs_update_race(race_id, {"status": "cancelled", "current_run_id": None})
         return {"ok": True, "action": "force_removed", "id": item_id}
 
     if status == "pending":
         doc.reference.update({"status": "cancelled"})
         if race_id:
-            firestore_helpers._fs_update_race(race_id, {"status": "idle"})
+            firestore_helpers._fs_update_race(race_id, {"status": "idle", "current_run_id": None})
         return {"ok": True, "action": "cancelled", "id": item_id}
     elif status in ("completed", "failed", "cancelled", "continued"):
         doc.reference.delete()
@@ -231,5 +245,5 @@ async def remove_queue_item(item_id: str, force: bool = False) -> Dict[str, Any]
         # running — mark cancelled; CF will check at next step boundary
         doc.reference.update({"status": "cancelled"})
         if race_id:
-            firestore_helpers._fs_update_race(race_id, {"status": "cancelled"})
+            firestore_helpers._fs_update_race(race_id, {"status": "cancelled", "current_run_id": None})
         return {"ok": True, "action": "cancelled", "id": item_id}

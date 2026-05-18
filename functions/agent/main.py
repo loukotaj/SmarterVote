@@ -59,6 +59,31 @@ def _get_gcs():
     return _gcs_client
 
 
+def _set_race_if_current(db: Any, race_id: str, run_id: str, update: Dict[str, Any]) -> bool:
+    """Update the race record only if this invocation still owns it."""
+    race_ref = db.collection("races").document(race_id)
+    try:
+        race_doc = race_ref.get()
+        race_data = race_doc.to_dict() if getattr(race_doc, "exists", False) else {}
+        if not isinstance(race_data, dict):
+            race_data = {}
+    except Exception as exc:
+        logger.warning("Could not read race %s before terminal update for run %s: %s", race_id, run_id, exc)
+        return False
+
+    current_run_id = race_data.get("current_run_id")
+    if current_run_id != run_id:
+        logger.info(
+            "Skipping race update for %s from run %s because current_run_id is %s",
+            race_id,
+            run_id,
+            current_run_id,
+        )
+        return False
+    race_ref.set(update, merge=True)
+    return True
+
+
 # ---------------------------------------------------------------------------
 # CF entry point (Firestore document.v1.created trigger)
 # ---------------------------------------------------------------------------
@@ -213,19 +238,18 @@ def process_queue_item(cloud_event: CloudEvent) -> None:
                 "continuation_run_id": continuation_run_id,
             }
         )
-        db.collection("races").document(race_id).set(
+        _set_race_if_current(
+            db,
+            race_id,
+            run_id,
             {"status": "queued", "current_run_id": continuation_run_id},
-            merge=True,
         )
         return
     except _CancelledExit as exc:
         logger.info("Agent run %s cancelled: %s", run_id, exc)
         item_ref.update({"status": "cancelled", "completed_at": datetime.now(timezone.utc).isoformat()})
         run_ref.update({"status": "cancelled", "completed_at": SERVER_TIMESTAMP})
-        db.collection("races").document(race_id).set(
-            {"status": "cancelled", "current_run_id": run_id},
-            merge=True,
-        )
+        _set_race_if_current(db, race_id, run_id, {"status": "cancelled", "current_run_id": None})
         return
     except Exception as exc:
         error_msg = str(exc)
@@ -247,7 +271,10 @@ def process_queue_item(cloud_event: CloudEvent) -> None:
                 "completed_at": SERVER_TIMESTAMP,
             }
         )
-        db.collection("races").document(race_id).set(
+        _set_race_if_current(
+            db,
+            race_id,
+            run_id,
             {
                 "status": "draft",
                 "current_run_id": None,
@@ -256,12 +283,14 @@ def process_queue_item(cloud_event: CloudEvent) -> None:
                 "last_run_status": "completed",
                 "total_runs": Increment(1),
             },
-            merge=True,
         )
     else:
         item_ref.update({"status": "failed", "error": error_msg})
         run_ref.update({"status": "failed", "error": error_msg, "completed_at": SERVER_TIMESTAMP})
-        db.collection("races").document(race_id).set(
+        _set_race_if_current(
+            db,
+            race_id,
+            run_id,
             {
                 "status": "failed",
                 "current_run_id": None,
@@ -270,7 +299,6 @@ def process_queue_item(cloud_event: CloudEvent) -> None:
                 "last_run_status": "failed",
                 "total_runs": Increment(1),
             },
-            merge=True,
         )
 
 

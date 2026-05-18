@@ -59,6 +59,17 @@ def _is_stale_active_run(data: Dict[str, Any], now: datetime) -> bool:
     return now - activity_at > timedelta(seconds=_STALE_ACTIVE_RUN_SECONDS)
 
 
+def _current_run_is_terminal_or_missing(db: Any, run_id: str) -> bool:
+    try:
+        run_doc = db.collection("pipeline_runs").document(run_id).get()
+        run_data = firestore_helpers._doc_to_plain(run_doc)
+    except Exception:
+        return False
+    if run_data is None:
+        return True
+    return run_data.get("status") in _TERMINAL_STATUSES
+
+
 def _normalize_active_run(db: Any, run: Dict[str, Any], now: datetime) -> Dict[str, Any] | None:
     """Self-heal stale/superseded active run docs before returning /runs/active."""
     run_id = run.get("run_id")
@@ -79,6 +90,9 @@ def _normalize_active_run(db: Any, run: Dict[str, Any], now: datetime) -> Dict[s
             race_status = race_data.get("status")
             current_run_id = race_data.get("current_run_id")
             if race_status in _INACTIVE_RACE_STATUSES and current_run_id and current_run_id != run_id:
+                if _current_run_is_terminal_or_missing(db, str(current_run_id)):
+                    firestore_helpers._fs_update_race(str(race_id), {"current_run_id": None})
+                    return run
                 update = {"status": "cancelled", "error": f"Superseded by race current_run_id {current_run_id}"}
                 try:
                     runs_ref.document(str(run_id)).update(update)
@@ -228,7 +242,7 @@ async def cancel_or_delete_run(run_id: str) -> Dict[str, Any]:
             race_doc = db.collection("races").document(str(race_id)).get()
             race_data = firestore_helpers._doc_to_plain(race_doc) or {}
             if race_data.get("status") in ("queued", "running") and race_data.get("current_run_id") == run_id:
-                firestore_helpers._fs_update_race(race_id, {"status": "cancelled"})
+                firestore_helpers._fs_update_race(race_id, {"status": "cancelled", "current_run_id": None})
         return {"message": "Run cancelled", "run_id": run_id}
     else:
         doc_ref.delete()

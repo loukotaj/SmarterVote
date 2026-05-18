@@ -54,6 +54,13 @@ def _make_firestore_mock(*, item_data: dict | None = None, run_exists: bool = Fa
 
     # races doc
     race_ref = MagicMock()
+    race_doc = MagicMock()
+    race_doc.exists = item_data is not None
+    race_doc.to_dict.return_value = {
+        "current_run_id": (item_data or {}).get("run_id"),
+        "status": "running",
+    }
+    race_ref.get.return_value = race_doc
 
     def _collection(name):
         coll = MagicMock()
@@ -277,6 +284,38 @@ def test_marks_cancelled_on_agent_cancelled():
     assert any(update.get("status") == "cancelled" for update in item_updates)
     assert any(update.get("status") == "cancelled" for update in run_updates)
     assert any(update.get("status") == "cancelled" for update in race_sets)
+    assert any(update.get("status") == "cancelled" and update.get("current_run_id") is None for update in race_sets)
+
+
+def test_cancelled_run_does_not_overwrite_new_current_run():
+    """A late cancellation from an old invocation must not clobber a newly queued run."""
+    import functions.agent.main as cf_main
+    from functions.agent.main import _CancelledExit
+
+    item_data = {
+        "status": "pending",
+        "race_id": "az-01-senate-2026",
+        "run_id": "run-old",
+        "options": {},
+    }
+    db, item_ref, run_ref, race_ref = _make_firestore_mock(item_data=item_data)
+
+    race_doc = MagicMock()
+    race_doc.exists = True
+    race_doc.to_dict.return_value = {"status": "queued", "current_run_id": "run-new"}
+    race_ref.get.return_value = race_doc
+
+    ev = _make_cloud_event("item-old")
+
+    with (
+        patch("functions.agent.main._get_fs", return_value=db),
+        patch("functions.agent.main._run_agent", side_effect=_CancelledExit("cancelled by admin")),
+    ):
+        cf_main.process_queue_item(ev)
+
+    race_sets = [c[0][0] for c in race_ref.set.call_args_list]
+    assert any(update.get("status") == "running" and update.get("current_run_id") == "run-old" for update in race_sets)
+    assert not any(update.get("status") == "cancelled" for update in race_sets)
 
 
 def test_passes_queue_item_id_to_agent_options():

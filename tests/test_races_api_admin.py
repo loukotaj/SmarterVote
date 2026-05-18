@@ -322,6 +322,75 @@ def test_get_queue_hides_superseded_active_item_when_race_is_inactive():
     )
 
 
+def test_get_queue_keeps_active_item_when_race_current_run_is_stale_terminal():
+    """A stale terminal current_run_id should be cleared without cancelling a newer active queue item."""
+    os.environ["SKIP_AUTH"] = "true"
+    os.environ["ADMIN_API_KEY"] = "test-key"
+
+    import main as app_module
+
+    firestore_helpers._fs_db = None
+
+    queue_doc = _make_existing_doc(
+        {
+            "id": "item-new",
+            "race_id": "ga-senate-2026",
+            "run_id": "run-new",
+            "status": "running",
+            "created_at": datetime.now(timezone.utc).isoformat(),
+        }
+    )
+    queue_ref = MagicMock()
+
+    def _run_document(run_id):
+        ref = MagicMock()
+        status = "cancelled" if run_id == "run-old" else "running"
+        ref.get.return_value = _make_existing_doc({"run_id": run_id, "status": status})
+        return ref
+
+    race_ref = MagicMock()
+    race_ref.get.return_value = _make_existing_doc(
+        {"race_id": "ga-senate-2026", "status": "cancelled", "current_run_id": "run-old"}
+    )
+
+    queue_coll = MagicMock()
+    queue_coll.order_by.return_value = queue_coll
+    queue_coll.stream.return_value = iter([queue_doc])
+    queue_coll.document.return_value = queue_ref
+
+    runs_coll = MagicMock()
+    runs_coll.document.side_effect = _run_document
+
+    races_coll = MagicMock()
+    races_coll.document.return_value = race_ref
+
+    db = _build_empty_firestore_mock()
+
+    def _coll(name):
+        if name == "pipeline_queue":
+            return queue_coll
+        if name == "pipeline_runs":
+            return runs_coll
+        return races_coll
+
+    db.collection.side_effect = _coll
+
+    from fastapi.testclient import TestClient
+
+    with (
+        patch("firestore_helpers._get_fs", return_value=db),
+        patch("firestore_helpers._fs_update_race") as mock_update_race,
+    ):
+        tc = TestClient(app_module.app)
+        resp = tc.get("/api/queue?active_only=true")
+
+    assert resp.status_code == 200
+    body = resp.json()
+    assert [item["run_id"] for item in body["items"]] == ["run-new"]
+    queue_ref.update.assert_not_called()
+    mock_update_race.assert_called_once_with("ga-senate-2026", {"current_run_id": None})
+
+
 def test_active_runs_hides_stale_run_and_marks_queue_failed():
     """Global active run listing should self-heal old crashed runs."""
     os.environ["SKIP_AUTH"] = "true"
@@ -448,6 +517,73 @@ def test_active_runs_hides_superseded_inactive_race_run():
     queue_doc.reference.update.assert_called_once_with(update)
 
 
+def test_active_runs_keeps_run_when_race_current_run_is_stale_terminal():
+    """A stale terminal current_run_id should not cause /runs/active to cancel the live run."""
+    os.environ["SKIP_AUTH"] = "true"
+    os.environ["ADMIN_API_KEY"] = "test-key"
+
+    run_doc = _make_existing_doc(
+        {
+            "run_id": "run-new",
+            "race_id": "ga-senate-2026",
+            "status": "running",
+            "started_at": datetime.now(timezone.utc).isoformat(),
+        }
+    )
+    new_run_ref = MagicMock()
+    old_run_ref = MagicMock()
+    old_run_ref.get.return_value = _make_existing_doc({"run_id": "run-old", "status": "cancelled"})
+
+    runs_coll = MagicMock()
+    runs_coll.where.return_value = runs_coll
+    runs_coll.stream.return_value = iter([run_doc])
+    runs_coll.document.side_effect = lambda run_id: old_run_ref if run_id == "run-old" else new_run_ref
+
+    queue_coll = MagicMock()
+    queue_coll.where.return_value = queue_coll
+    queue_coll.stream.return_value = iter([])
+
+    race_ref = MagicMock()
+    race_ref.get.return_value = _make_existing_doc(
+        {"race_id": "ga-senate-2026", "status": "published", "current_run_id": "run-old"}
+    )
+    races_coll = MagicMock()
+    races_coll.document.return_value = race_ref
+
+    db = _build_empty_firestore_mock()
+
+    def _coll(name):
+        if name == "pipeline_runs":
+            return runs_coll
+        if name == "pipeline_queue":
+            return queue_coll
+        if name == "races":
+            return races_coll
+        return MagicMock()
+
+    db.collection.side_effect = _coll
+
+    import main as app_module
+
+    firestore_helpers._fs_db = None
+
+    from fastapi.testclient import TestClient
+
+    with (
+        patch("firestore_helpers._get_fs", return_value=db),
+        patch("firestore_helpers._fs_update_race") as mock_update_race,
+    ):
+        tc = TestClient(app_module.app)
+        resp = tc.get("/runs/active")
+
+    assert resp.status_code == 200
+    body = resp.json()
+    assert body["count"] == 1
+    assert body["runs"][0]["run_id"] == "run-new"
+    new_run_ref.update.assert_not_called()
+    mock_update_race.assert_called_once_with("ga-senate-2026", {"current_run_id": None})
+
+
 def test_list_runs_merges_active_runs_missing_from_recent_query():
     """The dashboard run list should count active continuations even if recent ordering misses them."""
     os.environ["SKIP_AUTH"] = "true"
@@ -466,8 +602,8 @@ def test_list_runs_merges_active_runs_missing_from_recent_query():
             "run_id": "run-active",
             "race_id": "ga-senate-2026",
             "status": "running",
-            "progress_updated_at": "2026-05-17T22:00:00+00:00",
-            "started_at": "2026-05-17T21:59:00+00:00",
+            "progress_updated_at": datetime.now(timezone.utc).isoformat(),
+            "started_at": datetime.now(timezone.utc).isoformat(),
         }
     )
 
@@ -1073,6 +1209,56 @@ def test_recheck_marks_stale_running_race_failed():
     assert race_update["current_run_id"] is None
 
 
+def test_recheck_clears_stale_current_run_on_inactive_race():
+    """Recheck should clean inactive race records whose current_run_id points to a terminal run."""
+    os.environ["SKIP_AUTH"] = "true"
+    os.environ["ADMIN_API_KEY"] = "test-key"
+
+    import main as app_module
+
+    firestore_helpers._fs_db = None
+
+    race_doc = _make_existing_doc(
+        {
+            "race_id": "az-senate-2026",
+            "status": "published",
+            "current_run_id": "run-old",
+        }
+    )
+    race_ref = MagicMock()
+    race_ref.get.return_value = race_doc
+    races_coll = MagicMock()
+    races_coll.document.return_value = race_ref
+
+    run_ref = MagicMock()
+    run_ref.get.return_value = _make_existing_doc({"run_id": "run-old", "status": "cancelled"})
+    runs_coll = MagicMock()
+    runs_coll.document.return_value = run_ref
+
+    db = _build_empty_firestore_mock()
+
+    def _coll(name):
+        if name == "races":
+            return races_coll
+        if name == "pipeline_runs":
+            return runs_coll
+        return MagicMock()
+
+    db.collection.side_effect = _coll
+
+    from fastapi.testclient import TestClient
+
+    with (
+        patch("firestore_helpers._get_fs", return_value=db),
+        patch("firestore_helpers._fs_update_race") as mock_update,
+    ):
+        tc = TestClient(app_module.app)
+        resp = tc.post("/api/races/az-senate-2026/recheck")
+
+    assert resp.status_code == 200
+    mock_update.assert_called_once_with("az-senate-2026", {"current_run_id": None})
+
+
 def test_recheck_all_marks_stale_running_races_failed():
     """Bulk recheck should reconcile every race record, not just one race."""
     os.environ["SKIP_AUTH"] = "true"
@@ -1154,6 +1340,131 @@ def test_recheck_all_marks_stale_running_races_failed():
     queue_doc.reference.update.assert_called()
     assert mock_update.call_args.args[0] == "az-senate-2026"
     assert mock_update.call_args.args[1]["status"] == "failed"
+
+
+def test_recheck_clears_stale_current_run_for_cancelled_race():
+    """Recheck should clear stale run pointers on inactive/cancelled race records."""
+    os.environ["SKIP_AUTH"] = "true"
+    os.environ["ADMIN_API_KEY"] = "test-key"
+
+    import main as app_module
+
+    firestore_helpers._fs_db = None
+
+    race_doc = _make_existing_doc(
+        {
+            "race_id": "co-senate-2026",
+            "status": "cancelled",
+            "current_run_id": "run-cancelled-old",
+        }
+    )
+    race_ref = MagicMock()
+    race_ref.get.return_value = race_doc
+    races_coll = MagicMock()
+    races_coll.document.return_value = race_ref
+
+    run_doc = _make_existing_doc(
+        {
+            "run_id": "run-cancelled-old",
+            "race_id": "co-senate-2026",
+            "status": "cancelled",
+        }
+    )
+    run_ref = MagicMock()
+    run_ref.get.return_value = run_doc
+    runs_coll = MagicMock()
+    runs_coll.document.return_value = run_ref
+
+    db = _build_empty_firestore_mock()
+
+    def _coll(name):
+        if name == "races":
+            return races_coll
+        if name == "pipeline_runs":
+            return runs_coll
+        return MagicMock()
+
+    db.collection.side_effect = _coll
+
+    from fastapi.testclient import TestClient
+
+    with (
+        patch("firestore_helpers._get_fs", return_value=db),
+        patch("firestore_helpers._fs_update_race") as mock_update,
+    ):
+        tc = TestClient(app_module.app)
+        resp = tc.post("/api/races/co-senate-2026/recheck")
+
+    assert resp.status_code == 200
+    mock_update.assert_called_once_with("co-senate-2026", {"current_run_id": None})
+
+
+def test_recheck_all_clears_stale_current_run_for_inactive_race():
+    """Bulk recheck should clear stale pointers even when race status is already inactive."""
+    os.environ["SKIP_AUTH"] = "true"
+    os.environ["ADMIN_API_KEY"] = "test-key"
+
+    import main as app_module
+
+    firestore_helpers._fs_db = None
+
+    race_docs = [
+        _make_existing_doc({"race_id": "co-senate-2026", "status": "cancelled", "current_run_id": "run-old"}),
+        _make_existing_doc({"race_id": "ar-governor-2026", "status": "draft"}),
+    ]
+
+    race_refs: dict[str, MagicMock] = {}
+
+    def _race_document(race_id):
+        if race_id not in race_refs:
+            ref = MagicMock()
+            doc_data = next((d.to_dict() for d in race_docs if d.to_dict().get("race_id") == race_id), {})
+            ref.get.return_value = _make_existing_doc(doc_data)
+            race_refs[race_id] = ref
+        return race_refs[race_id]
+
+    races_coll = MagicMock()
+    races_coll.limit.return_value = races_coll
+    races_coll.stream.return_value = iter(race_docs)
+    races_coll.document.side_effect = _race_document
+
+    run_doc = _make_existing_doc(
+        {
+            "run_id": "run-old",
+            "race_id": "co-senate-2026",
+            "status": "failed",
+        }
+    )
+    run_ref = MagicMock()
+    run_ref.get.return_value = run_doc
+    runs_coll = MagicMock()
+    runs_coll.document.return_value = run_ref
+
+    db = _build_empty_firestore_mock()
+
+    def _coll(name):
+        if name == "races":
+            return races_coll
+        if name == "pipeline_runs":
+            return runs_coll
+        return MagicMock()
+
+    db.collection.side_effect = _coll
+
+    from fastapi.testclient import TestClient
+
+    with (
+        patch("firestore_helpers._get_fs", return_value=db),
+        patch("firestore_helpers._fs_update_race") as mock_update,
+    ):
+        tc = TestClient(app_module.app)
+        resp = tc.post("/api/races/recheck")
+
+    assert resp.status_code == 200
+    body = resp.json()
+    assert body["checked"] == 2
+    assert body["updated"] == 1
+    mock_update.assert_called_once_with("co-senate-2026", {"current_run_id": None})
 
 
 def test_publish_race_clears_draft_timestamp():

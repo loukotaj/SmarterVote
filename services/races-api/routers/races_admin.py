@@ -73,6 +73,17 @@ def _derive_storage_status(race_id: str, race_data: Dict[str, Any]) -> tuple[str
     return new_status, update
 
 
+def _run_is_terminal_or_missing(db: Any, run_id: str) -> bool:
+    try:
+        run_doc = db.collection("pipeline_runs").document(run_id).get()
+    except Exception:
+        return False
+    if not getattr(run_doc, "exists", False):
+        return True
+    run_data = run_doc.to_dict() or {}
+    return run_data.get("status") in ("completed", "failed", "cancelled", "continued")
+
+
 def _recheck_race_status(db: Any, race_id: str, race_data: Dict[str, Any]) -> tuple[Dict[str, Any] | None, bool]:
     """Reconcile one race record and return its latest Firestore shape."""
     current_status = race_data.get("status", "idle")
@@ -119,6 +130,11 @@ def _recheck_race_status(db: Any, race_id: str, race_data: Dict[str, Any]) -> tu
                     except Exception as exc:
                         logging.warning("Failed to mark stale queue item for %s failed: %s", run_id, exc)
             firestore_helpers._fs_update_race(race_id, update)
+            updated = True
+    elif current_status in ("draft", "published", "empty", "failed", "cancelled") and race_data.get("current_run_id"):
+        run_id = str(race_data["current_run_id"])
+        if _run_is_terminal_or_missing(db, run_id):
+            firestore_helpers._fs_update_race(race_id, {"current_run_id": None})
             updated = True
     updated_doc = db.collection("races").document(race_id).get()
     return firestore_helpers._doc_to_plain(updated_doc), updated
@@ -346,7 +362,7 @@ async def cancel_race(race_id: str) -> Dict[str, Any]:
         run_doc = run_ref.get()
         if run_doc.exists and (run_doc.to_dict() or {}).get("status") in ("pending", "running"):
             run_ref.update({"status": "cancelled"})
-    firestore_helpers._fs_update_race(race_id, {"status": "cancelled"})
+    firestore_helpers._fs_update_race(race_id, {"status": "cancelled", "current_run_id": None})
     return {"message": f"Race {race_id} cancelled"}
 
 
