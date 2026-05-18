@@ -73,6 +73,32 @@ def _derive_storage_status(race_id: str, race_data: Dict[str, Any]) -> tuple[str
     return new_status, update
 
 
+def _derive_inactive_storage_status(race_id: str, race_data: Dict[str, Any]) -> tuple[str, Dict[str, Any]]:
+    """Derive inactive status updates from positive storage evidence only."""
+    has_published = gcs_helpers._gcs_get_race_json(race_id, "races") is not None
+    has_draft = gcs_helpers._gcs_get_race_json(race_id, "drafts") is not None
+    current_status = race_data.get("status")
+
+    # Only apply status changes when storage provides positive evidence.
+    # This avoids destructive downgrades during transient storage failures.
+    new_status = str(current_status)
+    update: Dict[str, Any] = {}
+    if has_published:
+        new_status = "published"
+        if current_status != "published":
+            update["status"] = "published"
+            update["current_run_id"] = None
+    elif has_draft:
+        new_status = "draft"
+        if current_status != "draft":
+            update["status"] = "draft"
+            update["current_run_id"] = None
+        update["published_at"] = None
+        update["draft_updated_at"] = race_data.get("draft_updated_at")
+
+    return new_status, update
+
+
 def _run_is_terminal_or_missing(db: Any, run_id: str) -> bool:
     try:
         run_doc = db.collection("pipeline_runs").document(run_id).get()
@@ -84,10 +110,45 @@ def _run_is_terminal_or_missing(db: Any, run_id: str) -> bool:
     return run_data.get("status") in ("completed", "failed", "cancelled", "continued")
 
 
+def _is_run_actually_active(db: Any, run_id: str) -> bool:
+    """Return True only when run + queue docs both indicate active work."""
+    run_ref = db.collection("pipeline_runs").document(str(run_id))
+    run_doc = run_ref.get()
+    if not run_doc.exists:
+        return False
+    run_data = run_doc.to_dict() or {}
+    if run_data.get("status") not in ("pending", "running"):
+        return False
+    queue_docs = db.collection("pipeline_queue").where("run_id", "==", str(run_id)).stream()
+    return any((doc.to_dict() or {}).get("status") in ("pending", "running") for doc in queue_docs)
+
+
+def _self_heal_stale_active_race(db: Any, race_id: str, race_data: Dict[str, Any]) -> Dict[str, Any]:
+    """Clear stale queued/running blockers so a new run request can proceed."""
+    status = race_data.get("status")
+    if status not in ("queued", "running"):
+        return race_data
+
+    run_id = race_data.get("current_run_id")
+    if not run_id:
+        return race_data
+
+    if _is_run_actually_active(db, str(run_id)):
+        return race_data
+
+    fallback_status = (
+        "published" if race_data.get("published_at") else ("draft" if race_data.get("draft_updated_at") else "failed")
+    )
+    update = {"status": fallback_status, "current_run_id": None}
+    firestore_helpers._fs_update_race(race_id, update)
+    return {**race_data, **update}
+
+
 def _recheck_race_status(db: Any, race_id: str, race_data: Dict[str, Any]) -> tuple[Dict[str, Any] | None, bool]:
     """Reconcile one race record and return its latest Firestore shape."""
     current_status = race_data.get("status", "idle")
     updated = False
+    reconciled_view: Dict[str, Any] | None = None
     if current_status in ("running", "queued"):
         run_id = race_data.get("current_run_id")
         run_actually_active = False
@@ -131,13 +192,34 @@ def _recheck_race_status(db: Any, race_id: str, race_data: Dict[str, Any]) -> tu
                         logging.warning("Failed to mark stale queue item for %s failed: %s", run_id, exc)
             firestore_helpers._fs_update_race(race_id, update)
             updated = True
-    elif current_status in ("draft", "published", "empty", "failed", "cancelled") and race_data.get("current_run_id"):
-        run_id = str(race_data["current_run_id"])
-        if _run_is_terminal_or_missing(db, run_id):
-            firestore_helpers._fs_update_race(race_id, {"current_run_id": None})
+            reconciled_view = {**race_data, **update}
+    elif current_status in ("draft", "published", "empty", "failed", "cancelled"):
+        update: Dict[str, Any] = {}
+
+        expected_status, storage_update = _derive_inactive_storage_status(race_id, race_data)
+        if current_status != expected_status:
+            update.update(storage_update)
+
+        current_run_id = race_data.get("current_run_id")
+        if current_run_id:
+            run_id = str(current_run_id)
+            if _run_is_terminal_or_missing(db, run_id):
+                update["current_run_id"] = None
+            else:
+                # Do not clear current_run_id if it still points to a live run.
+                update.pop("current_run_id", None)
+
+        if update:
+            firestore_helpers._fs_update_race(race_id, update)
             updated = True
+            reconciled_view = {**race_data, **update}
     updated_doc = db.collection("races").document(race_id).get()
-    return firestore_helpers._doc_to_plain(updated_doc), updated
+    latest = firestore_helpers._doc_to_plain(updated_doc)
+    if updated and reconciled_view is not None:
+        if latest is None:
+            return reconciled_view, updated
+        return {**latest, **reconciled_view}, updated
+    return latest, updated
 
 
 def _race_summary(data: Dict[str, Any], fallback_id: str) -> Dict[str, Any]:
@@ -235,12 +317,27 @@ def _clear_public_race_cache(request: Request) -> None:
 
 
 @router.get("/api/races", dependencies=[Depends(verify_token)])
-async def list_all_races() -> Dict[str, Any]:
+async def list_all_races(reconcile_active: bool = True) -> Dict[str, Any]:
     """List all race records from Firestore (admin view with status metadata)."""
     db = firestore_helpers._get_fs()
     docs = db.collection("races").limit(500).stream()
     races = [firestore_helpers._doc_to_plain(d) for d in docs]
     races = [r for r in races if r is not None]
+
+    if reconcile_active:
+        reconciled: list[Dict[str, Any]] = []
+        for race in races:
+            race_id = race.get("race_id") or race.get("id")
+            if not race_id:
+                reconciled.append(race)
+                continue
+            if race.get("status") in ("queued", "running") or race.get("current_run_id"):
+                latest, _changed = _recheck_race_status(db, str(race_id), race)
+                reconciled.append(latest or race)
+            else:
+                reconciled.append(race)
+        races = reconciled
+
     run_stats = _pipeline_run_stats(db)
     draft_id_list = gcs_helpers._gcs_list_race_ids("drafts")
     published_id_list = gcs_helpers._gcs_list_race_ids("races")
@@ -316,7 +413,7 @@ async def recheck_all_race_statuses() -> Dict[str, Any]:
 
 
 @router.get("/api/races/{race_id}", dependencies=[Depends(verify_token)])
-async def get_race_record(race_id: str) -> Dict[str, Any]:
+async def get_race_record(race_id: str, reconcile: bool = True) -> Dict[str, Any]:
     """Get a single race record from Firestore."""
     validate_race_id(race_id)
     db = firestore_helpers._get_fs()
@@ -324,6 +421,10 @@ async def get_race_record(race_id: str) -> Dict[str, Any]:
     data = firestore_helpers._doc_to_plain(doc)
     if data is None:
         raise HTTPException(status_code=404, detail="Race not found")
+    if reconcile:
+        latest, _changed = _recheck_race_status(db, race_id, data)
+        if latest is not None:
+            data = latest
     return data
 
 
@@ -390,6 +491,7 @@ async def run_race_pipeline(race_id: str, options: RunOptions | None = None) -> 
     race_doc = db.collection("races").document(race_id).get()
     if race_doc.exists:
         race_data = race_doc.to_dict() or {}
+        race_data = _self_heal_stale_active_race(db, race_id, race_data)
         if race_data.get("status") in ("queued", "running"):
             raise HTTPException(status_code=409, detail=f"Race is already {race_data.get('status')}")
 

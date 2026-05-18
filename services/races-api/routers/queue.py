@@ -41,6 +41,43 @@ def _current_run_is_terminal_or_missing(db: Any, run_id: str) -> bool:
     return run_data.get("status") in _TERMINAL_STATUSES
 
 
+def _is_run_actually_active(db: Any, run_id: str) -> bool:
+    """Return True only when run + queue docs both indicate active work."""
+    try:
+        run_doc = db.collection("pipeline_runs").document(str(run_id)).get()
+        run_data = firestore_helpers._doc_to_plain(run_doc)
+    except Exception:
+        return False
+    if not run_data or run_data.get("status") not in _ACTIVE_STATUSES:
+        return False
+    try:
+        queue_docs = db.collection("pipeline_queue").where("run_id", "==", str(run_id)).stream()
+        return any((doc.to_dict() or {}).get("status") in _ACTIVE_STATUSES for doc in queue_docs)
+    except Exception:
+        return False
+
+
+def _self_heal_stale_active_race(db: Any, race_id: str, race_data: Dict[str, Any]) -> Dict[str, Any]:
+    """Clear stale queued/running blockers so a new queue request can proceed."""
+    status = race_data.get("status")
+    if status not in _ACTIVE_STATUSES:
+        return race_data
+
+    run_id = race_data.get("current_run_id")
+    if not run_id:
+        return race_data
+
+    if _is_run_actually_active(db, str(run_id)):
+        return race_data
+
+    fallback_status = (
+        "published" if race_data.get("published_at") else ("draft" if race_data.get("draft_updated_at") else "failed")
+    )
+    update = {"status": fallback_status, "current_run_id": None}
+    firestore_helpers._fs_update_race(race_id, update)
+    return {**race_data, **update}
+
+
 def _normalize_continuation_ancestors(items: list[Dict[str, Any]]) -> list[Dict[str, Any]]:
     """Do not report parent queue items as active after a continuation exists."""
     parent_run_ids = {item.get("parent_run_id") for item in items if item.get("parent_run_id")}
@@ -157,6 +194,7 @@ async def queue_races(request: RaceQueueRequest) -> Dict[str, Any]:
             race_doc = db.collection("races").document(race_id).get()
             if getattr(race_doc, "exists", False) is True:
                 race_data = race_doc.to_dict() or {}
+                race_data = _self_heal_stale_active_race(db, race_id, race_data)
                 if race_data.get("status") in ("queued", "running"):
                     errors.append({"race_id": race_id, "error": f"Race is already {race_data.get('status')}"})
                     continue
