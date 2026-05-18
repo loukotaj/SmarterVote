@@ -7,8 +7,8 @@ from unittest.mock import AsyncMock, patch
 
 import pytest
 
-from pipeline_client.agent.agent import _load_existing, _normalize_schema_fields, run_agent
-from pipeline_client.agent.phases import _sanitize_roster
+from pipeline_client.agent.agent import _load_existing, _normalize_schema_fields, _sanitize_polling, run_agent
+from pipeline_client.agent.phases import _reconcile_candidates_with_authoritative_roster, _sanitize_roster
 from pipeline_client.agent.prompts import CANONICAL_ISSUES
 from pipeline_client.backend.handlers.agent import HandoffTriggered
 
@@ -656,6 +656,65 @@ def test_sanitize_roster_drops_malformed_candidate_entries():
     _sanitize_roster(race_json)
 
     assert race_json["candidates"] == [{"name": "Sarah Huckabee Sanders", "party": "Republican"}]
+
+
+def test_authoritative_roster_removes_stale_primary_candidate():
+    race_json = {
+        "id": "ar-governor-2026",
+        "candidates": [
+            {"name": "Sarah Huckabee Sanders", "party": "Republican"},
+            {"name": "Fred Love", "party": "Democratic"},
+            {"name": "Colt Shelby", "party": "Libertarian"},
+            {"name": "Supha Xayprasith-Mays", "party": "Democratic"},
+        ],
+    }
+
+    _reconcile_candidates_with_authoritative_roster(
+        race_json,
+        [
+            {"name": "Sarah Huckabee Sanders", "party": "Republican"},
+            {"name": "Fredrick Love", "party": "Democratic"},
+            {"name": "Colt Shelby", "party": "Libertarian"},
+        ],
+    )
+
+    assert [candidate["name"] for candidate in race_json["candidates"]] == [
+        "Sarah Huckabee Sanders",
+        "Fred Love",
+        "Colt Shelby",
+    ]
+
+
+def test_sanitize_polling_drops_non_roster_placeholder_poll():
+    race_json = {
+        "id": "ar-governor-2026",
+        "candidates": [
+            {"name": "Sarah Huckabee Sanders"},
+            {"name": "Fred Love"},
+            {"name": "Colt Shelby"},
+        ],
+        "polling": [
+            {
+                "pollster": "No new polls found",
+                "date": "2026-04-06",
+                "matchups": [
+                    {
+                        "candidates": [
+                            "Sarah Huckabee Sanders",
+                            "Fred Love",
+                            "Colt Shelby",
+                            "Supha Xayprasith-Mays",
+                        ],
+                        "percentages": [],
+                    }
+                ],
+            }
+        ],
+    }
+
+    _sanitize_polling(race_json)
+
+    assert race_json["polling"] == []
 
 
 @pytest.mark.asyncio

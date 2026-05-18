@@ -247,6 +247,85 @@ def _race_summary(data: Dict[str, Any], fallback_id: str) -> Dict[str, Any]:
     }
 
 
+def _grade_from_race_data(data: Dict[str, Any] | None) -> str | None:
+    if not isinstance(data, dict):
+        return None
+    validation_grade = data.get("validation_grade")
+    if not isinstance(validation_grade, dict):
+        return None
+    grade = validation_grade.get("grade")
+    return str(grade) if grade else None
+
+
+def _candidate_count_from_race_data(data: Dict[str, Any] | None) -> int | None:
+    if not isinstance(data, dict):
+        return None
+    candidates = data.get("candidates")
+    return len(candidates) if isinstance(candidates, list) else None
+
+
+def _newer_iso(left: str | None, right: str | None) -> bool:
+    left_at = _coerce_datetime(left)
+    right_at = _coerce_datetime(right)
+    if left_at and right_at:
+        return left_at > right_at
+    return bool(left and left != right)
+
+
+def _apply_storage_view(
+    race: Dict[str, Any],
+    race_id: str,
+    *,
+    draft_exists: bool | None = None,
+    published_exists: bool | None = None,
+) -> Dict[str, Any]:
+    """Add storage-derived public/draft metadata to an admin race record.
+
+    Firestore has one quality/candidate metadata slot, but a race can have both
+    an older published JSON and a newer draft JSON. Admin/MCP callers should not
+    confuse draft quality with what the public /races/{id} page currently shows.
+    """
+    if draft_exists is None:
+        draft_exists = gcs_helpers._gcs_get_race_json(race_id, "drafts") is not None
+    if published_exists is None:
+        published_exists = gcs_helpers._gcs_get_race_json(race_id, "races") is not None
+
+    draft_data = gcs_helpers._gcs_get_race_json(race_id, "drafts") if draft_exists else None
+    published_data = gcs_helpers._gcs_get_race_json(race_id, "races") if published_exists else None
+
+    draft_grade = _grade_from_race_data(draft_data)
+    published_grade = _grade_from_race_data(published_data)
+    draft_updated = draft_data.get("updated_utc") if isinstance(draft_data, dict) else None
+    published_updated = published_data.get("updated_utc") if isinstance(published_data, dict) else None
+    draft_count = _candidate_count_from_race_data(draft_data)
+    published_count = _candidate_count_from_race_data(published_data)
+
+    race["draft_exists"] = bool(draft_exists)
+    race["published_exists"] = bool(published_exists)
+    race["draft_quality_grade"] = draft_grade
+    race["published_quality_grade"] = published_grade
+    race["draft_candidate_count"] = draft_count
+    race["published_candidate_count"] = published_count
+    race["draft_updated_utc"] = draft_updated
+    race["published_updated_utc"] = published_updated
+    race["has_unpublished_changes"] = bool(
+        draft_exists and (not published_exists or _newer_iso(draft_updated, published_updated))
+    )
+
+    if published_exists:
+        race["quality_grade"] = published_grade
+        if published_count is not None:
+            race["candidate_count"] = published_count
+        if published_updated:
+            race["public_updated_utc"] = published_updated
+    elif draft_exists:
+        race["quality_grade"] = draft_grade
+        if draft_count is not None:
+            race["candidate_count"] = draft_count
+
+    return race
+
+
 def _assert_publishable_race(data: Dict[str, Any]) -> None:
     """Block publishing drafts that the review gate explicitly failed."""
     try:
@@ -367,6 +446,13 @@ async def list_all_races(reconcile_active: bool = True) -> Dict[str, Any]:
                 race["status"] = "empty"
                 race["draft_updated_at"] = None
                 race["published_at"] = None
+        if storage_state_known:
+            _apply_storage_view(
+                race,
+                str(race_id),
+                draft_exists=draft_exists,
+                published_exists=published_exists,
+            )
         stats = run_stats.get(str(race_id))
         if stats:
             race["total_runs"] = stats["total_runs"]
@@ -425,6 +511,7 @@ async def get_race_record(race_id: str, reconcile: bool = True) -> Dict[str, Any
         latest, _changed = _recheck_race_status(db, race_id, data)
         if latest is not None:
             data = latest
+    _apply_storage_view(data, race_id)
     return data
 
 

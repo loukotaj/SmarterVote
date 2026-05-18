@@ -41,6 +41,7 @@ from .phases import (  # noqa: F401 - re-exported for backward compat
     _run_fresh,
     _run_iteration_pass,
     _run_update,
+    _sanitize_roster,
     _scale_iterations,
     _select_target_candidates,
 )
@@ -134,21 +135,37 @@ def _sanitize_polling(race_json: Dict[str, Any], log: Any | None = None) -> None
         race_json["polling"] = []
         return
 
+    active_names = {
+        _norm_candidate_name_for_poll(_candidate_name(candidate)) for candidate in race_json.get("candidates") or []
+    }
+    kept_polls: List[Dict[str, Any]] = []
+    dropped_polls = 0
+
     for poll_index, poll in enumerate(polling):
         if not isinstance(poll, dict):
+            dropped_polls += 1
             continue
         matchups = poll.get("matchups")
         if matchups is None:
             poll["matchups"] = []
-            continue
+            matchups = poll["matchups"]
         if not isinstance(matchups, list):
             if log:
                 log("warning", f"Poll {poll_index} matchups was not a list; dropping malformed matchups")
             poll["matchups"] = []
-            continue
+            matchups = poll["matchups"]
+
+        kept_matchups: List[Dict[str, Any]] = []
         for matchup_index, matchup in enumerate(matchups):
             if not isinstance(matchup, dict):
                 continue
+            names = matchup.get("candidates")
+            if active_names and isinstance(names, list):
+                roster_names = [_norm_candidate_name_for_poll(str(name)) for name in names]
+                if any(name and name not in active_names for name in roster_names):
+                    if log:
+                        log("warning", f"Poll {poll_index} matchup {matchup_index} references non-roster candidates; dropping")
+                    continue
             percentages = matchup.get("percentages")
             if percentages is None:
                 matchup["percentages"] = []
@@ -157,7 +174,6 @@ def _sanitize_polling(race_json: Dict[str, Any], log: Any | None = None) -> None
                         "warning",
                         f"Poll {poll_index} matchup {matchup_index} had null percentages; normalized to an empty list",
                     )
-                continue
             if not isinstance(percentages, list):
                 matchup["percentages"] = []
                 if log:
@@ -165,6 +181,28 @@ def _sanitize_polling(race_json: Dict[str, Any], log: Any | None = None) -> None
                         "warning",
                         f"Poll {poll_index} matchup {matchup_index} percentages was not a list; normalized to an empty list",
                     )
+            kept_matchups.append(matchup)
+        poll["matchups"] = kept_matchups
+
+        pollster = str(poll.get("pollster") or "").lower()
+        no_poll_placeholder = "no " in pollster and ("poll" in pollster or "public" in pollster)
+        has_percentages = any(isinstance(m.get("percentages"), list) and m.get("percentages") for m in kept_matchups)
+        if no_poll_placeholder and not has_percentages:
+            dropped_polls += 1
+            continue
+        kept_polls.append(poll)
+
+    if len(kept_polls) != len(polling):
+        race_json["polling"] = kept_polls
+        if log:
+            log(
+                "warning",
+                f"Dropped {dropped_polls} malformed or placeholder polling entr{'y' if dropped_polls == 1 else 'ies'}",
+            )
+
+
+def _norm_candidate_name_for_poll(name: str) -> str:
+    return " ".join(str(name or "").lower().replace(".", "").split())
 
 
 def _sanitize_candidate_links(race_json: Dict[str, Any], log: Any | None = None) -> None:
@@ -456,6 +494,7 @@ async def run_agent(
         if isinstance(candidate, dict):
             _normalize_candidate(candidate, now_iso)
 
+    _sanitize_roster(race_json, log)
     race_json.setdefault("polling", [])
     _normalize_schema_fields(race_json, log)
 
@@ -523,6 +562,7 @@ async def run_agent(
                         if isinstance(candidate, dict):
                             _normalize_candidate(candidate, now_iso)
                     race_json["generator"] = generators
+                    _sanitize_roster(race_json, log)
                     _normalize_schema_fields(race_json, log)
 
                     log("info", f"  Cycle {cycle}: Re-running reviews...")
@@ -614,6 +654,7 @@ async def run_agent(
     try:
         from shared.models import RaceJSON as _RaceJSONModel
 
+        _sanitize_roster(race_json, log)
         _normalize_schema_fields(race_json, log)
         _RaceJSONModel.model_validate(race_json)
         log("info", "Schema validation passed; output conforms to RaceJSON v0.3")

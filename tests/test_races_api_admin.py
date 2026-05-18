@@ -1208,6 +1208,72 @@ def test_list_races_uses_storage_state_for_draft_flags():
     assert by_id["az-senate-2026"]["published_exists"] is True
 
 
+def test_list_races_exposes_public_and_draft_quality_separately():
+    """Admin/MCP records should not report draft quality as the public page grade."""
+    os.environ["SKIP_AUTH"] = "true"
+    os.environ["ADMIN_API_KEY"] = "test-key"
+
+    import main as app_module
+
+    firestore_helpers._fs_db = None
+
+    race_doc = _make_existing_doc(
+        {
+            "race_id": "ar-governor-2026",
+            "status": "published",
+            "candidate_count": 4,
+            "quality_grade": "A",
+            "draft_updated_at": "2026-05-18T02:22:28Z",
+            "published_at": "2026-04-06T16:44:20Z",
+        }
+    )
+    coll_races = MagicMock()
+    coll_races.limit.return_value = coll_races
+    coll_races.stream.return_value = iter([race_doc])
+    db = _build_empty_firestore_mock()
+    db.collection.side_effect = lambda name: coll_races if name == "races" else MagicMock()
+
+    published_json = {
+        "id": "ar-governor-2026",
+        "updated_utc": "2026-04-06T16:44:20Z",
+        "candidates": [{"name": "A"}, {"name": "B"}, {"name": "C"}],
+        "validation_grade": None,
+    }
+    draft_json = {
+        "id": "ar-governor-2026",
+        "updated_utc": "2026-05-18T02:22:28Z",
+        "candidates": [{"name": "A"}, {"name": "B"}, {"name": "C"}, {"name": "D"}],
+        "validation_grade": {"grade": "A", "score": 92, "passed": True},
+    }
+
+    def _list_ids(prefix):
+        return ["ar-governor-2026"]
+
+    def _get_json(race_id, prefix):
+        assert race_id == "ar-governor-2026"
+        return draft_json if prefix == "drafts" else published_json
+
+    from fastapi.testclient import TestClient
+
+    with (
+        patch("firestore_helpers._get_fs", return_value=db),
+        patch("gcs_helpers._gcs_list_race_ids", side_effect=_list_ids),
+        patch("gcs_helpers._gcs_get_race_json", side_effect=_get_json),
+    ):
+        tc = TestClient(app_module.app)
+        resp = tc.get("/api/races")
+
+    assert resp.status_code == 200
+    race = resp.json()["races"][0]
+    assert race["quality_grade"] is None
+    assert race["published_quality_grade"] is None
+    assert race["draft_quality_grade"] == "A"
+    assert race["candidate_count"] == 3
+    assert race["published_candidate_count"] == 3
+    assert race["draft_candidate_count"] == 4
+    assert race["has_unpublished_changes"] is True
+
+
 def test_list_races_derives_run_counts_from_pipeline_runs():
     """The races table run count should reflect canonical pipeline_runs docs, not stale race metadata."""
     os.environ["SKIP_AUTH"] = "true"

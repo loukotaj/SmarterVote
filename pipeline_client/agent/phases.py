@@ -199,6 +199,88 @@ def _candidate_party_key(candidate: Dict[str, Any]) -> str:
     return "other"
 
 
+def _norm_name_for_match(name: str) -> str:
+    return re.sub(r"[^a-z0-9]+", " ", name.lower()).strip()
+
+
+def _names_likely_same(left: str, right: str) -> bool:
+    left_norm = _norm_name_for_match(left)
+    right_norm = _norm_name_for_match(right)
+    if not left_norm or not right_norm:
+        return False
+    if left_norm == right_norm:
+        return True
+    left_parts = left_norm.split()
+    right_parts = right_norm.split()
+    if len(left_parts) < 2 or len(right_parts) < 2:
+        return False
+    if left_parts[-1] != right_parts[-1]:
+        return False
+    return left_parts[0].startswith(right_parts[0]) or right_parts[0].startswith(left_parts[0])
+
+
+def _candidate_matches_any(name: str, roster: List[Dict[str, Any]]) -> bool:
+    return any(_names_likely_same(name, str(candidate.get("name") or "")) for candidate in roster)
+
+
+def _reconcile_candidates_with_authoritative_roster(
+    race_json: Dict[str, Any],
+    authoritative_candidates: List[Dict[str, Any]],
+    log: Any | None = None,
+) -> None:
+    """Remove stale candidates missing from Ballotpedia's current election roster."""
+    if not authoritative_candidates:
+        return
+    candidates = race_json.get("candidates")
+    if not isinstance(candidates, list):
+        return
+
+    kept: List[Any] = []
+    removed: List[str] = []
+    for candidate in candidates:
+        if not isinstance(candidate, dict):
+            kept.append(candidate)
+            continue
+        name = _candidate_name(candidate)
+        if not name or _candidate_matches_any(name, authoritative_candidates):
+            kept.append(candidate)
+            continue
+        removed.append(name)
+
+    if removed:
+        race_json["candidates"] = kept
+        if log:
+            log(
+                "warning",
+                "Removed candidates absent from current Ballotpedia election roster: " + ", ".join(removed),
+            )
+
+
+async def _sync_ballotpedia_roster(race_json: Dict[str, Any], race_id: str, log: Any | None = None) -> None:
+    """Apply Ballotpedia election-page roster data when available."""
+    try:
+        bp_result = await _ballotpedia_election_lookup(race_id)
+    except Exception as exc:
+        if log:
+            log("debug", f"  Ballotpedia roster sync failed: {exc}")
+        return
+
+    if not isinstance(bp_result, dict) or not bp_result.get("found"):
+        return
+    page_url = bp_result.get("page_url")
+    if page_url and not race_json.get("ballotpedia_url"):
+        race_json["ballotpedia_url"] = page_url
+        if log:
+            log("info", f"  Auto-set ballotpedia_url: {page_url}")
+    bp_candidates = bp_result.get("candidates")
+    if isinstance(bp_candidates, list):
+        authoritative = [
+            candidate for candidate in bp_candidates if isinstance(candidate, dict) and _candidate_name(candidate)
+        ]
+        if len(authoritative) >= 2:
+            _reconcile_candidates_with_authoritative_roster(race_json, authoritative, log)
+
+
 def _select_capped_candidates(candidates: List[Any], limit: int) -> List[Any]:
     """Select a bounded roster while avoiding one crowded primary field dominating."""
     if len(candidates) <= limit:
@@ -723,6 +805,8 @@ async def _run_fresh(
         log,
     )
     _sanitize_roster(race_json, log)
+    await _sync_ballotpedia_roster(race_json, race_id, log)
+    _sanitize_roster(race_json, log)
 
     candidate_names = [_candidate_name(c) for c in race_json.get("candidates", []) if _candidate_name(c)]
     candidate_names = _select_target_candidates(candidate_names, target_candidate_names, log)
@@ -732,16 +816,6 @@ async def _run_fresh(
         log("warning", "No candidates found in discovery phase")
         track("complete", "discovery", duration_ms=int((time.perf_counter() - disc_t0) * 1000), race_json=race_json)
         return race_json
-
-    # Auto-populate ballotpedia_url if not already set by the discovery agent
-    if not race_json.get("ballotpedia_url"):
-        try:
-            bp_result = await _ballotpedia_election_lookup(race_id)
-            if bp_result.get("found") and bp_result.get("page_url"):
-                race_json["ballotpedia_url"] = bp_result["page_url"]
-                log("info", f"  Auto-set ballotpedia_url: {bp_result['page_url']}")
-        except Exception as _bp_exc:
-            log("debug", f"  Ballotpedia URL auto-set failed: {_bp_exc}")
 
     refine_iters = _scale_iterations(max_iterations, n, per_candidate=2, minimum=12)
     log("info", f"  Iteration budgets — refine:{refine_iters}  (n={n} candidates)")
@@ -801,6 +875,8 @@ async def _run_update(
 
     race_json: Dict[str, Any] = copy.deepcopy(existing)
     _sanitize_roster(race_json, log)
+    await _sync_ballotpedia_roster(race_json, race_id, log)
+    _sanitize_roster(race_json, log)
 
     existing_candidates = race_json.get("candidates", [])
     candidate_names = [_candidate_name(c) for c in existing_candidates if _candidate_name(c)]
@@ -827,16 +903,6 @@ async def _run_update(
 
     refine_iters = _scale_iterations(max_iterations, n, per_candidate=2, minimum=12)
     handlers = _make_editing_handlers(race_json, log)
-
-    # Auto-populate ballotpedia_url if not already set in existing data
-    if not race_json.get("ballotpedia_url"):
-        try:
-            bp_result = await _ballotpedia_election_lookup(race_id)
-            if bp_result.get("found") and bp_result.get("page_url"):
-                race_json["ballotpedia_url"] = bp_result["page_url"]
-                log("info", f"  Auto-set ballotpedia_url: {bp_result['page_url']}")
-        except Exception as _bp_exc:
-            log("debug", f"  Ballotpedia URL auto-set failed: {_bp_exc}")
 
     # --- Phase 0+1: Discovery (roster sync + meta update) ---
     if step_enabled("discovery"):
@@ -865,6 +931,8 @@ async def _run_update(
         except Exception as exc:
             log("warning", f"  Roster sync failed: {exc} — keeping existing roster")
 
+        _sanitize_roster(race_json, log)
+        await _sync_ballotpedia_roster(race_json, race_id, log)
         _sanitize_roster(race_json, log)
         candidate_names = [_candidate_name(c) for c in race_json.get("candidates", []) if _candidate_name(c)]
         candidate_names = _select_target_candidates(candidate_names, target_candidate_names, log)

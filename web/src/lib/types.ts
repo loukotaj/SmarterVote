@@ -459,6 +459,14 @@ export interface RaceRecord {
   draft_updated_at?: string;
   draft_exists?: boolean;
   published_exists?: boolean;
+  draft_quality_grade?: "A" | "B" | "C" | "D" | "F";
+  published_quality_grade?: "A" | "B" | "C" | "D" | "F";
+  draft_candidate_count?: number;
+  published_candidate_count?: number;
+  draft_updated_utc?: string;
+  published_updated_utc?: string;
+  public_updated_utc?: string;
+  has_unpublished_changes?: boolean;
 
   candidate_count: number;
   quality_grade?: "A" | "B" | "C" | "D" | "F";
