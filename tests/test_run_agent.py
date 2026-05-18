@@ -612,6 +612,37 @@ def test_sanitize_roster_removes_incumbent_found_not_running():
     assert [candidate["name"] for candidate in race_json["candidates"]] == ["Jeff Johnson"]
 
 
+def test_sanitize_roster_removes_inactive_candidates_from_primary_or_withdrawal():
+    race_json = {
+        "id": "ar-governor-2026",
+        "candidates": [
+            {
+                "name": "Pat Candidate",
+                "party": "Republican",
+                "incumbent": False,
+                "summary": "Pat Candidate lost the Republican primary and did not advance to the general election.",
+            },
+            {
+                "name": "Casey Former",
+                "party": "Democratic",
+                "incumbent": False,
+                "summary": "Casey Former previously announced a campaign.",
+                "withdrawn": True,
+            },
+            {
+                "name": "Jordan Active",
+                "party": "Republican",
+                "incumbent": False,
+                "summary": "Jordan Active is campaigning for the general election.",
+            },
+        ],
+    }
+
+    _sanitize_roster(race_json)
+
+    assert [candidate["name"] for candidate in race_json["candidates"]] == ["Jordan Active"]
+
+
 @pytest.mark.asyncio
 async def test_run_agent_continuation_skips_completed_issue_stances():
     """Continuation mode resumes issue research at the next missing issue."""

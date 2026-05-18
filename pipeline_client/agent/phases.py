@@ -68,6 +68,15 @@ _TERM_LIMITED_NON_CANDIDATE_RE = re.compile(
     r"not running|ineligible|not eligible|from running again)\b",
     re.IGNORECASE,
 )
+_INACTIVE_CANDIDATE_RE = re.compile(
+    r"\b(withdrew|withdrawn|dropped out|suspended campaign|ended campaign|"
+    r"disqualified|removed from the ballot|removed from ballot|"
+    r"lost (?:the )?(?:democratic|republican|gop)? ?primary|"
+    r"was defeated in (?:the )?(?:democratic|republican|gop)? ?primary|"
+    r"did not advance from (?:the )?(?:democratic|republican|gop)? ?primary|"
+    r"eliminated in (?:the )?(?:democratic|republican|gop)? ?primary)\b",
+    re.IGNORECASE,
+)
 MAX_RACE_CANDIDATES = 8
 _MAJOR_PARTY_KEYS = ("democratic", "republican")
 _CONTROL_FLOW_EXCEPTION_NAMES = {"AgentCancelled", "HandoffFailed", "HandoffTriggered"}
@@ -117,6 +126,36 @@ def _remove_ineligible_officeholders(race_json: Dict[str, Any], log: Any | None 
                 "warning",
                 "Removed ineligible incumbent/non-candidate entries from discovery roster: " + ", ".join(removed),
             )
+
+
+def _remove_inactive_candidates(race_json: Dict[str, Any], log: Any | None = None) -> None:
+    """Drop candidates marked withdrawn or clearly described as primary-defeated/inactive."""
+    candidates = race_json.get("candidates")
+    if not isinstance(candidates, list):
+        return
+
+    kept: List[Any] = []
+    removed: List[str] = []
+    for candidate in candidates:
+        if not isinstance(candidate, dict):
+            kept.append(candidate)
+            continue
+
+        if candidate.get("withdrawn") is True:
+            removed.append(str(candidate.get("name") or "unknown"))
+            continue
+
+        text = _candidate_roster_text(candidate)
+        if _INACTIVE_CANDIDATE_RE.search(text):
+            removed.append(str(candidate.get("name") or "unknown"))
+            continue
+
+        kept.append(candidate)
+
+    if removed:
+        race_json["candidates"] = kept
+        if log:
+            log("warning", "Removed inactive candidates from discovery roster: " + ", ".join(removed))
 
 
 def _candidate_party_key(candidate: Dict[str, Any]) -> str:
@@ -184,6 +223,7 @@ def _enforce_candidate_cap(race_json: Dict[str, Any], log: Any | None = None, *,
 def _sanitize_roster(race_json: Dict[str, Any], log: Any | None = None) -> None:
     """Apply deterministic roster constraints before downstream fan-out."""
     _remove_ineligible_officeholders(race_json, log)
+    _remove_inactive_candidates(race_json, log)
     _enforce_candidate_cap(race_json, log)
 
 
