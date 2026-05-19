@@ -38,6 +38,7 @@
   let loading = true;
   let error = "";
   let refreshTimer: ReturnType<typeof setInterval> | null = null;
+  let refreshInFlight = false;
 
   const TIME_RANGES = [
     { label: "1h", value: 1 },
@@ -116,6 +117,8 @@
   }
 
   async function loadData(hours = selectedHours) {
+    if (refreshInFlight) return;
+    refreshInFlight = true;
     try {
       error = "";
       const [overviewRes, alertsRes, racesRes, metricsRes, metricsSummaryRes] = await Promise.allSettled([
@@ -139,6 +142,7 @@
     } catch (e) {
       error = String(e);
     } finally {
+      refreshInFlight = false;
       loading = false;
     }
   }
@@ -216,13 +220,24 @@
     ? `https://console.cloud.google.com/logs/query;query=resource.type%3D%22cloud_run_revision%22?project=${GCP_PROJECT}`
     : null;
 
+  function refreshWhenVisible() {
+    if (typeof document !== "undefined" && document.hidden) return;
+    void loadData(selectedHours);
+  }
+
+  function handleVisibilityChange() {
+    if (!document.hidden) refreshWhenVisible();
+  }
+
   onMount(() => {
-    loadData();
-    refreshTimer = setInterval(() => loadData(selectedHours), 60_000);
+    refreshWhenVisible();
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    refreshTimer = setInterval(refreshWhenVisible, 5 * 60_000);
   });
 
   onDestroy(() => {
     if (refreshTimer) clearInterval(refreshTimer);
+    document.removeEventListener("visibilitychange", handleVisibilityChange);
   });
 
   function severityClass(s: string) {

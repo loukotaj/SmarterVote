@@ -25,7 +25,22 @@ resource "google_cloud_run_v2_service" "races_api" {
 
       env {
         name  = "CACHE_TTL_SECONDS"
-        value = "300"
+        value = "3600"
+      }
+
+      env {
+        name  = "ANALYTICS_PUBLIC_ONLY"
+        value = "true"
+      }
+
+      env {
+        name  = "ANALYTICS_LOG_4XX"
+        value = "false"
+      }
+
+      env {
+        name  = "ANALYTICS_SAMPLE_RATE"
+        value = "1.0"
       }
 
       env {
@@ -83,6 +98,7 @@ resource "google_cloud_run_v2_service" "races_api" {
           cpu    = "1000m"
           memory = "1Gi"
         }
+        cpu_idle = true
       }
 
       ports {
@@ -108,7 +124,7 @@ resource "google_cloud_run_v2_service" "races_api" {
 
     scaling {
       min_instance_count = 0
-      max_instance_count = 10
+      max_instance_count = 2
     }
 
     service_account = google_service_account.races_api.email

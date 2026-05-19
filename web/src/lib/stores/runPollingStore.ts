@@ -41,12 +41,16 @@ const watchedRuns = new Map<string, {
 let onMessage: ((event: PipelineEvent) => void) | null = null;
 let onLog: ((level: string, msg: string, ts?: string, run_id?: string) => void) | null = null;
 
+function isPageHidden(): boolean {
+  return typeof document !== "undefined" && document.hidden;
+}
+
 function authHeaders(): HeadersInit {
   return token ? { Authorization: `Bearer ${token}` } : {};
 }
 
 async function pollRunStatus(runId: string): Promise<void> {
-  if (!apiBase) return;
+  if (!apiBase || isPageHidden()) return;
   try {
     const res = await fetch(`${apiBase}/runs/${runId}`, {
       headers: authHeaders(),
@@ -90,7 +94,7 @@ async function pollRunStatus(runId: string): Promise<void> {
 }
 
 async function pollLogs(runId: string): Promise<void> {
-  if (!apiBase) return;
+  if (!apiBase || isPageHidden()) return;
   const watched = watchedRuns.get(runId);
   if (!watched) return;
   try {
