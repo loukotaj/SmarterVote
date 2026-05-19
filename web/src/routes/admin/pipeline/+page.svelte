@@ -131,6 +131,7 @@
   $: queueRunning = queueRunningItems[0] ?? null;
   $: queuePending = activeQueueItems.filter((i) => i.status === "pending").length;
   $: activeQueueCount = activeQueueItems.length;
+  $: activeHistoryRuns = (pipeline.runHistory ?? []).filter((run) => run.status === "running" || run.status === "pending");
   $: oldestPendingMs = (() => {
     const pending = activeQueueItems.filter((i) => i.status === "pending");
     if (pending.length === 0) return 0;
@@ -206,14 +207,20 @@
 
   async function loadInitialData() {
     try {
+      let loadedHistory: RunHistoryItem[] = [];
       const [historyResult, queueResult] = await Promise.allSettled([
         apiService.loadRunHistory(),
         apiService.loadQueue(),
       ]);
 
       if (historyResult.status === "fulfilled") {
-        const history = historyResult.value;
-        pipelineActions.setRunHistory(history);
+        loadedHistory = historyResult.value;
+        pipelineActions.setRunHistory(loadedHistory);
+        for (const run of loadedHistory) {
+          if ((run.status === "running" || run.status === "pending") && run.run_id) {
+            runPollingActions.watchRun(run.run_id);
+          }
+        }
       }
 
       if (queueResult.status === "fulfilled") {
@@ -228,10 +235,20 @@
           startElapsedTimer();
           watchActiveQueueRuns();
         } else {
-          pipelineActions.setExecutionState(false);
-          pipelineActions.setRunStatus("idle");
-          stopElapsedTimer();
-          stopAutoRefresh();
+          const activeHistory = loadedHistory.find((run) => run.status === "running" || run.status === "pending");
+          if (activeHistory?.run_id) {
+            pipelineActions.setCurrentRun(activeHistory.run_id, "agent");
+            pipelineActions.setExecutionState(true);
+            pipelineActions.setRunStatus("running");
+            startAutoRefresh();
+            startElapsedTimer();
+            runPollingActions.watchRun(activeHistory.run_id);
+          } else {
+            pipelineActions.setExecutionState(false);
+            pipelineActions.setRunStatus("idle");
+            stopElapsedTimer();
+            stopAutoRefresh();
+          }
         }
       }
     } catch (error) {
@@ -353,6 +370,16 @@
       watchActiveQueueRuns();
       return true;
     }
+    const activeHistory = activeHistoryRuns.find((run) => run.run_id === pipeline.currentRunId) ?? activeHistoryRuns[0];
+    if (activeHistory?.run_id) {
+      pipelineActions.setCurrentRun(activeHistory.run_id, "agent");
+      pipelineActions.setExecutionState(true);
+      pipelineActions.setRunStatus("running");
+      startAutoRefresh();
+      startElapsedTimer();
+      runPollingActions.watchRun(activeHistory.run_id);
+      return true;
+    }
     pipelineActions.setExecutionState(false);
     pipelineActions.setCurrentRun(null, null);
     pipelineActions.setRunStatus("idle");
@@ -406,12 +433,22 @@
       case "run_status":
         if (data.data?.run_id) {
           liveRunsById = { ...liveRunsById, [data.data.run_id]: data.data };
+          const existingRun = (pipeline.runHistory ?? []).some((run) => run.run_id === data.data.run_id);
           pipelineActions.setRunHistory(
-            (pipeline.runHistory ?? []).map((run) =>
-              run.run_id === data.data.run_id
-                ? { ...run, ...data.data, options: data.data.options ?? run.options }
-                : run
-            )
+            existingRun
+              ? (pipeline.runHistory ?? []).map((run) =>
+                  run.run_id === data.data.run_id
+                    ? { ...run, ...data.data, options: data.data.options ?? run.options }
+                    : run
+                )
+              : [
+                  {
+                    ...data.data,
+                    display_id: (pipeline.runHistory ?? []).length + 1,
+                    updated_at: data.data.completed_at || data.data.started_at || new Date().toISOString(),
+                  },
+                  ...(pipeline.runHistory ?? []),
+                ]
           );
           if (data.data.run_id === pipeline.currentRunId || data.data.run_id === detailRunId) {
             liveRun = data.data;

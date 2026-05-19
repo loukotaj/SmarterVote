@@ -38,7 +38,7 @@ def _coerce_datetime(value: Any) -> datetime | None:
 
 
 def _latest_activity_at(data: Dict[str, Any]) -> datetime | None:
-    for key in ("progress_updated_at", "started_at", "created_at", "updated_at"):
+    for key in ("completed_at", "progress_updated_at", "updated_at", "started_at", "created_at"):
         parsed = _coerce_datetime(data.get(key))
         if parsed:
             return parsed
@@ -160,10 +160,18 @@ async def list_runs(limit: int = 50) -> Dict[str, Any]:
     mixed legacy string and server timestamp values. Merge in the active query so
     dashboards always show the true active count and current parallel work.
     """
+
+    def _ordered_runs(field: str) -> list[Dict[str, Any]]:
+        try:
+            docs = db.collection("pipeline_runs").order_by(field, direction="DESCENDING").limit(limit).stream()
+            return [r for r in (firestore_helpers._doc_to_plain(d) for d in docs) if r is not None]
+        except Exception:
+            return []
+
     db = firestore_helpers._get_fs()
-    docs = db.collection("pipeline_runs").order_by("started_at", direction="DESCENDING").limit(limit).stream()
-    runs = [firestore_helpers._doc_to_plain(d) for d in docs]
-    runs = [r for r in runs if r is not None]
+    runs: list[Dict[str, Any]] = []
+    for field in ("progress_updated_at", "completed_at", "updated_at", "started_at"):
+        runs.extend(_ordered_runs(field))
 
     active_docs = db.collection("pipeline_runs").where("status", "in", ["pending", "running"]).stream()
     active_runs = [firestore_helpers._doc_to_plain(d) for d in active_docs]
