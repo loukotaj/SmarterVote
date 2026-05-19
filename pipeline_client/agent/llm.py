@@ -24,6 +24,8 @@ logger = logging.getLogger("pipeline")
 
 _openai_client: Any = None
 _DEFAULT_OPENAI_REQUEST_TIMEOUT_SECONDS = 240.0
+_DEFAULT_OPENAI_RATE_LIMIT_MAX_RETRIES = 3
+_DEFAULT_OPENAI_RATE_LIMIT_MAX_WAIT_SECONDS = 60
 
 
 def _get_openai_client() -> Any:
@@ -52,6 +54,17 @@ def _openai_request_timeout_seconds() -> float:
         logger.warning("Invalid OPENAI_REQUEST_TIMEOUT_SECONDS=%r; using default", raw)
         return _DEFAULT_OPENAI_REQUEST_TIMEOUT_SECONDS
     return max(30.0, timeout)
+
+
+def _env_int(name: str, default: int, *, minimum: int = 0) -> int:
+    raw = os.getenv(name, "").strip()
+    if not raw:
+        return default
+    try:
+        return max(minimum, int(raw))
+    except ValueError:
+        logger.warning("Invalid %s=%r; using default %s", name, raw, default)
+        return default
 
 
 async def _create_chat_completion(client: Any, kwargs: Dict[str, Any]):
@@ -143,14 +156,23 @@ async def _call_openai(
             )
             raise RuntimeError(f"OpenAI bad request: {exc}") from exc
         except RateLimitError as exc:
-            if attempt >= max_retries - 1:
+            rate_limit_max_retries = min(
+                max_retries,
+                _env_int("OPENAI_RATE_LIMIT_MAX_RETRIES", _DEFAULT_OPENAI_RATE_LIMIT_MAX_RETRIES, minimum=0),
+            )
+            if attempt >= rate_limit_max_retries:
                 raise
+            max_wait = _env_int(
+                "OPENAI_RATE_LIMIT_MAX_WAIT_SECONDS",
+                _DEFAULT_OPENAI_RATE_LIMIT_MAX_WAIT_SECONDS,
+                minimum=1,
+            )
             retry_after = 0
             if exc.response is not None:
                 retry_after = int(exc.response.headers.get("retry-after", 0))
-            backoff = min(600, 30 * (2**attempt))
-            wait = max(retry_after, backoff)
-            logger.warning(f"OpenAI 429, retrying in {wait}s (attempt {attempt + 1}/{max_retries})")
+            backoff = min(max_wait, 30 * (2**attempt))
+            wait = min(max(retry_after, backoff), max_wait)
+            logger.warning(f"OpenAI 429, retrying in {wait}s (attempt {attempt + 1}/{rate_limit_max_retries + 1})")
             await asyncio.sleep(wait)
         except APIStatusError as exc:
             if attempt >= max_retries - 1 or exc.status_code < 500:
