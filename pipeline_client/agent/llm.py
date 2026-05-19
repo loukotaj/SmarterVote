@@ -23,6 +23,7 @@ logger = logging.getLogger("pipeline")
 # ---------------------------------------------------------------------------
 
 _openai_client: Any = None
+_DEFAULT_OPENAI_REQUEST_TIMEOUT_SECONDS = 240.0
 
 
 def _get_openai_client() -> Any:
@@ -39,6 +40,31 @@ def _get_openai_client() -> Any:
         _openai_client = AsyncOpenAI(api_key=api_key, max_retries=0, timeout=300)
 
     return _openai_client
+
+
+def _openai_request_timeout_seconds() -> float:
+    raw = os.getenv("OPENAI_REQUEST_TIMEOUT_SECONDS", "").strip()
+    if not raw:
+        return _DEFAULT_OPENAI_REQUEST_TIMEOUT_SECONDS
+    try:
+        timeout = float(raw)
+    except ValueError:
+        logger.warning("Invalid OPENAI_REQUEST_TIMEOUT_SECONDS=%r; using default", raw)
+        return _DEFAULT_OPENAI_REQUEST_TIMEOUT_SECONDS
+    return max(30.0, timeout)
+
+
+async def _create_chat_completion(client: Any, kwargs: Dict[str, Any]):
+    """Wrap SDK requests in an explicit asyncio timeout.
+
+    The OpenAI SDK has its own timeout, but long-running Cloud Run workers have
+    previously observed stalled awaits with no retry log. An outer timeout keeps
+    pipeline queue items from remaining active indefinitely.
+    """
+    return await asyncio.wait_for(
+        client.chat.completions.create(**kwargs),
+        timeout=_openai_request_timeout_seconds(),
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -84,7 +110,7 @@ async def _call_openai(
 
     for attempt in range(max_retries):
         try:
-            resp = await client.chat.completions.create(**kwargs)
+            resp = await _create_chat_completion(client, kwargs)
             if resp.usage:
                 accumulate(resp.usage.prompt_tokens or 0, resp.usage.completion_tokens or 0, model)
             return resp
@@ -103,7 +129,7 @@ async def _call_openai(
                 if len(simplified_msgs) < len(messages):
                     kwargs["messages"] = simplified_msgs
                     try:
-                        resp = await client.chat.completions.create(**kwargs)
+                        resp = await _create_chat_completion(client, kwargs)
                         if resp.usage:
                             accumulate(resp.usage.prompt_tokens or 0, resp.usage.completion_tokens or 0, model)
                         logger.warning("Simplified prompt accepted; continuing.")
@@ -132,7 +158,7 @@ async def _call_openai(
             backoff = 2 ** (attempt + 1)
             logger.warning(f"OpenAI {exc.status_code}, retrying in {backoff}s " f"(attempt {attempt + 1}/{max_retries})")
             await asyncio.sleep(backoff)
-        except (APIConnectionError, APITimeoutError) as exc:
+        except (APIConnectionError, APITimeoutError, asyncio.TimeoutError) as exc:
             if attempt >= max_retries - 1:
                 raise
             backoff = min(60, 2 ** (attempt + 1))
