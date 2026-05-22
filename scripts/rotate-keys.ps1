@@ -1,6 +1,6 @@
 # SmarterVote API Key Rotation Script
 #
-# Rotates AI provider API keys across three targets:
+# Rotates API keys across three targets:
 #   1. Local .env file
 #   2. GitHub Actions repository secrets (via gh CLI)
 #   3. GCP Secret Manager (via gcloud CLI)
@@ -150,34 +150,16 @@ if (-not $SkipGitHub) {
 # ---------------------------------------------------------------------------
 $keys = @(
     @{
-        Var    = "OPENAI_API_KEY"
-        Secret = "openai-api-key"
-        Label  = "OpenAI"
-        Url    = "https://platform.openai.com/api-keys"
+        Var    = "OPENROUTER_API_KEY"
+        Secret = "openrouter-api-key"
+        Label  = "OpenRouter"
+        Url    = "https://openrouter.ai/settings/keys"
     },
     @{
         Var    = "SERPER_API_KEY"
         Secret = "serper-api-key"
         Label  = "Serper"
         Url    = "https://serper.dev/api-key"
-    },
-    @{
-        Var    = "ANTHROPIC_API_KEY"
-        Secret = "anthropic-api-key"
-        Label  = "Anthropic"
-        Url    = "https://console.anthropic.com/settings/keys"
-    },
-    @{
-        Var    = "GEMINI_API_KEY"
-        Secret = "gemini-api-key"
-        Label  = "Google Gemini"
-        Url    = "https://aistudio.google.com/apikey"
-    },
-    @{
-        Var    = "XAI_API_KEY"
-        Secret = "xai-api-key"
-        Label  = "xAI (Grok)"
-        Url    = "https://console.x.ai/"
     }
 )
 

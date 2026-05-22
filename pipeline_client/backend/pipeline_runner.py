@@ -17,10 +17,10 @@ from .storage import new_artifact_id, save_artifact
 async def _run_and_save_post_analysis(
     run_id: str, race_id: str, logs: list, *, output: Optional[Dict[str, Any]] = None
 ) -> None:
-    """Run Gemini Flash post-run analysis, broadcast log lines, and save as artifact.
+    """Run OpenRouter post-run analysis, broadcast log lines, and save as artifact.
 
     When *output* is provided (the race JSON result), it is included in the
-    Gemini context so the analysis covers data quality in addition to pipeline
+    model context so the analysis covers data quality in addition to pipeline
     execution.  The analysis text is also written back into the draft JSON.
     """
     _log = logging.getLogger("pipeline")
@@ -236,7 +236,7 @@ async def run_step_async(step: str, request: RunRequest, run_id: Optional[str] =
             except Exception:
                 context_logger.warning("Failed to update race record after completion", exc_info=True)
 
-        # Run Gemini post-run analysis before marking the run completed so the
+        # Run post-run analysis before marking the run completed so the
         # analysis log lines are captured with the run.
         race_id_for_analysis = request.payload.get("race_id", "unknown")
         await _run_and_save_post_analysis(run_id, race_id_for_analysis, run_logs, output=output)

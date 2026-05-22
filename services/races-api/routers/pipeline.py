@@ -15,8 +15,7 @@ from request_models import AdminChatRequest
 
 router = APIRouter()
 
-_ADMIN_CHAT_MODEL = os.getenv("ADMIN_CHAT_MODEL", "gpt-4o-mini")
-_OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
+_ADMIN_CHAT_MODEL = os.getenv("ADMIN_CHAT_MODEL", "openai/gpt-5.4-mini")
 
 
 def _as_float(value: Any, default: float = 0.0) -> float:
@@ -101,6 +100,7 @@ def _normalize_pipeline_run(raw: Dict[str, Any], fallback_run_id: str) -> Dict[s
         "duration_s": duration_s,
         "candidate_count": candidate_count,
         "cheap_mode": cheap_mode,
+        "model_profile": options.get("model_profile"),
     }
 
 
@@ -360,11 +360,11 @@ async def ack_all_alerts() -> Dict[str, Any]:
 
 @router.post("/api/admin-chat", dependencies=[Depends(verify_token)])
 async def admin_chat(request: AdminChatRequest) -> Dict[str, Any]:
-    """Admin-chat endpoint — forwards messages to OpenAI with race context."""
-    api_key = os.getenv("OPENAI_API_KEY", "")
+    """Admin-chat endpoint — forwards messages to OpenRouter with race context."""
+    api_key = os.getenv("OPENROUTER_API_KEY", "")
     if not api_key:
-        raise HTTPException(status_code=503, detail="OPENAI_API_KEY not configured")
-    model = os.getenv("ADMIN_CHAT_MODEL", "gpt-4o-mini")
+        raise HTTPException(status_code=503, detail="OPENROUTER_API_KEY not configured")
+    model = os.getenv("ADMIN_CHAT_MODEL", _ADMIN_CHAT_MODEL)
     system_content = (
         "You are an AI assistant embedded in the SmarterVote admin dashboard. "
         "You help administrators review races, decide which ones need re-running, "
@@ -385,8 +385,12 @@ async def admin_chat(request: AdminChatRequest) -> Dict[str, Any]:
     try:
         async with httpx.AsyncClient(timeout=60) as client:
             resp = await client.post(
-                "https://api.openai.com/v1/chat/completions",
-                headers={"Authorization": f"Bearer {api_key}"},
+                "https://openrouter.ai/api/v1/chat/completions",
+                headers={
+                    "Authorization": f"Bearer {api_key}",
+                    "HTTP-Referer": os.getenv("OPENROUTER_HTTP_REFERER", "https://smarter.vote"),
+                    "X-Title": os.getenv("OPENROUTER_APP_TITLE", "SmarterVote"),
+                },
                 json={"model": model, "messages": messages},
             )
             resp.raise_for_status()
@@ -397,6 +401,6 @@ async def admin_chat(request: AdminChatRequest) -> Dict[str, Any]:
             parsed["model"] = model
             return parsed
     except httpx.HTTPStatusError as exc:
-        raise HTTPException(status_code=502, detail=f"OpenAI error: {exc.response.status_code}") from exc
+        raise HTTPException(status_code=502, detail=f"OpenRouter error: {exc.response.status_code}") from exc
     except Exception as exc:
         raise HTTPException(status_code=503, detail=f"Chat unavailable: {exc}") from exc

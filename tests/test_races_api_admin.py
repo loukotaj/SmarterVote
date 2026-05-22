@@ -1150,12 +1150,14 @@ def test_run_options_accept_cloud_function_review_fields():
         claude_model="claude-test",
         gemini_model="gemini-test",
         grok_model="grok-test",
+        review_providers=[" claude ", "gemini", "claude"],
     )
 
     dumped = opts.model_dump(exclude_none=True)
     assert dumped["save_artifact"] is True
     assert dumped["gemini_model"] == "gemini-test"
     assert dumped["grok_model"] == "grok-test"
+    assert dumped["review_providers"] == ["claude", "gemini"]
 
 
 def test_run_options_normalize_and_validate_pipeline_controls():

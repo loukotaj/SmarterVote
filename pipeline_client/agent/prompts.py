@@ -5,7 +5,7 @@ The agent runs in phases:
 2. **Issue research** – one focused prompt per canonical issue group.
 3. **Refinement** – merge, clean, and improve the full profile.
 
-Optionally followed by multi-LLM **review** (Claude / Gemini).
+Optionally followed by OpenRouter-backed multi-model **review**.
 """
 
 from shared.models import CanonicalIssue
@@ -321,7 +321,7 @@ Return JSON only:
 {{"image_url": "<direct image file URL or null>"}}"""
 
 # ------------------------------------------------------------------
-# Multi-LLM review prompts (Claude / Gemini)
+# Multi-model review prompts
 # ------------------------------------------------------------------
 
 REVIEW_SYSTEM = """\
@@ -859,7 +859,7 @@ reply with a short confirmation and make no tool call."""
 
 
 # ------------------------------------------------------------------
-# Post-run analysis prompt (Gemini Flash improvement suggestions)
+# Post-run analysis prompt
 # ------------------------------------------------------------------
 
 POST_RUN_ANALYSIS_SYSTEM = """\

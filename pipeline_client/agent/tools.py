@@ -1,4 +1,4 @@
-"""OpenAI function-calling tool schemas for the research agent.
+"""OpenRouter/OpenAI-compatible function-calling tool schemas for the research agent.
 
 All editing-tool JSON schemas live here so that ``agent.py`` stays focused on
 orchestration logic.  Import the individual constants or the aggregate lists.

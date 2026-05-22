@@ -28,6 +28,9 @@ class QueueItemOptions(BaseModel):
     claude_model: Optional[str] = None
     gemini_model: Optional[str] = None
     grok_model: Optional[str] = None
+    model_profile: Optional[str] = None
+    model_overrides: Optional[Dict[str, str]] = None
+    review_providers: Optional[List[str]] = None
     enabled_steps: Optional[List[str]] = None
     max_candidates: Optional[int] = None
     target_no_info: bool = False
@@ -84,12 +87,15 @@ class QueueManager:
 
         try:
             from google.cloud import firestore  # type: ignore
+
             self._db = firestore.Client(project=project)
             self._use_firestore = True
             logger.info(f"QueueManager: using Firestore project={project} collection=pipeline_queue")
         except ImportError:
             if is_cloud_run:
-                raise RuntimeError("Cloud Run detected but google-cloud-firestore not installed. Install with: pip install google-cloud-firestore")
+                raise RuntimeError(
+                    "Cloud Run detected but google-cloud-firestore not installed. Install with: pip install google-cloud-firestore"
+                )
             logger.warning("google-cloud-firestore not installed; using local JSON file")
         except Exception as e:
             if is_cloud_run:
@@ -234,6 +240,7 @@ class QueueManager:
                 if removed.status == "running" and removed.run_id:
                     try:
                         from .run_manager import run_manager
+
                         run_manager.cancel_run(removed.run_id)
                     except Exception:
                         logger.exception(f"Failed to cancel run {removed.run_id} during force-remove")
@@ -268,6 +275,7 @@ class QueueManager:
                 if was_running and run_id:
                     try:
                         from .run_manager import run_manager
+
                         run_manager.cancel_run(run_id)
                         logger.info(f"Queue: cancelled queue item {item_id}, also cancelled run {run_id}")
                     except Exception:

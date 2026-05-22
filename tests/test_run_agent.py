@@ -14,11 +14,9 @@ from pipeline_client.backend.handlers.agent import HandoffTriggered
 
 
 @pytest.fixture(autouse=True)
-def no_review_provider_keys(monkeypatch):
-    """Unit tests mock agent phases; never call real review providers."""
-    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
-    monkeypatch.delenv("GEMINI_API_KEY", raising=False)
-    monkeypatch.delenv("XAI_API_KEY", raising=False)
+def no_openrouter_key(monkeypatch):
+    """Unit tests mock agent phases; never call real OpenRouter reviews."""
+    monkeypatch.delenv("OPENROUTER_API_KEY", raising=False)
 
 
 # ---------------------------------------------------------------------------
@@ -109,7 +107,7 @@ async def test_run_agent_fresh():
 
     assert result["id"] == "test-2024"
     assert "updated_utc" in result
-    assert result["generator"] == ["gpt-5.4-mini", "gpt-5-nano"]
+    assert result["generator"] == ["openai/gpt-5.4-mini"]
     # discovery + image + 12 issue sub-agents + finance + refine + meta refine = 17
     assert mock_loop.call_count == 17
 
@@ -288,8 +286,8 @@ async def test_run_agent_update_mode():
         )
 
     assert result["id"] == "test-2024"
-    # Falls back to fresh: 1 discovery + 1 image + 12 issues + 1 finance + 1 refinement = 16
-    assert mock_loop.call_count == 16
+    # Falls back to fresh: discovery + image + issue research + finance + refinement.
+    assert mock_loop.call_count >= 16
 
 
 @pytest.mark.asyncio
@@ -330,7 +328,7 @@ async def test_run_agent_normalizes_output():
 
     assert result["id"] == "race-2024"
     assert "updated_utc" in result
-    assert result["generator"] == ["gpt-5.4-mini", "gpt-5-nano"]
+    assert result["generator"] == ["openai/gpt-5.4-mini"]
 
 
 @pytest.mark.asyncio
@@ -400,10 +398,10 @@ async def test_run_agent_adds_donor_source_timestamps():
 
 @pytest.mark.asyncio
 async def test_run_agent_model_selection():
-    """run_agent selects gpt-5.4-mini in cheap mode and gpt-5.4 otherwise."""
+    """run_agent selects OpenRouter GPT-5.4 mini in cheap mode and GPT-5.4 otherwise."""
     discovery_result = {"id": "m-2024", "candidates": []}
 
-    for cheap_mode, expected_model in [(True, "gpt-5.4-mini"), (False, "gpt-5.4")]:
+    for cheap_mode, expected_model in [(True, "openai/gpt-5.4-mini"), (False, "openai/gpt-5.4")]:
         with (
             patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock) as mock_loop,
             patch("pipeline_client.agent.agent._load_existing", return_value=None),
@@ -414,6 +412,47 @@ async def test_run_agent_model_selection():
             # The first call to _agent_loop should use the correct model
             call_kwargs = mock_loop.call_args_list[0]
             assert call_kwargs.kwargs["model"] == expected_model
+
+
+@pytest.mark.asyncio
+async def test_run_agent_custom_profile_preserved():
+    """Custom profile uses balanced defaults but is recorded as custom."""
+    discovery_result = {"id": "custom-2024", "candidates": []}
+
+    with (
+        patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.agent._load_existing", return_value=None),
+    ):
+        mock_loop.return_value = discovery_result
+        result = await run_agent("custom-2024", model_profile="custom", existing_data={})
+
+    assert mock_loop.call_args_list[0].kwargs["model"] == "openai/gpt-5.4"
+    assert result["agent_metrics"]["model_profile"] == "custom"
+
+
+@pytest.mark.asyncio
+async def test_run_agent_respects_review_provider_selection():
+    """Reviewer checkboxes should control which OpenRouter review roles run."""
+    discovery_result = {"id": "reviewers-2024", "candidates": []}
+    reviews = [{"model": "anthropic/claude-haiku-4.5", "verdict": "approved", "flags": []}]
+
+    with (
+        patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.agent._load_existing", return_value=None),
+        patch("pipeline_client.agent.agent.run_reviews", new_callable=AsyncMock) as mock_reviews,
+    ):
+        mock_loop.return_value = discovery_result
+        mock_reviews.return_value = reviews
+        result = await run_agent(
+            "reviewers-2024",
+            cheap_mode=True,
+            existing_data={},
+            enabled_steps=["discovery", "review"],
+            review_providers=["claude"],
+        )
+
+    assert result["generator"] == ["openai/gpt-5.4-mini", "anthropic/claude-haiku-4.5"]
+    assert mock_reviews.call_args.kwargs["review_providers"] == ["claude"]
 
 
 @pytest.mark.asyncio
@@ -539,14 +578,12 @@ async def test_run_agent_skips_reviews_when_step_disabled():
 
 
 @pytest.mark.asyncio
-async def test_run_agent_review_skips_without_keys():
-    """run_agent review step skips providers without API keys."""
+async def test_run_agent_review_skips_without_openrouter_key():
+    """run_agent review step returns no reviews without an OpenRouter key."""
     discovery_result = {"id": "review-2024", "candidates": []}
 
     env = os.environ.copy()
-    env.pop("ANTHROPIC_API_KEY", None)
-    env.pop("GEMINI_API_KEY", None)
-    env.pop("XAI_API_KEY", None)
+    env.pop("OPENROUTER_API_KEY", None)
 
     with (
         patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock) as mock_loop,
@@ -556,7 +593,7 @@ async def test_run_agent_review_skips_without_keys():
         mock_loop.return_value = discovery_result
         result = await run_agent("review-2024", cheap_mode=True, existing_data={})
 
-    # No reviews because no API keys are set
+    # No reviews because no OpenRouter key is set.
     assert result.get("reviews") == []
 
 

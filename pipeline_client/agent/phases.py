@@ -17,7 +17,8 @@ logger = logging.getLogger("pipeline")
 from .ballotpedia import lookup_election_page as _ballotpedia_election_lookup
 from .handlers import _make_editing_handlers
 from .images import resolve_candidate_images
-from .llm import CHEAP_MODEL, DEFAULT_MODEL, NANO_MODEL, _agent_loop, _ensure_dict, _normalize_candidate
+from .llm import _agent_loop, _ensure_dict, _normalize_candidate
+from .model_registry import CHEAP_MODEL, DEFAULT_MODEL, NANO_MODEL
 from .patches import (  # noqa: F401 — re-exported for backward compat
     _apply_candidate_patch,
     _apply_finance_patch,
@@ -487,7 +488,7 @@ async def _run_issue_research_for_candidate(
                 log(
                     "error",
                     f"    Issue sub-agent skipped for {candidate_name}/{issue} "
-                    f"due to OpenAI policy violation — setting low-confidence placeholder",
+                    f"due to OpenRouter policy violation — setting low-confidence placeholder",
                 )
                 # Set a low-confidence placeholder so the gap is visible and
                 # fixable in later phases (refinement / iteration).

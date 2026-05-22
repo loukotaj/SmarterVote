@@ -1,81 +1,25 @@
-"""Token cost accounting for the agent pipeline.
-
-A single ``ContextVar`` (``_cost_ctx``) carries a per-run accumulator dict
-for the active async task.  Both ``agent.py`` (OpenAI calls) and
-``review.py`` (Claude / Gemini / Grok calls) write to it via ``accumulate()``.
-``agent.py`` reads the totals at the end of ``run_agent()`` to produce the
-``agent_metrics`` block.
-"""
+"""Token cost accounting for the agent pipeline."""
 
 from contextvars import ContextVar
 from typing import Any, Dict, Optional
+
+from .model_registry import MODEL_CATALOG, normalize_model_id
 
 # ContextVar holds the live accumulator for the current run (async-safe).
 # Shape: {"prompt_tokens": int, "completion_tokens": int,
 #          "model_breakdown": {model: {"prompt_tokens": int, "completion_tokens": int}}}
 _cost_ctx: ContextVar[Optional[Dict[str, Any]]] = ContextVar("_cost_ctx", default=None)
 
-# ---------------------------------------------------------------------------
-# Model name constants — single source of truth for all modules
-# ---------------------------------------------------------------------------
-
-# OpenAI research models
-DEFAULT_MODEL = "gpt-5.4"
-CHEAP_MODEL = "gpt-5.4-mini"
-NANO_MODEL = "gpt-5-nano"
-
-# Claude review models
-DEFAULT_CLAUDE_MODEL = "claude-sonnet-4-6"
-CHEAP_CLAUDE_MODEL = "claude-haiku-4-5-20251001"
-
-# Gemini review models
-DEFAULT_GEMINI_MODEL = "gemini-3.1-pro-preview"
-CHEAP_GEMINI_MODEL = "gemini-3.1-flash-lite-preview"
-
-# Grok review models
-DEFAULT_GROK_MODEL = "grok-4.20-0309-reasoning"
-CHEAP_GROK_MODEL = "grok-4-1-fast-non-reasoning"
-
-# ---------------------------------------------------------------------------
-# Approximate list prices per million tokens (USD, as of mid-2025)
-# ---------------------------------------------------------------------------
-
-OPENAI_PRICING: Dict[str, Dict[str, float]] = {
-    "gpt-5.4":      {"input": 2.50, "output": 10.00},
-    "gpt-5.4-mini": {"input": 0.15, "output":  0.60},
-    "gpt-5-nano":   {"input": 0.10, "output":  0.40},  # approximate — update when published
-}
-
-ANTHROPIC_PRICING: Dict[str, Dict[str, float]] = {
-    "claude-sonnet-4-6":           {"input": 3.00, "output": 15.00},
-    "claude-haiku-4-5-20251001":   {"input": 0.80, "output":  4.00},
-    # Legacy model names
-    "claude-3-5-sonnet-20241022":  {"input": 3.00, "output": 15.00},
-    "claude-3-haiku-20240307":     {"input": 0.25, "output":  1.25},
-}
-
-GEMINI_PRICING: Dict[str, Dict[str, float]] = {
-    "gemini-3-flash-preview":        {"input": 0.10, "output": 0.40},
-    "gemini-3.1-pro-preview":        {"input": 0.10, "output": 0.40},  # approximate
-    "gemini-3.1-flash-lite-preview": {"input": 0.05, "output": 0.20},
-}
-
-GROK_PRICING: Dict[str, Dict[str, float]] = {
-    "grok-3":      {"input": 3.00, "output": 15.00},
-    "grok-3-mini": {"input": 0.30, "output":  0.50},
-    "grok-4.20-0309-reasoning":      {"input": 2.00, "output": 6.00},
-    "grok-4-1-fast-non-reasoning":   {"input": 0.20, "output": 0.50},
-}
-
-_ALL_PRICING = {**OPENAI_PRICING, **ANTHROPIC_PRICING, **GEMINI_PRICING, **GROK_PRICING}
-_DEFAULT_INPUT_PER_M  = 2.50
+_DEFAULT_INPUT_PER_M = 2.50
 _DEFAULT_OUTPUT_PER_M = 10.00
 
 
 def estimate_cost(model: str, prompt_tokens: int, completion_tokens: int) -> float:
     """Return estimated USD cost for a single model call."""
-    p = _ALL_PRICING.get(model, {"input": _DEFAULT_INPUT_PER_M, "output": _DEFAULT_OUTPUT_PER_M})
-    return prompt_tokens / 1_000_000 * p["input"] + completion_tokens / 1_000_000 * p["output"]
+    spec = MODEL_CATALOG.get(normalize_model_id(model) or model)
+    input_per_m = spec.input_per_m if spec else _DEFAULT_INPUT_PER_M
+    output_per_m = spec.output_per_m if spec else _DEFAULT_OUTPUT_PER_M
+    return prompt_tokens / 1_000_000 * input_per_m + completion_tokens / 1_000_000 * output_per_m
 
 
 def accumulate(prompt_tokens: int, completion_tokens: int, model: str = "") -> None:
@@ -85,8 +29,9 @@ def accumulate(prompt_tokens: int, completion_tokens: int, model: str = "") -> N
         return
     acc["prompt_tokens"] += prompt_tokens
     acc["completion_tokens"] += completion_tokens
-    if model:
+    normalized_model = normalize_model_id(model) if model else None
+    if normalized_model:
         breakdown = acc.setdefault("model_breakdown", {})
-        entry = breakdown.setdefault(model, {"prompt_tokens": 0, "completion_tokens": 0})
+        entry = breakdown.setdefault(normalized_model, {"prompt_tokens": 0, "completion_tokens": 0})
         entry["prompt_tokens"] += prompt_tokens
         entry["completion_tokens"] += completion_tokens

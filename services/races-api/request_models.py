@@ -25,6 +25,9 @@ class RunOptions(BaseModel):
     claude_model: Optional[str] = None
     gemini_model: Optional[str] = None
     grok_model: Optional[str] = None
+    model_profile: Optional[str] = None
+    model_overrides: Optional[Dict[str, str]] = None
+    review_providers: Optional[List[str]] = None
     max_candidates: Optional[int] = None
     candidate_names: Optional[List[str]] = None
     target_no_info: Optional[bool] = None
@@ -52,6 +55,28 @@ class RunOptions(BaseModel):
             return None
         normalized = [name.strip() for name in value if isinstance(name, str) and name.strip()]
         return list(dict.fromkeys(normalized)) or None
+
+    @field_validator("model_profile")
+    @classmethod
+    def validate_model_profile(cls, value: Optional[str]) -> Optional[str]:
+        if value is None:
+            return None
+        normalized = value.strip().lower()
+        if normalized not in {"economy", "balanced", "quality", "custom"}:
+            raise ValueError("model_profile must be one of: economy, balanced, quality, custom")
+        return normalized
+
+    @field_validator("review_providers")
+    @classmethod
+    def validate_review_providers(cls, value: Optional[List[str]]) -> Optional[List[str]]:
+        if value is None:
+            return None
+        normalized = [provider.strip().lower() for provider in value if isinstance(provider, str) and provider.strip()]
+        deduped = list(dict.fromkeys(normalized))
+        invalid = [provider for provider in deduped if provider not in {"claude", "gemini", "grok"}]
+        if invalid:
+            raise ValueError(f"Unknown review_providers: {', '.join(invalid)}")
+        return deduped
 
     @model_validator(mode="after")
     def validate_step_dependencies(self) -> "RunOptions":

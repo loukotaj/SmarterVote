@@ -6,7 +6,7 @@ Phases (fresh run):
 2. **Issue research** - 12 per-candidate sub-agent calls (one per canonical issue).
 2b. **Finance & voting** - dedicated donor and voting-record research.
 3. **Refinement** - tools-mode per-candidate and meta cleanup.
-4. **Review** (optional) - send to Claude, Gemini, and Grok for fact-checking.
+4. **Review** (optional) - send to enabled OpenRouter reviewer roles for fact-checking.
 5. **Iteration** - tools-mode pass to address review flags (up to 2 cycles).
 
 Update run adds Phase 0 (roster sync) before Phase 1 (meta update).
@@ -18,7 +18,6 @@ are attached to the output JSON under ``agent_metrics``.
 
 import json
 import logging
-import os
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -26,15 +25,8 @@ from typing import Any, Dict, List, Optional
 
 from .cost import _cost_ctx, estimate_cost
 from .handlers import _make_editing_handlers  # noqa: F401 - re-exported for tests
-from .llm import (  # noqa: F401 - re-exported for backward compat
-    CHEAP_MODEL,
-    DEFAULT_MODEL,
-    NANO_MODEL,
-    _agent_loop,
-    _call_openai,
-    _ensure_dict,
-    _normalize_candidate,
-)
+from .llm import _agent_loop, _call_openai, _ensure_dict, _normalize_candidate  # noqa: F401 - re-exported for backward compat
+from .model_registry import resolve_run_models
 from .phases import (  # noqa: F401 - re-exported for backward compat
     _candidate_source_hints,
     _has_actionable_flags,
@@ -344,6 +336,9 @@ async def run_agent(
     claude_model: Optional[str] = None,
     gemini_model: Optional[str] = None,
     grok_model: Optional[str] = None,
+    model_profile: Optional[str] = None,
+    model_overrides: Optional[Dict[str, str]] = None,
+    review_providers: Optional[List[str]] = None,
     enabled_steps: Optional[List[str]] = None,
     step_tracker: Optional[Dict[str, Any]] = None,
     max_candidates: Optional[int] = None,
@@ -370,9 +365,9 @@ async def run_agent(
         published profile and enters update mode if found.
         Pass an empty dict to force a fresh research run.
     research_model : str, optional
-        Override the OpenAI model for research phases.
+        Override the OpenRouter model for research phases.
     claude_model / gemini_model / grok_model : str, optional
-        Override individual review models.
+        Override individual OpenRouter review role models.
     enabled_steps : list[str], optional
         Step names to run (from PipelineStep enum). None = all steps.
     step_tracker : dict, optional
@@ -390,18 +385,25 @@ async def run_agent(
         When True, issue research skips candidate/issue stances already present
         in existing_data. Used by Cloud Function continuation handoff.
     """
-    from .cost import (
-        CHEAP_CLAUDE_MODEL,
-        CHEAP_GEMINI_MODEL,
-        CHEAP_GROK_MODEL,
-        DEFAULT_CLAUDE_MODEL,
-        DEFAULT_GEMINI_MODEL,
-        DEFAULT_GROK_MODEL,
+    option_models = resolve_run_models(
+        {"model_profile": model_profile, "model_overrides": model_overrides or {}},
+        cheap_mode=cheap_mode,
+        research_model=research_model,
+        claude_model=claude_model,
+        gemini_model=gemini_model,
+        grok_model=grok_model,
     )
-
-    model = research_model or (CHEAP_MODEL if cheap_mode else DEFAULT_MODEL)
-    # Sub-task model: nano in cheap mode, mini in normal mode (full model reserved for synthesis).
-    small_model = NANO_MODEL if cheap_mode else CHEAP_MODEL
+    model = option_models["primary"]
+    small_model = option_models["small"]
+    profile = option_models["profile"]
+    claude_model = option_models["review_claude"]
+    gemini_model = option_models["review_gemini"]
+    grok_model = option_models["review_grok"]
+    enabled_review_providers = (
+        [provider for provider in review_providers if provider in {"claude", "gemini", "grok"}]
+        if review_providers is not None
+        else ["claude", "gemini", "grok"]
+    )
     log = make_logger(on_log)
     t0 = time.perf_counter()
 
@@ -429,7 +431,7 @@ async def run_agent(
         existing_data = _load_existing(race_id)
 
     if existing_data:
-        log("info", f"Update mode for {race_id} (model={model}, small_model={small_model})")
+        log("info", f"Update mode for {race_id} (profile={profile}, model={model}, small_model={small_model})")
         if goal:
             log("info", f"Run goal: {goal}")
         race_json = await _run_update(
@@ -448,7 +450,7 @@ async def run_agent(
             resume_partial=resume_partial,
         )
     else:
-        log("info", f"New research for {race_id} (model={model}, small_model={small_model})")
+        log("info", f"New research for {race_id} (profile={profile}, model={model}, small_model={small_model})")
         if goal:
             log("info", f"Run goal: {goal}")
         race_json = await _run_fresh(
@@ -479,15 +481,16 @@ async def run_agent(
     should_review = _step_enabled("review")
     should_iterate = should_review and _step_enabled("iteration")
 
-    # Record the models actually used (deduplicated - nano == model in full mode)
+    # Record the models actually used.
     generators = list(dict.fromkeys([model, small_model]))  # preserves order, drops duplicates
     if should_review:
-        if os.getenv("ANTHROPIC_API_KEY"):
-            generators.append(claude_model or (CHEAP_CLAUDE_MODEL if cheap_mode else DEFAULT_CLAUDE_MODEL))
-        if os.getenv("GEMINI_API_KEY"):
-            generators.append(gemini_model or (CHEAP_GEMINI_MODEL if cheap_mode else DEFAULT_GEMINI_MODEL))
-        if os.getenv("XAI_API_KEY"):
-            generators.append(grok_model or (CHEAP_GROK_MODEL if cheap_mode else DEFAULT_GROK_MODEL))
+        reviewer_models = {
+            "claude": claude_model,
+            "gemini": gemini_model,
+            "grok": grok_model,
+        }
+        generators.extend(reviewer_models[provider] for provider in enabled_review_providers)
+        generators = list(dict.fromkeys(generators))
     race_json["generator"] = generators
 
     for candidate in race_json.get("candidates", []):
@@ -501,7 +504,7 @@ async def run_agent(
     if should_review:
         _track("start", "review")
         review_t0 = time.perf_counter()
-        log("info", "Phase 4: Sending to review agents (Claude, Gemini, Grok)...")
+        log("info", f"Phase 4: Sending to review agents ({', '.join(enabled_review_providers)})...")
         reviews = await run_reviews(
             race_id,
             race_json,
@@ -510,6 +513,7 @@ async def run_agent(
             claude_model=claude_model,
             gemini_model=gemini_model,
             grok_model=grok_model,
+            review_providers=enabled_review_providers,
         )
         race_json["reviews"] = reviews
         # Log review results to live logs
@@ -574,6 +578,7 @@ async def run_agent(
                         claude_model=claude_model,
                         gemini_model=gemini_model,
                         grok_model=grok_model,
+                        review_providers=enabled_review_providers,
                     )
                     race_json["reviews"] = reviews
                     for rev in reviews:
@@ -605,7 +610,7 @@ async def run_agent(
 
     elapsed = time.perf_counter() - t0
 
-    # Compute and attach cost estimate (covers all LLMs: OpenAI + review providers)
+    # Compute and attach cost estimate across all OpenRouter model calls.
     _cost_ctx.reset(_ctx_token)
     pt = _acc["prompt_tokens"]
     ct = _acc["completion_tokens"]
@@ -618,6 +623,7 @@ async def run_agent(
     )
     agent_metrics = {
         "model": model,
+        "model_profile": profile,
         "prompt_tokens": pt,
         "completion_tokens": ct,
         "total_tokens": total_tokens,

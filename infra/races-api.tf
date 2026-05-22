@@ -54,10 +54,10 @@ resource "google_cloud_run_v2_service" "races_api" {
       }
 
       env {
-        name = "OPENAI_API_KEY"
+        name = "OPENROUTER_API_KEY"
         value_source {
           secret_key_ref {
-            secret  = google_secret_manager_secret.openai_key.secret_id
+            secret  = google_secret_manager_secret.openrouter_key.secret_id
             version = "latest"
           }
         }

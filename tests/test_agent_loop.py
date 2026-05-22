@@ -47,7 +47,7 @@ FAKE_RACE_JSON = {
 
 
 def _mock_openai_response(content=None, tool_calls=None, finish_reason="stop"):
-    """Build a mock object mimicking the OpenAI SDK ChatCompletion response."""
+    """Build a mock object mimicking the SDK ChatCompletion response."""
     fn_mocks = []
     if tool_calls:
         for tc in tool_calls:
@@ -94,7 +94,7 @@ async def test_call_openai_retries_connection_error():
     client = MagicMock()
     client.chat.completions.create = AsyncMock(
         side_effect=[
-            APIConnectionError(request=httpx.Request("POST", "https://api.openai.com/v1/chat/completions")),
+            APIConnectionError(request=httpx.Request("POST", "https://openrouter.ai/api/v1/chat/completions")),
             response,
         ]
     )

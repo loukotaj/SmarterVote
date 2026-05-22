@@ -151,7 +151,7 @@ class ReviewFlag(BaseModel):
 
 
 class AgentReview(BaseModel):
-    """Result from a secondary review agent (Claude / Gemini)."""
+    """Result from a secondary OpenRouter review role."""
 
     model: str
     reviewed_at: datetime

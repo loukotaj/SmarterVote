@@ -56,7 +56,7 @@ def test_extract_json_invalid():
 
 
 def test_search_tool_schema():
-    """SEARCH_TOOL has the expected structure for OpenAI function calling."""
+    """SEARCH_TOOL has the expected structure for OpenAI-compatible function calling."""
     assert SEARCH_TOOL["type"] == "function"
     assert SEARCH_TOOL["function"]["name"] == "web_search"
     assert "query" in SEARCH_TOOL["function"]["parameters"]["properties"]

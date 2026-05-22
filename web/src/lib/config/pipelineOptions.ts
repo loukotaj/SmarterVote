@@ -11,33 +11,33 @@ export const REVIEWER_DEFS: {
     key: "claude",
     name: "Claude",
     options: [
-      { value: "claude-sonnet-4-6", label: "Claude Sonnet 4.6" },
-      { value: "claude-haiku-4-5-20251001", label: "Claude Haiku 4.5" },
+      { value: "anthropic/claude-sonnet-4.6", label: "Claude Sonnet 4.6" },
+      { value: "anthropic/claude-haiku-4.5", label: "Claude Haiku 4.5" },
     ],
   },
   {
     key: "gemini",
     name: "Gemini",
     options: [
-      { value: "gemini-3.1-pro-preview", label: "Gemini 3.1 Pro (Preview)" },
-      { value: "gemini-3.1-flash-lite-preview", label: "Gemini 3.1 Flash Lite" },
+      { value: "google/gemini-3.1-pro-preview", label: "Gemini 3.1 Pro (Preview)" },
+      { value: "google/gemini-3.1-flash-lite-preview", label: "Gemini 3.1 Flash Lite" },
     ],
   },
   {
     key: "grok",
     name: "Grok",
     options: [
-      { value: "grok-4.20-0309-reasoning", label: "Grok 4.20 Reasoning" },
-      { value: "grok-4-1-fast-non-reasoning", label: "Grok 4.1 Fast" },
+      { value: "x-ai/grok-4.20", label: "Grok 4.20" },
+      { value: "x-ai/grok-4.3", label: "Grok 4.3" },
     ],
   },
 ];
 
 export const RESEARCH_MODELS = [
-  { value: "", label: "Auto (cheap mode selects)" },
-  { value: "gpt-5.4", label: "GPT-5.4 — best quality" },
-  { value: "gpt-5.4-mini", label: "GPT-5.4 mini — fast & smart" },
-  { value: "gpt-5-nano", label: "GPT-5 nano — fastest & cheapest" },
+  { value: "", label: "Auto (profile selects)" },
+  { value: "openai/gpt-5.4", label: "GPT-5.4 - best quality" },
+  { value: "openai/gpt-5.4-mini", label: "GPT-5.4 mini - fast & smart" },
+  { value: "openai/gpt-5-nano", label: "GPT-5 nano - advanced low-cost override" },
 ];
 
 export function createDefaultReviewerEnabled(reviewEnabled: boolean = false): Record<ReviewerKey, boolean> {
@@ -49,9 +49,9 @@ export function createDefaultReviewerEnabled(reviewEnabled: boolean = false): Re
 
 export function createDefaultReviewerModels(): Record<ReviewerKey, string> {
   return {
-    claude: "claude-haiku-4-5-20251001",
-    gemini: "gemini-3.1-flash-lite-preview",
-    grok: "grok-4-1-fast-non-reasoning",
+    claude: "anthropic/claude-haiku-4.5",
+    gemini: "google/gemini-3.1-flash-lite-preview",
+    grok: "x-ai/grok-4.3",
   };
 }
 
@@ -60,6 +60,9 @@ export function applyReviewerModelOptions(
   reviewerEnabled: Record<ReviewerKey, boolean>,
   reviewerModels: Record<ReviewerKey, string>
 ): RunOptions {
+  opts.review_providers = REVIEWER_DEFS
+    .map((reviewer) => reviewer.key)
+    .filter((key) => reviewerEnabled[key]);
   if (reviewerEnabled.claude) opts.claude_model = reviewerModels.claude;
   if (reviewerEnabled.gemini) opts.gemini_model = reviewerModels.gemini;
   if (reviewerEnabled.grok) opts.grok_model = reviewerModels.grok;

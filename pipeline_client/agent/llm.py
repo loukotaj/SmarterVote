@@ -1,4 +1,4 @@
-"""OpenAI client, chat-completions wrapper, agent loop, and data normalisation."""
+"""OpenRouter client, chat-completions wrapper, agent loop, and data normalisation."""
 
 import asyncio
 import json
@@ -9,7 +9,8 @@ from typing import Any, Dict, List, Optional
 
 from .ballotpedia import lookup_candidate_data as _ballotpedia_lookup
 from .ballotpedia import lookup_election_page as _ballotpedia_election_lookup
-from .cost import CHEAP_MODEL, DEFAULT_MODEL, NANO_MODEL, accumulate
+from .cost import accumulate
+from .model_registry import CHEAP_MODEL, DEFAULT_MODEL, NANO_MODEL, normalize_model_id
 from .source_types import normalize_source_type
 from .tools import BALLOTPEDIA_ELECTION_TOOL, BALLOTPEDIA_TOOL, FETCH_TOOL, SEARCH_TOOL
 from .utils import _extract_json, make_logger
@@ -19,40 +20,49 @@ logger = logging.getLogger("pipeline")
 
 
 # ---------------------------------------------------------------------------
-# OpenAI client singleton
+# OpenRouter client singleton
 # ---------------------------------------------------------------------------
 
 _openai_client: Any = None
-_DEFAULT_OPENAI_REQUEST_TIMEOUT_SECONDS = 240.0
-_DEFAULT_OPENAI_RATE_LIMIT_MAX_RETRIES = 3
-_DEFAULT_OPENAI_RATE_LIMIT_MAX_WAIT_SECONDS = 60
+_DEFAULT_LLM_REQUEST_TIMEOUT_SECONDS = 240.0
+_DEFAULT_LLM_RATE_LIMIT_MAX_RETRIES = 3
+_DEFAULT_LLM_RATE_LIMIT_MAX_WAIT_SECONDS = 60
 
 
 def _get_openai_client() -> Any:
-    """Return (and lazily create) the shared AsyncOpenAI client."""
+    """Return (and lazily create) the shared OpenRouter AsyncOpenAI client."""
     global _openai_client
     from openai import AsyncOpenAI
 
-    api_key = os.environ.get("OPENAI_API_KEY", "")
+    api_key = os.environ.get("OPENROUTER_API_KEY", "")
     if not api_key:
-        raise RuntimeError("OPENAI_API_KEY is not set")
+        raise RuntimeError("OPENROUTER_API_KEY is not set")
 
     existing_key = getattr(_openai_client, "api_key", None)
     if _openai_client is None or existing_key != api_key:
-        _openai_client = AsyncOpenAI(api_key=api_key, max_retries=0, timeout=300)
+        _openai_client = AsyncOpenAI(
+            api_key=api_key,
+            base_url="https://openrouter.ai/api/v1",
+            max_retries=0,
+            timeout=300,
+            default_headers={
+                "HTTP-Referer": os.getenv("OPENROUTER_HTTP_REFERER", "https://smarter.vote"),
+                "X-Title": os.getenv("OPENROUTER_APP_TITLE", "SmarterVote"),
+            },
+        )
 
     return _openai_client
 
 
 def _openai_request_timeout_seconds() -> float:
-    raw = os.getenv("OPENAI_REQUEST_TIMEOUT_SECONDS", "").strip()
+    raw = os.getenv("OPENROUTER_REQUEST_TIMEOUT_SECONDS", "").strip()
     if not raw:
-        return _DEFAULT_OPENAI_REQUEST_TIMEOUT_SECONDS
+        return _DEFAULT_LLM_REQUEST_TIMEOUT_SECONDS
     try:
         timeout = float(raw)
     except ValueError:
-        logger.warning("Invalid OPENAI_REQUEST_TIMEOUT_SECONDS=%r; using default", raw)
-        return _DEFAULT_OPENAI_REQUEST_TIMEOUT_SECONDS
+        logger.warning("Invalid LLM request timeout=%r; using default", raw)
+        return _DEFAULT_LLM_REQUEST_TIMEOUT_SECONDS
     return max(30.0, timeout)
 
 
@@ -93,7 +103,7 @@ async def _call_openai(
     max_retries: int = 12,
     max_tokens: int = 16384,
 ):
-    """Call the OpenAI Chat Completions API with retry on transient errors.
+    """Call OpenRouter's OpenAI-compatible Chat Completions API with retry.
 
     429 rate-limit: exponential backoff starting at 30 s, capped at 10 min.
     5xx transient errors: shorter exponential backoff (2, 4, 8 … s).
@@ -108,12 +118,13 @@ async def _call_openai(
     from openai import APIConnectionError, APIStatusError, APITimeoutError, BadRequestError, RateLimitError
 
     client = _get_openai_client()
+    model = normalize_model_id(model) or model
 
     _supports_temperature = not (model.startswith("o1") or model.startswith("o3") or model.startswith("o4") or "nano" in model)
     kwargs: Dict[str, Any] = {
         "model": model,
         "messages": messages,
-        "max_completion_tokens": max_tokens,
+        "max_tokens": max_tokens,
     }
     if _supports_temperature:
         kwargs["temperature"] = 0.2
@@ -133,7 +144,7 @@ async def _call_openai(
 
             if is_policy_violation and attempt == 0:
                 logger.warning(
-                    f"OpenAI policy violation (400) for model={model}: {exc}\n"
+                    f"OpenRouter policy violation (400) for model={model}: {exc}\n"
                     f"Attempting one retry with simplified prompt..."
                 )
                 simplified_msgs = [
@@ -148,23 +159,26 @@ async def _call_openai(
                         logger.warning("Simplified prompt accepted; continuing.")
                         return resp
                     except BadRequestError as retry_exc:
-                        logger.error(f"OpenAI policy violation persists even with simplified prompt for {model}: {retry_exc}")
-                        raise RuntimeError(f"OpenAI policy violation (unrecoverable): {exc}") from retry_exc
+                        logger.error(
+                            f"OpenRouter policy violation persists even with simplified prompt for {model}: {retry_exc}"
+                        )
+                        raise RuntimeError(f"OpenRouter policy violation (unrecoverable): {exc}") from retry_exc
 
             logger.error(
-                f"OpenAI bad request (400) for model={model}: {exc}" f"{' (policy violation)' if is_policy_violation else ''}"
+                f"OpenRouter bad request (400) for model={model}: {exc}"
+                f"{' (policy violation)' if is_policy_violation else ''}"
             )
-            raise RuntimeError(f"OpenAI bad request: {exc}") from exc
+            raise RuntimeError(f"OpenRouter bad request: {exc}") from exc
         except RateLimitError as exc:
             rate_limit_max_retries = min(
                 max_retries,
-                _env_int("OPENAI_RATE_LIMIT_MAX_RETRIES", _DEFAULT_OPENAI_RATE_LIMIT_MAX_RETRIES, minimum=0),
+                _env_int("OPENROUTER_RATE_LIMIT_MAX_RETRIES", _DEFAULT_LLM_RATE_LIMIT_MAX_RETRIES, minimum=0),
             )
             if attempt >= rate_limit_max_retries:
                 raise
             max_wait = _env_int(
-                "OPENAI_RATE_LIMIT_MAX_WAIT_SECONDS",
-                _DEFAULT_OPENAI_RATE_LIMIT_MAX_WAIT_SECONDS,
+                "OPENROUTER_RATE_LIMIT_MAX_WAIT_SECONDS",
+                _DEFAULT_LLM_RATE_LIMIT_MAX_WAIT_SECONDS,
                 minimum=1,
             )
             retry_after = 0
@@ -172,22 +186,24 @@ async def _call_openai(
                 retry_after = int(exc.response.headers.get("retry-after", 0))
             backoff = min(max_wait, 30 * (2**attempt))
             wait = min(max(retry_after, backoff), max_wait)
-            logger.warning(f"OpenAI 429, retrying in {wait}s (attempt {attempt + 1}/{rate_limit_max_retries + 1})")
+            logger.warning(f"OpenRouter 429, retrying in {wait}s (attempt {attempt + 1}/{rate_limit_max_retries + 1})")
             await asyncio.sleep(wait)
         except APIStatusError as exc:
             if attempt >= max_retries - 1 or exc.status_code < 500:
                 raise
             backoff = 2 ** (attempt + 1)
-            logger.warning(f"OpenAI {exc.status_code}, retrying in {backoff}s " f"(attempt {attempt + 1}/{max_retries})")
+            logger.warning(f"OpenRouter {exc.status_code}, retrying in {backoff}s " f"(attempt {attempt + 1}/{max_retries})")
             await asyncio.sleep(backoff)
         except (APIConnectionError, APITimeoutError, asyncio.TimeoutError) as exc:
             if attempt >= max_retries - 1:
                 raise
             backoff = min(60, 2 ** (attempt + 1))
-            logger.warning(f"OpenAI connection error, retrying in {backoff}s " f"(attempt {attempt + 1}/{max_retries}): {exc}")
+            logger.warning(
+                f"OpenRouter connection error, retrying in {backoff}s " f"(attempt {attempt + 1}/{max_retries}): {exc}"
+            )
             await asyncio.sleep(backoff)
 
-    raise RuntimeError("OpenAI: max retries exceeded")
+    raise RuntimeError("OpenRouter: max retries exceeded")
 
 
 # ---------------------------------------------------------------------------

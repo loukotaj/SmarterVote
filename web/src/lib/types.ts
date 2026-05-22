@@ -281,11 +281,21 @@ export interface RunOptions {
   note?: string;
   goal?: string;
   cheap_mode?: boolean;
+  model_profile?: "economy" | "balanced" | "quality" | "custom";
+  model_overrides?: {
+    primary?: string;
+    small?: string;
+    review_claude?: string;
+    review_gemini?: string;
+    review_grok?: string;
+    post_run_analysis?: string;
+  };
   force_fresh?: boolean;
   research_model?: string;
   claude_model?: string;
   gemini_model?: string;
   grok_model?: string;
+  review_providers?: ("claude" | "gemini" | "grok")[];
   enabled_steps?: string[];
   max_candidates?: number;
   target_no_info?: boolean;

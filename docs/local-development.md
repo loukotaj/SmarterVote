@@ -7,13 +7,7 @@ This guide runs the web app, the production-shaped `races-api`, and the local-on
 - Python 3.10+
 - Node.js 22+
 - Git
-- `OPENAI_API_KEY` and `SERPER_API_KEY` for real agent runs
-
-Optional review keys:
-
-- `ANTHROPIC_API_KEY`
-- `GEMINI_API_KEY`
-- `XAI_API_KEY`
+- `OPENROUTER_API_KEY` and `SERPER_API_KEY` for real agent runs
 
 ## Environment Setup
 
@@ -34,7 +28,7 @@ cd ..
 Edit `.env` and set at minimum:
 
 ```env
-OPENAI_API_KEY=sk-proj-your-key-here
+OPENROUTER_API_KEY=sk-or-your-key-here
 SERPER_API_KEY=your-serper-key-here
 ```
 
@@ -173,13 +167,13 @@ npm run test:unit -- --run
 
 ## Troubleshooting
 
-### `OPENAI_API_KEY is not set`
+### `OPENROUTER_API_KEY is not set`
 
 Make sure `.env` exists in the project root and that the server was started from the project root or with the documented `--app-dir` command.
 
-### OpenAI `429 insufficient_quota`
+### OpenRouter `429` or insufficient quota
 
-The key is valid but the account lacks credits or quota. Add billing credits in the OpenAI dashboard.
+The key is valid but the account lacks credits or quota. Add credits or adjust limits in OpenRouter.
 
 ### Port Conflicts
 

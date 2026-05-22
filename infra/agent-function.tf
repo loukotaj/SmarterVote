@@ -123,9 +123,9 @@ resource "google_cloudfunctions2_function" "agent" {
     }
 
     secret_environment_variables {
-      key        = "OPENAI_API_KEY"
+      key        = "OPENROUTER_API_KEY"
       project_id = var.project_id
-      secret     = google_secret_manager_secret.openai_key.secret_id
+      secret     = google_secret_manager_secret.openrouter_key.secret_id
       version    = "latest"
     }
 
@@ -136,35 +136,6 @@ resource "google_cloudfunctions2_function" "agent" {
       version    = "latest"
     }
 
-    dynamic "secret_environment_variables" {
-      for_each = toset(var.anthropic_api_key != "" ? ["enabled"] : [])
-      content {
-        key        = "ANTHROPIC_API_KEY"
-        project_id = var.project_id
-        secret     = google_secret_manager_secret.anthropic_key[0].secret_id
-        version    = "latest"
-      }
-    }
-
-    dynamic "secret_environment_variables" {
-      for_each = toset(var.gemini_api_key != "" ? ["enabled"] : [])
-      content {
-        key        = "GEMINI_API_KEY"
-        project_id = var.project_id
-        secret     = google_secret_manager_secret.gemini_key[0].secret_id
-        version    = "latest"
-      }
-    }
-
-    dynamic "secret_environment_variables" {
-      for_each = toset(var.xai_api_key != "" ? ["enabled"] : [])
-      content {
-        key        = "XAI_API_KEY"
-        project_id = var.project_id
-        secret     = google_secret_manager_secret.xai_key[0].secret_id
-        version    = "latest"
-      }
-    }
   }
 
   # Firestore (Eventarc) trigger — fires on every new document in pipeline_queue

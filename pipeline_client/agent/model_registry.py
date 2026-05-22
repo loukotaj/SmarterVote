@@ -1,0 +1,153 @@
+"""OpenRouter model catalog and legacy model compatibility helpers."""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+from typing import Any, Dict, Mapping, Optional
+
+DEFAULT_MODEL = "openai/gpt-5.4"
+CHEAP_MODEL = "openai/gpt-5.4-mini"
+NANO_MODEL = "openai/gpt-5-nano"
+
+DEFAULT_CLAUDE_MODEL = "anthropic/claude-sonnet-4.6"
+CHEAP_CLAUDE_MODEL = "anthropic/claude-haiku-4.5"
+
+DEFAULT_GEMINI_MODEL = "google/gemini-3.1-pro-preview"
+CHEAP_GEMINI_MODEL = "google/gemini-3.1-flash-lite-preview"
+
+DEFAULT_GROK_MODEL = "x-ai/grok-4.20"
+CHEAP_GROK_MODEL = "x-ai/grok-4.3"
+
+DEFAULT_ADMIN_CHAT_MODEL = CHEAP_MODEL
+DEFAULT_POST_RUN_ANALYSIS_MODEL = CHEAP_GEMINI_MODEL
+
+MODEL_PROFILES = {"economy", "balanced", "quality", "custom"}
+
+
+@dataclass(frozen=True)
+class ModelSpec:
+    id: str
+    label: str
+    input_per_m: float
+    output_per_m: float
+
+
+MODEL_CATALOG: Dict[str, ModelSpec] = {
+    "openai/gpt-5.4": ModelSpec("openai/gpt-5.4", "GPT-5.4", 2.50, 15.00),
+    "openai/gpt-5.4-mini": ModelSpec("openai/gpt-5.4-mini", "GPT-5.4 Mini", 0.75, 4.50),
+    "openai/gpt-5-nano": ModelSpec("openai/gpt-5-nano", "GPT-5 Nano", 0.05, 0.40),
+    "anthropic/claude-sonnet-4.6": ModelSpec("anthropic/claude-sonnet-4.6", "Claude Sonnet 4.6", 3.00, 15.00),
+    "anthropic/claude-haiku-4.5": ModelSpec("anthropic/claude-haiku-4.5", "Claude Haiku 4.5", 1.00, 5.00),
+    "google/gemini-3.1-pro-preview": ModelSpec("google/gemini-3.1-pro-preview", "Gemini 3.1 Pro Preview", 2.00, 12.00),
+    "google/gemini-3.1-flash-lite-preview": ModelSpec(
+        "google/gemini-3.1-flash-lite-preview", "Gemini 3.1 Flash Lite Preview", 0.25, 1.50
+    ),
+    "google/gemini-3-flash-preview": ModelSpec("google/gemini-3-flash-preview", "Gemini 3 Flash Preview", 0.10, 0.40),
+    "x-ai/grok-4.20": ModelSpec("x-ai/grok-4.20", "Grok 4.20", 1.25, 2.50),
+    "x-ai/grok-4.3": ModelSpec("x-ai/grok-4.3", "Grok 4.3", 1.25, 2.50),
+}
+
+LEGACY_MODEL_ALIASES: Dict[str, str] = {
+    "gpt-5.4": "openai/gpt-5.4",
+    "gpt-5.4-mini": "openai/gpt-5.4-mini",
+    "gpt-5-nano": "openai/gpt-5-nano",
+    "claude-sonnet-4-6": "anthropic/claude-sonnet-4.6",
+    "claude-haiku-4-5-20251001": "anthropic/claude-haiku-4.5",
+    "claude-3-5-sonnet-20241022": "anthropic/claude-sonnet-4.6",
+    "claude-3-haiku-20240307": "anthropic/claude-haiku-4.5",
+    "gemini-3.1-pro-preview": "google/gemini-3.1-pro-preview",
+    "gemini-3.1-flash-lite-preview": "google/gemini-3.1-flash-lite-preview",
+    "gemini-3-flash-preview": "google/gemini-3-flash-preview",
+    "grok-4.20-0309-reasoning": "x-ai/grok-4.20",
+    "grok-4-1-fast-non-reasoning": "x-ai/grok-4.3",
+    "grok-3-mini": "x-ai/grok-4.3",
+}
+
+PROFILE_DEFAULTS: Dict[str, Dict[str, str]] = {
+    "economy": {
+        "primary": CHEAP_MODEL,
+        "small": CHEAP_MODEL,
+        "review_claude": CHEAP_CLAUDE_MODEL,
+        "review_gemini": CHEAP_GEMINI_MODEL,
+        "review_grok": CHEAP_GROK_MODEL,
+        "post_run_analysis": DEFAULT_POST_RUN_ANALYSIS_MODEL,
+    },
+    "balanced": {
+        "primary": DEFAULT_MODEL,
+        "small": CHEAP_MODEL,
+        "review_claude": CHEAP_CLAUDE_MODEL,
+        "review_gemini": CHEAP_GEMINI_MODEL,
+        "review_grok": CHEAP_GROK_MODEL,
+        "post_run_analysis": DEFAULT_POST_RUN_ANALYSIS_MODEL,
+    },
+    "quality": {
+        "primary": DEFAULT_MODEL,
+        "small": DEFAULT_MODEL,
+        "review_claude": DEFAULT_CLAUDE_MODEL,
+        "review_gemini": DEFAULT_GEMINI_MODEL,
+        "review_grok": DEFAULT_GROK_MODEL,
+        "post_run_analysis": DEFAULT_GEMINI_MODEL,
+    },
+}
+
+
+def normalize_model_id(model: Optional[str]) -> Optional[str]:
+    """Return the OpenRouter model ID for a legacy or canonical model string."""
+    if model is None:
+        return None
+    value = str(model).strip()
+    if not value:
+        return None
+    return LEGACY_MODEL_ALIASES.get(value, value)
+
+
+def profile_from_options(options: Mapping[str, Any] | None = None, *, cheap_mode: Optional[bool] = None) -> str:
+    """Resolve the model profile, preserving old cheap_mode semantics."""
+    options = options or {}
+    raw_profile = options.get("model_profile")
+    if isinstance(raw_profile, str) and raw_profile in MODEL_PROFILES:
+        return raw_profile
+    if cheap_mode is None:
+        cheap_mode = options.get("cheap_mode")
+    if cheap_mode is True:
+        return "economy"
+    if cheap_mode is False:
+        return "quality"
+    return "balanced"
+
+
+def resolve_run_models(
+    options: Mapping[str, Any] | None = None,
+    *,
+    cheap_mode: Optional[bool] = None,
+    research_model: Optional[str] = None,
+    claude_model: Optional[str] = None,
+    gemini_model: Optional[str] = None,
+    grok_model: Optional[str] = None,
+) -> Dict[str, str]:
+    """Resolve effective OpenRouter models for every agent role."""
+    options = options or {}
+    profile = profile_from_options(options, cheap_mode=cheap_mode)
+    base_profile = "balanced" if profile == "custom" else profile
+    resolved = dict(PROFILE_DEFAULTS[base_profile])
+
+    overrides = options.get("model_overrides")
+    if isinstance(overrides, Mapping):
+        for key, value in overrides.items():
+            normalized = normalize_model_id(value if isinstance(value, str) else None)
+            if normalized:
+                resolved[str(key)] = normalized
+
+    legacy_overrides = {
+        "primary": research_model or options.get("research_model"),
+        "review_claude": claude_model or options.get("claude_model"),
+        "review_gemini": gemini_model or options.get("gemini_model"),
+        "review_grok": grok_model or options.get("grok_model"),
+    }
+    for role, value in legacy_overrides.items():
+        normalized = normalize_model_id(value if isinstance(value, str) else None)
+        if normalized:
+            resolved[role] = normalized
+
+    resolved["profile"] = profile
+    return resolved

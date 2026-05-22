@@ -22,4 +22,4 @@ Last reviewed: 2026-05-05.
 - Browserslist/caniuse-lite data was updated during this audit.
 - Semver-compatible npm package updates were applied with `npm update`.
 - Remaining `npm audit` findings require breaking upgrades or dependency-chain decisions: Svelte 5, Vite 8, Vitest 4, ESLint 10, Prettier 3, and related Svelte tooling. `@tanstack/svelte-table` also reports via the Svelte advisory chain with no direct fix currently available.
-- Python requirements are stable enough for the current test suite but are not latest. Major updates to FastAPI/Starlette/Pydantic/OpenAI/Google SDKs should be handled as a separate dependency migration with focused compatibility testing.
+- Python requirements are stable enough for the current test suite but are not latest. Major updates to FastAPI/Starlette/Pydantic or the OpenRouter-compatible SDK path should be handled as a separate dependency migration with focused compatibility testing.

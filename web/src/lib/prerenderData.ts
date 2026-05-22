@@ -36,12 +36,18 @@ export async function fetchPublishedRace(id: string, fetchFn: typeof fetch = fet
 }
 
 export async function raceEntries(): Promise<Array<{ slug: string }>> {
-  const summaries = await fetchPublishedRaceSummaries();
+  const summaries = await fetchPublishedRaceSummaries().catch((error) => {
+    console.warn("Skipping race prerender entries:", error);
+    return [];
+  });
   return summaries.map((race) => ({ slug: race.id }));
 }
 
 export async function candidateEntries(): Promise<Array<{ slug: string; candidate: string }>> {
-  const summaries = await fetchPublishedRaceSummaries();
+  const summaries = await fetchPublishedRaceSummaries().catch((error) => {
+    console.warn("Skipping candidate prerender entries:", error);
+    return [];
+  });
   const entries: Array<{ slug: string; candidate: string }> = [];
   for (const race of summaries) {
     for (const candidate of race.candidates ?? []) {

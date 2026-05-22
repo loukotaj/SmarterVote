@@ -65,10 +65,13 @@ class RunOptions(BaseModel):
     goal: Optional[str] = None  # Short description of why this run is being triggered (shown in Runs tab)
     force_fresh: bool = False  # Ignore existing data and start from scratch
     # Model overrides (None = use default based on cheap_mode)
-    research_model: Optional[str] = None  # OpenAI model for research phases
-    claude_model: Optional[str] = None  # Claude model for review
-    gemini_model: Optional[str] = None  # Gemini model for review
-    grok_model: Optional[str] = None  # Grok model for review
+    research_model: Optional[str] = None  # OpenRouter model for research phases
+    claude_model: Optional[str] = None  # OpenRouter Claude reviewer model
+    gemini_model: Optional[str] = None  # OpenRouter Gemini reviewer model
+    grok_model: Optional[str] = None  # OpenRouter Grok reviewer model
+    model_profile: Optional[str] = None  # economy | balanced | quality | custom
+    model_overrides: Optional[Dict[str, str]] = None  # Role-specific OpenRouter model overrides
+    review_providers: Optional[List[str]] = None  # Enabled reviewer roles: claude | gemini | grok
     # Step-level configuration: list of step names to run.
     # None/empty = all steps (backward compatible). Steps not listed are SKIPPED.
     enabled_steps: Optional[List[str]] = None
@@ -98,6 +101,28 @@ class RunOptions(BaseModel):
             return None
         normalized = [name.strip() for name in value if isinstance(name, str) and name.strip()]
         return list(dict.fromkeys(normalized)) or None
+
+    @field_validator("model_profile")
+    @classmethod
+    def validate_model_profile(cls, value: Optional[str]) -> Optional[str]:
+        if value is None:
+            return None
+        normalized = value.strip().lower()
+        if normalized not in {"economy", "balanced", "quality", "custom"}:
+            raise ValueError("model_profile must be one of: economy, balanced, quality, custom")
+        return normalized
+
+    @field_validator("review_providers")
+    @classmethod
+    def validate_review_providers(cls, value: Optional[List[str]]) -> Optional[List[str]]:
+        if value is None:
+            return None
+        normalized = [provider.strip().lower() for provider in value if isinstance(provider, str) and provider.strip()]
+        deduped = list(dict.fromkeys(normalized))
+        invalid = [provider for provider in deduped if provider not in {"claude", "gemini", "grok"}]
+        if invalid:
+            raise ValueError(f"Unknown review_providers: {', '.join(invalid)}")
+        return deduped
 
     @model_validator(mode="after")
     def validate_step_dependencies(self) -> "RunOptions":

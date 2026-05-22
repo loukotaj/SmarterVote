@@ -1,111 +1,44 @@
-"""Multi-LLM review agents (Claude, Gemini, Grok) for fact-checking candidate profiles."""
+"""OpenRouter-backed review agents for fact-checking candidate profiles."""
 
 import asyncio
 import json
 import logging
-import os
 from datetime import datetime, timezone
 from typing import Any, Callable, Dict, List, Optional
 
-from .cost import (
+from .llm import _call_openai
+from .model_registry import (
     CHEAP_CLAUDE_MODEL,
     CHEAP_GEMINI_MODEL,
     CHEAP_GROK_MODEL,
     DEFAULT_CLAUDE_MODEL,
     DEFAULT_GEMINI_MODEL,
     DEFAULT_GROK_MODEL,
-    accumulate,
+    DEFAULT_POST_RUN_ANALYSIS_MODEL,
+    normalize_model_id,
 )
 from .prompts import REVIEW_SYSTEM, REVIEW_USER
 from .utils import _extract_json, make_logger
 
 logger = logging.getLogger("pipeline")
 
-_REVIEW_PROVIDERS = {
-    "claude": ("ANTHROPIC_API_KEY", DEFAULT_CLAUDE_MODEL, CHEAP_CLAUDE_MODEL),
-    "gemini": ("GEMINI_API_KEY", DEFAULT_GEMINI_MODEL, CHEAP_GEMINI_MODEL),
-    "grok": ("XAI_API_KEY", DEFAULT_GROK_MODEL, CHEAP_GROK_MODEL),
+_REVIEW_MODELS = {
+    "claude": (DEFAULT_CLAUDE_MODEL, CHEAP_CLAUDE_MODEL),
+    "gemini": (DEFAULT_GEMINI_MODEL, CHEAP_GEMINI_MODEL),
+    "grok": (DEFAULT_GROK_MODEL, CHEAP_GROK_MODEL),
 }
 
-# Singleton client caches — avoid creating a new client per call
-_anthropic_client = None
-_gemini_client = None
-_grok_client = None
 
-
-async def _call_anthropic(system: str, user: str, *, model: str = DEFAULT_CLAUDE_MODEL) -> str:
-    """Call the Anthropic Messages API and return the text response."""
-    global _anthropic_client
-    from anthropic import AsyncAnthropic
-
-    api_key = os.environ.get("ANTHROPIC_API_KEY", "")
-    if not api_key:
-        raise RuntimeError("ANTHROPIC_API_KEY is not set")
-
-    if _anthropic_client is None:
-        _anthropic_client = AsyncAnthropic(api_key=api_key)
-    response = await _anthropic_client.messages.create(
-        model=model,
-        max_tokens=8192,
-        system=system,
-        messages=[{"role": "user", "content": user}],
-    )
-    if response.usage:
-        accumulate(response.usage.input_tokens, response.usage.output_tokens, model)
-    for block in response.content:
-        if block.type == "text":
-            return block.text
-    return ""
-
-
-async def _call_gemini(system: str, user: str, *, model: str = DEFAULT_GEMINI_MODEL) -> str:
-    """Call the Google Gemini API via the google-genai client and return the text response."""
-    api_key = os.environ.get("GEMINI_API_KEY", "")
-    if not api_key:
-        raise RuntimeError("GEMINI_API_KEY is not set")
-
-    global _gemini_client
-    from google import genai  # type: ignore
-
-    if _gemini_client is None:
-        _gemini_client = genai.Client(api_key=api_key)
-    loop = asyncio.get_running_loop()
-    response = await loop.run_in_executor(
-        None,
-        lambda: _gemini_client.models.generate_content(
-            model=model,
-            contents=f"{system}\n\n{user}",
-        ),
-    )
-    try:
-        um = response.usage_metadata
-        accumulate(um.prompt_token_count or 0, um.candidates_token_count or 0, model)
-    except Exception as e:
-        logger.debug("Failed to read Gemini usage metadata: %s", e)
-    return response.text or ""
-
-
-async def _call_grok(system: str, user: str, *, model: str = DEFAULT_GROK_MODEL) -> str:
-    """Call the xAI Grok API (OpenAI-compatible) and return the text response."""
-    global _grok_client
-    from openai import AsyncOpenAI
-
-    api_key = os.environ.get("XAI_API_KEY", "")
-    if not api_key:
-        raise RuntimeError("XAI_API_KEY is not set")
-
-    if _grok_client is None:
-        _grok_client = AsyncOpenAI(api_key=api_key, base_url="https://api.x.ai/v1", timeout=120)
-    response = await _grok_client.chat.completions.create(
-        model=model,
-        messages=[
+async def _call_review_model(system: str, user: str, *, model: str) -> str:
+    """Call any review model through OpenRouter and return text content."""
+    response = await _call_openai(
+        [
             {"role": "system", "content": system},
             {"role": "user", "content": user},
         ],
-        temperature=0.2,
+        model=model,
+        max_tokens=8192,
     )
-    if response.usage:
-        accumulate(response.usage.prompt_tokens or 0, response.usage.completion_tokens or 0, model)
     return response.choices[0].message.content or ""
 
 
@@ -117,30 +50,21 @@ async def _run_single_review(
     model_override: Optional[str] = None,
     on_log: Optional[Callable] = None,
 ) -> Optional[Dict[str, Any]]:
-    """Run a single review agent (claude, gemini, or grok)."""
+    """Run a single review agent role (claude, gemini, or grok)."""
     log = make_logger(on_log)
     user_prompt = REVIEW_USER.format(race_id=race_id, profile_json=profile_json)
-    model_name = ""
+    if provider not in _REVIEW_MODELS:
+        return None
+    full_model, _cheap_model = _REVIEW_MODELS[provider]
+    model_name = normalize_model_id(model_override) or full_model
     try:
-        if provider == "claude":
-            model_name = model_override or DEFAULT_CLAUDE_MODEL
-            log("info", f"  Reviewing with {model_name}...")
-            raw = await _call_anthropic(REVIEW_SYSTEM, user_prompt, model=model_name)
-        elif provider == "gemini":
-            model_name = model_override or DEFAULT_GEMINI_MODEL
-            log("info", f"  Reviewing with {model_name}...")
-            raw = await _call_gemini(REVIEW_SYSTEM, user_prompt, model=model_name)
-        elif provider == "grok":
-            model_name = model_override or DEFAULT_GROK_MODEL
-            log("info", f"  Reviewing with {model_name}...")
-            raw = await _call_grok(REVIEW_SYSTEM, user_prompt, model=model_name)
-        else:
-            return None
+        log("info", f"  Reviewing with {model_name}...")
+        raw = await _call_review_model(REVIEW_SYSTEM, user_prompt, model=model_name)
 
         try:
             review_data = _extract_json(raw)
         except (json.JSONDecodeError, ValueError):
-            log("warning", f"  {provider} review returned malformed JSON — skipping")
+            log("warning", f"  {provider} review returned malformed JSON - skipping")
             return None
 
         return {
@@ -165,20 +89,22 @@ async def run_reviews(
     claude_model: Optional[str] = None,
     gemini_model: Optional[str] = None,
     grok_model: Optional[str] = None,
+    review_providers: Optional[List[str]] = None,
 ) -> List[Dict[str, Any]]:
-    """Run reviews with all available providers in parallel."""
-    # Strip old reviews/grades so each review round gets a fresh, unbiased look
+    """Run review roles in parallel through OpenRouter."""
     clean = {k: v for k, v in race_json.items() if k not in ("reviews", "validation_grade")}
     profile_json = json.dumps(clean, indent=2, default=str)
-    log = make_logger(on_log)
     model_overrides = {"claude": claude_model, "gemini": gemini_model, "grok": grok_model}
+    requested_providers = (
+        [provider for provider in review_providers if provider in _REVIEW_MODELS]
+        if review_providers is not None
+        else list(_REVIEW_MODELS)
+    )
 
     tasks = []
-    for provider, (env_key, full_model, cheap_model_name) in _REVIEW_PROVIDERS.items():
-        if not os.environ.get(env_key):
-            log("info", f"  Skipping {provider} review ({env_key} not set)")
-            continue
-        effective_model = model_overrides.get(provider) or (cheap_model_name if cheap_mode else full_model)
+    for provider in requested_providers:
+        full_model, cheap_model_name = _REVIEW_MODELS[provider]
+        effective_model = normalize_model_id(model_overrides.get(provider)) or (cheap_model_name if cheap_mode else full_model)
         tasks.append(
             _run_single_review(
                 race_id,
@@ -194,11 +120,7 @@ async def run_reviews(
 
 
 def compute_validation_grade(reviews: List[Dict[str, Any]]) -> Optional[Dict[str, Any]]:
-    """Compute an aggregate validation grade from review scores.
-
-    Returns a dict with grade, score, passed, and summary — or None if no
-    reviews have scores.
-    """
+    """Compute an aggregate validation grade from review scores."""
     scores = [r["score"] for r in reviews if isinstance(r.get("score"), (int, float))]
     if not scores:
         return None
@@ -225,8 +147,7 @@ def compute_validation_grade(reviews: List[Dict[str, Any]]) -> Optional[Dict[str
     else:
         grade = "F"
 
-    passed = avg >= 80  # B or above
-
+    passed = avg >= 80
     verdicts = [r.get("verdict", "") for r in reviews]
     approved_count = sum(1 for v in verdicts if v == "approved")
     total = len(reviews)
@@ -239,17 +160,11 @@ def compute_validation_grade(reviews: List[Dict[str, Any]]) -> Optional[Dict[str
     elif passed:
         summary = f"Validated by {approved_count}/{total} reviewers with an average score of {avg}/100."
     else:
-        summary = f"Below quality threshold — {approved_count}/{total} reviewers approved, average score {avg}/100."
+        summary = f"Below quality threshold - {approved_count}/{total} reviewers approved, average score {avg}/100."
 
     return {"grade": grade, "score": avg, "passed": passed, "summary": summary}
 
 
-# ---------------------------------------------------------------------------
-# Post-run improvement analysis via Gemini Flash
-# ---------------------------------------------------------------------------
-
-# Max characters of logs to send — Gemini Flash has a large context window but
-# we cap here to keep costs reasonable (~300k chars ≈ ~75k tokens).
 _MAX_LOG_CHARS = 300_000
 
 
@@ -261,9 +176,7 @@ async def run_post_run_analysis(
     artifact: Optional[Dict[str, Any]] = None,
     model: Optional[str] = None,
 ) -> Dict[str, Any]:
-    """Call Gemini Flash with the full run logs, system prompts, and the output
-    artifact, then ask for improvement suggestions.  Returns a dict suitable
-    for JSON serialisation."""
+    """Analyze run logs and output through OpenRouter."""
     from .prompts import (
         DISCOVERY_SYSTEM,
         FINANCE_VOTING_SYSTEM,
@@ -274,18 +187,12 @@ async def run_post_run_analysis(
         REFINE_SYSTEM,
     )
 
-    api_key = os.environ.get("GEMINI_API_KEY", "")
-    if not api_key:
-        logger.info("Post-run analysis skipped: GEMINI_API_KEY not set")
-        return {"skipped": True, "reason": "GEMINI_API_KEY not set"}
+    effective_model = normalize_model_id(model) or DEFAULT_POST_RUN_ANALYSIS_MODEL
 
-    effective_model = model or DEFAULT_GEMINI_MODEL
-
-    # Format logs as plain text, newest-last, truncated if necessary
     log_lines = [f"[{e.get('timestamp', '')}] {e.get('level', 'info').upper():7s} {e.get('message', '')}" for e in logs]
     logs_text = "\n".join(log_lines)
     if len(logs_text) > _MAX_LOG_CHARS:
-        logs_text = "... (truncated — showing last portion) ...\n" + logs_text[-_MAX_LOG_CHARS:]
+        logs_text = "... (truncated - showing last portion) ...\n" + logs_text[-_MAX_LOG_CHARS:]
 
     user_prompt = POST_RUN_ANALYSIS_USER.format(
         run_id=run_id,
@@ -299,19 +206,17 @@ async def run_post_run_analysis(
         logs_text=logs_text,
     )
 
-    # Append the output artifact so Gemini can review the actual data quality
     if artifact:
         artifact_text = json.dumps(artifact, indent=2, default=str)
-        # Cap artifact size to ~100k chars to stay within budget
         if len(artifact_text) > 100_000:
             artifact_text = artifact_text[:100_000] + "\n... (truncated)"
         user_prompt += f"\n\n## Output Artifact (RaceJSON)\n\n```json\n{artifact_text}\n```"
 
-    logger.info(f"Post-run analysis: sending {len(logs)} log entries to {effective_model}")
+    logger.info("Post-run analysis: sending %s log entries to %s", len(logs), effective_model)
     try:
-        analysis_text = await _call_gemini(POST_RUN_ANALYSIS_SYSTEM, user_prompt, model=effective_model)
+        analysis_text = await _call_review_model(POST_RUN_ANALYSIS_SYSTEM, user_prompt, model=effective_model)
     except Exception as exc:
-        logger.warning(f"Post-run analysis failed: {exc}")
+        logger.warning("Post-run analysis failed: %s", exc)
         return {"skipped": True, "reason": str(exc)}
 
     return {

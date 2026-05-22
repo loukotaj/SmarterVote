@@ -30,19 +30,11 @@ Edit `secrets.tfvars`:
 project_id = "your-gcp-project-id"
 region     = "us-central1"
 
-openai_api_key = "sk-your-openai-key"
-serper_api_key = "your-serper-key"
+openrouter_api_key = "sk-or-your-openrouter-key"
+serper_api_key     = "your-serper-key"
 
 enable_agent_function  = true
 enable_pipeline_client = false
-```
-
-Optional review providers:
-
-```hcl
-anthropic_api_key = "..."
-gemini_api_key    = "..."
-xai_api_key       = "..."
 ```
 
 ### 2. Build Cloud Function Source

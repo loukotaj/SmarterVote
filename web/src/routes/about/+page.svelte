@@ -59,7 +59,7 @@
             AI Analysis
           </h3>
           <p class="text-content-muted text-sm sm:text-base">
-            Research agents (Claude, GPT, Gemini, Grok) independently
+            OpenRouter-backed research and review models independently
             analyze the collected information to extract candidate positions on
             key issues. This multi-model approach helps ensure accuracy and
             reduce bias.

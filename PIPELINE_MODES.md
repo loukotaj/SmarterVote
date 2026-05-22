@@ -21,7 +21,7 @@ pip install -r requirements.txt
 pip install -e shared/
 
 # Set API keys in .env
-# OPENAI_API_KEY, SERPER_API_KEY
+# OPENROUTER_API_KEY, SERPER_API_KEY
 
 # Start all services at once (recommended)
 .\dev-start.ps1
@@ -97,5 +97,5 @@ All modes produce identical RaceJSON v0.3 files:
 - `{race-id}.json` with candidates, issues, sources
 - 12 canonical issues per candidate
 - Confidence levels (high/medium/low) per issue stance
-- Optional multi-LLM review (Claude, Gemini, Grok) with ValidationGrade (A–F)
+- Optional OpenRouter-backed multi-model review with ValidationGrade (A–F)
 - Source attribution with freshness tracking

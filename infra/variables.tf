@@ -17,8 +17,8 @@ variable "environment" {
 }
 
 # API Keys for AI Services
-variable "openai_api_key" {
-  description = "OpenAI API key for GPT-4o/mini"
+variable "openrouter_api_key" {
+  description = "OpenRouter API key for all LLM calls"
   type        = string
   sensitive   = true
   default     = ""
@@ -26,27 +26,6 @@ variable "openai_api_key" {
 
 variable "serper_api_key" {
   description = "Serper.dev API key for web search"
-  type        = string
-  sensitive   = true
-  default     = ""
-}
-
-variable "anthropic_api_key" {
-  description = "Anthropic API key for Claude review"
-  type        = string
-  sensitive   = true
-  default     = ""
-}
-
-variable "gemini_api_key" {
-  description = "Google Gemini API key for review"
-  type        = string
-  sensitive   = true
-  default     = ""
-}
-
-variable "xai_api_key" {
-  description = "xAI API key for Grok review"
   type        = string
   sensitive   = true
   default     = ""

@@ -1,7 +1,6 @@
 """Tests for shared models and multi-LLM review functionality."""
 
 import json
-import os
 from datetime import datetime
 from unittest.mock import AsyncMock, patch
 
@@ -100,13 +99,13 @@ def test_validation_grade_caps_error_flags_below_passing():
 
 
 # ---------------------------------------------------------------------------
-# Review provider tests
+# Review role tests
 # ---------------------------------------------------------------------------
 
 
 @pytest.mark.asyncio
 async def test_run_single_review_claude():
-    """_run_single_review with claude returns structured review."""
+    """_run_single_review with the Claude role returns structured review."""
     from pipeline_client.agent.review import DEFAULT_CLAUDE_MODEL, _run_single_review
 
     review_response = json.dumps(
@@ -117,10 +116,7 @@ async def test_run_single_review_claude():
         }
     )
 
-    with (
-        patch("pipeline_client.agent.review._call_anthropic", new_callable=AsyncMock) as mock_claude,
-        patch.dict(os.environ, {"ANTHROPIC_API_KEY": "test-key"}),
-    ):
+    with patch("pipeline_client.agent.review._call_review_model", new_callable=AsyncMock) as mock_claude:
         mock_claude.return_value = review_response
         result = await _run_single_review("test-2024", '{"id": "test"}', provider="claude")
 
@@ -131,7 +127,7 @@ async def test_run_single_review_claude():
 
 @pytest.mark.asyncio
 async def test_run_single_review_gemini():
-    """_run_single_review with gemini returns structured review."""
+    """_run_single_review with the Gemini role returns structured review."""
     from pipeline_client.agent.review import DEFAULT_GEMINI_MODEL, _run_single_review
 
     review_response = json.dumps(
@@ -142,10 +138,7 @@ async def test_run_single_review_gemini():
         }
     )
 
-    with (
-        patch("pipeline_client.agent.review._call_gemini", new_callable=AsyncMock) as mock_gemini,
-        patch.dict(os.environ, {"GEMINI_API_KEY": "test-key"}),
-    ):
+    with patch("pipeline_client.agent.review._call_review_model", new_callable=AsyncMock) as mock_gemini:
         mock_gemini.return_value = review_response
         result = await _run_single_review("test-2024", '{"id": "test"}', provider="gemini")
 
@@ -159,10 +152,7 @@ async def test_run_single_review_handles_failure():
     """_run_single_review returns None on failure."""
     from pipeline_client.agent.review import _run_single_review
 
-    with (
-        patch("pipeline_client.agent.review._call_anthropic", new_callable=AsyncMock) as mock_claude,
-        patch.dict(os.environ, {"ANTHROPIC_API_KEY": "test-key"}),
-    ):
+    with patch("pipeline_client.agent.review._call_review_model", new_callable=AsyncMock) as mock_claude:
         mock_claude.side_effect = RuntimeError("API down")
         result = await _run_single_review("test-2024", '{"id": "test"}', provider="claude")
 

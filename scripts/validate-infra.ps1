@@ -65,9 +65,7 @@ Test-Resource "ChromaDB Bucket" "gsutil ls gs://$projectId-chroma-storage-$Envir
 # Test Secret Manager
 Write-Host ""
 Write-Host "Validating Secret Manager" -ForegroundColor Cyan
-Test-Resource "OpenAI API Key" "gcloud secrets describe openai-api-key-$Environment"
-Test-Resource "Anthropic API Key" "gcloud secrets describe anthropic-api-key-$Environment"
-Test-Resource "Grok API Key" "gcloud secrets describe grok-api-key-$Environment"
+Test-Resource "OpenRouter API Key" "gcloud secrets describe openrouter-api-key-$Environment"
 
 # Test API endpoints if services are running
 Write-Host ""
