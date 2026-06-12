@@ -144,6 +144,82 @@ def _gcs_list_versions(race_id: str) -> List[Dict[str, Any]]:
     return versions
 
 
+def update_gcs_summaries_json(updates: Dict[str, Optional[Dict[str, Any]]]) -> None:
+    """Update or remove race summaries in the central races/summaries.json index in GCS.
+
+    `updates` is a mapping of race_id -> race_data (or None to remove it).
+    """
+    if not _GCS_BUCKET:
+        return
+    client = _get_gcs_admin()
+    if client is None:
+        return
+
+    if not updates:
+        return
+
+    try:
+        bucket = client.bucket(_GCS_BUCKET)
+        blob = bucket.blob("races/summaries.json")
+
+        summaries = []
+        if blob.exists():
+            try:
+                summaries = json.loads(blob.download_as_text())
+                if not isinstance(summaries, list):
+                    summaries = []
+            except (json.JSONDecodeError, ValueError):
+                summaries = []
+
+        # Remove existing if any
+        races_to_update = set(updates.keys())
+        summaries = [s for s in summaries if s.get("id") not in races_to_update]
+
+        # Append updated summary if data provided
+        for race_id, race_data in updates.items():
+            if race_data is not None:
+                # Recreate exactly what SimplePublishService does
+                agent_metrics = race_data.get("agent_metrics") or None
+                new_summary = {
+                    "id": race_data.get("id", race_id),
+                    "title": race_data.get("title"),
+                    "office": race_data.get("office"),
+                    "jurisdiction": race_data.get("jurisdiction"),
+                    "state": race_data.get("state"),
+                    "election_date": race_data.get("election_date", ""),
+                    "updated_utc": race_data.get("updated_utc", ""),
+                    "candidates": [
+                        {
+                            "name": candidate.get("name", ""),
+                            "party": candidate.get("party"),
+                            "incumbent": candidate.get("incumbent", False),
+                            "image_url": candidate.get("image_url"),
+                        }
+                        for candidate in race_data.get("candidates", [])
+                        if isinstance(candidate, dict)
+                    ],
+                    "agent_metrics": (
+                        {
+                            "estimated_usd": agent_metrics.get("estimated_usd"),
+                            "model": agent_metrics.get("model"),
+                            "total_tokens": agent_metrics.get("total_tokens"),
+                        }
+                        if isinstance(agent_metrics, dict)
+                        else None
+                    ),
+                }
+                summaries.append(new_summary)
+
+        # Sort mostly for predictable outputs
+        summaries.sort(key=lambda s: s.get("id", ""))
+
+        # Re-upload
+        blob.upload_from_string(json.dumps(summaries, indent=2), content_type="application/json")
+
+    except Exception as exc:
+        logging.warning("Failed to update races/summaries.json: %s", exc)
+
+
 def _assert_publishable_race(data: Dict[str, Any]) -> None:
     """Block publishing data that the review gate explicitly failed."""
     validation_grade = data.get("validation_grade")

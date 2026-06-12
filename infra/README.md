@@ -11,7 +11,7 @@ Default production flow:
 ```text
 web admin -> races-api -> Firestore pipeline_queue
   -> Eventarc -> gen2 Cloud Function -> AgentHandler
-  -> GCS drafts/ -> admin publish -> GCS races/
+  -> GCS drafts/ -> admin publish -> GCS races/ (with GCS-side summaries.json updated by races-api)
 ```
 
 `enable_pipeline_client` remains available only as a legacy/local debugging option. It should stay `false` for the normal cloud deployment.
@@ -72,7 +72,7 @@ Queue a race through the admin UI or `races-api`; a new Firestore document in `p
 | Agent Cloud Function | enabled | Processes Firestore `pipeline_queue` documents |
 | Eventarc trigger | enabled | Invokes the function for each new queue document |
 | Firestore | enabled | Queue items, run records, logs, race metadata |
-| GCS bucket | enabled | Drafts, published races, checkpoints, retired versions |
+| GCS bucket | enabled | Drafts, published races (configured with CORS & IAM rules allowing direct public read access to `races/` folder resources for static serving), checkpoints, retired versions |
 | Secret Manager | enabled | API keys and admin secrets |
 | pipeline-client Cloud Run | disabled | Legacy/debug-only local pipeline server |
 

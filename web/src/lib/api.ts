@@ -4,6 +4,7 @@ import { logger } from "./utils/logger";
 import { fetchWithAuth } from "$lib/stores/apiStore";
 
 const API_BASE = import.meta.env.VITE_RACES_API_URL || "http://localhost:8080";
+const DATA_BASE = import.meta.env.VITE_PUBLIC_DATA_URL; // If set, pull statically from GCS (.json suffix)
 const USE_SAMPLE_FALLBACK = import.meta.env.DEV;
 
 export async function getRace(
@@ -12,7 +13,8 @@ export async function getRace(
   useFallback: boolean = USE_SAMPLE_FALLBACK
 ): Promise<Race> {
   try {
-    const res = await fetchFn(`${API_BASE}/races/${id}`);
+    const url = DATA_BASE ? `${DATA_BASE}/${id}.json` : `${API_BASE}/races/${id}`;
+    const res = await fetchFn(url);
     if (!res.ok) {
       throw new Error(`Failed to fetch race: ${res.status}`);
     }
@@ -50,7 +52,8 @@ export async function getRaceSummaries(
   useFallback: boolean = USE_SAMPLE_FALLBACK
 ): Promise<RaceSummary[]> {
   try {
-    const res = await fetchFn(`${API_BASE}/races/summaries`);
+    const url = DATA_BASE ? `${DATA_BASE}/summaries.json` : `${API_BASE}/races/summaries`;
+    const res = await fetchFn(url);
     if (!res.ok) {
       throw new Error(`Failed to fetch race summaries: ${res.status}`);
     }
@@ -91,7 +94,8 @@ export async function getAllRaces(
 ): Promise<Race[]> {
   logger.warn("getAllRaces is deprecated, use getRaceSummaries instead");
   try {
-    const res = await fetchFn(`${API_BASE}/races`);
+    const url = DATA_BASE ? `${DATA_BASE}/summaries.json` : `${API_BASE}/races`;
+    const res = await fetchFn(url);
     if (!res.ok) {
       throw new Error(`Failed to fetch races: ${res.status}`);
     }

@@ -27,8 +27,8 @@ Admin dashboard
   -> pipeline_client.agent.run_agent()
   -> GCS drafts/{race_id}.json
   -> races-api publish endpoint
-  -> GCS races/{race_id}.json
-  -> public /races endpoints
+  -> GCS races/{race_id}.json & central races/summaries.json
+  -> public read (FastAPI races-api OR direct GCS static hosting)
 ```
 
 Queue documents should contain:
@@ -85,6 +85,8 @@ Legacy admin aliases were removed; frontend code should use the routes above.
 | GET | `/health` | Liveness |
 | GET | `/health/ready` | Readiness |
 
+If `VITE_PUBLIC_DATA_URL` is set in the web environment, the public SvelteKit frontend will bypass the FastAPI public read routes (`/races/*`) and load data statically from GCS (`races/{race_id}.json` and `races/summaries.json`).
+
 ## Agent Phases
 
 ```text
@@ -98,7 +100,7 @@ Update/rerun mode adds roster and metadata synchronization before re-researching
 | Storage | Production Use |
 |---------|----------------|
 | GCS `drafts/` | Agent output awaiting admin review |
-| GCS `races/` | Published race JSON served publicly |
+| GCS `races/` | Published race JSON served publicly, plus the central `summaries.json` index |
 | GCS `retired/` | Archived previous versions |
 | Firestore `pipeline_queue` | Queue items that trigger Cloud Function runs |
 | Firestore `pipeline_runs` | Run status, progress, and logs |

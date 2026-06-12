@@ -44,8 +44,8 @@ The primary cloud architecture. Admin triggers runs via `races-api`; the pipelin
 - CF imports `AgentHandler` from `pipeline_client.backend.handlers.agent`
 - Agent runs all pipeline steps; progress + logs stream to Firestore `pipeline_runs/`
 - If CF nears the 60-min wall-clock limit, it saves a checkpoint to GCS and enqueues a continuation item (`HandoffTriggered`)
-- Draft saved to GCS `drafts/{race_id}.json`; admin publishes via `races-api`
-- Frontend polls `races-api /runs/{run_id}` + `/runs/{run_id}/logs?since=N` every 2–3 seconds
+- Draft saved to GCS `drafts/{race_id}.json`; admin publishes via `races-api` (writing `{race_id}.json` to GCS `races/` and updating the central `races/summaries.json` index)
+- Frontend polls `races-api /runs/{run_id}` + `/runs/{run_id}/logs?since=N` every 2–3 seconds (or fetches published files statically from GCS if configured)
 
 **Setup** (Terraform):
 ```bash
@@ -95,6 +95,7 @@ Web search results are cached in SQLite to avoid redundant Serper API calls:
 
 All modes produce identical RaceJSON v0.3 files:
 - `{race-id}.json` with candidates, issues, sources
+- `races/summaries.json` central index (built and served statically in GCS production environment)
 - 12 canonical issues per candidate
 - Confidence levels (high/medium/low) per issue stance
 - Optional OpenRouter-backed multi-model review with ValidationGrade (A–F)

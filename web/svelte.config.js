@@ -14,6 +14,7 @@ const config = {
     }),
     prerender: {
       entries: ["/", "/about/"],
+      handleUnseenRoutes: "ignore",
     },
     alias: {
       $lib: "src/lib",

@@ -161,6 +161,7 @@ resource "google_cloudfunctions2_function" "agent" {
     google_project_iam_member.agent_function_run_invoker,
     google_project_iam_member.eventarc_service_agent,
     google_storage_bucket_iam_member.gcf_admin_source_reader,
+    google_secret_manager_secret_version.openrouter_key,
   ]
 }
 

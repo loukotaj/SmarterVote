@@ -11,6 +11,13 @@ resource "google_storage_bucket" "sv_data" {
     enabled = true
   }
 
+  cors {
+    origin          = ["*"]
+    method          = ["GET", "OPTIONS"]
+    response_header = ["*"]
+    max_age_seconds = 3600
+  }
+
   lifecycle_rule {
     condition {
       age            = 90
@@ -58,4 +65,17 @@ resource "google_storage_bucket_object" "folders" {
   name    = each.value
   bucket  = google_storage_bucket.sv_data.name
   content = " " # Empty content to create folder structure
+}
+
+# Allow public read access strictly for the "races/" prefix
+resource "google_storage_bucket_iam_member" "public_races_reader" {
+  bucket = google_storage_bucket.sv_data.name
+  role   = "roles/storage.objectViewer"
+  member = "allUsers"
+
+  condition {
+    title       = "races_folder_only"
+    description = "Allow public read only for published races"
+    expression  = "resource.name.startsWith(\"projects/_/buckets/${google_storage_bucket.sv_data.name}/objects/races/\")"
+  }
 }

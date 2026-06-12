@@ -145,7 +145,11 @@ resource "google_cloud_run_v2_service" "races_api" {
     create_before_destroy = true
   }
 
-  depends_on = [google_project_service.apis]
+  depends_on = [
+    google_project_service.apis,
+    google_secret_manager_secret_version.openrouter_key,
+    google_secret_manager_secret_iam_member.races_api_openrouter_key,
+  ]
 }
 
 # IAM for public access to races API

@@ -6,10 +6,6 @@ on:
     types:
       - completed
     branches: [main]
-  push:
-    branches: [main]
-    paths:
-      - 'infra/**'
   workflow_dispatch:
     inputs:
       environment:
@@ -42,7 +38,7 @@ jobs:
   build-containers:
     name: Build Container Images
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' || github.event_name == 'push' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     strategy:
       matrix:
         container:
@@ -93,7 +89,7 @@ jobs:
     name: Deploy Infrastructure
     runs-on: ubuntu-latest
     needs: build-containers
-    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' || github.event_name == 'push' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     # Pass all Terraform variables as TF_VAR_* env vars to avoid writing secrets into a
     # shell heredoc (backticks/special chars in secret values cause bad-substitution errors).
     env:
@@ -102,6 +98,11 @@ jobs:
       TF_VAR_environment: ${{ github.event.inputs.environment || 'dev' }}
       TF_VAR_app_version: ${{ github.sha }}
       TF_VAR_openrouter_api_key: ${{ secrets.OPENROUTER_API_KEY }}
+      # Retain legacy secrets during the migration so old revisions and rollback remain viable.
+      TF_VAR_openai_api_key: ${{ secrets.OPENAI_API_KEY }}
+      TF_VAR_anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+      TF_VAR_gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+      TF_VAR_xai_api_key: ${{ secrets.XAI_API_KEY }}
       TF_VAR_serper_api_key: ${{ secrets.SERPER_API_KEY }}
       TF_VAR_admin_api_key: ${{ secrets.ADMIN_API_KEY }}
       TF_VAR_auth0_domain: ${{ secrets.AUTH0_DOMAIN }}
@@ -157,8 +158,8 @@ jobs:
             return
           fi
           if ! gcloud secrets describe "$name" --project=${{ env.PROJECT_ID }} >/dev/null 2>&1; then
-            echo "Creating $name..."
-            gcloud secrets create "$name" --replication-policy=automatic --project=${{ env.PROJECT_ID }}
+            echo "$name does not exist yet; Terraform will create it"
+            return
           fi
           # Get the current latest value and compare
           current=$(gcloud secrets versions access latest --secret="$name" --project=${{ env.PROJECT_ID }} 2>/dev/null || echo "")

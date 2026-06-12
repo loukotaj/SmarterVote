@@ -1,4 +1,27 @@
 # Secret Manager for API keys - all in same project
+# Keep legacy provider secrets managed during the OpenRouter rollout. Existing
+# revisions and rollback commits still reference them.
+resource "google_secret_manager_secret" "openai_key" {
+  project   = var.project_id
+  secret_id = "openai-api-key-${var.environment}"
+
+  replication {
+    auto {}
+  }
+
+  depends_on = [google_project_service.apis]
+}
+
+resource "google_secret_manager_secret_version" "openai_key" {
+  count       = var.openai_api_key != "" ? 1 : 0
+  secret      = google_secret_manager_secret.openai_key.id
+  secret_data = var.openai_api_key
+
+  lifecycle {
+    ignore_changes = [secret_data]
+  }
+}
+
 resource "google_secret_manager_secret" "serper_key" {
   project   = var.project_id
   secret_id = "serper-api-key-${var.environment}"
@@ -14,6 +37,72 @@ resource "google_secret_manager_secret_version" "serper_key" {
   count       = var.serper_api_key != "" ? 1 : 0
   secret      = google_secret_manager_secret.serper_key.id
   secret_data = var.serper_api_key
+
+  lifecycle {
+    ignore_changes = [secret_data]
+  }
+}
+
+resource "google_secret_manager_secret" "anthropic_key" {
+  count     = var.enable_pipeline_client || var.enable_agent_function ? 1 : 0
+  project   = var.project_id
+  secret_id = "anthropic-api-key-${var.environment}"
+
+  replication {
+    auto {}
+  }
+
+  depends_on = [google_project_service.apis]
+}
+
+resource "google_secret_manager_secret_version" "anthropic_key" {
+  count       = (var.enable_pipeline_client || var.enable_agent_function) && var.anthropic_api_key != "" ? 1 : 0
+  secret      = google_secret_manager_secret.anthropic_key[0].id
+  secret_data = var.anthropic_api_key
+
+  lifecycle {
+    ignore_changes = [secret_data]
+  }
+}
+
+resource "google_secret_manager_secret" "gemini_key" {
+  count     = var.enable_pipeline_client || var.enable_agent_function ? 1 : 0
+  project   = var.project_id
+  secret_id = "gemini-api-key-${var.environment}"
+
+  replication {
+    auto {}
+  }
+
+  depends_on = [google_project_service.apis]
+}
+
+resource "google_secret_manager_secret_version" "gemini_key" {
+  count       = (var.enable_pipeline_client || var.enable_agent_function) && var.gemini_api_key != "" ? 1 : 0
+  secret      = google_secret_manager_secret.gemini_key[0].id
+  secret_data = var.gemini_api_key
+
+  lifecycle {
+    ignore_changes = [secret_data]
+  }
+}
+
+resource "google_secret_manager_secret" "xai_key" {
+  count     = var.enable_pipeline_client || var.enable_agent_function ? 1 : 0
+  project   = var.project_id
+  secret_id = "xai-api-key-${var.environment}"
+
+  replication {
+    auto {}
+  }
+
+  depends_on = [google_project_service.apis]
+}
+
+resource "google_secret_manager_secret_version" "xai_key" {
+  count       = (var.enable_pipeline_client || var.enable_agent_function) && var.xai_api_key != "" ? 1 : 0
+  secret      = google_secret_manager_secret.xai_key[0].id
+  secret_data = var.xai_api_key
 
   lifecycle {
     ignore_changes = [secret_data]
@@ -97,6 +186,13 @@ resource "google_secret_manager_secret_version" "openrouter_key" {
 resource "google_secret_manager_secret_iam_member" "races_api_openrouter_key" {
   project   = var.project_id
   secret_id = google_secret_manager_secret.openrouter_key.secret_id
+  role      = "roles/secretmanager.secretAccessor"
+  member    = "serviceAccount:${google_service_account.races_api.email}"
+}
+
+resource "google_secret_manager_secret_iam_member" "races_api_openai_key" {
+  project   = var.project_id
+  secret_id = google_secret_manager_secret.openai_key.secret_id
   role      = "roles/secretmanager.secretAccessor"
   member    = "serviceAccount:${google_service_account.races_api.email}"
 }

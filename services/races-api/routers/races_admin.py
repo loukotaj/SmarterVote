@@ -624,6 +624,7 @@ async def publish_race(request: Request, race_id: str) -> Dict[str, Any]:
         raise HTTPException(status_code=404, detail="Draft not found")
     _assert_publishable_race(data)
     gcs_helpers._publish_race_gcs(race_id, data)
+    gcs_helpers.update_gcs_summaries_json({race_id: data})
     firestore_helpers._fs_update_race(race_id, _published_race_update())
     _clear_public_race_cache(request)
     return {"message": f"Race {race_id} published", "id": race_id}
@@ -637,6 +638,7 @@ async def unpublish_race(request: Request, race_id: str) -> Dict[str, Any]:
     deleted = gcs_helpers._gcs_delete_race_json(race_id, "races")
     if not deleted:
         raise HTTPException(status_code=404, detail="Published race not found")
+    gcs_helpers.update_gcs_summaries_json({race_id: None})
     firestore_helpers._fs_update_race(
         race_id,
         {
@@ -654,6 +656,7 @@ async def batch_publish_races(request: Request, payload: BatchPublishRequest) ->
     """Publish multiple races at once (draft -> published)."""
     published = []
     errors = []
+    updates_for_gcs = {}
     for race_id in payload.race_ids:
         try:
             validate_race_id(race_id)
@@ -663,6 +666,7 @@ async def batch_publish_races(request: Request, payload: BatchPublishRequest) ->
                 continue
             _assert_publishable_race(data)
             gcs_helpers._publish_race_gcs(race_id, data)
+            updates_for_gcs[race_id] = data
             firestore_helpers._fs_update_race(race_id, _published_race_update())
             published.append(race_id)
         except HTTPException as exc:
@@ -670,6 +674,7 @@ async def batch_publish_races(request: Request, payload: BatchPublishRequest) ->
         except Exception as exc:
             errors.append({"race_id": race_id, "error": str(exc)})
     if published:
+        gcs_helpers.update_gcs_summaries_json(updates_for_gcs)
         _clear_public_race_cache(request)
     return {"published": published, "errors": errors}
 

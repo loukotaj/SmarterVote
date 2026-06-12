@@ -1,6 +1,6 @@
 # SmarterVote — Copilot Instructions
 
-AI-powered electoral analysis platform. Multi-phase research agent (OpenAI + Serper) produces RaceJSON v0.3 candidate profiles. SvelteKit frontend served by a FastAPI races-api.
+AI-powered electoral analysis platform. Multi-phase research agent (OpenRouter + Serper) produces RaceJSON v0.3 candidate profiles. SvelteKit frontend served by a FastAPI races-api.
 
 ## Architecture
 
@@ -56,7 +56,7 @@ CI (`.github/workflows/ci.yaml`) runs all four on push/PR to `main`/`develop`. C
 - Components in `web/src/lib/components/`; routes use `+page.svelte` / `+page.ts`
 - **Prettier + ESLint** for formatting; **TailwindCSS** with semantic design tokens (`--sv-page`, `--sv-text`, etc.)
 - Unused variables prefixed with `_` (ESLint `@typescript-eslint/no-unused-vars` pattern `^_`)
-- Frontend env vars use `VITE_` prefix: `VITE_API_BASE`, `VITE_RACES_API_URL`
+- Frontend env vars use `VITE_` prefix: `VITE_API_BASE`, `VITE_RACES_API_URL`, `VITE_PUBLIC_DATA_URL`
 - Static adapter for GitHub Pages (`web/svelte.config.js`)
 
 ## Testing Gotchas
@@ -72,6 +72,7 @@ CI (`.github/workflows/ci.yaml`) runs all four on push/PR to `main`/`develop`. C
 3. Preserve confidence scoring and source attribution in data changes
 4. Local dev: `services/races-api` is the production-shaped admin API; `pipeline_client/backend/main.py` is only for direct local runner/debug endpoints
 5. Storage mode (`STORAGE_MODE` env var): `local` uses filesystem, `gcp` uses GCS + Firestore — see `PIPELINE_MODES.md`
+6. Static GCS Hosting: If `VITE_PUBLIC_DATA_URL` is set, public read operations fetch statically from GCS (`races/{race_id}.json` and `races/summaries.json`). Publish/unpublish operations keep the index up to date.
 
 ## Detailed Docs (link, don't duplicate)
 

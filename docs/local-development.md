@@ -32,6 +32,10 @@ OPENROUTER_API_KEY=sk-or-your-key-here
 SERPER_API_KEY=your-serper-key-here
 ```
 
+Frontend environment variables (configured under `web/` in `.env` or `.env.production`):
+- `VITE_RACES_API_URL`: FastAPI Races API base URL (defaults to `http://localhost:8080` in local dev).
+- `VITE_PUBLIC_DATA_URL`: Optional public static GCS data folder path (e.g., `https://storage.googleapis.com/smartervote-sv-data-dev/races`). When configured, SvelteKit fetches published races and the central summaries index directly from GCS. Leave this unset in local development to test FastAPI-fallback route flows.
+
 ## One-command Start
 
 ```powershell
