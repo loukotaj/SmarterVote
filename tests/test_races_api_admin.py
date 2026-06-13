@@ -25,6 +25,28 @@ if str(RACES_API_DIR) not in sys.path:
 import firestore_helpers  # noqa: E402
 import gcs_helpers  # noqa: E402
 
+
+def test_pipeline_metrics_prefers_exact_provider_cost():
+    from routers.pipeline import _compute_metrics_summary, _normalize_pipeline_run
+
+    record = _normalize_pipeline_run(
+        {
+            "race_id": "ar-senate-2026",
+            "status": "completed",
+            "estimated_usd": 0.02,
+            "cost_usd": 0.01234567,
+            "cost_source": "provider",
+            "candidate_count": 2,
+            "cheap_mode": True,
+        },
+        "run-exact",
+    )
+
+    assert record["cost_usd"] == pytest.approx(0.01234567)
+    assert record["cost_source"] == "provider"
+    assert _compute_metrics_summary([record])["total_usd"] == pytest.approx(0.0123)
+
+
 # ---------------------------------------------------------------------------
 # Fixtures
 # ---------------------------------------------------------------------------

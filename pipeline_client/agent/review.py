@@ -70,6 +70,10 @@ async def _run_single_review(
             log("warning", f"  {provider} review returned malformed JSON - skipping")
             return None
 
+        if not isinstance(review_data, dict):
+            log("warning", f"  {provider} review returned unexpected type {type(review_data).__name__} - skipping")
+            return None
+
         return {
             "model": model_name,
             "reviewed_at": datetime.now(timezone.utc).isoformat(),

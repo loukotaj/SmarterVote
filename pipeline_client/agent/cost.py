@@ -7,6 +7,7 @@ from .model_registry import MODEL_CATALOG, normalize_model_id
 
 # ContextVar holds the live accumulator for the current run (async-safe).
 # Shape: {"prompt_tokens": int, "completion_tokens": int,
+#          "provider_cost_usd": float, "priced_calls": int, "unpriced_calls": int,
 #          "model_breakdown": {model: {"prompt_tokens": int, "completion_tokens": int}}}
 _cost_ctx: ContextVar[Optional[Dict[str, Any]]] = ContextVar("_cost_ctx", default=None)
 
@@ -22,13 +23,24 @@ def estimate_cost(model: str, prompt_tokens: int, completion_tokens: int) -> flo
     return prompt_tokens / 1_000_000 * input_per_m + completion_tokens / 1_000_000 * output_per_m
 
 
-def accumulate(prompt_tokens: int, completion_tokens: int, model: str = "") -> None:
-    """Add token counts to the live run accumulator (no-op if no run is active)."""
+def accumulate(
+    prompt_tokens: int,
+    completion_tokens: int,
+    model: str = "",
+    *,
+    cost_usd: Optional[float] = None,
+) -> None:
+    """Add token counts and the provider-reported charge to the live run."""
     acc = _cost_ctx.get()
     if acc is None:
         return
     acc["prompt_tokens"] += prompt_tokens
     acc["completion_tokens"] += completion_tokens
+    if cost_usd is None:
+        acc["unpriced_calls"] = acc.get("unpriced_calls", 0) + 1
+    else:
+        acc["provider_cost_usd"] = acc.get("provider_cost_usd", 0.0) + cost_usd
+        acc["priced_calls"] = acc.get("priced_calls", 0) + 1
     normalized_model = normalize_model_id(model) if model else None
     if normalized_model:
         breakdown = acc.setdefault("model_breakdown", {})

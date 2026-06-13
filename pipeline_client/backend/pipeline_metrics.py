@@ -33,7 +33,9 @@ class PipelineMetricsStore:
         prompt_tokens   int
         completion_tokens int
         total_tokens    int
-        estimated_usd   float — total estimated spend including review models
+        cost_usd        float — exact provider-reported spend when available
+        cost_source     str   — "provider" or "estimated"
+        estimated_usd   float — catalog estimate including review models
         model_breakdown dict  — per-model token breakdown
         duration_s      float — wall-clock run time in seconds
         candidate_count int   — number of candidates in the output (0 for failed runs)
@@ -93,6 +95,8 @@ class PipelineMetricsStore:
                 completion_tokens INTEGER NOT NULL DEFAULT 0,
                 total_tokens      INTEGER NOT NULL DEFAULT 0,
                 estimated_usd     REAL NOT NULL DEFAULT 0,
+                cost_usd          REAL,
+                cost_source       TEXT NOT NULL DEFAULT 'estimated',
                 model_breakdown   TEXT NOT NULL DEFAULT '{}',
                 duration_s        REAL NOT NULL DEFAULT 0,
                 candidate_count   INTEGER NOT NULL DEFAULT 0,
@@ -103,7 +107,12 @@ class PipelineMetricsStore:
         self._sqlite_conn.execute("CREATE INDEX IF NOT EXISTS idx_pm_ts  ON pipeline_metrics(timestamp)")
         self._sqlite_conn.execute("CREATE INDEX IF NOT EXISTS idx_pm_rid ON pipeline_metrics(race_id)")
         # Migrate existing DBs that were created before these columns existed
-        for col_def in ["candidate_count INTEGER NOT NULL DEFAULT 0", "cheap_mode INTEGER NOT NULL DEFAULT 0"]:
+        for col_def in [
+            "candidate_count INTEGER NOT NULL DEFAULT 0",
+            "cheap_mode INTEGER NOT NULL DEFAULT 0",
+            "cost_usd REAL",
+            "cost_source TEXT NOT NULL DEFAULT 'estimated'",
+        ]:
             try:
                 self._sqlite_conn.execute(f"ALTER TABLE pipeline_metrics ADD COLUMN {col_def}")
             except sqlite3.OperationalError:
@@ -139,6 +148,8 @@ class PipelineMetricsStore:
             "completion_tokens": agent_metrics.get("completion_tokens", 0),
             "total_tokens": agent_metrics.get("total_tokens", 0),
             "estimated_usd": agent_metrics.get("estimated_usd", 0.0),
+            "cost_usd": agent_metrics.get("cost_usd"),
+            "cost_source": agent_metrics.get("cost_source", "estimated"),
             "model_breakdown": agent_metrics.get("model_breakdown", {}),
             "duration_s": agent_metrics.get("duration_s", 0.0),
             "candidate_count": candidate_count,
@@ -167,9 +178,9 @@ class PipelineMetricsStore:
                 INSERT OR REPLACE INTO pipeline_metrics
                     (run_id, race_id, timestamp, status, model,
                      prompt_tokens, completion_tokens, total_tokens,
-                     estimated_usd, model_breakdown, duration_s,
+                     estimated_usd, cost_usd, cost_source, model_breakdown, duration_s,
                      candidate_count, cheap_mode)
-                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)
+                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
                 """,
                 (
                     record["run_id"],
@@ -181,6 +192,8 @@ class PipelineMetricsStore:
                     record["completion_tokens"],
                     record["total_tokens"],
                     record["estimated_usd"],
+                    record["cost_usd"],
+                    record["cost_source"],
                     json.dumps(record["model_breakdown"]),
                     record["duration_s"],
                     record.get("candidate_count", 0),
@@ -206,10 +219,7 @@ class PipelineMetricsStore:
         try:
             assert self._client is not None
             docs = (
-                self._client.collection(self._COLLECTION)
-                .order_by("timestamp", direction="DESCENDING")
-                .limit(limit)
-                .stream()
+                self._client.collection(self._COLLECTION).order_by("timestamp", direction="DESCENDING").limit(limit).stream()
             )
             results = []
             async for doc in docs:
@@ -226,7 +236,7 @@ class PipelineMetricsStore:
                 """
                 SELECT run_id, race_id, timestamp, status, model,
                        prompt_tokens, completion_tokens, total_tokens,
-                       estimated_usd, model_breakdown, duration_s,
+                       estimated_usd, cost_usd, cost_source, model_breakdown, duration_s,
                        candidate_count, cheap_mode
                 FROM pipeline_metrics
                 ORDER BY timestamp DESC
@@ -237,26 +247,41 @@ class PipelineMetricsStore:
             rows = []
             for row in cursor.fetchall():
                 (
-                    run_id, race_id, timestamp, status, model,
-                    prompt_tokens, completion_tokens, total_tokens,
-                    estimated_usd, model_breakdown_json, duration_s,
-                    candidate_count, cheap_mode_int,
+                    run_id,
+                    race_id,
+                    timestamp,
+                    status,
+                    model,
+                    prompt_tokens,
+                    completion_tokens,
+                    total_tokens,
+                    estimated_usd,
+                    cost_usd,
+                    cost_source,
+                    model_breakdown_json,
+                    duration_s,
+                    candidate_count,
+                    cheap_mode_int,
                 ) = row
-                rows.append({
-                    "run_id": run_id,
-                    "race_id": race_id,
-                    "timestamp": timestamp,
-                    "status": status,
-                    "model": model,
-                    "prompt_tokens": prompt_tokens,
-                    "completion_tokens": completion_tokens,
-                    "total_tokens": total_tokens,
-                    "estimated_usd": estimated_usd,
-                    "model_breakdown": json.loads(model_breakdown_json or "{}"),
-                    "duration_s": duration_s,
-                    "candidate_count": candidate_count or 0,
-                    "cheap_mode": bool(cheap_mode_int),
-                })
+                rows.append(
+                    {
+                        "run_id": run_id,
+                        "race_id": race_id,
+                        "timestamp": timestamp,
+                        "status": status,
+                        "model": model,
+                        "prompt_tokens": prompt_tokens,
+                        "completion_tokens": completion_tokens,
+                        "total_tokens": total_tokens,
+                        "estimated_usd": estimated_usd,
+                        "cost_usd": cost_usd,
+                        "cost_source": cost_source,
+                        "model_breakdown": json.loads(model_breakdown_json or "{}"),
+                        "duration_s": duration_s,
+                        "candidate_count": candidate_count or 0,
+                        "cheap_mode": bool(cheap_mode_int),
+                    }
+                )
             return rows
         except Exception:
             logger.exception("Failed to read pipeline metrics from SQLite")
@@ -284,11 +309,14 @@ class PipelineMetricsStore:
             total_candidates = 0
             total_usd_with_candidates = 0.0
             from datetime import timedelta
+
             cutoff = (datetime.now(timezone.utc) - timedelta(days=30)).isoformat()
             async for doc in docs:
                 data = doc.to_dict()
                 total_runs += 1
-                usd = data.get("estimated_usd", 0.0)
+                usd = data.get("cost_usd")
+                if usd is None:
+                    usd = data.get("estimated_usd", 0.0)
                 total_usd += usd
                 # Older docs written before the status field was added lack this field;
                 # treat missing/empty status as "completed" since the collection was
@@ -321,40 +349,53 @@ class PipelineMetricsStore:
             }
         except Exception:
             logger.exception("Failed to compute Firestore pipeline metrics summary")
-            return {"total_runs": 0, "total_usd": 0.0, "avg_usd": 0.0, "recent_30d_usd": 0.0,
-                    "success_rate": 0.0, "cheap_runs": 0, "avg_cheap_usd": 0.0,
-                    "full_runs": 0, "avg_full_usd": 0.0, "avg_usd_per_candidate": 0.0}
+            return {
+                "total_runs": 0,
+                "total_usd": 0.0,
+                "avg_usd": 0.0,
+                "recent_30d_usd": 0.0,
+                "success_rate": 0.0,
+                "cheap_runs": 0,
+                "avg_cheap_usd": 0.0,
+                "full_runs": 0,
+                "avg_full_usd": 0.0,
+                "avg_usd_per_candidate": 0.0,
+            }
 
     def _summary_sqlite(self) -> Dict[str, Any]:
         try:
             assert self._sqlite_conn is not None
             from datetime import timedelta
+
             cutoff = (datetime.now(timezone.utc) - timedelta(days=30)).isoformat()
 
             row = self._sqlite_conn.execute(
-                "SELECT COUNT(*), COALESCE(SUM(estimated_usd),0), "
+                "SELECT COUNT(*), COALESCE(SUM(COALESCE(cost_usd, estimated_usd)),0), "
                 "SUM(CASE WHEN status='completed' THEN 1 ELSE 0 END) FROM pipeline_metrics"
             ).fetchone()
             total_runs, total_usd, completed_runs = row
 
             recent_row = self._sqlite_conn.execute(
-                "SELECT COALESCE(SUM(estimated_usd),0) FROM pipeline_metrics WHERE timestamp >= ?",
+                "SELECT COALESCE(SUM(COALESCE(cost_usd, estimated_usd)),0) " "FROM pipeline_metrics WHERE timestamp >= ?",
                 (cutoff,),
             ).fetchone()
             recent_usd = recent_row[0]
 
             cheap_row = self._sqlite_conn.execute(
-                "SELECT COUNT(*), COALESCE(SUM(estimated_usd),0) FROM pipeline_metrics WHERE cheap_mode = 1"
+                "SELECT COUNT(*), COALESCE(SUM(COALESCE(cost_usd, estimated_usd)),0) "
+                "FROM pipeline_metrics WHERE cheap_mode = 1"
             ).fetchone()
             cheap_runs, cheap_usd = cheap_row
 
             full_row = self._sqlite_conn.execute(
-                "SELECT COUNT(*), COALESCE(SUM(estimated_usd),0) FROM pipeline_metrics WHERE cheap_mode = 0"
+                "SELECT COUNT(*), COALESCE(SUM(COALESCE(cost_usd, estimated_usd)),0) "
+                "FROM pipeline_metrics WHERE cheap_mode = 0"
             ).fetchone()
             full_runs, full_usd = full_row
 
             cand_row = self._sqlite_conn.execute(
-                "SELECT COALESCE(SUM(candidate_count),0), COALESCE(SUM(estimated_usd),0) "
+                "SELECT COALESCE(SUM(candidate_count),0), "
+                "COALESCE(SUM(COALESCE(cost_usd, estimated_usd)),0) "
                 "FROM pipeline_metrics WHERE candidate_count > 0"
             ).fetchone()
             total_candidates, usd_with_candidates = cand_row
@@ -373,9 +414,18 @@ class PipelineMetricsStore:
             }
         except Exception:
             logger.exception("Failed to compute SQLite pipeline metrics summary")
-            return {"total_runs": 0, "total_usd": 0.0, "avg_usd": 0.0, "recent_30d_usd": 0.0,
-                    "success_rate": 0.0, "cheap_runs": 0, "avg_cheap_usd": 0.0,
-                    "full_runs": 0, "avg_full_usd": 0.0, "avg_usd_per_candidate": 0.0}
+            return {
+                "total_runs": 0,
+                "total_usd": 0.0,
+                "avg_usd": 0.0,
+                "recent_30d_usd": 0.0,
+                "success_rate": 0.0,
+                "cheap_runs": 0,
+                "avg_cheap_usd": 0.0,
+                "full_runs": 0,
+                "avg_full_usd": 0.0,
+                "avg_usd_per_candidate": 0.0,
+            }
 
 
 # ---------------------------------------------------------------------------

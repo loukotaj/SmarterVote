@@ -75,6 +75,13 @@ def _normalize_pipeline_run(raw: Dict[str, Any], fallback_run_id: str) -> Dict[s
         raw.get("estimated_usd"),
         _as_float(raw.get("cost_usd"), _as_float(agent_metrics.get("estimated_usd"), 0.0)),
     )
+    raw_cost_usd = raw.get("cost_usd")
+    if raw_cost_usd is None:
+        raw_cost_usd = agent_metrics.get("cost_usd")
+    cost_usd = _as_float(raw_cost_usd) if raw_cost_usd is not None else None
+    cost_source = raw.get("cost_source") or agent_metrics.get("cost_source")
+    if cost_source not in {"provider", "estimated"}:
+        cost_source = "provider" if cost_usd is not None else "estimated"
 
     candidate_count = _as_int(raw.get("candidate_count"), 0)
     if candidate_count <= 0 and isinstance(payload.get("candidates"), list):
@@ -96,6 +103,8 @@ def _normalize_pipeline_run(raw: Dict[str, Any], fallback_run_id: str) -> Dict[s
         "completion_tokens": completion_tokens,
         "total_tokens": total_tokens,
         "estimated_usd": round(estimated_usd, 6),
+        "cost_usd": cost_usd,
+        "cost_source": cost_source,
         "model_breakdown": model_breakdown,
         "duration_s": duration_s,
         "candidate_count": candidate_count,
@@ -138,7 +147,7 @@ def _compute_metrics_summary(records: list[Dict[str, Any]]) -> Dict[str, Any]:
         if rec.get("status") == "completed":
             successful_runs += 1
 
-        cost = _as_float(rec.get("estimated_usd"), 0.0)
+        cost = _as_float(rec.get("cost_usd"), _as_float(rec.get("estimated_usd"), 0.0))
         total_usd += cost
 
         ts = _to_epoch_seconds(rec.get("timestamp"))

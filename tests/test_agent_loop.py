@@ -8,7 +8,7 @@ import pytest
 from openai import APIConnectionError
 
 from pipeline_client.agent.agent import _agent_loop
-from pipeline_client.agent.llm import _call_openai
+from pipeline_client.agent.llm import _call_openai, _provider_usage_cost
 
 FAKE_RACE_JSON = {
     "id": "mo-senate-2024",
@@ -80,6 +80,20 @@ def _mock_openai_response(content=None, tool_calls=None, finish_reason="stop"):
     response.choices = [choice]
     response.usage = usage
     return response
+
+
+def test_provider_usage_cost_reads_openrouter_extra_field():
+    usage = MagicMock(spec=["prompt_tokens", "completion_tokens", "model_extra"])
+    usage.model_extra = {"cost": 0.01234567}
+
+    assert _provider_usage_cost(usage) == pytest.approx(0.01234567)
+
+
+def test_provider_usage_cost_rejects_invalid_values():
+    usage = MagicMock(spec=["cost", "model_extra"])
+    usage.cost = "not-a-number"
+
+    assert _provider_usage_cost(usage) is None
 
 
 # ---------------------------------------------------------------------------

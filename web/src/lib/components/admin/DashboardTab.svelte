@@ -266,6 +266,11 @@
     return n < 0.001 ? "<$0.001" : `$${n.toFixed(4)}`;
   }
 
+  function formatExactUsd(n: number | null | undefined) {
+    if (typeof n !== "number" || !Number.isFinite(n)) return "-";
+    return `$${n.toFixed(6)}`;
+  }
+
   function formatTokens(n: number | null | undefined) {
     if (typeof n !== "number" || !Number.isFinite(n)) return "-";
     return n >= 1000 ? `${(n / 1000).toFixed(1)}k` : String(Math.round(n));
@@ -613,7 +618,8 @@
             </thead>
             <tbody class="divide-y divide-stroke">
               {#each pipelineRecords as rec (rec.run_id)}
-                {@const perCand = rec.candidate_count > 0 ? rec.estimated_usd / rec.candidate_count : null}
+                {@const reportedCost = rec.cost_usd ?? rec.estimated_usd}
+                {@const perCand = rec.candidate_count > 0 ? reportedCost / rec.candidate_count : null}
                 <tr class="hover:bg-surface-alt">
                   <td class="px-3 py-2 font-mono text-content-muted max-w-32 truncate">{rec.race_id}</td>
                   <td class="px-3 py-2">
@@ -641,7 +647,11 @@
                   </td>
                   <td class="px-3 py-2 text-right text-content-muted">{rec.candidate_count || "-"}</td>
                   <td class="px-3 py-2 text-right text-content-muted">{formatTokens(rec.total_tokens)}</td>
-                  <td class="px-3 py-2 text-right font-medium text-content">{formatUsd(rec.estimated_usd)}</td>
+                  <td class="px-3 py-2 text-right font-medium text-content">
+                    <span title={rec.cost_source === "provider" ? "Exact provider-billed cost" : "Catalog estimate"}>
+                      {rec.cost_source === "provider" ? formatExactUsd(reportedCost) : formatUsd(reportedCost)}
+                    </span>
+                  </td>
                   <td class="px-3 py-2 text-right text-content-muted">
                     {perCand != null ? formatUsd(perCand) : "-"}
                   </td>

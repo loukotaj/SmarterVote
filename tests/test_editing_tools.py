@@ -155,6 +155,44 @@ def test_set_donor_summary_accepts_structured_sources():
     assert all(source["last_accessed"] for source in candidate["donor_sources"])
 
 
+def test_editing_handlers_reject_webpage_image_and_normalize_sources():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"candidates": [{"name": "Alice", "image_url": None, "issues": {}}]}
+    handlers = _make_editing_handlers(race_json, lambda l, m: None)
+
+    image_result = handlers["set_candidate_field"](
+        {
+            "candidate_name": "Alice",
+            "field": "image_url",
+            "value": "https://example.com/candidate",
+        }
+    )
+    handlers["set_candidate_summary"](
+        {
+            "candidate_name": "Alice",
+            "summary": "Candidate summary.",
+            "sources": [{"url": "https://ballotpedia.org/Alice", "type": "ballotpedia"}],
+        }
+    )
+    handlers["set_issue_stance"](
+        {
+            "candidate_name": "Alice",
+            "issue": "Healthcare",
+            "stance": "Supports a stated policy.",
+            "confidence": "high",
+            "sources": [{"url": "https://example.com/issues"}],
+        }
+    )
+
+    candidate = race_json["candidates"][0]
+    assert image_result.startswith("ERROR:")
+    assert candidate["image_url"] is None
+    assert candidate["summary_sources"][0]["type"] == "website"
+    assert candidate["summary_sources"][0]["last_accessed"]
+    assert candidate["issues"]["Healthcare"]["sources"][0]["last_accessed"]
+
+
 def test_add_candidate_handler():
     """add_candidate handler adds a candidate to race_json."""
     from pipeline_client.agent.agent import _make_editing_handlers
@@ -166,6 +204,26 @@ def test_add_candidate_handler():
     assert "Added" in result
     assert len(race_json["candidates"]) == 1
     assert race_json["candidates"][0]["name"] == "Alice"
+
+
+def test_add_candidate_blocks_primary_loser_after_nominee_is_known():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {
+        "candidates": [
+            {
+                "name": "Fred Love",
+                "party": "Democratic",
+                "summary": "Fred Love is the Democratic nominee for Arkansas governor in 2026.",
+            }
+        ]
+    }
+    handlers = _make_editing_handlers(race_json, lambda l, m: None)
+
+    result = handlers["add_candidate"]({"name": "Supha Xayprasith-Mays", "party": "Democratic"})
+
+    assert "Blocked adding" in result
+    assert [candidate["name"] for candidate in race_json["candidates"]] == ["Fred Love"]
 
 
 def test_remove_candidate_handler():

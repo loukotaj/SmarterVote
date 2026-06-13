@@ -334,6 +334,31 @@ def _enforce_candidate_cap(race_json: Dict[str, Any], log: Any | None = None, *,
         )
 
 
+def _backfill_source_timestamps(race_json: Dict[str, Any]) -> None:
+    """Backfill missing last_accessed on legacy source objects loaded from checkpoints.
+
+    Old data saved before the last_accessed field was made required will fail schema
+    validation.  This sets a fallback ISO-8601 timestamp so validation passes.
+    """
+    from datetime import datetime, timezone
+
+    fallback = datetime.now(timezone.utc).isoformat()
+    source_list_keys = ("summary_sources", "donor_sources", "voting_sources")
+    for candidate in race_json.get("candidates") or []:
+        if not isinstance(candidate, dict):
+            continue
+        for key in source_list_keys:
+            for src in candidate.get(key) or []:
+                if isinstance(src, dict) and not src.get("last_accessed"):
+                    src["last_accessed"] = fallback
+        for issue_data in (candidate.get("issues") or {}).values():
+            if not isinstance(issue_data, dict):
+                continue
+            for src in issue_data.get("sources") or []:
+                if isinstance(src, dict) and not src.get("last_accessed"):
+                    src["last_accessed"] = fallback
+
+
 def _sanitize_roster(race_json: Dict[str, Any], log: Any | None = None) -> None:
     """Apply deterministic roster constraints before downstream fan-out."""
     _normalize_candidate_entries(race_json, log)
@@ -875,6 +900,7 @@ async def _run_update(
         track = lambda a, s, **kw: None
 
     race_json: Dict[str, Any] = copy.deepcopy(existing)
+    _backfill_source_timestamps(race_json)
     _sanitize_roster(race_json, log)
     await _sync_ballotpedia_roster(race_json, race_id, log)
     _sanitize_roster(race_json, log)

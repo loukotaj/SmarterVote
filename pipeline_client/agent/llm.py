@@ -19,6 +19,32 @@ from .web_tools import _fetch_page, _page_fetch_log_hint, _serper_search
 logger = logging.getLogger("pipeline")
 
 
+def _provider_usage_cost(usage: Any) -> Optional[float]:
+    """Read OpenRouter's billed cost from SDK-known or extra usage fields."""
+    if usage is None:
+        return None
+    value = getattr(usage, "cost", None)
+    if value is None:
+        extra = getattr(usage, "model_extra", None)
+        if isinstance(extra, dict):
+            value = extra.get("cost")
+    try:
+        return float(value) if value is not None else None
+    except (TypeError, ValueError):
+        return None
+
+
+def _accumulate_usage(resp: Any, model: str) -> None:
+    usage = getattr(resp, "usage", None)
+    if usage:
+        accumulate(
+            usage.prompt_tokens or 0,
+            usage.completion_tokens or 0,
+            model,
+            cost_usd=_provider_usage_cost(usage),
+        )
+
+
 # ---------------------------------------------------------------------------
 # OpenRouter client singleton
 # ---------------------------------------------------------------------------
@@ -135,8 +161,7 @@ async def _call_openai(
     for attempt in range(max_retries):
         try:
             resp = await _create_chat_completion(client, kwargs)
-            if resp.usage:
-                accumulate(resp.usage.prompt_tokens or 0, resp.usage.completion_tokens or 0, model)
+            _accumulate_usage(resp, model)
             return resp
         except BadRequestError as exc:
             error_str = str(exc)
@@ -154,8 +179,7 @@ async def _call_openai(
                     kwargs["messages"] = simplified_msgs
                     try:
                         resp = await _create_chat_completion(client, kwargs)
-                        if resp.usage:
-                            accumulate(resp.usage.prompt_tokens or 0, resp.usage.completion_tokens or 0, model)
+                        _accumulate_usage(resp, model)
                         logger.warning("Simplified prompt accepted; continuing.")
                         return resp
                     except BadRequestError as retry_exc:
@@ -230,6 +254,9 @@ def _normalize_candidate(candidate: Dict[str, Any], now_iso: str) -> None:
 
     if candidate.get("image_url") == "":
         candidate["image_url"] = None
+
+    for src in candidate.get("summary_sources", []):
+        _normalize_source(src, now_iso)
 
     for issue_data in candidate.get("issues", {}).values():
         if isinstance(issue_data, dict):

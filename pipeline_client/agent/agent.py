@@ -16,6 +16,7 @@ redundant Serper API calls across runs.  Token usage and estimated USD cost
 are attached to the output JSON under ``agent_metrics``.
 """
 
+import copy
 import json
 import logging
 import time
@@ -346,6 +347,8 @@ async def run_agent(
     candidate_names: Optional[List[str]] = None,
     goal: Optional[str] = None,
     resume_partial: bool = False,
+    reject_empty_candidates: bool = False,
+    prior_agent_metrics: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
     """Run the multi-phase research agent for a given race_id.
 
@@ -424,7 +427,15 @@ async def run_agent(
                 logger.debug("Step tracker callback '%s' for '%s' failed: %s", action, step, _e)
 
     # Initialise a fresh cost accumulator for this run
-    _acc: Dict[str, Any] = {"prompt_tokens": 0, "completion_tokens": 0}
+    prior_agent_metrics = prior_agent_metrics or {}
+    _acc: Dict[str, Any] = {
+        "prompt_tokens": int(prior_agent_metrics.get("prompt_tokens", 0) or 0),
+        "completion_tokens": int(prior_agent_metrics.get("completion_tokens", 0) or 0),
+        "provider_cost_usd": float(prior_agent_metrics.get("provider_cost_usd", 0.0) or 0.0),
+        "priced_calls": int(prior_agent_metrics.get("priced_calls", 0) or 0),
+        "unpriced_calls": int(prior_agent_metrics.get("unpriced_calls", 0) or 0),
+        "model_breakdown": copy.deepcopy(prior_agent_metrics.get("model_breakdown", {})),
+    }
     _ctx_token = _cost_ctx.set(_acc)
 
     if existing_data is None:
@@ -500,6 +511,12 @@ async def run_agent(
     _sanitize_roster(race_json, log)
     race_json.setdefault("polling", [])
     _normalize_schema_fields(race_json, log)
+
+    if reject_empty_candidates and should_review and not race_json.get("candidates"):
+        raise ValueError(
+            f"Agent discovery for '{race_id}' returned no candidates. "
+            "Stopping before review to avoid spending on an empty profile."
+        )
 
     if should_review:
         _track("start", "review")
@@ -616,18 +633,22 @@ async def run_agent(
     ct = _acc["completion_tokens"]
     total_tokens = pt + ct
     breakdown = _acc.get("model_breakdown", {})
-    total_cost = (
+    estimated_cost = (
         sum(estimate_cost(m, bd.get("prompt_tokens", 0), bd.get("completion_tokens", 0)) for m, bd in breakdown.items())
         if breakdown
         else estimate_cost(model, pt, ct)
     )
+    provider_cost = _acc.get("provider_cost_usd", 0.0)
+    has_exact_provider_cost = _acc.get("priced_calls", 0) > 0 and _acc.get("unpriced_calls", 0) == 0
     agent_metrics = {
         "model": model,
         "model_profile": profile,
         "prompt_tokens": pt,
         "completion_tokens": ct,
         "total_tokens": total_tokens,
-        "estimated_usd": round(total_cost, 4),
+        "cost_usd": provider_cost if has_exact_provider_cost else None,
+        "cost_source": "provider" if has_exact_provider_cost else "estimated",
+        "estimated_usd": round(estimated_cost, 6),
         "model_breakdown": breakdown,
         "duration_s": round(elapsed, 1),
     }
@@ -635,7 +656,8 @@ async def run_agent(
     log(
         "info",
         f"Agent finished in {elapsed:.1f}s; "
-        f"${total_cost:.4f} estimated "
+        f"${(provider_cost if has_exact_provider_cost else estimated_cost):.6f} "
+        f"{'provider billed' if has_exact_provider_cost else 'estimated'} "
         f"({pt:,} in + {ct:,} out = {total_tokens:,} tokens)",
     )
 

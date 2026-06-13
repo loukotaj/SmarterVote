@@ -212,13 +212,12 @@
               <!-- Stances Columns -->
               {#each candidates as candidate}
                 {@const stance = candidate.issues?.[issueKey]}
-                <div class="p-6 border-r border-stroke last:border-none flex flex-col justify-between gap-3">
+                <div class="p-6 border-r border-stroke last:border-none flex flex-col gap-3">
                   {#if stance}
-                    <div class="space-y-2">
-                      <div class="flex items-center justify-between gap-2">
-                        <ConfidenceIndicator confidence={stance.confidence} />
-                      </div>
-                      <p class="text-sm text-content-muted leading-relaxed whitespace-normal">{stance.stance}</p>
+                    <p class="text-sm text-content-muted leading-relaxed whitespace-normal">{stance.stance}</p>
+                    <div class="flex items-center gap-2 pt-1">
+                      <span class="text-[10px] text-content-subtle font-medium uppercase tracking-wide">Confidence</span>
+                      <ConfidenceIndicator confidence={stance.confidence} />
                     </div>
                     {#if stance.sources && stance.sources.length > 0}
                       <div class="pt-2 border-t border-stroke/40 flex flex-wrap gap-1">

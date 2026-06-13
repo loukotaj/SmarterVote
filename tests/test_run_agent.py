@@ -107,7 +107,7 @@ async def test_run_agent_fresh():
 
     assert result["id"] == "test-2024"
     assert "updated_utc" in result
-    assert result["generator"] == ["openai/gpt-5.4-mini"]
+    assert result["generator"] == ["openai/gpt-5.4-mini", "openai/gpt-5-nano"]
     # discovery + image + 12 issue sub-agents + finance + refine + meta refine = 17
     assert mock_loop.call_count == 17
 
@@ -135,6 +135,50 @@ async def test_run_agent_fresh_no_candidates():
     assert result["candidates"] == []
     # Only 1 call (discovery), no issue research or refinement
     assert mock_loop.call_count == 1
+
+
+@pytest.mark.asyncio
+async def test_run_agent_rejects_empty_discovery_before_review():
+    """An empty profile should fail before review models spend more tokens."""
+    with (
+        patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.agent._load_existing", return_value=None),
+        patch("pipeline_client.agent.agent.run_reviews", new_callable=AsyncMock) as mock_reviews,
+    ):
+        mock_loop.return_value = {"id": "empty-reviewed-2026", "candidates": []}
+
+        with pytest.raises(ValueError, match="Stopping before review"):
+            await run_agent("empty-reviewed-2026", cheap_mode=True, reject_empty_candidates=True)
+
+    mock_reviews.assert_not_awaited()
+
+
+@pytest.mark.asyncio
+async def test_run_agent_includes_prior_continuation_metrics():
+    discovery_result = {"id": "continued-2026", "candidates": [{"name": "Alice", "issues": {}}]}
+
+    with (
+        patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.agent._load_existing", return_value=None),
+    ):
+        mock_loop.return_value = discovery_result
+        result = await run_agent(
+            "continued-2026",
+            cheap_mode=True,
+            enabled_steps=["discovery"],
+            prior_agent_metrics={
+                "prompt_tokens": 100,
+                "completion_tokens": 20,
+                "provider_cost_usd": 0.00123,
+                "priced_calls": 2,
+                "unpriced_calls": 0,
+                "model_breakdown": {"openai/gpt-5.4-mini": {"prompt_tokens": 100, "completion_tokens": 20}},
+            },
+        )
+
+    assert result["agent_metrics"]["total_tokens"] == 120
+    assert result["agent_metrics"]["cost_usd"] == pytest.approx(0.00123)
+    assert result["agent_metrics"]["cost_source"] == "provider"
 
 
 @pytest.mark.asyncio
@@ -328,7 +372,7 @@ async def test_run_agent_normalizes_output():
 
     assert result["id"] == "race-2024"
     assert "updated_utc" in result
-    assert result["generator"] == ["openai/gpt-5.4-mini"]
+    assert result["generator"] == ["openai/gpt-5.4-mini", "openai/gpt-5-nano"]
 
 
 @pytest.mark.asyncio
@@ -359,6 +403,31 @@ async def test_run_agent_adds_source_timestamps():
 
     source = result["candidates"][0]["issues"]["Healthcare"]["sources"][0]
     assert "last_accessed" in source
+
+
+@pytest.mark.asyncio
+async def test_run_agent_normalizes_summary_sources():
+    discovery_result = {
+        "id": "summary-sources-2024",
+        "candidates": [
+            {
+                "name": "Alice",
+                "summary_sources": [{"url": "https://ballotpedia.org/Alice", "type": "ballotpedia"}],
+                "issues": {},
+            }
+        ],
+    }
+
+    with (
+        patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.agent._load_existing", return_value=None),
+    ):
+        mock_loop.return_value = discovery_result
+        result = await run_agent("summary-sources-2024", cheap_mode=True, existing_data={})
+
+    source = result["candidates"][0]["summary_sources"][0]
+    assert source["type"] == "website"
+    assert source["last_accessed"]
 
 
 @pytest.mark.asyncio
@@ -451,7 +520,11 @@ async def test_run_agent_respects_review_provider_selection():
             review_providers=["claude"],
         )
 
-    assert result["generator"] == ["openai/gpt-5.4-mini", "anthropic/claude-haiku-4.5"]
+    assert result["generator"] == [
+        "openai/gpt-5.4-mini",
+        "openai/gpt-5-nano",
+        "anthropic/claude-haiku-4.5",
+    ]
     assert mock_reviews.call_args.kwargs["review_providers"] == ["claude"]
 
 

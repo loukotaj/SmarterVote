@@ -430,6 +430,18 @@ class AgentHandler:
                 continuation_options["is_continuation"] = True
                 continuation_options["force_fresh"] = False
                 continuation_options["parent_run_id"] = current_run_id
+                from pipeline_client.agent.cost import _cost_ctx
+
+                cost_snapshot = _cost_ctx.get()
+                if isinstance(cost_snapshot, dict):
+                    continuation_options["prior_agent_metrics"] = {
+                        "prompt_tokens": cost_snapshot.get("prompt_tokens", 0),
+                        "completion_tokens": cost_snapshot.get("completion_tokens", 0),
+                        "provider_cost_usd": cost_snapshot.get("provider_cost_usd", 0.0),
+                        "priced_calls": cost_snapshot.get("priced_calls", 0),
+                        "unpriced_calls": cost_snapshot.get("unpriced_calls", 0),
+                        "model_breakdown": cost_snapshot.get("model_breakdown", {}),
+                    }
                 db.collection("pipeline_queue").document(item_id).set(
                     {
                         "id": item_id,
@@ -501,6 +513,8 @@ class AgentHandler:
             candidate_names=options.get("candidate_names"),
             goal=options.get("goal"),
             resume_partial=bool(options.get("is_continuation")),
+            reject_empty_candidates=True,
+            prior_agent_metrics=options.get("prior_agent_metrics"),
         )
 
         # Update checkpoint holder so handoff (if somehow triggered post-agent) has latest data

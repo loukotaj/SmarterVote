@@ -369,7 +369,7 @@
         <p class="text-xs text-content-subtle">Always verify information by visiting candidate websites directly. This tool provides analysis for informational purposes only.</p>
         <div class="mt-4">
           <a
-            href="https://github.com/sponsors/smartervote"
+            href="https://github.com/sponsors/loukotaj"
             target="_blank"
             rel="noopener noreferrer"
             class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-pink-300 dark:border-pink-700 text-pink-600 dark:text-pink-400 text-xs font-medium hover:bg-pink-50 dark:hover:bg-pink-950 transition-colors"

@@ -406,6 +406,8 @@ export interface AgentMetrics {
   completion_tokens: number;
   total_tokens: number;
   estimated_usd: number;
+  cost_usd?: number | null;
+  cost_source?: "provider" | "estimated";
   model_breakdown: Record<
     string,
     { prompt_tokens: number; completion_tokens: number }
@@ -423,6 +425,8 @@ export interface PipelineRunRecord {
   completion_tokens: number;
   total_tokens: number;
   estimated_usd: number;
+  cost_usd?: number | null;
+  cost_source?: "provider" | "estimated";
   model_breakdown: Record<
     string,
     { prompt_tokens: number; completion_tokens: number }

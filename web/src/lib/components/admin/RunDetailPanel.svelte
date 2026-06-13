@@ -800,12 +800,15 @@
               <!-- Agent metrics -->
               {#if rj.agent_metrics}
                 {@const am = rj.agent_metrics}
+                {@const reportedCost = am.cost_usd ?? am.estimated_usd}
                 <div class="rounded-xl border border-stroke p-4">
                   <h4 class="text-[10px] font-semibold uppercase tracking-wider text-content-faint mb-3">Agent Metrics</h4>
                   <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-3">
                     <div>
-                      <p class="text-[10px] text-content-faint uppercase tracking-wide">Est. Cost</p>
-                      <p class="text-xl font-bold text-content">{am.estimated_usd != null ? (am.estimated_usd < 0.001 ? '<$0.001' : `$${am.estimated_usd.toFixed(3)}`) : '-'}</p>
+                      <p class="text-[10px] text-content-faint uppercase tracking-wide">
+                        {am.cost_source === "provider" ? "Provider Cost" : "Est. Cost"}
+                      </p>
+                      <p class="text-xl font-bold text-content">{reportedCost != null ? `$${reportedCost.toFixed(6)}` : '-'}</p>
                     </div>
                     <div>
                       <p class="text-[10px] text-content-faint uppercase tracking-wide">Tokens</p>

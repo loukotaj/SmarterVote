@@ -15,6 +15,7 @@ from typing import Any, Callable, Dict, Optional
 # Pattern matching metadata field names (snake_case, no spaces) — clearly not human names
 _METADATA_KEY_RE = re.compile(r"^[a-z][a-z0-9_]+$")
 
+from pipeline_client.agent.images import _is_valid_image_url
 from pipeline_client.agent.prompts import CANONICAL_ISSUES
 from pipeline_client.agent.source_types import normalize_source_type
 
@@ -65,9 +66,29 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
         name = args["name"]
         if _find_candidate(name):
             return f"Candidate '{name}' already exists — skipping."
+        party = str(args.get("party") or "")
+        party_key = "democratic" if "democrat" in party.lower() else "republican" if "republican" in party.lower() else ""
+        if party_key:
+            for existing in race_json.get("candidates", []):
+                if not isinstance(existing, dict) or party_key not in str(existing.get("party") or "").lower():
+                    continue
+                roster_text = " ".join(
+                    str(existing.get(field) or "") for field in ("summary", "donor_summary", "voting_summary")
+                )
+                if re.search(r"\b(?:the )?(?:democratic|republican|gop)?\s*nominee\b", roster_text, re.IGNORECASE):
+                    existing_name = existing.get("name") or "existing candidate"
+                    log(
+                        "warning",
+                        f"    add_candidate('{name}') BLOCKED: {existing_name} is already identified "
+                        f"as the {party_key.title()} nominee.",
+                    )
+                    return (
+                        f"Blocked adding '{name}': {existing_name} is already the {party_key.title()} nominee. "
+                        "Only replace a nominee after a verified withdrawal or disqualification."
+                    )
         candidate = {
             "name": name,
-            "party": args.get("party", ""),
+            "party": party,
             "incumbent": args.get("incumbent", False),
             "summary": "",
             "summary_sources": [],
@@ -187,6 +208,9 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
         c = _find_candidate(name)
         if not c:
             return f"Candidate '{name}' not found."
+        if field == "image_url" and value is not None and not _is_valid_image_url(value):
+            log("warning", f"    Rejected non-image URL for {name}: {value!r}")
+            return f"ERROR: {value!r} is not a direct image URL. " "Use a URL for an image file or set image_url to null."
         c[field] = value
         log("info", f"    {name}.{field} = {value!r}")
         return f"Set {name}.{field} = {value!r}."
@@ -198,7 +222,9 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
             return f"Candidate '{name}' not found."
         c["summary"] = args["summary"]
         if args.get("sources"):
-            c["summary_sources"] = args["sources"]
+            c["summary_sources"] = [
+                src for src in (_normalize_source(source, default_type="website") for source in args["sources"]) if src
+            ]
         log("info", f"    Updated summary for {name}")
         return f"Updated summary for '{name}'."
 
@@ -218,7 +244,9 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
             "confidence": args["confidence"],
         }
         if args.get("sources"):
-            stance_data["sources"] = args["sources"]
+            stance_data["sources"] = [
+                src for src in (_normalize_source(source, default_type="website") for source in args["sources"]) if src
+            ]
         c.setdefault("issues", {})[issue] = stance_data
         log("info", f"    {name} / {issue} [{args['confidence']}]")
         return f"Set {name}'s {issue} stance (confidence: {args['confidence']})."

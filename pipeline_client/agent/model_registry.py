@@ -66,7 +66,7 @@ LEGACY_MODEL_ALIASES: Dict[str, str] = {
 PROFILE_DEFAULTS: Dict[str, Dict[str, str]] = {
     "economy": {
         "primary": CHEAP_MODEL,
-        "small": CHEAP_MODEL,
+        "small": NANO_MODEL,
         "review_claude": CHEAP_CLAUDE_MODEL,
         "review_gemini": CHEAP_GEMINI_MODEL,
         "review_grok": CHEAP_GROK_MODEL,

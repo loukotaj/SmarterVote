@@ -754,6 +754,8 @@ IMPORTANT — remove_candidate rules:
 - Do NOT remove incumbents or major-party candidates without a news source
   explicitly confirming they left the race.
 - If you're unsure whether someone has left the race, do NOT remove them.
+- After a party primary has concluded, include only that party's nominee in the
+  general-election roster. Do NOT add defeated primary candidates.
 - Data corrections (wrong biography, bad sources, etc.) are handled in later
   pipeline phases — ignore them here.
 

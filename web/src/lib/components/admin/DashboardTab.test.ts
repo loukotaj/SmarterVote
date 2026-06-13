@@ -14,6 +14,8 @@ const records: PipelineRunRecord[] = [
     completion_tokens: 50,
     total_tokens: 150,
     estimated_usd: 0.012,
+    cost_usd: 0.011234,
+    cost_source: "provider",
     model_breakdown: {},
     duration_s: 42,
     candidate_count: 3,
@@ -98,6 +100,7 @@ describe("DashboardTab run list", () => {
 
     await component.refresh();
     await waitFor(() => expect(getByText("mn-governor-2026")).toBeTruthy());
+    expect(getByText("$0.011234")).toBeTruthy();
 
     expect(queryByText("Recent Pipeline Runs")).toBeNull();
     expect(getAllByText("Recent Runs")).toHaveLength(1);
