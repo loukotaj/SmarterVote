@@ -545,15 +545,25 @@ async def run_agent(
                 log("info", f"    -> {summary}")
         _track("complete", "review", duration_ms=int((time.perf_counter() - review_t0) * 1000), race_json=race_json)
 
-        # --- Phase 5: Iterate on review feedback (up to 2 cycles) ---
+        # --- Phase 5: Iterate on review feedback (up to 3 cycles) ---
         if should_iterate:
             _track("start", "iteration")
             iter_t0 = time.perf_counter()
-            max_review_cycles = 2
+            max_review_cycles = 3
             did_iterate = False
             for cycle in range(1, max_review_cycles + 1):
-                # Cycle 2+: only iterate on error-severity flags to break subjective loops
-                min_severity = "error" if cycle > 1 else "warning"
+                # Cycles 1-2: address warning+ flags; cycle 3: error-only safety net.
+                # Skip cycle 2 if score improved above 80 (warnings resolved enough).
+                if cycle == 3:
+                    min_severity = "error"
+                elif cycle == 2:
+                    avg_score = sum(r.get("score") or 0 for r in reviews) / max(len(reviews), 1)
+                    if avg_score >= 80 or not _has_actionable_flags(reviews, min_severity="warning"):
+                        log("info", f"  Cycle {cycle}: avg score {avg_score:.0f} ≥ 80 with no errors; done")
+                        break
+                    min_severity = "warning"
+                else:
+                    min_severity = "warning"
                 if not _has_actionable_flags(reviews, min_severity=min_severity):
                     if cycle == 1:
                         log("info", "  No actionable review flags; skipping iteration")
@@ -564,8 +574,13 @@ async def run_agent(
                 did_iterate = True
                 log("info", f"Phase 5 (cycle {cycle}/{max_review_cycles}): Iterating on review feedback...")
                 _track("progress", "iteration", pct=int(cycle / max_review_cycles * 80))
-                # Split iteration budget: 60% cycle 1, 40% cycle 2
-                cycle_budget = int(max_iterations * (0.6 if cycle == 1 else 0.4))
+                # Split iteration budget: 50% cycle 1, 30% cycle 2, 20% cycle 3
+                if cycle == 1:
+                    cycle_budget = int(max_iterations * 0.5)
+                elif cycle == 2:
+                    cycle_budget = int(max_iterations * 0.3)
+                else:
+                    cycle_budget = int(max_iterations * 0.2)
                 improved = await _run_iteration_pass(
                     race_id,
                     race_json,

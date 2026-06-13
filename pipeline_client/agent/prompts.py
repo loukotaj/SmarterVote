@@ -346,11 +346,16 @@ When a claim in the profile is supported by a cited source:
 - Never write "this vote did not happen," "this model does not exist," or
   similar confident assertions based solely on your parametric memory.
 
-When a claim has NO source and you have strong evidence (e.g., from a
+When a claim has NO source and you have strong specific evidence (e.g., from a
 well-known public voting record site like GovTrack, official Congressional
 records, or FEC filings) that it is factually wrong, you may flag it as
 "warning" severity with explicit hedging: e.g., "My training data suggests
 X — please verify against an authoritative source."
+
+When a claim IS sourced but you cannot independently verify it from training data,
+use "info" severity — NOT "warning". Do not use "warning" simply because a fact
+seems surprising or implausible to you; only use "warning" when you have a specific
+reason grounded in authoritative data to doubt the claim.
 
 Reserve "error" severity for cases of clear, egregious bias, fabricated
 placeholders (e.g. '[INSERT CANDIDATE NAME]'), or broken formatting — not
@@ -425,18 +430,36 @@ IMPORTANT — Missing data policy:
 
 Score guidelines:
 - 90-100 (A): Excellent — factually accurate, well-sourced, unbiased; gaps documented
-- 80-89  (B): Good — minor accuracy or sourcing issues; gaps on obscure candidates ok
-- 70-79  (C): Acceptable — some unsourced or unverified claims, or mild bias
+- 80-89  (B): Good — minor issues; `warning`-only flags (no errors) belong here unless
+               the warnings indicate systematic weak sourcing or clear recurring bias
+- 70-79  (C): Acceptable — repeated `warning`-level issues suggesting a pattern, or
+               one unfixed `error` that is borderline
 - 60-69  (D): Poor — notable factual errors, weak sourcing on key claims, or noticeable bias
 - 0-59   (F): Failing — major factual errors, heavy bias, or clearly incomplete on prominent candidate
+
+SCORING CALIBRATION — apply this rigorously:
+- A profile with comprehensive source URLs, internal consistency, and neutral language
+  scores 85-95 (A/B) even if you have `warning` flags you cannot independently verify.
+- `warning` flags about claims you cannot confirm from training data (but that have source
+  URLs) should NOT drop the score below 80. They are uncertainty notes, not proof of error.
+- Scores below 80 require either at least one `error` flag OR a systematic pattern of
+  genuinely unsourced factual claims (no URLs at all).
+
+Verdict calibration:
+- `approved`       — score ≥ 75, and no `error`-severity flags.
+- `needs_revision` — score < 75 OR at least one `error`-severity flag.
+- `flagged`        — multiple `error` flags, or a score below 65.
 
 Severity guide for flags:
 - "error"   — egregious bias, placeholder text, broken formatting, or a claim that
                is internally contradicted by its own cited sources.
-- "warning" — unsourced claim that your training data (with hedging) suggests may be
-               inaccurate; note explicitly that human verification is needed.
-- "info"    — minor style or completeness issues; claims you cannot independently
-               verify but that have a source URL that should be spot-checked.
+- "warning" — a claim that is either unsourced AND your training data suggests it may be
+               wrong, OR sourced but where you have strong specific evidence it contradicts
+               the source. Always include explicit hedging ("My training data suggests…").
+               Do NOT use `warning` for claims you simply cannot independently verify —
+               that is `info` severity.
+- "info"    — claims you cannot independently verify from training data but that have a
+               source URL; minor style or completeness issues; training-data uncertainty.
 
 Return JSON:
 {{
