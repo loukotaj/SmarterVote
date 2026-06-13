@@ -58,15 +58,12 @@ resource "google_cloud_run_v2_service" "races_api" {
         value = var.cloudflare_analytics_site_tag
       }
 
-      dynamic "env" {
-        for_each = var.cloudflare_analytics_api_token != "" ? toset(["cloudflare"]) : toset([])
-        content {
-          name = "CLOUDFLARE_ANALYTICS_API_TOKEN"
-          value_source {
-            secret_key_ref {
-              secret  = google_secret_manager_secret.cloudflare_analytics_api_token.secret_id
-              version = "latest"
-            }
+      env {
+        name = "CLOUDFLARE_ANALYTICS_API_TOKEN"
+        value_source {
+          secret_key_ref {
+            secret  = google_secret_manager_secret.cloudflare_analytics_api_token.secret_id
+            version = "latest"
           }
         }
       }
@@ -86,15 +83,12 @@ resource "google_cloud_run_v2_service" "races_api" {
         }
       }
 
-      dynamic "env" {
-        for_each = (var.admin_api_key != null && var.admin_api_key != "") ? toset(["admin_api_key"]) : toset([])
-        content {
-          name = "ADMIN_API_KEY"
-          value_source {
-            secret_key_ref {
-              secret  = google_secret_manager_secret.admin_api_key.secret_id
-              version = "latest"
-            }
+      env {
+        name = "ADMIN_API_KEY"
+        value_source {
+          secret_key_ref {
+            secret  = google_secret_manager_secret.admin_api_key.secret_id
+            version = "latest"
           }
         }
       }
