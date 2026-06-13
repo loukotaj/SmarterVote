@@ -22,11 +22,12 @@ _PROJECT_ID = os.getenv("FIRESTORE_PROJECT") or os.getenv("PROJECT_ID")
 _RACES_API_URL = os.getenv("RACES_API_URL", "").rstrip("/")
 _ADMIN_API_KEY = os.getenv("ADMIN_API_KEY", "")
 _OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY", "")
-_MODEL = os.getenv("ADMIN_AGENT_MODEL", "openai/gpt-5.4-mini")
+_MODEL = os.getenv("ADMIN_AGENT_MODEL", "nvidia/nemotron-3-ultra-550b-a55b")
 _DEADLINE_SECONDS = int(os.getenv("ADMIN_AGENT_DEADLINE_SECONDS", "450"))
 _MAX_ITERATIONS = int(os.getenv("ADMIN_AGENT_MAX_ITERATIONS", "40"))
 _MAX_CONTINUATIONS = int(os.getenv("ADMIN_AGENT_MAX_CONTINUATIONS", "8"))
 _MAX_TOTAL_TOKENS = int(os.getenv("ADMIN_AGENT_MAX_TOTAL_TOKENS", "200000"))
+_MAX_OUTPUT_TOKENS = int(os.getenv("ADMIN_AGENT_MAX_OUTPUT_TOKENS", "4096"))
 _MAX_COST_USD = float(os.getenv("ADMIN_AGENT_MAX_COST_USD", "5.0"))
 
 _TASKS = "admin_agent_tasks"
@@ -58,6 +59,21 @@ def _now() -> str:
 
 def _new_id() -> str:
     return str(uuid.uuid4())
+
+
+def _parse_time(value: Any) -> datetime | None:
+    if isinstance(value, datetime):
+        parsed = value
+    elif isinstance(value, str):
+        try:
+            parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+        except ValueError:
+            return None
+    else:
+        return None
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=timezone.utc)
+    return parsed.astimezone(timezone.utc)
 
 
 def _message(
@@ -93,6 +109,8 @@ def _load_messages(db: Any, conversation_id: str) -> list[Dict[str, Any]]:
         (doc.to_dict() or {} for doc in docs),
         key=lambda item: (str(item.get("created_at") or ""), str(item.get("message_id") or "")),
     )[-120:]
+    while stored and stored[0].get("role") == "tool":
+        stored.pop(0)
     messages: list[Dict[str, Any]] = []
     for item in stored:
         role = item.get("role")
@@ -128,12 +146,47 @@ def process_admin_agent_task(cloud_event: CloudEvent) -> None:
         if not snapshot.exists:
             return None
         data = snapshot.to_dict() or {}
-        if data.get("status") != "queued":
+        status = data.get("status")
+        if status == "running":
+            started_at = _parse_time(data.get("started_at"))
+            stale_after = _DEADLINE_SECONDS + 90
+            if started_at and (datetime.now(timezone.utc) - started_at).total_seconds() <= stale_after:
+                return {"busy": True}
+            if data.get("approved_tool_call"):
+                transaction.update(
+                    ref,
+                    {
+                        "status": "failed",
+                        "error": "Approved operation was interrupted; verify its result before retrying",
+                        "updated_at": _now(),
+                    },
+                )
+                return {"abandoned_approval": True, **data}
+        elif status != "queued":
             return None
-        transaction.update(ref, {"status": "running", "started_at": _now(), "updated_at": _now()})
+        transaction.update(
+            ref,
+            {
+                "status": "running",
+                "started_at": _now(),
+                "updated_at": _now(),
+                "attempt": int(data.get("attempt") or 0) + 1,
+            },
+        )
         return data
 
     task = _claim(db.transaction(), task_ref)
+    if task and task.get("busy"):
+        raise RuntimeError(f"Task {task_id} is already running; request Eventarc retry")
+    if task and task.get("abandoned_approval"):
+        _message(
+            db,
+            task["conversation_id"],
+            task_id,
+            "assistant",
+            "The approved operation was interrupted. Verify the current production state before requesting it again.",
+        )
+        return
     if task is None:
         logger.info("Task %s already claimed or unavailable", task_id)
         return
@@ -154,6 +207,12 @@ async def _run_task(db: Any, task_ref: Any, task: Dict[str, Any]) -> None:
     continuation_count = int(task.get("continuation_count") or 0)
     total_tokens = int(task.get("total_tokens") or 0)
     cost_usd = float(task.get("cost_usd") or 0.0)
+
+    latest = task_ref.get().to_dict() or {}
+    if latest.get("cancel_requested") or latest.get("status") == "cancelled":
+        task_ref.set({"status": "cancelled", "updated_at": _now()}, merge=True)
+        _message(db, conversation_id, task_id, "assistant", "Task cancelled.")
+        return
 
     approved = task.get("approved_tool_call")
     if approved:
@@ -273,24 +332,33 @@ async def _run_task(db: Any, task_ref: Any, task: Dict[str, Any]) -> None:
 async def _call_model(messages: list[Dict[str, Any]]) -> Dict[str, Any]:
     if not _OPENROUTER_API_KEY:
         raise RuntimeError("OPENROUTER_API_KEY is not configured")
+    last_error: Exception | None = None
     async with httpx.AsyncClient(timeout=90) as client:
-        response = await client.post(
-            "https://openrouter.ai/api/v1/chat/completions",
-            headers={
-                "Authorization": f"Bearer {_OPENROUTER_API_KEY}",
-                "HTTP-Referer": os.getenv("OPENROUTER_HTTP_REFERER", "https://smarter.vote"),
-                "X-Title": "SmarterVote Admin Agent",
-            },
-            json={
-                "model": _MODEL,
-                "messages": messages,
-                "tools": _TOOLS,
-                "tool_choice": "auto",
-                "parallel_tool_calls": False,
-            },
-        )
-        response.raise_for_status()
-        return response.json()
+        for attempt in range(3):
+            try:
+                response = await client.post(
+                    "https://openrouter.ai/api/v1/chat/completions",
+                    headers={
+                        "Authorization": f"Bearer {_OPENROUTER_API_KEY}",
+                        "HTTP-Referer": os.getenv("OPENROUTER_HTTP_REFERER", "https://smarter.vote"),
+                        "X-OpenRouter-Title": "SmarterVote Admin Agent",
+                    },
+                    json={
+                        "model": _MODEL,
+                        "messages": messages,
+                        "tools": _TOOLS,
+                        "tool_choice": "auto",
+                        "parallel_tool_calls": False,
+                        "max_tokens": _MAX_OUTPUT_TOKENS,
+                    },
+                )
+                response.raise_for_status()
+                return response.json()
+            except httpx.HTTPError as exc:
+                last_error = exc
+                if attempt < 2:
+                    await asyncio.sleep(2**attempt)
+    raise RuntimeError(f"OpenRouter request failed after retries: {last_error}")
 
 
 async def _execute_tool(name: str, arguments: Dict[str, Any]) -> Any:
@@ -422,6 +490,14 @@ _TOOLS = [
     _tool("clear_races_api_cache", "Clear the public API cache. Requires approval."),
     _tool("get_analytics_overview", "Get races-api request health analytics.", {"hours": {"type": "integer"}}),
     _tool("get_race_analytics", "Get legacy per-race API request analytics.", {"hours": {"type": "integer"}}),
+    _tool(
+        "get_analytics_timeseries",
+        "Get bucketed races-api request analytics.",
+        {
+            "hours": {"type": "integer"},
+            "bucket_minutes": {"type": "integer", "minimum": 5, "maximum": 360},
+        },
+    ),
     _tool("get_traffic_analytics", "Get static-site traffic analytics from Cloudflare.", {"hours": {"type": "integer"}}),
 ]
 
@@ -468,6 +544,12 @@ _TOOL_ROUTES = {
     "clear_races_api_cache": ("POST", "/cache/clear", None, None),
     "get_analytics_overview": ("GET", "/analytics/overview", None, lambda a: {"hours": a.get("hours", 24)}),
     "get_race_analytics": ("GET", "/analytics/races", None, lambda a: {"hours": a.get("hours", 24)}),
+    "get_analytics_timeseries": (
+        "GET",
+        "/analytics/timeseries",
+        None,
+        lambda a: {"hours": a.get("hours", 24), "bucket": a.get("bucket_minutes", 60)},
+    ),
     "get_traffic_analytics": ("GET", "/analytics/traffic", None, lambda a: {"hours": a.get("hours", 24)}),
 }
 

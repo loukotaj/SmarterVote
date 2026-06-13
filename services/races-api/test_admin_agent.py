@@ -24,7 +24,7 @@ class FakeDocument:
         self.collection = collection
         self.doc_id = doc_id
 
-    def get(self):
+    def get(self, transaction=None):
         return FakeSnapshot(self.doc_id, self.collection.values.get(self.doc_id))
 
     def set(self, value, merge=False):
@@ -32,6 +32,9 @@ class FakeDocument:
             self.collection.values[self.doc_id].update(deepcopy(value))
         else:
             self.collection.values[self.doc_id] = deepcopy(value)
+
+    def update(self, value):
+        self.collection.values[self.doc_id].update(deepcopy(value))
 
 
 class FakeQuery:
@@ -66,11 +69,23 @@ class FakeFirestore:
     def collection(self, name):
         return self.collections.setdefault(name, FakeCollection())
 
+    def transaction(self):
+        return FakeTransaction()
+
+
+class FakeTransaction:
+    def update(self, document, value):
+        document.update(value)
+
+    def set(self, document, value):
+        document.set(value)
+
 
 @pytest.fixture
 def fake_db(monkeypatch):
     db = FakeFirestore()
     monkeypatch.setattr(admin_agent.firestore_helpers, "_get_fs", lambda: db)
+    monkeypatch.setattr(admin_agent, "_transactional", lambda func: func)
     return db
 
 
@@ -115,6 +130,10 @@ def test_approve_creates_continuation_task(fake_db):
     assert continuation["approved_tool_call"]["name"] == "publish_race"
     assert continuation["iteration"] == 2
     assert task_ref.get().to_dict()["status"] == "continued"
+
+    repeated = asyncio.run(admin_agent.approve_task(task["task_id"]))
+    assert repeated["task_id"] == continuation["task_id"]
+    assert len(fake_db.collection(admin_agent._TASKS).values) == 2
 
 
 def test_declining_approval_closes_tool_call(fake_db):

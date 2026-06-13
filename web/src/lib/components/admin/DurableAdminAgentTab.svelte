@@ -102,21 +102,23 @@
     }
   }
 
-  async function cancel(task: AdminAgentTask) {
+  async function cancel(task: AdminAgentTask): Promise<boolean> {
     actionPending = true;
     error = "";
     try {
       await apiService.cancelAdminAgentTask(task.task_id);
       await refresh();
+      return true;
     } catch (e) {
       error = String(e);
+      return false;
     } finally {
       actionPending = false;
     }
   }
 
   async function newConversation() {
-    if (isActive && latestTask) await cancel(latestTask);
+    if ((isActive || waitingApproval) && latestTask && !(await cancel(latestTask))) return;
     localStorage.removeItem(STORAGE_KEY);
     data = null;
     await initialize();

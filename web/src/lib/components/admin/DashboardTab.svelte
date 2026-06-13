@@ -137,10 +137,33 @@
       ]);
 
       if (overviewRes.status === "fulfilled") overview = overviewRes.value;
-      if (trafficRes.status === "fulfilled") traffic = trafficRes.value;
+      if (trafficRes.status === "fulfilled") {
+        traffic = trafficRes.value;
+      } else {
+        traffic = {
+          configured: false,
+          provider: "cloudflare",
+          hours,
+          pageviews: 0,
+          visits: 0,
+          pages_per_visit: 0,
+          timeseries: [],
+          top_pages: [],
+          top_referrers: [],
+          countries: [],
+          devices: [],
+          fetched_at: null,
+          error: String(trafficRes.reason),
+        };
+      }
       if (alertsRes.status === "fulfilled") alerts = alertsRes.value.alerts;
       if (metricsRes.status === "fulfilled") pipelineRecords = metricsRes.value.records;
       if (metricsSummaryRes.status === "fulfilled") pipelineSummary = metricsSummaryRes.value;
+
+      const failed = [overviewRes, alertsRes, metricsRes, metricsSummaryRes].filter(
+        (result) => result.status === "rejected"
+      ).length;
+      if (failed > 0) error = `${failed} dashboard request${failed === 1 ? "" : "s"} failed`;
 
       // Load race list for discovery-only count
       if (apiService) {

@@ -227,19 +227,19 @@
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
         <!-- Top Row (Logo & Navigation/Toggle on mobile) -->
         <div class="flex items-center justify-between w-full md:w-auto">
-          <a href="/" class="text-xl sm:text-2xl font-bold text-blue-600 hover:text-blue-700 whitespace-nowrap">
+          <a href="/" data-sveltekit-reload class="text-xl sm:text-2xl font-bold text-blue-600 hover:text-blue-700 whitespace-nowrap">
             Smarter.vote
           </a>
           <!-- Navigation links on mobile (hidden on desktop) -->
           <div class="flex items-center gap-3 text-sm md:hidden">
-            <a href="/" class="text-content-muted hover:text-content {$page.url.pathname === '/' ? 'font-semibold text-content' : ''}">
+            <a href="/" data-sveltekit-reload class="text-content-muted hover:text-content {$page.url.pathname === '/' ? 'font-semibold text-content' : ''}">
               Home
             </a>
-            <a href="/about" class="text-content-muted hover:text-content {$page.url.pathname === '/about' ? 'font-semibold text-content' : ''}">
+            <a href="/about" data-sveltekit-reload class="text-content-muted hover:text-content {$page.url.pathname === '/about' ? 'font-semibold text-content' : ''}">
               About
             </a>
             {#if isAuthenticated}
-              <a href="/admin" class="text-content-muted hover:text-content {$page.url.pathname.startsWith('/admin') ? 'font-semibold text-content' : ''}">
+              <a href="/admin" data-sveltekit-reload class="text-content-muted hover:text-content {$page.url.pathname.startsWith('/admin') ? 'font-semibold text-content' : ''}">
                 Admin
               </a>
             {/if}
@@ -333,14 +333,14 @@
 
         <!-- Navigation Links (desktop) -->
         <div class="hidden md:flex items-center gap-4 sm:gap-6 text-sm">
-          <a href="/" class="text-content-muted hover:text-content {$page.url.pathname === '/' ? 'font-semibold text-content' : ''}">
+          <a href="/" data-sveltekit-reload class="text-content-muted hover:text-content {$page.url.pathname === '/' ? 'font-semibold text-content' : ''}">
             Home
           </a>
-          <a href="/about" class="text-content-muted hover:text-content {$page.url.pathname === '/about' ? 'font-semibold text-content' : ''}">
+          <a href="/about" data-sveltekit-reload class="text-content-muted hover:text-content {$page.url.pathname === '/about' ? 'font-semibold text-content' : ''}">
             About
           </a>
           {#if isAuthenticated}
-            <a href="/admin" class="text-content-muted hover:text-content {$page.url.pathname.startsWith('/admin') ? 'font-semibold text-content' : ''}">
+            <a href="/admin" data-sveltekit-reload class="text-content-muted hover:text-content {$page.url.pathname.startsWith('/admin') ? 'font-semibold text-content' : ''}">
               Admin
             </a>
           {/if}

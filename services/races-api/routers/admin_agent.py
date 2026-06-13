@@ -31,6 +31,12 @@ def _plain(doc: Any) -> Dict[str, Any] | None:
     return firestore_helpers._doc_to_plain(doc)
 
 
+def _transactional(func):
+    from google.cloud import firestore  # type: ignore
+
+    return firestore.transactional(func)
+
+
 def _conversation_messages(db: Any, conversation_id: str, limit: int = 200) -> list[Dict[str, Any]]:
     docs = db.collection(_MESSAGES).where("conversation_id", "==", conversation_id).stream()
     messages = [_plain(doc) for doc in docs]
@@ -152,60 +158,88 @@ async def get_task(task_id: str) -> Dict[str, Any]:
 async def approve_task(task_id: str) -> Dict[str, Any]:
     db = firestore_helpers._get_fs()
     task_ref = db.collection(_TASKS).document(task_id)
-    task = _plain(task_ref.get())
-    if task is None:
-        raise HTTPException(status_code=404, detail="Task not found")
-    if task.get("status") != "waiting_approval" or not task.get("pending_tool_call"):
-        raise HTTPException(status_code=409, detail="Task is not waiting for approval")
-
     continuation_id = _new_id()
+    continuation_ref = db.collection(_TASKS).document(continuation_id)
     now = _now()
-    task_ref.set({"status": "continued", "continuation_task_id": continuation_id, "updated_at": now}, merge=True)
-    continuation = {
-        "task_id": continuation_id,
-        "conversation_id": task["conversation_id"],
-        "status": "queued",
-        "iteration": int(task.get("iteration") or 0),
-        "continuation_count": int(task.get("continuation_count") or 0) + 1,
-        "total_tokens": int(task.get("total_tokens") or 0),
-        "cost_usd": float(task.get("cost_usd") or 0.0),
-        "approved_tool_call": task["pending_tool_call"],
-        "parent_task_id": task_id,
-        "created_at": now,
-        "updated_at": now,
-        "cancel_requested": False,
-        "pending_tool_call": None,
-        "error": None,
-    }
-    db.collection(_TASKS).document(continuation_id).set(continuation)
-    return continuation
+
+    @_transactional
+    def approve(transaction):
+        snapshot = task_ref.get(transaction=transaction)
+        task = _plain(snapshot)
+        if task is None:
+            raise HTTPException(status_code=404, detail="Task not found")
+        if task.get("status") == "continued" and task.get("continuation_task_id"):
+            return {"existing_continuation_id": task["continuation_task_id"]}
+        if task.get("status") != "waiting_approval" or not task.get("pending_tool_call"):
+            raise HTTPException(status_code=409, detail="Task is not waiting for approval")
+
+        continuation = {
+            "task_id": continuation_id,
+            "conversation_id": task["conversation_id"],
+            "status": "queued",
+            "iteration": int(task.get("iteration") or 0),
+            "continuation_count": int(task.get("continuation_count") or 0) + 1,
+            "total_tokens": int(task.get("total_tokens") or 0),
+            "cost_usd": float(task.get("cost_usd") or 0.0),
+            "approved_tool_call": task["pending_tool_call"],
+            "parent_task_id": task_id,
+            "created_at": now,
+            "updated_at": now,
+            "cancel_requested": False,
+            "pending_tool_call": None,
+            "error": None,
+        }
+        transaction.update(
+            task_ref,
+            {"status": "continued", "continuation_task_id": continuation_id, "updated_at": now},
+        )
+        transaction.set(continuation_ref, continuation)
+        return continuation
+
+    result = approve(db.transaction())
+    existing_id = result.get("existing_continuation_id")
+    if existing_id:
+        existing = _plain(db.collection(_TASKS).document(existing_id).get())
+        if existing is None:
+            raise HTTPException(status_code=409, detail="Approval continuation is unavailable")
+        return existing
+    return result
 
 
 @router.post("/tasks/{task_id}/cancel")
 async def cancel_task(task_id: str) -> Dict[str, Any]:
     db = firestore_helpers._get_fs()
     task_ref = db.collection(_TASKS).document(task_id)
-    task = _plain(task_ref.get())
-    if task is None:
-        raise HTTPException(status_code=404, detail="Task not found")
-    if task.get("status") in _TERMINAL:
-        return task
-
     now = _now()
-    if task.get("status") in {"queued", "waiting_approval"}:
-        update = {"status": "cancelled", "cancel_requested": True, "updated_at": now}
-        pending = task.get("pending_tool_call")
-        if task.get("status") == "waiting_approval" and isinstance(pending, dict):
-            _add_message(
-                db,
-                task["conversation_id"],
-                "tool",
-                '{"cancelled":true,"reason":"User declined approval"}',
-                task_id=task_id,
-                tool_call_id=pending.get("id"),
-                tool_name=pending.get("name"),
-            )
-    else:
-        update = {"cancel_requested": True, "updated_at": now}
-    task_ref.set(update, merge=True)
-    return {**task, **update}
+
+    @_transactional
+    def cancel(transaction):
+        snapshot = task_ref.get(transaction=transaction)
+        task = _plain(snapshot)
+        if task is None:
+            raise HTTPException(status_code=404, detail="Task not found")
+        if task.get("status") in _TERMINAL:
+            return {"task": task, "pending": None}
+
+        if task.get("status") in {"queued", "waiting_approval"}:
+            update = {"status": "cancelled", "cancel_requested": True, "updated_at": now}
+        else:
+            update = {"cancel_requested": True, "updated_at": now}
+        transaction.update(task_ref, update)
+        pending = task.get("pending_tool_call") if task.get("status") == "waiting_approval" else None
+        return {"task": {**task, **update}, "pending": pending}
+
+    result = cancel(db.transaction())
+    task = result["task"]
+    pending = result["pending"]
+    if isinstance(pending, dict):
+        _add_message(
+            db,
+            task["conversation_id"],
+            "tool",
+            '{"cancelled":true,"reason":"User declined approval"}',
+            task_id=task_id,
+            tool_call_id=pending.get("id"),
+            tool_name=pending.get("name"),
+        )
+    return task

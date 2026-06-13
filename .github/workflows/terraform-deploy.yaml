@@ -32,7 +32,8 @@ env:
   REGION: us-central1
   ENVIRONMENT: ${{ github.event.inputs.environment || 'dev' }}
   ACTION: ${{ github.event.inputs.action || 'apply' }}
-  TF_VAR_app_version: ${{ github.sha }}
+  DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+  TF_VAR_app_version: ${{ github.event.workflow_run.head_sha || github.sha }}
 
 jobs:
   build-containers:
@@ -47,6 +48,8 @@ jobs:
             context: .
     steps:
     - uses: actions/checkout@v4
+      with:
+        ref: ${{ env.DEPLOY_SHA }}
 
     - name: Authenticate to Google Cloud
       uses: google-github-actions/auth@v2
@@ -79,10 +82,10 @@ jobs:
       if: env.ACTION == 'apply' || github.event_name != 'workflow_dispatch'
       run: |
         docker build -f ${{ matrix.container.dockerfile }} \
-                     -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/${{ matrix.container.name }}:${{ github.sha }} \
+                     -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/${{ matrix.container.name }}:${{ env.DEPLOY_SHA }} \
                      -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/${{ matrix.container.name }}:latest \
                      ${{ matrix.container.context }}
-        docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/${{ matrix.container.name }}:${{ github.sha }}
+        docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/${{ matrix.container.name }}:${{ env.DEPLOY_SHA }}
         docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/smartervote-${{ env.ENVIRONMENT }}/${{ matrix.container.name }}:latest
 
   deploy-terraform:
@@ -96,7 +99,7 @@ jobs:
       TF_VAR_project_id: ${{ secrets.GCP_PROJECT_ID }}
       TF_VAR_region: us-central1
       TF_VAR_environment: ${{ github.event.inputs.environment || 'dev' }}
-      TF_VAR_app_version: ${{ github.sha }}
+      TF_VAR_app_version: ${{ env.DEPLOY_SHA }}
       TF_VAR_openrouter_api_key: ${{ secrets.OPENROUTER_API_KEY }}
       # Retain legacy secrets during the migration so old revisions and rollback remain viable.
       TF_VAR_openai_api_key: ${{ secrets.OPENAI_API_KEY }}
@@ -113,6 +116,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        ref: ${{ env.DEPLOY_SHA }}
 
     - name: Validate required secrets
       env:
@@ -300,7 +305,7 @@ jobs:
       if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: terraform-state-backup-${{ env.ENVIRONMENT }}-${{ github.sha }}
+        name: terraform-state-backup-${{ env.ENVIRONMENT }}-${{ env.DEPLOY_SHA }}
         path: terraform-state-backup-*.json
         retention-days: 30
         if-no-files-found: ignore

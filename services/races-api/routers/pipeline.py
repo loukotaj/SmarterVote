@@ -15,7 +15,7 @@ from request_models import AdminChatRequest
 
 router = APIRouter()
 
-_ADMIN_CHAT_MODEL = os.getenv("ADMIN_CHAT_MODEL", "openai/gpt-5.4-mini")
+_ADMIN_CHAT_MODEL = os.getenv("ADMIN_CHAT_MODEL", "nvidia/nemotron-3-ultra-550b-a55b")
 
 
 def _as_float(value: Any, default: float = 0.0) -> float:

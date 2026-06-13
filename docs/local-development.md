@@ -35,7 +35,7 @@ SERPER_API_KEY=your-serper-key-here
 Frontend environment variables (configured under `web/` in `.env` or `.env.production`):
 - `VITE_RACES_API_URL`: FastAPI Races API base URL (defaults to `http://localhost:8080` in local dev).
 - `VITE_PUBLIC_DATA_URL`: Optional public static GCS data folder path (e.g., `https://storage.googleapis.com/smartervote-sv-data-dev/races`). When configured, SvelteKit fetches published races and the central summaries index directly from GCS. Leave this unset in local development to test FastAPI-fallback route flows.
-- `VITE_CLOUDFLARE_WEB_ANALYTICS_TOKEN`: Optional public Cloudflare Web Analytics site token. The beacon is loaded only when this is set and the initial route is not `/admin`.
+- `VITE_CLOUDFLARE_WEB_ANALYTICS_TOKEN`: Optional public Cloudflare Web Analytics site token. The beacon is loaded only when this is set and the initial route is not `/admin`. Public/admin navigation links force a full reload so the SPA beacon does not remain active inside the admin console.
 
 For deployed dashboard traffic reporting, configure the races API with:
 

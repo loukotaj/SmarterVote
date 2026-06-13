@@ -171,6 +171,8 @@ resource "google_cloud_run_v2_service" "races_api" {
   depends_on = [
     google_project_service.apis,
     google_secret_manager_secret_version.openrouter_key,
+    google_secret_manager_secret_version.admin_api_key,
+    google_secret_manager_secret_version.cloudflare_analytics_api_token,
     google_secret_manager_secret_iam_member.races_api_openrouter_key,
     google_secret_manager_secret_iam_member.races_api_cloudflare_analytics,
   ]

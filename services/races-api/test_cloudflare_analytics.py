@@ -17,10 +17,10 @@ def test_unconfigured_summary_is_explicit(monkeypatch):
     assert "not configured" in result["error"]
 
 
-def test_sampled_counts_are_scaled():
+def test_adaptive_counts_are_already_estimated():
     group = {"count": 12, "avg": {"sampleInterval": 10}, "sum": {"visits": 45}}
 
-    assert cloudflare_analytics._estimated_count(group) == 120
+    assert cloudflare_analytics._estimated_count(group) == 12
     assert cloudflare_analytics._visits(group) == 45
 
 
@@ -31,4 +31,4 @@ def test_dimension_rows_normalize_empty_labels():
         empty_label="Direct",
     )
 
-    assert rows == [{"name": "Direct", "pageviews": 10, "visits": 3}]
+    assert rows == [{"name": "Direct", "pageviews": 2, "visits": 3}]

@@ -92,6 +92,7 @@ resource "google_cloudfunctions2_function" "admin_agent" {
       ADMIN_AGENT_MAX_ITERATIONS    = "40"
       ADMIN_AGENT_MAX_CONTINUATIONS = "8"
       ADMIN_AGENT_MAX_TOTAL_TOKENS  = "200000"
+      ADMIN_AGENT_MAX_OUTPUT_TOKENS = "4096"
       ADMIN_AGENT_MAX_COST_USD      = "5.0"
     }
 
@@ -126,7 +127,7 @@ resource "google_cloudfunctions2_function" "admin_agent" {
       operator  = "match-path-pattern"
     }
     service_account_email = google_service_account.admin_agent_function[0].email
-    retry_policy          = "RETRY_POLICY_DO_NOT_RETRY"
+    retry_policy          = "RETRY_POLICY_RETRY"
   }
 
   depends_on = [
@@ -137,6 +138,8 @@ resource "google_cloudfunctions2_function" "admin_agent" {
     google_storage_bucket_iam_member.gcf_admin_source_reader,
     google_secret_manager_secret_iam_member.admin_agent_openrouter,
     google_secret_manager_secret_iam_member.admin_agent_admin_key,
+    google_secret_manager_secret_version.openrouter_key,
+    google_secret_manager_secret_version.admin_api_key,
   ]
 }
 

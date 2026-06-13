@@ -113,10 +113,8 @@ class CloudflareAnalytics:
 
 
 def _estimated_count(group: Dict[str, Any]) -> int:
-    """Scale sampled RUM page-load counts by Cloudflare's sample interval."""
-    count = int(group.get("count") or 0)
-    interval = float((group.get("avg") or {}).get("sampleInterval") or 1)
-    return max(0, round(count * interval))
+    """Return Cloudflare's estimated count for an adaptive dataset group."""
+    return max(0, round(float(group.get("count") or 0)))
 
 
 def _visits(group: Dict[str, Any]) -> int:
@@ -169,7 +167,7 @@ query SmarterVoteTraffic($accountTag: string, $filter: AccountRumPageloadEventsA
         sum {{ visits }}
         dimensions {{ {time_dimension} }}
       }}
-      pages: rumPageloadEventsAdaptiveGroups(limit: 20, filter: $filter, orderBy: [count_DESC]) {{
+      pages: rumPageloadEventsAdaptiveGroups(limit: 1000, filter: $filter, orderBy: [count_DESC]) {{
         count
         avg {{ sampleInterval }}
         sum {{ visits }}

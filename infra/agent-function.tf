@@ -66,7 +66,7 @@ resource "google_project_iam_member" "agent_function_run_invoker" {
 # Cloud Functions service agent needs read access to the source object bucket
 # to copy the uploaded zip into the internal gcf-v2-sources bucket.
 resource "google_storage_bucket_iam_member" "gcf_admin_source_reader" {
-  count  = var.enable_agent_function ? 1 : 0
+  count  = var.enable_agent_function || var.enable_admin_agent_function ? 1 : 0
   bucket = google_storage_bucket.sv_data.name
   role   = "roles/storage.objectViewer"
   member = "serviceAccount:service-${data.google_project.project.number}@gcf-admin-robot.iam.gserviceaccount.com"
@@ -74,7 +74,7 @@ resource "google_storage_bucket_iam_member" "gcf_admin_source_reader" {
 
 # Ensure Eventarc's Google-managed service agent has its required project role.
 resource "google_project_iam_member" "eventarc_service_agent" {
-  count   = var.enable_agent_function ? 1 : 0
+  count   = var.enable_agent_function || var.enable_admin_agent_function ? 1 : 0
   project = var.project_id
   role    = "roles/eventarc.serviceAgent"
   member  = "serviceAccount:service-${data.google_project.project.number}@gcp-sa-eventarc.iam.gserviceaccount.com"
