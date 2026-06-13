@@ -159,7 +159,12 @@ def _recheck_race_status(db: Any, race_id: str, race_data: Dict[str, Any]) -> tu
             run_doc = run_ref.get()
             if run_doc.exists:
                 run_actually_active = _active_doc_is_fresh(run_doc.to_dict() or {}, now)
-            if run_actually_active:
+                if run_actually_active:
+                    queue_docs = db.collection("pipeline_queue").where("run_id", "==", run_id).stream()
+                    active_queue_docs = [doc for doc in queue_docs if _active_doc_is_fresh(doc.to_dict() or {}, now)]
+                    run_actually_active = bool(active_queue_docs)
+            else:
+                # If pipeline_run doc doesn't exist yet (e.g. pending in queue), the run is active if the queue doc is active and fresh
                 queue_docs = db.collection("pipeline_queue").where("run_id", "==", run_id).stream()
                 active_queue_docs = [doc for doc in queue_docs if _active_doc_is_fresh(doc.to_dict() or {}, now)]
                 run_actually_active = bool(active_queue_docs)

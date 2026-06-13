@@ -326,13 +326,19 @@ def _race_id_to_ballotpedia_url(race_id: str) -> Optional[str]:
     state_url = state_name.replace(" ", "_")
     special_infix = "_special" if "special" in suffix else ""
 
+    # Support both {state}-house-{district}-{year} and {state}-{district}-house-{year}
+    is_house = "house" in office_parts
+    district_parts = []
+    if is_house:
+        district_parts = [p for p in office_parts if p != "house"]
+        office = "house"
+
     if office == "senate":
         title = f"United_States_Senate{special_infix}_election_in_{state_url},_{year}"
     elif office == "governor":
         title = f"{state_url}_gubernatorial{special_infix}_election,_{year}"
     elif office.startswith("house"):
         # Try to extract district number
-        district_parts = office_parts[1:] if len(office_parts) > 1 else []
         district_num_str = district_parts[0] if district_parts else ""
         try:
             n = int(district_num_str)
