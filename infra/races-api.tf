@@ -59,7 +59,7 @@ resource "google_cloud_run_v2_service" "races_api" {
       }
 
       dynamic "env" {
-        for_each = var.cloudflare_analytics_api_token != "" ? { cloudflare = true } : {}
+        for_each = var.cloudflare_analytics_api_token != "" ? ["cloudflare"] : []
         content {
           name = "CLOUDFLARE_ANALYTICS_API_TOKEN"
           value_source {
@@ -87,7 +87,7 @@ resource "google_cloud_run_v2_service" "races_api" {
       }
 
       dynamic "env" {
-        for_each = (var.admin_api_key != null && var.admin_api_key != "") ? { admin_api_key = true } : {}
+        for_each = (var.admin_api_key != null && var.admin_api_key != "") ? ["admin_api_key"] : []
         content {
           name = "ADMIN_API_KEY"
           value_source {
