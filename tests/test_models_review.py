@@ -244,3 +244,35 @@ async def test_verify_url_still_flags_non_facebook_400():
 
     with patch("pipeline_client.agent.review._get_validated", new_callable=AsyncMock, return_value=response):
         assert await _verify_url(AsyncMock(), url) == "HTTP error 400"
+
+
+def test_profile_quality_flags_title_like_description():
+    from pipeline_client.agent.review import check_profile_quality
+
+    result = check_profile_quality(
+        {
+            "title": "2026 United States Senate election in Arkansas",
+            "description": "2026 United States Senate election in Arkansas",
+        }
+    )
+
+    assert result["verdict"] == "flagged"
+    assert result["flags"][0]["field"] == "description"
+    assert result["flags"][0]["severity"] == "error"
+
+
+def test_profile_quality_accepts_substantive_description():
+    from pipeline_client.agent.review import check_profile_quality
+
+    result = check_profile_quality(
+        {
+            "title": "2026 United States Senate election in Arkansas",
+            "description": (
+                "Arkansas voters will elect a U.S. senator on November 3, 2026. Republican incumbent Tom Cotton faces "
+                "Democrat Hallie Shoffner and Libertarian Jeff Wadlin. Arkansas has favored Republicans in recent "
+                "statewide federal elections, and the result will contribute to the Senate's partisan balance."
+            ),
+        }
+    )
+
+    assert result["verdict"] == "approved"

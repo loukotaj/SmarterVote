@@ -52,6 +52,7 @@ jobs:
           NODE_ENV: production
           VITE_RACES_API_URL: https://races-api-dev-ddsvfazica-uc.a.run.app
           VITE_AUTH0_AUDIENCE: ${{ secrets.AUTH0_AUDIENCE }}
+          VITE_CLOUDFLARE_WEB_ANALYTICS_TOKEN: ${{ secrets.CLOUDFLARE_WEB_ANALYTICS_TOKEN }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

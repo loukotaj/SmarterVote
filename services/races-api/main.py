@@ -23,10 +23,12 @@ import schemas
 from analytics_middleware import AnalyticsMiddleware
 from analytics_store import AnalyticsStore
 from auth import verify_token
+from cloudflare_analytics import CloudflareAnalytics
 from config import DATA_DIR
 from fastapi import Depends, FastAPI, Header, HTTPException, Query, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from routers import admin_agent as admin_agent_router_module
 from routers import pipeline as pipeline_router_module
 from routers import queue as queue_router_module
 from routers import races_admin as races_admin_router_module
@@ -76,6 +78,7 @@ async def _require_admin_access(
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     app.state.analytics = AnalyticsStore()
+    app.state.cloudflare_analytics = CloudflareAnalytics()
     yield
 
 
@@ -104,6 +107,7 @@ app.include_router(queue_router_module.router)
 app.include_router(runs_router_module.router)
 app.include_router(races_admin_router_module.router)
 app.include_router(pipeline_router_module.router)
+app.include_router(admin_agent_router_module.router)
 
 
 # ---------------------------------------------------------------------------
@@ -180,6 +184,17 @@ async def analytics_overview(
 ):
     """Summary stats: total requests, unique visitors, avg latency, error rate, timeseries."""
     return await request.app.state.analytics.get_overview(hours=hours)
+
+
+@app.get("/analytics/traffic")
+@limiter.limit("20/minute")
+async def analytics_traffic(
+    request: Request,
+    hours: int = Query(default=24, ge=1, le=720),
+    _auth: None = Depends(_require_admin_access),
+):
+    """Static-site page views, visits, and dimensions from Cloudflare Web Analytics."""
+    return await request.app.state.cloudflare_analytics.get_summary(hours=hours)
 
 
 @app.get("/analytics/races")

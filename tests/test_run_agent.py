@@ -107,7 +107,7 @@ async def test_run_agent_fresh():
 
     assert result["id"] == "test-2024"
     assert "updated_utc" in result
-    assert result["generator"] == ["openai/gpt-5.4-mini", "openai/gpt-5-nano"]
+    assert result["generator"] == ["deepseek/deepseek-v4-flash", "openai/gpt-5-nano"]
     # discovery + image + 12 issue sub-agents + finance + refine + meta refine = 17
     assert mock_loop.call_count == 17
 
@@ -335,6 +335,30 @@ async def test_run_agent_update_mode():
 
 
 @pytest.mark.asyncio
+async def test_discovery_only_update_reconciles_roster_without_rewriting_metadata():
+    existing = {
+        "id": "al-senate-2026",
+        "description": "Keep this researched description.",
+        "polling": [{"pollster": "Existing Poll"}],
+        "candidates": [{"name": "Alice", "party": "Democratic", "issues": {}}],
+        "updated_utc": "2026-01-01T00:00:00Z",
+    }
+
+    with patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock) as mock_loop:
+        mock_loop.return_value = {}
+        result = await run_agent(
+            "al-senate-2026",
+            cheap_mode=True,
+            existing_data=existing,
+            enabled_steps=["discovery"],
+        )
+
+    assert [call.kwargs["phase_name"] for call in mock_loop.call_args_list] == ["roster-sync"]
+    assert result["description"] == existing["description"]
+    assert result["polling"][0]["pollster"] == existing["polling"][0]["pollster"]
+
+
+@pytest.mark.asyncio
 async def test_run_agent_force_fresh_with_empty_dict():
     """run_agent with existing_data={} forces fresh run."""
     discovery_result = {
@@ -372,7 +396,7 @@ async def test_run_agent_normalizes_output():
 
     assert result["id"] == "race-2024"
     assert "updated_utc" in result
-    assert result["generator"] == ["openai/gpt-5.4-mini", "openai/gpt-5-nano"]
+    assert result["generator"] == ["deepseek/deepseek-v4-flash", "openai/gpt-5-nano"]
 
 
 @pytest.mark.asyncio
@@ -467,10 +491,16 @@ async def test_run_agent_adds_donor_source_timestamps():
 
 @pytest.mark.asyncio
 async def test_run_agent_model_selection():
-    """run_agent selects OpenRouter GPT-5.4 mini in cheap mode and GPT-5.4 otherwise."""
+    """run_agent selects DeepSeek V4 Flash in cheap mode, Nemotron-3 Ultra in balanced mode, and GPT-5.4 in quality mode."""
     discovery_result = {"id": "m-2024", "candidates": []}
 
-    for cheap_mode, expected_model in [(True, "openai/gpt-5.4-mini"), (False, "openai/gpt-5.4")]:
+    cases = [
+        (True, "deepseek/deepseek-v4-flash"),
+        (False, "openai/gpt-5.4"),
+        (None, "nvidia/nemotron-3-ultra-550b-a55b"),
+    ]
+
+    for cheap_mode, expected_model in cases:
         with (
             patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock) as mock_loop,
             patch("pipeline_client.agent.agent._load_existing", return_value=None),
@@ -495,7 +525,7 @@ async def test_run_agent_custom_profile_preserved():
         mock_loop.return_value = discovery_result
         result = await run_agent("custom-2024", model_profile="custom", existing_data={})
 
-    assert mock_loop.call_args_list[0].kwargs["model"] == "openai/gpt-5.4"
+    assert mock_loop.call_args_list[0].kwargs["model"] == "nvidia/nemotron-3-ultra-550b-a55b"
     assert result["agent_metrics"]["model_profile"] == "custom"
 
 
@@ -521,7 +551,7 @@ async def test_run_agent_respects_review_provider_selection():
         )
 
     assert result["generator"] == [
-        "openai/gpt-5.4-mini",
+        "deepseek/deepseek-v4-flash",
         "openai/gpt-5-nano",
         "anthropic/claude-haiku-4.5",
     ]

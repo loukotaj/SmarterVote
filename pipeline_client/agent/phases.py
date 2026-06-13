@@ -902,6 +902,7 @@ async def _run_update(
     target_candidate_names: Optional[List[str]] = None,
     goal: Optional[str] = None,
     resume_partial: bool = False,
+    roster_only: bool = False,
 ) -> Dict[str, Any]:
     """Phase-based update mirroring _run_fresh but starting from existing data."""
     log = make_logger(on_log)
@@ -1027,31 +1028,34 @@ async def _run_update(
                 resume_partial=resume_partial,
             )
 
-        track("progress", "discovery", pct=50, message="Discovery: updating race metadata")
+        if roster_only:
+            log("info", "Update Phase 1: Metadata refresh skipped for discovery-only roster run")
+        else:
+            track("progress", "discovery", pct=50, message="Discovery: updating race metadata")
 
-        # --- Phase 1: Meta update (tools mode) ---
-        meta_iters = _scale_iterations(max_iterations, n, per_candidate=2, minimum=10)
-        log("info", "Update Phase 1: Searching for new summaries, donors, polls, voting records...")
-        try:
-            await _agent_loop(
-                UPDATE_META_SYSTEM,
-                UPDATE_META_USER.format(
+            # --- Phase 1: Meta update (tools mode) ---
+            meta_iters = _scale_iterations(max_iterations, n, per_candidate=2, minimum=10)
+            log("info", "Update Phase 1: Searching for new summaries, donors, polls, voting records...")
+            try:
+                await _agent_loop(
+                    UPDATE_META_SYSTEM,
+                    UPDATE_META_USER.format(
+                        race_id=race_id,
+                        last_updated=last_updated,
+                        candidate_names=", ".join(candidate_names),
+                    ),
+                    model=model,
+                    on_log=on_log,
                     race_id=race_id,
-                    last_updated=last_updated,
-                    candidate_names=", ".join(candidate_names),
-                ),
-                model=model,
-                on_log=on_log,
-                race_id=race_id,
-                max_iterations=meta_iters,
-                phase_name="update-meta",
-                max_tokens=16384,
-                extra_tools=RACE_TOOLS + CANDIDATE_TOOLS + RECORD_TOOLS + [READ_PROFILE_TOOL],
-                extra_tool_handlers=handlers,
-                tools_mode=True,
-            )
-        except Exception as exc:
-            log("warning", f"  Update meta phase failed: {exc} — keeping existing meta")
+                    max_iterations=meta_iters,
+                    phase_name="update-meta",
+                    max_tokens=16384,
+                    extra_tools=RACE_TOOLS + CANDIDATE_TOOLS + RECORD_TOOLS + [READ_PROFILE_TOOL],
+                    extra_tool_handlers=handlers,
+                    tools_mode=True,
+                )
+            except Exception as exc:
+                log("warning", f"  Update meta phase failed: {exc} — keeping existing meta")
 
         track("complete", "discovery", duration_ms=int((time.perf_counter() - disc_t0) * 1000), race_json=race_json)
     else:

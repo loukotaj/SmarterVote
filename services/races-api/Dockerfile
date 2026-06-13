@@ -12,6 +12,7 @@ COPY services/races-api/schemas.py .
 COPY services/races-api/simple_publish_service.py .
 COPY services/races-api/analytics_middleware.py .
 COPY services/races-api/analytics_store.py .
+COPY services/races-api/cloudflare_analytics.py .
 COPY services/races-api/auth.py .
 COPY services/races-api/request_models.py .
 COPY services/races-api/firestore_helpers.py .

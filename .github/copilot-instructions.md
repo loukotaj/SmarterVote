@@ -57,6 +57,7 @@ CI (`.github/workflows/ci.yaml`) runs all four on push/PR to `main`/`develop`. C
 - **Prettier + ESLint** for formatting; **TailwindCSS** with semantic design tokens (`--sv-page`, `--sv-text`, etc.)
 - Unused variables prefixed with `_` (ESLint `@typescript-eslint/no-unused-vars` pattern `^_`)
 - Frontend env vars use `VITE_` prefix: `VITE_API_BASE`, `VITE_RACES_API_URL`, `VITE_PUBLIC_DATA_URL`
+- Static-site traffic uses Cloudflare Web Analytics; do not infer public traffic from `races-api` request counts
 - Static adapter for GitHub Pages (`web/svelte.config.js`)
 
 ## Testing Gotchas

@@ -8,6 +8,12 @@ from typing import Any, Dict, Mapping, Optional
 DEFAULT_MODEL = "openai/gpt-5.4"
 CHEAP_MODEL = "openai/gpt-5.4-mini"
 NANO_MODEL = "openai/gpt-5-nano"
+DEEPSEEK_FLASH_MODEL = "deepseek/deepseek-v4-flash"
+
+NEMOTRON_SUPER_MODEL = "nvidia/nemotron-3-super-120b-a12b"
+NEMOTRON_ULTRA_MODEL = "nvidia/nemotron-3-ultra-550b-a55b"
+LLAMA_3_3_70B_MODEL = "meta-llama/llama-3.3-70b-instruct"
+DEEPSEEK_R1_MODEL = "deepseek/deepseek-r1"
 
 DEFAULT_CLAUDE_MODEL = "anthropic/claude-sonnet-4.6"
 CHEAP_CLAUDE_MODEL = "anthropic/claude-haiku-4.5"
@@ -45,6 +51,11 @@ MODEL_CATALOG: Dict[str, ModelSpec] = {
     "google/gemini-3-flash-preview": ModelSpec("google/gemini-3-flash-preview", "Gemini 3 Flash Preview", 0.10, 0.40),
     "x-ai/grok-4.20": ModelSpec("x-ai/grok-4.20", "Grok 4.20", 1.25, 2.50),
     "x-ai/grok-4.3": ModelSpec("x-ai/grok-4.3", "Grok 4.3", 1.25, 2.50),
+    "deepseek/deepseek-v4-flash": ModelSpec("deepseek/deepseek-v4-flash", "DeepSeek V4 Flash", 0.098, 0.196),
+    "nvidia/nemotron-3-super-120b-a12b": ModelSpec("nvidia/nemotron-3-super-120b-a12b", "Nemotron 3 Super", 0.09, 0.45),
+    "nvidia/nemotron-3-ultra-550b-a55b": ModelSpec("nvidia/nemotron-3-ultra-550b-a55b", "Nemotron 3 Ultra", 0.50, 2.50),
+    "meta-llama/llama-3.3-70b-instruct": ModelSpec("meta-llama/llama-3.3-70b-instruct", "Llama 3.3 70B Instruct", 0.10, 0.32),
+    "deepseek/deepseek-r1": ModelSpec("deepseek/deepseek-r1", "DeepSeek R1", 0.70, 2.50),
 }
 
 LEGACY_MODEL_ALIASES: Dict[str, str] = {
@@ -61,11 +72,16 @@ LEGACY_MODEL_ALIASES: Dict[str, str] = {
     "grok-4.20-0309-reasoning": "x-ai/grok-4.20",
     "grok-4-1-fast-non-reasoning": "x-ai/grok-4.3",
     "grok-3-mini": "x-ai/grok-4.3",
+    "deepseek-v4-flash": "deepseek/deepseek-v4-flash",
+    "nemotron-3-super": "nvidia/nemotron-3-super-120b-a12b",
+    "nemotron-3-ultra": "nvidia/nemotron-3-ultra-550b-a55b",
+    "llama-3.3-70b": "meta-llama/llama-3.3-70b-instruct",
+    "deepseek-r1": "deepseek/deepseek-r1",
 }
 
 PROFILE_DEFAULTS: Dict[str, Dict[str, str]] = {
     "economy": {
-        "primary": CHEAP_MODEL,
+        "primary": DEEPSEEK_FLASH_MODEL,
         "small": NANO_MODEL,
         "review_claude": CHEAP_CLAUDE_MODEL,
         "review_gemini": CHEAP_GEMINI_MODEL,
@@ -73,12 +89,12 @@ PROFILE_DEFAULTS: Dict[str, Dict[str, str]] = {
         "post_run_analysis": DEFAULT_POST_RUN_ANALYSIS_MODEL,
     },
     "balanced": {
-        "primary": DEFAULT_MODEL,
-        "small": CHEAP_MODEL,
+        "primary": NEMOTRON_ULTRA_MODEL,
+        "small": LLAMA_3_3_70B_MODEL,
         "review_claude": CHEAP_CLAUDE_MODEL,
         "review_gemini": CHEAP_GEMINI_MODEL,
         "review_grok": CHEAP_GROK_MODEL,
-        "post_run_analysis": DEFAULT_POST_RUN_ANALYSIS_MODEL,
+        "post_run_analysis": NEMOTRON_ULTRA_MODEL,
     },
     "quality": {
         "primary": DEFAULT_MODEL,

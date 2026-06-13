@@ -56,6 +56,12 @@ candidates based on search snippets or speculation. If a search result mentions 
 name that is not on Ballotpedia, verify via the official state election authority
 before including them.
 
+Check whether each relevant party primary has already concluded. For a completed
+primary, include only the verified nominee or candidates who advanced under the
+state's election rules. Do NOT include defeated primary candidates in a
+general-election race profile, even if Ballotpedia still lists them in historical
+primary results.
+
 Do NOT include a sitting officeholder as a candidate when your own research says
 they are term-limited, ineligible, not seeking the office, or cannot run again.
 Mention that person in the race description only; do not put them in
@@ -743,7 +749,8 @@ You may ONLY use these roster tools: add_candidate, remove_candidate,
 rename_candidate. Do NOT call any non-roster editing tools in this phase.
 
 CRITICAL — remove_candidate is ONLY for candidates who have officially
-withdrawn, dropped out, or been disqualified from THIS SPECIFIC RACE.
+withdrawn, dropped out, been disqualified, or verifiably lost a completed
+primary for THIS SPECIFIC RACE.
 NEVER use remove_candidate for any other reason — not to fix data quality
 issues, not to correct information, not to replace a candidate entry, not
 because you think data about them is wrong or incomplete. If a candidate is
@@ -764,14 +771,16 @@ Compare the full current roster against the candidates currently in the profile.
 
 STEP 2 — Make corrections using your tools:
 1. Any candidate NOT in the profile who is currently in the race → add_candidate
-2. Any candidate in the profile who has OFFICIALLY withdrawn, dropped out, or
-   been disqualified from this race since {last_updated} → remove_candidate
+2. Any candidate in the profile who has OFFICIALLY withdrawn, dropped out, been
+   disqualified, or verifiably lost a completed primary for this race →
+   remove_candidate
    (include reason citing a specific news source or official announcement)
 3. Any name corrections (e.g. legal name, common misspelling) → rename_candidate
 
 IMPORTANT — remove_candidate rules:
 - ONLY call remove_candidate when you have a specific, verifiable report that the
-  candidate left or was removed from THIS race (withdrew, dropped out, disqualified).
+  candidate left or was removed from THIS race (withdrew, dropped out,
+  disqualified, or lost a completed primary).
 - Do NOT use remove_candidate to fix data quality issues, biography errors,
   incorrect facts, or anything else related to the candidate's profile data.
 - Do NOT remove incumbents or major-party candidates without a news source

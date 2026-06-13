@@ -10,6 +10,7 @@ region      = "us-central1"
 force_update                   = false
 prevent_destroy_prod           = true
 enable_pipeline_client         = false
+enable_admin_agent_function    = true
 pipeline_client_public_invoker = false # pipeline_client disabled — agent Cloud Function handles queue via Eventarc
 
 # CORS (explicit origins required for Auth0 credential-mode requests)

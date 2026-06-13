@@ -102,3 +102,17 @@ class AdminChatMessage(BaseModel):
 class AdminChatRequest(BaseModel):
     messages: List[AdminChatMessage]
     race_context: Optional[List[Dict[str, Any]]] = None
+
+
+class AdminAgentMessageRequest(BaseModel):
+    content: str
+
+    @field_validator("content")
+    @classmethod
+    def validate_content(cls, value: str) -> str:
+        normalized = value.strip()
+        if not normalized:
+            raise ValueError("content cannot be empty")
+        if len(normalized) > 12000:
+            raise ValueError("content cannot exceed 12000 characters")
+        return normalized

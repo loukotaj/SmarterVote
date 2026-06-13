@@ -19,8 +19,20 @@
   let matchingRaces: { id: string; title: string; office?: string; state?: string }[] = [];
   let activeIndex = -1;
   let searchContainer: HTMLElement;
+  const cloudflareAnalyticsToken = import.meta.env.VITE_CLOUDFLARE_WEB_ANALYTICS_TOKEN;
 
   onMount(async () => {
+    if (cloudflareAnalyticsToken && !$page.url.pathname.startsWith("/admin")) {
+      const script = document.createElement("script");
+      script.defer = true;
+      script.src = "https://static.cloudflareinsights.com/beacon.min.js";
+      script.dataset.cfBeacon = JSON.stringify({
+        token: cloudflareAnalyticsToken,
+        spa: true,
+      });
+      document.head.appendChild(script);
+    }
+
     const saved = localStorage.getItem("darkMode");
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     const enabled = saved !== null ? saved === "true" : prefersDark;

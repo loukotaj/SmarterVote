@@ -378,6 +378,34 @@ export interface AnalyticsOverview {
   hours: number;
 }
 
+export interface TrafficDimension {
+  name: string;
+  pageviews: number;
+  visits: number;
+}
+
+export interface TrafficTimeseriesBucket {
+  time: string;
+  pageviews: number;
+  visits: number;
+}
+
+export interface TrafficAnalytics {
+  configured: boolean;
+  provider: "cloudflare";
+  hours: number;
+  pageviews: number;
+  visits: number;
+  pages_per_visit: number;
+  timeseries: TrafficTimeseriesBucket[];
+  top_pages: TrafficDimension[];
+  top_referrers: TrafficDimension[];
+  countries: TrafficDimension[];
+  devices: TrafficDimension[];
+  fetched_at: string | null;
+  error: string | null;
+}
+
 export interface RaceAnalytics {
   race_id: string;
   requests_24h: number;

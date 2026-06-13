@@ -473,6 +473,7 @@ async def run_agent(
             target_candidate_names=candidate_names,
             goal=goal,
             resume_partial=resume_partial,
+            roster_only=_enabled == {"discovery"},
         )
     else:
         log("info", f"New research for {race_id} (profile={profile}, model={model}, small_model={small_model})")

@@ -46,6 +46,43 @@ export interface AdminChatResponse {
   thinking_steps?: string[];
 }
 
+export interface AdminAgentMessage {
+  message_id: string;
+  conversation_id: string;
+  task_id?: string | null;
+  role: "user" | "assistant" | "tool";
+  content: string;
+  tool_call_id?: string | null;
+  tool_name?: string | null;
+  metadata?: Record<string, unknown>;
+  created_at: string;
+}
+
+export interface AdminAgentTask {
+  task_id: string;
+  conversation_id: string;
+  status: "queued" | "running" | "waiting_approval" | "completed" | "failed" | "cancelled" | "continued";
+  iteration?: number;
+  continuation_count?: number;
+  approval_summary?: string | null;
+  pending_tool_call?: { id: string; name: string; arguments: Record<string, unknown> } | null;
+  error?: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface AdminAgentConversation {
+  conversation: {
+    conversation_id: string;
+    title: string;
+    status: string;
+    created_at: string;
+    updated_at: string;
+  };
+  messages: AdminAgentMessage[];
+  tasks: AdminAgentTask[];
+}
+
 interface RunsResponse {
   runs: RunInfo[];
 }
@@ -684,6 +721,60 @@ export class PipelineApiService {
       const errorText = await res.text().catch(() => "Unknown error");
       throw new Error(`HTTP ${res.status}: ${res.statusText}. ${errorText}`);
     }
+    return await res.json();
+  }
+
+  async createAdminAgentConversation(): Promise<AdminAgentConversation["conversation"]> {
+    const res = await fetchWithAuth(
+      `${this.apiBase}/api/admin-agent/conversations`,
+      { method: "POST", headers: { "Content-Type": "application/json" } },
+      API_TIMEOUT_DEFAULT
+    );
+    if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
+    return await res.json();
+  }
+
+  async getAdminAgentConversation(conversationId: string): Promise<AdminAgentConversation> {
+    const res = await fetchWithAuth(
+      `${this.apiBase}/api/admin-agent/conversations/${encodeURIComponent(conversationId)}`,
+      {},
+      API_TIMEOUT_DEFAULT
+    );
+    if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
+    return await res.json();
+  }
+
+  async submitAdminAgentMessage(conversationId: string, content: string): Promise<AdminAgentTask> {
+    const res = await fetchWithAuth(
+      `${this.apiBase}/api/admin-agent/conversations/${encodeURIComponent(conversationId)}/messages`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ content }),
+      },
+      API_TIMEOUT_DEFAULT
+    );
+    if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
+    return await res.json();
+  }
+
+  async approveAdminAgentTask(taskId: string): Promise<AdminAgentTask> {
+    const res = await fetchWithAuth(
+      `${this.apiBase}/api/admin-agent/tasks/${encodeURIComponent(taskId)}/approve`,
+      { method: "POST", headers: { "Content-Type": "application/json" } },
+      API_TIMEOUT_DEFAULT
+    );
+    if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
+    return await res.json();
+  }
+
+  async cancelAdminAgentTask(taskId: string): Promise<AdminAgentTask> {
+    const res = await fetchWithAuth(
+      `${this.apiBase}/api/admin-agent/tasks/${encodeURIComponent(taskId)}/cancel`,
+      { method: "POST", headers: { "Content-Type": "application/json" } },
+      API_TIMEOUT_DEFAULT
+    );
+    if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
     return await res.json();
   }
 

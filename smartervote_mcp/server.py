@@ -81,6 +81,9 @@ async def queue_races(
     claude_model: str | None = None,
     gemini_model: str | None = None,
     grok_model: str | None = None,
+    model_profile: str | None = None,
+    model_overrides: dict[str, str] | None = None,
+    review_providers: list[str] | None = None,
     max_candidates: int | None = None,
     candidate_names: list[str] | None = None,
     target_no_info: bool | None = None,
@@ -97,6 +100,9 @@ async def queue_races(
         claude_model=claude_model,
         gemini_model=gemini_model,
         grok_model=grok_model,
+        model_profile=model_profile,
+        model_overrides=model_overrides,
+        review_providers=review_providers,
         max_candidates=max_candidates,
         candidate_names=candidate_names,
         target_no_info=target_no_info,
@@ -226,6 +232,12 @@ async def get_race_analytics(hours: int = 24) -> dict[str, Any]:
 async def get_analytics_timeseries(hours: int = 24, bucket_minutes: int = 60) -> dict[str, Any]:
     """Fetch bucketed request analytics for charting."""
     return await _client().get("/analytics/timeseries", params={"hours": hours, "bucket": bucket_minutes})
+
+
+@mcp.tool()
+async def get_traffic_analytics(hours: int = 24) -> dict[str, Any]:
+    """Fetch static-site page views, visits, pages, referrers, countries, and devices."""
+    return await _client().get("/analytics/traffic", params={"hours": hours})
 
 
 @mcp.resource("smartervote://races/summaries")

@@ -241,6 +241,13 @@ def test_roster_sync_system_restricts_to_roster_tools_only():
     assert "Do NOT call any non-roster editing tools" in ROSTER_SYNC_SYSTEM
 
 
+def test_discovery_prompts_exclude_defeated_primary_candidates():
+    """General-election rosters must remove candidates who lost completed primaries."""
+    assert "Do NOT include defeated primary candidates" in DISCOVERY_USER
+    assert "verifiably lost a completed" in ROSTER_SYNC_SYSTEM
+    assert "lost a completed primary" in ROSTER_SYNC_USER
+
+
 def test_iterate_prompt_allows_candidate_removal_for_invalid_roster_entries():
     """Iteration prompt allows removing clearly invalid candidates with evidence."""
     assert "CANDIDATE VALIDITY / ROSTER flags" in ITERATE_USER

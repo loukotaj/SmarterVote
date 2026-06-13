@@ -23,7 +23,7 @@ This document describes the Auth0 authentication implementation for the SmarterV
 #### 2. Races API (FastAPI Backend)
 - **Location**: `services/races-api`
 - **Implementation**: JWT verification using `python-jose`
-- **Protected Endpoints**: Admin race, queue, run, analytics, and chat endpoints use `dependencies=[Depends(verify_token)]`
+- **Protected Endpoints**: Admin race, queue, run, analytics, and durable agent endpoints use `dependencies=[Depends(verify_token)]`
 - **Live Updates**: Frontend polls `/runs/{run_id}` and `/runs/{run_id}/logs?since=N`
 
 #### 3. Pipeline Client (Local Runner)

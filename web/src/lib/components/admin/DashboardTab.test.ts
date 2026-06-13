@@ -39,6 +39,7 @@ const summary: PipelineMetricsSummary = {
 describe("DashboardTab run list", () => {
   let analyticsService: {
     getOverview: ReturnType<typeof vi.fn>;
+    getTraffic: ReturnType<typeof vi.fn>;
     getAlerts: ReturnType<typeof vi.fn>;
     getRaces: ReturnType<typeof vi.fn>;
     getPipelineMetrics: ReturnType<typeof vi.fn>;
@@ -52,6 +53,7 @@ describe("DashboardTab run list", () => {
     vi.resetModules();
     analyticsService = {
       getOverview: vi.fn(),
+      getTraffic: vi.fn(),
       getAlerts: vi.fn(),
       getRaces: vi.fn(),
       getPipelineMetrics: vi.fn(),
@@ -67,6 +69,21 @@ describe("DashboardTab run list", () => {
       error_count: 0,
       timeseries: [],
       hours: 24,
+    });
+    analyticsService.getTraffic.mockResolvedValue({
+      configured: true,
+      provider: "cloudflare",
+      hours: 24,
+      pageviews: 120,
+      visits: 80,
+      pages_per_visit: 1.5,
+      timeseries: [],
+      top_pages: [],
+      top_referrers: [],
+      countries: [],
+      devices: [],
+      fetched_at: "2026-06-13T00:00:00Z",
+      error: null,
     });
     analyticsService.getAlerts.mockResolvedValue({ alerts: [] });
     analyticsService.getRaces.mockResolvedValue({ races: [] });
@@ -105,7 +122,7 @@ describe("DashboardTab run list", () => {
     expect(queryByText("Recent Pipeline Runs")).toBeNull();
     expect(getAllByText("Recent Runs")).toHaveLength(1);
 
-    await fireEvent.click(getByText("View all runs"));
+    await fireEvent.click(getByText("Inspect with agent"));
     expect(viewedRuns).toHaveBeenCalledTimes(1);
 
     await fireEvent.click(getByText("Open"));

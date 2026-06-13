@@ -488,6 +488,15 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
         field, value = args["field"], args["value"]
         if field not in _ALLOWED_RACE_FIELDS:
             return f"Field '{field}' not allowed. Allowed: {', '.join(sorted(_ALLOWED_RACE_FIELDS))}."
+        if field == "description":
+            from .review import is_substantive_race_description
+
+            if not is_substantive_race_description(value, race_json.get("title")):
+                log("warning", "    Rejected low-information race description")
+                return (
+                    "ERROR: Race description must be a substantive 3-4 sentence overview covering the office, "
+                    "candidates, political context, and key contrasts. Do not repeat the race title."
+                )
         race_json[field] = value
         log("info", f"    race.{field} updated")
         return f"Updated race.{field}."

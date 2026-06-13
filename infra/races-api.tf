@@ -49,6 +49,29 @@ resource "google_cloud_run_v2_service" "races_api" {
       }
 
       env {
+        name  = "CLOUDFLARE_ANALYTICS_ACCOUNT_TAG"
+        value = var.cloudflare_analytics_account_tag
+      }
+
+      env {
+        name  = "CLOUDFLARE_ANALYTICS_SITE_TAG"
+        value = var.cloudflare_analytics_site_tag
+      }
+
+      dynamic "env" {
+        for_each = var.cloudflare_analytics_api_token != "" ? { cloudflare = true } : {}
+        content {
+          name = "CLOUDFLARE_ANALYTICS_API_TOKEN"
+          value_source {
+            secret_key_ref {
+              secret  = google_secret_manager_secret.cloudflare_analytics_api_token.secret_id
+              version = "latest"
+            }
+          }
+        }
+      }
+
+      env {
         name  = "FIRESTORE_PROJECT"
         value = var.project_id
       }
@@ -149,6 +172,7 @@ resource "google_cloud_run_v2_service" "races_api" {
     google_project_service.apis,
     google_secret_manager_secret_version.openrouter_key,
     google_secret_manager_secret_iam_member.races_api_openrouter_key,
+    google_secret_manager_secret_iam_member.races_api_cloudflare_analytics,
   ]
 }
 

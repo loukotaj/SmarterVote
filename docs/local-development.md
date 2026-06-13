@@ -35,6 +35,26 @@ SERPER_API_KEY=your-serper-key-here
 Frontend environment variables (configured under `web/` in `.env` or `.env.production`):
 - `VITE_RACES_API_URL`: FastAPI Races API base URL (defaults to `http://localhost:8080` in local dev).
 - `VITE_PUBLIC_DATA_URL`: Optional public static GCS data folder path (e.g., `https://storage.googleapis.com/smartervote-sv-data-dev/races`). When configured, SvelteKit fetches published races and the central summaries index directly from GCS. Leave this unset in local development to test FastAPI-fallback route flows.
+- `VITE_CLOUDFLARE_WEB_ANALYTICS_TOKEN`: Optional public Cloudflare Web Analytics site token. The beacon is loaded only when this is set and the initial route is not `/admin`.
+
+For deployed dashboard traffic reporting, configure the races API with:
+
+- `CLOUDFLARE_ANALYTICS_API_TOKEN`: read-only Cloudflare GraphQL token
+- `CLOUDFLARE_ANALYTICS_ACCOUNT_TAG`: Cloudflare account ID
+- `CLOUDFLARE_ANALYTICS_SITE_TAG`: Web Analytics site/beacon token
+
+Without all three values, `/analytics/traffic` returns `configured: false` so the dashboard does not mistake missing
+configuration for zero traffic.
+
+The deployed Agent tab uses durable Firestore records rather than browser session history:
+
+- `admin_agent_conversations` stores conversation metadata.
+- `admin_agent_messages` stores user, assistant, and tool messages.
+- `admin_agent_tasks` triggers `functions/admin_agent/main.py`.
+
+The worker calls the canonical races API with `ADMIN_API_KEY`, pauses protected operations for browser approval, and
+creates continuation tasks before its Cloud Function deadline. Local API-only testing can exercise the conversation
+endpoints, but asynchronous execution requires the Eventarc function or a locally invoked worker.
 
 ## One-command Start
 

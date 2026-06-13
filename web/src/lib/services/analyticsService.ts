@@ -5,7 +5,14 @@
  */
 
 import { fetchWithAuth } from "$lib/stores/apiStore";
-import type { Alert, AnalyticsOverview, PipelineMetricsSummary, PipelineRunRecord, RaceAnalytics } from "$lib/types";
+import type {
+  Alert,
+  AnalyticsOverview,
+  PipelineMetricsSummary,
+  PipelineRunRecord,
+  RaceAnalytics,
+  TrafficAnalytics,
+} from "$lib/types";
 
 const API_BASE = import.meta.env.VITE_RACES_API_URL || "http://127.0.0.1:8080";
 
@@ -24,6 +31,10 @@ async function fetchAdmin<T>(path: string, params?: Record<string, string | numb
 export const analyticsService = {
   async getOverview(hours = 24): Promise<AnalyticsOverview> {
     return fetchAdmin<AnalyticsOverview>("/analytics/overview", { hours });
+  },
+
+  async getTraffic(hours = 24): Promise<TrafficAnalytics> {
+    return fetchAdmin<TrafficAnalytics>("/analytics/traffic", { hours });
   },
 
   async getRaces(hours = 24): Promise<{ races: RaceAnalytics[]; hours: number }> {

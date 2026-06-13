@@ -14,7 +14,13 @@
   import { Doughnut, Line } from "svelte-chartjs";
   import { analyticsService } from "$lib/services/analyticsService";
   import { PipelineApiService } from "$lib/services/pipelineApiService";
-  import type { Alert, AnalyticsOverview, PipelineMetricsSummary, PipelineRunRecord } from "$lib/types";
+  import type {
+    Alert,
+    AnalyticsOverview,
+    PipelineMetricsSummary,
+    PipelineRunRecord,
+    TrafficAnalytics,
+  } from "$lib/types";
   import type { RaceRecord } from "$lib/types";
 
   // Register Chart.js components once
@@ -32,6 +38,7 @@
   const GCP_PROJECT = import.meta.env.VITE_GCP_PROJECT || "";
 
   let overview: AnalyticsOverview | null = null;
+  let traffic: TrafficAnalytics | null = null;
   let alerts: Alert[] = [];
   let pipelineRecords: PipelineRunRecord[] = [];
   let pipelineSummary: PipelineMetricsSummary | null = null;
@@ -51,13 +58,13 @@
   $: rangeLabel = TIME_RANGES.find((r) => r.value === selectedHours)?.label ?? `${selectedHours}h`;
 
   // Derived chart data
-  $: lineData = overview
+  $: lineData = traffic
     ? {
-        labels: overview.timeseries.map((b) => b.time),
+        labels: traffic.timeseries.map((b) => formatTrafficTime(b.time)),
         datasets: [
           {
-            label: "Requests",
-            data: overview.timeseries.map((b) => b.requests),
+            label: "Page views",
+            data: traffic.timeseries.map((b) => b.pageviews),
             borderColor: "rgb(59, 130, 246)",
             backgroundColor: "rgba(59, 130, 246, 0.1)",
             tension: 0.3,
@@ -78,8 +85,8 @@
     },
   };
 
-  // Separate race request tracking per race
-  let raceRequests: { race_id: string; requests_24h: number }[] = [];
+  // Traffic grouped by race path.
+  $: raceRequests = aggregateRaceTraffic(traffic?.top_pages ?? []);
 
   // Discovery-only races
   let allRaces: RaceRecord[] = [];
@@ -121,17 +128,17 @@
     refreshInFlight = true;
     try {
       error = "";
-      const [overviewRes, alertsRes, racesRes, metricsRes, metricsSummaryRes] = await Promise.allSettled([
+      const [overviewRes, trafficRes, alertsRes, metricsRes, metricsSummaryRes] = await Promise.allSettled([
         analyticsService.getOverview(hours),
+        analyticsService.getTraffic(hours),
         analyticsService.getAlerts(),
-        analyticsService.getRaces(hours),
         analyticsService.getPipelineMetrics(20),
         analyticsService.getPipelineMetricsSummary(),
       ]);
 
       if (overviewRes.status === "fulfilled") overview = overviewRes.value;
+      if (trafficRes.status === "fulfilled") traffic = trafficRes.value;
       if (alertsRes.status === "fulfilled") alerts = alertsRes.value.alerts;
-      if (racesRes.status === "fulfilled") raceRequests = racesRes.value.races;
       if (metricsRes.status === "fulfilled") pipelineRecords = metricsRes.value.records;
       if (metricsSummaryRes.status === "fulfilled") pipelineSummary = metricsSummaryRes.value;
 
@@ -266,6 +273,28 @@
     return n < 0.001 ? "<$0.001" : `$${n.toFixed(4)}`;
   }
 
+  function formatTrafficTime(value: string) {
+    if (!value) return "";
+    const parsed = new Date(value);
+    if (Number.isNaN(parsed.getTime())) return value;
+    return selectedHours > 14 * 24
+      ? parsed.toLocaleDateString(undefined, { month: "short", day: "numeric" })
+      : parsed.toLocaleString(undefined, { month: "short", day: "numeric", hour: "numeric" });
+  }
+
+  function aggregateRaceTraffic(pages: { name: string; pageviews: number }[]) {
+    const totals = new Map<string, number>();
+    for (const page of pages) {
+      const match = page.name.match(/^\/races\/([^/?#]+)/);
+      if (!match) continue;
+      const raceId = decodeURIComponent(match[1]);
+      totals.set(raceId, (totals.get(raceId) ?? 0) + page.pageviews);
+    }
+    return [...totals.entries()]
+      .map(([race_id, requests_24h]) => ({ race_id, requests_24h }))
+      .sort((a, b) => b.requests_24h - a.requests_24h);
+  }
+
   function formatExactUsd(n: number | null | undefined) {
     if (typeof n !== "number" || !Number.isFinite(n)) return "-";
     return `$${n.toFixed(6)}`;
@@ -343,25 +372,32 @@
     </div>
   </div>
 {:else}
-  <!-- Stat cards -->
+  {#if traffic && !traffic.configured}
+    <div class="mb-4 rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-800 dark:border-amber-700 dark:bg-amber-950/30 dark:text-amber-200">
+      Traffic analytics unavailable: {traffic.error}
+    </div>
+  {/if}
+
+  <!-- Traffic stat cards -->
   <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
     <div class="card p-4">
-      <p class="text-xs font-medium text-content-subtle uppercase tracking-wide">Requests ({rangeLabel})</p>
-      <p class="mt-1 text-2xl font-bold text-content">{(overview?.total_requests ?? 0).toLocaleString()}</p>
+      <p class="text-xs font-medium text-content-subtle uppercase tracking-wide">Page Views ({rangeLabel})</p>
+      <p class="mt-1 text-2xl font-bold text-content">{(traffic?.pageviews ?? 0).toLocaleString()}</p>
     </div>
     <div class="card p-4">
-      <p class="text-xs font-medium text-content-subtle uppercase tracking-wide">Unique Visitors</p>
-      <p class="mt-1 text-2xl font-bold text-content">{(overview?.unique_visitors ?? 0).toLocaleString()}</p>
+      <p class="text-xs font-medium text-content-subtle uppercase tracking-wide">Visits</p>
+      <p class="mt-1 text-2xl font-bold text-content">{(traffic?.visits ?? 0).toLocaleString()}</p>
     </div>
     <div class="card p-4">
-      <p class="text-xs font-medium text-content-subtle uppercase tracking-wide">Avg Latency</p>
-      <p class="mt-1 text-2xl font-bold text-content">{overview?.avg_latency_ms ?? 0}<span class="text-sm font-normal text-content-subtle ml-1">ms</span></p>
+      <p class="text-xs font-medium text-content-subtle uppercase tracking-wide">Pages / Visit</p>
+      <p class="mt-1 text-2xl font-bold text-content">{traffic?.pages_per_visit ?? 0}</p>
     </div>
     <div class="card p-4">
-      <p class="text-xs font-medium text-content-subtle uppercase tracking-wide">Error Rate</p>
-      <p class="mt-1 text-2xl font-bold {(overview?.error_rate ?? 0) > 5 ? 'text-red-600' : 'text-content'}">
-        {overview?.error_rate ?? 0}%
+      <p class="text-xs font-medium text-content-subtle uppercase tracking-wide">API Health</p>
+      <p class="mt-1 text-xl font-bold {(overview?.error_rate ?? 0) > 5 ? 'text-red-600' : 'text-content'}">
+        {overview?.error_rate ?? 0}% errors
       </p>
+      <p class="mt-1 text-xs text-content-faint">{overview?.avg_latency_ms ?? 0} ms average latency</p>
     </div>
   </div>
 
@@ -396,8 +432,8 @@
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
     <!-- Requests over time -->
     <div class="card p-4 lg:col-span-2">
-      <h3 class="text-sm font-semibold text-content-muted mb-3">Requests over Time ({rangeLabel})</h3>
-      {#if (overview?.timeseries?.length ?? 0) > 0}
+      <h3 class="text-sm font-semibold text-content-muted mb-3">Page Views over Time ({rangeLabel})</h3>
+      {#if (traffic?.timeseries?.length ?? 0) > 0}
         <div class="h-40">
           <Line data={lineData} options={lineOptions} />
         </div>
@@ -407,7 +443,7 @@
     </div>
     <!-- By race -->
     <div class="card p-4">
-      <h3 class="text-sm font-semibold text-content-muted mb-3">Requests by Race ({rangeLabel})</h3>
+      <h3 class="text-sm font-semibold text-content-muted mb-3">Page Views by Race ({rangeLabel})</h3>
       {#if raceRequests.length > 0}
         <div class="h-40">
           <Doughnut data={donutData} options={donutOptions} />
@@ -485,6 +521,54 @@
         </a>
       {/if}
   </div>
+
+  {#if traffic?.configured}
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
+      <div class="card p-4">
+        <h3 class="text-sm font-semibold text-content-muted mb-3">Top Pages</h3>
+        <div class="space-y-2">
+          {#each traffic.top_pages.slice(0, 8) as item}
+            <div class="flex items-center justify-between gap-3 text-xs">
+              <span class="font-mono text-content-muted truncate" title={item.name}>{item.name}</span>
+              <span class="font-semibold text-content shrink-0">{item.pageviews.toLocaleString()}</span>
+            </div>
+          {/each}
+        </div>
+      </div>
+      <div class="card p-4">
+        <h3 class="text-sm font-semibold text-content-muted mb-3">Top Referrers</h3>
+        <div class="space-y-2">
+          {#each traffic.top_referrers.slice(0, 8) as item}
+            <div class="flex items-center justify-between gap-3 text-xs">
+              <span class="text-content-muted truncate" title={item.name}>{item.name}</span>
+              <span class="font-semibold text-content shrink-0">{item.visits.toLocaleString()}</span>
+            </div>
+          {/each}
+        </div>
+      </div>
+      <div class="card p-4">
+        <h3 class="text-sm font-semibold text-content-muted mb-3">Audience</h3>
+        <div class="space-y-3">
+          <div>
+            <p class="text-xs text-content-faint mb-1.5">Countries</p>
+            <div class="flex flex-wrap gap-1.5">
+              {#each traffic.countries.slice(0, 6) as item}
+                <span class="rounded bg-surface-alt px-2 py-1 text-xs text-content-muted">{item.name} {item.visits}</span>
+              {/each}
+            </div>
+          </div>
+          <div>
+            <p class="text-xs text-content-faint mb-1.5">Devices</p>
+            <div class="flex flex-wrap gap-1.5">
+              {#each traffic.devices.slice(0, 6) as item}
+                <span class="rounded bg-surface-alt px-2 py-1 text-xs text-content-muted">{item.name} {item.visits}</span>
+              {/each}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {/if}
 
   <!-- Pipeline Research Metrics -->
   <div class="mt-6">
@@ -593,7 +677,7 @@
           class="text-xs text-blue-600 hover:underline"
           on:click={() => dispatch("view-runs")}
         >
-          View all runs
+          Inspect with agent
         </button>
       </div>
       {#if pipelineRecords.length === 0}

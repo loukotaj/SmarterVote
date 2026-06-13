@@ -1,14 +1,11 @@
 <script lang="ts">
   import { browser } from "$app/environment";
 
-  export let activeTab: "dashboard" | "races" | "runs" | "agent" = "dashboard";
+  export let activeTab: "dashboard" | "agent" = "dashboard";
   export let alertCount: number = 0;
-  export let runsBadgeCount: number = 0;
 
   const tabs = [
     { id: "dashboard", label: "Dashboard" },
-    { id: "races", label: "Races" },
-    { id: "runs", label: "Runs" },
     { id: "agent", label: "Agent" },
   ] as const;
 
@@ -57,11 +54,6 @@
               {alertCount > 0 ? 'bg-red-500 text-white' : 'bg-gray-200 text-gray-600'}"
           >
             {alertCount > 99 ? "99+" : alertCount}
-          </span>
-        {/if}
-        {#if tab.id === "runs" && runsBadgeCount > 0}
-          <span class="ml-1.5 inline-flex items-center justify-center w-5 h-5 text-xs font-bold rounded-full bg-blue-500 text-white">
-            {runsBadgeCount > 99 ? "99+" : runsBadgeCount}
           </span>
         {/if}
       </button>

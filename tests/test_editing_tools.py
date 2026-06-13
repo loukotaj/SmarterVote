@@ -282,6 +282,44 @@ def test_read_profile_handler():
     assert "Healthcare" in issues
 
 
+def test_update_race_field_rejects_title_like_description():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {
+        "title": "2026 United States Senate election in Arkansas",
+        "description": (
+            "Arkansas voters will elect a U.S. senator on November 3, 2026. Republican incumbent Tom Cotton faces "
+            "Democrat Hallie Shoffner and Libertarian Jeff Wadlin. The contest will determine who represents the "
+            "state and will contribute to the Senate's partisan balance."
+        ),
+        "candidates": [],
+    }
+    handlers = _make_editing_handlers(race_json, lambda *_: None)
+
+    result = handlers["update_race_field"]({"field": "description", "value": "2026 United States Senate election in Arkansas"})
+
+    assert result.startswith("ERROR:")
+    assert race_json["description"].startswith("Arkansas voters")
+
+
+def test_update_race_field_accepts_substantive_description():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"title": "2026 United States Senate election in Arkansas", "description": "", "candidates": []}
+    handlers = _make_editing_handlers(race_json, lambda *_: None)
+    description = (
+        "Arkansas voters will elect a U.S. senator on November 3, 2026. Republican incumbent Tom Cotton faces "
+        "Democrat Hallie Shoffner and Libertarian Jeff Wadlin. Arkansas has favored Republicans in recent statewide "
+        "federal elections. The candidates offer different approaches to economic policy, immigration, agriculture, "
+        "and the role of the federal government."
+    )
+
+    result = handlers["update_race_field"]({"field": "description", "value": description})
+
+    assert result == "Updated race.description."
+    assert race_json["description"] == description
+
+
 def test_remove_poll_handler():
     """remove_poll handler deletes polls by pollster+date or pollster alone."""
     from pipeline_client.agent.agent import _make_editing_handlers

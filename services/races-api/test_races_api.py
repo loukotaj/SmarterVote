@@ -234,6 +234,21 @@ def test_analytics_overview_correct_key(client):
         main_mod._ADMIN_API_KEY = original
 
 
+def test_traffic_analytics_reports_unconfigured_provider(client):
+    """Static traffic endpoint does not silently report configured zero traffic."""
+    import main as main_mod
+
+    original = main_mod._ADMIN_API_KEY
+    main_mod._ADMIN_API_KEY = "secret"
+    try:
+        resp = client.get("/analytics/traffic", headers={"X-Admin-Key": "secret"})
+        assert resp.status_code == 200
+        assert resp.json()["configured"] is False
+        assert resp.json()["provider"] == "cloudflare"
+    finally:
+        main_mod._ADMIN_API_KEY = original
+
+
 def test_analytics_races_correct_key(client):
     """GET /analytics/races with correct key returns 200."""
     import main as main_mod

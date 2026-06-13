@@ -162,6 +162,34 @@ resource "google_secret_manager_secret_iam_member" "races_api_admin_key" {
   member    = "serviceAccount:${google_service_account.races_api.email}"
 }
 
+resource "google_secret_manager_secret" "cloudflare_analytics_api_token" {
+  project   = var.project_id
+  secret_id = "cloudflare-analytics-api-token-${var.environment}"
+
+  replication {
+    auto {}
+  }
+
+  depends_on = [google_project_service.apis]
+}
+
+resource "google_secret_manager_secret_version" "cloudflare_analytics_api_token" {
+  count       = var.cloudflare_analytics_api_token != "" ? 1 : 0
+  secret      = google_secret_manager_secret.cloudflare_analytics_api_token.id
+  secret_data = var.cloudflare_analytics_api_token
+
+  lifecycle {
+    ignore_changes = [secret_data]
+  }
+}
+
+resource "google_secret_manager_secret_iam_member" "races_api_cloudflare_analytics" {
+  project   = var.project_id
+  secret_id = google_secret_manager_secret.cloudflare_analytics_api_token.secret_id
+  role      = "roles/secretmanager.secretAccessor"
+  member    = "serviceAccount:${google_service_account.races_api.email}"
+}
+
 resource "google_secret_manager_secret" "openrouter_key" {
   project   = var.project_id
   secret_id = "openrouter-api-key-${var.environment}"

@@ -35,6 +35,19 @@ _REVIEW_MODELS = {
 _ACCESS_RESTRICTED_HOSTS = frozenset({"facebook.com", "www.facebook.com", "m.facebook.com"})
 
 
+def is_substantive_race_description(description: Any, title: Any = "") -> bool:
+    """Return True when a race description is meaningfully more than its title."""
+    if not isinstance(description, str):
+        return False
+    text = " ".join(description.split())
+    normalized_title = " ".join(str(title or "").split()).casefold()
+    if len(text) < 120 or len(text.split()) < 20:
+        return False
+    if normalized_title and text.casefold() == normalized_title:
+        return False
+    return sum(text.count(mark) for mark in ".!?") >= 2
+
+
 def _is_access_restricted_response(url: str, status_code: int) -> bool:
     """Return True when a response cannot reliably establish that a link is dead."""
     if status_code in (401, 403, 429):
@@ -191,6 +204,31 @@ async def check_profile_links(
     }
 
 
+def check_profile_quality(race_json: Dict[str, Any]) -> Dict[str, Any]:
+    """Run deterministic checks for important quality failures reviewers may miss."""
+    flags = []
+    if not is_substantive_race_description(race_json.get("description"), race_json.get("title")):
+        flags.append(
+            {
+                "field": "description",
+                "concern": "Race description is missing, title-like, or too brief to explain the contest.",
+                "suggestion": "Write a 3-4 sentence nonpartisan overview covering the office, candidates, political context, and key contrasts.",
+                "severity": "error",
+            }
+        )
+    verdict = "flagged" if flags else "approved"
+    return {
+        "model": "automated-profile-quality",
+        "reviewed_at": datetime.now(timezone.utc).isoformat(),
+        "verdict": verdict,
+        "score": None,
+        "flags": flags,
+        "summary": "Deterministic profile quality checks passed."
+        if not flags
+        else f"Found {len(flags)} profile quality issue(s).",
+    }
+
+
 async def run_reviews(
     race_id: str,
     race_json: Dict[str, Any],
@@ -242,6 +280,7 @@ async def run_reviews(
     link_review = await check_profile_links(race_json, on_log=on_log)
     if link_review is not None:
         results_list.append(link_review)
+    results_list.append(check_profile_quality(race_json))
 
     return results_list
 
