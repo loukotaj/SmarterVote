@@ -353,9 +353,11 @@ async def _agent_loop(
                     {
                         "role": "user",
                         "content": (
-                            "You have used several searches. Stop searching and use your "
-                            "editing tools to commit your findings now. When you are done "
-                            "editing, make no further tool calls — do not produce a text reply."
+                            "You have used several searches. If you found real changes to make, "
+                            "use your editing tools to commit them now. "
+                            "If the data is already correct and no changes are needed, "
+                            "do NOT call any tools — just stop. "
+                            "Never invent or fabricate data to satisfy this prompt."
                         ),
                     }
                 )

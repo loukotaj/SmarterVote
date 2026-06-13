@@ -75,7 +75,21 @@ from .web_tools import (  # noqa: F401 - re-exported for backward compat
 
 logger = logging.getLogger("pipeline")
 
-_PLACEHOLDER_CANDIDATE_NAMES = {"", "unknown", "tbd", "to be determined", "n/a", "na", "none"}
+_PLACEHOLDER_CANDIDATE_NAMES = {
+    "",
+    "unknown",
+    "tbd",
+    "to be determined",
+    "n/a",
+    "na",
+    "none",
+    "dummy",
+    "test",
+    "placeholder",
+    "candidate",
+    "sample",
+    "example",
+}
 _MISSING_STANCE_MARKERS = {"", "missing", "unknown", "n/a", "na", "none"}
 _VALID_CANDIDATE_LINK_TYPES = {
     "finance",

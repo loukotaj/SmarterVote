@@ -64,6 +64,29 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
 
     def add_candidate(args: Dict[str, Any]) -> str:
         name = args["name"]
+        _PLACEHOLDER_NAMES = {
+            "",
+            "unknown",
+            "tbd",
+            "to be determined",
+            "n/a",
+            "na",
+            "none",
+            "dummy",
+            "test",
+            "placeholder",
+            "candidate",
+            "sample",
+            "example",
+            "insert name here",
+            "insert candidate name",
+            "[candidate name]",
+        }
+        if name.strip().lower() in _PLACEHOLDER_NAMES or name.strip().startswith("["):
+            log("warning", f"    add_candidate('{name}') BLOCKED: placeholder/test name rejected")
+            return (
+                f"Blocked: '{name}' looks like a placeholder name, not a real candidate. Only add confirmed real candidates."
+            )
         if _find_candidate(name):
             return f"Candidate '{name}' already exists — skipping."
         party = str(args.get("party") or "")
