@@ -162,13 +162,9 @@ async def trigger_web_deploy() -> dict[str, Any]:
     This redeploys the static site to smarter.vote.
     """
     import subprocess
+
     try:
-        result = subprocess.run(
-            ["gh", "workflow", "run", "WebDeploy.yml"],
-            capture_output=True,
-            text=True,
-            check=False
-        )
+        result = subprocess.run(["gh", "workflow", "run", "WebDeploy.yml"], capture_output=True, text=True, check=False)
         if result.returncode == 0:
             return {"success": True, "message": "Successfully triggered WebDeploy.yml workflow."}
         else:
@@ -176,7 +172,7 @@ async def trigger_web_deploy() -> dict[str, Any]:
                 "success": False,
                 "error": f"Failed to run workflow. returncode={result.returncode}",
                 "stdout": result.stdout,
-                "stderr": result.stderr
+                "stderr": result.stderr,
             }
     except Exception as exc:
         return {"success": False, "error": str(exc)}
