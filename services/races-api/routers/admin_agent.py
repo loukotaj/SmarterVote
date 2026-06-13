@@ -218,6 +218,17 @@ async def cancel_task(task_id: str) -> Dict[str, Any]:
         task = _plain(snapshot)
         if task is None:
             raise HTTPException(status_code=404, detail="Task not found")
+        continuation_id = task.get("continuation_task_id")
+        if task.get("status") == "continued" and continuation_id:
+            continuation_ref = db.collection(_TASKS).document(continuation_id)
+            continuation = _plain(continuation_ref.get(transaction=transaction))
+            if continuation and continuation.get("status") not in _TERMINAL:
+                if continuation.get("status") in {"queued", "waiting_approval"}:
+                    update = {"status": "cancelled", "cancel_requested": True, "updated_at": now}
+                else:
+                    update = {"cancel_requested": True, "updated_at": now}
+                transaction.update(continuation_ref, update)
+                return {"task": {**continuation, **update}, "pending": None}
         if task.get("status") in _TERMINAL:
             return {"task": task, "pending": None}
 

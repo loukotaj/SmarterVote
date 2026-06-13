@@ -135,6 +135,10 @@ def test_approve_creates_continuation_task(fake_db):
     assert repeated["task_id"] == continuation["task_id"]
     assert len(fake_db.collection(admin_agent._TASKS).values) == 2
 
+    cancelled = asyncio.run(admin_agent.cancel_task(task["task_id"]))
+    assert cancelled["task_id"] == continuation["task_id"]
+    assert cancelled["status"] == "cancelled"
+
 
 def test_declining_approval_closes_tool_call(fake_db):
     conversation = asyncio.run(admin_agent.create_conversation())
