@@ -6,7 +6,14 @@ export const prerender = true;
 export const entries: EntryGenerator = async () => raceEntries();
 
 export const load: PageLoad = async ({ params, fetch }) => {
-  return {
-    prerenderedRace: await fetchPublishedRace(params.slug, fetch),
-  };
+  try {
+    return {
+      prerenderedRace: await fetchPublishedRace(params.slug, fetch),
+    };
+  } catch (error) {
+    console.error(`Failed to load prerendered race ${params.slug} for compare:`, error);
+    return {
+      prerenderedRace: null,
+    };
+  }
 };

@@ -131,13 +131,13 @@
     <div class="overflow-x-auto border border-stroke rounded-2xl shadow-sm bg-surface">
       <div class="min-w-[768px]">
         <!-- Sticky Candidate Names/Avatars Row -->
-        <div class="sticky top-0 z-30 bg-surface/95 backdrop-blur-md border-b border-stroke py-4 shadow-sm">
+        <div class="sticky top-0 z-30 w-full min-w-full bg-surface/95 backdrop-blur-md border-b border-stroke py-4 shadow-sm">
           <div class="grid items-center" style="grid-template-columns: 220px repeat({candidates.length}, 1fr)">
-            <div class="px-6 font-bold text-xs uppercase tracking-wider text-content-subtle">
+            <div class="sticky left-0 z-40 bg-surface/95 px-6 font-bold text-xs uppercase tracking-wider text-content-subtle border-r border-stroke">
               Compare Directory
             </div>
             {#each candidates as candidate}
-              <div class="px-6 flex items-center gap-3">
+              <div class="px-6 flex items-center gap-3 border-r border-stroke last:border-none">
                 {#if candidate.image_url}
                   <img
                     src={candidate.image_url}
@@ -176,7 +176,7 @@
         <div class="divide-y divide-stroke">
           <!-- Biography / Summary -->
           <div class="grid" style="grid-template-columns: 220px repeat({candidates.length}, 1fr)">
-            <div class="bg-surface-alt/20 p-5 font-bold text-sm text-content border-r border-stroke flex items-center">
+            <div class="sticky left-0 z-10 bg-surface-alt p-5 font-bold text-sm text-content border-r border-stroke flex items-center">
               Biography & Summary
             </div>
             {#each candidates as candidate}
@@ -197,7 +197,7 @@
           </div>
 
           <!-- Stances section header -->
-          <div class="bg-surface-alt/40 px-6 py-2.5 font-bold text-xs uppercase tracking-wider text-content-subtle">
+          <div class="sticky left-0 z-10 bg-surface-alt/40 px-6 py-2.5 font-bold text-xs uppercase tracking-wider text-content-subtle w-full min-w-full">
             Positions on Key Issues
           </div>
 
@@ -205,7 +205,7 @@
           {#each CANONICAL_ISSUES as issueKey}
             <div class="grid" style="grid-template-columns: 220px repeat({candidates.length}, 1fr)">
               <!-- Issue Title Column -->
-              <div class="bg-surface-alt/10 p-5 font-bold text-sm text-content border-r border-stroke flex flex-col justify-center">
+              <div class="sticky left-0 z-10 bg-surface-alt p-5 font-bold text-sm text-content border-r border-stroke flex flex-col justify-center">
                 {getIssueDisplayName(issueKey)}
               </div>
 
@@ -235,13 +235,13 @@
           {/each}
 
           <!-- Background / Timelines Header -->
-          <div class="bg-surface-alt/40 px-6 py-2.5 font-bold text-xs uppercase tracking-wider text-content-subtle">
+          <div class="sticky left-0 z-10 bg-surface-alt/40 px-6 py-2.5 font-bold text-xs uppercase tracking-wider text-content-subtle w-full min-w-full">
             Background & Credentials
           </div>
 
           <!-- Career timelines -->
           <div class="grid" style="grid-template-columns: 220px repeat({candidates.length}, 1fr)">
-            <div class="bg-surface-alt/20 p-5 font-bold text-sm text-content border-r border-stroke flex items-center">
+            <div class="sticky left-0 z-10 bg-surface-alt p-5 font-bold text-sm text-content border-r border-stroke flex items-center">
               Career Timeline
             </div>
             {#each candidates as candidate}
@@ -273,7 +273,7 @@
 
           <!-- Education -->
           <div class="grid" style="grid-template-columns: 220px repeat({candidates.length}, 1fr)">
-            <div class="bg-surface-alt/20 p-5 font-bold text-sm text-content border-r border-stroke flex items-center">
+            <div class="sticky left-0 z-10 bg-surface-alt p-5 font-bold text-sm text-content border-r border-stroke flex items-center">
               Education
             </div>
             {#each candidates as candidate}
@@ -301,7 +301,7 @@
 
           <!-- Top Donors -->
           <div class="grid" style="grid-template-columns: 220px repeat({candidates.length}, 1fr)">
-            <div class="bg-surface-alt/20 p-5 font-bold text-sm text-content border-r border-stroke flex items-center">
+            <div class="sticky left-0 z-10 bg-surface-alt p-5 font-bold text-sm text-content border-r border-stroke flex items-center">
               Financial Donors
             </div>
             {#each candidates as candidate}
@@ -325,7 +325,7 @@
 
           <!-- Voting Record -->
           <div class="grid" style="grid-template-columns: 220px repeat({candidates.length}, 1fr)">
-            <div class="bg-surface-alt/20 p-5 font-bold text-sm text-content border-r border-stroke flex items-center">
+            <div class="sticky left-0 z-10 bg-surface-alt p-5 font-bold text-sm text-content border-r border-stroke flex items-center">
               Voting Record
             </div>
             {#each candidates as candidate}

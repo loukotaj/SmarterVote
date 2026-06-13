@@ -2,13 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://smarter.vote/</loc>
-    <lastmod>2026-05-16</lastmod>
+    <lastmod>2026-06-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://smarter.vote/about/</loc>
-    <lastmod>2026-05-16</lastmod>
+    <lastmod>2026-06-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -134,49 +134,49 @@
   </url>
   <url>
     <loc>https://smarter.vote/races/ar-governor-2026/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-06-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/ar-governor-2026/sarah-huckabee-sanders/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-06-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/ar-governor-2026/fred-love/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-06-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/ar-governor-2026/colt-shelby/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-06-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/ar-senate-2026/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-06-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/ar-senate-2026/tom-cotton/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-06-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/ar-senate-2026/hallie-shoffner/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-06-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/ar-senate-2026/jeff-wadlin/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-06-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -259,20 +259,56 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://smarter.vote/races/az-senate-2026/</loc>
-    <lastmod>2026-04-29</lastmod>
+    <loc>https://smarter.vote/races/az-governor-2026/</loc>
+    <lastmod>2026-05-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://smarter.vote/races/az-senate-2026/mark-kelly/</loc>
-    <lastmod>2026-04-29</lastmod>
+    <loc>https://smarter.vote/races/az-governor-2026/katie-hobbs/</loc>
+    <lastmod>2026-05-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://smarter.vote/races/az-senate-2026/kari-lake/</loc>
-    <lastmod>2026-04-29</lastmod>
+    <loc>https://smarter.vote/races/az-governor-2026/andy-biggs/</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://smarter.vote/races/az-governor-2026/ken-miceli/</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://smarter.vote/races/az-governor-2026/scott-neely/</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://smarter.vote/races/az-governor-2026/david-schweikert/</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://smarter.vote/races/az-governor-2026/risa-lombardo/</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://smarter.vote/races/az-governor-2026/william-pounds/</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://smarter.vote/races/az-governor-2026/teri-hourihan/</loc>
+    <lastmod>2026-05-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -386,79 +422,55 @@
   </url>
   <url>
     <loc>https://smarter.vote/races/co-senate-2026/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/co-senate-2026/john-hickenlooper/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/co-senate-2026/karen-breslin/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/co-senate-2026/julie-gonzales/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/co-senate-2026/brashad-hasley/</loc>
-    <lastmod>2026-04-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://smarter.vote/races/co-senate-2026/jessica-williams/</loc>
-    <lastmod>2026-04-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://smarter.vote/races/co-senate-2026/anthony-zimpfer/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/co-senate-2026/mark-baisley/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/co-senate-2026/amanda-calderon/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/co-senate-2026/dathan-jones/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/co-senate-2026/janak-joshi/</loc>
-    <lastmod>2026-04-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://smarter.vote/races/co-senate-2026/george-washington-markert/</loc>
-    <lastmod>2026-04-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://smarter.vote/races/co-senate-2026/sean-pond/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -560,31 +572,55 @@
   </url>
   <url>
     <loc>https://smarter.vote/races/ga-governor-2026/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-05-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://smarter.vote/races/ga-governor-2026/chris-carr/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <loc>https://smarter.vote/races/ga-governor-2026/keisha-lance-bottoms/</loc>
+    <lastmod>2026-05-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://smarter.vote/races/ga-governor-2026/keisha-lance-bottoms/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <loc>https://smarter.vote/races/ga-governor-2026/olu-brown/</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://smarter.vote/races/ga-governor-2026/amanda-duffy/</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://smarter.vote/races/ga-governor-2026/geoff-duncan/</loc>
+    <lastmod>2026-05-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/ga-governor-2026/jason-esteves/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://smarter.vote/races/ga-governor-2026/derrick-jackson/</loc>
+    <lastmod>2026-05-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/ga-governor-2026/michael-thurmond/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://smarter.vote/races/ga-governor-2026/chris-carr/</loc>
+    <lastmod>2026-05-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -800,31 +836,19 @@
   </url>
   <url>
     <loc>https://smarter.vote/races/il-senate-2026/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-05-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/il-senate-2026/juliana-stratton/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-05-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://smarter.vote/races/il-senate-2026/raja-krishnamoorthi/</loc>
-    <lastmod>2026-04-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://smarter.vote/races/il-senate-2026/robin-kelly/</loc>
-    <lastmod>2026-04-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://smarter.vote/races/il-senate-2026/don-tracy/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <loc>https://smarter.vote/races/il-senate-2026/chad-koppie/</loc>
+    <lastmod>2026-05-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -926,37 +950,55 @@
   </url>
   <url>
     <loc>https://smarter.vote/races/ky-senate-2026/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/ky-senate-2026/andy-barr/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/ky-senate-2026/daniel-cameron/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://smarter.vote/races/ky-senate-2026/nate-morris/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <loc>https://smarter.vote/races/ky-senate-2026/charles-booker/</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://smarter.vote/races/ky-senate-2026/joshua-blanton-sr/</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://smarter.vote/races/ky-senate-2026/vincent-thompson/</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://smarter.vote/races/ky-senate-2026/logan-forsythe/</loc>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/ky-senate-2026/amy-mcgrath/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://smarter.vote/races/ky-senate-2026/temporary/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <loc>https://smarter.vote/races/ky-senate-2026/nate-morris/</loc>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1232,31 +1274,37 @@
   </url>
   <url>
     <loc>https://smarter.vote/races/me-senate-2026/</loc>
-    <lastmod>2026-05-15</lastmod>
+    <lastmod>2026-05-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://smarter.vote/races/me-senate-2026/susan-collins/</loc>
-    <lastmod>2026-05-15</lastmod>
+    <loc>https://smarter.vote/races/me-senate-2026/david-costello/</loc>
+    <lastmod>2026-05-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/me-senate-2026/janet-t-mills/</loc>
-    <lastmod>2026-05-15</lastmod>
+    <lastmod>2026-05-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/me-senate-2026/graham-platner/</loc>
-    <lastmod>2026-05-15</lastmod>
+    <lastmod>2026-05-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://smarter.vote/races/me-senate-2026/jordan-wood/</loc>
-    <lastmod>2026-05-15</lastmod>
+    <loc>https://smarter.vote/races/me-senate-2026/andrea-laflamme/</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://smarter.vote/races/me-senate-2026/susan-collins/</loc>
+    <lastmod>2026-05-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1346,19 +1394,25 @@
   </url>
   <url>
     <loc>https://smarter.vote/races/mn-governor-2026/</loc>
-    <lastmod>2026-05-04</lastmod>
+    <lastmod>2026-05-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://smarter.vote/races/mn-governor-2026/tim-walz/</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://smarter.vote/races/mn-governor-2026/jeff-johnson/</loc>
-    <lastmod>2026-05-04</lastmod>
+    <lastmod>2026-05-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/mn-governor-2026/kobey-layne/</loc>
-    <lastmod>2026-05-04</lastmod>
+    <lastmod>2026-05-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1574,31 +1628,37 @@
   </url>
   <url>
     <loc>https://smarter.vote/races/nc-senate-2026/</loc>
-    <lastmod>2026-05-15</lastmod>
+    <lastmod>2026-05-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/nc-senate-2026/roy-cooper/</loc>
-    <lastmod>2026-05-15</lastmod>
+    <lastmod>2026-05-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/nc-senate-2026/michael-whatley/</loc>
-    <lastmod>2026-05-15</lastmod>
+    <lastmod>2026-05-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://smarter.vote/races/nc-senate-2026/thomas-johnson/</loc>
-    <lastmod>2026-05-15</lastmod>
+    <loc>https://smarter.vote/races/nc-senate-2026/brian-mcginnis/</loc>
+    <lastmod>2026-05-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://smarter.vote/races/nc-senate-2026/richard-dansie/</loc>
-    <lastmod>2026-05-15</lastmod>
+    <loc>https://smarter.vote/races/nc-senate-2026/shannon-bray/</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://smarter.vote/races/nc-senate-2026/shaunesi-deberry/</loc>
+    <lastmod>2026-05-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1832,127 +1892,25 @@
   </url>
   <url>
     <loc>https://smarter.vote/races/nv-governor-2026/</loc>
-    <lastmod>2026-04-07</lastmod>
+    <lastmod>2026-05-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/nv-governor-2026/joe-lombardo/</loc>
-    <lastmod>2026-04-07</lastmod>
+    <lastmod>2026-05-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/nv-governor-2026/aaron-ford/</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://smarter.vote/races/nv-governor-2026/matthew-winterhawk/</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://smarter.vote/races/nv-governor-2026/irina-hansen/</loc>
-    <lastmod>2026-04-07</lastmod>
+    <lastmod>2026-05-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/nv-governor-2026/alexis-hill/</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://smarter.vote/races/nv-governor-2026/sunshine-arterburn/</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://smarter.vote/races/nv-governor-2026/christopher-battenberg/</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://smarter.vote/races/nv-governor-2026/miqehl-bayfield/</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://smarter.vote/races/nv-governor-2026/donald-j-beaudry-jr/</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://smarter.vote/races/nv-governor-2026/max-beck/</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://smarter.vote/races/nv-governor-2026/emile-bouari/</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://smarter.vote/races/nv-governor-2026/james-cooper/</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://smarter.vote/races/nv-governor-2026/danielle-ford/</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://smarter.vote/races/nv-governor-2026/m-kameron-hawkins/</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://smarter.vote/races/nv-governor-2026/jordan-koteras/</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://smarter.vote/races/nv-governor-2026/allen-rheinhart/</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://smarter.vote/races/nv-governor-2026/emilio-r-rodriguez/</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://smarter.vote/races/nv-governor-2026/john-t-scott/</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://smarter.vote/races/nv-governor-2026/jose-m-zelaya/</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://smarter.vote/races/nv-governor-2026/barak-zilberberg/</loc>
-    <lastmod>2026-04-07</lastmod>
+    <lastmod>2026-05-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -2132,19 +2090,19 @@
   </url>
   <url>
     <loc>https://smarter.vote/races/pa-governor-2026/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-05-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/pa-governor-2026/josh-shapiro/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-05-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/pa-governor-2026/stacy-garrity/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-05-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -2186,73 +2144,55 @@
   </url>
   <url>
     <loc>https://smarter.vote/races/sc-senate-2026/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/sc-senate-2026/lindsey-graham/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/sc-senate-2026/annie-andrews/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/sc-senate-2026/paul-dans/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/sc-senate-2026/kyle-freeman/</loc>
-    <lastmod>2026-04-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://smarter.vote/races/sc-senate-2026/cindy-glaser/</loc>
-    <lastmod>2026-04-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://smarter.vote/races/sc-senate-2026/jack-ellison/</loc>
-    <lastmod>2026-04-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://smarter.vote/races/sc-senate-2026/don-louis/</loc>
-    <lastmod>2026-04-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://smarter.vote/races/sc-senate-2026/paul-sedletsky/</loc>
-    <lastmod>2026-04-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://smarter.vote/races/sc-senate-2026/reece-wright-mcdonald/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/sc-senate-2026/catherine-fleming-bruce/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/sc-senate-2026/brandon-brown/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://smarter.vote/races/sc-senate-2026/calvin-cowen/</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://smarter.vote/races/sc-senate-2026/thomas-dismukes/</loc>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -2282,37 +2222,55 @@
   </url>
   <url>
     <loc>https://smarter.vote/races/tn-senate-2026/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/tn-senate-2026/bill-hagerty/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/tn-senate-2026/marquita-bradshaw/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/tn-senate-2026/maria-brewer/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/tn-senate-2026/civil-miller-watkins/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/tn-senate-2026/diana-onyejiaka/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://smarter.vote/races/tn-senate-2026/manny-sethi/</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://smarter.vote/races/tn-senate-2026/george-flinn-jr/</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://smarter.vote/races/tn-senate-2026/jon-henry/</loc>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -2377,44 +2335,32 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://smarter.vote/races/ut-senate-2026/</loc>
-    <lastmod>2026-04-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://smarter.vote/races/ut-senate-2026/john-curtis/</loc>
-    <lastmod>2026-04-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://smarter.vote/races/ut-senate-2026/mike-lee/</loc>
-    <lastmod>2026-04-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://smarter.vote/races/va-senate-2026/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-05-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/va-senate-2026/mark-warner/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-05-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://smarter.vote/races/va-senate-2026/jason-reynolds/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <loc>https://smarter.vote/races/va-senate-2026/mark-moran/</loc>
+    <lastmod>2026-05-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://smarter.vote/races/va-senate-2026/kim-farington/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://smarter.vote/races/va-senate-2026/david-earl-williams/</loc>
+    <lastmod>2026-05-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
