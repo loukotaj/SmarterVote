@@ -1,0 +1,289 @@
+{
+  "id": "oh-house-07-2026",
+  "title": "Ohio's 7th Congressional District election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Ohio's 7th Congressional District",
+  "state": "Ohio",
+  "district": "7th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Ohio's 7th Congressional District pits first-term Republican incumbent Max Miller against Democratic nominee Brian Poindexter, a union ironworker and Brook Park city councilman. The district, which covers parts of Cuyahoga, Medina, Ashland, and Wayne counties, was redrawn in October 2025 under a bipartisan redistricting agreement. Cook Political Report rates the race as Solid Republican, giving Miller a strong advantage in a district that leans right. Key contrasts include Miller's background as a former senior advisor to President Donald Trump and his committee assignments on Ways & Means and Foreign Affairs, versus Poindexter's working-class, pro-union platform centered on workers' rights, affordable healthcare, and American manufacturing.",
+  "polling": [],
+  "polling_note": "No public opinion polls for the 2026 general election in OH-07 were found as of June 2026. Cook Political Report rates the race as Solid Republican.",
+  "candidates": [
+    {
+      "name": "Max Miller",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Max Miller is the incumbent U.S. Representative for Ohio's 7th Congressional District, first elected in 2022. A former senior advisor to President Donald Trump and Marine Corps Reserve veteran, he serves on the House Ways & Means Committee and the House Foreign Affairs Committee. Miller advanced unopposed in the Republican primary for reelection.",
+      "summary_sources": [
+        {
+          "url": "https://maxmiller.house.gov/about",
+          "type": "government",
+          "title": "About - Congressman Max Miller",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://history.house.gov/People/Detail/25769822985",
+          "type": "government",
+          "title": "MILLER, Max - US House of Representatives: History, Art & Archives",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Max_Miller",
+          "type": "website",
+          "title": "Max Miller - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/95/Max_Miller%2C_official_portrait_%28119th_Congress%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "United States Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Serving Ohio's 7th Congressional District; sits on Ways & Means and Foreign Affairs Committees",
+          "source": null
+        },
+        {
+          "title": "Senior Advisor",
+          "organization": "President Donald J. Trump",
+          "start_year": 2017,
+          "end_year": 2021,
+          "description": "Advisor in the Trump administration",
+          "source": null
+        },
+        {
+          "title": "Marine",
+          "organization": "United States Marine Corps Reserve",
+          "start_year": 2013,
+          "end_year": 2019,
+          "description": "Served six years in the Marine Corps Reserve",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Cleveland State University",
+          "degree": "Bachelor of Arts",
+          "field": null,
+          "year": 2013,
+          "source": null
+        },
+        {
+          "institution": "University of Arizona",
+          "degree": null,
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Shaker Heights High School",
+          "degree": "High School Diploma",
+          "field": null,
+          "year": 2007,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://maxmiller.house.gov",
+          "title": "Official House Website",
+          "type": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Max_Miller_(politician)",
+          "title": "Wikipedia - Max Miller",
+          "type": "other"
+        },
+        {
+          "url": "https://www.congress.gov/member/max-miller/M001222",
+          "title": "Congress.gov Profile",
+          "type": "other"
+        }
+      ],
+      "website": "https://maxmiller.house.gov/",
+      "social_media": {
+        "twitter": "https://x.com/RepMaxMiller",
+        "facebook": "https://www.facebook.com/CongressmanMaxMiller",
+        "instagram": "https://www.instagram.com/repmaxmiller/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Brian Poindexter",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Brian Poindexter is a union ironworker and five-term Brook Park City Council at-large member who won the Democratic primary for Ohio's 7th Congressional District in May 2026 with 37% of the vote. He has been a member of Ironworkers Local 17 since 2007 and currently serves as an apprenticeship instructor. His campaign focuses on workers' rights, affordable healthcare, and bringing manufacturing jobs back to the United States.",
+      "summary_sources": [
+        {
+          "url": "https://poindexterforcongress.com/brian-poindexters-working-class-story/",
+          "type": "website",
+          "title": "Brian's Working-Class Story - Poindexter for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://poindexterforcongress.com/",
+          "type": "website",
+          "title": "Brian Poindexter for Congress | Ready to Work for Working Families",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Brian_Poindexter",
+          "type": "website",
+          "title": "Brian Poindexter - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.ashlandsource.com/2026/05/06/poindexter-wins-democratic-primary-for-ohios-7th-congressional-district/",
+          "type": "news",
+          "title": "Poindexter wins Democratic primary for Ohio's 7th Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Apprenticeship Instructor",
+          "organization": "Ironworkers Local 17",
+          "start_year": null,
+          "end_year": null,
+          "description": "Teaching ironworking skills to the next generation of union ironworkers",
+          "source": null
+        },
+        {
+          "title": "City Council At-Large Member",
+          "organization": "City of Brook Park, Ohio",
+          "start_year": 2017,
+          "end_year": null,
+          "description": "Serving a fifth term on the city council; advocate for working families",
+          "source": null
+        },
+        {
+          "title": "Union Organizer",
+          "organization": "Ironworkers Local 17",
+          "start_year": 2012,
+          "end_year": 2014,
+          "description": "Organized workers to bring the benefits of union membership to unrepresented workers",
+          "source": null
+        },
+        {
+          "title": "Union Ironworker",
+          "organization": "Ironworkers Local 17",
+          "start_year": 2007,
+          "end_year": null,
+          "description": "Worked on major projects including Lumen at Playhouse Square and infrastructure at NASA Glenn Research Center",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Cuyahoga Community College",
+          "degree": "Associate of Applied Science",
+          "field": "Applied Industrial Technology",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://poindexterforcongress.com",
+          "title": "Campaign Website",
+          "type": "other"
+        },
+        {
+          "url": "https://ballotpedia.org/Brian_Poindexter",
+          "title": "Ballotpedia Profile",
+          "type": "other"
+        }
+      ],
+      "website": "https://poindexterforcongress.com/",
+      "social_media": {
+        "twitter": "https://x.com/bpforcongress",
+        "facebook": "https://www.facebook.com/PoindexterForCongress",
+        "instagram": "https://www.instagram.com/poindexterforcongress/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Ohio%27s_7th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:44:15.602548+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 241950,
+    "completion_tokens": 6074,
+    "total_tokens": 248024,
+    "cost_usd": 0.014168804,
+    "cost_source": "provider",
+    "estimated_usd": 0.024902,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 241950,
+        "completion_tokens": 6074
+      }
+    },
+    "duration_s": 119.0
+  }
+}

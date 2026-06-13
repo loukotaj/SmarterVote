@@ -1,0 +1,210 @@
+{
+  "id": "nv-house-03-2026",
+  "title": "Nevada's 3rd Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Nevada's 3rd Congressional District",
+  "state": "Nevada",
+  "district": "3rd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 general election for Nevada's 3rd Congressional District pits Democratic incumbent Rep. Susie Lee against Republican nominee Marty O'Donnell, a video game composer best known for the Halo and Destiny franchises. The district, which covers western Las Vegas and parts of unincorporated Clark County, is considered a swing seat; Lee won re-election in 2024 by just 2.8 percentage points even as Donald Trump narrowly carried the district. The race is rated Lean Democratic by the Cook Political Report and is a key pickup opportunity for Republicans seeking to flip control of the U.S. House.",
+  "polling": [],
+  "polling_note": "No public opinion polls for this specific race were found as of the research date. The Cook Political Report rates the race as Lean Democratic but this is a race rating, not a poll.",
+  "candidates": [
+    {
+      "name": "Susie Lee",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Susie Lee is the Democratic incumbent representing Nevada's 3rd Congressional District, first elected in 2018. A former education nonprofit leader who founded After School All Stars and served as President of Communities in Schools of Nevada, she has been ranked the most bipartisan member of Congress and serves on the House Appropriations Committee. Lee won her competitive district by 2.8 points in 2024 and has a strong focus on affordable health care, public education, and economic development.",
+      "summary_sources": [
+        {
+          "url": "https://susieleeforcongress.com/",
+          "type": "website",
+          "title": "Susie Lee for Congress",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "http://susielee.house.gov/official-biography",
+          "type": "government",
+          "title": "Official Biography | Representative Susie Lee",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Susie_Lee.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Represents Nevada's 3rd Congressional District; serves on House Appropriations Committee; member of Problem Solvers Caucus and New Democrats Coalition.",
+          "source": null
+        },
+        {
+          "title": "President",
+          "organization": "Communities in Schools of Nevada",
+          "start_year": null,
+          "end_year": null,
+          "description": "Led education nonprofit working to reduce dropout rates.",
+          "source": null
+        },
+        {
+          "title": "Founder",
+          "organization": "After School All Stars",
+          "start_year": null,
+          "end_year": null,
+          "description": "Founded education nonprofit serving children.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Carnegie Mellon University",
+          "degree": "Bachelor's degree",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://susieleeforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Marty O'Donnell",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Marty O'Donnell is the Republican nominee for Nevada's 3rd Congressional District, having won the June 9, 2026 primary with 42.3% of the vote. A veteran video game music composer best known for creating the iconic Halo and Destiny soundtracks, he earned a Master of Music degree from USC and founded the commercial music production company O'Donnell/Salvatori Inc. O'Donnell, who moved to Las Vegas in 2021, is running on a platform focused on border security, fiscal responsibility, and reducing the size of government, and has been endorsed by President Donald Trump.",
+      "summary_sources": [
+        {
+          "url": "https://martyforcongress.vote/about-marty/",
+          "type": "website",
+          "title": "About Marty - Marty O'Donnell for Congress",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://thenevadaindependent.com/article/gop-video-game-composer-marty-odonnell-announces-another-run-at-susie-lees-seat",
+          "type": "news",
+          "title": "GOP video game composer Marty O'Donnell announces another run at Susie Lee's seat",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-nevada-us-house-3-primary.html",
+          "type": "news",
+          "title": "Nevada Third Congressional District Primary Election Results",
+          "description": null,
+          "last_accessed": "2026-06-12T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Audio Director and Composer",
+          "organization": "Bungie",
+          "start_year": 2000,
+          "end_year": 2014,
+          "description": "Created music and sound design for Halo and Destiny franchises; cast and directed voice acting.",
+          "source": null
+        },
+        {
+          "title": "Co-Founder and Co-Owner",
+          "organization": "Highwire Games",
+          "start_year": null,
+          "end_year": null,
+          "description": "Co-founded game development studio; released Golem for PlayStation VR in 2019.",
+          "source": null
+        },
+        {
+          "title": "Founder",
+          "organization": "O'Donnell/Salvatori Inc.",
+          "start_year": 1981,
+          "end_year": null,
+          "description": "Founded Chicago-based commercial music and sound production company; produced jingles and film scores.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Southern California",
+          "degree": "Master of Music",
+          "field": "Composition",
+          "year": 1981,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://martyforcongress.vote/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Nevada%27s_3rd_congressional_district_election,_2026",
+  "updated_utc": "2026-06-13T21:18:43.201688+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 196889,
+    "completion_tokens": 7175,
+    "total_tokens": 204064,
+    "cost_usd": 0.013313261999999998,
+    "cost_source": "provider",
+    "estimated_usd": 0.020701,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 196889,
+        "completion_tokens": 7175
+      }
+    },
+    "duration_s": 134.0
+  }
+}

@@ -1,0 +1,334 @@
+{
+  "id": "nj-house-08-2026",
+  "title": "New Jersey's 8th Congressional District Election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "New Jersey's 8th Congressional District",
+  "state": "New Jersey",
+  "district": "8th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "New Jersey's 8th Congressional District, covering parts of Essex, Hudson, and Union counties including Newark, Jersey City, Hoboken, and Elizabeth, is holding a general election for the U.S. House of Representatives on November 3, 2026. Incumbent Democrat Rob Menendez, first elected in 2022 and son of former U.S. Senator Bob Menendez, won a competitive primary against Mussab Ali on June 2, 2026. No Republican candidate qualified for the ballot, leading GOP county chairs to back independent candidate Aristotle Eliopoulos, a teacher and union official. The district is heavily Democratic with a 52% Democratic voter registration advantage. Also on the ballot are Socialist Workers Party candidate Craig Honts and independent Da'Shone Hughey.",
+  "polling": [],
+  "polling_note": "No recent public opinion polls specific to the NJ-08 general election matchup were found as of mid-2026. The district is rated Safe/Solid Democratic by major nonpartisan forecasters including Cook Political Report, Inside Elections, and Sabato's Crystal Ball.",
+  "candidates": [
+    {
+      "name": "Rob Menendez",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Rob Menendez (Robert Menendez Jr.) is the incumbent U.S. Representative for New Jersey's 8th Congressional District, first elected in 2022. A former Port Authority commissioner and attorney, he serves on the House Transportation and Infrastructure and Homeland Security committees. Menendez won his 2026 primary with approximately 68.8% of the vote against challenger Mussab Ali.",
+      "summary_sources": [
+        {
+          "url": "https://www.nbcnews.com/politics/2026-primary-elections/new-jersey-us-house-district-8-results",
+          "type": "news",
+          "title": "New Jersey House District 8 Primary Election Live Results 2026 - NBC News",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nj.gov/state/elections/assets/pdf/election-results/2026/2026-certification-of-primary-nominees.pdf",
+          "type": "government",
+          "title": "2026 Certification of Primary Nominees - NJ.gov",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.robmenendez.com/",
+          "type": "website",
+          "title": "Rob Menendez - Re-Elect Campaign Website",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_New_Jersey",
+          "type": "news",
+          "title": "2026 United States House of Representatives elections in New Jersey - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Representing New Jersey's 8th Congressional District; serves on Transportation & Infrastructure and Homeland Security committees",
+          "source": null
+        },
+        {
+          "title": "Commissioner",
+          "organization": "Port Authority of New York and New Jersey",
+          "start_year": 2019,
+          "end_year": 2022,
+          "description": "Chaired the Governance and Ethics Committee and served on the Finance Committee",
+          "source": null
+        },
+        {
+          "title": "Attorney",
+          "organization": "Private practice",
+          "start_year": null,
+          "end_year": 2022,
+          "description": "Worked as a lawyer serving as outside counsel to companies including those with underrepresented founders",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of North Carolina at Chapel Hill",
+          "degree": "Bachelor's",
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Rutgers Law School",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://menendez.house.gov/",
+          "title": "https://menendez.house.gov/",
+          "type": "other"
+        }
+      ],
+      "website": "https://www.robmenendez.com/",
+      "social_media": {
+        "twitter": "https://x.com/RepMenendez",
+        "instagram": "https://www.instagram.com/repmenendez/",
+        "facebook": "https://www.facebook.com/repmenendez/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Aristotle Eliopoulos",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Aristotle 'Ari' Eliopoulos is an independent candidate running for New Jersey's 8th Congressional District with the backing of Republican county chairs in Hudson, Essex, and Union counties after no Republican candidate qualified for the primary ballot. He is a teacher, union representative, and son of Greek immigrant parents who owned a small business in Jersey City. His campaign platform focuses on education, special needs advocacy, lowering the cost of living, housing affordability, and public safety.",
+      "summary_sources": [
+        {
+          "url": "https://newjerseyglobe.com/congress/lacking-a-candidate-republicans-will-back-independent-campaign-in-cd-8/",
+          "type": "news",
+          "title": "Lacking a candidate, Republicans will back independent campaign in CD-8 - New Jersey Globe",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://arieliopoulosforcongress.com/",
+          "type": "website",
+          "title": "Aristotle Eliopoulos for Congress - Official Campaign Website",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nj.gov/state/elections/assets/pdf/election-results/2026/2026-unofficial-general-candidates-us-house-0612.pdf",
+          "type": "government",
+          "title": "2026 Unofficial General Election Candidates - NJ.gov",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Teacher",
+          "organization": "Public school system",
+          "start_year": null,
+          "end_year": null,
+          "description": "Teacher and union representative",
+          "source": null
+        },
+        {
+          "title": "Union Representative",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Serves as a union representative advocating for educators",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://arieliopoulosforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Craig Honts",
+      "party": "Socialist Workers Party",
+      "incumbent": false,
+      "summary": "Craig Honts is the Socialist Workers Party candidate for U.S. House in New Jersey's 8th Congressional District. He previously ran for Lieutenant Governor of New Jersey in 2025. Honts is campaigning on a working-class platform focused on labor rights and socialist policies.",
+      "summary_sources": [
+        {
+          "url": "https://www.nj.gov/state/elections/assets/pdf/election-results/2026/2026-unofficial-general-candidates-us-house-0612.pdf",
+          "type": "government",
+          "title": "2026 Unofficial General Election Candidates - NJ.gov",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Craig_Honts",
+          "type": "website",
+          "title": "Craig Honts - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://patch.com/new-jersey/newarknj/2-socialists-launch-congress-bids-nj-kuniansky-honts-hit-campaign-trail",
+          "type": "news",
+          "title": "Kuniansky, Honts Hit The Campaign Trail - Patch",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Da'Shone Hughey",
+      "party": "We The People",
+      "incumbent": false,
+      "summary": "Da'Shone Hughey is an independent candidate running under the 'We The People' ballot line for New Jersey's 8th Congressional District. He is listed on the official state general election ballot, having submitted sufficient petition signatures.",
+      "summary_sources": [
+        {
+          "url": "https://www.nj.gov/state/elections/assets/pdf/election-results/2026/2026-unofficial-general-candidates-us-house-0612.pdf",
+          "type": "government",
+          "title": "2026 Unofficial General Election Candidates - NJ.gov",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Da%27Shone_Hughey",
+          "type": "website",
+          "title": "Da'Shone Hughey - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/New_Jersey%27s_8th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:28:35.921248+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 277579,
+    "completion_tokens": 8540,
+    "total_tokens": 286119,
+    "cost_usd": 0.020809509999999996,
+    "cost_source": "provider",
+    "estimated_usd": 0.028877,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 277579,
+        "completion_tokens": 8540
+      }
+    },
+    "duration_s": 138.7
+  }
+}

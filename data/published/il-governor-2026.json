@@ -1,0 +1,244 @@
+{
+  "id": "il-governor-2026",
+  "title": "2026 Illinois Gubernatorial Election",
+  "office": "Governor of Illinois",
+  "jurisdiction": "Illinois",
+  "state": "Illinois",
+  "district": null,
+  "election_date": "2026-11-03",
+  "description": "The 2026 Illinois gubernatorial election is a rematch between Democratic incumbent JB Pritzker and Republican former state senator Darren Bailey, who also faced off in the 2022 election. Pritzker, who has served as governor since 2019, is seeking a third term with lieutenant governor candidate Christian Mitchell. Bailey, the 2022 Republican nominee, won the March 17, 2026 primary with about 54% of the vote and selected Cook County Republican Party Chair Aaron Del Mar as his running mate. Illinois has no term limits for governor, and Democrats have held the office for all but one term since 2002. The race will test whether Bailey can improve on his 2022 performance after spending the primary campaigning on conservative messaging and vowing to create a DOGE-like efficiency commission, while Pritzker runs on his record of legalizing cannabis, raising the minimum wage, and expanding abortion access.",
+  "polling": [],
+  "polling_note": "No general election polls between Pritzker and Bailey were found as of August 2026. Available polling data from the primary season focused on the Republican primary contest.",
+  "candidates": [
+    {
+      "name": "JB Pritzker",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "JB Pritzker is the 43rd governor of Illinois, first elected in 2018 and reelected in 2022. A member of the billionaire Pritzker family that owns the Hyatt hotel chain, he has governed as a progressive Democrat, overseeing the legalization of recreational cannabis, minimum wage increases, and expanded abortion protections. He is seeking a third term and selected former deputy governor and state representative Christian Mitchell as his running mate after incumbent lieutenant governor Juliana Stratton ran for U.S. Senate.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/JB_Pritzker",
+          "type": "website",
+          "title": "JB Pritzker - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-08-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/J.B._Pritzker",
+          "type": "website",
+          "title": "J.B. Pritzker - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-08-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://gov.illinois.gov/about/the-governor.html",
+          "type": "government",
+          "title": "The Governor - JB Pritzker - Illinois.gov",
+          "description": null,
+          "last_accessed": "2026-08-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/JB_Pritzker.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Governor of Illinois",
+          "organization": "State of Illinois",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "43rd governor of Illinois, first elected in 2018 and reelected in 2022",
+          "source": null
+        },
+        {
+          "title": "Managing Partner",
+          "organization": "Pritzker Group Private Capital",
+          "start_year": 2003,
+          "end_year": 2017,
+          "description": "Co-founded and led private investment firm",
+          "source": null
+        },
+        {
+          "title": "Chairman",
+          "organization": "ChicagoNEXT",
+          "start_year": 2012,
+          "end_year": 2018,
+          "description": "Chairman of Chicago Mayor Rahm Emanuel's Council on Innovation and Technology",
+          "source": null
+        },
+        {
+          "title": "Founder",
+          "organization": "1871",
+          "start_year": 2012,
+          "end_year": 2018,
+          "description": "Founded nonprofit digital startup incubator in Chicago",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Northwestern University School of Law",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": 1993,
+          "source": null
+        },
+        {
+          "institution": "Duke University",
+          "degree": "Bachelor of Arts",
+          "field": "Political Science",
+          "year": 1987,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://jbpritzker.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Darren Bailey",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Darren Bailey is a farmer and former Illinois state senator who was the Republican nominee for governor in 2022 and secured the nomination again in 2026. He served in the Illinois House of Representatives from 2019 to 2021 and in the Illinois Senate from 2021 to 2023, representing districts in southern Illinois. Bailey is a conservative who has pledged to create a DOGE-style efficiency commission, opposes the SAFE-T Act criminal justice reform law, and has made opposition to abortion a central part of his platform. He chose Cook County Republican Party Chair Aaron Del Mar as his running mate.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Darren_Bailey",
+          "type": "website",
+          "title": "Darren Bailey - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-08-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Darren_Bailey",
+          "type": "website",
+          "title": "Darren Bailey - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-08-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://baileyforillinois.com/",
+          "type": "website",
+          "title": "Darren Bailey for Governor",
+          "description": null,
+          "last_accessed": "2026-08-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Darren_Bailey_at_a_2022_Campaign_Event.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Illinois State Senator",
+          "organization": "Illinois Senate",
+          "start_year": 2021,
+          "end_year": 2023,
+          "description": "Represented the 55th district in southern Illinois",
+          "source": null
+        },
+        {
+          "title": "Illinois State Representative",
+          "organization": "Illinois House of Representatives",
+          "start_year": 2019,
+          "end_year": 2021,
+          "description": "Represented the 109th district",
+          "source": null
+        },
+        {
+          "title": "Board Member",
+          "organization": "North Clay Board of Education",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served on local school board",
+          "source": null
+        },
+        {
+          "title": "Farmer",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "Operates a family farm in Xenia, Illinois",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Lake Land College",
+          "degree": "Associate of Science",
+          "field": "Agricultural Production",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://baileyforillinois.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Illinois_gubernatorial_and_lieutenant_gubernatorial_election,_2026",
+  "updated_utc": "2026-06-13T21:03:39.932899+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 226027,
+    "completion_tokens": 5274,
+    "total_tokens": 231301,
+    "cost_usd": 0.014767838000000002,
+    "cost_source": "provider",
+    "estimated_usd": 0.023184,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 226027,
+        "completion_tokens": 5274
+      }
+    },
+    "duration_s": 132.7
+  }
+}

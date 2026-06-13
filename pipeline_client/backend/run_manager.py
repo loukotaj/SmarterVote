@@ -204,7 +204,11 @@ class RunManager:
             self._save_run(self.active_runs[run_id])
 
     def complete_run(
-        self, run_id: str, artifact_id: Optional[str] = None, duration_ms: Optional[int] = None
+        self,
+        run_id: str,
+        artifact_id: Optional[str] = None,
+        duration_ms: Optional[int] = None,
+        serper_calls: Optional[int] = None,
     ) -> Optional["RunInfo"]:
         """Mark a run as completed. Returns the final RunInfo (or None if not found)."""
         if run_id in self.active_runs:
@@ -213,13 +217,17 @@ class RunManager:
             run_info.completed_at = datetime.now(timezone.utc)
             run_info.artifact_id = artifact_id
             run_info.duration_ms = duration_ms
+            if serper_calls is not None:
+                run_info.serper_calls = serper_calls
             del self.active_runs[run_id]
             self.detach_run_logger(run_id)
             self._persist_background(run_info)
             return run_info
         return None
 
-    def fail_run(self, run_id: str, error: str, duration_ms: Optional[int] = None) -> Optional["RunInfo"]:
+    def fail_run(
+        self, run_id: str, error: str, duration_ms: Optional[int] = None, serper_calls: Optional[int] = None
+    ) -> Optional["RunInfo"]:
         """Mark a run as failed. Returns the final RunInfo (or None if not found)."""
         if run_id in self.active_runs:
             run_info = self.active_runs[run_id]
@@ -227,6 +235,8 @@ class RunManager:
             run_info.completed_at = datetime.now(timezone.utc)
             run_info.error = error
             run_info.duration_ms = duration_ms
+            if serper_calls is not None:
+                run_info.serper_calls = serper_calls
             del self.active_runs[run_id]
             self.detach_run_logger(run_id)
             self._persist_background(run_info)

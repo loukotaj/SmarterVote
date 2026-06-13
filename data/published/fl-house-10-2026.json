@@ -1,0 +1,150 @@
+{
+  "id": "fl-house-10-2026",
+  "title": "Florida's 10th Congressional District Election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Florida's 10th Congressional District",
+  "state": "Florida",
+  "district": "10th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Florida's 10th Congressional District features incumbent Democrat Maxwell Alejandro Frost running unopposed for a third term. Frost, first elected in 2022 as the first Generation Z member of Congress, represents a district centered on Orlando that leans strongly Democratic (Cook PVI: D+13). The race is uncontested after no Republican or other party candidate successfully qualified for the ballot, making Frost the only member of Florida's congressional delegation to avoid a primary or general election opponent in 2026. A new congressional map enacted by Governor Ron DeSantis in April 2026, which is expected to produce a 24-4 Republican-Democratic split statewide, left Frost's seat intact as a safe Democratic district.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for this race, as the incumbent is running unopposed.",
+  "candidates": [
+    {
+      "name": "Maxwell Alejandro Frost",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Maxwell Alejandro Frost is the incumbent U.S. Representative for Florida's 10th Congressional District, first elected in 2022. At age 25, he became the first Generation Z member of Congress, and he currently serves on the House Oversight and Science committees and as Co-Chair of the House Democratic Policy and Communications Committee. Prior to Congress, Frost was the National Organizing Director for March for Our Lives and an organizer with the ACLU, and he has focused his legislative work on gun violence prevention, housing affordability, and voting rights.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Maxwell_Frost",
+          "type": "news",
+          "title": "Maxwell Frost - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-19T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://frost.house.gov/about",
+          "type": "government",
+          "title": "About | Congressman Maxwell Frost of Florida's 10th District",
+          "description": null,
+          "last_accessed": "2026-06-19T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://floridapolitics.com/archives/801710-maxwell-frost-effectively-secures-another-term-in-congress/",
+          "type": "news",
+          "title": "Maxwell Frost secures another term in Congress unopposed",
+          "description": null,
+          "last_accessed": "2026-06-19T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/0d/Rep._Maxwell_Frost_-_119th_Congress.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "United States Representative",
+          "organization": "U.S. House of Representatives, Florida's 10th District",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "First elected in 2022; serves on Committees on Oversight and Government Reform, and Science, Space, and Technology.",
+          "source": null
+        },
+        {
+          "title": "Co-Chair, House Democratic Policy and Communications Committee",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Elected by the Democratic Caucus to serve alongside Reps. Lori Trahan and Lauren Underwood.",
+          "source": null
+        },
+        {
+          "title": "National Organizing Director",
+          "organization": "March for Our Lives",
+          "start_year": 2019,
+          "end_year": 2021,
+          "description": "Led youth organizing efforts for gun violence prevention.",
+          "source": null
+        },
+        {
+          "title": "Organizer",
+          "organization": "American Civil Liberties Union (ACLU)",
+          "start_year": 2017,
+          "end_year": 2019,
+          "description": "Worked on voting rights (Florida Amendment 4) and abortion rights advocacy.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Valencia College",
+          "degree": null,
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://frost.house.gov/",
+          "title": "Official House website",
+          "type": "other"
+        }
+      ],
+      "website": "https://www.frostforcongress.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/maxwellfrostfl/",
+        "facebook": "https://www.facebook.com/MaxwellFrostFL/",
+        "youtube": "https://www.youtube.com/channel/UCsAtXPp3_gt1ysfwt-c0uXQ"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Florida%27s_10th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:11:16.149848+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 252456,
+    "completion_tokens": 5261,
+    "total_tokens": 257717,
+    "cost_usd": 0.015568196000000001,
+    "cost_source": "provider",
+    "estimated_usd": 0.025772,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 252456,
+        "completion_tokens": 5261
+      }
+    },
+    "duration_s": 135.0
+  }
+}

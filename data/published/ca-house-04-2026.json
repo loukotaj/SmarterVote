@@ -1,0 +1,197 @@
+{
+  "id": "ca-house-04-2026",
+  "title": "California's 4th Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "California's 4th Congressional District",
+  "state": "California",
+  "district": "4th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The general election for California's 4th Congressional District will be held on November 3, 2026, featuring a matchup between two Democrats after the top-two primary on June 2, 2026. Incumbent Rep. Mike Thompson, a moderate Democrat seeking his 15th term, faces a progressive challenge from Eric Jones, a former venture capitalist and first-generation college graduate. The district was significantly redrawn by Proposition 50, adding nearly 50% new territory and shifting the political dynamics of the race. Key issues include affordability, healthcare, housing, and the influence of corporate money in politics.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for the 2026 general election in California's 4th Congressional District as of the research date.",
+  "candidates": [
+    {
+      "name": "Mike Thompson",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Mike Thompson is the incumbent U.S. Representative for California's 4th Congressional District, first elected in 1998. A Vietnam War veteran and former state senator, he chairs the House Gun Violence Prevention Task Force and has focused his career on agricultural policy, infrastructure, and constituent services. Thompson has been endorsed by Governor Gavin Newsom and Senators Alex Padilla and Adam Schiff.",
+      "summary_sources": [
+        {
+          "url": "https://www.capradio.org/articles/2026/06/01/what-to-know-about-congressional-district-4-race/",
+          "type": "news",
+          "title": "What to know about Congressional District 4 race",
+          "description": null,
+          "last_accessed": "2025-07-18T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Mike_Thompson",
+          "type": "website",
+          "title": "Mike Thompson - Wikipedia",
+          "description": null,
+          "last_accessed": "2025-07-18T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Mike_Thompson%2C_official_portrait%2C_116th_Congress_%283x4_cropped%29.jpg/250px-Mike_Thompson%2C_official_portrait%2C_116th_Congress_%283x4_cropped%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 1999,
+          "end_year": null,
+          "description": "Represents California's 4th Congressional District (previously 1st and 5th districts)",
+          "source": null
+        },
+        {
+          "title": "California State Senator",
+          "organization": "California State Senate",
+          "start_year": 1990,
+          "end_year": 1998,
+          "description": "Represented the 2nd and 4th Senate districts",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Napa Valley College",
+          "degree": null,
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "California State University, Chico",
+          "degree": "BA",
+          "field": "Political Science",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "California State University, Chico",
+          "degree": "MPA",
+          "field": "Public Administration",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.mikethompsonforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Eric Jones",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Eric Jones is a former venture capitalist and healthcare entrepreneur running on a progressive platform of affordability, accountability, and ending corporate influence in politics. He founded the American Dream Institute, a nonprofit focused on combating political extremism and disinformation. Jones has self-funded over $5 million of his campaign and earned endorsements from Our Revolution and Indivisible Yolo.",
+      "summary_sources": [
+        {
+          "url": "https://www.capradio.org/articles/2026/06/01/what-to-know-about-congressional-district-4-race/",
+          "type": "news",
+          "title": "What to know about Congressional District 4 race",
+          "description": null,
+          "last_accessed": "2025-07-18T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.ericjones.us/meet-eric",
+          "type": "website",
+          "title": "Meet Eric - Eric Jones for Congress",
+          "description": null,
+          "last_accessed": "2025-07-18T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Founder and CEO",
+          "organization": "American Dream Institute",
+          "start_year": null,
+          "end_year": null,
+          "description": "Nonprofit organization countering political extremism and disinformation",
+          "source": null
+        },
+        {
+          "title": "Venture Capitalist / Entrepreneur",
+          "organization": "Various healthcare and education technology companies",
+          "start_year": null,
+          "end_year": null,
+          "description": "Invested in companies including Maven Clinic, Lyra Health, Duolingo, and Chime",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Yale University",
+          "degree": "BA",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.ericjones.us/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/California%27s_4th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:23:55.698741+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 263353,
+    "completion_tokens": 5295,
+    "total_tokens": 268648,
+    "cost_usd": 0.01535483,
+    "cost_source": "provider",
+    "estimated_usd": 0.026846,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 263353,
+        "completion_tokens": 5295
+      }
+    },
+    "duration_s": 180.4
+  }
+}

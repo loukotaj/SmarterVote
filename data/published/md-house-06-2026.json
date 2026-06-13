@@ -1,0 +1,588 @@
+{
+  "id": "md-house-06-2026",
+  "title": "Maryland's 6th Congressional District Election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Maryland's 6th Congressional District",
+  "state": "Maryland",
+  "district": "6th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "This race will determine the U.S. Representative for Maryland's 6th Congressional District, a competitive district that stretches from the western Maryland panhandle through Frederick County and into the northern suburbs of Montgomery County. Incumbent Democrat April McClain Delaney, first elected in 2024, is seeking a second term and faces a notable primary challenge from former Congressman David Trone, whom she succeeded. The Republican primary features three candidates including Marine veteran Chris Burnett, perennial candidate Robin Ficker, and Air Force veteran Mariela Roca, who is making her third run for the seat. The general election is expected to be closely contested given the district's political diversity, with the primary scheduled for June 23, 2026, and the general election on November 3, 2026.",
+  "polling": [],
+  "polling_note": "No independent general-election polls were found for Maryland's 6th Congressional District as of June 13, 2026. The New York Times poll tracker lists the district but had not published specific general-election poll data. The primary is still ahead (June 23, 2026), so general-election polling is not yet available.",
+  "candidates": [
+    {
+      "name": "April McClain Delaney",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "April McClain Delaney is the incumbent U.S. Representative for Maryland's 6th Congressional District, first elected in 2024. She previously served as Deputy Administrator of the National Telecommunications and Information Administration under President Biden and founded the Washington, D.C. office of Common Sense Media, a children's advocacy nonprofit. She is running for re-election on a platform focused on affordability, protecting social safety nets, and expanding rural broadband access.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/April_McClain_Delaney",
+          "type": "news",
+          "title": "April McClain Delaney - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T20:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.aprilmcclaindelaneyforcongress.com/",
+          "type": "website",
+          "title": "April McClain Delaney | Fighting for You!",
+          "description": null,
+          "last_accessed": "2026-06-13T20:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "http://mcclaindelaney.house.gov/about",
+          "type": "government",
+          "title": "About | Congresswoman April McClain Delaney - House.gov",
+          "description": null,
+          "last_accessed": "2026-06-13T20:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Rep._April_McClain_Delaney_Official_Portrait.jpg/250px-Rep._April_McClain_Delaney_Official_Portrait.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "United States Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Representing Maryland's 6th Congressional District",
+          "source": null
+        },
+        {
+          "title": "Deputy Administrator",
+          "organization": "National Telecommunications and Information Administration",
+          "start_year": 2022,
+          "end_year": 2023,
+          "description": "Appointed by President Biden, oversaw broadband deployment efforts",
+          "source": null
+        },
+        {
+          "title": "Director",
+          "organization": "Common Sense Media (Washington D.C. office)",
+          "start_year": 2006,
+          "end_year": 2022,
+          "description": "Founded and led the D.C. division of the children's media advocacy nonprofit",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Northwestern University",
+          "degree": "Bachelor of Science",
+          "field": "Communications",
+          "year": 1986,
+          "source": null
+        },
+        {
+          "institution": "Georgetown University Law Center",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": 1989,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.aprilmcclaindelaneyforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/AprilMcClainDelaney/",
+        "instagram": "https://www.instagram.com/amcclaindelaney/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "David Trone",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "David Trone served as the U.S. Representative for Maryland's 6th Congressional District from 2019 to 2025 before running unsuccessfully for the U.S. Senate in 2024. He is the co-founder and former president of Total Wine & More, the largest privately owned beer, wine, and spirits retailer in the United States. Trone is challenging his successor, April McClain Delaney, in the Democratic primary, emphasizing his experience in Congress and business background.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/David_Trone",
+          "type": "news",
+          "title": "David Trone - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T20:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/David_Trone",
+          "type": "website",
+          "title": "David Trone - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T20:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://davidtrone.com/",
+          "type": "website",
+          "title": "David Trone for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T20:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/David_Trone.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "United States Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2019,
+          "end_year": 2025,
+          "description": "Represented Maryland's 6th Congressional District",
+          "source": null
+        },
+        {
+          "title": "Co-founder and President",
+          "organization": "Total Wine & More",
+          "start_year": 1991,
+          "end_year": 2016,
+          "description": "Co-founded and led the largest privately owned wine and spirits retailer in the U.S.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Furman University",
+          "degree": "Bachelor of Arts",
+          "field": "Economics",
+          "year": 1977,
+          "source": null
+        },
+        {
+          "institution": "University of Pennsylvania (Wharton School)",
+          "degree": "Master of Business Administration",
+          "field": "Business",
+          "year": 1985,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://davidtrone.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Alexis Goldstein",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Alexis Goldstein is a former financial regulatory expert at the Consumer Financial Protection Bureau who was fired in early 2026 after a confrontation with DOGE staff, which she cites as a catalyst for her congressional campaign. She previously worked on Wall Street as a programmer and analyst before joining the Occupy Wall Street protests and later became a financial policy director at the Open Markets Institute. Goldstein is running as a progressive Democrat focused on financial regulation, consumer protection, and economic inequality.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Alexis_Goldstein",
+          "type": "news",
+          "title": "Alexis Goldstein - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T20:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.electalexis.org/",
+          "type": "website",
+          "title": "Elect Alexis Goldstein - Democrat for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T20:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Program Manager",
+          "organization": "Consumer Financial Protection Bureau",
+          "start_year": 2021,
+          "end_year": 2026,
+          "description": "Worked in the Chief Technologist's Office; fired in February 2026",
+          "source": null
+        },
+        {
+          "title": "Financial Policy Director",
+          "organization": "Open Markets Institute",
+          "start_year": 2021,
+          "end_year": 2021,
+          "description": "Advised on financial regulatory policy and testified before the Senate Banking Committee",
+          "source": null
+        },
+        {
+          "title": "Programmer and Analyst",
+          "organization": "Wall Street Firms",
+          "start_year": 2003,
+          "end_year": 2010,
+          "description": "Worked in financial technology before leaving to join Occupy Wall Street",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Columbia University",
+          "degree": "Bachelor of Science",
+          "field": "Computer Science",
+          "year": 2003,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.electalexis.org/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/electalexis/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "George Gluck",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "George Gluck is a perennial candidate who has run for office multiple times, previously as a Green Party candidate and now seeking the Democratic nomination for Maryland's 6th Congressional District. He describes himself as a 'prudent progressive' and believes the political climate under the Trump administration may present a stronger opportunity for his candidacy. Gluck has been an active presence in local politics for over a decade.",
+      "summary_sources": [
+        {
+          "url": "https://www.heraldmailmedia.com/story/news/local/2026/06/01/george-gluck-is-democratic-challenger-in-maryland-sixth-district-for-congress/90350718007/",
+          "type": "news",
+          "title": "Gluck running for Maryland's Sixth Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-13T20:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/George_Gluck",
+          "type": "website",
+          "title": "George Gluck - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T20:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/George_Gluck.jpg",
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {
+        "facebook": "https://www.facebook.com/GluckForCongress/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Christopher Burnett",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Chris Burnett is a retired Marine Corps officer who served for 24 years, including deployments to Iraq and assignments at U.S. Southern Command and Marine Forces Cyberspace Command. He is a legal scholar and attorney running as an America First conservative focused on restoring trust in government. Burnett emphasizes his military leadership experience and promises to bring accountability to Congress.",
+      "summary_sources": [
+        {
+          "url": "https://www.burnettforcongress.com/meet-chris",
+          "type": "website",
+          "title": "Meet Chris - Chris Burnett for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T20:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Christopher_Burnett",
+          "type": "website",
+          "title": "Christopher Burnett - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T20:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.wvnews.com/garrettrepublican/news/burnett-for-congress-a-marine-s-mission-for-maryland-s-6th-congressional-district/article_74f545c9-e7f4-4376-a251-ce389c1fdea2.html",
+          "type": "news",
+          "title": "Burnett for Congress: A Marine's mission for Maryland's 6th Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-13T20:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Marine Corps Officer (Retired)",
+          "organization": "United States Marine Corps",
+          "start_year": 2001,
+          "end_year": 2025,
+          "description": "Served 24 years including combat deployments and legal/national security advisory roles",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.burnettforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/Burnett4Congress/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Robin Ficker",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Robin Ficker is a perennial political candidate, former Maryland state delegate (1979-1983), and disbarred attorney who has run for numerous offices over five decades. He is a real estate broker and political activist known for his colorful campaign style and frequent ballot appearances. Ficker has run for Congress, Senate, governor, and county executive multiple times since the 1970s.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Robin_Ficker",
+          "type": "news",
+          "title": "Robin Ficker - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T20:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Robin_Ficker",
+          "type": "website",
+          "title": "Robin Ficker - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T20:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://voteficker.com/",
+          "type": "website",
+          "title": "Robin Ficker for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T20:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Robin_Ficker.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Member",
+          "organization": "Maryland House of Delegates, District 15B",
+          "start_year": 1979,
+          "end_year": 1983,
+          "description": "Served one term as a Republican state delegate",
+          "source": null
+        },
+        {
+          "title": "Real Estate Broker",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "Real estate broker and former attorney (disbarred in 2022)",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Case Western Reserve University",
+          "degree": "Bachelor of Science",
+          "field": "Electrical and Mechanical Engineering",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Baltimore School of Law",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "American University",
+          "degree": "Master of Arts",
+          "field": "Public Administration",
+          "year": 1969,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://voteficker.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/robinficker/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Mariela Roca",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Mariela Roca is an Air Force veteran and conservative Republican making her third run for Maryland's 6th Congressional District, having previously run in 2022 and 2024. She has been endorsed by former House Speaker Newt Gingrich and campaigns on a platform of affordable healthcare, veteran support, and conservative values. Roca emphasizes her experience from prior campaigns as giving her a strong understanding of the district.",
+      "summary_sources": [
+        {
+          "url": "https://www.heraldmailmedia.com/story/news/local/2026/06/04/mariela-roca-is-a-republican-candidate-for-maryland-6th-district-for-congress/90384117007/",
+          "type": "news",
+          "title": "Roca is a Republican candidate for Maryland 6th District for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T20:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://rocaforcongress.com/",
+          "type": "website",
+          "title": "Mariela Roca for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T20:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Mariela_Roca",
+          "type": "website",
+          "title": "Mariela Roca - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T20:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Veteran",
+          "organization": "United States Air Force",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served in the U.S. Air Force",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://rocaforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/rocaforcongress/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Maryland%27s_6th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:31:35.925724+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 299475,
+    "completion_tokens": 10896,
+    "total_tokens": 310371,
+    "cost_usd": 0.020471813999999998,
+    "cost_source": "provider",
+    "estimated_usd": 0.031484,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 299475,
+        "completion_tokens": 10896
+      }
+    },
+    "duration_s": 147.9
+  }
+}

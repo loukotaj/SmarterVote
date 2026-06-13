@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { createEventDispatcher, onMount } from "svelte";
+  import { onMount } from "svelte";
   import { writable } from "svelte/store";
   import {
     createSvelteTable,
@@ -19,30 +19,21 @@
   import { PipelineApiService } from "$lib/services/pipelineApiService";
   import type { RaceRecord, RaceStatusType } from "$lib/types";
 
-  export let onSelectRace: (race: RaceRecord) => void = () => {};
-  export let onBatchQueue: (raceIds: string[]) => void = () => {};
-  export async function refresh() {
-    loading = true;
-    await loadData();
-  }
-
-  const dispatch = createEventDispatcher<{ addRaces: string }>();
   const API_BASE = import.meta.env.VITE_RACES_API_URL || "http://127.0.0.1:8080";
   const apiService = new PipelineApiService(API_BASE);
 
   let rows: RaceRecord[] = [];
   let loading = true;
   let error = "";
-  let notice = "";
   let globalFilter = "";
   let statusFilter: RaceStatusType | "all" = "all";
   let sorting: SortingState = [{ id: "draft_updated_at", desc: true }];
   let columnFilters: ColumnFiltersState = [];
-  let selected = new Set<string>();
-  let publishing = new Set<string>();
-  let bulkPublishing = false;
-  let rechecking = false;
-  let addInput = "";
+
+  export async function refresh() {
+    loading = true;
+    await loadData();
+  }
 
   function hasDraft(row: RaceRecord): boolean {
     if (typeof row.draft_exists === "boolean") return row.draft_exists;
@@ -119,12 +110,6 @@
 
   const columns: ColumnDef<RaceRecord>[] = [
     {
-      id: "select",
-      header: "",
-      enableSorting: false,
-      enableColumnFilter: false,
-    },
-    {
       accessorKey: "race_id",
       header: "Race ID",
       filterFn: textFilter,
@@ -181,7 +166,7 @@
     },
     {
       id: "actions",
-      header: "Actions",
+      header: "Preview",
       enableSorting: false,
       enableColumnFilter: false,
     },
@@ -210,6 +195,8 @@
   });
 
   const table = createSvelteTable(options);
+
+  $: filteredCount = $table.getFilteredRowModel().rows.length;
 
   function updateTableState() {
     options.update((old) => ({
@@ -247,131 +234,12 @@
   async function loadData() {
     try {
       error = "";
-      notice = "";
       rows = await apiService.listRaces();
       updateTableState();
     } catch (e) {
       error = String(e);
     } finally {
       loading = false;
-    }
-  }
-
-  function visibleRaceIds(): string[] {
-    return $table.getRowModel().rows.map((row) => row.original.race_id);
-  }
-
-  function toggleSelect(id: string) {
-    const next = new Set(selected);
-    if (next.has(id)) next.delete(id); else next.add(id);
-    selected = next;
-  }
-
-  function toggleAll() {
-    const ids = visibleRaceIds();
-    if (ids.length > 0 && ids.every((id) => selected.has(id))) {
-      selected = new Set([...selected].filter((id) => !ids.includes(id)));
-    } else {
-      selected = new Set([...selected, ...ids]);
-    }
-  }
-
-  function handleBatchAction() {
-    if (selected.size < 1) return;
-    onBatchQueue([...selected]);
-    selected = new Set();
-  }
-
-  function handleAddRaces() {
-    const raw = addInput.trim();
-    if (!raw) return;
-    dispatch("addRaces", raw);
-    addInput = "";
-  }
-
-  function handleAddKeydown(e: KeyboardEvent) {
-    if (e.key === "Enter") handleAddRaces();
-  }
-
-  $: selectedWithDrafts = [...selected].filter((id) => {
-    const row = rows.find((r) => r.race_id === id);
-    return row && hasPendingDraft(row);
-  });
-
-  $: filteredCount = $table.getFilteredRowModel().rows.length;
-  $: visibleCount = $table.getRowModel().rows.length;
-  $: visibleSelectedCount = visibleRaceIds().filter((id) => selected.has(id)).length;
-  $: allVisibleSelected = visibleCount > 0 && visibleSelectedCount === visibleCount;
-  $: someVisibleSelected = visibleSelectedCount > 0 && visibleSelectedCount < visibleCount;
-
-  async function handleBulkPublish() {
-    if (selectedWithDrafts.length === 0) return;
-    if (!confirm(`Publish ${selectedWithDrafts.length} race${selectedWithDrafts.length !== 1 ? "s" : ""}?`)) return;
-    bulkPublishing = true;
-    try {
-      const result = await apiService.batchPublishRaces(selectedWithDrafts);
-      if (result.errors.length > 0) {
-        error = `Published ${result.published.length}, failed: ${result.errors.map((e) => `${e.race_id}: ${e.error}`).join(", ")}`;
-      }
-      selected = new Set();
-      await loadData();
-    } catch (e) {
-      error = `Bulk publish failed: ${e}`;
-    } finally {
-      bulkPublishing = false;
-    }
-  }
-
-  async function handleRecheckAll() {
-    if (rechecking) return;
-    rechecking = true;
-    try {
-      const result = await apiService.recheckAllRaces();
-      await loadData();
-      notice = `Rechecked ${result.checked} races; updated ${result.updated}.`;
-    } catch (e) {
-      error = `Recheck failed: ${e}`;
-    } finally {
-      rechecking = false;
-    }
-  }
-
-  async function handlePublish(race_id: string) {
-    publishing = new Set([...publishing, race_id]);
-    try {
-      await apiService.publishRace(race_id);
-      await loadData();
-    } catch (e) {
-      error = `Publish failed: ${e}`;
-    } finally {
-      const next = new Set(publishing);
-      next.delete(race_id);
-      publishing = next;
-    }
-  }
-
-  async function handleUnpublish(race_id: string) {
-    if (!confirm(`Unpublish "${race_id}"? Removes from public site but keeps the draft.`)) return;
-    publishing = new Set([...publishing, race_id]);
-    try {
-      await apiService.unpublishRaceRecord(race_id);
-      await loadData();
-    } catch (e) {
-      error = `Unpublish failed: ${e}`;
-    } finally {
-      const next = new Set(publishing);
-      next.delete(race_id);
-      publishing = next;
-    }
-  }
-
-  async function handleDelete(race_id: string) {
-    if (!confirm(`Delete "${race_id}" entirely? This cannot be undone.`)) return;
-    try {
-      await apiService.deleteRaceRecord(race_id);
-      await loadData();
-    } catch (e) {
-      error = `Delete failed: ${e}`;
     }
   }
 
@@ -390,18 +258,10 @@
     $table.setGlobalFilter((event.currentTarget as HTMLInputElement).value);
   }
 
-  function handleColumnFilterInput(columnId: string, event: Event) {
-    $table.getColumn(columnId)?.setFilterValue((event.currentTarget as HTMLInputElement).value);
-  }
-
   function handleStatusFilter(event: Event) {
     const value = (event.currentTarget as HTMLSelectElement).value as RaceStatusType | "all";
     statusFilter = value;
     $table.getColumn("status")?.setFilterValue(value === "all" ? "" : value);
-  }
-
-  function columnFilterValue(columnId: string): string {
-    return String($table.getColumn(columnId)?.getFilterValue() ?? "");
   }
 
   function statusBadgeClass(s: RaceStatusType) {
@@ -432,7 +292,7 @@
   }
 
   const STATUS_OPTIONS: { value: RaceStatusType | "all"; label: string }[] = [
-    { value: "all", label: "All" },
+    { value: "all", label: "All Statuses" },
     { value: "published", label: "Published" },
     { value: "draft", label: "Draft" },
     { value: "queued", label: "Queued" },
@@ -445,28 +305,6 @@
 </script>
 
 <div class="space-y-4">
-  <!-- Add races input -->
-  <div class="card p-3">
-    <div class="flex gap-2">
-      <input
-        type="text"
-        bind:value={addInput}
-        on:keydown={handleAddKeydown}
-        placeholder="Add races: ga-senate-2026, tx-governor-2026..."
-        class="flex-1 px-3 py-2 border border-stroke rounded-lg text-sm font-mono bg-surface text-content focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-      />
-      <button
-        type="button"
-        on:click={handleAddRaces}
-        disabled={!addInput.trim()}
-        class="btn-primary px-4 py-2 text-sm rounded-lg whitespace-nowrap disabled:opacity-40 disabled:cursor-not-allowed"
-      >
-        + Queue
-      </button>
-    </div>
-    <p class="mt-1 text-xs text-content-faint">Comma-separate IDs · <kbd class="px-1 py-0.5 bg-surface-alt rounded text-xs">Enter</kbd> to add</p>
-  </div>
-
   <!-- Toolbar -->
   <div class="flex items-center justify-between gap-3 flex-wrap">
     <div class="flex items-center gap-2 flex-1 min-w-0">
@@ -474,8 +312,8 @@
         type="search"
         value={globalFilter}
         on:input={handleGlobalFilterInput}
-        placeholder="Search all visible race fields..."
-        class="flex-1 min-w-48 px-3 py-2 text-sm border border-stroke rounded-lg bg-surface text-content focus:outline-none focus:border-blue-500"
+        placeholder="Search visible races..."
+        class="flex-1 max-w-md px-3 py-2 text-sm border border-stroke rounded-lg bg-surface text-content focus:outline-none focus:border-blue-500"
       />
       <select
         value={statusFilter}
@@ -489,47 +327,18 @@
       </select>
     </div>
     <div class="flex items-center space-x-2">
-      {#if selected.size > 0}
-        <button
-          type="button"
-          class="btn-primary px-4 py-2 text-sm rounded-lg"
-          on:click={handleBatchAction}
-        >
-          Queue {selected.size} Selected
-        </button>
-        {#if selectedWithDrafts.length > 0}
-          <button
-            type="button"
-            class="px-4 py-2 text-sm rounded-lg border border-green-300 dark:border-green-700 text-green-700 dark:text-green-300 hover:bg-green-50 dark:hover:bg-green-900/20 font-medium disabled:opacity-40"
-            disabled={bulkPublishing}
-            on:click={handleBulkPublish}
-          >
-            {bulkPublishing ? "Publishing..." : `Publish ${selectedWithDrafts.length} Draft${selectedWithDrafts.length !== 1 ? "s" : ""}`}
-          </button>
-        {/if}
-      {/if}
       <button
         type="button"
-        class="px-3 py-2 text-sm border border-stroke rounded-lg hover:bg-surface-alt text-content"
+        class="px-4 py-2 text-sm border border-stroke rounded-lg hover:bg-surface-alt text-content transition-colors font-medium"
         on:click={loadData}
       >
         Refresh
-      </button>
-      <button
-        type="button"
-        class="px-3 py-2 text-sm border border-stroke rounded-lg hover:bg-surface-alt text-content disabled:opacity-40"
-        disabled={rechecking}
-        on:click={handleRecheckAll}
-      >
-        {rechecking ? "Rechecking..." : "Recheck All"}
       </button>
     </div>
   </div>
 
   {#if error}
     <div class="card p-4 text-sm text-red-600">{error}</div>
-  {:else if notice}
-    <div class="card p-4 text-sm text-content">{notice}</div>
   {:else if loading}
     <div class="card p-8 text-center text-content-faint text-sm">Loading races...</div>
   {:else if filteredCount === 0}
@@ -540,18 +349,8 @@
         <table class="min-w-full text-sm">
           <thead class="bg-surface-alt border-b border-stroke">
             <tr>
-              <th class="pl-4 pr-2 py-3 text-left align-top">
-                <input
-                  type="checkbox"
-                  checked={allVisibleSelected}
-                  indeterminate={someVisibleSelected}
-                  on:change={toggleAll}
-                  class="rounded border-stroke"
-                  aria-label="Select visible races"
-                />
-              </th>
-              {#each $table.getHeaderGroups()[0].headers.slice(1) as header}
-                <th class="px-3 py-2 text-left font-medium text-content-muted align-top whitespace-nowrap">
+              {#each $table.getHeaderGroups()[0].headers as header}
+                <th class="px-4 py-3 text-left font-semibold text-content-muted align-middle whitespace-nowrap">
                   {#if !header.isPlaceholder}
                     <button
                       type="button"
@@ -576,103 +375,12 @@
                 </th>
               {/each}
             </tr>
-            <tr class="border-t border-stroke/70">
-              <th class="pl-4 pr-2 py-2"></th>
-              <th class="px-3 py-2">
-                <input
-                  type="search"
-                  value={columnFilterValue("race_id")}
-                  on:input={(event) => handleColumnFilterInput("race_id", event)}
-                  placeholder="Filter ID"
-                  class="w-44 px-2 py-1.5 text-xs border border-stroke rounded bg-surface text-content focus:outline-none focus:border-blue-500"
-                />
-              </th>
-              <th class="px-3 py-2">
-                <input
-                  type="search"
-                  value={columnFilterValue("title")}
-                  on:input={(event) => handleColumnFilterInput("title", event)}
-                  placeholder="Filter title"
-                  class="w-48 px-2 py-1.5 text-xs border border-stroke rounded bg-surface text-content focus:outline-none focus:border-blue-500"
-                />
-              </th>
-              <th class="px-3 py-2">
-                <input
-                  type="search"
-                  value={columnFilterValue("jurisdiction")}
-                  on:input={(event) => handleColumnFilterInput("jurisdiction", event)}
-                  placeholder="Filter place"
-                  class="w-36 px-2 py-1.5 text-xs border border-stroke rounded bg-surface text-content focus:outline-none focus:border-blue-500"
-                />
-              </th>
-              <th class="px-3 py-2">
-                <input
-                  type="search"
-                  value={columnFilterValue("candidate_count")}
-                  on:input={(event) => handleColumnFilterInput("candidate_count", event)}
-                  placeholder="#"
-                  class="w-16 px-2 py-1.5 text-xs border border-stroke rounded bg-surface text-content focus:outline-none focus:border-blue-500"
-                />
-              </th>
-              <th class="px-3 py-2">
-                <input
-                  type="search"
-                  value={columnFilterValue("draft_updated_at")}
-                  on:input={(event) => handleColumnFilterInput("draft_updated_at", event)}
-                  placeholder="Filter date"
-                  class="w-36 px-2 py-1.5 text-xs border border-stroke rounded bg-surface text-content focus:outline-none focus:border-blue-500"
-                />
-              </th>
-              <th class="px-3 py-2">
-                <select
-                  value={statusFilter}
-                  on:change={handleStatusFilter}
-                  class="w-32 px-2 py-1.5 text-xs border border-stroke rounded bg-surface text-content focus:outline-none focus:border-blue-500"
-                  aria-label="Filter status column"
-                >
-                  {#each STATUS_OPTIONS as opt}
-                    <option value={opt.value}>{opt.label}</option>
-                  {/each}
-                </select>
-              </th>
-              <th class="px-3 py-2">
-                <input
-                  type="search"
-                  value={columnFilterValue("total_runs")}
-                  on:input={(event) => handleColumnFilterInput("total_runs", event)}
-                  placeholder="#"
-                  class="w-16 px-2 py-1.5 text-xs border border-stroke rounded bg-surface text-content focus:outline-none focus:border-blue-500"
-                />
-              </th>
-              <th class="px-3 py-2">
-                <input
-                  type="search"
-                  value={columnFilterValue("quality")}
-                  on:input={(event) => handleColumnFilterInput("quality", event)}
-                  placeholder="A / 90"
-                  class="w-20 px-2 py-1.5 text-xs border border-stroke rounded bg-surface text-content focus:outline-none focus:border-blue-500"
-                />
-              </th>
-              <th class="px-3 py-2"></th>
-            </tr>
           </thead>
-          <tbody class="divide-y divide-stroke">
+          <tbody class="divide-y divide-stroke bg-surface">
             {#each $table.getRowModel().rows as tableRow (tableRow.id)}
               {@const row = tableRow.original}
-              <tr
-                class="hover:bg-surface-alt cursor-pointer {selected.has(row.race_id) ? 'bg-blue-50 dark:bg-blue-900/20' : hasPendingDraft(row) ? 'bg-amber-50/40 dark:bg-amber-900/10' : ''}"
-                on:click={() => onSelectRace(row)}
-              >
-                <td class="pl-4 pr-2 py-3" on:click|stopPropagation>
-                  <input
-                    type="checkbox"
-                    checked={selected.has(row.race_id)}
-                    on:change={() => toggleSelect(row.race_id)}
-                    class="rounded border-stroke"
-                    aria-label={`Select ${row.race_id}`}
-                  />
-                </td>
-                <td class="px-3 py-3 font-mono text-xs text-content whitespace-nowrap">
+              <tr class="hover:bg-surface-alt transition-colors {hasPendingDraft(row) ? 'bg-amber-50/20 dark:bg-amber-900/5' : ''}">
+                <td class="px-4 py-3.5 font-mono text-xs text-content whitespace-nowrap align-middle">
                   <span>{row.race_id}</span>
                   {#if row.status === "running"}
                     <span class="ml-1.5 inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-xs font-medium bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-200">
@@ -688,11 +396,11 @@
                     </span>
                   {/if}
                 </td>
-                <td class="px-3 py-3 text-content max-w-40 truncate" title={row.title ?? ""}>{row.title ?? "-"}</td>
-                <td class="px-3 py-3 text-content-muted max-w-32 truncate">{row.jurisdiction ?? "-"}</td>
-                <td class="px-3 py-3 text-content-muted text-center font-mono">{row.candidate_count || "-"}</td>
-                <td class="px-3 py-3 text-content-muted whitespace-nowrap">{hasDraft(row) ? formatDate(row.draft_updated_at) : "-"}</td>
-                <td class="px-3 py-3">
+                <td class="px-4 py-3.5 text-content max-w-xs truncate align-middle" title={row.title ?? ""}>{row.title ?? "-"}</td>
+                <td class="px-4 py-3.5 text-content-muted max-w-[150px] truncate align-middle">{row.jurisdiction ?? "-"}</td>
+                <td class="px-4 py-3.5 text-content-muted font-mono align-middle">{row.candidate_count || "-"}</td>
+                <td class="px-4 py-3.5 text-content-muted whitespace-nowrap align-middle">{hasDraft(row) ? formatDate(row.draft_updated_at) : "-"}</td>
+                <td class="px-4 py-3.5 align-middle">
                   <div class="flex items-center gap-1.5">
                     <span class="px-2 py-0.5 rounded-full text-xs font-medium {statusBadgeClass(row.status)}">
                       {row.status}
@@ -721,8 +429,8 @@
                     {/if}
                   </div>
                 </td>
-                <td class="px-3 py-3 text-content-muted text-center font-mono">{row.total_runs}</td>
-                <td class="px-3 py-3">
+                <td class="px-4 py-3.5 text-content-muted font-mono align-middle">{row.total_runs}</td>
+                <td class="px-4 py-3.5 align-middle">
                   {#if row.quality_grade}
                     <span class="inline-flex items-center px-2 py-0.5 text-xs font-semibold rounded-full border {gradeBadgeClass(row.quality_grade)}">
                       {row.quality_grade}
@@ -731,47 +439,16 @@
                     <span class="text-content-faint">-</span>
                   {/if}
                 </td>
-                <td class="px-3 py-3" on:click|stopPropagation>
-                  <div class="flex items-center space-x-1">
-                    {#if hasDraft(row)}
-                      <button
-                        type="button"
-                        class="px-2 py-1 text-xs border border-green-300 dark:border-green-700 rounded text-green-700 dark:text-green-300 hover:bg-green-50 dark:hover:bg-green-900/20 disabled:opacity-40 font-medium"
-                        disabled={publishing.has(row.race_id)}
-                        on:click={() => handlePublish(row.race_id)}
-                      >
-                        {publishing.has(row.race_id) ? "..." : "Publish"}
-                      </button>
-                    {/if}
-                    {#if row.status === "published"}
-                      <button
-                        type="button"
-                        class="px-2 py-1 text-xs border border-amber-300 dark:border-amber-700 rounded text-amber-700 dark:text-amber-300 hover:bg-amber-50 dark:hover:bg-amber-900/20 disabled:opacity-40"
-                        disabled={publishing.has(row.race_id)}
-                        on:click={() => handleUnpublish(row.race_id)}
-                      >
-                        Unpublish
-                      </button>
-                    {/if}
-                    <button
-                      type="button"
-                      class="px-2 py-1 text-xs border border-stroke rounded text-content-muted hover:bg-surface-alt disabled:opacity-40"
-                      disabled={!previewUrl(row)}
-                      title={hasDraft(row) ? "Open draft preview" : hasPublished(row) ? "Open published page" : "No draft or published page exists"}
-                      on:click={() => handlePreview(row)}
-                    >
-                      {hasDraft(row) ? "View Draft" : "View Page"}
-                    </button>
-                    {#if row.status !== "running" && row.status !== "queued"}
-                      <button
-                        type="button"
-                        class="px-2 py-1 text-xs border border-red-200 dark:border-red-900 rounded text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20"
-                        on:click={() => handleDelete(row.race_id)}
-                      >
-                        Delete
-                      </button>
-                    {/if}
-                  </div>
+                <td class="px-4 py-3.5 align-middle" on:click|stopPropagation>
+                  <button
+                    type="button"
+                    class="px-2.5 py-1 text-xs border border-stroke rounded text-content hover:bg-surface-alt disabled:opacity-40 transition-colors font-medium whitespace-nowrap"
+                    disabled={!previewUrl(row)}
+                    title={hasDraft(row) ? "Open draft preview" : hasPublished(row) ? "Open published page" : "No draft or published page exists"}
+                    on:click={() => handlePreview(row)}
+                  >
+                    {hasDraft(row) ? "View Draft" : "View Page"}
+                  </button>
                 </td>
               </tr>
             {/each}

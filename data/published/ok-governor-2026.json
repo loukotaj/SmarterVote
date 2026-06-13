@@ -1,0 +1,703 @@
+{
+  "id": "ok-governor-2026",
+  "title": "2026 Oklahoma Gubernatorial Election",
+  "office": "Governor of Oklahoma",
+  "jurisdiction": "Oklahoma",
+  "state": "Oklahoma",
+  "district": null,
+  "election_date": "2026-11-03",
+  "description": "The 2026 Oklahoma gubernatorial election is an open-seat race to elect the next governor of Oklahoma. Incumbent Republican Governor Kevin Stitt is term-limited and cannot seek a third term. Oklahoma is a deeply red state where Democrats have not won a statewide race since 2006, and the Republican primary is widely viewed as the most competitive contest for the office. The Republican field features four leading candidates \u2014 Attorney General Gentner Drummond, former state senator Mike Mazzei (endorsed by Donald Trump), former House Speaker Charles McCall, and former Secretary of Public Safety Chip Keating \u2014 while the Democratic primary includes House Minority Leader Cyndi Munson, former state senator Connie Johnson, and securities trader Arya Azma. The primary election is scheduled for June 16, 2026, and the general election will be held on November 3, 2026.",
+  "polling": [
+    {
+      "pollster": "JMC Analytics (R)",
+      "date": "2026-06-04",
+      "sample_size": 550,
+      "matchups": [],
+      "source_url": "https://en.wikipedia.org/wiki/2026_Oklahoma_gubernatorial_election"
+    },
+    {
+      "pollster": "NonDoc Media",
+      "date": "2026-05-26",
+      "sample_size": 457,
+      "matchups": [],
+      "source_url": "https://nondoc.com/2026/05/26/oklahoma-governor-polling-superintendent-primary-tight-ai-ads-unpopular/"
+    },
+    {
+      "pollster": "Cole Hargrave Snodgrass & Associates (R)",
+      "date": "2026-01-30",
+      "sample_size": 600,
+      "matchups": [
+        {
+          "candidates": [
+            "Gentner Drummond",
+            "Charles McCall",
+            "Chip Keating",
+            "Mike Mazzei"
+          ],
+          "percentages": [
+            36.0,
+            14.0,
+            13.0,
+            13.0
+          ]
+        }
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/2026_Oklahoma_gubernatorial_election"
+    },
+    {
+      "pollster": "co/efficient (R)",
+      "date": "2025-10-28",
+      "sample_size": 855,
+      "matchups": [
+        {
+          "candidates": [
+            "Charles McCall",
+            "Gentner Drummond",
+            "Chip Keating",
+            "Mike Mazzei"
+          ],
+          "percentages": [
+            31.0,
+            20.0,
+            5.0,
+            1.0
+          ]
+        }
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/2026_Oklahoma_gubernatorial_election"
+    },
+    {
+      "pollster": "Victory Insights (R)",
+      "date": "2025-02-25",
+      "sample_size": 506,
+      "matchups": [
+        {
+          "candidates": [
+            "Gentner Drummond",
+            "Charles McCall",
+            "Chip Keating",
+            "Mike Mazzei"
+          ],
+          "percentages": [
+            37.0,
+            6.0,
+            3.0,
+            1.0
+          ]
+        }
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/2026_Oklahoma_gubernatorial_election"
+    }
+  ],
+  "polling_note": "All polls shown are from the Republican primary, as no public general-election polls have been released for this race. Oklahoma is rated Solid Republican by Cook Political Report, Inside Elections, and Sabato's Crystal Ball.",
+  "candidates": [
+    {
+      "name": "Gentner Drummond",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Gentner Drummond is the Oklahoma Attorney General and a leading candidate in the Republican primary for governor. A former U.S. Air Force fighter pilot who flew combat missions in the Gulf War, he was elected attorney general in 2022 running as an independent Republican willing to oppose Governor Stitt. Drummond is a businessman, rancher, and attorney from a prominent Oklahoma family who has built a reputation as a moderate-to-conservative Republican.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Gentner_Drummond",
+          "type": "news",
+          "title": "Gentner Drummond - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://drummondok.com/",
+          "type": "website",
+          "title": "Gentner Drummond for Governor",
+          "description": null,
+          "last_accessed": "2026-06-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/a4/Gentner_Drummond_2024_%28cropped%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Attorney General of Oklahoma",
+          "organization": "State of Oklahoma",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "20th Attorney General of Oklahoma",
+          "source": null
+        },
+        {
+          "title": "Owner/Attorney",
+          "organization": "Drummond Law",
+          "start_year": 1995,
+          "end_year": 2022,
+          "description": "Law firm focused on banking law",
+          "source": null
+        },
+        {
+          "title": "Owner",
+          "organization": "Blue Sky Bank",
+          "start_year": null,
+          "end_year": null,
+          "description": "Principal owner of Blue Sky Bank (formerly Citizens Bank of Oklahoma)",
+          "source": null
+        },
+        {
+          "title": "U.S. Air Force Captain / Fighter Pilot",
+          "organization": "United States Air Force",
+          "start_year": 1985,
+          "end_year": 1993,
+          "description": "Flew F-15C Eagles; served in the Gulf War; awarded Distinguished Flying Cross",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Georgetown University Law Center",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": 1995,
+          "source": null
+        },
+        {
+          "institution": "Oklahoma State University",
+          "degree": "Bachelor of Science",
+          "field": "Agriculture Economics",
+          "year": 1985,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://drummondok.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/DrummondOK/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Mike Mazzei",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Mike Mazzei is a former Oklahoma state senator and former Secretary of Budget under Governor Kevin Stitt who is running for governor with the endorsement of President Donald Trump. He served in the Oklahoma Senate from 2004 to 2016 representing the 25th district and later served as Stitt's budget secretary from 2019 to 2020. Mazzei is a financial coach and small business owner who emphasizes fiscal conservatism, tax cuts, and conservative social values.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Mike_Mazzei",
+          "type": "news",
+          "title": "Mike Mazzei - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://mikeforok.com/",
+          "type": "website",
+          "title": "Mike Mazzei for Governor",
+          "description": null,
+          "last_accessed": "2026-06-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/72/Mike_Mazzei_OK_Senate_Headshot.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Secretary of Budget",
+          "organization": "Office of the Governor of Oklahoma",
+          "start_year": 2019,
+          "end_year": 2020,
+          "description": "Served in the Stitt administration",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Oklahoma Senate",
+          "start_year": 2004,
+          "end_year": 2016,
+          "description": "Represented the 25th district; term-limited",
+          "source": null
+        },
+        {
+          "title": "Founder",
+          "organization": "The Financial Coach Inc.",
+          "start_year": null,
+          "end_year": null,
+          "description": "Financial coaching and planning business",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "George Mason University",
+          "degree": "Bachelor of Arts",
+          "field": "Government and Politics",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "College for Financial Planning",
+          "degree": "Master of Science",
+          "field": "Financial Planning",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://mikeforok.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/MikeForOK/",
+        "twitter": "https://x.com/MazzeiMike"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Charles McCall",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Charles McCall is the former Speaker of the Oklahoma House of Representatives, the longest-serving speaker in state history, who represented the 22nd district from 2013 to 2024. He is a community banker and former mayor of Atoka, Oklahoma. McCall emphasizes his legislative leadership experience and promises conservative governance focused on faith, family, and liberty.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Charles_McCall",
+          "type": "news",
+          "title": "Charles McCall - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://mccallforoklahoma.com/",
+          "type": "website",
+          "title": "Charles McCall For Governor",
+          "description": null,
+          "last_accessed": "2026-06-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Charles_McCall.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Speaker of the Oklahoma House of Representatives",
+          "organization": "Oklahoma House of Representatives",
+          "start_year": 2017,
+          "end_year": 2025,
+          "description": "Longest-serving Speaker in state history",
+          "source": null
+        },
+        {
+          "title": "State Representative",
+          "organization": "Oklahoma House of Representatives",
+          "start_year": 2013,
+          "end_year": 2024,
+          "description": "Represented the 22nd district",
+          "source": null
+        },
+        {
+          "title": "President / CEO / Chairman",
+          "organization": "AmeriState Bank",
+          "start_year": 2001,
+          "end_year": null,
+          "description": "Family-owned community bank in Atoka",
+          "source": null
+        },
+        {
+          "title": "Mayor",
+          "organization": "City of Atoka, Oklahoma",
+          "start_year": 2005,
+          "end_year": 2012,
+          "description": "Served as mayor",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Oklahoma",
+          "degree": "Bachelor of Business Administration",
+          "field": "Finance and Economics",
+          "year": 1992,
+          "source": null
+        },
+        {
+          "institution": "University of Colorado Boulder",
+          "degree": "Graduate Diploma",
+          "field": "Banking",
+          "year": 2000,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://mccallforoklahoma.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/charlesmccallok/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Chip Keating",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Chip Keating is a businessman and former Oklahoma Secretary of Public Safety who served under Governor Kevin Stitt from 2019 to 2020. He is the son of former Oklahoma Governor Frank Keating and previously worked as an Oklahoma Highway Patrol trooper and commercial real estate executive. Keating runs as a political outsider emphasizing his law enforcement background and business experience.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Chip_Keating",
+          "type": "news",
+          "title": "Chip Keating - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.keating2026.com/",
+          "type": "website",
+          "title": "Chip Keating for Oklahoma Governor",
+          "description": null,
+          "last_accessed": "2026-06-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Oklahoma Secretary of Public Safety",
+          "organization": "State of Oklahoma",
+          "start_year": 2019,
+          "end_year": 2020,
+          "description": "Oversees state law enforcement agencies",
+          "source": null
+        },
+        {
+          "title": "Owner",
+          "organization": "Keating Investments",
+          "start_year": 2010,
+          "end_year": null,
+          "description": "Real estate and investment business",
+          "source": null
+        },
+        {
+          "title": "Real Estate Development Manager",
+          "organization": "Chesapeake Energy",
+          "start_year": 2007,
+          "end_year": 2010,
+          "description": "Managed real estate development",
+          "source": null
+        },
+        {
+          "title": "Commercial Real Estate Broker",
+          "organization": "Trammell Crow Company",
+          "start_year": 2004,
+          "end_year": 2007,
+          "description": "Commercial real estate brokerage",
+          "source": null
+        },
+        {
+          "title": "State Trooper",
+          "organization": "Oklahoma Highway Patrol",
+          "start_year": 2001,
+          "end_year": 2004,
+          "description": "Law enforcement officer",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Southern Methodist University",
+          "degree": "Bachelor of Business Administration",
+          "field": "Business",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.keating2026.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/ChipKeatingOK/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Cyndi Munson",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Cyndi Munson is the Minority Leader of the Oklahoma House of Representatives and the first Asian American woman elected to the Oklahoma Legislature, representing the 85th district since 2015. She is a Democratic candidate for governor emphasizing public education funding, healthcare access, and economic opportunity. Munson has led House Democrats through multiple legislative sessions and is positioning herself as a mainstream Democratic alternative in the deeply red state.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Cyndi_Munson",
+          "type": "news",
+          "title": "Cyndi Munson - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cyndimunson.com/",
+          "type": "website",
+          "title": "Cyndi Munson for Oklahoma",
+          "description": null,
+          "last_accessed": "2026-06-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Cyndi_Munson.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Minority Leader",
+          "organization": "Oklahoma House of Representatives",
+          "start_year": 2022,
+          "end_year": null,
+          "description": "House Democratic Leader",
+          "source": null
+        },
+        {
+          "title": "State Representative",
+          "organization": "Oklahoma House of Representatives",
+          "start_year": 2015,
+          "end_year": null,
+          "description": "Representing District 85",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.cyndimunson.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/CyndiMunsonOK/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Connie Johnson",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Connie Johnson is a former Oklahoma state senator who served the 48th district from 2005 to 2014 and was the first African American woman nominated for a major statewide office in Oklahoma as the 2014 Democratic nominee for U.S. Senate. She is a longtime progressive activist known for authoring Oklahoma's medical cannabis initiative and for her outspoken advocacy on criminal justice reform, reproductive rights, and marijuana legalization. Johnson is making her third bid for governor after running in 2018 and 2022.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Constance_N._Johnson",
+          "type": "news",
+          "title": "Constance N. Johnson - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://connieforgov.com/",
+          "type": "website",
+          "title": "Connie Johnson for Governor 2026",
+          "description": null,
+          "last_accessed": "2026-06-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/61/Johnson_c.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "State Senator",
+          "organization": "Oklahoma Senate",
+          "start_year": 2005,
+          "end_year": 2014,
+          "description": "Represented the 48th district",
+          "source": null
+        },
+        {
+          "title": "Vice Chair",
+          "organization": "Oklahoma Democratic Party",
+          "start_year": 2015,
+          "end_year": null,
+          "description": "Party leadership role",
+          "source": null
+        },
+        {
+          "title": "Legislative Analyst",
+          "organization": "Oklahoma State Senate",
+          "start_year": 1981,
+          "end_year": 2005,
+          "description": "Worked as a policy analyst",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Pennsylvania",
+          "degree": "Bachelor of Arts",
+          "field": "French",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Langston University",
+          "degree": "Master of Science",
+          "field": "Rehabilitation Counseling",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://connieforgov.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/GovernorConnie/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Arya Azma",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Arya Azma is a securities trader and Democratic candidate for governor of Oklahoma who previously ran for U.S. Senate in 2022. He is one of three candidates competing in the Democratic primary for governor. Azma positions himself as a political outsider focused on economic issues and government accountability.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Arya",
+          "type": "news",
+          "title": "Arya - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://oklahomavoice.com/voter-guides/contests/governor-democrat/",
+          "type": "news",
+          "title": "Governor (Democrat) - Oklahoma Voice Voter Guide",
+          "description": null,
+          "last_accessed": "2026-06-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Arya_Azma.png",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Securities Trader",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Candidate's profession as listed in filings",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Oklahoma_gubernatorial_election,_2026",
+  "updated_utc": "2026-06-13T21:05:23.963919+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 382907,
+    "completion_tokens": 13999,
+    "total_tokens": 396906,
+    "cost_usd": 0.033269906,
+    "cost_source": "provider",
+    "estimated_usd": 0.040269,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 382907,
+        "completion_tokens": 13999
+      }
+    },
+    "duration_s": 211.9
+  }
+}

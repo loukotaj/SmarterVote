@@ -1,0 +1,248 @@
+{
+  "id": "tx-house-03-2026",
+  "title": "Texas's 3rd Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Texas's 3rd Congressional District",
+  "state": "Texas",
+  "district": "3rd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Texas's 3rd Congressional District covers much of Collin County \u2014 including McKinney, Allen, and parts of Plano and Frisco \u2014 as well as most of Hunt County in the Dallas-Fort Worth metroplex. The district has a Cook Partisan Voting Index of R+10 and has been held by Republicans since 1968. Incumbent Republican Keith Self, a retired Army lieutenant colonel and former Collin County judge, is seeking a third term. He is being challenged by Democrat Evan Hunt, a retired Air Force lieutenant colonel and defense executive who emphasizes his military service and positions on constitutional integrity, healthcare reform, and public education. The race takes place amid mid-decade redistricting litigation, though the Supreme Court has allowed Texas to use its new Republican-friendly congressional map for the 2026 elections.",
+  "polling": [],
+  "polling_note": "No district-specific opinion polls were found for Texas's 3rd Congressional District. Statewide generic ballot polls from the 2026 cycle show a competitive environment, but no TX-03 head-to-head polling is available.",
+  "candidates": [
+    {
+      "name": "Keith Self",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Keith Self is the incumbent U.S. Representative for Texas's 3rd Congressional District, first elected in 2022. A retired U.S. Army lieutenant colonel and former Collin County judge, he serves on the House Foreign Affairs Committee and the House Science, Space, and Technology Committee. Self is a conservative Republican who emphasizes border security, fiscal responsibility, and Second Amendment rights.",
+      "summary_sources": [
+        {
+          "url": "https://keithself.house.gov/about",
+          "type": "government",
+          "title": "About | Representative Keith Self",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Keith_Self",
+          "type": "website",
+          "title": "Keith Self - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in Texas",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Keith_Self%2C_official_portrait%2C_118th_Congress_%28cropped%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Representing Texas's 3rd Congressional District",
+          "source": null
+        },
+        {
+          "title": "County Judge",
+          "organization": "Collin County, Texas",
+          "start_year": 2006,
+          "end_year": 2018,
+          "description": "Elected three consecutive terms as the chief administrative officer of Collin County",
+          "source": null
+        },
+        {
+          "title": "Lieutenant Colonel (Retired)",
+          "organization": "United States Army",
+          "start_year": 1975,
+          "end_year": 2000,
+          "description": "25-year career including Airborne Infantry, Special Forces, and service in Grenada, Bosnia, Afghanistan, and Iraqi Freedom",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "United States Military Academy at West Point",
+          "degree": "Bachelor of Science",
+          "field": null,
+          "year": 1975,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://keithself.house.gov/",
+          "title": "Official House Website",
+          "type": "other"
+        },
+        {
+          "url": "https://keithself.com/",
+          "title": "Campaign Website",
+          "type": "other"
+        }
+      ],
+      "website": "https://keithself.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/repkeithself/",
+        "house.gov": "http://keithself.house.gov/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Evan Hunt",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Evan Hunt is the Democratic nominee for Texas's 3rd Congressional District, having advanced from the March 3, 2026 Democratic primary. A retired U.S. Air Force lieutenant colonel and combat aviator with 20 years of service, he later worked as a defense and aerospace executive at companies including Raytheon. Hunt's campaign focuses on defending the Constitution, protecting Social Security and Medicare, reforming healthcare, and strengthening public education.",
+      "summary_sources": [
+        {
+          "url": "https://www.electevanhunt.com/",
+          "type": "website",
+          "title": "Elect Evan Hunt - Campaign Website",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Evan_Hunt_(Texas)",
+          "type": "website",
+          "title": "Evan Hunt (Texas) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://tx3dnews.com/elections/meet-the-candidates/candidate-profile-evan-hunt/",
+          "type": "news",
+          "title": "Evan Hunt: A Commitment to Service, Principle, and Country",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Defense Executive",
+          "organization": "Raytheon (and other defense/aerospace firms)",
+          "start_year": 2022,
+          "end_year": null,
+          "description": "Executive roles in national security, emerging technologies, and global strategy",
+          "source": null
+        },
+        {
+          "title": "Lieutenant Colonel (Retired)",
+          "organization": "United States Air Force / Air National Guard",
+          "start_year": 2002,
+          "end_year": 2022,
+          "description": "20-year career as a B-1 Bomber Weapons Systems Officer and Electronic Warfare Officer; Squadron Commander and Deputy Group Commander; deployed in support of Operation ENDURING FREEDOM and Operation NEW DAWN",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Pennsylvania",
+          "degree": "Bachelor of Arts",
+          "field": "History and Political Science",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "American Military University",
+          "degree": "Master of Arts",
+          "field": "International Relations & Conflict Resolution",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://www.electevanhunt.com/",
+          "title": "Campaign Website",
+          "type": "other"
+        },
+        {
+          "url": "https://ballotpedia.org/Evan_Hunt_(Texas)",
+          "title": "Ballotpedia Profile",
+          "type": "other"
+        }
+      ],
+      "website": "https://www.electevanhunt.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/electevanhunt/",
+        "facebook": "https://www.facebook.com/p/Elect-Evan-Hunt-61575035168598/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Texas%27_3rd_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:35:45.650441+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 190224,
+    "completion_tokens": 5835,
+    "total_tokens": 196059,
+    "cost_usd": 0.012806795999999999,
+    "cost_source": "provider",
+    "estimated_usd": 0.019786,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 190224,
+        "completion_tokens": 5835
+      }
+    },
+    "duration_s": 130.0
+  }
+}

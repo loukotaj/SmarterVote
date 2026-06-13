@@ -1,0 +1,300 @@
+{
+  "id": "ca-house-51-2026",
+  "title": "California's 51st Congressional District general election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "California's 51st Congressional District",
+  "state": "California",
+  "district": "51st Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The general election for California's 51st Congressional District pits incumbent Democrat Sara Jacobs against Republican challenger Ricardo Cabrera. The district covers central and eastern portions of San Diego, including the cities of El Cajon, La Mesa, Lemon Grove, and the unincorporated communities of Spring Valley and La Presa. Cook Political Report rates the race as 'Solid D' with a Partisan Voting Index of D+10, making Jacobs a strong favorite for re-election in this Democratic-leaning district.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for the 2026 general election in this district. Cook Political Report rates the race as 'Solid D,' indicating a safe Democratic seat.",
+  "candidates": [
+    {
+      "name": "Sara Jacobs",
+      "party": "Democratic Party",
+      "incumbent": true,
+      "summary": "Sara Jacobs is the incumbent U.S. Representative for California's 51st Congressional District, first elected in 2020 and currently serving her third term. She serves on the House Foreign Affairs Committee (Ranking Member of the Subcommittee on Africa) and the House Armed Services Committee, and is the youngest member of California's congressional delegation. Jacobs previously worked at the United Nations, UNICEF, the U.S. Department of State, and as a foreign policy advisor on Hillary Clinton's 2016 presidential campaign.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Sara_Jacobs",
+          "type": "news",
+          "title": "Sara Jacobs - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://sarajacobs.house.gov/about",
+          "type": "government",
+          "title": "Biography - Congresswoman Sara Jacobs",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Sara_Jacobs",
+          "type": "website",
+          "title": "Sara Jacobs - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-california-us-house-51-primary.html",
+          "type": "news",
+          "title": "California 51st Congressional District Primary Election Results",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cookpolitical.com/house/race/482071",
+          "type": "news",
+          "title": "CA-51 2026 - Cook Political Report",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Representative_Sara_Jacobs_full_portrait.jpg/250px-Representative_Sara_Jacobs_full_portrait.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Representing California's 53rd district (2021-2023) and 51st district (2023-present)",
+          "source": null
+        },
+        {
+          "title": "Foreign Policy Advisor",
+          "organization": "Hillary Clinton 2016 Presidential Campaign",
+          "start_year": 2015,
+          "end_year": 2016,
+          "description": "Served as a foreign policy advisor",
+          "source": null
+        },
+        {
+          "title": "Contractor",
+          "organization": "U.S. Department of State, Bureau of Conflict and Stabilization Operations",
+          "start_year": 2014,
+          "end_year": 2015,
+          "description": "Worked in conflict and stabilization operations",
+          "source": null
+        },
+        {
+          "title": "Staff",
+          "organization": "United Nations / UNICEF",
+          "start_year": 2012,
+          "end_year": 2014,
+          "description": "Worked in the Department of Peacekeeping Operations and Innovation Unit at UNICEF",
+          "source": null
+        },
+        {
+          "title": "Founding CEO",
+          "organization": "Project Connect",
+          "start_year": null,
+          "end_year": null,
+          "description": "Nonprofit mapping schools and Internet connectivity worldwide",
+          "source": null
+        },
+        {
+          "title": "Founder",
+          "organization": "San Diego for Every Child",
+          "start_year": 2018,
+          "end_year": null,
+          "description": "Coalition to end child poverty in San Diego County",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Columbia University",
+          "degree": "Master of International Affairs",
+          "field": "International Security Policy and Conflict Resolution",
+          "year": 2012,
+          "source": null
+        },
+        {
+          "institution": "Columbia University",
+          "degree": "Bachelor of Arts",
+          "field": "Political Science",
+          "year": 2011,
+          "source": null
+        },
+        {
+          "institution": "Torrey Pines High School",
+          "degree": "High School Diploma",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://sarajacobs.house.gov",
+          "title": "https://sarajacobs.house.gov",
+          "type": "other"
+        },
+        {
+          "url": "https://sarajacobsforca.com",
+          "title": "https://sarajacobsforca.com",
+          "type": "other"
+        }
+      ],
+      "website": "https://sarajacobsforca.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/RepSaraJacobs",
+        "twitter": "https://twitter.com/RepSaraJacobs",
+        "instagram": "https://www.instagram.com/RepSaraJacobs"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Ricardo Cabrera",
+      "party": "Republican Party",
+      "incumbent": false,
+      "summary": "Ricardo Cabrera is a Republican candidate for U.S. House in California's 51st Congressional District. He is a small business owner and cybersecurity professional who campaigns on congressional term limits, lowering the cost of living, anti-corruption reform, and creating opportunities for young entrepreneurs. Cabrera was endorsed by the California Republican Party, Reform California, and the San Diego County Republican Party, and advanced from the top-two primary with 37.0% of the vote.",
+      "summary_sources": [
+        {
+          "url": "https://www.cabreraforcongress2026.com/",
+          "type": "website",
+          "title": "Cabrera for Congress 2026",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Ricardo_Cabrera",
+          "type": "website",
+          "title": "Ricardo Cabrera - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-california-us-house-51-primary.html",
+          "type": "news",
+          "title": "California 51st Congressional District Primary Election Results",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.sandiegouniontribune.com/2026/06/02/desmond-von-wilpert-hold-early-leads-in-pivotal-north-county-congressional-race/",
+          "type": "news",
+          "title": "Desmond, von Wilpert claim victory in pivotal North County congressional race",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://fox5sandiego.com/election/congress-candidates-san-diego-area-2026/",
+          "type": "news",
+          "title": "San Diego Primary Election: Who is running for Congress?",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Small Business Owner / Cybersecurity Professional",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "Self-described cybersecurity professional and small business owner",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://www.cabreraforcongress2026.com",
+          "title": "https://www.cabreraforcongress2026.com",
+          "type": "other"
+        }
+      ],
+      "website": "https://www.cabreraforcongress2026.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/California%27s_51st_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:19:43.931485+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 259286,
+    "completion_tokens": 5207,
+    "total_tokens": 264493,
+    "cost_usd": 0.018273672,
+    "cost_source": "provider",
+    "estimated_usd": 0.026431,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 259286,
+        "completion_tokens": 5207
+      }
+    },
+    "duration_s": 174.8
+  }
+}

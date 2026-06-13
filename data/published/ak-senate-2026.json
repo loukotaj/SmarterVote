@@ -4,8 +4,42 @@
   "office": "United States Senate",
   "jurisdiction": "Alaska",
   "election_date": "2026-11-03",
-  "description": "Alaska’s 2026 U.S. Senate race is for the state’s Class II seat, with incumbent Republican Dan Sullivan seeking reelection against former Democratic U.S. Rep. Mary Peltola. Alaska uses a top-four primary and ranked-choice general election system, and the contest is drawing national attention because control of the Senate could be affected and both candidates have already attracted outside spending and high-profile endorsements.",
+  "description": "Voters in Alaska will elect one member to the U.S. Senate on November 3, 2026. The race is for the state's Class II seat, currently held by Republican incumbent Dan Sullivan, and it is being watched as a test of whether Democrats can make the seat competitive under Alaska's top-four primary and ranked-choice general-election system.",
   "polling": [
+    {
+      "pollster": "Alaska Survey Research",
+      "date": "2026-04-19",
+      "matchups": [
+        {
+          "candidates": [
+            "Mary Peltola",
+            "Dan Sullivan",
+            "James Ryan",
+            "Sid Hill"
+          ],
+          "percentages": [
+            49.1,
+            42.5,
+            5.2,
+            3.2
+          ]
+        },
+        {
+          "candidates": [
+            "Mary Peltola",
+            "Dan Sullivan",
+            "James Ryan"
+          ],
+          "percentages": [
+            50.2,
+            43.6,
+            6.2
+          ]
+        }
+      ],
+      "source_url": "https://alaskasurveyresearch.com/peltola-vs-sullivan-april-2026/",
+      "sample_size": 1946
+    },
     {
       "pollster": "Alaska Survey Research",
       "date": "2026-03-22",
@@ -43,28 +77,23 @@
       "source_url": "https://alaskasurveyresearch.com/wp-content/uploads/202526-Winter-Alaska-Survey-Report.pdf"
     }
   ],
-  "polling_note": null,
+  "polling_note": "Recent polling includes Alaska Survey Research's April 16-19, 2026 survey showing Mary Peltola ahead of Dan Sullivan in a ranked-choice general-election test. No other post-2026-04-06 polls were identified in the sources reviewed.",
   "candidates": [
     {
       "name": "Dan Sullivan",
       "party": "Republican",
       "incumbent": true,
-      "summary": "Dan Sullivan is the Republican incumbent U.S. senator from Alaska, first elected in 2014. In 2026, he is seeking reelection and has emphasized his record on Alaska-specific priorities such as health care, Coast Guard funding, and energy development while facing a challenge from former U.S. Rep. Mary Peltola.",
+      "summary": "Dan Sullivan is the Republican incumbent U.S. senator from Alaska, first elected in 2014. Since the last update, his campaign reported a first-quarter fundraising total of $2.1 million, and he continues to emphasize his record on Alaska-specific priorities while facing a challenge from Mary Peltola.",
       "summary_sources": [
+        {
+          "url": "https://www.alaskasnewssource.com/2026/04/10/election-2026-sullivan-campaign-announces-21-million-first-quarter-contributions/",
+          "title": "Alaska's News Source: Sullivan campaign announces $2.1 million in first quarter contributions",
+          "type": "news"
+        },
         {
           "url": "https://ballotpedia.org/United_States_Senate_election_in_Alaska,_2026",
           "title": "Ballotpedia: United States Senate election in Alaska, 2026",
           "type": "ballotpedia"
-        },
-        {
-          "url": "https://www.alaskabeacon.com/2026/01/12/mary-peltola-announces-run-for-alaska-u-s-senate-challenging-incumbent-dan-sullivan/",
-          "title": "Alaska Beacon: Mary Peltola announces run for Alaska U.S. Senate",
-          "type": "news"
-        },
-        {
-          "url": "https://www.axios.com/2026/03/09/alaska-senate-dan-sullivan-peltola-ads",
-          "title": "Axios: Alaska's Dan Sullivan gets outside air support",
-          "type": "news"
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Senator_Dan_Sullivan_official.jpg/500px-Senator_Dan_Sullivan_official.jpg",
@@ -137,17 +166,17 @@
       "name": "Mary Peltola",
       "party": "Democratic",
       "incumbent": false,
-      "summary": "Mary Peltola is a former Alaska at-large U.S. representative who served from 2022 to 2024 and was the first Alaska Native elected to Congress. She entered the 2026 U.S. Senate race against incumbent Dan Sullivan and has framed her campaign around Alaska-focused themes including fisheries, cost of living, energy prices, and housing.",
+      "summary": "Mary Peltola is a former Alaska at-large U.S. representative who served from 2022 to 2024 and was the first Alaska Native elected to Congress. Since the last update, her campaign reported raising $8.9 million in the first quarter of 2026, underscoring that she is mounting a well-funded challenge to incumbent Dan Sullivan.",
       "summary_sources": [
         {
-          "url": "https://www.alaskabeacon.com/2026/01/12/mary-peltola-announces-run-for-alaska-u-s-senate-challenging-incumbent-dan-sullivan/",
-          "title": "Alaska Beacon: Mary Peltola announces run for Alaska U.S. Senate",
+          "url": "https://alaskapublic.org/news/politics/2026-04-14/peltola-announces-big-fundraising-haul-signaling-an-expensive-senate-race-in-alaska",
+          "title": "Alaska Public Media: Peltola announces big fundraising haul",
           "type": "news"
         },
         {
-          "url": "https://marypeltola.com/press/",
-          "title": "Mary Peltola campaign press page",
-          "type": "official"
+          "url": "https://www.alaskasnewssource.com/2026/04/13/election-2026-peltola-campaign-more-than-quadruples-sullivans-first-quarter-earnings/",
+          "title": "Alaska's News Source: Peltola campaign more than quadruples Sullivan's first-quarter earnings",
+          "type": "news"
         },
         {
           "url": "https://ballotpedia.org/United_States_Senate_election_in_Alaska,_2026",
@@ -226,9 +255,167 @@
       "voting_source_url": null,
       "links": [],
       "issues": {}
+    },
+    {
+      "name": "Dustin T. Darden",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Dustin T. Darden is a Republican candidate in Alaska's 2026 U.S. Senate race. Ballotpedia also notes that he ran for Anchorage School Board Seat D in 2026 and lost in the general election on April 7, 2026.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Dustin_Darden",
+          "title": "Ballotpedia: Dustin Darden",
+          "type": "ballotpedia"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Fred C. Grauberger",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "",
+      "summary_sources": [],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Richard Grayson",
+      "party": "Green",
+      "incumbent": false,
+      "summary": "Richard Grayson is the Green Party candidate in Alaska's 2026 U.S. Senate race. Publicly available coverage on his Senate campaign is limited, and he appears on the Alaska Division of Elections candidate list and related election coverage.",
+      "summary_sources": [
+        {
+          "url": "http://who-will-kiss-the-pig.blogspot.com/2025/10/richard-grayson-is-2026-green-party.html",
+          "title": "Blog post noting Grayson as Green Party Senate candidate",
+          "type": "news"
+        },
+        {
+          "url": "https://www.elections.alaska.gov/candidates/",
+          "title": "Alaska Division of Elections: Candidates",
+          "type": "official"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Sidney I. Hill",
+      "party": "Undeclared",
+      "incumbent": false,
+      "summary": "Sidney I. Hill is an independent candidate in Alaska's 2026 U.S. Senate race. He also appeared in Alaska Survey Research's April 2026 general-election polling as a minor candidate in the race.",
+      "summary_sources": [
+        {
+          "url": "https://alaskasurveyresearch.com/peltola-vs-sullivan-april-2026/",
+          "title": "Alaska Survey Research: Peltola Vs. Sullivan April 2026",
+          "type": "poll"
+        },
+        {
+          "url": "https://www.elections.alaska.gov/candidates/",
+          "title": "Alaska Division of Elections: Candidates",
+          "type": "official"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "William L. Hunt",
+      "party": "Democrat",
+      "incumbent": false,
+      "summary": "William L. Hunt is a Democratic candidate in Alaska's 2026 U.S. Senate race. His campaign website presents him as a candidate focused on Alaska issues, but there is limited independent coverage available in the sources reviewed.",
+      "summary_sources": [
+        {
+          "url": "https://www.huntforalaska.com/",
+          "title": "William Hunt for U.S. Senate Alaska 2026",
+          "type": "official"
+        },
+        {
+          "url": "https://www.elections.alaska.gov/candidates/",
+          "title": "Alaska Division of Elections: Candidates",
+          "type": "official"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Richard B. Mayers",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Richard B. Mayers is a Republican candidate in Alaska's 2026 U.S. Senate race. Publicly available coverage on his campaign was limited in the sources reviewed, and he appears on Alaska election candidate listings.",
+      "summary_sources": [
+        {
+          "url": "https://www.elections.alaska.gov/candidates/",
+          "title": "Alaska Division of Elections: Candidates",
+          "type": "official"
+        },
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Alaska,_2026",
+          "title": "Ballotpedia: United States Senate election in Alaska, 2026",
+          "type": "ballotpedia"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {}
     }
   ],
-  "updated_utc": "2026-04-06T18:32:03.786830+00:00",
+  "updated_utc": "2026-05-03T19:28:36.628920+00:00",
   "generator": [
     "gpt-5.4-mini",
     "gpt-5-nano"
@@ -236,21 +423,22 @@
   "reviews": [],
   "agent_metrics": {
     "model": "gpt-5.4-mini",
-    "prompt_tokens": 136199,
-    "completion_tokens": 6555,
-    "total_tokens": 142754,
-    "estimated_usd": 0.0218,
+    "prompt_tokens": 292200,
+    "completion_tokens": 14100,
+    "total_tokens": 306300,
+    "estimated_usd": 0.0463,
     "model_breakdown": {
       "gpt-5-nano": {
-        "prompt_tokens": 32263,
-        "completion_tokens": 4761
+        "prompt_tokens": 73686,
+        "completion_tokens": 11613
       },
       "gpt-5.4-mini": {
-        "prompt_tokens": 103936,
-        "completion_tokens": 1794
+        "prompt_tokens": 218514,
+        "completion_tokens": 2487
       }
     },
-    "duration_s": 118.3
+    "duration_s": 139.5
   },
-  "validation_grade": null
+  "validation_grade": null,
+  "ballotpedia_url": "https://ballotpedia.org/United_States_Senate_election_in_Alaska,_2026"
 }

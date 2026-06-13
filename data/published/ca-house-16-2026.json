@@ -1,0 +1,237 @@
+{
+  "id": "ca-house-16-2026",
+  "title": "California's 16th Congressional District General Election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "California's 16th Congressional District",
+  "state": "California",
+  "district": "16th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "California's 16th Congressional District, covering communities from Half Moon Bay through Silicon Valley to San Jose, will hold its general election on November 3, 2026, under California's top-two primary system. First-term Democratic incumbent Sam Liccardo, a former San Jose mayor, advanced with 75.6% of the vote in the June 2 primary, while Republican investor Peter Sundin Soul\u00e9 finished second at 10.8%. The district leans heavily Democratic, and Cook Political Report rated the general election race as Solidly Democratic before the primary. This contest is part of the broader 2026 midterm battle for control of the U.S. House, where Democrats currently hold 43 of California's 52 seats.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found specifically for the 2026 general election in California's 16th Congressional District. Cook Political Report rates the race as Solidly Democratic.",
+  "candidates": [
+    {
+      "name": "Sam Liccardo",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Sam Liccardo is the incumbent U.S. Representative for California's 16th Congressional District, first elected in 2024. He previously served two terms as Mayor of San Jose (2015\u20132022) and as a San Jose city councilmember, and built a reputation for tackling homelessness, pension reform, and public safety. In Congress, he has authored bipartisan legislation on housing affordability and health care costs while also challenging Trump administration policies.",
+      "summary_sources": [
+        {
+          "url": "https://www.samliccardo.com/about",
+          "type": "website",
+          "title": "Meet Sam \u2014 samliccardo.com",
+          "description": null,
+          "last_accessed": "2026-07-17T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Sam_Liccardo",
+          "type": "news",
+          "title": "Sam Liccardo - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-07-17T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-california-us-house-16-primary.html",
+          "type": "news",
+          "title": "California 16th Congressional District Primary Election Results - NYT",
+          "description": null,
+          "last_accessed": "2026-07-17T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "United States Representative",
+          "organization": "U.S. House of Representatives, California's 16th District",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Currently serving first term in Congress; author of bipartisan housing and affordability legislation; member of relevant committees.",
+          "source": null
+        },
+        {
+          "title": "Mayor",
+          "organization": "City of San Jose",
+          "start_year": 2015,
+          "end_year": 2022,
+          "description": "Two-term mayor; reduced street homelessness, resolved pension reform battles saving $3 billion, rebuilt police force, and launched San Jose Clean Energy.",
+          "source": null
+        },
+        {
+          "title": "City Councilmember",
+          "organization": "City of San Jose",
+          "start_year": 2007,
+          "end_year": 2014,
+          "description": "Represented San Jose's 3rd City Council district.",
+          "source": null
+        },
+        {
+          "title": "Assistant United States Attorney",
+          "organization": "U.S. Department of Justice, Southern District of California",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as a federal prosecutor.",
+          "source": null
+        },
+        {
+          "title": "Deputy District Attorney",
+          "organization": "Santa Clara County District Attorney's Office",
+          "start_year": null,
+          "end_year": null,
+          "description": "Prosecuted felony sexual assault and child exploitation cases.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Harvard Law School",
+          "degree": "JD",
+          "field": "Law",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Harvard Kennedy School",
+          "degree": "MPP",
+          "field": "Public Policy",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Georgetown University",
+          "degree": "BA",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "http://liccardo.house.gov",
+          "title": "http://liccardo.house.gov",
+          "type": "other"
+        }
+      ],
+      "website": "https://www.samliccardo.com/",
+      "social_media": {
+        "twitter": "https://twitter.com/samliccardo",
+        "instagram": "https://www.instagram.com/samliccardo/",
+        "facebook": "https://www.facebook.com/SamLiccardo1/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Peter Sundin Soul\u00e9",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Peter Sundin Soul\u00e9 is a Republican candidate for U.S. House in California's 16th Congressional District. He is an investor by profession and finished second in the June 2, 2026 top-two primary with 10.8% of the vote, advancing to the general election against incumbent Democrat Sam Liccardo. His campaign emphasizes public safety, affordability, and support for President Trump's agenda, drawing on his family's history with Soule Steel, a company founded by his grandfather after the 1906 San Francisco earthquake.",
+      "summary_sources": [
+        {
+          "url": "https://souleforcongress.com/",
+          "type": "website",
+          "title": "Peter Soule for Congress",
+          "description": null,
+          "last_accessed": "2026-07-17T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-california-us-house-16-primary.html",
+          "type": "news",
+          "title": "California 16th Congressional District Primary Election Results - NYT",
+          "description": null,
+          "last_accessed": "2026-07-17T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://elections.cdn.sos.ca.gov/statewide-elections/2026-primary/cert-list-candidates.pdf",
+          "type": "government",
+          "title": "Certified List of Candidates - California Secretary of State",
+          "description": null,
+          "last_accessed": "2026-07-17T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Investor",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Professional investor; listed as investor in official candidate filings.",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://souleforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/California%27s_16th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:32:36.445219+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 202072,
+    "completion_tokens": 9092,
+    "total_tokens": 211164,
+    "cost_usd": 0.015335104000000002,
+    "cost_source": "provider",
+    "estimated_usd": 0.021585,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 202072,
+        "completion_tokens": 9092
+      }
+    },
+    "duration_s": 165.7
+  }
+}

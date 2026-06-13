@@ -1,0 +1,650 @@
+{
+  "id": "ak-governor-2026",
+  "title": "2026 Alaska Gubernatorial Election",
+  "office": "Governor of Alaska",
+  "jurisdiction": "Alaska",
+  "state": "Alaska",
+  "district": null,
+  "election_date": "2026-11-03",
+  "description": "The 2026 Alaska gubernatorial election will be held on November 3, 2026, to elect the next governor and lieutenant governor of Alaska. Incumbent Republican Governor Mike Dunleavy is term-limited and ineligible to seek a third consecutive term, creating an open seat in a state where Republicans hold a triplex. A nonpartisan blanket primary will be held on August 18, 2026, with the top four candidates advancing to a ranked-choice general election. The race features a large and diverse field of 17 registered candidates, including 11 Republicans, 3 Democrats, and 3 independents/nonpartisans, reflecting both the competitiveness of the open seat and Alaska's unique top-four primary system.",
+  "polling": [],
+  "polling_note": "No specific general election matchup polls for this race were found as of June 2026. The primary is not until August 18, 2026, and most public polling has focused on hypothetical matchups involving candidates who chose to run for other offices. Polling is expected to increase after the top-four primary field is set.",
+  "candidates": [
+    {
+      "name": "Tom Begich",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Tom Begich is a Democrat and former Alaska State Senator who served as Senate Minority Leader from 2019 to 2023. He is a member of Alaska's prominent Begich political family and co-sponsored the Alaska Reads Act with Governor Dunleavy. His campaign focuses on affordability, education funding, and fiscal stability for the state.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Tom_Begich",
+          "type": "government",
+          "title": "Tom Begich - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-09T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Tom_Begich",
+          "type": "news",
+          "title": "Tom Begich - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-09T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://alaskabeacon.com/2025/08/18/former-state-sen-tom-begich-becomes-1st-democrat-to-indicate-run-for-alaska-governor-in-next-election/",
+          "type": "news",
+          "title": "Former state Sen. Tom Begich becomes 1st Democrat to indicate run for Alaska governor",
+          "description": null,
+          "last_accessed": "2026-06-09T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Tom_Begich.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "State Senator",
+          "organization": "Alaska State Senate, District J",
+          "start_year": 2017,
+          "end_year": 2023,
+          "description": "Represented Anchorage district; served as Senate Minority Leader from 2019 to 2023",
+          "source": null
+        },
+        {
+          "title": "Owner/Operator",
+          "organization": "CW Communications / The Research Group",
+          "start_year": 1990,
+          "end_year": null,
+          "description": "Consulting firm owner",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Bard College",
+          "degree": "BA",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.tombegichforalaska.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Matt Claman",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Matt Claman is a Democrat and current Alaska State Senator for District H, representing West Anchorage since 2023. He previously served as Acting Mayor of Anchorage in 2009 and as an Anchorage Assembly member. His campaign emphasizes fiscal responsibility, education, sustainable resource development, and improving the state ferry system.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Matt_Claman",
+          "type": "government",
+          "title": "Matt Claman - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-09T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://alaskabeacon.com/briefs/anchorage-state-senator-enters-crowded-alaska-gubernatorial-field/",
+          "type": "news",
+          "title": "Anchorage state senator enters crowded Alaska gubernatorial field",
+          "description": null,
+          "last_accessed": "2026-06-09T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.mattclaman.com/",
+          "type": "website",
+          "title": "Matt Claman for Governor",
+          "description": null,
+          "last_accessed": "2026-06-09T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Matt_Claman.png",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "State Senator",
+          "organization": "Alaska State Senate, District H",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Represents West Anchorage; member of Alaska Senate Majority",
+          "source": null
+        },
+        {
+          "title": "Acting Mayor",
+          "organization": "Municipality of Anchorage",
+          "start_year": 2009,
+          "end_year": 2009,
+          "description": "Became Acting Mayor when Mark Begich became U.S. Senator",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.mattclaman.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Jonathan Kreiss-Tomkins",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Jonathan Kreiss-Tomkins is a Democrat and former Alaska State Representative from Sitka, serving from 2013 to 2023 and representing 22 rural Southeast Alaska communities. He was a member of the bipartisan fiscal working group that drafted a long-term budget plan for the state. His campaign centers on solving Alaska's structural budget deficit and fostering collaborative governance across party lines.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Jonathan_S._Kreiss-Tomkins",
+          "type": "government",
+          "title": "Jonathan S. Kreiss-Tomkins - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-09T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://alaskabeacon.com/2026/02/04/alaskas-governor-race-picks-up-16th-candidate-a-former-state-legislator-from-sitka/",
+          "type": "news",
+          "title": "Alaska's race for governor picks up 16th candidate, a former state legislator from Sitka",
+          "description": null,
+          "last_accessed": "2026-06-09T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.jktforak.com/",
+          "type": "website",
+          "title": "JKT for Governor",
+          "description": null,
+          "last_accessed": "2026-06-09T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Jonathan_Kreiss-Tomkins.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "State Representative",
+          "organization": "Alaska House of Representatives, District 35",
+          "start_year": 2013,
+          "end_year": 2023,
+          "description": "Represented Sitka and 21 other rural Southeast Alaska communities",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.jktforak.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Click Bishop",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Click Bishop is a Republican and former Alaska State Senator who served from 2013 to 2025, representing interior Alaska districts. He previously served as Commissioner of the Alaska Department of Labor and Workforce Development under Governors Palin and Parnell. He is known as a moderate Republican focused on fiscal issues, energy policy, and infrastructure, and his campaign emphasizes experience in state government and bipartisan cooperation.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Click_Bishop",
+          "type": "government",
+          "title": "Click Bishop - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-09T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Click_Bishop",
+          "type": "news",
+          "title": "Click Bishop - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-09T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.clickbishopforgovernor.com/",
+          "type": "website",
+          "title": "Click Bishop for Governor",
+          "description": null,
+          "last_accessed": "2026-06-09T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Click_Bishop.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "State Senator",
+          "organization": "Alaska State Senate, Districts C and R",
+          "start_year": 2013,
+          "end_year": 2025,
+          "description": "Served on Finance Committee; focused on budget, energy, and fiscal policy",
+          "source": null
+        },
+        {
+          "title": "Commissioner",
+          "organization": "Alaska Department of Labor and Workforce Development",
+          "start_year": 2007,
+          "end_year": 2012,
+          "description": "Appointed by Governor Sarah Palin, retained by Governor Sean Parnell",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Lathrop High School",
+          "degree": "High School Diploma",
+          "field": null,
+          "year": 1974,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.clickbishopforgovernor.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Treg Taylor",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Treg Taylor is a Republican and former Alaska Attorney General, serving from 2021 to 2025 under Governor Mike Dunleavy. He previously worked as Deputy Attorney General overseeing the civil division of the Alaska Department of Law. His campaign emphasizes law and order, combating federal overreach, conservative values, and bringing his experience fighting for Alaska in court to the governor's office.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Treg_Taylor",
+          "type": "government",
+          "title": "Treg Taylor - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-09T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://alaskabeacon.com/2025/09/17/former-alaska-attorney-general-treg-taylor-is-11th-candidate-to-announce-run-for-governor-in-2026/",
+          "type": "news",
+          "title": "Former Alaska attorney general Treg Taylor is 11th candidate to announce run for governor in 2026",
+          "description": null,
+          "last_accessed": "2026-06-09T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://tregforak.com/",
+          "type": "website",
+          "title": "Treg Taylor for Alaska Governor",
+          "description": null,
+          "last_accessed": "2026-06-09T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Attorney General",
+          "organization": "State of Alaska",
+          "start_year": 2021,
+          "end_year": 2025,
+          "description": "Appointed by Governor Mike Dunleavy; led Alaska Department of Law",
+          "source": null
+        },
+        {
+          "title": "Deputy Attorney General",
+          "organization": "Alaska Department of Law",
+          "start_year": 2018,
+          "end_year": 2021,
+          "description": "Oversaw civil division",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://tregforak.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Matt Heilala",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Matt Heilala is a Republican, podiatrist, and member of the Alaska State Medical Board. He is a self-funded candidate who raised over $1.36 million, the most of any gubernatorial candidate as of early 2026. His campaign focuses on conservative principles, healthcare reform, economic development, and reducing government overreach.",
+      "summary_sources": [
+        {
+          "url": "https://alaskapublic.org/news/politics/2025-07-15/anchorage-podiatrist-joins-all-republican-field-in-2026-alaska-governors-race",
+          "type": "news",
+          "title": "Anchorage podiatrist joins all-Republican field in 2026 Alaska governor's race",
+          "description": null,
+          "last_accessed": "2026-06-09T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://matt4governor.com/",
+          "type": "website",
+          "title": "Matt Heilala for Governor",
+          "description": null,
+          "last_accessed": "2026-06-09T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_Alaska_gubernatorial_election",
+          "type": "news",
+          "title": "2026 Alaska gubernatorial election - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-09T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Member",
+          "organization": "Alaska State Medical Board",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Appointed board member overseeing medical licensing and regulation",
+          "source": null
+        },
+        {
+          "title": "Podiatrist",
+          "organization": "Private Practice",
+          "start_year": null,
+          "end_year": null,
+          "description": "Medical doctor specializing in podiatry in Anchorage",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://matt4governor.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Shelley Hughes",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Shelley Hughes is a Republican and former Alaska State Senator who served from 2017 to 2025, representing District M in the Matanuska-Susitna Valley. She served as Senate Majority Leader from 2021 to 2023 and previously served in the Alaska House of Representatives. Her campaign emphasizes conservative values, fiscal responsibility, agricultural development, and local community empowerment.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Shelley_Hughes",
+          "type": "government",
+          "title": "Shelley Hughes - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-09T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://alaskansforhughes.com/",
+          "type": "website",
+          "title": "Shelley Hughes for Governor",
+          "description": null,
+          "last_accessed": "2026-06-09T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://alaskabeacon.com/2025/07/25/palmer-sen-shelley-hughes-joins-crowded-republican-field-for-2026-alaska-governors-race/",
+          "type": "news",
+          "title": "Palmer Sen. Shelley Hughes joins crowded Republican field for 2026 Alaska governor's race",
+          "description": null,
+          "last_accessed": "2026-06-09T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "State Senator",
+          "organization": "Alaska State Senate, District M",
+          "start_year": 2017,
+          "end_year": 2025,
+          "description": "Served as Senate Majority Leader 2021-2023",
+          "source": null
+        },
+        {
+          "title": "State Representative",
+          "organization": "Alaska House of Representatives",
+          "start_year": 2013,
+          "end_year": 2017,
+          "description": "Represented Palmer area",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://alaskansforhughes.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Bill Walker",
+      "party": "Nonpartisan",
+      "incumbent": false,
+      "summary": "Bill Walker is an independent/nonpartisan candidate who served as the 11th Governor of Alaska from 2014 to 2018. He previously served as mayor of Valdez and as an attorney in private practice. His campaign focuses on addressing Alaska's chronic fiscal challenges, stabilizing the state budget, and providing experienced, centrist leadership.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Bill_Walker_(Alaska)",
+          "type": "government",
+          "title": "Bill Walker (Alaska) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-09T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Bill_Walker_(American_politician)",
+          "type": "news",
+          "title": "Bill Walker - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-09T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://alaskabeacon.com/2026/05/28/former-alaska-gov-bill-walker-files-for-possible-run-in-2026-governors-race/",
+          "type": "news",
+          "title": "Former Alaska Gov. Bill Walker files for possible run in 2026 governor's race",
+          "description": null,
+          "last_accessed": "2026-06-09T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Governor",
+          "organization": "State of Alaska",
+          "start_year": 2014,
+          "end_year": 2018,
+          "description": "11th Governor of Alaska; focused on fiscal reform and oil tax policy",
+          "source": null
+        },
+        {
+          "title": "Mayor",
+          "organization": "City of Valdez",
+          "start_year": 1992,
+          "end_year": 1994,
+          "description": "Served as mayor of Valdez, Alaska",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Lewis and Clark College",
+          "degree": "BA",
+          "field": "History",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Seattle University School of Law",
+          "degree": "JD",
+          "field": "Law",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Alaska_gubernatorial_and_lieutenant_gubernatorial_election,_2026",
+  "updated_utc": "2026-06-13T21:05:54.048553+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 274013,
+    "completion_tokens": 18777,
+    "total_tokens": 292790,
+    "cost_usd": 0.022127038,
+    "cost_source": "provider",
+    "estimated_usd": 0.030534,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 274013,
+        "completion_tokens": 18777
+      }
+    },
+    "duration_s": 265.4
+  }
+}

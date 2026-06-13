@@ -1,0 +1,317 @@
+{
+  "id": "mn-house-03-2026",
+  "title": "Minnesota's 3rd Congressional District Election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Minnesota's 3rd Congressional District",
+  "state": "Minnesota",
+  "district": "3rd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Minnesota's 3rd Congressional District covers the western suburbs of the Twin Cities, including Bloomington, Eden Prairie, Edina, Maple Grove, Minnetonka, Plymouth, Brooklyn Park, Coon Rapids, and Wayzata. Incumbent Democrat Kelly Morrison, first elected in 2024 with 58.4% of the vote, is seeking a second term in a district that was held by Republicans for decades before Democrat Dean Phillips flipped it in 2018. The Republican primary field features small business owner Tyler Bass and retired attorney Quentin Wittrock, with the primary scheduled for August 11, 2026. The Cook Political Report rates the general election as 'Solid D,' reflecting the district's recent leftward shift in demographic and voting patterns.",
+  "polling": [],
+  "polling_note": "No public opinion polls for this specific race were found as of mid-2026. The race is rated 'Solid D' by Cook Political Report, 'Solid D' by Inside Elections, and 'Safe D' by Sabato's Crystal Ball.",
+  "candidates": [
+    {
+      "name": "Kelly Morrison",
+      "party": "Democratic-Farmer-Labor",
+      "incumbent": true,
+      "summary": "Kelly Morrison is an obstetrician-gynecologist who has served as the U.S. Representative for Minnesota's 3rd Congressional District since January 2025. A former Minnesota state senator and state representative, she was first elected to Congress in 2024 after the retirement of Rep. Dean Phillips. She is the only OB-GYN in Congress and has focused on reproductive rights, healthcare access, and veterans' issues.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kelly_Morrison",
+          "type": "website",
+          "title": "Kelly Morrison - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.kellyforcongress.org/about",
+          "type": "website",
+          "title": "About \u2014 Kelly Morrison for Congress",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Kelly_Morrison",
+          "type": "website",
+          "title": "Kelly Morrison - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Representative_Kelly_Morrison_Official_Portrait.jpg/250px-Representative_Kelly_Morrison_Official_Portrait.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Representing Minnesota's 3rd Congressional District; serves on Small Business and Veterans' Affairs committees",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Minnesota Senate",
+          "start_year": 2023,
+          "end_year": 2024,
+          "description": "Represented District 45; assistant majority leader; resigned to run for Congress",
+          "source": null
+        },
+        {
+          "title": "State Representative",
+          "organization": "Minnesota House of Representatives",
+          "start_year": 2019,
+          "end_year": 2023,
+          "description": "Represented District 33B; assistant majority leader",
+          "source": null
+        },
+        {
+          "title": "Obstetrician-Gynecologist",
+          "organization": "Women's Health Consultants",
+          "start_year": 2001,
+          "end_year": 2024,
+          "description": "Practiced OB-GYN in the Minneapolis area for over 20 years",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Case Western Reserve University School of Medicine",
+          "degree": "Doctor of Medicine",
+          "field": "Medicine",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Yale University",
+          "degree": "Bachelor of Arts",
+          "field": "History",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Boston University",
+          "degree": null,
+          "field": "Pre-medical studies",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "The Blake School",
+          "degree": "High School Diploma",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.kellyforcongress.org/",
+      "social_media": {
+        "twitter": "https://x.com/Morrison4MN",
+        "facebook": "https://www.facebook.com/KellyMorrisonforCongress/",
+        "instagram": "https://www.instagram.com/kellymorrisonforcongress/",
+        "house_website": "http://morrison.house.gov/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Tyler Bass",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Tyler Bass is a small business owner and project manager running for the Republican nomination in Minnesota's 3rd Congressional District. He emphasizes economic issues including tax reduction, eliminating business taxes, and addressing housing affordability, and has made immigration enforcement a central campaign theme. Bass has not previously held elected office.",
+      "summary_sources": [
+        {
+          "url": "https://bassforcongress.com/",
+          "type": "website",
+          "title": "Bass For Congress",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Tyler_Bass",
+          "type": "website",
+          "title": "Tyler Bass - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Minnesota",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in Minnesota - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Small Business Owner / Project Manager",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "12+ years of business and project management experience",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Luther College",
+          "degree": null,
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://bassforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/tylerbassforcongress/",
+        "linkedin": "https://www.linkedin.com/in/tylerbass8954827"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Quentin Wittrock",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Quentin Wittrock is a retired attorney and founder of the non-profit Principle Based Politics, running for the Republican nomination in Minnesota's 3rd Congressional District. He presents himself as a political outsider and centrist critic of both major party establishments, emphasizing fiscal responsibility, lower spending, and Social Security reform. Wittrock has never held elected office.",
+      "summary_sources": [
+        {
+          "url": "https://eplocalnews.org/2024/01/05/gop-candidate-announces-u-s-house-bid/",
+          "type": "news",
+          "title": "GOP candidate announces U.S. House bid - Eden Prairie Local News",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Quentin_Wittrock",
+          "type": "website",
+          "title": "Quentin Wittrock - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Minnesota",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in Minnesota - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-12T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Founder",
+          "organization": "Principle Based Politics",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Non-profit advocating for principled governance and reducing political polarization",
+          "source": null
+        },
+        {
+          "title": "Attorney (Business Litigation and Mediation)",
+          "organization": "Private practice",
+          "start_year": null,
+          "end_year": null,
+          "description": "Practiced business litigation and mediation with emphasis on major litigation and international matters",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://wittrockforcongress.com/",
+      "social_media": {
+        "linkedin": "https://www.linkedin.com/in/quentin-wittrock-5741141a"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Minnesota%27s_3rd_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:26:12.782068+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 250244,
+    "completion_tokens": 10254,
+    "total_tokens": 260498,
+    "cost_usd": 0.016589632,
+    "cost_source": "provider",
+    "estimated_usd": 0.026534,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 250244,
+        "completion_tokens": 10254
+      }
+    },
+    "duration_s": 188.4
+  }
+}

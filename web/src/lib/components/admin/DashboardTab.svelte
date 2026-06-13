@@ -133,7 +133,7 @@
         analyticsService.getTraffic(hours),
         analyticsService.getAlerts(),
         analyticsService.getPipelineMetrics(20),
-        analyticsService.getPipelineMetricsSummary(),
+        analyticsService.getPipelineMetricsSummary(hours),
       ]);
 
       if (overviewRes.status === "fulfilled") overview = overviewRes.value;

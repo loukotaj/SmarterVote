@@ -1,0 +1,348 @@
+{
+  "id": "co-house-04-2026",
+  "title": "Colorado's 4th Congressional District election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Colorado's 4th Congressional District",
+  "state": "Colorado",
+  "district": "4th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Colorado's 4th Congressional District pits incumbent Republican Rep. Lauren Boebert against Democratic retired Navy Rear Admiral Eileen Laubacher, along with Libertarian and independent candidates. Boebert, who switched from Colorado's 3rd District to the 4th in 2024, seeks her third full term in Congress in a district that covers the rural Eastern Plains and southern Denver exurbs including Castle Rock and Parker. The district has a strong Republican lean, rated 'Solid R' by the Cook Political Report, but Democrats hope Laubacher's national security background and fundraising advantage can make the race competitive. The June 30 primary will determine the Republican and Democratic nominees, with Boebert and Laubacher as the presumptive nominees.",
+  "polling": [],
+  "polling_note": "No recent public opinion polls were found for the Colorado 4th Congressional District race as of mid-June 2026. The Cook Political Report rates the district as 'Solid R,' indicating limited polling has been conducted.",
+  "candidates": [
+    {
+      "name": "Lauren Boebert",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Lauren Boebert is the incumbent U.S. Representative for Colorado's 4th Congressional District, first elected in 2020 from the 3rd District before switching districts in 2024. A conservative Republican and member of the House Freedom Caucus, Boebert is known for her strong support of gun rights, opposition to abortion, and advocacy for limited government. She previously owned Shooters Grill, a restaurant in Rifle, Colorado, where staff openly carried firearms.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Colorado",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in Colorado - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "http://boebert.house.gov/about/biography",
+          "type": "government",
+          "title": "Biography | Representative Lauren Boebert",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Colorado%27s_4th_Congressional_District",
+          "type": "website",
+          "title": "Colorado's 4th Congressional District - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Representing Colorado's 3rd Congressional District (2021-2025) and 4th Congressional District (2025-present)",
+          "source": null
+        },
+        {
+          "title": "Owner",
+          "organization": "Shooters Grill",
+          "start_year": 2013,
+          "end_year": 2022,
+          "description": "Restaurant in Rifle, Colorado known for allowing staff to openly carry firearms",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Rifle High School",
+          "degree": "High School Diploma",
+          "field": null,
+          "year": 2005,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://boebert.house.gov/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Eileen Laubacher",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Eileen Laubacher is a retired United States Navy Rear Admiral and the presumptive Democratic nominee for Colorado's 4th Congressional District. She served 34 years in the Navy, including deployments to Afghanistan, a tour as Senior Defense Official and Defense Attache in New Delhi, India, and a role as Senior Director for South Asia on the National Security Council. Laubacher graduated from the U.S. Naval Academy in 1990 and is running on a platform of service, bipartisanship, and challenging what she describes as a lack of serious representation in the district.",
+      "summary_sources": [
+        {
+          "url": "https://www.eileenforcolorado.com/about",
+          "type": "website",
+          "title": "About \u2014 Rear Admiral Eileen Laubacher | Democrat for Congress",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.navy.mil/Leadership/Flag-Officer-Biographies/Search/Article/2236454/rear-admiral-eileen-laubacher/",
+          "type": "government",
+          "title": "Rear Admiral Eileen Laubacher - United States Navy Biography",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Colorado",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in Colorado - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Senior Director for South Asia",
+          "organization": "National Security Council",
+          "start_year": 2022,
+          "end_year": 2024,
+          "description": "Served in the Biden administration as senior director for South Asia policy",
+          "source": null
+        },
+        {
+          "title": "Senior Defense Official and Defense Attache",
+          "organization": "U.S. Embassy New Delhi, India",
+          "start_year": 2019,
+          "end_year": 2022,
+          "description": "Led defense cooperation and intelligence activities in India",
+          "source": null
+        },
+        {
+          "title": "Rear Admiral",
+          "organization": "United States Navy",
+          "start_year": 2018,
+          "end_year": 2024,
+          "description": "Promoted to Rear Admiral (lower half) in 2018; served in intelligence and defense attache roles",
+          "source": null
+        },
+        {
+          "title": "Intelligence Officer / Deployed to Afghanistan",
+          "organization": "United States Navy / Navy Reserve",
+          "start_year": 1990,
+          "end_year": 2018,
+          "description": "Served as an intelligence officer on active duty and in the Navy Reserve, including a 2009 deployment to Afghanistan",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "United States Naval Academy",
+          "degree": "Bachelor of Science",
+          "field": "Political Science",
+          "year": 1990,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.eileenforcolorado.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Douglas Mangeris",
+      "party": "Libertarian",
+      "incumbent": false,
+      "summary": "Douglas Mangeris is the Libertarian Party candidate running for U.S. House in Colorado's 4th Congressional District. He works as a construction superintendent and firearms dealer. Mangeris is running on the Libertarian Party line, advocating for limited government and individual liberties.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Douglas_Mangeris",
+          "type": "website",
+          "title": "Douglas Mangeris - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Colorado",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in Colorado - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Construction Superintendent",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Works in construction",
+          "source": null
+        },
+        {
+          "title": "Firearms Dealer",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Licensed firearms dealer",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Tim Veldhuizen",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Tim Veldhuizen is an unaffiliated independent candidate running for U.S. House in Colorado's 4th Congressional District. A resident of Loveland, Colorado, and a businessman, Veldhuizen is collecting signatures to appear on the general election ballot as an independent. He positions himself as a practical, independent leader focused on opportunity, safety, and responsible governance.",
+      "summary_sources": [
+        {
+          "url": "https://www.reporterherald.com/2026/05/22/loveland-resident-tim-veldhuizen-has-begun-collecting-signatures-to-challenge-lauren-boebert/",
+          "type": "news",
+          "title": "Loveland resident Tim Veldhuizen collecting signatures to challenge Boebert",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://tim4co.com/",
+          "type": "website",
+          "title": "Tim Veldhuizen for Congress",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Tim_Veldhuizen",
+          "type": "website",
+          "title": "Tim Veldhuizen - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Businessman",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Business professional based in Loveland, Colorado",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://tim4co.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Colorado%27s_4th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:11:31.972175+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 180634,
+    "completion_tokens": 10148,
+    "total_tokens": 190782,
+    "cost_usd": 0.013471107999999999,
+    "cost_source": "provider",
+    "estimated_usd": 0.019691,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 180634,
+        "completion_tokens": 10148
+      }
+    },
+    "duration_s": 164.4
+  }
+}

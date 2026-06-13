@@ -1,0 +1,278 @@
+{
+  "id": "vt-house-2026",
+  "title": "2026 United States House of Representatives election in Vermont's at-large congressional district",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Vermont's at-large congressional district",
+  "state": "Vermont",
+  "district": "At-large",
+  "election_date": "2026-11-03",
+  "description": "The 2026 United States House of Representatives election in Vermont will be held on November 3, 2026, to elect the state's sole at-large congressional representative. Incumbent Democrat Becca Balint, first elected in 2022 and re-elected in 2024, is seeking a third term. She faces a Republican primary contest between Mark Coester, a small-business owner who challenged her in 2024, and Gerald Malloy, a West Point graduate and combat veteran who has previously run for U.S. Senate. Vermont is a heavily Democratic state that has not elected a Republican to this seat since 1988, making Balint the strong favorite in the general election.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for this specific race as of June 2026. The Cook Political Report rates the seat as Safe Democratic.",
+  "candidates": [
+    {
+      "name": "Becca Balint",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Becca Balint is the incumbent U.S. Representative for Vermont's at-large congressional district, first elected in 2022. She is the first woman and openly LGBTQ+ person to represent Vermont in Congress. Before her election to the U.S. House, Balint served in the Vermont Senate from 2015 to 2023, including as President pro tempore. She is running for re-election on a platform of protecting reproductive rights, limiting corporate influence in politics, and opposing the Trump administration's policies.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Becca_Balint",
+          "type": "website",
+          "title": "Becca Balint - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T21:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://vtdigger.org/2026/05/07/vermonts-u-s-rep-becca-balint-announces-reelection-campaign/",
+          "type": "news",
+          "title": "Vermont's U.S. Rep. Becca Balint announces reelection campaign",
+          "description": null,
+          "last_accessed": "2026-06-13T21:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Rep._Becca_Balint_-_118th_Congress.jpg/250px-Rep._Becca_Balint_-_118th_Congress.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Representing Vermont's at-large congressional district",
+          "source": null
+        },
+        {
+          "title": "President pro tempore of the Vermont Senate",
+          "organization": "Vermont Senate",
+          "start_year": 2021,
+          "end_year": 2023,
+          "description": "First woman and openly LGBTQ person to hold this position in Vermont",
+          "source": null
+        },
+        {
+          "title": "Majority Leader",
+          "organization": "Vermont Senate",
+          "start_year": 2017,
+          "end_year": 2021,
+          "description": "Senate Majority Leader",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Vermont Senate, Windham District",
+          "start_year": 2015,
+          "end_year": 2023,
+          "description": "Represented Windham County in the Vermont Senate",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Smith College",
+          "degree": "Bachelor of Arts",
+          "field": "History and Women's Studies",
+          "year": 1990,
+          "source": null
+        },
+        {
+          "institution": "Harvard University",
+          "degree": "Master of Education",
+          "field": "Education",
+          "year": 1995,
+          "source": null
+        },
+        {
+          "institution": "University of Massachusetts Amherst",
+          "degree": "Master of Arts",
+          "field": "History",
+          "year": 2000,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://beccabalint.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Mark Coester",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Mark Coester is a small-business owner, logger, and maple syrup producer from Westminster, Vermont, running for the Republican nomination for U.S. House. He was the Republican nominee in 2024, receiving 30% of the vote against incumbent Becca Balint. Coester emphasizes conservative positions on border security, energy independence, term limits, and reducing federal overreach. He has been making maple syrup in Vermont for over 50 years and operates a small business.",
+      "summary_sources": [
+        {
+          "url": "https://fyivt.com/be-informed/mark-coester-announces-2026-congressional-campaign/",
+          "type": "news",
+          "title": "Mark Coester Announces 2026 Congressional Campaign",
+          "description": null,
+          "last_accessed": "2026-06-13T21:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.burlingtonfreepress.com/story/news/local/vermont/2026/05/11/vermont-congress-becca-balint-republican-mark-coester-blue-state/90000984007/",
+          "type": "news",
+          "title": "The VT Republican who wants to beat Becca Balint in the bluest state",
+          "description": null,
+          "last_accessed": "2026-06-13T21:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.wamc.org/news/2026-04-29/republican-enters-vermont-congressional-race",
+          "type": "news",
+          "title": "Republican enters Vermont Congressional race",
+          "description": null,
+          "last_accessed": "2026-06-13T21:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Small Business Owner / Logger / Maple Syrup Producer",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "Operates a small business involving logging and maple syrup production",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://mark4vermont.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Gerald Malloy",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Gerald Malloy is a West Point graduate, combat veteran, and business owner who has entered the Republican primary for Vermont's U.S. House seat. He previously ran for U.S. Senate in Vermont in 2022 and 2024, challenging independent Senator Bernie Sanders and Democratic Senator Peter Welch. Malloy campaigns on a platform of bringing a results-oriented approach to Congress, working with the Trump administration to deliver for Vermont, and lowering the political temperature in Washington.",
+      "summary_sources": [
+        {
+          "url": "https://www.wcax.com/2026/05/28/malloy-enters-race-us-house/",
+          "type": "news",
+          "title": "Malloy enters race for US House",
+          "description": null,
+          "last_accessed": "2026-06-13T21:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.burlingtonfreepress.com/story/news/local/vermont/2026/05/11/vermont-congress-becca-balint-republican-mark-coester-blue-state/90000984007/",
+          "type": "news",
+          "title": "The VT Republican who wants to beat Becca Balint in the bluest state",
+          "description": null,
+          "last_accessed": "2026-06-13T21:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Business Owner",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "Business owner and entrepreneur",
+          "source": null
+        },
+        {
+          "title": "Combat Veteran / West Point Graduate",
+          "organization": "United States Army",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as a combat veteran after graduating from the United States Military Academy at West Point",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "United States Military Academy at West Point",
+          "degree": "Bachelor's degree",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/United_States_House_of_Representatives_election_in_Vermont,_2026",
+  "updated_utc": "2026-06-13T21:42:29.174712+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 240334,
+    "completion_tokens": 6043,
+    "total_tokens": 246377,
+    "cost_usd": 0.017418888,
+    "cost_source": "provider",
+    "estimated_usd": 0.024737,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 240334,
+        "completion_tokens": 6043
+      }
+    },
+    "duration_s": 170.9
+  }
+}

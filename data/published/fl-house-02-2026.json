@@ -1,0 +1,637 @@
+{
+  "id": "fl-house-02-2026",
+  "title": "2026 U.S. House of Representatives Election in Florida's 2nd Congressional District",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Florida's 2nd Congressional District",
+  "state": "Florida",
+  "district": "2nd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Florida's 2nd Congressional District seat is open in 2026 after Republican incumbent Neal Dunn announced on January 13, 2026, that he would not seek re-election. The district, covering a large swath of the Florida Panhandle, has been a reliably Republican stronghold, but the open seat has drawn competitive primary fields in both parties. The Republican primary is particularly crowded, with candidates including state GOP chair Evan Power, businessman and veteran Keith Gross, Gulf County Superintendent Jim Norton, and former Rick Scott counsel Austin Rogers. On the Democratic side, Yen Bailey (the 2024 nominee), Brice Barnes, Amanda Green, and Nic Zateslo are among those competing for their party's nomination. The general election will take place on November 3, 2026, with primary elections scheduled for August 18, 2026.",
+  "polling": [],
+  "polling_note": "No publicly available general election polls were found for this race as of the current date. The primary is not until August 18, 2026, so most polling is still internal or candidate-specific.",
+  "candidates": [
+    {
+      "name": "Keith Gross",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Keith Gross is a businessman, U.S. Army veteran, and former Assistant State Attorney running for the open seat in Florida's 2nd Congressional District. He was a candidate for the U.S. Senate in Florida in 2024 and has positioned himself as a conservative aligned with President Donald Trump. Gross emphasizes America First policies, border security, and reducing inflation as key campaign issues.",
+      "summary_sources": [
+        {
+          "url": "https://keithgross.com/",
+          "type": "website",
+          "title": "Keith Gross for Congress",
+          "description": null,
+          "last_accessed": "2026-05-20T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Keith_Gross",
+          "type": "website",
+          "title": "Keith Gross - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-05-20T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Florida",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in Florida - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-05-20T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Business Owner",
+          "organization": "Private Sector",
+          "start_year": null,
+          "end_year": null,
+          "description": "Conservative businessman based in Panama City Beach",
+          "source": null
+        },
+        {
+          "title": "Assistant State Attorney",
+          "organization": "Florida State Attorney's Office",
+          "start_year": null,
+          "end_year": null,
+          "description": "Former prosecutor",
+          "source": null
+        },
+        {
+          "title": "Candidate for U.S. Senate",
+          "organization": "Campaign",
+          "start_year": 2023,
+          "end_year": 2024,
+          "description": "Republican primary candidate for U.S. Senate in Florida in 2024",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Florida State University",
+          "degree": "Bachelor's",
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Florida State University College of Law",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://keithgross.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/keithgrossfl/",
+        "instagram": "https://www.instagram.com/keithgrossfl/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Evan Power",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Evan Power has served as chair of the Republican Party of Florida since January 2024 and is a member of the Republican National Committee. With over two decades in political campaigns and party leadership, he is a well-known figure in Florida Republican circles. Power entered the race for the open 2nd Congressional District seat shortly after incumbent Neal Dunn announced his retirement.",
+      "summary_sources": [
+        {
+          "url": "https://florida.gop/about-the-chairman/",
+          "type": "website",
+          "title": "About the Chairman - Florida GOP",
+          "description": null,
+          "last_accessed": "2026-05-20T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://floridaphoenix.com/2026/01/13/state-gop-chair-evan-power-considering-run-for-congress/",
+          "type": "news",
+          "title": "State GOP chair Evan Power considering run for Congress",
+          "description": null,
+          "last_accessed": "2026-05-20T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Florida",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in Florida - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-05-20T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Chair",
+          "organization": "Republican Party of Florida",
+          "start_year": 2024,
+          "end_year": null,
+          "description": "State party chair and RNC member",
+          "source": null
+        },
+        {
+          "title": "Political Consultant",
+          "organization": "Various Campaigns",
+          "start_year": null,
+          "end_year": null,
+          "description": "Over 20 years of experience in political campaigns and party operations",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {
+        "facebook": "https://www.facebook.com/chairmanpower/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Jim Norton",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Jim Norton is the Gulf County School Superintendent, serving his fifth term, and a fourth-generation Gulf County resident. He previously worked as a field representative for former Democratic Congressman Allen Boyd. Norton describes himself as a conservative Republican focused on local education and community values.",
+      "summary_sources": [
+        {
+          "url": "https://nortonforflorida.com/",
+          "type": "website",
+          "title": "Jim Norton for Congress",
+          "description": null,
+          "last_accessed": "2026-05-20T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.wctv.tv/2026/02/11/gulf-county-superintendent-jim-norton-announces-bid-congress/",
+          "type": "news",
+          "title": "Gulf County Superintendent Jim Norton announces bid for Congress",
+          "description": null,
+          "last_accessed": "2026-05-20T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Florida",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in Florida - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-05-20T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "School Superintendent",
+          "organization": "Gulf County Schools",
+          "start_year": null,
+          "end_year": null,
+          "description": "Superintendent for 15+ years, currently serving fifth term",
+          "source": null
+        },
+        {
+          "title": "Field Representative",
+          "organization": "Congressman Allen Boyd",
+          "start_year": null,
+          "end_year": null,
+          "description": "Former field representative for the Democratic congressman",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://nortonforflorida.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Austin Rogers",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Austin Rogers is a former general counsel to U.S. Senator Rick Scott, making him one of the more Washington-connected candidates in the Republican primary field. His campaign emphasizes his legal and policy experience at the federal level. Rogers entered the race for the open 2nd Congressional District seat in early 2026.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Florida",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in Florida - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-05-20T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://floridapolitics.com/archives/796954-cd-2-candidates-gear-up-for-tallahassee-debate-monday/",
+          "type": "news",
+          "title": "CD 2 candidates gear up for Tallahassee debate Monday",
+          "description": null,
+          "last_accessed": "2026-05-20T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "General Counsel",
+          "organization": "Office of U.S. Senator Rick Scott",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as general counsel to Senator Rick Scott",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Yen Bailey",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Yen Bailey is a lawyer and lifelong resident of North Florida, whose parents were Vietnamese refugees. She was the Democratic nominee for this seat in 2024, losing to incumbent Neal Dunn. Bailey's campaign emphasizes her public service background as an attorney and her commitment to ethical leadership, healthcare access, and affordability for working families.",
+      "summary_sources": [
+        {
+          "url": "https://yenbaileyforcongress.com/about-me/",
+          "type": "website",
+          "title": "About Me \u2013 Yen Bailey for Congress",
+          "description": null,
+          "last_accessed": "2026-05-20T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://floridapolitics.com/archives/686950-yen-bailey-named-democratic-nominee-in-cd-2/",
+          "type": "news",
+          "title": "Yen Bailey named Democratic nominee in CD 2",
+          "description": null,
+          "last_accessed": "2026-05-20T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.tallahassee.com/story/news/politics/2026/05/14/florida-democrat-may-make-history-in-race-for-congress-heres-how/90076981007/",
+          "type": "news",
+          "title": "Yen Bailey marks historic milestone in 2nd Congressional District race",
+          "description": null,
+          "last_accessed": "2026-05-20T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Attorney",
+          "organization": "Private Practice / Public Service",
+          "start_year": null,
+          "end_year": null,
+          "description": "Attorney focusing on family and juvenile law, including service as Senior Attorney for the Second Circuit Guardian ad Litem Program",
+          "source": null
+        },
+        {
+          "title": "Democratic Nominee for U.S. House",
+          "organization": "Campaign",
+          "start_year": 2024,
+          "end_year": 2024,
+          "description": "Democratic nominee for Florida's 2nd Congressional District in 2024",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://yenbaileyforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/YenBaileyforCongress/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Brice Barnes",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Brice Barnes is a nonprofit founder, political consultant, and disability and healthcare advocate running for the open seat in Florida's 2nd Congressional District. She previously worked on the Biden for President National Finance Committee and has experience in fundraising and social impact. Barnes raised over $100,000 in the first 24 hours of her campaign, signaling strong early financial support.",
+      "summary_sources": [
+        {
+          "url": "https://news.wfsu.org/state-news/2026-04-09/brice-barnes-is-running-for-floridas-2nd-congressional-district",
+          "type": "news",
+          "title": "Brice Barnes is running for Florida's 2nd Congressional District",
+          "description": null,
+          "last_accessed": "2026-05-20T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://floridapolitics.com/archives/790162-brice-barnes-raises-six-figures-in-first-day-as-candidate/",
+          "type": "news",
+          "title": "Brice Barnes raises more than $100K in first 24 hours of campaign",
+          "description": null,
+          "last_accessed": "2026-05-20T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Brice_Barnes",
+          "type": "website",
+          "title": "Brice Barnes - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-05-20T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Political Consultant / Fundraiser",
+          "organization": "Various",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked on Biden for President National Finance Committee and other Democratic campaigns and causes",
+          "source": null
+        },
+        {
+          "title": "Nonprofit Founder",
+          "organization": "Nonprofit Sector",
+          "start_year": null,
+          "end_year": null,
+          "description": "Founded a nonprofit focused on social impact and advocacy",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Furman University",
+          "degree": "Bachelor's",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {
+        "twitter": "https://x.com/BriceBarnes"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Amanda Green",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Amanda Marie Green is an operations manager and international business expert running for Congress as a Democrat. She raised over $102,000 in the first quarter of 2026, demonstrating competitive fundraising. Green's campaign focuses on affordability, healthcare, and bringing practical business experience to Washington.",
+      "summary_sources": [
+        {
+          "url": "https://www.amgforcongress.com/",
+          "type": "website",
+          "title": "Amanda Marie Green for Congress",
+          "description": null,
+          "last_accessed": "2026-05-20T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://floridapolitics.com/archives/791256-amanda-marie-green-raises-more-than-100k-in-first-quarter-of-2026/",
+          "type": "news",
+          "title": "Amanda Marie Green raises more than $100K in first quarter of 2026",
+          "description": null,
+          "last_accessed": "2026-05-20T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Amanda_Green_(Florida)",
+          "type": "website",
+          "title": "Amanda Green (Florida) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-05-20T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Operations Manager",
+          "organization": "Private Sector",
+          "start_year": null,
+          "end_year": null,
+          "description": "International business expert and operations manager",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.amgforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/amgforcongress/",
+        "instagram": "https://www.instagram.com/amgforcongress/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Nic Zateslo",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Nic Zateslo is a political consultant, entrepreneur, and Eagle Scout running for the Democratic nomination in Florida's 2nd Congressional District. He is a Rickards High School graduate and has positioned himself as a commonsense Democrat focused on affordability and pragmatic solutions. Zateslo has raised over $325,000 as of March 31, 2026, making him one of the better-funded Democratic candidates in the primary.",
+      "summary_sources": [
+        {
+          "url": "https://www.teamzforflorida.com/",
+          "type": "website",
+          "title": "Nic Zateslo for Congress",
+          "description": null,
+          "last_accessed": "2026-05-20T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.thegreenpapers.com/G26/FL",
+          "type": "website",
+          "title": "Florida 2026 General Election - The Green Papers",
+          "description": null,
+          "last_accessed": "2026-05-20T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.tallahassee.com/story/news/politics/2025/08/25/democrats-bailey-zateslo-look-to-oust-dunn-in-floridas-cd-2-race/85746105007/",
+          "type": "news",
+          "title": "Democrats Bailey, Zateslo look to oust Dunn in Florida's CD 2 race",
+          "description": null,
+          "last_accessed": "2026-05-20T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Political Consultant / Entrepreneur",
+          "organization": "Various",
+          "start_year": null,
+          "end_year": null,
+          "description": "Political consultant and small business owner",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.teamzforflorida.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/TeamZforFlorida/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Florida%27s_2nd_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:21:32.865482+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 204187,
+    "completion_tokens": 10601,
+    "total_tokens": 214788,
+    "cost_usd": 0.016187578,
+    "cost_source": "provider",
+    "estimated_usd": 0.022088,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 204187,
+        "completion_tokens": 10601
+      }
+    },
+    "duration_s": 147.3
+  }
+}

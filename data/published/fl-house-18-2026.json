@@ -1,0 +1,308 @@
+{
+  "id": "fl-house-18-2026",
+  "title": "Florida's 18th Congressional District election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Florida's 18th Congressional District",
+  "state": "Florida",
+  "district": "18th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Florida's 18th Congressional District will be held on November 3, 2026, following a primary on August 18, 2026. Incumbent Rep. Scott Franklin (R), first elected in 2020, is seeking re-election. The district, which covers much of central Florida's Heartland region including Lakeland and Polk County, has been drawn under a new congressional map signed by Gov. Ron DeSantis that is expected to favor Republicans. Democratic candidate Curtis Gibson and nonpartisan candidate Deva Simmons are also on the general election ballot, though the Democratic primary between Gibson and Tiffanie Luong (who did not qualify) is effectively uncontested. The race takes place against the backdrop of Florida's redistricting litigation and a national focus on control of the U.S. House.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for this specific race as of the research date. The district is rated Safe/Solid Republican by major nonpartisan forecasters.",
+  "candidates": [
+    {
+      "name": "Scott Franklin",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Scott Franklin is the incumbent U.S. Representative for Florida's 18th Congressional District, first elected in 2020. He is a former Naval Aviator who served 26 years in the U.S. Navy, retiring as a Commander, and previously led Lanier Upshaw insurance agency as President & CEO. Franklin serves on the House Appropriations Committee and chairs the Environment Subcommittee on the Science, Space, and Technology Committee.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Scott_Franklin_(politician)",
+          "type": "news",
+          "title": "Scott Franklin (politician) - Wikipedia",
+          "description": null,
+          "last_accessed": "2025-07-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://franklin.house.gov/about/",
+          "type": "government",
+          "title": "Biography | U.S. Representative Scott Franklin",
+          "description": null,
+          "last_accessed": "2025-07-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89125",
+          "type": "government",
+          "title": "Candidate Tracking - Scott Franklin",
+          "description": null,
+          "last_accessed": "2025-07-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/64/Scott_Franklin%2C_117th_Congress_portrait.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Representing Florida's 15th district (2021-2023) and 18th district (2023-present)",
+          "source": null
+        },
+        {
+          "title": "President & CEO",
+          "organization": "Lanier Upshaw / BKS Partners",
+          "start_year": 2000,
+          "end_year": 2020,
+          "description": "Led insurance and risk management agency for 20 years",
+          "source": null
+        },
+        {
+          "title": "Naval Aviator (Commander)",
+          "organization": "United States Navy",
+          "start_year": 1986,
+          "end_year": 2012,
+          "description": "26 years of service including active duty and reserves; flew S-3 Viking jets from aircraft carriers",
+          "source": null
+        },
+        {
+          "title": "Lakeland City Commissioner",
+          "organization": "City of Lakeland, Florida",
+          "start_year": 2018,
+          "end_year": 2021,
+          "description": "Served as commissioner for Southeast district and as Mayor Pro Tem",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "United States Naval Academy",
+          "degree": "Bachelor of Science",
+          "field": null,
+          "year": 1986,
+          "source": null
+        },
+        {
+          "institution": "Embry-Riddle Aeronautical University",
+          "degree": "MBA",
+          "field": "Business Administration",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Air Command & Staff College",
+          "degree": "Graduate",
+          "field": "Military Studies",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.votescottfranklin.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Curtis Gibson",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Curtis Gibson is a Democratic candidate for U.S. House in Florida's 18th Congressional District. He previously served as a Lake Wales City Commissioner and ran for mayor of Lake Wales in 2022 and 2025. Gibson is a small business owner and former commissioner who advocates for veterans' healthcare improvements, economic opportunity, and community-focused representation.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Curtis_Gibson",
+          "type": "website",
+          "title": "Curtis Gibson - Ballotpedia",
+          "description": null,
+          "last_accessed": "2025-07-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89631",
+          "type": "government",
+          "title": "Candidate Tracking - Curtis Gibson",
+          "description": null,
+          "last_accessed": "2025-07-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.theledger.com/story/news/local/2025/03/22/former-commissioner-challenges-incumbent-in-lake-wales-mayor-race/82489149007/",
+          "type": "news",
+          "title": "Former commissioner challenges incumbent in Lake Wales mayor race - The Ledger",
+          "description": null,
+          "last_accessed": "2025-07-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Lake Wales City Commissioner",
+          "organization": "City of Lake Wales, Florida",
+          "start_year": 2020,
+          "end_year": 2024,
+          "description": "Served as city commissioner; also ran for mayor in 2022 and 2025",
+          "source": null
+        },
+        {
+          "title": "Small Business Owner",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Owned and operated a business in the Lake Wales area",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Keiser University",
+          "degree": null,
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Deva Simmons",
+      "party": "No Party Affiliation",
+      "incumbent": false,
+      "summary": "Deva Simmons is a candidate running as a No Party Affiliation (independent) candidate for U.S. House in Florida's 18th Congressional District. She has over 20 years of experience in education as a teacher and mentor, and has served on the board of the Boys & Girls Club of Lakeland. Simmons emphasizes affordable healthcare, rebuilding trust in government, and community-centered representation.",
+      "summary_sources": [
+        {
+          "url": "https://www.devasimmons.com/en/meet-deva",
+          "type": "website",
+          "title": "Meet Deva - Deva Simmons for Congress",
+          "description": null,
+          "last_accessed": "2025-07-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Deva_Simmons",
+          "type": "website",
+          "title": "Deva Simmons - Ballotpedia",
+          "description": null,
+          "last_accessed": "2025-07-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89643",
+          "type": "government",
+          "title": "Candidate Tracking - Deva Simmons",
+          "description": null,
+          "last_accessed": "2025-07-01T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Educator / Mentor",
+          "organization": "Polk County Schools",
+          "start_year": 2002,
+          "end_year": null,
+          "description": "Over 20 years in education, teaching and mentoring students and families",
+          "source": null
+        },
+        {
+          "title": "Board Member",
+          "organization": "Boys & Girls Club of Lakeland",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served on the board of the Boys & Girls Club",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.devasimmons.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Florida%27s_18th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:13:43.745499+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 236171,
+    "completion_tokens": 7158,
+    "total_tokens": 243329,
+    "cost_usd": 0.011848078000000001,
+    "cost_source": "provider",
+    "estimated_usd": 0.024548,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 236171,
+        "completion_tokens": 7158
+      }
+    },
+    "duration_s": 124.8
+  }
+}

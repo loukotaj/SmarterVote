@@ -1,0 +1,516 @@
+{
+  "id": "md-house-08-2026",
+  "title": "2026 U.S. House of Representatives Election in Maryland's 8th Congressional District",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Maryland's 8th Congressional District",
+  "state": "Maryland",
+  "district": "8th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Maryland's 8th Congressional District, which covers most of Montgomery County and parts of Carroll County, holds its 2026 general election on November 3, 2026. Incumbent Democrat Jamie Raskin, first elected in 2016 and a prominent figure on the House Judiciary Committee, is seeking re-election. The Democratic primary on June 23, 2026, features Raskin and three challengers, while four Republicans compete in their own primary for the chance to face the Democratic nominee. The district is considered safely Democratic in national forecasts, though the primary contests reflect internal party debates over the direction of the Democratic Party.",
+  "polling": [],
+  "polling_note": "No independent general-election polls were found for this race as of mid-June 2026. Ratings organizations such as Cook Political Report, Inside Elections, and Sabato's Crystal Ball have not yet rated this specific district for 2026, but the 8th district has consistently voted Democratic in recent cycles.",
+  "candidates": [
+    {
+      "name": "Jamie Raskin",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Jamie Raskin is the incumbent U.S. Representative for Maryland's 8th Congressional District, first elected in 2016. He serves as the ranking Democrat on the House Judiciary Committee and was previously a Maryland state senator and a constitutional law professor at American University's Washington College of Law. Raskin is a prominent progressive voice known for his roles in the January 6 investigation and impeachment proceedings against former President Trump.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Jamie_Raskin",
+          "type": "website",
+          "title": "Jamie Raskin - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://jamieraskin.com/",
+          "type": "website",
+          "title": "Jamie Raskin for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Jamie_Raskin.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2017,
+          "end_year": null,
+          "description": "Representing Maryland's 8th Congressional District; Ranking Member of the House Judiciary Committee",
+          "source": null
+        },
+        {
+          "title": "Maryland State Senator",
+          "organization": "Maryland Senate",
+          "start_year": 2007,
+          "end_year": 2016,
+          "description": "Represented Montgomery County in the Maryland Senate",
+          "source": null
+        },
+        {
+          "title": "Professor of Constitutional Law",
+          "organization": "American University Washington College of Law",
+          "start_year": 1990,
+          "end_year": 2016,
+          "description": "Taught constitutional law and directed the Law and Government Program",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Harvard Law School",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": 1987,
+          "source": null
+        },
+        {
+          "institution": "Harvard College",
+          "degree": "Bachelor of Arts",
+          "field": "Government",
+          "year": 1983,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://jamieraskin.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "J.D. Kumar",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "J.D. Kumar is a finance executive and founder of MQAPITAL who is challenging incumbent Jamie Raskin in the Democratic primary. He holds bachelor's degrees in international finance, marketing, and Spanish from the University of Maryland and has studied at the National Autonomous University of Mexico. Kumar has volunteered for past Democratic presidential campaigns and emphasizes pragmatic capitalism, immigration reform, and economic innovation.",
+      "summary_sources": [
+        {
+          "url": "https://www.baltimoresun.com/2026/05/20/maryland-8th-congressional-district-candidates-2026-election/",
+          "type": "news",
+          "title": "2026 voter guide: Maryland's 8th Congressional District - Baltimore Sun",
+          "description": null,
+          "last_accessed": "2026-06-13T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.thebanner.com/voter-guide/2026/us-house/md-8/us-congressional-district-8-XJLNHEFJ75CN3MLCXLZAEX7KB4/",
+          "type": "news",
+          "title": "U.S. Congressional District 8: 2026 Maryland Voter Guide - The Banner",
+          "description": null,
+          "last_accessed": "2026-06-13T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Founder and National President",
+          "organization": "MQAPITAL",
+          "start_year": null,
+          "end_year": null,
+          "description": "Finance executive and entrepreneur",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Maryland",
+          "degree": "Bachelor's",
+          "field": "International Finance and Marketing",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Maryland",
+          "degree": "Bachelor's",
+          "field": "Spanish Languages and Literature",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.votejdk.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Stephen Leon",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Stephen Leon is an intellectual property law specialist and entrepreneur running in the Democratic primary. He attended Northern Virginia Community College focusing on computer science and left early to found a company. Leon emphasizes balancing the federal budget through private sector climate technology investments, moderate immigration amnesty, and reforming the Democratic Party with data-driven decision-making.",
+      "summary_sources": [
+        {
+          "url": "https://www.baltimoresun.com/2026/05/20/maryland-8th-congressional-district-candidates-2026-election/",
+          "type": "news",
+          "title": "2026 voter guide: Maryland's 8th Congressional District - Baltimore Sun",
+          "description": null,
+          "last_accessed": "2026-06-13T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.thebanner.com/voter-guide/2026/us-house/md-8/us-congressional-district-8-XJLNHEFJ75CN3MLCXLZAEX7KB4/",
+          "type": "news",
+          "title": "U.S. Congressional District 8: 2026 Maryland Voter Guide - The Banner",
+          "description": null,
+          "last_accessed": "2026-06-13T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Intellectual Property Law Specialist",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Self-employed entrepreneur and IP law specialist",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Northern Virginia Community College",
+          "degree": null,
+          "field": "Computer Science",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Boris Velasquez",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Boris Velasquez is a national security technologist and former Marine Corps Sergeant running in the Democratic primary. He holds a Master of Science in Artificial Intelligence from Johns Hopkins University (candidate) and a Bachelor of Science in Computer Science from George Mason University. Velasquez has worked for twelve years as a national security analyst across multiple administrations and frames his candidacy around class struggle, federal worker protections, and opposition to the influence of corporate donors in politics.",
+      "summary_sources": [
+        {
+          "url": "https://www.baltimoresun.com/2026/05/20/maryland-8th-congressional-district-candidates-2026-election/",
+          "type": "news",
+          "title": "2026 voter guide: Maryland's 8th Congressional District - Baltimore Sun",
+          "description": null,
+          "last_accessed": "2026-06-13T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Boris_Velasquez",
+          "type": "website",
+          "title": "Boris Velasquez - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "National Security Technologist/Analyst",
+          "organization": "Federal Government",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served across multiple administrations at the highest levels of the federal government",
+          "source": null
+        },
+        {
+          "title": "Sergeant",
+          "organization": "United States Marine Corps",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served with the 15th Marine Expeditionary Unit, Special Operations Capable",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Johns Hopkins University",
+          "degree": "Master of Science (candidate)",
+          "field": "Artificial Intelligence",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "George Mason University",
+          "degree": "Bachelor of Science",
+          "field": "Computer Science",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Michael Yadeta",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Michael Yadeta is a Republican candidate running in the primary for Maryland's 8th Congressional District. He is listed as an active candidate with the Maryland State Board of Elections. Further biographical details are limited as the primary campaign develops.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Michael_Yadeta",
+          "type": "website",
+          "title": "Michael Yadeta - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.baltimoresun.com/2026/05/20/maryland-8th-congressional-district-candidates-2026-election/",
+          "type": "news",
+          "title": "2026 voter guide: Maryland's 8th Congressional District - Baltimore Sun",
+          "description": null,
+          "last_accessed": "2026-06-13T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Michael_Yadeta.jpg",
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Anita Mpambara Cox",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Anita Mpambara Cox is a Republican candidate running in the primary for Maryland's 8th Congressional District. She is listed on the Maryland State Board of Elections candidate list and on BallotReady as a Republican primary candidate. She did not complete the Baltimore Sun/Capital Gazette voter guide questionnaire.",
+      "summary_sources": [
+        {
+          "url": "https://www.ballotready.org/elections/maryland-primary-election-146338e5-e266-491f-88a6-70b28bf4e3ae",
+          "type": "website",
+          "title": "Maryland Primary Election - BallotReady",
+          "description": null,
+          "last_accessed": "2026-06-13T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.baltimoresun.com/2026/05/20/maryland-8th-congressional-district-candidates-2026-election/",
+          "type": "news",
+          "title": "2026 voter guide: Maryland's 8th Congressional District - Baltimore Sun",
+          "description": null,
+          "last_accessed": "2026-06-13T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Donald L. Lech",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Donald L. Lech is a Republican candidate running in the primary for Maryland's 8th Congressional District. He is listed on BallotReady and the Maryland State Board of Elections as an active Republican primary candidate. He did not complete the Baltimore Sun/Capital Gazette voter guide questionnaire.",
+      "summary_sources": [
+        {
+          "url": "https://www.ballotready.org/elections/maryland-primary-election-146338e5-e266-491f-88a6-70b28bf4e3ae",
+          "type": "website",
+          "title": "Maryland Primary Election - BallotReady",
+          "description": null,
+          "last_accessed": "2026-06-13T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.baltimoresun.com/2026/05/20/maryland-8th-congressional-district-candidates-2026-election/",
+          "type": "news",
+          "title": "2026 voter guide: Maryland's 8th Congressional District - Baltimore Sun",
+          "description": null,
+          "last_accessed": "2026-06-13T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Cheryl Riley",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Cheryl Riley is a Republican candidate running in the primary for Maryland's 8th Congressional District. She is listed on BallotReady and the Maryland State Board of Elections as an active Republican primary candidate. She did not complete the Baltimore Sun/Capital Gazette voter guide questionnaire.",
+      "summary_sources": [
+        {
+          "url": "https://www.ballotready.org/elections/maryland-primary-election-146338e5-e266-491f-88a6-70b28bf4e3ae",
+          "type": "website",
+          "title": "Maryland Primary Election - BallotReady",
+          "description": null,
+          "last_accessed": "2026-06-13T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.baltimoresun.com/2026/05/20/maryland-8th-congressional-district-candidates-2026-election/",
+          "type": "news",
+          "title": "2026 voter guide: Maryland's 8th Congressional District - Baltimore Sun",
+          "description": null,
+          "last_accessed": "2026-06-13T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Maryland%27s_8th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:39:37.680466+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 267182,
+    "completion_tokens": 9221,
+    "total_tokens": 276403,
+    "cost_usd": 0.0157308,
+    "cost_source": "provider",
+    "estimated_usd": 0.027991,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 267182,
+        "completion_tokens": 9221
+      }
+    },
+    "duration_s": 172.3
+  }
+}

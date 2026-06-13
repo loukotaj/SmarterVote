@@ -1,0 +1,209 @@
+{
+  "id": "me-house-01-2026",
+  "title": "Maine's 1st Congressional District General Election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Maine's 1st Congressional District",
+  "state": "Maine",
+  "district": "1st Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 general election for Maine's 1st Congressional District pits Democratic incumbent Chellie Pingree against Republican nominee Ronald Russell. Pingree, first elected in 2008 and seeking a tenth term, has won re-election by comfortable margins in a district that includes Portland and the southern coastal region of Maine. The Republican primary concluded on June 9, 2026, with Russell defeating Joshua Pietrowicz by a 53.7% to 46.3% margin. The district is rated as Safe/Solid Democratic by major nonpartisan election forecasters, though Russell's background as a West Point graduate, Army veteran, and defense contractor gives Republicans a standard-bearer with a compelling biography.",
+  "polling": [],
+  "polling_note": "No public general election polls were found for the Pingree-Russell matchup as of mid-2026. The most recent primary poll from the University of New Hampshire (May 21-25, 2026) showed 68% of Republican primary voters undecided, with Russell at 24% and Pietrowicz at 7%.",
+  "candidates": [
+    {
+      "name": "Chellie Pingree",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Chellie Pingree is the incumbent U.S. Representative for Maine's 1st Congressional District, first elected in 2008. She previously served in the Maine Senate from 1992 to 2000, including four years as Majority Leader, and was President and CEO of Common Cause from 2003 to 2006. Pingree sits on the House Appropriations Committee and has focused on issues including prescription drug pricing, land conservation, and government transparency.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Chellie_Pingree",
+          "type": "website",
+          "title": "Chellie Pingree - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Chellie_Pingree",
+          "type": "website",
+          "title": "Chellie Pingree - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/CPingree_Portrait_202203.jpg/250px-CPingree_Portrait_202203.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2009,
+          "end_year": null,
+          "description": "Representing Maine's 1st Congressional District; member of the House Appropriations Committee",
+          "source": null
+        },
+        {
+          "title": "President and CEO",
+          "organization": "Common Cause",
+          "start_year": 2003,
+          "end_year": 2006,
+          "description": "Led the nonpartisan government watchdog organization",
+          "source": null
+        },
+        {
+          "title": "Maine State Senator",
+          "organization": "Maine Senate",
+          "start_year": 1993,
+          "end_year": 2000,
+          "description": "Served as Majority Leader from 1997 to 2000; represented Knox County",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "College of the Atlantic",
+          "degree": "BA",
+          "field": "Human Ecology",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Southern Maine",
+          "degree": null,
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.chelliepingree.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Ronald Russell",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Ronald Russell is a Republican candidate and retired U.S. Army Colonel who won the June 9, 2026 Republican primary for Maine's 1st Congressional District. A West Point graduate and a 30-year Army veteran who served as an Airborne Ranger and Green Beret, he later co-founded the defense contractor Far Ridgeline Engagements in North Carolina. Russell was also the Republican nominee for this seat in 2024, losing to incumbent Chellie Pingree, and is making a second bid for the office.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Maine",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in Maine - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ronrussellforcongress.com/about/",
+          "type": "website",
+          "title": "About - Ron Russell for Congress",
+          "description": null,
+          "last_accessed": "2026-06-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Ronald_Russell_(Maine_congressional_candidate)",
+          "type": "website",
+          "title": "Ronald Russell (Maine congressional candidate) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Ronald_Russell.png",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Co-founder / Defense Contractor",
+          "organization": "Far Ridgeline Engagements",
+          "start_year": 2006,
+          "end_year": 2021,
+          "description": "Co-founded and grew the defense contracting company to over 150 employees over 14 years",
+          "source": null
+        },
+        {
+          "title": "Colonel / U.S. Army",
+          "organization": "United States Army",
+          "start_year": 1976,
+          "end_year": 2006,
+          "description": "Served 30 years as an Airborne Ranger and Special Forces-qualified Green Beret; commissioned as 2nd Lieutenant after graduating from West Point",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "United States Military Academy at West Point",
+          "degree": "BS",
+          "field": "Engineering / Military Science",
+          "year": 1976,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://ronrussellforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Maine%27s_1st_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:21:07.882390+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 250956,
+    "completion_tokens": 5783,
+    "total_tokens": 256739,
+    "cost_usd": 0.016072628,
+    "cost_source": "provider",
+    "estimated_usd": 0.025727,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 250956,
+        "completion_tokens": 5783
+      }
+    },
+    "duration_s": 168.5
+  }
+}

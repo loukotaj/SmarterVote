@@ -1,0 +1,225 @@
+{
+  "id": "ca-house-09-2026",
+  "title": "2026 U.S. House of Representatives Election in California's 9th Congressional District",
+  "office": "United States House of Representatives",
+  "jurisdiction": "California's 9th Congressional District \u2014 San Joaquin County (Stockton, Tracy, Manteca, Lodi) and parts of Contra Costa and Stanislaus counties",
+  "state": "California",
+  "district": "9th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "California's 9th Congressional District is holding a general election on November 3, 2026, following a top-two primary on June 2, 2026. Incumbent Democrat Josh Harder, first elected in 2018, advanced to the general election alongside Republican challenger John McBride, a strength and conditioning coach. The district, which leans Democratic (Cook PVI D+8) and covers Stockton, Tracy, and parts of the East Bay, has been rated 'Solid Democratic' by the Cook Political Report. Key issues in the race include water access for agriculture, public safety, housing affordability, health care costs, and infrastructure investment.",
+  "polling": [],
+  "polling_note": "No independent public opinion polls specific to the CA-09 general election were found as of mid-2026. The Cook Political Report rates the race as 'Solid Democratic.' A national NRCC battleground survey from August 2025 included CA-09 but did not release head-to-head numbers.",
+  "candidates": [
+    {
+      "name": "Josh Harder",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Josh Harder is the incumbent Democratic U.S. Representative for California's 9th Congressional District, first elected in 2018. He serves on the powerful House Appropriations Committee and has focused on health care, lowering costs, water infrastructure, and public safety during his tenure. Harder is a fifth-generation Central Valley resident who previously worked as a venture capitalist and taught business at Modesto Junior College.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Josh_Harder",
+          "type": "website",
+          "title": "Josh Harder - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-12T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://harder.house.gov/about",
+          "type": "government",
+          "title": "About | Representative Josh Harder",
+          "description": null,
+          "last_accessed": "2026-06-12T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/f/ff/Josh_Harder%2C_official_portrait%2C_116th_Congress.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Representing California's 10th district (2019\u20132023) and 9th district (2023\u2013present). Serves on the House Appropriations Committee.",
+          "source": null
+        },
+        {
+          "title": "Vice President",
+          "organization": "Bessemer Venture Partners",
+          "start_year": 2014,
+          "end_year": 2017,
+          "description": "Worked in the New York and San Francisco offices as a venture capitalist investing in technology companies.",
+          "source": null
+        },
+        {
+          "title": "Business Instructor",
+          "organization": "Modesto Junior College",
+          "start_year": 2017,
+          "end_year": 2018,
+          "description": "Taught business courses at the local community college.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Harvard University",
+          "degree": "MBA/MPP",
+          "field": "Business and Public Policy",
+          "year": 2014,
+          "source": null
+        },
+        {
+          "institution": "Stanford University",
+          "degree": "BA",
+          "field": "Political Science",
+          "year": 2008,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "http://harderforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "John McBride",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "John McBride is a Republican candidate for the U.S. House in California's 9th Congressional District. A strength and conditioning coach by profession, he served as the first Strength and Conditioning Coach at the University of the Pacific for 12 years and later at St. Mary's High School for 13 years. McBride emphasizes his community involvement, including board service with the Stockton Leadership Foundation and local Christian organizations, and campaigns on issues of fiscal responsibility, border security, agriculture, and reducing government regulation.",
+      "summary_sources": [
+        {
+          "url": "https://www.johnmcbrideforcongress.com/get-to-know-john/learn-more-about-john",
+          "type": "website",
+          "title": "Learn More about John - John McBride For Congress",
+          "description": null,
+          "last_accessed": "2026-06-12T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/John_McBride_(California)",
+          "type": "website",
+          "title": "John McBride (California) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.kcra.com/article/kevin-lincoln-john-mcbridge-republicans-trying-to-unseat-josh-harder-congressional-district-9/60015921",
+          "type": "news",
+          "title": "Kevin Lincoln, John McBride are the Republicans trying to unseat Democrat Josh Harder in Congressional District 9",
+          "description": null,
+          "last_accessed": "2026-06-12T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/John_McBride.jpeg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Strength and Conditioning Coach",
+          "organization": "St. Mary's High School (Stockton, CA)",
+          "start_year": 2007,
+          "end_year": 2020,
+          "description": "First strength coach at the school; trained athletes and helped develop athletic programs.",
+          "source": null
+        },
+        {
+          "title": "First Strength and Conditioning Coach",
+          "organization": "University of the Pacific",
+          "start_year": 1989,
+          "end_year": 2001,
+          "description": "Developed and led the strength and conditioning program for the university's athletic teams.",
+          "source": null
+        },
+        {
+          "title": "Board Member",
+          "organization": "Stockton Leadership Foundation",
+          "start_year": null,
+          "end_year": null,
+          "description": "Founding board member; organization focused on leadership development in the Stockton community.",
+          "source": null
+        },
+        {
+          "title": "Board Member",
+          "organization": "Stockton Pregnancy Help Center",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served on the board of this community organization.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Connecticut (likely, inferred)",
+          "degree": "Bachelor's",
+          "field": "Not specified",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.johnmcbrideforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/California%27s_9th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:22:03.274074+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 277608,
+    "completion_tokens": 5983,
+    "total_tokens": 283591,
+    "cost_usd": 0.020970124,
+    "cost_source": "provider",
+    "estimated_usd": 0.028378,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 277608,
+        "completion_tokens": 5983
+      }
+    },
+    "duration_s": 125.5
+  }
+}

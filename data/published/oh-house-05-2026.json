@@ -1,0 +1,348 @@
+{
+  "id": "oh-house-05-2026",
+  "title": "Ohio's 5th Congressional District election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Ohio's 5th Congressional District",
+  "state": "Ohio",
+  "district": "5th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Ohio's 5th Congressional District pits 10-term Republican incumbent Bob Latta against Democratic nominee Brian Shaver and independent candidate Dalton Franklin. The district, which stretches from Lorain County to the Indiana border, includes Elyria, Findlay, Norwalk, Bowling Green, and Van Wert. Redistricting in October 2025 adjusted the map for the 2026 cycle, but the Cook Political Report continues to rate the district as Solidly Republican. Latta, a senior member of the House Energy and Commerce Committee and chair of the Energy Subcommittee, faces his first Democratic challenger since the district was redrawn, while Shaver campaigned on congressional accountability and campaign finance reform.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for the 2026 general election in Ohio's 5th Congressional District. The Cook Political Report rates the district as Solidly Republican.",
+  "candidates": [
+    {
+      "name": "Bob Latta",
+      "party": "Republican Party",
+      "incumbent": true,
+      "summary": "Bob Latta is the 10-term incumbent U.S. Representative for Ohio's 5th Congressional District, first elected in a December 2007 special election following the death of Rep. Paul Gillmor. He serves as a senior member of the House Energy and Commerce Committee, where he chairs the Subcommittee on Energy, and has authored legislation on the opioid crisis, drinking water safety, and nuclear energy. Latta previously served in the Ohio House of Representatives, the Ohio Senate, and as a Wood County Commissioner.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Bob_Latta",
+          "type": "news",
+          "title": "Bob Latta - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-15T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://latta.house.gov/biography/",
+          "type": "government",
+          "title": "Biography - Congressman Bob Latta",
+          "description": null,
+          "last_accessed": "2026-06-15T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Bob_Latta",
+          "type": "website",
+          "title": "Bob Latta - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-15T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Bob_Latta_portrait_118th_Congress.jpeg/250px-Bob_Latta_portrait_118th_Congress.jpeg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "United States Representative",
+          "organization": "U.S. House of Representatives, Ohio's 5th District",
+          "start_year": 2007,
+          "end_year": null,
+          "description": "Currently in 10th term; senior member of Energy and Commerce Committee; chairs Subcommittee on Energy",
+          "source": null
+        },
+        {
+          "title": "State Representative",
+          "organization": "Ohio House of Representatives",
+          "start_year": 2001,
+          "end_year": 2007,
+          "description": "Represented the 6th and 4th districts",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Ohio Senate",
+          "start_year": 1997,
+          "end_year": 2001,
+          "description": "Represented the 2nd Senate District",
+          "source": null
+        },
+        {
+          "title": "County Commissioner",
+          "organization": "Wood County, Ohio",
+          "start_year": 1991,
+          "end_year": 1996,
+          "description": "Wood County Commissioner",
+          "source": null
+        },
+        {
+          "title": "Attorney",
+          "organization": "Private practice",
+          "start_year": 1981,
+          "end_year": 1991,
+          "description": "Practiced law in private practice",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Toledo College of Law",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": 1981,
+          "source": null
+        },
+        {
+          "institution": "Bowling Green State University",
+          "degree": "Bachelor of Arts",
+          "field": "General studies",
+          "year": 1978,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://latta.house.gov/",
+          "title": "Official House website",
+          "type": "other"
+        },
+        {
+          "url": "https://www.lattaforcongress.com/",
+          "title": "Campaign website",
+          "type": "other"
+        }
+      ],
+      "website": "https://www.lattaforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/boblatta/",
+        "instagram": "https://www.instagram.com/boblatta/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Brian A. Shaver",
+      "party": "Democratic Party",
+      "incumbent": false,
+      "summary": "Brian A. Shaver is the Democratic nominee for Ohio's 5th Congressional District, having won a four-way primary on May 5, 2026, with 28.68% of the vote. He teaches social studies at Fostoria Junior/Senior High School and has served as President of Fostoria City Council since being appointed in 2023, having first joined the council as an at-large member in 2019. Shaver's campaign has focused on congressional accountability, campaign finance reform, term limits, and a ban on stock trading by members of Congress.",
+      "summary_sources": [
+        {
+          "url": "https://www.brianshaverforcongress.com/",
+          "type": "website",
+          "title": "Brian Shaver for Congress",
+          "description": null,
+          "last_accessed": "2026-06-15T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.richlandsource.com/2026/04/15/4-democrats-file-for-ohios-5th-congressional-district-race/",
+          "type": "news",
+          "title": "Four Democrats file for Ohio's 5th Congressional District race",
+          "description": null,
+          "last_accessed": "2026-06-15T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://tiffinohio.net/posts/fostorias-shaver-wins-dem-primary-will-face-latta/",
+          "type": "news",
+          "title": "Fostoria's Shaver wins Dem primary, will face Latta",
+          "description": null,
+          "last_accessed": "2026-06-15T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://fostoriaohio.gov/meet-our-city-council",
+          "type": "government",
+          "title": "City of Fostoria - Meet our City Council",
+          "description": null,
+          "last_accessed": "2026-06-15T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://i0.wp.com/www.richlandsource.com/wp-content/uploads/2026/04/BShaver-4-Edited-1.jpeg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "President of City Council",
+          "organization": "Fostoria City Council",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Appointed council president; previously served as at-large council member since 2019",
+          "source": null
+        },
+        {
+          "title": "Social Studies Teacher",
+          "organization": "Fostoria City Schools",
+          "start_year": null,
+          "end_year": null,
+          "description": "Teaches world history and international relations at Fostoria Junior/Senior High School; has served as union president for eight years",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Bowling Green State University",
+          "degree": "Doctorate (in progress)",
+          "field": "Educational leadership",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Toledo",
+          "degree": "Master's Degree",
+          "field": "Educational leadership",
+          "year": 2023,
+          "source": null
+        },
+        {
+          "institution": "Bluffton University",
+          "degree": "Bachelor of Arts",
+          "field": "History and secondary education",
+          "year": 1999,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://www.brianshaverforcongress.com/",
+          "title": "Campaign website",
+          "type": "other"
+        }
+      ],
+      "website": "https://www.brianshaverforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/BrianShaverForCongress/",
+        "instagram": "https://www.instagram.com/brianshaverforcongress/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Dalton J. Franklin",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Dalton J. Franklin is an independent candidate for Ohio's 5th Congressional District who will appear on the November 2026 general election ballot. He describes himself as a working-class progressive from rural Ohio running to challenge what he calls a corrupt campaign finance system that benefits wealthy donors over voters. His campaign priorities include single-payer healthcare, a living wage, clean energy, and reducing the influence of corporate money in politics.",
+      "summary_sources": [
+        {
+          "url": "https://www.daltonfranklinforcongress.com/",
+          "type": "website",
+          "title": "Dalton Franklin for Congress",
+          "description": null,
+          "last_accessed": "2026-06-15T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://tiffinohio.net/posts/fostorias-shaver-wins-dem-primary-will-face-latta/",
+          "type": "news",
+          "title": "Fostoria's Shaver wins Dem primary, will face Latta",
+          "description": null,
+          "last_accessed": "2026-06-15T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Dalton_Franklin",
+          "type": "website",
+          "title": "Dalton Franklin - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-15T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://www.daltonfranklinforcongress.com/",
+          "title": "Campaign website",
+          "type": "other"
+        }
+      ],
+      "website": "https://www.daltonfranklinforcongress.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/franklinforohio/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Ohio%27s_5th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:33:30.831937+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 300268,
+    "completion_tokens": 7301,
+    "total_tokens": 307569,
+    "cost_usd": 0.018367276000000002,
+    "cost_source": "provider",
+    "estimated_usd": 0.030857,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 300268,
+        "completion_tokens": 7301
+      }
+    },
+    "duration_s": 125.7
+  }
+}

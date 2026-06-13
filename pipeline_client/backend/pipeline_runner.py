@@ -222,10 +222,17 @@ async def run_step_async(step: str, request: RunRequest, run_id: Optional[str] =
         # Collect logs before complete_run removes the run from active memory
         run_logs = list(run_manager.get_run_logs(run_id) or [])
 
+        # Extract serper_calls from output
+        serper_calls = 0
+        if isinstance(output, dict) and isinstance(output.get("race_json"), dict):
+            agent_metrics = output["race_json"].get("agent_metrics")
+            if isinstance(agent_metrics, dict):
+                serper_calls = agent_metrics.get("serper_calls", 0)
+
         # Mark the overall run as completed (persists to Firestore, detaches log handler)
         # Returns the final RunInfo directly — don't call get_run() after this as the
         # background Firestore write may not have landed yet.
-        final_run = run_manager.complete_run(run_id, artifact_id, duration_ms)
+        final_run = run_manager.complete_run(run_id, artifact_id, duration_ms, serper_calls=serper_calls)
 
         # Update race record: mark completed, save run to subcollection
         if race_id:
@@ -273,7 +280,19 @@ async def run_step_async(step: str, request: RunRequest, run_id: Optional[str] =
 
         # Mark step and run as failed
         run_manager.update_step_status(run_id, step, RunStatus.FAILED, error=error_msg, duration_ms=duration_ms)
-        final_run = run_manager.fail_run(run_id, error_msg, duration_ms)
+
+        # Try to get accumulated serper calls
+        serper_calls = 0
+        try:
+            from pipeline_client.agent.cost import _cost_ctx
+
+            acc = _cost_ctx.get()
+            if acc is not None:
+                serper_calls = acc.get("serper_calls", 0)
+        except Exception:
+            pass
+
+        final_run = run_manager.fail_run(run_id, error_msg, duration_ms, serper_calls=serper_calls)
 
         # Update race record: mark failed, save run to subcollection
         if race_id:
@@ -290,6 +309,17 @@ async def run_step_async(step: str, request: RunRequest, run_id: Optional[str] =
         try:
             from pipeline_client.backend.pipeline_metrics import get_pipeline_metrics_store
 
+            # Try to get accumulated serper calls
+            serper_calls = 0
+            try:
+                from pipeline_client.agent.cost import _cost_ctx
+
+                acc = _cost_ctx.get()
+                if acc is not None:
+                    serper_calls = acc.get("serper_calls", 0)
+            except Exception:
+                pass
+
             _cheap_mode = bool(_merge_options(request.options).get("cheap_mode", True))
             await get_pipeline_metrics_store().record_run(
                 run_id,
@@ -298,6 +328,7 @@ async def run_step_async(step: str, request: RunRequest, run_id: Optional[str] =
                 "failed",
                 candidate_count=0,
                 cheap_mode=_cheap_mode,
+                serper_calls=serper_calls,
             )
         except Exception:
             context_logger.warning("Failed to record pipeline metrics for failed run", exc_info=True)

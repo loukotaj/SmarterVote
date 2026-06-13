@@ -1,11 +1,13 @@
 <script lang="ts">
   import { browser } from "$app/environment";
 
-  export let activeTab: "dashboard" | "agent" = "dashboard";
+  export let activeTab: "dashboard" | "races" | "runs" | "agent" = "dashboard";
   export let alertCount: number = 0;
 
   const tabs = [
     { id: "dashboard", label: "Dashboard" },
+    { id: "races", label: "Races" },
+    { id: "runs", label: "Runs" },
     { id: "agent", label: "Agent" },
   ] as const;
 

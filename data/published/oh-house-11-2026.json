@@ -1,0 +1,250 @@
+{
+  "id": "oh-house-11-2026",
+  "title": "Ohio's 11th Congressional District General Election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Ohio's 11th Congressional District",
+  "state": "Ohio",
+  "district": "11th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Ohio's 11th Congressional District covers portions of Cuyahoga County, including most of Cleveland and its eastern suburbs. Incumbent Democratic U.S. Representative Shontel Brown, first elected in a 2021 special election, is seeking re-election against Republican nominee Mike Kirchner, a retired consulting actuary and mayor of Jeffersonville. The district is heavily Democratic \u2014 Cook Political Report rates it as Safe Democratic \u2014 and has been represented by Democrats since its creation. The race features a contrast between Brown's record on federal investment and social policy and Kirchner's focus on fiscal conservatism.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for the 2026 general election in Ohio's 11th Congressional District. The race is widely considered a safe Democratic seat.",
+  "candidates": [
+    {
+      "name": "Shontel Brown",
+      "party": "Democratic Party",
+      "incumbent": true,
+      "summary": "Shontel Brown is the incumbent U.S. Representative for Ohio's 11th Congressional District, first elected in a 2021 special election to succeed Marcia Fudge. She previously served on the Cuyahoga County Council and as chair of the Cuyahoga County Democratic Party, and sits on the House Agriculture and Oversight committees.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Shontel_Brown",
+          "type": "website",
+          "title": "Shontel Brown - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T17:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Shontel_Brown",
+          "type": "website",
+          "title": "Shontel Brown - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T17:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "http://shontelbrown.house.gov/about/biography",
+          "type": "government",
+          "title": "Biography | Representative Shontel Brown",
+          "description": null,
+          "last_accessed": "2026-06-13T17:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://shontelbrown.com/meet-shontel/",
+          "type": "website",
+          "title": "Meet Shontel - Shontel Brown For Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T17:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Shontel_Brown.png",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Representing Ohio's 11th Congressional District; serves on House Agriculture and Oversight committees",
+          "source": null
+        },
+        {
+          "title": "County Councilmember",
+          "organization": "Cuyahoga County Council",
+          "start_year": 2015,
+          "end_year": 2021,
+          "description": "Represented the 9th district",
+          "source": null
+        },
+        {
+          "title": "Chairwoman",
+          "organization": "Cuyahoga County Democratic Party",
+          "start_year": 2017,
+          "end_year": 2021,
+          "description": "First woman and first African American to chair the party",
+          "source": null
+        },
+        {
+          "title": "City Councilmember",
+          "organization": "Warrensville Heights City Council",
+          "start_year": 2012,
+          "end_year": 2015,
+          "description": "Elected in 2011",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Wilberforce University",
+          "degree": "Bachelor of Science",
+          "field": "Organizational Management",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Cuyahoga Community College",
+          "degree": "Associate of Science",
+          "field": "Business Management",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://shontelbrown.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Mike Kirchner",
+      "party": "Republican Party",
+      "incumbent": false,
+      "summary": "Mike Kirchner is a retired consulting actuary and the Republican nominee for U.S. House in Ohio's 11th Congressional District. He is also the mayor of Jeffersonville, Ohio, and holds a Bachelor of Science in applied mathematics from the University of Akron. Kirchner defeated James Hemphill in the May 5, 2026 Republican primary.",
+      "summary_sources": [
+        {
+          "url": "https://mikekirchner.com/about/",
+          "type": "website",
+          "title": "About - Mike Kirchner",
+          "description": null,
+          "last_accessed": "2026-06-13T17:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Ohio%27s_11th_Congressional_District_election,_2026_(May_5_Republican_primary)",
+          "type": "website",
+          "title": "Ohio's 11th Congressional District election, 2026 (May 5 Republican primary) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T17:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nbcnews.com/politics/2026-primary-elections/ohio-us-house-district-11-results",
+          "type": "news",
+          "title": "Ohio House District 11 Primary Election Live Results 2026 - NBC News",
+          "description": null,
+          "last_accessed": "2026-06-13T17:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.ideastream.org/government-politics/2026-05-05/primary-results-challengers-set-for-incumbents-in-northeast-ohios-7th-11th-and-14th-districts",
+          "type": "news",
+          "title": "Primary results: Challengers set for incumbents in Northeast Ohio's 7th, 11th and 14th districts",
+          "description": null,
+          "last_accessed": "2026-06-13T17:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Village Mayor",
+          "organization": "Jeffersonville, Ohio",
+          "start_year": null,
+          "end_year": null,
+          "description": "Serves as mayor of Jeffersonville, Ohio",
+          "source": null
+        },
+        {
+          "title": "Consulting Actuary",
+          "organization": "Wyatt Company / Towers Watson",
+          "start_year": null,
+          "end_year": null,
+          "description": "Retired after 30 years working with pension and postretirement health care plans",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Akron",
+          "degree": "Bachelor of Science",
+          "field": "Applied Mathematics",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://mikekirchner.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Ohio%27s_11th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:41:32.855718+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 212263,
+    "completion_tokens": 5936,
+    "total_tokens": 218199,
+    "cost_usd": 0.015894958,
+    "cost_source": "provider",
+    "estimated_usd": 0.021965,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 212263,
+        "completion_tokens": 5936
+      }
+    },
+    "duration_s": 145.7
+  }
+}

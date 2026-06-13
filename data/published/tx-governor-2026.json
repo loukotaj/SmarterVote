@@ -1,0 +1,407 @@
+{
+  "id": "tx-governor-2026",
+  "title": "2026 Texas Gubernatorial Election",
+  "office": "Governor of Texas",
+  "jurisdiction": "Texas",
+  "state": "Texas",
+  "district": null,
+  "election_date": "2026-11-03",
+  "description": "The 2026 Texas gubernatorial election will be held on November 3, 2026, to elect the governor of Texas. Incumbent Republican Governor Greg Abbott is seeking a fourth term after easily winning his party's March 2026 primary with 82% of the vote. He will face Democratic nominee Gina Hinojosa, a state representative from Austin who won a competitive nine-way Democratic primary with approximately 59% of the vote, as well as Libertarian nominee Pat Dixon and independent candidate Jenn Mack Raphoon. The race is being closely watched as Abbott aims to become the longest-serving governor in Texas history, while Hinojosa seeks to become the first Democrat elected governor of Texas since 1990. Key issues include public education funding and school vouchers, border security, property taxes, and energy grid reliability.",
+  "polling": [
+    {
+      "pollster": "Texas Public Opinion Research",
+      "date": "2026-04-20",
+      "sample_size": 1018,
+      "matchups": [
+        {
+          "candidates": [
+            "Greg Abbott",
+            "Gina Hinojosa"
+          ],
+          "percentages": [
+            48.0,
+            43.0
+          ]
+        }
+      ],
+      "source_url": "https://www.tpr.org/podcast/the-source/2026-05-17/polls-show-hinojosa-narrowing-abbotts-lead-in-texas-governors-race"
+    },
+    {
+      "pollster": "RealClearPolitics Polling Average",
+      "date": "2026-05-01",
+      "sample_size": null,
+      "matchups": [
+        {
+          "candidates": [
+            "Greg Abbott",
+            "Gina Hinojosa"
+          ],
+          "percentages": [
+            48.3,
+            41.5
+          ]
+        }
+      ],
+      "source_url": "https://www.realclearpolling.com/polls/governor/general/2026/texas/abbott-vs-hinojosa"
+    },
+    {
+      "pollster": "Pastors for Texas Children",
+      "date": "2026-04-01",
+      "sample_size": null,
+      "matchups": [
+        {
+          "candidates": [
+            "Greg Abbott",
+            "Gina Hinojosa"
+          ],
+          "percentages": [
+            48.3,
+            41.6
+          ]
+        }
+      ],
+      "source_url": "https://ginafortexas.com/2026/04/new-three-new-polls-show-abbott-stuck-in-the-40s-as-hinojosa-closes-the-gap-statewide-and-surges-with-latino-voters/"
+    },
+    {
+      "pollster": "Somos Votantes/Global Strategy Group",
+      "date": "2026-04-01",
+      "sample_size": null,
+      "matchups": [
+        {
+          "candidates": [
+            "Greg Abbott",
+            "Gina Hinojosa"
+          ],
+          "percentages": [
+            null,
+            null
+          ]
+        }
+      ],
+      "source_url": "https://ginafortexas.com/2026/04/new-three-new-polls-show-abbott-stuck-in-the-40s-as-hinojosa-closes-the-gap-statewide-and-surges-with-latino-voters/"
+    },
+    {
+      "pollster": "YouGov",
+      "date": "2026-03-02",
+      "sample_size": 1668,
+      "matchups": [
+        {
+          "candidates": [
+            "Greg Abbott",
+            "Gina Hinojosa"
+          ],
+          "percentages": [
+            null,
+            null
+          ]
+        }
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/2026_Texas_gubernatorial_election"
+    }
+  ],
+  "polling_note": "Multiple polls conducted from February through May 2026 show Greg Abbott leading Gina Hinojosa by margins ranging from 3 to 7 percentage points, with Abbott consistently polling in the high 40s and Hinojosa in the low-to-mid 40s. Some polls do not include third-party or independent candidates.",
+  "candidates": [
+    {
+      "name": "Greg Abbott",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Greg Abbott has served as the 48th Governor of Texas since 2015, previously serving as Texas Attorney General (2002-2015) and as a Justice on the Texas Supreme Court. Born in Wichita Falls and raised in Duncanville, he earned a BBA from the University of Texas at Austin and a JD from Vanderbilt University Law School. Abbott is running for a fourth term on a platform emphasizing border security, property tax reform, school choice, and economic growth, having been named one of Time magazine's 100 Most Influential People in 2024.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Greg_Abbott",
+          "type": "news",
+          "title": "Greg Abbott - Wikipedia",
+          "last_accessed": "2026-06-15T00:00:00Z"
+        },
+        {
+          "url": "https://gov.texas.gov/governor-abbott",
+          "type": "government",
+          "title": "About Gov. Abbott | Office of the Texas Governor",
+          "last_accessed": "2026-06-15T00:00:00Z"
+        },
+        {
+          "url": "https://www.gregabbott.com/bio/",
+          "type": "website",
+          "title": "Greg Abbott - Campaign Bio",
+          "last_accessed": "2026-06-15T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Greg_Abbott_in_2024_%28cropped%29.jpg/800px-Greg_Abbott_in_2024_%28cropped%29.jpg",
+      "website": "https://www.gregabbott.com/",
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Governor of Texas",
+          "organization": "State of Texas",
+          "start_year": 2015,
+          "end_year": null,
+          "description": "48th Governor, currently serving fourth term"
+        },
+        {
+          "title": "Attorney General of Texas",
+          "organization": "State of Texas",
+          "start_year": 2002,
+          "end_year": 2015,
+          "description": "50th Attorney General, longest-serving in state history"
+        },
+        {
+          "title": "Justice",
+          "organization": "Supreme Court of Texas",
+          "start_year": 1996,
+          "end_year": 2001,
+          "description": "Appointed by Governor George W. Bush, elected to full term in 1998"
+        },
+        {
+          "title": "State Trial Judge",
+          "organization": "129th District Court, Harris County",
+          "start_year": 1993,
+          "end_year": 1996,
+          "description": "Presided over civil and criminal cases"
+        }
+      ],
+      "education": [
+        {
+          "institution": "Vanderbilt University Law School",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": 1984
+        },
+        {
+          "institution": "University of Texas at Austin",
+          "degree": "Bachelor of Business Administration",
+          "field": "Finance",
+          "year": 1981
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Gina Hinojosa",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Gina Hinojosa is a Texas State Representative from the 49th district (2017-present) and the Democratic nominee for governor. Born in McAllen and raised in Brownsville, she earned a BA from the University of Texas at Austin and a JD from George Washington University Law School, then worked as a civil rights and labor lawyer. Hinojosa previously served on the Austin ISD school board from 2012 to 2016, including as board president, and is running on a platform focused on public education funding, healthcare access, affordability, and government accountability.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Gina_Hinojosa",
+          "type": "news",
+          "title": "Gina Hinojosa - Wikipedia",
+          "last_accessed": "2026-06-15T00:00:00Z"
+        },
+        {
+          "url": "https://house.texas.gov/members/3210/biography",
+          "type": "government",
+          "title": "Rep. Gina Hinojosa - Texas House of Representatives",
+          "last_accessed": "2026-06-15T00:00:00Z"
+        },
+        {
+          "url": "https://ginafortexas.com/about/",
+          "type": "website",
+          "title": "Meet Gina - Gina Hinojosa for Texas Governor",
+          "last_accessed": "2026-06-15T00:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Gina_Hinojosa_at_LBJ_Library_Forum_%283x4_cropped%29.jpg/800px-Gina_Hinojosa_at_LBJ_Library_Forum_%283x4_cropped%29.jpg",
+      "website": "https://ginafortexas.com/",
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "State Representative",
+          "organization": "Texas House of Representatives, District 49",
+          "start_year": 2017,
+          "end_year": null,
+          "description": "Serves on Public Education, Business and Industry, and Select Committee on Educational Opportunity and Enrichment"
+        },
+        {
+          "title": "Board President",
+          "organization": "Austin Independent School District",
+          "start_year": 2015,
+          "end_year": 2016,
+          "description": "Elected by fellow trustees; led district to balance budget and improve accountability"
+        },
+        {
+          "title": "School Board Member",
+          "organization": "Austin Independent School District",
+          "start_year": 2012,
+          "end_year": 2016,
+          "description": "Elected on platform of saving neighborhood schools from closure"
+        },
+        {
+          "title": "Civil Rights and Labor Attorney",
+          "organization": "Private practice and non-profit organizations",
+          "start_year": 1999,
+          "end_year": 2012,
+          "description": "Represented union members; worked with Catholic Charities, Texas Rural Legal Aid, and Equal Justice Center"
+        }
+      ],
+      "education": [
+        {
+          "institution": "George Washington University Law School",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": 1999
+        },
+        {
+          "institution": "University of Texas at Austin",
+          "degree": "Bachelor of Arts",
+          "field": "Plan II Honors / Government",
+          "year": 1996
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Pat Dixon",
+      "party": "Libertarian",
+      "incumbent": false,
+      "summary": "Pat Dixon is the Libertarian Party nominee for Texas Governor. A former two-term Lago Vista City Council member (2005-2010), he served 10 years as Chair of the Libertarian Party of Texas and two terms on the Libertarian National Committee. Born in Pittsburgh, Pennsylvania, Dixon attended Miami University in Ohio where he studied engineering, and later worked for Honeywell and as President of DPAS Inc., an industrial automation consulting firm. He is also the author of 'Leading Like a Libertarian' and 'Primary Screenout.'",
+      "summary_sources": [
+        {
+          "url": "https://patdixon.org/bio/",
+          "type": "website",
+          "title": "Bio - Pat Dixon",
+          "last_accessed": "2026-06-15T00:00:00Z"
+        },
+        {
+          "url": "https://lp.org/candidate/pat-dixon/",
+          "type": "website",
+          "title": "Pat Dixon - Libertarian Party",
+          "last_accessed": "2026-06-15T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Pat_Dixon",
+          "type": "website",
+          "title": "Pat Dixon - Ballotpedia",
+          "last_accessed": "2026-06-15T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://patdixon.org/",
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "President",
+          "organization": "DPAS Inc.",
+          "start_year": null,
+          "end_year": null,
+          "description": "Industrial automation and control consulting firm"
+        },
+        {
+          "title": "Chair",
+          "organization": "Libertarian Party of Texas",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served 10 years as state party chair"
+        },
+        {
+          "title": "Member",
+          "organization": "Libertarian National Committee",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served two terms"
+        },
+        {
+          "title": "City Council Member, Place 1",
+          "organization": "City of Lago Vista, Texas",
+          "start_year": 2005,
+          "end_year": 2010,
+          "description": "Elected to two terms"
+        }
+      ],
+      "education": [
+        {
+          "institution": "Miami University",
+          "degree": "Engineering Program",
+          "field": "Pulp and Paper Industry Engineering",
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Jenn Mack Raphoon",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Jenn Mack Raphoon is an independent candidate for Texas Governor. A 7th-generation Texan, she describes herself as not a career politician and has a background in business and operations management. Raphoon is running on a platform emphasizing constitutional government, border security, and returning power to the people, positioning herself as an alternative to both major parties. She declared her candidacy for the 2026 general election as an independent.",
+      "summary_sources": [
+        {
+          "url": "https://jennmackfortexas.com/about/",
+          "type": "website",
+          "title": "About - Jenn Mack for Texas",
+          "last_accessed": "2026-06-15T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Jenn_Mack_Raphoon",
+          "type": "website",
+          "title": "Jenn Mack Raphoon - Ballotpedia",
+          "last_accessed": "2026-06-15T00:00:00Z"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_Texas_gubernatorial_election",
+          "type": "news",
+          "title": "2026 Texas gubernatorial election - Wikipedia",
+          "last_accessed": "2026-06-15T00:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://jennmackfortexas.com/",
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Texas_gubernatorial_election,_2026",
+  "updated_utc": "2026-06-13T21:05:05.318066+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "reviews": [],
+  "validation_grade": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 289781,
+    "completion_tokens": 9006,
+    "total_tokens": 298787,
+    "cost_usd": 0.01922125,
+    "cost_source": "provider",
+    "estimated_usd": 0.030164,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 289781,
+        "completion_tokens": 9006
+      }
+    },
+    "duration_s": 196.3
+  }
+}

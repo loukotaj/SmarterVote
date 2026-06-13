@@ -1,0 +1,285 @@
+{
+  "id": "wv-house-01-2026",
+  "title": "West Virginia's 1st Congressional District General Election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "West Virginia's 1st Congressional District",
+  "state": "West Virginia",
+  "district": "1st Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 general election for West Virginia's 1st Congressional District features incumbent Republican Carol Miller seeking a fifth term against Democratic nominee Vince George and independent candidate Isaiah Rucker. The district covers southern West Virginia, including Charleston and Huntington, and has a strong Republican lean (Cook PVI: R+22). Miller, a staunch conservative and Trump ally who serves on the House Ways and Means Committee, won her previous race with 66.4% of the vote in 2024. George, a retired public policy analyst and former teacher, ran on a platform of economic fairness, healthcare access, and environmental protection. The race is rated 'Solid R' by Cook Political Report, Inside Elections, and Sabato's Crystal Ball.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for this race. Major nonpartisan forecasters (Cook Political Report, Inside Elections, Sabato's Crystal Ball) all rate the district as 'Solid Republican' or 'Safe Republican.'",
+  "candidates": [
+    {
+      "name": "Carol Miller",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Carol Miller is the incumbent U.S. Representative for West Virginia's 1st Congressional District, first elected in 2018. She serves on the House Ways and Means Committee and is a staunch conservative ally of President Donald Trump, supporting limits on environmental regulations for coal and energy industries. Before Congress, she served more than a decade in the West Virginia House of Delegates and co-owns a bison farm with her husband.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Carol_Miller_(politician)",
+          "type": "website",
+          "title": "Carol Miller (politician) - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-07T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Carol_Miller_(West_Virginia)",
+          "type": "website",
+          "title": "Carol Miller (West Virginia) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-07T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://westvirginiawatch.com/2026/05/12/carol-miller-soundly-wins-the-republican-nomination-for-u-s-house-of-reps-in-wv-during-2026-primary/",
+          "type": "news",
+          "title": "Miller to defend U.S. House seat against Democrat Vince George in WV's November general election",
+          "description": null,
+          "last_accessed": "2026-06-07T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Carol_Miller%2C_official_portrait_%28118th_Congress%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Represents West Virginia's 3rd Congressional District (2019-2023) and 1st Congressional District (2023-present). Serves on the House Ways and Means Committee.",
+          "source": null
+        },
+        {
+          "title": "Member",
+          "organization": "West Virginia House of Delegates",
+          "start_year": 2006,
+          "end_year": 2018,
+          "description": "Represented the 15th district (2006-2012) and 16th district (2012-2018).",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Columbia College (South Carolina)",
+          "degree": "Bachelor of Arts",
+          "field": "History and Political Science",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "http://miller.house.gov/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/RepCarolMiller/",
+        "instagram": "https://www.instagram.com/repcarolmiller/",
+        "twitter": "https://x.com/Carolforcongress"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Vince George",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Vince George is a retired public policy analyst, former teacher, and community advocate running for Congress as a Democrat. He grew up in South Charleston and worked for decades helping West Virginians access SNAP, Medicaid, and other public benefits, as well as recruiting healthcare providers for rural communities. He also worked with environmental groups to advocate against mountaintop removal mining and served as campaign manager for Denise Giardina's independent gubernatorial run.",
+      "summary_sources": [
+        {
+          "url": "https://www.vincegeorgeforcongress.com/about",
+          "type": "website",
+          "title": "About Vince | Vince George for Congress",
+          "description": null,
+          "last_accessed": "2026-06-07T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://westvirginiawatch.com/2026/05/12/carol-miller-soundly-wins-the-republican-nomination-for-u-s-house-of-reps-in-wv-during-2026-primary/",
+          "type": "news",
+          "title": "Miller to defend U.S. House seat against Democrat Vince George in WV's November general election",
+          "description": null,
+          "last_accessed": "2026-06-07T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_West_Virginia",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in West Virginia - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-07T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Retired Public Policy Analyst",
+          "organization": "Various state and nonprofit agencies",
+          "start_year": null,
+          "end_year": null,
+          "description": "Helped people access SNAP, Medicaid, TANF benefits; recruited doctors to treat Medicaid patients across 27 West Virginia counties.",
+          "source": null
+        },
+        {
+          "title": "Teacher",
+          "organization": "Fairmont State University, Shepherd University, Martinsburg High School",
+          "start_year": null,
+          "end_year": null,
+          "description": "Taught at the university and high school levels.",
+          "source": null
+        },
+        {
+          "title": "Campaign Manager",
+          "organization": "Denise Giardina for Governor",
+          "start_year": null,
+          "end_year": null,
+          "description": "Managed the statewide independent gubernatorial campaign; helped collect signatures to get the Mountain Party on the ballot.",
+          "source": null
+        },
+        {
+          "title": "Staffer",
+          "organization": "West Virginia Legislature",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked as a legislative staffer.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "West Virginia University",
+          "degree": null,
+          "field": "Political Science and Commerce",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.vincegeorgeforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/people/Vince-George-For-Congress/61585501780299/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Isaiah Rucker",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Isaiah Rucker is an independent candidate running for U.S. House in West Virginia's 1st Congressional District. He describes himself as a MAGA activist and is running on a platform of conservative and America First principles. Rucker is one of three candidates in the general election alongside incumbent Republican Carol Miller and Democratic nominee Vince George.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Isaiah_Rucker",
+          "type": "website",
+          "title": "Isaiah Rucker - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-07T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_West_Virginia",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in West Virginia - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-07T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.localcandidates.org/politicians/isaiah-rucker",
+          "type": "website",
+          "title": "Isaiah Rucker (I) - Local Candidates",
+          "description": null,
+          "last_accessed": "2026-06-07T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {
+        "twitter": "https://x.com/IsaiahRuck25691"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/West_Virginia%27s_1st_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:44:17.762216+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 180288,
+    "completion_tokens": 7186,
+    "total_tokens": 187474,
+    "cost_usd": 0.012097864,
+    "cost_source": "provider",
+    "estimated_usd": 0.019077,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 180288,
+        "completion_tokens": 7186
+      }
+    },
+    "duration_s": 147.8
+  }
+}

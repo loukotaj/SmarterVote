@@ -1,0 +1,226 @@
+{
+  "id": "ky-house-05-2026",
+  "title": "Kentucky's 5th Congressional District Election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Kentucky's 5th Congressional District",
+  "state": "Kentucky",
+  "district": "5th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 general election for Kentucky's 5th Congressional District pits longtime Republican incumbent Hal Rogers against Democratic challenger Ned Pillersdorf. Rogers, first elected in 1980, is the Dean of the U.S. House and the longest-serving Kentucky Republican in federal office. The district covers 33 counties in eastern and south-central Kentucky and is rated Solidly Republican by nonpartisan election forecasters. Pillersdorf, a trial attorney from Prestonsburg, is challenging Rogers on the incumbent's support for the 2025 Republican budget bill that included significant cuts to Medicaid and food assistance programs in a district where roughly half the population relies on Medicaid.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for the Kentucky 5th Congressional District general election. The Cook Political Report rates the race as 'Solid R'.",
+  "candidates": [
+    {
+      "name": "Hal Rogers",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Hal Rogers is the Dean of the United States House of Representatives and has represented Kentucky's 5th Congressional District since 1981, serving 23 consecutive terms. He chairs or has chaired powerful committees including the House Appropriations Committee, and he is endorsed by President Trump for his 2026 re-election bid. Rogers focuses on economic development, infrastructure, and conservative fiscal policy for eastern Kentucky.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Hal_Rogers",
+          "type": "website",
+          "title": "Hal Rogers - Wikipedia",
+          "description": null,
+          "last_accessed": "2025-07-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://congressmanhalrogers.com/",
+          "type": "website",
+          "title": "Congressman Hal Rogers - Eastern Kentucky's Champion",
+          "description": null,
+          "last_accessed": "2025-07-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-kentucky-us-house-5-primary.html",
+          "type": "news",
+          "title": "Kentucky Fifth Congressional District Primary Election Results - The New York Times",
+          "description": null,
+          "last_accessed": "2025-07-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/db/Harold_Rogers_118th_Congress.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 1981,
+          "end_year": null,
+          "description": "Representing Kentucky's 5th Congressional District; Dean of the House since 2022",
+          "source": null
+        },
+        {
+          "title": "Chairman",
+          "organization": "House Appropriations Committee",
+          "start_year": 2011,
+          "end_year": 2017,
+          "description": "Chaired the powerful committee overseeing federal spending",
+          "source": null
+        },
+        {
+          "title": "Commonwealth's Attorney",
+          "organization": "28th Kentucky Circuit Court",
+          "start_year": 1969,
+          "end_year": 1981,
+          "description": "Prosecutor for Pulaski and Rockcastle counties",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Kentucky",
+          "degree": "Bachelor of Arts",
+          "field": "General Studies",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Kentucky",
+          "degree": "Bachelor of Laws (LLB)",
+          "field": "Law",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Western Kentucky University",
+          "degree": null,
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://congressmanhalrogers.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Ned Pillersdorf",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Ned Pillersdorf is an Eastern Kentucky trial attorney from Prestonsburg who has practiced law in the region since 1981. He is best known for representing thousands of low-income Kentuckians who lost Social Security disability benefits in the aftermath of the Eric Conn fraud scandal. Pillersdorf is campaigning on protecting Medicaid, Medicare, and food assistance programs, arguing that incumbent Hal Rogers' votes for recent Republican budget cuts endanger the district's most vulnerable residents.",
+      "summary_sources": [
+        {
+          "url": "https://kentuckylantern.com/voter-guides/contests/u-s-house-5th-district-dems/",
+          "type": "news",
+          "title": "U.S. House \u2013 5th District - Dems | Voter Guide: 2026 Primary Election - Kentucky Lantern",
+          "description": null,
+          "last_accessed": "2025-07-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://spectrumnews1.com/ky/louisville/news/2025/07/07/democrat-ned-pillersdorf-campaign",
+          "type": "news",
+          "title": "Democrat Ned Pillersdorf launches challenge to Republican Rep. Hal Rogers - Spectrum News",
+          "description": null,
+          "last_accessed": "2025-07-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://nedforcongress.com/",
+          "type": "website",
+          "title": "Ned Pillersdorf for Congress",
+          "description": null,
+          "last_accessed": "2025-07-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Attorney",
+          "organization": "Pillersdorf, DeRossett and Lane",
+          "start_year": 1981,
+          "end_year": null,
+          "description": "Civil and criminal law practice in Prestonsburg, Kentucky, focusing on disability benefits and underdog representation",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Vanderbilt University",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "McGeorge School of Law, University of the Pacific",
+          "degree": null,
+          "field": null,
+          "year": 1980,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://nedforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Kentucky%27s_5th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:18:10.417791+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 266504,
+    "completion_tokens": 6182,
+    "total_tokens": 272686,
+    "cost_usd": 0.018942504,
+    "cost_source": "provider",
+    "estimated_usd": 0.027329,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 266504,
+        "completion_tokens": 6182
+      }
+    },
+    "duration_s": 145.4
+  }
+}

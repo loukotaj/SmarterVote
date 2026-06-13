@@ -1,0 +1,137 @@
+{
+  "id": "va-house-06-2026",
+  "title": "Virginia's 6th Congressional District Election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Virginia's 6th Congressional District",
+  "state": "Virginia",
+  "district": "6th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Virginia's 6th Congressional District covers the Shenandoah Valley, Roanoke Valley, and parts of central Virginia including Charlottesville, Lynchburg, and Harrisonburg. The race pits incumbent Republican Rep. Ben Cline, first elected in 2018 and a staunch conservative, against Democratic nominee Beth Macy, a best-selling author and former journalist making her first run for political office. The race gained additional significance after the Virginia Supreme Court struck down a 2026 ballot referendum that would have redrawn congressional maps to favor Democrats, leaving the current Republican-leaning district boundaries intact. Cline is favored in the district, which voted for Donald Trump by 24 points in 2024 and re-elected Cline by 28 points, but Macy has mounted a well-funded campaign emphasizing economic populism and rural community concerns.",
+  "polling": [],
+  "polling_note": "No direct head-to-head general election polling for Cline vs. Macy was publicly available as of mid-2026. A G. Elliot Morris MRP analysis published April 14, 2026 by Cardinal News estimated Trump's approval in the 6th District at 48.3% approve / 51.7% disapprove, suggesting a potentially competitive environment but did not test the specific matchup.",
+  "candidates": [
+    {
+      "name": "Ben Cline",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Ben Cline is the incumbent U.S. Representative for Virginia's 6th District, first elected in 2018. He previously served in the Virginia House of Delegates from 2002 to 2018 and worked as an assistant commonwealth's attorney. Cline is a conservative Republican who serves on the House Judiciary and Budget committees and has focused on reducing government regulation, protecting Second Amendment rights, and supporting border security.",
+      "summary_sources": [
+        {
+          "url": "https://cline.house.gov/about/",
+          "type": "government",
+          "title": "About | U.S. Representative Ben Cline",
+          "last_accessed": "2026-06-12T18:00:00Z"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Ben_Cline",
+          "type": "website",
+          "title": "Ben Cline - Wikipedia",
+          "last_accessed": "2026-06-12T18:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Ben_Cline",
+          "type": "website",
+          "title": "Ben Cline - Ballotpedia",
+          "last_accessed": "2026-06-12T18:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Rep_Ben_Cline_Official_Photo_119th_Congress.jpg/250px-Rep_Ben_Cline_Official_Photo_119th_Congress.jpg",
+      "website": "https://bencline.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/RepBenCline/",
+        "instagram": null,
+        "twitter": null,
+        "youtube": null
+      },
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Representing Virginia's 6th Congressional District"
+        },
+        {
+          "title": "Member of the Virginia House of Delegates",
+          "organization": "Virginia General Assembly",
+          "start_year": 2002,
+          "end_year": 2018,
+          "description": "Represented the 24th District"
+        },
+        {
+          "title": "Assistant Commonwealth's Attorney",
+          "organization": "Rockingham County / City of Harrisonburg",
+          "start_year": 2007,
+          "end_year": 2013,
+          "description": "Prosecuted criminal cases"
+        },
+        {
+          "title": "Chief of Staff / Legislative Correspondent",
+          "organization": "Office of U.S. Rep. Bob Goodlatte",
+          "start_year": 1994,
+          "end_year": 2002,
+          "description": "Worked for his predecessor in Congress"
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Richmond School of Law",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": 2007
+        },
+        {
+          "institution": "Bates College",
+          "degree": "B.A.",
+          "field": null,
+          "year": 1994
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [
+        {
+          "url": "https://cline.house.gov/",
+          "title": "Official House Website",
+          "type": "other"
+        },
+        {
+          "url": "https://bencline.com/",
+          "title": "Campaign Website",
+          "type": "other"
+        }
+      ],
+      "issues": {}
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Virginia%27s_6th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:24:03.750662+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "reviews": [],
+  "validation_grade": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 378445,
+    "completion_tokens": 8577,
+    "total_tokens": 387022,
+    "cost_usd": 0.026398526,
+    "cost_source": "provider",
+    "estimated_usd": 0.038769,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 378445,
+        "completion_tokens": 8577
+      }
+    },
+    "duration_s": 157.1
+  }
+}

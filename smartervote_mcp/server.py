@@ -139,6 +139,50 @@ async def publish_race(race_id: str) -> dict[str, Any]:
 
 
 @mcp.tool()
+async def publish_races(race_ids: list[str]) -> dict[str, Any]:
+    """Publish multiple draft races in bulk."""
+    return await _client().post("/api/races/publish", json={"race_ids": race_ids})
+
+
+@mcp.tool()
+async def list_unpublished_drafts() -> list[dict[str, Any]]:
+    """List all draft races that are either not published or have unpublished changes."""
+    res = await list_admin_races()
+    races = res.get("races", [])
+    unpublished = []
+    for race in races:
+        if race.get("draft_exists") and (not race.get("published_exists") or race.get("has_unpublished_changes")):
+            unpublished.append(race)
+    return unpublished
+
+
+@mcp.tool()
+async def trigger_web_deploy() -> dict[str, Any]:
+    """Trigger the WebDeploy.yml GitHub Actions workflow using the local gh CLI.
+    This redeploys the static site to smarter.vote.
+    """
+    import subprocess
+    try:
+        result = subprocess.run(
+            ["gh", "workflow", "run", "WebDeploy.yml"],
+            capture_output=True,
+            text=True,
+            check=False
+        )
+        if result.returncode == 0:
+            return {"success": True, "message": "Successfully triggered WebDeploy.yml workflow."}
+        else:
+            return {
+                "success": False,
+                "error": f"Failed to run workflow. returncode={result.returncode}",
+                "stdout": result.stdout,
+                "stderr": result.stderr
+            }
+    except Exception as exc:
+        return {"success": False, "error": str(exc)}
+
+
+@mcp.tool()
 async def unpublish_race(race_id: str) -> dict[str, Any]:
     """Remove a race from public published data while keeping its draft."""
     return await _client().post(f"/api/races/{race_id}/unpublish")

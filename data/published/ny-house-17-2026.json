@@ -1,0 +1,548 @@
+{
+  "id": "ny-house-17-2026",
+  "title": "New York's 17th Congressional District Election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "New York's 17th Congressional District",
+  "state": "New York",
+  "district": "17th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "New York's 17th Congressional District, encompassing all of Rockland and Putnam counties and parts of northern Westchester and southeastern Dutchess counties, is one of the most competitive swing districts in the country. Incumbent Republican Rep. Mike Lawler, first elected in 2022 by unseating a Democratic incumbent, is seeking a third term in a district that Kamala Harris won in 2024. Democrats view this seat as a top pickup opportunity to help flip control of the House, with five candidates competing in the June 23, 2026 Democratic primary. The race centers on issues including the cost of living, the SALT deduction, abortion rights, and national security, with Lawler positioning himself as a moderate Republican while his Democratic challengers argue he has aligned too closely with the Trump administration.",
+  "polling": [
+    {
+      "pollster": "Data for Progress",
+      "date": "2026-05-05",
+      "sample_size": 500,
+      "matchups": [
+        {
+          "candidates": [
+            "Cait Conley",
+            "Beth Davidson",
+            "Effie Phillips-Staley"
+          ],
+          "percentages": [
+            28.0,
+            24.0,
+            16.0
+          ]
+        }
+      ],
+      "source_url": "https://effieforcongress.com/2026/05/in-the-news-new-poll-shows-pro-palestine-democrat-rising-in-mike-lawlers-district-ny-17/"
+    }
+  ],
+  "polling_note": "Limited public polling is available for this race. A Data for Progress poll from May 2026 showed Cait Conley leading the Democratic primary field. The Cook Political Report rates this race as a toss-up. Primary is June 23, 2026; general election polls are expected after the nominee is selected.",
+  "candidates": [
+    {
+      "name": "Michael Lawler",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Michael Lawler is the incumbent U.S. Representative for New York's 17th Congressional District, first elected in 2022. He advanced unopposed from the Republican primary and is running for a third term. Lawler represents a swing district and has positioned himself as a moderate Republican, emphasizing tax relief and bipartisan cooperation while supporting key elements of the Trump agenda.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Mike_Lawler",
+          "type": "website",
+          "title": "Mike Lawler - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://lawler.house.gov/about/",
+          "type": "government",
+          "title": "Biography | Congressman Mike Lawler",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/New_York%27s_17th_Congressional_District_election,_2026_(June_23_Republican_primary)",
+          "type": "website",
+          "title": "New York's 17th Congressional District election, 2026 (June 23 Republican primary)",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Michael_Lawler.png",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Representing New York's 17th Congressional District",
+          "source": null
+        },
+        {
+          "title": "Member",
+          "organization": "New York State Assembly",
+          "start_year": 2021,
+          "end_year": 2022,
+          "description": "Represented the 97th Assembly District",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Manhattan College",
+          "degree": "Bachelor's",
+          "field": "Political Science",
+          "year": 2008,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://lawler.house.gov/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Cait Conley",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Cait Conley is a fourth-generation Hudson Valley native, West Point graduate, and former Army Special Operations officer who served six overseas deployments and earned three Bronze Stars. She later served as Director for Counterterrorism on the National Security Council at the White House and worked at the Cybersecurity and Infrastructure Security Agency (CISA). Conley is running as a moderate Democrat emphasizing national security experience, lowering costs, and protecting democratic institutions.",
+      "summary_sources": [
+        {
+          "url": "https://caitconley.com/",
+          "type": "website",
+          "title": "Cait Conley for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Cait_Conley",
+          "type": "website",
+          "title": "Cait Conley - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://jstreetpac.org/candidate/cait-conley/",
+          "type": "website",
+          "title": "Cait Conley - JStreetPAC",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Director for Counterterrorism",
+          "organization": "National Security Council, The White House",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served on the National Security Council",
+          "source": null
+        },
+        {
+          "title": "Senior Official",
+          "organization": "Cybersecurity and Infrastructure Security Agency (CISA)",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked on election security and critical infrastructure protection",
+          "source": null
+        },
+        {
+          "title": "Active Duty Army Officer",
+          "organization": "United States Army",
+          "start_year": null,
+          "end_year": null,
+          "description": "16 years of service including six combat deployments; one of the first women in Special Operations leadership",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "United States Military Academy at West Point",
+          "degree": "Bachelor's",
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Massachusetts Institute of Technology",
+          "degree": "Master's",
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Harvard University",
+          "degree": "Master's",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://caitconley.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Beth Davidson",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Beth Davidson is a Rockland County Legislator and former Nyack School Board member who is running as a bipartisan problem-solver focused on lowering costs, protecting the environment, and keeping communities safe. She chairs the Environment Committee and serves as Vice Chair of the Housing and Economic Development Committee in the County Legislature. A two-time cancer survivor, Davidson emphasizes healthcare access and restoring the SALT deduction.",
+      "summary_sources": [
+        {
+          "url": "https://bethdavidsonforcongress.com/meet-beth/",
+          "type": "website",
+          "title": "Meet Beth | Beth Davidson for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Beth_Davidson_(New_York)",
+          "type": "website",
+          "title": "Beth Davidson (New York) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://legislature.rocklandcountyny.gov/meet-the-legislators/beth-j-davidson-district-10",
+          "type": "government",
+          "title": "Beth J. Davidson | Rockland County Legislature",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "County Legislator",
+          "organization": "Rockland County Legislature",
+          "start_year": null,
+          "end_year": null,
+          "description": "Chair of Environment Committee and Task Force on Water Resources Management; Vice Chair of Housing and Economic Development Committee",
+          "source": null
+        },
+        {
+          "title": "School Board Member",
+          "organization": "Nyack Board of Education",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served two terms including as Vice President and Secretary",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://bethdavidsonforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Effie Phillips-Staley",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Effie Phillips-Staley is a Tarrytown Village Trustee and nonprofit executive running as a progressive Democrat. Raised in a union household by a Salvadoran public school educator and a U.S. military veteran, she advocates for Medicare for All, universal childcare, building five million new homes, abolishing ICE, and Block the Bombs legislation. She is the endorsed Working Families Party nominee and refuses corporate PAC or AIPAC donations.",
+      "summary_sources": [
+        {
+          "url": "https://effieforcongress.com/about/",
+          "type": "website",
+          "title": "Meet Effie | Effie Phillips-Staley for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Effie_Phillips-Staley",
+          "type": "website",
+          "title": "Effie Phillips-Staley - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cityandstateny.com/personality/2025/10/bringing-working-class-voters-back-democratic-party-hudson-valley/408835/",
+          "type": "news",
+          "title": "Bringing working-class voters back to the Democratic Party in the Hudson Valley",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Village Trustee",
+          "organization": "Village of Tarrytown",
+          "start_year": null,
+          "end_year": null,
+          "description": "Elected village trustee",
+          "source": null
+        },
+        {
+          "title": "Nonprofit Executive",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Nonprofit leader serving marginalized communities",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://effieforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "John Cappello",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "John Cappello is a retired U.S. Air Force veteran and graduate of the Air Force Academy who grew up in Rockland County. He is running as a Democrat focused on integrity and service, having previously been registered as a Republican before switching parties. Cappello emphasizes his military background and commitment to putting country over party.",
+      "summary_sources": [
+        {
+          "url": "https://www.cappelloforcongress.com/",
+          "type": "website",
+          "title": "Cappello for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/John_Cappello",
+          "type": "website",
+          "title": "John Cappello - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.lohud.com/story/news/politics/2025/08/26/ny-17-newest-democrat-john-cappello-seeking-mike-lawler-seat-was-originally-a-republican/85813133007/",
+          "type": "news",
+          "title": "Another Democrat seeks Mike Lawler's seat with odd twist",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Air Force Veteran (Retired)",
+          "organization": "United States Air Force",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served in the Air Force including time as an officer",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "United States Air Force Academy",
+          "degree": "Bachelor's",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.cappelloforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Mike Sacks",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Mike Sacks is a lawyer and former television journalist running as a progressive Democrat. He is a Georgetown Law graduate who previously worked as a Supreme Court watchdog and reporter. Sacks has positioned himself as an outsider candidate focused on fighting corporate influence in politics and addressing economic inequality in the Hudson Valley.",
+      "summary_sources": [
+        {
+          "url": "https://www.mikesacksforcongress.com/",
+          "type": "website",
+          "title": "Mike Sacks for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Mike_Sacks",
+          "type": "website",
+          "title": "Mike Sacks - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.lohud.com/story/news/politics/2025/04/09/mike-sacks-is-4th-democrat-to-enter-race-for-mike-lawlers-17th-district-house-seat/82987418007/",
+          "type": "news",
+          "title": "Mike Sacks is 4th Democrat to enter race for Mike Lawler's House seat",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Television Journalist / Supreme Court Reporter",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Former TV reporter covering legal and political issues",
+          "source": null
+        },
+        {
+          "title": "Attorney",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Practiced law before transitioning to journalism",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Georgetown University Law Center",
+          "degree": "JD",
+          "field": "Law",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.mikesacksforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/New_York%27s_17th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:16:29.587234+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 291964,
+    "completion_tokens": 8606,
+    "total_tokens": 300570,
+    "cost_usd": 0.02368984,
+    "cost_source": "provider",
+    "estimated_usd": 0.030299,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 291964,
+        "completion_tokens": 8606
+      }
+    },
+    "duration_s": 154.6
+  }
+}

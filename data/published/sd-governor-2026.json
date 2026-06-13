@@ -1,0 +1,395 @@
+{
+  "id": "sd-governor-2026",
+  "title": "South Dakota Governor Election, 2026",
+  "office": "Governor of South Dakota",
+  "jurisdiction": "South Dakota",
+  "state": "South Dakota",
+  "district": null,
+  "election_date": "2026-11-03",
+  "description": "The 2026 South Dakota gubernatorial election is scheduled for November 3, 2026, to elect the governor for a four-year term. Incumbent Republican Governor Larry Rhoden, who ascended from lieutenant governor in January 2025 after Kristi Noem resigned to become U.S. Secretary of Homeland Security, is seeking his first full term. The Republican primary on June 2 ended without a candidate reaching the required 35% threshold, triggering a July 28 runoff between Rhoden and Aberdeen businessman Toby Doeden. Former state legislator Dan Ahlers is the Democratic nominee. South Dakota has not elected a Democratic governor since 1974 and currently has a Republican trifecta in state government, making this a heavily Republican-leaning race.",
+  "polling": [],
+  "polling_note": "No general-election matchup polls between the Democratic nominee and either Republican candidate were found. Available polls from 2025-2026 focused on the multi-candidate Republican primary, which has since concluded with Rhoden and Doeden advancing to a July 28 runoff.",
+  "candidates": [
+    {
+      "name": "Larry Rhoden",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Larry Rhoden is the incumbent Governor of South Dakota, having assumed office on January 25, 2025, after Kristi Noem resigned to join the Trump administration. A lifelong rancher and welder from Union Center, Rhoden previously served as lieutenant governor from 2019 to 2025 and in both chambers of the South Dakota Legislature for a combined 14 years. He is campaigning on his record of signing legislation to reduce homeowner property taxes, ban eminent domain for carbon pipelines, and fund a new state prison.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Larry_Rhoden",
+          "type": "website",
+          "title": "Larry Rhoden - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-17T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://southdakotasearchlight.com/2026/06/03/partial-returns-show-runoff-likely-needed-to-decide-south-dakota-republican-governor-primary/",
+          "type": "news",
+          "title": "Doeden and Rhoden advance to runoff in Republican governor primary",
+          "description": null,
+          "last_accessed": "2026-06-17T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://vip.sdsos.gov/candidatelist.aspx?eid=773",
+          "type": "government",
+          "title": "2026 Primary Election Candidate List - South Dakota Secretary of State",
+          "description": null,
+          "last_accessed": "2026-06-17T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Larry_Rhoden_2025_%28cropped%29.jpg/250px-Larry_Rhoden_2025_%28cropped%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Governor of South Dakota",
+          "organization": "State of South Dakota",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Became governor after Kristi Noem resigned to become U.S. Secretary of Homeland Security",
+          "source": null
+        },
+        {
+          "title": "Lieutenant Governor of South Dakota",
+          "organization": "State of South Dakota",
+          "start_year": 2019,
+          "end_year": 2025,
+          "description": "Served under Governor Kristi Noem",
+          "source": null
+        },
+        {
+          "title": "Acting Secretary of Agriculture",
+          "organization": "South Dakota Department of Agriculture",
+          "start_year": 2020,
+          "end_year": 2020,
+          "description": "Interim role after resignation of Kim Vanneman",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "South Dakota Senate",
+          "start_year": 2009,
+          "end_year": 2015,
+          "description": "Represented the 29th district",
+          "source": null
+        },
+        {
+          "title": "State Representative",
+          "organization": "South Dakota House of Representatives",
+          "start_year": 2001,
+          "end_year": 2009,
+          "description": "Served four terms including four years as majority leader",
+          "source": null
+        },
+        {
+          "title": "Rancher and Welder",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "Owns and operates a cow-calf operation and custom welding business",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Sunshine Bible Academy",
+          "degree": "High School Diploma",
+          "field": null,
+          "year": 1977,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://governorlarryrhoden.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/RhodenforGov/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Toby Doeden",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Toby Doeden is an Aberdeen businessman and political newcomer who advanced to the July 28 Republican primary runoff by finishing first in the June 2 primary with 31% of the vote. He owns multiple businesses including car dealerships, rental properties, and retail establishments. Doeden is running as a political outsider and strong supporter of President Donald Trump, vowing to phase out property taxes, reduce state spending, and bring a business-oriented approach to state government. He has invested at least $4 million of his own money into his campaign.",
+      "summary_sources": [
+        {
+          "url": "https://tobydoeden.com/about/",
+          "type": "website",
+          "title": "About - Toby Doeden for South Dakota",
+          "description": null,
+          "last_accessed": "2026-06-17T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://southdakotasearchlight.com/2026/06/03/partial-returns-show-runoff-likely-needed-to-decide-south-dakota-republican-governor-primary/",
+          "type": "news",
+          "title": "Doeden and Rhoden advance to runoff in Republican governor primary",
+          "description": null,
+          "last_accessed": "2026-06-17T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.aberdeennews.com/story/news/politics/2025/04/17/toby-doeden-of-aberdeen-major-political-player-in-south-dakota/83136793007/",
+          "type": "news",
+          "title": "Aberdeen's Toby Doeden makes the political establishment nervous",
+          "description": null,
+          "last_accessed": "2026-06-17T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://vip.sdsos.gov/candidatelist.aspx?eid=773",
+          "type": "government",
+          "title": "2026 Primary Election Candidate List - South Dakota Secretary of State",
+          "description": null,
+          "last_accessed": "2026-06-17T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Owner",
+          "organization": "Aberdeen Chrysler",
+          "start_year": 2020,
+          "end_year": null,
+          "description": "Acquired the dealership after working there for 23 years",
+          "source": null
+        },
+        {
+          "title": "Owner",
+          "organization": "Harr's Redfield Ford",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Acquired Ford dealership in Redfield, South Dakota",
+          "source": null
+        },
+        {
+          "title": "General Manager",
+          "organization": "Aberdeen Chrysler",
+          "start_year": 2011,
+          "end_year": 2020,
+          "description": "Managed dealership operations",
+          "source": null
+        },
+        {
+          "title": "Sales Consultant",
+          "organization": "Aberdeen Chrysler",
+          "start_year": 1997,
+          "end_year": 2011,
+          "description": "Started career in auto sales",
+          "source": null
+        },
+        {
+          "title": "Business Owner",
+          "organization": "Doeden Investment Group",
+          "start_year": null,
+          "end_year": null,
+          "description": "Owns rental properties, retail establishments, coffee shops, sports bars, and fireworks outlets",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://tobydoeden.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/TobydoedenforSouthDakota/",
+        "instagram": "https://www.instagram.com/tobydoeden/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Dan Ahlers",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Dan Ahlers is the Democratic nominee for Governor of South Dakota, having run uncontested in the June 2 Democratic primary. A former state senator and state representative from Dell Rapids, Ahlers also served as executive director of the South Dakota Democratic Party and was the Democratic nominee for U.S. Senate in 2020. He is a small business owner who emphasizes his experience working across party lines in the legislature and his focus on common-sense solutions to issues like education funding, rising costs, and rural community vitality.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Dan_Ahlers",
+          "type": "website",
+          "title": "Dan Ahlers - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-17T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.danahlers.com/about",
+          "type": "website",
+          "title": "Meet Dan - Ahlers for Governor",
+          "description": null,
+          "last_accessed": "2026-06-17T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://southdakotasearchlight.com/2026/02/10/democratic-candidate-for-governor-plans-to-lean-on-south-dakotas-core-values/",
+          "type": "news",
+          "title": "Democratic candidate for governor plans to lean on South Dakota's core values",
+          "description": null,
+          "last_accessed": "2026-06-17T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://vip.sdsos.gov/candidatelist.aspx?eid=773",
+          "type": "government",
+          "title": "2026 Primary Election Candidate List - South Dakota Secretary of State",
+          "description": null,
+          "last_accessed": "2026-06-17T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Executive Director",
+          "organization": "South Dakota Democratic Party",
+          "start_year": 2023,
+          "end_year": 2026,
+          "description": "Led state party operations",
+          "source": null
+        },
+        {
+          "title": "State Representative",
+          "organization": "South Dakota House of Representatives",
+          "start_year": 2017,
+          "end_year": 2019,
+          "description": "Represented District 25",
+          "source": null
+        },
+        {
+          "title": "President and Interim Administrator",
+          "organization": "Dell Rapids Chamber of Commerce",
+          "start_year": 2009,
+          "end_year": 2021,
+          "description": "Led local chamber of commerce for 12 years",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "South Dakota Senate",
+          "start_year": 2009,
+          "end_year": 2011,
+          "description": "Represented District 25",
+          "source": null
+        },
+        {
+          "title": "State Representative",
+          "organization": "South Dakota House of Representatives",
+          "start_year": 2007,
+          "end_year": 2009,
+          "description": "Represented District 25",
+          "source": null
+        },
+        {
+          "title": "Small Business Owner",
+          "organization": "Video Plus / Jabberwock Coffee House",
+          "start_year": 1999,
+          "end_year": 2019,
+          "description": "Owned video rental stores and a coffee house",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Augustana University",
+          "degree": "Bachelor of Arts",
+          "field": "Government and International Affairs",
+          "year": 1997,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.danahlers.com/",
+      "social_media": {
+        "twitter": "https://x.com/ahlers_dan"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/South_Dakota_gubernatorial_election,_2026",
+  "updated_utc": "2026-06-13T21:04:49.511480+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 325756,
+    "completion_tokens": 9647,
+    "total_tokens": 335403,
+    "cost_usd": 0.024409972000000002,
+    "cost_source": "provider",
+    "estimated_usd": 0.033815,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 325756,
+        "completion_tokens": 9647
+      }
+    },
+    "duration_s": 179.3
+  }
+}

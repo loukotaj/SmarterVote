@@ -100,7 +100,8 @@ class PipelineMetricsStore:
                 model_breakdown   TEXT NOT NULL DEFAULT '{}',
                 duration_s        REAL NOT NULL DEFAULT 0,
                 candidate_count   INTEGER NOT NULL DEFAULT 0,
-                cheap_mode        INTEGER NOT NULL DEFAULT 0
+                cheap_mode        INTEGER NOT NULL DEFAULT 0,
+                serper_calls      INTEGER NOT NULL DEFAULT 0
             )
             """
         )
@@ -112,6 +113,7 @@ class PipelineMetricsStore:
             "cheap_mode INTEGER NOT NULL DEFAULT 0",
             "cost_usd REAL",
             "cost_source TEXT NOT NULL DEFAULT 'estimated'",
+            "serper_calls INTEGER NOT NULL DEFAULT 0",
         ]:
             try:
                 self._sqlite_conn.execute(f"ALTER TABLE pipeline_metrics ADD COLUMN {col_def}")
@@ -132,6 +134,7 @@ class PipelineMetricsStore:
         status: str = "completed",
         candidate_count: int = 0,
         cheap_mode: bool = True,
+        serper_calls: int = 0,
     ) -> None:
         """Persist a pipeline run record. Safe to call fire-and-forget."""
         if not agent_metrics:
@@ -154,6 +157,7 @@ class PipelineMetricsStore:
             "duration_s": agent_metrics.get("duration_s", 0.0),
             "candidate_count": candidate_count,
             "cheap_mode": cheap_mode,
+            "serper_calls": serper_calls,
         }
 
         if self._client is not None:
@@ -179,8 +183,8 @@ class PipelineMetricsStore:
                     (run_id, race_id, timestamp, status, model,
                      prompt_tokens, completion_tokens, total_tokens,
                      estimated_usd, cost_usd, cost_source, model_breakdown, duration_s,
-                     candidate_count, cheap_mode)
-                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+                     candidate_count, cheap_mode, serper_calls)
+                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
                 """,
                 (
                     record["run_id"],
@@ -198,6 +202,7 @@ class PipelineMetricsStore:
                     record["duration_s"],
                     record.get("candidate_count", 0),
                     int(record.get("cheap_mode", True)),
+                    record.get("serper_calls", 0),
                 ),
             )
             self._sqlite_conn.commit()
@@ -237,7 +242,7 @@ class PipelineMetricsStore:
                 SELECT run_id, race_id, timestamp, status, model,
                        prompt_tokens, completion_tokens, total_tokens,
                        estimated_usd, cost_usd, cost_source, model_breakdown, duration_s,
-                       candidate_count, cheap_mode
+                       candidate_count, cheap_mode, serper_calls
                 FROM pipeline_metrics
                 ORDER BY timestamp DESC
                 LIMIT ?
@@ -262,6 +267,7 @@ class PipelineMetricsStore:
                     duration_s,
                     candidate_count,
                     cheap_mode_int,
+                    serper_calls,
                 ) = row
                 rows.append(
                     {
@@ -280,6 +286,7 @@ class PipelineMetricsStore:
                         "duration_s": duration_s,
                         "candidate_count": candidate_count or 0,
                         "cheap_mode": bool(cheap_mode_int),
+                        "serper_calls": serper_calls or 0,
                     }
                 )
             return rows

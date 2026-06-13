@@ -1,0 +1,484 @@
+{
+  "id": "md-house-01-2026",
+  "title": "Maryland's 1st Congressional District Election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Maryland's 1st Congressional District",
+  "state": "Maryland",
+  "district": "1st Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Maryland's 1st Congressional District will be decided in a general election on November 3, 2026, following a primary on June 23, 2026. The district covers the entire Eastern Shore of Maryland, including Salisbury, Harford County, and parts of northern Baltimore County. Incumbent Republican Andy Harris, the chair of the House Freedom Caucus who has held the seat since 2011, faces a Republican primary challenge from Chris Bruneau, while four Democrats\u2014Victor Guidice, Dan Schwartz, George Walish, and Randi White\u2014are competing in the Democratic primary. The race is rated 'Solid R' by Cook Political Report due to the district's Republican lean, though Democrats are energized by Harris's role in efforts to overturn the 2020 election results.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for this race as of June 2026.",
+  "candidates": [
+    {
+      "name": "Andy Harris",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Andy Harris is the incumbent U.S. Representative for Maryland's 1st Congressional District, first elected in 2010 and currently serving his eighth term. He serves as chair of the House Freedom Caucus and is the only Republican in Maryland's congressional delegation. Before Congress, he was an anesthesiologist at Johns Hopkins Hospital and served in the Maryland Senate from 1999 to 2011.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Andy_Harris_(politician)",
+          "type": "website",
+          "title": "Andy Harris (politician) - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cookpolitical.com/house/race/483196",
+          "type": "website",
+          "title": "MD-01 2026 | Cook Political Report",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Andy_Harris.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2011,
+          "end_year": null,
+          "description": "Representing Maryland's 1st Congressional District; Chair of the House Freedom Caucus since 2024",
+          "source": null
+        },
+        {
+          "title": "Member, Maryland Senate",
+          "organization": "Maryland General Assembly",
+          "start_year": 1999,
+          "end_year": 2011,
+          "description": "Represented District 9 (1999-2003) and District 7 (2003-2011); served as Minority Whip",
+          "source": null
+        },
+        {
+          "title": "Anesthesiologist",
+          "organization": "Johns Hopkins Hospital",
+          "start_year": 1985,
+          "end_year": 2011,
+          "description": "Chief of obstetric anesthesiology; Associate Professor of anesthesiology and critical care medicine",
+          "source": null
+        },
+        {
+          "title": "Commander, Navy Medical Corps",
+          "organization": "United States Navy Reserve",
+          "start_year": 1988,
+          "end_year": 2005,
+          "description": "Served on active duty during Operation Desert Storm; Commanding officer of Johns Hopkins Naval Reserve Medical Unit (1989-1992)",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Johns Hopkins University",
+          "degree": "Doctor of Medicine",
+          "field": "Medicine",
+          "year": 1980,
+          "source": null
+        },
+        {
+          "institution": "Johns Hopkins University",
+          "degree": "Master of Health Science",
+          "field": "Health Policy and Management",
+          "year": 1995,
+          "source": null
+        },
+        {
+          "institution": "Johns Hopkins University",
+          "degree": "Bachelor of Science",
+          "field": "Biology",
+          "year": 1977,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.andyharris.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Chris Bruneau",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Chris Bruneau is a building contractor and Republican candidate challenging incumbent Andy Harris in the primary. A former U.S. Army deep-sea diver who served in Panama and Germany, he owns a Paul Davis Restoration franchise in Bel Air, Maryland. He previously ran for this seat in 2024 and has pledged to support term limits on Congress.",
+      "summary_sources": [
+        {
+          "url": "https://commonreader.wustl.edu/a-friend-runs-for-congress/",
+          "type": "news",
+          "title": "When Your Friend Runs for Congress - Common Reader",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://elections.maryland.gov/elections/2026/Primary_candidates/2026_GP_statewide_candidatelist.html",
+          "type": "government",
+          "title": "2026 Gubernatorial Primary Election State Candidates List",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Owner/Franchisee",
+          "organization": "Paul Davis Restoration",
+          "start_year": null,
+          "end_year": null,
+          "description": "Fire and water restoration services",
+          "source": null
+        },
+        {
+          "title": "Captain",
+          "organization": "Maryland Defense Force",
+          "start_year": null,
+          "end_year": null,
+          "description": "State defense force service",
+          "source": null
+        },
+        {
+          "title": "Deep-Sea Diver / Infantryman",
+          "organization": "United States Army",
+          "start_year": 1978,
+          "end_year": 1989,
+          "description": "Served as an infantryman and deep-sea diver; stationed in Panama and Germany",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://cbforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Dan Schwartz",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Dan Schwartz is a consumer advocate and Democratic candidate for Maryland's 1st Congressional District. With over 14 years of experience working in financial regulation to protect consumers from financial abuse and corruption, he is running on a platform of affordability, restoring consumer protections, and prioritizing the health and safety of Eastern Shore residents. He studied political science at George Washington University.",
+      "summary_sources": [
+        {
+          "url": "https://blog.washcoll.edu/wordpress/theelm/2026/02/district-1-congressional-candidate-schwartz-campaigns-on-affordability-and-consumer-safety/",
+          "type": "news",
+          "title": "District 1 congressional candidate Schwartz campaigns on affordability and consumer safety",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.facebook.com/schwartz4congress/",
+          "type": "website",
+          "title": "Dan Schwartz for Congress Facebook",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Dan_Schwartz.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Consumer Advocate",
+          "organization": "Financial Regulatory Agency",
+          "start_year": null,
+          "end_year": null,
+          "description": "Over 14 years working in financial regulation to protect consumers",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "George Washington University",
+          "degree": "Bachelor's",
+          "field": "Political Science",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.schwartzforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Randi White",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Randi White is a Democratic candidate for Maryland's 1st Congressional District who was born and raised in Salisbury. With over 20 years of experience in media and communications, she is running on a detailed 181-page policy platform covering healthcare, environmental justice, and economic opportunity. White is the only candidate in the Democratic primary who was born and raised in the district.",
+      "summary_sources": [
+        {
+          "url": "https://randiformd.com/",
+          "type": "website",
+          "title": "Randi White for Maryland",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://elections.maryland.gov/elections/2026/Primary_candidates/2026_GP_statewide_candidatelist.html",
+          "type": "government",
+          "title": "2026 Gubernatorial Primary Election State Candidates List",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Media and Communications Professional",
+          "organization": "Various",
+          "start_year": null,
+          "end_year": null,
+          "description": "20+ years in media and communications",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://randiformd.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Victor Guidice",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Victor Guidice is a Democratic candidate for Maryland's 1st Congressional District who describes himself as a husband, father, minister, and fourth-generation resident of Harford County. He has worked as a commercial truck driver and emphasizes his experience overcoming job insecurity, homelessness, and food insecurity. His platform focuses on lowering the cost of living, universal childcare, universal healthcare, and restoring constitutional rights.",
+      "summary_sources": [
+        {
+          "url": "https://www.guidiceforcongress.com/",
+          "type": "website",
+          "title": "Victor Guidice for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "http://www.wboc.com/elections/election-results/victor-a-guidice/candidate_3a391086-08f1-49a8-a2cd-e316522ec838.html",
+          "type": "news",
+          "title": "Victor A Guidice candidate profile - WBOC",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Commercial Truck Driver",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Overcome job insecurity and homelessness",
+          "source": null
+        },
+        {
+          "title": "Minister",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": null,
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.guidiceforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "George Walish",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "George Walish is a Democratic candidate for Maryland's 1st Congressional District who has lived on the Eastern Shore for nearly 30 years. His career includes work as a construction worker in various building trades, a junior high school social studies teacher and coach, and 30 years as a senior executive in the automobile industry. He is a former Saint Michaels town commissioner and founded the St. Michaels Concours d'Elegance.",
+      "summary_sources": [
+        {
+          "url": "https://walishforcongress.org/",
+          "type": "website",
+          "title": "George Walish for US Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "http://www.wboc.com/elections/election-results/george-m-walish-jr/candidate_8d4496c2-816d-40cd-a36b-9e70d31feae4.html",
+          "type": "news",
+          "title": "George M. Walish Jr. candidate profile - WBOC",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Senior Executive",
+          "organization": "Automobile Industry",
+          "start_year": null,
+          "end_year": null,
+          "description": "30 years as a senior executive in the automobile industry",
+          "source": null
+        },
+        {
+          "title": "Social Studies Teacher and Coach",
+          "organization": "Junior High School",
+          "start_year": null,
+          "end_year": null,
+          "description": "Taught social studies; coached basketball and baseball",
+          "source": null
+        },
+        {
+          "title": "Construction Worker",
+          "organization": "Various",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked as millwright, carpenter, sheet metal worker, and laborer",
+          "source": null
+        },
+        {
+          "title": "Town Commissioner",
+          "organization": "Town of Saint Michaels, Maryland",
+          "start_year": null,
+          "end_year": null,
+          "description": "Former town commissioner",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Biscayne College",
+          "degree": "Bachelor's",
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Cardinal O'Hara School",
+          "degree": "High School Diploma",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://walishforcongress.org/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Maryland%27s_1st_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:21:26.139605+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 325655,
+    "completion_tokens": 8720,
+    "total_tokens": 334375,
+    "cost_usd": 0.0236185233,
+    "cost_source": "provider",
+    "estimated_usd": 0.033623,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 325655,
+        "completion_tokens": 8720
+      }
+    },
+    "duration_s": 186.7
+  }
+}

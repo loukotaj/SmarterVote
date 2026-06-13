@@ -1,0 +1,478 @@
+{
+  "id": "wa-house-02-2026",
+  "title": "Washington's 2nd Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Washington's 2nd Congressional District",
+  "state": "Washington",
+  "district": "2nd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Washington's 2nd Congressional District covers Island, San Juan, Skagit, and Whatcom counties, plus western Snohomish County. Incumbent Democrat Rick Larsen, first elected in 2000, is seeking a 14th term in this safely Democratic district, which has a Cook PVI of D+12 and has not elected a Republican since 1998. Larsen faces four primary challengers: two Democrats (Devin Hermanson and Tomas Scheel) who criticize him as too moderate and tied to corporate donors, and two Republicans (Edwin Feller and Raymond Pelletti). The top-two primary will be held August 4, 2026, with the general election on November 3, 2026. If Democrats retake the House, Larsen is poised to chair the Transportation and Infrastructure Committee.",
+  "polling": [],
+  "polling_note": "No opinion polls were found for this race. All major nonpartisan analysts (Cook Political Report, Inside Elections, Sabato's Crystal Ball) rate the seat as 'Solid D' or 'Safe D.'",
+  "candidates": [
+    {
+      "name": "Rick Larsen",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Rick Larsen is the Democratic incumbent representing Washington's 2nd Congressional District since 2001. He serves on the House Armed Services and Transportation and Infrastructure committees and would chair the Transportation and Infrastructure Committee if Democrats retake the House. Larsen has raised over $1.6 million for his re-election campaign as of March 2026 and has been endorsed by numerous local elected officials across all five counties in the district.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Rick_Larsen_(Washington)",
+          "type": "government",
+          "title": "Rick Larsen (Washington) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.seattletimes.com/seattle-news/politics/wa-filing-closes-u-s-house-battleground-and-gop-test-emerge/",
+          "type": "news",
+          "title": "WA filing closes, U.S. House battleground and GOP test emerge - The Seattle Times",
+          "description": null,
+          "last_accessed": "2026-06-13T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.lyndentribune.com/news/lynden-s-edwin-feller-is-running-for-congress/article_253875f9-ef1f-46d9-b592-2702631a6656.html",
+          "type": "news",
+          "title": "Lynden's Edwin Feller is running for Congress - Lynden Tribune",
+          "description": null,
+          "last_accessed": "2026-06-13T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8a/Rick_Larsen%2C_official_photo_portrait_color_%28cropped%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2001,
+          "end_year": null,
+          "description": "Representing Washington's 2nd Congressional District",
+          "source": null
+        },
+        {
+          "title": "Member, House Armed Services Committee",
+          "organization": "United States House of Representatives",
+          "start_year": 2001,
+          "end_year": null,
+          "description": "Serves on the House Armed Services Committee",
+          "source": null
+        },
+        {
+          "title": "Member, House Transportation and Infrastructure Committee",
+          "organization": "United States House of Representatives",
+          "start_year": 2001,
+          "end_year": null,
+          "description": "Ranking member or chair depending on chamber control",
+          "source": null
+        },
+        {
+          "title": "Snohomish County Council Member",
+          "organization": "Snohomish County",
+          "start_year": 1998,
+          "end_year": 2000,
+          "description": "Served on the Snohomish County Council",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Minnesota",
+          "degree": "Master's degree",
+          "field": "Professional Studies",
+          "year": 1990,
+          "source": null
+        },
+        {
+          "institution": "Pacific Lutheran University",
+          "degree": "Bachelor's degree",
+          "field": "Political Science",
+          "year": 1987,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.ricklarsen.org/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Devin Hermanson",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Devin Hermanson is a Democratic candidate challenging incumbent Rick Larsen from the left. He is a media consultant, filmmaker, and founder of MOYO Media Lab who has also worked at Microsoft and World Vision. Hermanson previously ran for this seat in 2024 and refuses to accept any campaign donations, relying instead on grassroots organizing. His platform includes the Green New Deal, Medicare for All, and substantial campaign finance reform.",
+      "summary_sources": [
+        {
+          "url": "https://www.devinhermanson.com/",
+          "type": "website",
+          "title": "Devin Hermanson for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Washington",
+          "type": "news",
+          "title": "2026 United States House of Representatives elections in Washington - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.lyndentribune.com/news/lynden-s-edwin-feller-is-running-for-congress/article_253875f9-ef1f-46d9-b592-2702631a6656.html",
+          "type": "news",
+          "title": "Lynden's Edwin Feller is running for Congress - Lynden Tribune",
+          "description": null,
+          "last_accessed": "2026-06-13T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Founder",
+          "organization": "MOYO Media Lab",
+          "start_year": null,
+          "end_year": null,
+          "description": "Film and media production company focused on themes of faith, forgiveness, and social justice",
+          "source": null
+        },
+        {
+          "title": "Marketing and Innovation Specialist",
+          "organization": "World Vision",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked in marketing and innovation at the global humanitarian organization",
+          "source": null
+        },
+        {
+          "title": "Employee",
+          "organization": "Microsoft",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked at Microsoft before moving into nonprofit and media work",
+          "source": null
+        },
+        {
+          "title": "Founder",
+          "organization": "TrueUSA",
+          "start_year": null,
+          "end_year": null,
+          "description": "Nonprofit focused on combating right-wing disinformation",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Boston University",
+          "degree": "MBA",
+          "field": "Business Administration",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Whitman College",
+          "degree": "Bachelor of Arts",
+          "field": "Art",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.devinhermanson.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Tomas Scheel",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Tomas Scheel is a Democratic candidate running as a progressive challenger to Rick Larsen. He is a U.S. Air Force veteran and small business owner who builds software systems in Whatcom County. Scheel refuses corporate PAC money and advocates for accountability, anti-corruption measures, uniform code of public servant justice, AI legislation, and healthcare reform. He is the son of an Ecuadorian immigrant mother and an American union tradesman father.",
+      "summary_sources": [
+        {
+          "url": "https://www.scheelforcongress.com/",
+          "type": "website",
+          "title": "Tomas for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.lyndentribune.com/news/lynden-s-edwin-feller-is-running-for-congress/article_253875f9-ef1f-46d9-b592-2702631a6656.html",
+          "type": "news",
+          "title": "Lynden's Edwin Feller is running for Congress - Lynden Tribune",
+          "description": null,
+          "last_accessed": "2026-06-13T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Washington",
+          "type": "news",
+          "title": "2026 United States House of Representatives elections in Washington - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Small Business Owner",
+          "organization": "Software Development",
+          "start_year": null,
+          "end_year": null,
+          "description": "Builds custom software systems",
+          "source": null
+        },
+        {
+          "title": "Air Force Veteran",
+          "organization": "United States Air Force",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked on large transport planes",
+          "source": null
+        },
+        {
+          "title": "Volunteer Firefighter",
+          "organization": "Whatcom County",
+          "start_year": null,
+          "end_year": null,
+          "description": "Volunteered in firefighting and language assistance",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.scheelforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Edwin H. Feller",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Edwin H. Feller is a Republican candidate running for Congress in Washington's 2nd District. A lifelong Lynden resident born on his family's farm, Feller is an 83-year-old HVAC contractor who spent much of his career working overseas on U.S. government construction projects, including embassies in 60 countries. This is his first run for political office, and he is running on a platform of robust law enforcement, border security, nuclear and hydroelectric energy expansion, and immigration reform prioritizing nuclear families.",
+      "summary_sources": [
+        {
+          "url": "https://www.lyndentribune.com/news/lynden-s-edwin-feller-is-running-for-congress/article_253875f9-ef1f-46d9-b592-2702631a6656.html",
+          "type": "news",
+          "title": "Lynden's Edwin Feller is running for Congress - Lynden Tribune",
+          "description": null,
+          "last_accessed": "2026-06-13T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://kpug1170.com/news/297792-official-candidate-list-released-for-august-2026-primary-election/",
+          "type": "news",
+          "title": "Official candidate list released for August 2026 primary election - KPUG",
+          "description": null,
+          "last_accessed": "2026-06-13T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Washington",
+          "type": "news",
+          "title": "2026 United States House of Representatives elections in Washington - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Owner",
+          "organization": "Feller Heating & Air Conditioning",
+          "start_year": null,
+          "end_year": null,
+          "description": "Founded HVAC company that continues to operate",
+          "source": null
+        },
+        {
+          "title": "Construction Contractor",
+          "organization": "U.S. Government (State Department and other agencies)",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked on overseas construction projects including U.S. embassies in 60 countries",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Lynden Christian High School",
+          "degree": "High School Diploma",
+          "field": null,
+          "year": 1960,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Raymond Pelletti",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Raymond Pelletti is a Republican candidate from Blaine, Washington, running for Congress in the 2nd District. He previously ran for Washington State House of Representatives in the 42nd Legislative District in 2024, advancing to the general election against incumbent Democrat Alicia Rule. Pelletti is one of two Republicans in the five-candidate primary field challenging incumbent Democrat Rick Larsen.",
+      "summary_sources": [
+        {
+          "url": "https://kpug1170.com/news/297792-official-candidate-list-released-for-august-2026-primary-election/",
+          "type": "news",
+          "title": "Official candidate list released for August 2026 primary election - KPUG",
+          "description": null,
+          "last_accessed": "2026-06-13T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Raymond_Pelletti",
+          "type": "government",
+          "title": "Raymond Pelletti - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Washington",
+          "type": "news",
+          "title": "2026 United States House of Representatives elections in Washington - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Candidate for State Representative",
+          "organization": "Washington House of Representatives, 42nd District",
+          "start_year": 2024,
+          "end_year": 2024,
+          "description": "Advanced to general election against incumbent Democrat Alicia Rule",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Washington%27s_2nd_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:50:17.506466+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 342930,
+    "completion_tokens": 10320,
+    "total_tokens": 353250,
+    "cost_usd": 0.027512867999999996,
+    "cost_source": "provider",
+    "estimated_usd": 0.03563,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 342930,
+        "completion_tokens": 10320
+      }
+    },
+    "duration_s": 228.3
+  }
+}

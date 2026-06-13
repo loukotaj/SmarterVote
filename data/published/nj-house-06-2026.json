@@ -1,0 +1,274 @@
+{
+  "id": "nj-house-06-2026",
+  "title": "New Jersey's 6th Congressional District election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "New Jersey's 6th Congressional District",
+  "state": "New Jersey",
+  "district": "6th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 general election for New Jersey's 6th Congressional District pits 38-year incumbent Frank Pallone Jr. (D) against Republican challenger Hillary Herzig. The district covers parts of Middlesex and Monmouth Counties, including Edison, New Brunswick, Perth Amboy, Asbury Park, and Long Branch. Registered Democrats outnumber Republicans roughly 2-to-1 in the district, which Cook Political Report rates as Solidly Democratic. Pallone, the Ranking Member on the House Energy and Commerce Committee, emphasizes health care affordability, climate action, and protecting democratic institutions, while Herzig focuses on lowering taxes, parental rights in education, medical freedom, and immigration enforcement.",
+  "polling": [],
+  "polling_note": "No publicly available general election polls were found for this race as of mid-2026. The Cook Political Report rates the district as Solidly Democratic.",
+  "candidates": [
+    {
+      "name": "Frank Pallone Jr.",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Frank Pallone Jr. is the incumbent U.S. Representative for New Jersey's 6th Congressional District, first elected in 1988. He serves as the Ranking Member of the House Energy and Commerce Committee and was instrumental in passing the Affordable Care Act, the Inflation Reduction Act, and the Bipartisan Infrastructure Law. Pallone focuses his campaign on lowering health care and prescription drug costs, combating climate change, protecting reproductive rights, and defending democratic institutions.",
+      "summary_sources": [
+        {
+          "url": "http://pallone.house.gov/about/biography",
+          "type": "government",
+          "title": "Biography | Congressman Frank Pallone",
+          "description": null,
+          "last_accessed": "2025-07-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Frank_Pallone",
+          "type": "news",
+          "title": "Frank Pallone - Wikipedia",
+          "description": null,
+          "last_accessed": "2025-07-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nbcnews.com/politics/2026-primary-elections/new-jersey-us-house-district-6-results",
+          "type": "news",
+          "title": "New Jersey House District 6 Primary Election Live Results 2026",
+          "description": null,
+          "last_accessed": "2025-07-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Frank_Pallone_Photo.jpg/250px-Frank_Pallone_Photo.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 1988,
+          "end_year": null,
+          "description": "Representing New Jersey's 3rd district (1988-1993) and 6th district (1993-present); Ranking Member of House Energy and Commerce Committee",
+          "source": null
+        },
+        {
+          "title": "Member, New Jersey Senate",
+          "organization": "New Jersey State Senate",
+          "start_year": 1984,
+          "end_year": 1988,
+          "description": "Represented the 11th legislative district",
+          "source": null
+        },
+        {
+          "title": "Member, Long Branch City Council",
+          "organization": "City of Long Branch",
+          "start_year": 1982,
+          "end_year": 1988,
+          "description": null,
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Middlebury College",
+          "degree": "Bachelor of Arts",
+          "field": null,
+          "year": 1973,
+          "source": null
+        },
+        {
+          "institution": "Tufts University (The Fletcher School of Law and Diplomacy)",
+          "degree": "Master of Arts",
+          "field": null,
+          "year": 1974,
+          "source": null
+        },
+        {
+          "institution": "Rutgers University School of Law - Camden",
+          "degree": "Juris Doctor",
+          "field": null,
+          "year": 1978,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.pallonefornewjersey.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Hillary Herzig",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Hillary Herzig is a Republican candidate for U.S. House in New Jersey's 6th District and a first-time office seeker. She is a Monmouth County native, mother of three, and spouse of a U.S. Army veteran who has worked as a career civil servant across multiple federal agencies including the U.S. Army, Department of Defense Education Activity, Veterans Administration, USDA, and USCIS. Her campaign priorities include lowering taxes, protecting parental rights in education, medical freedom, securing the border, and supporting veterans and seniors.",
+      "summary_sources": [
+        {
+          "url": "https://www.herzigforcongress.com/about-hillary",
+          "type": "website",
+          "title": "About Hillary | Herzig for Congress",
+          "description": null,
+          "last_accessed": "2025-07-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://newjerseyglobe.com/congress/republican-newcomer-enters-race-against-pallone-in-nj-6/",
+          "type": "news",
+          "title": "Republican newcomer enters race against Pallone in NJ-6",
+          "description": null,
+          "last_accessed": "2025-07-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Hillary_Herzig",
+          "type": "website",
+          "title": "Hillary Herzig - Ballotpedia",
+          "description": null,
+          "last_accessed": "2025-07-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Hillary_Herzig.jpeg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Personnel Security Specialist",
+          "organization": "U.S. Citizenship and Immigration Services (DHS)",
+          "start_year": null,
+          "end_year": null,
+          "description": "Mission support and personnel security with a focus on national security",
+          "source": null
+        },
+        {
+          "title": "Mission Support Specialist - Asylum",
+          "organization": "U.S. Citizenship and Immigration Services (DHS)",
+          "start_year": null,
+          "end_year": null,
+          "description": null,
+          "source": null
+        },
+        {
+          "title": "Civilian Benefits Technician",
+          "organization": "United States Department of Agriculture - APHIS",
+          "start_year": null,
+          "end_year": null,
+          "description": null,
+          "source": null
+        },
+        {
+          "title": "Financial Analyst",
+          "organization": "Veterans Administration",
+          "start_year": null,
+          "end_year": null,
+          "description": null,
+          "source": null
+        },
+        {
+          "title": "Military Dependent Educational Instructor",
+          "organization": "Department of Defense Education Activity",
+          "start_year": null,
+          "end_year": null,
+          "description": "Taught military dependent children while stationed in Germany",
+          "source": null
+        },
+        {
+          "title": "Special Security Representative",
+          "organization": "U.S. Army National Ground Intelligence Center",
+          "start_year": null,
+          "end_year": null,
+          "description": null,
+          "source": null
+        },
+        {
+          "title": "Executive Assistant to the Chief of Police",
+          "organization": "Key West Police Department",
+          "start_year": null,
+          "end_year": null,
+          "description": null,
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "American Military University",
+          "degree": "Master of Political Science (in progress)",
+          "field": "Public Policy",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Florida Atlantic University",
+          "degree": "Bachelor of Arts",
+          "field": "Criminal Justice",
+          "year": 2010,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.herzigforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/New_Jersey%27s_6th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:30:14.291215+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 331900,
+    "completion_tokens": 8065,
+    "total_tokens": 339965,
+    "cost_usd": 0.024102972,
+    "cost_source": "provider",
+    "estimated_usd": 0.034107,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 331900,
+        "completion_tokens": 8065
+      }
+    },
+    "duration_s": 194.4
+  }
+}

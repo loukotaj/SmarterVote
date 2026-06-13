@@ -1,0 +1,453 @@
+{
+  "id": "la-house-04-2026",
+  "title": "Louisiana's 4th Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Louisiana's 4th Congressional District",
+  "state": "Louisiana",
+  "district": "4th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Louisiana's 4th Congressional District, encompassing northwestern Louisiana including Shreveport and Bossier City, holds its general election on November 3, 2026. Incumbent Republican U.S. House Speaker Mike Johnson seeks re-election against two Republican primary challengers (Joshua Morott and Mike Nichols) and two Democratic challengers (Conrad Cable and Matt Gromlich). Party primaries were originally scheduled for May 16, 2026, but were postponed by Governor Jeff Landry after the Supreme Court's ruling in Louisiana v. Callais, which required congressional map redrawing. The district is heavily Republican (Cook PVI: R+26), and Johnson's status as Speaker of the House makes this one of the most high-profile House races in Louisiana.",
+  "polling": [],
+  "polling_note": "No traditional public opinion polls were found for this race as of the research date. Prediction markets indicate an extremely high probability of a Republican win in this safely Republican district.",
+  "candidates": [
+    {
+      "name": "Mike Johnson",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Mike Johnson is the 56th Speaker of the U.S. House of Representatives, first elected to represent Louisiana's 4th Congressional District in 2016. A constitutional law attorney and former member of the Louisiana House of Representatives, Johnson rose to the speakership in October 2023. He is seeking re-election in the 2026 cycle.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Mike_Johnson",
+          "type": "website",
+          "title": "Mike Johnson - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-07-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Mike_Johnson",
+          "type": "website",
+          "title": "Mike Johnson - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-07-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.ksla.com/2026/02/14/qualifying-candidates-finalized-louisianas-may-16-election/",
+          "type": "news",
+          "title": "Finalized qualifying candidates for Louisiana's May 16 election - KSLA",
+          "description": null,
+          "last_accessed": "2026-07-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Mike_Johnson.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2017,
+          "end_year": null,
+          "description": "Representing Louisiana's 4th Congressional District; elected Speaker of the House in October 2023",
+          "source": null
+        },
+        {
+          "title": "Member",
+          "organization": "Louisiana House of Representatives",
+          "start_year": 2015,
+          "end_year": 2017,
+          "description": "Represented district in state legislature",
+          "source": null
+        },
+        {
+          "title": "Attorney",
+          "organization": "Private practice",
+          "start_year": null,
+          "end_year": null,
+          "description": "Constitutional law attorney",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Louisiana State University",
+          "degree": "B.S.",
+          "field": null,
+          "year": 1995,
+          "source": null
+        },
+        {
+          "institution": "Louisiana State University Paul M. Hebert Law Center",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": 1998,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://mikejohnson.house.gov/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/SpeakerJohnson",
+        "twitter": "https://twitter.com/SpeakerJohnson"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Conrad Cable",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Conrad Cable is a first-generation farmer from Farmerville, Louisiana, running for Congress on a platform of fair wages, healthcare access, and food security. A graduate of the University of Louisiana Monroe (2017), he built a small farm in Union Parish after losing his job during the COVID-19 pandemic. Cable criticizes Speaker Johnson's policies as harmful to rural communities and Louisiana farmers.",
+      "summary_sources": [
+        {
+          "url": "https://www.conrad4congress2026.com/meet-conrad",
+          "type": "website",
+          "title": "Meet Conrad - Conrad Cable for Congress",
+          "description": null,
+          "last_accessed": "2026-07-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://louisianaradionetwork.com/2026/02/19/45480/",
+          "type": "news",
+          "title": "House Speaker Mike Johnson to face four opponents in 2026 District Four Congressional race",
+          "description": null,
+          "last_accessed": "2026-07-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Conrad_Cable",
+          "type": "website",
+          "title": "Conrad Cable - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-07-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Farmer",
+          "organization": "Cable Family Farm",
+          "start_year": 2020,
+          "end_year": null,
+          "description": "First-generation farmer operating a small farm in Union Parish",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Louisiana Monroe",
+          "degree": "B.A.",
+          "field": null,
+          "year": 2017,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.conrad4congress2026.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/conrad4congress",
+        "facebook": "https://www.facebook.com/conrad4congress"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Matt Gromlich",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Matt Gromlich is an assistant professor at Louisiana State University Shreveport and a longtime educator running for Congress as a Democrat. With a Ph.D. in Curriculum and Instruction from the University of Nevada, Las Vegas, he has taught K-12 and postsecondary education for 14 years. His campaign focuses on universal pre-K, free school lunches, healthcare reform including single-payer, and economic policies that support sustainable wages.",
+      "summary_sources": [
+        {
+          "url": "https://www.lsus.edu/matthew-gromlich-phd",
+          "type": "website",
+          "title": "Matthew Gromlich, PhD - LSUS",
+          "description": null,
+          "last_accessed": "2026-07-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://bayouprogressive.com/2026/03/shreveport-educator-matt-gromlich-says-louisianas-4th-district-needs-a-more-present-kind-of-representation/",
+          "type": "news",
+          "title": "Shreveport educator Matt Gromlich says Louisiana's 4th District needs a more present kind of representation",
+          "description": null,
+          "last_accessed": "2026-07-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Matthew_Gromlich",
+          "type": "website",
+          "title": "Matthew Gromlich - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-07-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Assistant Professor",
+          "organization": "Louisiana State University Shreveport",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Director of PRAXIS Lab; teaches secondary science and mathematics education",
+          "source": null
+        },
+        {
+          "title": "Educator",
+          "organization": "Various K-12 and postsecondary institutions",
+          "start_year": null,
+          "end_year": null,
+          "description": "Taught K-12, postsecondary, and Adult Basic Education courses in North Carolina, Nevada, and Louisiana",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Nevada, Las Vegas",
+          "degree": "Ph.D.",
+          "field": "Curriculum and Instruction (Mathematics Education)",
+          "year": 2020,
+          "source": null
+        },
+        {
+          "institution": "University of Nevada, Las Vegas",
+          "degree": "M.Ed.",
+          "field": "Educational Policy and Leadership",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "North Carolina State University",
+          "degree": "B.S.",
+          "field": "Secondary Science Education (Chemistry)",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "North Carolina State University",
+          "degree": "M.Ed.",
+          "field": "Agriculture Education",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {
+        "facebook": "https://www.facebook.com/MattGromlichForCongress",
+        "instagram": "https://www.instagram.com/matt_gromlich_for_congress"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Mike Nichols",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Mike Nichols is a professional biologist from Pitkin, Louisiana, running for Congress as a Republican challenger to Speaker Mike Johnson. His campaign emphasizes environmental stewardship, conservation of natural resources, energy independence, and significant reductions in federal spending. Nichols has pledged to support congressional term limits and argues that incumbent Speaker Johnson has been unresponsive to local concerns.",
+      "summary_sources": [
+        {
+          "url": "https://www.ktbs.com/meet-the-candidate-mike-nichols/article_39db79bb-eaa5-46d1-b327-e898e9fd9dcb.html",
+          "type": "news",
+          "title": "Meet The Candidate: Mike Nichols - KTBS",
+          "description": null,
+          "last_accessed": "2026-07-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Mike_Nichols_(Louisiana)",
+          "type": "website",
+          "title": "Mike Nichols (Louisiana) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-07-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://termlimits.com/mike-nichols-pledges-to-support-congressional-term-limits/",
+          "type": "website",
+          "title": "Mike Nichols Pledges to Support Congressional Term Limits",
+          "description": null,
+          "last_accessed": "2026-07-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Professional Biologist",
+          "organization": "Natural resources sector",
+          "start_year": null,
+          "end_year": null,
+          "description": "Professional background in biology and natural resource management",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://mikenicholsforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Joshua Morott",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Joshua Morott is a retail worker and Republican candidate challenging Speaker Mike Johnson in the primary for Louisiana's 4th Congressional District. Describing himself as a working-class Louisianan, Christian, and single father, Morott has focused his campaign on family court reform, opposition to carbon capture projects, and working-class issues. He previously announced a bid for Louisiana's 5th Congressional District before qualifying for the 4th District.",
+      "summary_sources": [
+        {
+          "url": "https://www.ksla.com/2026/02/14/qualifying-candidates-finalized-louisianas-may-16-election/",
+          "type": "news",
+          "title": "Finalized qualifying candidates for Louisiana's May 16 election - KSLA",
+          "description": null,
+          "last_accessed": "2026-07-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Joshua_Morott",
+          "type": "website",
+          "title": "Joshua Morott - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-07-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://louisianaradionetwork.com/2026/02/19/45480/",
+          "type": "news",
+          "title": "House Speaker Mike Johnson to face four opponents in 2026 District Four Congressional race",
+          "description": null,
+          "last_accessed": "2026-07-14T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Retail Worker",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Working-class retail employment",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.louisianafreshstart.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Louisiana%27s_4th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:28:02.645492+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 302406,
+    "completion_tokens": 7848,
+    "total_tokens": 310254,
+    "cost_usd": 0.01740606,
+    "cost_source": "provider",
+    "estimated_usd": 0.031174,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 302406,
+        "completion_tokens": 7848
+      }
+    },
+    "duration_s": 237.6
+  }
+}

@@ -175,6 +175,7 @@ class RunInfo(BaseModel):
     error: Optional[str] = None
     steps: List[RunStep] = Field(default_factory=list)
     logs: Optional[List[Dict]] = Field(default_factory=list)
+    serper_calls: Optional[int] = None
 
 
 class LogEntry(BaseModel):

@@ -1,0 +1,255 @@
+{
+  "id": "ny-house-10-2026",
+  "title": "New York's 10th Congressional District Election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "New York's 10th Congressional District",
+  "state": "New York",
+  "district": "10th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "New York's 10th Congressional District, encompassing parts of Lower Manhattan and Brooklyn, holds a competitive Democratic primary for the 2026 general election. Incumbent Rep. Daniel Goldman (D) faces a strong challenge from former New York City Comptroller Brad Lander in the June 23 Democratic primary, with Goldman backed by party leaders Gov. Kathy Hochul and Rep. Hakeem Jeffries while Lander is endorsed by Mayor Zohran Mamdani and Sen. Bernie Sanders. The Republican nominee is Jennifer Moore, who advanced without appearing on the primary ballot. The seat is rated Safe/Solid Democratic by major election forecasters, making the Democratic primary the de facto decisive contest.",
+  "polling": [
+    {
+      "pollster": "Emerson College Polling",
+      "date": "2026-06-01",
+      "sample_size": 700,
+      "matchups": [],
+      "source_url": "https://emersoncollegepolling.com/new-york-city-2026-congressional-polling-ny-07-ny-10-ny-12/"
+    },
+    {
+      "pollster": "Demand Progress",
+      "date": "2025-09-08",
+      "sample_size": 553,
+      "matchups": [],
+      "source_url": "https://demandprogress.org/poll-brad-lander-leads-dan-goldman-by-19-points-in-potential-ny-10-democratic-primary/"
+    }
+  ],
+  "polling_note": "Polls shown are for the Democratic primary, which is the decisive contest in this safely Democratic district. Two polls from 2025-2026 show Brad Lander leading incumbent Dan Goldman among likely Democratic primary voters.",
+  "candidates": [
+    {
+      "name": "Daniel Goldman",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Daniel Goldman is the incumbent U.S. Representative for New York's 10th Congressional District, first elected in 2022. A former federal prosecutor who served as lead counsel for House Democrats during the first impeachment of President Donald Trump, Goldman is running for re-election on his record of supporting Medicare for All, the Green New Deal, and legislation on social security, organized labor, paid family leave, and affordable housing. He is endorsed by Gov. Kathy Hochul and House Minority Leader Hakeem Jeffries.",
+      "summary_sources": [
+        {
+          "url": "https://news.ballotpedia.org/2026/04/07/incumbent-daniel-goldman-d-nickie-kane-d-and-brad-lander-d-are-running-in-the-democratic-primary-for-new-yorks-10th-congressional-district-on-june-23-2026/",
+          "type": "news",
+          "title": "Incumbent Daniel Goldman (D), Nickie Kane (D), and Brad Lander (D) are running in the Democratic primary for New York's 10th Congressional District on June 23, 2026",
+          "description": null,
+          "last_accessed": "2026-06-12T04:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Daniel_Goldman.png",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Representing New York's 10th Congressional District",
+          "source": null
+        },
+        {
+          "title": "Lead Counsel",
+          "organization": "House Judiciary Committee (Impeachment Investigation)",
+          "start_year": 2019,
+          "end_year": 2020,
+          "description": "Served as lead counsel for House Democrats during the first impeachment of President Donald Trump",
+          "source": null
+        },
+        {
+          "title": "Assistant U.S. Attorney",
+          "organization": "U.S. Attorney's Office for the Southern District of New York",
+          "start_year": 2007,
+          "end_year": 2017,
+          "description": "Federal prosecutor handling organized crime and terrorism cases",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Yale University",
+          "degree": "JD",
+          "field": "Law",
+          "year": 2005,
+          "source": null
+        },
+        {
+          "institution": "Yale University",
+          "degree": "BA",
+          "field": "History",
+          "year": 2002,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://goldman.house.gov/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Brad Lander",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Brad Lander is a former New York City Comptroller (2022-2025) and former New York City Councilmember representing the 39th District (2010-2021). He ran for Mayor of New York City in 2025, placing third in the Democratic primary. Lander is running for Congress on a progressive platform emphasizing fighting authoritarianism, making New York affordable, taxing billionaires, and getting money out of politics. He is endorsed by Mayor Zohran Mamdani and U.S. Sen. Bernie Sanders.",
+      "summary_sources": [
+        {
+          "url": "https://news.ballotpedia.org/2026/04/07/incumbent-daniel-goldman-d-nickie-kane-d-and-brad-lander-d-are-running-in-the-democratic-primary-for-new-yorks-10th-congressional-district-on-june-23-2026/",
+          "type": "news",
+          "title": "Incumbent Daniel Goldman (D), Nickie Kane (D), and Brad Lander (D) are running in the Democratic primary for New York's 10th Congressional District on June 23, 2026",
+          "description": null,
+          "last_accessed": "2026-06-12T04:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.bradlanderforcongress.com/",
+          "type": "website",
+          "title": "Brad Lander for Congress",
+          "description": null,
+          "last_accessed": "2026-06-12T04:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "New York City Comptroller",
+          "organization": "City of New York",
+          "start_year": 2022,
+          "end_year": 2025,
+          "description": "Chief financial officer for New York City",
+          "source": null
+        },
+        {
+          "title": "New York City Councilmember",
+          "organization": "New York City Council",
+          "start_year": 2010,
+          "end_year": 2021,
+          "description": "Represented the 39th District in Brooklyn",
+          "source": null
+        },
+        {
+          "title": "Executive Director",
+          "organization": "Fifth Avenue Committee",
+          "start_year": 2002,
+          "end_year": 2009,
+          "description": "Led a nonprofit community development organization focused on affordable housing",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Chicago",
+          "degree": "BA",
+          "field": "Urban Planning",
+          "year": 1991,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.bradlanderforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Jennifer Moore",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Jennifer Moore is the Republican and Conservative Party nominee for New York's 10th Congressional District in the 2026 general election. She advanced from the Republican primary without appearing on the ballot. Moore is running in a district that strongly favors Democrats, with the incumbent winning 81.0% of the vote in 2024, making this a long-shot bid for the Republican Party.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/New_York%27s_10th_Congressional_District_election,_2026_(June_23_Republican_primary)",
+          "type": "website",
+          "title": "New York's 10th Congressional District election, 2026 (June 23 Republican primary) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T04:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Jennifer_Moore_(New_York)",
+          "type": "website",
+          "title": "Jennifer Moore (New York) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T04:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/New_York%27s_10th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:33:44.117278+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 222404,
+    "completion_tokens": 8687,
+    "total_tokens": 231091,
+    "cost_usd": 0.018823868,
+    "cost_source": "provider",
+    "estimated_usd": 0.023498,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 222404,
+        "completion_tokens": 8687
+      }
+    },
+    "duration_s": 179.2
+  }
+}

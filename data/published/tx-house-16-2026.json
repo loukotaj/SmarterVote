@@ -1,0 +1,209 @@
+{
+  "id": "tx-house-16-2026",
+  "title": "Texas's 16th Congressional District election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Texas's 16th Congressional District",
+  "state": "Texas",
+  "district": "16th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Texas's 16th Congressional District pits four-term Democratic incumbent Veronica Escobar against Republican nominee Adam Bauman. The district covers most of El Paso County and has a Cook Partisan Voting Index of D+11, making it one of the most Democratic-leaning seats in Texas. Escobar, first elected in 2018 as one of the first Latina congresswomen from Texas, is seeking a fifth term in a district that has not elected a Republican since 1962. The race is rated 'Solid D' by the Cook Political Report, and national Republican leaders have not listed TX-16 among seats they plan to seriously contest.",
+  "polling": [],
+  "polling_note": "No district-specific public opinion polls were found for this race. Cook Political Report rates the race as 'Solid D' as of February 2025.",
+  "candidates": [
+    {
+      "name": "Veronica Escobar",
+      "party": "Democratic Party",
+      "incumbent": true,
+      "summary": "Veronica Escobar is the incumbent U.S. Representative for Texas's 16th Congressional District, first elected in 2018. She previously served as El Paso County Judge (2011-2017) and El Paso County Commissioner (2006-2010). Escobar serves on the House Armed Services and Judiciary Committees and was one of four co-chairs of the 2024 Democratic National Convention.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Veronica_Escobar",
+          "type": "website",
+          "title": "Veronica Escobar - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cookpolitical.com/house/race/485296",
+          "type": "news",
+          "title": "TX-16 2026 - Cook Political Report",
+          "description": null,
+          "last_accessed": "2026-06-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/a6/Veronica_Escobar_official_portrait%2C_116th_Congress.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Representing Texas's 16th Congressional District",
+          "source": null
+        },
+        {
+          "title": "County Judge",
+          "organization": "El Paso County",
+          "start_year": 2011,
+          "end_year": 2017,
+          "description": "Chief executive of El Paso County",
+          "source": null
+        },
+        {
+          "title": "County Commissioner",
+          "organization": "El Paso County",
+          "start_year": 2007,
+          "end_year": 2011,
+          "description": "Served on the El Paso County Commissioners Court",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "New York University",
+          "degree": "Master of Arts",
+          "field": "English",
+          "year": 1993,
+          "source": null
+        },
+        {
+          "institution": "University of Texas at El Paso",
+          "degree": "Bachelor of Arts",
+          "field": "English",
+          "year": 1991,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://escobar.house.gov/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Adam Bauman",
+      "party": "Republican Party",
+      "incumbent": false,
+      "summary": "Adam Bauman is the Republican nominee for Texas's 16th Congressional District, having won the GOP primary runoff on May 26, 2026, with 69% of the vote. He is a former U.S. Border Patrol agent who served on the elite Border Patrol Tactical Team (BORTAC) and is a U.S. Navy Special Warfare Combatant Crewman (SWCC) veteran. Bauman runs a tactical canine business and has campaigned on border security, lower property taxes, and veterans' issues.",
+      "summary_sources": [
+        {
+          "url": "https://elpasomatters.org/2026/05/26/election-results-el-paso-texas-primary-runoffs-republican-gop-district-16-senate-paxton-cornyn/",
+          "type": "news",
+          "title": "El Paso GOP runoff results: Bauman easily defeats Barraza for congressional bid",
+          "description": null,
+          "last_accessed": "2026-06-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.adambaumanforcongress.com/",
+          "type": "website",
+          "title": "Adam Bauman for Congress",
+          "description": null,
+          "last_accessed": "2026-06-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cookpolitical.com/house/race/485296",
+          "type": "news",
+          "title": "TX-16 2026 - Cook Political Report",
+          "description": null,
+          "last_accessed": "2026-06-16T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Border Patrol Agent / BORTAC Member",
+          "organization": "U.S. Customs and Border Protection",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served on the elite Border Patrol Tactical Team",
+          "source": null
+        },
+        {
+          "title": "Special Warfare Combatant Crewman (SWCC)",
+          "organization": "United States Navy",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as a Navy Special Warfare Combatant Crewman Veteran",
+          "source": null
+        },
+        {
+          "title": "Small Business Owner",
+          "organization": "Tactical Canine Business",
+          "start_year": null,
+          "end_year": null,
+          "description": "Operates a tactical canine business in El Paso",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.adambaumanforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Texas%27_16th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:23:41.711768+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 241133,
+    "completion_tokens": 6072,
+    "total_tokens": 247205,
+    "cost_usd": 0.019399834,
+    "cost_source": "provider",
+    "estimated_usd": 0.024821,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 241133,
+        "completion_tokens": 6072
+      }
+    },
+    "duration_s": 136.5
+  }
+}

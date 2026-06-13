@@ -1,0 +1,202 @@
+{
+  "id": "pa-house-16-2026",
+  "title": "2026 U.S. House of Representatives Election in Pennsylvania's 16th Congressional District",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Pennsylvania's 16th Congressional District",
+  "state": "Pennsylvania",
+  "district": "16th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Pennsylvania's 16th Congressional District pits seven-term Republican incumbent Mike Kelly against Democratic challenger Justin Wagner. The district covers northwestern Pennsylvania, including Erie, Butler, and Mercer counties, and has a Cook Partisan Voting Index of R+11. Kelly, a senior member of the Ways and Means Committee, is seeking his ninth term after first being elected in 2010. Wagner, a U.S. Army veteran and automation engineer, is running on a platform focused on workers' rights and economic fairness in what is considered a safe Republican seat. The general election is scheduled for November 3, 2026.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for this race as of July 2026.",
+  "candidates": [
+    {
+      "name": "Mike Kelly",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Mike Kelly is the incumbent U.S. Representative for Pennsylvania's 16th Congressional District, first elected in 2010. He serves on the House Ways and Means Committee and chairs the Subcommittee on Tax, and previously led a bipartisan task force investigating assassination attempts against President Donald Trump. A former car dealership owner and member of the Butler Area School Board and Butler County Council, Kelly is known for his conservative voting record and focus on tax reform and economic issues.",
+      "summary_sources": [
+        {
+          "url": "https://www.cookpolitical.com/house/race/483986",
+          "type": "news",
+          "title": "PA-16 2026 | Cook Political Report",
+          "description": null,
+          "last_accessed": "2026-07-15T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Pennsylvania%27s_16th_Congressional_District_election,_2026",
+          "type": "government",
+          "title": "Pennsylvania's 16th Congressional District election, 2026 - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-07-15T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://www.cookpolitical.com/sites/default/files/styles/large/public/politician/photo/medium/Kelly%20PA-16.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "United States Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2011,
+          "end_year": null,
+          "description": "Representing Pennsylvania's 3rd (2011-2019) and 16th (2019-present) Congressional Districts. Serves on Ways and Means Committee.",
+          "source": null
+        },
+        {
+          "title": "Owner",
+          "organization": "Kelly Automotive Group",
+          "start_year": null,
+          "end_year": null,
+          "description": "Operated car dealerships in western Pennsylvania.",
+          "source": null
+        },
+        {
+          "title": "Member",
+          "organization": "Butler County Council",
+          "start_year": 2006,
+          "end_year": 2009,
+          "description": "Served on the county council.",
+          "source": null
+        },
+        {
+          "title": "Member",
+          "organization": "Butler Area School Board",
+          "start_year": 1992,
+          "end_year": 1995,
+          "description": "Served on the local school board.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Notre Dame",
+          "degree": "Bachelor of Arts",
+          "field": "Business Administration",
+          "year": 1970,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "http://kelly.house.gov/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Justin Wagner",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Justin Wagner is the Democratic nominee for Pennsylvania's 16th Congressional District. He is a U.S. Army veteran who served in Iraq, an automation engineer, and a life sciences professional from Mercer County. Wagner's campaign focuses on workers' rights, fair wages, and challenging corporate power, positioning himself as a pro-union, pro-worker alternative to the incumbent.",
+      "summary_sources": [
+        {
+          "url": "https://www.goerie.com/story/news/local/2026/05/19/gop-incumbent-kelly-dem-wagner-unopposed-in-u-s-house-primary/90075581007/",
+          "type": "news",
+          "title": "GOP incumbent Kelly, Dem Wagner unopposed in U.S. House primary",
+          "description": null,
+          "last_accessed": "2026-07-15T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.justinwagnerforcongress.com/",
+          "type": "website",
+          "title": "Justin Wagner For Congress | Join the Fight for Workers' Rights",
+          "description": null,
+          "last_accessed": "2026-07-15T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Justin_Wagner_(Pennsylvania)",
+          "type": "government",
+          "title": "Justin Wagner (Pennsylvania) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-07-15T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Automation Engineer / Life Sciences Professional",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Works as an engineer and life sciences professional.",
+          "source": null
+        },
+        {
+          "title": "U.S. Army Veteran",
+          "organization": "United States Army",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served in the U.S. Army, including deployment to Iraq.",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.justinwagnerforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Pennsylvania%27s_16th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:49:59.244080+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 186902,
+    "completion_tokens": 8064,
+    "total_tokens": 194966,
+    "cost_usd": 0.011497954,
+    "cost_source": "provider",
+    "estimated_usd": 0.019897,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 186902,
+        "completion_tokens": 8064
+      }
+    },
+    "duration_s": 143.5
+  }
+}

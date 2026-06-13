@@ -1,0 +1,205 @@
+{
+  "id": "az-house-07-2026",
+  "title": "Arizona's 7th Congressional District election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Arizona's 7th Congressional District",
+  "state": "Arizona",
+  "district": "7th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Arizona's 7th Congressional District pits freshman Democratic incumbent Adelita Grijalva against Republican challenger Daniel Francis Butierez Sr. The district, which covers a large swath of southern Arizona including Tucson, Yuma, Nogales, and parts of the Phoenix suburbs, is a safely Democratic seat (D+13) that has been held by the Grijalva family for over two decades. Grijalva won a September 2025 special election to succeed her late father, Rep. Ra\u00fal Grijalva, and is now seeking a full two-year term. The contest highlights contrasting views on border security, economic development, and the role of the federal government in a district that spans nearly 300 miles of the U.S.-Mexico border.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for this race as of mid-2026. The primary election is scheduled for July 21, 2026, and general election polling has not yet been released.",
+  "candidates": [
+    {
+      "name": "Adelita Grijalva",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Adelita Grijalva is the incumbent U.S. Representative for Arizona's 7th Congressional District, first elected in a September 2025 special election to succeed her late father, Rep. Ra\u00fal Grijalva. She previously served on the Pima County Board of Supervisors and the Tucson Unified School District Governing Board, and spent 25 years as director of the Pima County Teen Court juvenile diversion program. Her campaign emphasizes education access, economic opportunity, environmental policy, and protecting working families.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Adelita_Grijalva",
+          "type": "website",
+          "title": "Adelita Grijalva - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Adelita_Grijalva",
+          "type": "website",
+          "title": "Adelita Grijalva - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.yourvalley.net/stories/southern-arizonas-congressional-race-is-set-for-2026-election,674698",
+          "type": "news",
+          "title": "Southern Arizona's congressional race is set for 2026 election",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Congresswoman_Adelita_Grijalva_Official_Portrait.jpg/250px-Congresswoman_Adelita_Grijalva_Official_Portrait.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Representing Arizona's 7th Congressional District; sworn in November 12, 2025 after a 50-day delay.",
+          "source": null
+        },
+        {
+          "title": "Member, Pima County Board of Supervisors (District 5)",
+          "organization": "Pima County",
+          "start_year": 2021,
+          "end_year": 2025,
+          "description": "Served as Chair in 2023; focused on affordable housing, education, climate, and water resiliency.",
+          "source": null
+        },
+        {
+          "title": "Director",
+          "organization": "Pima County Teen Court",
+          "start_year": null,
+          "end_year": 2025,
+          "description": "Ran the non-profit juvenile diversion program for 25 years.",
+          "source": null
+        },
+        {
+          "title": "Member, Governing Board",
+          "organization": "Tucson Unified School District",
+          "start_year": 2002,
+          "end_year": 2022,
+          "description": "Youngest woman ever elected to the board; served 18 years.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Arizona",
+          "degree": "Bachelor of Arts",
+          "field": "Political Science",
+          "year": 1995,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.adelitaforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Daniel Francis Butierez Sr.",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Daniel Francis Butierez Sr. is a small business owner and the Republican candidate for Arizona's 7th Congressional District. He owns Butierez/Express Painting and is a third-generation Arizonan whose campaign focuses on border security, tax cuts for small businesses, and responsible mining for economic development. Butierez was wrongfully convicted of a crime in the 1990s, spent time in prison, and was later exonerated by the state; he describes his life experiences as shaping his views on criminal justice reform and second chances.",
+      "summary_sources": [
+        {
+          "url": "https://butierezforcongress.com/",
+          "type": "website",
+          "title": "Butierez for Congress - Official Campaign Website",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.kold.com/2024/10/08/congressional-candidate-daniel-butierez-talks-about-time-prison/",
+          "type": "news",
+          "title": "Congressional candidate Daniel Butierez talks about time in prison",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.yourvalley.net/stories/southern-arizonas-congressional-race-is-set-for-2026-election,674698",
+          "type": "news",
+          "title": "Southern Arizona's congressional race is set for 2026 election",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Daniel_Butierez.jpeg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Owner",
+          "organization": "Butierez/Express Painting",
+          "start_year": null,
+          "end_year": null,
+          "description": "Small business owner; painting contractor employing several dozen workers depending on demand.",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://butierezforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Arizona%27s_7th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:06:37.680659+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 272244,
+    "completion_tokens": 5791,
+    "total_tokens": 278035,
+    "cost_usd": 0.019348516,
+    "cost_source": "provider",
+    "estimated_usd": 0.027815,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 272244,
+        "completion_tokens": 5791
+      }
+    },
+    "duration_s": 148.0
+  }
+}

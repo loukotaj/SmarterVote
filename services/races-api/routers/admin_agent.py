@@ -112,6 +112,33 @@ async def get_conversation(conversation_id: str) -> Dict[str, Any]:
     }
 
 
+@router.get("/conversations")
+async def list_conversations() -> Dict[str, Any]:
+    db = firestore_helpers._get_fs()
+    docs = db.collection(_CONVERSATIONS).order_by("updated_at", direction="DESCENDING").limit(100).stream()
+    conversations = [_plain(doc) for doc in docs]
+    return {"conversations": [c for c in conversations if c is not None]}
+
+
+@router.delete("/conversations/{conversation_id}")
+async def delete_conversation(conversation_id: str) -> Dict[str, Any]:
+    db = firestore_helpers._get_fs()
+    conversation_ref = db.collection(_CONVERSATIONS).document(conversation_id)
+    if not conversation_ref.get().exists:
+        raise HTTPException(status_code=404, detail="Conversation not found")
+
+    message_docs = db.collection(_MESSAGES).where("conversation_id", "==", conversation_id).stream()
+    for doc in message_docs:
+        doc.reference.delete()
+
+    task_docs = db.collection(_TASKS).where("conversation_id", "==", conversation_id).stream()
+    for doc in task_docs:
+        doc.reference.delete()
+
+    conversation_ref.delete()
+    return {"message": f"Conversation {conversation_id} deleted", "conversation_id": conversation_id}
+
+
 @router.post("/conversations/{conversation_id}/messages")
 async def submit_message(conversation_id: str, request: AdminAgentMessageRequest) -> Dict[str, Any]:
     db = firestore_helpers._get_fs()

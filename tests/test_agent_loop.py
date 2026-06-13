@@ -333,3 +333,26 @@ async def test_agent_loop_tools_mode_calls_extra_handlers():
     assert result == {}
     assert handler_called["candidate_name"] == "Alice"
     assert handler_called["issue"] == "Healthcare"
+
+
+@pytest.mark.asyncio
+async def test_agent_loop_elevates_model_on_bad_json():
+    """_agent_loop elevates model from cheap model to default model on retry when JSON parsing fails."""
+    from pipeline_client.agent.model_registry import DEEPSEEK_FLASH_MODEL, NEMOTRON_ULTRA_MODEL
+
+    bad_response = _mock_openai_response(content="not valid JSON")
+    good_response = _mock_openai_response(content=json.dumps({"success": True}))
+
+    with patch("pipeline_client.agent.llm._call_openai", new_callable=AsyncMock) as mock_call:
+        mock_call.side_effect = [bad_response, good_response]
+        result = await _agent_loop(
+            "system",
+            "user",
+            model=DEEPSEEK_FLASH_MODEL,
+            phase_name="test-elevation",
+        )
+
+    assert result == {"success": True}
+    assert mock_call.call_count == 2
+    assert mock_call.call_args_list[0].kwargs["model"] == DEEPSEEK_FLASH_MODEL
+    assert mock_call.call_args_list[1].kwargs["model"] == NEMOTRON_ULTRA_MODEL

@@ -1,4 +1,4 @@
-﻿"""Multi-phase candidate research agent with web search & caching.
+"""Multi-phase candidate research agent with web search & caching.
 
 Phases (fresh run):
 1. **Discovery** - identify the race, candidates, career history, images.
@@ -448,6 +448,7 @@ async def run_agent(
         "provider_cost_usd": float(prior_agent_metrics.get("provider_cost_usd", 0.0) or 0.0),
         "priced_calls": int(prior_agent_metrics.get("priced_calls", 0) or 0),
         "unpriced_calls": int(prior_agent_metrics.get("unpriced_calls", 0) or 0),
+        "serper_calls": int(prior_agent_metrics.get("serper_calls", 0) or 0),
         "model_breakdown": copy.deepcopy(prior_agent_metrics.get("model_breakdown", {})),
     }
     _ctx_token = _cost_ctx.set(_acc)
@@ -669,6 +670,14 @@ async def run_agent(
         else estimate_cost(model, pt, ct)
     )
     provider_cost = _acc.get("provider_cost_usd", 0.0)
+
+    # Add Serper costs ($0.001 per call) to both estimated and provider costs
+    serper_calls = _acc.get("serper_calls", 0)
+    serper_cost = serper_calls * 0.001
+    estimated_cost += serper_cost
+    if provider_cost > 0:
+        provider_cost += serper_cost
+
     has_exact_provider_cost = _acc.get("priced_calls", 0) > 0 and _acc.get("unpriced_calls", 0) == 0
     agent_metrics = {
         "model": model,
@@ -681,6 +690,7 @@ async def run_agent(
         "estimated_usd": round(estimated_cost, 6),
         "model_breakdown": breakdown,
         "duration_s": round(elapsed, 1),
+        "serper_calls": serper_calls,
     }
     race_json["agent_metrics"] = agent_metrics
     log(

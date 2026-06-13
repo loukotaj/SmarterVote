@@ -1,0 +1,234 @@
+{
+  "id": "ky-house-01-2026",
+  "title": "Kentucky's 1st Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Kentucky's 1st Congressional District",
+  "state": "Kentucky",
+  "district": "1st Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 general election for Kentucky's 1st Congressional District pits incumbent Republican Rep. James Comer against Democratic challenger John \"Drew\" Williams. Comer, who has held the seat since 2016 and chairs the powerful House Oversight Committee, is seeking re-election in a district that has been reliably Republican (Cook PVI R+23). Williams, a Murray State graduate and small-business worker from Marshall County, is running on a platform of rural investment, government accountability, and working-class representation. The race is rated \"Solid Republican\" by the Cook Political Report, making Comer the heavy favorite in the November contest.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found specifically for the 2026 general election in Kentucky's 1st Congressional District as of June 2026.",
+  "candidates": [
+    {
+      "name": "James Comer",
+      "party": "Republican Party",
+      "incumbent": true,
+      "summary": "James Comer is the incumbent U.S. Representative for Kentucky's 1st Congressional District, first elected in 2016. He serves as Chairman of the House Committee on Oversight and Accountability and previously served as Kentucky's Agriculture Commissioner (2012\u20132016) and in the Kentucky House of Representatives (2001\u20132012). He holds a BS in Agriculture from Western Kentucky University and operates a family farm in Monroe County.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/James_Comer_Jr.",
+          "type": "website",
+          "title": "James Comer Jr. - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/James_Comer",
+          "type": "website",
+          "title": "James Comer - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-12T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://comer.house.gov/about",
+          "type": "government",
+          "title": "About - Congressman James Comer",
+          "description": null,
+          "last_accessed": "2026-06-12T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/James_Comer.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2016,
+          "end_year": null,
+          "description": "Representing Kentucky's 1st Congressional District; Chairman of the House Oversight Committee since 2023.",
+          "source": null
+        },
+        {
+          "title": "Kentucky Commissioner of Agriculture",
+          "organization": "Kentucky Department of Agriculture",
+          "start_year": 2012,
+          "end_year": 2016,
+          "description": "Elected statewide; focused on hemp legalization, farm-to-campus programs, and rooting out waste and fraud.",
+          "source": null
+        },
+        {
+          "title": "Member, Kentucky House of Representatives",
+          "organization": "Kentucky General Assembly",
+          "start_year": 2001,
+          "end_year": 2012,
+          "description": "Represented the 53rd district; named National Republican Freshman Legislator of the Year.",
+          "source": null
+        },
+        {
+          "title": "Owner and Farmer",
+          "organization": "James Comer Jr. Farms / Comer Land & Cattle Co.",
+          "start_year": 1993,
+          "end_year": null,
+          "description": "Operates a family farm and cattle operation in Monroe County.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Western Kentucky University",
+          "degree": "Bachelor of Science",
+          "field": "Agriculture",
+          "year": 1993,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://comer.house.gov/",
+          "title": "https://comer.house.gov/",
+          "type": "other"
+        }
+      ],
+      "website": "https://jamescomer.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/CongressmanComer",
+        "instagram": "https://www.instagram.com/congressmancomer/",
+        "twitter": "https://x.com/RepJamesComer"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "John \"Drew\" Williams",
+      "party": "Democratic Party",
+      "incumbent": false,
+      "summary": "John \"Drew\" Williams is a Democratic candidate for U.S. House in Kentucky's 1st Congressional District. A lifelong resident of Marshall County, he graduated from Murray State University in 2016 with a degree in History and a minor in Biology. Williams has worked at his family's boat dock building business since age 14 and has served as a community organizer, notably helping revitalize the Tater Day festival in Benton. He previously ran unsuccessfully for the Kentucky House of Representatives in 2018.",
+      "summary_sources": [
+        {
+          "url": "https://www.williamsforky.com/drew",
+          "type": "website",
+          "title": "Meet Drew - Williams for KY",
+          "description": null,
+          "last_accessed": "2026-06-12T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Drew_Williams",
+          "type": "website",
+          "title": "Drew Williams - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.wpsdlocal6.com/news/john-drew-williams-announces-bid-for-u-s-house-in-kentucky-s-1st-district/article_9bb53a05-1133-4fe5-8c81-97c189614a71.html",
+          "type": "news",
+          "title": "John 'Drew' Williams announces bid for U.S. House in Kentucky's 1st District",
+          "description": null,
+          "last_accessed": "2026-06-12T15:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Dock Builder / Small Business Worker",
+          "organization": "Family business (boat dock construction)",
+          "start_year": 2008,
+          "end_year": null,
+          "description": "Works building boat docks on Kentucky Lake and Lake Barkley and in surrounding states.",
+          "source": null
+        },
+        {
+          "title": "Community Organizer",
+          "organization": "Tater Day Festival, Benton KY",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Helped revitalize the annual Tater Day community festival.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Murray State University",
+          "degree": "Bachelor of Science",
+          "field": "History (minor in Biology)",
+          "year": 2016,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.williamsforky.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/WilliamsForKY/",
+        "instagram": "https://www.instagram.com/williamsforky1/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Kentucky%27s_1st_congressional_district_election,_2026",
+  "updated_utc": "2026-06-13T21:18:09.233013+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 282995,
+    "completion_tokens": 7936,
+    "total_tokens": 290931,
+    "cost_usd": 0.018126853999999998,
+    "cost_source": "provider",
+    "estimated_usd": 0.029289,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 282995,
+        "completion_tokens": 7936
+      }
+    },
+    "duration_s": 143.3
+  }
+}

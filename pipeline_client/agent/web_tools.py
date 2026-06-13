@@ -659,6 +659,16 @@ async def _serper_search(query: str, *, num_results: int = 8, race_id: Optional[
     if not api_key:
         return [{"error": "SERPER_API_KEY not configured"}]
 
+    # Increment serper call count in cost context if available
+    try:
+        from pipeline_client.agent.cost import _cost_ctx
+
+        acc = _cost_ctx.get()
+        if acc is not None:
+            acc["serper_calls"] = acc.get("serper_calls", 0) + 1
+    except Exception:
+        pass
+
     client = _get_serper_client()
     try:
         resp = await client.post(

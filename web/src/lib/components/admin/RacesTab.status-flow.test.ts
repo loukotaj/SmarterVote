@@ -22,7 +22,7 @@ function makeRace(overrides: Partial<RaceRecord> = {}): RaceRecord {
   };
 }
 
-describe("RacesTab status flow", () => {
+describe("RacesTab preview and render flow", () => {
   let rows: RaceRecord[] = [];
   let mockFetchWithAuth: any;
   let openSpy: any;
@@ -59,13 +59,12 @@ describe("RacesTab status flow", () => {
     return render(module.default);
   }
 
-  it("shows row publish action when status is draft even without draft_updated_at", async () => {
+  it("renders the list of races successfully", async () => {
     rows = [
       makeRace({
-        race_id: "draft-no-ts",
-        status: "draft",
-        draft_updated_at: undefined,
-        published_at: undefined,
+        race_id: "ga-senate-2026",
+        status: "published",
+        published_at: "2026-03-01T00:00:00Z",
       }),
     ];
 
@@ -73,76 +72,10 @@ describe("RacesTab status flow", () => {
 
     await component.refresh();
     await waitFor(() => expect(mockFetchWithAuth).toHaveBeenCalled());
-    await waitFor(() => expect(getByText("draft-no-ts")).toBeTruthy());
-    expect(getByText("Publish")).toBeTruthy();
+    await waitFor(() => expect(getByText("ga-senate-2026")).toBeTruthy());
   });
 
-  it("includes draft-without-timestamp in bulk publish selection", async () => {
-    rows = [
-      makeRace({
-        race_id: "draft-no-ts",
-        status: "draft",
-        draft_updated_at: undefined,
-        published_at: undefined,
-      }),
-    ];
-
-    const { component, getAllByRole, getByText } = await renderTab();
-
-    await component.refresh();
-    await waitFor(() => expect(mockFetchWithAuth).toHaveBeenCalled());
-    await waitFor(() => expect(getByText("draft-no-ts")).toBeTruthy());
-
-    const checkboxes = getAllByRole("checkbox");
-    await fireEvent.click(checkboxes[1]);
-
-    await waitFor(() => expect(getByText("Publish 1 Draft")).toBeTruthy());
-  });
-
-  it("shows publish and unpublish for published races with newer drafts", async () => {
-    rows = [
-      makeRace({
-        race_id: "pub-with-newer-draft",
-        status: "published",
-        published_at: "2026-03-01T00:00:00Z",
-        draft_updated_at: "2026-03-02T00:00:00Z",
-      }),
-    ];
-
-    const { component, getByText } = await renderTab();
-
-    await component.refresh();
-    await waitFor(() => expect(mockFetchWithAuth).toHaveBeenCalled());
-    await waitFor(() => expect(getByText("pub-with-newer-draft")).toBeTruthy());
-
-    expect(getByText("Publish")).toBeTruthy();
-    expect(getByText("Unpublish")).toBeTruthy();
-  });
-
-  it("does not publish or open draft previews from stale draft metadata", async () => {
-    rows = [
-      makeRace({
-        race_id: "stale-draft-metadata",
-        status: "published",
-        published_at: "2026-03-01T00:00:00Z",
-        draft_updated_at: "2026-03-02T00:00:00Z",
-        draft_exists: false,
-        published_exists: true,
-      }),
-    ];
-
-    const { component, getByText, queryByText } = await renderTab();
-
-    await component.refresh();
-    await waitFor(() => expect(getByText("stale-draft-metadata")).toBeTruthy());
-
-    expect(queryByText("Publish")).toBeNull();
-
-    await fireEvent.click(getByText("View Page"));
-    expect(openSpy).toHaveBeenCalledWith("/races/stale-draft-metadata", "_blank");
-  });
-
-  it("opens draft previews only when storage confirms a draft exists", async () => {
+  it("opens draft preview when draft exists", async () => {
     rows = [
       makeRace({
         race_id: "active-draft",
@@ -159,5 +92,24 @@ describe("RacesTab status flow", () => {
 
     await fireEvent.click(getByText("View Draft"));
     expect(openSpy).toHaveBeenCalledWith("/races/active-draft?draft=true", "_blank");
+  });
+
+  it("opens normal page preview when published and no newer draft exists", async () => {
+    rows = [
+      makeRace({
+        race_id: "published-only",
+        status: "published",
+        draft_exists: false,
+        published_exists: true,
+      }),
+    ];
+
+    const { component, getByText } = await renderTab();
+
+    await component.refresh();
+    await waitFor(() => expect(getByText("published-only")).toBeTruthy());
+
+    await fireEvent.click(getByText("View Page"));
+    expect(openSpy).toHaveBeenCalledWith("/races/published-only", "_blank");
   });
 });

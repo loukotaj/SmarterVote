@@ -1,0 +1,449 @@
+{
+  "id": "nv-house-01-2026",
+  "title": "Nevada's 1st Congressional District election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Nevada's 1st Congressional District",
+  "state": "Nevada",
+  "district": "1st Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Nevada's 1st Congressional District pits seven-term Democratic incumbent Dina Titus against Republican state Senator Carrie Buck, along with several nonpartisan candidates. The district covers central Las Vegas, Paradise, Henderson, and Boulder City in Clark County. Titus has held the seat since 2013 and won re-election with 52.0% in 2024; Buck flipped a state Senate seat from Democratic to Republican in 2020 and has emerged as a well-funded challenger. The race is rated as 'Likely Democratic' by Cook Political Report and 'Lean Democratic' by Inside Elections, though Republican gains in the district could make it competitive.",
+  "polling": [],
+  "polling_note": "No independent general election head-to-head polls specific to the NV-01 race between Titus and Buck were found as of mid-2026. A Navigator Research battleground survey (Feb 2026) included NV-01 among 62 battleground districts but did not release district-level horse-race numbers. Cook Political Report rates the race 'Likely D' and Sabato's Crystal Ball rates it 'Likely D' as of mid-2025.",
+  "candidates": [
+    {
+      "name": "Dina Titus",
+      "party": "Democratic Party",
+      "incumbent": true,
+      "summary": "Dina Titus is the incumbent U.S. Representative for Nevada's 1st Congressional District, first elected in 2012 after previously serving one term in the 3rd district (2009\u20132011). She spent 20 years in the Nevada Senate and was the Democratic nominee for governor in 2006. A former political science professor at UNLV, Titus focuses on healthcare, education, and consumer protection, and is expected to become the dean of Nevada's congressional delegation in 2027.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Dina_Titus",
+          "type": "website",
+          "title": "Dina Titus - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-11T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Dina_Titus",
+          "type": "website",
+          "title": "Dina Titus - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-11T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Dina_Titus_official_photo_%281%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2013,
+          "end_year": null,
+          "description": "Representing Nevada's 1st Congressional District",
+          "source": null
+        },
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2009,
+          "end_year": 2011,
+          "description": "Representing Nevada's 3rd Congressional District",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Nevada Senate",
+          "start_year": 1988,
+          "end_year": 2008,
+          "description": "Represented the 7th district",
+          "source": null
+        },
+        {
+          "title": "Professor of Political Science",
+          "organization": "University of Nevada, Las Vegas",
+          "start_year": 1979,
+          "end_year": 2011,
+          "description": "Taught American and Nevada government; now professor emeritus",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "College of William & Mary",
+          "degree": "Bachelor of Arts",
+          "field": "Political Science",
+          "year": 1970,
+          "source": null
+        },
+        {
+          "institution": "University of Georgia",
+          "degree": "Master of Arts",
+          "field": "Political Science",
+          "year": 1973,
+          "source": null
+        },
+        {
+          "institution": "Florida State University",
+          "degree": "Doctor of Philosophy",
+          "field": "Political Science",
+          "year": 1976,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.dinatitus.com/",
+      "social_media": {
+        "twitter": "https://twitter.com/dinatitus",
+        "facebook": "https://www.facebook.com/titusforcongress/",
+        "instagram": "https://www.instagram.com/dinatitus/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Carrie Buck",
+      "party": "Republican Party",
+      "incumbent": false,
+      "summary": "Carrie Buck is a Nevada State Senator representing the 5th district since 2020, the only Republican to flip a state Senate seat from Democratic to Republican in the 2020 election cycle. An educator by profession, she served as a principal who turned around a low-performing elementary school and later led the Pinecrest Academy charter school, earning a Milken Educator Award. In Congress, she says she would focus on fighting for Nevada families, education reform, and supporting President Trump's agenda.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Carrie_Buck_(politician)",
+          "type": "website",
+          "title": "Carrie Buck (politician) - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-11T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Carrie_Buck_(Nevada)",
+          "type": "website",
+          "title": "Carrie Buck (Nevada) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-11T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://carriebuckforcongress.com/",
+          "type": "website",
+          "title": "Carrie Buck for Congress - Official Campaign Website",
+          "description": null,
+          "last_accessed": "2026-06-11T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Carrie_Buck.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "State Senator",
+          "organization": "Nevada Senate",
+          "start_year": 2020,
+          "end_year": null,
+          "description": "Representing the 5th district (Henderson/Paradise area)",
+          "source": null
+        },
+        {
+          "title": "President",
+          "organization": "Pinecrest Foundation",
+          "start_year": null,
+          "end_year": null,
+          "description": "Non-profit funding charter school initiatives",
+          "source": null
+        },
+        {
+          "title": "Principal",
+          "organization": "Pinecrest Academy",
+          "start_year": 2014,
+          "end_year": null,
+          "description": "Charter school in Henderson, Nevada",
+          "source": null
+        },
+        {
+          "title": "Principal",
+          "organization": "C.T. Sewell Elementary School",
+          "start_year": 2005,
+          "end_year": null,
+          "description": "Turned around one of Nevada's lowest-performing schools; won Milken Educator Award",
+          "source": null
+        },
+        {
+          "title": "ESL Teacher",
+          "organization": "Clark County School District",
+          "start_year": 1996,
+          "end_year": null,
+          "description": "Taught English as a second language at an elementary school in Las Vegas",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Montana State University",
+          "degree": "Bachelor of Science",
+          "field": "Elementary Education",
+          "year": 1995,
+          "source": null
+        },
+        {
+          "institution": "University of Phoenix",
+          "degree": "Master of Arts",
+          "field": "Administration and Supervision",
+          "year": 1998,
+          "source": null
+        },
+        {
+          "institution": "Nova Southeastern University",
+          "degree": "Doctor of Philosophy",
+          "field": "Organizational Leadership",
+          "year": 2006,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://carriebuckforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/cannbuck/",
+        "instagram": "https://www.instagram.com/carriebucknv/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Afzal \"Bobby\" Khan",
+      "party": "No Political Party (Nonpartisan)",
+      "incumbent": false,
+      "summary": "Afzal \"Bobby\" Khan is a former car dealer and convicted felon running as a nonpartisan candidate for Nevada's 1st Congressional District. He appears on the general election ballot per the official Clark County candidate list for 2026. Limited additional information is publicly available about his campaign platform.",
+      "summary_sources": [
+        {
+          "url": "https://www.clarkcountynv.gov/adobe/assets/urn:aaid:aem:fe5dbe41-e2b2-402e-a651-cbe5e6ea53bc/original/as/Contests-Candidates-All-26.pdf",
+          "type": "government",
+          "title": "Clark County Contests and Candidates in the 2026 Elections",
+          "description": null,
+          "last_accessed": "2026-06-11T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Nevada",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in Nevada - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-11T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Steven \"Chap\" St John",
+      "party": "No Political Party (Nonpartisan)",
+      "incumbent": false,
+      "summary": "Steven \"Chap\" St John is a chaplain running as a nonpartisan candidate for Nevada's 1st Congressional District. He previously ran for Nevada's 3rd Congressional District in 2014. He is listed on the general election ballot per the official Clark County candidate list.",
+      "summary_sources": [
+        {
+          "url": "https://www.clarkcountynv.gov/adobe/assets/urn:aaid:aem:fe5dbe41-e2b2-402e-a651-cbe5e6ea53bc/original/as/Contests-Candidates-All-26.pdf",
+          "type": "government",
+          "title": "Clark County Contests and Candidates in the 2026 Elections",
+          "description": null,
+          "last_accessed": "2026-06-11T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Nevada",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in Nevada - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-11T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Anthony Thomas Jr.",
+      "party": "No Political Party (Nonpartisan)",
+      "incumbent": false,
+      "summary": "Anthony Thomas Jr. is a nonpartisan candidate for Nevada's 1st Congressional District. He previously ran as a Democrat for this district in 2020. He is listed on the general election ballot per the official Clark County candidate list.",
+      "summary_sources": [
+        {
+          "url": "https://www.clarkcountynv.gov/adobe/assets/urn:aaid:aem:fe5dbe41-e2b2-402e-a651-cbe5e6ea53bc/original/as/Contests-Candidates-All-26.pdf",
+          "type": "government",
+          "title": "Clark County Contests and Candidates in the 2026 Elections",
+          "description": null,
+          "last_accessed": "2026-06-11T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Nevada",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in Nevada - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-11T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Victor R. Willert",
+      "party": "No Political Party (Nonpartisan)",
+      "incumbent": false,
+      "summary": "Victor R. Willert is a retired educator and perennial candidate running as a nonpartisan candidate for Nevada's 1st Congressional District. He is listed on the general election ballot per the official Clark County candidate list.",
+      "summary_sources": [
+        {
+          "url": "https://www.clarkcountynv.gov/adobe/assets/urn:aaid:aem:fe5dbe41-e2b2-402e-a651-cbe5e6ea53bc/original/as/Contests-Candidates-All-26.pdf",
+          "type": "government",
+          "title": "Clark County Contests and Candidates in the 2026 Elections",
+          "description": null,
+          "last_accessed": "2026-06-11T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Nevada",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in Nevada - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-11T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Nevada%27s_1st_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:29:07.484459+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 262119,
+    "completion_tokens": 7918,
+    "total_tokens": 270037,
+    "cost_usd": 0.020470438,
+    "cost_source": "provider",
+    "estimated_usd": 0.02724,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 262119,
+        "completion_tokens": 7918
+      }
+    },
+    "duration_s": 173.4
+  }
+}

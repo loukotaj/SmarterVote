@@ -1,0 +1,257 @@
+{
+  "id": "ca-house-06-2026",
+  "title": "California's 6th Congressional District election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "California's 6th Congressional District",
+  "state": "California",
+  "district": "6th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 general election for California's 6th Congressional District pits independent incumbent Rep. Kevin Kiley against Democratic former state senator Dr. Richard Pan. The race takes place under a dramatically redrawn district map resulting from California's Proposition 50 mid-decade redistricting, which shifted the district's boundaries to encompass parts of Sacramento, Placer, and Yolo counties. Kiley, formerly a Republican who switched to independent, argues he offers nonpartisan leadership focused on cost-of-living and public safety; Pan, a pediatrician and public health advocate, emphasizes protecting healthcare access and countering the Trump administration's policies. This is considered a battleground race that could help determine control of the U.S. House.",
+  "polling": [],
+  "polling_note": "No public general election polls were found for this race as of the research date.",
+  "candidates": [
+    {
+      "name": "Kevin Kiley",
+      "party": "No Party Preference",
+      "incumbent": false,
+      "summary": "Kevin Kiley is a U.S. Representative for California's 3rd congressional district since 2023, previously serving in the California State Assembly from 2016 to 2022. He switched his party affiliation from Republican to independent in 2026 and is running in the newly redrawn 6th district, citing frustration with hyperpartisanship. A Harvard graduate and Yale Law School alum, Kiley was an unsuccessful candidate in the 2021 California gubernatorial recall election and has authored legislation on school district transfers and vaccine mandate bans.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kevin_Kiley_(politician)",
+          "type": "website",
+          "title": "Kevin Kiley (politician) - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T04:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Kevin_Kiley",
+          "type": "website",
+          "title": "Kevin Kiley - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T04:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.washingtonexaminer.com/news/campaigns/congressional/4590364/california-6th-congressional-district-primary-results-kevin-kiley/",
+          "type": "news",
+          "title": "California's 6th District primary results: Kevin Kiley will face Democrat Richard Pan",
+          "description": null,
+          "last_accessed": "2026-06-13T04:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Kevin_Kiley.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives, California's 3rd District",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Serving since January 2023; currently running for re-election in the 6th district due to redistricting",
+          "source": null
+        },
+        {
+          "title": "Member",
+          "organization": "California State Assembly, 6th District",
+          "start_year": 2016,
+          "end_year": 2022,
+          "description": "Represented the 6th Assembly District; authored legislation on school transfers and state emergency powers",
+          "source": null
+        },
+        {
+          "title": "Attorney",
+          "organization": "Irell & Manella LLP",
+          "start_year": null,
+          "end_year": null,
+          "description": "Practiced law, including intellectual property case work against Huawei",
+          "source": null
+        },
+        {
+          "title": "Teacher",
+          "organization": "Teach for America at Manual Arts High School",
+          "start_year": null,
+          "end_year": null,
+          "description": "Taught for two years in Los Angeles while earning teaching credentials",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Harvard University",
+          "degree": "Bachelor of Arts",
+          "field": null,
+          "year": 2007,
+          "source": null
+        },
+        {
+          "institution": "Loyola Marymount University",
+          "degree": "Master of Arts",
+          "field": "Teaching",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Yale Law School",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://electkevinkiley.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Richard Pan",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Dr. Richard Pan is a pediatrician, former California State Senator (2014\u20132022), and former California State Assemblymember (2010\u20132014). He is nationally known for authoring California Senate Bill 277, which eliminated religious and philosophical exemptions for school vaccine requirements after the Disneyland measles outbreak. A graduate of Johns Hopkins University, the University of Pittsburgh School of Medicine, and Harvard School of Public Health, Pan also practiced as a pediatrician and professor at UC Davis before entering politics.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Richard_Pan",
+          "type": "website",
+          "title": "Richard Pan - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T04:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Richard_Pan",
+          "type": "website",
+          "title": "Richard Pan - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T04:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://drpanforcongress.com/",
+          "type": "website",
+          "title": "Dr. Pan for Congress - Official Campaign Website",
+          "description": null,
+          "last_accessed": "2026-06-13T04:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Richard_Pan.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "State Senator",
+          "organization": "California State Senate, 6th District",
+          "start_year": 2014,
+          "end_year": 2022,
+          "description": "Authored SB 277 eliminating vaccine exemptions; chaired California Asian American & Pacific Islander Legislative Caucus",
+          "source": null
+        },
+        {
+          "title": "State Assemblymember",
+          "organization": "California State Assembly, 5th and 9th Districts",
+          "start_year": 2010,
+          "end_year": 2014,
+          "description": "Served two terms; authored newborn screening legislation",
+          "source": null
+        },
+        {
+          "title": "Pediatrician and Professor",
+          "organization": "University of California, Davis Medical Center",
+          "start_year": null,
+          "end_year": null,
+          "description": "Led pediatric residency program; founded Communities and Physicians Together service-learning curriculum",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Johns Hopkins University",
+          "degree": "Bachelor of Science",
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Pittsburgh School of Medicine",
+          "degree": "Doctor of Medicine",
+          "field": "Medicine",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Harvard University School of Public Health",
+          "degree": "Master of Public Health",
+          "field": "Public Health",
+          "year": 1998,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://drpanforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/California%27s_6th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:09:00.500778+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 221337,
+    "completion_tokens": 6060,
+    "total_tokens": 227397,
+    "cost_usd": 0.01689837,
+    "cost_source": "provider",
+    "estimated_usd": 0.022879,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 221337,
+        "completion_tokens": 6060
+      }
+    },
+    "duration_s": 107.9
+  }
+}

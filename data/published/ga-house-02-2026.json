@@ -1,0 +1,269 @@
+{
+  "id": "ga-house-02-2026",
+  "title": "Georgia's 2nd Congressional District election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Georgia's 2nd Congressional District",
+  "state": "Georgia",
+  "district": "2nd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Georgia's 2nd Congressional District features 17-term Democratic incumbent Rep. Sanford Bishop facing Republican businessman Matt Day and Communist Party candidate Brandon Daley. Bishop, a moderate Blue Dog Democrat who has held the seat since 1993, ran unopposed in the Democratic primary, while Day won the Republican primary uncontested. The district covers a largely rural and agricultural region of southwest Georgia including Albany, Americus, and parts of Macon and Columbus. The Cook Political Report rates the race as Solidly Democratic, though ongoing redistricting debates could reshape the district's boundaries for future cycles.",
+  "polling": [],
+  "polling_note": "No publicly available opinion polls were found for this specific race as of the search date.",
+  "candidates": [
+    {
+      "name": "Sanford Bishop",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Sanford Dixon Bishop Jr. is an American lawyer and politician serving as the U.S. representative for Georgia's 2nd congressional district since 1993, making him the dean of Georgia's congressional delegation. He is a member of the Blue Dog Coalition, a group of moderate to conservative House Democrats, and serves as Ranking Member on the House Appropriations Subcommittee on Agriculture. Bishop previously served in the Georgia House of Representatives (1977-1991) and the Georgia State Senate (1991-1993), and has consistently won re-election by comfortable margins in recent cycles.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Sanford_Bishop",
+          "type": "website",
+          "title": "Sanford Bishop - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-24T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.wsbtv.com/news/local/georgia-general-election-2026-candidates-us-senate-all-14-us-house-seats/TCGX3E477BG7FCEATCR67KRDBQ/",
+          "type": "news",
+          "title": "Georgia general election 2026: Candidates for U.S. Senate, all 14 U.S. House seats",
+          "description": null,
+          "last_accessed": "2026-06-24T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/aa/Official_photo_of_Sen._Sanford_Bishop.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 1993,
+          "end_year": null,
+          "description": "Representing Georgia's 2nd Congressional District; Ranking Member, Appropriations Subcommittee on Agriculture",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Georgia State Senate",
+          "start_year": 1991,
+          "end_year": 1993,
+          "description": "Represented the 15th district",
+          "source": null
+        },
+        {
+          "title": "State Representative",
+          "organization": "Georgia House of Representatives",
+          "start_year": 1977,
+          "end_year": 1991,
+          "description": "Represented the 94th district",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Morehouse College",
+          "degree": "Bachelor of Arts",
+          "field": "Political Science",
+          "year": 1968,
+          "source": null
+        },
+        {
+          "institution": "Emory University School of Law",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": 1971,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "http://bishop.house.gov/",
+          "title": "Official House website",
+          "type": "other"
+        }
+      ],
+      "website": "https://sanfordbishop.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/sanfordbishop/",
+        "instagram": "https://www.instagram.com/repsanfordbishop/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Matt Day",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Benjamin Matthew Day is a businessman and Republican candidate for U.S. House in Georgia's 2nd Congressional District. He is the founder of multiple companies in the construction and manufacturing staffing sectors, including Glaziers on Demand (2013), Glazier Nation (2019), and ChoreNab (2025). Day describes himself as a commonsense conservative and says his mission is to fight corruption, government waste, and the size of government.",
+      "summary_sources": [
+        {
+          "url": "https://www.votemattday.com/copy-2-of-home",
+          "type": "website",
+          "title": "Matt's Story - Matt Day for Congress",
+          "description": null,
+          "last_accessed": "2026-06-24T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.ajc.com/politics/2026/04/us-house-district-2-bishop-avoids-primary-challenge-in-sw-georgia/",
+          "type": "news",
+          "title": "Georgia's 2nd Congressional District candidates 2026: Who's running",
+          "description": null,
+          "last_accessed": "2026-06-24T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Founder",
+          "organization": "Glaziers on Demand",
+          "start_year": 2013,
+          "end_year": null,
+          "description": "Staffing company for glass and construction industry labor",
+          "source": null
+        },
+        {
+          "title": "Founder",
+          "organization": "Glazier Nation",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Staffing model expanded into all construction trades",
+          "source": null
+        },
+        {
+          "title": "Founder",
+          "organization": "ChoreNab",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Labor model applied to manufacturing sector",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "South Georgia College",
+          "degree": null,
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "East Central Tech School",
+          "degree": null,
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.votemattday.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/matt_day_for_congress/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Brandon Daley",
+      "party": "Communist Party",
+      "incumbent": false,
+      "summary": "Brandon Daley is a candidate running under the Communist Party banner for U.S. House in Georgia's 2nd Congressional District in the 2026 general election. Details about his background and platform are limited. He is listed as a general election candidate on Ballotpedia and other election tracking sites.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Brandon_Daley",
+          "type": "website",
+          "title": "Brandon Daley - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-24T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/H6GA02164/",
+          "type": "government",
+          "title": "DALEY, BRANDON - Candidate overview - FEC",
+          "description": null,
+          "last_accessed": "2026-06-24T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Georgia's_2nd_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:13:33.142914+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 257097,
+    "completion_tokens": 6288,
+    "total_tokens": 263385,
+    "cost_usd": 0.016853298,
+    "cost_source": "provider",
+    "estimated_usd": 0.026428,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 257097,
+        "completion_tokens": 6288
+      }
+    },
+    "duration_s": 149.6
+  }
+}

@@ -1,0 +1,292 @@
+{
+  "id": "ma-house-08-2026",
+  "title": "2026 U.S. House of Representatives election in Massachusetts's 8th Congressional District",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Massachusetts's 8th Congressional District",
+  "state": "Massachusetts",
+  "district": "8th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Massachusetts's 8th Congressional District will be held on November 3, 2026, with the Democratic and Republican primaries scheduled for September 1, 2026. The district covers parts of Boston and its southern suburbs, including Quincy, Brockton, and Weymouth, and has a Cook PVI of D+15, making it a safely Democratic seat. Incumbent Democrat Stephen Lynch, first elected in 2001, faces a primary challenge from attorney and voting rights advocate Patrick Roath, who argues for new leadership and more progressive policies. The Republican primary features Walter Grochowski, though the general election is widely expected to remain in Democratic hands.",
+  "polling": [],
+  "polling_note": "No public opinion polls found for this race.",
+  "candidates": [
+    {
+      "name": "Stephen Lynch",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Stephen Lynch has represented Massachusetts's 8th Congressional District (previously the 9th) since 2001. A former ironworker and union president, he earned a law degree from Boston College and a Master's in Public Administration from Harvard. Lynch is the ranking member of the House Oversight Committee and sits on the Financial Services Committee; he has a reputation as a moderate Democrat and has been re-elected by wide margins.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Stephen_Lynch_(politician)",
+          "type": "website",
+          "title": "Stephen Lynch (politician) - Wikipedia",
+          "description": null,
+          "last_accessed": "2025-07-17T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Stephen_Lynch",
+          "type": "website",
+          "title": "Stephen Lynch - Ballotpedia",
+          "description": null,
+          "last_accessed": "2025-07-17T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Stephen_Lynch.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2001,
+          "end_year": null,
+          "description": "Serving Massachusetts's 9th (2001-2013) and 8th (2013-present) districts.",
+          "source": null
+        },
+        {
+          "title": "Member of the Massachusetts Senate",
+          "organization": "Massachusetts Senate",
+          "start_year": 1996,
+          "end_year": 2001,
+          "description": "Represented the 1st Suffolk district.",
+          "source": null
+        },
+        {
+          "title": "Member of the Massachusetts House of Representatives",
+          "organization": "Massachusetts House of Representatives",
+          "start_year": 1995,
+          "end_year": 1996,
+          "description": "Represented the 4th Suffolk district.",
+          "source": null
+        },
+        {
+          "title": "President",
+          "organization": "Iron Workers Local 7",
+          "start_year": 1985,
+          "end_year": 1994,
+          "description": "Youngest president in local history; also worked as an ironworker.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Wentworth Institute of Technology",
+          "degree": "Bachelor of Science",
+          "field": "Construction Management",
+          "year": 1988,
+          "source": null
+        },
+        {
+          "institution": "Boston College Law School",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": 1991,
+          "source": null
+        },
+        {
+          "institution": "Harvard University",
+          "degree": "Master of Public Administration",
+          "field": "Public Administration",
+          "year": 1999,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.stephenflynch.com/",
+      "social_media": {
+        "twitter": "https://x.com/RepStephenLynch",
+        "facebook": "https://www.facebook.com/repstephenlynch/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Patrick Roath",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Patrick Roath is a lawyer, democracy advocate, and Boston resident running to challenge incumbent Stephen Lynch in the Democratic primary. He previously chaired the board of Common Cause Massachusetts, worked as an aide to Governor Deval Patrick, and served as a Fulbright cultural ambassador in Malaysia. Roath's campaign focuses on affordable housing, healthcare, child care, and bringing generational change to Congress.",
+      "summary_sources": [
+        {
+          "url": "https://patrickroath.com/bio/",
+          "type": "website",
+          "title": "Bio - Patrick Roath for Congress",
+          "description": null,
+          "last_accessed": "2025-07-17T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.wbur.org/news/2025/07/17/patrick-roath-stephen-lynch-representative-congress-primary-massachusetts",
+          "type": "news",
+          "title": "Patrick Roath hopes to ride a youth movement into Congress and oust Stephen Lynch",
+          "description": null,
+          "last_accessed": "2025-07-17T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://leaderswedeserve.com/candidate/patrick-roath/",
+          "type": "website",
+          "title": "Patrick Roath - Leaders We Deserve",
+          "description": null,
+          "last_accessed": "2025-07-17T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Attorney",
+          "organization": "Ropes & Gray LLP",
+          "start_year": null,
+          "end_year": null,
+          "description": "Commercial civil litigator with pro bono voting rights practice.",
+          "source": null
+        },
+        {
+          "title": "Board Chair",
+          "organization": "Common Cause Massachusetts",
+          "start_year": null,
+          "end_year": null,
+          "description": "Led advocacy for voting access and government transparency.",
+          "source": null
+        },
+        {
+          "title": "Aide to Governor Deval Patrick",
+          "organization": "Massachusetts State House",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked on campaigns and policy at the state level.",
+          "source": null
+        },
+        {
+          "title": "Fulbright Cultural Ambassador",
+          "organization": "Fulbright Program",
+          "start_year": 2010,
+          "end_year": 2011,
+          "description": "Taught English at an Islamic boarding school in Malaysia.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Tufts University",
+          "degree": "Bachelor's",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://patrickroath.com/",
+      "social_media": {
+        "twitter": "https://x.com/PatrickRoath",
+        "instagram": "https://www.instagram.com/patrickforcongress/",
+        "linkedin": "https://www.linkedin.com/in/patrickroath"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Walter Grochowski",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Walter Grochowski is a Republican candidate running in the primary for Massachusetts's 8th Congressional District. Limited public information is available about his background or campaign platform at this time.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Walter_Grochowski",
+          "type": "website",
+          "title": "Walter Grochowski - Ballotpedia",
+          "description": null,
+          "last_accessed": "2025-07-17T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/H6MA08349/",
+          "type": "government",
+          "title": "GROCHOWSKI, WALTER - FEC Candidate Overview",
+          "description": null,
+          "last_accessed": "2025-07-17T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Massachusetts%27_8th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:33:18.231651+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 296756,
+    "completion_tokens": 6551,
+    "total_tokens": 303307,
+    "cost_usd": 0.0175755597,
+    "cost_source": "provider",
+    "estimated_usd": 0.030366,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 296756,
+        "completion_tokens": 6551
+      }
+    },
+    "duration_s": 182.0
+  }
+}

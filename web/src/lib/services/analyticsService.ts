@@ -70,7 +70,7 @@ export const analyticsService = {
     return fetchAdmin<{ records: PipelineRunRecord[]; count: number }>("/pipeline/metrics", { limit });
   },
 
-  async getPipelineMetricsSummary(): Promise<PipelineMetricsSummary> {
-    return fetchAdmin<PipelineMetricsSummary>("/pipeline/metrics/summary");
+  async getPipelineMetricsSummary(hours?: number): Promise<PipelineMetricsSummary> {
+    return fetchAdmin<PipelineMetricsSummary>("/pipeline/metrics/summary", hours ? { hours } : undefined);
   },
 };

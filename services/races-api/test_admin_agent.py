@@ -10,10 +10,12 @@ from routers import admin_agent
 
 
 class FakeSnapshot:
-    def __init__(self, doc_id, value):
+    def __init__(self, doc_id, value, collection=None):
         self.id = doc_id
         self._value = deepcopy(value)
         self.exists = value is not None
+        if collection is not None:
+            self.reference = FakeDocument(collection, doc_id)
 
     def to_dict(self):
         return deepcopy(self._value)
@@ -25,7 +27,7 @@ class FakeDocument:
         self.doc_id = doc_id
 
     def get(self, transaction=None):
-        return FakeSnapshot(self.doc_id, self.collection.values.get(self.doc_id))
+        return FakeSnapshot(self.doc_id, self.collection.values.get(self.doc_id), self.collection)
 
     def set(self, value, merge=False):
         if merge and self.doc_id in self.collection.values:
@@ -36,6 +38,10 @@ class FakeDocument:
     def update(self, value):
         self.collection.values[self.doc_id].update(deepcopy(value))
 
+    def delete(self):
+        if self.doc_id in self.collection.values:
+            del self.collection.values[self.doc_id]
+
 
 class FakeQuery:
     def __init__(self, collection, field, value):
@@ -43,9 +49,15 @@ class FakeQuery:
         self.field = field
         self.value = value
 
+    def order_by(self, *args, **kwargs):
+        return self
+
+    def limit(self, *args, **kwargs):
+        return self
+
     def stream(self):
         return [
-            FakeSnapshot(doc_id, value)
+            FakeSnapshot(doc_id, value, self.collection)
             for doc_id, value in self.collection.values.items()
             if value.get(self.field) == self.value
         ]
@@ -60,6 +72,15 @@ class FakeCollection:
 
     def where(self, field, _operator, value):
         return FakeQuery(self, field, value)
+
+    def order_by(self, *args, **kwargs):
+        return self
+
+    def limit(self, *args, **kwargs):
+        return self
+
+    def stream(self):
+        return [FakeSnapshot(doc_id, value, self) for doc_id, value in self.values.items()]
 
 
 class FakeFirestore:
@@ -194,3 +215,39 @@ def test_submit_message_rejects_pending_approval(fake_db):
         )
 
     assert exc.value.status_code == 409
+
+
+def test_list_and_delete_conversation(fake_db):
+    conv1 = asyncio.run(admin_agent.create_conversation())
+    conv2 = asyncio.run(admin_agent.create_conversation())
+
+    # List conversations
+    convs_list = asyncio.run(admin_agent.list_conversations())
+    ids = [c["conversation_id"] for c in convs_list["conversations"]]
+    assert conv1["conversation_id"] in ids
+    assert conv2["conversation_id"] in ids
+
+    # Create message and task for conv1
+    asyncio.run(
+        admin_agent.submit_message(
+            conv1["conversation_id"],
+            AdminAgentMessageRequest(content="hello"),
+        )
+    )
+
+    # Delete conv1
+    delete_res = asyncio.run(admin_agent.delete_conversation(conv1["conversation_id"]))
+    assert delete_res["conversation_id"] == conv1["conversation_id"]
+
+    # Verify deleted conv1 is gone from list
+    convs_list = asyncio.run(admin_agent.list_conversations())
+    ids = [c["conversation_id"] for c in convs_list["conversations"]]
+    assert conv1["conversation_id"] not in ids
+    assert conv2["conversation_id"] in ids
+
+    # Verify cascade delete of messages and tasks
+    messages = fake_db.collection(admin_agent._MESSAGES).where("conversation_id", "==", conv1["conversation_id"]).stream()
+    assert len(messages) == 0
+
+    tasks = fake_db.collection(admin_agent._TASKS).where("conversation_id", "==", conv1["conversation_id"]).stream()
+    assert len(tasks) == 0

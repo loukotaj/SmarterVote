@@ -1,0 +1,310 @@
+{
+  "id": "il-house-02-2026",
+  "title": "Illinois's 2nd Congressional District Election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Illinois's 2nd Congressional District",
+  "state": "Illinois",
+  "district": "2nd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Illinois's 2nd Congressional District is an open-seat race following the decision of incumbent Democrat Robin Kelly to run for the U.S. Senate. The district covers Chicago's far southeast side, southern suburbs, and portions of Will, Kankakee, Iroquois, and Vermilion counties. Cook County Commissioner Donna Miller won a crowded 11-candidate Democratic primary on March 17, 2026, defeating former U.S. Rep. Jesse Jackson Jr. and state Sen. Robert Peters. She will face Republican nominee Mike Noack, a truck driver who was unopposed in the GOP primary, and independent candidate Ashley Banks in the November 3 general election. The district is heavily Democratic and has not elected a Republican to Congress since the 1950s.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for this race as of the research date.",
+  "candidates": [
+    {
+      "name": "Donna Miller",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Donna Miller is a Cook County Commissioner representing the 6th District since 2018 and the Democratic nominee for Illinois's 2nd Congressional District. She has a background in healthcare consulting and biotech pharmaceuticals, and previously served on the board of Planned Parenthood Illinois. Miller won a competitive 11-candidate Democratic primary on March 17, 2026, defeating former U.S. Rep. Jesse Jackson Jr. and other prominent contenders.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Donna_Miller",
+          "type": "news",
+          "title": "Donna Miller - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-05-31T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://abc7chicago.com/post/illinois-election-primary-2026-jesse-jackson-jr-donna-miller-robert-peters-seek-robin-kellys-2nd-congressional-district-seat/18711722/",
+          "type": "news",
+          "title": "Illinois election primary 2026: Jesse Jackson Jr., Donna Miller, Robert Peters seek Robin Kelly's 2nd Congressional District seat",
+          "description": null,
+          "last_accessed": "2026-05-31T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://chicago.suntimes.com/elections/2026/03/17/us-house-illinois-2nd-congressional-district-primary-results",
+          "type": "news",
+          "title": "Democrat Donna Miller wins 2nd Congressional District",
+          "description": null,
+          "last_accessed": "2026-05-31T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Cook_County_Commissioner_Donna_Miller_at_May_Day_2025.jpg/250px-Cook_County_Commissioner_Donna_Miller_at_May_Day_2025.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Cook County Commissioner, 6th District",
+          "organization": "Cook County Board of Commissioners",
+          "start_year": 2018,
+          "end_year": null,
+          "description": "Represents the 6th district; chairs Asset Management and Contract Compliance committees.",
+          "source": null
+        },
+        {
+          "title": "Director of Multi Cultural Markets",
+          "organization": "American Heart Association",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked on community health outreach.",
+          "source": null
+        },
+        {
+          "title": "Healthcare Consultant / Account Specialist",
+          "organization": "Various (Biotech/Pharmaceutical)",
+          "start_year": null,
+          "end_year": null,
+          "description": "Decades of experience in the biotech pharmaceutical healthcare industry.",
+          "source": null
+        },
+        {
+          "title": "Board Chair",
+          "organization": "Planned Parenthood Illinois",
+          "start_year": 2017,
+          "end_year": 2018,
+          "description": "Served on the board beginning 2012, became board chair in 2017.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Howard University",
+          "degree": "BBA",
+          "field": "Business Administration",
+          "year": 1987,
+          "source": null
+        },
+        {
+          "institution": "Pepperdine University",
+          "degree": "Graduate coursework",
+          "field": "Business",
+          "year": 1992,
+          "source": null
+        },
+        {
+          "institution": "Lane Technical High School",
+          "degree": "High School Diploma",
+          "field": null,
+          "year": 1983,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://donnaforcongress.com/",
+          "title": "https://donnaforcongress.com/",
+          "type": "other"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Donna_Miller",
+          "title": "https://en.wikipedia.org/wiki/Donna_Miller",
+          "type": "other"
+        }
+      ],
+      "website": "https://donnaforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/donnamillerforcongress/",
+        "instagram": "https://www.instagram.com/donnaforcongress/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Mike Noack",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Mike Noack is a truck driver from Bonfield, Illinois, and the Republican nominee for Illinois's 2nd Congressional District. He has spent 32 years in Kankakee County and describes himself as a working man and political outsider. Noack was unopposed in the Republican primary on March 17, 2026, advancing to the general election to face Democratic nominee Donna Miller.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Illinois%27_2nd_Congressional_District_election,_2026_(March_17_Republican_primary)",
+          "type": "website",
+          "title": "Illinois' 2nd Congressional District election, 2026 (March 17 Republican primary) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-05-31T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://wgntv.com/news/politics/democrat-donna-miller-to-face-republican-mike-noack-in-2nd-district-race/",
+          "type": "news",
+          "title": "Democrat Donna Miller to face Republican Mike Noack in 2nd District race",
+          "description": null,
+          "last_accessed": "2026-05-31T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "http://noack4congress.com/",
+          "type": "website",
+          "title": "Mike Noack For Congress",
+          "description": null,
+          "last_accessed": "2026-05-31T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Truck Driver",
+          "organization": "Self-employed / Transportation",
+          "start_year": null,
+          "end_year": null,
+          "description": "Has worked as a truck driver for many years; describes himself as a working man from Bonfield.",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "http://noack4congress.com/",
+          "title": "http://noack4congress.com/",
+          "type": "other"
+        }
+      ],
+      "website": "http://noack4congress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Ashley Banks",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Ashley Banks is an independent candidate running for Illinois's 2nd Congressional District. She has 40 years of lived experience working in a variety of jobs including bus company, CTA, truck driving, warehouse, and ride-sharing. Her campaign priorities include infrastructure, economic development, healthcare access, and universal healthcare.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Ashley_Banks",
+          "type": "website",
+          "title": "Ashley Banks - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-05-31T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.ashleybanksworksforyou.com/about-banks-for-il-2",
+          "type": "website",
+          "title": "About Banks For IL-2",
+          "description": null,
+          "last_accessed": "2026-05-31T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/H6IL02371/",
+          "type": "government",
+          "title": "BANKS, ASHLEY - Candidate overview - FEC",
+          "description": null,
+          "last_accessed": "2026-05-31T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Various roles (Bus company, CTA, truck driving, warehouse, ride-sharing)",
+          "organization": "Multiple employers",
+          "start_year": null,
+          "end_year": null,
+          "description": "Has worked in a variety of industries over 40 years.",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://www.ashleybanksworksforyou.com/",
+          "title": "https://www.ashleybanksworksforyou.com/",
+          "type": "other"
+        }
+      ],
+      "website": "https://www.ashleybanksworksforyou.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Illinois%27_2nd_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:23:03.707322+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 165057,
+    "completion_tokens": 6663,
+    "total_tokens": 171720,
+    "cost_usd": 0.012000318,
+    "cost_source": "provider",
+    "estimated_usd": 0.017482,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 165057,
+        "completion_tokens": 6663
+      }
+    },
+    "duration_s": 115.4
+  }
+}

@@ -1,0 +1,256 @@
+{
+  "id": "al-governor-2026",
+  "title": "2026 Alabama Gubernatorial Election",
+  "office": "Governor of Alabama",
+  "jurisdiction": "Alabama",
+  "state": "Alabama",
+  "district": null,
+  "election_date": "2026-11-03",
+  "description": "The 2026 Alabama gubernatorial election will be held on November 3, 2026, to elect the governor of Alabama. Republican incumbent Kay Ivey is term-limited and cannot seek a third term, creating an open seat. The general election features a rematch of the 2020 U.S. Senate race: Republican U.S. Senator Tommy Tuberville faces Democratic former U.S. Senator Doug Jones. Alabama has not elected a Democratic governor since 1998, making this a heavily Republican-leaning race, though Jones's 2017 special election victory demonstrates Democratic competitiveness under specific circumstances.",
+  "polling": [
+    {
+      "pollster": "Cygnal (R)",
+      "date": "2026-04-30",
+      "sample_size": 500,
+      "matchups": [],
+      "source_url": "https://en.wikipedia.org/wiki/2026_Alabama_gubernatorial_election"
+    },
+    {
+      "pollster": "Quantus Insights (R)",
+      "date": "2025-10-14",
+      "sample_size": 1050,
+      "matchups": [],
+      "source_url": "https://en.wikipedia.org/wiki/2026_Alabama_gubernatorial_election"
+    }
+  ],
+  "polling_note": "Available polling covers the Republican primary only (Tuberville vs. McFeeters and Santivasci). No public general election polls (Tuberville vs. Jones) were found as of the research date.",
+  "candidates": [
+    {
+      "name": "Tommy Tuberville",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Thomas Hawley Tuberville is the senior U.S. Senator from Alabama, serving since 2021. Before entering politics, he was a college football head coach for 22 seasons at Auburn (1999\u20132008), Ole Miss, Texas Tech, and Cincinnati, winning five national coach-of-the-year awards after Auburn's 13\u20130 season in 2004. He defeated incumbent Democrat Doug Jones in the 2020 Senate race and is now the Republican nominee for governor, endorsed by President Donald Trump.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Tommy_Tuberville",
+          "type": "website",
+          "title": "Tommy Tuberville - Wikipedia",
+          "description": null,
+          "last_accessed": "2025-07-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_Alabama_gubernatorial_election",
+          "type": "website",
+          "title": "2026 Alabama gubernatorial election - Wikipedia",
+          "description": null,
+          "last_accessed": "2025-07-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/df/Tommy_tuberville.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Senator",
+          "organization": "United States Senate",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Senior senator from Alabama",
+          "source": null
+        },
+        {
+          "title": "Head Football Coach",
+          "organization": "Auburn University",
+          "start_year": 1999,
+          "end_year": 2008,
+          "description": "Led Auburn to 13\u20130 season and SEC championship in 2004",
+          "source": null
+        },
+        {
+          "title": "Head Football Coach",
+          "organization": "University of Mississippi",
+          "start_year": 1995,
+          "end_year": 1998,
+          "description": "First collegiate head coaching position",
+          "source": null
+        },
+        {
+          "title": "Head Football Coach",
+          "organization": "Texas Tech University",
+          "start_year": 2010,
+          "end_year": 2012,
+          "description": "",
+          "source": null
+        },
+        {
+          "title": "Head Football Coach",
+          "organization": "University of Cincinnati",
+          "start_year": 2013,
+          "end_year": 2016,
+          "description": "Won American Athletic Conference championship in 2014",
+          "source": null
+        },
+        {
+          "title": "Color Analyst",
+          "organization": "ESPN",
+          "start_year": 2017,
+          "end_year": 2017,
+          "description": "College football coverage",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Southern Arkansas University",
+          "degree": "Bachelor of Science",
+          "field": "Physical Education",
+          "year": 1976,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.coachforgovernor.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Doug Jones",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Gordon Douglas Jones served as U.S. Senator from Alabama from 2018 to 2021 after winning a special election against Roy Moore, becoming the first Democrat to win a Senate seat in Alabama in 25 years. He previously served as U.S. Attorney for the Northern District of Alabama (1997\u20132001) and is known for prosecuting two former Ku Klux Klan members for the 1963 16th Street Baptist Church bombing. He lost his 2020 reelection bid to Tommy Tuberville and is now the Democratic nominee for governor.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Doug_Jones_(politician)",
+          "type": "website",
+          "title": "Doug Jones (politician) - Wikipedia",
+          "description": null,
+          "last_accessed": "2025-07-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_Alabama_gubernatorial_election",
+          "type": "website",
+          "title": "2026 Alabama gubernatorial election - Wikipedia",
+          "description": null,
+          "last_accessed": "2025-07-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.legistorm.com/person/bio/276455/Gordon_Douglas_Jones.html",
+          "type": "website",
+          "title": "Former Sen. Doug Jones - Biography",
+          "description": null,
+          "last_accessed": "2025-07-15T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/0d/Senator_Doug_Jones_official_photo_(cropped)_2.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Senator",
+          "organization": "United States Senate",
+          "start_year": 2018,
+          "end_year": 2021,
+          "description": "Won special election; lost reelection in 2020",
+          "source": null
+        },
+        {
+          "title": "U.S. Attorney",
+          "organization": "Northern District of Alabama",
+          "start_year": 1997,
+          "end_year": 2001,
+          "description": "Prosecuted 16th Street Baptist Church bombing cases",
+          "source": null
+        },
+        {
+          "title": "Attorney",
+          "organization": "Private practice",
+          "start_year": 2001,
+          "end_year": 2017,
+          "description": "",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Alabama",
+          "degree": "Bachelor of Science",
+          "field": "",
+          "year": 1976,
+          "source": null
+        },
+        {
+          "institution": "Samford University, Cumberland School of Law",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": 1979,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.dougjones.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Alabama_gubernatorial_election,_2026",
+  "updated_utc": "2026-06-13T20:49:52.541709+00:00",
+  "generator": [
+    "nvidia/nemotron-3-super-120b-a12b",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "nvidia/nemotron-3-super-120b-a12b",
+    "model_profile": "economy",
+    "prompt_tokens": 39954,
+    "completion_tokens": 7118,
+    "total_tokens": 47072,
+    "cost_usd": 0.00403274,
+    "cost_source": "provider",
+    "estimated_usd": 0.004845,
+    "model_breakdown": {
+      "openai/gpt-5-nano": {
+        "prompt_tokens": 39954,
+        "completion_tokens": 7118
+      }
+    },
+    "duration_s": 66.1
+  }
+}

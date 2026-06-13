@@ -1,0 +1,231 @@
+{
+  "id": "ca-house-44-2026",
+  "title": "California's 44th Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "California's 44th Congressional District",
+  "state": "California",
+  "district": "44th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 general election for California's 44th Congressional District pits Democratic incumbent Nanette Barrag\u00e1n against Republican challenger Genevieve Angel. The district covers parts of South Los Angeles, southeastern Los Angeles County, and the Harbor Area, including communities such as Carson, San Pedro, and South Gate. Barrag\u00e1n, first elected in 2016, is seeking a sixth term in a solidly Democratic district where registered Democrats outnumber Republicans by more than three to one. Angel, a healthcare executive and family nurse practitioner, advanced from the top-two primary alongside Barrag\u00e1n and is running on a platform of economic affordability, public safety, and healthcare reform.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for this specific race as of June 2026.",
+  "candidates": [
+    {
+      "name": "Nanette Barrag\u00e1n",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Nanette Barrag\u00e1n is the Democratic incumbent representing California's 44th Congressional District, first elected in 2016. She serves on the House Energy and Commerce Committee and is a co-chair of the House Democratic Steering and Policy Committee. Her legislative priorities include environmental justice, healthcare access, and immigration reform.",
+      "summary_sources": [
+        {
+          "url": "https://barragan.house.gov/about/",
+          "type": "government",
+          "title": "About Nanette - Congresswoman Barragan",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.dailynews.com/2026/06/02/2026-election-results-ca-44-nanette-diaz-barragan-genevieve-angel-face-off/",
+          "type": "news",
+          "title": "2026 Election Results: In CA-44, D-Nanette Diaz Barragan and R-Genevieve Angel face off",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Nanette_Barragan_official_portrait_%28cropped%29.jpg/440px-Nanette_Barragan_official_portrait_%28cropped%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2017,
+          "end_year": null,
+          "description": "Representing California's 44th Congressional District",
+          "source": null
+        },
+        {
+          "title": "Mayor",
+          "organization": "City of Hermosa Beach",
+          "start_year": 2015,
+          "end_year": 2016,
+          "description": "First Latina to serve as Mayor of Hermosa Beach",
+          "source": null
+        },
+        {
+          "title": "City Council Member",
+          "organization": "City of Hermosa Beach",
+          "start_year": 2013,
+          "end_year": 2016,
+          "description": "First woman elected to the council in 10 years",
+          "source": null
+        },
+        {
+          "title": "Attorney",
+          "organization": "Private practice",
+          "start_year": null,
+          "end_year": null,
+          "description": "Practiced law for ten years",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of California, Los Angeles",
+          "degree": "Bachelor's degree",
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "USC Gould School of Law",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://barragan.house.gov/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Genevieve Angel",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Genevieve Angel is a Republican candidate and healthcare executive running for U.S. House in California's 44th Congressional District. She is a family nurse practitioner with a background as a senior healthcare executive in hospitals and health plans. Her campaign focuses on economic affordability, public safety, healthcare reform, and immigration enforcement.",
+      "summary_sources": [
+        {
+          "url": "https://www.angelforcongress.com/about",
+          "type": "website",
+          "title": "Meet Genevieve \u2014 Angel for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.ocregister.com/2026/05/05/genevieve-angel-ca-44-candidate-2026-primary-election-questionnaire/",
+          "type": "news",
+          "title": "Genevieve Angel, CA-44 candidate, 2026 primary election questionnaire",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.dailynews.com/2026/06/02/2026-election-results-ca-44-nanette-diaz-barragan-genevieve-angel-face-off/",
+          "type": "news",
+          "title": "2026 Election Results: In CA-44, D-Nanette Diaz Barragan and R-Genevieve Angel face off",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Healthcare Executive",
+          "organization": "Various hospitals and health plans",
+          "start_year": null,
+          "end_year": null,
+          "description": "Senior healthcare executive with management leadership experience",
+          "source": null
+        },
+        {
+          "title": "Family Nurse Practitioner",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Licensed nurse practitioner",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Santo Tomas",
+          "degree": "Bachelor of Science in Nursing",
+          "field": "Nursing",
+          "year": 1992,
+          "source": null
+        },
+        {
+          "institution": "AIU Los Angeles",
+          "degree": "Master of Business Administration",
+          "field": "Business",
+          "year": 2007,
+          "source": null
+        },
+        {
+          "institution": "Unspecified institution",
+          "degree": "Master of Science in Nursing / Family Nurse Practitioner",
+          "field": "Nursing",
+          "year": 2025,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.angelforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/California%27s_44th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:39:41.198141+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 181406,
+    "completion_tokens": 4380,
+    "total_tokens": 185786,
+    "cost_usd": 0.013644532000000001,
+    "cost_source": "provider",
+    "estimated_usd": 0.018636,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 181406,
+        "completion_tokens": 4380
+      }
+    },
+    "duration_s": 131.6
+  }
+}

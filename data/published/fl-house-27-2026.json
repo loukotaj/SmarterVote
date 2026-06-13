@@ -1,0 +1,161 @@
+{
+  "id": "fl-house-27-2026",
+  "title": "Florida's 27th Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Florida's 27th Congressional District",
+  "state": "Florida",
+  "district": "27th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Florida's 27th Congressional District is a competitive seat covering parts of Miami-Dade County, including Coral Gables, Key Biscayne, and parts of Miami. The district has a history of close races and is currently represented by Republican Maria Elvira Salazar, who is running for re-election. The race is expected to be a key battleground in the 2026 midterms, with national implications for control of the House. The district has a significant Hispanic population and leans Republican but has shown Democratic competitiveness in recent cycles.",
+  "polling": [],
+  "polling_note": "No public opinion polls found for this race as of early 2026.",
+  "candidates": [
+    {
+      "name": "Maria Elvira Salazar",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Maria Elvira Salazar is the incumbent U.S. Representative for Florida's 27th Congressional District, first elected in 2020. She is a former journalist and television anchor, and has focused on issues such as economic growth, immigration reform, and support for Israel. Salazar is seeking re-election in 2026.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Maria_Elvira_Salazar",
+          "type": "government",
+          "title": "Maria Elvira Salazar - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-02-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Maria_Elvira_Salazar_118th_Congress.jpg/220px-Maria_Elvira_Salazar_118th_Congress.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Representing Florida's 27th Congressional District",
+          "source": null
+        },
+        {
+          "title": "Journalist and Television Anchor",
+          "organization": "Various media outlets",
+          "start_year": 1990,
+          "end_year": 2020,
+          "description": "Worked as a journalist and anchor for networks including Telemundo and CNN en Espa\u00f1ol",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Miami",
+          "degree": "Bachelor of Arts",
+          "field": "Communications",
+          "year": 1990,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://mariaelforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Lucia Baez-Geller",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Lucia Baez-Geller is a Democratic candidate running for Florida's 27th Congressional District in 2026. She is a former school board member and educator, and has focused on education, healthcare, and environmental issues. Baez-Geller previously ran for this seat in 2022.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Lucia_Baez-Geller",
+          "type": "government",
+          "title": "Lucia Baez-Geller - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-02-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "School Board Member",
+          "organization": "Miami-Dade County Public Schools",
+          "start_year": 2018,
+          "end_year": 2022,
+          "description": "Served on the school board",
+          "source": null
+        },
+        {
+          "title": "Educator",
+          "organization": "Various schools",
+          "start_year": 2000,
+          "end_year": 2018,
+          "description": "Worked as a teacher",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Miami",
+          "degree": "Bachelor of Arts",
+          "field": "Education",
+          "year": 2000,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Florida%27s_27th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:23:13.376431+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 226681,
+    "completion_tokens": 5598,
+    "total_tokens": 232279,
+    "cost_usd": 0.016081942000000002,
+    "cost_source": "provider",
+    "estimated_usd": 0.023312,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 226681,
+        "completion_tokens": 5598
+      }
+    },
+    "duration_s": 234.1
+  }
+}

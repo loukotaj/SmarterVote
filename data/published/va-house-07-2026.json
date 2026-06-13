@@ -1,0 +1,477 @@
+{
+  "id": "va-house-07-2026",
+  "title": "Virginia's 7th Congressional District Election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Virginia's 7th Congressional District",
+  "state": "Virginia",
+  "district": "7th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Virginia's 7th Congressional District stretches across 11 localities in central and northern Virginia, including parts of Prince William, Stafford, Spotsylvania, and Culpeper counties. Incumbent Democrat Eugene Vindman, first elected in 2024 by a 2.5-point margin, is seeking a second term. Three Republicans\u2014entrepreneur Philip Harding, retired Army Lieutenant Colonel Doug Ollivant, and pastor/construction owner Ricky Smithers\u2014are competing in the August 4, 2026, primary to challenge him. The race takes place after a failed redistricting amendment was struck down by the Virginia Supreme Court, keeping the current map in place, and is rated 'Solid D' by the Cook Political Report.",
+  "polling": [],
+  "polling_note": "No independent district-level general election polls were found for VA-07 as of June 2026. The Cook Political Report rates the race 'Solid D' as of May 8, 2026.",
+  "candidates": [
+    {
+      "name": "Eugene Vindman",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Eugene Vindman is the Democratic incumbent U.S. Representative for Virginia's 7th Congressional District, first elected in 2024. A retired U.S. Army officer and former White House National Security Council deputy legal advisor, he came to national attention during the first impeachment of President Trump for his role in reporting the Trump-Ukraine phone call. His campaign emphasizes lowering costs for families, fighting corruption, and supporting veterans and military families.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Eugene_Vindman",
+          "type": "website",
+          "title": "Eugene Vindman - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-12T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://vindman.house.gov/about/",
+          "type": "government",
+          "title": "About Congressman Eugene Vindman",
+          "description": null,
+          "last_accessed": "2026-06-12T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://vindmanforcongress.com/about/",
+          "type": "website",
+          "title": "About Eugene Vindman - Vindman for Congress",
+          "description": null,
+          "last_accessed": "2026-06-12T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Representative_Eugene_Vindman_Official_Portrait.jpg/250px-Representative_Eugene_Vindman_Official_Portrait.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Serving Virginia's 7th Congressional District; member of Armed Services and Agriculture Committees",
+          "source": null
+        },
+        {
+          "title": "Deputy Legal Advisor",
+          "organization": "White House National Security Council",
+          "start_year": 2018,
+          "end_year": 2020,
+          "description": "Senior ethics official on the NSC",
+          "source": null
+        },
+        {
+          "title": "Senior Consultant",
+          "organization": "Department of State-funded war crimes investigation program",
+          "start_year": 2022,
+          "end_year": 2024,
+          "description": "Investigated war crimes in Ukraine across 14 trips",
+          "source": null
+        },
+        {
+          "title": "U.S. Army Officer (JAG Corps)",
+          "organization": "United States Army",
+          "start_year": 1998,
+          "end_year": 2022,
+          "description": "Retired as Colonel/Lieutenant Colonel; served as infantry officer, paratrooper, and JAG attorney; deployed to Iraq",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Binghamton University",
+          "degree": "BA",
+          "field": "History",
+          "year": 1997,
+          "source": null
+        },
+        {
+          "institution": "Central Michigan University",
+          "degree": "MS",
+          "field": "General Administration",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Georgia School of Law",
+          "degree": "JD",
+          "field": "Law",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Judge Advocate General's Legal Center and School",
+          "degree": "LLM",
+          "field": "Military Law",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://vindmanforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/CongressmanEugeneVindman/",
+        "twitter": "https://x.com/repvindman",
+        "instagram": "https://www.instagram.com/repvindman/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Philip Harding",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Philip Harding is a Republican candidate and entrepreneur who founded Impact Junkie, a company helping people start businesses with over 2 million participants globally. A first-generation college graduate who earned degrees from Harvard Extension School and served as Harvard-wide student body president, he previously worked in Congress and as a senior advisor at the Pentagon and White House. His campaign focuses on reducing government regulations and taxes, strengthening families, and tackling the national debt.",
+      "summary_sources": [
+        {
+          "url": "https://www.washingtonexaminer.com/news/campaigns/state/4533130/philip-harding-republican-entrepreneur-virginia-7th-district/",
+          "type": "news",
+          "title": "Who is Philip Harding? The entrepreneur trying to flip a Virginia seat",
+          "description": null,
+          "last_accessed": "2026-06-12T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.29news.com/2026/06/10/three-republicans-vying-nomination-virginias-7th-district-primary-race/",
+          "type": "news",
+          "title": "Three Republicans vying for nomination in Virginia's 7th District primary race",
+          "description": null,
+          "last_accessed": "2026-06-12T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.vpap.org/offices/us-representative-7/elections/",
+          "type": "website",
+          "title": "Elections: US Representative District 7 - VPAP",
+          "description": null,
+          "last_accessed": "2026-06-12T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Founder/CEO",
+          "organization": "Impact Junkie",
+          "start_year": null,
+          "end_year": null,
+          "description": "Entrepreneurial company helping people start businesses",
+          "source": null
+        },
+        {
+          "title": "Senior Advisor",
+          "organization": "Pentagon and White House",
+          "start_year": null,
+          "end_year": null,
+          "description": "Previously served as senior advisor",
+          "source": null
+        },
+        {
+          "title": "Associate Pastor",
+          "organization": "Church in California",
+          "start_year": null,
+          "end_year": null,
+          "description": "Previously worked as an associate pastor",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Harvard Extension School",
+          "degree": "Master's",
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Community College",
+          "degree": "Associate's",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.philiphardingforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/hardingphilip/",
+        "instagram": "https://www.instagram.com/philipharding/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Douglas Ollivant",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Douglas (Doug) Ollivant is a Republican candidate and retired U.S. Army Lieutenant Colonel with two combat tours in Iraq, service in Afghanistan, teaching at West Point, and serving as Director for Iraq at the National Security Council. He is managing partner at Mantid International, a global consulting firm focused on combating corruption. His campaign emphasizes fiscal responsibility, rebuilding American industry, national security, and protecting rural and suburban community values.",
+      "summary_sources": [
+        {
+          "url": "https://www.dougforvirginia.com/about/",
+          "type": "website",
+          "title": "Meet Doug - Doug Ollivant for Virginia",
+          "description": null,
+          "last_accessed": "2026-06-12T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.29news.com/2026/06/10/three-republicans-vying-nomination-virginias-7th-district-primary-race/",
+          "type": "news",
+          "title": "Three Republicans vying for nomination in Virginia's 7th District primary race",
+          "description": null,
+          "last_accessed": "2026-06-12T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.vpap.org/offices/us-representative-7/elections/",
+          "type": "website",
+          "title": "Elections: US Representative District 7 - VPAP",
+          "description": null,
+          "last_accessed": "2026-06-12T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://www.dougforvirginia.com/wp-content/themes/dougollivant/images/photo-doug-02.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Managing Partner",
+          "organization": "Mantid International",
+          "start_year": null,
+          "end_year": null,
+          "description": "Global consulting firm combating corruption and promoting accountability",
+          "source": null
+        },
+        {
+          "title": "Director for Iraq",
+          "organization": "White House National Security Council",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as Director for Iraq during the Bush administration (2008)",
+          "source": null
+        },
+        {
+          "title": "Professor",
+          "organization": "United States Military Academy at West Point",
+          "start_year": null,
+          "end_year": null,
+          "description": "Taught at West Point",
+          "source": null
+        },
+        {
+          "title": "U.S. Army Officer",
+          "organization": "United States Army",
+          "start_year": null,
+          "end_year": null,
+          "description": "Retired as Lieutenant Colonel; served two combat tours in Iraq and in Afghanistan",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Indiana University",
+          "degree": "PhD",
+          "field": "Politics",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "James Madison University",
+          "degree": "MA",
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Wheaton College",
+          "degree": "BA",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.dougforvirginia.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/dougollivant/",
+        "twitter": "https://x.com/DouglasOllivant"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Ricky Smithers",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Ricky (Rick) Smithers is a Republican candidate, U.S. Army veteran, construction company owner, and founder and pastor of a church. He lives in Wirtz, Virginia (outside the 7th District) and previously ran unsuccessfully for the Franklin County Board of Supervisors in 2019. His campaign focuses on affordability, public safety, education, economic opportunity, and restoring confidence in government.",
+      "summary_sources": [
+        {
+          "url": "https://www.29news.com/2026/06/10/three-republicans-vying-nomination-virginias-7th-district-primary-race/",
+          "type": "news",
+          "title": "Three Republicans vying for nomination in Virginia's 7th District primary race",
+          "description": null,
+          "last_accessed": "2026-06-12T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.fredericksburgfreepress.com/2026/06/04/in-7th-congressional-district-its-vindman-versus-the-winner-of-a-three-way-gop-contest/",
+          "type": "news",
+          "title": "In 7th Congressional District, it's Vindman versus the winner of a three-way GOP contest",
+          "description": null,
+          "last_accessed": "2026-06-12T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.vpap.org/offices/us-representative-7/elections/",
+          "type": "website",
+          "title": "Elections: US Representative District 7 - VPAP",
+          "description": null,
+          "last_accessed": "2026-06-12T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Owner",
+          "organization": "Smithers Construction",
+          "start_year": null,
+          "end_year": null,
+          "description": "Construction company owner",
+          "source": null
+        },
+        {
+          "title": "Founder and Pastor",
+          "organization": "Church",
+          "start_year": null,
+          "end_year": null,
+          "description": "Founder and pastor of a church",
+          "source": null
+        },
+        {
+          "title": "U.S. Army Veteran",
+          "organization": "United States Army",
+          "start_year": null,
+          "end_year": null,
+          "description": "Veteran of the U.S. Army",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Liberty University Graduate School",
+          "degree": null,
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Franklin County High School",
+          "degree": "High School Diploma",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://ricksmithersforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/rick.smithers.724053/",
+        "instagram": "https://www.instagram.com/smithersforva7/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Virginia%27s_7th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:40:46.629871+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 284205,
+    "completion_tokens": 8356,
+    "total_tokens": 292561,
+    "cost_usd": 0.02076385,
+    "cost_source": "provider",
+    "estimated_usd": 0.02949,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 284205,
+        "completion_tokens": 8356
+      }
+    },
+    "duration_s": 153.8
+  }
+}

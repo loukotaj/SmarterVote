@@ -401,7 +401,7 @@ def _clear_public_race_cache(request: Request) -> None:
 
 
 @router.get("/api/races", dependencies=[Depends(verify_token)])
-async def list_all_races(reconcile_active: bool = True) -> Dict[str, Any]:
+async def list_all_races(reconcile_active: bool = False) -> Dict[str, Any]:
     """List all race records from Firestore (admin view with status metadata)."""
     db = firestore_helpers._get_fs()
     docs = db.collection("races").limit(500).stream()

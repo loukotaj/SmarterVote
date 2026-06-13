@@ -1,328 +1,721 @@
 {
   "id": "il-senate-2026",
   "title": "2026 U.S. Senate election in Illinois",
-  "office": "United States Senate",
-  "jurisdiction": "Illinois",
+  "office": "U.S. Senate",
+  "jurisdiction": "Illinois, United States",
+  "state": "Illinois",
+  "district": null,
   "election_date": "2026-11-03",
-  "description": "Illinois is holding a regular U.S. Senate election for the Class II seat currently held by Dick Durbin, who announced he would not seek re-election. The race matters because it is an open seat in a large, reliably Democratic state, making the Democratic primary the decisive contest and giving the winner a strong advantage in the general election. The campaign has centered on experience, party leadership, and how aggressively to confront the Trump administration, with candidates also emphasizing affordability, health care, and labor issues. The general election is expected to reflect Illinois’s partisan lean, while the primary highlighted different styles of Democratic leadership and coalition-building.",
+  "description": "Illinois voters will elect one U.S. senator in 2026 to fill the Class II seat held by Dick Durbin, who is not seeking re-election. The open seat makes this one of the state’s most consequential contests, with the outcome likely to reflect Illinois’ strong Democratic lean in a race that will still draw national attention. The Democratic primary is expected to be the main battleground, while the general election will likely center on party control, turnout, and candidates’ positions on the economy, abortion, and federal governance.",
   "polling": [
     {
-      "pollster": "Emerson College Polling / WGN-TV",
-      "date": "2026-01-09",
-      "sample_size": 600,
+      "pollster": "Public Policy Polling",
+      "date": "2026-03-03",
+      "sample_size": null,
       "matchups": [
         {
           "candidates": [
-            "Raja Krishnamoorthi",
-            "Juliana Stratton"
+            "Juliana Stratton",
+            "Raja Krishnamoorthi"
           ],
           "percentages": [
-            31.0,
-            18.0
-          ]
-        },
-        {
-          "candidates": [
-            "Raja Krishnamoorthi",
-            "Robin Kelly"
-          ],
-          "percentages": [
-            31.0,
-            12.0
+            null,
+            null
           ]
         }
       ],
-      "source_url": "https://wgntv.com/politics-3/wgn-emerson-poll-january-2026/"
+      "source_url": "https://demlgs.org/wp-content/uploads/2026/03/PPP-IL-Senate-Memo-March-3-2026.pdf"
     }
   ],
-  "polling_note": null,
+  "polling_note": "Public polling in the Illinois Senate race has been limited and has focused on the Democratic primary. Available recent polling includes a March 3, 2026 Public Policy Polling survey of Democratic primary voters.",
   "candidates": [
     {
       "name": "Juliana Stratton",
       "party": "Democratic",
       "incumbent": false,
-      "summary": "Juliana Stratton is the lieutenant governor of Illinois and a former member of the Illinois House of Representatives. She ran for the open U.S. Senate seat in 2026 and won the Democratic nomination, positioning herself as a continuation of the Pritzker administration’s agenda and a progressive voice on issues such as health care and economic fairness.",
+      "summary": "Juliana Stratton is the lieutenant governor of Illinois and the Democratic nominee for U.S. Senate in 2026. Her campaign says she is running on a platform centered on affordability, opportunity, and protecting rights and freedoms.",
       "summary_sources": [
         {
-          "url": "https://en.wikipedia.org/wiki/Juliana_Stratton",
+          "url": "https://www.julianastratton.com/",
           "type": "website",
-          "title": "Juliana Stratton - Wikipedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "title": "Fighting for Illinois | Juliana Stratton for U.S. Senate"
         },
         {
-          "url": "https://ballotpedia.org/United_States_Senate_election_in_Illinois,_2026",
+          "url": "https://ballotpedia.org/Juliana_Stratton",
           "type": "website",
-          "title": "United States Senate election in Illinois, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "title": "Juliana Stratton - Ballotpedia"
+        },
+        {
+          "url": "https://ltgov.illinois.gov/about.html",
+          "type": "government",
+          "title": "About the Lieutenant Governor"
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Juliana_Stratton.jpg",
       "website": "https://www.julianastratton.com/",
-      "social_media": {
-        "x": "https://x.com/JulianaStratton",
-        "facebook": "https://www.facebook.com/JulianaForIL",
-        "instagram": "https://www.instagram.com/julianastratton/"
-      },
+      "social_media": {},
       "career_history": [
         {
           "title": "Lieutenant Governor",
           "organization": "State of Illinois",
           "start_year": 2019,
           "end_year": null,
-          "description": "Serves as Illinois’s 48th lieutenant governor, elected on the Pritzker ticket."
+          "description": "Serves as Illinois' 48th lieutenant governor."
         },
         {
-          "title": "Member",
+          "title": "State Representative",
           "organization": "Illinois House of Representatives",
           "start_year": 2017,
           "end_year": 2019,
-          "description": "Represented the 5th district in the Illinois House."
-        },
-        {
-          "title": "Executive Director",
-          "organization": "Cook County Justice Advisory Council",
-          "start_year": 2011,
-          "end_year": 2014,
-          "description": "Led county criminal justice reform coordination efforts."
-        },
-        {
-          "title": "Director",
-          "organization": "Center for Public Safety and Justice, University of Illinois at Chicago",
-          "start_year": 2015,
-          "end_year": 2017,
-          "description": "Directed a public safety and justice research center."
+          "description": "Previously served in the Illinois House."
         }
       ],
       "education": [
         {
-          "institution": "University of Illinois Urbana-Champaign",
-          "degree": "BS",
-          "field": "unknown",
-          "year": 1987
+          "institution": "University of Illinois Chicago",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": null
         },
         {
-          "institution": "DePaul University",
-          "degree": "JD",
-          "field": "law",
-          "year": 1992
+          "institution": "University of Illinois at Chicago",
+          "degree": "B.A.",
+          "field": "Communications",
+          "year": null
         }
       ],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
-    },
-    {
-      "name": "Raja Krishnamoorthi",
-      "party": "Democratic",
-      "incumbent": false,
-      "summary": "Raja Krishnamoorthi is a U.S. representative from Illinois’s 8th congressional district and a former state and federal policy aide. He ran for the Senate in 2026, emphasizing his congressional experience, anti-corruption and oversight work, and a message focused on working families, affordability, and opposition to Donald Trump’s policies.",
-      "summary_sources": [
+      "donor_summary": "Juliana Stratton’s 2026 Senate campaign has raised millions in receipts, with most money coming from individual donors and additional support from other committees. Prior fundraising data show labor unions as a major source of support, and news reports say Gov. JB Pritzker gave $5 million through a pro-Stratton super PAC.",
+      "donor_source_url": "https://www.fec.gov/data/candidate/S6IL00458/",
+      "donor_sources": [
         {
-          "url": "https://en.wikipedia.org/wiki/Raja_Krishnamoorthi",
-          "type": "website",
-          "title": "Raja Krishnamoorthi - Wikipedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "url": "https://www.fec.gov/data/candidate/S6IL00458/",
+          "type": "finance",
+          "last_accessed": "2026-05-17T22:51:57.481632+00:00",
+          "title": "STRATTON, JULIANA - Candidate overview - FEC"
         },
         {
-          "url": "https://ballotpedia.org/United_States_Senate_election_in_Illinois,_2026",
-          "type": "website",
-          "title": "United States Senate election in Illinois, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "url": "https://www.opensecrets.org/officeholders/juliana-w-stratton/summary?cycle=2023&id=12431605",
+          "type": "finance",
+          "last_accessed": "2026-05-17T22:51:57.481662+00:00",
+          "title": "Juliana W Stratton Money Profile - OpenSecrets"
+        },
+        {
+          "url": "https://www.opensecrets.org/officeholders/juliana-w-stratton/industries?cycle=2023&id=12431605&recs=100",
+          "type": "finance",
+          "last_accessed": "2026-05-17T22:51:57.481669+00:00",
+          "title": "Juliana W Stratton Top Industries - OpenSecrets"
+        },
+        {
+          "url": "https://capitolnewsillinois.com/news/pritzker-drops-5m-to-boost-lt-gov-juliana-stratton-in-senate-race/",
+          "type": "news",
+          "last_accessed": "2026-05-17T22:51:57.481674+00:00",
+          "title": "Pritzker drops $5M to boost Lt. Gov. Juliana Stratton in Senate race"
         }
       ],
-      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Raja_Krishnamoorthi.jpg",
-      "website": null,
-      "social_media": {
-        "x": "https://x.com/RajaForIL",
-        "facebook": "https://www.facebook.com/RajaForIL/",
-        "instagram": "https://www.instagram.com/rajaforil/"
-      },
-      "career_history": [
+      "voting_summary": "Juliana Stratton has not held legislative office, so there is no legislative voting record to report. She is Illinois lieutenant governor, and public official pages describe her executive portfolio as leading state initiatives rather than casting votes; Vote Smart also lists her issue positions and candidate profile rather than a legislative roll call record.",
+      "voting_source_url": "https://ltgov.illinois.gov/",
+      "links": [
         {
-          "title": "Member of Congress",
-          "organization": "U.S. House of Representatives",
-          "start_year": 2017,
-          "end_year": null,
-          "description": "Represents Illinois’s 8th congressional district."
+          "url": "https://ballotpedia.org/Juliana_Stratton",
+          "title": "Juliana Stratton - Ballotpedia",
+          "type": "ballotpedia"
         },
         {
-          "title": "Special Assistant Attorney General",
-          "organization": "State of Illinois",
-          "start_year": 2000,
-          "end_year": 2006,
-          "description": "Helped start the state’s anti-corruption unit under the Illinois attorney general."
+          "url": "https://www.fec.gov/data/candidate/S6IL00458/",
+          "title": "STRATTON, JULIANA - Candidate overview - FEC",
+          "type": "finance"
         },
         {
-          "title": "Deputy State Treasurer",
-          "organization": "Office of the Illinois Treasurer",
-          "start_year": 2007,
-          "end_year": 2009,
-          "description": "Served under Treasurer Alexi Giannoulias."
+          "url": "https://www.opensecrets.org/officeholders/juliana-w-stratton/summary?cycle=2023&id=12431605",
+          "title": "Juliana W Stratton Money Profile - OpenSecrets",
+          "type": "finance"
         },
         {
-          "title": "President",
-          "organization": "High-tech small businesses in the Chicago area",
-          "start_year": 2009,
-          "end_year": 2016,
-          "description": "Led small businesses before entering Congress."
+          "url": "https://www.opensecrets.org/officeholders/juliana-w-stratton/industries?cycle=2023&id=12431605&recs=100",
+          "title": "Juliana W Stratton Top Industries - OpenSecrets",
+          "type": "finance"
+        },
+        {
+          "url": "https://justfacts.votesmart.org/candidate/political-courage-test/166444/juliana-stratton",
+          "title": "Juliana Stratton's Issue Positions - Vote Smart",
+          "type": "votesmart"
+        },
+        {
+          "url": "https://ltgov.illinois.gov/",
+          "title": "Juliana Stratton, Lt. Governor - Illinois.gov",
+          "type": "legislature"
+        },
+        {
+          "url": "https://emilyslist.org/candidate/juliana-stratton/",
+          "title": "Juliana Stratton - EMILYs List",
+          "type": "news"
+        },
+        {
+          "url": "https://capitolnewsillinois.com/news/pritzker-drops-5m-to-boost-lt-gov-juliana-stratton-in-senate-race/",
+          "title": "Pritzker drops $5M to boost Lt. Gov. Juliana Stratton in Senate race",
+          "type": "news"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Juliana_Stratton",
+          "title": "Juliana Stratton - Wikipedia",
+          "type": "wiki"
         }
       ],
-      "education": [
-        {
-          "institution": "Princeton University",
-          "degree": "BS",
-          "field": "mechanical engineering",
-          "year": 1995
+      "issues": {
+        "Healthcare": {
+          "stance": "Supports securing Medicare for All and lowering healthcare costs; her campaign says she wants families to be able to afford care without skipping medication and highlights efforts to relieve medical debt in Illinois.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.julianastratton.com/issues",
+              "type": "campaign-issue-page",
+              "title": "Juliana's Priorities - Issues overview",
+              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
+            }
+          ]
         },
-        {
-          "institution": "Harvard Law School",
-          "degree": "JD",
-          "field": "law",
-          "year": 1998
+        "Climate/Energy": {
+          "stance": "Supports urgent action on climate change and says she has fought for environmental protections in Illinois as part of her broader rights-and-freedoms agenda.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.julianastratton.com/issues",
+              "type": "campaign-issue-page",
+              "title": "Juliana's Priorities - Issues overview",
+              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "stance": "Supports restoring the abortion protections of Roe v. Wade and protecting reproductive freedom, including access to abortion and contraception.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.julianastratton.com/issues",
+              "type": "campaign-issue-page",
+              "title": "Juliana's Priorities - Issues overview",
+              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "stance": "Supports common-sense gun safety laws and says she wants to tackle gun violence as a public safety and public health issue.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.julianastratton.com/issues",
+              "type": "campaign-issue-page",
+              "title": "Juliana's Priorities - Issues overview",
+              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "No public position found",
+          "confidence": "low"
+        },
+        "Civil Rights & Equality": {
+          "stance": "Supports protecting voting rights, safeguarding LGBTQ+ rights, and defending civil liberties as part of her rights-and-democracy agenda.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.julianastratton.com/issues",
+              "type": "campaign-policy-page",
+              "title": "Juliana's Priorities - Protecting Your Rights and Our Democracy",
+              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Supports abolishing ICE and replacing it with an immigration system that emphasizes judges, community-based resources, social services, and a pathway to citizenship.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.julianastratton.com/issues",
+              "type": "campaign-issue-page",
+              "title": "Juliana's Priorities - Issues overview",
+              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Supports restoring the Department of Education, expanding support for trades and technical schools, investing in early childhood programs, increasing public school funding, and addressing teacher shortages.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.julianastratton.com/priorities",
+              "type": "campaign-priorities-page",
+              "title": "Juliana Stratton priorities page",
+              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
+            },
+            {
+              "url": "https://www.julianastratton.com/issues",
+              "type": "campaign-issue-page",
+              "title": "Juliana Stratton issues page",
+              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "Supports workforce training and education policies to help workers adapt to AI and automation, including expanded technical-skills training and related Pell Grant support.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://x.com/UChiPolitics/status/2015944859815702696",
+              "type": "report",
+              "title": "UChicago Institute of Politics on AI and the workplace (Stratton)",
+              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
+            }
+          ]
+        },
+        "Election Policy": {
+          "stance": "Supports strong federal voting-rights protections, including the John Lewis Voting Rights Act, and says she wants to expand access to the ballot.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.julianastratton.com/issues",
+              "type": "campaign_issue_page",
+              "title": "Juliana Stratton's Issues - Voting Rights",
+              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
+            },
+            {
+              "url": "https://www.julianastratton.com/priorities",
+              "type": "campaign_priorities_page",
+              "title": "Juliana Stratton's Priorities - Rights & Democracy",
+              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Says she will focus on making life more affordable for Illinois families, citing her work as lieutenant governor on the grocery tax, minimum wage, and medical debt relief, and pledges to carry that focus into the Senate.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.julianastratton.com/issues",
+              "type": "campaign",
+              "title": "Juliana's Issues",
+              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
+            },
+            {
+              "url": "https://www.julianastratton.com/priorities",
+              "type": "campaign",
+              "title": "Juliana's Priorities",
+              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Supports raising the federal minimum wage, ending Trump-era trade policies she says hurt working families, and cutting taxes for the middle class while increasing taxes on people making more than $1 million a year.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.julianastratton.com/issues",
+              "type": "campaign-issue-page",
+              "title": "Juliana's Priorities - Issues overview",
+              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
+            }
+          ]
         }
-      ],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
-    },
-    {
-      "name": "Robin Kelly",
-      "party": "Democratic",
-      "incumbent": false,
-      "summary": "Robin Kelly is a U.S. representative from Illinois’s 2nd congressional district and previously served in the Illinois House and in state and county government. She ran for the Senate in 2026, presenting herself as an experienced legislator focused on health care, gun violence prevention, and economic issues, with an emphasis on representing diverse urban, suburban, and rural constituencies.",
-      "summary_sources": [
-        {
-          "url": "https://en.wikipedia.org/wiki/Robin_Kelly",
-          "type": "website",
-          "title": "Robin Kelly - Wikipedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
-        },
-        {
-          "url": "https://ballotpedia.org/United_States_Senate_election_in_Illinois,_2026",
-          "type": "website",
-          "title": "United States Senate election in Illinois, 2026 - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
-        }
-      ],
-      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Robin_Kelly_official_photo.jpg",
-      "website": null,
-      "social_media": {
-        "x": "https://x.com/RepRobinKelly",
-        "facebook": "https://www.facebook.com/reprobinkelly/",
-        "instagram": "https://www.instagram.com/robinlynnekelly/"
-      },
-      "career_history": [
-        {
-          "title": "Member of Congress",
-          "organization": "U.S. House of Representatives",
-          "start_year": 2013,
-          "end_year": null,
-          "description": "Represents Illinois’s 2nd congressional district."
-        },
-        {
-          "title": "Chair",
-          "organization": "Illinois Democratic Party",
-          "start_year": 2021,
-          "end_year": 2022,
-          "description": "Led the state party for part of 2021-2022."
-        },
-        {
-          "title": "Chief Administrative Officer",
-          "organization": "Cook County",
-          "start_year": 2011,
-          "end_year": 2013,
-          "description": "Served in county government before entering Congress."
-        },
-        {
-          "title": "Chief of Staff",
-          "organization": "Illinois State Treasurer Alexi Giannoulias",
-          "start_year": 2007,
-          "end_year": 2010,
-          "description": "Worked in the state treasurer’s office after leaving the Illinois House."
-        },
-        {
-          "title": "Member",
-          "organization": "Illinois House of Representatives",
-          "start_year": 2003,
-          "end_year": 2007,
-          "description": "Represented the 38th district in the Illinois House."
-        }
-      ],
-      "education": [
-        {
-          "institution": "Bradley University",
-          "degree": "BA",
-          "field": "psychology",
-          "year": 1978
-        },
-        {
-          "institution": "Bradley University",
-          "degree": "MA",
-          "field": "counseling",
-          "year": 1982
-        },
-        {
-          "institution": "Northern Illinois University",
-          "degree": "PhD",
-          "field": "political science",
-          "year": 2004
-        }
-      ],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
-    },
-    {
-      "name": "Don Tracy",
-      "party": "Republican",
-      "incumbent": false,
-      "summary": "",
-      "summary_sources": [],
-      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/dtracy.jpg",
-      "website": null,
-      "social_media": {},
-      "career_history": [],
-      "education": [],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
-    }
-  ],
-  "updated_utc": "2026-04-06T18:09:34.101020+00:00",
-  "generator": [
-    "gpt-5.4-mini",
-    "gpt-5-nano"
-  ],
-  "reviews": [],
-  "agent_metrics": {
-    "model": "gpt-5.4-mini",
-    "prompt_tokens": 194479,
-    "completion_tokens": 16093,
-    "total_tokens": 210572,
-    "estimated_usd": 0.0312,
-    "model_breakdown": {
-      "gpt-5-nano": {
-        "prompt_tokens": 93187,
-        "completion_tokens": 14932
-      },
-      "gpt-5.4-mini": {
-        "prompt_tokens": 101292,
-        "completion_tokens": 1161
       }
     },
-    "duration_s": 184.2
+    {
+      "name": "Chad Koppie",
+      "party": "Constitution",
+      "incumbent": false,
+      "summary": "Chad Koppie is the Constitution Party nominee for U.S. Senate in Illinois. His campaign website presents him as a farmer and retired pilot and says he is running on a platform of limited government, lower debt, and socially conservative positions.",
+      "summary_sources": [
+        {
+          "url": "https://www.chadkoppie.com/",
+          "type": "website",
+          "title": "Chad Koppie"
+        },
+        {
+          "url": "https://www.chadkoppie.com/issues.php",
+          "type": "website",
+          "title": "Issues | Chad Koppie for Senate"
+        },
+        {
+          "url": "https://ballotpedia.org/Chad_Koppie",
+          "type": "website",
+          "title": "Chad Koppie - Ballotpedia"
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Chad_Koppie.jpg",
+      "website": "https://www.chadkoppie.com/",
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Board member",
+          "organization": "Kane County Regional Board of School Trustees",
+          "start_year": null,
+          "end_year": null,
+          "description": "Ballotpedia and campaign materials describe him as active in local education governance."
+        },
+        {
+          "title": "Farmer and retired pilot",
+          "organization": "Private sector",
+          "start_year": null,
+          "end_year": null,
+          "description": "Campaign and profile materials describe him as a farmer and retired jet pilot."
+        }
+      ],
+      "education": [],
+      "donor_summary": "No campaign finance data found in public disclosures as of 2026-05-17. The FEC candidate page shows no 2025–2026 financial summary yet for Chad Koppie, though his campaign website solicits donations and the FEC lists prior committee filings for earlier cycles.",
+      "donor_source_url": "https://www.fec.gov/data/candidate/H2IL08203/",
+      "donor_sources": [
+        {
+          "url": "https://www.fec.gov/data/candidate/H2IL08203/",
+          "title": "KOPPIE, CHAD - Candidate overview - FEC",
+          "type": "finance",
+          "last_accessed": "2026-05-17T22:52:30.003169+00:00"
+        },
+        {
+          "url": "https://chadkoppie.com/",
+          "title": "Chad Koppie",
+          "type": "website",
+          "last_accessed": "2026-05-17T22:52:30.003169+00:00"
+        },
+        {
+          "url": "http://www.koppieforcongress.com/contribute?amount=50",
+          "title": "Contribute - Chad Koppie",
+          "type": "website",
+          "last_accessed": "2026-05-17T22:52:30.003169+00:00"
+        },
+        {
+          "url": "https://www.opensecrets.org/elections-overview/candidate-counts?cycle=All&showcands=Y&state=IL&type=US+Senate",
+          "title": "Candidate Counts - OpenSecrets",
+          "type": "finance",
+          "last_accessed": "2026-05-17T22:52:30.003169+00:00"
+        }
+      ],
+      "voting_summary": "No public legislative voting record. No prior elected or executive office found. Publicly available materials instead show campaign policy statements, including a website issues page focused on budget and economy and a campaign message emphasizing limited government and life-at-conception positions.",
+      "voting_source_url": "https://chadkoppie.com/issues.php",
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Chad_Koppie",
+          "title": "Chad Koppie - Ballotpedia",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/H2IL08203/",
+          "title": "KOPPIE, CHAD - Candidate overview - FEC",
+          "type": "finance"
+        },
+        {
+          "url": "https://justfacts.votesmart.org/candidate/18353/chad-koppie",
+          "title": "Chad Koppie - Vote Smart",
+          "type": "votesmart"
+        },
+        {
+          "url": "https://chadkoppie.com/",
+          "title": "Chad Koppie",
+          "type": "official"
+        },
+        {
+          "url": "https://chadkoppie.com/issues.php",
+          "title": "Issues | Chad Koppie for Senate",
+          "type": "official"
+        },
+        {
+          "url": "https://www.chadkoppie.com/contact.php",
+          "title": "Contact | Chad Koppie for Senate",
+          "type": "official"
+        },
+        {
+          "url": "https://termlimits.com/chad-koppie-pledges-to-support-term-limits-on-congress/",
+          "title": "Strong Support in IL CD-08 Race for Term Limits on Congress",
+          "type": "news"
+        }
+      ],
+      "issues": {
+        "Healthcare": {
+          "stance": "Koppie says he is a free-market advocate and that government should protect the freedom to choose in health care. His campaign materials also call for health care reform along free-market lines.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.chadkoppie.com/issues.php",
+              "type": "website",
+              "title": "Issues | Chad Koppie for Senate",
+              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Koppie says an out-of-control national debt and deficit oppresses the economy and prevents economic growth. His campaign emphasizes reducing debt and deficits and supporting pro-growth, limited-government policies.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.chadkoppie.com/issues.php",
+              "type": "website",
+              "title": "Issues | Chad Koppie for Senate",
+              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "stance": "Koppie describes himself as pro-life and supports a constitutional view that life begins at conception. His campaign materials indicate opposition to abortion.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.chadkoppie.com/issues.php",
+              "type": "website",
+              "title": "Issues | Chad Koppie for Senate",
+              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
+            },
+            {
+              "url": "https://illinoisrighttolifeaction.org/wp-content/uploads/2026/02/Prim26-3.pdf",
+              "type": "policy-rating",
+              "title": "Illinois Right To Life Action 2026 voter guide – Chad Koppie",
+              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Koppie says the federal government should conduct relations with other nations on behalf of the states and emphasizes U.S. sovereignty in foreign policy.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.chadkoppie.com/issues.php",
+              "type": "website",
+              "title": "Issues | Chad Koppie for Senate",
+              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "stance": "Koppie says the primary purpose of government is to protect the rights and liberties of the people. His campaign frames civil liberties as a foundational government responsibility.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.chadkoppie.com/issues.php",
+              "type": "website",
+              "title": "Issues | Chad Koppie for Senate",
+              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Koppie says the federal government has no constitutional authority over public education and calls for education control to be returned to states and local authorities.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.chadkoppie.com/includes/issues/education.php",
+              "type": "website",
+              "title": "Issues | Chad Koppie on Education",
+              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
+            },
+            {
+              "url": "https://www.chadkoppie.com/issues.php",
+              "type": "website",
+              "title": "Issues | Chad Koppie for Senate",
+              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Koppie says immigration control is a fundamental sovereign power. His campaign opposes amnesty, sanctuary policies, and state laws that allow undocumented immigrants to receive benefits such as driver's licenses or in-state tuition.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.chadkoppie.com/includes/issues/immigration.php",
+              "type": "website",
+              "title": "Issues | Immigration Reform",
+              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
+            },
+            {
+              "url": "https://www.chadkoppie.com/issues.php",
+              "type": "website",
+              "title": "Issues | Chad Koppie for Senate",
+              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "stance": "No public position found",
+          "confidence": "low"
+        },
+        "Tech & AI": {
+          "stance": "No public position found",
+          "confidence": "low"
+        },
+        "Climate/Energy": {
+          "stance": "No public position found",
+          "confidence": "low"
+        },
+        "Election Policy": {
+          "stance": "Koppie’s campaign materials include an election reform section, but no detailed public position was found in the available pages reviewed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.chadkoppie.com/issues.php",
+              "type": "website",
+              "title": "Issues | Chad Koppie for Senate",
+              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Koppie’s website does not present a detailed local-issues agenda in the materials reviewed; his campaign instead emphasizes constitutional limits on federal power and local control over education and immigration enforcement.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.chadkoppie.com/issues.php",
+              "type": "website",
+              "title": "Issues | Chad Koppie for Senate",
+              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
+            },
+            {
+              "url": "https://www.chadkoppie.com/includes/issues/education.php",
+              "type": "website",
+              "title": "Issues | Chad Koppie on Education",
+              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
+            },
+            {
+              "url": "https://www.chadkoppie.com/includes/issues/immigration.php",
+              "type": "website",
+              "title": "Issues | Immigration Reform",
+              "last_accessed": "2026-05-17T22:52:30.003169+00:00"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/United_States_Senate_election_in_Illinois,_2026",
+  "updated_utc": "2026-05-17T22:52:30.003169+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "gpt-5-nano",
+    "claude-haiku-4-5-20251001",
+    "gemini-3.1-flash-lite-preview",
+    "grok-4-1-fast-non-reasoning"
+  ],
+  "register_to_vote_url": "https://ova.elections.il.gov/",
+  "how_to_vote_url": "https://www.elections.il.gov/VotingAndRegistrationSystems/VotingInformation.aspx",
+  "schema_version": "0.3",
+  "reviews": [
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "reviewed_at": "2026-05-17T22:52:59.098439+00:00",
+      "verdict": "approved",
+      "score": 87,
+      "flags": [
+        {
+          "field": "candidates[0].career_history",
+          "concern": "The summary states Stratton 'has not held legislative office' in the voting_summary field, but the career_history array shows 'State Representative' (2017–2019). This is internally consistent—she did hold legislative office briefly before becoming Lieutenant Governor—so the voting_summary phrasing is slightly misleading. It should acknowledge that she served in the House but no longer holds a legislative seat.",
+          "suggestion": "Revise voting_summary to: 'Juliana Stratton previously served in the Illinois House of Representatives (2017–2019) but is no longer in legislative office, so there is no current voting record. As lieutenant governor, her role is executive rather than legislative.'",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].education",
+          "concern": "Two entries list the same institution with slightly different names: 'University of Illinois Chicago' (J.D.) and 'University of Illinois at Chicago' (B.A.). These are the same university, just with variant naming conventions. Not a factual error, but worth normalizing for clarity.",
+          "suggestion": "Standardize institution names to a single format, e.g., both as 'University of Illinois Chicago' or 'University of Illinois at Chicago'.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].donor_source_url",
+          "concern": "The FEC URL points to 'H2IL08203/', which is a House candidate ID format. Chad Koppie is running for U.S. Senate in 2026, so the correct FEC ID should begin with 'S' (Senate) not 'H' (House). This may indicate the URL links to prior congressional race filings rather than the 2026 Senate campaign. The donor_summary acknowledges 'no campaign finance data found...as of 2026-05-17,' which is consistent, but the link itself appears misaligned.",
+          "suggestion": "Verify the correct FEC Senate candidate ID for Chad Koppie's 2026 race and update the donor_source_url accordingly. If no Senate committee has been filed yet, note that explicitly rather than linking to a House candidate ID.",
+          "severity": "warning"
+        },
+        {
+          "field": "polling",
+          "concern": "The polling data shows a matchup between Stratton and Krishnamoorthi with null percentages for both. The source URL is provided (a PPP memo PDF), but the actual numbers are missing. This is acceptable if the PDF was inaccessible or didn't contain topline percentages, but the record is currently uninformative. It may be worth flagging to a human reviewer to confirm whether the memo actually contained results or whether this was a polling methodology document.",
+          "suggestion": "Either populate the percentages if they are in the source, or remove this polling entry if it does not contain usable data. If retained, add a note explaining why percentages are null.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Firearms & Second Amendment, Climate/Energy, Tech & AI, Election Policy, Local Issues",
+          "concern": "Multiple issues for Chad Koppie are marked 'confidence: low' with 'no public position found' or very minimal sourcing. This is not a quality failure—the profile has done a good-faith search of his campaign website and public materials. However, for Election Policy and Local Issues, the justification notes that 'no detailed public position was found' or materials 'do not present a detailed...agenda.' This is a reasonable outcome for a lesser-known candidate, and the absence of data is transparently documented.",
+          "suggestion": "No action required; gaps are appropriately flagged and sourced.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].issues.Economy",
+          "concern": "The stance mentions 'ending Trump-era trade policies.' This is candidate's own framing (from campaign site), so it is appropriate to cite. However, note that this is a prospective policy position, not a record of votes or actions. The sourcing is correct—this comes directly from the campaign issues page.",
+          "suggestion": "No revision needed; language accurately reflects campaign messaging.",
+          "severity": "info"
+        }
+      ],
+      "summary": "This is a well-researched and carefully sourced profile of the 2026 Illinois Senate race. Both candidates' backgrounds, positions, and fundraising information are supported by credible sources (campaign websites, FEC filings, official government pages, Ballotpedia, news outlets). The profile demonstrates good-faith effort to capture substantive policy positions across 12+ issue areas, with appropriate confidence ratings and transparent documentation of gaps (e.g., 'no public position found' for several issues on both candidates). Language is neutral and nonpartisan throughout—positions are described using the candidates' own framing rather than loaded terminology. The race description is accurate, reflecting the open seat and expected Democratic primary focus. Minor completeness notes are documented below, but none rise to the level of material factual error or bias."
+    },
+    {
+      "model": "gemini-3.1-flash-lite-preview",
+      "reviewed_at": "2026-05-17T22:52:38.051400+00:00",
+      "verdict": "approved",
+      "score": 96,
+      "flags": [
+        {
+          "field": "candidates[0].issues.Tech & AI.sources[0].url",
+          "concern": "The URL (x.com/UChiPolitics/status/2015944859815702696) appears to be a future-dated reference or a link to an inaccessible/hypothetical social media post.",
+          "suggestion": "Verify the status of this social media link to ensure it points to an accessible public record.",
+          "severity": "info"
+        },
+        {
+          "field": "polling[0].source_url",
+          "concern": "The source URL points to a 'demlgs.org' domain which may be a site-specific repository or a placeholder; the document content cannot be verified against live public archives.",
+          "suggestion": "Confirm the polling document is hosted on a stable, public-facing domain or the official polling firm's website.",
+          "severity": "info"
+        }
+      ],
+      "summary": "This profile is exceptionally well-researched, maintaining a high standard of neutrality and factual rigor. The agent successfully navigated the challenge of identifying distinct candidate positions while explicitly noting areas where public information is currently limited. The sourcing is robust, utilizing primary campaign materials and credible news reporting, and the metadata reflects a transparent and comprehensive research process."
+    },
+    {
+      "model": "grok-4-1-fast-non-reasoning",
+      "reviewed_at": "2026-05-17T22:52:39.350104+00:00",
+      "verdict": "approved",
+      "score": 93,
+      "flags": [
+        {
+          "field": "polling[0].matchups[0].percentages",
+          "concern": "Percentages are listed as null, which is acceptable given the source is a memo rather than a full poll release, but the field could be clarified as 'not released' or 'internal memo only'.",
+          "suggestion": "Add a brief note such as 'percentages not publicly released' to improve clarity.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].education",
+          "concern": "Education section is empty. While this may reflect genuinely unavailable public information, a short note confirming the search result would be helpful for completeness.",
+          "suggestion": "Add a brief statement such as 'No publicly available education information found' if appropriate.",
+          "severity": "info"
+        }
+      ],
+      "summary": "Strong, well-sourced profile with consistent internal citations across both candidates. Juliana Stratton’s issue positions are directly tied to her campaign website with high-confidence ratings, and Chad Koppie’s positions are similarly grounded in his campaign site and Ballotpedia. Background details, donor summaries, and polling information are properly attributed. Neutral language is maintained throughout with no value-laden adjectives or asymmetric framing. Minor gaps (e.g., missing education for Koppie, low-confidence stances on several issues) are appropriately documented rather than fabricated."
+    }
+  ],
+  "validation_grade": {
+    "grade": "A",
+    "score": 92,
+    "passed": true,
+    "summary": "Validated by 3/3 reviewers with an average score of 92/100."
   },
-  "validation_grade": null
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 472352,
+    "completion_tokens": 38359,
+    "total_tokens": 510711,
+    "estimated_usd": 0.0895,
+    "model_breakdown": {
+      "gpt-5-nano": {
+        "prompt_tokens": 212550,
+        "completion_tokens": 28559
+      },
+      "gpt-5.4-mini": {
+        "prompt_tokens": 233078,
+        "completion_tokens": 7202
+      },
+      "gemini-3.1-flash-lite-preview": {
+        "prompt_tokens": 9496,
+        "completion_tokens": 324
+      },
+      "grok-4-1-fast-non-reasoning": {
+        "prompt_tokens": 7944,
+        "completion_tokens": 306
+      },
+      "claude-haiku-4-5-20251001": {
+        "prompt_tokens": 9284,
+        "completion_tokens": 1968
+      }
+    },
+    "duration_s": 399.2
+  }
 }

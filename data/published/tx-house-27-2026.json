@@ -1,0 +1,194 @@
+{
+  "id": "tx-house-27-2026",
+  "title": "Texas's 27th Congressional District Election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Texas's 27th Congressional District",
+  "state": "Texas",
+  "district": "27th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Texas's 27th Congressional District pits incumbent Republican Michael Cloud against Democratic challenger Tanya Lloyd. The district covers a 14-county area along Texas's Gulf Coast, including parts of Corpus Christi, Victoria, and extending inland to Bastrop County. Cloud, a staunch conservative and member of the House Freedom Caucus, is seeking a fifth full term in a district rated 'Solidly Republican' by the Cook Political Report. Lloyd, a kindergarten teacher and progressive Democrat, argues for increased public education funding and healthcare access, positioning herself as a grassroots alternative in a race that has seen boundaries altered by recent mid-decade redistricting litigation.",
+  "polling": [],
+  "polling_note": "No district-specific opinion polls were publicly available for Texas's 27th Congressional District in 2026. The Cook Political Report rates the race as 'Solidly Republican.'",
+  "candidates": [
+    {
+      "name": "Michael Cloud",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Michael Cloud is the incumbent U.S. Representative for Texas's 27th Congressional District, first elected in a 2018 special election. A conservative Republican and member of the House Freedom Caucus, he serves on the House Appropriations Committee and has been recognized by groups such as Heritage Action and FreedomWorks for his voting record. Prior to Congress, he chaired the Victoria County Republican Party and worked as a small business owner and media director at Faith Family Church.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Michael_Cloud",
+          "type": "news",
+          "title": "Michael Cloud - Wikipedia",
+          "last_accessed": "2026-06-09T12:00:00Z"
+        },
+        {
+          "url": "https://cloud.house.gov/about-michael",
+          "type": "government",
+          "title": "About Michael - U.S. House of Representatives",
+          "last_accessed": "2026-06-09T12:00:00Z"
+        },
+        {
+          "url": "https://www.cloudforcongress.com/about-michael/",
+          "type": "website",
+          "title": "About Michael - Cloud for Congress",
+          "last_accessed": "2026-06-09T12:00:00Z"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Michael_Cloud%2C_Official_Portrait%2C_115th_Congress.jpg/250px-Michael_Cloud%2C_Official_Portrait%2C_115th_Congress.jpg",
+      "website": "https://www.cloudforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/CloudforCongress/",
+        "instagram": null,
+        "twitter": null,
+        "youtube": null
+      },
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2018,
+          "end_year": null,
+          "description": "Representing Texas's 27th Congressional District. Serves on Appropriations Committee and is a member of the House Freedom Caucus."
+        },
+        {
+          "title": "Chairman",
+          "organization": "Victoria County Republican Party",
+          "start_year": 2010,
+          "end_year": 2017,
+          "description": "Led the county party organization."
+        },
+        {
+          "title": "Media and Communications Director",
+          "organization": "Faith Family Church",
+          "start_year": null,
+          "end_year": null,
+          "description": "Oversaw media and communications for over a decade."
+        },
+        {
+          "title": "Small Business Owner",
+          "organization": "Video Production Company",
+          "start_year": null,
+          "end_year": null,
+          "description": "Founded and operated a video production business."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Oral Roberts University",
+          "degree": "Bachelor of Science",
+          "field": "Mass Media Communications",
+          "year": 1997
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [
+        {
+          "url": "https://cloud.house.gov/",
+          "title": "Official House Website",
+          "type": "other"
+        },
+        {
+          "url": "https://www.cloudforcongress.com/",
+          "title": "Campaign Website",
+          "type": "other"
+        }
+      ],
+      "issues": {}
+    },
+    {
+      "name": "Tanya Lloyd",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Tanya Lloyd is a Democratic candidate and kindergarten teacher running for U.S. House in Texas's 27th Congressional District. A fifth-generation Texan and public school educator, she campaigned on a progressive platform emphasizing public education funding, healthcare access, and economic fairness. Lloyd won the Democratic primary on March 3, 2026, with 63.1% of the vote against two opponents, advancing to the general election to challenge incumbent Michael Cloud.",
+      "summary_sources": [
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-texas-us-house-27-primary.html",
+          "type": "news",
+          "title": "Texas 27th Congressional District Primary Election Results 2026 - The New York Times",
+          "last_accessed": "2026-06-09T12:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Tanya_Lloyd",
+          "type": "news",
+          "title": "Tanya Lloyd - Ballotpedia",
+          "last_accessed": "2026-06-09T12:00:00Z"
+        },
+        {
+          "url": "https://www.facebook.com/TanyaForTexas/",
+          "type": "website",
+          "title": "Tanya Lloyd for Congress - Facebook",
+          "last_accessed": "2026-06-09T12:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://www.tanyafortexas.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/TanyaForTexas/",
+        "instagram": "https://www.instagram.com/tanyafortexas/",
+        "twitter": null,
+        "youtube": null
+      },
+      "career_history": [
+        {
+          "title": "Kindergarten Teacher",
+          "organization": "Public School District",
+          "start_year": null,
+          "end_year": null,
+          "description": "Longtime public school teacher in a Title I school."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [
+        {
+          "url": "https://www.tanyafortexas.com/",
+          "title": "Campaign Website",
+          "type": "other"
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/H4TX27089/",
+          "title": "FEC Candidate Profile",
+          "type": "other"
+        }
+      ],
+      "issues": {}
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Texas%27_27th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:35:41.225921+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "reviews": [],
+  "validation_grade": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 191306,
+    "completion_tokens": 6043,
+    "total_tokens": 197349,
+    "cost_usd": 0.01425152,
+    "cost_source": "provider",
+    "estimated_usd": 0.019932,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 191306,
+        "completion_tokens": 6043
+      }
+    },
+    "duration_s": 111.1
+  }
+}

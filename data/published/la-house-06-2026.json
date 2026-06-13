@@ -1,0 +1,406 @@
+{
+  "id": "la-house-06-2026",
+  "title": "Louisiana's 6th Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Louisiana's 6th Congressional District",
+  "state": "Louisiana",
+  "district": "6th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "This election for Louisiana's 6th Congressional District is taking place amid a major redistricting battle following the U.S. Supreme Court's April 2026 ruling in Louisiana v. Callais, which struck down the previous map as an unconstitutional racial gerrymander. Democratic incumbent Cleo Fields, who returned to Congress in 2025 after the district was redrawn to create a second majority-Black district, now faces an uncertain political future as Republican state lawmakers passed a new map that eliminates that district. The election was shifted from a closed-party primary to an open primary system on November 3, with a potential December 12 runoff, after Governor Jeff Landry postponed the original May primaries. Four Republican candidates are seeking to challenge Fields in a race that could have significant implications for both Voting Rights Act jurisprudence and the partisan balance of the U.S. House.",
+  "polling": [],
+  "polling_note": "No publicly available opinion polls were found for this race as of June 2026, likely due to the uncertainty created by ongoing redistricting litigation and the postponed primary schedule.",
+  "candidates": [
+    {
+      "name": "Cleo Fields",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Cleo Fields is the incumbent U.S. Representative for Louisiana's 6th Congressional District, first elected to this iteration of the seat in 2024 after previously serving in Congress from 1993 to 1997. A longtime fixture in Louisiana politics, Fields served in the Louisiana State Senate and ran for governor in 1995, and his current district is at the center of a high-profile Supreme Court case on racial gerrymandering. Fields is running for re-election on a platform focused on urban and minority communities, leveraging his experience in both state and federal government.",
+      "summary_sources": [
+        {
+          "url": "https://lailluminator.com/2024/11/05/cleo-fields-congress/",
+          "type": "news",
+          "title": "Redistricting returns Cleo Fields to Congress to represent Louisiana",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.npr.org/2026/05/13/nx-s1-5816007/louisiana-redistricting-6th-district-fields",
+          "type": "news",
+          "title": "Louisiana's 6th district traces the Voting Rights Act fight",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://unfilteredwithkiran.com/here-are-the-candidates-running-in-louisianas-6th-congressional-district/",
+          "type": "news",
+          "title": "Four Republicans running in 6th Congressional District primary",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Representing Louisiana's 6th Congressional District",
+          "source": null
+        },
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 1993,
+          "end_year": 1997,
+          "description": "Represented Louisiana's 4th Congressional District",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Louisiana State Senate",
+          "start_year": 1997,
+          "end_year": 2009,
+          "description": "Represented District 14",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Louisiana State Senate",
+          "start_year": 1992,
+          "end_year": 1993,
+          "description": "Represented District 14",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Southern University",
+          "degree": "BA",
+          "field": "Political Science",
+          "year": 1986,
+          "source": null
+        },
+        {
+          "institution": "Southern University Law Center",
+          "degree": "JD",
+          "field": "Law",
+          "year": 1989,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.cleofields.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Monique Appeaning",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Monique Appeaning is a Republican candidate running for Louisiana's 6th Congressional District, currently serving as a staff member for East Baton Rouge Mayor-President Sid Edwards. She previously ran for the Louisiana House of Representatives and is positioning herself as a new voice in Washington focused on economic opportunity, public safety, and conservative values. If elected, she would be the first African-American woman to represent Louisiana in Congress.",
+      "summary_sources": [
+        {
+          "url": "https://unfilteredwithkiran.com/here-are-the-candidates-running-in-louisianas-6th-congressional-district/",
+          "type": "news",
+          "title": "Four Republicans running in 6th Congressional District primary",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.appeaningforcongress.com/",
+          "type": "website",
+          "title": "Monique Appeaning for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://talk1073.com/2026/04/17/louisiana-6th-congressional-district-race-draws-attention-as-monique-appeaning-outlines-platform/",
+          "type": "news",
+          "title": "Louisiana 6th Congressional District Race Draws Attention as Monique Appeaning Outlines Platform",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Staff Member",
+          "organization": "Office of East Baton Rouge Mayor-President Sid Edwards",
+          "start_year": null,
+          "end_year": null,
+          "description": "Current role in local government administration",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.appeaningforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Larry Davis",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Larry Davis is a Republican candidate for Louisiana's 6th Congressional District, a middle-class worker and licensed minister who describes his campaign as grounded in Christian conservative values. He serves as a member of the Livingston Parish Republican Executive Committee and originally filed to run in the 5th District before switching to the 6th District race to challenge incumbent Cleo Fields. Davis emphasizes personal responsibility, respect for life, and the dignity of work in his platform.",
+      "summary_sources": [
+        {
+          "url": "https://lailluminator.com/briefs/davis-6th-congress/",
+          "type": "news",
+          "title": "Republican Larry Davis jumps from 5th to 6th District race for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://unfilteredwithkiran.com/here-are-the-candidates-running-in-louisianas-6th-congressional-district/",
+          "type": "news",
+          "title": "Four Republicans running in 6th Congressional District primary",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.larrydavisforcongress.com/",
+          "type": "website",
+          "title": "Larry Davis for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Member",
+          "organization": "Livingston Parish Republican Executive Committee",
+          "start_year": null,
+          "end_year": null,
+          "description": "Party leadership role",
+          "source": null
+        },
+        {
+          "title": "Licensed Minister",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Religious ministry work",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.larrydavisforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Christian Johnson",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Christian \"Chris\" Johnson is a Republican candidate for Louisiana's 6th Congressional District and a Baton Rouge native whose campaign focuses on conservative priorities including economic growth, government accountability, and individual freedoms. His campaign emphasizes bringing strong leadership and a fresh perspective to Washington, advocating for policies that support working families and local communities. Johnson is running on a platform centered on Louisiana values and limited government.",
+      "summary_sources": [
+        {
+          "url": "https://unfilteredwithkiran.com/here-are-the-candidates-running-in-louisianas-6th-congressional-district/",
+          "type": "news",
+          "title": "Four Republicans running in 6th Congressional District primary",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.chrisforcongress.us/",
+          "type": "website",
+          "title": "Chris For Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Christian_Johnson_(Louisiana)",
+          "type": "website",
+          "title": "Christian Johnson (Louisiana) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.chrisforcongress.us/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Peter Williams",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Peter Williams is a Republican candidate for Louisiana's 6th Congressional District and a tree farmer from Pointe Coupee Parish who emphasizes the importance of agriculture to Louisiana's economy. He has previously run for Congress in this district as a Democrat and says he wants to be a voice for farmers, natural resources, and job growth across the state. Williams promotes a Louisiana-first mentality and positions himself as a candidate focused on rural and agricultural issues.",
+      "summary_sources": [
+        {
+          "url": "https://unfilteredwithkiran.com/here-are-the-candidates-running-in-louisianas-6th-congressional-district/",
+          "type": "news",
+          "title": "Four Republicans running in 6th Congressional District primary",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.klfy.com/your-local-election-hq/meet-the-candidate-peter-williams-for-the-6th-congressional-district/",
+          "type": "news",
+          "title": "Meet the Candidate: Peter Williams for the 6th Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Peter_Williams_(Louisiana)",
+          "type": "website",
+          "title": "Peter Williams (Louisiana) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Tree Farmer",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Agriculture business in Pointe Coupee Parish",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Louisiana%27s_6th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:14:47.689134+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 275210,
+    "completion_tokens": 10016,
+    "total_tokens": 285226,
+    "cost_usd": 0.021685332,
+    "cost_source": "provider",
+    "estimated_usd": 0.028934,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 275210,
+        "completion_tokens": 10016
+      }
+    },
+    "duration_s": 195.1
+  }
+}

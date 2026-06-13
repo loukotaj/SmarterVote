@@ -1,0 +1,249 @@
+{
+  "id": "pa-house-17-2026",
+  "title": "Pennsylvania's 17th Congressional District Election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Pennsylvania's 17th Congressional District",
+  "state": "Pennsylvania",
+  "district": "17th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "This is a general election race for Pennsylvania's 17th Congressional District in the U.S. House of Representatives. The district covers all of Beaver County and parts of Allegheny County in western Pennsylvania. Incumbent Democrat Chris Deluzio, first elected in 2022, is seeking a third term. He faces Republican challenger Tony Guy, the Beaver County Sheriff since 2016, who won a competitive Republican primary on May 19, 2026. The district has a slight Democratic lean (Cook PVI: D+3) and Deluzio won by about 7 percentage points in 2024, making this a potentially competitive but Democratic-favored race in 2026.",
+  "polling": [],
+  "polling_note": "No independent public opinion polls were found for the 2026 general election matchup in Pennsylvania's 17th Congressional District as of mid-2026. Ratings organizations such as the Cook Political Report rate the race as Solid Democratic.",
+  "candidates": [
+    {
+      "name": "Chris Deluzio",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Chris Deluzio is the incumbent U.S. Representative for Pennsylvania's 17th Congressional District, first elected in 2022. He is a Thornburg, Pennsylvania native, Iraq War veteran who served as a U.S. Navy officer, and a voting rights attorney. Deluzio is a progressive Democrat whose congressional work has focused on protecting democracy, fighting for working families, and strengthening voting rights.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Chris_Deluzio",
+          "type": "website",
+          "title": "Chris Deluzio - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-03T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://deluzio.house.gov/about",
+          "type": "government",
+          "title": "About - Chris Deluzio - House.gov",
+          "description": null,
+          "last_accessed": "2026-06-03T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://bioguide.congress.gov/search/bio/D000530",
+          "type": "government",
+          "title": "DELUZIO, Chris - Bioguide Search",
+          "description": null,
+          "last_accessed": "2026-06-03T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Chris_Deluzio.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "United States Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Representing Pennsylvania's 17th Congressional District",
+          "source": null
+        },
+        {
+          "title": "Voting Rights Attorney and Policy Director",
+          "organization": "Various organizations",
+          "start_year": 2015,
+          "end_year": 2022,
+          "description": "Worked on voting rights litigation and policy advocacy",
+          "source": null
+        },
+        {
+          "title": "U.S. Navy Officer",
+          "organization": "United States Navy",
+          "start_year": 2006,
+          "end_year": 2012,
+          "description": "Served as an officer including deployment to Iraq",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Georgetown University Law Center",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": 2015,
+          "source": null
+        },
+        {
+          "institution": "United States Naval Academy",
+          "degree": "B.S.",
+          "field": "Political Science",
+          "year": 2006,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://deluzio.house.gov/",
+          "title": "Official House Website",
+          "type": "other"
+        }
+      ],
+      "website": "https://chrisforpa.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Tony Guy",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Tony Guy is the Beaver County Sheriff, first elected in 2016, and the Republican nominee for Pennsylvania's 17th Congressional District. He previously served 26 years with the Pennsylvania State Police, retiring as a Sergeant and Criminal Investigations Section Supervisor. His campaign focuses on law enforcement, border security, and conservative fiscal policies.",
+      "summary_sources": [
+        {
+          "url": "https://www.beavercountypa.gov/departments/sheriff-s-office/contacts-bios/tony-guy",
+          "type": "government",
+          "title": "Tony Guy - Beaver County Sheriff's Office",
+          "description": null,
+          "last_accessed": "2026-06-03T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://tonyguyforcongress.com/",
+          "type": "website",
+          "title": "Tony Guy for Congress",
+          "description": null,
+          "last_accessed": "2026-06-03T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-pennsylvania-us-house-17-primary.html",
+          "type": "news",
+          "title": "Pennsylvania 17th Congressional District Primary 2026: Live Election Results",
+          "description": null,
+          "last_accessed": "2026-06-03T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Sheriff",
+          "organization": "Beaver County Sheriff's Office",
+          "start_year": 2016,
+          "end_year": null,
+          "description": "Elected sheriff of Beaver County, Pennsylvania",
+          "source": null
+        },
+        {
+          "title": "Sergeant / Criminal Investigations Section Supervisor",
+          "organization": "Pennsylvania State Police",
+          "start_year": 2007,
+          "end_year": 2010,
+          "description": "Supervised over 25 members including criminal investigators, vice unit, fire marshals, crime scene investigators, and polygraph examiners",
+          "source": null
+        },
+        {
+          "title": "Pennsylvania State Police Officer",
+          "organization": "Pennsylvania State Police",
+          "start_year": 1984,
+          "end_year": 2010,
+          "description": "Served in patrol, vice unit, SERT tactical team, and as a polygraph examiner; graduated from the Pennsylvania State Police Academy in 1984",
+          "source": null
+        },
+        {
+          "title": "School Board Director",
+          "organization": "Hopewell Area School Board",
+          "start_year": null,
+          "end_year": null,
+          "description": "Appointed director serving for two years",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Pennsylvania State Police Academy",
+          "degree": "Certificate",
+          "field": "Law Enforcement",
+          "year": 1984,
+          "source": null
+        },
+        {
+          "institution": "Quigley High School",
+          "degree": "High School Diploma",
+          "field": null,
+          "year": 1979,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://tonyguyforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Pennsylvania%27s_17th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:37:19.915071+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 222151,
+    "completion_tokens": 5532,
+    "total_tokens": 227683,
+    "cost_usd": 0.015167390000000001,
+    "cost_source": "provider",
+    "estimated_usd": 0.022855,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 222151,
+        "completion_tokens": 5532
+      }
+    },
+    "duration_s": 112.6
+  }
+}

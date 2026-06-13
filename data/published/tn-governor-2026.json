@@ -1,0 +1,692 @@
+{
+  "id": "tn-governor-2026",
+  "title": "2026 Tennessee gubernatorial election",
+  "office": "Governor of Tennessee",
+  "jurisdiction": "Tennessee",
+  "state": "Tennessee",
+  "district": null,
+  "election_date": "2026-11-03",
+  "description": "The 2026 Tennessee gubernatorial election is an open-seat race to succeed term-limited Republican Governor Bill Lee, who cannot seek a third consecutive term. The Republican primary field is led by U.S. Senator Marsha Blackburn, who has strong name recognition and endorsements from President Donald Trump and key conservative groups, facing U.S. Representative John Rose and state Representative Monty Fritts. On the Democratic side, Memphis City Councilwoman Jerri Green is the only candidate who has previously won elected office, running against several other Democratic contenders including former gubernatorial candidate Carnita Atwater, pastor Kevin Lee McCants, and musician Adam \"Ditch\" Kurtz. Tennessee has not elected a Democrat to statewide office since 2006, making the race heavily Republican-favored in the general election. The primary elections are scheduled for August 6, 2026.",
+  "polling": [
+    {
+      "pollster": "Targoz Market Research",
+      "date": "2026-04-27",
+      "sample_size": 529,
+      "matchups": [
+        {
+          "candidates": [
+            "Marsha Blackburn",
+            "John Rose",
+            "Monty Fritts"
+          ],
+          "percentages": [
+            63.0,
+            10.0,
+            5.0
+          ]
+        }
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/2026_Tennessee_gubernatorial_election#cite_note-TargozMay2026-24"
+    },
+    {
+      "pollster": "VictoryPhones",
+      "date": "2026-03-24",
+      "sample_size": 300,
+      "matchups": [
+        {
+          "candidates": [
+            "Marsha Blackburn",
+            "John Rose",
+            "Monty Fritts"
+          ],
+          "percentages": [
+            56.0,
+            14.0,
+            11.0
+          ]
+        }
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/2026_Tennessee_gubernatorial_election#cite_note-26"
+    },
+    {
+      "pollster": "Cygnal (R)",
+      "date": "2026-03-17",
+      "sample_size": 500,
+      "matchups": [
+        {
+          "candidates": [
+            "Marsha Blackburn",
+            "John Rose"
+          ],
+          "percentages": [
+            58.0,
+            7.0
+          ]
+        }
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/2026_Tennessee_gubernatorial_election#cite_note-28"
+    },
+    {
+      "pollster": "Targoz Market Research",
+      "date": "2026-04-27",
+      "sample_size": 400,
+      "matchups": [],
+      "source_url": "https://en.wikipedia.org/wiki/2026_Tennessee_gubernatorial_election#cite_note-TargozMay2026-24"
+    },
+    {
+      "pollster": "Targoz Market Research",
+      "date": "2026-01-18",
+      "sample_size": 559,
+      "matchups": [
+        {
+          "candidates": [
+            "Marsha Blackburn",
+            "John Rose",
+            "Monty Fritts"
+          ],
+          "percentages": [
+            56.0,
+            9.0,
+            7.0
+          ]
+        }
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/2026_Tennessee_gubernatorial_election#cite_note-30"
+    }
+  ],
+  "polling_note": null,
+  "candidates": [
+    {
+      "name": "Marsha Blackburn",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Marsha Blackburn is the senior U.S. Senator from Tennessee, first elected in 2018 after serving 16 years in the U.S. House and four years in the Tennessee Senate. A staunch conservative and close ally of President Donald Trump, she has led early primary polls by wide margins, raised over $5.5 million, and secured endorsements from major conservative organizations including the Club for Growth and Turning Point Action. She is running on a platform of making Tennessee the nation's conservative leader, with a focus on education freedom, economic growth, and limited government.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Marsha_Blackburn",
+          "type": "website",
+          "title": "Marsha Blackburn - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://nashvillebanner.com/2026/03/11/governor-tennessee-candidates-marsha-blackburn-john-rose/",
+          "type": "news",
+          "title": "Blackburn, Rose Take Different Tacks as Frontrunners Among 27 Candidates for Governor",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Sen._Marsha_Blackburn_%28R-TN%29_official_headshot_-_116th_Congress.jpg/250px-Sen._Marsha_Blackburn_%28R-TN%29_official_headshot_-_116th_Congress.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "United States Senator",
+          "organization": "United States Senate",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Senior U.S. Senator from Tennessee; first woman elected to the Senate from Tennessee",
+          "source": null
+        },
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2003,
+          "end_year": 2019,
+          "description": "Represented Tennessee's 7th congressional district",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Tennessee Senate",
+          "start_year": 1999,
+          "end_year": 2003,
+          "description": "Represented the 23rd district; served as minority whip",
+          "source": null
+        },
+        {
+          "title": "Executive Director",
+          "organization": "Tennessee Film, Entertainment, and Music Commission",
+          "start_year": 1995,
+          "end_year": 1997,
+          "description": "Appointed by Governor Don Sundquist",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Mississippi State University",
+          "degree": "Bachelor of Science",
+          "field": "Home Economics",
+          "year": 1974,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://marshablackburn.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "John Rose",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "John Rose is a U.S. Representative for Tennessee's 6th congressional district, first elected in 2018, and previously served as the state's Agriculture Commissioner in 2002. A businessman who co-founded Transcender Corp. and owns Boson Software, Rose has emphasized his executive experience and pledged to self-fund his campaign if needed, having loaned his campaign $5 million. He is running on a platform of conservative values, economic development, and serving as a \"conservative outsider\" focused on Tennessee-specific challenges rather than national political ambitions.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/John_Rose_(Tennessee_politician)",
+          "type": "website",
+          "title": "John Rose (Tennessee politician) - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://johnrose.com/",
+          "type": "website",
+          "title": "John Rose for Tennessee - Campaign Website",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/John_Rose_118th_Congress.jpeg/250px-John_Rose_118th_Congress.jpeg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Representing Tennessee's 6th congressional district",
+          "source": null
+        },
+        {
+          "title": "Agriculture Commissioner",
+          "organization": "Tennessee Department of Agriculture",
+          "start_year": 2002,
+          "end_year": 2003,
+          "description": "33rd Agriculture Commissioner of Tennessee under Governor Don Sundquist",
+          "source": null
+        },
+        {
+          "title": "President / Co-Founder",
+          "organization": "Boson Software / Transcender Corp.",
+          "start_year": 1992,
+          "end_year": null,
+          "description": "Co-founded Transcender Corp. (sold for $60M in 2000); owns Boson Software, an IT certification training company",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Tennessee Technological University",
+          "degree": "Bachelor of Science",
+          "field": "Agribusiness Economics",
+          "year": 1988,
+          "source": null
+        },
+        {
+          "institution": "Purdue University",
+          "degree": "Master of Science",
+          "field": "Agricultural Economics",
+          "year": 1990,
+          "source": null
+        },
+        {
+          "institution": "Vanderbilt University Law School",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://johnrose.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Monty Fritts",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Monty Fritts is a Republican state representative for Tennessee's 32nd district, first elected in 2022. An Army veteran and former nuclear industry worker, Fritts is running as a conservative outsider campaigning on cutting government spending, opposing \"corporate welfare,\" and promoting \"Godly values.\" He gained national attention for controversial statements including calling for capital punishment for parents of transgender children, and was one of only two House members who voted against banning marriage between first cousins.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Monty_Fritts",
+          "type": "website",
+          "title": "Monty Fritts - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://fritts4tn.com/",
+          "type": "website",
+          "title": "Monty Fritts for Governor - Campaign Website",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "State Representative",
+          "organization": "Tennessee House of Representatives",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Representing the 32nd district",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Liberty University",
+          "degree": "Bachelor of Science",
+          "field": "Business & Chemistry",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Liberty University",
+          "degree": "Master of Arts",
+          "field": "Theological Studies",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Tennessee",
+          "degree": "Master of Business Administration",
+          "field": "Business",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://fritts4tn.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Jerri Green",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Jerri Green is a Memphis City Councilmember representing District 2 since 2024, and the only Democrat in the primary who has previously won elected office. A former public defender, interim Shelby County Chief Public Defender, and Senior Policy Advisor to Shelby County Mayor Lee Harris, she brands herself as \"One Tough Mother\" and has raised approximately $125,000. Her campaign focuses on fully funding public education, expanding Medicaid, gun safety measures, and supporting working families, rooted in her experience as a three-time gun violence survivor.",
+      "summary_sources": [
+        {
+          "url": "https://greenforgovernor.com/about/",
+          "type": "website",
+          "title": "Meet Jerri Green - Campaign Website",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://tnfirefly.com/tennessee-governor-race/candidates/jerri-green",
+          "type": "news",
+          "title": "Jerri Green - 2026 TN Governor Race Profile",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.commercialappeal.com/story/news/local/2025/07/14/memphis-city-councilwoman-jerri-tennessee-governor/85191204007/",
+          "type": "news",
+          "title": "Memphis City Councilwoman Jerri Green to run for Tennessee governor",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Interim Chief Public Defender",
+          "organization": "Shelby County",
+          "start_year": 2026,
+          "end_year": null,
+          "description": "Appointed by Mayor Lee Harris; oversees 22,000+ cases per year",
+          "source": null
+        },
+        {
+          "title": "Memphis City Councilmember",
+          "organization": "City of Memphis",
+          "start_year": 2024,
+          "end_year": null,
+          "description": "Representing District 2; chairs Economic Development, Tourism & Technology Committee",
+          "source": null
+        },
+        {
+          "title": "Deputy Chief of Staff / Senior Policy Advisor",
+          "organization": "Shelby County Mayor's Office",
+          "start_year": 2021,
+          "end_year": 2025,
+          "description": "Served Mayor Lee Harris on public safety, women's health, and refugee assistance",
+          "source": null
+        },
+        {
+          "title": "Executive Director",
+          "organization": "Community Legal Center",
+          "start_year": null,
+          "end_year": null,
+          "description": "Provided legal services to low-income residents in Memphis",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Tennessee, Knoxville",
+          "degree": "Bachelor of Arts",
+          "field": "English and Political Science",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Georgetown University Law Center",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://greenforgovernor.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Carnita Atwater",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Carnita Atwater is a Memphis community advocate and museum president who previously ran for governor in 2022, finishing third in the Democratic primary, and also ran for mayor of Memphis in 2023. She serves as president of the African American International Museum Foundation and has a background in healthcare, higher education administration, and community organizing. Her campaign emphasizes amplifying underrepresented voices and addressing disparities across Tennessee.",
+      "summary_sources": [
+        {
+          "url": "https://tnfirefly.com/tennessee-governor-race/candidates/carnita-atwater",
+          "type": "news",
+          "title": "Carnita Atwater - 2026 TN Governor Race Profile",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://justmymemphis.com/view-post/3061",
+          "type": "news",
+          "title": "Carnita Atwater's Historic Run: A Vision for Tennessee's Future",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "President",
+          "organization": "African American International Museum Foundation",
+          "start_year": null,
+          "end_year": null,
+          "description": "Museum leader and community advocate",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Adam \"Ditch\" Kurtz",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Adam \"Ditch\" Kurtz is a Nashville-based pedal steel musician and first-time political candidate running for governor as a Democrat. With no prior elected office experience, he campaigns on a platform of making government help ordinary citizens, emphasizing his outsider status. He has raised approximately $9,500, the smallest amount among the Democratic primary candidates.",
+      "summary_sources": [
+        {
+          "url": "https://www.ditch4governor.com/",
+          "type": "website",
+          "title": "Adam \"Ditch\" Kurtz for Governor - Campaign Website",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://nashvillebanner.com/2026/03/11/governor-tennessee-candidates-marsha-blackburn-john-rose/",
+          "type": "news",
+          "title": "Blackburn, Rose Take Different Tacks as Frontrunners Among 27 Candidates for Governor",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Pedal Steel Musician",
+          "organization": "Nashville music scene",
+          "start_year": null,
+          "end_year": null,
+          "description": "Professional musician",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.ditch4governor.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Kevin Lee McCants",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Kevin Lee McCants is a pastor and first-time candidate for political office running in the Democratic primary for governor. He polled at 11% in the April 2026 Targoz Democratic primary survey, putting him in second place behind Jerri Green. His signature petitions were still pending verification as of the filing deadline.",
+      "summary_sources": [
+        {
+          "url": "https://tnfirefly.com/tennessee-governor-race/candidates/kevin-lee-mccants",
+          "type": "news",
+          "title": "Kevin Lee McCants - 2026 TN Governor Race Profile",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://nashvillebanner.com/2026/03/11/governor-tennessee-candidates-marsha-blackburn-john-rose/",
+          "type": "news",
+          "title": "Blackburn, Rose Take Different Tacks as Frontrunners Among 27 Candidates for Governor",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Pastor",
+          "organization": "Church",
+          "start_year": null,
+          "end_year": null,
+          "description": "Religious leader",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Tim Cyr",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Tim Cyr is a home repair business owner running in the Democratic primary for governor of Tennessee in 2026. He is a first-time candidate for public office, having filed to run with a focus on representing working-class Tennesseans.",
+      "summary_sources": [
+        {
+          "url": "https://nashvillebanner.com/2026/03/11/governor-tennessee-candidates-marsha-blackburn-john-rose/",
+          "type": "news",
+          "title": "Blackburn, Rose Take Different Tacks as Frontrunners Among 27 Candidates for Governor",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Owner",
+          "organization": "Home Repair Business",
+          "start_year": null,
+          "end_year": null,
+          "description": "Small business owner",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Tennessee_gubernatorial_election,_2026",
+  "updated_utc": "2026-06-13T21:04:28.302439+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 264057,
+    "completion_tokens": 9040,
+    "total_tokens": 273097,
+    "cost_usd": 0.019532434,
+    "cost_source": "provider",
+    "estimated_usd": 0.027649,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 264057,
+        "completion_tokens": 9040
+      }
+    },
+    "duration_s": 179.1
+  }
+}

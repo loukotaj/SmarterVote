@@ -1,0 +1,391 @@
+{
+  "id": "al-house-01-2026",
+  "title": "Alabama's 1st Congressional District Election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Alabama's 1st Congressional District",
+  "state": "Alabama",
+  "district": "1st Congressional District",
+  "election_date": "2026-11-03",
+  "description": "This is a competitive race for Alabama's 1st Congressional District, which covers all of Mobile, Baldwin, Escambia, Covington, Coffee, Dale, and other counties in southern Alabama. The election has been complicated by mid-cycle redistricting: after the Supreme Court allowed Alabama to revert to its 2023 congressional map, the May 19 primaries in this district were voided and a special primary was scheduled for August 11, 2026. The incumbent, Republican Barry Moore, is running for the U.S. Senate rather than seeking re-election to the House, leaving the seat open. Four Republicans are competing in the special Republican primary \u2014 including former U.S. Rep. Jerry Carl \u2014 while Democrat Clyde W. Jones Jr. is unopposed for the Democratic nomination. The general election in November will determine who succeeds Moore in a district that has been held by Republicans continuously since 1965.",
+  "polling": [],
+  "polling_note": "No general election polls are available because the special primary has not yet occurred (August 11, 2026). Primary polling from earlier in the cycle is not applicable to the current race due to redistricting changes.",
+  "candidates": [
+    {
+      "name": "Jerry Carl",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Jerry Carl is a former U.S. Representative for Alabama's 1st Congressional District (2021\u20132025) and a businessman. He previously served as a Mobile County Commissioner from 2012 to 2020, the last two years as commission president. Carl lost renomination in 2024 to fellow incumbent Barry Moore after redistricting, and is now seeking a return to Congress in this open-seat race. He campaigns as an America First conservative and emphasizes his business background and record on the Appropriations Committee.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Jerry_Carl",
+          "type": "website",
+          "title": "Jerry Carl - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://jerrycarlforcongress.com/",
+          "type": "website",
+          "title": "Jerry Carl for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/08/Rep._Jerry_Carl_official_photo.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2021,
+          "end_year": 2025,
+          "description": "Represented Alabama's 1st Congressional District; served on Appropriations and Natural Resources Committees",
+          "source": null
+        },
+        {
+          "title": "Mobile County Commissioner / President",
+          "organization": "Mobile County Commission",
+          "start_year": 2012,
+          "end_year": 2020,
+          "description": "Served as commissioner and later commission president",
+          "source": null
+        },
+        {
+          "title": "Founder / CEO",
+          "organization": "Carl and Associates / Cricket and Butterfly LLC",
+          "start_year": 2003,
+          "end_year": null,
+          "description": "Management group and lumber/timber company",
+          "source": null
+        },
+        {
+          "title": "Founder",
+          "organization": "Stat Medical",
+          "start_year": 1989,
+          "end_year": null,
+          "description": "Healthcare equipment business",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Sylacauga High School",
+          "degree": "High School Diploma",
+          "field": "",
+          "year": 1977,
+          "source": null
+        },
+        {
+          "institution": "Lake City Community College (Florida Gateway College)",
+          "degree": null,
+          "field": "",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://jerrycarlforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Austin Sidwell",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Austin Sidwell is a retired U.S. Air Force Major and small business executive from Silverhill, Alabama, running in the Republican special primary. He describes himself as a Christian, husband, and father who is not a career politician. Sidwell emphasizes his military service and pledges to stand with President Trump, defend conservative values, and fight for faith, family, and freedom in Congress.",
+      "summary_sources": [
+        {
+          "url": "https://sidwellforcongress.com/",
+          "type": "website",
+          "title": "Sidwell for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.alreporter.com/2025/10/30/sidwell-joins-growing-republican-field-for-1st-congressional-district/",
+          "type": "news",
+          "title": "Sidwell joins growing Republican field for 1st Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Major (Ret.)",
+          "organization": "United States Air Force",
+          "start_year": null,
+          "end_year": null,
+          "description": "Retired as Major after career in the U.S. Air Force",
+          "source": null
+        },
+        {
+          "title": "Small Business Executive",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Executive in private sector",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://sidwellforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "John Mills",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "John Mills is a retired U.S. Navy pilot with 26 years of service and a small business owner running in the Republican special primary. He previously ran for Congress in Florida's 1st District. Mills campaigns as a constitutional conservative focused on election integrity, border security, property rights, military readiness, and limited government. He has emphasized opposition to forced CO\u2082 carbon capture pipelines and defending private property rights.",
+      "summary_sources": [
+        {
+          "url": "https://johnmillsforcongress.com/",
+          "type": "website",
+          "title": "John Mills for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/John_Mills_(Alabama)",
+          "type": "website",
+          "title": "John Mills (Alabama) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Navy Pilot (Ret.)",
+          "organization": "United States Navy",
+          "start_year": null,
+          "end_year": null,
+          "description": "26-year career as a Navy pilot",
+          "source": null
+        },
+        {
+          "title": "Small Business Owner",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Small business owner following military career",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://johnmillsforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Lucas Burger",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Lucas Burger is a Republican candidate who qualified for the August 11 special primary in Alabama's 1st Congressional District. Limited biographical information is publicly available; he is a new addition to the ballot for the special primary following the redistricting-driven reconfiguration of the race.",
+      "summary_sources": [
+        {
+          "url": "https://alarise.org/blog-posts/what-you-need-to-know-about-alabamas-aug-11-special-primary-election/",
+          "type": "news",
+          "title": "What you need to know about Alabama's Aug. 11 special primary election",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://aldailynews.com/alabamas-special-congressional-primary-fields-are-finally-set/",
+          "type": "news",
+          "title": "Alabama's special congressional primary fields are finally set",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Clyde W. Jones Jr.",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Clyde W. Jones Jr. is a retired U.S. Army First Sergeant with 21 years of service, a Bronze Star recipient, and an associate minister at Macedonia Missionary Baptist Church in Daphne, Alabama. He is the sole Democratic candidate for Alabama's 1st Congressional District and will be unopposed in the August 11 Democratic special primary. Jones campaigns on congressional accountability, healthcare reform, veterans' support, workers' rights, and immigration reform, and has pledged not to accept corporate PAC money.",
+      "summary_sources": [
+        {
+          "url": "https://clydeforcongress.com/",
+          "type": "website",
+          "title": "Clyde Jones For Alabama's First Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.alreporter.com/2025/10/20/democrat-clyde-jones-announces-bid-for-alabamas-first-congressional-seat/",
+          "type": "news",
+          "title": "Democrat Clyde Jones announces bid for Alabama's First Congressional seat",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "First Sergeant (Ret.)",
+          "organization": "United States Army Signal Corps",
+          "start_year": null,
+          "end_year": null,
+          "description": "21-year military career; Bronze Star recipient for service in Operation Desert Storm and Operation Iraqi Freedom II",
+          "source": null
+        },
+        {
+          "title": "Process Safety Management Coordinator",
+          "organization": "FMC Corporation (FMC Agriculture Solutions)",
+          "start_year": null,
+          "end_year": 2024,
+          "description": "Retired in May 2024",
+          "source": null
+        },
+        {
+          "title": "Associate Minister",
+          "organization": "Macedonia Missionary Baptist Church",
+          "start_year": null,
+          "end_year": null,
+          "description": "Faith leader",
+          "source": null
+        },
+        {
+          "title": "President of the Board of Directors",
+          "organization": "Alabama Arise",
+          "start_year": null,
+          "end_year": null,
+          "description": "Former board president",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Excelsior University",
+          "degree": "Bachelor of Science",
+          "field": "Liberal Arts with focus in Administration and Management",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://clydeforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Alabama%27s_1st_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:06:55.281736+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 251877,
+    "completion_tokens": 7548,
+    "total_tokens": 259425,
+    "cost_usd": 0.021231258,
+    "cost_source": "provider",
+    "estimated_usd": 0.026163,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 251877,
+        "completion_tokens": 7548
+      }
+    },
+    "duration_s": 154.7
+  }
+}

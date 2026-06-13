@@ -1,0 +1,316 @@
+{
+  "id": "ma-house-09-2026",
+  "title": "Massachusetts's 9th Congressional District Election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Massachusetts's 9th Congressional District",
+  "state": "Massachusetts",
+  "district": "9th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Massachusetts's 9th Congressional District will determine who represents the South Shore, South Coast, Cape Cod, Martha's Vineyard, and Nantucket in the U.S. House of Representatives. Incumbent Democrat Bill Keating, first elected in 2010, faces a primary challenge from community organizer Craig Swallow, while Republican Tyler MacAllister is running on the Republican side. The district is rated \"Solid D\" by the Cook Political Report and is considered the least liberal Democratic-held district in Massachusetts, giving the general election somewhat more competitive dynamics than other seats in the state. Key issues include affordability, infrastructure (particularly the Bourne and Sagamore Bridges), coastal resiliency, and national security.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for this race as of mid-2026. The Cook Political Report rates the district as Solid Democratic.",
+  "candidates": [
+    {
+      "name": "Bill Keating",
+      "party": "Democratic Party",
+      "incumbent": true,
+      "summary": "Bill Keating is the incumbent U.S. Representative for Massachusetts's 9th Congressional District, first elected in 2010. He serves on the House Foreign Affairs and Armed Services Committees, chairs the Europe, Eurasia, Energy and Environment Subcommittee, and has focused on national security, homeland security, coastal issues, and combating the opioid epidemic. Prior to Congress, Keating served in the Massachusetts House and Senate and was Norfolk County District Attorney.",
+      "summary_sources": [
+        {
+          "url": "http://keating.house.gov/about/full-biography",
+          "type": "government",
+          "title": "Biography - Congressman Bill Keating",
+          "description": null,
+          "last_accessed": "2026-06-12T14:30:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cookpolitical.com/house/race/483276",
+          "type": "news",
+          "title": "MA-09 2026 - Cook Political Report",
+          "description": null,
+          "last_accessed": "2026-06-12T14:30:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Massachusetts",
+          "type": "news",
+          "title": "2026 United States House of Representatives elections in Massachusetts - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-12T14:30:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Bill_Keating_official_photo.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2011,
+          "end_year": null,
+          "description": "Representing Massachusetts's 9th Congressional District. Senior member of Foreign Affairs and Armed Services Committees.",
+          "source": null
+        },
+        {
+          "title": "District Attorney",
+          "organization": "Norfolk County District Attorney's Office",
+          "start_year": 1999,
+          "end_year": 2010,
+          "description": "Chief prosecutor for Norfolk County, Massachusetts.",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Massachusetts State Senate",
+          "start_year": 1985,
+          "end_year": 1998,
+          "description": "Served as Senate Chairman of the Joint Committee on the Judiciary and Joint Committee on Public Safety.",
+          "source": null
+        },
+        {
+          "title": "State Representative",
+          "organization": "Massachusetts House of Representatives",
+          "start_year": 1977,
+          "end_year": 1984,
+          "description": "Elected at age 23 to the Massachusetts House.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Suffolk University Law School",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": 1985,
+          "source": null
+        },
+        {
+          "institution": "Boston College",
+          "degree": "MBA",
+          "field": "Business Administration",
+          "year": 1982,
+          "source": null
+        },
+        {
+          "institution": "Boston College",
+          "degree": "BA",
+          "field": "Arts",
+          "year": 1974,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "http://keating.house.gov/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Craig Swallow",
+      "party": "Democratic Party",
+      "incumbent": false,
+      "summary": "Craig Swallow is a community organizer and former educator running as a Democratic primary challenger against incumbent Bill Keating. Born and raised in New Bedford, he is co-leader of Indivisible 'Do Something' South Coast New England, a grassroots progressive group. Swallow's campaign focuses on affordability, accountability, healthcare, housing, and climate justice, arguing that longtime incumbents have become disconnected from working-class constituents.",
+      "summary_sources": [
+        {
+          "url": "https://www.capecodtimes.com/story/news/politics/2026/01/29/rep-bill-keating-activist-craig-swallow-cape-cod-new-bedford/88401440007/",
+          "type": "news",
+          "title": "Rep. Bill Keating to face challenge in 2026 election from activist",
+          "description": null,
+          "last_accessed": "2026-06-12T14:30:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.craigswallowforcongress.com/",
+          "type": "website",
+          "title": "Craig Swallow for Congress (MA-09)",
+          "description": null,
+          "last_accessed": "2026-06-12T14:30:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.progressivemass.com/portfolio/2026-us-congress/",
+          "type": "website",
+          "title": "2026 US Congress - Progressive Mass",
+          "description": null,
+          "last_accessed": "2026-06-12T14:30:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Co-Leader",
+          "organization": "Indivisible 'Do Something' South Coast New England",
+          "start_year": null,
+          "end_year": null,
+          "description": "Grassroots community organizing focused on progressive advocacy.",
+          "source": null
+        },
+        {
+          "title": "Educator",
+          "organization": "Unknown",
+          "start_year": null,
+          "end_year": null,
+          "description": "Former educator.",
+          "source": null
+        },
+        {
+          "title": "Service Industry Worker",
+          "organization": "Toast",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked in the service industry.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Bridgewater State University",
+          "degree": null,
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.craigswallowforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "R. Tyler MacAllister",
+      "party": "Republican Party",
+      "incumbent": false,
+      "summary": "Tyler MacAllister is the Republican candidate running for Massachusetts's 9th Congressional District. A commercial fisherman, charter boat captain, and cancer survivor from Mattapoisett, he has served 13 years on the Mattapoisett Select Board and has appeared on the Discovery Channel show 'Harpoon Hunters.' MacAllister's campaign focuses on lowering the cost of living, securing the border, reducing healthcare costs, achieving energy independence, replacing the Bourne and Sagamore Bridges, and bringing non-career-politician leadership to Washington.",
+      "summary_sources": [
+        {
+          "url": "https://macallister4congress.com/about/",
+          "type": "website",
+          "title": "Meet Tyler - Macallister for Congress",
+          "description": null,
+          "last_accessed": "2026-06-12T14:30:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.sec.state.ma.us/divisions/elections/research-and-statistics/rep-state-primary-candidates2026.htm",
+          "type": "government",
+          "title": "2026 Republican State Primary Candidates - Massachusetts Secretary of State",
+          "description": null,
+          "last_accessed": "2026-06-12T14:30:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/R._Tyler_MacAllister",
+          "type": "website",
+          "title": "R. Tyler MacAllister - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T14:30:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Select Board Member",
+          "organization": "Town of Mattapoisett",
+          "start_year": 2013,
+          "end_year": null,
+          "description": "Elected member of the Mattapoisett Select Board, serving for 13 years.",
+          "source": null
+        },
+        {
+          "title": "Charter Boat Captain / Commercial Fisherman",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "Helped popularize sustainable bluefin tuna harpoon fishing. Featured on Discovery Channel's Harpoon Hunters.",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://macallister4congress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Massachusetts%27_9th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:43:35.019243+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 245203,
+    "completion_tokens": 6063,
+    "total_tokens": 251266,
+    "cost_usd": 0.02094509,
+    "cost_source": "provider",
+    "estimated_usd": 0.025218,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 245203,
+        "completion_tokens": 6063
+      }
+    },
+    "duration_s": 134.7
+  }
+}

@@ -1,0 +1,274 @@
+{
+  "id": "ky-house-03-2026",
+  "title": "Kentucky's 3rd Congressional District election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Kentucky's 3rd Congressional District",
+  "state": "Kentucky",
+  "district": "3rd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Kentucky's 3rd Congressional District, which includes much of the Louisville metro area and Jefferson County, is holding a general election on November 3, 2026. Incumbent Democrat Morgan McGarvey, first elected in 2022, is seeking re-election against Republican nominee Maria Teresa Rodriguez, a trauma nurse and small business owner who won a four-way Republican primary on May 19, 2026. The Cook Political Report rates this race as Solidly Democratic. The contest presents voters with a choice between McGarvey's record on organized labor, public education, and reproductive rights, and Rodriguez's platform emphasizing conservative fiscal policy, legal immigration, and public safety.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for this race as of the research date.",
+  "candidates": [
+    {
+      "name": "Morgan McGarvey",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Morgan McGarvey is the incumbent U.S. Representative for Kentucky's 3rd Congressional District, first elected in 2022. He previously served a decade in the Kentucky State Senate, including four years as Minority Leader. In Congress, he serves on the Veterans Affairs, Small Business, and Budget Committees and has focused on veterans' benefits, public education, organized labor, and reproductive rights.",
+      "summary_sources": [
+        {
+          "url": "https://mcgarvey.house.gov/about",
+          "type": "government",
+          "title": "About - Congressman Morgan McGarvey",
+          "description": null,
+          "last_accessed": "2026-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Morgan_McGarvey",
+          "type": "website",
+          "title": "Morgan McGarvey - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Morgan_McGarvey",
+          "type": "website",
+          "title": "Morgan McGarvey - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://kentuckylantern.com/voter-guides/contests/u-s-house-3rd-district-dems/",
+          "type": "news",
+          "title": "U.S. House \u2013 3rd District - Dems | Voter Guide: 2026 Primary Election",
+          "description": null,
+          "last_accessed": "2026-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Morgan_McGarvey.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Representing Kentucky's 3rd Congressional District",
+          "source": null
+        },
+        {
+          "title": "Minority Leader",
+          "organization": "Kentucky State Senate",
+          "start_year": 2019,
+          "end_year": 2022,
+          "description": "Led the Senate Democratic Caucus",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Kentucky State Senate",
+          "start_year": 2013,
+          "end_year": 2022,
+          "description": "Represented parts of Jefferson County",
+          "source": null
+        },
+        {
+          "title": "Attorney",
+          "organization": "Morgan & Pottinger, P.S.C.",
+          "start_year": null,
+          "end_year": null,
+          "description": "Practiced law at a Louisville firm",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Kentucky College of Law",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Missouri",
+          "degree": "B.A.",
+          "field": "Journalism",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://mcgarvey.house.gov/",
+          "title": "Official House Website",
+          "type": "other"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Morgan_McGarvey",
+          "title": "Wikipedia",
+          "type": "other"
+        }
+      ],
+      "website": "https://www.morganmcgarvey.com/",
+      "social_media": {
+        "twitter": "https://x.com/RepMcGarvey",
+        "facebook": "https://www.facebook.com/RepMcGarvey/",
+        "instagram": "https://www.instagram.com/repmcgarvey/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Maria Teresa Rodriguez",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Maria Teresa Rodriguez is the Republican nominee for U.S. House in Kentucky's 3rd Congressional District. She is a trauma nurse and small business owner from Louisville who came to the United States from Cuba at age 21 after an 11-year asylum process. Her campaign emphasizes conservative values including free enterprise, lower taxes, legal immigration, public safety, and protecting constitutional rights.",
+      "summary_sources": [
+        {
+          "url": "https://mariaforuscongress.com/meet-the-candidate/",
+          "type": "website",
+          "title": "Meet The Candidate - Maria Rodriguez",
+          "description": null,
+          "last_accessed": "2026-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://kentuckylantern.com/voter-guides/contests/u-s-house-3rd-district-gop/",
+          "type": "news",
+          "title": "U.S. House \u2013 3rd District - GOP | Voter Guide: 2026 Primary Election",
+          "description": null,
+          "last_accessed": "2026-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-kentucky-us-house-3-primary.html",
+          "type": "news",
+          "title": "Kentucky Third Congressional District Primary Election Results",
+          "description": null,
+          "last_accessed": "2026-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Kentucky",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in Kentucky",
+          "description": null,
+          "last_accessed": "2026-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Trauma Nurse",
+          "organization": "Louisville area hospital",
+          "start_year": null,
+          "end_year": null,
+          "description": "Provides critical care to patients in an emergency room setting",
+          "source": null
+        },
+        {
+          "title": "Small Business Owner",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "Built and operated a small business from the ground up",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Nursing program (unspecified)",
+          "degree": "Nursing Degree",
+          "field": "Nursing",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://mariaforuscongress.com/",
+          "title": "Campaign Website",
+          "type": "other"
+        }
+      ],
+      "website": "https://mariaforuscongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/p/Maria-Rodriguez-for-US-Congress-61586552040656/",
+        "instagram": "https://www.instagram.com/rodriguezmaria_teresa/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Kentucky%27s_3rd_congressional_district_election,_2026",
+  "updated_utc": "2026-06-13T21:10:21.095028+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 167495,
+    "completion_tokens": 5572,
+    "total_tokens": 173067,
+    "cost_usd": 0.013343294,
+    "cost_source": "provider",
+    "estimated_usd": 0.017507,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 167495,
+        "completion_tokens": 5572
+      }
+    },
+    "duration_s": 147.1
+  }
+}

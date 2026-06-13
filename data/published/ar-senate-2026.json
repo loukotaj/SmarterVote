@@ -1,39 +1,350 @@
 {
   "id": "ar-senate-2026",
-  "title": "2026 U.S. Senate election in Arkansas",
-  "office": "U.S. Senate",
-  "jurisdiction": "Arkansas",
+  "title": "2026 United States Senate election in Arkansas",
+  "office": "United States Senate",
+  "jurisdiction": "Arkansas, United States",
   "state": "Arkansas",
   "district": null,
   "election_date": "2026-11-03",
-  "description": "Voters in Arkansas will elect one member to the U.S. Senate in the general election on November 3, 2026. The seat is currently held by Republican Tom Cotton, who first took office in 2015 and is seeking another term. Arkansas is a strongly Republican state, so the race is expected to favor the GOP, but the contest still matters because it will determine who represents the state in the Senate and help shape the chamber’s partisan balance. The general election is likely to feature Cotton against the Democratic nominee, with the outcome reflecting both Cotton’s incumbency and the state’s partisan lean.",
+  "description": "Arkansas voters will elect a U.S. senator on November 3, 2026, with the winner serving a six-year term. Republican incumbent Tom Cotton is seeking re-election against Democratic candidate Hallie Shoffner and Libertarian candidate Jeff Wadlin. Arkansas has favored Republicans in recent statewide federal elections, giving Cotton a structural advantage, while the result will also contribute to the Senate's partisan balance. The candidates present different approaches to the economy, immigration, health care, agriculture, national security, and the role of the federal government.",
   "polling": [],
-  "polling_note": "No public polling found for this race as of 2026-04-06.",
+  "polling_note": "No public polling found for this race as of 2026-06-13.",
   "candidates": [
     {
       "name": "Tom Cotton",
       "party": "Republican",
       "incumbent": true,
-      "summary": "Tom Cotton is the incumbent U.S. senator from Arkansas and has served since 2015. According to his Senate biography, he grew up on a cattle farm in Yell County, graduated from Harvard and Harvard Law School, served nearly five years as an Army infantry officer with deployments to Iraq and Afghanistan, and later served one term in the U.S. House before returning to the Senate.",
+      "summary": "Tom Cotton is the Republican incumbent U.S. senator from Arkansas and is seeking re-election in 2026. He previously served in the U.S. House, practiced law, and served nearly five years on active duty as an Army infantry officer, including deployments to Iraq and Afghanistan.",
       "summary_sources": [
         {
           "url": "https://www.cotton.senate.gov/about",
-          "type": "official biography",
-          "title": "About | Senator Tom Cotton"
+          "type": "government",
+          "title": "About | Senator Tom Cotton",
+          "description": null,
+          "last_accessed": "2026-06-13T01:54:25.182821Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.congress.gov/member/tom-cotton/C001095",
+          "type": "government",
+          "title": "Tom Cotton, the Senator from Arkansas",
+          "description": null,
+          "last_accessed": "2026-06-13T01:54:25.182821Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
           "url": "https://ballotpedia.org/Tom_Cotton",
-          "type": "ballotpedia",
-          "title": "Tom Cotton"
+          "type": "website",
+          "title": "Tom Cotton - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T01:54:25.182821Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Tom_Cotton.jpg",
-      "website": "https://www.cotton.senate.gov/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/SenatorTomCotton",
-        "x": "https://x.com/SenTomCotton",
-        "youtube": "https://www.youtube.com/@sentomcotton",
-        "instagram": "https://www.instagram.com/tomcottonar/"
+      "issues": {
+        "Healthcare": {
+          "issue": null,
+          "stance": "Cotton says he supports protecting rural hospitals, expanding access to care, and lowering prescription drug costs without a government takeover of healthcare. He also says he opposed the Obamacare individual mandate and wants to strengthen care for veterans and seniors in Arkansas.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.tomcotton.com/issues",
+              "type": "website",
+              "title": "Issues | Tom Cotton for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-06-13T01:44:58.674371Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.cotton.senate.gov/about",
+              "type": "government",
+              "title": "About | Senator Tom Cotton",
+              "description": null,
+              "last_accessed": "2026-06-13T01:44:58.674371Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": null,
+          "stance": "Cotton says he is fighting inflation by cutting regulations, supporting American energy, and opposing spending he says drove prices up. His campaign also says he helped pass the largest tax cut in American history and supports lower taxes, including no tax on tips and no tax on Social Security.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.tomcotton.com/issues",
+              "type": "website",
+              "title": "Issues | Tom Cotton for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "Cotton opposes Green New Deal-style climate mandates and says he supports American energy and lower utility costs. His campaign says he has worked to eliminate federal regulations it views as burdensome, including rules affecting energy production and data-center power use.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.tomcotton.com/issues",
+              "type": "website",
+              "title": "Issues | Tom Cotton for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.cotton.senate.gov/news/press-releases/cotton-introduces-bill-to-lower-energy-costs-for-arkansans",
+              "type": "government",
+              "title": "Cotton Introduces Bill to Lower Energy Costs for Arkansans",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": null,
+          "stance": "Cotton says he is pro-life and has opposed abortion rights. He has described abortion as a matter of life and death and said every life, born and unborn, is worthy of protection.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.tomcotton.com/issues",
+              "type": "website",
+              "title": "Issues | Tom Cotton for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.cotton.senate.gov/news/speeches/cotton-defends-the-right-to-life",
+              "type": "government",
+              "title": "Cotton Defends the Right to Life",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": null,
+          "stance": "Cotton supports stricter border enforcement and reducing illegal immigration. His campaign says he backed Trump-era border policies, opposed catch-and-release, supported the Laken Riley Act, and authored the RAISE Act to end chain migration.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.tomcotton.com/issues",
+              "type": "website",
+              "title": "Issues | Tom Cotton for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "Cotton says he has a strong pro-Second Amendment record and opposes gun-control measures that he says punish law-abiding gun owners. His campaign says he has been endorsed by the NRA and supports tougher enforcement against violent criminals and gangs.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.tomcotton.com/issues",
+              "type": "website",
+              "title": "Issues | Tom Cotton for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.cotton.senate.gov/news/press-releases/cotton-colleagues-reintroduce-bill-to-repeal-tax-on-certain-firearm-purchases",
+              "type": "government",
+              "title": "Cotton, Colleagues Reintroduce Bill to Repeal Tax on Certain Firearm Purchases",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": null,
+          "stance": "Cotton frames his foreign policy around national security and confrontation with China, Russia, Iran, and terrorist groups. His campaign says he has led the fight against Communist China, worked to protect U.S. supply chains and technology, and supported military investments in Arkansas.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.tomcotton.com/issues",
+              "type": "website",
+              "title": "Issues | Tom Cotton for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": null,
+          "stance": "Cotton says he opposes what he describes as woke indoctrination, Critical Race Theory, and policies he believes divide students by race or weaken parents' rights. He also says he supports religious freedom and parental authority, and has criticized federal nominees and policies he viewed as advancing racial essentialism.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.tomcotton.com/issues",
+              "type": "website",
+              "title": "Issues | Tom Cotton for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.cotton.senate.gov/news/speeches/cotton-speaks-against-vanita-guptas-nomination",
+              "type": "government",
+              "title": "Cotton Speaks Against Vanita Gupta's Nomination",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": null,
+          "stance": "Cotton says he supports local control of education, parental rights, school choice, and keeping federal ideology out of classrooms. His campaign also says he wants schools to focus on core subjects and support higher teacher pay.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.tomcotton.com/issues",
+              "type": "website",
+              "title": "Issues | Tom Cotton for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": null,
+          "stance": "Cotton says the U.S. should maintain leadership in artificial intelligence and other emerging industries while limiting cost increases for Arkansas consumers and businesses. His campaign says he has authored legislation aimed at easing federal rules affecting data centers and related energy systems.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.tomcotton.com/issues",
+              "type": "website",
+              "title": "Issues | Tom Cotton for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.cotton.senate.gov/news/press-releases/cotton-introduces-bill-to-lower-energy-costs-for-arkansans",
+              "type": "government",
+              "title": "Cotton Introduces Bill to Lower Energy Costs for Arkansans",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "Cotton supports election integrity measures and has criticized federal voting-rights legislation he says would weaken safeguards. He has spoken against the For the People Act and similar proposals, arguing they would expand fraud and reduce state control over elections.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.cotton.senate.gov/news/speeches/the-for-the-people-act-has-nothing-to-offer-our-country",
+              "type": "government",
+              "title": "The \"For the People Act\" Has Nothing to Offer Our Country",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.congress.gov/bill/117th-congress/senate-bill/2747",
+              "type": "government",
+              "title": "S.2747 - Freedom to Vote Act",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "Cotton’s campaign emphasizes Arkansas-specific concerns such as rural hospitals, lower prices, law enforcement, military investments, local control of education, and protection for workers and taxpayers. His website also says he wants to protect Arkansans from costs associated with data centers.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.tomcotton.com/issues",
+              "type": "website",
+              "title": "Issues | Tom Cotton for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
       },
       "career_history": [
         {
@@ -41,45 +352,105 @@
           "organization": "U.S. Senate",
           "start_year": 2015,
           "end_year": null,
-          "description": "Represents Arkansas in the Senate."
+          "description": "Represents Arkansas in the U.S. Senate.",
+          "source": null
         },
         {
-          "title": "Member of Congress",
+          "title": "United States Representative",
           "organization": "U.S. House of Representatives",
           "start_year": 2013,
           "end_year": 2015,
-          "description": "Served one term in the House before being elected to the Senate."
+          "description": "Represented Arkansas’s 4th Congressional District.",
+          "source": null
         },
         {
-          "title": "Infantry Officer",
-          "organization": "United States Army",
+          "title": "Army officer",
+          "organization": "U.S. Army",
           "start_year": 2005,
           "end_year": 2009,
-          "description": "Served nearly five years on active duty, including deployments to Iraq and Afghanistan."
+          "description": "Served in the Army, including deployments to Iraq and Afghanistan.",
+          "source": null
         }
       ],
       "education": [
         {
-          "institution": "Harvard University",
+          "institution": "Harvard College",
           "degree": "Bachelor of Arts",
-          "field": null,
-          "year": null
+          "field": "Government",
+          "year": 1998,
+          "source": null
         },
         {
           "institution": "Harvard Law School",
           "degree": "Juris Doctor",
           "field": "Law",
-          "year": null
+          "year": 2002,
+          "source": null
         }
       ],
-      "donor_summary": "According to OpenSecrets, Cotton's campaign committee fundraising is reported separately from his leadership PAC. The OpenSecrets profile shows his leadership PAC, Republican Majority Fund, raised $16,312,092 and had $7,450,869 cash on hand as of the latest report, while the top disclosed contributors to his campaign committee include Apollo Global Management, Stephens Inc., McNa Dental Plans, Pro-Israel America PAC, and Blackstone Group.",
-      "donor_source_url": "https://www.opensecrets.org/members-of-congress/tom-cotton/summary?cid=N00033363",
-      "voting_summary": "Tom Cotton is an incumbent U.S. senator, so he has a public congressional voting record. GovTrack identifies him as serving since 2015, and Vote Smart lists his key votes; his record is consistently aligned with the Republican caucus, including votes on appropriations and other major Senate roll calls. Notable recent examples include a Nay vote on the continuing appropriations and extensions act for 2026 and other Senate roll-call votes documented by Congress.gov/Senate records.",
-      "voting_source_url": "https://www.govtrack.us/congress/members/tom_cotton/412508",
+      "voting_summary": "Incumbent U.S. senator. GovTrack’s 2024 report card shows Cotton voted and acted consistently with the Republican caucus; it notes he ranked among the most politically right senators in the 118th Congress and missed 5.1% of votes. Notable issue priorities reflected in his sponsored bills included border/security, fentanyl trafficking, China-related measures, and election legislation.",
+      "voting_source_url": "https://www.govtrack.us/congress/members/tom_cotton/412508/report-card/2024",
+      "voting_sources": [],
+      "donor_summary": "Raised approximately $5.34M in the 2025–2026 cycle, with OpenSecrets showing the strongest support from the finance, health, and defense-related donor ecosystems, alongside substantial PAC money and transfers from other committees. The FEC reports $12.77M in total receipts across Cotton’s active committee coverage since 2021, with $9.79M cash on hand as of 3/31/2026.",
+      "donor_source_url": "https://www.opensecrets.org/profiles/tom-cotton-r-ark?mpid=1140206",
+      "donor_sources": [
+        {
+          "url": "https://www.opensecrets.org/profiles/tom-cotton-r-ark?mpid=1140206",
+          "type": "finance",
+          "title": "Tom Cotton – US Congress – Summary - OpenSecrets",
+          "description": null,
+          "last_accessed": "2026-06-13T01:41:55.513776Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.opensecrets.org/profiles/tom-cotton/us_congress/industries?cycle=2024&mpid=1140206",
+          "type": "finance",
+          "title": "Tom Cotton – US Congress – Industries - OpenSecrets",
+          "description": null,
+          "last_accessed": "2026-06-13T01:41:55.513776Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/S4AR00103/",
+          "type": "finance",
+          "title": "COTTON, THOMAS - Candidate overview - FEC",
+          "description": null,
+          "last_accessed": "2026-06-13T01:41:55.513776Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.followthemoney.org/entity-details?eid=13607871&default=candidate",
+          "type": "finance",
+          "title": "COTTON, THOMAS (TOM) - FollowTheMoney.org",
+          "description": null,
+          "last_accessed": "2026-06-13T01:41:55.513776Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.arkansasonline.com/news/2026/apr/15/cotton-shoffner-campaigns-report-fundraising/",
+          "type": "news",
+          "title": "Cotton campaign reports more funds raised, more disbursements ...",
+          "description": null,
+          "last_accessed": "2026-06-13T01:41:55.513776Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
       "links": [
-        "https://www.cotton.senate.gov/about",
-        "https://ballotpedia.org/Tom_Cotton",
-        "https://www.fec.gov/data/elections/senate/AR/2026/",
         {
           "url": "https://ballotpedia.org/Tom_Cotton",
           "title": "Tom Cotton - Ballotpedia",
@@ -91,958 +462,988 @@
           "type": "wiki"
         },
         {
-          "url": "https://www.opensecrets.org/members-of-congress/tom-cotton/summary?cid=N00033363",
-          "title": "Sen. Tom Cotton - Campaign Finance Summary - OpenSecrets",
+          "url": "https://www.opensecrets.org/profiles/tom-cotton-r-ark?mpid=1140206",
+          "title": "Tom Cotton – US Congress – Summary - OpenSecrets",
           "type": "finance"
         },
         {
-          "url": "https://www.fec.gov/data/committee/",
-          "title": "FEC campaign finance data",
+          "url": "https://www.fec.gov/data/candidate/S4AR00103/",
+          "title": "COTTON, THOMAS - Candidate overview - FEC",
           "type": "finance"
         },
         {
-          "url": "https://www.govtrack.us/congress/members/tom_cotton/412508",
-          "title": "Sen. Tom Cotton [R-AR, 2015-2026], Senator for Arkansas - GovTrack",
-          "type": "govtrack"
-        },
-        {
-          "url": "https://justfacts.votesmart.org/candidate/135651/tom-cotton",
-          "title": "Tom Cotton - Vote Smart",
+          "url": "https://justfacts.votesmart.org/candidate/135651/tom-cotton?categoryId=43&type=V,S,R,E,F,P",
+          "title": "Meet Civic Sage - Vote Smart - Facts For All",
           "type": "votesmart"
         },
         {
-          "url": "https://www.cotton.senate.gov/",
-          "title": "Official U.S. Senate website for Tom Cotton",
+          "url": "https://www.govtrack.us/congress/members/tom_cotton/412508",
+          "title": "Sen. Tom Cotton [R-AR, 2015-2026], Senator for Arkansas - GovTrack.us",
+          "type": "govtrack"
+        },
+        {
+          "url": "https://www.tomcotton.com/",
+          "title": "Tom Cotton for U.S. Senate",
           "type": "official"
         },
         {
-          "url": "https://www.congress.gov/member/tom-cotton/C001095",
-          "title": "Senator Tom Cotton - Congress.gov",
+          "url": "https://www.cotton.senate.gov/",
+          "title": "Home | Senator Tom Cotton",
           "type": "legislature"
+        },
+        {
+          "url": "https://www.cotton.senate.gov/about",
+          "title": "About | Senator Tom Cotton",
+          "type": "official"
         }
       ],
-      "issues": {
-        "Healthcare": {
-          "stance": "Tom Cotton supports protections for people with pre-existing conditions and has backed legislation to guarantee coverage and prohibit discrimination based on health status. He has also supported repealing Obamacare and pursuing market-based health care reforms.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.cotton.senate.gov/news/press-releases/senators-introduce-the-protect-act-to-ensure-protections-and-affordable-coverage-for-americans-with-pre-existing-conditions",
-              "type": "official press release",
-              "title": "Senators Introduce the Protect Act to Ensure Protections and Affordable Coverage for Americans with Pre-Existing Conditions",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            },
-            {
-              "url": "https://www.cotton.senate.gov/news/press-releases/cotton-statement-on-the-senate-and-146s-vote-to-repeal-obamacare",
-              "type": "official press release",
-              "title": "Cotton Statement on the Senate's Vote to Repeal Obamacare",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "Tom Cotton supports a pro-growth economic approach that emphasizes lower costs, deregulation, and tougher trade policy toward China. He has also promoted legislation aimed at lowering energy costs for Arkansans and expanding energy innovation.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.cotton.senate.gov/news/press-releases/cotton-reintroduces-legislation-to-end-permanent-normal-trade-relations-with-china",
-              "type": "official",
-              "title": "Cotton Reintroduces Legislation to End Permanent Normal Trade Relations with China",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            },
-            {
-              "url": "https://www.cotton.senate.gov/news/press-releases/cotton-introduces-bill-to-lower-energy-costs-for-arkansans",
-              "type": "official",
-              "title": "Cotton Introduces Bill to Lower Energy Costs for Arkansans",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "Tom Cotton emphasizes affordable and reliable energy and has opposed policies he says would raise electricity costs. He has introduced legislation to limit state climate mandates and to lower Arkansas energy prices.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.cotton.senate.gov/news/press-releases/cotton-introduces-bill-to-lower-arkansas-energy-prices",
-              "type": "official press release",
-              "title": "Cotton Introduces Bill to Lower Arkansas Energy Prices",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            },
-            {
-              "url": "https://www.cotton.senate.gov/news/press-releases/cotton-introduces-bill-to-lower-energy-costs-for-arkansans",
-              "type": "official press release",
-              "title": "Cotton Introduces Bill to Lower Energy Costs for Arkansans",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            }
-          ]
-        },
-        "Reproductive Rights": {
-          "stance": "Tom Cotton is strongly anti-abortion and supports restricting abortion access. He has defended unborn life and backed federal abortion restrictions.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.cotton.senate.gov/news/speeches/cotton-defends-the-right-to-life",
-              "type": "official speech",
-              "title": "Cotton Defends the Right to Life - Senate Website",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            },
-            {
-              "url": "https://www.congress.gov/member/tom-cotton/C001095",
-              "type": "official profile",
-              "title": "Tom Cotton Congress.gov profile",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "Tom Cotton supports strict immigration enforcement, including mandatory E-Verify and stronger border controls. He has also backed legislation to limit asylum access and reduce illegal immigration.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.cotton.senate.gov/news/press-releases/cotton-boozman-introduce-national-mandatory-e-verify-legislation",
-              "type": "official press release",
-              "title": "Cotton, Boozman Introduce National, Mandatory E-Verify Legislation",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            },
-            {
-              "url": "https://www.cotton.senate.gov/news/press-releases/cotton-introduces-bill-to-solve-the-border-crisis",
-              "type": "official press release",
-              "title": "Cotton Introduces Bill to Solve the Border Crisis",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            }
-          ]
-        },
-        "Guns & Safety": {
-          "stance": "Tom Cotton opposes major federal gun-control measures and supports Second Amendment rights. He has backed efforts to repeal the tax on certain firearm purchases and to reduce restrictions on suppressors, while emphasizing tougher penalties for violent criminals.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.cotton.senate.gov/news/press-releases/cotton-statement-on-senate-gun-control-legislation",
-              "type": "official press release",
-              "title": "Cotton Statement on Senate Gun-Control Legislation",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            },
-            {
-              "url": "https://www.cotton.senate.gov/news/press-releases/cotton-colleagues-reintroduce-bill-to-repeal-tax-on-certain-firearm-purchases",
-              "type": "official press release",
-              "title": "Cotton, Colleagues Reintroduce Bill to Repeal Tax on Certain Firearm Purchases (RIFLE Act)",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            },
-            {
-              "url": "https://www.cotton.senate.gov/news/press-releases/cotton-boozman-crapo-introduce-hearing-protection-act",
-              "type": "official press release",
-              "title": "Cotton, Boozman, Crapo Introduce Hearing Protection Act",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "Tom Cotton advocates a hardline foreign policy focused on military strength and countering adversaries such as China. He has opposed the Iran nuclear deal and supported measures to restrict foreign influence in U.S. research and national security.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.cotton.senate.gov/news/press-releases/cotton-reintroduces-legislation-to-end-permanent-normal-trade-relations-with-china",
-              "type": "official press release",
-              "title": "Cotton Reintroduces Legislation to End Permanent Normal Trade Relations with China",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            },
-            {
-              "url": "https://www.cotton.senate.gov/news/press-releases/cotton-senators-to-wright-ban-chinese-nationals-from-american-laboratories",
-              "type": "official press release",
-              "title": "Cotton Senators to Wright Ban Chinese Nationals from American Laboratories",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            },
-            {
-              "url": "https://www.cfr.org/event/conversation-iran-nuclear-deal-senator-tom-cotton",
-              "type": "policy forum",
-              "title": "A Conversation on the Iran Nuclear Deal With Senator Tom Cotton",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            }
-          ]
-        },
-        "Social Justice": {
-          "stance": "Tom Cotton opposes race-based DEI initiatives and argues for color-blind, merit-based policies in hiring and governance. He has also criticized cancel culture and other social-justice activism.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.cotton.senate.gov/news/press-releases/cotton-warns-top-law-firms-about-race-based-hiring-practices",
-              "type": "official press release",
-              "title": "Cotton Warns Top Law Firms About Race-Based Hiring Practices",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            },
-            {
-              "url": "https://www.cotton.senate.gov/news/speeches/cotton-takes-on-cancel-culture",
-              "type": "official speech",
-              "title": "Cotton Takes on Cancel Culture",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Tom Cotton supports school choice, workforce education, and tighter scrutiny of foreign influence in higher education. He has also backed legislation to study cellphone use in schools and to protect sensitive academic research.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.cotton.senate.gov/news/press-releases/cotton-introduces-bill-to-put-arkansas-students-first",
-              "type": "campaign press release",
-              "title": "Cotton Introduces Bill to Put Arkansas Students First",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            },
-            {
-              "url": "https://www.cotton.senate.gov/news/press-releases/cotton-introduces-bill-to-overhaul-workforce-education",
-              "type": "campaign press release",
-              "title": "Cotton Introduces Bill to Overhaul Workforce Education",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            },
-            {
-              "url": "https://www.cotton.senate.gov/news/press-releases/cotton-kaine-reintroduce-bill-to-study-effects-of-cellphones-in-schools",
-              "type": "campaign press release",
-              "title": "Cotton, Kaine Reintroduce Bill to Study Effects of Cellphones in Schools",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "Tom Cotton supports U.S. leadership in AI and robotics while limiting access by foreign adversaries. He has introduced measures to protect Americans’ data and to preserve American AI dominance.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.cotton.senate.gov/news/press-releases/cotton-schumer-introduce-bipartisan-bill-to-protect-americans-data-from-foreign-adversaries",
-              "type": "official press release",
-              "title": "Cotton, Schumer Introduce Bipartisan Bill to Protect Americans’ Data from Foreign Adversaries",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            },
-            {
-              "url": "https://www.cotton.senate.gov/news/press-releases/cotton-to-lutnick-now-is-the-time-to-preserve-american-ai-dominance",
-              "type": "official press release",
-              "title": "Cotton to Lutnick: Now is the Time to Preserve American AI Dominance",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            }
-          ]
-        },
-        "Election Reform": {
-          "stance": "Tom Cotton opposes federal election reform legislation such as the For the People Act, arguing that elections should remain primarily under state control. He has also supported voter ID requirements as a safeguard.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.cotton.senate.gov/news/speeches/the-for-the-people-act-has-nothing-to-offer-our-country",
-              "type": "campaign page",
-              "title": "The 'For the People Act' Has Nothing to Offer Our Country",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            },
-            {
-              "url": "https://www.cnbc.com/2021/06/22/senate-to-vote-on-s1-for-the-people-act-bill.html",
-              "type": "news",
-              "title": "Senate to vote on S1 For the People Act bill - CNBC",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Tom Cotton has promoted the DATA Act of 2026, which would exempt certain off-grid electricity providers and consumer-regulated utilities from some federal rules to support customized power systems for data centers and other energy-intensive users. He says the proposal would lower energy costs and encourage innovation in Arkansas.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.cotton.senate.gov/news/press-releases/cotton-introduces-bill-to-lower-energy-costs-for-arkansans",
-              "type": "official press release",
-              "title": "Cotton Introduces Bill to Lower Energy Costs for Arkansans",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            },
-            {
-              "url": "https://www.congress.gov/bill/119th-congress/senate-bill/3585/text",
-              "type": "legislation text",
-              "title": "DATA Act of 2026 - S.3585 text",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            }
-          ]
-        }
-      }
+      "website": "https://www.tomcotton.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Hallie Shoffner",
       "party": "Democratic",
       "incumbent": false,
-      "summary": "Hallie Shoffner is a Democratic candidate for U.S. Senate in Arkansas and a sixth-generation farmer from Newport. Her campaign says she previously operated her family farm and has worked in conservation, food systems, and public service, and she is running on an Arkansas-focused message centered on working families, farmers, and rural communities.",
+      "summary": "Hallie Shoffner is a Democratic candidate for U.S. Senate in Arkansas and a sixth-generation farmer from Newport. Her campaign says she is running on an Arkansas-first platform focused on lowering costs, supporting farmers and rural communities, and improving access to healthcare, education, and good jobs.",
       "summary_sources": [
         {
-          "url": "https://www.hallieshoffner.com/about",
-          "type": "official campaign page",
-          "title": "Meet Hallie"
+          "url": "https://www.hallieshoffner.com/",
+          "type": "website",
+          "title": "Hallie Shoffner for Senate 2026 | Support Arkansans Today",
+          "description": null,
+          "last_accessed": "2026-06-13T01:54:25.182821Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
-          "url": "https://clintonschool.uasys.edu/news/shoffner-selected-to-presidential-leadership-scholars/",
+          "url": "https://www.hallieshoffner.com/priorities",
+          "type": "website",
+          "title": "Hallie's Priorities | Hallie Shoffner for Senate 2026",
+          "description": null,
+          "last_accessed": "2026-06-13T01:54:25.182821Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://arkansasadvocate.com/2025/07/15/arkansas-farmer-challenges-cotton-for-u-s-senate-seat/",
           "type": "news",
-          "title": "Shoffner Selected to Presidential Leadership Scholars"
-        },
-        {
-          "url": "https://ballotpedia.org/Hallie_Shoffner",
-          "type": "ballotpedia",
-          "title": "Hallie Shoffner"
+          "title": "Arkansas farmer challenges Cotton for U.S. Senate seat",
+          "description": null,
+          "last_accessed": "2026-06-13T01:54:25.182821Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
-      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Hallie_Shoffner_20250925_065733.jpg",
-      "website": "https://www.hallieshoffner.com/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/farmherhallie",
-        "x": "https://x.com/hallieshoffner",
-        "instagram": "https://www.instagram.com/hallieshoffner/",
-        "linkedin": "https://www.linkedin.com/in/hallieshoffner/"
+      "image_url": "https://images.squarespace-cdn.com/content/v1/68542e7bc40f7d68b7e0e3aa/64e7f986-9f04-4cfa-901d-13c439cd2e1a/Hallie+%2899%29.jpg",
+      "issues": {
+        "Healthcare": {
+          "issue": null,
+          "stance": "Shoffner says she would make healthcare affordable and accessible by protecting hospitals, lowering prescription drug prices, strengthening the Affordable Care Act, protecting Medicare and Medicaid, cutting red tape, and holding insurance companies accountable. Her campaign says no Arkansan should have to choose between groceries and doctor visits, and that age, income, or zip code should not determine access to care.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.hallieshoffner.com/priorities",
+              "type": "website",
+              "title": "Hallie's Priorities | Hallie Shoffner for Senate 2026",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": null,
+          "stance": "Shoffner says she would lower the cost of living for working families by cutting taxes for working people, raising the minimum wage, expanding workforce training, cutting red tape, modernizing infrastructure, and supporting local businesses and unions. Her campaign frames this as an Arkansas-first economic plan aimed at keeping jobs in the state and strengthening rural economies.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.hallieshoffner.com/priorities",
+              "type": "website",
+              "title": "Hallie's Priorities | Hallie Shoffner for Senate 2026",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "No public position found on climate or energy policy in the campaign materials reviewed. Her campaign site discusses agriculture, infrastructure, and rural development, but it does not outline positions on climate change, emissions, fossil fuels, or renewable energy.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.hallieshoffner.com/priorities",
+              "type": "website",
+              "title": "Hallie's Priorities | Hallie Shoffner for Senate 2026",
+              "description": null,
+              "last_accessed": "2026-06-13T01:44:58.674371Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.hallieshoffner.com/",
+              "type": "website",
+              "title": "Hallie Shoffner for Senate 2026 | Support Arkansans Today",
+              "description": null,
+              "last_accessed": "2026-06-13T01:44:58.674371Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": null,
+          "stance": "Shoffner says her campaign would address Arkansas's maternal mortality crisis and ensure women can receive lifesaving medical care when they need it. Her site also emphasizes affordable childcare, paid leave, quality healthcare, and safe communities as part of supporting mothers and families.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.hallieshoffner.com/priorities",
+              "type": "website",
+              "title": "Hallie's Priorities | Hallie Shoffner for Senate 2026",
+              "description": null,
+              "last_accessed": "2026-06-13T01:44:58.674371Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.hallieshoffner.com/",
+              "type": "website",
+              "title": "Hallie Shoffner for Senate 2026 | Support Arkansans Today",
+              "description": null,
+              "last_accessed": "2026-06-13T01:44:58.674371Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": null,
+          "stance": "No public position found on immigration policy in the campaign materials reviewed. The campaign site does not outline positions on border enforcement, legal status, or a pathway to citizenship.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.hallieshoffner.com/priorities",
+              "type": "website",
+              "title": "Hallie's Priorities | Hallie Shoffner for Senate 2026",
+              "description": null,
+              "last_accessed": "2026-06-13T01:44:58.674371Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.hallieshoffner.com/",
+              "type": "website",
+              "title": "Hallie Shoffner for Senate 2026 | Support Arkansans Today",
+              "description": null,
+              "last_accessed": "2026-06-13T01:44:58.674371Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "No public position found on firearms or Second Amendment policy in the campaign materials reviewed. Her priorities page discusses public safety in general terms, including law enforcement, first responders, and community-based crime prevention, but it does not mention gun regulation or gun rights.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.hallieshoffner.com/priorities",
+              "type": "website",
+              "title": "Hallie's Priorities | Hallie Shoffner for Senate 2026",
+              "description": null,
+              "last_accessed": "2026-06-13T01:44:58.674371Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": null,
+          "stance": "Shoffner has publicly commented on the Iran war and said it has taken longer than expected, while warning that higher gas prices are hurting Arkansas families and farmers. Based on that interview, her public foreign-policy comments focus more on domestic costs and preventing Iran from getting a nuclear weapon than on a broader foreign-policy agenda.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.4029tv.com/article/tom-cotton-hallie-shoffner-on-iran-ukraine-and-america-250-1781214022/71563913",
+              "type": "website",
+              "title": "Tom Cotton & Hallie Shoffner on Iran",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": null,
+          "stance": "Shoffner's campaign emphasizes fairness, dignity, and opportunity for Arkansans who work hard. It also says it will support workers' right to organize and bargain collectively, and it frames family support and community safety as part of that broader approach, but it does not lay out a detailed civil-rights platform on issues such as racial justice, LGBTQ rights, or voting rights.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.hallieshoffner.com/priorities",
+              "type": "website",
+              "title": "Hallie's Priorities | Hallie Shoffner for Senate 2026",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": null,
+          "stance": "Shoffner says she would invest in public education by paying teachers and school support staff wages that reflect their value, improving benefits and support, and expanding workforce and technical education, apprenticeships, and community college partnerships so students can gain job-ready skills without taking on unnecessary debt.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.hallieshoffner.com/priorities",
+              "type": "website",
+              "title": "Hallie's Priorities | Hallie Shoffner for Senate 2026",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.localcandidates.org/politicians/hallie-shoffner/positions/fa3b52a1-ee40-4904-aa2a-0187f5703228",
+              "type": "website",
+              "title": "Hallie Shoffner on Teacher Pay & Retention | Local Candidates",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": null,
+          "stance": "No public position found on technology or artificial intelligence policy in the campaign materials reviewed. Her campaign priorities focus on the economy, education, healthcare, labor, farmers, and safety, but do not mention AI, broadband, data privacy, or related tech policy.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.hallieshoffner.com/priorities",
+              "type": "website",
+              "title": "Hallie's Priorities | Hallie Shoffner for Senate 2026",
+              "description": null,
+              "last_accessed": "2026-06-13T01:44:58.674371Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "No public position found on election policy in the campaign materials reviewed. Her campaign site does not outline positions on voting rights, election administration, ballot access, or election security.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.hallieshoffner.com/priorities",
+              "type": "website",
+              "title": "Hallie's Priorities | Hallie Shoffner for Senate 2026",
+              "description": null,
+              "last_accessed": "2026-06-13T01:44:58.674371Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.hallieshoffner.com/",
+              "type": "website",
+              "title": "Hallie Shoffner for Senate 2026 | Support Arkansans Today",
+              "description": null,
+              "last_accessed": "2026-06-13T01:44:58.674371Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "Shoffner's campaign presents an Arkansas-first local agenda centered on keeping jobs in the state, growing local businesses, modernizing infrastructure, supporting farmers and rural communities, strengthening schools, and improving public safety. It also emphasizes local food systems and food security as part of community development.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.hallieshoffner.com/priorities",
+              "type": "website",
+              "title": "Hallie's Priorities | Hallie Shoffner for Senate 2026",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
       },
       "career_history": [
         {
-          "title": "Farmer and small-business owner",
-          "organization": "Family farm",
+          "title": "Farmer and primary operator",
+          "organization": "Family farm in Newport, Arkansas",
           "start_year": null,
           "end_year": 2024,
-          "description": "Operated the family farm in Arkansas before it closed in 2024."
+          "description": "Worked on the family soybean and rice farm before the operation was shut down after the 2024 season.",
+          "source": null
         },
         {
-          "title": "Conservation and food systems advocate",
-          "organization": "Various organizations",
+          "title": "Agriculture and conservation advocate",
+          "organization": "Private and community roles",
           "start_year": null,
           "end_year": null,
-          "description": "Worked on conservation, sustainable farming, regional food production, and hunger relief."
+          "description": "Her campaign and profile describe work focused on conservation, sustainable farming, regional food systems, and hunger relief.",
+          "source": null
         }
       ],
       "education": [
         {
           "institution": "Vanderbilt University",
-          "degree": "Bachelor's degree",
-          "field": "Literature",
-          "year": null
+          "degree": "Scholarship recipient",
+          "field": "N/A",
+          "year": null,
+          "source": null
         },
         {
           "institution": "Clinton School of Public Service",
-          "degree": "Master of Public Service",
+          "degree": "Study completed",
           "field": "Public service",
-          "year": null
+          "year": null,
+          "source": null
         }
       ],
-      "donor_summary": "Hallie Shoffner's principal campaign committee has raised about $1.24 million in the 2025–2026 cycle, with nearly all receipts coming from individual contributions and only a small amount from other committees. The committee reported about $503,970 in cash on hand and no candidate loans; the available FEC summary does not show a dominant PAC or industry source.",
-      "donor_source_url": "https://www.fec.gov/data/committee/C00905471/",
-      "voting_summary": "Hallie Shoffner has not held legislative office, so there is no legislative voting record to report. Public evidence of her governing approach comes from campaign statements and issue messaging as a farmer and candidate, especially on agriculture and tariffs; she has criticized tariffs as harmful to Arkansas farmers and framed her campaign around rural economic policy.",
-      "voting_source_url": "https://www.fec.gov/data/committee/C00905471/",
+      "voting_summary": "No public legislative voting record. No prior elected or executive office found. Available public materials describe Shoffner as a farmer and first-time candidate, so there is no legislative roll-call record to summarize; her governing approach is instead reflected in campaign messaging focused on farmers, workers, infrastructure, and economic development.",
+      "voting_source_url": "https://www.ballotpedia.org/Hallie_Shoffner",
+      "voting_sources": [],
+      "donor_summary": "Raised approximately $1.59M in the 2025–2026 cycle, with FEC data showing the campaign was driven overwhelmingly by individual contributions rather than committee money. The public FEC summary does not identify dominant industries from the summary page itself, but the campaign’s reporting and issue branding indicate a grassroots base centered on Arkansas farmers and working families.",
+      "donor_source_url": "https://www.fec.gov/data/candidate/S6AR00199/",
+      "donor_sources": [
+        {
+          "url": "https://www.fec.gov/data/candidate/S6AR00199/",
+          "type": "finance",
+          "title": "SHOFFNER, HALLIE - Candidate overview - FEC",
+          "description": null,
+          "last_accessed": "2026-06-13T01:41:55.513776Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.hallieshoffner.com/",
+          "type": "website",
+          "title": "Hallie Shoffner for Senate 2026 | Support Arkansans Today",
+          "description": null,
+          "last_accessed": "2026-06-13T01:41:55.513776Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://arkansasadvocate.com/2025/07/15/arkansas-farmer-challenges-cotton-for-u-s-senate-seat/",
+          "type": "news",
+          "title": "Arkansas farmer challenges Cotton for U.S. Senate seat",
+          "description": null,
+          "last_accessed": "2026-06-13T01:41:55.513776Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.localcandidates.org/politicians/hallie-shoffner/campaign-finance",
+          "type": "finance",
+          "title": "Campaign Finance - Hallie Shoffner - Local Candidates",
+          "description": null,
+          "last_accessed": "2026-06-13T01:41:55.513776Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
       "links": [
-        "https://www.hallieshoffner.com/about",
-        "https://ballotpedia.org/Hallie_Shoffner",
         {
           "url": "https://ballotpedia.org/Hallie_Shoffner",
           "title": "Hallie Shoffner - Ballotpedia",
           "type": "ballotpedia"
         },
         {
-          "url": "https://en.wikipedia.org/wiki/2026_United_States_Senate_election_in_Arkansas",
-          "title": "2026 United States Senate election in Arkansas - Wikipedia",
-          "type": "wiki"
-        },
-        {
-          "url": "https://www.fec.gov/data/committee/C00905471/",
-          "title": "HALLIE SHOFFNER FOR ARKANSAS - committee overview - FEC",
+          "url": "https://www.fec.gov/data/candidate/S6AR00199/",
+          "title": "SHOFFNER, HALLIE - Candidate overview - FEC",
           "type": "finance"
         },
         {
-          "url": "https://justfacts.votesmart.org/candidate/230359/hallie-shoffner",
-          "title": "Hallie Shoffner - Vote Smart",
+          "url": "https://www.hallieshoffner.com/",
+          "title": "Hallie Shoffner for Senate 2026 | Support Arkansans Today",
+          "type": "official"
+        },
+        {
+          "url": "https://justfacts.votesmart.org/candidate/230359/hallie-shoffner?categoryId=80&type=V,S,R,E,F,P",
+          "title": "Facts For All - Vote Smart",
           "type": "votesmart"
         },
         {
-          "url": "https://www.hallieshoffner.com/",
-          "title": "Official campaign website",
-          "type": "official"
-        },
-        {
-          "url": "https://www.facebook.com/farmherhallie",
-          "title": "Hallie Shoffner campaign Facebook page",
-          "type": "official"
-        },
-        {
-          "url": "https://www.arkansasonline.com/news/2025/aug/22/tariffs-can-work/",
-          "title": "OPINION | HALLIE SHOFFNER: Tariffs can work when used as a tool, not a sledgehammer",
-          "type": "news"
-        },
-        {
-          "url": "https://www.ualrpublicradio.org/local-regional-news/2025-07-15/arkansas-farmer-challenges-cotton-for-u-s-senate-seat",
+          "url": "https://arkansasadvocate.com/2025/07/15/arkansas-farmer-challenges-cotton-for-u-s-senate-seat/",
           "title": "Arkansas farmer challenges Cotton for U.S. Senate seat",
           "type": "news"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_Senate_election_in_Arkansas",
+          "title": "2026 United States Senate election in Arkansas - Wikipedia",
+          "type": "wiki"
         }
       ],
-      "issues": {
-        "Healthcare": {
-          "stance": "She will fight to make healthcare affordable and accessible by protecting hospitals and lowering prescription drug costs. She also pledges to strengthen the Affordable Care Act, protect Medicare and Medicaid, cut red tape, and hold insurance companies accountable.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.hallieshoffner.com/priorities",
-              "type": "campaign page",
-              "title": "Hallie Shoffner's Priorities",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            }
-          ]
-        },
-        "Economy": {
-          "stance": "Hallie Shoffner advocates an Arkansas-first economic plan aimed at lowering the cost of living for working families, expanding local jobs, and supporting farmers. She calls for raising the minimum wage, expanding workforce training, cutting taxes for working families, reducing red tape for businesses, and investing in infrastructure and education.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.hallieshoffner.com/priorities",
-              "type": "policy page",
-              "title": "Hallie’s Priorities",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            },
-            {
-              "url": "https://www.hallieshoffner.com/issues",
-              "type": "policy page",
-              "title": "The Issues",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "Hallie Shoffner supports climate resilience for Arkansas agriculture and rural communities, advocating for policies to help farmers adapt to climate change, including crop diversification and water-use efficiency, and a Farm Bill that strengthens risk management and supports conservation and sustainable farming.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.hallieshoffner.com/priorities",
-              "type": "campaign_policy_page",
-              "title": "Hallie Shoffner priorities - A Plan That Puts Arkansas Families First",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            },
-            {
-              "url": "https://yaleclimateconnections.org/2024/11/meet-the-arkansas-farmer-trying-to-adapt-to-the-changing-climate/",
-              "type": "news_article",
-              "title": "Meet the Arkansas farmer trying to adapt to the changing climate",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            }
-          ]
-        },
-        "Reproductive Rights": {
-          "stance": "Hallie Shoffner's campaign frames reproductive rights as part of broader maternal health, advocating for affordable, accessible healthcare for women and families and addressing maternal mortality to ensure lifesaving medical care is available when needed.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://www.hallieshoffner.com/priorities",
-              "type": "campaign_policy_page",
-              "title": "Hallie Shoffner's Priorities",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "Shoffner says the immigration system is broken and supports immigration reform, but she has not laid out a detailed policy platform on enforcement or legal immigration changes in the campaign materials reviewed. In an Arkansas Advocate interview, she said federal agents’ actions were further dividing the nation and that both parties should come together on a real solution.",
-          "confidence": "medium",
-          "sources": [
-            {
-              "url": "https://arkansasadvocate.com/2026/02/26/issue-spotlight-where-arkansas-u-s-senate-candidates-stand-on-immigration-policy/",
-              "type": "news article",
-              "title": "Issue Spotlight: Where Arkansas’ U.S. Senate candidates stand on immigration policy",
-              "last_accessed": "2026-04-06T13:10:29.741290+00:00"
-            },
-            {
-              "url": "https://www.hallieshoffner.com/priorities",
-              "type": "official campaign page",
-              "title": "Hallie's Priorities",
-              "last_accessed": "2026-04-06T13:10:29.741290+00:00"
-            }
-          ]
-        },
-        "Guns & Safety": {
-          "stance": "No public position found on gun policy in the campaign materials reviewed. Her campaign does say she wants to keep Arkansas communities safe by supporting local law enforcement and first responders, investing in community-based crime prevention, and addressing domestic violence, human trafficking, and crimes against children.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.hallieshoffner.com/priorities",
-              "type": "official campaign page",
-              "title": "Hallie's Priorities",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "No public position found on broader foreign policy issues in the campaign materials reviewed. The campaign materials and interviews located focus mainly on Arkansas economic issues, agriculture, healthcare, and public safety.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.hallieshoffner.com/priorities",
-              "type": "official campaign page",
-              "title": "Hallie's Priorities",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            },
-            {
-              "url": "https://www.4029tv.com/article/tom-cotton-arkansas-candidates-us-senate-react-us-attacks-iran/70555521",
-              "type": "news",
-              "title": "Sen. Tom Cotton, Arkansas candidates for U.S. Senate react to U.S. attacks on Iran",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            }
-          ]
-        },
-        "Social Justice": {
-          "stance": "Hallie Shoffner frames social justice around fairness for working Arkansans, arguing that the system is rigged against everyday families. She supports strengthening social safety nets (Social Security and Medicare), making healthcare affordable, expanding education and workforce training, and empowering workers through stronger unions to ensure dignity and opportunity for all.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.hallieshoffner.com/priorities",
-              "type": "campaign policy page",
-              "title": "Hallie Shoffner priorities",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            },
-            {
-              "url": "https://www.hallieshoffner.com/issues",
-              "type": "campaign issues page",
-              "title": "The Issues",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "Hallie Shoffner supports significantly increasing education funding by paying teachers and school staff what they deserve, while also investing in workforce and technical education, apprenticeships, and partnerships with community colleges to prepare students for good-paying jobs.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.hallieshoffner.com/priorities",
-              "type": "campaign policy page",
-              "title": "Hallie's Priorities",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "Hallie Shoffner says data centers and AI can be a positive part of Arkansas's economy if energy costs and the grid impacts are managed, but she opposes deregulation like Cotton's DATA Act that would primarily benefit data-center developers at the expense of ratepayers and rural communities.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://arktimes.com/arkansas-blog/2026/01/13/shoffner-blasts-cotton-over-his-data-act-to-deregulate-energy-for-data-centers",
-              "type": "news article",
-              "title": "Shoffner blasts Cotton over his DATA Act to deregulate energy for data centers",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            },
-            {
-              "url": "https://www.eldoradonews.com/news/2026/mar/01/arkansas-politicians-weigh-in-on-data-center/",
-              "type": "news article",
-              "title": "Arkansas politicians weigh in on data center development, mindful of impact on energy costs",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            }
-          ]
-        },
-        "Election Reform": {
-          "stance": "No public position found on election reform or voting-access policy in the campaign materials reviewed. The campaign's published priorities instead emphasize costs, healthcare, education, workers, farmers, and public safety.",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://www.hallieshoffner.com/priorities",
-              "type": "official campaign page",
-              "title": "Hallie's Priorities",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            },
-            {
-              "url": "https://www.hallieshoffner.com/issues",
-              "type": "official campaign page",
-              "title": "The Issues",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            },
-            {
-              "url": "https://ballotpedia.org/Hallie_Shoffner",
-              "type": "ballotpedia",
-              "title": "Hallie Shoffner",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "Shoffner endorses an Arkansas-first economic plan focused on lowering living costs for working families, expanding local jobs, supporting unions, and investing in education and infrastructure. She also commits to protecting Social Security and Medicare, expanding healthcare access, aiding farmers and rural communities, and reducing hunger.",
-          "confidence": "high",
-          "sources": [
-            {
-              "url": "https://www.hallieshoffner.com/priorities",
-              "type": "official campaign policy page",
-              "title": "Hallie Shoffner – Priorities",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            }
-          ]
-        }
-      }
+      "website": "https://www.hallieshoffner.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     },
     {
       "name": "Jeff Wadlin",
       "party": "Libertarian",
       "incumbent": false,
-      "summary": "Jeff Wadlin is the Libertarian nominee for U.S. Senate in Arkansas and is on the general-election ballot in November 2026. Ballotpedia says he advanced from the Libertarian Party convention on February 22, 2026.",
+      "summary": "Jeff Wadlin is the Libertarian candidate in the Arkansas Senate race, according to Ballotpedia coverage and his campaign site. He says he is running as an independent-minded alternative to the major parties, with a message centered on pragmatism, nuance, and opposition to partisan politics.",
       "summary_sources": [
+        {
+          "url": "https://www.jeffwadlin.com/",
+          "type": "website",
+          "title": "Jeff Wadlin For U.S. Senate",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
         {
           "url": "https://ballotpedia.org/Jeff_Wadlin",
           "type": "website",
-          "title": "Jeff Wadlin - Ballotpedia"
+          "title": "Jeff Wadlin - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         },
         {
-          "url": "https://ballotpedia.org/United_States_Senate_election_in_Arkansas,_2026",
+          "url": "https://lp.org/candidate/jeff-wadlin/",
           "type": "website",
-          "title": "United States Senate election in Arkansas, 2026 - Ballotpedia"
+          "title": "Jeff Wadlin - Libertarian Party",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
         }
       ],
-      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Jeff_Wadlin_20260310_095736.jpg",
-      "website": "https://www.jeffwadlin.com/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/jeff.wadlin",
-        "x": "https://x.com/jeffwadlin",
-        "instagram": "https://www.instagram.com/jwadlin/",
-        "linkedin": "https://www.linkedin.com/in/jeffwadlin/"
+      "image_url": "https://b3870750.smushcdn.com/3870750/wp-content/uploads/2731_Grey_2-1024x675.jpg?lossy=2&strip=1&webp=1",
+      "issues": {
+        "Healthcare": {
+          "issue": null,
+          "stance": "Wadlin says he wants families to make their own health care decisions, wants health care to be more affordable, and says he supports \"overhauling our broken health care system.\" His campaign issue page frames health care as part of a broader affordability agenda rather than a detailed policy plan.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.jeffwadlin.com/issues",
+              "type": "website",
+              "title": "Issues — Jeff Wadlin For U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Economy": {
+          "issue": null,
+          "stance": "Wadlin says he wants an economy focused on affordability and upward mobility: lower costs for food, energy, transportation, housing, health care, and education; higher wages; fewer licensing burdens; lower taxes on workers, families, farmers, and small businesses; opposition to tariffs that raise prices; support for fiscal discipline including Fed reform, a balanced budget amendment, debt reduction, and Social Security reform.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.jeffwadlin.com/issues",
+              "type": "website",
+              "title": "Issues — Jeff Wadlin For U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "issue": null,
+          "stance": "Wadlin says he supports \"practical climate and energy policy without Washington picking winners and losers\" and emphasizes affordability, including lower energy costs for working families. His campaign issues page does not spell out specific climate targets or energy technologies, but it frames the issue around pragmatic policy and cost control.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.jeffwadlin.com/issues",
+              "type": "government",
+              "title": "Issues — Jeff Wadlin For U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "issue": null,
+          "stance": "Wadlin’s campaign issues page does not give a specific abortion policy; it says the government should leave people alone if they are not harming someone else physically or financially, says he supports letting families make their own health care decisions, and says he treats 'relationship & identity edge cases with humility, nuance, and local problem-solving instead of national political theater.'",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.jeffwadlin.com/issues",
+              "type": "website",
+              "title": "Issues — Jeff Wadlin For U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Immigration": {
+          "issue": null,
+          "stance": "Wadlin says he supports \"secure borders without chaos or cruelty,\" indicating he favors border security while rejecting harsh or inhumane enforcement. His issues page does not provide detailed immigration proposals beyond that broad statement.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.jeffwadlin.com/issues",
+              "type": "website",
+              "title": "Issues — Jeff Wadlin For U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "issue": null,
+          "stance": "Wadlin’s campaign issues page says he supports 'defending the right to bear arms' and frames this as part of a broader 'personal liberty' platform. The page does not list specific gun policy proposals or restrictions, but it clearly indicates support for Second Amendment rights.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.jeffwadlin.com/issues",
+              "type": "website",
+              "title": "Issues — Jeff Wadlin For U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://smarter.vote/races/ar-senate-2026/jeff-wadlin/",
+              "type": "website",
+              "title": "Jeff Wadlin — 2026 U.S. Senate election in Arkansas | Smarter.vote",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "issue": null,
+          "stance": "Wadlin says he opposes \"needless wars that disrupt oil distribution and global supply chains,\" and he wants America to remain \"strong, stable, and central to the world economy.\" His issues page does not lay out a detailed foreign policy platform beyond that general anti-war, economic-stability framing.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.jeffwadlin.com/issues",
+              "type": "website",
+              "title": "Issues — Jeff Wadlin for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "issue": null,
+          "stance": "Wadlin’s campaign says the government should leave people alone if they are not harming someone else physically or financially. On civil rights and equality specifically, he emphasizes protecting privacy, due process, freedom of conscience, and letting consenting adults live as they choose, while treating relationship and identity edge cases with \"humility, nuance, and local problem-solving\" instead of national political theater.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.jeffwadlin.com/issues",
+              "type": "website",
+              "title": "Issues — Jeff Wadlin For U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Education": {
+          "issue": null,
+          "stance": "Wadlin says he wants schools focused on education, with no culture wars. On his issues page he also ties education policy to affordability and upward mobility, saying Washington should lower costs for education and support a fair shot for kids.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.jeffwadlin.com/issues",
+              "type": "website",
+              "title": "Issues — Jeff Wadlin For U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Tech & AI": {
+          "issue": null,
+          "stance": "Wadlin has not published a dedicated tech or AI policy on his campaign issues page, but in a public Facebook Q&A he said that \"as I think about this in the context of artificial intelligence\" he is considering the issue, and his broader platform emphasizes a pro-privacy, anti-spying, low-red-tape approach to government. Based on the available public record, his tech/AI position appears to be a general preference for innovation with limits on government intrusion rather than a detailed AI regulatory plan.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.jeffwadlin.com/issues",
+              "type": "website",
+              "title": "Issues — Jeff Wadlin for U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.facebook.com/JeffWadlinForArkansas/videos/live-town-hall-with-jeff-wadlin-for-us-senate-may-14-8pm-ct/4304960686391450/",
+              "type": "social_media",
+              "title": "Join Jeff for a live Q&A on Arkansas jobs, affordability, and personal freedom. Drop your questions in the comments. | Facebook",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Election Policy": {
+          "issue": null,
+          "stance": "Wadlin's campaign issues page does not lay out a dedicated election-policy platform, but it does say \"Two choices in an election is not true democracy\" and argues for more independent, pragmatic choices outside the two-party system. He frames his campaign as rejecting blind party-line voting and emphasizes local problem-solving and broader voter choice rather than specific election-law changes.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.jeffwadlin.com/issues",
+              "type": "website",
+              "title": "Issues — Jeff Wadlin For U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.jeffwadlin.com/",
+              "type": "website",
+              "title": "Jeff Wadlin For U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        },
+        "Local Issues": {
+          "issue": null,
+          "stance": "Wadlin says local problem-solving should be preferred over national political theater on edge-case relationship and identity issues, and his broader platform emphasizes safe communities, good schools, affordable housing, health care, energy, transportation, and other basic infrastructure that help working families. He frames this as an independent, pragmatic approach focused on local solutions rather than culture wars.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.jeffwadlin.com/issues",
+              "type": "website",
+              "title": "Issues — Jeff Wadlin For U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            },
+            {
+              "url": "https://www.jeffwadlin.com/",
+              "type": "website",
+              "title": "Jeff Wadlin For U.S. Senate",
+              "description": null,
+              "last_accessed": "2026-06-13T01:41:55.513776Z",
+              "published_at": null,
+              "checksum": null,
+              "is_fresh": false,
+              "is_official_campaign": null
+            }
+          ]
+        }
       },
       "career_history": [
         {
-          "title": "Candidate for Justice of the Peace, District 8",
-          "organization": "Benton County Quorum Court",
-          "start_year": 2018,
-          "end_year": 2018,
-          "description": "Ran as a Libertarian candidate for Benton County Quorum Court District 8 in the 2018 general election."
+          "title": "Founder and strategy consultant",
+          "organization": "Wadlin-related business ventures",
+          "start_year": null,
+          "end_year": null,
+          "description": "His public profile describes work in strategy consulting and as a founder of multiple companies.",
+          "source": null
         }
       ],
       "education": [],
-      "donor_summary": "No campaign finance data found in public disclosures as of 2026-04-06. The FEC committee search and public finance pages surfaced no clearly usable federal committee totals for Wadlin, and no OpenSecrets candidate finance page was identified in the available results.",
-      "donor_source_url": "https://www.fec.gov/data/",
-      "voting_summary": "Jeff Wadlin has not held legislative office, so there is no legislative voting record to report. Publicly available evidence of his policy approach is limited to campaign messaging and his official website, where he says he is running to unify Arkansans and increase their power at the federal level.",
-      "voting_source_url": "https://www.jeffwadlin.com/",
+      "voting_summary": "No public legislative voting record. No prior elected or executive office found. Public sources identify Wadlin as a businessman and first-time candidate, so there is no legislative or executive voting record to summarize; his policy approach is therefore best assessed through his campaign platform and party statements.",
+      "voting_source_url": "https://www.ballotpedia.org/Jeff_Wadlin",
+      "voting_sources": [],
+      "donor_summary": "No campaign finance data found in public disclosures as of 2026-06-13.",
+      "donor_source_url": "https://www.jeffwadlin.com/",
+      "donor_sources": [
+        {
+          "url": "https://www.jeffwadlin.com/",
+          "type": "website",
+          "title": "Jeff Wadlin For U.S. Senate",
+          "description": null,
+          "last_accessed": "2026-06-13T01:41:55.513776Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://lp.org/candidate/jeff-wadlin/",
+          "type": "website",
+          "title": "Jeff Wadlin - Libertarian Party",
+          "description": null,
+          "last_accessed": "2026-06-13T01:41:55.513776Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.localcandidates.org/politicians/jeff-wadlin",
+          "type": "finance",
+          "title": "Jeff Wadlin - Local Candidates",
+          "description": null,
+          "last_accessed": "2026-06-13T01:41:55.513776Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://arktimes.com/arkansas-blog/2026/05/19/libertarian-u-s-senate-candidate-announces-campaign-kickoff",
+          "type": "news",
+          "title": "Libertarian U.S. Senate candidate announces campaign kickoff",
+          "description": null,
+          "last_accessed": "2026-06-13T01:41:55.513776Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
       "links": [
-        "https://ballotpedia.org/Jeff_Wadlin",
         {
           "url": "https://ballotpedia.org/Jeff_Wadlin",
           "title": "Jeff Wadlin - Ballotpedia",
           "type": "ballotpedia"
         },
         {
+          "url": "https://www.jeffwadlin.com/",
+          "title": "Jeff Wadlin For U.S. Senate",
+          "type": "official"
+        },
+        {
+          "url": "https://lp.org/candidate/jeff-wadlin/",
+          "title": "Jeff Wadlin - Libertarian Party",
+          "type": "official"
+        },
+        {
+          "url": "https://www.localcandidates.org/politicians/jeff-wadlin",
+          "title": "Jeff Wadlin - Local Candidates",
+          "type": "finance"
+        },
+        {
+          "url": "https://arktimes.com/arkansas-blog/2026/05/19/libertarian-u-s-senate-candidate-announces-campaign-kickoff",
+          "title": "Libertarian U.S. Senate candidate announces campaign kickoff",
+          "type": "news"
+        },
+        {
           "url": "https://en.wikipedia.org/wiki/2026_United_States_Senate_election_in_Arkansas",
           "title": "2026 United States Senate election in Arkansas - Wikipedia",
           "type": "wiki"
-        },
-        {
-          "url": "https://www.jeffwadlin.com/",
-          "title": "Jeff Wadlin for US Senate 2026",
-          "type": "official"
-        },
-        {
-          "url": "https://www.linkedin.com/in/jeffwadlin",
-          "title": "Jeff Wadlin - US Senate Candidate - Arkansas 2026 - LinkedIn",
-          "type": "other"
-        },
-        {
-          "url": "https://www.facebook.com/profile.php?id=61588407943291",
-          "title": "Jeff Wadlin for US Senate - Arkansas 2026 - Facebook",
-          "type": "official"
-        },
-        {
-          "url": "https://x.com/jeffwadlin",
-          "title": "Jeff Wadlin X profile",
-          "type": "official"
-        },
-        {
-          "url": "https://www.instagram.com/jwadlin/",
-          "title": "Jeff Wadlin Instagram",
-          "type": "official"
-        },
-        {
-          "url": "https://www.nwaonline.com/news/2018/mar/06/wadlin-seeks-district-8-seat-on-benton-/",
-          "title": "Wadlin seeks District 8 seat on Benton County Quorum Court",
-          "type": "news"
         }
       ],
-      "issues": {
-        "Economy": {
-          "stance": "No public position found",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Jeff_Wadlin",
-              "type": "website",
-              "title": "Jeff Wadlin - Ballotpedia",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            }
-          ]
-        },
-        "Climate/Energy": {
-          "stance": "No public position found",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Jeff_Wadlin",
-              "type": "website",
-              "title": "Jeff Wadlin - Ballotpedia",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            }
-          ]
-        },
-        "Reproductive Rights": {
-          "stance": "No public position found",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Jeff_Wadlin",
-              "type": "website",
-              "title": "Jeff Wadlin - Ballotpedia",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            }
-          ]
-        },
-        "Immigration": {
-          "stance": "No public position found",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Jeff_Wadlin",
-              "type": "website",
-              "title": "Jeff Wadlin - Ballotpedia",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            }
-          ]
-        },
-        "Guns & Safety": {
-          "stance": "No public position found",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Jeff_Wadlin",
-              "type": "website",
-              "title": "Jeff Wadlin - Ballotpedia",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            }
-          ]
-        },
-        "Foreign Policy": {
-          "stance": "No public position found",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Jeff_Wadlin",
-              "type": "website",
-              "title": "Jeff Wadlin - Ballotpedia",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            }
-          ]
-        },
-        "Social Justice": {
-          "stance": "No public position found",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Jeff_Wadlin",
-              "type": "website",
-              "title": "Jeff Wadlin - Ballotpedia",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            }
-          ]
-        },
-        "Education": {
-          "stance": "No public position found",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Jeff_Wadlin",
-              "type": "website",
-              "title": "Jeff Wadlin - Ballotpedia",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            }
-          ]
-        },
-        "Tech & AI": {
-          "stance": "No public position found",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Jeff_Wadlin",
-              "type": "website",
-              "title": "Jeff Wadlin - Ballotpedia",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            }
-          ]
-        },
-        "Election Reform": {
-          "stance": "No public position found",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Jeff_Wadlin",
-              "type": "website",
-              "title": "Jeff Wadlin - Ballotpedia",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            }
-          ]
-        },
-        "Local Issues": {
-          "stance": "No public position found",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Jeff_Wadlin",
-              "type": "website",
-              "title": "Jeff Wadlin - Ballotpedia",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            }
-          ]
-        },
-        "Healthcare": {
-          "stance": "No public position found",
-          "confidence": "low",
-          "sources": [
-            {
-              "url": "https://ballotpedia.org/Jeff_Wadlin",
-              "type": "website",
-              "title": "Jeff Wadlin - Ballotpedia",
-              "last_accessed": "2026-04-06T13:08:37.712870+00:00"
-            }
-          ]
-        }
-      }
+      "website": "https://www.jeffwadlin.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
     }
   ],
-  "updated_utc": "2026-04-06T16:40:12.630940+00:00",
+  "ballotpedia_url": "https://ballotpedia.org/United_States_Senate_election_in_Arkansas,_2026",
+  "updated_utc": "2026-06-13T18:57:28.159645+00:00",
   "generator": [
-    "gpt-5.4-mini",
-    "gpt-5-nano"
+    "openai/gpt-5.4-mini",
+    "openai/gpt-5-nano"
   ],
+  "register_to_vote_url": "https://www.sos.arkansas.gov/elections/voter-information/voter-registration-information",
+  "how_to_vote_url": "https://www.sos.arkansas.gov/elections/voter-information",
+  "schema_version": "0.3",
   "reviews": [
     {
-      "model": "claude-sonnet-4-6",
-      "reviewed_at": "2026-04-06T13:11:09.203258+00:00",
-      "verdict": "needs_revision",
-      "score": 78,
+      "model": "anthropic/claude-haiku-4.5",
+      "reviewed_at": "2026-06-13T01:45:31.473502Z",
+      "verdict": "approved",
+      "score": 87,
       "flags": [
         {
-          "field": "candidates[0].career_history[2].description",
-          "concern": "The profile states Cotton 'served nearly five years on active duty,' with start_year 2005 and end_year 2009 — that span is approximately four years, not 'nearly five years.' The official Senate biography language ('nearly five years') is cited as the source, so if the biography uses that phrasing it may be correct, but the dates 2005–2009 are internally in tension with the description. A human reviewer should confirm whether the official biography says 'nearly five years' or a different duration, and whether the start/end years are accurate.",
-          "suggestion": "Check the official Senate biography at https://www.cotton.senate.gov/about to confirm the exact phrasing and service dates, and align the career_history dates with whatever the biography states.",
+          "field": "candidates[1].issues.Abortion & Reproductive Health.stance",
+          "concern": "The stance description focuses on maternal mortality and healthcare access but does not explicitly state Shoffner's position on abortion itself (e.g., whether she supports abortion access, restrictions, or a specific framework). The language is indirect and emphasizes healthcare outcomes rather than the abortion policy question directly. This is not inaccurate, but it is less explicit than Cotton's 'pro-life' framing or Wadlin's libertarian 'families make their own decisions' language.",
+          "suggestion": "Consider adding a clarifying sentence to the stance or confidence note indicating whether Shoffner has publicly stated a position on abortion access/restrictions, or confirm that her campaign materials genuinely do not address this directly. If the latter, the current framing is acceptable but should note the asymmetry in explicitness.",
           "severity": "info"
         },
         {
-          "field": "candidates[0].issues.Foreign Policy.sources[1].title",
-          "concern": "The source title reads 'Cotton Senators to Wright Ban Chinese Nationals from American Laboratories' — 'to Wright' appears to be a garbled or OCR-corrupted rendering of 'to Write' or possibly a different word. This may indicate a data-extraction error in the title field.",
-          "suggestion": "Verify the actual press release title at the linked URL (https://www.cotton.senate.gov/news/press-releases/cotton-senators-to-wright-ban-chinese-nationals-from-american-laboratories) and correct the title to match the page.",
+          "field": "candidates[2].image_url",
+          "concern": "The image_url field for Wadlin is set to 'https://www.jeffwadlin.com/', which is his campaign homepage URL, not an image file. This appears to be a data entry error — the field should either contain a direct image URL (e.g., a .jpg or .png) or be null.",
+          "suggestion": "Correct to a valid image URL or set to null. Verify whether Wadlin's campaign site hosts a candidate photo that can be linked directly.",
           "severity": "info"
         },
         {
-          "field": "candidates[0].links",
-          "concern": "The links array mixes raw URL strings (e.g., 'https://www.cotton.senate.gov/about', 'https://ballotpedia.org/Tom_Cotton', 'https://www.fec.gov/data/elections/senate/AR/2026/') with structured objects containing url/title/type fields. The same pattern exists for candidates[1] and candidates[2]. This inconsistent format may cause downstream rendering or parsing errors.",
-          "suggestion": "Normalize all entries in the links arrays to use the same structured object format {url, title, type} throughout, removing bare string entries.",
-          "severity": "warning"
-        },
-        {
-          "field": "candidates[0].donor_summary",
-          "concern": "The donor summary states Cotton's Republican Majority Fund raised '$16,312,092' and had '$7,450,869 cash on hand.' These figures are cited to OpenSecrets, which is a credible source, but no date or reporting period is specified for these figures. Without a reporting period, readers cannot assess how current the data is.",
-          "suggestion": "Add the reporting period or filing date for these figures (e.g., 'as of the [cycle/date] filing') to give readers context for the fundraising totals.",
+          "field": "candidates[2].education",
+          "concern": "The education array is empty for Wadlin. While this may reflect a genuine absence of public information about his educational background, the profile does not note whether a search was conducted or whether this is simply not publicly available. For consistency with the profile's approach to other missing data, consider adding a note.",
+          "suggestion": "If education data was searched and not found, add a brief note to the career_history or a metadata field indicating 'Education information not publicly available.' If not searched, conduct a search to ensure completeness.",
           "severity": "info"
         },
         {
-          "field": "candidates[1].career_history[0].end_year",
-          "concern": "The profile states Shoffner's family farm 'closed in 2024' (end_year: 2024). This specific detail — that the farm closed rather than that she transitioned away from it — is a meaningful claim that should be verified against the cited campaign source. If the farm closed due to financial difficulty, that is a politically significant biographical fact that the campaign may frame differently.",
-          "suggestion": "Verify the specific 'closed in 2024' claim against the official campaign biography at https://www.hallieshoffner.com/about to confirm the language and framing are accurate and not editorially added.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[1].issues.Reproductive Rights.stance",
-          "concern": "The stance is rated medium confidence and frames Shoffner's position primarily around maternal health without explicitly stating her position on abortion rights or access. For a 2026 Senate candidate, this may underrepresent her public stance if she has made clearer statements elsewhere. The source cited is only her campaign priorities page.",
-          "suggestion": "Search for any direct statements by Shoffner on abortion rights in interviews (e.g., Arkansas Advocate, UALR Public Radio) and update the stance with more specific language if available, or note that no direct abortion-access position was found in public statements.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[2].issues",
-          "concern": "All 12 issue stances for Jeff Wadlin are 'No public position found' with low confidence, each citing only the Ballotpedia page. While this is acceptable for an obscure Libertarian candidate, the profile does not reflect any attempt to check Wadlin's official website (https://www.jeffwadlin.com/) for issue positions, even though that URL is listed in the links and the voting_source_url.",
-          "suggestion": "Attempt to retrieve issue positions from https://www.jeffwadlin.com/ and update stances accordingly, or explicitly note in each stance that the official website was checked and contained no policy detail, to demonstrate good-faith research effort.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[1].issues.Local Issues.stance",
-          "concern": "The Local Issues stance for Shoffner duplicates much of the Economy stance content (lowering living costs, expanding local jobs, supporting unions, investing in education and infrastructure). There is significant overlap that may not add meaningful differentiation between these two issue categories.",
-          "suggestion": "Consider whether the Local Issues stance should be more specifically focused on Arkansas-specific local concerns (e.g., rural broadband, agricultural policy, specific state infrastructure) rather than restating the general economic platform.",
-          "severity": "info"
-        },
-        {
-          "field": "election_date",
-          "concern": "The election date is listed as 2026-11-03 (Tuesday, November 3, 2026). November 3, 2026 is indeed a Tuesday, which is consistent with federal election law requiring elections on the first Tuesday after the first Monday in November. In 2026, the first Monday in November is November 2, making November 3 the correct general election date. This appears correct.",
-          "suggestion": null,
-          "severity": "info"
-        },
-        {
-          "field": "candidates[0].issues.Local Issues.stance",
-          "concern": "The Local Issues stance references the 'DATA Act of 2026' and cites S.3585. The bill citation is specific and credible, and the Congress.gov URL is provided. However, calling it the 'DATA Act of 2026' in the section title may be a branded name that differs from the official bill title. Human reviewer should confirm the official short title of S.3585 matches 'DATA Act of 2026.'",
-          "suggestion": "Verify the official short title of S.3585 at the Congress.gov link and ensure the name used in the stance matches the bill's official title.",
+          "field": "candidates[2].donor_summary",
+          "concern": "The donor_summary states 'No campaign finance data found in public disclosures as of 2026-06-13,' but the donor_sources array includes a link to Local Candidates and Wadlin's campaign site. This is not necessarily contradictory (those sources may not contain FEC-reportable finance data), but the phrasing is slightly ambiguous. Clarify whether Wadlin has filed FEC reports or is below the threshold.",
+          "suggestion": "Revise donor_summary to clarify: e.g., 'No FEC campaign finance reports filed as of 2026-06-13' or 'Candidate has not yet filed required FEC disclosures.' This removes ambiguity.",
           "severity": "info"
         }
       ],
-      "summary": "The profile is broadly well-constructed with strong sourcing for Tom Cotton (official Senate press releases, GovTrack, OpenSecrets, Ballotpedia, Congress.gov) and solid sourcing for Hallie Shoffner (official campaign site, FEC, credible Arkansas news outlets). Issue stances are well-documented and confidence levels are appropriately calibrated. However, several flags warrant attention: a minor structural inconsistency in the links array (mixing raw strings with objects), a potentially misleading claim about Cotton's Army service duration, one title in the Foreign Policy source for Cotton that appears garbled, and a metadata note about model names in the generator array that are unfamiliar but are correctly treated as pipeline metadata."
+      "summary": "This is a well-sourced, comprehensive profile of the 2026 Arkansas Senate race. All three candidates are documented with credible sources (official campaign sites, FEC filings, Ballotpedia, news outlets, and government records). The profile demonstrates strong sourcing discipline: Cotton's extensive legislative record and donor data are backed by GovTrack, OpenSecrets, and FEC links; Shoffner's positions are cited to her official campaign site and news coverage; Wadlin's Libertarian platform is sourced to his campaign site and party records. Career histories are internally consistent with cited sources. Issue stances are presented neutrally across all candidates, with appropriate confidence levels assigned. Gaps in coverage (e.g., Shoffner and Wadlin on climate/energy, immigration, and election policy) are explicitly documented as 'no public position found' rather than omitted, which is methodologically sound. The profile appropriately distinguishes between candidates with legislative voting records (Cotton) and first-time candidates (Shoffner, Wadlin) by noting the absence of roll-call data. Language remains balanced and non-partisan throughout."
     },
     {
-      "model": "gemini-3-flash-preview",
-      "reviewed_at": "2026-04-06T13:10:42.577053+00:00",
+      "model": "google/gemini-3.1-flash-lite-preview",
+      "reviewed_at": "2026-06-13T01:45:19.674011Z",
       "verdict": "approved",
-      "score": 100,
+      "score": 96,
       "flags": [
         {
-          "field": "candidates[0].issues.Education.sources",
-          "concern": "The sources are labeled as 'campaign press release' but the URLs point to 'cotton.senate.gov', which are official Senate press releases. This is a minor categorization mismatch.",
-          "suggestion": "Update 'type' to 'official press release' to reflect the domain.",
+          "field": "candidates[0].issues.Civil Rights & Equality.stance",
+          "concern": "The term 'woke indoctrination' is used in the profile. While this is attributed to the candidate's own language, it is a highly charged, partisan term.",
+          "suggestion": "Ensure that when quoting or summarizing such terms, they are clearly framed as the candidate's own terminology to maintain the profile's neutral tone.",
           "severity": "info"
         },
         {
-          "field": "candidates[1].issues.Reproductive Rights.stance",
-          "concern": "Stance is marked with 'medium' confidence. While the description is accurately derived from her priorities page regarding maternal health, my training data suggests Democratic candidates in this cycle often have more explicit 'pro-choice' messaging that might be found in social media or later campaign stops not captured here.",
-          "suggestion": "Human reviewer should monitor for more explicit statements on the Women's Health Protection Act or similar legislation as the campaign progresses.",
+          "field": "candidates[1].issues.Abortion & Reproductive Health.stance",
+          "concern": "The stance describes the candidate's focus on maternal mortality and medical care, but does not explicitly state her position on abortion rights, which is a central issue in the race.",
+          "suggestion": "If no further information is available, the current description is acceptable, but a note could be added that the candidate has not provided a specific policy position on abortion access.",
           "severity": "info"
         }
       ],
-      "summary": "This profile is exceptionally high-quality, demonstrating a sophisticated use of live web sources to provide a current and detailed snapshot of the 2026 Arkansas Senate race. The agent successfully retrieved specific legislative data (e.g., the DATA Act of 2026, S.3585) and used a diverse range of sources, including official Senate records, FEC filings, and local Arkansas news outlets. The distinction between Tom Cotton’s leadership PAC and campaign committee fundraising shows high attention to detail, and the coverage of the challenger Hallie Shoffner is comprehensive, especially regarding her specific policy disagreements with the incumbent."
+      "summary": "This profile is exceptionally well-constructed, providing a balanced and neutral overview of the 2026 Arkansas Senate race. It demonstrates high-quality sourcing, particularly in the use of official campaign sites and FEC data to substantiate candidate platforms and financial summaries. The profiles for all three candidates are treated with consistent, objective language, and the documentation of missing information for certain policy areas is handled transparently and accurately."
     },
     {
-      "model": "grok-3",
-      "reviewed_at": "2026-04-06T13:10:39.770796+00:00",
+      "model": "x-ai/grok-4.3",
+      "reviewed_at": "2026-06-13T01:45:22.754762Z",
       "verdict": "approved",
-      "score": 92,
-      "flags": [
-        {
-          "field": "candidates[2].issues",
-          "concern": "Jeff Wadlin's issue stances are largely marked as 'no public position found' with low confidence. While this is acceptable given the cited search effort on Ballotpedia and the candidate's limited public profile, additional sources (if available) could enhance completeness.",
-          "suggestion": "If possible, check for any recent statements or social media posts by the candidate for updated positions; otherwise, maintain the current 'no public position found' notation.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[1].issues.Reproductive Rights.stance",
-          "concern": "Hallie Shoffner's stance on reproductive rights is framed indirectly as part of maternal health, with medium confidence. The cited source supports this framing, but the position could be clearer on specific policies regarding abortion access or restrictions.",
-          "suggestion": "If additional campaign statements or interviews are available, include them to clarify the candidate’s direct stance on reproductive rights policies.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[1].issues.Immigration.stance",
-          "concern": "Hallie Shoffner's stance on immigration is noted with medium confidence and lacks detailed policy specifics in the cited materials. The sources provided support the general position, but the stance could benefit from more granular detail if available.",
-          "suggestion": "Search for any further campaign statements or policy papers that might elaborate on specific immigration reform proposals.",
-          "severity": "info"
-        },
-        {
-          "field": "candidates[0].voting_summary",
-          "concern": "Tom Cotton's voting summary mentions a 'Nay vote on the continuing appropriations and extensions act for 2026,' but the source cited (GovTrack) does not explicitly confirm this specific vote as of the profile's update date. Given the future date of the election, this may refer to a projected or anticipated vote.",
-          "suggestion": "Verify the specific vote reference against Congress.gov or other legislative records if available, or clarify that this is based on a pattern of past voting behavior if the vote has not yet occurred.",
-          "severity": "info"
-        }
-      ],
-      "summary": "This profile for the 2026 U.S. Senate election in Arkansas is exceptionally well-researched and comprehensive. It provides detailed, well-sourced information on all three candidates—Tom Cotton, Hallie Shoffner, and Jeff Wadlin—with high-quality citations from official campaign sites, legislative records, FEC data, and credible news outlets. The issue stances for Cotton and Shoffner are thoroughly documented with high-confidence sources, and the lack of public positions for Wadlin is appropriately noted with evidence of a good-faith search. The language remains neutral and nonpartisan throughout, and candidate backgrounds are consistent with cited sources. Minor gaps in Wadlin’s issue positions do not detract from the overall quality, as they reflect the candidate’s limited public profile rather than a research failure."
+      "score": 93,
+      "flags": [],
+      "summary": "Strong sourcing across all 12 issues for each candidate with high-confidence citations from official campaign sites (cotton.senate.gov, hallieshoffner.com, jeffwadlin.com), FEC/OpenSecrets filings, Ballotpedia, and GovTrack. Candidate backgrounds, education, and donor summaries are internally consistent with the cited sources. Language is consistently neutral and nonpartisan with no asymmetric framing or loaded terminology. Gaps (e.g., \"no public position found\") are properly documented after searches."
+    },
+    {
+      "model": "automated-link-validator",
+      "reviewed_at": "2026-06-13T01:45:53.823816Z",
+      "verdict": "approved",
+      "score": null,
+      "flags": [],
+      "summary": "Scanned 74 source links. Found 0 dead link(s)."
     }
   ],
   "validation_grade": {
     "grade": "A",
-    "score": 90,
+    "score": 92,
     "passed": true,
-    "summary": "Validated by 2/3 reviewers with an average score of 90/100."
+    "summary": "Validated by 4/4 reviewers with an average score of 92/100."
   },
   "agent_metrics": {
-    "model": "gpt-5.4-mini",
-    "prompt_tokens": 76957,
-    "completion_tokens": 11933,
-    "total_tokens": 88890,
-    "estimated_usd": 0.0136,
+    "model": "openai/gpt-5.4-mini",
+    "model_profile": "economy",
+    "prompt_tokens": 42761,
+    "completion_tokens": 7440,
+    "total_tokens": 50201,
+    "cost_usd": 0.004198209999999999,
+    "cost_source": "provider",
+    "estimated_usd": 0.005114,
     "model_breakdown": {
-      "gpt-5-nano": {
-        "prompt_tokens": 56847,
-        "completion_tokens": 11541
-      },
-      "gpt-5.4-mini": {
-        "prompt_tokens": 20110,
-        "completion_tokens": 392
+      "openai/gpt-5-nano": {
+        "prompt_tokens": 42761,
+        "completion_tokens": 7440
       }
     },
-    "duration_s": 157.7
-  }
+    "duration_s": 46.3
+  },
+  "post_run_analysis": null
 }

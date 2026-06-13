@@ -1,0 +1,464 @@
+{
+  "id": "oh-governor-2026",
+  "title": "2026 Ohio Gubernatorial Election",
+  "office": "Governor of Ohio",
+  "jurisdiction": "Ohio",
+  "state": "Ohio",
+  "district": null,
+  "election_date": "2026-11-03",
+  "description": "The 2026 Ohio gubernatorial election will be held on November 3, 2026, to elect the next governor of Ohio. Incumbent Republican Governor Mike DeWine is term-limited and ineligible to seek a third consecutive term. The open-seat race features Republican nominee Vivek Ramaswamy, a biotech entrepreneur and former 2024 presidential candidate, and Democratic nominee Dr. Amy Acton, the former Ohio Department of Health director who led the state's COVID-19 response, along with Libertarian nominee Don Kissick. This is one of the most closely watched gubernatorial races in the country, as Ohio has not elected a Democratic governor since 2006, and the race is expected to be the most expensive in state history with national implications for both parties.",
+  "polling": [
+    {
+      "pollster": "Fox News",
+      "date": "2026-06-03",
+      "sample_size": 1015,
+      "matchups": [
+        {
+          "candidates": [
+            "Amy Acton",
+            "Vivek Ramaswamy"
+          ],
+          "percentages": [
+            50.0,
+            49.0
+          ]
+        }
+      ],
+      "source_url": "https://www.270towin.com/2026-governor-polls/ohio"
+    },
+    {
+      "pollster": "Echelon Insights",
+      "date": "2026-04-21",
+      "sample_size": 413,
+      "matchups": [
+        {
+          "candidates": [
+            "Amy Acton",
+            "Vivek Ramaswamy"
+          ],
+          "percentages": [
+            44.0,
+            49.0
+          ]
+        }
+      ],
+      "source_url": "https://www.270towin.com/2026-governor-polls/ohio"
+    },
+    {
+      "pollster": "Bowling Green State University",
+      "date": "2026-04-20",
+      "sample_size": 1000,
+      "matchups": [
+        {
+          "candidates": [
+            "Amy Acton",
+            "Vivek Ramaswamy"
+          ],
+          "percentages": [
+            47.0,
+            48.0
+          ]
+        }
+      ],
+      "source_url": "https://www.270towin.com/2026-governor-polls/ohio"
+    },
+    {
+      "pollster": "Quantus Insights",
+      "date": "2026-03-16",
+      "sample_size": 809,
+      "matchups": [
+        {
+          "candidates": [
+            "Amy Acton",
+            "Vivek Ramaswamy"
+          ],
+          "percentages": [
+            46.0,
+            45.0
+          ]
+        }
+      ],
+      "source_url": "https://www.270towin.com/2026-governor-polls/ohio"
+    },
+    {
+      "pollster": "EMC Research",
+      "date": "2026-03-10",
+      "sample_size": 1343,
+      "matchups": [
+        {
+          "candidates": [
+            "Amy Acton",
+            "Vivek Ramaswamy"
+          ],
+          "percentages": [
+            53.0,
+            43.0
+          ]
+        }
+      ],
+      "source_url": "https://www.270towin.com/2026-governor-polls/ohio"
+    }
+  ],
+  "polling_note": null,
+  "candidates": [
+    {
+      "name": "Vivek Ramaswamy",
+      "party": "Republican Party",
+      "incumbent": false,
+      "summary": "Vivek Ramaswamy is a biotech entrepreneur and Republican nominee for governor of Ohio. He founded Roivant Sciences in 2014 and ran for the Republican presidential nomination in 2024 before endorsing Donald Trump. Ramaswamy has been endorsed by President Trump and the Ohio Republican Party, and if elected would become the first Asian-American governor of Ohio and the first Hindu governor in U.S. history.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Vivek_Ramaswamy",
+          "type": "website",
+          "title": "Vivek Ramaswamy - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_Ohio_gubernatorial_election",
+          "type": "website",
+          "title": "2026 Ohio gubernatorial election - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://vivekforohio.com/",
+          "type": "website",
+          "title": "Vivek for Ohio",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/19/Vivek_Ramaswamy_2026_%28cropped%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Founder and CEO",
+          "organization": "Roivant Sciences",
+          "start_year": 2014,
+          "end_year": 2021,
+          "description": "Founded and led biotechnological pharmaceutical company",
+          "source": null
+        },
+        {
+          "title": "Co-Founder",
+          "organization": "Strive Asset Management",
+          "start_year": 2022,
+          "end_year": null,
+          "description": "Investment firm focused on ESG alternatives",
+          "source": null
+        },
+        {
+          "title": "Partner",
+          "organization": "QVT Financial",
+          "start_year": 2007,
+          "end_year": 2014,
+          "description": "Hedge fund partner managing biotech portfolio",
+          "source": null
+        },
+        {
+          "title": "Presidential Candidate",
+          "organization": "2024 Republican Party Presidential Primaries",
+          "start_year": 2023,
+          "end_year": 2024,
+          "description": "Ran for Republican presidential nomination, later endorsed Donald Trump",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Harvard University",
+          "degree": "Bachelor of Arts",
+          "field": "Biology",
+          "year": 2007,
+          "source": null
+        },
+        {
+          "institution": "Yale University",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": 2013,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://vivekforohio.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/VivekGRamaswamy/",
+        "instagram": "https://www.instagram.com/vivekgramaswamy/",
+        "twitter": "https://x.com/VivekGRamaswamy"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Amy Acton",
+      "party": "Democratic Party",
+      "incumbent": false,
+      "summary": "Dr. Amy Acton is a physician, researcher, and Democratic nominee for governor of Ohio. She served as Director of the Ohio Department of Health from 2019 to 2020, leading the state's COVID-19 pandemic response under Governor Mike DeWine. Acton received a Profile in Courage Award from the John F. Kennedy Library Foundation for her leadership and if elected would become Ohio's first woman elected governor and its first Jewish governor.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Amy_Acton",
+          "type": "website",
+          "title": "Amy Acton - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://actonforgovernor.com/meet-amy/",
+          "type": "website",
+          "title": "Meet Amy - Dr. Amy Acton for Governor",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_Ohio_gubernatorial_election",
+          "type": "website",
+          "title": "2026 Ohio gubernatorial election - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Amy_Acton_2025.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Director",
+          "organization": "Ohio Department of Health",
+          "start_year": 2019,
+          "end_year": 2020,
+          "description": "Led COVID-19 pandemic response; first woman to hold the position",
+          "source": null
+        },
+        {
+          "title": "Chief Health Advisor",
+          "organization": "Office of Ohio Governor Mike DeWine",
+          "start_year": 2020,
+          "end_year": 2020,
+          "description": "Advisor after resigning as ODH director",
+          "source": null
+        },
+        {
+          "title": "Grants Manager / Community Health Lead",
+          "organization": "The Columbus Foundation",
+          "start_year": 2015,
+          "end_year": 2025,
+          "description": "Led community health initiatives",
+          "source": null
+        },
+        {
+          "title": "President and CEO",
+          "organization": "RAPID 5",
+          "start_year": 2022,
+          "end_year": 2025,
+          "description": "Nonprofit integrating regional park systems and waterways",
+          "source": null
+        },
+        {
+          "title": "Associate Professor of Practice",
+          "organization": "Ohio State University",
+          "start_year": null,
+          "end_year": null,
+          "description": "Taught maternal and child health and global public health",
+          "source": null
+        },
+        {
+          "title": "Director",
+          "organization": "Project L.O.V.E. (Love Our Kids, Vaccinate Early)",
+          "start_year": null,
+          "end_year": null,
+          "description": "Preventive health program for Columbus-area children",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Youngstown State University",
+          "degree": "Bachelor of Science",
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Northeast Ohio Medical University",
+          "degree": "Doctor of Medicine",
+          "field": "Medicine",
+          "year": 1990,
+          "source": null
+        },
+        {
+          "institution": "Ohio State University",
+          "degree": "Master of Public Health",
+          "field": "Public Health",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://actonforgovernor.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/amyactonoh/",
+        "instagram": "https://www.instagram.com/amyactonoh/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Don Kissick",
+      "party": "Libertarian Party",
+      "incumbent": false,
+      "summary": "Don Kissick is the Libertarian Party nominee for governor of Ohio. A U.S. Navy veteran who served two deployments to the Middle East during Desert Shield and Desert Storm, Kissick has run for office multiple times including for Congress, county commissioner, and U.S. Senate. He advocates for abolishing property taxes, reducing healthcare costs through deregulation, and increasing government transparency.",
+      "summary_sources": [
+        {
+          "url": "https://lp.org/candidate/donald-kissick/",
+          "type": "website",
+          "title": "Donald Kissick - Libertarian Party",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://donkissick.com/",
+          "type": "website",
+          "title": "Kissick/Mills for Ohio",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.hometownstations.com/news/allen_county/libertarian-candidates-kissick-mills-outline-vision-in-lima-ahead-of-ohio-governor-race/article_944be1ce-869a-40e5-9b68-fd9b244c0f42.html",
+          "type": "news",
+          "title": "Libertarian Candidates Kissick, Mills outline vision in Lima ahead of Ohio Governor race",
+          "description": null,
+          "last_accessed": "2026-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://b3870750.smushcdn.com/3870750/wp-content/uploads/1516854072902.jpeg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Candidate for U.S. House of Representatives",
+          "organization": "U.S. House of Representatives, Ohio districts",
+          "start_year": 2010,
+          "end_year": 2018,
+          "description": "Ran against Reps. Jim Jordan and Bob Latta",
+          "source": null
+        },
+        {
+          "title": "Candidate for Allen County Commissioner",
+          "organization": "Allen County, Ohio",
+          "start_year": 2012,
+          "end_year": 2012,
+          "description": "Ran for county commissioner",
+          "source": null
+        },
+        {
+          "title": "Candidate for U.S. Senate",
+          "organization": "U.S. Senate, Ohio",
+          "start_year": 2024,
+          "end_year": 2024,
+          "description": "Ran for U.S. Senate",
+          "source": null
+        },
+        {
+          "title": "Service Member",
+          "organization": "United States Navy",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served six years, deployed twice to the Middle East during Desert Shield and Desert Storm",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://donkissick.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/DonKissickLiberty/",
+        "instagram": "https://www.instagram.com/donkissick/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Ohio_gubernatorial_and_lieutenant_gubernatorial_election,_2026",
+  "updated_utc": "2026-06-13T21:04:57.060013+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 292170,
+    "completion_tokens": 8128,
+    "total_tokens": 300298,
+    "cost_usd": 0.018065236,
+    "cost_source": "provider",
+    "estimated_usd": 0.030226,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 292170,
+        "completion_tokens": 8128
+      }
+    },
+    "duration_s": 208.2
+  }
+}

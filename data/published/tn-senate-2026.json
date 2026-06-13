@@ -4,33 +4,30 @@
   "office": "United States Senate",
   "jurisdiction": "Tennessee",
   "election_date": "2026-11-03",
-  "description": "This race is for Tennessee’s Class II seat in the U.S. Senate, currently held by Republican Bill Hagerty. Tennessee is a strongly Republican state in recent federal elections, and most forecasters rate the seat as safely or solidly Republican, but the contest still matters because Senate control can hinge on a small number of seats. The main contrast is between Hagerty’s incumbent Republican record and a Democratic field trying to make the race competitive in a state that has not elected a Democrat to the U.S. Senate since 1990.",
+  "description": "Tennessee will elect one U.S. senator in 2026 for the state’s Class II seat, currently held by Republican Bill Hagerty. The race is widely viewed as safely Republican: Cook Political Report rates it Solid R, and Tennessee’s recent federal elections have strongly favored Republicans. The main contrast is between Hagerty’s incumbency and a Democratic field that is trying to make the race competitive in a state that has not elected a Democrat to the U.S. Senate since 1990.",
   "polling": [],
-  "polling_note": "No public polling found for this race as of 2026-04-01.",
+  "polling_note": "No public polling found for this race as of 2026-05-18.",
   "candidates": [
     {
       "name": "Bill Hagerty",
       "party": "Republican",
       "incumbent": true,
-      "summary": "Bill Hagerty is the incumbent U.S. senator from Tennessee and is seeking a second term. He previously served as U.S. ambassador to Japan and built a career in business and public service before entering the Senate.",
+      "summary": "Bill Hagerty is the incumbent U.S. senator from Tennessee and is seeking reelection in 2026. Before joining the Senate, he served as U.S. ambassador to Japan and worked in business and investment roles.",
       "summary_sources": [
         {
           "url": "https://www.hagerty.senate.gov/about/",
           "type": "government",
-          "title": "About Senator Hagerty",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "title": "About Senator Hagerty"
         },
         {
           "url": "https://bioguide.congress.gov/search/bio/H000601",
           "type": "government",
-          "title": "HAGERTY, William Francis (Bill) - Bioguide Search",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "title": "HAGERTY, William Francis (Bill) - Bioguide Search"
         },
         {
-          "url": "https://teamhagerty.com/",
+          "url": "https://teamhagerty.com/meet-bill/",
           "type": "website",
-          "title": "Bill Hagerty for U.S. Senate",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "title": "Meet Bill - Bill Hagerty for U.S. Senate"
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Bill-Hagerty.PNG",
@@ -82,32 +79,252 @@
       "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
-      "links": [],
-      "issues": {}
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Bill_Hagerty",
+          "title": "Bill Hagerty",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://www.govtrack.us/congress/members/bill_hagerty/456798",
+          "title": "Bill Hagerty - GovTrack",
+          "type": "govtrack"
+        },
+        {
+          "url": "https://www.opensecrets.org/profiles/bill-hagerty/us_congress/summary?mpid=1140245",
+          "title": "Bill Hagerty - OpenSecrets",
+          "type": "finance"
+        }
+      ],
+      "issues": {
+        "Healthcare": {
+          "stance": "Hagerty says the Affordable Care Act has failed to make coverage affordable and has criticized continued subsidies and fraud in the system. He supports Republican-led changes aimed at lowering costs, limiting subsidies to eligible recipients, and preventing federal funds from supporting abortion.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.hagerty.senate.gov/press-releases/2025/12/11/hagerty-slams-democrats-for-continuing-failed-healthcare-policies-making-insurance-unaffordable/",
+              "type": "government",
+              "title": "Hagerty Slams Democrats for Continuing Failed Healthcare Policies Making Insurance Unaffordable",
+              "last_accessed": "2026-05-18T08:28:45.619350+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Hagerty has promoted deregulation and federal incentives to expand housing supply, including his Freedom to Build Act, which would reward localities that streamline permitting and protect property rights. His approach emphasizes reducing regulatory barriers rather than creating new federal spending programs.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.hagerty.senate.gov/press-releases/2026/04/14/hagerty-introduces-freedom-to-build-act-to-make-housing-affordable-again/",
+              "type": "government",
+              "title": "Hagerty Introduces Freedom to Build Act to Make Housing Affordable Again",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Hagerty supports expanding domestic energy production and energy infrastructure, including nuclear energy and uranium enrichment initiatives. He has backed efforts to reduce regulatory barriers to energy development and modernization projects.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.hagerty.senate.gov/press-releases/2025/12/17/hagerty-secures-key-tennessee-priorities-in-national-defense-authorization-act/",
+              "type": "government",
+              "title": "Hagerty Secures Key Tennessee Priorities in National Defense Authorization Act",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "stance": "Hagerty is pro-life and says abortion policy should be returned to the states after Dobbs. He opposes federal funding for abortion and supports protections for unborn life.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.hagerty.senate.gov/press-releases/2022/06/24/hagerty-statement-on-u-s-supreme-courts-decision-properly-returning-abortion-authority-to-the-american-people/",
+              "type": "government",
+              "title": "Hagerty statement on Dobbs decision returning abortion authority to the American people",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            },
+            {
+              "url": "https://sbaprolife.org/senator/bill-hagerty",
+              "type": "website",
+              "title": "SBA Pro-Life America – Scorecard for Senator Bill Hagerty",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            },
+            {
+              "url": "https://reproductivefreedomforall.org/lawmaker/bill-hagerty/",
+              "type": "website",
+              "title": "Reproductive Freedom for All – Voting record on abortion",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Hagerty supports strict border enforcement and opposes sanctuary policies. He has backed legislation to hold NGOs accountable for facilitating illegal immigration, end counting of illegal immigrants in apportionment, and require proof of citizenship for federal voting.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.hagerty.senate.gov/press-releases/2025/02/10/hagerty-introduces-legislation-to-hold-ngos-accountable-for-facilitating-illegal-immigration/",
+              "type": "government",
+              "title": "Hagerty introduces legislation to hold NGOs accountable for facilitating illegal immigration",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            },
+            {
+              "url": "https://www.hagerty.senate.gov/press-releases/2025/06/16/hagerty-reintroduces-legislation-to-ban-sanctuary-cities-from-receiving-federal-subsidies/",
+              "type": "government",
+              "title": "Hagerty reintroduces sanctuary cities ban",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            },
+            {
+              "url": "https://www.hagerty.senate.gov/press-releases/2024/01/25/hagerty-colleagues-introduce-legislation-to-end-counting-of-illegal-immigrants-in-determining-electoral-college-votes-and-congressional-district-apportionment/",
+              "type": "government",
+              "title": "Hagerty introduces legislation to end counting of illegal immigrants",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Hagerty supports school choice and education options, including Tennessee’s Education Freedom Scholarship program. His public statements emphasize expanding alternatives for families and students.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.hagerty.senate.gov/press-releases/2026/02/05/hagerty-praises-governor-lees-state-of-the-state-address-on-senate-floor/",
+              "type": "government",
+              "title": "Hagerty Praises Governor Lee’s State of the State Address on Senate Floor",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "Hagerty says the United States should lead in artificial intelligence and broader technology competition, while putting guardrails in place to protect civil liberties and counter China’s AI ambitions.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.hagerty.senate.gov/press-releases/2026/04/24/icymi-hagerty-joins-mornings-with-maria-on-fox-business-to-discuss-budget-reconciliation-kevin-warsh-ai-competition-with-china/",
+              "type": "government",
+              "title": "ICYMI Hagerty joins Mornings with Maria on Fox Business to discuss budget reconciliation, Kevin Warsh, AI competition with China",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Election Policy": {
+          "stance": "Hagerty supports requiring documentary proof of citizenship to vote in federal elections and has backed the SAVE America Act. He frames the policy as an election-integrity measure to ensure only U.S. citizens vote in American elections.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.hagerty.senate.gov/press-releases/2026/03/18/hagerty-urges-senate-to-pass-the-save-america-act-ensuring-only-american-citizens-vote-in-american-elections/",
+              "type": "government",
+              "title": "Hagerty Urges Senate to Pass the SAVE America Act",
+              "last_accessed": "2026-05-18T08:28:45.619350+00:00"
+            },
+            {
+              "url": "https://www.congress.gov/bill/119th-congress/house-bill/7296",
+              "type": "government",
+              "title": "H.R.7296 - SAVE America Act",
+              "last_accessed": "2026-05-18T08:28:45.619350+00:00"
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "stance": "Hagerty supports broad Second Amendment protections and has opposed federal actions he says would restrict gun ownership or gun industry rights. He has backed legislation to block rules affecting firearms and to limit federal tracking of gun store purchases.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.hagerty.senate.gov/press-releases/2024/06/05/hagerty-colleagues-introduce-legislation-to-block-biden-admin-rule-restricting-americans-second-amendment-rights/",
+              "type": "government",
+              "title": "Hagerty, Colleagues Introduce Legislation to Block Biden Admin Rule Restricting Americans’ Second Amendment Rights",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            },
+            {
+              "url": "https://www.hagerty.senate.gov/press-releases/2025/05/15/hagerty-colleagues-introduce-legislation-to-block-unconstitutional-tracking-of-gun-store-purchases/",
+              "type": "government",
+              "title": "Hagerty Colleagues Introduce Legislation to Block Unconstitutional Tracking of Gun Store Purchases",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            },
+            {
+              "url": "https://www.congress.gov/bill/119th-congress/senate-bill/1652/text",
+              "type": "government",
+              "title": "Text of S.1652 - Protecting Communities and Preserving the Second Amendment Act",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.hagerty.senate.gov/press-releases/2026/03/18/hagerty-urges-senate-to-pass-the-save-america-act-ensuring-only-american-citizens-vote-in-american-elections/",
+              "type": "government",
+              "title": "Hagerty Urges Senate to Pass the SAVE America Act",
+              "last_accessed": "2026-05-18T08:28:45.619350+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Hagerty has highlighted federal-local cooperation on public safety in Memphis, including support for the Memphis Safe Task Force. He says the task force has helped drive arrests and weapon seizures and should be sustained to reduce violent crime.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.hagerty.senate.gov/op-eds/2026/03/10/senator-hagerty-on-making-memphis-the-safest-city-in-america/",
+              "type": "news",
+              "title": "Senator Hagerty on Making Memphis the Safest City in America",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            },
+            {
+              "url": "https://www.hagerty.senate.gov/press-releases/2026/05/13/hagerty-applauds-patel-serralta-for-continued-commitment-to-memphis-safe-task-force/",
+              "type": "government",
+              "title": "Hagerty Applauds Patel, Serralta for Continued Commitment to Memphis Safe Task Force",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Hagerty favors a position-of-strength foreign policy and has said diplomacy should be backed by leverage. He has supported maximum pressure on Iran and said military options remain on the table to deter adversaries and advance U.S. interests.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.hagerty.senate.gov/press-releases/2026/04/24/icymi-hagerty-joins-balance-of-power-on-bloomberg-to-discuss-iran-negotiations-federal-reserve-leadership-reconciliation/",
+              "type": "government",
+              "title": "ICYMI Hagerty joins Balance of Power on Bloomberg to discuss Iran negotiations, Federal Reserve leadership, and reconciliation",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            },
+            {
+              "url": "https://www.hagerty.senate.gov/press-releases/2026/02/09/icymi-hagerty-joins-fox-news-sunday-on-fox-news-to-discuss-ice-cooperation-government-shutdown-risks-iran-talks-russia-arms-control-the-save-act/",
+              "type": "government",
+              "title": "ICYMI Hagerty joins Fox News Sunday to discuss ICE cooperation, government shutdown risks, Iran talks, Russia arms control, the SAVE Act",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            },
+            {
+              "url": "https://www.timesfreepress.com/news/2026/apr/02/hagerty-says-objectives-of-war-in-iran-being/",
+              "type": "news",
+              "title": "Hagerty says objectives of war in Iran being accomplished",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        }
+      },
+      "donor_sources": [],
+      "voting_sources": []
     },
     {
       "name": "Marquita Bradshaw",
       "party": "Democratic",
       "incumbent": false,
-      "summary": "Marquita Bradshaw is a Memphis-based environmental justice advocate and the Democratic nominee in Tennessee’s 2020 U.S. Senate race. She is running again in 2026 and has centered her campaign on affordability, environmental justice, and public accountability.",
+      "summary": "Marquita Bradshaw is a Memphis-based environmental justice advocate and Tennessee native who has run for U.S. Senate as a Democrat. Her campaign emphasizes affordability, environmental justice, public accountability, and protecting democracy.",
       "summary_sources": [
         {
           "url": "https://www.marquitabradshaw.com/meet-marquita",
           "type": "website",
-          "title": "MEET MARQUITA | Bradshaw For Senate",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "title": "MEET MARQUITA | Bradshaw For Senate"
         },
         {
           "url": "https://www.marquitabradshaw.com/",
           "type": "website",
-          "title": "Marquita Bradshaw for U. S. Senate | Tennessee",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "title": "Marquita Bradshaw for U. S. Senate | Tennessee"
         },
         {
           "url": "https://en.wikipedia.org/wiki/Marquita_Bradshaw",
           "type": "news",
-          "title": "Marquita Bradshaw - Wikipedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "title": "Marquita Bradshaw - Wikipedia"
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/80182230_marquita_head_shot_1.jpg",
@@ -146,50 +363,194 @@
       "voting_summary": null,
       "voting_source_url": null,
       "links": [],
-      "issues": {}
+      "issues": {
+        "Healthcare": {
+          "stance": "Supports healthcare for all and says she will fight to ensure Tennesseans do not go bankrupt seeking needed medical care.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.marquitabradshaw.com/issues",
+              "type": "website",
+              "title": "ISSUES | Bradshaw For Senate",
+              "last_accessed": "2026-05-18T08:28:45.619350+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Supports a living wage for workers, including raising the federal minimum wage to $15 per hour, and says she wants policies that create jobs and build a more equitable economy.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.marquitabradshaw.com/issues",
+              "type": "website",
+              "title": "ISSUES | Bradshaw For Senate",
+              "last_accessed": "2026-05-18T08:28:45.619350+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Supports the Green New Deal and says climate policy should center environmental justice, clean energy investment, infrastructure, and job creation.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.marquitabradshaw.com/issues",
+              "type": "website",
+              "title": "ISSUES | Bradshaw For Senate",
+              "last_accessed": "2026-05-18T08:28:45.619350+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Supports DACA and says she favors humane immigration reform that keeps families together and provides refuge from oppression and violence.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.marquitabradshaw.com/issues",
+              "type": "website",
+              "title": "ISSUES | Bradshaw For Senate",
+              "last_accessed": "2026-05-18T08:28:45.619350+00:00"
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "stance": "Supports universal background checks for firearm purchases.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.marquitabradshaw.com/issues",
+              "type": "website",
+              "title": "ISSUES | Bradshaw For Senate",
+              "last_accessed": "2026-05-18T08:28:45.619350+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.marquitabradshaw.com/issues",
+              "type": "website",
+              "title": "ISSUES | Bradshaw For Senate",
+              "last_accessed": "2026-05-18T08:28:45.619350+00:00"
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "stance": "Supports community policing and restorative justice, and says Tennessee needs an equal interpretation of the law that is not rooted in racial or income bias.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.marquitabradshaw.com/issues",
+              "type": "website",
+              "title": "ISSUES | Bradshaw For Senate",
+              "last_accessed": "2026-05-18T08:28:45.619350+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Supports high-quality public education and says Tennessee should fund education at levels comparable to military spending.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.marquitabradshaw.com/issues",
+              "type": "website",
+              "title": "ISSUES | Bradshaw For Senate",
+              "last_accessed": "2026-05-18T08:28:45.619350+00:00"
+            }
+          ]
+        },
+        "Election Policy": {
+          "stance": "Says protecting democracy is a core campaign priority and supports reducing the influence of big money in elections after Citizens United.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.marquitabradshaw.com/issues",
+              "type": "website",
+              "title": "ISSUES | Bradshaw For Senate",
+              "last_accessed": "2026-05-18T08:28:45.619350+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Centers local Tennessee issues on community policing, restorative justice, universal background checks, a living wage, public education funding, and protecting democracy and DACA.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.marquitabradshaw.com/issues",
+              "type": "website",
+              "title": "ISSUES | Bradshaw For Senate",
+              "last_accessed": "2026-05-18T08:28:45.619350+00:00"
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.marquitabradshaw.com/issues",
+              "type": "website",
+              "title": "ISSUES | Bradshaw For Senate",
+              "last_accessed": "2026-05-18T08:28:45.619350+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.marquitabradshaw.com/issues",
+              "type": "website",
+              "title": "ISSUES | Bradshaw For Senate",
+              "last_accessed": "2026-05-18T08:28:45.619350+00:00"
+            }
+          ]
+        }
+      },
+      "donor_sources": [],
+      "voting_sources": []
     },
     {
       "name": "Maria Brewer",
       "party": "Democratic",
       "incumbent": false,
-      "summary": "Maria Brewer is a Tennessee Democratic Party organizer and staff leader who entered the 2026 U.S. Senate race. Public reporting describes her as a longtime party operative focused on organizing and party affairs rather than prior elected office.",
+      "summary": "Maria Brewer is a Tennessee Democratic Party staff leader and organizer running for the U.S. Senate in Tennessee in 2026. Public materials describe her as focused on organizing, communications, and party affairs rather than prior elected office.",
       "summary_sources": [
         {
-          "url": "https://www.linkedin.com/in/mariabrewer",
-          "type": "website",
-          "title": "Maria Brewer - Tennessee Democratic Party | LinkedIn",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "url": "https://www.tndp.org/our-story/staff/",
+          "type": "official",
+          "title": "Tennessee Democratic Party Staff"
         },
         {
-          "url": "https://www.facebook.com/tndem/posts/lets-give-a-big-tennessee-democrat-welcome-to-our-team-members-maria-brewer-tama/10158755923470831/",
-          "type": "news",
-          "title": "Tennessee Democratic Party staff announcement",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "url": "https://www.mariabrewerforsenate.com/",
+          "type": "official",
+          "title": "Maria Brewer for US Senate"
         },
         {
           "url": "https://ballotpedia.org/Maria_Brewer_(Tennessee)",
           "type": "website",
-          "title": "Maria Brewer (Tennessee) - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "title": "Maria Brewer (Tennessee) - Ballotpedia"
         }
       ],
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Maria_E._Brewer%2C_U.S._Ambassador.jpg/500px-Maria_E._Brewer%2C_U.S._Ambassador.jpg",
-      "website": null,
+      "image_url": null,
+      "website": "https://www.mariabrewerforsenate.com/",
       "social_media": {},
       "career_history": [
         {
-          "title": "Director of Party Affairs",
+          "title": "Director Party Affairs",
           "organization": "Tennessee Democratic Party",
           "start_year": 2015,
           "end_year": null,
-          "description": "Reportedly served in a statewide party-organizing role."
+          "description": "Served in a statewide party-organizing role; Tennessee Democratic Party staff page lists her as Director Party Affairs."
         }
       ],
       "education": [
         {
           "institution": "Northwestern University",
-          "degree": null,
-          "field": null,
+          "degree": "Bachelor of Arts",
+          "field": "History and English",
           "year": null
         }
       ],
@@ -197,32 +558,180 @@
       "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
-      "links": [],
-      "issues": {}
+      "links": [
+        {
+          "url": "https://www.ballotpedia.org/Maria_Brewer_(Tennessee)",
+          "title": "Ballotpedia profile",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://justfacts.votesmart.org/candidate/139008/maria-brewer",
+          "title": "Vote Smart profile",
+          "type": "votesmart"
+        },
+        {
+          "url": "https://www.tndp.org/our-story/staff/",
+          "title": "Tennessee Democratic Party staff page",
+          "type": "official"
+        }
+      ],
+      "issues": {
+        "Healthcare": {
+          "stance": "Brewer supports Medicaid expansion in Tennessee, protecting coverage for pre-existing conditions, lowering prescription drug costs by allowing Medicare to negotiate prices, and strengthening the Affordable Care Act.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.mariabrewerforsenate.com/issues",
+              "type": "website",
+              "title": "Issues / Positions - Maria Brewer for US Senate",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Brewer supports competitive teacher pay, expanded early childhood education and pre-K access, and making college and vocational training more affordable and accessible.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.mariabrewerforsenate.com/issues",
+              "type": "website",
+              "title": "Issues / Positions - Maria Brewer for US Senate",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Brewer frames local concerns around affordability and cost of living. She says she will fight for higher wages, support small businesses, and protect Social Security and Medicare from cuts.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.mariabrewerforsenate.com/issues",
+              "type": "website",
+              "title": "Issues / Positions - Maria Brewer for US Senate",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Brewer says she has spent her career standing up for teachers, nurses, first responders, and working people. She supports the right to organize and collectively bargain, workplace safety enforcement, paid family and medical leave, and efforts to combat wage theft and exploitative practices.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.mariabrewerforsenate.com/issues",
+              "type": "website",
+              "title": "Issues / Positions - Maria Brewer for US Senate",
+              "last_accessed": "2026-05-18T08:28:45.619350+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.mariabrewerforsenate.com/issues",
+              "type": "website",
+              "title": "Maria Brewer issues page",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Election Policy": {
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Maria_Brewer_(Tennessee)",
+              "type": "website",
+              "title": "Ballotpedia profile",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.mariabrewerforsenate.com/issues",
+              "type": "website",
+              "title": "Maria Brewer issues page",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.mariabrewerforsenate.com/issues",
+              "type": "website",
+              "title": "Maria Brewer issues page",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.mariabrewerforsenate.com/issues",
+              "type": "website",
+              "title": "Maria Brewer issues page",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.mariabrewerforsenate.com/issues",
+              "type": "website",
+              "title": "Maria Brewer issues page",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.mariabrewerforsenate.com/issues",
+              "type": "website",
+              "title": "Maria Brewer issues page",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        }
+      },
+      "donor_sources": [],
+      "voting_sources": []
     },
     {
       "name": "Civil Miller-Watkins",
       "party": "Democratic",
       "incumbent": false,
-      "summary": "Civil Miller-Watkins is a teacher and local Democratic leader from Rossville, Tennessee, who is running for the U.S. Senate. Her campaign profile and reporting describe her as emphasizing education, community leadership, and kitchen-table issues.",
+      "summary": "Civil Miller-Watkins is a Tennessee educator and local Democratic leader who is running for U.S. Senate. Her campaign describes her as focused on \"kitchen table issues,\" including education, health care, and jobs.",
       "summary_sources": [
+        {
+          "url": "https://www.civil4tn.com/home",
+          "type": "official_campaign_website",
+          "title": "Civil Miller-Watkins campaign home"
+        },
         {
           "url": "https://nashvillebanner.com/2024/07/20/senate-candidate-democrat-civil-miller-watkins/",
           "type": "news",
-          "title": "Tennessee Democrat Miller-Watkins runs for U.S. Senate",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "title": "Tennessee Democrat Miller-Watkins runs for U.S. Senate"
         },
         {
           "url": "https://ballotpedia.org/Civil_Miller-Watkins",
           "type": "website",
-          "title": "Civil Miller-Watkins - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
-        },
-        {
-          "url": "https://www.tennessean.com/story/opinion/editorials/2024/07/01/tennessee-election-congress-civil-miller-watkins-senate/74270330007/",
-          "type": "news",
-          "title": "Tennessee election for U.S. Congress: Civil Miller-Watkins for Senate",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "title": "Civil Miller-Watkins - Ballotpedia"
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Civil_Miller-Watkins.jpg",
@@ -236,21 +745,21 @@
           "organization": "Local school system",
           "start_year": null,
           "end_year": null,
-          "description": "Reportedly works as a middle school math teacher."
+          "description": "Works as a middle school math teacher in Fayette County, Tennessee."
         },
         {
           "title": "County Democratic Party chair",
           "organization": "Fayette County Democratic Party",
           "start_year": null,
           "end_year": null,
-          "description": "Served as a local party chair in Fayette County."
+          "description": "Served as chair of the Fayette County Democratic Party."
         },
         {
           "title": "Tennessee state Senate candidate",
           "organization": "Tennessee Democratic Party",
           "start_year": 2020,
           "end_year": 2020,
-          "description": "Previously ran for the Tennessee state Senate."
+          "description": "Ran for the Tennessee state Senate in 2020."
         }
       ],
       "education": [],
@@ -258,38 +767,151 @@
       "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
-      "links": [],
-      "issues": {}
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Civil_Miller-Watkins",
+          "title": "Ballotpedia profile",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/S4TN00534/",
+          "title": "FEC candidate profile",
+          "type": "finance"
+        }
+      ],
+      "issues": {
+        "Healthcare": {
+          "stance": "Civil Miller-Watkins supports abortion rights, caregiver support, maternal care, and efforts to reduce rural health care deserts.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.civil4tn.com/home",
+              "type": "website",
+              "title": "Civil Miller-Watkins campaign home",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "She supports expanding good-paying jobs, standing with unions, and economic policies aimed at strengthening the middle class.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.civil4tn.com/home",
+              "type": "website",
+              "title": "Civil Miller-Watkins campaign home",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "stance": "She supports a woman's right to choose and pairs that position with support for maternal care and broader reproductive health access.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.civil4tn.com/home",
+              "type": "website",
+              "title": "Civil Miller-Watkins campaign home",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "stance": "No public position found.",
+          "confidence": "low"
+        },
+        "Firearms & Second Amendment": {
+          "stance": "She supports common-sense gun laws intended to improve safety in schools, communities, and homes.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.civil4tn.com/home",
+              "type": "website",
+              "title": "Civil Miller-Watkins campaign home",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "She says she wants public schools to be the first-best choice and supports policies to strengthen K-12 education.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.civil4tn.com/home",
+              "type": "website",
+              "title": "Civil Miller-Watkins campaign home",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "No public position found.",
+          "confidence": "low"
+        },
+        "Local Issues": {
+          "stance": "Her campaign frames its agenda around \"kitchen table issues,\" especially education, health care, jobs, and public safety.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.civil4tn.com/home",
+              "type": "website",
+              "title": "Civil Miller-Watkins campaign home",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "No public position found.",
+          "confidence": "low"
+        },
+        "Election Policy": {
+          "stance": "No public position found.",
+          "confidence": "low"
+        },
+        "Climate/Energy": {
+          "stance": "No public position found.",
+          "confidence": "low"
+        },
+        "Immigration": {
+          "stance": "No public position found.",
+          "confidence": "low"
+        }
+      },
+      "donor_sources": [],
+      "voting_sources": []
     },
     {
       "name": "Diana Onyejiaka",
       "party": "Democratic",
       "incumbent": false,
-      "summary": "Diana Onyejiaka is a Nashville Democrat running for the U.S. Senate in 2026. Reporting describes her as the only Democratic candidate in the race against Hagerty at the time of her announcement, and her campaign has focused on presenting an alternative to the incumbent in a heavily Republican state.",
+      "summary": "Diana Onyejiaka is a Democratic candidate for the U.S. Senate in Tennessee. Reporting and campaign materials describe her as a Nashville-based consultant and professor who is challenging Republican incumbent Bill Hagerty in 2026.",
       "summary_sources": [
         {
           "url": "https://www.knoxnews.com/story/news/politics/elections/2026/01/07/nashville-democrat-diana-onyejiaka-running-for-us-senate-tennessee/88036871007/",
           "type": "news",
-          "title": "Nashville Democrat Diana Onyejiaka is running for U.S. Senate",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "title": "Nashville Democrat Diana Onyejiaka is running for U.S. Senate"
         },
         {
-          "url": "https://ballotpedia.org/Diana_Onyejiaka",
-          "type": "website",
-          "title": "Diana Onyejiaka - Ballotpedia",
-          "last_accessed": "2026-04-01T00:00:00Z"
+          "url": "https://www.tba.org/?pg=Articles&blAction=showEntry&blogEntry=51186",
+          "type": "news",
+          "title": "Nashville Consultant Is 3rd Democrat to Enter Senate Race"
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/S0TN00193/",
+          "type": "government",
+          "title": "FEC candidate profile: ONYEJIAKA, DIANA"
         }
       ],
-      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Diana-Onyejiaka.jpg",
-      "website": null,
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Diana_Onyejiaka.jpg",
+      "website": "https://dianaonyejiaka.substack.com/",
       "social_media": {},
       "career_history": [
         {
-          "title": "Businesswoman",
+          "title": "Consultant",
           "organization": "Private sector",
           "start_year": null,
           "end_year": null,
-          "description": "Described in reporting as a businesswoman."
+          "description": "Described in reporting as a Nashville-based consultant and businesswoman."
         },
         {
           "title": "Professor",
@@ -304,33 +926,961 @@
       "donor_source_url": null,
       "voting_summary": null,
       "voting_source_url": null,
-      "links": [],
-      "issues": {}
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Diana_Onyejiaka",
+          "title": "Ballotpedia profile",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/S0TN00193/",
+          "title": "FEC candidate profile",
+          "type": "finance"
+        },
+        {
+          "url": "https://dianaonyejiaka.substack.com/",
+          "title": "Campaign Substack",
+          "type": "official"
+        }
+      ],
+      "issues": {
+        "Healthcare": {
+          "stance": "Supports permanent ACA premium tax credits and expanded postpartum care, including mental health and recovery services. Her public materials also emphasize caregiver protections and reforms aimed at making care more affordable and community-based.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.knoxnews.com/story/news/politics/elections/2026/01/07/nashville-democrat-diana-onyejiaka-running-for-us-senate-tennessee/88036871007/",
+              "type": "news",
+              "title": "Nashville Democrat Diana Onyejiaka is running for U.S. Senate",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            },
+            {
+              "url": "https://dianaonyejiaka.substack.com/p/the-missing-piece-in-the-pro-family?utm_campaign=post&utm_medium=web",
+              "type": "website",
+              "title": "The Missing Piece in the Pro-Family Agenda: Permanent ACA Tax Credits for Postpartum Care",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            },
+            {
+              "url": "https://dianaonyejiaka.substack.com/p/legislative-proposal-postpartum-recovery?r=1ytv97&utm_medium=ios",
+              "type": "website",
+              "title": "Legislative Proposal: Postpartum Recovery and Reconstructive Care Act",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Supports a “Modern Caregiving Economy” that expands caregiving supports, including paid family leave and postpartum recovery policies, as part of economic security for families. Her campaign frames caregiving as a central economic issue tied to workforce participation and family stability.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://dianaonyejiaka.substack.com/p/empowering-families-championing-a-modern-caregiving-economy",
+              "type": "website",
+              "title": "Empowering Families: Championing a Modern Caregiving Economy",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            },
+            {
+              "url": "https://www.isidewith.com/candidates/diana-onyejiaka/policies/domestic-policy/universal-childcare",
+              "type": "website",
+              "title": "Universal Childcare – Diana Onyejiaka (iSideWith)",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "No public position found in the campaign materials reviewed. Her Substack issue pages and recent posts emphasize caregiving, elections, and foreign policy, but do not clearly state a climate or energy platform.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://dianaonyejiaka.substack.com/issues",
+              "type": "website",
+              "title": "Diana Onyejiaka Substack issues page",
+              "last_accessed": "2026-05-18T08:28:45.619350+00:00"
+            },
+            {
+              "url": "https://dianaonyejiaka.substack.com/p/empowering-families-championing-a-modern-caregiving-economy",
+              "type": "website",
+              "title": "Empowering Families: Championing a Modern Caregiving Economy",
+              "last_accessed": "2026-05-18T08:28:45.619350+00:00"
+            },
+            {
+              "url": "https://dianaonyejiaka.substack.com/p/leadership-for-tennessee-security",
+              "type": "website",
+              "title": "Leadership for Tennessee, Security for America: Greenland and Global Stability",
+              "last_accessed": "2026-05-18T08:28:45.619350+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Supports mandatory E-Verify for employment verification, but only after establishing a pathway to citizenship for undocumented workers already contributing to the economy.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.isidewith.com/candidates/diana-onyejiaka/policies/immigration/mandatory-e-verify",
+              "type": "website",
+              "title": "Mandatory E-Verify - iSideWith",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Supports pursuing Greenland only with the freely expressed consent of the Greenlandic people, while backing stronger U.S. defense capabilities, NATO stability, and expanded diplomatic and trade relationships with African nations.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://dianaonyejiaka.substack.com/p/leadership-for-tennessee-security",
+              "type": "website",
+              "title": "Leadership for Tennessee, Security for America: Greenland and Global Stability",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            },
+            {
+              "url": "https://www.isidewith.com/candidates/diana-onyejiaka/policies",
+              "type": "website",
+              "title": "Diana Onyejiaka Policies - iSideWith",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            },
+            {
+              "url": "https://www.knoxnews.com/story/news/politics/elections/2026/01/07/nashville-democrat-diana-onyejiaka-running-for-us-senate-tennessee/88036871007/",
+              "type": "news",
+              "title": "Nashville Democrat Diana Onyejiaka is running for U.S. Senate",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Supports education access and teacher support as part of her broader caregiving-economy platform, with public materials emphasizing early childhood development and family stability.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://dianaonyejiaka.substack.com/p/empowering-families-championing-a-modern-caregiving-economy",
+              "type": "website",
+              "title": "Empowering Families: Championing a Modern Caregiving Economy",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "stance": "Supports restoring voting rights for people who have completed their sentences and has emphasized equal rights and protections for marginalized communities in public statements.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.knoxnews.com/story/news/politics/elections/2026/01/07/nashville-democrat-diana-onyejiaka-running-for-us-senate-tennessee/88036871007/",
+              "type": "news",
+              "title": "Nashville Democrat Diana Onyejiaka is running for U.S. Senate",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "Supports responsible AI integration in education, including student intellectual-property protections, nationwide AI data-privacy standards, and secure American-built infrastructure for school systems.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://dianaonyejiaka.substack.com/p/artificial-intelligence-student-protections?r=1ytv97&utm_medium=ios",
+              "type": "website",
+              "title": "Artificial Intelligence, Student Protections, and the Future of American Education",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Election Policy": {
+          "stance": "Supports citizenship-based voting rules and election-security measures, including automatic registration for eligible U.S. citizens and secure ballot-delivery systems. Her public statements frame these as integrity and access measures rather than efforts to nationalize elections.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://dianaonyejiaka.substack.com/p/fedright-the-key-to-inclusive-federal",
+              "type": "website",
+              "title": "FEDRIGHT: The Key to Inclusive Federal Elections",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            },
+            {
+              "url": "https://dianaonyejiaka.substack.com/p/the-fedright-act-does-not-nationalize",
+              "type": "website",
+              "title": "The FEDRIGHT Act Does Not Nationalize U.S. Elections",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            },
+            {
+              "url": "https://dianaonyejiaka.substack.com/p/ensuring-secure-ballot-delivery-and",
+              "type": "website",
+              "title": "Ensuring Secure Ballot Delivery and Strengthening Our Election Infrastructure",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Centers her Tennessee platform on a “Modern Caregiving Economy,” with emphasis on affordable healthcare, rural access, telemedicine, and support for local families and caregivers.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://dianaonyejiaka.substack.com/p/empowering-families-championing-a-modern-caregiving-economy",
+              "type": "website",
+              "title": "Empowering Families: Championing a Modern Caregiving Economy",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            },
+            {
+              "url": "https://dianaonyejiaka.substack.com/p/honoring-our-healthcare-heroes-and",
+              "type": "website",
+              "title": "Honoring Our Healthcare Heroes and Building a Modern Caregiving Economy",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "stance": "Her public materials emphasize postpartum care, fertility preservation, and other reproductive-health supports, but do not clearly state a public position on abortion rights. Based on available sources, her abortion stance is not publicly specified.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.knoxnews.com/story/news/politics/elections/2026/01/07/nashville-democrat-diana-onyejiaka-running-for-us-senate-tennessee/88036871007/",
+              "type": "news",
+              "title": "Nashville Democrat Diana Onyejiaka is running for U.S. Senate",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            },
+            {
+              "url": "https://dianaonyejiaka.substack.com/p/the-missing-piece-in-the-pro-family?utm_campaign=post&utm_medium=web",
+              "type": "website",
+              "title": "The Missing Piece in the Pro-Family Agenda: Permanent ACA Tax Credits for Postpartum Care",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            },
+            {
+              "url": "https://dianaonyejiaka.substack.com/p/legislative-proposal-postpartum-recovery?r=1ytv97&utm_medium=ios",
+              "type": "website",
+              "title": "Legislative Proposal: Postpartum Recovery and Reconstructive Care Act",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "stance": "Supports stronger gun-control measures, including more restrictions on purchasing firearms to reduce gun violence and improve public safety.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.isidewith.com/candidates/diana-onyejiaka/policies",
+              "type": "website",
+              "title": "Diana Onyejiaka's Policies - iSideWith",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        }
+      },
+      "donor_sources": [],
+      "voting_sources": []
+    },
+    {
+      "name": "Manny Sethi",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Manny Sethi is a physician and former Republican Senate candidate from Tennessee. He founded the nonprofit Healthy Tennessee and ran for the U.S. Senate seat in 2020.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Manny_Sethi",
+          "type": "ballotpedia",
+          "title": "Manny Sethi - Ballotpedia"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Manny_Sethi",
+          "type": "wiki",
+          "title": "Manny Sethi - Wikipedia"
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Manny_Sethi.jpg",
+      "website": "https://www.facebook.com/drmannysethi/",
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Orthopedic trauma surgeon",
+          "organization": "Vanderbilt University Medical Center",
+          "start_year": null,
+          "end_year": null,
+          "description": "Practiced as an orthopedic trauma surgeon at Vanderbilt University Medical Center."
+        },
+        {
+          "title": "Founder and president",
+          "organization": "Healthy Tennessee",
+          "start_year": null,
+          "end_year": null,
+          "description": "Founded and led the nonprofit Healthy Tennessee."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Harvard Medical School",
+          "degree": "Doctor of Medicine",
+          "field": null,
+          "year": 2005
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Manny_Sethi",
+          "title": "Ballotpedia",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Manny_Sethi",
+          "title": "Wikipedia",
+          "type": "wiki"
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/S0TN00144/",
+          "title": "FEC candidate profile",
+          "type": "finance"
+        }
+      ],
+      "issues": {
+        "Healthcare": {
+          "stance": "Sethi has emphasized free-market, patient-centered health care approaches, including competition, prevention, and private-sector solutions, and has opposed single-payer models.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.beckersspine.com/featured-insights/universal-healthcare-is-a-failure-dr-manny-sethi-eyes-a-free-market-healthcare-system-in-bid-for-us-senate/",
+              "type": "news",
+              "title": "“Universal healthcare is a failure”: Dr. Manny Sethi outlines a free-market health care system in bid for US Senate",
+              "last_accessed": "2026-05-18T08:28:45.619350+00:00"
+            },
+            {
+              "url": "https://myhealthytennessee.com/who-we-are/",
+              "type": "website",
+              "title": "Who We Are - My Healthy TN",
+              "last_accessed": "2026-05-18T08:28:45.619350+00:00"
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "stance": "Sethi has described himself as pro-life and opposed abortion, supporting policies that protect unborn life.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.tennessean.com/story/news/politics/2019/12/04/senate-bill-hagerty-manny-sethi-abortion-positions/2598616001/",
+              "type": "news",
+              "title": "Where Senate candidates Bill Hagerty, Manny Sethi stand on abortion",
+              "last_accessed": "2026-05-18T08:28:45.619350+00:00"
+            },
+            {
+              "url": "https://ballotpedia.org/Manny_Sethi",
+              "type": "website",
+              "title": "Manny Sethi - Ballotpedia",
+              "last_accessed": "2026-05-18T08:28:45.619350+00:00"
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "stance": "Sethi has publicly aligned himself with gun-rights groups and said he would defend Second Amendment rights and oppose laws he views as infringing on them.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.gunowners.org/tn07302020/",
+              "type": "website",
+              "title": "GOA Endorses Dr. Manny Sethi for U.S. Senate in Tennessee",
+              "last_accessed": "2026-05-18T08:28:45.619350+00:00"
+            },
+            {
+              "url": "https://www.facebook.com/drmannysethi/photos/im-honored-to-be-endorsed-by-gun-owners-of-america-staunch-defenders-of-our-seco/2610490715877992/",
+              "type": "website",
+              "title": "Manny Sethi Facebook endorsement post",
+              "last_accessed": "2026-05-18T08:28:45.619350+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Sethi has emphasized free-market and pro-business approaches in his public campaign messaging, favoring private-sector solutions over expanded federal intervention.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.aaos.org/aaosnow/2019/sep/advocacy/advocacy01/",
+              "type": "news",
+              "title": "Senate Candidate Manny Sethi, MD, Promises To Make a ... - AAOS",
+              "last_accessed": "2026-05-18T08:28:45.619350+00:00"
+            },
+            {
+              "url": "https://www.wkrn.com/news/local-news/dr-manny-sethi-launches-republican-bid-for-open-tennessee-senate-seat/",
+              "type": "news",
+              "title": "Dr. Manny Sethi launches Republican bid for open Tennessee Senate seat",
+              "last_accessed": "2026-05-18T08:28:45.619350+00:00"
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "stance": "No public position found.",
+          "confidence": "low"
+        },
+        "Local Issues": {
+          "stance": "Sethi has highlighted rural health access and community-based health initiatives in Tennessee, including his Healthy Tennessee work and public comments on improving local health outcomes.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://myhealthytennessee.com/who-we-are/",
+              "type": "website",
+              "title": "Who We Are - My Healthy TN",
+              "last_accessed": "2026-05-18T08:28:45.619350+00:00"
+            },
+            {
+              "url": "https://rumble.com/v77cd8s-2272026-episode-127-dr.-manny-sethi-on-rural-health-access-and-healthy-tenn.html",
+              "type": "website",
+              "title": "Episode 127: Dr. Manny Sethi on Rural Health, Access, and Healthy Tennessee",
+              "last_accessed": "2026-05-18T08:28:45.619350+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "No public position found.",
+          "confidence": "low"
+        },
+        "Immigration": {
+          "stance": "Sethi has advocated stricter immigration enforcement and stronger border controls, emphasizing opposition to illegal immigration.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.tennessean.com/story/news/politics/2019/10/15/tennessee-u-s-senate-race-manny-sethi-buys-tv-ad-immigration-race-washington-dc/3984139002/",
+              "type": "news",
+              "title": "Tennessee US Senate race: Manny Sethi buys TV ad on immigration",
+              "last_accessed": "2026-05-18T08:28:45.619350+00:00"
+            },
+            {
+              "url": "https://apnews.com/general-news-ad1d3855c14e40fb9f662746dd59c0dc",
+              "type": "news",
+              "title": "Sethi: 'Let 'em try' calling him a racist in new Senate ad",
+              "last_accessed": "2026-05-18T08:28:45.619350+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Sethi said the U.S.-Israel alliance is a cornerstone of his campaign, supported maintaining Israel's qualitative military edge, opposed the BDS movement, and said Iran must never obtain nuclear weapons.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://image.jewishinsider.com/wp-content/uploads/2020/08/18181441/Dr.-Manny-Sethi-Israel-Position-Paper.pdf",
+              "type": "website",
+              "title": "Statement of Support for America’s Israeli Allies",
+              "last_accessed": "2026-05-18T08:28:45.619350+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "No public position found.",
+          "confidence": "low"
+        },
+        "Tech & AI": {
+          "stance": "No public position found.",
+          "confidence": "low"
+        },
+        "Election Policy": {
+          "stance": "No public position found.",
+          "confidence": "low"
+        }
+      },
+      "donor_sources": [],
+      "voting_sources": []
+    },
+    {
+      "name": "George Flinn Jr.",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "George Flinn Jr. is a Memphis-area physician, radiology clinic founder, and broadcast owner who has run for office in Tennessee in multiple cycles. Ballotpedia describes him as an electrical engineer turned physician who established a chain of radiology clinics and founded Flinn Broadcasting, and iVoterGuide lists prior service on the Shelby County Commission.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/George_Flinn_Jr.",
+          "type": "article",
+          "title": "George Flinn Jr. - Ballotpedia"
+        },
+        {
+          "url": "https://ivoterguide.com/candidate/4830/race/6830/election/704",
+          "type": "website",
+          "title": "Voter Guide Profile for TN U.S. Senator candidate - George S. Flinn Jr."
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/George_Flinn.jpg",
+      "website": null,
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Commander",
+          "organization": "National Institutes of Health",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served in the United States Public Health Service under the Nixon administration, according to Ballotpedia and iVoterGuide."
+        },
+        {
+          "title": "Shelby County Commissioner",
+          "organization": "Shelby County Board of Commissioners",
+          "start_year": 2004,
+          "end_year": 2010,
+          "description": "Served on the Shelby County Board of Commissioners for six years and chaired the Budget Committee, according to iVoterGuide."
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Mississippi",
+          "degree": "Bachelor of Science",
+          "field": "Electrical Engineering",
+          "year": 1965
+        },
+        {
+          "institution": "University of Tennessee Medical School",
+          "degree": "Doctor of Medicine",
+          "field": null,
+          "year": 1969
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [
+        {
+          "url": "https://ballotpedia.org/George_Flinn_Jr.",
+          "title": "George Flinn Jr. - Ballotpedia",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://ivoterguide.com/candidate/4830/race/6830/election/704",
+          "title": "Voter Guide Profile for TN U.S. Senator candidate - George S. Flinn Jr.",
+          "type": "other"
+        }
+      ],
+      "issues": {
+        "Healthcare": {
+          "stance": "Supports returning more control over health care decisions to patients and opposes government-run health insurance. In his 2020 questionnaire, he said he supports private insurance and wants coverage policies that address Medicare, Medicaid, and general insurance while keeping patients in control.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://ivoterguide.com/candidate/4830/race/6830/election/704",
+              "type": "website",
+              "title": "Voter Guide Profile for TN U.S. Senator candidate - George S. Flinn Jr.",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "stance": "Strongly pro-life. He said human life begins at conception, opposed taxpayer funding for abortion providers, supported the Born Alive Abortion Survivors Protection Act, and described himself as pro-life in his questionnaire responses.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://ivoterguide.com/candidate/4830/race/6830/election/704",
+              "type": "website",
+              "title": "Voter Guide Profile for TN U.S. Senator candidate - George S. Flinn Jr.",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Supports a strong military, tougher action against terrorism, and reducing dependence on foreign countries for critical goods. He also proposed reforming the Foreign Sovereign Immunities Act and prioritizing U.S.-made goods for government purchases.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://ivoterguide.com/candidate/4830/race/6830/election/704",
+              "type": "website",
+              "title": "Voter Guide Profile for TN U.S. Senator candidate - George S. Flinn Jr.",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "stance": "Opposes new gun restrictions and said, 'The Right to keep and bear arms shall not be infringed.'",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://ivoterguide.com/candidate/4830/race/6830/election/704",
+              "type": "website",
+              "title": "Voter Guide Profile for TN U.S. Senator candidate - George S. Flinn Jr.",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "stance": "Said racism is a threat to domestic security and supported adding sexual orientation, gender identity, and gender expression as protected classes in non-discrimination laws. He also opposed reparations on the basis of race.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://ivoterguide.com/candidate/4830/race/6830/election/704",
+              "type": "website",
+              "title": "Voter Guide Profile for TN U.S. Senator candidate - George S. Flinn Jr.",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Supports free enterprise, lower taxes, and reducing the size of government. He said free enterprise and private property are essential, opposed taxpayer assumption of student loan debt, and called for pro-growth tax policy and fiscal restraint.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://ivoterguide.com/candidate/4830/race/6830/election/704",
+              "type": "website",
+              "title": "Voter Guide Profile for TN U.S. Senator candidate - George S. Flinn Jr.",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "No public position found",
+          "confidence": "low"
+        },
+        "Immigration": {
+          "stance": "Supports a border wall, E-Verify, denying funds to sanctuary jurisdictions, and a merit-based immigration system. He also said immigration should prioritize immediate relatives of legal residents and U.S. citizens' parents under certain conditions.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://ivoterguide.com/candidate/4830/race/6830/election/704",
+              "type": "website",
+              "title": "Voter Guide Profile for TN U.S. Senator candidate - George S. Flinn Jr.",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Opposes taxpayer-funded public education through college and opposes taxpayers assuming the cost of student loans. He said colleges should be more transparent about borrowing and repayment.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://ivoterguide.com/candidate/4830/race/6830/election/704",
+              "type": "website",
+              "title": "Voter Guide Profile for TN U.S. Senator candidate - George S. Flinn Jr.",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "No public position found",
+          "confidence": "low"
+        },
+        "Election Policy": {
+          "stance": "Opposes abolishing the Electoral College and said the Constitution should be amended only with broad consensus. No other detailed election-policy position was found in the sources reviewed.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://ivoterguide.com/candidate/4830/race/6830/election/704",
+              "type": "website",
+              "title": "Voter Guide Profile for TN U.S. Senator candidate - George S. Flinn Jr.",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "No public position found",
+          "confidence": "low"
+        }
+      },
+      "donor_sources": [],
+      "voting_sources": []
+    },
+    {
+      "name": "Jon Henry",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Jon Henry is a Republican candidate in Tennessee’s 2026 U.S. Senate race. His campaign biography says he is a U.S. Marine Corps veteran and local leader who grew up on a family farm and is focused on rural Tennessee, agriculture, and conservative policy priorities.",
+      "summary_sources": [
+        {
+          "url": "https://henryforcongress.com/about",
+          "type": "campaign",
+          "title": "Jon Henry for Congress - About"
+        },
+        {
+          "url": "https://henryforcongress.com/",
+          "type": "campaign",
+          "title": "Jon Henry for Congress"
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Jon_Henry.jpg",
+      "website": "https://henryforcongress.com/",
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Jon_Henry",
+          "title": "Ballotpedia",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://henryforcongress.com/",
+          "title": "Official campaign website",
+          "type": "official"
+        }
+      ],
+      "issues": {
+        "Healthcare": {
+          "stance": "Jon Henry says he wants to address an EMS-first responder crisis by improving workforce training and wages, supporting Medicare ambulance add-ons, keeping safety equipment and vehicles operational, and opening EMS workforce and equipment grants to all providers.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://henryforcongress.com/issues",
+              "type": "website",
+              "title": "Jon Henry for Congress - Issues",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Jon Henry supports tax cuts for small businesses, reduced regulations, tariffs and reciprocal trade policies to support Tennessee manufacturing and agriculture, and stronger antitrust enforcement to curb monopolies and protect farmers and local businesses.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://henryforcongress.com/issues",
+              "type": "website",
+              "title": "Jon Henry for Congress - Issues",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "No public position found",
+          "confidence": "low"
+        },
+        "Abortion & Reproductive Health": {
+          "stance": "Jon Henry says he is \"100% unapologetically pro-life,\" believes life begins at conception, opposes abortion in all forms, and says he would oppose legislation expanding abortion access, including mailing chemical abortion pills.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://henryforcongress.com/issues",
+              "type": "website",
+              "title": "Jon Henry for Congress - Issues",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Jon Henry supports securing the border, stopping illegal immigration, deporting criminals, and cutting off incentives that he says draw people to enter unlawfully.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://henryforcongress.com/issues",
+              "type": "website",
+              "title": "Jon Henry for Congress - Issues",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "stance": "Jon Henry says he is dedicated to protecting and preserving the Second Amendment and would champion legislation protecting the rights of law-abiding citizens to keep and bear arms.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://henryforcongress.com/issues",
+              "type": "website",
+              "title": "Jon Henry for Congress - Issues",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Jon Henry frames his foreign policy around an America First approach, emphasizing national security, border security, and opposition to policies he says compromise U.S. sovereignty.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://henryforcongress.com/issues",
+              "type": "website",
+              "title": "Jon Henry for Congress - Issues",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            },
+            {
+              "url": "https://henryforcongress.com/",
+              "type": "website",
+              "title": "Jon Henry for Congress",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "stance": "No public position found",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://henryforcongress.com/issues",
+              "type": "website",
+              "title": "Jon Henry for Congress - Issues",
+              "last_accessed": "2026-05-18T08:28:45.619350+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Jon Henry supports closing the federal Department of Education, shifting education oversight to states and localities, expanding school choice, reducing standardized testing, allowing prayer in schools, and increasing support for teachers and CTE programs.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://henryforcongress.com/issues",
+              "type": "website",
+              "title": "Jon Henry for Congress - Issues",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "No public position found",
+          "confidence": "low"
+        },
+        "Election Policy": {
+          "stance": "Jon Henry supports proof of citizenship and photo ID requirements, improved voter registration and removal processes, and eliminating online and mail-in registration in favor of in-person registration.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://henryforcongress.com/issues",
+              "type": "website",
+              "title": "Jon Henry for Congress - Issues",
+              "last_accessed": "2026-05-18T08:28:45.619350+00:00"
+            },
+            {
+              "url": "https://henryforcongress.com/issues",
+              "type": "website",
+              "title": "Jon Henry for Congress - Issues",
+              "last_accessed": "2026-05-18T08:28:45.619350+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Jon Henry emphasizes protecting Tennessee farmland from corporate overreach and foreign influence, strengthening food labeling and inspection rules, supporting local sustainable agriculture, and backing rural EMS, law enforcement, and economic development.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://henryforcongress.com/issues",
+              "type": "website",
+              "title": "Jon Henry for Congress - Issues",
+              "last_accessed": "2026-05-18T08:25:27.697119+00:00"
+            }
+          ]
+        }
+      },
+      "donor_sources": [],
+      "voting_sources": []
     }
   ],
-  "updated_utc": "2026-04-06T17:09:45.179733+00:00",
+  "updated_utc": "2026-05-18T08:28:45.619350+00:00",
   "generator": [
     "gpt-5.4-mini",
-    "gpt-5-nano"
+    "gpt-5-nano",
+    "claude-haiku-4-5-20251001",
+    "gemini-3.1-flash-lite-preview",
+    "grok-4-1-fast-non-reasoning"
   ],
-  "reviews": [],
+  "reviews": [
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "reviewed_at": "2026-05-18T08:29:07.084627+00:00",
+      "verdict": "approved",
+      "score": 88,
+      "flags": [
+        {
+          "field": "candidates[3].website",
+          "concern": "Civil Miller-Watkins's website field points to a YouTube channel URL (https://www.youtube.com/@civilforsenate) rather than a dedicated campaign website, which may not be the most direct or primary digital presence for voters seeking information.",
+          "suggestion": "If a dedicated campaign website exists, link to that instead; otherwise, clarify in a note that the YouTube channel is her primary digital presence.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[4].issues.Abortion & Reproductive Health.stance",
+          "concern": "Diana Onyejiaka's abortion stance is marked 'medium' confidence and the stance text notes her position is 'not publicly specified.' This is appropriate transparency, but the phrasing 'Her public materials emphasize postpartum care… but do not clearly state a public position on abortion rights' could be slightly clearer about whether she has deliberately avoided the issue or simply not emphasized it in the sources retrieved.",
+          "suggestion": "Consider adding a sentence clarifying whether the absence is due to silence on the topic or a deliberate focus on other reproductive-health dimensions.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[5].career_history",
+          "concern": "Manny Sethi's career_history array lacks start/end year entries for his roles at Vanderbilt and as founder of Healthy Tennessee. While the sources confirm these roles, adding approximate dates (e.g., start_year: ~2005 for Healthy Tennessee based on contextual reporting) would strengthen the profile's completeness.",
+          "suggestion": "Add estimated years for Sethi's major career roles if available in news archives or LinkedIn-style sources.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[6].career_history",
+          "concern": "George Flinn Jr.'s career_history shows a Shelby County Commission role (2004–2010) with high confidence sourcing, but the earlier NIH Commander role lacks start/end years or clear sourcing detail. The iVoterGuide reference is brief and contextless.",
+          "suggestion": "Add dates for the NIH role and clarify the source; if dates are unavailable, note that publicly.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[7].career_history and education",
+          "concern": "Jon Henry's career_history and education arrays are empty, despite his campaign biography mentioning he is 'a U.S. Marine Corps veteran and local leader who grew up on a family farm.' The sources cited (henryforcongress.com) should contain this information.",
+          "suggestion": "Extract available biographical details (military service dates, educational background) from campaign materials and populate career_history and education fields, or add an explicit note that these details are not publicly detailed beyond the summary.",
+          "severity": "info"
+        },
+        {
+          "field": "description (race-level)",
+          "concern": "The race description states 'Tennessee has not elected a Democrat to the U.S. Senate since 1990.' My training data suggests the most recent Democratic U.S. Senate winner in Tennessee was Jim Sasser, who was last reelected in 1988 and left office in 1995. The statement as written is technically accurate (1990 is after 1988), but the phrasing could be clearer: it should specify that no Democrat has been *elected* since the late 1980s (Sasser was the last Democratic senator, but he was elected in 1988, not 1990).",
+          "suggestion": "Verify the exact date of the last Democratic U.S. Senate election win in Tennessee with a source, and clarify whether the statement refers to the last election victory or the last term held.",
+          "severity": "info"
+        }
+      ],
+      "summary": "This is a well-researched and comprehensive profile of the 2026 Tennessee U.S. Senate race. The incumbent (Bill Hagerty) and five Democratic challengers are documented with strong, current sourcing from official campaign sites, government records, and credible news outlets. The profile demonstrates good-faith research effort across 12+ policy domains per candidate, with appropriately marked low-confidence positions where public statements are genuinely unavailable. Language is notably neutral and nonpartisan throughout—no loaded terminology, no asymmetric framing between candidates, and no value-laden adjectives applied selectively. Background information is well-documented and consistent with cited sources. Minor gaps on some candidates' climate/energy and tech positions are appropriately flagged as 'no public position found' rather than asserted as absences, reflecting the agent's transparent search methodology."
+    },
+    {
+      "model": "gemini-3.1-flash-lite-preview",
+      "reviewed_at": "2026-05-18T08:28:47.538500+00:00",
+      "verdict": "approved",
+      "score": 96,
+      "flags": [
+        {
+          "field": "candidates[3].issues.Civil Rights & Equality.stance",
+          "concern": "The entry has a 'low' confidence rating and no sources cited, although the text provides a summary of stances for other issues.",
+          "suggestion": "If no public position exists for this specific category, consider standardizing the empty entries to match the others by explicitly noting 'No public position found' and providing a link to the candidate's general issues page if applicable.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].issues.Tech & AI.stance",
+          "concern": "Entry is missing a source link, even if the stance is 'No public position found'.",
+          "suggestion": "Include the primary campaign website link as a source to verify that a good-faith search was conducted.",
+          "severity": "info"
+        }
+      ],
+      "summary": "This candidate profile is exemplary in its adherence to the epistemological rule, relying exclusively on provided sources to construct stances. The neutrality is consistent across all candidate entries, and the formatting is clean and precise. Background details are well-supported by the linked documents, and the agent correctly identified gaps in information without fabricating claims."
+    },
+    {
+      "model": "grok-4-1-fast-non-reasoning",
+      "reviewed_at": "2026-05-18T08:28:51.059180+00:00",
+      "verdict": "approved",
+      "score": 92,
+      "flags": [
+        {
+          "field": "candidates[6].career_history",
+          "concern": "Jon Henry’s career history section is empty despite campaign website sources being cited elsewhere. The profile notes he is a U.S. Marine Corps veteran and grew up on a family farm, but these details are not captured in the structured career_history array.",
+          "suggestion": "Add the veteran and farm background entries to career_history using the existing campaign site sources for consistency.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].issues.Civil Rights & Equality",
+          "concern": "Civil Miller-Watkins has an empty stance and no sources listed for Civil Rights & Equality, while other issues have campaign-site citations. This is a minor completeness gap rather than an error.",
+          "suggestion": "Either add a brief note that no public position was found after review or remove the empty field if the agent did not search for it.",
+          "severity": "info"
+        }
+      ],
+      "summary": "Strong, well-sourced profile with consistent internal sourcing across all candidates. Candidate backgrounds, issue positions, and career histories align with the cited URLs (official campaign sites, Ballotpedia, news outlets, and congressional records). Neutral language is maintained throughout with no partisan adjectives or asymmetric framing. Low-confidence or \"no public position found\" entries are appropriately documented after apparent searches. Minor gaps exist only for genuinely obscure candidates or issues with limited public material."
+    }
+  ],
   "agent_metrics": {
     "model": "gpt-5.4-mini",
-    "prompt_tokens": 151116,
-    "completion_tokens": 5482,
-    "total_tokens": 156598,
-    "estimated_usd": 0.0232,
+    "prompt_tokens": 1631574,
+    "completion_tokens": 34151,
+    "total_tokens": 1665725,
+    "estimated_usd": 0.3085,
     "model_breakdown": {
-      "gpt-5-nano": {
-        "prompt_tokens": 35917,
-        "completion_tokens": 4832
-      },
       "gpt-5.4-mini": {
-        "prompt_tokens": 115199,
-        "completion_tokens": 650
+        "prompt_tokens": 1491138,
+        "completion_tokens": 28455
+      },
+      "gemini-3.1-flash-lite-preview": {
+        "prompt_tokens": 50562,
+        "completion_tokens": 636
+      },
+      "grok-4-1-fast-non-reasoning": {
+        "prompt_tokens": 41375,
+        "completion_tokens": 642
+      },
+      "claude-haiku-4-5-20251001": {
+        "prompt_tokens": 48499,
+        "completion_tokens": 4418
       }
     },
-    "duration_s": 88.8
+    "duration_s": 502.5
   },
-  "validation_grade": null
+  "validation_grade": {
+    "grade": "A",
+    "score": 92,
+    "passed": true,
+    "summary": "Validated by 3/3 reviewers with an average score of 92/100."
+  },
+  "ballotpedia_url": "https://ballotpedia.org/United_States_Senate_election_in_Tennessee,_2026",
+  "candidate_limit_note": "Candidate list capped at 8 active candidates for this race. Selection is balanced across major-party fields where possible; future primary-specific race pages should split large primary fields.",
+  "register_to_vote_url": "https://ovr.govote.tn.gov/",
+  "how_to_vote_url": "https://sos.tn.gov/elections/guides/how-to-register-to-vote",
+  "schema_version": "0.3"
 }

@@ -1,0 +1,422 @@
+{
+  "id": "fl-house-28-2026",
+  "title": "Florida's 28th Congressional District election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Florida's 28th Congressional District",
+  "state": "Florida",
+  "district": "28th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Florida's 28th Congressional District covers all of Monroe County (the Florida Keys) and southwestern Miami-Dade County, including Homestead and the Hammocks. Incumbent Republican Rep. Carlos Gim\u00e9nez, first elected in 2020 after ousting Democrat Debbie Mucarsel-Powell, is seeking a fourth term. The district has a Cook Partisan Voting Index of R+10 and a heavily Hispanic population (72.7%). Democrats are holding a competitive primary between retired Navy Commander Phil Ehr and former Google executive Hector Mujica, with independent Eddy Rojas also on the general election ballot. A new congressional map passed in April 2026 may reshape the district's boundaries and political dynamics.",
+  "polling": [
+    {
+      "pollster": "EDGE Communications / MDW Communications",
+      "date": "2026-03-01",
+      "sample_size": 514,
+      "matchups": [],
+      "source_url": "https://floridapolitics.com/archives/788279-poll-shows-carlos-gimenezs-lead-narrowing-in-cd-28-amid-economic-policy-headwinds/"
+    }
+  ],
+  "polling_note": "A single early-March 2026 poll was identified from EDGE Communications/MDW Communications. It showed Gim\u00e9nez leading Mujica 46%-40% among 514 likely general election voters, with 14% undecided and a 4.3-point margin of error. No other independent polls were found for this race.",
+  "candidates": [
+    {
+      "name": "Carlos A. Gim\u00e9nez",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Carlos A. Gim\u00e9nez is the incumbent U.S. Representative for Florida's 28th Congressional District, first elected in 2020. Previously, he served as Mayor of Miami-Dade County from 2011 to 2020 and as Miami-Dade County Commissioner. Before entering politics, Gim\u00e9nez was a firefighter and rose to become Fire Chief of the Miami Fire-Rescue Department.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Carlos_A._Gim%C3%A9nez",
+          "type": "website",
+          "title": "Carlos A. Gim\u00e9nez - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Carlos_Gimenez",
+          "type": "website",
+          "title": "Carlos Gimenez - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cookpolitical.com/house/race/482651",
+          "type": "website",
+          "title": "FL-28 2026 - Cook Political Report",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Rep._Carlos_Gimenez_official_photo.jpg/250px-Rep._Carlos_Gimenez_official_photo.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Representing Florida's 26th (2021-2023) and 28th (2023-present) congressional districts",
+          "source": null
+        },
+        {
+          "title": "Mayor",
+          "organization": "Miami-Dade County",
+          "start_year": 2011,
+          "end_year": 2020,
+          "description": "Elected in 2011 special election after recall of predecessor; reelected in 2012 and 2016",
+          "source": null
+        },
+        {
+          "title": "County Commissioner",
+          "organization": "Miami-Dade County Commission",
+          "start_year": 2005,
+          "end_year": 2011,
+          "description": "Represented the 7th district",
+          "source": null
+        },
+        {
+          "title": "City Manager",
+          "organization": "City of Miami",
+          "start_year": 2000,
+          "end_year": 2003,
+          "description": "Appointed by Mayor Joe Carollo",
+          "source": null
+        },
+        {
+          "title": "Fire Chief",
+          "organization": "Miami Fire-Rescue Department",
+          "start_year": 1991,
+          "end_year": 2000,
+          "description": "First Cuban-American to hold the position",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Barry University",
+          "degree": "Bachelor of Public Administration",
+          "field": "Public Administration",
+          "year": 1999,
+          "source": null
+        },
+        {
+          "institution": "Harvard University, John F. Kennedy School of Government",
+          "degree": "Certificate",
+          "field": "Program for Senior Executives in State and Local Government",
+          "year": 1993,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://gimenez.house.gov/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Phil Ehr",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Phil Ehr is a retired U.S. Navy Commander running for the Democratic nomination in Florida's 28th Congressional District. He served 26 years on active duty, advancing from Seaman to Commander, flying reconnaissance missions in the Cold War and combat support in Desert Storm. Ehr previously challenged Rep. Carlos Gim\u00e9nez in 2024 and is focusing his campaign on reducing the cost of living, strengthening Medicare and Social Security, and securing borders with reformed legal immigration.",
+      "summary_sources": [
+        {
+          "url": "https://ehrforcongress.us/meet-phil/",
+          "type": "website",
+          "title": "Meet Phil - Vote Phil Ehr",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Phil_Ehr",
+          "type": "website",
+          "title": "Phil Ehr - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://floridapolitics.com/archives/797750-he-shows-up-phil-ehrs-endorsement-coalition-grows-in-cd-28/",
+          "type": "news",
+          "title": "'He shows up': Phil Ehr's endorsement coalition grows in CD 28",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Commander (Retired)",
+          "organization": "United States Navy",
+          "start_year": 1980,
+          "end_year": 2006,
+          "description": "26-year active duty career; flew reconnaissance in Cold War, combat support in Desert Storm, oversaw combat operations in Allied Force",
+          "source": null
+        },
+        {
+          "title": "Founder / Nonprofit Leader",
+          "organization": "Counter-Disinformation Nonprofit",
+          "start_year": 2018,
+          "end_year": null,
+          "description": "Founded nonprofit to counter disinformation using combat-proven tactics",
+          "source": null
+        },
+        {
+          "title": "Humanitarian Aid Volunteer",
+          "organization": "Ukraine Humanitarian Missions",
+          "start_year": 2022,
+          "end_year": null,
+          "description": "Delivered humanitarian aid in Ukraine",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://ehrforcongress.us/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Hector Mujica",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Hector Mujica is a former Google executive and first-generation Venezuelan American running for the Democratic nomination in Florida's 28th Congressional District. He led Google.org's philanthropic investments across the Americas, deploying nearly $1 billion in grants and impact investments. Mujica previously ran for the U.S. Senate before pivoting to the congressional race, and his campaign emphasizes tackling the affordability crisis, housing costs, and providing what he calls 'pragmatic' leadership.",
+      "summary_sources": [
+        {
+          "url": "https://hectormujica.com/meet-hector/",
+          "type": "website",
+          "title": "Meet Hector - Hector Mujica for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Hector_Mujica",
+          "type": "website",
+          "title": "Hector Mujica - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://floridapolitics.com/archives/788518-hector-mujica-enters-cd-28-race-setting-up-potentially-competitive-challenge-to-carlos-gimenez/",
+          "type": "news",
+          "title": "Hector Mujica enters CD 28 race, setting up potentially competitive challenge to Carlos Gim\u00e9nez",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://fiualumni.com/recognition/5-under-35/hector-mujica-11.html",
+          "type": "website",
+          "title": "Hector Mujica '11 - FIU Alumni",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Head of Economic Opportunity, Americas",
+          "organization": "Google.org",
+          "start_year": 2013,
+          "end_year": 2025,
+          "description": "Led philanthropic investments across the Americas, managing $100M+ grantmaking portfolio for digital economy job pathways",
+          "source": null
+        },
+        {
+          "title": "Investment Banking Analyst",
+          "organization": "Oppenheimer & Co.",
+          "start_year": 2012,
+          "end_year": 2013,
+          "description": "Investment banking",
+          "source": null
+        },
+        {
+          "title": "Constituent Caseworker",
+          "organization": "Office of Congresswoman Debbie Wasserman Schultz",
+          "start_year": 2011,
+          "end_year": 2012,
+          "description": "Constituent services",
+          "source": null
+        },
+        {
+          "title": "Fellow",
+          "organization": "U.S. State Department, Economic Section, Embassy Tokyo",
+          "start_year": 2009,
+          "end_year": 2010,
+          "description": "Bilateral economic relations",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of California, Berkeley, Goldman School of Public Policy",
+          "degree": "Master of Public Affairs",
+          "field": "Public Policy",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Stanford Graduate School of Business",
+          "degree": "Professional Certificate",
+          "field": "Social Entrepreneurship",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Florida International University",
+          "degree": "Bachelor of Business Administration",
+          "field": "International Business",
+          "year": 2011,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://hectormujica.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Eddy Rojas",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Eddy Rojas is an independent candidate running in the general election for Florida's 28th Congressional District. Ballotpedia lists him as running in the general election on November 3, 2026. Limited additional biographical information is publicly available.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Eddy_Rojas",
+          "type": "website",
+          "title": "Eddy Rojas - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Florida",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in Florida",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.localcandidates.org/elections/2026-us-house-of-representatives-fl-28/general",
+          "type": "website",
+          "title": "2026 US House (FL) District 28 General Election",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Florida%27s_28th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:26:32.205114+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 274927,
+    "completion_tokens": 8446,
+    "total_tokens": 283373,
+    "cost_usd": 0.01998207,
+    "cost_source": "provider",
+    "estimated_usd": 0.028598,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 274927,
+        "completion_tokens": 8446
+      }
+    },
+    "duration_s": 155.9
+  }
+}

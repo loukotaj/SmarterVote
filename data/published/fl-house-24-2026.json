@@ -1,0 +1,556 @@
+{
+  "id": "fl-house-24-2026",
+  "title": "Florida's 24th Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Florida's 24th Congressional District",
+  "state": "Florida",
+  "district": "24th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Florida's 24th Congressional District is an open seat following the retirement of Democratic incumbent Frederica Wilson, who has held the seat since 2011. The district, which covers parts of Miami-Dade and Broward counties including Miami Gardens, Hollywood, and Miramar, is heavily Democratic. A crowded Democratic primary featuring several well-known local officials and political heirs will likely determine the next representative. The race takes place under a new congressional map drawn by Governor Ron DeSantis that is expected to give Republicans a 24-4 advantage statewide, but this district remains safely Democratic.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for this race as of mid-2026.",
+  "candidates": [
+    {
+      "name": "Shevrin Jones",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Shevrin Jones is a Democratic candidate for Florida's 24th Congressional District. He served in the Florida House of Representatives from 2012 to 2020 and in the Florida Senate from 2020 to 2026, making history as the first openly gay person elected to the state Senate. He has focused on criminal justice reform, education, and healthcare access, and previously chaired the Miami-Dade County Democratic Party.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Shevrin_Jones",
+          "type": "government",
+          "title": "Shevrin Jones - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://floridapolitics.com/archives/800781-shevrin-jones-launches-cd-24-bid-calls-for-a-new-generation-of-leadership/",
+          "type": "news",
+          "title": "Shevrin Jones launches CD 24 bid, calls for 'a new generation of leadership'",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Shevrin_Jones.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "State Senator",
+          "organization": "Florida Senate",
+          "start_year": 2020,
+          "end_year": 2026,
+          "description": "Represented District 34",
+          "source": null
+        },
+        {
+          "title": "State Representative",
+          "organization": "Florida House of Representatives",
+          "start_year": 2012,
+          "end_year": 2020,
+          "description": "Represented multiple districts",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Florida A&M University",
+          "degree": "Bachelor of Arts",
+          "field": "Political Science",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Florida International University",
+          "degree": "Master of Science",
+          "field": "Higher Education Administration",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Oliver Gilbert III",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Oliver Gilbert III is a Democratic candidate and current Miami-Dade County Commissioner for District 1, a position he has held since 2020. He previously served as Mayor of Miami Gardens from 2012 to 2020 and on the Miami Gardens City Council. He has focused on infrastructure, transit expansion, and economic development, and reported raising $250,000 in the first five days of his campaign.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Oliver_Gilbert",
+          "type": "website",
+          "title": "Oliver Gilbert - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.wlrn.org/government-politics/2026-06-07/oliver-gilbert-iii-joins-crowded-field-of-democrats-vying-for-frederica-wilsons-congressional-seat",
+          "type": "news",
+          "title": "Oliver Gilbert III joins crowded field of Democrats vying for Frederica Wilson's congressional seat",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/OG3_High_Res_headshot.jpg/250px-OG3_High_Res_headshot.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Miami-Dade County Commissioner",
+          "organization": "Miami-Dade County",
+          "start_year": 2020,
+          "end_year": null,
+          "description": "District 1",
+          "source": null
+        },
+        {
+          "title": "Mayor",
+          "organization": "City of Miami Gardens",
+          "start_year": 2012,
+          "end_year": 2020,
+          "description": "Second African-American mayor of Miami Gardens",
+          "source": null
+        },
+        {
+          "title": "City Council Member",
+          "organization": "City of Miami Gardens",
+          "start_year": 2008,
+          "end_year": 2012,
+          "description": "Appointed position",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Florida A&M University",
+          "degree": "Bachelor of Arts",
+          "field": "Criminal Justice",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Miami School of Law",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://olivergilbert.vote/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Jean Monestime",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Jean Monestime is a Democratic candidate and former Miami-Dade County Commissioner. He served on the county commission representing District 2 and has a background in community advocacy and local government. He is one of several Democratic candidates in the crowded primary for this open seat.",
+      "summary_sources": [
+        {
+          "url": "https://floridapolitics.com/archives/801770-10-candidates-qualify-for-race-to-succeed-frederica-wilson-in-cd-24/",
+          "type": "news",
+          "title": "10 candidates qualify for race to succeed Frederica Wilson in CD 24",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Miami-Dade County Commissioner",
+          "organization": "Miami-Dade County",
+          "start_year": null,
+          "end_year": null,
+          "description": "District 2",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Kendrick Meek Jr.",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Kendrick Meek Jr. is a Democratic candidate and attorney. He is the son of former U.S. Representative Kendrick Meek and grandson of former U.S. Representative Carrie Meek, both of whom previously held this congressional seat. His campaign emphasizes continuing his family's legacy of public service.",
+      "summary_sources": [
+        {
+          "url": "https://www.miamiherald.com/news/politics-government/state-politics/article316081324.html",
+          "type": "news",
+          "title": "Kendrick Meek Jr. files to run in Florida's 24th District",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://floridapolitics.com/archives/801770-10-candidates-qualify-for-race-to-succeed-frederica-wilson-in-cd-24/",
+          "type": "news",
+          "title": "10 candidates qualify for race to succeed Frederica Wilson in CD 24",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Attorney",
+          "organization": "Private practice",
+          "start_year": null,
+          "end_year": null,
+          "description": "Practicing attorney",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Rudy Moise",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Rudy Moise is a Democratic candidate, medical doctor, attorney, and U.S. Air Force veteran with the rank of colonel. He has run for Congress previously in Florida's 20th District. His campaign highlights his diverse professional background and commitment to healthcare and veterans' issues.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Rudy_Moise",
+          "type": "website",
+          "title": "Rudy Moise - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://floridapolitics.com/archives/780387-rudy-moise-doctor-lawyer-veteran-self-produced-movie-star-files-to-run-in-cd-20/",
+          "type": "news",
+          "title": "Rudy Moise \u2014 doctor, lawyer, veteran, self-produced movie star",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Colonel",
+          "organization": "United States Air Force Reserve",
+          "start_year": 1997,
+          "end_year": 2013,
+          "description": "Medical officer",
+          "source": null
+        },
+        {
+          "title": "Medical Doctor",
+          "organization": "Private practice",
+          "start_year": null,
+          "end_year": null,
+          "description": "Physician",
+          "source": null
+        },
+        {
+          "title": "Attorney",
+          "organization": "Private practice",
+          "start_year": null,
+          "end_year": null,
+          "description": "Practicing attorney",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Miami",
+          "degree": "Doctor of Medicine",
+          "field": "Medicine",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Miami School of Law",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Christine Sanon-Jules",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Christine Sanon-Jules is a Democratic candidate, business owner, and educator. She emphasizes economic fairness, voting rights, and affordable healthcare. She has also filed to run for Florida State Senate District 34, but is currently a candidate for Congress in this district.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Christine_Alexandria_Sanon-Jules",
+          "type": "government",
+          "title": "Christine Alexandria Sanon-Jules - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://floridapolitics.com/archives/801770-10-candidates-qualify-for-race-to-succeed-frederica-wilson-in-cd-24/",
+          "type": "news",
+          "title": "10 candidates qualify for race to succeed Frederica Wilson in CD 24",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Business Owner",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "Small business owner",
+          "source": null
+        },
+        {
+          "title": "Educator",
+          "organization": "Various schools",
+          "start_year": null,
+          "end_year": null,
+          "description": "Teacher/educator",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Patricia Gonzalez",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Patricia Gonzalez is the Republican candidate for Florida's 24th Congressional District. She has run for this seat in previous election cycles (2022, 2024) and advocates for conservative policies. The district is heavily Democratic, making her a long-shot candidate in the general election.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Patricia_Gonzalez_(Florida)",
+          "type": "government",
+          "title": "Patricia Gonzalez (Florida) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://floridapolitics.com/archives/801770-10-candidates-qualify-for-race-to-succeed-frederica-wilson-in-cd-24/",
+          "type": "news",
+          "title": "10 candidates qualify for race to succeed Frederica Wilson in CD 24",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Andy Daro",
+      "party": "No Party Affiliation",
+      "incumbent": false,
+      "summary": "Andy Daro is an independent (no party affiliation) candidate for Florida's 24th Congressional District. He currently serves as a North Bay Village Commissioner and works in real estate. He is one of two non-Democratic candidates in the race.",
+      "summary_sources": [
+        {
+          "url": "https://floridapolitics.com/archives/801770-10-candidates-qualify-for-race-to-succeed-frederica-wilson-in-cd-24/",
+          "type": "news",
+          "title": "10 candidates qualify for race to succeed Frederica Wilson in CD 24",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.wlrn.org/government-politics/2026-06-07/oliver-gilbert-iii-joins-crowded-field-of-democrats-vying-for-frederica-wilsons-congressional-seat",
+          "type": "news",
+          "title": "Oliver Gilbert III joins crowded field of Democrats vying for Frederica Wilson's congressional seat",
+          "description": null,
+          "last_accessed": "2026-06-14T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Commissioner",
+          "organization": "North Bay Village",
+          "start_year": null,
+          "end_year": null,
+          "description": "City commissioner",
+          "source": null
+        },
+        {
+          "title": "Real Estate Professional",
+          "organization": "Private sector",
+          "start_year": null,
+          "end_year": null,
+          "description": "Real estate",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Florida%27s_24th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:50:43.638768+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 272842,
+    "completion_tokens": 13189,
+    "total_tokens": 286031,
+    "cost_usd": 0.025234721999999998,
+    "cost_source": "provider",
+    "estimated_usd": 0.029324,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 272842,
+        "completion_tokens": 13189
+      }
+    },
+    "duration_s": 218.9
+  }
+}

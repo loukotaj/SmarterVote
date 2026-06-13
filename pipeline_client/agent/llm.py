@@ -10,13 +10,35 @@ from typing import Any, Dict, List, Optional
 from .ballotpedia import lookup_candidate_data as _ballotpedia_lookup
 from .ballotpedia import lookup_election_page as _ballotpedia_election_lookup
 from .cost import accumulate
-from .model_registry import CHEAP_MODEL, DEFAULT_MODEL, NANO_MODEL, normalize_model_id
+from .model_registry import (
+    CHEAP_CLAUDE_MODEL,
+    CHEAP_GEMINI_MODEL,
+    CHEAP_GROK_MODEL,
+    CHEAP_MODEL,
+    DEEPSEEK_FLASH_MODEL,
+    DEFAULT_CLAUDE_MODEL,
+    DEFAULT_GEMINI_MODEL,
+    DEFAULT_GROK_MODEL,
+    DEFAULT_MODEL,
+    NANO_MODEL,
+    NEMOTRON_ULTRA_MODEL,
+    normalize_model_id,
+)
 from .source_types import normalize_source_type
 from .tools import BALLOTPEDIA_ELECTION_TOOL, BALLOTPEDIA_TOOL, FETCH_TOOL, SEARCH_TOOL
 from .utils import _extract_json, make_logger
 from .web_tools import _fetch_page, _page_fetch_log_hint, _serper_search
 
 logger = logging.getLogger("pipeline")
+
+
+CHEAP_TO_DEFAULT_MODEL_FALLBACK = {
+    DEEPSEEK_FLASH_MODEL: NEMOTRON_ULTRA_MODEL,
+    CHEAP_MODEL: DEFAULT_MODEL,
+    CHEAP_CLAUDE_MODEL: DEFAULT_CLAUDE_MODEL,
+    CHEAP_GEMINI_MODEL: DEFAULT_GEMINI_MODEL,
+    CHEAP_GROK_MODEL: DEFAULT_GROK_MODEL,
+}
 
 
 def _provider_usage_cost(usage: Any) -> Optional[float]:
@@ -340,7 +362,17 @@ async def _agent_loop(
     _MAX_JSON_RETRIES = 3
 
     for iteration in range(max_iterations):
-        log("info", f"  [{phase_name}] iteration {iteration + 1}/{max_iterations} — calling {model}...")
+        active_model = model
+        if _json_parse_failures > 0:
+            norm_model = normalize_model_id(model)
+            if norm_model in CHEAP_TO_DEFAULT_MODEL_FALLBACK:
+                active_model = CHEAP_TO_DEFAULT_MODEL_FALLBACK[norm_model]
+                log(
+                    "info",
+                    f"  [{phase_name}] JSON parsing failed previously — elevating model from {model} to {active_model} for retry prompt",
+                )
+
+        log("info", f"  [{phase_name}] iteration {iteration + 1}/{max_iterations} — calling {active_model}...")
 
         if tools_mode:
             search_tools = (
@@ -380,7 +412,7 @@ async def _agent_loop(
 
         t_call = time.perf_counter()
         try:
-            result = await _call_openai(messages, model=model, tools=tools_for_call, max_tokens=max_tokens)
+            result = await _call_openai(messages, model=active_model, tools=tools_for_call, max_tokens=max_tokens)
         except RuntimeError as e:
             if "policy violation" in str(e).lower():
                 log("error", f"  [{phase_name}] policy violation detected; exiting iteration loop")

@@ -1,0 +1,216 @@
+{
+  "id": "tx-house-30-2026",
+  "title": "Texas's 30th Congressional District Election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Texas's 30th Congressional District",
+  "state": "Texas",
+  "district": "30th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "This is an open-seat race for Texas's 30th Congressional District, which covers much of Dallas and southern Dallas County. Incumbent Democrat Jasmine Crockett is retiring to run for the U.S. Senate, creating a rare open-seat contest in one of the most Democratic-leaning districts in Texas (Cook PVI: D+25). The Democratic nominee is Rev. Frederick Haynes III, the longtime senior pastor of Friendship-West Baptist Church and a civil rights leader endorsed by Crockett, while the Republican nominee is Everett Jackson, a small business owner and community organizer who won a primary runoff. Given the district's strong Democratic voting history, the Democratic nominee is heavily favored in the general election.",
+  "polling": [],
+  "polling_note": "No district-specific general election polls were found for Texas's 30th Congressional District. Statewide generic-ballot polls show a close contest between Republicans and Democrats, but the 30th district is considered safely Democratic (Cook PVI: D+25).",
+  "candidates": [
+    {
+      "name": "Frederick Haynes III",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Frederick Douglass Haynes III is the senior pastor of Friendship-West Baptist Church in Dallas, where he has served since 1983 and grown the congregation from fewer than 100 to over 13,000 members. He is a civil rights leader who briefly succeeded Jesse Jackson as CEO of the Rainbow/PUSH Coalition in 2023, and he won the Democratic primary on March 3, 2026, with 72.4% of the vote. Haynes has centered his campaign on health care access, economic equality, voting rights, and abolishing ICE.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Frederick_Haynes_III",
+          "type": "website",
+          "title": "Frederick Haynes III - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-07-20T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.haynesforcongress.com/about",
+          "type": "website",
+          "title": "Who I Am \u2014 HaynesForCongress",
+          "description": null,
+          "last_accessed": "2026-07-20T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.keranews.org/elections-2026/2026-03-04/congress-frederick-haynes-jasmine-crockett-texas-dallas",
+          "type": "news",
+          "title": "Frederick Haynes wins Democratic nomination to replace Jasmine Crockett in U.S. House District 30 - KERA News",
+          "description": null,
+          "last_accessed": "2026-07-20T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/72/Frederick_Haynes_III_at_Calvary_Baptist_Church.png",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Senior Pastor",
+          "organization": "Friendship-West Baptist Church",
+          "start_year": 1983,
+          "end_year": null,
+          "description": "Led congregation from fewer than 100 to over 13,000 members; established community programs including THRIVE Intern and Leadership Program and invested over $3 million in HBCUs.",
+          "source": null
+        },
+        {
+          "title": "President and CEO",
+          "organization": "Rainbow/PUSH Coalition",
+          "start_year": 2023,
+          "end_year": 2023,
+          "description": "Succeeded Rev. Jesse Jackson as leader of the civil rights organization; served for approximately three months.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Bishop College",
+          "degree": "Bachelor of Arts",
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Southwestern Baptist Theological Seminary",
+          "degree": "Master of Divinity",
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Graduate Theological Foundation",
+          "degree": "Doctor of Ministry",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.haynesforcongress.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/haynesforcongress/",
+        "facebook": "https://www.facebook.com/frederick.d.haynes/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Everett Jackson",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Everett Jackson is a small business owner and community organizer from DeSoto, Texas, who defeated Sholdon Daniels in the May 26, 2026 Republican primary runoff to become the Republican nominee. He describes himself as a community leader who understands the struggles of working families and is running on a platform of economic opportunity, protecting families, constitutional values, and national security. Jackson has criticized outgoing Representative Jasmine Crockett for using the district as a platform for national celebrity rather than serving local needs.",
+      "summary_sources": [
+        {
+          "url": "https://www.jacksonfortexas.com/",
+          "type": "website",
+          "title": "Everett Jackson for Congress | Republican for TX-30",
+          "description": null,
+          "last_accessed": "2026-07-20T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.fox4news.com/election/district-30-election-results-may-2026",
+          "type": "news",
+          "title": "U.S. House District 30 election results: Everett Jackson defeats Sholdon Daniels - FOX 4 Dallas-Fort Worth",
+          "description": null,
+          "last_accessed": "2026-07-20T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://jacksonfortexas.com/about",
+          "type": "website",
+          "title": "Meet Everett Jackson - Jackson for Congress",
+          "description": null,
+          "last_accessed": "2026-07-20T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://horizons-cdn.hostinger.com/9033dc26-fee7-4c47-9d57-fcc5abb97653/c7479628beee562cccb32833ec769aa3.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Small Business Owner",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "Operates a small business in the Dallas area.",
+          "source": null
+        },
+        {
+          "title": "Community Organizer",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Active in community initiatives and advocacy in the Dallas area.",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.jacksonfortexas.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/everett.p.jackson/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Texas%27_30th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:46:40.400670+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 265661,
+    "completion_tokens": 5523,
+    "total_tokens": 271184,
+    "cost_usd": 0.016194789999999997,
+    "cost_source": "provider",
+    "estimated_usd": 0.027117,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 265661,
+        "completion_tokens": 5523
+      }
+    },
+    "duration_s": 122.1
+  }
+}

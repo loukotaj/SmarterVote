@@ -256,6 +256,21 @@ export class PipelineApiService {
   }
 
   /**
+   * Prune all finished runs from Firestore history.
+   */
+  async pruneRuns(): Promise<void> {
+    const res = await fetchWithAuth(
+      `${this.apiBase}/runs`,
+      { method: "DELETE" },
+      API_TIMEOUT_SHORT
+    );
+    if (!res.ok) {
+      const errorText = await res.text().catch(() => "Unknown error");
+      throw new Error(`HTTP ${res.status}: ${res.statusText}. ${errorText}`);
+    }
+  }
+
+  /**
    * Get run details
    */
   async getRunDetails(runId: string): Promise<RunInfo> {
@@ -776,6 +791,26 @@ export class PipelineApiService {
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
     return await res.json();
+  }
+
+  async listAdminAgentConversations(): Promise<AdminAgentConversation["conversation"][]> {
+    const res = await fetchWithAuth(
+      `${this.apiBase}/api/admin-agent/conversations`,
+      {},
+      API_TIMEOUT_DEFAULT
+    );
+    if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
+    const data = await res.json();
+    return data.conversations || [];
+  }
+
+  async deleteAdminAgentConversation(conversationId: string): Promise<void> {
+    const res = await fetchWithAuth(
+      `${this.apiBase}/api/admin-agent/conversations/${encodeURIComponent(conversationId)}`,
+      { method: "DELETE" },
+      API_TIMEOUT_DEFAULT
+    );
+    if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
   }
 
 }

@@ -1526,7 +1526,7 @@ def test_list_races_auto_reconciles_stale_running_metadata():
         patch("firestore_helpers._fs_update_race") as mock_update,
     ):
         tc = TestClient(app_module.app)
-        resp = tc.get("/api/races")
+        resp = tc.get("/api/races?reconcile_active=true")
 
     assert resp.status_code == 200
     race = resp.json()["races"][0]

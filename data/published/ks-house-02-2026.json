@@ -1,0 +1,355 @@
+{
+  "id": "ks-house-02-2026",
+  "title": "Kansas's 2nd Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Kansas's 2nd Congressional District",
+  "state": "Kansas",
+  "district": "2nd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Kansas's 2nd Congressional District will be held on November 3, 2026, with primaries on August 4, 2026. The district covers eastern Kansas from Nebraska to Oklahoma, including Topeka, Emporia, Junction City, and Pittsburg, as well as portions of Kansas City and Lawrence. Incumbent Republican Derek Schmidt, first elected in 2024, is seeking a second term after succeeding retiring Rep. Jake LaTurner. He faces a Republican primary challenge from Chad Young, while Democrats Don Coover and Braeden Curwick (though Curwick may have withdrawn) vie for their party's nomination, and Libertarian John Hauer is running in the general election. The race is rated 'Solid R' by major nonpartisan forecasters, reflecting the district's strong Republican lean.",
+  "polling": [],
+  "polling_note": "No publicly available opinion polls were found for this race as of June 2026. The race is rated 'Solid R' by The Cook Political Report, Inside Elections, and Sabato's Crystal Ball.",
+  "candidates": [
+    {
+      "name": "Derek Schmidt",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Derek Schmidt is the incumbent U.S. Representative for Kansas's 2nd Congressional District, first elected in 2024. He previously served as Kansas Attorney General from 2011 to 2023 and in the Kansas State Senate from 2001 to 2011. Schmidt is a fifth-generation Kansan who focuses his campaign on supporting Republican majorities in Congress, border security, lowering costs, and advancing policies aligned with the Trump administration.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Derek_Schmidt",
+          "type": "website",
+          "title": "Derek Schmidt - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://kansasreflector.com/2026/03/12/republican-congressman-files-for-reelection-in-kansas-2nd-district/",
+          "type": "news",
+          "title": "Republican congressman files for reelection in Kansas' 2nd District",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://history.house.gov/People/Listing/S/SCHMIDT,-Derek-(S001228)/",
+          "type": "government",
+          "title": "SCHMIDT, Derek - US House of Representatives History",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Derek_Schmidt.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Representing Kansas's 2nd Congressional District",
+          "source": null
+        },
+        {
+          "title": "Kansas Attorney General",
+          "organization": "State of Kansas",
+          "start_year": 2011,
+          "end_year": 2023,
+          "description": "Chief legal officer of Kansas",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Kansas State Senate",
+          "start_year": 2001,
+          "end_year": 2011,
+          "description": "Represented the 15th district",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Georgetown University Law Center",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": 1993,
+          "source": null
+        },
+        {
+          "institution": "University of Kansas",
+          "degree": "B.S.",
+          "field": "Journalism",
+          "year": 1990,
+          "source": null
+        },
+        {
+          "institution": "University of Oxford",
+          "degree": "Diploma",
+          "field": "Legal Studies",
+          "year": 1992,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://derekschmidt.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Chad Young",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Chad Young is a Republican candidate running for the U.S. House in Kansas's 2nd Congressional District. A Lawrence resident and founder of the Life Skills Programs, a nonprofit for troubled youths, Young previously ran for this seat in 2024. His campaign platform focuses on abolishing federal agencies including the IRS, FBI, and CIA, eliminating taxes, and reducing the size of the federal government.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Chad_Young_(Kansas)",
+          "type": "website",
+          "title": "Chad Young (Kansas) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://kansasreflector.com/2024/06/26/republican-congressional-candidate-plans-to-abolish-taxes-agencies-and-anything-big/",
+          "type": "news",
+          "title": "Republican congressional candidate plans to abolish taxes, agencies and 'anything big'",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Kansas",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in Kansas",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Founder",
+          "organization": "Life Skills Programs",
+          "start_year": null,
+          "end_year": null,
+          "description": "Nonprofit for troubled youths based in Rogers, Arkansas and Pratt, Kansas",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Don Coover",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Don Coover is a Democratic candidate for the U.S. House in Kansas's 2nd Congressional District. A West Point graduate, U.S. Army veteran (military intelligence pilot), and veterinarian who earned his degree from Kansas State University, Coover runs a cattle genetics company and veterinary practice on his ranch in Galesburg, Kansas. His campaign focuses on addressing the rising cost of living, opposing tariffs that harm agriculture, protecting rural hospitals, and reducing the national debt.",
+      "summary_sources": [
+        {
+          "url": "https://doncooverforcongress.com/meet-don/",
+          "type": "website",
+          "title": "About Don - Don Coover for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://kansasreflector.com/2025/09/09/southeast-kansas-farmer-challenges-republican-incumbent-for-2nd-district-congressional-seat/",
+          "type": "news",
+          "title": "Southeast Kansas farmer challenges Republican incumbent for 2nd District congressional seat",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Don_Coover",
+          "type": "website",
+          "title": "Don Coover - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Rancher & Veterinarian",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "Owns a beef cattle genetics company and veterinary practice in southeast Kansas",
+          "source": null
+        },
+        {
+          "title": "U.S. Army Captain",
+          "organization": "United States Army",
+          "start_year": null,
+          "end_year": null,
+          "description": "Military intelligence officer and pilot; served in Korea",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Kansas State University",
+          "degree": "D.V.M.",
+          "field": "Veterinary Medicine",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "United States Military Academy at West Point",
+          "degree": "B.S.",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://doncooverforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "John Hauer",
+      "party": "Libertarian",
+      "incumbent": false,
+      "summary": "John Hauer is the Libertarian Party candidate for the U.S. House in Kansas's 2nd Congressional District. He previously ran as the Libertarian nominee for the same seat in the 2024 general election, receiving approximately 3% of the vote. The Libertarian Party nominates by convention rather than primary, and Hauer is listed on Ballotpedia as running in the 2026 general election.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/John_Hauer",
+          "type": "website",
+          "title": "John Hauer - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.thegreenpapers.com/G26/KS",
+          "type": "website",
+          "title": "Kansas 2026 General Election - The Green Papers",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Kansas",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in Kansas",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Kansas%27_2nd_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:14:04.089460+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 262006,
+    "completion_tokens": 8757,
+    "total_tokens": 270763,
+    "cost_usd": 0.019924928,
+    "cost_source": "provider",
+    "estimated_usd": 0.027393,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 262006,
+        "completion_tokens": 8757
+      }
+    },
+    "duration_s": 160.0
+  }
+}

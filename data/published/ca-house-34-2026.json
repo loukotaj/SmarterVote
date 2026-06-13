@@ -1,0 +1,261 @@
+{
+  "id": "ca-house-34-2026",
+  "title": "California's 34th Congressional District General Election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "California's 34th Congressional District",
+  "state": "California",
+  "district": "34th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 general election for California's 34th Congressional District pits seven-term Democratic incumbent Jimmy Gomez against Democratic challenger Angela Gonzales-Torres, a progressive community advocate endorsed by Justice Democrats. The district, which includes downtown Los Angeles, Boyle Heights, East Los Angeles, and Highland Park, is heavily Democratic (Cook Partisan Voting Index: D+28) and rated 'Solidly Democratic' by the Cook Political Report. The race reflects a progressive-versus-establishment dynamic within the Democratic Party, with Gomez emphasizing his seniority and committee positions (Ways and Means) while Gonzales-Torres calls for a more aggressive progressive agenda, including Medicare for All and abolishing ICE.",
+  "polling": [],
+  "polling_note": "No public general election polls were found for this race as of mid-June 2026. The Cook Political Report rates the district as Solidly Democratic.",
+  "candidates": [
+    {
+      "name": "Jimmy Gomez",
+      "party": "Democratic Party",
+      "incumbent": true,
+      "summary": "Jimmy Gomez has represented California's 34th Congressional District since 2017. A former labor organizer and California State Assemblymember, he serves on the House Ways and Means Committee and is a founding member of the Medicare for All Caucus and the Congressional Progressive Caucus. Gomez emphasizes his progressive legislative record, including work on renters' rights, paid family leave, and climate change legislation.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Jimmy_Gomez",
+          "type": "website",
+          "title": "Jimmy Gomez - Wikipedia",
+          "description": null,
+          "last_accessed": "2025-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://gomez.house.gov/biography/",
+          "type": "government",
+          "title": "Biography | U.S. Representative Jimmy Gomez",
+          "description": null,
+          "last_accessed": "2025-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Jimmy_Gomez_official_portrait_%28light_crop%29.jpg/250px-Jimmy_Gomez_official_portrait_%28light_crop%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2017,
+          "end_year": null,
+          "description": "Represents California's 34th Congressional District; serves on Ways and Means Committee and as Deputy Whip for Policy of the Democratic Caucus",
+          "source": null
+        },
+        {
+          "title": "Member of the California State Assembly",
+          "organization": "California State Assembly",
+          "start_year": 2012,
+          "end_year": 2017,
+          "description": "Represented the 51st Assembly District; served as Chair of the Assembly Appropriations Committee and Majority Whip",
+          "source": null
+        },
+        {
+          "title": "Legislative and Political Director",
+          "organization": "United Nurses Associations of California/Union of Health-Care Professionals (UNAC/UHCP)",
+          "start_year": 2009,
+          "end_year": 2012,
+          "description": "Labor organizer and political director",
+          "source": null
+        },
+        {
+          "title": "Political Representative",
+          "organization": "American Federation of State, County, and Municipal Employees (AFSCME)",
+          "start_year": null,
+          "end_year": null,
+          "description": "Political representative for the labor union",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Harvard Kennedy School",
+          "degree": "Master of Arts",
+          "field": "Public Policy",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of California, Los Angeles",
+          "degree": "Bachelor of Arts",
+          "field": "Political Science",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Riverside Community College",
+          "degree": null,
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://gomez.house.gov/",
+          "title": "Official House Website",
+          "type": "other"
+        },
+        {
+          "url": "https://jimmygomezforcongress.com/",
+          "title": "Campaign Website",
+          "type": "other"
+        }
+      ],
+      "website": "https://jimmygomezforcongress.com/",
+      "social_media": {
+        "twitter": "https://x.com/RepJimmyGomez",
+        "facebook": "https://www.facebook.com/RepJimmyGomez/",
+        "instagram": "https://www.instagram.com/jimmygomezca/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Angela Gonzales-Torres",
+      "party": "Democratic Party",
+      "incumbent": false,
+      "summary": "Angela Gonzales-Torres is a community advocate and progressive challenger endorsed by Justice Democrats. A lifelong resident of Highland Park, she has served as President of the Historic Highland Park Neighborhood Council and as an academic counselor at Pasadena City College's CORE program, supporting formerly incarcerated students. Her campaign focuses on getting corporate money out of politics, Medicare for All, a Green New Deal, and ending U.S. funding for weapons used in foreign wars.",
+      "summary_sources": [
+        {
+          "url": "https://www.angela4congress.com/about",
+          "type": "website",
+          "title": "About \u2014 Angela Gonzales-Torres for Congress",
+          "description": null,
+          "last_accessed": "2025-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://justicedemocrats.com/candidate/angela-gonzales-torres/",
+          "type": "website",
+          "title": "Angela Gonzales-Torres - Justice Democrats",
+          "description": null,
+          "last_accessed": "2025-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.theoccidentalnews.com/community/2026/03/04/three-ca-34-contenders-share-campaign-priorities/2916977",
+          "type": "news",
+          "title": "Three CA-34 contenders share campaign priorities - The Occidental",
+          "description": null,
+          "last_accessed": "2025-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "President",
+          "organization": "Historic Highland Park Neighborhood Council",
+          "start_year": null,
+          "end_year": null,
+          "description": "Led community-driven efforts around housing displacement and public safety",
+          "source": null
+        },
+        {
+          "title": "Advocate for Equity & Justice Academic Counselor",
+          "organization": "Pasadena City College CORE Program",
+          "start_year": null,
+          "end_year": null,
+          "description": "Supports formerly incarcerated and system-impacted students in navigating higher education",
+          "source": null
+        },
+        {
+          "title": "Program Director",
+          "organization": "Permanent Affordable Housing Project, Altadena",
+          "start_year": null,
+          "end_year": null,
+          "description": "Assisting elderly tenants in recovery efforts following fires",
+          "source": null
+        },
+        {
+          "title": "Regional Representative",
+          "organization": "Metro Public Safety Advisory Committee",
+          "start_year": null,
+          "end_year": null,
+          "description": "Amplified community voices at regional level on public safety issues",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://www.angela4congress.com/",
+          "title": "Campaign Website",
+          "type": "other"
+        },
+        {
+          "url": "https://justicedemocrats.com/candidate/angela-gonzales-torres/",
+          "title": "Justice Democrats Candidate Profile",
+          "type": "other"
+        }
+      ],
+      "website": "https://www.angela4congress.com/",
+      "social_media": {
+        "twitter": "https://x.com/Angela4CA",
+        "instagram": "https://www.instagram.com/angela4congress/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/California%27s_34th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:09:25.183835+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 194786,
+    "completion_tokens": 7853,
+    "total_tokens": 202639,
+    "cost_usd": 0.01684428,
+    "cost_source": "provider",
+    "estimated_usd": 0.020628,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 194786,
+        "completion_tokens": 7853
+      }
+    },
+    "duration_s": 121.6
+  }
+}

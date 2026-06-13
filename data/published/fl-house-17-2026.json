@@ -1,0 +1,330 @@
+{
+  "id": "fl-house-17-2026",
+  "title": "Florida's 17th Congressional District Election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Florida's 17th Congressional District",
+  "state": "Florida",
+  "district": "17th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Florida's 17th Congressional District, covering parts of Sarasota, Charlotte, and Lee Counties along the southwest Gulf Coast, is holding its regularly scheduled election for the U.S. House of Representatives in 2026. Incumbent Republican Greg Steube, first elected in 2018, is seeking a fifth term in a district rated 'Solid R' by the Cook Political Report. Two Democrats\u2014Matthew Montavon and Allen Spence\u2014are competing in the August 18 Democratic primary to challenge Steube, while Michael Quirk is running as a No Party Affiliation candidate in the general election. The race takes place under a new congressional map signed into law in May 2026 that could shift the partisan balance of several Florida districts.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for this specific race as of June 2026.",
+  "candidates": [
+    {
+      "name": "Greg Steube",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Greg Steube is the incumbent Republican U.S. Representative for Florida's 17th Congressional District, first elected in 2018. He previously served in the Florida State Senate (2016-2018) and the Florida House of Representatives (2010-2016), and served in the U.S. Army JAG Corps from 2004 to 2008. Steube is a staunch conservative and ally of President Donald Trump, with a solidly Republican voting record.",
+      "summary_sources": [
+        {
+          "url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89179",
+          "type": "government",
+          "title": "Florida Division of Elections - Greg Steube Candidate Detail",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Greg_Steube",
+          "type": "website",
+          "title": "Greg Steube - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cookpolitical.com/house/race/482596",
+          "type": "news",
+          "title": "FL-17 2026 - Cook Political Report",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Greg_Steube.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Representing Florida's 17th Congressional District",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Florida State Senate",
+          "start_year": 2016,
+          "end_year": 2018,
+          "description": "Represented parts of Sarasota and Charlotte counties",
+          "source": null
+        },
+        {
+          "title": "State Representative",
+          "organization": "Florida House of Representatives",
+          "start_year": 2010,
+          "end_year": 2016,
+          "description": "Represented parts of Sarasota County",
+          "source": null
+        },
+        {
+          "title": "Judge Advocate General (JAG)",
+          "organization": "United States Army",
+          "start_year": 2004,
+          "end_year": 2008,
+          "description": "Served as a military attorney",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Florida",
+          "degree": "B.A.",
+          "field": "Political Science",
+          "year": 2000,
+          "source": null
+        },
+        {
+          "institution": "University of Florida Levin College of Law",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": 2003,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Matthew Montavon",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Matthew Montavon is a Democratic candidate for U.S. House in Florida's 17th Congressional District. A Sarasota resident, he is running on a platform focused on defending democratic institutions, lowering costs for working families, and reforming immigration policies. He declared his candidacy in September 2025 and qualified for the ballot via petition.",
+      "summary_sources": [
+        {
+          "url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89451",
+          "type": "government",
+          "title": "Florida Division of Elections - Matthew Montavon Candidate Detail",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Matthew_Montavon",
+          "type": "website",
+          "title": "Matthew Montavon - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.montavonforcongress.com/",
+          "type": "website",
+          "title": "Montavon for Congress - Official Campaign Website",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Matthew_Montavon.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Candidate for U.S. House",
+          "organization": "Montavon for Congress",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Running for Florida's 17th Congressional District",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.montavonforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Allen L. Spence Jr.",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Allen Spence is a Democratic candidate for U.S. House in Florida's 17th Congressional District. He has over 20 years of experience in broker-dealer operations and financial technology. A longtime Florida resident who grew up in Fort Myers, Spence previously considered himself a Republican but changed his affiliation following the January 6, 2021 attack on the U.S. Capitol. He is running on a platform focused on economic prosperity, protecting Medicare and Social Security, and government accountability.",
+      "summary_sources": [
+        {
+          "url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89252",
+          "type": "government",
+          "title": "Florida Division of Elections - Allen Spence Candidate Detail",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.spence2026.com/about",
+          "type": "website",
+          "title": "About Allen - Spence for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Allen_Spence",
+          "type": "website",
+          "title": "Allen Spence - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Financial Services Professional",
+          "organization": "Multiple financial technology firms",
+          "start_year": 2005,
+          "end_year": null,
+          "description": "Over 20 years in broker-dealer operations, trade execution, and regulatory compliance",
+          "source": null
+        },
+        {
+          "title": "Candidate for U.S. House",
+          "organization": "Spence for Congress",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Running for Florida's 17th Congressional District",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.spence2026.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Michael J. Quirk",
+      "party": "No Party Affiliation",
+      "incumbent": false,
+      "summary": "Michael Quirk is a No Party Affiliation candidate for U.S. House in Florida's 17th Congressional District. A Sarasota resident, he qualified for the general election ballot by paying the qualifying fee in June 2026. Limited public information is available about his background and policy platform.",
+      "summary_sources": [
+        {
+          "url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=90646",
+          "type": "government",
+          "title": "Florida Division of Elections - Michael Quirk Candidate Detail",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.thegreenpapers.com/G26/FL",
+          "type": "news",
+          "title": "Florida 2026 General Election - The Green Papers",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Florida%27s_17th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:25:41.588305+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 214360,
+    "completion_tokens": 11303,
+    "total_tokens": 225663,
+    "cost_usd": 0.013927564000000002,
+    "cost_source": "provider",
+    "estimated_usd": 0.023223,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 214360,
+        "completion_tokens": 11303
+      }
+    },
+    "duration_s": 217.7
+  }
+}

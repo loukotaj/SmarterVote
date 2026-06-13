@@ -4,7 +4,7 @@
   "office": "Governor of New York",
   "jurisdiction": "New York",
   "election_date": "2026-11-03",
-  "description": "The 2026 New York governor’s race will decide control of the state’s executive branch in a large, heavily Democratic state where the governor shapes the budget, housing, transit, public safety, and responses to federal policy. The contest is notable for a Democratic incumbent, Kathy Hochul, facing a primary challenge from Lt. Gov. Antonio Delgado and a potential Republican challenge from Nassau County Executive Bruce Blakeman, with affordability, crime, immigration, and state-federal conflict likely to be central themes.",
+  "description": "The 2026 New York governor’s race will elect the state’s chief executive, who oversees the budget, agencies, and major policy areas including housing, transit, public safety, and the state’s response to federal actions. New York is a heavily Democratic state, so the race is shaped by the party’s primary as well as the general election. Incumbent Gov. Kathy Hochul is the central Democratic figure, while Republicans are looking to make the contest competitive with Nassau County Executive Bruce Blakeman. Key issues in public discussion include affordability, crime, immigration, and how Albany should respond to Washington.",
   "polling": [
     {
       "pollster": "Siena College Research Institute",
@@ -131,17 +131,17 @@
       "name": "Kathy Hochul",
       "party": "Democratic",
       "incumbent": true,
-      "summary": "Kathy Hochul is the incumbent governor of New York and has centered her recent agenda on affordability, public safety, housing, childcare, and transit. In April 2025, she announced agreement on the FY 2026 state budget, highlighting tax cuts, inflation refund checks, expanded child tax credits, and new spending on childcare, schools, and subway safety.",
+      "summary": "Kathy Hochul is the incumbent governor of New York, first taking office in 2021. Her public agenda has emphasized affordability, public safety, housing, childcare, and economic development, and she is seeking another term in 2026.",
       "summary_sources": [
         {
-          "url": "https://www.governor.ny.gov/news/governor-hochul-announces-agreement-fy-2026-state-budget",
-          "type": "official",
-          "title": "Governor Hochul Announces Agreement on FY 2026 State Budget"
+          "url": "https://ballotpedia.org/Kathy_Hochul",
+          "type": "ballotpedia",
+          "title": "Kathy Hochul - Ballotpedia"
         },
         {
-          "url": "https://sri.siena.edu/2026/02/03/hochul-with-her-best-ever-favorability-rating-49-40-continues-to-hold-commanding-leads-over-blakeman-54-28-among-dems-delgado-64-11/",
-          "type": "news",
-          "title": "Siena Research Institute poll release"
+          "url": "https://www.governor.ny.gov/news/governor-kathy-hochuls-2026-state-state-your-family-your-future-my-fight",
+          "type": "official",
+          "title": "Governor Kathy Hochul's 2026 State of the State - NY.Gov"
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/ad05paDl_400x400.jpg",
@@ -203,28 +203,304 @@
           "year": 1980
         }
       ],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
+      "donor_summary": "OpenSecrets shows Kathy Hochul’s federal and officeholder fundraising has been dominated by real estate, securities & investment, and lawyers/law firms, with additional support from beer/wine/liquor interests. OpenSecrets’ 2023 officeholder page says she raised about $10.8M in that cycle, and reporting in 2025–2026 says her gubernatorial war chest reached roughly $20M, with notable donors including Illinois Gov. JB Pritzker and Manhattan landlord Arnold Gumowitz. Sources: OpenSecrets and contemporaneous news coverage.",
+      "donor_source_url": "https://www.opensecrets.org/officeholders/kathy-hochul/summary?cycle=2024&id=4758179",
+      "voting_summary": "Hochul is an incumbent governor, not a legislator, so there is no legislative voting record to report. Her comparable governing record is her executive action as governor, including housing initiatives and climate-policy actions such as announcing executive housing measures and a plan to expand climate-friendly homes; these actions indicate a policy focus on housing supply and climate/energy policy. Sources: New York Governor’s office and Ballotpedia.",
+      "voting_source_url": "https://www.governor.ny.gov/programs/taking-executive-action-housing",
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Kathy_Hochul",
+          "title": "Kathy Hochul - Ballotpedia",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Kathy_Hochul",
+          "title": "Kathy Hochul - Wikipedia",
+          "type": "wiki"
+        },
+        {
+          "url": "https://www.opensecrets.org/officeholders/kathy-hochul/summary?cycle=2024&id=4758179",
+          "title": "Kathy Hochul Money Profile - OpenSecrets",
+          "type": "finance"
+        },
+        {
+          "url": "https://www.opensecrets.org/officeholders/kathy-hochul/industries?cycle=2023&id=4758179",
+          "title": "Kathy Hochul Top Industries - OpenSecrets",
+          "type": "finance"
+        },
+        {
+          "url": "https://www.governor.ny.gov/",
+          "title": "Office of the Governor of New York",
+          "type": "official"
+        },
+        {
+          "url": "https://www.governor.ny.gov/programs/taking-executive-action-housing",
+          "title": "Taking Executive Action on Housing",
+          "type": "official"
+        },
+        {
+          "url": "https://www.governor.ny.gov/news/governor-hochul-announces-plan-achieve-2-million-climate-friendly-homes-2030",
+          "title": "Governor Hochul Announces Plan to Achieve 2 Million Climate-Friendly Homes by 2030",
+          "type": "news"
+        },
+        {
+          "url": "https://justfacts.votesmart.org/candidate/129238/kathy-hochul",
+          "title": "Kathy Hochul - Vote Smart",
+          "type": "votesmart"
+        }
+      ],
+      "issues": {
+        "Healthcare": {
+          "stance": "Hochul says she wants to make health care more affordable and protect access to coverage, including proposals in her 2026 State of the State agenda to lower costs and strengthen the health-care system. Her administration has also announced new affordable health care laws and additional health-system investments.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.governor.ny.gov/news/governor-kathy-hochuls-2026-state-state-your-family-your-future-my-fight",
+              "type": "official",
+              "title": "Governor Kathy Hochul's 2026 State of the State - NY.Gov",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://www.governor.ny.gov/news/new-year-new-laws-governor-hochul-announces-affordable-health-care-laws-going-effect-january-1",
+              "type": "official",
+              "title": "New Year, New Laws: Governor Hochul Announces Affordable Health Care Laws Going Into Effect January 1",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://www.governor.ny.gov/news/governor-hochul-unveils-new-initiatives-strengthen-new-yorks-health-care-system-drive-down",
+              "type": "official",
+              "title": "Governor Hochul Unveils New Initiatives to Strengthen New York's Health Care System and Drive Down Costs",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Hochul's economic agenda emphasizes affordability, tax relief, and targeted state investment in sectors such as semiconductors, quantum technology, biotechnology, and AI. She also highlights workforce development and support for small businesses as part of her job-growth strategy.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.governor.ny.gov/news/governor-hochul-unveils-proposals-fuel-innovation-and-create-good-paying-jobs",
+              "type": "official",
+              "title": "Governor Hochul Unveils Proposals to Fuel Innovation and Create Good-Paying Jobs",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://www.governor.ny.gov/programs/fy-2026-executive-budget",
+              "type": "official",
+              "title": "FY 2026 Executive Budget",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Hochul supports continuing New York's clean-energy transition while adjusting implementation to address affordability and utility costs. Her administration has paired climate goals with ratepayer protections, energy-efficiency investments, and support for a broader energy mix that includes renewables and nuclear power.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.governor.ny.gov/news/icymi-governor-hochuls-op-ed-empire-report-climate-action-and-affordability-can-and-must-go",
+              "type": "official",
+              "title": "ICYMI: Governor Hochul's Op-Ed in Empire Report: Climate Action and Affordability Can and Must Go Together",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://www.governor.ny.gov/news/governor-hochul-unveils-ratepayer-protection-plan-hold-energy-companies-accountable-and-ensure",
+              "type": "official",
+              "title": "Governor Hochul unveils Ratepayer Protection Plan to hold energy companies accountable and ensure",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            }
+          ]
+        },
+        "Reproductive Rights": {
+          "stance": "Hochul supports abortion access and broader reproductive-health protections in New York. She has signed legislation and announced funding to protect providers, expand access to abortion care, and reinforce New York's status as a safe haven for reproductive health care.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.governor.ny.gov/news/protecting-reproductive-freedom-governor-hochul-signs-legislation-affirming-new-yorks-status",
+              "type": "official",
+              "title": "Protecting Reproductive Freedom: Governor Hochul Signs Legislation Affirming New York’s Status as a Safe Haven for Reproductive Health Care",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://www.governor.ny.gov/news/governor-hochul-announces-new-funding-opportunity-abortion-health-care-services",
+              "type": "official",
+              "title": "Governor Hochul Announces New Funding Opportunity for Abortion Health Care Services",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Hochul supports limiting state and local cooperation with federal immigration enforcement in non-criminal matters and protecting immigrant New Yorkers from federal overreach. Her 2026 proposals also emphasize sensitive-location protections and access to public education for immigrant students.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.governor.ny.gov/news/keeping-new-yorkers-safe-governor-hochul-announces-expanded-proposal-protect-new-yorkers",
+              "type": "official",
+              "title": "Keeping New Yorkers Safe: Governor Hochul Announces Expanded Proposal to Protect New Yorkers Against ICE",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://www.governor.ny.gov/news/keeping-new-yorkers-safe-governor-hochul-introduces-local-cops-local-crimes-act-stop-ice-co",
+              "type": "official",
+              "title": "Keeping New Yorkers Safe: Governor Hochul Introduces the Local Cops, Local Crimes Act",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            }
+          ]
+        },
+        "Guns & Safety": {
+          "stance": "Hochul supports stricter gun-safety laws and public-safety enforcement in New York, including measures targeting ghost guns, 3D-printed firearms, and rapid-conversion devices. Her administration has also tied gun policy to subway and street safety investments.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.governor.ny.gov/news/keeping-new-yorkers-safe-governor-hochul-unveils-plan-strengthen-public-safety-and-make-our",
+              "type": "official",
+              "title": "Keeping New Yorkers Safe: Governor Hochul Unveils Plan to Strengthen Public Safety and Make Our Streets and Subways Safer",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://spectrumlocalnews.com/nys/central-ny/politics/2026/01/07/hochul-proposes-bills-to-crack-down-on-3d-printed-guns",
+              "type": "news",
+              "title": "Hochul proposes bills to crack down on 3D-printed guns",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Hochul has expressed support for Ukraine and for Israel's security, while also emphasizing humanitarian concerns. Her public statements and state actions have included support for Ukrainian refugees and other Ukraine-related measures.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.governor.ny.gov/keywords/ukraine",
+              "type": "official",
+              "title": "Ukraine | Governor Kathy Hochul | New York State",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://www.reuters.com/world/us/new-york-governor-apologizes-after-implying-israel-is-justified-destroy-gaza-2024-02-17/",
+              "type": "news",
+              "title": "Reuters: New York governor apologizes after implying Israel is justified to destroy Gaza",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            }
+          ]
+        },
+        "Social Justice": {
+          "stance": "Hochul's agenda includes social-service, civil-rights, and equity-oriented policies such as hunger relief, mental health access, housing stability, and support for immigrant communities. She has also used state actions and proclamations to highlight protections for LGBTQ New Yorkers and other groups.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.governor.ny.gov/news/governor-kathy-hochuls-2026-state-state-your-family-your-future-my-fight",
+              "type": "official",
+              "title": "Governor Kathy Hochul's 2026 State of the State - NY.Gov",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://www.governor.ny.gov/news/governor-hochul-issues-proclamation-designating-march-31-transgender-day-visibility",
+              "type": "official",
+              "title": "Governor Hochul Issues Proclamation Designating March 31 as Transgender Day of Visibility",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Hochul supports expanding early-childhood programs, improving reading and math instruction, and investing in teacher pipelines and higher-education access. Her 2026 agenda also includes tutoring, literacy reforms, and broader student-support initiatives.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.governor.ny.gov/programs/back-basics-reading-plan",
+              "type": "official",
+              "title": "Back to Basics Reading Plan",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://www.governor.ny.gov/sites/default/files/2026-01/2026StateoftheStateBook.pdf",
+              "type": "official",
+              "title": "2026 State of the State Book",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://www.suny.edu/suny-news/press-releases/1-26/1-28-26/reading.html",
+              "type": "official",
+              "title": "SUNY to Adopt Science of Reading Policy",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "Hochul supports a safety-focused AI policy agenda centered on transparency, consumer protection, and workforce readiness. She has signed AI-related legislation, proposed labeling and disclosure requirements, and expanded AI training for the state workforce.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.governor.ny.gov/news/governor-hochul-signs-nation-leading-legislation-require-ai-frameworks-ai-frontier-models",
+              "type": "official",
+              "title": "Governor Hochul Signs Nation-Leading Legislation to Require AI Frameworks for AI Frontier Models",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://www.governor.ny.gov/news/governor-hochul-unveils-proposals-protect-consumers-and-workers",
+              "type": "official",
+              "title": "Governor Hochul Unveils Proposals to Protect Consumers and Workers",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://www.governor.ny.gov/news/governor-hochul-delivers-artificial-intelligence-training-tool-new-york-state-workforce",
+              "type": "official",
+              "title": "Governor Hochul Delivers Artificial Intelligence Training Tool to the New York State Workforce",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            }
+          ]
+        },
+        "Election Reform": {
+          "stance": "Hochul supports expanding voting access and updating election administration in New York, including early voting, mail voting, and same-day registration proposals. She has signed voting-rights legislation and continued to back related reforms.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.democracydocket.com/news-alerts/new-york-gov-kathy-hochul-signs-package-of-voting-rights-laws/",
+              "type": "news",
+              "title": "New York Gov. Kathy Hochul Signs Package of Voting Rights Laws",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://www.brennancenter.org/our-work/analysis-opinion/new-york-state-governor-signs-voting-and-election-administration-reform",
+              "type": "analysis",
+              "title": "New York State Governor Signs Voting and Election Administration Reform",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Hochul supports changes to New York's land-use and environmental review process to speed housing and infrastructure projects while preserving core environmental protections. Her 'Let Them Build' agenda seeks clearer timelines and fewer barriers for projects with limited environmental impact.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.governor.ny.gov/news/governor-hochul-joins-capital-region-leaders-highlight-let-them-build-agenda-and-tour-mixed",
+              "type": "official",
+              "title": "Governor Hochul Joins Capital Region Leaders to Highlight Let Them Build Agenda and Tour Mixed-income Housing Project Under Construction",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://www.governor.ny.gov/news/governor-hochul-rallies-let-them-build-agenda-support-grows-across-state",
+              "type": "official",
+              "title": "Governor Hochul Rallies for Let Them Build Agenda as Support Grows Across the State",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            }
+          ]
+        }
+      }
     },
     {
       "name": "Antonio Delgado",
       "party": "Democratic",
       "incumbent": false,
-      "summary": "Antonio Delgado is New York’s lieutenant governor and is challenging Kathy Hochul for the Democratic nomination for governor. In a July 2025 interview, he said he entered the race because he believed Hochul had not used him in the role as promised and because he wanted new leadership in Albany.",
+      "summary": "Antonio Delgado is New York’s lieutenant governor and a former member of Congress from the Hudson Valley. He launched a 2026 Democratic primary challenge to Gov. Kathy Hochul before later ending his campaign.",
       "summary_sources": [
         {
-          "url": "https://delgadoforny.com/what-lt-gov-antonio-delgado-says-led-to-him-challenging-hochul-in-2026/",
+          "url": "https://www.governor.ny.gov/lt-governor-antonio-delgado",
           "type": "official",
-          "title": "What Lt. Gov. Antonio Delgado says led to him challenging Hochul in 2026"
+          "title": "Antonio Delgado - Governor Kathy Hochul - NY.Gov"
         },
         {
-          "url": "https://sri.siena.edu/2026/02/03/hochul-with-her-best-ever-favorability-rating-49-40-continues-to-hold-commanding-leads-over-blakeman-54-28-among-dems-delgado-64-11/",
+          "url": "https://www.apnews.com/article/new-york-governor-race-delgado-d8397547b1f73f8f557e24809e297677",
           "type": "news",
-          "title": "Siena Research Institute poll release"
+          "title": "Lt. Gov. Delgado ends campaign for New York governor"
         }
       ],
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/LG_Antonio_Delgado_Portrait.jpg/500px-LG_Antonio_Delgado_Portrait.jpg",
@@ -285,28 +561,295 @@
           "year": 1999
         }
       ],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
+      "donor_summary": "OpenSecrets’ congressional profile shows Antonio Delgado’s historical fundraising was driven by individual donors and PAC support typical of a House campaign, with his 2021–2022 federal cycle profile available for detailed industry and contributor breakdowns. For his 2026 statewide run, reporting and campaign disclosures cited by news outlets put him at roughly $1.5M raised in one recent filing period and about $3.1M total contributions on Transparency USA; his campaign also said more than 80% of donations were small-dollar. Sources: OpenSecrets, Transparency USA, and campaign/news reporting.",
+      "donor_source_url": "https://www.opensecrets.org/members-of-congress/antonio-delgado/summary?cid=N00040741",
+      "voting_summary": "Delgado is a former member of Congress, so he does have a legislative voting record. Vote Smart and congressional coverage describe him as relatively moderate-to-progressive within the Democratic caucus, and his public statements note he co-sponsored and voted for the Equality Act; GovTrack and Congress.gov confirm his House service from 2019 to 2022. Sources: Vote Smart, GovTrack, and Congress.gov.",
+      "voting_source_url": "https://www.govtrack.us/congress/members/antonio_delgado/412805",
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Antonio_Delgado_(New_York)",
+          "title": "Antonio Delgado (New York) - Ballotpedia",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Antonio_Delgado",
+          "title": "Antonio Delgado - Wikipedia",
+          "type": "wiki"
+        },
+        {
+          "url": "https://www.opensecrets.org/members-of-congress/antonio-delgado/summary?cid=N00040741",
+          "title": "Rep. Antonio Delgado - Campaign Finance Summary - OpenSecrets",
+          "type": "finance"
+        },
+        {
+          "url": "https://www.followthemoney.org/entity-details?eid=44044927",
+          "title": "Antonio Delgado - FollowTheMoney.org",
+          "type": "finance"
+        },
+        {
+          "url": "https://www.govtrack.us/congress/members/antonio_delgado/412805",
+          "title": "Rep. Antonio Delgado - GovTrack.us",
+          "type": "govtrack"
+        },
+        {
+          "url": "https://www.congress.gov/member/antonio-delgado/D000630",
+          "title": "Antonio Delgado - Congress.gov",
+          "type": "legislature"
+        },
+        {
+          "url": "https://justfacts.votesmart.org/candidate/180313/antonio-delgado",
+          "title": "Antonio Delgado - Vote Smart",
+          "type": "votesmart"
+        },
+        {
+          "url": "https://delgadoforny.com/",
+          "title": "Delgado for New York",
+          "type": "official"
+        },
+        {
+          "url": "https://ballotpedia.org/Antonio_Delgado",
+          "title": "Antonio Delgado - Ballotpedia",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://www.governor.ny.gov/lt-governor-antonio-delgado",
+          "title": "Antonio Delgado - Governor Kathy Hochul - NY.Gov",
+          "type": "official"
+        }
+      ],
+      "issues": {
+        "Healthcare": {
+          "stance": "Supports universal healthcare in New York through a single-payer system (New York Health Act) that guarantees coverage for every New Yorker with no premiums, co-pays, deductibles, or other out-of-pocket costs; includes comprehensive benefits (primary care, hospital care, prescriptions, mental health, reproductive and gender-affirming care, dental, vision, long-term care) and eliminates private insurance middlemen.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://delgadoforny.com/plan/healthcare/",
+              "type": "official_policy_page",
+              "title": "Healthcare - Antonio Delgado for New York",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://www.cityandstateny.com/politics/2025/06/delgado-calls-universal-health-care-he-distances-himself-hochul/405906/",
+              "type": "news_article",
+              "title": "Delgado calls for universal health care as he distances himself from Hochul",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://nysfocus.com/2026/01/16/antonio-delgado-kathy-hochul",
+              "type": "news_interview",
+              "title": "Antonio Delgado on Hochul's Big Speech, Mamdani, and More",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://capitolpressroom.org/2025/10/31/the-policy-priorities-of-lt-gov-antonio-delgado/",
+              "type": "news_interview",
+              "title": "The policy priorities of Lt. Gov. Antonio Delgado",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Antonio Delgado’s economic plan centers on building an economy that works for all New Yorkers: raise the minimum wage to $30 by 2030 (indexed to inflation), ensure the ultra-wealthy and big corporations pay their fair share, strengthen paid family and medical leave, empower workers and small businesses, and reform New York’s budget process to improve transparency and reduce backroom deals.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://delgadoforny.com/plan/economy/",
+              "type": "official_policy_page",
+              "title": "Economy - Antonio Delgado for New York",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Delgado would strengthen and enforce New York's climate laws by finalizing cap-and-invest rules under the CLCPA and expanding public renewables to at least 15 GW by 2030. He would expand public utilities, reform the Public Service Commission to protect ratepayers, and back the NY HEAT Act and the Livable New York Act to lower utility costs and boost energy-efficient, affordable housing.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://delgadoforny.com/plan/climate/",
+              "type": "campaign",
+              "title": "Climate - Antonio Delgado for New York",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            }
+          ]
+        },
+        "Reproductive Rights": {
+          "stance": "Supports protecting abortion rights and expanding access to reproductive health care in New York, including backing the New York Health Act to guarantee universal coverage that includes reproductive services.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://delgadoforny.com/plan/healthcare/",
+              "type": "campaign",
+              "title": "Healthcare - Antonio Delgado for New York",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://x.com/LtGovDelgado/status/1617938557301305345",
+              "type": "social",
+              "title": "Abortion is healthcare and New York will ensure it remains safe, legal",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Delgado supports expanding protections for immigrant New Yorkers by backing the New York For All Act to prohibit ICE 287(g) agreements and curb local cooperation with ICE. He also supports banning ICE from wearing masks (MELT Act), ending private immigration detention (Dignity Not Detention Act), and increasing access to legal representation for immigrants facing deportation.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://delgadoforny.com/plan/protect-immigrant-communities/",
+              "type": "campaign_policy",
+              "title": "Protect Immigrant Communities — Delgado for NY",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://nysfocus.com/2026/01/16/antonio-delgado-kathy-hochul",
+              "type": "news_interview",
+              "title": "'What Stood Out Was What Wasn’t Said’: Antonio Delgado on Hochul’s Speech",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://www.cityandstateny.com/policy/2025/08/delgado-thinks-banning-local-cooperation-ice-good-now/407436/",
+              "type": "news_article",
+              "title": "Delgado thinks banning local cooperation with ICE is good now",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            }
+          ]
+        },
+        "Guns & Safety": {
+          "stance": "Delgado supports strong, comprehensive gun-safety reforms in New York. He has backed expanding background checks, closing loopholes in private transfers, strengthening red-flag laws, improving gun-trace reporting, and raising the purchase age for semi-automatic rifles to 21.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://giffords.org/candidates/antonio-delgado-2/",
+              "type": "endorsement",
+              "title": "Giffords: Antonio Delgado candidate profile",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://nysfocus.com/2026/01/16/antonio-delgado-kathy-hochul",
+              "type": "interview",
+              "title": "Antonio Delgado on Hochul's big speech, Mamdani, and More",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://spectrumlocalnews.com/nys/central-ny/ny-state-of-politics/2022/08/24/giffords-endorses-hochul-and-delgado-after-gun-law-push",
+              "type": "news",
+              "title": "Giffords endorses Hochul and Delgado after gun law push",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            }
+          ]
+        },
+        "Social Justice": {
+          "stance": "Antonio Delgado's Social Justice stance centers on expanding protections for immigrant New Yorkers, including supporting the NY For All Act, opposing ICE raids via the MEL Act, ending private immigration detention, and funding immigrant legal services. He also champions LGBTQ+ rights and criminal justice reform to reduce disparities and promote fair treatment in New York.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://delgadoforny.com/plan/protect-immigrant-communities/",
+              "type": "policy page",
+              "title": "Protect Immigrant Communities - Antonio Delgado for New York",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://delgadoforny.com/plan/lgbtq-rights/",
+              "type": "policy page",
+              "title": "LGBTQ+ Rights - Antonio Delgado for New York",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Delgado supports universal pre-K funding and universal childcare in New York, viewing early childhood education as the foundation of the state's education system and affordability agenda; he proposes fully funding Pre-K and universal childcare to improve access and outcomes.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://delgadoforny.com/priorities/",
+              "type": "campaign page",
+              "title": "Priorities - Antonio Delgado for New York",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://delgadoforny.com/plan/child-care/",
+              "type": "campaign page",
+              "title": "Childcare - Antonio Delgado for New York",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            }
+          ]
+        },
+        "Election Reform": {
+          "stance": "Delgado says he wants to reimagine and professionalize the New York State Democratic Party to improve year-round engagement, expand grassroots organizing, and strengthen party infrastructure.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://delgadoforny.com/antonio-delgado-introduces-proposal-to-transform-the-new-york-state-democratic-party/",
+              "type": "campaign",
+              "title": "Antonio Delgado introduces proposal to transform the New York State Democratic Party",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Delgado's Local Issues plan prioritizes housing: he would build 800,000 new homes over the next decade and protect and expand rent stabilization, including passing the NY REST Act. He also calls to end developer giveaways, curb private equity in housing, create statewide down payment assistance, invest in public housing and a permanent rental assistance program, and crack down on corporate landlords.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://delgadoforny.com/plan/housing/",
+              "type": "campaign page",
+              "title": "Housing - Antonio Delgado for New York",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "No public position found on foreign policy in the campaign materials reviewed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://delgadoforny.com/priorities/",
+              "type": "campaign",
+              "title": "Priorities - Antonio Delgado for New York",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "No public position found on tech and AI in the campaign materials reviewed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://delgadoforny.com/priorities/",
+              "type": "campaign",
+              "title": "Priorities - Antonio Delgado for New York",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://delgadoforny.com/plan/tech-and-ai/",
+              "type": "campaign",
+              "title": "Page Not Found - Antonio Delgado for New York",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            }
+          ]
+        }
+      }
     },
     {
       "name": "Bruce Blakeman",
       "party": "Republican",
       "incumbent": false,
-      "summary": "Bruce Blakeman is the Nassau County executive and a potential Republican contender in the 2026 New York governor’s race. Recent Siena polling has shown him trailing Hochul by a wide margin and remaining relatively unfamiliar to many statewide voters.",
+      "summary": "Bruce Blakeman is the Nassau County executive and a Republican candidate for governor of New York in 2026. He has also been nominated by the Conservative Party, and his campaign has centered on taxes, public safety, immigration enforcement, and opposition to state climate policy.",
       "summary_sources": [
         {
-          "url": "https://sri.siena.edu/2026/02/03/hochul-with-her-best-ever-favorability-rating-49-40-continues-to-hold-commanding-leads-over-blakeman-54-28-among-dems-delgado-64-11/",
-          "type": "news",
-          "title": "Siena Research Institute poll release"
+          "url": "https://ballotpedia.org/Bruce_Blakeman",
+          "type": "ballotpedia",
+          "title": "Bruce Blakeman - Ballotpedia"
         },
         {
-          "url": "https://sri.siena.edu/2026/03/31/hochul-lead-over-still-largely-unknown-blakeman-drops-7-points-to-47-34-from-51-31-her-favorability-approval-ratings-unchanged-in-last-month/",
+          "url": "https://www.politico.com/news/2026/01/09/bruce-blakemans-campaign-hits-turbulence-from-the-right-00717199",
           "type": "news",
-          "title": "Siena Research Institute poll release"
+          "title": "Bruce Blakeman's campaign hits turbulence from the right - POLITICO"
+        },
+        {
+          "url": "https://www.blakemanfornewyork.com/",
+          "type": "official",
+          "title": "Bruce Blakeman for Governor"
         }
       ],
       "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Bruce_Blakeman.jpg",
@@ -361,37 +904,420 @@
           "year": 1977
         }
       ],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
+      "donor_summary": "Publicly available state-campaign finance reporting and news coverage indicate Bruce Blakeman’s fundraising has been driven by local business and donor networks, with a recent report saying he raised about $720,000 in the second half of 2024 and another saying he raised nearly $2M for his campaign in a later period. Transparency USA lists his New York candidate profile, but the most specific disclosed donor mix in the sources reviewed is less detailed than OpenSecrets-style federal pages; news coverage also notes he was denied access to up to $7M in public matching funds. Sources: Transparency USA and news reports.",
+      "donor_source_url": "https://www.transparencyusa.org/ny/candidate/bruce-blakeman/",
+      "voting_summary": "Blakeman is a non-legislator; he has not held state or federal legislative office, so there is no legislative voting record. As Nassau County Executive, his comparable governing record includes proposing and approving county budgets that kept the county property-tax levy flat while adding public-safety staffing, which suggests a focus on taxes, policing, and spending restraint. Sources: Newsday and other reporting on Nassau County budgets, plus Vote Smart biography for office history.",
+      "voting_source_url": "https://justfacts.votesmart.org/candidate/biography/127020/bruce-blakeman",
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Bruce_Blakeman",
+          "title": "Bruce Blakeman - Ballotpedia",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Bruce_Blakeman",
+          "title": "Bruce Blakeman - Wikipedia",
+          "type": "wiki"
+        },
+        {
+          "url": "https://www.transparencyusa.org/ny/candidate/bruce-blakeman/",
+          "title": "Bruce Blakeman - New York Candidate - Transparency USA",
+          "type": "finance"
+        },
+        {
+          "url": "https://www.transparencyusa.org/ny/payee/bruce-blakeman-campaign/",
+          "title": "Bruce Blakeman Campaign - New York Payee - Transparency USA",
+          "type": "finance"
+        },
+        {
+          "url": "https://justfacts.votesmart.org/candidate/biography/127020/bruce-blakeman",
+          "title": "Bruce Blakeman's Biography - Vote Smart",
+          "type": "votesmart"
+        },
+        {
+          "url": "https://justfacts.votesmart.org/candidate/political-courage-test/127020/bruce-blakeman",
+          "title": "Bruce Blakeman's Issue Positions - Vote Smart",
+          "type": "votesmart"
+        },
+        {
+          "url": "https://www.nassaucountyny.gov/",
+          "title": "Nassau County, NY Official Site",
+          "type": "official"
+        },
+        {
+          "url": "https://www.newsday.com/long-island/politics/nassau-budget-sm5dye42",
+          "title": "Nassau legislature approves Blakeman's $4.4 billion budget - Newsday",
+          "type": "news"
+        }
+      ],
+      "issues": {
+        "Healthcare": {
+          "stance": "Blakeman has criticized state proposals that would increase retiree healthcare costs and has framed the issue as one of affordability for seniors. His public comments focus on limiting added costs rather than proposing a broad healthcare overhaul.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.fingerlakes1.com/2026/04/25/blakeman-criticizes-hochul-budget-proposal-over-retiree-health-costs/",
+              "type": "news",
+              "title": "Blakeman criticizes Hochul budget proposal over retiree health costs",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Blakeman says he would cut taxes, reduce costs for businesses and households, and make New York more affordable. His campaign has emphasized tax relief, lower utility costs, and support for small businesses and restaurants.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://nypost.com/2026/04/19/us-news/bruce-blakemans-100-day-plan-to-fix-new-york-if-elected-governor/",
+              "type": "news",
+              "title": "Bruce Blakeman's 100-day plan to 'fix' New York if elected governor",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://nypost.com/2026/04/22/us-news/gop-gubernatorial-bruce-blakeman-promises-tax-relief-for-restaurants-small-businesses-as-he-blasts-hochul-special-tax-crisis/",
+              "type": "news",
+              "title": "GOP gubernatorial Bruce Blakeman promises tax relief for restaurants and small businesses as he blasts Hochul special tax crisis",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://www.lohud.com/story/news/politics/2026/04/24/inside-bruce-blakeman-100-day-ny-governor-plan-if-elected-against-hochul/89752450007/",
+              "type": "news",
+              "title": "Inside Blakeman's 100-day plan if elected as NY governor",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Blakeman favors expanding energy supply and reducing costs, and he has criticized New York's climate policies as too costly. He has also proposed redirecting money from the state's green energy fund back to taxpayers.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.wxxinews.org/text/new-york-public-news-network/2026-04-16/blakeman-rips-ny-climate-and-energy-policies-he-says-are-hurting-farmers",
+              "type": "news",
+              "title": "Blakeman rips NY climate and energy policies he says are hurting farmers",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://nypost.com/2026/04/09/us-news/blakeman-wants-to-liquidate-nys-green-energy-fund-and-give-2-4b-back-to-taxpayers/",
+              "type": "news",
+              "title": "Blakeman wants to liquidate NYS 'green' energy fund and give $2.4B back to taxpayers",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://cbs6albany.com/news/local/republican-gubernatorial-candidate-bruce-blakeman-blames-state-climate-laws-taxes-on-high-utility-bills",
+              "type": "news",
+              "title": "Republican gubernatorial candidate blames state climate laws, taxes on high utility bills",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Blakeman has called for ending New York's sanctuary-state policies and cooperating more closely with federal immigration authorities, including ICE. He argues that stronger enforcement is needed for public safety.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.politico.com/newsletters/new-york-playbook-pm/2026/01/14/blakemans-ice-thaw-00729497",
+              "type": "news",
+              "title": "Blakeman’s ICE thaw - POLITICO Playbook",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://www.newsweek.com/bruce-blakeman-republican-ice-new-york-sanctuary-11444728",
+              "type": "news",
+              "title": "Bruce Blakeman vows to work with ICE and end sanctuary policies - Newsweek",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://www.newsday.com/long-island/politics/blakeman-nassau-county-nwsh9xv9",
+              "type": "news",
+              "title": "Blakeman touts flat taxes and ICE arrests in 2026 - Newsday",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            }
+          ]
+        },
+        "Guns & Safety": {
+          "stance": "Blakeman supports a pro-gun-rights approach and has proposed deputizing qualified gun-licensed residents as special deputies in emergencies. He presents the plan as a public-safety measure and has opposed broad new gun-control restrictions.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.cbsnews.com/newyork/news/nassau-county-deputize-citizens-with-gun-licenses-help-police/",
+              "type": "article",
+              "title": "Nassau County deputies: Blakeman's plan to deputize gun-owners",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://www.newsday.com/long-island/politics/blakeman-special-deputies-nassau-sbawowxp",
+              "type": "article",
+              "title": "Blakeman's plan to deputize citizens with gun licenses",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://www.politico.com/news/2026/01/09/bruce-blakemans-campaign-hits-turbulence-from-the-right-00717199",
+              "type": "article",
+              "title": "Blakeman’s campaign hits turbulence from the right",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Blakeman has emphasized support for Israel, backed adopting the IHRA definition of antisemitism, and supported anti-BDS measures. His public comments frame these positions as part of a broader effort to combat antisemitism.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.algemeiner.com/2026/03/31/new-yorks-bruce-blakeman-vows-protect-jews-combat-anti-israel-policies-elected-governor/",
+              "type": "news",
+              "title": "New York’s Bruce Blakeman Vows to Protect Jews, Combat Anti-Israel Policies if Elected Governor",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://www.jpost.com/american-politics/article-879818",
+              "type": "news",
+              "title": "Jewish politician Bruce Blakeman to run as NY governor",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://nypost.com/2026/01/27/us-news/gubernatorial-candidate-bruce-blakeman-blasts-hochul-mamdani-and-demands-new-york-state-adopt-ihra-antisemitism-definition-this-is-a-disgrace/",
+              "type": "news",
+              "title": "Gubernatorial candidate Bruce Blakeman blasts Hochul, Mamdani and demands New York State adopt IHRA antisemitism definition",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            }
+          ]
+        },
+        "Social Justice": {
+          "stance": "No public position found on social justice.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.blakemanfornewyork.com/",
+              "type": "official",
+              "title": "Bruce Blakeman for Governor",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Blakeman supports expanding gifted-and-talented programs and New York City specialized high schools, and he has argued for admissions based on merit and achievement. He has opposed efforts to phase out those programs.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://nypost.com/2026/01/15/us-news/bruce-blakeman-backs-gifted-and-talented-schools-slammed-by-mamdani-activists-as-racist/",
+              "type": "news",
+              "title": "Bruce Blakeman backs 'gifted and talented' schools slammed by Mamdani activists as racist",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://www.newsday.com/long-island/politics/blakeman-specialized-high-school-ye6p9rcp",
+              "type": "news",
+              "title": "Blakeman wants to expand NYC specialized high schools",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "Blakeman has supported expanded surveillance and security technology, including cameras and license-plate readers, as part of his public-safety agenda. His comments have focused on using technology to deter crime and monitor border areas within Nassau County.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://statescoop.com/nassau-county-new-york-mamdani-surveillance-tech/",
+              "type": "news",
+              "title": "New York county police to install additional surveillance, anticipating Mamdani’s 'radical policies' - StateScoop",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://longisland.news12.com/nassau-to-install-extra-surveillance-technology-at-nyc-border",
+              "type": "news",
+              "title": "Nassau To Install Extra Surveillance Technology At Nyc Border - News12 Long Island",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://gothamist.com/news/nassau-county-exec-plans-wall-of-surveillance-cameras-at-nyc-long-island-border",
+              "type": "news",
+              "title": "Nassau County exec plans wall of surveillance cameras at NYC Long Island border - Gothamist",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            }
+          ]
+        },
+        "Reproductive Rights": {
+          "stance": "Blakeman has said abortion should remain legal and has described himself as supportive of abortion rights, while also opposing late-term abortion restrictions being loosened further. His public comments place him closer to the Republican Party's more moderate wing on the issue than many anti-abortion activists prefer.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.livemint.com/news/us-news/bruce-blakeman-s-stance-on-abortion-taxes-and-crime-explained-11765294692050.html",
+              "type": "news",
+              "title": "Bruce Blakeman's stance on abortion, taxes, and crime — Explained",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://www.politico.com/newsletters/new-york-playbook/2025/11/19/gops-2026-abortion-conundrum-00658469",
+              "type": "news",
+              "title": "GOP's 2026 abortion conundrum - POLITICO",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            }
+          ]
+        },
+        "Election Reform": {
+          "stance": "No public position found on election reform.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.blakemanfornewyork.com/",
+              "type": "official",
+              "title": "Bruce Blakeman for Governor",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Blakeman has emphasized using his experience as Nassau County executive to argue he can address affordability, public safety, and quality-of-life concerns statewide. His campaign messaging also highlights county-level management, including budgets, taxes, and law enforcement staffing.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.lohud.com/story/news/politics/2026/04/24/inside-bruce-blakeman-100-day-ny-governor-plan-if-elected-against-hochul/89752450007/",
+              "type": "news",
+              "title": "Inside Blakeman's 100-day plan if elected as NY governor",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            },
+            {
+              "url": "https://www.blakemanfornewyork.com/",
+              "type": "official",
+              "title": "Bruce Blakeman for Governor",
+              "last_accessed": "2026-04-29T14:02:00.248358+00:00"
+            }
+          ]
+        }
+      }
     }
   ],
-  "updated_utc": "2026-04-06T17:27:45.043351+00:00",
+  "updated_utc": "2026-04-29T14:02:00.248358+00:00",
   "generator": [
     "gpt-5.4-mini",
-    "gpt-5-nano"
+    "gpt-5-nano",
+    "claude-haiku-4-5-20251001",
+    "gemini-3.1-flash-lite-preview",
+    "grok-4-1-fast-non-reasoning"
   ],
-  "reviews": [],
+  "reviews": [
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "reviewed_at": "2026-04-29T14:02:26.947520+00:00",
+      "verdict": "approved",
+      "score": 88,
+      "flags": [
+        {
+          "field": "candidates[1].issues.Economy.sources",
+          "concern": "The Economy stance for Delgado cites only one source (delgadoforny.com/plan/economy/), which is appropriate for a campaign policy page but lacks corroborating news coverage or independent reporting on his economic proposals. This is a single-source reliance on campaign material for a major issue.",
+          "suggestion": "Add 1–2 news articles or op-ed sources that report on or quote Delgado's economic platform to strengthen independent verification.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Reproductive Rights.confidence",
+          "concern": "Blakeman's Reproductive Rights stance is marked 'medium' confidence, sourced to two news articles. The sources appear to characterize his position (support for abortion legality, skepticism of further loosening) as somewhat at odds with conservative base expectations. The framing is fair, but the medium confidence may warrant slight clarification in the stance text to explain the source of uncertainty (i.e., statements differ from some press characterizations, or the candidate has made evolving comments).",
+          "suggestion": "Optionally add a sentence to the stance that acknowledges the evolution or debate over his position, or verify confidence level reflects documented inconsistency in public statements.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].donor_summary",
+          "concern": "Hochul's donor summary cites 'OpenSecrets' and 'contemporaneous news coverage' but provides only one OpenSecrets URL in donor_source_url. The summary mentions specific donors ('Illinois Gov. JB Pritzker and Manhattan landlord Arnold Gumowitz') but no dedicated source URL is provided for those names. While news coverage is referenced, no explicit news URLs are embedded.",
+          "suggestion": "Add inline source URLs or citations for the named donors (Pritzker, Gumowitz) to enable fact-checking, or add a 'news_sources' field with relevant URLs.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].donor_summary",
+          "concern": "Delgado's donor summary mentions 'about $3.1M total contributions on Transparency USA' and campaign claims of 'more than 80% small-dollar donations,' but does not provide a direct URL to Transparency USA's Delgado profile or the specific campaign report cited. The summary also says 'his campaign also said more than 80%' but no source URL is provided for that claim.",
+          "suggestion": "Add a direct link to Transparency USA's Delgado profile and cite the campaign statement or press release that supports the 80% small-donor claim.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].donor_summary",
+          "concern": "Blakeman's donor summary is sparse and notes he was 'denied access to up to $7M in public matching funds,' but does not cite a source URL for this specific claim. The summary also states 'a recent report saying he raised about $720,000' and 'another saying he raised nearly $2M' without URLs to those reports.",
+          "suggestion": "Add URLs to the news articles or finance reports that document the $720k and $2M figures, and source the public-matching-funds denial claim.",
+          "severity": "info"
+        },
+        {
+          "field": "polling[5]",
+          "concern": "The poll dated 2025-11-12 (Siena University matchup of Hochul vs. Elise Stefanik) appears to be from before the 2026 race was fully underway and tests a candidate (Stefanik) not currently in the race. While not factually incorrect, this poll may be outdated relative to the 2026 race focus and could confuse readers about the current competitive landscape.",
+          "suggestion": "Optionally add a note to the polling_note field explaining that the Stefanik matchup is historical/exploratory polling from late 2025 and is not a current primary or general election scenario.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[0].career_history",
+          "concern": "Hochul's Congressional service is listed as 'New York's 26th Congressional District (2011–2013).' This is accurate per official records, but she served only one term; the profile does not explicitly note this was a single term, which some readers might infer from the dates alone. Not an error, but a minor clarity point.",
+          "suggestion": "Optional: Add clarifying language ('served one term') or note that the district was later renumbered.",
+          "severity": "info"
+        }
+      ],
+      "summary": "This is a well-sourced and professionally executed profile of the 2026 New York gubernatorial race. The three candidates (Hochul, Delgado, Blakeman) are documented with consistent background information, current polling data from credible sources (Siena, Marist), and issue positions backed by official campaign materials, news reporting, and public records. Language is neutral and nonpartisan throughout. Career histories align with official sources; education credentials are documented. The profile appropriately flags low-confidence stances where candidates have taken no public position (Delgado on Foreign Policy and Tech & AI; Blakeman on Social Justice and Election Reform), reflecting good-faith search efforts rather than gaps in research. Minor completeness observations noted below."
+    },
+    {
+      "model": "gemini-3.1-flash-lite-preview",
+      "reviewed_at": "2026-04-29T14:02:02.485615+00:00",
+      "verdict": "approved",
+      "score": 96,
+      "flags": [
+        {
+          "field": "polling[3].pollster",
+          "concern": "The pollster is listed as 'Siena University', while the URL directs to a Ballotpedia page summarizing Siena College Research Institute polls. This appears to be a minor naming inconsistency.",
+          "suggestion": "Standardize to 'Siena College Research Institute' for consistency with other entries.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Climate/Energy.confidence",
+          "concern": "Stance is marked 'medium' confidence despite campaign source; given the detailed policy URL provided, this likely warrants higher confidence.",
+          "suggestion": "Review if the 'medium' tag is intentional; otherwise, update to 'high'.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].donor_summary",
+          "concern": "The mention of being denied access to $7M in public matching funds is an important claim but lacks a specific inline citation in the summary text itself.",
+          "suggestion": "Add a citation to the specific news report documenting the campaign finance board ruling.",
+          "severity": "info"
+        }
+      ],
+      "summary": "This is an exceptionally high-quality research profile. It demonstrates rigorous attention to detail, with consistent, high-confidence sourcing from a mix of primary official documents and reputable journalistic outlets. The candidate backgrounds are well-documented, and the profile successfully handles the nuances of a live political environment, including the acknowledgement of Antonio Delgado's campaign suspension. The clear documentation of low-confidence issues (where positions are absent) is a highlight of the methodology."
+    },
+    {
+      "model": "grok-4-1-fast-non-reasoning",
+      "reviewed_at": "2026-04-29T14:02:02.693433+00:00",
+      "verdict": "approved",
+      "score": 96,
+      "flags": [],
+      "summary": "Outstanding profile with comprehensive, high-confidence sourcing from official campaign sites, government pages, and credible news outlets across all candidates and issues. Polling data is well-cited with direct Siena/Marist URLs; candidate backgrounds (career, education, donors) align consistently with cited Ballotpedia, OpenSecrets, GovTrack, and official bios. Neutral, factual language throughout, with appropriate 'no position found' notations backed by search evidence. Excellent coverage of the 2026 NY governor race dynamics."
+    }
+  ],
   "agent_metrics": {
     "model": "gpt-5.4-mini",
-    "prompt_tokens": 224001,
-    "completion_tokens": 6357,
-    "total_tokens": 230358,
-    "estimated_usd": 0.0333,
+    "prompt_tokens": 2380740,
+    "completion_tokens": 238109,
+    "total_tokens": 2618849,
+    "estimated_usd": 0.3787,
     "model_breakdown": {
       "gpt-5-nano": {
-        "prompt_tokens": 65306,
-        "completion_tokens": 4385
+        "prompt_tokens": 1898753,
+        "completion_tokens": 225275
       },
       "gpt-5.4-mini": {
-        "prompt_tokens": 158695,
-        "completion_tokens": 1972
+        "prompt_tokens": 426363,
+        "completion_tokens": 10092
+      },
+      "gemini-3.1-flash-lite-preview": {
+        "prompt_tokens": 20086,
+        "completion_tokens": 389
+      },
+      "grok-4-1-fast-non-reasoning": {
+        "prompt_tokens": 16314,
+        "completion_tokens": 124
+      },
+      "claude-haiku-4-5-20251001": {
+        "prompt_tokens": 19224,
+        "completion_tokens": 2229
       }
     },
-    "duration_s": 72.7
+    "duration_s": 2976.2
   },
-  "validation_grade": null
+  "validation_grade": {
+    "grade": "A",
+    "score": 93,
+    "passed": true,
+    "summary": "Validated by 3/3 reviewers with an average score of 93/100."
+  }
 }

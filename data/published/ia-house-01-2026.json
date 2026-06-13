@@ -1,0 +1,273 @@
+{
+  "id": "ia-house-01-2026",
+  "title": "Iowa's 1st Congressional District General Election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Iowa's 1st Congressional District",
+  "state": "Iowa",
+  "district": "1st Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 general election for Iowa's 1st Congressional District pits incumbent Republican Rep. Mariannette Miller-Meeks against Democratic challenger Christina Bohannan in a third consecutive rematch. The district covers 20 counties in southeastern Iowa, including Iowa City, Davenport, Muscatine, and Burlington, and is rated a 'toss up' by the Cook Political Report with a Partisan Voting Index of R+4. Miller-Meeks, an ophthalmologist and U.S. Army veteran first elected in 2020, won her 2024 race by just 799 votes after a recount. Bohannan, a University of Iowa law professor and former state representative, argues the district is ready for change on issues including healthcare costs, tariffs, and Medicaid funding.",
+  "polling": [],
+  "polling_note": "No public opinion polls specific to the 2026 general election in Iowa's 1st Congressional District were found as of this writing. The race is rated 'Toss Up' by nonpartisan forecasters including Cook Political Report.",
+  "candidates": [
+    {
+      "name": "Mariannette Miller-Meeks",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Mariannette Miller-Meeks is the incumbent U.S. Representative for Iowa's 1st Congressional District, first elected in 2020. She is an ophthalmologist, a 24-year U.S. Army veteran (private to lieutenant colonel), and former director of the Iowa Department of Public Health. Miller-Meeks won her 2024 reelection by 799 votes after a recount and secured the 2026 Republican primary with 71.6% of the vote.",
+      "summary_sources": [
+        {
+          "url": "https://iowacapitaldispatch.com/2026/06/02/iowa-1st-district-bohannan-miller-meeks-to-face-off-in-november-ap-projects/",
+          "type": "news",
+          "title": "Iowa 1st District: Bohannan, Miller-Meeks to face off in November, AP projects",
+          "description": null,
+          "last_accessed": "2026-06-12T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "http://millermeeks.house.gov/about",
+          "type": "government",
+          "title": "Meet Mariannette | Representative Mariannette Miller-Meeks",
+          "description": null,
+          "last_accessed": "2026-06-12T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cookpolitical.com/house/race/483086",
+          "type": "news",
+          "title": "IA-01 2026 | Cook Political Report",
+          "description": null,
+          "last_accessed": "2026-06-12T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/9d/Mariannette_Miller-Meeks%2C_official_portrait%2C_117th_Congress_%28cropped%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Represents Iowa's 1st Congressional District. Serves on House Energy and Commerce Committee and House Veterans' Affairs Committee, where she chairs the Subcommittee on Health.",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Iowa State Senate",
+          "start_year": 2019,
+          "end_year": 2021,
+          "description": "Represented Senate District 41; resigned to take U.S. House seat.",
+          "source": null
+        },
+        {
+          "title": "Director",
+          "organization": "Iowa Department of Public Health",
+          "start_year": 2010,
+          "end_year": 2013,
+          "description": "Appointed by Governor Terry Branstad to lead the state public health agency.",
+          "source": null
+        },
+        {
+          "title": "Ophthalmologist / Assistant Professor",
+          "organization": "University of Iowa",
+          "start_year": 1994,
+          "end_year": 1997,
+          "description": "Practiced ophthalmology and taught at the university.",
+          "source": null
+        },
+        {
+          "title": "Assistant Professor",
+          "organization": "University of Michigan",
+          "start_year": 1991,
+          "end_year": 1994,
+          "description": "Taught at the medical school.",
+          "source": null
+        },
+        {
+          "title": "U.S. Army Officer / Physician",
+          "organization": "United States Army",
+          "start_year": 1973,
+          "end_year": 1997,
+          "description": "Served 24 years, rising from Private to Lieutenant Colonel; served as a nurse and doctor (ophthalmologist).",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Texas Health Science Center",
+          "degree": "M.D.",
+          "field": "Medicine",
+          "year": 1986,
+          "source": null
+        },
+        {
+          "institution": "University of Southern California",
+          "degree": "M.S.",
+          "field": "Unknown",
+          "year": 1980,
+          "source": null
+        },
+        {
+          "institution": "Texas Christian University",
+          "degree": "B.S.N.",
+          "field": "Nursing",
+          "year": 1976,
+          "source": null
+        },
+        {
+          "institution": "San Antonio Junior College",
+          "degree": "Associate",
+          "field": "General Studies",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://drmillermeeks.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Christina Bohannan",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Christina Bohannan is a University of Iowa law professor, former Iowa state representative, and the Democratic nominee for Iowa's 1st Congressional District. She defeated incumbent state Rep. Vicki Lensing in the 2020 primary and served one term in the Iowa House (2021-2023). Bohannan previously ran for this congressional seat in 2022 and 2024, losing both times to Miller-Meeks by narrow margins. She won the 2026 Democratic primary with 81.5% of the vote and campaigns on lowering healthcare costs, opposing Trump's tariff policies, and ethics reform.",
+      "summary_sources": [
+        {
+          "url": "https://iowacapitaldispatch.com/2026/06/02/iowa-1st-district-bohannan-miller-meeks-to-face-off-in-november-ap-projects/",
+          "type": "news",
+          "title": "Iowa 1st District: Bohannan, Miller-Meeks to face off in November, AP projects",
+          "description": null,
+          "last_accessed": "2026-06-12T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Christina_Bohannan",
+          "type": "news",
+          "title": "Christina Bohannan - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-12T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://bohannanforcongress.com/about/",
+          "type": "website",
+          "title": "Meet Christina - Christina Bohannan 2026",
+          "description": null,
+          "last_accessed": "2026-06-12T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/45/ChristinaBohannan.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Professor of Law",
+          "organization": "University of Iowa College of Law",
+          "start_year": 2000,
+          "end_year": null,
+          "description": "Teaches Torts, Copyright Law, Conflict of Laws, and intellectual property seminars. Previously served as president of the faculty senate.",
+          "source": null
+        },
+        {
+          "title": "State Representative",
+          "organization": "Iowa House of Representatives",
+          "start_year": 2021,
+          "end_year": 2023,
+          "description": "Represented the 85th District (Iowa City area). Defeated 20-year incumbent Vicki Lensing in the Democratic primary.",
+          "source": null
+        },
+        {
+          "title": "Environmental Engineer",
+          "organization": "Florida Department of Environmental Protection",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked as an environmental engineer specializing in water quality in the 1990s.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Florida Fredric G. Levin College of Law",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Florida",
+          "degree": "B.S.",
+          "field": "Environmental Engineering",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://bohannanforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Iowa%27s_1st_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:27:17.844530+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 161345,
+    "completion_tokens": 9311,
+    "total_tokens": 170656,
+    "cost_usd": 0.012285342000000001,
+    "cost_source": "provider",
+    "estimated_usd": 0.017637,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 161345,
+        "completion_tokens": 9311
+      }
+    },
+    "duration_s": 192.8
+  }
+}

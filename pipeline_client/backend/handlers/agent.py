@@ -542,6 +542,9 @@ class AgentHandler:
             rid = run_id or f"{race_id}-{int(t0)}"
             candidate_count = len(race_json.get("candidates") or [])
             _cheap_mode = bool(options.get("cheap_mode", True))
+            serper_calls = 0
+            if isinstance(agent_metrics, dict):
+                serper_calls = agent_metrics.get("serper_calls", 0)
             await get_pipeline_metrics_store().record_run(
                 rid,
                 race_id,
@@ -549,6 +552,7 @@ class AgentHandler:
                 "completed",
                 candidate_count=candidate_count,
                 cheap_mode=_cheap_mode,
+                serper_calls=serper_calls,
             )
         except Exception:
             logger.warning("Failed to record pipeline metrics", exc_info=True)

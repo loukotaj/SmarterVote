@@ -1,0 +1,310 @@
+{
+  "id": "tx-house-13-2026",
+  "title": "Texas 13th Congressional District General Election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Texas's 13th Congressional District",
+  "state": "Texas",
+  "district": "13th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 general election for Texas's 13th Congressional District pits incumbent Republican Rep. Ronny Jackson against Democratic challenger Mark Nair. The district spans the Texas Panhandle including Amarillo, Wichita Falls, and parts of Denton County, and is rated 'Solid Republican' by the Cook Political Report with a PVI of R+23. Jackson, a retired Navy rear admiral and former White House physician, has held the seat since 2021 and won the 2026 Republican primary with 89.5% of the vote against Chasity Wedgeworth. Nair, a former Amarillo City Council member and entrepreneur, ran unopposed in the Democratic primary and is campaigning on a 'People First' agenda focused on healthcare, housing affordability, and economic fairness in a district that has not elected a Democrat to Congress since the early 1990s.",
+  "polling": [],
+  "polling_note": "No district-specific public opinion polls were found for the TX-13 general election matchup. The Cook Political Report rates the race as 'Solid Republican,' and a Texas A&M University/ReconMR June 2026 generic ballot poll showed Republicans leading 49% to 43% statewide, but no candidate-specific polling for this district was identified.",
+  "candidates": [
+    {
+      "name": "Ronny Jackson",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Ronny Jackson is the incumbent U.S. Representative for Texas's 13th Congressional District, first elected in 2020. A retired U.S. Navy rear admiral and medical doctor, he served as Physician to the President under both Barack Obama and Donald Trump, and as Assistant to the President and Chief Medical Advisor under Trump. He sits on the House Armed Services, Agriculture, Foreign Affairs, and Intelligence committees and won his 2026 primary with 89.5% of the vote.",
+      "summary_sources": [
+        {
+          "url": "https://jackson.house.gov/about/",
+          "type": "government",
+          "title": "Biography | Congressman Ronny Jackson",
+          "description": null,
+          "last_accessed": "2026-06-12T19:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Ronny_Jackson",
+          "type": "news",
+          "title": "Ronny Jackson - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-12T19:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-texas-us-house-13-primary.html",
+          "type": "news",
+          "title": "Texas 13th Congressional District Primary Election Results 2026",
+          "description": null,
+          "last_accessed": "2026-06-12T19:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/49/Ronny_Jackson%2C_official_portrait%2C_117th_Congress_%28cropped%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Representing Texas's 13th Congressional District. Serves on House Armed Services, Agriculture, Foreign Affairs, and Intelligence committees.",
+          "source": null
+        },
+        {
+          "title": "Assistant to the President and Chief Medical Advisor",
+          "organization": "Executive Office of the President, Donald J. Trump",
+          "start_year": 2019,
+          "end_year": 2019,
+          "description": "Appointed by President Trump to serve as chief medical advisor.",
+          "source": null
+        },
+        {
+          "title": "Physician to the President",
+          "organization": "White House Medical Unit",
+          "start_year": 2013,
+          "end_year": 2018,
+          "description": "Served as Physician to the President under Presidents Barack Obama and Donald Trump. Previously served as Director of the White House Medical Unit.",
+          "source": null
+        },
+        {
+          "title": "Rear Admiral / Active Duty Physician",
+          "organization": "United States Navy",
+          "start_year": 1995,
+          "end_year": 2019,
+          "description": "Retired as a Rear Admiral after 25 years of service. Deployed to Iraq to lead resuscitative medicine for a Combat Surgical Shock Trauma Platoon. Trained in undersea medicine and emergency medicine.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Texas Medical Branch",
+          "degree": "M.D.",
+          "field": "Medicine",
+          "year": 1995,
+          "source": null
+        },
+        {
+          "institution": "Texas A&M University at Galveston",
+          "degree": "B.S.",
+          "field": "Marine Biology",
+          "year": 1991,
+          "source": null
+        },
+        {
+          "institution": "South Plains College",
+          "degree": "A.S.",
+          "field": "",
+          "year": 1988,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://jackson.house.gov/",
+          "title": "Official House Website",
+          "type": "other"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Ronny_Jackson",
+          "title": "Wikipedia",
+          "type": "news"
+        },
+        {
+          "url": "https://www.cookpolitical.com/house/race/485281",
+          "title": "Cook Political Report Race Page",
+          "type": "news"
+        }
+      ],
+      "website": "https://jackson.house.gov/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/RepRonnyJackson",
+        "twitter": "https://x.com/RepRonnyJackson",
+        "instagram": "https://www.instagram.com/repronnyjackson/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Mark Nair",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Mark Nair is the Democratic nominee for Texas's 13th Congressional District. A former Amarillo City Council member (2015-2017), he is an entrepreneur, inventor, and educator who teaches coding at Ascension Academy. Nair holds a B.A. and M.A. from Texas A&M University and has worked in technology startups, digital media, and as a mentor for the Texas Tech Innovation Hub and the National Science Foundation. He campaigns on a 'People First' platform supporting universal healthcare, affordable housing, public education investment, and immigration reform.",
+      "summary_sources": [
+        {
+          "url": "https://www.amarillo.com/story/news/2025/08/27/mark-nair-announces-run-for-congress-in-texas-13th-district/85849082007/",
+          "type": "news",
+          "title": "Mark Nair announces run for Congress in Texas' 13th District",
+          "description": null,
+          "last_accessed": "2026-06-12T19:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.marknair.com/",
+          "type": "website",
+          "title": "Mark Nair for Congress",
+          "description": null,
+          "last_accessed": "2026-06-12T19:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.ascensionacademy.org/faculty-staff/mark-nair",
+          "type": "website",
+          "title": "Ascension Academy - Mark Nair",
+          "description": null,
+          "last_accessed": "2026-06-12T19:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://abc7amarillo.com/news/local/gop-primary-challenge-emerges-in-texas-13th-congressional-district-as-chasity-wedgeworth-takes-on-rep-ronny-jackson-agriculture-election-day-border-security-immigration",
+          "type": "news",
+          "title": "GOP primary challenge emerges in Texas 13th",
+          "description": null,
+          "last_accessed": "2026-06-12T19:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Coding Teacher",
+          "organization": "Ascension Academy",
+          "start_year": null,
+          "end_year": null,
+          "description": "Teaches coding at a private school in Amarillo, Texas.",
+          "source": null
+        },
+        {
+          "title": "Amarillo City Council Member, Place 4",
+          "organization": "City of Amarillo",
+          "start_year": 2015,
+          "end_year": 2017,
+          "description": "Served on the Amarillo City Council representing Place 4. Focused on economic development, innovation district creation, and open government.",
+          "source": null
+        },
+        {
+          "title": "Co-Founder / President",
+          "organization": "Giant Atom Inc. / Redigi Inc.",
+          "start_year": null,
+          "end_year": null,
+          "description": "Technology entrepreneur and inventor. Built the world's first used digital marketplace as president of Redigi. Co-founded multiple technology startups including Bicycle Guy Studios, MusicGram, and Oasis Microgrids.",
+          "source": null
+        },
+        {
+          "title": "Mentor",
+          "organization": "Texas Tech Innovation Hub / National Science Foundation iCorp",
+          "start_year": null,
+          "end_year": null,
+          "description": "Mentors startups and entrepreneurs. Senior member of the National Academy of Inventors.",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Texas A&M University",
+          "degree": "M.A.",
+          "field": "Literature",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Texas A&M University",
+          "degree": "B.A.",
+          "field": "Political Science",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Texas School of Law",
+          "degree": "Attended",
+          "field": "Law",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://www.marknair.com/",
+          "title": "Official Campaign Website",
+          "type": "other"
+        },
+        {
+          "url": "https://ballotpedia.org/Mark_Nair",
+          "title": "Ballotpedia Profile",
+          "type": "news"
+        }
+      ],
+      "website": "https://www.marknair.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/MarkNairforCD13",
+        "instagram": "https://www.instagram.com/marknairtx/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Texas%27_13th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:36:47.796496+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 322985,
+    "completion_tokens": 6212,
+    "total_tokens": 329197,
+    "cost_usd": 0.021997505999999997,
+    "cost_source": "provider",
+    "estimated_usd": 0.03287,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 322985,
+        "completion_tokens": 6212
+      }
+    },
+    "duration_s": 183.1
+  }
+}

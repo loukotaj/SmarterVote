@@ -1,0 +1,432 @@
+{
+  "id": "mn-house-08-2026",
+  "title": "Minnesota's 8th Congressional District Election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Minnesota's 8th Congressional District",
+  "state": "Minnesota",
+  "district": "8th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Minnesota's 8th Congressional District covers the northeastern portion of the state, stretching from Duluth and the Iron Range west to Bemidji and south to the Twin Cities exurbs. Incumbent Republican Rep. Pete Stauber, first elected in 2018, is seeking a fifth term in a district that has trended Republican in recent presidential elections but has a competitive history. The Democratic primary is especially crowded with at least six candidates vying for the nomination, and the Republican primary features a challenge from farmer Anthony Hamilton. The general election is rated as leaning or likely Republican by nonpartisan forecasters, though Democrats see an opportunity if a strong nominee emerges from their August 11 primary.",
+  "polling": [],
+  "polling_note": "No publicly available opinion polls for the 2026 Minnesota 8th Congressional District race were found at this time. Polling may emerge closer to the August primary or general election.",
+  "candidates": [
+    {
+      "name": "Pete Stauber",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Pete Stauber is the incumbent U.S. Representative for Minnesota's 8th Congressional District, first elected in 2018. He previously served as a Duluth police officer for 23 years and as a St. Louis County Commissioner. Stauber is seeking reelection and has been endorsed by the Republican Party of Minnesota.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Pete_Stauber",
+          "type": "website",
+          "title": "Pete Stauber - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "http://stauber.house.gov/",
+          "type": "government",
+          "title": "Representative Pete Stauber | Representing the 8th District of Minnesota",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Pete_Stauber_118th_Congress.jpg/800px-Pete_Stauber_118th_Congress.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Representing Minnesota's 8th Congressional District",
+          "source": null
+        },
+        {
+          "title": "County Commissioner",
+          "organization": "St. Louis County",
+          "start_year": 2013,
+          "end_year": 2019,
+          "description": "Served on the St. Louis County Board",
+          "source": null
+        },
+        {
+          "title": "Police Officer",
+          "organization": "Duluth Police Department",
+          "start_year": 1995,
+          "end_year": 2018,
+          "description": "Served as a patrol officer and detective",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Minnesota Duluth",
+          "degree": "Bachelor of Arts",
+          "field": "Criminal Justice",
+          "year": 1995,
+          "source": null
+        },
+        {
+          "institution": "College of St. Scholastica",
+          "degree": "Master of Science",
+          "field": "Business",
+          "year": 2005,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://stauber.house.gov/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/RepPeteStauber/",
+        "twitter": "https://twitter.com/RepPeteStauber"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Anthony Hamilton",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Anthony Hamilton is a farmer and residential maintenance worker from Moore, Minnesota, who is challenging incumbent Pete Stauber in the Republican primary. He has retinitis pigmentosa, a degenerative eye condition, and has emphasized representing rural and working-class conservatives in the district.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Anthony_Hamilton_(Minnesota)",
+          "type": "website",
+          "title": "Anthony Hamilton (Minnesota) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.brainerddispatch.com/news/minnesota/mora-man-to-challenge-stauber-in-republican-primary",
+          "type": "news",
+          "title": "Mora man to challenge Stauber in Republican primary",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Farmer",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "Farmer and residential maintenance worker in Moore, Minnesota",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Trina Swanson",
+      "party": "Democratic-Farmer-Labor",
+      "incumbent": false,
+      "summary": "Trina Swanson is the DFL-endorsed candidate for Minnesota's 8th Congressional District. She grew up in Hermantown and spent 25 years in public service, including as Director of International Operations for U.S. Citizenship and Immigration Services. Her campaign focuses on affordable healthcare, protecting the mining industry with environmental safeguards, addressing the high cost of living, and immigration reform.",
+      "summary_sources": [
+        {
+          "url": "https://wtip.org/trina-swanson-secures-dfl-endorsement-for-8th-district-seat/",
+          "type": "news",
+          "title": "Trina Swanson secures DFL endorsement for 8th District seat",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Trina_Swanson",
+          "type": "website",
+          "title": "Trina Swanson - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Director of International Operations",
+          "organization": "U.S. Citizenship and Immigration Services",
+          "start_year": null,
+          "end_year": 2025,
+          "description": "Left her role after being directed to take actions she considered unethical under the current administration",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://trinaforcongress.com/",
+      "social_media": {
+        "instagram": "https://www.instagram.com/trinaforcongress/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Luke Gulbranson",
+      "party": "Democratic-Farmer-Labor",
+      "incumbent": false,
+      "summary": "Luke Gulbranson is a reality television personality and actor known for appearing on Bravo's 'Summer House,' who is running for Congress in his home district. He grew up in Eveleth on the Iron Range and returned to Minnesota during the pandemic. His campaign priorities include protecting Social Security and Medicare, supporting labor unions, lowering healthcare and essential goods costs, and raising taxes on the wealthiest Americans.",
+      "summary_sources": [
+        {
+          "url": "https://lukegulbranson.com/",
+          "type": "website",
+          "title": "Luke Gulbranson for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Luke_Gulbranson",
+          "type": "website",
+          "title": "Luke Gulbranson - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.npr.org/2026/05/31/nx-s1-5836675/reality-television-politics-candidates-minnesota-texas-la",
+          "type": "news",
+          "title": "Reality TV stars throw their hats in the ring for public office - NPR",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Actor and Model",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "Appeared on Bravo's 'Summer House' and other television programs; also worked as a luxury real estate agent",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://lukegulbranson.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Wendell Smith",
+      "party": "Democratic-Farmer-Labor",
+      "incumbent": false,
+      "summary": "Dr. Wendell Smith is a general surgeon from Virginia, Minnesota, and a former U.S. Air Force veteran seeking the DFL nomination for Minnesota's 8th Congressional District. His platform includes establishing a Medicare for All system, protecting rural hospitals and health services, restoring the Department of Education, growing the clean energy sector, and supporting unions and workers' rights.",
+      "summary_sources": [
+        {
+          "url": "https://www.northernnewsnow.com/2026/03/05/iron-range-surgeon-announces-run-minnesotas-8th-congressional-district/",
+          "type": "news",
+          "title": "Iron Range surgeon announces run for Minnesota's 8th Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Minnesota%27s_8th_Congressional_District_election,_2026_(August_11_Democratic_primary)",
+          "type": "website",
+          "title": "Minnesota's 8th Congressional District election, 2026 (August 11 Democratic primary) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "General Surgeon",
+          "organization": "Self-employed / Regional hospitals",
+          "start_year": null,
+          "end_year": null,
+          "description": "Longtime general surgeon practicing in Virginia, Minnesota, and the Iron Range region",
+          "source": null
+        },
+        {
+          "title": "Officer",
+          "organization": "United States Air Force",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as a medical officer",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {
+        "facebook": "https://www.facebook.com/wendellsmithforcongress/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Emanuel Anastos",
+      "party": "Democratic-Farmer-Labor",
+      "incumbent": false,
+      "summary": "Emanuel 'Manny' Anastos is an Indian Child Welfare case manager for the Bois Forte Band of Chippewa, living on the Lake Vermilion Reservation. Originally from Long Island, New York, he attended Carleton College. His campaign platform includes establishing universal health care, raising the minimum wage, ending funding for overseas conflicts, environmental protections, and abolishing Immigration and Customs Enforcement.",
+      "summary_sources": [
+        {
+          "url": "https://wtip.org/know-your-candidates-minnesotas-8th-congressional-district-nominating-convention-approaches/",
+          "type": "news",
+          "title": "Know your candidates: Minnesota's 8th Congressional District nominating convention approaches - WTIP",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.kaxe.org/local-news/2026-04-20/cd8-swanson-gulbranson-smith-anastos-topping-helland-liend",
+          "type": "news",
+          "title": "At least 9 candidates vying for Democratic endorsement in 8th District - KAXE",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Indian Child Welfare Case Manager",
+          "organization": "Bois Forte Band of Chippewa",
+          "start_year": null,
+          "end_year": null,
+          "description": "Works on the Lake Vermilion Reservation handling child welfare cases",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Carleton College",
+          "degree": "Bachelor's",
+          "field": "Philosophy",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Minnesota%27s_8th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:46:42.956887+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 227749,
+    "completion_tokens": 8272,
+    "total_tokens": 236021,
+    "cost_usd": 0.015074922000000001,
+    "cost_source": "provider",
+    "estimated_usd": 0.023941,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 227749,
+        "completion_tokens": 8272
+      }
+    },
+    "duration_s": 138.4
+  }
+}

@@ -38,11 +38,20 @@ describe("DurableAdminAgentTab", () => {
         created_at: "2026-06-13T00:00:01Z",
         updated_at: "2026-06-13T00:00:01Z",
       }),
+      listAdminAgentConversations: vi.fn().mockResolvedValue([
+        {
+          conversation_id: "conversation-1",
+          title: "New admin conversation",
+          status: "active",
+          created_at: "2026-06-13T00:00:00Z",
+          updated_at: "2026-06-13T00:00:00Z",
+        }
+      ]),
     } as unknown as PipelineApiService;
 
     const { component, getByPlaceholderText, getByText } = render(DurableAdminAgentTab, { props: { apiService: api } });
     await component.initialize();
-    await waitFor(() => expect(getByText("Manage SmarterVote through the deployed agent")).toBeTruthy());
+    await waitFor(() => expect(getByText("SmarterVote AI Admin Agent")).toBeTruthy());
 
     await fireEvent.input(getByPlaceholderText("Ask the admin agent..."), {
       target: { value: "Review stale races" },

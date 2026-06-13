@@ -5,7 +5,7 @@ import logging
 import os
 import re
 from datetime import datetime, timezone
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
 import firestore_helpers
 import httpx
@@ -45,7 +45,7 @@ def _normalize_pipeline_run(raw: Dict[str, Any], fallback_run_id: str) -> Dict[s
     race_id = raw.get("race_id") or payload.get("race_id") or ""
     run_id = raw.get("run_id") or fallback_run_id
     status = raw.get("status") or "unknown"
-    timestamp = raw.get("started_at") or raw.get("completed_at")
+    timestamp = raw.get("timestamp") or raw.get("started_at") or raw.get("completed_at")
 
     cheap_mode = raw.get("cheap_mode")
     if cheap_mode is None:
@@ -70,6 +70,7 @@ def _normalize_pipeline_run(raw: Dict[str, Any], fallback_run_id: str) -> Dict[s
     total_tokens = _as_int(raw.get("total_tokens"), _as_int(agent_metrics.get("total_tokens"), 0))
     prompt_tokens = _as_int(raw.get("prompt_tokens"), _as_int(agent_metrics.get("prompt_tokens"), 0))
     completion_tokens = _as_int(raw.get("completion_tokens"), _as_int(agent_metrics.get("completion_tokens"), 0))
+    serper_calls = _as_int(raw.get("serper_calls"), _as_int(agent_metrics.get("serper_calls"), 0))
 
     estimated_usd = _as_float(
         raw.get("estimated_usd"),
@@ -109,6 +110,7 @@ def _normalize_pipeline_run(raw: Dict[str, Any], fallback_run_id: str) -> Dict[s
         "duration_s": duration_s,
         "candidate_count": candidate_count,
         "cheap_mode": cheap_mode,
+        "serper_calls": serper_calls,
         "model_profile": options.get("model_profile"),
     }
 
@@ -313,7 +315,7 @@ async def get_pipeline_metrics(limit: int = 50) -> Dict[str, Any]:
 
 
 @router.get("/pipeline/metrics/summary", dependencies=[Depends(verify_token)])
-async def get_pipeline_metrics_summary() -> Dict[str, Any]:
+async def get_pipeline_metrics_summary(hours: Optional[int] = None) -> Dict[str, Any]:
     """Return aggregate pipeline cost stats."""
     db = firestore_helpers._get_fs()
     records: list[Dict[str, Any]] = []
@@ -335,6 +337,10 @@ async def get_pipeline_metrics_summary() -> Dict[str, Any]:
             if plain is None:
                 continue
             records.append(_normalize_pipeline_run(plain, doc.id))
+
+    if hours is not None and hours > 0:
+        cutoff = datetime.now(timezone.utc).timestamp() - hours * 3600
+        records = [r for r in records if _to_epoch_seconds(r.get("timestamp")) >= cutoff]
 
     return _compute_metrics_summary(records)
 

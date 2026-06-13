@@ -1,0 +1,284 @@
+{
+  "id": "ca-house-39-2026",
+  "title": "California's 39th Congressional District General Election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "California's 39th Congressional District",
+  "state": "California",
+  "district": "39th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "California's 39th Congressional District covers parts of Riverside County, including Riverside, Moreno Valley, Perris, and Jurupa Valley. Incumbent Democrat Mark Takano, first elected in 2012, is seeking re-election against Republican challenger Steve Manos, the Mayor of Lake Elsinore. The primary was held on June 2, 2026, with Takano receiving 61.0% and Manos receiving 39.0% under California's top-two primary system. Cook Political Report rates the general election as 'Solid D', reflecting the district's Democratic lean (D+7 Cook PVI).",
+  "polling": [],
+  "polling_note": "No independent public opinion polls for the CA-39 general election were found. The Cook Political Report rates the race as 'Solid D' based on the district's partisan voting index.",
+  "candidates": [
+    {
+      "name": "Mark Takano",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Mark Takano has represented California's 39th Congressional District (and previously the 41st) since 2013. He is the Ranking Member of the House Veterans' Affairs Committee and previously served as its Chair (2019-2023). Takano made history as the first openly LGBTQ person of color elected to Congress and serves as co-chair of the Congressional LGBTQ+ Equality Caucus.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Mark_Takano",
+          "type": "website",
+          "title": "Mark Takano - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://takano.house.gov/about/biography",
+          "type": "government",
+          "title": "Biography | U.S. Congressman Mark Takano",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cookpolitical.com/house/race/482011",
+          "type": "news",
+          "title": "CA-39 2026 | Cook Political Report",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Mark_Takano_118th_Congress.jpeg/440px-Mark_Takano_118th_Congress.jpeg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2013,
+          "end_year": null,
+          "description": "Representing California's 41st (2013-2023) and 39th (2023-present) congressional districts",
+          "source": null
+        },
+        {
+          "title": "Ranking Member",
+          "organization": "House Veterans' Affairs Committee",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Ranking Democratic member of the committee",
+          "source": null
+        },
+        {
+          "title": "Chair",
+          "organization": "House Veterans' Affairs Committee",
+          "start_year": 2019,
+          "end_year": 2023,
+          "description": "Chaired the committee during the 116th Congress",
+          "source": null
+        },
+        {
+          "title": "Trustee",
+          "organization": "Riverside Community College Board of Trustees",
+          "start_year": 1990,
+          "end_year": 2012,
+          "description": "Served on the board, including multiple terms as president",
+          "source": null
+        },
+        {
+          "title": "Teacher",
+          "organization": "Rialto Unified School District",
+          "start_year": null,
+          "end_year": null,
+          "description": "Taught British literature in public schools for 23 years",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Harvard University",
+          "degree": "Bachelor of Arts",
+          "field": "Government",
+          "year": 1983,
+          "source": null
+        },
+        {
+          "institution": "University of California, Riverside",
+          "degree": "Master of Fine Arts",
+          "field": "Creative Writing for the Performing Arts",
+          "year": 2010,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://takano.house.gov/",
+          "title": "https://takano.house.gov/",
+          "type": "other"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Mark_Takano",
+          "title": "https://en.wikipedia.org/wiki/Mark_Takano",
+          "type": "other"
+        },
+        {
+          "url": "https://ballotpedia.org/Mark_Takano",
+          "title": "https://ballotpedia.org/Mark_Takano",
+          "type": "other"
+        }
+      ],
+      "website": "https://www.marktakano.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Steve Manos",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Steve Manos is a Lake Elsinore City Council member and has served as Mayor multiple times (2015, 2019, 2024, 2026). He is a real estate business owner since 1996 and has been active in regional planning through the Southern California Association of Governments. Manos advanced from the June 2026 primary as the Republican challenger to incumbent Mark Takano.",
+      "summary_sources": [
+        {
+          "url": "https://manosforcongress.com/",
+          "type": "website",
+          "title": "Steve Manos for Congress - Official Campaign Website",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.ocregister.com/2026/05/05/steve-manos-ca-39-candidate-2026-primary-election-questionnaire/",
+          "type": "news",
+          "title": "Steve Manos, CA-39 candidate, 2026 primary election questionnaire",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://dp.electionresults.sos.ca.gov/returns/us-rep/district/39",
+          "type": "government",
+          "title": "California Primary Election Results - U.S. House District 39",
+          "description": null,
+          "last_accessed": "2026-06-13T23:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Steve_Manos.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Mayor / City Council Member",
+          "organization": "City of Lake Elsinore",
+          "start_year": 2012,
+          "end_year": null,
+          "description": "Elected to City Council in 2012; served as Mayor in 2015, 2019, 2024, and 2026",
+          "source": null
+        },
+        {
+          "title": "Business Owner",
+          "organization": "Real Estate Business",
+          "start_year": 1996,
+          "end_year": null,
+          "description": "Commercial and residential real estate broker",
+          "source": null
+        },
+        {
+          "title": "Past President",
+          "organization": "Inland Valleys Association of Realtors",
+          "start_year": null,
+          "end_year": null,
+          "description": "Led the regional Realtor association",
+          "source": null
+        },
+        {
+          "title": "Director",
+          "organization": "Southern California Association of Governments",
+          "start_year": null,
+          "end_year": null,
+          "description": "Regional Council Member representing the region",
+          "source": null
+        },
+        {
+          "title": "Director",
+          "organization": "Riverside County Habitat Conservation Authority",
+          "start_year": null,
+          "end_year": null,
+          "description": "Board member for conservation authority",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://manosforcongress.com/",
+          "title": "https://manosforcongress.com/",
+          "type": "other"
+        },
+        {
+          "url": "https://ballotpedia.org/Steve_Manos",
+          "title": "https://ballotpedia.org/Steve_Manos",
+          "type": "other"
+        },
+        {
+          "url": "https://www.instagram.com/stevenjmanos/",
+          "title": "https://www.instagram.com/stevenjmanos/",
+          "type": "other"
+        }
+      ],
+      "website": "https://manosforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/California%27s_39th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:28:04.329426+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 270404,
+    "completion_tokens": 5276,
+    "total_tokens": 275680,
+    "cost_usd": 0.017659512,
+    "cost_source": "provider",
+    "estimated_usd": 0.027534,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 270404,
+        "completion_tokens": 5276
+      }
+    },
+    "duration_s": 142.2
+  }
+}

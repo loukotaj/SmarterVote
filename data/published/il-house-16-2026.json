@@ -1,0 +1,248 @@
+{
+  "id": "il-house-16-2026",
+  "title": "Illinois's 16th Congressional District Election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Illinois's 16th Congressional District",
+  "state": "Illinois",
+  "district": "16th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 general election for Illinois's 16th Congressional District pits incumbent Republican Representative Darin LaHood against Democratic nominee Paul Nolley. LaHood, first elected in a 2015 special election and currently serving on the House Ways and Means Committee and the House Intelligence Committee, is seeking another term in a district that spans 21 counties across central and northwestern Illinois. Nolley, the executive director of Project First Rate and a first-time candidate, is challenging LaHood on a platform of prioritizing working families, ending corporate PAC influence, and preserving Social Security and Medicare. The district has been held by a Republican for 98 of the last 100 years and is considered safely Republican by major election forecasters.",
+  "polling": [],
+  "polling_note": "No publicly available general election opinion polls were found for this race as of June 2026.",
+  "candidates": [
+    {
+      "name": "Darin LaHood",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Darin LaHood is the incumbent U.S. Representative for Illinois's 16th Congressional District, first elected in a September 2015 special election. He serves on the House Ways and Means Committee (Chairman of the Subcommittee on Work and Welfare) and the House Permanent Select Committee on Intelligence, and previously served in the Illinois State Senate from 2011 to 2015 and as an Assistant U.S. Attorney in Nevada and an Assistant State's Attorney in Illinois. LaHood is the son of former U.S. Secretary of Transportation and former U.S. Representative Ray LaHood.",
+      "summary_sources": [
+        {
+          "url": "https://lahood.house.gov/biography",
+          "type": "government",
+          "title": "Biography - Congressman Darin LaHood",
+          "description": null,
+          "last_accessed": "2026-06-13T04:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Darin_LaHood",
+          "type": "website",
+          "title": "Darin LaHood - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T04:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Darin_LaHood",
+          "type": "website",
+          "title": "Darin LaHood - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T04:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Darin_LaHood.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2015,
+          "end_year": null,
+          "description": "Representing Illinois's 18th District (2015\u20132023) and 16th District (2023\u2013present); serves on Ways and Means, Intelligence, and China Select Committees",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Illinois State Senate",
+          "start_year": 2011,
+          "end_year": 2015,
+          "description": "Represented the 37th District",
+          "source": null
+        },
+        {
+          "title": "Assistant U.S. Attorney",
+          "organization": "U.S. Department of Justice",
+          "start_year": 2001,
+          "end_year": 2006,
+          "description": "Served in Las Vegas, Nevada; selected as Chief Terrorism Prosecutor",
+          "source": null
+        },
+        {
+          "title": "Assistant State's Attorney",
+          "organization": "Cook County and Tazewell County State's Attorney Offices",
+          "start_year": null,
+          "end_year": null,
+          "description": "Prosecuted felony and narcotics cases",
+          "source": null
+        },
+        {
+          "title": "Attorney",
+          "organization": "Miller, Hall & Triggs",
+          "start_year": 2006,
+          "end_year": 2015,
+          "description": "Practiced law in Peoria, Illinois",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "John Marshall Law School (University of Illinois Chicago)",
+          "degree": "J.D.",
+          "field": "Law",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Loras College",
+          "degree": "B.A.",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://lahoodforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/LaHoodDarin/",
+        "twitter": "https://twitter.com/RepLaHood"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Paul Nolley",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Paul Nolley is the Democratic nominee for Illinois's 16th Congressional District in the 2026 election. A lifelong resident of the Rockford area, he is the executive director of Project First Rate, a nonprofit that helps young people access apprenticeship programs and skilled trades careers. Nolley previously worked with faith-based and community organizations including the YMCA, United Way, and Habitat for Humanity, and is a first-time candidate for public office.",
+      "summary_sources": [
+        {
+          "url": "https://www.nolleyforcongress.com/",
+          "type": "website",
+          "title": "Paul Nolley for Congress - Official Campaign Website",
+          "description": null,
+          "last_accessed": "2026-06-13T04:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://roscoenews.com/paul-nolley-hononegah-alum-launches-campaign-for-illinois-16th-congressional-district/",
+          "type": "news",
+          "title": "Paul Nolley, Hononegah alum, launches campaign for Illinois' 16th Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-13T04:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.wifr.com/2025/04/29/paul-nolley-announces-bid-represent-illinois-16th-district-wants-unseat-lahood/",
+          "type": "news",
+          "title": "Paul Nolley looks to unseat LaHood with bid to represent Illinois' 16th District",
+          "description": null,
+          "last_accessed": "2026-06-13T04:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Executive Director",
+          "organization": "Project First Rate",
+          "start_year": 2018,
+          "end_year": null,
+          "description": "Nonprofit helping young people access apprenticeship programs and skilled trades careers",
+          "source": null
+        },
+        {
+          "title": "Various Roles",
+          "organization": "YMCA, United Way, Habitat for Humanity",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked in faith-based and community organizations on youth and family programs",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Illinois State University",
+          "degree": null,
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Hononegah High School",
+          "degree": "High School Diploma",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.nolleyforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/nolleyforcongress/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Illinois%27_16th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:24:04.433663+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 214320,
+    "completion_tokens": 4964,
+    "total_tokens": 219284,
+    "cost_usd": 0.015866096,
+    "cost_source": "provider",
+    "estimated_usd": 0.021976,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 214320,
+        "completion_tokens": 4964
+      }
+    },
+    "duration_s": 105.7
+  }
+}

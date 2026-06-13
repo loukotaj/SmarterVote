@@ -1,0 +1,657 @@
+{
+  "id": "wi-house-01-2026",
+  "title": "Wisconsin's 1st Congressional District election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Wisconsin's 1st Congressional District",
+  "state": "Wisconsin",
+  "district": "1st Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Wisconsin's 1st Congressional District will determine who represents southeastern Wisconsin\u2014including Racine, Kenosha, and Janesville\u2014in the U.S. House. Incumbent Republican Rep. Bryan Steil, first elected in 2018, is seeking a fifth term and chairs the House Administration Committee. The district has been held by Republicans since 1994 and is rated as Likely Republican by The Cook Political Report, though a crowded Democratic primary field sees the seat as a potential flip opportunity. The Democratic primary on August 11, 2026, will determine who challenges Steil in the general election, with candidates emphasizing health care, affordability, and labor issues.",
+  "polling": [
+    {
+      "pollster": "Ragnar Research Partners (R)",
+      "date": "2026-03-16",
+      "sample_size": 400,
+      "matchups": [
+        {
+          "candidates": [
+            "Bryan Steil",
+            "Mitchell Berman"
+          ],
+          "percentages": [
+            50.0,
+            41.0
+          ]
+        }
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Wisconsin"
+    }
+  ],
+  "polling_note": "One poll found; it was commissioned by a Republican firm. 9% were undecided.",
+  "candidates": [
+    {
+      "name": "Bryan Steil",
+      "party": "Republican Party",
+      "incumbent": true,
+      "summary": "Bryan Steil is the incumbent Republican U.S. Representative for Wisconsin's 1st Congressional District, first elected in 2018. He chairs the House Administration Committee and previously worked as an aide to former House Speaker Paul Ryan and as a corporate lawyer. He was re-elected in 2024 with 54.0% of the vote and is running for a fifth term in 2026.",
+      "summary_sources": [
+        {
+          "url": "https://bioguide.congress.gov/search/bio/S001213",
+          "type": "government",
+          "title": "STEIL, Bryan - Biographical Directory of the U.S. Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cookpolitical.com/house/race/485551",
+          "type": "news",
+          "title": "WI-01 2026 - Cook Political Report",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Wisconsin",
+          "type": "news",
+          "title": "2026 United States House of Representatives elections in Wisconsin",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://www.cookpolitical.com/sites/default/files/styles/large/public/politician/photo/medium/S001213.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "Representing Wisconsin's 1st District; Chairman of the House Administration Committee",
+          "source": null
+        },
+        {
+          "title": "Aide",
+          "organization": "Office of U.S. Representative Paul Ryan",
+          "start_year": 2003,
+          "end_year": 2004,
+          "description": "Staff for the then-U.S. Representative from Wisconsin",
+          "source": null
+        },
+        {
+          "title": "Lawyer",
+          "organization": "Private practice",
+          "start_year": 2007,
+          "end_year": 2018,
+          "description": "Corporate law practice",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Georgetown University",
+          "degree": "Bachelor of Science",
+          "field": "Undergraduate",
+          "year": 2003,
+          "source": null
+        },
+        {
+          "institution": "University of Wisconsin Law School",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": 2007,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://bryansteil.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/RepBryanSteil/",
+        "instagram": "https://www.instagram.com/repbryansteil/",
+        "official_house": "http://steil.house.gov/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Connor Walleck",
+      "party": "Republican Party",
+      "incumbent": false,
+      "summary": "Connor Walleck is a Republican candidate running for U.S. House in Wisconsin's 1st Congressional District. He filed a statement of candidacy with the FEC in August 2024 and has pledged to support term limits on Congress. He is running in the Republican primary against incumbent Bryan Steil.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Connor_Walleck",
+          "type": "news",
+          "title": "Connor Walleck - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/H6WI01242/",
+          "type": "government",
+          "title": "WALLECK, CONNOR - FEC Candidate Overview",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://termlimits.com/connor-walleck-pledges-to-support-term-limits-on-congress/",
+          "type": "news",
+          "title": "Connor Walleck Pledges to Support Term Limits on Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Mitchell Berman",
+      "party": "Democratic Party",
+      "incumbent": false,
+      "summary": "Mitchell Berman is a Democratic candidate for Wisconsin's 1st Congressional District. He is a former VA emergency room nurse with 23 years of healthcare experience and a first-time political candidate from Raymond, Wisconsin. Berman emphasizes protecting healthcare access, lowering costs for working families, and his working-class upbringing in rural Wisconsin.",
+      "summary_sources": [
+        {
+          "url": "https://www.bermanforcongress.com/",
+          "type": "website",
+          "title": "Mitchell Berman for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://wisconsinexaminer.com/2025/08/12/former-va-nurse-is-second-democrat-to-enter-wisconsins-1st-district-race-for-congress-in-2026/",
+          "type": "news",
+          "title": "Former VA nurse enters Democratic primary for Wisconsin's 1st District race for Congress in 2026",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Mitchell_Berman",
+          "type": "news",
+          "title": "Mitchell Berman - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Mitchell_Berman.png",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Registered Nurse, Emergency Department",
+          "organization": "U.S. Department of Veterans Affairs (Milwaukee VA Hospital)",
+          "start_year": 2015,
+          "end_year": 2025,
+          "description": "Served veterans, active duty service members, and their families for 10 years",
+          "source": null
+        },
+        {
+          "title": "Registered Nurse",
+          "organization": "Various healthcare facilities",
+          "start_year": 2003,
+          "end_year": null,
+          "description": "Over 23 years of healthcare experience; board certified emergency nurse; union member with Wisconsin Federation of Nurses and Health Professionals and National Nurses United",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Public schools, Wisconsin",
+          "degree": "First-generation college graduate",
+          "field": "Nursing",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.bermanforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/bermanforcongress/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Miguel Aranda",
+      "party": "Democratic Party",
+      "incumbent": false,
+      "summary": "Miguel Aranda is a Democratic candidate for Wisconsin's 1st Congressional District. He serves as vice president of the Whitewater Unified School District school board and works as a college administrator. Aranda emphasizes his experience as a working dad and community advocate, focusing on affordable healthcare, good-paying jobs, and strong public schools.",
+      "summary_sources": [
+        {
+          "url": "https://www.arandaforwisconsin.com/",
+          "type": "website",
+          "title": "Miguel Aranda for Wisconsin",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://wisconsinexaminer.com/2025/12/18/college-administrator-says-school-board-victories-show-he-can-win-1st-congressional-district/",
+          "type": "news",
+          "title": "College administrator says school board victories show he can win 1st Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Miguel_Aranda",
+          "type": "news",
+          "title": "Miguel Aranda - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Vice President",
+          "organization": "Whitewater Unified School District School Board",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "School board member, currently serving as vice president",
+          "source": null
+        },
+        {
+          "title": "College Administrator",
+          "organization": "Higher education institution",
+          "start_year": null,
+          "end_year": null,
+          "description": "Works in college administration",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.arandaforwisconsin.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/arandaforwisconsin/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Peter Burgelis",
+      "party": "Democratic Party",
+      "incumbent": false,
+      "summary": "Peter Burgelis is a Democratic candidate for Wisconsin's 1st Congressional District and currently serves as a Milwaukee alderman representing District 11. He made Wisconsin history as the first openly LGBTQ person elected to the Milwaukee County Board of Supervisors. Burgelis emphasizes practical, accountable leadership and has framed the 1st District as potentially more flippable than other Wisconsin districts.",
+      "summary_sources": [
+        {
+          "url": "https://www.wpr.org/news/bryan-steil-peter-burgelis-wisconsin-third-congressional-milwaukee-alder",
+          "type": "news",
+          "title": "Milwaukee Alder Peter Burgelis to challenge US Rep. Bryan Steil",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://urbanmilwaukee.com/2026/04/21/alderman-peter-burgelis-exploring-run-for-congress/",
+          "type": "news",
+          "title": "Alderman Peter Burgelis Exploring Run For Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Peter_Burgelis",
+          "type": "news",
+          "title": "Peter Burgelis - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Alderman, District 11",
+          "organization": "Milwaukee Common Council",
+          "start_year": 2024,
+          "end_year": null,
+          "description": "City of Milwaukee alderman",
+          "source": null
+        },
+        {
+          "title": "Milwaukee County Supervisor",
+          "organization": "Milwaukee County Board of Supervisors",
+          "start_year": null,
+          "end_year": null,
+          "description": "First openly LGBTQ person elected to the board",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.peterforwi.com/",
+      "social_media": {
+        "linkedin": "https://www.linkedin.com/in/peterburgelis"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Lorenzo Santos",
+      "party": "Democratic Party",
+      "incumbent": false,
+      "summary": "Lorenzo Santos is a Democratic candidate for Wisconsin's 1st Congressional District. He is a Navy veteran, emergency management professional, and previous candidate for the same seat in 2024. Santos focuses his campaign on affordability, healthcare, and preserving democracy, emphasizing his commitment to putting everyday people ahead of corporate interests.",
+      "summary_sources": [
+        {
+          "url": "https://www.lorenzoforcongress.com/",
+          "type": "website",
+          "title": "Lorenzo for Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://wisconsinexaminer.com/2026/03/23/lorenzo-santos-tries-again-for-democratic-nod-in-wisconsins-1st-congressional-district/",
+          "type": "news",
+          "title": "Lorenzo Santos tries again for Democratic nod in Wisconsin's 1st Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Lorenzo_Santos",
+          "type": "news",
+          "title": "Lorenzo Santos - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Lorenzo_Santos.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Emergency Management Professional",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Emergency management and preparedness work",
+          "source": null
+        },
+        {
+          "title": "Veteran",
+          "organization": "United States Navy",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served in the U.S. Navy",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.lorenzoforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/people/Lorenzo-for-Congress/100094461832600/",
+        "instagram": "https://www.instagram.com/lorenzojsantos/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Gage Stills",
+      "party": "Democratic Party",
+      "incumbent": false,
+      "summary": "Gage Stills is a Democratic candidate for Wisconsin's 1st Congressional District. A 25-year-old retail worker and first-time political candidate from Racine, Stills runs on a progressive platform. He has filed with the FEC and is one of several Democrats seeking the nomination to challenge incumbent Bryan Steil.",
+      "summary_sources": [
+        {
+          "url": "https://racinecountyeye.com/2025/08/14/gage-stills-2026-rep-bryan-steil/",
+          "type": "news",
+          "title": "Gage Stills challenging Rep. Bryan Steil with progressive platform",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.gazettextra.com/news/local/stills-joins-crowded-field-of-1st-congressional-district-candidates/article_a5f54565-3d5f-41d1-8c54-8caf2c6494a8.html",
+          "type": "news",
+          "title": "Stills joins crowded field of 1st Congressional District candidates",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Gage_Stills",
+          "type": "news",
+          "title": "Gage Stills - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Retail Worker",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Employed in the retail sector",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Adam Follmer",
+      "party": "The Common Class Party",
+      "incumbent": false,
+      "summary": "Adam Follmer is a candidate for Wisconsin's 1st Congressional District running under The Common Class Party. He is a speech language pathologist and college professor who has also filed to run in the Democratic primary. Follmer advocates for a wealth tax on fortunes over $50 million and closing corporate tax loopholes, and his campaign emphasizes reinventing political fundraising by not soliciting traditional donations.",
+      "summary_sources": [
+        {
+          "url": "https://wisconsinexaminer.com/2026/05/05/one-time-independent-aims-to-reinvent-politicking-as-he-gets-into-democratic-primary-in-1st-cd/",
+          "type": "news",
+          "title": "One-time independent aims to reinvent politicking as he gets into Democratic primary in 1st CD",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Adam_Follmer",
+          "type": "news",
+          "title": "Adam Follmer - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/H6WI01267/",
+          "type": "government",
+          "title": "FOLLMER, ADAM - FEC Candidate Overview",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Speech Language Pathologist / College Professor",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Works as a speech language pathologist and college professor",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Wisconsin%27s_1st_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:30:17.438646+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 221917,
+    "completion_tokens": 12765,
+    "total_tokens": 234682,
+    "cost_usd": 0.017870030000000002,
+    "cost_source": "provider",
+    "estimated_usd": 0.02425,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 221917,
+        "completion_tokens": 12765
+      }
+    },
+    "duration_s": 218.1
+  }
+}

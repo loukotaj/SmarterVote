@@ -1,0 +1,499 @@
+{
+  "id": "fl-house-09-2026",
+  "title": "Florida's 9th Congressional District Election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Florida's 9th Congressional District",
+  "state": "Florida",
+  "district": "9th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Florida's 9th Congressional District election is being contested under dramatically redrawn boundaries approved by Governor Ron DeSantis in May 2026. The new map shifted the district from one where Democrat Kamala Harris won 51% in 2024 to one where Republican Donald Trump would have won over 58%, making the seat a top Republican pickup target. Incumbent Democrat Darren Soto, first elected in 2016 and the first Puerto Rican-American elected to Congress from Florida, is seeking a sixth term in a district that now leans Republican by a significant margin. A crowded Republican primary field of seven candidates is competing for the chance to face Soto in the general election on November 3, 2026.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for this specific race as of the research date.",
+  "candidates": [
+    {
+      "name": "Darren Soto",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Darren Soto is the incumbent U.S. Representative for Florida's 9th Congressional District, first elected in 2016. He previously served in the Florida Senate (2012-2016) and Florida House of Representatives (2007-2012), and serves on the House Energy and Commerce Committee and Natural Resources Committee.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Darren_Soto",
+          "type": "website",
+          "title": "Darren Soto - Wikipedia",
+          "description": null,
+          "last_accessed": "2025-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "http://soto.house.gov/about",
+          "type": "government",
+          "title": "About - Congressman Darren Soto",
+          "description": null,
+          "last_accessed": "2025-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/93/Darren_Soto_115th_Congress_photo.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2017,
+          "end_year": null,
+          "description": "Representing Florida's 9th Congressional District",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Florida Senate",
+          "start_year": 2012,
+          "end_year": 2016,
+          "description": "Represented the 14th district",
+          "source": null
+        },
+        {
+          "title": "State Representative",
+          "organization": "Florida House of Representatives",
+          "start_year": 2007,
+          "end_year": 2012,
+          "description": "Represented the 49th district",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Rutgers University",
+          "degree": "BA",
+          "field": "Economics",
+          "year": 2000,
+          "source": null
+        },
+        {
+          "institution": "George Washington University",
+          "degree": "JD",
+          "field": "Law",
+          "year": 2004,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.darrensoto.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Thomas E. Chalifoux Jr.",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Thomas Chalifoux is a retired U.S. Army Colonel, businessman, and former Osceola County School Board member running for the Republican nomination in Florida's 9th Congressional District. He was the Republican nominee in 2024, losing to incumbent Darren Soto, and has pledged to self-fund his campaign with $3 million.",
+      "summary_sources": [
+        {
+          "url": "https://floridapolitics.com/archives/795537-redistricting-shuffle-thomas-chalifoux-ready-for-a-rematch-with-darren-soto-in-cd-9/",
+          "type": "news",
+          "title": "Redistricting shuffle: Thomas Chalifoux ready for a rematch with Darren Soto in CD 9",
+          "description": null,
+          "last_accessed": "2025-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://thomas4fl.com/",
+          "type": "website",
+          "title": "Thomas Chalifoux for Congress",
+          "description": null,
+          "last_accessed": "2025-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Retired Colonel",
+          "organization": "United States Army",
+          "start_year": null,
+          "end_year": null,
+          "description": "30 years of service",
+          "source": null
+        },
+        {
+          "title": "Member and Chair",
+          "organization": "Osceola County School Board",
+          "start_year": null,
+          "end_year": null,
+          "description": "Former board member and chair",
+          "source": null
+        },
+        {
+          "title": "Businessman",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "Job creator and business owner in Central Florida for 48 years",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://thomas4fl.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Jorge Martinez",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Jorge Martinez is a certified public accountant and business owner from Pine Hills, Florida, running for the Republican nomination. He fled Cuba with his family at age 8, founded Martinez & Associates CPAs in 1992, and previously considered running for this seat in 2022.",
+      "summary_sources": [
+        {
+          "url": "https://floridapolitics.com/archives/798320-jorge-martinez-latest-republican-to-challenge-darren-soto-in-redrawn-cd-9/",
+          "type": "news",
+          "title": "Jorge Martinez latest Republican to challenge Darren Soto in redrawn CD 9",
+          "description": null,
+          "last_accessed": "2025-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Founder and CPA",
+          "organization": "Martinez & Associates CPAs",
+          "start_year": 1992,
+          "end_year": null,
+          "description": "Founded and operated his own accounting firm in Central Florida",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Central Florida",
+          "degree": "BBA",
+          "field": "Business Administration",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Ben Butler",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Ben Butler is a dairy farmer and agriculture executive from Okeechobee running for the Republican nomination. He has been endorsed by Republican U.S. Representatives Kat Cammack and Greg Steube, and reported raising over $100,000 in the first 48 hours of his campaign.",
+      "summary_sources": [
+        {
+          "url": "https://floridapolitics.com/archives/796971-ben-butler-jumps-into-arena-against-darren-soto-in-cd-9/",
+          "type": "news",
+          "title": "Ben Butler jumps into arena against Darren Soto in CD 9",
+          "description": null,
+          "last_accessed": "2025-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://floridapolitics.com/archives/797463-loud-message-ben-butler-raises-100k-in-first-48-hours-of-filing-to-challenge-darren-soto/",
+          "type": "news",
+          "title": "'Loud message': Ben Butler raises $100K in first 48 hours of filing to challenge Darren Soto",
+          "description": null,
+          "last_accessed": "2025-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Agriculture Executive / Dairy Farmer",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Agriculture industry leader from Okeechobee",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Dan Green",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Dan Green is a retired military veteran who served at the Pentagon on 9/11 and spent 23 years in uniform, running for the Republican nomination. He is pitching his campaign as an extension of his military service and vows to make America affordable again.",
+      "summary_sources": [
+        {
+          "url": "https://flvoicenews.com/pentagon-9-11-veteran-dan-green-launches-bid-for-floridas-9th-district-vows-to-make-america-affordable-again/",
+          "type": "news",
+          "title": "Pentagon 9/11 veteran Dan Green launches bid for Florida's 9th District, vows to make America affordable again",
+          "description": null,
+          "last_accessed": "2025-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Military Veteran",
+          "organization": "United States Armed Forces",
+          "start_year": null,
+          "end_year": null,
+          "description": "23 years of service; served at the Pentagon on 9/11",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Marcus Carter",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Marcus Carter is a Republican candidate running for Florida's 9th Congressional District. He has raised concerns about petition signature disqualification rules affecting campaigns in Florida.",
+      "summary_sources": [
+        {
+          "url": "https://floridapolitics.com/archives/782652-candidates-consider-legal-challenge-to-rule-disqualifying-petitions-signed-by-inactive-voters/",
+          "type": "news",
+          "title": "Candidates consider legal challenge to rule disqualifying petitions signed by inactive voters",
+          "description": null,
+          "last_accessed": "2025-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://carter26.com/",
+          "type": "website",
+          "title": "Marcus Carter for Congress",
+          "description": null,
+          "last_accessed": "2025-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://carter26.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Steve Rance",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Steve Rance is an Air Force veteran running for the Republican nomination in Florida's 9th Congressional District. He has been described as a leading candidate in the crowded primary field and has signed a term limits pledge.",
+      "summary_sources": [
+        {
+          "url": "https://floridapolitics.com/archives/800846-air-force-veteran-steve-rance-enters-race-for-cd-9/",
+          "type": "news",
+          "title": "Air Force veteran Steve Rance enters race for CD 9",
+          "description": null,
+          "last_accessed": "2025-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://termlimits.com/steve-rance-pledges-to-support-congressional-term-limits/",
+          "type": "news",
+          "title": "Strong Support for Congressional Term Limits in FL CD-09 Race",
+          "description": null,
+          "last_accessed": "2025-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Veteran",
+          "organization": "United States Air Force",
+          "start_year": null,
+          "end_year": null,
+          "description": "Air Force veteran",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://steverance.org/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Justin Story",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Justin Story is a retired Marine fighter pilot and commercial airline pilot running for the Republican nomination. He has signed a congressional term limits pledge and advocates for limiting government interference.",
+      "summary_sources": [
+        {
+          "url": "https://votejustinstory.com/press-releases",
+          "type": "website",
+          "title": "Press Releases - Justin Story",
+          "description": null,
+          "last_accessed": "2025-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://termlimits.com/justin-story-pledges-to-support-congressional-term-limits/",
+          "type": "news",
+          "title": "Justin Story Pledges to Support Congressional Term Limits",
+          "description": null,
+          "last_accessed": "2025-06-13T12:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Retired Marine Fighter Pilot / Commercial Airline Pilot",
+          "organization": "United States Marine Corps / Commercial Airline",
+          "start_year": null,
+          "end_year": null,
+          "description": "Retired Marine Corps fighter pilot and commercial airline pilot",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://votejustinstory.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Florida%27s_9th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:48:08.561191+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 398146,
+    "completion_tokens": 8204,
+    "total_tokens": 406350,
+    "cost_usd": 0.032429428,
+    "cost_source": "provider",
+    "estimated_usd": 0.040626,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 398146,
+        "completion_tokens": 8204
+      }
+    },
+    "duration_s": 158.6
+  }
+}

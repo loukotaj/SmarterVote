@@ -229,6 +229,28 @@ async def get_run_logs(run_id: str, since: int = 0) -> Dict[str, Any]:
     return {"logs": sliced, "total": len(entries)}
 
 
+@router.delete("/runs", dependencies=[Depends(verify_token)])
+async def prune_runs() -> Dict[str, Any]:
+    """Prune all terminal runs (completed, failed, cancelled, continued) from Firestore."""
+    db = firestore_helpers._get_fs()
+    terminal_statuses = ["completed", "failed", "cancelled", "continued"]
+    runs_ref = db.collection("pipeline_runs")
+    docs = list(runs_ref.where("status", "in", terminal_statuses).stream())
+
+    batch = db.batch()
+    count = 0
+    for doc in docs:
+        batch.delete(doc.reference)
+        count += 1
+        if count % 500 == 0:
+            batch.commit()
+            batch = db.batch()
+    if count % 500 != 0:
+        batch.commit()
+
+    return {"message": f"Pruned {count} finished runs", "count": count}
+
+
 @router.delete("/runs/{run_id}", dependencies=[Depends(verify_token)])
 async def cancel_or_delete_run(run_id: str) -> Dict[str, Any]:
     """Cancel an active run or delete a finished one from Firestore."""

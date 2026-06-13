@@ -1,0 +1,249 @@
+{
+  "id": "la-house-02-2026",
+  "title": "Louisiana's 2nd Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Louisiana's 2nd Congressional District",
+  "state": "Louisiana",
+  "district": "2nd Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The election for Louisiana's 2nd Congressional District is in flux after the U.S. Supreme Court struck down the state's congressional map as an unconstitutional racial gerrymander in Louisiana v. Callais (April 2026). Incumbent Democrat Troy Carter, who has held the seat since 2021, faces a primary challenge from Renada Collins, but the May 2026 primary was suspended by Governor Jeff Landry pending map redrawing. The district, which stretches from New Orleans to Baton Rouge, is rated Solid/Safe Democratic by major nonpartisan forecasters. The final candidate slate and election calendar remain uncertain as state lawmakers work to adopt new district boundaries.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for this race as of mid-2026.",
+  "candidates": [
+    {
+      "name": "Troy Carter",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Troy Carter is the incumbent U.S. Representative for Louisiana's 2nd Congressional District, first elected in a 2021 special election. He previously served in the Louisiana State Senate (as Minority Leader), the New Orleans City Council, and the Louisiana House of Representatives. Carter is a Democrat and one of two Democrats in Louisiana's congressional delegation.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Troy_Carter_(politician)",
+          "type": "website",
+          "title": "Troy Carter (politician) - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-05-22T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Troy_Carter",
+          "type": "website",
+          "title": "Troy Carter - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-05-22T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://lailluminator.com/2026/02/12/whos-running-so-far-in-louisianas-party-primary-elections/",
+          "type": "news",
+          "title": "Who's running so far in Louisiana's party primary elections",
+          "description": null,
+          "last_accessed": "2026-05-22T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Rep._Troy_Carter_-_117th_Congress_Official_Portrait.jpg/640px-Rep._Troy_Carter_-_117th_Congress_Official_Portrait.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Representing Louisiana's 2nd Congressional District",
+          "source": null
+        },
+        {
+          "title": "Minority Leader / State Senator",
+          "organization": "Louisiana State Senate",
+          "start_year": 2016,
+          "end_year": 2021,
+          "description": "Served as Minority Leader; represented the 7th Senate district",
+          "source": null
+        },
+        {
+          "title": "City Councilmember",
+          "organization": "New Orleans City Council",
+          "start_year": 1994,
+          "end_year": 2002,
+          "description": "Represented District C",
+          "source": null
+        },
+        {
+          "title": "State Representative",
+          "organization": "Louisiana House of Representatives",
+          "start_year": 1992,
+          "end_year": 1994,
+          "description": "Represented the 102nd district; first African American to hold the seat",
+          "source": null
+        },
+        {
+          "title": "Executive Assistant",
+          "organization": "Office of New Orleans Mayor Sidney Barthelemy",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served for six years prior to his legislative career",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Xavier University of Louisiana",
+          "degree": "Bachelor of Arts",
+          "field": "Business Administration and Political Science",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Holy Cross",
+          "degree": "Master of Science",
+          "field": "Management",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Carnegie Mellon University",
+          "degree": null,
+          "field": "Urban and Public Affairs (attended)",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Harvard Kennedy School",
+          "degree": null,
+          "field": "Executive training program",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.congressmantroycarter.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/troyc4congress/",
+        "instagram": "https://www.instagram.com/reptroycarter/",
+        "x": "https://x.com/RepTroyCarter"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Renada Collins",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Renada Collins is a Democratic candidate challenging incumbent Troy Carter in the primary for Louisiana's 2nd Congressional District. She ran as an independent candidate for mayor of New Orleans in 2025 and has worked as a TV host at Bigg Mouth Media Group since 2016. Ballotpedia notes her career experience also includes serving as a banking executive.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Renada_Collins",
+          "type": "website",
+          "title": "Renada Collins - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-05-22T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://lailluminator.com/2026/05/03/louisiana-house-candidates/",
+          "type": "news",
+          "title": "Louisiana's US House candidates in limbo continue their campaigns",
+          "description": null,
+          "last_accessed": "2026-05-22T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.ballotready.org/people/renada-collins",
+          "type": "website",
+          "title": "Renada Collins - BallotReady",
+          "description": null,
+          "last_accessed": "2026-05-22T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "TV Host",
+          "organization": "Bigg Mouth Media Group",
+          "start_year": 2016,
+          "end_year": null,
+          "description": "Host of a talk show covering music, inspiration, fashion, and DIY topics",
+          "source": null
+        },
+        {
+          "title": "Banking Executive",
+          "organization": null,
+          "start_year": null,
+          "end_year": null,
+          "description": "Ballotpedia lists banking executive as professional experience",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {
+        "facebook": "https://www.facebook.com/RenadaCollinsCongress/",
+        "instagram": "https://www.instagram.com/renada_collins/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Louisiana%27s_2nd_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:30:44.307150+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 241015,
+    "completion_tokens": 9061,
+    "total_tokens": 250076,
+    "cost_usd": 0.017258466,
+    "cost_source": "provider",
+    "estimated_usd": 0.025395,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 241015,
+        "completion_tokens": 9061
+      }
+    },
+    "duration_s": 153.2
+  }
+}

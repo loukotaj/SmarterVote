@@ -1,0 +1,2229 @@
+{
+  "id": "az-governor-2026",
+  "title": "Arizona Governor Election, 2026",
+  "office": "Governor",
+  "jurisdiction": "Arizona",
+  "state": "Arizona",
+  "district": null,
+  "election_date": "2026-11-03",
+  "description": "Arizona\u2019s 2026 gubernatorial election will choose the state\u2019s next governor, the chief executive responsible for the budget, state agencies, and veto power over legislation. Incumbent Democratic Gov. Katie Hobbs is seeking reelection in a politically competitive state that has often been closely divided in recent statewide races. Republicans are contesting the nomination in a crowded field, with Rep. Andy Biggs emerging as an early frontrunner in public polling. The general election is expected to hinge on turnout, independents, and contrasts over the economy, immigration, and state governance.",
+  "polling": [
+    {
+      "pollster": "Emerson College Polling",
+      "date": "2025-11-10",
+      "sample_size": 850,
+      "matchups": [
+        {
+          "candidates": [
+            "Katie Hobbs",
+            "Andy Biggs"
+          ],
+          "percentages": [
+            44,
+            43
+          ]
+        },
+        {
+          "candidates": [
+            "Katie Hobbs",
+            "David Schweikert"
+          ],
+          "percentages": [
+            44,
+            39
+          ]
+        },
+        {
+          "candidates": [
+            "Katie Hobbs",
+            "Karrin Taylor Robson"
+          ],
+          "percentages": [
+            43,
+            42
+          ]
+        }
+      ],
+      "source_url": "https://emersoncollegepolling.com/arizona-2026-governor/"
+    },
+    {
+      "pollster": "Noble Predictive Insights",
+      "date": "2026-02-26",
+      "sample_size": 1023,
+      "matchups": [
+        {
+          "candidates": [
+            "Katie Hobbs",
+            "Andy Biggs"
+          ],
+          "percentages": [
+            45,
+            40
+          ]
+        },
+        {
+          "candidates": [
+            "Katie Hobbs",
+            "David Schweikert"
+          ],
+          "percentages": [
+            44,
+            39
+          ]
+        }
+      ],
+      "source_url": "https://www.noblepredictiveinsights.com/post/azgov-biggs-benefits-from-field-consolidation-hobbs-holds-early-edge"
+    }
+  ],
+  "polling_note": null,
+  "candidates": [
+    {
+      "name": "Katie Hobbs",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Katie Hobbs is the incumbent governor of Arizona and a Democrat. Before becoming governor, she served as Arizona secretary of state and previously held seats in the Arizona Legislature; the governor\u2019s office says she is the first social worker to serve as governor and that she studied at Northern Arizona University and Arizona State University.",
+      "summary_sources": [
+        {
+          "url": "https://azgovernor.gov/governor/meet-governor-katie-hobbs",
+          "type": "government",
+          "title": "Meet Governor Katie Hobbs"
+        },
+        {
+          "url": "https://ballotpedia.org/Katie_Hobbs",
+          "type": "website",
+          "title": "Katie Hobbs - Ballotpedia"
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Katie-Hobbs.PNG",
+      "website": "https://azgovernor.gov",
+      "social_media": {
+        "facebook": "https://www.facebook.com/GovernorHobbs/",
+        "x": "https://x.com/GovernorHobbs",
+        "instagram": "https://www.instagram.com/govhobbs/",
+        "youtube": "https://www.youtube.com/@GovernorHobbs"
+      },
+      "career_history": [
+        {
+          "title": "Governor",
+          "organization": "State of Arizona",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Serves as Arizona\u2019s governor."
+        },
+        {
+          "title": "Secretary of State",
+          "organization": "State of Arizona",
+          "start_year": 2019,
+          "end_year": 2023,
+          "description": "Served as Arizona secretary of state before becoming governor."
+        },
+        {
+          "title": "Member of the Arizona House of Representatives",
+          "organization": "State of Arizona",
+          "start_year": 2011,
+          "end_year": 2013,
+          "description": "Served in the Arizona House before moving to the state Senate."
+        },
+        {
+          "title": "State Senator",
+          "organization": "State of Arizona",
+          "start_year": 2013,
+          "end_year": 2019,
+          "description": "Served in the Arizona Senate and was Senate Minority Leader."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Northern Arizona University",
+          "degree": "Bachelor's degree",
+          "field": "social work",
+          "year": 1992
+        },
+        {
+          "institution": "Arizona State University",
+          "degree": "Master of Social Work",
+          "field": "social work",
+          "year": null
+        }
+      ],
+      "donor_summary": "Katie Hobbs is an incumbent governor with public campaign-finance disclosures showing substantial fundraising. OpenSecrets reports she raised about $12.5M in the 2022 cycle and $1.21M in 2024; her donor base has been led by lawyers/law firms, securities & investment, and other professional-sector contributors, with a notable $1.0M transfer from the Arizona Democratic Party reported in OpenSecrets donor data. Sources: https://www.opensecrets.org/officeholders/katie-marie-hobbs/summary?cycle=2022&id=6507388, https://www.opensecrets.org/officeholders/katie-marie-hobbs/summary?cycle=2024&id=6507388, https://www.opensecrets.org/officeholders/katie-marie-hobbs/industries?cycle=2021&id=6507388&recs=100, https://www.opensecrets.org/search?order=desc&q=hobbs&sort=A&type=donors",
+      "donor_source_url": "https://www.opensecrets.org/officeholders/katie-marie-hobbs/summary?cycle=2022&id=6507388",
+      "voting_summary": "Katie Hobbs has not held legislative office; she is an executive officeholder, so there is no legislative voting record to report. Comparable governing evidence includes her gubernatorial actions and vetoes, and Vote Smart maintains a profile for her key votes/issue positions from her prior elected service. Sources: https://justfacts.votesmart.org/candidate/key-votes/123724/katie-hobbs, https://www.votebeat.org/arizona/2025/02/12/election-results-faster-bill-compromise-katie-hobbs-veto-threat/, https://azgovernor.gov/office-arizona-governor/news/2026/01/transcript-governor-hobbs-2026-state-state-address",
+      "voting_source_url": "https://justfacts.votesmart.org/candidate/key-votes/123724/katie-hobbs",
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Katie_Hobbs",
+          "title": "Ballotpedia biography",
+          "type": "other"
+        },
+        {
+          "url": "https://azgovernor.gov",
+          "title": "Official governor website",
+          "type": "other"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Katie_Hobbs",
+          "title": "Katie Hobbs - Wikipedia",
+          "type": "wiki"
+        },
+        {
+          "url": "https://www.opensecrets.org/officeholders/katie-marie-hobbs/summary?cycle=2022&id=6507388",
+          "title": "Katie Marie Hobbs Money Profile - OpenSecrets",
+          "type": "finance"
+        },
+        {
+          "url": "https://www.opensecrets.org/officeholders/katie-marie-hobbs/industries?cycle=2021&id=6507388&recs=100",
+          "title": "Katie Marie Hobbs Top Industries - OpenSecrets",
+          "type": "finance"
+        },
+        {
+          "url": "https://justfacts.votesmart.org/candidate/key-votes/123724/katie-hobbs",
+          "title": "Katie Hobbs Voting Records - Vote Smart",
+          "type": "votesmart"
+        },
+        {
+          "url": "https://azgovernor.gov/",
+          "title": "Arizona Governor's Office",
+          "type": "legislature"
+        },
+        {
+          "url": "https://www.votebeat.org/arizona/2025/02/12/election-results-faster-bill-compromise-katie-hobbs-veto-threat/",
+          "title": "Arizona proposal to speed up election results vetoed by Hobbs - Votebeat",
+          "type": "news"
+        },
+        {
+          "url": "https://azgovernor.gov/governor/meet-governor-katie-hobbs",
+          "title": "Meet Governor Katie Hobbs",
+          "type": "official"
+        }
+      ],
+      "issues": {
+        "Healthcare": {
+          "stance": "Hobbs says she will expand access to health care and reproductive care, including family planning resources, Medicaid-related services, and protections for women and medical professionals.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://azgovernor.gov/governor/priorities/health-and-reproductive-rights",
+              "type": "policy page",
+              "title": "Health and Reproductive Rights | Office of the Arizona Governor",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://azgovernor.gov/office-arizona-governor/news/2024/02/icymi-governor-katie-hobbs-expands-healthcare-access-ten",
+              "type": "official press release",
+              "title": "ICYMI: Governor Katie Hobbs Expands Healthcare Access for Ten Thousand Children",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Hobbs says she wants to lower costs for families, expand child care and career-training opportunities, and provide tax relief such as child tax credits and sales-tax exemptions for items like diapers, medicines, and feminine hygiene products.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://azgovernor.gov/governor/priorities/affordable-and-thriving-economy",
+              "type": "official",
+              "title": "Affordable and Thriving Economy | Office of the Arizona Governor",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "stance": "Hobbs supports protecting reproductive freedom and says she will work to increase access to abortion services and reproductive care, repeal older abortion restrictions, and use state authority to oppose restrictive measures.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://azgovernor.gov/governor/priorities/health-and-reproductive-rights",
+              "type": "policy page",
+              "title": "Health and Reproductive Rights | Office of the Arizona Governor",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://azgovernor.gov/office-arizona-governor/news/2024/05/governor-katie-hobbs-signs-bill-law-officially-repealing-1864",
+              "type": "news release",
+              "title": "Governor Katie Hobbs Signs Bill into Law Officially Repealing 1864 Abortion Ban",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Hobbs says Arizona should pair border security with federal immigration reform, including more resources for border communities, support for law enforcement and hospitals, and a path to citizenship for undocumented immigrants including DREAMers.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://azgovernor.gov/governor/priorities/public-safety-border-security-and-corrections",
+              "type": "official",
+              "title": "Public Safety, Border Security, and Corrections | Office of the Arizona Governor",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "stance": "Hobbs has supported gun-safety measures and vetoed several bills backed by gun-rights advocates, including measures related to guns on campuses and other expansions of gun access.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://giffords.org/press-release/2024/04/gov-hobbs-makes-right-call-to-veto-deadly-shoot-first-bill/",
+              "type": "news",
+              "title": "GIFFORDS: Gov. Hobbs vetoes deadly 'Shoot First' bill",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://azmirror.com/briefs/hobbs-vetoes-attempts-to-bring-more-guns-into-schools/",
+              "type": "news",
+              "title": "Hobbs vetoes attempts to bring more guns into schools",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Hobbs says Arizona should modernize water management and infrastructure, protect natural resources from climate impacts, and build a cleaner energy economy that lowers costs and diversifies the state\u2019s energy supply.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://azgovernor.gov/governor/priorities/resilience-water-and-environment",
+              "type": "official",
+              "title": "Resilience, Water and the Environment | Office of the Arizona Governor",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Hobbs has focused on state-level security concerns involving foreign adversaries, including proposing and signing the BAN Act to restrict certain foreign governments from owning land near military bases and critical infrastructure.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://azgovernor.gov/office-arizona-governor/news/2025/06/governor-katie-hobbs-proposes-ban-act-get-tough-china-foreign",
+              "type": "official press release",
+              "title": "Governor Katie Hobbs Proposes BAN Act to Get Tough on China, Foreign Adversaries",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://azgovernor.gov/office-arizona-governor/news/2025/07/governor-katie-hobbs-legislative-action-update",
+              "type": "official press release",
+              "title": "Governor Katie Hobbs Legislative Action Update",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "stance": "Hobbs\u2019 office says it follows a non-discrimination policy and has promoted equal opportunity protections, including for LGBTQ Arizonans and state employees.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://eo.azgovernor.gov/",
+              "type": "official",
+              "title": "Arizona Governor Katie Hobbs | Office of Equal Opportunity",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://www.hrc.org/press-releases/arizona-gov-katie-hobbs-signs-executive-order-providing-employment-protections-to-state-employees-and-contractors-who-are-lgbtq",
+              "type": "news",
+              "title": "Arizona Gov. Katie Hobbs Signs Executive Order Providing Employment Protections to State Employees and Contractors Who Are LGBTQ",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "Hobbs has promoted artificial intelligence and other technology to improve state government efficiency and fraud detection, and she created an AI steering committee to guide policy and oversight.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://azgovernor.gov/office-arizona-governor/news/2025/05/governor-katie-hobbs-announces-members-arizonas-first-ai",
+              "type": "official press release",
+              "title": "Governor Katie Hobbs Announces Members of Arizona's First AI Steering Committee",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://azgovernor.gov/office-arizona-governor/news/2026/05/governor-katie-hobbs-underscores-arizonas-leadership-medicaid",
+              "type": "official press release",
+              "title": "Governor Katie Hobbs Underscores Arizona's Leadership on Medicaid Accountability and Announces New AI Tool to Fight Fraud",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Hobbs emphasizes state support for local solutions on housing affordability and homelessness, including more affordable housing, streamlined permitting, and targeted assistance for people experiencing homelessness.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://azgovernor.gov/governor/priorities/housing-and-human-services",
+              "type": "official",
+              "title": "Housing and Human Services | Office of the Arizona Governor",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Hobbs supports free early childhood education, affordable child care, stronger student supports, more post-secondary opportunities, and efforts to improve educator retention.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://azgovernor.gov/governor/priorities/improving-education",
+              "type": "official",
+              "title": "Improving Education | Office of the Arizona Governor",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Election Policy": {
+          "stance": "Hobbs signed legislation in 2026 that moved Arizona\u2019s primary election date to late July and made other election-administration changes, including signature-curing and observer-access provisions.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://azgovernor.gov/office-arizona-governor/news/2026/02/governor-katie-hobbs-legislative-action-update",
+              "type": "official press release",
+              "title": "Governor Katie Hobbs Legislative Action Update",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://www.azleg.gov/legtext/57leg/2R/bills/HB2022H.pdf",
+              "type": "legislation",
+              "title": "HB2022 Text (Arizona Legislature)",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Andy Biggs",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Andy Biggs is a Republican U.S. representative from Arizona\u2019s 5th Congressional District and a candidate for Arizona governor in 2026. His campaign says he is an Arizona native and highlights his congressional record, conservative policy priorities, and focus on border security, taxes, education, and energy.",
+      "summary_sources": [
+        {
+          "url": "https://biggsforarizona.com/",
+          "type": "campaign",
+          "title": "Andy Biggs for Arizona"
+        },
+        {
+          "url": "https://biggsforarizona.com/meet-andy/",
+          "type": "campaign",
+          "title": "Meet Andy - Andy Biggs for Governor"
+        },
+        {
+          "url": "https://www.congress.gov/member/andy-biggs/B001302",
+          "type": "official",
+          "title": "Andy Biggs | Congress.gov"
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Andy_Biggs__official_portrait__115th_Congress-7_fixed.jpg",
+      "website": "https://biggsforarizona.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/RepAndyBiggs",
+        "x": "https://x.com/andybiggs4az",
+        "instagram": "https://www.instagram.com/andybiggsaz/",
+        "youtube": "https://www.youtube.com/@BiggsForArizona"
+      },
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2017,
+          "end_year": null,
+          "description": "Represents Arizona\u2019s 5th Congressional District."
+        },
+        {
+          "title": "Arizona Senate President",
+          "organization": "Arizona State Senate",
+          "start_year": 2013,
+          "end_year": 2017,
+          "description": "Served in the Arizona legislature before election to Congress."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Brigham Young University",
+          "degree": "Bachelor's degree",
+          "field": "English",
+          "year": 1982
+        },
+        {
+          "institution": "Arizona State University",
+          "degree": "Juris Doctor",
+          "field": "law",
+          "year": null
+        }
+      ],
+      "donor_summary": "Andy Biggs is a sitting U.S. House member, and federal disclosures show a donor base concentrated in conservative business and industry PACs. OpenSecrets and FEC data show his campaign has raised roughly $1.27M in 2023 and about $28,246 in candidate contributions in the 2025-26 FEC table snapshot; top disclosed contributors include Pinnacle West ($4,000) and the Arizona Association of Realtors ($2,500), with OpenSecrets also tracking industry and organization giving across his career. Sources: https://www.opensecrets.org/profiles/andy-biggs/us_congress/summary?mpid=1114383, https://www.opensecrets.org/members-of-congress/andy-biggs/summary?cid=N00039293&cycle=CAREER, https://www.opensecrets.org/members-of-congress/andy-biggs/state-data?cid=N00039293&cycle=CAREER, https://www.fec.gov/data/candidate/H6AZ05083/, https://www.fec.gov/resources/campaign-finance-statistics/2026/tables/congressional/ConCand7_2025_12m.pdf",
+      "donor_source_url": "https://www.fec.gov/data/candidate/H6AZ05083/",
+      "voting_summary": "Andy Biggs is an incumbent member of Congress and has an extensive legislative voting record. GovTrack identifies him as a House member from Arizona, and Vote Smart provides issue-specific key votes; his record is generally aligned with the Republican caucus, including conservative positions on foreign aid and spending. Sources: https://www.govtrack.us/congress/members/andy_biggs/412683, https://justfacts.votesmart.org/candidate/key-votes/28088/andy-biggs/89/foreign-aid, https://justfacts.votesmart.org/candidate/key-votes/28088/andy-biggs/107/religion, https://biggs.house.gov/about/votes",
+      "voting_source_url": "https://www.govtrack.us/congress/members/andy_biggs/412683",
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Andy_Biggs",
+          "title": "Ballotpedia biography",
+          "type": "other"
+        },
+        {
+          "url": "https://biggsforarizona.com/",
+          "title": "Official campaign website",
+          "type": "other"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Andy_Biggs",
+          "title": "Andy Biggs - Wikipedia",
+          "type": "wiki"
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/H6AZ05083/",
+          "title": "BIGGS, ANDY - Candidate overview - FEC",
+          "type": "finance"
+        },
+        {
+          "url": "https://www.opensecrets.org/profiles/andy-biggs/us_congress/summary?mpid=1114383",
+          "title": "Andy Biggs \u2013 US Congress \u2013 Summary - OpenSecrets",
+          "type": "finance"
+        },
+        {
+          "url": "https://www.govtrack.us/congress/members/andy_biggs/412683",
+          "title": "Rep. Andy Biggs - GovTrack.us",
+          "type": "govtrack"
+        },
+        {
+          "url": "https://justfacts.votesmart.org/candidate/political-courage-test/28088/andy-biggs",
+          "title": "Andy Biggs - Vote Smart",
+          "type": "votesmart"
+        },
+        {
+          "url": "http://biggs.house.gov/about/votes",
+          "title": "Votes | Congressman Andy Biggs - House.gov",
+          "type": "govtrack"
+        },
+        {
+          "url": "https://www.congress.gov/member/andy-biggs/B001302",
+          "title": "Andy Biggs | Congress.gov",
+          "type": "govtrack"
+        }
+      ],
+      "issues": {
+        "Healthcare": {
+          "stance": "Biggs says he supports protecting school and health choice and backing the MAHA agenda at the state level, framing healthcare policy around parental rights, health freedom, and less government involvement.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://biggsforarizona.com/issues/",
+              "type": "campaign",
+              "title": "Issues - Andy Biggs for Governor",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Biggs says he wants to make Arizona more affordable by growing the economy, lowering taxes, encouraging job growth, and reducing government interference.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://biggsforarizona.com/issues/",
+              "type": "campaign",
+              "title": "Issues - Andy Biggs for Governor",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "stance": "Biggs has supported restricting abortion access and introduced legislation to bar federal support for abortion-related activities, including a bill he described as the \u201cAbortion Is Not Health Care Act.\u201d",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "http://biggs.house.gov/media/press-releases/congressman-biggs-introduces-abortion-not-health-care-act",
+              "type": "press release",
+              "title": "Congressman Biggs Introduces Abortion Is Not Health Care Act",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "http://biggs.house.gov/issue/health-care",
+              "type": "official",
+              "title": "Health Care \u2013 Andy Biggs",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Biggs says he would partner with President Trump and local law enforcement to secure the southern border, crack down on drug and human traffickers, and fully fund public safety departments.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://biggsforarizona.com/issues/",
+              "type": "campaign",
+              "title": "Issues - Andy Biggs for Governor",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "stance": "Biggs says he will defend Arizonans\u2019 Second Amendment rights and oppose new gun-control restrictions.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.facebook.com/biggsforarizona/posts/ive-fought-for-the-second-amendment-in-congress-and-ill-protect-it-as-governor-o/1467984211564359/",
+              "type": "social-media",
+              "title": "Biggs for Arizona Facebook post on Second Amendment",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://x.com/andybiggs4az/status/2017630831695810922",
+              "type": "social-media",
+              "title": "Andy Biggs X post on Second Amendment",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Biggs has emphasized war powers, border security, and U.S. aid to Israel and Ukraine in congressional appearances, but his campaign issues page does not lay out a broader foreign-policy platform.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.c-span.org/program/washington-journal/rep-andy-biggs-on-government-funding-and-us-aid-to-israel-and-ukraine/639533",
+              "type": "news",
+              "title": "C-SPAN: Rep. Andy Biggs on government funding and U.S. aid to Israel and Ukraine",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "http://biggs.house.gov/media/press-releases/congressman-biggs-demands-biden-request-congressional-approval-over-us",
+              "type": "press release",
+              "title": "Congressman Biggs Demands that Biden Request Congressional Approval Over U.S. ...",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Biggs says he wants to secure Arizona\u2019s energy future by prioritizing reliable and affordable energy sources to reduce utility costs and gas prices.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://biggsforarizona.com/issues/",
+              "type": "campaign",
+              "title": "Issues - Andy Biggs for Governor",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "stance": "Biggs has publicly opposed same-sex marriage and criticized the Obergefell v. Hodges decision as a redefinition of marriage.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://ontheissues.org/Archive/2026_AZ_Gov_Andy_Biggs.htm",
+              "type": "secondary",
+              "title": "OnTheIssues: 2026 AZ Governor - Andy Biggs",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Biggs says he supports school choice and parental control over education, and he has argued that education policy should be handled at the state and local level rather than by the federal government.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://biggsforarizona.com/issues/",
+              "type": "campaign",
+              "title": "Issues - Andy Biggs for Governor",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "http://biggs.house.gov/issues/education-0",
+              "type": "official",
+              "title": "Education | Congressman Andy Biggs - House.gov",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Election Policy": {
+          "stance": "Biggs says he would sign election-integrity legislation to deliver results in a timely fashion and ensure only legal Arizona citizens participate in elections.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://biggsforarizona.com/issues/",
+              "type": "campaign",
+              "title": "Issues - Andy Biggs for Governor",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://www.fox10phoenix.com/news/biggs-says-hell-push-immediate-changes-education-elections-border",
+              "type": "news",
+              "title": "Biggs says he'll push for immediate changes on education, elections, border",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Biggs\u2019 campaign says his local agenda includes affordability, safety, reliable energy, sensible water policy, school and health choice, and election-integrity reforms.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://biggsforarizona.com/issues/",
+              "type": "campaign",
+              "title": "Issues - Andy Biggs for Governor",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "Biggs introduced legislation to reduce what he described as overregulation of AI, presenting the approach as pro-innovation and limited-government.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "http://biggs.house.gov/media/press-releases/congressman-biggs-introduces-ai-legislation-reduce-overregulation",
+              "type": "press release",
+              "title": "Congressman Biggs Introduces AI Legislation to Reduce Overregulation",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Ken Miceli",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Ken Miceli is a Republican candidate for Arizona governor in 2026. His campaign website describes him as a businessman and says he is running on lower taxes, affordability, public safety, election integrity, housing, and economic growth.",
+      "summary_sources": [
+        {
+          "url": "https://www.votekenmiceli.com/",
+          "type": "official_campaign",
+          "title": "Ken Miceli for Governor 2026"
+        },
+        {
+          "url": "https://www.votekenmiceli.com/aboutus.html",
+          "type": "official_campaign",
+          "title": "About Us | Ken Miceli Campaign - Governor"
+        }
+      ],
+      "image_url": "https://ballotpedia.s3.us-east-1.amazonaws.com/images/thumb/6/68/SubmitPhoto-150px.png",
+      "website": "https://www.votekenmiceli.com/",
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": "Public campaign-finance detail for Ken Miceli was not readily surfaced in the available search results. I found his campaign website and Ballotpedia page, but no reliable public disclosure page with total raised, top industries, or major contributors in the search results reviewed. Sources: https://www.votekenmiceli.com/, https://ballotpedia.org/Ken_Miceli, https://www.multistate.us/elections/governor?st=AZ",
+      "donor_source_url": "https://www.votekenmiceli.com/",
+      "voting_summary": "No public legislative voting record. No prior elected or executive office found in the sources reviewed; available material describes him as a business/community candidate rather than a former legislator or officeholder. Sources: https://www.votekenmiceli.com/, https://ballotpedia.org/Ken_Miceli, https://www.multistate.us/elections/governor?st=AZ",
+      "voting_source_url": "https://www.votekenmiceli.com/",
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Ken_Miceli",
+          "title": "Ballotpedia biography",
+          "type": "other"
+        },
+        {
+          "url": "https://www.votekenmiceli.com/",
+          "title": "KEN MICELI FOR GOVERNOR 2026 | WELCOME",
+          "type": "official"
+        },
+        {
+          "url": "https://www.multistate.us/elections/governor?st=AZ",
+          "title": "Arizona Governor | MultiState Elections",
+          "type": "other"
+        },
+        {
+          "url": "https://gilagop.org/ontheballot/",
+          "title": "Meet the 2026 Republican Primary Candidates!",
+          "type": "news"
+        },
+        {
+          "url": "https://j.futurefacts.votesmart.io/candidate/biography/239613/ken-miceli",
+          "title": "Vote Smart biography",
+          "type": "votesmart"
+        }
+      ],
+      "issues": {
+        "Healthcare": {
+          "stance": "Miceli says he supports affordable healthcare and wants to provide the lowest-cost solutions to keep Arizonans healthier.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.votekenmiceli.com/message.html",
+              "type": "official_campaign",
+              "title": "Ken Miceli's Message",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Miceli says he would lower taxes, end property taxes, attract major businesses to Arizona, and expand workforce and trade-school programs to create jobs.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.votekenmiceli.com/aboutus.html",
+              "type": "official_campaign",
+              "title": "About Us | Ken Miceli Campaign - Governor",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://www.votekenmiceli.com/",
+              "type": "official_campaign",
+              "title": "Ken Miceli for Governor 2026",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "No public position found.",
+          "confidence": "low"
+        },
+        "Education": {
+          "stance": "Miceli says he wants trade-school pathways, youth education programs, after-school programs, and school safety measures, including a Social Cyber Division to monitor online threats.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.votekenmiceli.com/policies.html",
+              "type": "official_campaign",
+              "title": "Miceli Policies",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://www.votekenmiceli.com/message.html",
+              "type": "official_campaign",
+              "title": "Ken Miceli's Message",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "Miceli proposes a Social Cyber Division to monitor online threats and says Arizona should use AI tools to flag violent criminal histories or suspicious behavior in firearm background checks.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.votekenmiceli.com/policies.html",
+              "type": "official_campaign",
+              "title": "Miceli Policies",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Miceli says he supports immigration and border policies that are lawful, humane, and supported by law enforcement.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.votekenmiceli.com/message.html",
+              "type": "official_campaign",
+              "title": "Ken Miceli's Message",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "stance": "Miceli says he will not take away guns, but would strengthen background checks for people moving into Arizona, use AI to flag violent histories, and create gun-free safe zones around schools and campuses.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.votekenmiceli.com/policies.html",
+              "type": "official_campaign",
+              "title": "Miceli Policies",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Miceli\u2019s local agenda emphasizes affordability and growth, including lower taxes, ending property taxes, housing solutions, and attracting major businesses to Arizona.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.votekenmiceli.com/aboutus.html",
+              "type": "official_campaign",
+              "title": "About Us | Ken Miceli Campaign - Governor",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Election Policy": {
+          "stance": "Miceli says election integrity is a priority and that only U.S. citizens should vote, with elections protected by modern ID, transparency, and accountability.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.votekenmiceli.com/message.html",
+              "type": "official_campaign",
+              "title": "Ken Miceli's Message",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Miceli says Arizona should lead in affordable renewable energy and proposes solar initiatives, partnerships with energy companies, and efforts to reduce utility costs for families.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.votekenmiceli.com/policies.html",
+              "type": "official_campaign",
+              "title": "Miceli Policies",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://www.votekenmiceli.com/",
+              "type": "official_campaign",
+              "title": "Ken Miceli for Governor 2026",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "stance": "No public position found.",
+          "confidence": "low"
+        },
+        "Civil Rights & Equality": {
+          "stance": "No public position found.",
+          "confidence": "low"
+        }
+      }
+    },
+    {
+      "name": "Scott Neely",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Scott Neely is a Republican candidate for governor in Arizona. His public materials and Ballotpedia profile show him as a 2026 primary candidate who emphasizes border security, election integrity, and a change-oriented campaign message.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Scott_Neely",
+          "type": "website",
+          "title": "Scott Neely - Ballotpedia"
+        },
+        {
+          "url": "https://neely4governor.com/",
+          "type": "website",
+          "title": "Neely for Arizona Governor"
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/ScottNeely24.png",
+      "website": "https://neely4governor.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/scott.neeley.338",
+        "linkedin": "https://www.linkedin.com/in/scott-neely-85ab76228/"
+      },
+      "career_history": [],
+      "education": [],
+      "donor_summary": "Public campaign-finance detail for Scott Neely was not readily surfaced in the available search results. I found his campaign website and state campaign-finance portal references, but no reliable summary page showing total raised, top industries, or major contributors in the search results reviewed. Sources: https://neely4governor.com/, https://seethemoney.az.gov/, https://www.ballotpedia.org/Scott_Neely",
+      "donor_source_url": "https://seethemoney.az.gov/",
+      "voting_summary": "No public legislative voting record. No prior elected or executive office found in the sources reviewed; available material shows he was a prior gubernatorial candidate and campaigner, but not a legislator or executive officeholder with recorded votes. Sources: https://ballotpedia.org/Scott_Neely, https://www.azcentral.com/story/news/politics/elections/2022/07/12/scott-neely-arizona-governors-office-primary-election-2022/7500244001/, https://neely4governor.com/",
+      "voting_source_url": "https://ballotpedia.org/Scott_Neely",
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Scott_Neely",
+          "title": "Ballotpedia biography",
+          "type": "other"
+        },
+        {
+          "url": "https://neely4governor.com/",
+          "title": "Official campaign website",
+          "type": "other"
+        },
+        {
+          "url": "https://ivoterguide.com/candidate/67170/race/15718/election/904",
+          "title": "Voter Guide Profile for AZ Governor candidate - Scott Neely",
+          "type": "other"
+        },
+        {
+          "url": "https://www.azcentral.com/story/news/politics/elections/2022/07/12/scott-neely-arizona-governors-office-primary-election-2022/7500244001/",
+          "title": "Arizona Governor's Office primary 2022 candidate: Scott Neely",
+          "type": "news"
+        },
+        {
+          "url": "https://www.ballotready.org/people/scott-neely",
+          "title": "Scott Neely - BallotReady",
+          "type": "other"
+        },
+        {
+          "url": "https://seethemoney.az.gov/",
+          "title": "Arizona SeeTheMoney campaign finance portal",
+          "type": "finance"
+        },
+        {
+          "url": "https://j.futurefacts.votesmart.io/candidate/biography/205524/scott-neely",
+          "title": "Vote Smart biography",
+          "type": "votesmart"
+        }
+      ],
+      "issues": {
+        "Economy": {
+          "stance": "Neely presents himself as a pro-growth outsider and says he would bring change to state government. The sources reviewed did not show a detailed, published economic policy agenda beyond general reform and pro-business themes.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Scott_Neely",
+              "type": "website",
+              "title": "Scott Neely - Ballotpedia",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://neely4governor.com/",
+              "type": "website",
+              "title": "Neely for Arizona Governor",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "stance": "No public position found.",
+          "confidence": "low"
+        },
+        "Foreign Policy": {
+          "stance": "Neely\u2019s public statements reviewed focus on border security rather than broader foreign policy. No clear position on international affairs was found in the sources reviewed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://www.facebook.com/scott.neely.186943/posts/vote-neely-for-arizona-governor-in-2026-i-am-the-border-wall-building-that-is-bu/862346626312744/",
+              "type": "facebook_post",
+              "title": "Vote Neely for Arizona Governor in 2026 \u2014 border wall builder",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Neely has said his administration would prioritize vocational and technical training, including trade schools and apprenticeships, as part of workforce development. The reviewed sources did not show a broader education policy platform.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.facebook.com/scott.neely.186943/posts/we-need-trade-schools-now-and-it-is-high-time-we-stop-relying-on-foreign-labor-h/129764962904251/",
+              "type": "facebook_post",
+              "title": "We need trade schools now",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://www.facebook.com/scott.neely.186943/posts/i-speak-with-action-and-lead-men-by-example-when-i-am-elected-arizona-governor-m/885827570631316/",
+              "type": "campaign",
+              "title": "Scott Neely prioritizes trade schools",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Neely advocates strong border security and stricter immigration enforcement, including support for a border wall and National Guard involvement at the border. The sources reviewed also describe him as emphasizing border security as a public-safety and economic issue.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.facebook.com/scott.neely.186943/posts/vote-neely-for-arizona-governor-in-2026-i-am-the-border-wall-building-that-is-bu/862346626312744/",
+              "type": "facebook_post",
+              "title": "Vote Neely for Arizona Governor in 2026 \u2014 border wall builder",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://www.facebook.com/scott.neely.186943/posts/a-scott-neely-administration-will-restore-the-border-for-order-in-arizona-i-am-f/771314555415952/",
+              "type": "facebook_post",
+              "title": "A Scott Neely administration will restore the border for order in Arizona",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "No public position found.",
+          "confidence": "low"
+        },
+        "Civil Rights & Equality": {
+          "stance": "No public position found.",
+          "confidence": "low"
+        },
+        "Election Policy": {
+          "stance": "Neely supports a single-day, in-person voting model with paper ballots and has said he would sign a bill based on a \u201cOne Day, One Vote\u201d framework. His public statements frame this as an election-integrity measure.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.facebook.com/scott.neely.186943/posts/when-i-am-governor-i-will-be-signing-the-one-day-one-vote-actual-and-real-electi/136766392204108/",
+              "type": "primary source",
+              "title": "Scott Neely on One Day, One Vote election integrity",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=citWYJRAsoU",
+              "type": "video",
+              "title": "Governor Candidate, Scott Neely's Take on Election Integrity",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Healthcare": {
+          "stance": "Neely\u2019s publicly available materials emphasize opposition to vaccine mandates and school masking requirements, framing healthcare policy around individual civil liberties and parental choice. No broader healthcare policy platform was clearly published in the sources reviewed.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Scott_Neely",
+              "type": "website",
+              "title": "Scott Neely - Ballotpedia",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://arizonadailyindependent.com/2025/10/14/who-is-scott-neely-candidate-for-arizona-governor/",
+              "type": "news",
+              "title": "Who is Scott Neely, Candidate for Arizona Governor?",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Neely has emphasized water conservation and aquifer recharge as a priority, saying Arizona needs to recharge aquifers with more water to address drought and long-term water security. The reviewed sources did not show a broader climate or energy platform.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://arizonadailyindependent.com/2025/10/14/who-is-scott-neely-candidate-for-arizona-governor/",
+              "type": "news",
+              "title": "Who is Scott Neely, Candidate for Arizona Governor?",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://www.facebook.com/scott.neely.186943/posts/we-need-to-recharge-our-aquifers-with-more-water-it-is-a-real-arizona-problem-vo/1367523331209993/",
+              "type": "social-media",
+              "title": "Scott Neely Facebook: We need to recharge our aquifers with more water",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "stance": "No public position found.",
+          "confidence": "low"
+        },
+        "Tech & AI": {
+          "stance": "No public position found.",
+          "confidence": "low"
+        }
+      }
+    },
+    {
+      "name": "David Schweikert",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "David Schweikert is a Republican U.S. representative from Arizona\u2019s 1st Congressional District and a candidate in the 2026 Arizona governor\u2019s race. He has served multiple terms in Congress and has emphasized fiscal policy, health care, border security, and technology in his public work.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/David_Schweikert",
+          "type": "website",
+          "title": "David Schweikert - Ballotpedia"
+        },
+        {
+          "url": "https://schweikert.house.gov/about/",
+          "type": "official",
+          "title": "About - Congressman Schweikert"
+        },
+        {
+          "url": "https://davidschweikert.com/",
+          "type": "official_campaign",
+          "title": "David Schweikert for Governor"
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/David-Schweikert.PNG",
+      "website": "https://schweikert.house.gov/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/repdavidschweikert/",
+        "x": "https://x.com/RepDavid",
+        "instagram": "https://www.instagram.com/repdavid/",
+        "linkedin": "https://www.linkedin.com/in/david-schweikert-54ab0218/"
+      },
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Represents Arizona\u2019s 1st Congressional District."
+        },
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Represents Arizona\u2019s 1st Congressional District."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Arizona State University",
+          "degree": "Bachelor's degree",
+          "field": "finance",
+          "year": null
+        }
+      ],
+      "donor_summary": "David Schweikert is a long-serving U.S. House member with extensive federal campaign-finance disclosures. OpenSecrets and FEC data show career fundraising in the millions, with OpenSecrets tracking donor industries and organizations across his career and FEC candidate data available for his committee; his donor base includes business and PAC support, with OpenSecrets also showing lobbyist contributions and sector-specific giving. Sources: https://www.opensecrets.org/profiles/david-schweikert/us_congress/summary?mpid=1120228, https://www.opensecrets.org/members-of-congress/david-schweikert/contributors?cid=N00006460&cycle=CAREER, https://www.fec.gov/data/candidate/H4AZ06045/, https://www.opensecrets.org/federal-lobbying/top-recipients-details?cycle=2024&id=N00006460",
+      "donor_source_url": "https://www.fec.gov/data/candidate/H4AZ06045/",
+      "voting_summary": "David Schweikert is an incumbent member of Congress and has a substantial legislative voting record. GovTrack identifies him as a House member from Arizona, and Vote Smart provides issue-specific key votes; his record is generally aligned with the Republican caucus, including conservative positions on health care and abortion-related votes. Sources: https://www.govtrack.us/congress/members/david_schweikert/412399, https://votesmart.org/candidate/key-votes/106387/david-schweikert/75/abortion-and-reproductive, https://justfacts.votesmart.org/candidate/evaluations/106387/david-schweikert, https://schweikert.house.gov/votes-and-legislation/",
+      "voting_source_url": "https://www.govtrack.us/congress/members/david_schweikert/412399",
+      "links": [
+        {
+          "url": "https://ballotpedia.org/David_Schweikert",
+          "title": "Ballotpedia biography",
+          "type": "other"
+        },
+        {
+          "url": "https://schweikert.house.gov/",
+          "title": "Official House website",
+          "type": "other"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/David_Schweikert",
+          "title": "David Schweikert - Wikipedia",
+          "type": "wiki"
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/H4AZ06045/",
+          "title": "SCHWEIKERT, DAVID S. - Candidate overview - FEC",
+          "type": "finance"
+        },
+        {
+          "url": "https://www.opensecrets.org/profiles/david-schweikert/us_congress/summary?mpid=1120228",
+          "title": "David Schweikert \u2013 US Congress \u2013 Summary - OpenSecrets",
+          "type": "finance"
+        },
+        {
+          "url": "https://www.govtrack.us/congress/members/david_schweikert/412399",
+          "title": "Rep. David Schweikert - GovTrack.us",
+          "type": "govtrack"
+        },
+        {
+          "url": "https://justfacts.votesmart.org/candidate/evaluations/106387/david-schweikert",
+          "title": "David Schweikert - Vote Smart",
+          "type": "votesmart"
+        },
+        {
+          "url": "https://schweikert.house.gov/votes-and-legislation/",
+          "title": "Votes and Legislation - Congressman Schweikert",
+          "type": "govtrack"
+        },
+        {
+          "url": "https://www.congress.gov/member/david-schweikert/S001183",
+          "title": "David Schweikert | Congress.gov",
+          "type": "govtrack"
+        },
+        {
+          "url": "https://davidschweikert.com/",
+          "title": "David Schweikert for Governor",
+          "type": "official"
+        }
+      ],
+      "issues": {
+        "Healthcare": {
+          "stance": "Criticizes the Affordable Care Act and says health care should rely more on competition, transparency, telehealth, and innovation. He also says he supports protections for people with pre-existing conditions and wants lower costs and more consumer choice.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://schweikert.house.gov/issues/health-care/",
+              "type": "official_policy_page",
+              "title": "Health Care - Congressman Schweikert",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Presents himself as a fiscal conservative focused on reducing government costs, cutting red tape, and promoting pro-growth policies. His public materials also emphasize tax reform, deficit reduction, and market-oriented economic policy.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://schweikert.house.gov/about/",
+              "type": "official",
+              "title": "About - Congressman Schweikert",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://schweikert.house.gov/",
+              "type": "official",
+              "title": "Congressman Schweikert",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Supports an all-of-the-above energy strategy that includes traditional energy production along with wind, solar, hydrogen, nuclear, geothermal, battery storage, and carbon capture. He says energy policy should rely on market incentives rather than federal mandates.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://schweikert.house.gov/issues/energy-environment/",
+              "type": "official_policy_page",
+              "title": "Energy & Environment - Congressman Schweikert",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "stance": "Has a record of opposing abortion rights expansion and supporting anti-abortion legislation. Public vote materials and outside scorecards describe him as favoring restrictions on abortion access.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://votesmart.org/candidate/key-votes/106387/david-schweikert/75/abortion-and-reproductive",
+              "type": "vote",
+              "title": "David Schweikert - Vote Smart key votes: Abortion and reproductive health",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://www.ontheissues.org/house/David_Schweikert_Abortion.htm",
+              "type": "profile",
+              "title": "David Schweikert on Abortion - OnTheIssues.org",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Supports stricter border enforcement and tougher immigration controls. His official materials emphasize border security and opposition to proposals that would financially compensate people who cross the border illegally.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://schweikert.house.gov/issues/border-security/",
+              "type": "official_policy_page",
+              "title": "Border Security - Congressman Schweikert",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://schweikert.house.gov/2021/11/02/congressman-david-schweikert-introduces-resolution-against-financially-compensating-individuals-crossing-our-borders-illegally/",
+              "type": "press-release",
+              "title": "Congressman David Schweikert introduces resolution against financially compensating individuals crossing our borders illegally",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "stance": "Supports broad Second Amendment rights and says lawful gun owners should not be penalized by gun-control laws. He also supports background-check system upgrades and the Fix NICS approach to keep prohibited purchasers from buying firearms.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://schweikert.house.gov/issues/second-amendment/",
+              "type": "official_policy_page",
+              "title": "Second Amendment - Congressman Schweikert",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Supports strong U.S. global leadership, continued support for Israel, sanctions on Russia and Iran, opposition to reentering the Iran nuclear deal, and a hard line toward China as a strategic competitor.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://schweikert.house.gov/issues/foreign-affairs/",
+              "type": "official_policy_page",
+              "title": "Foreign Affairs - Congressman Schweikert",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Supports school choice and STEM-focused education. His materials say parents should have more options and that education policy should expand science, technology, engineering, and math opportunities.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://schweikert.house.gov/issues/education/",
+              "type": "official_policy_page",
+              "title": "Education - Congressman Schweikert",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "Supports broader use of artificial intelligence to modernize government and health care, and he has backed legislation aimed at AI-enabled medical tools, remote monitoring, and privacy protections. His public materials frame AI as a way to make government faster and cheaper while improving service delivery.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://schweikert.house.gov/issues/innovation-ai/",
+              "type": "official_policy_page",
+              "title": "Innovation & AI - Congressman Schweikert",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Supports Arizona water interests, including legislation to address Colorado River shortages and allocate cuts more proportionally among Lower Basin states. His office says the goal is to protect Arizona\u2019s water supply in future shortages.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://schweikert.house.gov/2026/01/29/schweikert-introduces-equal-access-to-the-colorado-river-act-to-protect-arizona-in-future-shortages/",
+              "type": "official",
+              "title": "Schweikert Introduces Equal Access to the Colorado River Act to Protect Arizona in Future Shortages",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://www.govtrack.us/congress/bills/119/hr7078",
+              "type": "federal",
+              "title": "HR 7078 - Equal Access to the Colorado River Act",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "stance": "Publicly available materials and outside scorecards indicate a record that has not aligned with LGBTQ equality advocacy. The Human Rights Campaign gave him a 0 out of 100 on its congressional scorecard.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.hrc.org/press-releases/rep-david-schweikert-earns-a-0-out-of-100-on-human-rights-campaigns-congressional-scorecard-his-anti-lgbtq-anti-choice-track-record-shows-why-arizona-cant-trust-him-with-another-term-in-the-u-s-congress",
+              "type": "report",
+              "title": "HRC scorecard on David Schweikert",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://www.ontheissues.org/house/David_Schweikert_Civil_Rights.htm",
+              "type": "analysis",
+              "title": "David Schweikert on Civil Rights - OnTheIssues",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Election Policy": {
+          "stance": "Supports state control of elections and has emphasized Arizona\u2019s election administration and voting rules in public comments. Public campaign materials and interviews found in search results did not provide a detailed, specific statewide election-policy platform beyond general support for election integrity and state authority.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://ktar.com/watch/2026-governors-race-is-critical-for-the-country-rep-david-schweikert-says/019df92e-0908-8008-c1bf-10a942312d7e",
+              "type": "news",
+              "title": "2026 governor's race is critical for the country, Rep. David Schweikert says",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://davidschweikert.com/",
+              "type": "official_campaign",
+              "title": "David Schweikert for Governor",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Risa Lombardo",
+      "party": "Green",
+      "incumbent": false,
+      "summary": "Risa Lombardo is the Green Party candidate for governor of Arizona in 2026 and is listed on the Green Party primary ballot. Available reporting says she previously worked as a Republican precinct committeeman before switching to the Green Party in 2025, but public biographical information about her background is limited.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Risa_Lombardo",
+          "type": "website",
+          "title": "Risa Lombardo - Ballotpedia"
+        },
+        {
+          "url": "https://azmirror.com/2026/04/15/risa-lombardo-sold-maga-merch-now-shes-running-for-governor-as-a-green-party-candidate/",
+          "type": "news",
+          "title": "She sold MAGA merch. Now she\u2019s running for governor as a Green Party candidate."
+        }
+      ],
+      "image_url": "https://ballotpedia.s3.us-east-1.amazonaws.com/images/thumb/6/68/SubmitPhoto-150px.png",
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": "Public campaign-finance detail for Risa Lombardo was not readily surfaced in the available search results. I found Arizona campaign-finance report PDFs and reporting about her candidacy, but no reliable summary page with total raised, top industries, or major contributors in the search results reviewed. Sources: https://seethemoney.az.gov/PublicReports/2026/A258ABD9-D1EE-469A-9B3C-B92CF896E175.pdf, https://ballotpedia.org/Risa_Lombardo, https://azmirror.com/2026/04/15/risa-lombardo-sold-maga-merch-now-shes-running-for-governor-as-a-green-party-candidate/",
+      "donor_source_url": "https://seethemoney.az.gov/PublicReports/2026/A258ABD9-D1EE-469A-9B3C-B92CF896E175.pdf",
+      "voting_summary": "No public legislative voting record. No prior elected or executive office found in the sources reviewed; available reporting instead focuses on her ballot access and party-affiliation controversy rather than any governing record. Sources: https://ballotpedia.org/Risa_Lombardo, https://azmirror.com/2026/04/15/risa-lombardo-sold-maga-merch-now-shes-running-for-governor-as-a-green-party-candidate/, https://www.gpelections.org/races/risa-lombardo-runs-for-governor-2026/",
+      "voting_source_url": "https://ballotpedia.org/Risa_Lombardo",
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Risa_Lombardo",
+          "title": "Ballotpedia biography",
+          "type": "other"
+        },
+        {
+          "url": "https://azmirror.com/2026/04/15/risa-lombardo-sold-maga-merch-now-shes-running-for-governor-as-a-green-party-candidate/",
+          "title": "She sold MAGA merch. Now she's running for governor as a Green Party candidate",
+          "type": "news"
+        },
+        {
+          "url": "https://www.gpelections.org/races/risa-lombardo-runs-for-governor-2026/",
+          "title": "Risa Lombardo Runs for Governor, 2026 - GPUS Elections Database",
+          "type": "other"
+        },
+        {
+          "url": "https://seethemoney.az.gov/PublicReports/2026/A258ABD9-D1EE-469A-9B3C-B92CF896E175.pdf",
+          "title": "Campaign Finance Report - SeeTheMoney",
+          "type": "finance"
+        },
+        {
+          "url": "https://teriann4azgov.org/",
+          "title": "Teri Ann 4 AZ Governor",
+          "type": "official"
+        }
+      ],
+      "issues": {
+        "Economy": {
+          "stance": "Supports the Arizona Green Party platform, which emphasizes an eco-socialist economy, renewable energy jobs, and reducing poverty and inequality.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://azmirror.com/2026/04/15/risa-lombardo-sold-maga-merch-now-shes-running-for-governor-as-a-green-party-candidate/",
+              "type": "news",
+              "title": "She sold MAGA merch. Now she\u2019s running for governor as a Green Party candidate.",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://www.azgp.org/green_new_deal",
+              "type": "policy_page",
+              "title": "Arizona Green Party: Green New Deal",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Supports phasing out fossil fuels and transitioning Arizona to 100% renewable energy under the Arizona Green Party\u2019s Green New Deal framework.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.azgp.org/green_new_deal",
+              "type": "policy_page",
+              "title": "Arizona Green Party: Green New Deal",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://azmirror.com/2026/04/15/risa-lombardo-sold-maga-merch-now-shes-running-for-governor-as-a-green-party-candidate/",
+              "type": "news",
+              "title": "She sold MAGA merch. Now she\u2019s running for governor as a Green Party candidate.",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Supports a Green Party-aligned foreign policy that emphasizes peace, diplomacy, and reducing the military-industrial complex.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://azmirror.com/2026/04/15/risa-lombardo-sold-maga-merch-now-shes-running-for-governor-as-a-green-party-candidate/",
+              "type": "news",
+              "title": "She sold MAGA merch. Now she\u2019s running for governor as a Green Party candidate.",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://www.azgp.org/green_new_deal",
+              "type": "policy_page",
+              "title": "Arizona Green Party: Green New Deal",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "stance": "Says she wants equal opportunity for everyone based on merit and supports fair, transparent elections; the Arizona Green Party platform also calls for ending police brutality and mass incarceration.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://azmirror.com/2026/04/15/risa-lombardo-sold-maga-merch-now-shes-running-for-governor-as-a-green-party-candidate/",
+              "type": "news",
+              "title": "She sold MAGA merch. Now she\u2019s running for governor as a Green Party candidate.",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://www.gp.org/arizona_green_party_warns_of_sham_candidates",
+              "type": "news",
+              "title": "Arizona Green Party warns of 'sham' candidates running under party name",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Healthcare": {
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Risa_Lombardo",
+              "type": "website",
+              "title": "Risa Lombardo - Ballotpedia",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Risa_Lombardo",
+              "type": "website",
+              "title": "Risa Lombardo - Ballotpedia",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Risa_Lombardo",
+              "type": "website",
+              "title": "Risa Lombardo - Ballotpedia",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Election Policy": {
+          "stance": "Supports fair and transparent elections that reflect the will of voters.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://azmirror.com/2026/04/15/risa-lombardo-sold-maga-merch-now-shes-running-for-governor-as-a-green-party-candidate/",
+              "type": "news",
+              "title": "She sold MAGA merch. Now she\u2019s running for governor as a Green Party candidate.",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Says she supports meaningful changes to how Arizona handles education, but has not released detailed public education proposals in the sources reviewed.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://azmirror.com/2026/04/15/risa-lombardo-sold-maga-merch-now-shes-running-for-governor-as-a-green-party-candidate/",
+              "type": "news",
+              "title": "She sold MAGA merch. Now she\u2019s running for governor as a Green Party candidate.",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Says she supports changes to Arizona\u2019s approach to education, homelessness, and the prison system, along with a responsible environmental plan to protect the state\u2019s air and water.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://azmirror.com/2026/04/15/risa-lombardo-sold-maga-merch-now-shes-running-for-governor-as-a-green-party-candidate/",
+              "type": "news",
+              "title": "She sold MAGA merch. Now she\u2019s running for governor as a Green Party candidate.",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Risa_Lombardo",
+              "type": "website",
+              "title": "Risa Lombardo - Ballotpedia",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Risa_Lombardo",
+              "type": "website",
+              "title": "Risa Lombardo - Ballotpedia",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "William Pounds",
+      "party": "Green",
+      "incumbent": false,
+      "summary": "William Pounds is the Green Party candidate in Arizona\u2019s 2026 gubernatorial race. His campaign materials emphasize a resource-based economy, expanded public services, and state-led reforms on housing, policing, and immigration.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/William_Pounds",
+          "type": "website",
+          "title": "William Pounds - Ballotpedia"
+        },
+        {
+          "url": "https://poundsforgovernor.com/platform",
+          "type": "official campaign platform",
+          "title": "Arizona Resource-Based Economy | William Pounds for Governor"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [],
+      "education": [],
+      "donor_summary": "Public campaign-finance detail for William Pounds was not readily surfaced in the available search results. I found Transparency USA and Ballotpedia references, but no reliable summary page with total raised, top industries, or major contributors in the search results reviewed. Sources: https://www.transparencyusa.org/az/candidate/william-pounds, https://ballotpedia.org/William_Pounds_(Arizona), https://www.opensecrets.org/elections-overview/candidate-counts?cycle=All&showcands=Y&state=AZ&type=Governor",
+      "donor_source_url": "https://www.transparencyusa.org/az/candidate/william-pounds",
+      "voting_summary": "No public legislative voting record. No prior elected or executive office found in the sources reviewed; available material identifies him as a prior gubernatorial candidate, but not a legislator or executive officeholder with recorded votes. Sources: https://ballotpedia.org/William_Pounds_(Arizona), https://www.transparencyusa.org/az/candidate/william-pounds, https://j.futurefacts.votesmart.io/candidate/evaluations/210615/william-pounds-iv",
+      "voting_source_url": "https://ballotpedia.org/William_Pounds_(Arizona)",
+      "links": [
+        {
+          "url": "https://ballotpedia.org/William_Pounds",
+          "title": "Ballotpedia biography",
+          "type": "other"
+        },
+        {
+          "url": "https://ballotpedia.org/William_Pounds_(Arizona)",
+          "title": "William Pounds (Arizona) - Ballotpedia",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://www.transparencyusa.org/az/candidate/william-pounds",
+          "title": "William Pounds - Arizona Candidate - Transparency USA",
+          "type": "finance"
+        },
+        {
+          "url": "https://www.transparencyusa.org/az/candidate/william-pounds/personal-activity?cycle=2024-election-cycle",
+          "title": "William Pounds - Arizona Candidate - Transparency USA (personal activity)",
+          "type": "finance"
+        },
+        {
+          "url": "https://j.futurefacts.votesmart.io/candidate/evaluations/210615/william-pounds-iv",
+          "title": "Vote Smart profile for William Pounds",
+          "type": "votesmart"
+        },
+        {
+          "url": "https://www.opensecrets.org/elections-overview/candidate-counts?cycle=All&showcands=Y&state=AZ&type=Governor",
+          "title": "OpenSecrets candidate counts - Arizona Governor",
+          "type": "finance"
+        }
+      ],
+      "issues": {
+        "Healthcare": {
+          "stance": "Pounds says Arizona should expand mental health services, crisis response, and housing-first supports as part of a broader public-health approach. His campaign materials call for 24/7 mental-health response teams, school counselors, and trauma care for residents.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://poundsforgovernor.com/press-releases/f/the-daniel-shaver-act",
+              "type": "official campaign page",
+              "title": "The Daniel Shaver Act - William Pounds For Arizona Governor",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://poundsforgovernor.com/every-head-home",
+              "type": "official campaign page",
+              "title": "Every Head Home",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Pounds proposes a resource-based economy for Arizona, centered on statewide resource inventories, open allocation systems, and public investment in water, energy, food, and housing. He also proposes living-wage stipends and workforce training through Next-Gen Skills Academies.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://poundsforgovernor.com/platform",
+              "type": "official campaign platform",
+              "title": "Arizona Resource-Based Economy | William Pounds for Governor",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Pounds links climate and energy policy to his resource-based economy, emphasizing solar power, water recycling, utility-scale batteries, and circular-city planning. He says Arizona should use technology and closed-loop systems to reduce waste and improve resilience.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://poundsforgovernor.com/platform",
+              "type": "official campaign platform",
+              "title": "Arizona Resource-Based Economy | William Pounds for Governor",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Pounds proposes an Arizona FIRE framework that would sharply limit ICE\u2019s role in the state and shift enforcement toward a state-led, citizen-governed system focused on child protection and trafficking victims. His campaign also calls for sanctuary-style support, legal aid, housing, healthcare, and education for affected families.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://poundsforgovernor.com/arizona-fire-v-u-s-ice",
+              "type": "official campaign page",
+              "title": "Arizona FIRE v U.S. ICE",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Pounds has a campaign page titled \u201cArizona\u2019s Response to Iran War,\u201d but the public materials reviewed here did not provide a detailed foreign-policy platform beyond that page title and related state-safety messaging. No broader foreign-policy position was clearly stated in the sources reviewed.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://poundsforgovernor.com/",
+              "type": "official campaign homepage",
+              "title": "William Pounds For Arizona Governor",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "stance": "Pounds says his administration would protect free speech, oppose Arizona\u2019s anti-BDS law, and use civilian oversight and de-escalation-focused policing reforms. His campaign materials also frame housing, resource access, and public services as part of a broader equity agenda.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://poundsforgovernor.com/platform",
+              "type": "official campaign platform",
+              "title": "Arizona Resource-Based Economy | William Pounds for Governor",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://poundsforgovernor.com/fresco%3A-arizona%E2%80%99s-reboot",
+              "type": "official campaign page",
+              "title": "Fresco: Arizona\u2019s Reboot",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://poundsforgovernor.com/press-releases/f/the-daniel-shaver-act",
+              "type": "official campaign page",
+              "title": "The Daniel Shaver Act",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Pounds proposes Next-Gen Skills Academies with community colleges and tech hubs to train workers in renewable energy, water management, precision agriculture, and digital manufacturing. He says participants would receive a living-wage stipend while training.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://poundsforgovernor.com/platform",
+              "type": "official campaign platform",
+              "title": "Arizona Resource-Based Economy | William Pounds for Governor",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "Pounds supports open-source platforms and blockchain-enabled registries to track and allocate energy credits, water rights, and public land use. His campaign presents technology and data systems as tools for transparent governance and resource allocation.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://poundsforgovernor.com/platform",
+              "type": "official campaign platform",
+              "title": "Arizona Resource-Based Economy | William Pounds for Governor",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Election Policy": {
+          "stance": "Pounds calls for auditing the Arizona Citizens Clean Elections Commission and improving transparency and accountability in election administration. His campaign also says debates and election processes should be open and accessible.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://poundsforgovernor.com/audit-the-azccec",
+              "type": "official campaign page",
+              "title": "Audit The AZCCEC - William Pounds For Arizona Governor",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://poundsforgovernor.com/platform",
+              "type": "official campaign platform",
+              "title": "Arizona Resource-Based Economy | William Pounds for Governor",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Pounds\u2019 housing plan, \u201cEvery Head Home,\u201d calls for a statewide housing-first approach to homelessness and supportive services, with centralized coordination and cost controls. His broader platform also includes circular-city planning and local resource commons.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://poundsforgovernor.com/every-head-home",
+              "type": "official campaign page",
+              "title": "Every Head Home",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://poundsforgovernor.com/platform",
+              "type": "official campaign platform",
+              "title": "Arizona Resource-Based Economy | William Pounds for Governor",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "stance": "No public position found.",
+          "confidence": "low"
+        },
+        "Abortion & Reproductive Health": {
+          "stance": "No public position found.",
+          "confidence": "low"
+        }
+      }
+    },
+    {
+      "name": "Teri Hourihan",
+      "party": "No Labels Party",
+      "incumbent": false,
+      "summary": "Teri Hourihan is a No Labels Party candidate for governor of Arizona in 2026. Her campaign materials describe her as an Arizona native, licensed professional counselor, and founder of a behavioral health practice, and she says she is running on a platform focused on government accountability, family issues, and state reform.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Teri_Hourihan",
+          "type": "website",
+          "title": "Teri Hourihan - Ballotpedia"
+        },
+        {
+          "url": "https://teriann4azgov.org/about",
+          "type": "official",
+          "title": "About Teri | Empower Arizona\u2014Join the Movement"
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Teri_Hourihan_20260130_040320.jpg",
+      "website": null,
+      "social_media": {
+        "facebook": "https://www.facebook.com/USAadvocate4all",
+        "linkedin": "https://www.linkedin.com/in/terishealthotmiv"
+      },
+      "career_history": [
+        {
+          "title": "Founder and CEO",
+          "organization": "Teri's Health Services",
+          "start_year": 2018,
+          "end_year": null,
+          "description": "Founded and led a behavioral health practice in Arizona; campaign materials say it grew into a statewide integrated-care provider."
+        }
+      ],
+      "education": [
+        {
+          "institution": "Arizona State University",
+          "degree": "Bachelor's degree",
+          "field": "Psychology",
+          "year": 2010
+        },
+        {
+          "institution": "Argosy University",
+          "degree": "Master's degree",
+          "field": "Clinical Mental Health Counseling",
+          "year": 2014
+        },
+        {
+          "institution": "Regent University",
+          "degree": "Doctor of Philosophy",
+          "field": "Counselor Education and Supervision",
+          "year": 2018
+        }
+      ],
+      "donor_summary": "Public campaign-finance detail for Teri Hourihan was not readily surfaced in the available search results. I found her campaign website, Ballotpedia page, and Arizona reporting, but no reliable summary page with total raised, top industries, or major contributors in the search results reviewed. Sources: https://teriann4azgov.org/, https://ballotpedia.org/Teri_Hourihan, https://ktar.com/arizona-election-news/teri-hourihan-governor/5822974/",
+      "donor_source_url": "https://teriann4azgov.org/",
+      "voting_summary": "No public legislative voting record. No prior elected or executive office found in the sources reviewed; available reporting describes her as a candidate with policy positions, but not as a legislator or executive officeholder with recorded votes. Sources: https://ballotpedia.org/Teri_Hourihan, https://ktar.com/arizona-election-news/teri-hourihan-governor/5822974/, https://teriann4azgov.org/teris-agenda",
+      "voting_source_url": "https://ballotpedia.org/Teri_Hourihan",
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Teri_Hourihan",
+          "title": "Ballotpedia biography",
+          "type": "other"
+        },
+        {
+          "url": "https://teriann4azgov.org/",
+          "title": "Teri Ann 4 AZ Governor | Get Involved Now \u2014 Support Change",
+          "type": "official"
+        },
+        {
+          "url": "https://teriann4azgov.org/about",
+          "title": "About Teri | Empower Arizona\u2014Join the Movement",
+          "type": "official"
+        },
+        {
+          "url": "https://teriann4azgov.org/teris-agenda",
+          "title": "Teri's Agenda \u2014 Teri Ann 4 AZ Governor",
+          "type": "official"
+        },
+        {
+          "url": "https://ktar.com/arizona-election-news/teri-hourihan-governor/5822974/",
+          "title": "Teri Hourihan, Arizona Independent Party candidate, explains stances",
+          "type": "news"
+        },
+        {
+          "url": "https://j.futurefacts.votesmart.io/candidate/political-courage-test/239633/teri-ann-hourihan",
+          "title": "Teri Ann Hourihan's Issue Positions (Political Courage Test)",
+          "type": "votesmart"
+        }
+      ],
+      "issues": {
+        "Healthcare": {
+          "stance": "Supports patient-centered care, stronger oversight of state health programs, and expanded mental health and counseling services. On abortion, she says it should be allowed only when medically necessary and opposes federal funding for elective abortions.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://teriann4azgov.org/teris-agenda",
+              "type": "official",
+              "title": "Teri's Agenda",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://teriann4azgov.org/about",
+              "type": "official",
+              "title": "About Teri",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Supports pro-growth policies aimed at lowering inflation and business costs, including repealing some climate-era regulations, offering tax incentives for manufacturing, expanding trade corridors, and maintaining a balanced budget. She also backs workforce development and small-business support.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://teriann4azgov.org/teris-agenda",
+              "type": "official",
+              "title": "Teri's Agenda",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://ktar.com/arizona-election-news/teri-hourihan-governor/5822974/",
+              "type": "news",
+              "title": "Teri Hourihan explains stances",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Supports lowering energy costs while expanding renewable energy. Her campaign materials call for energy infrastructure expansion, ending California-style emissions compacts, tax credits or rebates for efficiency upgrades, and more solar and wind development.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://teriann4azgov.org/teris-agenda",
+              "type": "official",
+              "title": "Teri's Agenda",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://teriann4azgov.org/about",
+              "type": "official",
+              "title": "About Teri",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "stance": "Describes herself as pro-life and says abortion should be permitted only when medically necessary. She opposes federal funding for elective abortions and says contraception access and adoption should be expanded to reduce abortions.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://teriann4azgov.org/about",
+              "type": "official",
+              "title": "About Teri",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://teriann4azgov.org/teris-agenda",
+              "type": "official",
+              "title": "Teri's Agenda",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Supports strict border security and enforcement, including deploying a state guard for border interdiction, coordinating with other states through interstate compacts, and auditing welfare recipients for citizenship verification.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://teriann4azgov.org/teris-agenda",
+              "type": "official",
+              "title": "Teri's Agenda",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://ktar.com/arizona-election-news/teri-hourihan-governor/5822974/",
+              "type": "news",
+              "title": "Teri Hourihan explains stances",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "stance": "Says she supports the Second Amendment, wants Arizona gun laws maintained for public safety, and supports background checks on private gun sales, state-level firearm registration, and gun-safety measures.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://teriann4azgov.org/teris-agenda",
+              "type": "official",
+              "title": "Teri's Agenda",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://www.facebook.com/USAadvocate4all/posts/teri-ann-hourihan-for-az-governor-i-will-protect-the-second-amendment-and-make-c/122167399724403507/",
+              "type": "social",
+              "title": "Teri Hourihan Second Amendment post",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "No public position found.",
+          "confidence": "low"
+        },
+        "Civil Rights & Equality": {
+          "stance": "Supports a statewide anti-discrimination law and says she wants 'No Hate' laws to ensure fair treatment across Arizona.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://teriann4azgov.org/teris-agenda",
+              "type": "official",
+              "title": "Teri's Agenda",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Supports codifying and expanding Arizona's ESA program with auditing to reduce fraud, transparent district audits, caps on non-instructional spending, and incentives for charter and classical schools emphasizing civics, STEM, and patriotism.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://teriann4azgov.org/teris-agenda",
+              "type": "official",
+              "title": "Teri's Agenda",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "No public position found.",
+          "confidence": "low"
+        },
+        "Election Policy": {
+          "stance": "Supports election integrity measures and has publicly challenged nominating petition signatures in the Arizona governor primary, arguing for stricter validation of signatures on the ballot.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://ktar.com/arizona-election-news/teri-hourihan-governor/5822974/",
+              "type": "news",
+              "title": "Teri Hourihan explains stances",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Focuses on government accountability and anti-corruption measures, including zero-based budgeting, a Governor's Integrity Task Force, public audit and contract transparency, and tighter oversight of AHCCCS, DES, and ADE.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://teriann4azgov.org/teris-agenda",
+              "type": "official",
+              "title": "Teri's Agenda",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            },
+            {
+              "url": "https://ktar.com/arizona-election-news/teri-hourihan-governor/5822974/",
+              "type": "news",
+              "title": "Teri Hourihan on rooting out corruption in AZ government",
+              "last_accessed": "2026-05-17T03:43:58.106707+00:00"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Arizona_gubernatorial_election,_2026",
+  "updated_utc": "2026-05-17T03:43:58.106707+00:00",
+  "generator": [
+    "gpt-5.4-mini",
+    "gpt-5-nano",
+    "claude-haiku-4-5-20251001",
+    "gemini-3.1-flash-lite-preview",
+    "grok-4-1-fast-non-reasoning"
+  ],
+  "register_to_vote_url": "https://azsos.gov/elections/voters/registering-vote",
+  "how_to_vote_url": "https://azsos.gov/elections/voters/voting-elections",
+  "schema_version": "0.3",
+  "reviews": [
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "reviewed_at": "2026-05-17T03:44:35.381253+00:00",
+      "verdict": "approved",
+      "score": 88,
+      "flags": [
+        {
+          "field": "candidates[1].career_history",
+          "concern": "Andy Biggs' career_history lists his service in the Arizona legislature with start_year 2013 and end_year 2017 as 'Arizona Senate President,' but the description only says 'served in the Arizona legislature before election to Congress.' A human reviewer should verify whether he served solely as President (2013-2017) or held other Senate positions before or after that window, as this is a compressed summary.",
+          "suggestion": "Expand or clarify the career_history entry to specify the full scope of his Arizona legislative service (e.g., state representative years, if any, and exact Senate tenure).",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[4].education",
+          "concern": "David Schweikert's education entry lists only a single Bachelor's degree in finance from Arizona State University with no year provided, and no graduate degree is listed. My training data suggests he holds a J.D., but per your epistemological rule, I will not contradict a sourced profile with training data alone. However, the Ballotpedia and official sources cited should be spot-checked to confirm whether additional degrees are documented.",
+          "suggestion": "Verify against Ballotpedia and official House biography whether Schweikert holds any graduate degrees (e.g., law degree) and add them with appropriate years if confirmed.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].issues.Immigration.stance",
+          "concern": "Scott Neely's Immigration stance is marked with 'confidence: medium' and sourced entirely from Facebook posts. While the sourcing is legitimate, this is a relatively low-confidence source for a major issue, and the stance summary (border wall, border security) is inferred from social-media statements rather than from a detailed policy document or campaign platform page.",
+          "suggestion": "If Neely has published a formal policy page on immigration, add it as a source. Otherwise, the 'medium' confidence rating is appropriate and the flag should remain for human review.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].donor_summary",
+          "concern": "Ken Miceli's donor summary explicitly states that 'public campaign-finance detail for Ken Miceli was not readily surfaced in the available search results.' This is an acceptable gap for a candidate with limited public profile, but the profile does not link to any formal FEC, Arizona SeeTheMoney, or OpenSecrets page. A human reviewer should verify whether Miceli has filed campaign finance reports and whether they are publicly accessible.",
+          "suggestion": "If Miceli has filed with the Arizona Secretary of State or FEC, provide a direct link to the filing portal or database entry. If no filings exist or are unavailable, note that explicitly.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[5].issues.Civil Rights & Equality.stance",
+          "concern": "Risa Lombardo's Civil Rights stance cites a source from the Green Party itself warning of 'sham candidates' (https://www.gp.org/arizona_green_party_warns_of_sham_candidates), which is a meta-commentary on candidate legitimacy rather than a statement of Lombardo's own positions. The Arizona Mirror article also reports controversy over her prior MAGA merchandise sales and recent party-switch, which raises questions about the authenticity of her Green Party alignment. The sourced stance text ('equal opportunity based on merit') is vague and may not reflect her actual civil-rights commitments.",
+          "suggestion": "Either provide a direct link to Lombardo's own civil-rights policy statements (e.g., a campaign website page), or downgrade confidence further and note the sourcing challenge. Consider whether a candidate under party legitimacy scrutiny warrants inclusion or a footnote about disputed candidacy.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[6].issues.Healthcare.stance",
+          "concern": "William Pounds' Healthcare stance is sourced to campaign pages on 'The Daniel Shaver Act' and 'Every Head Home,' but the summary text conflates healthcare policy (mental health services, crisis response) with housing policy (housing-first supports). While related, these are distinct domains. The sourcing is appropriate, but the stance definition blurs the boundary between healthcare and local/housing issues.",
+          "suggestion": "Clarify whether healthcare-specific positions (mental health services, crisis response teams) should remain under Healthcare, and move housing-related content to 'Local Issues' with appropriate cross-references.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[7].career_history",
+          "concern": "Teri Hourihan's career_history lists only her role as Founder and CEO of 'Teri's Health Services' from 2018 onward. The profile summary and sources describe her as a 'licensed professional counselor' and say she 'founded a behavioral health practice,' but no prior employment history or clinical positions are documented, despite her holding a Ph.D. since 2018. A human reviewer should verify whether she held clinical or professional roles before founding her company.",
+          "suggestion": "If Hourihan held prior clinical or professional positions (e.g., as a licensed counselor before 2018), add them to career_history. If she founded the company immediately upon earning her Ph.D., note that clearly.",
+          "severity": "info"
+        },
+        {
+          "field": "polling[0].date",
+          "concern": "The first polling entry from Emerson College Polling is dated '2025-11-10', but the election is scheduled for '2026-11-03'. A poll dated November 10, 2025 is highly proximal to the election date and should be verified as a real, published poll. The URL provided (https://emersoncollegepolling.com/arizona-2026-governor/) should be spot-checked by a human reviewer to confirm the poll actually exists and matches the matchups and sample size cited.",
+          "suggestion": "Verify the Emerson poll URL and confirm publication date, sample size, and matchup data. If the poll does not exist or cannot be accessed, flag as a data quality issue.",
+          "severity": "info"
+        }
+      ],
+      "summary": "This profile is well-researched and comprehensive across all eight candidates in the 2026 Arizona gubernatorial race. The incumbent (Katie Hobbs) and major Republican contenders (Biggs, Schweikert) are documented with strong sourcing from official campaign sites, government records, and credible news outlets. The lesser-known Republican challengers (Miceli, Neely) and Green/No Labels candidates (Lombardo, Pounds, Hourihan) are appropriately documented at lower confidence levels where public information is sparse\u2014a reflection of legitimate information scarcity rather than research failure. Language is consistently neutral, positions are well-cited, and candidate backgrounds align with cited sources. Minor gaps in fundraising detail for non-major-party candidates and some positions marked 'low confidence' are acceptable given the candidates' public profiles."
+    },
+    {
+      "model": "gemini-3.1-flash-lite-preview",
+      "reviewed_at": "2026-05-17T03:44:07.509465+00:00",
+      "verdict": "approved",
+      "score": 96,
+      "flags": [
+        {
+          "field": "candidates[0].issues.Civil Rights & Equality.confidence",
+          "concern": "The confidence level is marked as 'medium' despite the presence of two strong, primary/official sources.",
+          "suggestion": "Update confidence level to 'high' for consistency with other entries where similar source volume is present.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].issues.Foreign Policy.confidence",
+          "concern": "The profile correctly identifies a 'medium' confidence level due to the lack of a formal platform, but the sources provided are specific enough that this is well-handled.",
+          "suggestion": null,
+          "severity": "info"
+        },
+        {
+          "field": "candidates[4].issues.Civil Rights & Equality.stance",
+          "concern": "The summary mentions specific ideological groups ('eco-socialist') and potential controversy, which is well-sourced, but human verification of the candidate's personal adoption of these terms versus party platform alignment is recommended.",
+          "suggestion": "Confirm if the candidate explicitly identifies with these platform terms or if they are attributed based on party affiliation.",
+          "severity": "info"
+        }
+      ],
+      "summary": "This is an exceptionally high-quality research profile. It demonstrates rigorous sourcing, with a consistent reliance on official government records, campaign websites, and reputable news outlets for every candidate. The profile maintains a neutral tone, successfully navigates the complex policy landscape for both incumbents and challengers, and correctly identifies gaps in public information as a result of good-faith research rather than a failure of coverage. Candidate biographies and career histories are well-documented and internally consistent with the provided links."
+    },
+    {
+      "model": "grok-4-1-fast-non-reasoning",
+      "reviewed_at": "2026-05-17T03:44:07.391739+00:00",
+      "verdict": "approved",
+      "score": 92,
+      "flags": [
+        {
+          "field": "candidates[4].career_history",
+          "concern": "Duplicate entry for David Schweikert\u2019s congressional service (two identical 2023\u2013present rows).",
+          "suggestion": "Remove the duplicate row.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[6].links",
+          "concern": "One link points to another candidate\u2019s site (teriann4azgov.org) instead of Risa Lombardo\u2019s materials.",
+          "suggestion": "Correct or remove the erroneous link.",
+          "severity": "info"
+        }
+      ],
+      "summary": "Strong, well-sourced profile with consistent internal sourcing across major candidates. Katie Hobbs and Andy Biggs have detailed issue positions backed by official campaign and government URLs; lesser-known candidates (Miceli, Neely, Lombardo, Pounds, Hourihan) appropriately note limited public records and low-confidence or absent positions. Backgrounds, career histories, and donor summaries are internally consistent with cited sources. Neutral, nonpartisan language throughout with no value-laden adjectives or asymmetric framing detected."
+    }
+  ],
+  "validation_grade": {
+    "grade": "A",
+    "score": 92,
+    "passed": true,
+    "summary": "Validated by 3/3 reviewers with an average score of 92/100."
+  },
+  "agent_metrics": {
+    "model": "gpt-5.4-mini",
+    "prompt_tokens": 985139,
+    "completion_tokens": 19913,
+    "total_tokens": 1005052,
+    "estimated_usd": 0.1872,
+    "model_breakdown": {
+      "gpt-5.4-mini": {
+        "prompt_tokens": 894795,
+        "completion_tokens": 16529
+      },
+      "grok-4-1-fast-non-reasoning": {
+        "prompt_tokens": 26433,
+        "completion_tokens": 250
+      },
+      "gemini-3.1-flash-lite-preview": {
+        "prompt_tokens": 32664,
+        "completion_tokens": 404
+      },
+      "claude-haiku-4-5-20251001": {
+        "prompt_tokens": 31247,
+        "completion_tokens": 2730
+      }
+    },
+    "duration_s": 216.9
+  }
+}

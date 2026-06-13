@@ -1,0 +1,592 @@
+{
+  "id": "ri-governor-2026",
+  "title": "2026 Rhode Island Gubernatorial Election",
+  "office": "Governor of Rhode Island",
+  "jurisdiction": "Rhode Island",
+  "state": "Rhode Island",
+  "district": null,
+  "election_date": "2026-11-03",
+  "description": "The 2026 Rhode Island gubernatorial election will be held on November 3, 2026, to elect the governor of Rhode Island. Incumbent Democratic Governor Dan McKee is seeking a second full term and faces a competitive primary challenge from former CVS Health executive Helena Foulkes, who led him by 20 points in a May 2026 Emerson College/WPRI poll. On the Republican side, a multi-candidate primary includes Elaine Pelino, Aaron Guckian, and Robert Raimondo, while independent candidate Ken Block is also running. The race will determine leadership for a state that has leaned Democratic in recent presidential elections but has a history of electing independent-minded governors.",
+  "polling": [
+    {
+      "pollster": "Emerson College Polling/WPRI-TV 12 News",
+      "date": "2026-05-16",
+      "sample_size": 565,
+      "matchups": [
+        {
+          "candidates": [
+            "Helena Foulkes",
+            "Dan McKee"
+          ],
+          "percentages": [
+            40.0,
+            20.0
+          ]
+        }
+      ],
+      "source_url": "https://emersoncollegepolling.com/rhode-island-2026-helena-foulkes-leads-incumbent-governor-mckee-in-democratic-primary/"
+    }
+  ],
+  "polling_note": "Only one poll found for the 2026 Rhode Island governor's race, focused on the Democratic primary. No general election matchup polls were available as of mid-2026.",
+  "candidates": [
+    {
+      "name": "Dan McKee",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Dan McKee is the incumbent Governor of Rhode Island, first assuming office in March 2021 after then-Governor Gina Raimondo joined the Biden administration. He is seeking a second full term and prior to becoming governor served as Lieutenant Governor and as Mayor of Cumberland. McKee has focused his administration on improving educational outcomes, raising incomes, and creating a healthier Rhode Island.",
+      "summary_sources": [
+        {
+          "url": "https://www.nga.org/governor/dan-mckee/",
+          "type": "government",
+          "title": "Dan McKee - National Governors Association",
+          "description": null,
+          "last_accessed": "2026-05-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Daniel_McKee",
+          "type": "website",
+          "title": "Daniel McKee - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-05-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.governordanmckee.com/",
+          "type": "website",
+          "title": "McKee For Governor",
+          "description": null,
+          "last_accessed": "2026-05-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/65/RI_Governor_Daniel_McKee.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Governor of Rhode Island",
+          "organization": "State of Rhode Island",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "76th Governor; assumed office March 2, 2021",
+          "source": null
+        },
+        {
+          "title": "Lieutenant Governor of Rhode Island",
+          "organization": "State of Rhode Island",
+          "start_year": 2015,
+          "end_year": 2021,
+          "description": "69th Lieutenant Governor",
+          "source": null
+        },
+        {
+          "title": "Mayor of Cumberland",
+          "organization": "Town of Cumberland, Rhode Island",
+          "start_year": 2007,
+          "end_year": 2021,
+          "description": "Served six terms",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Assumption College",
+          "degree": "Bachelor of Arts",
+          "field": "Social Sciences",
+          "year": 1979,
+          "source": null
+        },
+        {
+          "institution": "Harvard Kennedy School",
+          "degree": "Master of Public Administration",
+          "field": "Public Administration",
+          "year": 1984,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.governordanmckee.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Helena Foulkes",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Helena Foulkes is a former CVS Health executive who previously ran for governor in 2022. She served as President of CVS Pharmacy from 2014 to 2018 and as Executive Vice President and Chief Marketing Officer of CVS Caremark. Foulkes holds AB and MBA degrees from Harvard University and serves on the board of Costco Wholesale Corporation. Her campaign focuses on making life better for every Rhode Islander.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Helena_Foulkes",
+          "type": "website",
+          "title": "Helena Foulkes - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-05-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://helenafoulkes.com/",
+          "type": "website",
+          "title": "Helena Foulkes for Governor",
+          "description": null,
+          "last_accessed": "2026-05-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.multistate.us/insider/2026/5/4/governors-almost-never-lose-primaries",
+          "type": "news",
+          "title": "Dan McKee Down 34 Points in Rhode Island Governor Primary Poll",
+          "description": null,
+          "last_accessed": "2026-05-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Helena_Foulkes.jpeg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "President of CVS Pharmacy",
+          "organization": "CVS Health Corporation",
+          "start_year": 2014,
+          "end_year": 2018,
+          "description": "Led the largest pharmacy chain in the United States",
+          "source": null
+        },
+        {
+          "title": "Executive Vice President, Chief Marketing Officer",
+          "organization": "CVS Caremark",
+          "start_year": null,
+          "end_year": null,
+          "description": "Led marketing strategy",
+          "source": null
+        },
+        {
+          "title": "Board Member",
+          "organization": "Costco Wholesale Corporation",
+          "start_year": null,
+          "end_year": null,
+          "description": "Serves on board of directors",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Harvard University",
+          "degree": "Bachelor of Arts",
+          "field": "Government",
+          "year": 1986,
+          "source": null
+        },
+        {
+          "institution": "Harvard Business School",
+          "degree": "Master of Business Administration",
+          "field": "Business Administration",
+          "year": 1992,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://helenafoulkes.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Gregory Stevens",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Gregory Stevens is a Rhode Island businessman and owner of Pat's Italian Restaurants, a chain with multiple locations across the state. He entered the Democratic primary for governor in 2026 as a political outsider with business experience. His campaign emphasizes practical solutions drawn from his experience as a small business owner.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Gregory_Stevens",
+          "type": "website",
+          "title": "Gregory Stevens - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-05-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.wpri.com/news/elections/business-owner-gregory-stevens-announces-2026-run-for-governor/",
+          "type": "news",
+          "title": "Business owner Gregory Stevens announces 2026 run for governor",
+          "description": null,
+          "last_accessed": "2026-05-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Owner",
+          "organization": "Pat's Italian Restaurants",
+          "start_year": null,
+          "end_year": null,
+          "description": "Operates multiple locations across Rhode Island",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://gregforgovri.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Elaine Pelino",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Elaine Pelino is a Republican candidate for Governor of Rhode Island from Smithfield. She launched her campaign in July 2025 and describes herself as a common-sense candidate and political outsider. Pelino has a background as a former actress and model and publishes Tigress Magazine.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Elaine_Pelino",
+          "type": "website",
+          "title": "Elaine Pelino - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-05-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.wpri.com/news/elections/republican-elaine-pelino-is-running-for-ri-governor-next-year/",
+          "type": "news",
+          "title": "Republican Elaine Pelino is running for RI governor next year",
+          "description": null,
+          "last_accessed": "2026-05-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.elainepelino4governor.com/",
+          "type": "website",
+          "title": "Elaine Pelino for Governor",
+          "description": null,
+          "last_accessed": "2026-05-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Publisher",
+          "organization": "Tigress Magazine",
+          "start_year": null,
+          "end_year": null,
+          "description": "Magazine publisher",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.elainepelino4governor.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Aaron Guckian",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Aaron Guckian is a Republican candidate for governor with a diverse background as an opera singer, teacher, and dental health advocate. He previously served as an aide to former Governor Don Carcieri and ran for Lieutenant Governor in 2022. Guckian's campaign focuses on moderation, compassion, affordability, and efficiency in state government.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Aaron_Guckian",
+          "type": "website",
+          "title": "Aaron Guckian - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-05-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.aaronforri.com/",
+          "type": "website",
+          "title": "Aaron Guckian Governor",
+          "description": null,
+          "last_accessed": "2026-05-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.providencejournal.com/story/news/politics/elections/2025/11/30/republican-aaron-guckian-launches-bid-for-ri-governor-in-2026-election/87524167007/",
+          "type": "news",
+          "title": "Former Carcieri aide Aaron Guckian launching GOP run for governor",
+          "description": null,
+          "last_accessed": "2026-05-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Aaron_Guckian.png",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Aide",
+          "organization": "Office of Governor Don Carcieri",
+          "start_year": null,
+          "end_year": null,
+          "description": "Former aide to the Republican governor",
+          "source": null
+        },
+        {
+          "title": "Candidate for Lieutenant Governor",
+          "organization": "State of Rhode Island",
+          "start_year": 2022,
+          "end_year": 2022,
+          "description": "Republican candidate for Lieutenant Governor",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.aaronforri.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Robert Raimondo",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Robert Raimondo is a Republican candidate for governor and a distant relative of former Rhode Island Governor Gina Raimondo. He is a certified management accountant (CMA) and certified public accountant (CPA) who recently moved back to Rhode Island. His campaign emphasizes economic development and building the state's future.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Robert_Raimondo",
+          "type": "website",
+          "title": "Robert Raimondo - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-05-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://raimondo4governor.com/",
+          "type": "website",
+          "title": "Robert Raimondo: Home",
+          "description": null,
+          "last_accessed": "2026-05-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.wpri.com/news/elections/a-new-raimondo-is-running-for-ri-governor-in-2026/",
+          "type": "news",
+          "title": "A new Raimondo is running for RI governor in 2026 | WPRI.com",
+          "description": null,
+          "last_accessed": "2026-05-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "CMA, CPA",
+          "organization": "Self-employed / Accounting and Consulting",
+          "start_year": null,
+          "end_year": null,
+          "description": "Certified Management Accountant and Certified Public Accountant",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://raimondo4governor.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Ken Block",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "Ken Block is an independent candidate for governor, a software engineer, businessman, and political reformer who founded the Moderate Party of Rhode Island. He previously ran for governor as the Moderate Party nominee in 2010 and 2014, and as a Republican in 2022. Block gained attention for leading a search for voter fraud on behalf of the Trump campaign that found no evidence. He is endorsed by the Forward Party.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Ken_Block",
+          "type": "website",
+          "title": "Ken Block - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-05-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://blockforgovernor.com/",
+          "type": "website",
+          "title": "Ken Block for Governor",
+          "description": null,
+          "last_accessed": "2026-05-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://rhodeislandcurrent.com/2026/04/02/ken-block-is-running-for-governor-again-this-time-as-an-independent/",
+          "type": "news",
+          "title": "Ken Block is running for governor again. This time as an independent.",
+          "description": null,
+          "last_accessed": "2026-05-20T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Founder",
+          "organization": "Moderate Party of Rhode Island",
+          "start_year": 2011,
+          "end_year": null,
+          "description": "Founded centrist political party",
+          "source": null
+        },
+        {
+          "title": "Software Engineer / Businessman",
+          "organization": "Simpatico Software",
+          "start_year": null,
+          "end_year": null,
+          "description": "Founder of software company",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Dartmouth College",
+          "degree": "Bachelor of Arts",
+          "field": "Government",
+          "year": 1988,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.blockforgovernor.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Rhode_Island_gubernatorial_election,_2026",
+  "updated_utc": "2026-06-13T21:04:32.231471+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 155121,
+    "completion_tokens": 9113,
+    "total_tokens": 164234,
+    "cost_usd": 0.013763174,
+    "cost_source": "provider",
+    "estimated_usd": 0.016988,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 155121,
+        "completion_tokens": 9113
+      }
+    },
+    "duration_s": 160.0
+  }
+}

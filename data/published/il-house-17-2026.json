@@ -1,0 +1,232 @@
+{
+  "id": "il-house-17-2026",
+  "title": "Illinois's 17th Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Illinois's 17th Congressional District",
+  "state": "Illinois",
+  "district": "17th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Illinois's 17th Congressional District covers northwestern and central Illinois, including Rockford, the Quad Cities area, Peoria, and surrounding rural communities. Incumbent Democratic Representative Eric Sorensen, a former television meteorologist first elected in 2022, is seeking a third term. The Republican nominee is Dillan Vancil, a small business owner and former train engineer who won the March 17, 2026 Republican primary with 57.2% of the vote. The district is considered competitive and has flipped between parties in recent cycles, with Sorensen emphasizing bipartisan cooperation and Vancil focusing on conservative economic and energy policies.",
+  "polling": [],
+  "polling_note": "No independent public opinion polls were found for this race at the time of research.",
+  "candidates": [
+    {
+      "name": "Eric Sorensen",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Eric Sorensen is the incumbent U.S. Representative for Illinois's 17th Congressional District, first elected in 2022. Before Congress, he worked as a local TV meteorologist for over two decades in Rockford and the Quad Cities. He serves on the House Agriculture Committee and the House Armed Services Committee, and was the first openly LGBTQ+ person elected to Congress from Illinois.",
+      "summary_sources": [
+        {
+          "url": "https://sorensen.house.gov/about-eric",
+          "type": "government",
+          "title": "About Eric | Representative Eric Sorensen",
+          "description": null,
+          "last_accessed": "2026-06-12T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.ericforillinois.com/",
+          "type": "website",
+          "title": "Eric for Illinois",
+          "description": null,
+          "last_accessed": "2026-06-12T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Eric_Sorensen",
+          "type": "website",
+          "title": "Eric Sorensen - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Representing Illinois's 17th Congressional District; serves on Agriculture and Armed Services Committees",
+          "source": null
+        },
+        {
+          "title": "TV Meteorologist",
+          "organization": "Various television stations",
+          "start_year": 2000,
+          "end_year": 2022,
+          "description": "Over 22 years as a local television meteorologist in Rockford and the Quad Cities area",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Northern Illinois University",
+          "degree": null,
+          "field": "Meteorology",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.ericforillinois.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Dillan Vancil",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Dillan Vancil is the Republican nominee for Illinois's 17th Congressional District, having won the March 17, 2026 primary with 57.2% of the vote. He is a small business owner who operates Dame Fine Coffee, a drive-through coffee chain with six locations in Illinois and one in Iowa. Vancil also served as Vice President of the West Central School Board and previously worked for a decade as a train engineer and as State Legislative Director for the SMART-TD union.",
+      "summary_sources": [
+        {
+          "url": "https://www.kwqc.com/2026/03/18/vancil-wins-primary-race-illinois-17th-congressional-district/",
+          "type": "news",
+          "title": "Vancil wins primary race for Illinois 17th Congressional District",
+          "description": null,
+          "last_accessed": "2026-06-12T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.wrex.com/news/il-17-gop-primary-meet-republican-candidate-dillan-vancil/article_9880b1be-727e-412c-ab22-cb99ac382198.html",
+          "type": "news",
+          "title": "IL-17 GOP Primary: Meet Republican Candidate Dillan Vancil",
+          "description": null,
+          "last_accessed": "2026-06-12T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.vancilforcongress.com/",
+          "type": "website",
+          "title": "Vancil For Congress",
+          "description": null,
+          "last_accessed": "2026-06-12T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Dillan_Vancil_(Illinois)",
+          "type": "website",
+          "title": "Dillan Vancil (Illinois) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Owner",
+          "organization": "Dame Fine Coffee",
+          "start_year": null,
+          "end_year": null,
+          "description": "Operates a drive-through coffee chain with multiple locations in Illinois and Iowa",
+          "source": null
+        },
+        {
+          "title": "Vice President",
+          "organization": "West Central School Board",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served on the school board and its Finance Committee for approximately five years",
+          "source": null
+        },
+        {
+          "title": "Train Engineer",
+          "organization": "Railroad industry",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked for 10 years as a train engineer",
+          "source": null
+        },
+        {
+          "title": "State Legislative Director",
+          "organization": "SMART-TD (Transportation Union)",
+          "start_year": null,
+          "end_year": null,
+          "description": "Advocated on transportation policy and legislative matters while living in South Dakota",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "West Central University",
+          "degree": null,
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.vancilforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Illinois%27_17th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:42:15.713051+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 171569,
+    "completion_tokens": 5608,
+    "total_tokens": 177177,
+    "cost_usd": 0.012661346,
+    "cost_source": "provider",
+    "estimated_usd": 0.017913,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 171569,
+        "completion_tokens": 5608
+      }
+    },
+    "duration_s": 153.6
+  }
+}

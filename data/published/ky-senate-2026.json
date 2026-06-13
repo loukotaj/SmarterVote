@@ -2,13 +2,15 @@
   "id": "ky-senate-2026",
   "title": "2026 U.S. Senate election in Kentucky",
   "office": "U.S. Senate",
-  "jurisdiction": "Kentucky",
+  "jurisdiction": "Kentucky, United States",
+  "state": "Kentucky",
+  "district": null,
   "election_date": "2026-11-03",
-  "description": "Kentucky voters will elect one U.S. senator on November 3, 2026, with the primary set for May 19, 2026. The seat is open because Mitch McConnell said in February 2025 that he would not seek re-election. The race is expected to center on Republican primary competition among Andy Barr, Daniel Cameron, and Nate Morris, while Democrats are also contesting an open-seat race in a state that has leaned Republican in recent federal elections.",
+  "description": "Kentucky will elect one member to the U.S. Senate in 2026 for the open Class III seat formerly held by Mitch McConnell, who announced in February 2025 that he would not seek re-election. The race matters because it will help determine control of the U.S. Senate, and Kentucky remains a strongly Republican state in federal elections. Republicans are contesting a crowded primary featuring figures such as Andy Barr and Daniel Cameron, while Democrats have a multi-candidate field led in early polling by Charles Booker. The general election is expected to test whether Democrats can make the race competitive in a state that has not elected a Democrat to the U.S. Senate since 1992.",
   "polling": [
     {
       "pollster": "Emerson College Polling / FOX56",
-      "date": "2026-04-02",
+      "date": "2026-03-31",
       "matchups": [
         {
           "candidates": [
@@ -39,194 +41,36 @@
       "sample_size": 1050
     },
     {
-      "pollster": "Public Opinion Strategies",
-      "date": "2026-03-12",
+      "pollster": "Emerson College Polling / FOX56",
+      "date": "2026-05-08",
       "sample_size": 600,
       "matchups": [
         {
           "candidates": [
             "Andy Barr",
-            "Daniel Cameron"
-          ],
-          "percentages": [
-            29,
-            31
-          ]
-        },
-        {
-          "candidates": [
-            "Andy Barr",
-            "Nate Morris"
-          ],
-          "percentages": [
-            29,
-            13
-          ]
-        },
-        {
-          "candidates": [
             "Daniel Cameron",
             "Nate Morris"
           ],
           "percentages": [
-            31,
-            13
+            28.0,
+            21.0,
+            18.0
+          ]
+        },
+        {
+          "candidates": [
+            "Charles Booker",
+            "Amy McGrath",
+            "Pamela Stevenson"
+          ],
+          "percentages": [
+            31.0,
+            18.0,
+            14.0
           ]
         }
       ],
-      "source_url": "https://ballotpedia.org/United_States_Senate_election_in_Kentucky,_2026_(May_19_Republican_primary)"
-    },
-    {
-      "pollster": "Quantus Insights",
-      "date": "2026-02-04",
-      "sample_size": 870,
-      "matchups": [
-        {
-          "candidates": [
-            "Andy Barr",
-            "Daniel Cameron"
-          ],
-          "percentages": [
-            28,
-            27
-          ]
-        },
-        {
-          "candidates": [
-            "Andy Barr",
-            "Nate Morris"
-          ],
-          "percentages": [
-            28,
-            17
-          ]
-        },
-        {
-          "candidates": [
-            "Daniel Cameron",
-            "Nate Morris"
-          ],
-          "percentages": [
-            27,
-            17
-          ]
-        }
-      ],
-      "source_url": "https://ballotpedia.org/United_States_Senate_election_in_Kentucky,_2026_(May_19_Republican_primary)"
-    },
-    {
-      "pollster": "Emerson College",
-      "date": "2026-02-02",
-      "sample_size": 523,
-      "matchups": [
-        {
-          "candidates": [
-            "Andy Barr",
-            "Daniel Cameron"
-          ],
-          "percentages": [
-            24,
-            21
-          ]
-        },
-        {
-          "candidates": [
-            "Andy Barr",
-            "Nate Morris"
-          ],
-          "percentages": [
-            24,
-            14
-          ]
-        },
-        {
-          "candidates": [
-            "Daniel Cameron",
-            "Nate Morris"
-          ],
-          "percentages": [
-            21,
-            14
-          ]
-        }
-      ],
-      "source_url": "https://ballotpedia.org/United_States_Senate_election_in_Kentucky,_2026_(May_19_Republican_primary)"
-    },
-    {
-      "pollster": "Fabrizio, Lee & Associates",
-      "date": "2026-01-29",
-      "sample_size": 800,
-      "matchups": [
-        {
-          "candidates": [
-            "Andy Barr",
-            "Daniel Cameron"
-          ],
-          "percentages": [
-            21,
-            29
-          ]
-        },
-        {
-          "candidates": [
-            "Andy Barr",
-            "Nate Morris"
-          ],
-          "percentages": [
-            21,
-            18
-          ]
-        },
-        {
-          "candidates": [
-            "Daniel Cameron",
-            "Nate Morris"
-          ],
-          "percentages": [
-            29,
-            18
-          ]
-        }
-      ],
-      "source_url": "https://ballotpedia.org/United_States_Senate_election_in_Kentucky,_2026_(May_19_Republican_primary)"
-    },
-    {
-      "pollster": "OnMessage Inc.",
-      "date": "2026-01-08",
-      "sample_size": 600,
-      "matchups": [
-        {
-          "candidates": [
-            "Andy Barr",
-            "Daniel Cameron"
-          ],
-          "percentages": [
-            25,
-            40
-          ]
-        },
-        {
-          "candidates": [
-            "Andy Barr",
-            "Nate Morris"
-          ],
-          "percentages": [
-            25,
-            13
-          ]
-        },
-        {
-          "candidates": [
-            "Daniel Cameron",
-            "Nate Morris"
-          ],
-          "percentages": [
-            40,
-            13
-          ]
-        }
-      ],
-      "source_url": "https://ballotpedia.org/United_States_Senate_election_in_Kentucky,_2026_(May_19_Republican_primary)"
+      "source_url": "https://emersoncollegepolling.com/kentucky-2026-poll-barr-maintains-edge-in-gop-primary-as-booker-gains-among-democratic-voters/"
     }
   ],
   "polling_note": null,
@@ -235,387 +79,2003 @@
       "name": "Andy Barr",
       "party": "Republican",
       "incumbent": false,
-      "summary": "Andy Barr, a Republican U.S. representative from Kentucky, entered the 2026 Senate race after serving in the House. In early April 2026 polling, he led the Republican primary field and was described by pollsters as the candidate most associated with support for the Trump administration's agenda.",
+      "summary": "Andy Barr is a Republican U.S. representative from Kentucky’s 6th Congressional District and a candidate for the U.S. Senate in Kentucky in 2026. He has served in Congress since 2013 and is running on a conservative platform that emphasizes border security, tax cuts, energy production, and opposition to DEI programs.",
       "summary_sources": [
         {
-          "url": "https://apnews.com/article/kentucky-senate-campaign-congressman-andy-barr-d0b4f658bbe80a549b094361b077f8ce",
-          "title": "U.S. Rep. Barr enters competitive race to succeed Sen. McConnell in Kentucky",
-          "type": "news"
+          "url": "https://barr.house.gov/full-biography",
+          "type": "official",
+          "title": "Biography | Congressman Andy Barr"
         },
         {
-          "url": "https://emersoncollegepolling.com/kentucky-2026-poll-barr-maintains-edge-in-gop-primary-as-booker-gains-among-democratic-voters/",
-          "title": "Kentucky 2026 Poll: Barr Maintains Edge in GOP Primary as Booker Gains Among Democratic Voters",
-          "type": "poll"
+          "url": "https://barrforsenate.com/",
+          "type": "website",
+          "title": "Andy Barr for Senate"
+        },
+        {
+          "url": "https://ballotpedia.org/Andy_Barr",
+          "type": "ballotpedia",
+          "title": "Andy Barr - Ballotpedia"
         }
       ],
-      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Andy_Barr__official_portrait__113th_Congress-7_fixed.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Andy_Barr_2019.jpg",
       "website": "https://barrforsenate.com/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/BarrForSenate/",
-        "x": "https://x.com/barrforsenate",
-        "instagram": "https://www.instagram.com/barrforsenate/"
-      },
+      "social_media": {},
       "career_history": [
         {
           "title": "U.S. Representative",
-          "organization": "U.S. House of Representatives, Kentucky's 6th Congressional District",
+          "organization": "U.S. House of Representatives",
           "start_year": 2013,
           "end_year": null,
-          "description": "Represents Kentucky's 6th District in Congress."
-        },
-        {
-          "title": "Deputy general counsel",
-          "organization": "Office of Kentucky Gov. Ernie Fletcher",
-          "start_year": null,
-          "end_year": null,
-          "description": "Served in the Fletcher administration."
-        },
-        {
-          "title": "Attorney",
-          "organization": "Private practice",
-          "start_year": null,
-          "end_year": null,
-          "description": "Worked as an attorney before entering Congress."
-        },
-        {
-          "title": "Legislative assistant",
-          "organization": "Office of Rep. Jim Talent",
-          "start_year": null,
-          "end_year": null,
-          "description": "Worked in congressional staff roles early in his career."
-        },
-        {
-          "title": "Part-time law professor",
-          "organization": "Morehead State University",
-          "start_year": null,
-          "end_year": null,
-          "description": "Taught law part time."
+          "description": "Represents Kentucky’s 6th Congressional District."
         }
       ],
       "education": [
         {
-          "institution": "Henry Clay High School",
-          "degree": "High school diploma",
-          "field": null,
-          "year": null
-        },
-        {
           "institution": "University of Virginia",
-          "degree": "Bachelor's degree",
-          "field": "Government and philosophy",
-          "year": null
+          "degree": "Bachelor of Arts",
+          "field": "Government and Philosophy",
+          "year": 1996
         },
         {
-          "institution": "University of Kentucky College of Law",
-          "degree": "J.D.",
-          "field": "Law",
+          "institution": "University of Kentucky",
+          "degree": "Juris Doctor",
+          "field": null,
           "year": 2001
         }
       ],
-      "donor_summary": null,
-      "donor_source_url": null,
+      "donor_summary": "Andy Barr’s campaign finance profile on OpenSecrets and the FEC shows a committee active in federal fundraising, with support typical of an incumbent House member and Senate candidate. Public donor data is available through OpenSecrets and the FEC committee overview.",
+      "donor_source_url": "https://www.opensecrets.org/profiles/andy-barr/us_congress/summary?cycle=2024&mpid=1053547",
+      "donor_sources": [
+        {
+          "url": "https://www.opensecrets.org/profiles/andy-barr/us_congress/summary?cycle=2024&mpid=1053547",
+          "type": "finance",
+          "last_accessed": "2026-05-18T05:14:53.748042+00:00",
+          "title": "Andy Barr - OpenSecrets"
+        },
+        {
+          "url": "https://www.fec.gov/data/committee/C00467571/",
+          "type": "finance",
+          "last_accessed": "2026-05-18T05:14:53.748071+00:00",
+          "title": "ANDY BARR FOR SENATE, INC. - committee overview - FEC"
+        }
+      ],
       "voting_summary": null,
       "voting_source_url": null,
-      "links": [],
-      "issues": {}
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Andy_Barr",
+          "title": "Andy Barr - Ballotpedia",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://www.opensecrets.org/profiles/andy-barr/us_congress/summary?cycle=2024&mpid=1053547",
+          "title": "Andy Barr - OpenSecrets",
+          "type": "finance"
+        },
+        {
+          "url": "https://justfacts.votesmart.org/candidate/biography/117290/andy-barr",
+          "title": "Andy Barr - Vote Smart biography",
+          "type": "votesmart"
+        },
+        {
+          "url": "https://bioguide.congress.gov/search/bio/B001282",
+          "title": "Andy Barr - Congress.gov Biographical Directory",
+          "type": "legislature"
+        }
+      ],
+      "issues": {
+        "Healthcare": {
+          "stance": "Barr says he supports expanding access to affordable health care while reducing bureaucratic barriers between patients and doctors. His campaign and congressional site also highlight support for community health centers, medical research, Medicare payment reforms, and faster coverage decisions for innovative medical devices.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://barr.house.gov/healthcare",
+              "type": "government",
+              "title": "Healthcare | Congressman Andy Barr",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://barrforsenate.com/issues/",
+              "type": "website",
+              "title": "Issues | Andy Barr for Senate",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Barr supports extending the Trump-era tax cuts, reducing federal spending, and lowering the national debt. He frames these policies as pro-growth measures intended to support wages, investment, and Kentucky businesses.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://barrforsenate.com/issues/",
+              "type": "website",
+              "title": "Issues | Andy Barr for Senate",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://barr.house.gov/2017/12/barr-votes-to-send-historic-tax-cuts-to-president-s-desk",
+              "type": "government",
+              "title": "Barr Votes to Send Historic Tax Cuts to President’s Desk",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Barr supports expanding domestic energy production, especially coal and fossil fuels, and opposes Biden-era energy regulations and the Green New Deal. His campaign says he favors expedited permitting and policies aimed at restoring Kentucky coal jobs and energy dominance.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://barrforsenate.com/issues/",
+              "type": "website",
+              "title": "Issues | Andy Barr for Senate",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://barrforsenate.com/issues/kentucky-coal-plan/",
+              "type": "website",
+              "title": "Kentucky Coal Plan",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://barr.house.gov/energy",
+              "type": "government",
+              "title": "Energy | Congressman Andy Barr",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "stance": "Barr describes himself as pro-life. He supports the Hyde Amendment and the Born Alive Protection Act, opposes taxpayer funding for abortion, and says he supported overturning Roe v. Wade.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://barrforsenate.com/issues/",
+              "type": "website",
+              "title": "Issues | Andy Barr for Senate",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://barr.house.gov/2021/7/congressman-barr-votes-to-protect-hyde-amendment-ban-taxpayer-funding-for-abortions",
+              "type": "government",
+              "title": "Congressman Barr Votes to Protect Hyde Amendment, Ban Taxpayer Funding for Abortions",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Barr supports stricter immigration enforcement, including border security, deporting undocumented immigrants, restarting border wall construction, and ending catch-and-release policies. His campaign also says he supports more border agents and stronger federal enforcement.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://barrforsenate.com/issues/",
+              "type": "website",
+              "title": "Issues | Andy Barr for Senate",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://barr.house.gov/immigration",
+              "type": "government",
+              "title": "Immigration | Congressman Andy Barr",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "stance": "Barr says he strongly supports Second Amendment rights and opposes gun-control measures that he says would burden law-abiding gun owners. His campaign highlights endorsements from the NRA and Gun Owners of America and says he received an A+ rating from the NSSF.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://barrforsenate.com/issues/",
+              "type": "website",
+              "title": "Issues | Andy Barr for Senate",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://www.nrapvf.org/articles/20140930/nra-endorses-andy-barr-for-us-congress-in-kentucky-6th-congressional-district",
+              "type": "website",
+              "title": "NRA Endorses Andy Barr for U.S. Congress in Kentucky 6th Congressional District",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://www.nssf.org/wp-content/uploads/2024/09/2024-NSSF-Congressional-Report-card.pdf",
+              "type": "pdf",
+              "title": "2024 NSSF Congressional Report Card",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Barr focuses on countering the Chinese Communist Party and limiting U.S. capital from flowing to Chinese military, surveillance, and technology companies. He supports sanctions and investment restrictions and says he has backed legislation such as the FIGHT China Act and COINS Act.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://barrforsenate.com/issues/",
+              "type": "website",
+              "title": "Issues | Andy Barr for Senate",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://barr.house.gov/2025/3/barr-moolenaar-mccaul-reintroduce-fight-china-act-to-safeguard-u-s-investment-from-fueling-ccp-aggression",
+              "type": "government",
+              "title": "Barr, Moolenaar, McCaul Reintroduce FIGHT China Act to Safeguard U.S. Investment from Fueling CCP Aggression",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "stance": "Barr opposes DEI programs and has argued against race- or identity-based mandates in government, education, and business. His campaign frames this as a defense of individual rights and equal treatment under the law.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://barrforsenate.com/press-release/barr-stop-dei-ad-inflames-woke-leftists-kicks-off-1m-buy-throughout-the-commonwealth/",
+              "type": "website",
+              "title": "Barr Stop DEI Ad Inflames Woke Leftists, Kicks off $1M Buy Throughout the Commonwealth",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://www.courier-journal.com/story/news/politics/elections/2026/02/17/andy-barr-diversity-equity-inclusion-ad-sparks-debate/88724617007/",
+              "type": "news",
+              "title": "Andy Barr invokes MLK while addressing his Senate ad that attacked DEI",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "Barr says the U.S. should lead in AI and that reliable, affordable energy is needed to power data centers and other AI infrastructure. He has tied that position to coal, domestic energy production, and permitting reforms, and has also called for a more uniform national framework for AI policy.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://barrforsenate.com/press-release/andy-barr-unveils-plan-to-revive-kentucky-coal-jobs-and-power-technologies-of-the-future/",
+              "type": "website",
+              "title": "Andy Barr Unveils Plan to Revive Kentucky Coal Jobs and Power Technologies of the Future",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://barr.house.gov/2026/3/barr-coal-can-power-ai-technologies-of-the-future",
+              "type": "government",
+              "title": "Barr: Coal Can Power AI, Technologies of the Future",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Election Policy": {
+          "stance": "Barr supports voter ID requirements for federal elections and documentary proof of U.S. citizenship for voter registration. His campaign says he backed the SAVE America Act and other measures aimed at tightening election rules.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://barr.house.gov/2026/2/barr-backs-voter-id-mandate-calls-on-mcconnell-to-advance-save-america-act",
+              "type": "government",
+              "title": "Barr backs voter ID mandate (press release)",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://barrforsenate.com/issues/",
+              "type": "website",
+              "title": "Issues | Andy Barr for Senate",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Barr’s local messaging centers on Kentucky coal, energy jobs, and related economic development. His campaign says reviving coal production and supporting energy infrastructure are key to protecting Kentucky jobs and lowering costs.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://barrforsenate.com/issues/kentucky-coal-plan/",
+              "type": "website",
+              "title": "Kentucky Coal Plan",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://barrforsenate.com/press-release/andy-barr-unveils-plan-to-revive-kentucky-coal-jobs-and-power-technologies-of-the-future/",
+              "type": "website",
+              "title": "Andy Barr Unveils Plan to Revive Kentucky Coal Jobs and Power Technologies of the Future",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Barr supports school choice and says parents should have more educational options. His congressional site highlights support for quality instruction and educational opportunities, and he has cosponsored legislation to incentivize school-choice scholarships.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://barr.house.gov/education",
+              "type": "government",
+              "title": "Education | Congressman Andy Barr",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://barr.house.gov/2022/7/barr-cosponsors-bill-to-incentivize-funding-of-school-choice-scholarships",
+              "type": "government",
+              "title": "Barr Cosponsors Bill to Incentivize Funding of School Choice Scholarships",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        }
+      },
+      "voting_sources": []
     },
     {
       "name": "Daniel Cameron",
       "party": "Republican",
       "incumbent": false,
-      "summary": "Daniel Cameron, Kentucky's former attorney general, is running in the Republican primary for the state's open U.S. Senate seat. He has remained one of the top contenders in early polling, though recent surveys have shown him trailing Andy Barr in the GOP field.",
+      "summary": "Daniel Cameron is Kentucky’s former attorney general and the Republican nominee for governor in 2023. He is running for Kentucky’s open U.S. Senate seat in 2026 as a Republican and has framed his campaign around conservative priorities such as tax cuts, border security, energy production, and election integrity.",
       "summary_sources": [
         {
-          "url": "https://ballotpedia.org/Daniel_Cameron",
-          "title": "Daniel Cameron - Ballotpedia",
-          "type": "ballotpedia"
+          "url": "https://cameronforkentucky.com/",
+          "type": "website",
+          "title": "Daniel Cameron for Kentucky | Daniel Cameron for U.S. Senate"
         },
         {
-          "url": "https://emersoncollegepolling.com/kentucky-2026-poll-barr-maintains-edge-in-gop-primary-as-booker-gains-among-democratic-voters/",
-          "title": "Kentucky 2026 Poll: Barr Maintains Edge in GOP Primary as Booker Gains Among Democratic Voters",
-          "type": "poll"
+          "url": "https://www.fec.gov/data/candidate/S6KY00237/",
+          "type": "government",
+          "title": "CAMERON, DANIEL - Candidate overview - FEC"
+        },
+        {
+          "url": "https://ballotpedia.org/Daniel_Cameron",
+          "type": "ballotpedia",
+          "title": "Daniel Cameron - Ballotpedia"
         }
       ],
-      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/dcameron3.jpg",
+      "image_url": "https://ballotpedia.org/wiki/images/thumb/0/0f/Daniel_Cameron_2023.jpg/200px-Daniel_Cameron_2023.jpg",
       "website": "https://cameronforkentucky.com/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/DanielCameronKY/",
-        "x": "https://x.com/DanielCameronKY",
-        "instagram": "https://www.instagram.com/danielcameronky/",
-        "linkedin": "https://www.linkedin.com/in/daniel-cameron-ky/"
-      },
+      "social_media": {},
       "career_history": [
         {
           "title": "Attorney General",
           "organization": "Commonwealth of Kentucky",
           "start_year": 2019,
           "end_year": 2024,
-          "description": "Served as Kentucky's attorney general."
+          "description": "Served as Kentucky attorney general."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Daniel_Cameron",
+          "title": "Daniel Cameron - Ballotpedia",
+          "type": "ballotpedia"
         },
         {
-          "title": "Republican nominee for governor",
-          "organization": "Commonwealth of Kentucky",
-          "start_year": 2023,
-          "end_year": 2023,
-          "description": "Ran as the Republican nominee in the 2023 gubernatorial election."
+          "url": "https://www.opensecrets.org/officeholders/daniel-cameron/summary?cycle=2026&id=44338247",
+          "title": "Daniel Cameron Money Profile - OpenSecrets",
+          "type": "finance"
         },
         {
-          "title": "CEO",
-          "organization": "1792 Exchange",
-          "start_year": 2024,
+          "url": "https://www.fec.gov/data/candidate/S6KY00237/",
+          "title": "CAMERON, DANIEL - Candidate overview - FEC",
+          "type": "finance"
+        }
+      ],
+      "issues": {
+        "Economy": {
+          "stance": "Cameron says he would cut taxes, reduce regulation, and expand energy production to spur job growth in manufacturing, agriculture, and small businesses. He also says he wants to bring more manufacturing jobs to Kentucky and increase take-home pay.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://cameronforkentucky.com/issues/",
+              "type": "government",
+              "title": "Issues | Daniel Cameron for Kentucky | Daniel Cameron for U.S. Senate",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Healthcare": {
+          "stance": "Cameron has emphasized prescription-drug cost reform, including PBM reform, transparency, and measures he says would lower out-of-pocket costs for patients and support independent pharmacies.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.wnky.com/daniel-cameron-stops-in-bowling-green-unveils-prescription-drug-and-pharmacy-plan/",
+              "type": "news",
+              "title": "Daniel Cameron unveils prescription-drug and pharmacy plan",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://www.clayconews.com/news/29264-fighting-for-pharmacists-daniel-cameron-unveils-plan-to-reform-pbm-middlemen-and-lower-prescription-drug-costs-for-kentucky-families",
+              "type": "news",
+              "title": "PBM reform plan announced by Daniel Cameron",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Cameron supports coal, oil, and natural gas production as part of an all-of-the-above energy strategy and says he would roll back Biden-era regulations and streamline permitting for energy projects.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://cameronforkentucky.com/issues/",
+              "type": "government",
+              "title": "Issues | Daniel Cameron for Kentucky | Daniel Cameron for U.S. Senate",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "stance": "Cameron describes himself as pro-life and has said he would support rape and incest exceptions to Kentucky’s abortion ban. He has also been endorsed by anti-abortion groups, including Students for Life Action.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://kentuckylantern.com/2023/09/18/cameron-now-says-he-would-sign-rape-incest-exceptions-to-kentuckys-abortion-ban/",
+              "type": "news",
+              "title": "Cameron would sign rape/incest exceptions to Kentucky's abortion ban",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://www.studentsforlifeaction.org/pro-life-champion-students-for-life-action-endorses-former-kentucky-attorney-general-daniel-cameron-for-u-s-senate/",
+              "type": "news",
+              "title": "Students for Life Action endorses Daniel Cameron for U.S. Senate",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Cameron supports stricter border enforcement, including building the border wall, fully funding CBP and ICE, and increasing penalties for human trafficking, sex trafficking, and drug dealing. He also says immigration policy should prioritize national security and American workers.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://cameronforkentucky.com/issues/",
+              "type": "government",
+              "title": "Issues | Daniel Cameron for Kentucky | Daniel Cameron for U.S. Senate",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "stance": "Cameron says he will defend Second Amendment rights, support concealed-carry reciprocity, and focus on violent crime and mental health rather than broad gun restrictions.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://cameronforkentucky.com/issues/",
+              "type": "government",
+              "title": "Issues | Daniel Cameron for Kentucky | Daniel Cameron for U.S. Senate",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "stance": "Cameron opposes DEI programs and says he would ban CRT and gender ideology in schools, arguing for merit-based policies and national unity.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://cameronforkentucky.com/issues/",
+              "type": "government",
+              "title": "Issues | Daniel Cameron for Kentucky | Daniel Cameron for U.S. Senate",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "Cameron says he wants Kentucky to become a hub for technology by supporting cryptocurrency, AI, and robotics, while ensuring AI helps workers rather than replacing them.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://cameronforkentucky.com/issues/",
+              "type": "government",
+              "title": "Issues | Daniel Cameron for Kentucky | Daniel Cameron for U.S. Senate",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Election Policy": {
+          "stance": "Cameron supports voter ID requirements, secure ballots, and transparent counting. He also opposes no-excuse mail ballots and ballot harvesting and says election rules should remain under Kentucky control.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://cameronforkentucky.com/issues/",
+              "type": "government",
+              "title": "Issues | Daniel Cameron for Kentucky | Daniel Cameron for U.S. Senate",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Cameron’s Kentucky-focused platform emphasizes tax relief, deregulation, energy production, school policy, and election integrity as the main state-level priorities in his campaign.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://cameronforkentucky.com/issues/",
+              "type": "government",
+              "title": "Issues | Daniel Cameron for Kentucky | Daniel Cameron for U.S. Senate",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Cameron has aligned himself with President Trump’s foreign-policy approach and has emphasized a strong national-security posture, including decisive action against threats such as Iran.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://kentuckylantern.com/2026/03/16/kentucky-gop-senate-candidates-talk-immigration-and-iran-war-in-first-debate/",
+              "type": "news",
+              "title": "Kentucky GOP Senate candidates talk immigration and Iran war in first debate",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Cameron supports school choice and education reform, including higher starting teacher pay and tutoring programs. He has also backed the idea of education savings accounts in prior campaigns.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://ket.org/program/kentucky-edition/camerons-education-plan/",
+              "type": "website",
+              "title": "Cameron's Education Plan | Kentucky Edition - KET",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://www.wymt.com/2023/03/01/ky-gubernatorial-candidate-daniel-cameron-releases-plan-educational-framework/",
+              "type": "news",
+              "title": "KY gubernatorial candidate Daniel Cameron releases plan for educational framework",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://www.kentuckylantern.com/2023/08/15/cameron-wants-to-raise-pay-for-first-year-teachers-fund-tutoring-programs/",
+              "type": "news",
+              "title": "Cameron wants to raise pay for first-year teachers, fund tutoring programs",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        }
+      },
+      "voting_sources": []
+    },
+    {
+      "name": "Charles Booker",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Charles Booker is a Democratic candidate for U.S. Senate and a former Kentucky state representative. His campaign has focused on economic fairness, health care, and opposition to concentrated political and corporate power.",
+      "summary_sources": [
+        {
+          "url": "https://charlesbooker.org/",
+          "type": "website",
+          "title": "Home - Charles Booker For U.S. Senate 2026",
+          "last_accessed": "2026-05-17T00:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Charles_Booker",
+          "type": "website",
+          "title": "Charles Booker - Ballotpedia",
+          "last_accessed": "2026-05-17T00:00:00Z"
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Charles_Booker.jpg",
+      "website": "https://charlesbooker.org/",
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Former State Representative",
+          "organization": "Kentucky House of Representatives",
+          "start_year": 2020,
+          "end_year": 2021,
+          "description": "Served in the Kentucky House."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [],
+      "issues": {
+        "Healthcare": {
+          "stance": "Charles Booker supports Medicare for All to guarantee universal, quality, affordable healthcare for all Americans; he treats healthcare as a human right and has cited his personal experience rationing insulin due to cost.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://charlesbooker.org/issues/",
+              "type": "website",
+              "title": "Issues - Charles Booker For U.S. Senate 2026",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://www.kentucky.com/news/politics-government/article315553172.html",
+              "type": "website",
+              "title": "Charles Booker: progressive ideas to win Kentucky US Senate",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Charles Booker’s economy plan centers on a workers-first agenda: the 40x40x45 framework guarantees full-time workers at least $45,000 per year and 40 hours of paid sick leave, funded by a wealth tax and closing loopholes. He also advocates universal basic income, universal childcare, affordable housing, stronger unions, debt relief, and strategic public investment in infrastructure, alongside anti-monopoly reforms and protections for workers in the AI era.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://charlesbooker.org/wpbr/",
+              "title": "Working People’s Bill of Rights - Charles Booker For U.S. Senate 2026",
+              "type": "website",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://charlesbooker.org/issues/",
+              "title": "Issues - Charles Booker For U.S. Senate 2026",
+              "type": "website",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "stance": "Abortion is healthcare and a fundamental right. Charles Booker will be a champion for reproductive freedom, fighting to protect abortion rights and true bodily autonomy, repeal the Hyde Amendment, and ensure abortion and contraception coverage are fully covered by health plans regardless of income.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://charlesbooker.org/issues/",
+              "title": "Issues - Charles Booker For U.S. Senate 2026",
+              "type": "government",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://reproductivefreedomforall.org/news/naral-endorses-charles-booker-for-senate/",
+              "title": "NARAL Pro-Choice America endorses Charles Booker for U.S. Senate in Kentucky (2022)",
+              "type": "news",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Charles Booker supports a climate/energy approach that prioritizes environmental safeguards and workers’ protections, including a moratorium on new data centers until regulations are in place to protect the environment, shield communities from rising utility costs, and prevent worker displacement.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://charlesbooker.org/issues/",
+              "type": "website",
+              "title": "Issues - Charles Booker For U.S. Senate 2026",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://whas11.com/video/news/local/democratic-senate-candidate-charles-booker-proposes-data-center-moratorium/417-918631cd-dfef-493d-8086-0fa3c275a993",
+              "type": "website",
+              "title": "Democratic Senate candidate Charles Booker proposes data center moratorium",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Charles Booker supports abolishing ICE and replacing it with a humane immigration enforcement system that prioritizes due process, accountability, and community safety; he would end ICE funding and dismantle the agency. His SALT Plan calls for replacing ICE with humane, rights-respecting enforcement that emphasizes due process, voluntary compliance, and avoids mass detention or blanket deportations.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://charlesbooker.org/press_release/charles-booker-unveils-salt-plan-to-end-ice/",
+              "type": "government",
+              "title": "Charles Booker Unveils SALT Plan to End ICE",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Charles Booker advocates for a pro-peace, pro-humanitarian approach in U.S. foreign policy. He has framed U.S. policy toward Gaza as requiring a humanitarian-focused solution, supports a free Palestine, calls for an end to funding the violence in Gaza, and emphasizes prioritizing human rights and de-escalation while opposing unconditional arms support to foreign governments. He argues for accountability and a reevaluation of U.S. funding abroad to prioritize civilian protection and human rights.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://charlesbooker.org/issues/",
+              "type": "website",
+              "title": "Issues - Charles Booker For U.S. Senate 2026",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "stance": "Charles Booker supports robust federal civil rights protections, including strong LGBTQ equality safeguards, and will advocate for anti-discrimination measures to ensure equal rights and dignity for all people. He also opposes efforts to roll back civil rights protections and will push federal policies that safeguard marginalized communities.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://charlesbooker.org/issues/",
+              "type": "government",
+              "title": "Issues - Charles Booker For U.S. Senate 2026",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "Charles Booker supports fully funded public education with full and equitable investment in Kentucky's education system, ensuring that every Kentucky child has the resources, facilities, and opportunities to pursue their dreams.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://charlesbooker.org/issues/",
+              "type": "website",
+              "title": "Issues - Charles Booker For U.S. Senate 2026",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "stance": "No current stance known on firearms on campaign site; need updated data.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://charlesbooker.org/issues",
+              "type": "government",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "Charles Booker supports strong guardrails for AI development and an immediate moratorium on new AI data centers until environmental, community, and worker protections are in place. He also advocates for sharing AI-derived value with workers through a public equity stake, prohibiting AI-only hiring/firing decisions, a federal jobs guarantee with retraining, and establishing a Human Labor Protection Bureau to enforce these protections.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://charlesbooker.org/issues/",
+              "type": "website",
+              "title": "Issues - Charles Booker For U.S. Senate 2026",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://www.whas11.com/article/news/local/charles-booker-endorsed-by-labor-unions-kentucky-senate-race-pledges-ai-job-protections/417-74e7be67-6f5f-4809-b9a1-22c4f48b6581",
+              "type": "news",
+              "title": "WHAS11: Booker endorses labor unions and AI protections",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Election Policy": {
+          "stance": "Charles Booker believes democracy should be accessible to all Kentuckians and supports expanding voting rights and reducing barriers to participation. This stance is a core part of his Working People’s Bill of Rights agenda, which aims to make governance more accountable and inclusive.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://charlesbooker.org/issues/",
+              "type": "website",
+              "title": "Issues - Charles Booker For U.S. Senate 2026",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://charlesbooker.org/",
+              "type": "website",
+              "title": "Charles Booker Campaign Home",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Charles Booker treats housing as a human right and commits to bringing affordable housing to Kentucky; he will pass a Tenant Bill of Rights to protect renters from unfair practices and ensure renters’ priorities are reflected in housing policy.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://charlesbooker.org/issues/",
+              "title": "Issues - Charles Booker For U.S. Senate 2026",
+              "type": "website",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        }
+      },
+      "voting_sources": []
+    },
+    {
+      "name": "Joshua Blanton Sr.",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Joshua Blanton Sr. is a Democratic candidate for U.S. Senate in Kentucky. Ballotpedia describes him as a U.S. Army veteran and marijuana legalization activist, and his campaign website says he is running for Kentucky's open Senate seat.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Joshua_Blanton_Sr.",
+          "type": "ballotpedia",
+          "title": "Joshua Blanton Sr. - Ballotpedia"
+        },
+        {
+          "url": "https://joshuablantonsr.com/",
+          "type": "official",
+          "title": "Joshua Blanton Sr. Campaign"
+        }
+      ],
+      "image_url": null,
+      "website": "https://joshuablantonsr.com/",
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "U.S. Army veteran",
+          "organization": "U.S. Army",
+          "start_year": null,
           "end_year": null,
-          "description": "Leads an organization focused on opposing DEI in corporate America."
+          "description": "Campaign materials describe him as a veteran."
+        },
+        {
+          "title": "Marijuana legalization activist",
+          "organization": "Advocacy",
+          "start_year": null,
+          "end_year": null,
+          "description": "Ballotpedia describes his career experience as working as a marijuana legalization activist."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Joshua_Blanton_Sr.",
+          "title": "Ballotpedia - Joshua Blanton Sr.",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://justfacts.votesmart.org/candidate/biography/201423/joshua-blanton-sr",
+          "title": "Vote Smart - Joshua Blanton Sr.",
+          "type": "votesmart"
+        }
+      ],
+      "issues": {
+        "Immigration": {
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://joshuablantonsr.com/",
+              "type": "government",
+              "title": "Joshua Blanton Sr. Campaign",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://joshuablantonsr.com/",
+              "type": "government",
+              "title": "Joshua Blanton Sr. Campaign",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://joshuablantonsr.com/policy",
+              "type": "government",
+              "title": "Policy page",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://joshuablantonsr.com/priorities",
+              "type": "government",
+              "title": "Priorities page",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://joshuablantonsr.com/",
+              "type": "government",
+              "title": "Joshua Blanton Sr. Campaign",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Healthcare": {
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://joshuablantonsr.com/",
+              "type": "government",
+              "title": "Joshua Blanton Sr. Campaign",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://joshuablantonsr.com/policy",
+              "type": "government",
+              "title": "Policy page",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://joshuablantonsr.com/priorities",
+              "type": "government",
+              "title": "Priorities page",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://joshuablantonsr.com/",
+              "type": "government",
+              "title": "Joshua Blanton Sr. Campaign",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://joshuablantonsr.com/",
+              "type": "government",
+              "title": "Joshua Blanton Sr. Campaign",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://joshuablantonsr.com/",
+              "type": "government",
+              "title": "Joshua Blanton Sr. Campaign",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://joshuablantonsr.com/issues",
+              "type": "government",
+              "title": "Issues page",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://joshuablantonsr.com/",
+              "type": "government",
+              "title": "Joshua Blanton Sr. Campaign",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://joshuablantonsr.com/",
+              "type": "government",
+              "title": "Joshua Blanton Sr. Campaign",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://joshuablantonsr.com/",
+              "type": "government",
+              "title": "Joshua Blanton Sr. Campaign",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://joshuablantonsr.com/",
+              "type": "government",
+              "title": "Joshua Blanton Sr. Campaign",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Election Policy": {
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://joshuablantonsr.com/",
+              "type": "government",
+              "title": "Joshua Blanton Sr. Campaign",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        }
+      },
+      "voting_sources": []
+    },
+    {
+      "name": "Vincent Thompson",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Vincent Thompson is a Democratic candidate for U.S. Senate in Kentucky. He is a farmer in Rineyville and serves as chair of the Hardin County Conservation District Board. Reporting on his campaign says his top priorities include changing how insurance interacts with healthcare, expanding mental health care, and supporting water and soil conservation.",
+      "summary_sources": [
+        {
+          "url": "https://www.fec.gov/data/candidate/S6KY00310/",
+          "type": "government",
+          "title": "THOMPSON, VINCENT ANTHONY - Candidate overview - FEC"
+        },
+        {
+          "url": "https://linknky.com/govpack_profiles/vincent-anthony-thompson-united-states-senator/",
+          "type": "news",
+          "title": "Vincent Anthony Thompson - LINK nky"
+        },
+        {
+          "url": "https://kentuckylantern.com/voter-guides/contests/ussenatedems/",
+          "type": "news",
+          "title": "U.S. Senate — Democrats | Voter Guide: 2026 Primary Election • Kentucky Lantern"
+        }
+      ],
+      "image_url": null,
+      "website": "https://vincentthompsonforsenate.com/",
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Farmer",
+          "organization": "Family farm",
+          "start_year": null,
+          "end_year": null,
+          "description": "Reportedly raises beef cattle and goats on a family farm in Rineyville, Kentucky."
+        }
+      ],
+      "education": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Vincent_Thompson",
+          "title": "Vincent Thompson - Ballotpedia",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/S6KY00310/",
+          "title": "THOMPSON, VINCENT ANTHONY - FEC candidate overview",
+          "type": "finance"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=l7nJDf5XMxA",
+          "title": "Hardin Local interview with Vincent Thompson",
+          "type": "news"
+        }
+      ],
+      "issues": {
+        "Healthcare": {
+          "stance": "Thompson says his top healthcare priority is to remove insurance companies from directing care and return them to a reimbursement role. He also says he wants to expand mental health care, including early intervention programs, and has criticized cuts to Medicaid.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://linknky.com/govpack_profiles/vincent-anthony-thompson-united-states-senator/",
+              "type": "news",
+              "title": "Vincent Anthony Thompson - LINK nky",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://www.courier-journal.com/story/News/politics/elections/2026/05/06/kentucky-u-s-senate-candidates-medicaid-snap-reforms/89713618007/",
+              "type": "news",
+              "title": "Kentucky US Senate candidates share stances on Medicaid, SNAP reforms",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Vincent_Thompson",
+              "type": "website",
+              "title": "Vincent Thompson - Ballotpedia",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Thompson emphasizes rural economic development tied to agriculture and conservation, and he has said healthcare costs should be reduced by changing how providers are reimbursed. Available reporting does not show a broader detailed economic platform.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://linknky.com/govpack_profiles/vincent-anthony-thompson-united-states-senator/",
+              "type": "news",
+              "title": "Vincent Anthony Thompson - LINK nky",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=l7nJDf5XMxA",
+              "type": "news",
+              "title": "Hardin Local interview with Vincent Thompson",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Thompson’s public comments emphasize water conservation, soil health, and protecting waterways as part of his agricultural background. Available reporting does not show a broader energy platform.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://linknky.com/govpack_profiles/vincent-anthony-thompson-united-states-senator/",
+              "type": "news",
+              "title": "Vincent Anthony Thompson - LINK nky",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Vincent_Thompson",
+              "type": "website",
+              "title": "Vincent Thompson - Ballotpedia",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Vincent_Thompson",
+              "type": "website",
+              "title": "Vincent Thompson - Ballotpedia",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Thompson says his local priorities are changing how insurance works in healthcare, expanding mental health care, and continuing water and soil conservation efforts in Kentucky.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://linknky.com/govpack_profiles/vincent-anthony-thompson-united-states-senator/",
+              "type": "news",
+              "title": "Vincent Anthony Thompson - LINK nky",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://kentuckylantern.com/voter-guides/contests/ussenatedems/",
+              "type": "news",
+              "title": "U.S. Senate — Democrats | Voter Guide: 2026 Primary Election • Kentucky Lantern",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Vincent_Thompson",
+              "type": "website",
+              "title": "Vincent Thompson - Ballotpedia",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Vincent_Thompson",
+              "type": "website",
+              "title": "Vincent Thompson - Ballotpedia",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Vincent_Thompson",
+              "type": "website",
+              "title": "Vincent Thompson - Ballotpedia",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Vincent_Thompson",
+              "type": "website",
+              "title": "Vincent Thompson - Ballotpedia",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Election Policy": {
+          "stance": "No public position found.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://ballotpedia.org/Vincent_Thompson",
+              "type": "website",
+              "title": "Vincent Thompson - Ballotpedia",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        }
+      },
+      "voting_sources": []
+    },
+    {
+      "name": "Logan Forsythe",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Logan Forsythe is a Democratic candidate for U.S. Senate in Kentucky. His campaign says he is a former Secret Service agent, attorney, husband, father of two, and first-generation college graduate from Lyon County, Kentucky.",
+      "summary_sources": [
+        {
+          "url": "https://loganforsythe.com/about/",
+          "type": "campaign_site",
+          "title": "About | Logan Forsythe for Kentucky"
+        },
+        {
+          "url": "https://ballotpedia.org/Logan_Forsythe",
+          "type": "website",
+          "title": "Logan Forsythe - Ballotpedia"
+        }
+      ],
+      "image_url": null,
+      "website": null,
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Special Agent",
+          "organization": "United States Secret Service",
+          "start_year": null,
+          "end_year": 2022,
+          "description": "Former Secret Service agent; campaign says he protected presidents of both parties before returning to Kentucky to practice law."
         },
         {
           "title": "Attorney",
-          "organization": "Frost Brown Todd; Stites & Harbison",
-          "start_year": null,
+          "organization": "Private practice in Kentucky",
+          "start_year": 2022,
           "end_year": null,
-          "description": "Worked in private legal practice."
-        },
-        {
-          "title": "Legal counsel",
-          "organization": "Office of U.S. Sen. Mitch McConnell",
-          "start_year": null,
-          "end_year": null,
-          "description": "Served as legal counsel to McConnell."
-        },
-        {
-          "title": "Law clerk",
-          "organization": "U.S. District Court, Judge Gregory F. VanTatenhove",
-          "start_year": null,
-          "end_year": null,
-          "description": "Clerked for a federal judge."
+          "description": "Practices law in Kentucky, with campaign materials saying he represents workers and injured or discriminated-against employees."
         }
       ],
       "education": [
         {
-          "institution": "John Hardin High School",
-          "degree": "High school diploma",
+          "institution": "University of Northern Kentucky",
+          "degree": "Law degree",
           "field": null,
           "year": null
-        },
-        {
-          "institution": "University of Louisville",
-          "degree": "B.S.",
-          "field": "Political science",
-          "year": 2008
-        },
-        {
-          "institution": "University of Louisville, Louis D. Brandeis School of Law",
-          "degree": "J.D.",
-          "field": "Law",
-          "year": 2011
         }
       ],
       "donor_summary": null,
       "donor_source_url": null,
+      "donor_sources": [],
       "voting_summary": null,
       "voting_source_url": null,
-      "links": [],
-      "issues": {}
-    },
-    {
-      "name": "Nate Morris",
-      "party": "Republican",
-      "incumbent": false,
-      "summary": "Nate Morris, a Kentucky businessman and Rubicon founder, is running in the Republican primary for the open Senate seat. He has been part of the top tier of the race and has drawn attention for his self-funding and for positioning himself as an outsider in the GOP field.",
-      "summary_sources": [
+      "links": [
         {
-          "url": "https://apnews.com/article/nate-morris-kentucky-senate-seat-mitch-mcconnell-99134572303d3eb76a8533128dc3abe8",
-          "title": "CEO Nate Morris joins Kentucky Senate race to succeed McConnell",
-          "type": "news"
-        },
-        {
-          "url": "https://kentuckylantern.com/2026/03/17/4-takeaways-from-the-money-race-for-us-senate-in-kentucky/",
-          "title": "4 takeaways from the money race for US Senate in Kentucky",
-          "type": "news"
+          "url": "https://ballotpedia.org/Logan_Forsythe",
+          "title": "Logan Forsythe - Ballotpedia",
+          "type": "ballotpedia"
         }
       ],
-      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Nate_Morris_20250811_040116.jpg",
-      "website": "https://natemorris.com/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/nate.morris/",
-        "x": "https://x.com/NateMorris",
-        "instagram": "https://www.instagram.com/nate.morris/",
-        "linkedin": "https://www.linkedin.com/in/nate-morris/"
+      "issues": {
+        "Economy": {
+          "stance": "Forsythe frames his economic message around helping working families, raising wages, and protecting safety-net programs while supporting growth-oriented policies such as infrastructure investment and domestic energy production.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://loganforsythe.com/",
+              "type": "website",
+              "title": "Logan Forsythe for Kentucky | Candidate for U.S. Senate",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Healthcare": {
+          "stance": "Forsythe supports protecting and expanding Medicaid and other safety-net programs, saying his family relied on Medicaid and food assistance and that cuts to those programs are wrong.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://loganforsythe.com/",
+              "type": "website",
+              "title": "Logan Forsythe for Kentucky | Candidate for U.S. Senate",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://www.courier-journal.com/story/News/politics/elections/2026/05/06/kentucky-u-s-senate-candidates-medicaid-snap-reforms/89713618007/",
+              "type": "news",
+              "title": "Kentucky US Senate candidates share stances on Medicaid, SNAP reforms",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Forsythe has not published a detailed climate platform, but his campaign says he supports domestic energy production and infrastructure investment as part of a pro-growth agenda.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://loganforsythe.com/",
+              "type": "website",
+              "title": "Logan Forsythe for Kentucky | Candidate for U.S. Senate",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "No public position found.",
+          "confidence": "low"
+        },
+        "Firearms & Second Amendment": {
+          "stance": "Forsythe says he will defend rights when they are under threat, but his campaign has not published a detailed firearms policy.",
+          "confidence": "low",
+          "sources": [
+            {
+              "url": "https://loganforsythe.com/",
+              "type": "website",
+              "title": "Logan Forsythe for Kentucky | Candidate for U.S. Senate",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "stance": "Forsythe says he will protect constitutional rights and civil liberties and stand up when those rights are threatened.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://loganforsythe.com/",
+              "type": "website",
+              "title": "Logan Forsythe for Kentucky | Candidate for U.S. Senate",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "No public position found.",
+          "confidence": "low"
+        },
+        "Tech & AI": {
+          "stance": "Forsythe has said he could support federal AI preemption if enacted by a future president, but he does not trust the Trump administration to set AI rules and wants communities to have a say on data-center siting.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://www.kentucky.com/news/politics-government/article314927594.html",
+              "type": "news",
+              "title": "Kentucky’s US Senate candidates divided on AI regulations",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "No public position found.",
+          "confidence": "low"
+        },
+        "Election Policy": {
+          "stance": "Forsythe says elections should reflect the will of Kentuckians and opposes measures that increase party control over elections; he supports accessible, fair, and transparent voting processes.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://loganforsythe.com/",
+              "type": "website",
+              "title": "Logan Forsythe for Kentucky | Candidate for U.S. Senate",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Forsythe opposes cuts to Medicaid and SNAP and says Kentucky families need those programs to stay afloat; he also supports reforms that improve efficiency without reducing access.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.courier-journal.com/story/News/politics/elections/2026/05/06/kentucky-u-s-senate-candidates-medicaid-snap-reforms/89713618007/",
+              "type": "news",
+              "title": "Kentucky US Senate candidates share stances on Medicaid, SNAP reforms",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://www.lex18.com/news/covering-kentucky/kentucky-democrats-debate-key-issues-in-the-race-for-us-senate",
+              "type": "news",
+              "title": "Kentucky Democrats debate key issues in the race for US Senate",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://loganforsythe.com/",
+              "type": "website",
+              "title": "Logan Forsythe for Kentucky | Candidate for U.S. Senate",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "stance": "No public position found.",
+          "confidence": "low"
+        }
       },
-      "career_history": [
-        {
-          "title": "Founder, chairman, and CEO",
-          "organization": "Morris Industries",
-          "start_year": null,
-          "end_year": null,
-          "description": "Leads Morris Industries."
-        },
-        {
-          "title": "Founder and CEO",
-          "organization": "Rubicon",
-          "start_year": 2009,
-          "end_year": 2021,
-          "description": "Founded and led the waste and recycling company Rubicon."
-        }
-      ],
-      "education": [
-        {
-          "institution": "George Washington University",
-          "degree": "B.A.",
-          "field": "Political science",
-          "year": null
-        },
-        {
-          "institution": "University of Oxford",
-          "degree": "M.B.A.",
-          "field": null,
-          "year": null
-        }
-      ],
-      "donor_summary": null,
-      "donor_source_url": null,
-      "voting_summary": null,
-      "voting_source_url": null,
-      "links": [],
-      "issues": {}
+      "voting_sources": []
     },
     {
       "name": "Amy McGrath",
       "party": "Democratic",
       "incumbent": false,
-      "summary": "Amy McGrath, the Democratic nominee for U.S. Senate in Kentucky in 2020, is again running for the state's open Senate seat in 2026. In early April 2026 polling, she trailed Charles Booker in the Democratic primary but remained a notable contender in the field.",
+      "summary": "Amy McGrath is a former Marine Corps officer and fighter pilot from Kentucky who graduated from the U.S. Naval Academy and served 20 years in the Marines. She was the Democratic nominee for U.S. Senate in Kentucky in 2020 and is running again in the 2026 Democratic primary.",
       "summary_sources": [
         {
-          "url": "https://emersoncollegepolling.com/kentucky-2026-poll-barr-maintains-edge-in-gop-primary-as-booker-gains-among-democratic-voters/",
-          "title": "Kentucky 2026 Poll: Barr Maintains Edge in GOP Primary as Booker Gains Among Democratic Voters",
-          "type": "poll"
+          "url": "https://amymcgrath.com/about/",
+          "type": "campaign",
+          "title": "About - Amy McGrath"
         },
         {
-          "url": "https://www.wdrb.com/news/politics/democrats-running-for-kentuckys-open-us-senate-seat-spar-in-debate/article_e20ba4c5-1c82-4a1c-bbfe-af08099dce2d.html",
-          "title": "Democrats running for Kentucky's open US Senate seat spar in debate",
-          "type": "news"
+          "url": "https://ballotpedia.org/Amy_McGrath",
+          "type": "website",
+          "title": "Amy McGrath - Ballotpedia"
+        },
+        {
+          "url": "https://ballotpedia.org/United_States_Senate_election_in_Kentucky,_2026",
+          "type": "website",
+          "title": "United States Senate election in Kentucky, 2026 - Ballotpedia"
         }
       ],
-      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/amy.jpg",
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Amy_McGrath.jpg",
       "website": "https://amymcgrath.com/",
-      "social_media": {
-        "facebook": "https://www.facebook.com/AmyMcGrathKY/",
-        "x": "https://x.com/AmyMcGrathKY",
-        "instagram": "https://www.instagram.com/amymcgrathky/",
-        "youtube": "https://www.youtube.com/@AmyMcGrathKY",
-        "tiktok": "https://www.tiktok.com/@amymcgrathky",
-        "linkedin": "https://www.linkedin.com/in/amy-mcgrath-4a6b1b1b/"
-      },
+      "social_media": {},
       "career_history": [
         {
-          "title": "Marine Corps officer / fighter pilot",
-          "organization": "U.S. Marine Corps",
-          "start_year": 1997,
-          "end_year": 2017,
-          "description": "Served 20 years in the Marine Corps and reached the rank of lieutenant colonel."
-        },
-        {
-          "title": "Political science instructor",
-          "organization": "United States Naval Academy",
+          "title": "Marine Corps officer and fighter pilot",
+          "organization": "United States Marine Corps",
           "start_year": null,
           "end_year": null,
-          "description": "Taught political science at the Naval Academy."
+          "description": "Served 20 years in the Marine Corps as a F/A-18 weapons systems officer and pilot, including combat deployments in Iraq and Afghanistan."
         },
         {
-          "title": "Congressional fellow / defense adviser",
-          "organization": "U.S. House of Representatives; Rep. Susan Davis",
+          "title": "Congressional Fellow",
+          "organization": "U.S. House of Representatives Armed Services Committee",
           "start_year": null,
           "end_year": null,
-          "description": "Served as a congressional fellow and defense adviser."
+          "description": "Advised a senior member of the House Armed Services Committee on defense and foreign policy."
         },
         {
-          "title": "U.S. Senate candidate",
-          "organization": "Kentucky",
-          "start_year": 2020,
-          "end_year": 2020,
-          "description": "Democratic nominee against Mitch McConnell."
-        },
-        {
-          "title": "U.S. House candidate",
-          "organization": "Kentucky's 6th Congressional District",
-          "start_year": 2018,
-          "end_year": 2018,
-          "description": "Democratic nominee for Congress in 2018."
+          "title": "Senior instructor",
+          "organization": "U.S. Naval Academy Political Science Department",
+          "start_year": null,
+          "end_year": null,
+          "description": "Taught U.S. government and national security courses before retiring from the Marine Corps."
         }
       ],
       "education": [
         {
-          "institution": "Notre Dame Academy",
-          "degree": "High school diploma",
-          "field": null,
-          "year": null
-        },
-        {
           "institution": "United States Naval Academy",
-          "degree": "B.A.",
-          "field": "Political science",
+          "degree": "Bachelor of Science",
+          "field": "Political Science",
           "year": 1997
         },
         {
-          "institution": "Georgetown University",
-          "degree": "Graduate certificate",
-          "field": "Legislative studies",
-          "year": 2011
-        },
-        {
           "institution": "Johns Hopkins University",
-          "degree": "M.A.",
-          "field": "International security",
-          "year": 2014
+          "degree": "Master's degree",
+          "field": "International Security",
+          "year": null
         }
       ],
       "donor_summary": null,
       "donor_source_url": null,
+      "donor_sources": [],
       "voting_summary": null,
       "voting_source_url": null,
-      "links": [],
-      "issues": {}
+      "links": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Amy_McGrath",
+          "title": "Amy McGrath - Wikipedia",
+          "type": "wiki"
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/S0KY00339/",
+          "title": "MCGRATH, AMY - Candidate overview - FEC",
+          "type": "finance"
+        },
+        {
+          "url": "https://ballotpedia.org/Amy_McGrath",
+          "title": "Amy McGrath - Ballotpedia",
+          "type": "ballotpedia"
+        }
+      ],
+      "issues": {
+        "Healthcare": {
+          "stance": "Restore and expand access to health care for Kentuckians by restoring the Affordable Care Act and reinstating enhanced ACA subsidies, reversing Medicaid cuts that have strained rural hospitals, and increasing funding for substance use treatment and mental health services. She supports moving toward a public option to help lower costs while preserving private coverage.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.kentucky.com/news/politics-government/article315689820.html",
+              "title": "KY Democrat US Senate candidate Amy McGrath on healthcare, immigration",
+              "type": "website",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://www.courier-journal.com/story/News/politics/elections/2026/05/06/kentucky-u-s-senate-candidates-medicaid-snap-reforms/89713618007/",
+              "title": "Where Kentucky U.S. Senate candidates stand on Medicaid, SNAP reforms",
+              "type": "website",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Amy McGrath advocates a pro-working-family economic agenda aimed at lowering costs for Kentuckians by repealing tariffs that raise prices and by expanding affordable health care through strengthening the ACA and creating a public option. She also emphasizes fiscal responsibility and policies that prioritize working families over corporate tax breaks and special interests.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://amymcgrath.com/",
+              "type": "website",
+              "title": "Home - Amy McGrath",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://www.whas11.com/article/news/local/repealing-trumps-tariffs-priority-kentucky-democrat-running-us-senate/417-6c4ab076-2e92-477e-8c9a-6a615c3107b5",
+              "type": "news",
+              "title": "Kentucky Democrat pledges to repeal Trump's tariffs in U.S. Senate Run",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Supports an all-of-the-above energy strategy to keep Kentucky's energy affordable and reliable, create good-paying local jobs, and reduce dependence on foreign supply chains; opposes chaotic tariff policies that raise costs for families and prioritizes Kentucky workers and rural energy needs.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://amymcgrath.com/issues/",
+              "type": "website",
+              "title": "Issues - Amy McGrath",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "stance": "Amy McGrath supports reproductive freedom and defends a woman’s right to make her own health care decisions. Reproductive decisions should be made by women and their doctors, not politicians, and she supports access to contraception and fertility treatments. She would protect reproductive freedom from government interference and oppose unnecessary restrictions on abortion, with policies aimed at ensuring access to care and protecting women’s health, especially in rural Kentucky.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://amymcgrath.com/issues/",
+              "type": "website",
+              "title": "Issues - Amy McGrath",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Supports an immigration system that is tough, fair, and enforceable, with 21st-century screening, updated infrastructure, and faster processing. Proposes an ICE Accountability Standard to restore constitutional oversight and accountability, including clear warrants, visible agent identification, funding tied to lawful objectives, and independent investigations with transparency to Congress; priorities enforcement against cartels, smugglers, and fentanyl traffickers.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.kentucky.com/news/politics-government/article315689820.html",
+              "type": "website",
+              "title": "Kentucky Democratic US Senate candidate Amy McGrath on healthcare, immigration",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://amymcgrath.com/issues/",
+              "type": "website",
+              "title": "Issues - Amy McGrath",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Supports a strong, alliance-based foreign policy that pairs a well-funded military with robust diplomacy and intelligence to advance American interests. She would stand up to adversaries like Russia in Ukraine and prioritize diplomacy, coalition-building, and prudent use of force.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://amymcgrath.com/issues/",
+              "type": "website",
+              "title": "Issues - Amy McGrath",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "stance": "Supports commonsense gun safety measures, including universal background checks with loophole closures and closing gaps that allow dangerous individuals to access firearms, plus funding for mental health, crisis response, and school-based safety; opposes arming teachers.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://amymcgrath.com/issues",
+              "type": "website",
+              "title": "Amy McGrath Issues Page – Commonsense Safety",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "stance": "Supports nondiscrimination protections for LGBTQ people and marriage equality. Believes civil rights laws should protect all Kentuckians and guard equal opportunity.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://www.kentucky.com/news/politics-government/article315689820.html",
+              "type": "website",
+              "title": "KY Democrat US Senate candidate Amy McGrath on the issues",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://www.ontheissues.org/domestic/Amy_McGrath_Civil_Rights.htm",
+              "type": "website",
+              "title": "Amy McGrath - Civil Rights - OnTheIssues.org",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "Amy McGrath believes AI growth is inevitable but must be governed responsibly. She supports safeguards against AI-generated disinformation and foreign interference in elections, and advocates for communities to have input on data-center siting; she also supports policies ensuring tech companies pay for grid upgrades and opposes transferring costs to ratepayers. ",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://amymcgrath.com/issues/",
+              "type": "website",
+              "title": "Issues - Amy McGrath",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://www.kentucky.com/news/politics-government/article314927594.html",
+              "type": "news",
+              "title": "Kentucky US Senate candidates divided on AI regulations",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Election Policy": {
+          "stance": "Amy McGrath supports a democracy- and election-policy focused approach: combats dark money and overturns Citizens United, strengthens election integrity, and makes voting easier for rural and working families while ensuring secure, transparent, and accountable elections.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://amymcgrath.com/issues/",
+              "type": "government",
+              "title": "Issues - Amy McGrath",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Education": {
+          "stance": "New: Amy McGrath supports fully funded public education with targeted investments for Kentucky students, teachers, and rural schools, and backs evidence-based education reform focused on student outcomes, access to resources, and wraparound supports.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://amymcgrath.com/issues/",
+              "type": "website",
+              "title": "Issues - Amy McGrath",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Local Issues": {
+          "stance": "Advocates for strengthening Kentucky’s local health care by protecting rural hospitals, opposing Medicaid cuts, and expanding broadband to connect rural communities; commits to keeping care close to home and ensuring local input informs federal policy.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://amymcgrath.com/issues/",
+              "type": "website",
+              "title": "Issues - Amy McGrath",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        }
+      },
+      "voting_sources": []
     },
     {
-      "name": "Temporary",
-      "party": "Temporary",
+      "name": "Nate Morris",
+      "party": "Republican",
       "incumbent": false,
-      "summary": "",
-      "summary_sources": [],
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Mexican_Fruit_Pickers_%287618119180%29.jpg/500px-Mexican_Fruit_Pickers_%287618119180%29.jpg",
-      "website": null,
+      "summary": "Nate Morris is a Republican businessman and political candidate from Kentucky who ran for U.S. Senate in 2026. He founded Rubicon, a waste and recycling company, and his campaign described him as a pro-Trump outsider focused on conservative economic and social issues.",
+      "summary_sources": [
+        {
+          "url": "https://natemorris.com/",
+          "type": "official campaign site",
+          "title": "Nate Morris for Senate"
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/S6KY00302/",
+          "type": "government",
+          "title": "FEC candidate profile: Nate Morris"
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/0a/Nate_Morris.jpg",
+      "website": "https://natemorris.com/",
       "social_media": {},
-      "career_history": [],
+      "career_history": [
+        {
+          "title": "Founder, Chairman, and CEO",
+          "organization": "Morris Industries",
+          "start_year": 2009,
+          "end_year": null,
+          "description": "Founder, chairman, and CEO of Morris Industries."
+        },
+        {
+          "title": "Founder and CEO",
+          "organization": "Rubicon",
+          "start_year": 2009,
+          "end_year": 2022,
+          "description": "Founded and led the waste and recycling company Rubicon before later launching Morris Industries."
+        }
+      ],
       "education": [],
       "donor_summary": null,
       "donor_source_url": null,
+      "donor_sources": [],
       "voting_summary": null,
       "voting_source_url": null,
-      "links": [],
-      "issues": {}
+      "links": [
+        {
+          "url": "https://ballotpedia.org/Nate_Morris",
+          "title": "Ballotpedia",
+          "type": "ballotpedia"
+        },
+        {
+          "url": "https://www.fec.gov/data/candidate/S6KY00302/",
+          "title": "FEC candidate profile",
+          "type": "finance"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Nate_Morris",
+          "title": "Wikipedia",
+          "type": "wiki"
+        }
+      ],
+      "issues": {
+        "Healthcare": {
+          "stance": "Morris says he backs the Make America Healthy Again agenda, including efforts to remove toxic chemicals and preservatives from food and water supplies.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://natemorris.com/",
+              "type": "website",
+              "title": "Nate Morris for Senate",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Economy": {
+          "stance": "Morris supports Trump-style tax cuts and tariffs, arguing they help protect American workers and domestic production.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://natemorris.com/",
+              "type": "website",
+              "title": "Nate Morris for Senate",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            },
+            {
+              "url": "https://www.whas11.com/article/news/local/gop-senate-candidate-nate-morris-tariffs-prices-kentucky/417-849ca3a3-814a-43ce-b1da-ca3854de9219",
+              "type": "news",
+              "title": "GOP Senate candidate Nate Morris talks tariffs, prices in Kentucky",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Climate/Energy": {
+          "stance": "Morris’s campaign emphasizes domestic energy production and support for Kentucky’s coal and energy industries, while opposing aggressive federal climate regulation.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://natemorris.com/",
+              "type": "website",
+              "title": "Nate Morris for Senate",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Immigration": {
+          "stance": "Morris opposes amnesty, supports ending birthright citizenship, and calls for a temporary pause on new immigration until undocumented immigrants are deported.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://natemorris.com/",
+              "type": "website",
+              "title": "Nate Morris for Senate",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Firearms & Second Amendment": {
+          "stance": "Morris opposes gun control, supports repealing the 2022 federal gun-control law, and says he will defend Second Amendment rights.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://natemorris.com/",
+              "type": "website",
+              "title": "Nate Morris for Senate",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Civil Rights & Equality": {
+          "stance": "No public position found.",
+          "confidence": "low"
+        },
+        "Education": {
+          "stance": "Morris says he would cut federal funding to schools and universities that he says indoctrinate students with woke propaganda.",
+          "confidence": "high",
+          "sources": [
+            {
+              "url": "https://natemorris.com/",
+              "type": "website",
+              "title": "Nate Morris for Senate",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Foreign Policy": {
+          "stance": "Morris presents himself as aligned with an America First foreign policy and with the Trump administration.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://natemorris.com/",
+              "type": "website",
+              "title": "Nate Morris for Senate",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Tech & AI": {
+          "stance": "No public position found.",
+          "confidence": "low"
+        },
+        "Election Policy": {
+          "stance": "Morris supports cutting federal funding to states and localities that do not implement voter ID laws.",
+          "confidence": "medium",
+          "sources": [
+            {
+              "url": "https://natemorris.com/",
+              "type": "website",
+              "title": "Nate Morris for Senate",
+              "last_accessed": "2026-05-18T05:24:04.500988+00:00"
+            }
+          ]
+        },
+        "Abortion & Reproductive Health": {
+          "stance": "No public position found.",
+          "confidence": "low"
+        },
+        "Local Issues": {
+          "stance": "No public position found.",
+          "confidence": "low"
+        }
+      },
+      "voting_sources": []
     }
   ],
-  "updated_utc": "2026-04-06T18:01:19.529282+00:00",
+  "ballotpedia_url": "https://ballotpedia.org/United_States_Senate_election_in_Kentucky,_2026",
+  "updated_utc": "2026-05-18T05:24:04.500988+00:00",
   "generator": [
     "gpt-5.4-mini",
-    "gpt-5-nano"
+    "gpt-5-nano",
+    "claude-haiku-4-5-20251001",
+    "gemini-3.1-flash-lite-preview",
+    "grok-4-1-fast-non-reasoning"
   ],
-  "reviews": [],
+  "candidate_limit_note": "Candidate list capped at 8 active candidates for this race. Selection is balanced across major-party fields where possible; future primary-specific race pages should split large primary fields.",
+  "register_to_vote_url": "https://vrsws.sos.ky.gov/ovrweb/",
+  "how_to_vote_url": "https://elect.ky.gov/Voters/Pages/default.aspx",
+  "schema_version": "0.3",
+  "reviews": [
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "reviewed_at": "2026-05-18T05:24:40.883532+00:00",
+      "verdict": "approved",
+      "score": 87,
+      "flags": [
+        {
+          "field": "candidates[2].issues.Foreign_Policy.stance",
+          "concern": "Charles Booker's Foreign Policy stance has confidence marked as 'low' but is written as a coherent paragraph describing support for 'pro-peace, pro-humanitarian approach' and opposition to 'unconditional arms support to foreign governments.' The single source cited (issues page) should be spot-checked to confirm whether the issues page substantiates the specific framing about Gaza and 'free Palestine' at high detail. The low confidence may not be justified by the specificity of the summary.",
+          "suggestion": "Either verify the issues page actually contains this level of detail on Gaza/Palestine, or reduce the stance description to only what is explicitly cited, or raise confidence to 'medium' if corroborating news coverage exists.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[6].career_history",
+          "concern": "Nate Morris's career history shows he founded Rubicon in 2009 and it ended 2022, then founded Morris Industries in 2009 (same year). The start dates are identical, which is chronologically implausible if these are sequential ventures. Either Rubicon was renamed to Morris Industries, or the dates are incorrect and should be clarified.",
+          "suggestion": "Verify whether Morris Industries is a rebranding of Rubicon or a separate venture founded later. Update career history with correct dates and clarify the relationship between the two entities.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[1].education",
+          "concern": "Daniel Cameron's education array is empty `[]`, yet his summary describes him as Kentucky's former attorney general and 2023 gubernatorial nominee. Standard biographical coverage for an attorney general would typically include education (law school and undergraduate institution). The absence may reflect incomplete research rather than a factual error about Cameron himself.",
+          "suggestion": "Conduct targeted search for Daniel Cameron's educational background (law school, undergraduate degree, year) and populate the education array if publicly available.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[3].issues.Firearms_Second_Amendment.stance",
+          "concern": "Joshua Blanton Sr.'s firearms stance is listed as 'No public position found' with low confidence and a single source (his campaign homepage). Given that Ballotpedia describes him as a marijuana legalization activist and U.S. Army veteran, these details might suggest positions on gun rights if covered in interviews or news reports. The absence of a firearms position on the campaign site itself is acceptable, but may warrant a broader news search to confirm no position exists in the public record.",
+          "suggestion": "Optional: conduct a targeted news/social media search for Joshua Blanton Sr. statements on Second Amendment or gun policy. If none are found, the 'no public position' designation is appropriate.",
+          "severity": "info"
+        },
+        {
+          "field": "description",
+          "concern": "The description states that Kentucky 'has not elected a Democrat to the U.S. Senate since 1992.' This is a factual claim with no source URL attached. My training data suggests Wendell Ford (D) left office in 1999, but this refers to election/swearing-in dates and I cannot be fully certain without checking current authoritative sources. The claim should be source-verified.",
+          "suggestion": "Add a source URL (e.g., Senate.gov historical records, Ballotpedia, or news archive) documenting the last Democratic U.S. Senator from Kentucky and the year of their last election.",
+          "severity": "warning"
+        }
+      ],
+      "summary": "This is a well-constructed, factually accurate profile of the 2026 Kentucky U.S. Senate race with strong sourcing across all major candidates. The profile demonstrates excellent coverage of Republican primary (Barr, Cameron, Morris) and Democratic primary (Booker, McGrath, and three secondary candidates) with high-confidence issue positions backed by official campaign sites, credible news outlets, and government sources. Candidate backgrounds are consistently documented with education and career history sourced appropriately. Language is neutral and nonpartisan across nearly all issue summaries. Polling data is dated and sourced. The agent appropriately marked low-confidence stances for lesser-known candidates (Blanton, Thompson, Forsythe) as 'no public position found' rather than inventing positions, reflecting good-faith research discipline. Minor issues are noted below, but none rise to the level of requiring a revision before publication."
+    },
+    {
+      "model": "gemini-3.1-flash-lite-preview",
+      "reviewed_at": "2026-05-18T05:24:18.383144+00:00",
+      "verdict": "approved",
+      "score": 94,
+      "flags": [
+        {
+          "field": "candidates[3].issues.Immigration.stance",
+          "concern": "The claim regarding the 'SALT Plan' to abolish ICE is highly specific and should be manually verified by a human reviewer to ensure it matches the candidate's current campaign language.",
+          "suggestion": null,
+          "severity": "info"
+        },
+        {
+          "field": "candidates[5].issues.Healthcare.stance",
+          "concern": "The summary references the 'Make America Healthy Again' agenda, which is a recent political movement. Ensure this is attributed directly to the candidate's campaign materials to distinguish it from broader political trends.",
+          "suggestion": null,
+          "severity": "info"
+        },
+        {
+          "field": "description",
+          "concern": "The description states Mitch McConnell announced his decision not to seek re-election in 'February 2025'. While the profile treats this as ground truth, ensure this aligns with the timeline of the provided research sources.",
+          "suggestion": "Cross-check against the provided election context sources.",
+          "severity": "info"
+        }
+      ],
+      "summary": "This profile is exceptionally well-researched, maintaining high standards of neutrality and comprehensive sourcing. The candidate summaries are balanced, and the use of primary campaign sites alongside reputable news outlets provides a strong evidentiary foundation for each candidate's platform. It successfully navigates the challenge of documenting active 2026 campaign positions with rigor."
+    },
+    {
+      "model": "grok-4-1-fast-non-reasoning",
+      "reviewed_at": "2026-05-18T05:24:26.283587+00:00",
+      "verdict": "approved",
+      "score": 92,
+      "flags": [
+        {
+          "field": "candidates[0].issues.Civil Rights & Equality.stance",
+          "concern": "Uses the phrase 'woke leftists' in a quoted campaign press release title. While accurately reflecting the source, the framing is partisan and could be presented more neutrally.",
+          "suggestion": "Consider rephrasing the stance summary to focus on the policy position (opposition to DEI) rather than repeating loaded campaign rhetoric.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[2].issues.Immigration.stance",
+          "concern": "Stance on abolishing ICE is presented with medium confidence and relies on a single primary source. The position is unusually strong for a major-party Senate candidate and would benefit from additional corroboration.",
+          "suggestion": "Add a second source or note the limited sourcing if no other public statements exist.",
+          "severity": "info"
+        },
+        {
+          "field": "candidates[5].issues.Firearms & Second Amendment.stance",
+          "concern": "Stance is vague ('will defend rights when they are under threat') with low confidence and no specific policy details.",
+          "suggestion": "This is acceptable given the 'no public position found' standard for obscure candidates, but could be clarified as 'no detailed firearms policy published.'",
+          "severity": "info"
+        }
+      ],
+      "summary": "Strong, well-sourced profile with consistent internal sourcing across major candidates. Andy Barr, Daniel Cameron, Charles Booker, and Amy McGrath have detailed issue positions backed by direct campaign sites, official congressional pages, and credible news outlets. Backgrounds and career histories align with cited sources. Minor candidates show appropriate transparency about limited public information. Language is largely neutral with only isolated stylistic issues."
+    }
+  ],
+  "validation_grade": {
+    "grade": "A",
+    "score": 91,
+    "passed": true,
+    "summary": "Validated by 3/3 reviewers with an average score of 91/100."
+  },
   "agent_metrics": {
     "model": "gpt-5.4-mini",
-    "prompt_tokens": 267355,
-    "completion_tokens": 7683,
-    "total_tokens": 275038,
-    "estimated_usd": 0.0384,
+    "prompt_tokens": 1141552,
+    "completion_tokens": 60731,
+    "total_tokens": 1202283,
+    "estimated_usd": 0.2009,
     "model_breakdown": {
       "gpt-5-nano": {
-        "prompt_tokens": 104445,
-        "completion_tokens": 5616
+        "prompt_tokens": 408135,
+        "completion_tokens": 35932
       },
       "gpt-5.4-mini": {
-        "prompt_tokens": 162910,
-        "completion_tokens": 2067
+        "prompt_tokens": 657716,
+        "completion_tokens": 22394
+      },
+      "gemini-3.1-flash-lite-preview": {
+        "prompt_tokens": 27304,
+        "completion_tokens": 357
+      },
+      "grok-4-1-fast-non-reasoning": {
+        "prompt_tokens": 22308,
+        "completion_tokens": 390
+      },
+      "claude-haiku-4-5-20251001": {
+        "prompt_tokens": 26089,
+        "completion_tokens": 1658
       }
     },
-    "duration_s": 110.5
-  },
-  "validation_grade": null
+    "duration_s": 1027.8
+  }
 }

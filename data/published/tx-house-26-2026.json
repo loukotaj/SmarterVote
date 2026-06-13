@@ -1,0 +1,329 @@
+{
+  "id": "tx-house-26-2026",
+  "title": "Texas's 26th Congressional District Election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "Texas's 26th Congressional District",
+  "state": "Texas",
+  "district": "26th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "The 2026 election for Texas's 26th Congressional District pits incumbent Republican Brandon Gill against Democratic nominee Steven Shook and Libertarian candidate Phil Gray. The district covers the northern Dallas-Fort Worth suburbs including Flower Mound, Lewisville, and most of Denton County, along with Cooke and Wise counties. Gill, first elected in 2024 after the retirement of longtime Rep. Michael Burgess, is a Trump-aligned conservative who serves on the House Judiciary, Oversight, and Budget Committees and is a member of the House Freedom Caucus. Shook, a nurse practitioner and North Texas native, is running on a platform focused on affordable healthcare, lowering prescription drug costs, and restoring accountability in government. The Cook Political Report rates this race as 'Solid Republican,' reflecting the district's strong conservative lean after Trump carried it by 24 points in 2024.",
+  "polling": [],
+  "polling_note": "No district-specific public opinion polls were found for Texas's 26th Congressional District race. The Cook Political Report rates the race as 'Solid Republican.'",
+  "candidates": [
+    {
+      "name": "Brandon Gill",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Brandon Gill is the incumbent U.S. Representative for Texas's 26th Congressional District, first elected in 2024. A Republican and member of the House Freedom Caucus, he serves on the Judiciary, Oversight, and Budget Committees, including the DOGE Subcommittee. Prior to Congress, he worked as an investment banker at Nomura Securities and founded the conservative news outlet DC Enquirer. His policy priorities include border security, mass deportations, reducing government spending, and opposing the Biden administration's policies.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Brandon_Gill",
+          "type": "website",
+          "title": "Brandon Gill - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Brandon_Gill",
+          "type": "website",
+          "title": "Brandon Gill - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "http://gill.house.gov/about",
+          "type": "government",
+          "title": "About | Representative Brandon Gill",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.cookpolitical.com/house/race/485346",
+          "type": "news",
+          "title": "TX-26 2026 - Cook Political Report",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/76/Brandon_Gill%2C_official_portrait%2C_119th_Congress.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Representing Texas's 26th Congressional District; serves on House Judiciary, Oversight, and Budget Committees",
+          "source": null
+        },
+        {
+          "title": "Founder and Publisher",
+          "organization": "DC Enquirer",
+          "start_year": 2022,
+          "end_year": 2024,
+          "description": "Founded conservative news outlet covering national politics from an America First perspective",
+          "source": null
+        },
+        {
+          "title": "Investment Banker",
+          "organization": "Nomura Securities",
+          "start_year": 2016,
+          "end_year": 2022,
+          "description": "Worked in investment banking in New York City",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Dartmouth College",
+          "degree": "Bachelor of Arts",
+          "field": "Economics and History",
+          "year": 2016,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "http://gill.house.gov/",
+          "title": "http://gill.house.gov/",
+          "type": "other"
+        },
+        {
+          "url": "https://brandongillforcongress.com/",
+          "title": "https://brandongillforcongress.com/",
+          "type": "other"
+        }
+      ],
+      "website": "https://brandongillforcongress.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/RepBrandonGill/",
+        "instagram": "https://www.instagram.com/repbrandongill/",
+        "twitter": "https://x.com/RepBrandonGill"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Steven Shook",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Steven Shook is a nurse practitioner and the Democratic nominee for Texas's 26th Congressional District, having defeated Ernest Lineberger III in the March 2026 primary. A North Texas native and healthcare provider since 2009, he worked as a Trauma ICU nurse for 10 years before becoming a pulmonary critical care nurse practitioner. His 'People Over Politics' platform prioritizes affordable healthcare through a transition to universal coverage, lowering prescription drug costs, protecting Social Security and Medicare, and shifting school funding away from property taxes.",
+      "summary_sources": [
+        {
+          "url": "https://www.crosstimbersgazette.com/2026/02/16/meet-the-primary-candidates-u-s-rep-district-26-2/",
+          "type": "news",
+          "title": "Meet the Democratic Primary Candidates: U.S. Rep. District 26",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://shookforcongress2026.com/",
+          "type": "website",
+          "title": "Steven Shook for Congress 2026",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.take-bac-congress.us/team/steven-shook",
+          "type": "website",
+          "title": "Steven Shook - Take Back Congress",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Steven_Shook",
+          "type": "website",
+          "title": "Steven Shook - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nytimes.com/interactive/2026/us/elections/results-texas-us-house-26-primary.html",
+          "type": "news",
+          "title": "Texas 26th Congressional District Primary Election Results 2026",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Nurse Practitioner (Pulmonary Critical Care)",
+          "organization": "Healthcare provider",
+          "start_year": 2018,
+          "end_year": null,
+          "description": "Works as a pulmonary critical care nurse practitioner",
+          "source": null
+        },
+        {
+          "title": "Trauma ICU Nurse",
+          "organization": "Healthcare provider",
+          "start_year": 2009,
+          "end_year": 2019,
+          "description": "Served as a Trauma ICU nurse for approximately 10 years",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Texas at Arlington",
+          "degree": "Master's Degree",
+          "field": "Nursing",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Texas Tech University",
+          "degree": "Bachelor's Degree",
+          "field": "Nursing",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Tarrant County College",
+          "degree": "Associate's Degree",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [
+        {
+          "url": "https://shookforcongress2026.com/",
+          "title": "https://shookforcongress2026.com/",
+          "type": "other"
+        }
+      ],
+      "website": "https://shookforcongress2026.com/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/p/Steven-Shook-for-Congress-2026-61581168892730/",
+        "instagram": "https://www.instagram.com/stevenjshook/"
+      },
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Phil Gray",
+      "party": "Libertarian",
+      "incumbent": false,
+      "summary": "Phil Gray is a perennial Libertarian Party candidate running for U.S. House in Texas's 26th Congressional District. He has been a candidate in multiple election cycles and advocates for limited government and individual liberty. He is listed as a general election candidate alongside incumbent Brandon Gill and Democratic nominee Steven Shook.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Phil_Gray",
+          "type": "website",
+          "title": "Phil Gray - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_elections_in_Texas",
+          "type": "website",
+          "title": "2026 United States House of Representatives elections in Texas",
+          "description": null,
+          "last_accessed": "2026-06-13T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Texas%27_26th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:44:40.205002+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 256784,
+    "completion_tokens": 7115,
+    "total_tokens": 263899,
+    "cost_usd": 0.01744398,
+    "cost_source": "provider",
+    "estimated_usd": 0.026559,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 256784,
+        "completion_tokens": 7115
+      }
+    },
+    "duration_s": 130.4
+  }
+}

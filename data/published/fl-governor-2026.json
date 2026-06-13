@@ -1,0 +1,827 @@
+{
+  "id": "fl-governor-2026",
+  "title": "2026 Florida Gubernatorial Election",
+  "office": "Governor of Florida",
+  "jurisdiction": "Florida",
+  "state": "Florida",
+  "district": null,
+  "election_date": "2026-11-03",
+  "description": "The 2026 Florida gubernatorial election will be held on November 3, 2026, to elect the next governor of Florida. Incumbent Republican Governor Ron DeSantis is term-limited and ineligible to seek a third consecutive term, leaving the race open. Republicans have won every gubernatorial election in Florida since 1998, and the GOP holds a substantial voter registration advantage of nearly 1.5 million voters. The Republican primary is competitive, with U.S. Representative Byron Donalds\u2014endorsed by President Donald Trump\u2014leading in early polls, while the Democratic primary frontrunner is former Republican-turned-Democrat Congressman David Jolly, who has selected former U.S. Representative Gwen Graham as his running mate.",
+  "polling": [
+    {
+      "pollster": "Emerson College Polling",
+      "date": "2026-03-31",
+      "sample_size": 1125,
+      "matchups": [
+        {
+          "candidates": [
+            "Byron Donalds",
+            "David Jolly"
+          ],
+          "percentages": [
+            44.0,
+            39.0
+          ]
+        }
+      ],
+      "source_url": "https://emersoncollegepolling.com/florida-2026-poll-donalds-leads-gop-primary-for-governor-republicans-outpace-democrats-in-florida-elections/"
+    },
+    {
+      "pollster": "Change Research",
+      "date": "2026-05-16",
+      "sample_size": 2070,
+      "matchups": [
+        {
+          "candidates": [
+            "David Jolly",
+            "Byron Donalds"
+          ],
+          "percentages": [
+            46.0,
+            42.0
+          ]
+        }
+      ],
+      "source_url": "https://changeresearch.com/florida-governors-race-may-2026/"
+    },
+    {
+      "pollster": "Cherry Communications (Florida Chamber of Commerce)",
+      "date": "2026-05-09",
+      "sample_size": 604,
+      "matchups": [
+        {
+          "candidates": [
+            "Byron Donalds",
+            "David Jolly"
+          ],
+          "percentages": [
+            47.0,
+            39.0
+          ]
+        }
+      ],
+      "source_url": "https://www.flchamber.com/new-florida-chamber-statewide-poll-shows-ashley-moody-byron-donalds-leading-potential-democratic-opponents-in-november-ballot-test/"
+    },
+    {
+      "pollster": "Emerson College Polling",
+      "date": "2026-03-31",
+      "sample_size": 1125,
+      "matchups": [
+        {
+          "candidates": [
+            "Byron Donalds",
+            "Jay Collins",
+            "James Fishback"
+          ],
+          "percentages": [
+            46.0,
+            4.0,
+            4.0
+          ]
+        }
+      ],
+      "source_url": "https://emersoncollegepolling.com/florida-2026-poll-donalds-leads-gop-primary-for-governor-republicans-outpace-democrats-in-florida-elections/"
+    }
+  ],
+  "polling_note": null,
+  "candidates": [
+    {
+      "name": "Byron Donalds",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Byron Donalds is a U.S. Representative for Florida's 19th Congressional District, first elected in 2020, and a leading Republican candidate for governor. He was raised in Brooklyn by a single mother and graduated from Florida State University with a degree in finance and marketing. Donalds has been endorsed by President Donald Trump and is viewed as the frontrunner in the Republican primary.",
+      "summary_sources": [
+        {
+          "url": "https://byrondonalds.com/about/",
+          "type": "website",
+          "title": "About - Byron Donalds for Governor",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://donalds.house.gov/about/",
+          "type": "government",
+          "title": "Biography | U.S. Congressman Byron Donalds",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_Florida_gubernatorial_election",
+          "type": "website",
+          "title": "2026 Florida gubernatorial election - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/53/Byron_Donalds_portrait_%28118th_Congress%29.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives, Florida's 19th District",
+          "start_year": 2021,
+          "end_year": null,
+          "description": "Serving in Congress; top surrogate for Donald Trump's 2024 presidential campaign",
+          "source": null
+        },
+        {
+          "title": "Florida State Representative",
+          "organization": "Florida House of Representatives",
+          "start_year": 2016,
+          "end_year": 2020,
+          "description": "Championed school choice and parental rights; chaired Insurance and Banking Subcommittee",
+          "source": null
+        },
+        {
+          "title": "Board of Trustees Member",
+          "organization": "Florida South Western State College",
+          "start_year": null,
+          "end_year": null,
+          "description": "Appointed by Governor Rick Scott",
+          "source": null
+        },
+        {
+          "title": "Finance, Insurance, and Banking Professional",
+          "organization": "Multiple companies in Southwest Florida",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked in finance, insurance, and banking industries after college",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Florida State University",
+          "degree": "Bachelor of Arts",
+          "field": "Finance and Marketing",
+          "year": 2002,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://byrondonalds.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Jay Collins",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Jay Collins is the 21st Lieutenant Governor of Florida, appointed by Governor Ron DeSantis in 2025. A decorated Green Beret with 23 years of military service, he earned a Purple Heart after being wounded in combat and subsequently lost his leg but requalified as a fully deployable Special Forces soldier. Collins previously served in the Florida Senate and is running to preserve the DeSantis legacy.",
+      "summary_sources": [
+        {
+          "url": "https://jayforflorida.com/about",
+          "type": "website",
+          "title": "Meet Jay Collins | Jay Collins for Governor",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.flgov.com/eog/leadership/people/jay-collins",
+          "type": "government",
+          "title": "Jay Collins | Executive Office of the Governor",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_Florida_gubernatorial_election",
+          "type": "website",
+          "title": "2026 Florida gubernatorial election - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Lieutenant Governor of Florida",
+          "organization": "State of Florida",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Appointed by Governor Ron DeSantis",
+          "source": null
+        },
+        {
+          "title": "Florida State Senator",
+          "organization": "Florida Senate, District 14",
+          "start_year": 2022,
+          "end_year": 2025,
+          "description": "Resigned upon appointment as Lt. Governor; carried constitutional carry legislation",
+          "source": null
+        },
+        {
+          "title": "Green Beret (U.S. Army Special Forces)",
+          "organization": "U.S. Army",
+          "start_year": null,
+          "end_year": null,
+          "description": "23 years of service; Purple Heart recipient; deployed to Afghanistan, Iraq, and South America",
+          "source": null
+        },
+        {
+          "title": "Nonprofit Operations Lead",
+          "organization": "Operation BBQ Relief",
+          "start_year": null,
+          "end_year": null,
+          "description": "Oversaw distribution of millions of meals to veterans, first responders, and families",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://jayforflorida.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Paul Renner",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Paul Renner served as the 103rd Speaker of the Florida House of Representatives from 2022 to 2024 and is a Republican candidate for governor. A U.S. Navy veteran who served in Operation Desert Storm and in Afghanistan, he is also a former prosecutor and business attorney. Renner emphasizes continuing the conservative policies advanced under Governor DeSantis and touts his record on the 'Free State of Florida' initiative.",
+      "summary_sources": [
+        {
+          "url": "https://voterenner.com/about-paul-renner/",
+          "type": "website",
+          "title": "Biography \u2013 Paul Renner for Florida Governor",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Paul_Renner_(politician)",
+          "type": "website",
+          "title": "Paul Renner (politician) - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV",
+          "type": "government",
+          "title": "Candidate Listing - Florida Division of Elections",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/c/cd/Speaker_Paul_Renner.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Speaker of the Florida House of Representatives",
+          "organization": "Florida House of Representatives",
+          "start_year": 2022,
+          "end_year": 2024,
+          "description": "Led the House during the 2022-2024 term",
+          "source": null
+        },
+        {
+          "title": "Florida State Representative",
+          "organization": "Florida House of Representatives, District 19",
+          "start_year": 2015,
+          "end_year": 2024,
+          "description": "Term-limited; represented Palm Coast area",
+          "source": null
+        },
+        {
+          "title": "Naval Officer",
+          "organization": "U.S. Navy",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served on active duty and in reserves; deployed during Operation Desert Storm and in Afghanistan (2011)",
+          "source": null
+        },
+        {
+          "title": "Assistant State Attorney / Business Attorney",
+          "organization": "Multiple firms",
+          "start_year": null,
+          "end_year": null,
+          "description": "Prosecuted serious felony offenses; practiced business law since 1998",
+          "source": null
+        },
+        {
+          "title": "Board of Governors Member",
+          "organization": "Florida's State University System",
+          "start_year": null,
+          "end_year": null,
+          "description": "Appointed by Governor DeSantis",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Florida, Levin College of Law",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": 1994,
+          "source": null
+        },
+        {
+          "institution": "Davidson College",
+          "degree": "Bachelor of Arts",
+          "field": "History",
+          "year": 1989,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://voterenner.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "James Fishback",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "James Fishback (born c. 1995) is the CEO and founder of Azoria, a multi-asset investment firm, and a Republican candidate for governor. A fourth-generation Floridian, he is a political newcomer who has attracted attention for his anti-H-1B visa stance and a proposal to distribute DOGE-generated savings as stimulus checks. Fishback positions himself as an outsider focused on affordability and limiting data center expansion.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/James_Fishback",
+          "type": "website",
+          "title": "James Fishback - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://abcnews.com/US/floating-challenge-trumps-florida-governor-pick-james-fishback/story?id=127603333",
+          "type": "news",
+          "title": "Before challenging Trump's Florida governor pick, James Fishback... - ABC News",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV",
+          "type": "government",
+          "title": "Candidate Listing - Florida Division of Elections",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "CEO and Founder",
+          "organization": "Azoria Partners",
+          "start_year": null,
+          "end_year": null,
+          "description": "Multi-asset investment firm; global macro strategy",
+          "source": null
+        },
+        {
+          "title": "Analyst/Associate",
+          "organization": "Greenlight Capital",
+          "start_year": null,
+          "end_year": null,
+          "description": "Prior investment experience before founding Azoria",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://fishback2026.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "David Jolly",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "David Jolly is a former U.S. Representative for Florida's 13th Congressional District, who served as a Republican from 2014 to 2017 and is now running for governor as a Democrat. A fifth-generation Floridian and attorney, he is the son of a minister and has been a vocal critic of Donald Trump. Jolly has selected former U.S. Representative Gwen Graham as his running mate and leads Democratic primary polling.",
+      "summary_sources": [
+        {
+          "url": "https://davidjolly.com/",
+          "type": "website",
+          "title": "David Jolly for Governor | Believe in Florida's Future",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/David_Jolly",
+          "type": "website",
+          "title": "David Jolly - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.pbs.org/newshour/politics/former-gop-congressman-david-jolly-running-for-governor-in-florida-as-democrat",
+          "type": "news",
+          "title": "Former GOP congressman David Jolly running for governor in Florida as Democrat - PBS",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/1f/David_Jolly.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives, Florida's 13th District",
+          "start_year": 2014,
+          "end_year": 2017,
+          "description": "Served as a Republican; re-elected once, then defeated by Charlie Crist",
+          "source": null
+        },
+        {
+          "title": "Attorney / Lobbyist",
+          "organization": "Various firms",
+          "start_year": null,
+          "end_year": null,
+          "description": "Lawyer by training; worked in politics, law, and media",
+          "source": null
+        },
+        {
+          "title": "Political Commentator",
+          "organization": "MSNBC, other media",
+          "start_year": null,
+          "end_year": null,
+          "description": "Became a frequent political commentator after leaving Congress",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Florida Levin College of Law",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Emory University",
+          "degree": "Bachelor's",
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://davidjolly.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Dotie Joseph",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Dotie Joseph is a Democratic member of the Florida House of Representatives, representing District 108 since 2018. Born in Haiti and raised in Miami, she holds degrees from Yale University and Georgetown University Law Center. Joseph served as Minority Leader pro tempore from 2022 to 2024 and is running for governor on a platform of economic justice, criminal justice reform, and equitable access to education and healthcare.",
+      "summary_sources": [
+        {
+          "url": "https://dotiejoseph.com/bio-2/",
+          "type": "website",
+          "title": "Bio \u2013 Dotie Joseph for Florida",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.flhouse.gov/Sections/Representatives/details.aspx?MemberId=4716",
+          "type": "government",
+          "title": "Dotie Joseph - Florida House of Representatives",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://floridapolitics.com/archives/801412-dotie-joseph-quietly-files-to-run-for-governor/",
+          "type": "news",
+          "title": "Dotie Joseph quietly files to run for Governor - Florida Politics",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Florida State Representative",
+          "organization": "Florida House of Representatives, District 108",
+          "start_year": 2018,
+          "end_year": null,
+          "description": "Minority Leader pro tempore (2022-2024)",
+          "source": null
+        },
+        {
+          "title": "Civil Rights and Government Attorney",
+          "organization": "Ottinot Law",
+          "start_year": null,
+          "end_year": null,
+          "description": "Civil rights and government attorney",
+          "source": null
+        },
+        {
+          "title": "Interim City Attorney",
+          "organization": "City of North Miami Beach",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served as interim city attorney",
+          "source": null
+        },
+        {
+          "title": "Judicial Law Clerk",
+          "organization": "Superior Court of the District of Columbia",
+          "start_year": null,
+          "end_year": null,
+          "description": "Law clerk to the late Judge Eugene Hamilton",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Georgetown University Law Center",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Yale University",
+          "degree": "Bachelor of Arts",
+          "field": "Political Science",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://dotiejoseph.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Evelyn Castillo-Bach",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Evelyn Castillo-Bach is a Democratic candidate for governor from Pembroke Pines, Florida and a long-time registered Independent who joined the Democratic Party. She founded the Balanced Justice Network, a criminal justice reform organization inspired by her son's incarceration. Castillo-Bach campaigns on criminal justice reform, veteran support, and addressing affordability for working families.",
+      "summary_sources": [
+        {
+          "url": "https://evelynforgovernor.org/about/",
+          "type": "website",
+          "title": "About - Evelyn Castillo-Bach for Florida Governor 2026",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89619",
+          "type": "government",
+          "title": "Candidate Tracking - Florida Division of Elections",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://natlawreview.com/press-releases/evelyn-castillo-bach-rejects-calls-abandon-criminal-justice-reform-stance",
+          "type": "news",
+          "title": "Evelyn Castillo-Bach Rejects Calls to Abandon Criminal Justice Reform - National Law Review",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Founder",
+          "organization": "Balanced Justice Network",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Criminal justice reform advocacy organization",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://evelynforgovernor.org/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Thomas Eloy Fernandez",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Thomas Eloy 'Nova' Fernandez is a Democratic candidate for governor, a Cuban-born 20-year U.S. Air Force veteran, and co-founder of Infinite. He campaigns under the slogan 'Navigating Our Vision Ahead' (NOVA) and focuses on veterans' issues and responsible leadership. Fernandez qualified to run and is listed on the Florida Division of Elections candidate roster.",
+      "summary_sources": [
+        {
+          "url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89629",
+          "type": "government",
+          "title": "Candidate Tracking - Florida Division of Elections",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Thomas_E._Fernandez",
+          "type": "website",
+          "title": "Thomas E. Fernandez - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://secure.actblue.com/donate/thomas-eloy-nova-fernandez",
+          "type": "website",
+          "title": "Thomas Eloy \"Nova\" Fernandez - ActBlue",
+          "description": null,
+          "last_accessed": "2026-06-11T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Air Force Veteran",
+          "organization": "U.S. Air Force",
+          "start_year": null,
+          "end_year": null,
+          "description": "20-year veteran",
+          "source": null
+        },
+        {
+          "title": "Co-Founder",
+          "organization": "Infinite",
+          "start_year": null,
+          "end_year": null,
+          "description": "Co-founded Infinite organization",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Florida_gubernatorial_election,_2026",
+  "updated_utc": "2026-06-13T21:05:53.799210+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 393368,
+    "completion_tokens": 15777,
+    "total_tokens": 409145,
+    "cost_usd": 0.029152372000000003,
+    "cost_source": "provider",
+    "estimated_usd": 0.041642,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 393368,
+        "completion_tokens": 15777
+      }
+    },
+    "duration_s": 265.0
+  }
+}

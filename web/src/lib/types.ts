@@ -333,6 +333,7 @@ export interface RunInfo {
   error?: string;
   steps?: RunStep[];
   logs?: LogEntry[];
+  serper_calls?: number;
 }
 
 export interface Artifact {
@@ -436,6 +437,7 @@ export interface AgentMetrics {
   estimated_usd: number;
   cost_usd?: number | null;
   cost_source?: "provider" | "estimated";
+  serper_calls?: number;
   model_breakdown: Record<
     string,
     { prompt_tokens: number; completion_tokens: number }
@@ -455,6 +457,7 @@ export interface PipelineRunRecord {
   estimated_usd: number;
   cost_usd?: number | null;
   cost_source?: "provider" | "estimated";
+  serper_calls?: number;
   model_breakdown: Record<
     string,
     { prompt_tokens: number; completion_tokens: number }

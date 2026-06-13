@@ -1,0 +1,301 @@
+{
+  "id": "nj-house-09-2026",
+  "title": "New Jersey's 9th Congressional District election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "New Jersey's 9th Congressional District",
+  "state": "New Jersey",
+  "district": "9th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "This race is for New Jersey's 9th Congressional District, covering parts of Bergen, Hudson, and Passaic counties, including the cities of Paterson and Clifton. Incumbent Democrat Nellie Pou, who was first elected in a 2024 special election after the death of longtime Rep. Bill Pascrell, is seeking her first full term in a district that has become markedly more competitive. Republican nominee Rosie Pino, a Clifton City Councilwoman, won a tight GOP primary over attorney Tiffany Burress and will challenge Pou in a district that narrowly backed Donald Trump in the 2024 presidential election. The race is rated as 'Lean Democratic' by the Cook Political Report, and an independent anti-abortion candidate, Terrisa Bukovinac, is also on the November ballot.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for this specific race as of the research date.",
+  "candidates": [
+    {
+      "name": "Nellie Pou",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Nellie Pou is the incumbent U.S. Representative for New Jersey's 9th Congressional District, first elected in 2024 after the death of Rep. Bill Pascrell. She previously served in the New Jersey Senate from 2012 to 2025 and in the New Jersey General Assembly from 1997 to 2012, and is the first Latina from New Jersey to serve in Congress. Pou serves on the House Homeland Security Committee and the Transportation and Infrastructure Committee.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Nellie_Pou",
+          "type": "news",
+          "title": "Nellie Pou - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-19T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Nellie_Pou",
+          "type": "website",
+          "title": "Nellie Pou - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-19T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2b/Representative_Nellie_Pou_Official_Portrait.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "United States House of Representatives",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Representing New Jersey's 9th Congressional District",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "New Jersey Senate",
+          "start_year": 2012,
+          "end_year": 2025,
+          "description": "Represented the 35th legislative district; served as Majority Caucus Chair",
+          "source": null
+        },
+        {
+          "title": "Member of the General Assembly",
+          "organization": "New Jersey General Assembly",
+          "start_year": 1997,
+          "end_year": 2012,
+          "description": "Represented the 35th legislative district; served as Deputy Speaker",
+          "source": null
+        },
+        {
+          "title": "Business Administrator",
+          "organization": "City of Paterson",
+          "start_year": 2014,
+          "end_year": 2018,
+          "description": "Managed city operations and budget",
+          "source": null
+        },
+        {
+          "title": "Assistant Business Administrator",
+          "organization": "City of Paterson",
+          "start_year": 2003,
+          "end_year": 2014,
+          "description": "Assisted in city administrative functions",
+          "source": null
+        },
+        {
+          "title": "Director of Human Services",
+          "organization": "City of Paterson",
+          "start_year": 1986,
+          "end_year": 1997,
+          "description": "Oversaw human services programs",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Kean University",
+          "degree": null,
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "Rutgers University\u2013New Brunswick",
+          "degree": null,
+          "field": null,
+          "year": null,
+          "source": null
+        },
+        {
+          "institution": "University of Virginia",
+          "degree": null,
+          "field": null,
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://nelliepoufornewjersey.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Rosie Pino",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Rosie Pino is a Clifton City Councilwoman and the Republican nominee for New Jersey's 9th Congressional District. She won a competitive GOP primary in June 2026, defeating attorney Tiffany Burress by a narrow margin. Pino previously served on the Clifton Board of Education, worked as a bank examiner at the U.S. Department of the Treasury, and is a first-generation American who earned her GED before graduating from Rutgers University.",
+      "summary_sources": [
+        {
+          "url": "https://newjerseymonitor.com/briefs/rosie-pino-gop-primary-nellie-pou/",
+          "type": "news",
+          "title": "Rosie Pino wins GOP primary, will face Rep. Nellie Pou in November",
+          "description": null,
+          "last_accessed": "2026-06-19T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://apnews.com/article/new-jersey-republican-primary-congress-pino-pou-fcef9f5ab7c39cbe2bccef9f9d3dc613",
+          "type": "news",
+          "title": "Rosie Pino wins Republican primary in New Jersey's 9th District",
+          "description": null,
+          "last_accessed": "2026-06-19T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://rosiepinofornj.com/",
+          "type": "website",
+          "title": "Rosie Pino for Congress",
+          "description": null,
+          "last_accessed": "2026-06-19T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://newjerseymonitor.com/wp-content/uploads/2026/06/rosiepino-1536x1034.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "City Councilwoman",
+          "organization": "City of Clifton",
+          "start_year": 2018,
+          "end_year": null,
+          "description": "First minority elected to the Clifton City Council",
+          "source": null
+        },
+        {
+          "title": "Board of Education Member",
+          "organization": "Clifton Board of Education",
+          "start_year": 2013,
+          "end_year": 2018,
+          "description": "Served two terms; helped invest over $8 million in capital improvements",
+          "source": null
+        },
+        {
+          "title": "Bank Examiner",
+          "organization": "U.S. Department of the Treasury",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked as a bank examiner after graduating from Rutgers",
+          "source": null
+        },
+        {
+          "title": "Founder",
+          "organization": "Multiple non-profit organizations",
+          "start_year": null,
+          "end_year": null,
+          "description": "Founded nonprofits dedicated to creating opportunities and promoting education",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Rutgers University",
+          "degree": "Bachelor's",
+          "field": "Finance",
+          "year": null,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://rosiepinofornj.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Terrisa Bukovinac",
+      "party": "Save Our Babies Party (Independent)",
+      "incumbent": false,
+      "summary": "Terrisa Bukovinac is an independent candidate running under the 'Save Our Babies Party' banner in New Jersey's 9th Congressional District. An anti-abortion activist who challenged Joe Biden in the 2024 Democratic presidential primary, she is a Tennessee resident who successfully secured a spot on the November ballot in New Jersey. Her candidacy survived a Republican-led petition challenge in June 2026.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Terrisa_Bukovinac",
+          "type": "website",
+          "title": "Terrisa Bukovinac - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-19T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://newjerseyglobe.com/congress/gop-ends-challenge-against-anti-abortion-independent-in-nj-9/",
+          "type": "news",
+          "title": "GOP ends challenge against anti-abortion independent in NJ-9",
+          "description": null,
+          "last_accessed": "2026-06-19T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/New_Jersey%27s_9th_congressional_district_election,_2026",
+  "updated_utc": "2026-06-13T21:26:06.429118+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 233939,
+    "completion_tokens": 6902,
+    "total_tokens": 240841,
+    "cost_usd": 0.017050398,
+    "cost_source": "provider",
+    "estimated_usd": 0.024279,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 233939,
+        "completion_tokens": 6902
+      }
+    },
+    "duration_s": 172.3
+  }
+}

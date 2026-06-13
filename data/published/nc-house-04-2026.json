@@ -1,0 +1,251 @@
+{
+  "id": "nc-house-04-2026",
+  "title": "North Carolina's 4th Congressional District election, 2026",
+  "office": "U.S. House of Representatives",
+  "jurisdiction": "North Carolina's 4th Congressional District",
+  "state": "North Carolina",
+  "district": "4th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "North Carolina's 4th Congressional District, anchored by Durham, Chapel Hill, and Cary, is a reliably Democratic seat covering the Research Triangle region. Incumbent Representative Valerie Foushee, first elected in 2022, narrowly won the March 3, 2026 Democratic primary against progressive challenger Nida Allam. She faces Republican Mahesh Ganorkar, an anti-socialism activist and small-business owner, and Libertarian Guy Meilleur, a consulting arborist, in the general election. The district was redrawn in October 2025 but remains strongly Democratic with a Cook Partisan Voting Index of D+23. The race is rated 'Solid D' by the Cook Political Report, making Foushee the heavy favorite for re-election.",
+  "polling": [],
+  "polling_note": "No public general election polls for this race were found as of June 2026. The Cook Political Report rates this race as 'Solid D.'",
+  "candidates": [
+    {
+      "name": "Valerie Foushee",
+      "party": "Democratic",
+      "incumbent": true,
+      "summary": "Valerie Foushee is the Democratic incumbent representing North Carolina's 4th Congressional District, first elected in 2022. She previously served in the North Carolina State Senate (2013\u20132022), North Carolina State House (2012\u20132013), as chair of the Orange County Board of Commissioners (2004\u20132012), and on the Chapel Hill-Carrboro City Schools Board (1997\u20132004). She worked as an administrative officer for the Chapel Hill Police Department from 1987 to 2008. Foushee is the first African American and first woman to represent the 4th District in Congress. She earned a B.A. in Political Science and African and Afro-American Studies from the University of North Carolina at Chapel Hill in 2008.",
+      "summary_sources": [
+        {
+          "url": "https://foushee.house.gov/about",
+          "type": "government",
+          "title": "About \u2013 U.S. Congresswoman Valerie Foushee",
+          "last_accessed": "2026-06-12T15:00:00Z"
+        },
+        {
+          "url": "https://valeriefoushee.com/valeries-story/",
+          "type": "website",
+          "title": "Valerie's Story \u2013 Foushee for Congress",
+          "last_accessed": "2026-06-12T15:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Valerie_Foushee",
+          "type": "website",
+          "title": "Valerie Foushee \u2013 Ballotpedia",
+          "last_accessed": "2026-06-12T15:00:00Z"
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Valerie_Foushee.jpg",
+      "website": "https://valeriefoushee.com",
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "U.S. Representative",
+          "organization": "U.S. House of Representatives",
+          "start_year": 2023,
+          "end_year": null,
+          "description": "Representing North Carolina's 4th Congressional District"
+        },
+        {
+          "title": "State Senator",
+          "organization": "North Carolina State Senate",
+          "start_year": 2013,
+          "end_year": 2022,
+          "description": "Represented the 23rd District"
+        },
+        {
+          "title": "State Representative",
+          "organization": "North Carolina House of Representatives",
+          "start_year": 2012,
+          "end_year": 2013,
+          "description": "Represented the 50th District"
+        },
+        {
+          "title": "Chair, Orange County Board of Commissioners",
+          "organization": "Orange County, North Carolina",
+          "start_year": 2004,
+          "end_year": 2012,
+          "description": "First African American woman to chair the board"
+        },
+        {
+          "title": "Member, Chapel Hill-Carrboro City Schools Board",
+          "organization": "Chapel Hill-Carrboro City Schools",
+          "start_year": 1997,
+          "end_year": 2004,
+          "description": "School board member"
+        },
+        {
+          "title": "Administrative Officer",
+          "organization": "Chapel Hill Police Department",
+          "start_year": 1987,
+          "end_year": 2008,
+          "description": "Administrative role at the police department"
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of North Carolina at Chapel Hill",
+          "degree": "Bachelor of Arts",
+          "field": "Political Science and African and Afro-American Studies",
+          "year": 2008
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Mahesh Ganorkar",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Mahesh 'Max' Ganorkar is the Republican nominee for North Carolina's 4th Congressional District. He holds an MBA in International Finance and has worked on international joint ventures and a family-owned construction business. Ganorkar describes himself as an 'anti-socialism warrior' and previously ran a TEA Party group to educate Americans about socialism. He has run for Congress previously in other North Carolina districts. He lives in Pittsboro with his wife of 33 years; they have three children. His campaign focuses on constitutional conservatism, limited government, and opposing socialism.",
+      "summary_sources": [
+        {
+          "url": "https://maxforcongress.com/about",
+          "type": "website",
+          "title": "About \u2013 Max for Congress",
+          "last_accessed": "2026-06-12T15:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Mahesh_Ganorkar",
+          "type": "website",
+          "title": "Mahesh Ganorkar \u2013 Ballotpedia",
+          "last_accessed": "2026-06-12T15:00:00Z"
+        },
+        {
+          "url": "https://vote-usa.org/intro.aspx?state=nc&id=ncganorkarmahesh",
+          "type": "website",
+          "title": "Mahesh 'Max' Ganorkar \u2013 Vote-USA",
+          "last_accessed": "2026-06-12T15:00:00Z"
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Mahesh_Ganorkar.jpeg",
+      "website": "https://maxforcongress.com",
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Candidate for U.S. House",
+          "organization": "Campaign for NC-04",
+          "start_year": 2025,
+          "end_year": null,
+          "description": "Republican nominee for North Carolina's 4th Congressional District"
+        },
+        {
+          "title": "Small Business Owner",
+          "organization": "Family-owned construction business",
+          "start_year": null,
+          "end_year": null,
+          "description": "Worked in family-owned construction business"
+        },
+        {
+          "title": "TEA Party Organizer",
+          "organization": "TEA Party group",
+          "start_year": null,
+          "end_year": null,
+          "description": "Ran a TEA Party group to educate Americans about socialism"
+        }
+      ],
+      "education": [
+        {
+          "institution": null,
+          "degree": "MBA",
+          "field": "International Finance",
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [],
+      "issues": {}
+    },
+    {
+      "name": "Guy Meilleur",
+      "party": "Libertarian",
+      "incumbent": false,
+      "summary": "Guy Meilleur is the Libertarian Party nominee for North Carolina's 4th Congressional District. He is an ISA Board-Certified Master Arborist and consulting arborist who moved to Wake County in 1985 to study at North Carolina State University under renowned horticulturist J.C. Raulston. Meilleur previously ran unsuccessfully for North Carolina House District 30 in 2022 as a Libertarian. He lives in Durham and his campaign priorities include electoral reform, instant-runoff voting, restorative justice, cost-effective conservation, and expanding housing.",
+      "summary_sources": [
+        {
+          "url": "https://guy4nc.org/meet/us-house-district-4/",
+          "type": "website",
+          "title": "US House District 4 \u2013 Guy Meilleur for Congress",
+          "last_accessed": "2026-06-12T15:00:00Z"
+        },
+        {
+          "url": "https://www.northcarolinahealthnews.org/govpack_profiles/guy-meilleur/",
+          "type": "news",
+          "title": "Guy Meilleur \u2013 North Carolina Health News",
+          "last_accessed": "2026-06-12T15:00:00Z"
+        },
+        {
+          "url": "https://ballotpedia.org/Guy_Meilleur",
+          "type": "website",
+          "title": "Guy Meilleur \u2013 Ballotpedia",
+          "last_accessed": "2026-06-12T15:00:00Z"
+        }
+      ],
+      "image_url": null,
+      "website": "https://guy4nc.org",
+      "social_media": {},
+      "career_history": [
+        {
+          "title": "Consulting Arborist",
+          "organization": "Historic Tree Care",
+          "start_year": null,
+          "end_year": null,
+          "description": "ISA Board-Certified Master Arborist, author of industry tree inspection standards"
+        }
+      ],
+      "education": [
+        {
+          "institution": "North Carolina State University",
+          "degree": null,
+          "field": "Horticulture",
+          "year": null
+        }
+      ],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "links": [],
+      "issues": {}
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/North_Carolina%27s_4th_Congressional_District_election,_2026",
+  "updated_utc": "2026-06-13T21:29:56.516598+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "reviews": [],
+  "validation_grade": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 223736,
+    "completion_tokens": 6703,
+    "total_tokens": 230439,
+    "cost_usd": 0.013405675999999998,
+    "cost_source": "provider",
+    "estimated_usd": 0.02324,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 223736,
+        "completion_tokens": 6703
+      }
+    },
+    "duration_s": 158.0
+  }
+}

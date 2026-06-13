@@ -1,0 +1,444 @@
+{
+  "id": "id-governor-2026",
+  "title": "Idaho Governor Election, 2026",
+  "office": "Governor of Idaho",
+  "jurisdiction": "Idaho",
+  "state": "Idaho",
+  "district": null,
+  "election_date": "2026-11-03",
+  "description": "The 2026 Idaho gubernatorial election will be held on November 3, 2026, to elect the governor of Idaho. Incumbent Republican Governor Brad Little is seeking a third term and won a crowded Republican primary on May 19, 2026. He faces Democratic nominee Terri Pickens, an attorney who won her party's primary, as well as independent candidate and retired Idaho Supreme Court Justice John Stegner, Libertarian nominee Paul Sand, and Constitution Party nominee Pro-Life (Marvin Thomas Richardson). Idaho has not elected a Democrat to statewide office since 2002, and the state is considered a safe Republican stronghold with a Cook Partisan Voting Index of R+36.5.",
+  "polling": [],
+  "polling_note": "No public opinion polls were found for the 2026 Idaho gubernatorial general election as of this research date.",
+  "candidates": [
+    {
+      "name": "Brad Little",
+      "party": "Republican",
+      "incumbent": true,
+      "summary": "Brad Little has served as the 33rd Governor of Idaho since January 2019 and is seeking a third term. A fifth-generation Idaho rancher from Emmett, he previously served as Lieutenant Governor from 2009 to 2019 and as a state senator from 2001 to 2009. He won the Republican primary on May 19, 2026, defeating seven challengers with approximately 59% of the vote.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_Idaho_gubernatorial_election",
+          "type": "website",
+          "title": "2026 Idaho gubernatorial election - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nbcnews.com/politics/2026-primary-elections/idaho-governor-results",
+          "type": "news",
+          "title": "Idaho Governor Primary Election 2026 Live Results - NBC News",
+          "description": null,
+          "last_accessed": "2026-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.multistate.us/elections/governor?st=ID",
+          "type": "website",
+          "title": "Idaho Governor - MultiState Elections",
+          "description": null,
+          "last_accessed": "2026-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Brad_Little_official_photo.jpg/250px-Brad_Little_official_photo.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Governor of Idaho",
+          "organization": "State of Idaho",
+          "start_year": 2019,
+          "end_year": null,
+          "description": "33rd Governor; reelected in 2022",
+          "source": null
+        },
+        {
+          "title": "Lieutenant Governor of Idaho",
+          "organization": "State of Idaho",
+          "start_year": 2009,
+          "end_year": 2019,
+          "description": "42nd Lieutenant Governor; appointed and later elected",
+          "source": null
+        },
+        {
+          "title": "State Senator",
+          "organization": "Idaho Senate",
+          "start_year": 2001,
+          "end_year": 2009,
+          "description": "Represented District 8 and later District 11; Majority Caucus Chair",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Idaho",
+          "degree": "Bachelor of Science",
+          "field": "Agribusiness",
+          "year": 1977,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.bradlittleforidaho.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Terri Pickens",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Terri Pickens is an attorney and the Democratic nominee for Governor of Idaho, having won the May 19, 2026 Democratic primary with approximately 61% of the vote. She was born in Pocatello, Idaho, and earned her B.A. in Political Science from the University of Southern California before returning to Idaho for law school. Pickens previously ran unsuccessfully for Lieutenant Governor in 2022 and has worked as an attorney in Idaho.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Terri_Pickens",
+          "type": "website",
+          "title": "Terri Pickens - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.terriforidaho.com/about",
+          "type": "website",
+          "title": "About Terri - Terri Pickens for Governor",
+          "description": null,
+          "last_accessed": "2026-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://idahocapitalsun.com/2026/05/19/terri-pickens-projected-to-win-idaho-democratic-partys-gubernatorial-primary-election/",
+          "type": "news",
+          "title": "Terri Pickens wins Idaho Democratic Party's gubernatorial primary - Idaho Capital Sun",
+          "description": null,
+          "last_accessed": "2026-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Attorney",
+          "organization": "Private practice",
+          "start_year": null,
+          "end_year": null,
+          "description": "Practicing attorney in Idaho",
+          "source": null
+        },
+        {
+          "title": "Candidate for Lieutenant Governor",
+          "organization": "Campaign",
+          "start_year": 2021,
+          "end_year": 2022,
+          "description": "Democratic nominee for Lieutenant Governor of Idaho in 2022",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Southern California",
+          "degree": "Bachelor of Arts",
+          "field": "Political Science",
+          "year": 1994,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.terriforidaho.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "John Stegner",
+      "party": "Independent",
+      "incumbent": false,
+      "summary": "John Stegner is a retired Idaho Supreme Court Justice running for Governor as an independent. He served on the Idaho Supreme Court from 2018 to 2023 and was previously a district judge in Moscow for 21 years. A lifelong Idahoan raised in Grangeville, he earned his B.A. from Whitman College and his J.D. from the University of Idaho College of Law. Stegner, a former Republican, is running as a centrist independent candidate.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/John_Stegner",
+          "type": "website",
+          "title": "John Stegner - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.stegnerforidaho.com/",
+          "type": "website",
+          "title": "John Stegner for Governor",
+          "description": null,
+          "last_accessed": "2026-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/John_Stegner",
+          "type": "website",
+          "title": "John Stegner - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/John_Stegner.jpg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Justice",
+          "organization": "Idaho Supreme Court",
+          "start_year": 2018,
+          "end_year": 2023,
+          "description": "Appointed by Governor Butch Otter; retired in 2023",
+          "source": null
+        },
+        {
+          "title": "District Judge",
+          "organization": "Idaho Second Judicial District",
+          "start_year": 1997,
+          "end_year": 2018,
+          "description": "Presided in Moscow, Idaho, for 21 years",
+          "source": null
+        },
+        {
+          "title": "Attorney",
+          "organization": "Clements, Brown & McNichols",
+          "start_year": null,
+          "end_year": null,
+          "description": "Private practice in Lewiston for 12 years",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "University of Idaho College of Law",
+          "degree": "Juris Doctor",
+          "field": "Law",
+          "year": 1982,
+          "source": null
+        },
+        {
+          "institution": "Whitman College",
+          "degree": "Bachelor of Arts",
+          "field": null,
+          "year": 1977,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.stegnerforidaho.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Paul Sand",
+      "party": "Libertarian",
+      "incumbent": false,
+      "summary": "Paul Sand is the Libertarian Party nominee for Governor of Idaho, having won the Libertarian primary on May 19, 2026, with approximately 57% of the vote. He is a computer software engineer and entrepreneur who has served on the White Bird City Council for 10 years. Sand previously ran as the Libertarian nominee for governor in 2022 and advocates for reducing state government to its minimum functions.",
+      "summary_sources": [
+        {
+          "url": "https://idahocapitalsun.com/voter-guides/contests/idaho-libertarian-governor-primary-election-race/",
+          "type": "news",
+          "title": "Governor - Libertarian Party | Voter Guide: 2026 primary election - Idaho Capital Sun",
+          "description": null,
+          "last_accessed": "2026-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.multistate.us/elections/governor?st=ID",
+          "type": "website",
+          "title": "Idaho Governor - MultiState Elections",
+          "description": null,
+          "last_accessed": "2026-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "City Council Member",
+          "organization": "White Bird, Idaho",
+          "start_year": null,
+          "end_year": null,
+          "description": "Served for 10 years on the White Bird City Council",
+          "source": null
+        },
+        {
+          "title": "Software Engineer / Entrepreneur",
+          "organization": "Self-employed",
+          "start_year": null,
+          "end_year": null,
+          "description": "Computer software engineer and business entrepreneur",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://paulsand.org/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Pro-Life (Marvin Thomas Richardson)",
+      "party": "Constitution",
+      "incumbent": false,
+      "summary": "Pro-Life, born Marvin Thomas Richardson, is the Constitution Party nominee for Governor of Idaho. He is a perennial candidate and strawberry farmer from Letha, Idaho, who legally changed his name to reflect his strong opposition to abortion. He has run for various Idaho offices since 2004, including past campaigns for governor, U.S. Senate, and the state legislature, and holds a B.A. in Political Science from Brigham Young University.",
+      "summary_sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Pro-Life_(politician)",
+          "type": "website",
+          "title": "Pro-Life (politician) - Wikipedia",
+          "description": null,
+          "last_accessed": "2026-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://ballotpedia.org/Pro-Life_(Marvin_Thomas_Richardson)",
+          "type": "website",
+          "title": "Pro-Life (Marvin Thomas Richardson) - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://idahocapitalsun.com/2026/02/27/idahos-republican-state-officials-are-all-running-for-re-election-who-are-the-other-candidates/",
+          "type": "news",
+          "title": "Idaho's Republican state officials are all running for re-election. Who are the other candidates? - Idaho Capital Sun",
+          "description": null,
+          "last_accessed": "2026-06-10T00:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Organic Strawberry Farmer",
+          "organization": "Self-employed",
+          "start_year": 2002,
+          "end_year": null,
+          "description": "Organic farming operation in Letha, Idaho",
+          "source": null
+        }
+      ],
+      "education": [
+        {
+          "institution": "Brigham Young University",
+          "degree": "Bachelor of Arts",
+          "field": "Political Science",
+          "year": 1967,
+          "source": null
+        }
+      ],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Idaho_gubernatorial_election,_2026",
+  "updated_utc": "2026-06-13T21:03:25.555037+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 248376,
+    "completion_tokens": 7440,
+    "total_tokens": 255816,
+    "cost_usd": 0.017113008,
+    "cost_source": "provider",
+    "estimated_usd": 0.025799,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 248376,
+        "completion_tokens": 7440
+      }
+    },
+    "duration_s": 118.4
+  }
+}

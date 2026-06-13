@@ -1,0 +1,238 @@
+{
+  "id": "ga-house-11-2026",
+  "title": "Georgia's 11th Congressional District Election, 2026",
+  "office": "United States House of Representatives",
+  "jurisdiction": "Georgia's 11th Congressional District",
+  "state": "Georgia",
+  "district": "11th Congressional District",
+  "election_date": "2026-11-03",
+  "description": "Georgia's 11th Congressional District is an open seat in the 2026 election following the retirement of Republican incumbent Barry Loudermilk, who has served since 2015 and announced in February 2026 that he would not seek reelection. The district covers parts of Cobb, Cherokee, Bartow, Gordon, and Pickens counties in northwest metro Atlanta and is rated as Solidly Republican by the Cook Political Report. The Democratic nominee is attorney Chris Harden, who won the May 19 primary with 74.8% of the vote. The Republican nomination will be decided in a June 16 runoff between neurosurgeon John Cowan, who led the primary with 42.6%, and former Loudermilk chief of staff Rob Adkerson, who took 21.7%.",
+  "polling": [],
+  "polling_note": "No public general-election opinion polls were found for Georgia's 11th Congressional District race as of mid-June 2026. The Cook Political Report rates the district as Solidly Republican.",
+  "candidates": [
+    {
+      "name": "Chris Harden",
+      "party": "Democratic",
+      "incumbent": false,
+      "summary": "Chris Harden is a defense attorney and small business owner from Woodstock, Georgia, and the Democratic nominee for Georgia's 11th Congressional District. He won the May 19 Democratic primary with 74.8% of the vote against Barry Wolfert. Harden's campaign focuses on affordability, healthcare access, women's healthcare rights, public education, and addressing what he describes as a constitutional crisis, and he positions himself as a moderate Democrat who can reach across party lines.",
+      "summary_sources": [
+        {
+          "url": "https://www.chrishardenforcongress.com/",
+          "type": "website",
+          "title": "Chris Harden for Congress - Representing Georgia's District 11",
+          "description": null,
+          "last_accessed": "2026-06-12T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nbcnews.com/politics/2026-primary-elections/georgia-us-house-district-11-results",
+          "type": "news",
+          "title": "Georgia House District 11 Primary Election Live Results 2026",
+          "description": null,
+          "last_accessed": "2026-06-12T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.wabe.org/why-trump-is-at-the-center-of-the-district-11-republican-primary-democrats-say-theyre-ready-to-take-on-partisanship-in-congress/",
+          "type": "news",
+          "title": "How Trump is at the center of Georgia's 11th Congressional District primary",
+          "description": null,
+          "last_accessed": "2026-06-12T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": null,
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Defense Attorney",
+          "organization": "Private Practice",
+          "start_year": null,
+          "end_year": null,
+          "description": "Chris Harden works as a defense attorney and describes himself as a small business owner.",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://www.chrishardenforcongress.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "John Cowan",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Dr. John Cowan is a neurosurgeon and small business owner from Cartersville, Georgia, and a candidate in the June 16 Republican primary runoff for Georgia's 11th Congressional District. He led the May 19 primary with 42.6% of the vote against six competitors, advancing to the runoff, and previously ran for Congress in Georgia's 14th District in 2020, losing in a runoff to now-former Rep. Marjorie Taylor Greene. Cowan's campaign emphasizes healthcare and economic issues, and he has focused on forming what he calls a 'more perfect Republican Party.'",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/John_Cowan",
+          "type": "website",
+          "title": "John Cowan - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nbcnews.com/politics/2026-primary-elections/georgia-us-house-district-11-results",
+          "type": "news",
+          "title": "Georgia House District 11 Primary Election Live Results 2026",
+          "description": null,
+          "last_accessed": "2026-06-12T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.wabe.org/why-trump-is-at-the-center-of-the-district-11-republican-primary-democrats-say-theyre-ready-to-take-on-partisanship-in-congress/",
+          "type": "news",
+          "title": "How Trump is at the center of Georgia's 11th Congressional District primary",
+          "description": null,
+          "last_accessed": "2026-06-12T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/John_Cowan.png",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Neurosurgeon / Physician",
+          "organization": "Private Practice",
+          "start_year": null,
+          "end_year": null,
+          "description": "John Cowan is a neurosurgeon and small business owner.",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": null,
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    },
+    {
+      "name": "Rob Adkerson",
+      "party": "Republican",
+      "incumbent": false,
+      "summary": "Rob Adkerson is a former chief of staff to retiring U.S. Rep. Barry Loudermilk and a conservative Republican from Adairsville, Georgia, running in the June 16 Republican primary runoff for Georgia's 11th Congressional District. He placed second in the May 19 primary with 21.7% of the vote and has been endorsed by Loudermilk. Adkerson's campaign emphasizes his America-First agenda, support for President Trump, anti-abortion rights stance, and fiscal conservatism, including investigating federal spending programs.",
+      "summary_sources": [
+        {
+          "url": "https://ballotpedia.org/Rob_Adkerson",
+          "type": "website",
+          "title": "Rob Adkerson - Ballotpedia",
+          "description": null,
+          "last_accessed": "2026-06-12T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://voterobadkerson.com/",
+          "type": "website",
+          "title": "Rob Adkerson for Congress - Georgia's 11th District",
+          "description": null,
+          "last_accessed": "2026-06-12T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        },
+        {
+          "url": "https://www.nbcnews.com/politics/2026-primary-elections/georgia-us-house-district-11-results",
+          "type": "news",
+          "title": "Georgia House District 11 Primary Election Live Results 2026",
+          "description": null,
+          "last_accessed": "2026-06-12T18:00:00Z",
+          "published_at": null,
+          "checksum": null,
+          "is_fresh": false,
+          "is_official_campaign": null
+        }
+      ],
+      "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Rob_Adkerson.jpeg",
+      "issues": {},
+      "career_history": [
+        {
+          "title": "Chief of Staff",
+          "organization": "Office of U.S. Rep. Barry Loudermilk",
+          "start_year": null,
+          "end_year": null,
+          "description": "Rob Adkerson served as chief of staff to retiring Rep. Barry Loudermilk.",
+          "source": null
+        }
+      ],
+      "education": [],
+      "voting_summary": null,
+      "voting_source_url": null,
+      "voting_sources": [],
+      "donor_summary": null,
+      "donor_source_url": null,
+      "donor_sources": [],
+      "links": [],
+      "website": "https://voterobadkerson.com/",
+      "social_media": {},
+      "withdrawn": false,
+      "withdrawal_reason": null
+    }
+  ],
+  "ballotpedia_url": "https://ballotpedia.org/Georgia%27s_11th_congressional_district_election,_2026",
+  "updated_utc": "2026-06-13T21:42:33.695763+00:00",
+  "generator": [
+    "deepseek/deepseek-v4-flash",
+    "openai/gpt-5-nano"
+  ],
+  "schema_version": "0.3",
+  "register_to_vote_url": null,
+  "how_to_vote_url": null,
+  "reviews": [],
+  "validation_grade": null,
+  "post_run_analysis": null,
+  "agent_metrics": {
+    "model": "deepseek/deepseek-v4-flash",
+    "model_profile": "economy",
+    "prompt_tokens": 280940,
+    "completion_tokens": 8181,
+    "total_tokens": 289121,
+    "cost_usd": 0.021647595999999998,
+    "cost_source": "provider",
+    "estimated_usd": 0.029136,
+    "model_breakdown": {
+      "deepseek/deepseek-v4-flash": {
+        "prompt_tokens": 280940,
+        "completion_tokens": 8181
+      }
+    },
+    "duration_s": 166.0
+  }
+}
