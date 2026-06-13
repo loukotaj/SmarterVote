@@ -99,7 +99,7 @@ jobs:
       TF_VAR_project_id: ${{ secrets.GCP_PROJECT_ID }}
       TF_VAR_region: us-central1
       TF_VAR_environment: ${{ github.event.inputs.environment || 'dev' }}
-      TF_VAR_app_version: ${{ env.DEPLOY_SHA }}
+      TF_VAR_app_version: ${{ github.event.workflow_run.head_sha || github.sha }}
       TF_VAR_openrouter_api_key: ${{ secrets.OPENROUTER_API_KEY }}
       # Retain legacy secrets during the migration so old revisions and rollback remain viable.
       TF_VAR_openai_api_key: ${{ secrets.OPENAI_API_KEY }}
