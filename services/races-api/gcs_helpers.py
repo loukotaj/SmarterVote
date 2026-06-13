@@ -6,6 +6,8 @@ import os
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 
+from google.api_core.exceptions import NotFound, PreconditionFailed
+
 # Resolved once at startup; can be overridden in tests.
 _GCS_BUCKET = os.getenv("GCS_BUCKET", "")
 
@@ -37,7 +39,15 @@ def _gcs_list_race_ids(prefix: str) -> Optional[List[str]]:
     try:
         bucket = client.bucket(_GCS_BUCKET)
         blobs = list(bucket.list_blobs(prefix=f"{prefix}/"))
-        return [b.name.split("/")[-1][:-5] for b in blobs if b.name.endswith(".json")]
+        ids = []
+        for blob in blobs:
+            filename = blob.name.split("/")[-1]
+            if not filename.endswith(".json"):
+                continue
+            if prefix == "races" and filename == "summaries.json":
+                continue
+            ids.append(filename[:-5])
+        return ids
     except Exception as exc:
         logging.warning("GCS list %s failed: %s", prefix, exc)
         return None
@@ -144,7 +154,39 @@ def _gcs_list_versions(race_id: str) -> List[Dict[str, Any]]:
     return versions
 
 
-def update_gcs_summaries_json(updates: Dict[str, Optional[Dict[str, Any]]]) -> None:
+def _summary_from_race_data(race_id: str, race_data: Dict[str, Any]) -> Dict[str, Any]:
+    agent_metrics = race_data.get("agent_metrics") or None
+    return {
+        "id": race_data.get("id", race_id),
+        "title": race_data.get("title"),
+        "office": race_data.get("office"),
+        "jurisdiction": race_data.get("jurisdiction"),
+        "state": race_data.get("state"),
+        "election_date": race_data.get("election_date", ""),
+        "updated_utc": race_data.get("updated_utc", ""),
+        "candidates": [
+            {
+                "name": candidate.get("name", ""),
+                "party": candidate.get("party"),
+                "incumbent": candidate.get("incumbent", False),
+                "image_url": candidate.get("image_url"),
+            }
+            for candidate in race_data.get("candidates", [])
+            if isinstance(candidate, dict)
+        ],
+        "agent_metrics": (
+            {
+                "estimated_usd": agent_metrics.get("estimated_usd"),
+                "model": agent_metrics.get("model"),
+                "total_tokens": agent_metrics.get("total_tokens"),
+            }
+            if isinstance(agent_metrics, dict)
+            else None
+        ),
+    }
+
+
+def update_gcs_summaries_json(updates: Dict[str, Optional[Dict[str, Any]]], max_attempts: int = 5) -> None:
     """Update or remove race summaries in the central races/summaries.json index in GCS.
 
     `updates` is a mapping of race_id -> race_data (or None to remove it).
@@ -153,71 +195,48 @@ def update_gcs_summaries_json(updates: Dict[str, Optional[Dict[str, Any]]]) -> N
         return
     client = _get_gcs_admin()
     if client is None:
-        return
+        raise RuntimeError("GCS client is unavailable while updating races/summaries.json")
 
     if not updates:
         return
 
-    try:
-        bucket = client.bucket(_GCS_BUCKET)
+    bucket = client.bucket(_GCS_BUCKET)
+    for attempt in range(max_attempts):
         blob = bucket.blob("races/summaries.json")
+        generation = 0
+        summaries: List[Dict[str, Any]] = []
+        try:
+            blob.reload()
+            generation = int(blob.generation or 0)
+            loaded = json.loads(blob.download_as_text())
+            if isinstance(loaded, list):
+                summaries = [summary for summary in loaded if isinstance(summary, dict)]
+        except NotFound:
+            pass
+        except (json.JSONDecodeError, ValueError) as exc:
+            raise RuntimeError("Existing races/summaries.json is invalid") from exc
 
-        summaries = []
-        if blob.exists():
-            try:
-                summaries = json.loads(blob.download_as_text())
-                if not isinstance(summaries, list):
-                    summaries = []
-            except (json.JSONDecodeError, ValueError):
-                summaries = []
-
-        # Remove existing if any
         races_to_update = set(updates.keys())
         summaries = [s for s in summaries if s.get("id") not in races_to_update]
 
-        # Append updated summary if data provided
         for race_id, race_data in updates.items():
             if race_data is not None:
-                # Recreate exactly what SimplePublishService does
-                agent_metrics = race_data.get("agent_metrics") or None
-                new_summary = {
-                    "id": race_data.get("id", race_id),
-                    "title": race_data.get("title"),
-                    "office": race_data.get("office"),
-                    "jurisdiction": race_data.get("jurisdiction"),
-                    "state": race_data.get("state"),
-                    "election_date": race_data.get("election_date", ""),
-                    "updated_utc": race_data.get("updated_utc", ""),
-                    "candidates": [
-                        {
-                            "name": candidate.get("name", ""),
-                            "party": candidate.get("party"),
-                            "incumbent": candidate.get("incumbent", False),
-                            "image_url": candidate.get("image_url"),
-                        }
-                        for candidate in race_data.get("candidates", [])
-                        if isinstance(candidate, dict)
-                    ],
-                    "agent_metrics": (
-                        {
-                            "estimated_usd": agent_metrics.get("estimated_usd"),
-                            "model": agent_metrics.get("model"),
-                            "total_tokens": agent_metrics.get("total_tokens"),
-                        }
-                        if isinstance(agent_metrics, dict)
-                        else None
-                    ),
-                }
-                summaries.append(new_summary)
+                summaries.append(_summary_from_race_data(race_id, race_data))
 
-        # Sort mostly for predictable outputs
         summaries.sort(key=lambda s: s.get("id", ""))
+        try:
+            blob.upload_from_string(
+                json.dumps(summaries, indent=2),
+                content_type="application/json",
+                if_generation_match=generation,
+            )
+            return
+        except PreconditionFailed:
+            if attempt + 1 == max_attempts:
+                break
+            logging.info("races/summaries.json changed concurrently; retrying")
 
-        # Re-upload
-        blob.upload_from_string(json.dumps(summaries, indent=2), content_type="application/json")
-
-    except Exception as exc:
-        logging.warning("Failed to update races/summaries.json: %s", exc)
+    raise RuntimeError("Failed to update races/summaries.json after concurrent writes")
 
 
 def _assert_publishable_race(data: Dict[str, Any]) -> None:

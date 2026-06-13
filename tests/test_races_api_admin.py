@@ -2122,6 +2122,60 @@ def test_gcs_publish_helper_rejects_failed_validation_grade():
     mock_delete.assert_not_called()
 
 
+def test_summary_index_retries_concurrent_write():
+    from google.api_core.exceptions import PreconditionFailed
+
+    first_blob = MagicMock()
+    first_blob.generation = 7
+    first_blob.download_as_text.return_value = "[]"
+    first_blob.upload_from_string.side_effect = PreconditionFailed("changed")
+
+    second_blob = MagicMock()
+    second_blob.generation = 8
+    second_blob.download_as_text.return_value = "[]"
+
+    bucket = MagicMock()
+    bucket.blob.side_effect = [first_blob, second_blob]
+    client = MagicMock()
+    client.bucket.return_value = bucket
+
+    with (
+        patch.object(gcs_helpers, "_GCS_BUCKET", "test-bucket"),
+        patch("gcs_helpers._get_gcs_admin", return_value=client),
+    ):
+        gcs_helpers.update_gcs_summaries_json({"az-senate-2026": {"id": "az-senate-2026", "candidates": []}})
+
+    first_blob.upload_from_string.assert_called_once()
+    second_blob.upload_from_string.assert_called_once()
+    assert second_blob.upload_from_string.call_args.kwargs["if_generation_match"] == 8
+
+
+def test_gcs_race_id_listing_ignores_summaries_index():
+    race_blob = MagicMock()
+    race_blob.name = "races/az-senate-2026.json"
+    index_blob = MagicMock()
+    index_blob.name = "races/summaries.json"
+    bucket = MagicMock()
+    bucket.list_blobs.return_value = [race_blob, index_blob]
+    client = MagicMock()
+    client.bucket.return_value = bucket
+
+    with (
+        patch.object(gcs_helpers, "_GCS_BUCKET", "test-bucket"),
+        patch("gcs_helpers._get_gcs_admin", return_value=client),
+    ):
+        assert gcs_helpers._gcs_list_race_ids("races") == ["az-senate-2026"]
+
+
+def test_summary_index_raises_when_gcs_client_is_unavailable():
+    with (
+        patch.object(gcs_helpers, "_GCS_BUCKET", "test-bucket"),
+        patch("gcs_helpers._get_gcs_admin", return_value=None),
+        pytest.raises(RuntimeError, match="GCS client is unavailable"),
+    ):
+        gcs_helpers.update_gcs_summaries_json({"az-senate-2026": None})
+
+
 def test_batch_publish_skips_failed_validation_grade():
     """Batch publish should publish good drafts and report failed-review drafts as errors."""
     os.environ["SKIP_AUTH"] = "true"

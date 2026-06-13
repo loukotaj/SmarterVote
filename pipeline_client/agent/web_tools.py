@@ -512,14 +512,28 @@ async def _try_sitemap_policy_fallback(url: str, client: httpx.AsyncClient, fail
         except Exception as exc:
             failure_reasons.append(f"sitemap({sitemap_url}): {exc}")
 
+    # If sitemap parsing yielded no links, crawl the homepage directly for links
+    if len(discovered_pages) == 1:
+        try:
+            resp = await _get_validated(client, homepage_url, headers=headers)
+            resp.raise_for_status()
+            homepage_links = _extract_links_from_html(resp.text, homepage_url)
+            for page_url in homepage_links:
+                if page_url not in discovered_pages:
+                    discovered_pages.append(page_url)
+            failure_reasons.append(f"sitemap empty/failed; crawled homepage and found {len(homepage_links)} links")
+        except Exception as exc:
+            failure_reasons.append(f"homepage-crawl fallback: {exc}")
+
     if not discovered_pages:
         return None
 
     def _priority(page_url: str) -> tuple[int, int]:
-        lowered = page_url.lower()
-        if any(token in lowered for token in _NON_POLICY_PATH_TOKENS):
+        parsed_url = urlparse(page_url)
+        path = parsed_url.path.lower()
+        if any(token in path for token in _NON_POLICY_PATH_TOKENS):
             return (1000, len(page_url))
-        token_score = sum(1 for token in _POLICY_PATH_TOKENS if token in lowered)
+        token_score = sum(1 for token in _POLICY_PATH_TOKENS if token in path)
         return (-token_score, len(page_url))
 
     ranked_candidates = sorted(discovered_pages, key=_priority)
@@ -693,3 +707,94 @@ async def _serper_search(query: str, *, num_results: int = 8, race_id: Optional[
         cache.set(normalized_query, results, race_id=race_id, provider="serper")
 
     return results
+
+
+def _extract_links_from_html(html: str, base_url: str) -> List[str]:
+    """Find all links on a page, resolve relative URLs, and filter to the same domain."""
+    parsed_base = urlparse(base_url)
+    base_host = parsed_base.netloc.lower()
+
+    # Simple regex to extract href attributes from anchor tags
+    raw_hrefs = re.findall(r'<a\s+(?:[^>]*?\s+)?href=["\'](.*?)["\']', html, re.IGNORECASE)
+
+    resolved: List[str] = []
+    seen = set()
+    for href in raw_hrefs:
+        href = href.strip()
+        if not href or href.startswith(("#", "javascript:", "mailto:", "tel:")):
+            continue
+        try:
+            absolute_url = urljoin(base_url, href)
+            parsed = urlparse(absolute_url)
+            # Only keep http/https links on the same host
+            if parsed.scheme in ("http", "https") and parsed.netloc.lower() == base_host:
+                # Remove fragment and trailing slash
+                clean_url = absolute_url.split("#")[0].rstrip("/")
+                if clean_url not in seen:
+                    resolved.append(clean_url)
+                    seen.add(clean_url)
+        except Exception:
+            continue
+    return resolved
+
+
+async def get_homepage_policy_links(homepage_url: str) -> List[str]:
+    """Fetch homepage, extract links, and filter to policy-relevant ones.
+
+    Used to discover real platform/issue paths instead of blindly guessing them.
+    """
+    try:
+        _validate_url(homepage_url)
+    except ValueError as exc:
+        logger.warning("Blocked homepage links fetch of disallowed URL %s: %s", homepage_url, exc)
+        return []
+
+    client = _get_fetch_client()
+    headers = {
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.9",
+    }
+
+    html_content = ""
+    try:
+        # Try direct fetch first
+        resp = await _get_validated(client, homepage_url, headers=headers)
+        resp.raise_for_status()
+        html_content = resp.text
+    except Exception as exc:
+        # Fallback to Jina Reader proxy
+        proxy_url = f"https://r.jina.ai/{homepage_url}"
+        try:
+            proxy_resp = await _get_validated(client, proxy_url)
+            proxy_resp.raise_for_status()
+            # If jina returns markdown, extract links using markdown regex [text](url)
+            markdown = proxy_resp.text or ""
+            raw_links = re.findall(r"\[.*?\]\((https?://[^\s\)]+)\)", markdown)
+            parsed_base = urlparse(homepage_url)
+            base_host = parsed_base.netloc.lower()
+            seen = set()
+            resolved = []
+            for u in raw_links:
+                u = u.strip()
+                try:
+                    parsed = urlparse(u)
+                    if parsed.netloc.lower() == base_host:
+                        clean_url = u.split("#")[0].rstrip("/")
+                        if clean_url not in seen:
+                            resolved.append(clean_url)
+                            seen.add(clean_url)
+                except Exception:
+                    continue
+            # Filter to policy links
+            policy_links = [u for u in resolved if any(tok in u.lower() for tok in _POLICY_URL_PATH_TOKENS)]
+            return policy_links
+        except Exception as proxy_exc:
+            logger.debug("Homepage links Jina recovery failed: %s", proxy_exc)
+            return []
+
+    if not html_content:
+        return []
+
+    all_links = _extract_links_from_html(html_content, homepage_url)
+    policy_links = [u for u in all_links if any(tok in u.lower() for tok in _POLICY_URL_PATH_TOKENS)]
+    return policy_links

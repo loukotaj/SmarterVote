@@ -356,6 +356,12 @@ Reserve "error" severity for cases of clear, egregious bias, fabricated
 placeholders (e.g. '[INSERT CANDIDATE NAME]'), or broken formatting — not
 factual disagreements with your training data.
 
+## Contrastive Side-by-Side Tone & Bias Analysis
+You are reviewing the entire race containing multiple candidates. You must check for relative tone balance and asymmetric framing between opposing candidates:
+- Check if the profile summarizes one candidate's position using highly positive/active verbs (e.g. "principledly opposes", "advocates for safety") while summarizing their opponent's stance using loaded, passive, or critical terms (e.g. "demands", "refuses to support").
+- Ensure the terminology remains neutral and consistent. If one candidate's stance uses their own framing (e.g. "pro-choice"), ensure the opponent's stance is described with similarly neutral terminology rather than their opponent's critical terms.
+- Raise a "warning" flag for any asymmetric framing you discover, specifying the fields of both candidates for contrast.
+
 ## Generator / model names — DO NOT FLAG
 The "generator" field lists the actual AI model identifiers used by this
 pipeline. These are internal model names from the providers' APIs and are
@@ -381,6 +387,7 @@ Check for:
      "far-left", "woke", "anti-choice", "anti-gun").
    - Asymmetric framing — describing the same type of behavior more favorably for one
      candidate than another (e.g. "proposes" vs. "demands", "emphasizes" vs. "insists").
+   - Relative bias — compare opposing candidates side-by-side. Check if one candidate's platform is presented in a much more favorable, active, or detailed manner than the other's, or if loaded phrases are asymmetrically applied.
    - Loaded terminology that carries a partisan connotation (e.g. "pro-abortion" vs.
      "pro-choice", "illegal immigrant" vs. "undocumented immigrant" — flag if a
      candidate's stance is summarized using their opponent's preferred framing).

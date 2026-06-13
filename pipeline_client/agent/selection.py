@@ -88,7 +88,7 @@ def _select_target_candidates(
     return selected
 
 
-def _candidate_source_hints(
+async def _candidate_source_hints(
     race_json: Dict[str, Any],
     candidate_name: str,
 ) -> tuple[str, List[str]]:
@@ -108,17 +108,24 @@ def _candidate_source_hints(
     hints: List[str] = []
 
     if isinstance(website, str) and website.startswith("http"):
-        base = website.rstrip("/")
-        hints.extend(
-            [
-                f"{base}/issues",
-                f"{base}/issue",
-                f"{base}/policy",
-                f"{base}/policies",
-                f"{base}/priorities",
-                f"{base}/platform",
-            ]
-        )
+        # Crawl actual homepage links as primary source hints instead of blind guesses
+        from .web_tools import get_homepage_policy_links
+
+        crawled_links = await get_homepage_policy_links(website)
+        hints.extend(crawled_links)
+        # Fall back to standard guesses if crawl returned nothing (maintains backwards compatibility)
+        if not crawled_links:
+            base = website.rstrip("/")
+            hints.extend(
+                [
+                    f"{base}/issues",
+                    f"{base}/issue",
+                    f"{base}/policy",
+                    f"{base}/policies",
+                    f"{base}/priorities",
+                    f"{base}/platform",
+                ]
+            )
 
     for link in candidate.get("links", []):
         if not isinstance(link, dict):

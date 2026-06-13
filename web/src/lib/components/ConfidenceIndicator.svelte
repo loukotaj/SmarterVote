@@ -1,46 +1,41 @@
 <script lang="ts">
   import type { ConfidenceLevel } from "$lib/types";
-
   export let confidence: ConfidenceLevel;
 
-  $: iconClass = getConfidenceClass(confidence);
-  $: iconSymbol = getConfidenceSymbol(confidence);
-
-  function getConfidenceClass(level: ConfidenceLevel): string {
-    switch (level) {
-      case "high":
-        return "text-green-600";
-      case "medium":
-        return "text-yellow-600";
-      case "low":
-        return "text-red-600";
-      case "unknown":
-        return "text-gray-400";
-      default:
-        return "text-gray-400";
+  const themes: Record<ConfidenceLevel, { bg: string; border: string; text: string; dot: string }> = {
+    high: {
+      bg: "bg-emerald-50/70 dark:bg-emerald-950/20",
+      border: "border-emerald-200/60 dark:border-emerald-800/40",
+      text: "text-emerald-700 dark:text-emerald-400",
+      dot: "bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)]"
+    },
+    medium: {
+      bg: "bg-amber-50/70 dark:bg-amber-950/20",
+      border: "border-amber-200/60 dark:border-amber-800/40",
+      text: "text-amber-700 dark:text-amber-400",
+      dot: "bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.6)]"
+    },
+    low: {
+      bg: "bg-rose-50/70 dark:bg-rose-950/20",
+      border: "border-rose-200/60 dark:border-rose-800/40",
+      text: "text-rose-700 dark:text-rose-400",
+      dot: "bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.6)]"
+    },
+    unknown: {
+      bg: "bg-gray-50/70 dark:bg-gray-800/20",
+      border: "border-gray-200/60 dark:border-gray-700/40",
+      text: "text-gray-500 dark:text-gray-400",
+      dot: "bg-gray-400"
     }
-  }
+  };
 
-  function getConfidenceSymbol(level: ConfidenceLevel): string {
-    switch (level) {
-      case "high":
-        return "●";
-      case "medium":
-        return "◐";
-      case "low":
-        return "○";
-      case "unknown":
-        return "?";
-      default:
-        return "?";
-    }
-  }
+  $: style = themes[confidence] ?? themes.unknown;
 </script>
 
 <span
-  class="inline-flex items-center gap-1 text-xs sm:text-sm font-medium {iconClass}"
+  class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-xs font-semibold select-none transition-all duration-300 {style.bg} {style.border} {style.text}"
   title="Confidence: {confidence}"
 >
-  <span class="text-base sm:text-lg leading-none">{iconSymbol}</span>
+  <span class="w-1.5 h-1.5 rounded-full {style.dot} transition-all duration-300" />
   <span class="capitalize">{confidence}</span>
 </span>

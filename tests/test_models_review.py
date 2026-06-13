@@ -157,3 +157,61 @@ async def test_run_single_review_handles_failure():
         result = await _run_single_review("test-2024", '{"id": "test"}', provider="claude")
 
     assert result is None
+
+
+@pytest.mark.asyncio
+async def test_check_profile_links():
+    """check_profile_links programmatically detects dead and active URLs."""
+    import httpx
+
+    from pipeline_client.agent.review import check_profile_links
+
+    # Mock the http responses for our URL checking
+    mock_responses = {
+        "https://example.com/active1": 200,
+        "https://example.com/active2": 200,
+        "https://example.com/dead": 404,
+    }
+
+    async def mock_head(url, *args, **kwargs):
+        status = mock_responses.get(url, 404)
+        return httpx.Response(status, request=httpx.Request("HEAD", url))
+
+    race_data = {
+        "id": "mo-senate-2026",
+        "candidates": [
+            {
+                "name": "Candidate A",
+                "summary_sources": [
+                    {"url": "https://example.com/active1", "type": "website", "last_accessed": "2026-06-12T00:00:00Z"}
+                ],
+                "issues": {
+                    "Healthcare": {
+                        "stance": "Supports X",
+                        "confidence": "high",
+                        "sources": [
+                            {"url": "https://example.com/active2", "type": "website", "last_accessed": "2026-06-12T00:00:00Z"},
+                            {"url": "https://example.com/dead", "type": "news", "last_accessed": "2026-06-12T00:00:00Z"},
+                        ],
+                    }
+                },
+            }
+        ],
+    }
+
+    # Patch AsyncClient methods to mock real HTTP calls
+    with patch("httpx.AsyncClient.head", side_effect=mock_head), patch("httpx.AsyncClient.get", side_effect=mock_head):
+        review_result = await check_profile_links(race_data)
+
+    assert review_result["model"] == "automated-link-validator"
+    assert review_result["verdict"] == "flagged"
+    assert len(review_result["flags"]) == 1
+    assert "https://example.com/dead" in review_result["flags"][0]["concern"]
+    assert review_result["flags"][0]["field"] == "candidates[0].issues.Healthcare.sources[1].url"
+
+
+@pytest.mark.asyncio
+async def test_check_profile_links_skips_profiles_without_sources():
+    from pipeline_client.agent.review import check_profile_links
+
+    assert await check_profile_links({"candidates": []}) is None

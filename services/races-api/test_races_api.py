@@ -12,10 +12,13 @@ import json
 import os
 import sys
 import tempfile
+import threading
 from typing import Any
+from unittest.mock import MagicMock
 
 import pytest
 from fastapi.testclient import TestClient
+from simple_publish_service import SimplePublishService
 
 # Add project root for shared imports
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
@@ -143,6 +146,33 @@ def test_list_races_empty(monkeypatch):
         resp = test_client.get("/races")
         assert resp.status_code == 200
         assert resp.json() == []
+
+
+def test_cloud_listing_ignores_static_summaries_index(tmp_path):
+    service = SimplePublishService.__new__(SimplePublishService)
+    service.data_directory = tmp_path
+    service.gcs_bucket_name = "test-bucket"
+    service.cloud_configured = True
+    service.cache_ttl = 0
+    service._race_list_cache = None
+    service._race_data_cache = {}
+    service._race_summaries_cache = None
+    service._cache_lock = threading.Lock()
+
+    race_blob = MagicMock()
+    race_blob.name = "races/ga-senate-2026.json"
+    race_blob.download_as_text.return_value = json.dumps({"id": "ga-senate-2026", "candidates": []})
+    index_blob = MagicMock()
+    index_blob.name = "races/summaries.json"
+    index_blob.download_as_text.return_value = json.dumps([{"id": "ga-senate-2026"}])
+
+    bucket = MagicMock()
+    bucket.list_blobs.return_value = [race_blob, index_blob]
+    service.gcs_client = MagicMock()
+    service.gcs_client.bucket.return_value = bucket
+
+    assert service.get_published_races() == ["ga-senate-2026"]
+    assert [summary["id"] for summary in service.get_race_summaries()] == ["ga-senate-2026"]
 
 
 def test_rate_limit_exceeded(client):

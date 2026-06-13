@@ -59,6 +59,22 @@
     }
   });
 
+  let selectedCandidates: Set<string> = new Set();
+
+  function toggleCandidateSelect(candidateName: string) {
+    const s = candidateSlug(candidateName);
+    if (selectedCandidates.has(s)) {
+      selectedCandidates.delete(s);
+    } else {
+      selectedCandidates.add(s);
+    }
+    selectedCandidates = new Set(selectedCandidates);
+  }
+
+  function clearSelection() {
+    selectedCandidates = new Set();
+  }
+
   $: activeCandidates = race?.candidates?.filter(c => !c.withdrawn) ?? [];
   $: withdrawnCandidates = race?.candidates?.filter(c => c.withdrawn) ?? [];
   $: candidateCount = activeCandidates.length;
@@ -280,7 +296,14 @@
       <h2 class="candidates-title">Candidates</h2>
       <div class="candidate-grid">
         {#each activeCandidates as candidate}
-          <CandidateCard {candidate} raceId={race.id} draft={isDraftPreview} />
+          <CandidateCard
+            {candidate}
+            raceId={race.id}
+            draft={isDraftPreview}
+            selectable={activeCandidates.length > 1}
+            selected={selectedCandidates.has(candidateSlug(candidate.name))}
+            on:toggleSelect={() => toggleCandidateSelect(candidate.name)}
+          />
         {/each}
       </div>
     </section>
@@ -399,6 +422,29 @@
         Back to Top
       </button>
     </div>
+
+    <!-- Compare sticky drawer -->
+    {#if selectedCandidates.size > 0}
+      <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 bg-surface/95 backdrop-blur-md border border-stroke py-4 px-6 shadow-2xl rounded-2xl flex items-center justify-between gap-6 max-w-md w-[calc(100%-2rem)] transition-all duration-300">
+        <div class="flex items-center gap-3">
+          <span class="inline-flex items-center justify-center bg-blue-600 text-white font-bold rounded-full w-6 h-6 text-xs">{selectedCandidates.size}</span>
+          <span class="text-sm font-semibold text-content">Selected to compare</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <button on:click={clearSelection} class="text-xs text-content-muted hover:text-content font-medium transition-colors">Clear</button>
+          {#if selectedCandidates.size >= 2}
+            <a
+              href="/races/{race.id}/compare?candidates={[...selectedCandidates].join(',')}{isDraftPreview ? '&draft=true' : ''}"
+              class="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition-colors no-underline shadow-sm"
+            >
+              Compare Now &rarr;
+            </a>
+          {:else}
+            <span class="text-xs text-content-subtle">Select one more</span>
+          {/if}
+        </div>
+      </div>
+    {/if}
   {/if}
 </div>
 

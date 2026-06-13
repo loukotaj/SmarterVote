@@ -386,7 +386,7 @@ async def _run_issue_research_for_candidate(
     handlers = _make_editing_handlers(race_json, log)
     cache = _get_search_cache()
     cached_info = cache.list_cached_for_race(race_id) if cache else None
-    candidate_website, candidate_issue_urls = _candidate_source_hints(race_json, candidate_name)
+    candidate_website, candidate_issue_urls = await _candidate_source_hints(race_json, candidate_name)
     issue_hint_text = ", ".join(candidate_issue_urls) if candidate_issue_urls else "(none found)"
 
     handoffs: List[Dict[str, Any]] = []
@@ -696,7 +696,7 @@ async def _run_shared_phases(
         log("info", f"{prefix} 3: Refining profile (one candidate at a time, tools mode)...")
         for ci, candidate in enumerate(cand_list):
             cname = candidate["name"]
-            candidate_website, candidate_issue_urls = _candidate_source_hints(race_json, cname)
+            candidate_website, candidate_issue_urls = await _candidate_source_hints(race_json, cname)
             issue_hint_text = ", ".join(candidate_issue_urls) if candidate_issue_urls else "(none found)"
             log("info", f"  Refining {cname}...")
             track(
@@ -1090,7 +1090,7 @@ async def _run_iteration_pass(
         if not isinstance(candidate, dict) or not _candidate_name(candidate):
             continue
         cname = _candidate_name(candidate)
-        candidate_website, candidate_issue_urls = _candidate_source_hints(working, cname)
+        candidate_website, candidate_issue_urls = await _candidate_source_hints(working, cname)
         issue_hint_text = ", ".join(candidate_issue_urls) if candidate_issue_urls else "(none found)"
         log("info", f"  Iterating on {cname}...")
         try:

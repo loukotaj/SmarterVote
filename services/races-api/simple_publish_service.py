@@ -18,6 +18,11 @@ logger = logging.getLogger(__name__)
 
 # Default TTL for in-memory GCS response cache. Set CACHE_TTL_SECONDS=0 to disable.
 _DEFAULT_CACHE_TTL = 300
+_SUMMARIES_BLOB = "races/summaries.json"
+
+
+def _is_published_race_blob(blob_name: str) -> bool:
+    return blob_name.startswith("races/") and blob_name.endswith(".json") and blob_name != _SUMMARIES_BLOB
 
 
 class SimplePublishService:
@@ -213,7 +218,7 @@ class SimplePublishService:
                 bucket = client.bucket(self.gcs_bucket_name)
                 for blob in bucket.list_blobs(prefix="races/"):
                     logger.debug("  GCS blob: %s", blob.name)
-                    if blob.name.endswith(".json"):
+                    if _is_published_race_blob(blob.name):
                         race_ids.add(blob.name[len("races/") : -len(".json")])
                 logger.info("Listed %d races from GCS: %s", len(race_ids), sorted(race_ids))
                 result = sorted(race_ids)
@@ -250,7 +255,7 @@ class SimplePublishService:
             try:
                 bucket = client.bucket(self.gcs_bucket_name)
                 for blob in bucket.list_blobs(prefix="races/"):
-                    if not blob.name.endswith(".json"):
+                    if not _is_published_race_blob(blob.name):
                         continue
                     try:
                         race_data = json.loads(blob.download_as_text())

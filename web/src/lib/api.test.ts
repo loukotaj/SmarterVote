@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, it, expect, vi } from "vitest";
-import { getRace } from "./api";
+import { getRace, getRaceSummaries } from "./api";
 import { sampleRaces } from "./sampleData";
 
 describe("API Fallback Functionality", () => {
@@ -8,6 +8,7 @@ describe("API Fallback Functionality", () => {
   });
 
   afterEach(() => {
+    vi.unstubAllEnvs();
     vi.restoreAllMocks();
   });
 
@@ -38,6 +39,48 @@ describe("API Fallback Functionality", () => {
     expect(result.id).toBe("mo-senate-2024");
     expect(result.title).toBe("Missouri U.S. Senate Race 2024");
     expect(result.jurisdiction).toBe("Missouri");
+  });
+
+  it("falls back to the API when static race data is unavailable", async () => {
+    vi.stubEnv("VITE_PUBLIC_DATA_URL", "https://static.example/races");
+    const mockFetch = vi
+      .fn()
+      .mockResolvedValueOnce({ ok: false, status: 403 })
+      .mockResolvedValueOnce({
+        ok: true,
+        json: () => Promise.resolve({ id: "test-race", candidates: [] }),
+      });
+
+    const result = await getRace("test-race", mockFetch, false);
+
+    expect(result.id).toBe("test-race");
+    expect(mockFetch).toHaveBeenNthCalledWith(
+      1,
+      "https://static.example/races/test-race.json"
+    );
+    expect(mockFetch).toHaveBeenNthCalledWith(
+      2,
+      "http://localhost:8080/races/test-race"
+    );
+  });
+
+  it("falls back to API summaries when the static index is missing", async () => {
+    vi.stubEnv("VITE_PUBLIC_DATA_URL", "https://static.example/races");
+    const mockFetch = vi
+      .fn()
+      .mockRejectedValueOnce(new Error("static unavailable"))
+      .mockResolvedValueOnce({
+        ok: true,
+        json: () => Promise.resolve([{ id: "test-race", candidates: [] }]),
+      });
+
+    const result = await getRaceSummaries(mockFetch, false);
+
+    expect(result).toHaveLength(1);
+    expect(mockFetch).toHaveBeenNthCalledWith(
+      2,
+      "http://localhost:8080/races/summaries"
+    );
   });
 
   it("should fallback to generic sample data for unknown race IDs", async () => {

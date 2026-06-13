@@ -4,6 +4,8 @@
   import { getRaceSummaries } from "$lib/api";
   import USMap from "$lib/components/USMap.svelte";
   import RaceCard from "$lib/components/RaceCard.svelte";
+  import { page } from "$app/stores";
+  import { goto } from "$app/navigation";
 
   let races: RaceSummary[] = [];
   let loading = true;
@@ -18,18 +20,115 @@
   let selectedOffice: string | null = null;
   let searchQuery = "";
 
+  // Sync searchQuery with URL query parameter q reactively.
+  // Use lastPageQ to avoid a reactive loop: typing updates searchQuery which
+  // would re-trigger this block and reset the value before goto() completes.
+  let lastPageQ = "";
+  $: {
+    const q = $page.url.searchParams.get("q") || "";
+    if (q !== lastPageQ) {
+      lastPageQ = q;
+      searchQuery = q;
+    }
+  }
+
+  function handleHeroSearchInput() {
+    const q = searchQuery.trim();
+    lastPageQ = q;
+    const params = new URLSearchParams($page.url.searchParams);
+    if (q) {
+      params.set("q", q);
+    } else {
+      params.delete("q");
+    }
+    goto(`/?${params.toString()}`, { replaceState: true, keepFocus: true, noScroll: true });
+  }
+
+  function clearHeroSearch() {
+    searchQuery = "";
+    lastPageQ = "";
+    const params = new URLSearchParams($page.url.searchParams);
+    params.delete("q");
+    goto(`/?${params.toString()}`, { replaceState: true, keepFocus: true, noScroll: true });
+  }
+
   // States that have races — prefer explicit `state` field, fall back to `jurisdiction` for
   // older records where jurisdiction is already a plain state name.
-  $: activeStates = new Set(races.map((r) => r.state ?? r.jurisdiction).filter(Boolean) as string[]);
+  // Dynamically filtered by search query and office filters so the map highlights update.
+  $: activeStates = new Set(
+    races
+      .filter((race) => {
+        if (selectedOffice && officeShort(race.office) !== selectedOffice) return false;
+        if (searchQuery.trim()) {
+          const q = searchQuery.toLowerCase();
+          return (
+            race.title?.toLowerCase().includes(q) ||
+            race.office?.toLowerCase().includes(q) ||
+            race.jurisdiction?.toLowerCase().includes(q) ||
+            race.candidates.some(
+              (c) => c.name.toLowerCase().includes(q) || c.party?.toLowerCase().includes(q)
+            )
+          );
+        }
+        return true;
+      })
+      .map((r) => r.state ?? r.jurisdiction)
+      .filter(Boolean) as string[]
+  );
 
-  // race counts per state for tooltip
-  $: raceCounts = races.reduce<Record<string, number>>((acc, r) => {
-    const stateKey = r.state ?? r.jurisdiction;
-    if (stateKey) acc[stateKey] = (acc[stateKey] ?? 0) + 1;
-    return acc;
-  }, {});
+  // Compute matching candidates per state to show in map tooltips
+  $: matchingCandidatesByState = (() => {
+    const map: Record<string, string[]> = {};
+    if (!searchQuery.trim()) return map;
+    const q = searchQuery.toLowerCase();
 
-  // unique short office names for filter chips
+    races.forEach((race) => {
+      const stateKey = race.state ?? race.jurisdiction;
+      if (!stateKey) return;
+
+      const matchedNames: string[] = [];
+      race.candidates.forEach((c) => {
+        if (c.name.toLowerCase().includes(q)) {
+          matchedNames.push(c.name);
+        }
+      });
+
+      if (matchedNames.length > 0) {
+        if (!map[stateKey]) map[stateKey] = [];
+        matchedNames.forEach(name => {
+          if (!map[stateKey].includes(name)) {
+            map[stateKey].push(name);
+          }
+        });
+      }
+    });
+    return map;
+  })();
+
+  // Compute filtered race counts for active states to show in tooltips
+  $: filteredRaceCounts = races
+    .filter((race) => {
+      if (selectedOffice && officeShort(race.office) !== selectedOffice) return false;
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase();
+        return (
+          race.title?.toLowerCase().includes(q) ||
+          race.office?.toLowerCase().includes(q) ||
+          race.jurisdiction?.toLowerCase().includes(q) ||
+          race.candidates.some(
+            (c) => c.name.toLowerCase().includes(q) || c.party?.toLowerCase().includes(q)
+          )
+        );
+      }
+      return true;
+    })
+    .reduce<Record<string, number>>((acc, r) => {
+      const stateKey = r.state ?? r.jurisdiction;
+      if (stateKey) acc[stateKey] = (acc[stateKey] ?? 0) + 1;
+      return acc;
+    }, {});
+
+  // unique short office names for filter chips - raising the bar
   function officeShort(office: string | undefined): string {
     if (!office) return "Other";
     const o = office.toLowerCase();
@@ -38,10 +137,17 @@
     if (o.includes("house") || o.includes("representative")) return "House";
     if (o.includes("secretary")) return "Sec. of State";
     if (o.includes("attorney")) return "Atty. General";
-    return office.length > 18 ? office.slice(0, 18) + "\u2026" : office;
+    return "Other";
   }
 
-  $: officeTypes = [...new Set(races.map((r) => officeShort(r.office)))].sort();
+  $: officeTypes = (() => {
+    const mapped = races.map((r) => officeShort(r.office));
+    const types = [...new Set(mapped)].filter((x) => x !== "Other").sort();
+    if (mapped.includes("Other")) {
+      types.push("Other");
+    }
+    return types;
+  })();
 
   // stats
   $: totalCandidates = races.reduce((sum, r) => sum + r.candidates.length, 0);
@@ -77,6 +183,10 @@
     selectedState = null;
     selectedOffice = null;
     searchQuery = "";
+
+    const params = new URLSearchParams($page.url.searchParams);
+    params.delete("q");
+    goto(`/?${params.toString()}`, { replaceState: true, keepFocus: true, noScroll: true });
   }
 </script>
 
@@ -99,20 +209,47 @@
   </div>
 
   <!-- Hero -->
-  <header class="text-center mb-8 sm:mb-10">
+  <header class="text-center mb-8 sm:mb-10 flex flex-col items-center">
     <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-content tracking-tight mb-3">
       Know your candidates.
     </h1>
-    <p class="text-lg sm:text-xl text-content-muted max-w-xl mx-auto mb-5">
+    <p class="text-lg sm:text-xl text-content-muted max-w-xl mx-auto mb-6">
       Clear, unbiased analysis of where they stand.
     </p>
+
+    <!-- Hero Search Bar -->
+    <div class="relative w-full max-w-lg shadow-sm hover:shadow-md transition-shadow duration-300 rounded-full">
+      <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+        <svg class="h-5 w-5 text-content-subtle" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </div>
+      <input
+        type="text"
+        bind:value={searchQuery}
+        on:input={handleHeroSearchInput}
+        placeholder="Search by candidate name, office, or state..."
+        class="block w-full pl-11 pr-10 py-3 border border-stroke rounded-full text-base bg-surface placeholder-content-subtle focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-content transition-all duration-300"
+      />
+      {#if searchQuery.trim()}
+        <button
+          on:click={clearHeroSearch}
+          class="absolute inset-y-0 right-0 pr-4 flex items-center text-content-subtle hover:text-content transition-colors"
+          aria-label="Clear search query"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      {/if}
+    </div>
   </header>
 
   <!-- Map section -->
   <section class="bg-surface border border-stroke rounded-2xl shadow-sm p-4 sm:p-6 mb-6">
     <div class="flex items-center justify-between mb-3">
       <h2 class="text-base font-semibold text-content">
-        {selectedState ? `${selectedState} · ${raceCounts[selectedState] ?? 0} race${(raceCounts[selectedState] ?? 0) !== 1 ? 's' : ''}` : 'Select a state'}
+        {selectedState ? `${selectedState} · ${filteredRaceCounts[selectedState] ?? 0} race${(filteredRaceCounts[selectedState] ?? 0) !== 1 ? 's' : ''}` : 'Select a state'}
       </h2>
       {#if selectedState}
         <button
@@ -137,7 +274,8 @@
       <USMap
         {activeStates}
         {selectedState}
-        {raceCounts}
+        raceCounts={filteredRaceCounts}
+        {matchingCandidatesByState}
         on:stateClick={handleStateClick}
       />
     {/if}
@@ -170,24 +308,6 @@
         {office}
       </button>
     {/each}
-
-    <!-- Spacer -->
-    <div class="flex-1 min-w-[8rem]" />
-
-    <!-- Search -->
-    <div class="relative">
-      <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-        <svg class="h-4 w-4 text-content-faint" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-        </svg>
-      </div>
-      <input
-        type="text"
-        bind:value={searchQuery}
-        placeholder="Search candidates, races..."
-        class="block w-full sm:w-64 pl-9 pr-3 py-1.5 border border-stroke rounded-full text-sm bg-surface placeholder-content-subtle focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-content"
-      />
-    </div>
   </div>
 
   <!-- Results grid -->

@@ -112,14 +112,21 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: Validate required secrets
+      env:
+        REQUIRED_GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+        REQUIRED_GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+        REQUIRED_OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        REQUIRED_SERPER_API_KEY: ${{ secrets.SERPER_API_KEY }}
+        REQUIRED_AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN }}
+        REQUIRED_AUTH0_AUDIENCE: ${{ secrets.AUTH0_AUDIENCE }}
       run: |
         MISSING=()
-        [ -z "${{ secrets.GCP_PROJECT_ID }}" ]    && MISSING+=("GCP_PROJECT_ID")
-        [ -z "${{ secrets.GCP_SA_KEY }}" ]         && MISSING+=("GCP_SA_KEY")
-        [ -z "${{ secrets.OPENROUTER_API_KEY }}" ] && MISSING+=("OPENROUTER_API_KEY")
-        [ -z "${{ secrets.SERPER_API_KEY }}" ]     && MISSING+=("SERPER_API_KEY")
-        [ -z "${{ secrets.AUTH0_DOMAIN }}" ]        && MISSING+=("AUTH0_DOMAIN")
-        [ -z "${{ secrets.AUTH0_AUDIENCE }}" ]      && MISSING+=("AUTH0_AUDIENCE")
+        [ -z "$REQUIRED_GCP_PROJECT_ID" ]    && MISSING+=("GCP_PROJECT_ID")
+        [ -z "$REQUIRED_GCP_SA_KEY" ]        && MISSING+=("GCP_SA_KEY")
+        [ -z "$REQUIRED_OPENROUTER_API_KEY" ] && MISSING+=("OPENROUTER_API_KEY")
+        [ -z "$REQUIRED_SERPER_API_KEY" ]    && MISSING+=("SERPER_API_KEY")
+        [ -z "$REQUIRED_AUTH0_DOMAIN" ]      && MISSING+=("AUTH0_DOMAIN")
+        [ -z "$REQUIRED_AUTH0_AUDIENCE" ]    && MISSING+=("AUTH0_AUDIENCE")
 
         if [ ${#MISSING[@]} -ne 0 ]; then
           echo "::error::Required GitHub secrets are missing: ${MISSING[*]}"
@@ -284,6 +291,29 @@ jobs:
         terraform init -reconfigure
         terraform plan -out=rollback-plan
         terraform apply -auto-approve rollback-plan
+
+    - name: Bootstrap static race summaries
+      if: env.ACTION == 'apply' && github.ref == 'refs/heads/main'
+      run: |
+        cd infra
+        API_URL=$(terraform output -raw races_api_url)
+        BUCKET=$(terraform output -raw bucket_name)
+        for attempt in {1..12}; do
+          if curl --fail --silent --show-error "$API_URL/races/summaries" -o /tmp/race-summaries.json; then
+            python - <<'PY'
+        import json
+        with open("/tmp/race-summaries.json", encoding="utf-8") as source:
+            summaries = json.load(source)
+        if not isinstance(summaries, list):
+            raise SystemExit("Race summaries response was not a JSON list")
+        PY
+            gcloud storage cp /tmp/race-summaries.json "gs://$BUCKET/races/summaries.json"
+            exit 0
+          fi
+          sleep 10
+        done
+        echo "::error::Unable to bootstrap races/summaries.json from $API_URL"
+        exit 1
 
     - name: Upload State Backup
       if: always()

@@ -7,6 +7,7 @@
   export let activeStates: Set<string> = new Set();
   export let selectedState: string | null = null;
   export let raceCounts: Record<string, number> = {};
+  export let matchingCandidatesByState: Record<string, string[]> = {};
 
   const dispatch = createEventDispatcher<{ stateClick: string }>();
 
@@ -34,7 +35,8 @@
   }
 
   let stateFeatures: StateFeature[] = [];
-  let hoveredState: string | null = null;
+  let hoveredStateName: string | null = null;
+  let hoveredStateCount = 0;
   let tooltipX = 0;
   let tooltipY = 0;
   let loaded = false;
@@ -71,9 +73,8 @@
   }
 
   function handleMouseEnter(e: MouseEvent, name: string, count: number) {
-    hoveredState = count > 0
-      ? `${name} \u00b7 ${count} race${count !== 1 ? "s" : ""}`
-      : name;
+    hoveredStateName = name;
+    hoveredStateCount = count;
     if (svgEl) {
       const rect = svgEl.getBoundingClientRect();
       tooltipX = ((e.clientX - rect.left) / rect.width) * 100;
@@ -82,7 +83,8 @@
   }
 
   function handleMouseLeave() {
-    hoveredState = null;
+    hoveredStateName = null;
+    hoveredStateCount = 0;
   }
 
   function getFill(name: string): string {
@@ -114,7 +116,7 @@
   }
 
   .state-path {
-    transition: fill 0.12s ease;
+    transition: fill 0.2s cubic-bezier(0.4, 0, 0.2, 1), filter 0.2s ease, stroke-width 0.2s ease;
     cursor: default;
   }
 
@@ -123,7 +125,7 @@
   }
 
   .state-path.clickable:hover {
-    filter: brightness(1.18);
+    filter: brightness(1.1) drop-shadow(0 4px 12px rgba(59, 130, 246, 0.2));
   }
 
   .state-path:focus {
@@ -146,16 +148,46 @@
   .tooltip {
     position: absolute;
     pointer-events: none;
-    background: rgba(17, 24, 39, 0.9);
-    color: #f9fafb;
-    font-size: 0.75rem;
-    font-weight: 600;
-    padding: 4px 10px;
-    border-radius: 6px;
-    white-space: nowrap;
-    transform: translate(-50%, calc(-100% - 6px));
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #f8fafc;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transform: translate(-50%, calc(-100% - 10px));
     z-index: 20;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+  }
+
+  :global(.dark) .tooltip {
+    background: rgba(15, 23, 42, 0.85);
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .tooltip-state {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.025em;
+  }
+
+  .tooltip-badge {
+    font-size: 0.7rem;
+    background: #3b82f6;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 9999px;
+    font-weight: 600;
+  }
+
+  .tooltip-no-races {
+    font-size: 0.7rem;
+    color: #94a3b8;
+    font-weight: 500;
   }
 
   .skeleton {
@@ -225,12 +257,25 @@
       {/if}
     </svg>
 
-    {#if hoveredState}
+    {#if hoveredStateName}
       <div
         class="tooltip"
         style="left: {tooltipX}%; top: {tooltipY}%;"
       >
-        {hoveredState}
+        <span class="tooltip-state">{hoveredStateName}</span>
+        {#if hoveredStateCount > 0}
+          <span class="tooltip-badge">{hoveredStateCount} {hoveredStateCount === 1 ? 'Race' : 'Races'}</span>
+          {#if matchingCandidatesByState[hoveredStateName] && matchingCandidatesByState[hoveredStateName].length > 0}
+            <div class="mt-1.5 pt-1.5 border-t border-white/10 w-full text-center">
+              <span class="text-[9px] text-gray-400 font-semibold block mb-0.5 tracking-wide uppercase">Matches</span>
+              <div class="text-[11px] text-white/90 font-medium leading-tight max-w-[160px] mx-auto">
+                {matchingCandidatesByState[hoveredStateName].join(", ")}
+              </div>
+            </div>
+          {/if}
+        {:else}
+          <span class="tooltip-no-races">No active races</span>
+        {/if}
       </div>
     {/if}
   {/if}

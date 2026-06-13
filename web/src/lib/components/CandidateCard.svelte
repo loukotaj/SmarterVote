@@ -8,10 +8,15 @@
   import { candidateSlug } from "$lib/utils/format";
   import { partyAbbr, partyBadgeClass } from "$lib/utils/party";
   import { isExternalUrl } from "$lib/utils/url";
+  import { createEventDispatcher } from "svelte";
 
   export let candidate: Candidate;
   export let raceId: string = "";
   export let draft: boolean = false;
+  export let selectable = false;
+  export let selected = false;
+
+  const dispatch = createEventDispatcher<{ toggleSelect: void }>();
 
   $: draftQuery = draft ? "?draft=true" : "";
 
@@ -49,6 +54,17 @@
   <div class="mb-6">
     <div class="flex items-start justify-between mb-3">
       <div class="flex items-start gap-4">
+        {#if selectable}
+          <div class="flex items-center shrink-0 self-center">
+            <input
+              type="checkbox"
+              checked={selected}
+              on:change={() => dispatch("toggleSelect")}
+              class="w-5 h-5 cursor-pointer text-blue-600 border-stroke rounded focus:ring-blue-500 bg-surface"
+              aria-label="Select {candidate.name} to compare"
+            />
+          </div>
+        {/if}
         <!-- Candidate Image -->
         {#if candidate.image_url && !imageError}
           <img

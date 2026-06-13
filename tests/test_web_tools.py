@@ -320,3 +320,117 @@ async def test_fetch_page_policy_url_uses_sitemap_fallback_when_direct_and_proxy
     assert "healthcare" in result.lower()
     assert "economy" in result.lower()
     assert "lorem ipsum" not in result.lower()
+
+
+def test_extract_links_from_html():
+    """_extract_links_from_html extracts same-domain http/https links and strips trailing slashes/fragments."""
+    from pipeline_client.agent.web_tools import _extract_links_from_html
+
+    html = """
+        <html><body>
+            <a href="/issues">Issues</a>
+            <a href="https://www.example.com/about/">About</a>
+            <a href="https://otherdomain.com/issues">Other</a>
+            <a href="#fragment">Anchor</a>
+            <a href="javascript:void(0)">JS</a>
+            <a href="/platform#environment">Relative Fragment</a>
+        </body></html>
+    """
+    links = _extract_links_from_html(html, "https://www.example.com")
+    assert links == [
+        "https://www.example.com/issues",
+        "https://www.example.com/about",
+        "https://www.example.com/platform",
+    ]
+
+
+@pytest.mark.asyncio
+async def test_get_homepage_policy_links():
+    """get_homepage_policy_links filters extracted links for policy keywords."""
+    from pipeline_client.agent.web_tools import get_homepage_policy_links
+
+    homepage_html = """
+        <html><body>
+            <a href="/issues">Issues Platform</a>
+            <a href="/about-me">About candidate</a>
+            <a href="/priorities">My Priorities</a>
+            <a href="/donate">Donate here</a>
+        </body></html>
+    """
+
+    class _Resp:
+        def __init__(self, text: str):
+            self.text = text
+            self.status_code = 200
+
+        def raise_for_status(self):
+            return None
+
+    mock_client = MagicMock()
+    mock_client.get = AsyncMock(return_value=_Resp(homepage_html))
+
+    with patch("pipeline_client.agent.web_tools._get_fetch_client", return_value=mock_client):
+        links = await get_homepage_policy_links("https://www.example.com")
+
+    # Should only return policy-related links, matching /issues and /priorities
+    assert "https://www.example.com/issues" in links
+    assert "https://www.example.com/priorities" in links
+    assert "https://www.example.com/about-me" not in links
+    assert "https://www.example.com/donate" not in links
+
+
+@pytest.mark.asyncio
+async def test_fetch_page_sitemap_blocked_falls_back_to_homepage_crawl():
+    """When sitemaps return 404, fallback falls back to crawling the homepage for policy links."""
+    HOST = "www.no-sitemap.com"
+
+    class _Resp:
+        def __init__(self, text: str, status_code: int = 200):
+            self.text = text
+            self.status_code = status_code
+            self.headers = {"content-type": "text/html"}
+
+        def raise_for_status(self):
+            if self.status_code >= 400:
+                raise httpx.HTTPStatusError("Err", request=None, response=None)
+
+    homepage_html = f"""
+        <html><body>
+            <a href="https://{HOST}/priorities">Priorities</a>
+        </body></html>
+    """
+    # Make Priorities HTML longer to pass the 300-char content check
+    priorities_html = """
+        <html><body>
+          <p>On healthcare, I support public option policies to ensure that every citizen has access to affordable care.</p>
+          <p>On economy, I support reducing regulatory overhead, which will help small businesses thrive and create new jobs.</p>
+          <p>On education, we must increase funding for public schools and support teachers by raising their salaries across the state.</p>
+          <p>On the environment, I advocate for investing in clean energy and reducing carbon emissions to protect our future generations.</p>
+        </body></html>
+    """
+
+    async def _mock_get(url, headers=None):
+        if url == f"https://{HOST}/issues":
+            return _Resp("404", 404)
+        if url == f"https://r.jina.ai/https://{HOST}/issues":
+            return _Resp("Forbidden", 403)
+        if url in (f"https://{HOST}/sitemap.xml", f"https://{HOST}/sitemap_index.xml"):
+            return _Resp("Not Found", 404)
+        if url == f"https://{HOST}/":
+            return _Resp(homepage_html)
+        if url == f"https://{HOST}/priorities":
+            return _Resp(priorities_html)
+        return _Resp("404", 404)
+
+    mock_client = MagicMock()
+    mock_client.get = AsyncMock(side_effect=_mock_get)
+
+    with (
+        patch("pipeline_client.agent.web_tools._get_search_cache", return_value=None),
+        patch("pipeline_client.agent.web_tools._get_fetch_client", return_value=mock_client),
+    ):
+        result = await _fetch_page(f"https://{HOST}/issues")
+
+    assert "Recovered issue-related content" in result
+    assert "healthcare" in result.lower()
+    assert "economy" in result.lower()

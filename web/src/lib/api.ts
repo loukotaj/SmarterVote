@@ -4,8 +4,38 @@ import { logger } from "./utils/logger";
 import { fetchWithAuth } from "$lib/stores/apiStore";
 
 const API_BASE = import.meta.env.VITE_RACES_API_URL || "http://localhost:8080";
-const DATA_BASE = import.meta.env.VITE_PUBLIC_DATA_URL; // If set, pull statically from GCS (.json suffix)
 const USE_SAMPLE_FALLBACK = import.meta.env.DEV;
+
+function publicDataBase(): string | undefined {
+  return import.meta.env.VITE_PUBLIC_DATA_URL;
+}
+
+async function fetchPublicJson<T>(
+  staticPath: string,
+  apiPath: string,
+  fetchFn: typeof fetch
+): Promise<T> {
+  const dataBase = publicDataBase();
+  if (dataBase) {
+    try {
+      const staticResponse = await fetchFn(`${dataBase}/${staticPath}`);
+      if (staticResponse.ok) {
+        return (await staticResponse.json()) as T;
+      }
+      logger.warn(
+        `Static data request failed with ${staticResponse.status}; falling back to the API`
+      );
+    } catch (error) {
+      logger.warn("Static data request failed; falling back to the API:", error);
+    }
+  }
+
+  const apiResponse = await fetchFn(`${API_BASE}${apiPath}`);
+  if (!apiResponse.ok) {
+    throw new Error(`API request failed: ${apiResponse.status}`);
+  }
+  return (await apiResponse.json()) as T;
+}
 
 export async function getRace(
   id: string,
@@ -13,12 +43,11 @@ export async function getRace(
   useFallback: boolean = USE_SAMPLE_FALLBACK
 ): Promise<Race> {
   try {
-    const url = DATA_BASE ? `${DATA_BASE}/${id}.json` : `${API_BASE}/races/${id}`;
-    const res = await fetchFn(url);
-    if (!res.ok) {
-      throw new Error(`Failed to fetch race: ${res.status}`);
-    }
-    return (await res.json()) as Race;
+    return await fetchPublicJson<Race>(
+      `${encodeURIComponent(id)}.json`,
+      `/races/${encodeURIComponent(id)}`,
+      fetchFn
+    );
   } catch (error) {
     // If fallback is enabled and we have sample data for this race, use it
     if (useFallback && sampleRaces[id]) {
@@ -52,12 +81,11 @@ export async function getRaceSummaries(
   useFallback: boolean = USE_SAMPLE_FALLBACK
 ): Promise<RaceSummary[]> {
   try {
-    const url = DATA_BASE ? `${DATA_BASE}/summaries.json` : `${API_BASE}/races/summaries`;
-    const res = await fetchFn(url);
-    if (!res.ok) {
-      throw new Error(`Failed to fetch race summaries: ${res.status}`);
-    }
-    return (await res.json()) as RaceSummary[];
+    return await fetchPublicJson<RaceSummary[]>(
+      "summaries.json",
+      "/races/summaries",
+      fetchFn
+    );
   } catch (error) {
     // If fallback is enabled, create summaries from sample races
     if (useFallback) {
@@ -94,12 +122,11 @@ export async function getAllRaces(
 ): Promise<Race[]> {
   logger.warn("getAllRaces is deprecated, use getRaceSummaries instead");
   try {
-    const url = DATA_BASE ? `${DATA_BASE}/summaries.json` : `${API_BASE}/races`;
-    const res = await fetchFn(url);
-    if (!res.ok) {
-      throw new Error(`Failed to fetch races: ${res.status}`);
-    }
-    return (await res.json()) as Race[];
+    return await fetchPublicJson<Race[]>(
+      "summaries.json",
+      "/races",
+      fetchFn
+    );
   } catch (error) {
     // If fallback is enabled, return all sample races
     if (useFallback) {
