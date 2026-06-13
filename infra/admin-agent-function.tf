@@ -104,7 +104,7 @@ resource "google_cloudfunctions2_function" "admin_agent" {
     }
 
     dynamic "secret_environment_variables" {
-      for_each = var.admin_api_key != "" ? ["admin_key"] : []
+      for_each = var.admin_api_key != "" ? toset(["admin_key"]) : toset([])
       content {
         key        = "ADMIN_API_KEY"
         project_id = var.project_id
