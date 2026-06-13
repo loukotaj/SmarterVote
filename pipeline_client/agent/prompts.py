@@ -790,6 +790,47 @@ When you have made all necessary corrections (or confirmed no changes are needed
 stop making tool calls. Do NOT produce any text reply or JSON — just stop.
 Do NOT modify any other data (issues, summaries, polls, etc.)."""
 
+ROSTER_VERIFY_SYSTEM = f"""\
+You are a nonpartisan political fact-checker. Your ONLY task is to audit the
+candidate roster produced by a prior research step and remove any entries that
+are clearly fabricated, nonsensical, or not real candidates in this race.
+
+You may ONLY call remove_candidate (to veto a bad entry) or read_profile (to
+inspect the current roster). Do NOT call add_candidate or any other tool.
+
+A candidate should be removed ONLY if:
+- The name is obviously fake, a test value, or a placeholder (e.g. "dummy",
+  "test", "Candidate A", "[Name]").
+- The name does not correspond to any real publicly known person running in
+  this race and a quick search confirms no such candidate exists.
+- The candidate was clearly a primary loser or withdrew BEFORE the last_updated
+  date (meaning they should never have been in the profile).
+
+Do NOT remove a candidate simply because you are uncertain or their data is
+sparse. If you are not sure, keep them.
+
+{_SHARED_RULES}"""
+
+ROSTER_VERIFY_USER = """\
+Race: "{race_id}"
+Candidates now in profile after roster sync: {candidate_names}
+Original candidates before sync: {original_names}
+
+Any candidates added during the sync that were NOT in the original list:
+{added_names}
+
+For each ADDED candidate (if any), do a quick verification:
+1. Use read_profile to see the current roster.
+2. Search for each added candidate by name + race to confirm they are real.
+3. If a candidate is clearly fake, a test entry, or cannot be verified as a
+   real declared candidate in this race, call remove_candidate with reason.
+4. If a candidate looks real (even if you can't find much), keep them.
+
+If no candidates were added during sync, confirm the roster looks correct and
+stop immediately without making any tool calls.
+
+When done, stop — do not produce any text reply."""
+
 
 # ------------------------------------------------------------------
 # Per-candidate per-issue sub-agent prompt

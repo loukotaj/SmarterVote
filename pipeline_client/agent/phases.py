@@ -44,6 +44,8 @@ from .prompts import (
     REFINE_USER,
     ROSTER_SYNC_SYSTEM,
     ROSTER_SYNC_USER,
+    ROSTER_VERIFY_SYSTEM,
+    ROSTER_VERIFY_USER,
     UPDATE_ISSUE_SUBAGENT_SYSTEM,
     UPDATE_ISSUE_SUBAGENT_USER,
     UPDATE_META_SYSTEM,
@@ -56,7 +58,16 @@ from .selection import (  # noqa: F401 — re-exported for backward compat
     _select_candidates_for_research,
     _select_target_candidates,
 )
-from .tools import BACKGROUND_TOOLS, CANDIDATE_TOOLS, ISSUE_TOOLS, RACE_TOOLS, READ_PROFILE_TOOL, RECORD_TOOLS, ROSTER_TOOLS
+from .tools import (
+    BACKGROUND_TOOLS,
+    CANDIDATE_TOOLS,
+    ISSUE_TOOLS,
+    RACE_TOOLS,
+    READ_PROFILE_TOOL,
+    RECORD_TOOLS,
+    REMOVE_CANDIDATE_TOOL,
+    ROSTER_TOOLS,
+)
 from .utils import make_logger
 from .web_tools import _get_search_cache
 
@@ -937,6 +948,7 @@ async def _run_update(
         disc_t0 = time.perf_counter()
 
         log("info", "Update Phase 0: Verifying candidate roster...")
+        pre_sync_names = list(candidate_names)
         try:
             await _agent_loop(
                 ROSTER_SYNC_SYSTEM,
@@ -961,6 +973,38 @@ async def _run_update(
         _sanitize_roster(race_json, log)
         await _sync_ballotpedia_roster(race_json, race_id, log)
         _sanitize_roster(race_json, log)
+
+        # Roster verify: use the primary model (at least mini) to spot-check any
+        # candidates added by the cheaper small_model during sync.
+        post_sync_names = [_candidate_name(c) for c in race_json.get("candidates", []) if _candidate_name(c)]
+        added_names = [n for n in post_sync_names if n not in pre_sync_names]
+        if added_names:
+            log("info", f"  Roster verify: checking {len(added_names)} added candidate(s): {', '.join(added_names)}")
+            try:
+                await _agent_loop(
+                    ROSTER_VERIFY_SYSTEM,
+                    ROSTER_VERIFY_USER.format(
+                        race_id=race_id,
+                        candidate_names=", ".join(post_sync_names),
+                        original_names=", ".join(pre_sync_names),
+                        added_names=", ".join(added_names),
+                    ),
+                    model=model,
+                    on_log=on_log,
+                    race_id=race_id,
+                    max_iterations=6,
+                    phase_name="roster-verify",
+                    max_tokens=4096,
+                    extra_tools=[REMOVE_CANDIDATE_TOOL, READ_PROFILE_TOOL],
+                    extra_tool_handlers=handlers,
+                    tools_mode=True,
+                )
+                _sanitize_roster(race_json, log)
+            except Exception as exc:
+                log("warning", f"  Roster verify failed: {exc} — keeping post-sync roster")
+        else:
+            log("info", "  Roster verify: no candidates added during sync — skipping")
+
         candidate_names = [_candidate_name(c) for c in race_json.get("candidates", []) if _candidate_name(c)]
         candidate_names = _select_target_candidates(candidate_names, target_candidate_names, log)
         selected_name_set = set(candidate_names)
