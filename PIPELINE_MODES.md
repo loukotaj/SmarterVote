@@ -86,10 +86,11 @@ Switch by setting `STORAGE_BACKEND=gcp` environment variable.
 
 ## Search Caching
 
-Web search results are cached in SQLite to avoid redundant Serper API calls:
-- **TTL**: 7 days (configurable via `SEARCH_CACHE_TTL_HOURS`)
-- **Location**: `data/cache/search_cache.db`
-- **Scope**: Works in both local and cloud modes
+To avoid redundant Serper API calls and reduce costs, web search results and fetched page contents are cached:
+- **TTL**: 7 days for search queries, 24 hours for fetched page text content.
+- **Local Mode**: Cached in a local SQLite database (`data/cache/search_cache.db`).
+- **Cloud Mode**: Cached in Firestore collections (`search_cache` and `page_cache`). This is critical because Cloud Function instances are ephemeral and trigger continuation handoffs; the shared Firestore cache ensures subsequent invocations don't re-run expensive Serper searches.
+- **Activation**: Automatically chooses Firestore if `STORAGE_MODE=gcp`, `FIRESTORE_PROJECT` is set, or running in Cloud Run/Functions. Otherwise falls back to SQLite. You can force-enable the Firestore backend in any environment by setting `SEARCH_CACHE_BACKEND=firestore` (requires `google-cloud-firestore` installed).
 
 ## Output
 
