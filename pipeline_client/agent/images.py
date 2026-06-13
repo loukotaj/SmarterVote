@@ -2,8 +2,10 @@
 
 import asyncio
 import logging
+import re
+from html.parser import HTMLParser
 from typing import Any, Callable, Dict, List, Optional, Tuple
-from urllib.parse import urlparse, quote
+from urllib.parse import quote, unquote, urljoin, urlparse
 
 import httpx
 
@@ -14,10 +16,149 @@ logger = logging.getLogger("pipeline")
 
 _IMAGE_EXTENSIONS = frozenset({".jpg", ".jpeg", ".png", ".gif", ".webp", ".avif", ".svg"})
 
-_BROWSER_UA = (
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-    "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+_BROWSER_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) " "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+
+_NON_PHOTO_TOKENS = frozenset(
+    {
+        "avatar",
+        "badge",
+        "banner",
+        "favicon",
+        "icon",
+        "logo",
+        "seal",
+        "sprite",
+        "torch",
+        "wordmark",
+    }
 )
+
+
+class _PageImageParser(HTMLParser):
+    """Collect image metadata from a candidate's known web page."""
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.images: List[Tuple[str, str, int, int, str]] = []
+
+    def handle_starttag(self, tag: str, attrs: List[Tuple[str, Optional[str]]]) -> None:
+        values = {key.lower(): value or "" for key, value in attrs}
+        if tag.lower() == "meta":
+            property_name = (values.get("property") or values.get("name") or "").lower()
+            if property_name in {"og:image", "og:image:url", "og:image:secure_url", "twitter:image"}:
+                self.images.append((values.get("content", ""), property_name, 0, 0, ""))
+            return
+        if tag.lower() != "img":
+            return
+
+        source = values.get("data-image") or values.get("data-src") or values.get("src") or ""
+        alt = values.get("alt") or values.get("title") or ""
+        try:
+            width = int(values.get("width", "0"))
+            height = int(values.get("height", "0"))
+        except ValueError:
+            width = height = 0
+        self.images.append((source, "img", width, height, alt))
+
+
+def _name_tokens(candidate_name: str) -> set[str]:
+    return {token for token in re.findall(r"[a-z0-9]+", candidate_name.lower()) if len(token) >= 3}
+
+
+def _looks_like_non_photo(url: str, alt: str = "") -> bool:
+    haystack = unquote(f"{url} {alt}").lower()
+    return any(token in haystack for token in _NON_PHOTO_TOKENS)
+
+
+def _extract_page_image_urls(html: str, page_url: str, candidate_name: str) -> List[str]:
+    """Return candidate page images ordered from most to least likely portrait."""
+    parser = _PageImageParser()
+    parser.feed(html)
+    name_tokens = _name_tokens(candidate_name)
+    ranked: List[Tuple[int, int, str]] = []
+    seen: set[str] = set()
+
+    for index, (raw_url, source, width, height, alt) in enumerate(parser.images):
+        if not raw_url:
+            continue
+        url = urljoin(page_url, raw_url)
+        if url.startswith("http://"):
+            url = f"https://{url[7:]}"
+        if url in seen or not _is_valid_image_url(url) or _looks_like_non_photo(url, alt):
+            continue
+        seen.add(url)
+
+        searchable = unquote(f"{url} {alt}").lower()
+        score = (
+            50 if source == "og:image" else 45 if source.startswith("og:image") else 35 if source == "twitter:image" else 20
+        )
+        score += 25 * len(name_tokens.intersection(re.findall(r"[a-z0-9]+", searchable)))
+        if width >= 600 and height >= 600:
+            score += 20
+        elif width >= 300 and height >= 300:
+            score += 10
+        if source == "img" and width and height and width / max(height, 1) > 3:
+            score -= 20
+        ranked.append((score, -index, url))
+
+    ranked.sort(reverse=True)
+    return [url for _, _, url in ranked]
+
+
+def _candidate_page_urls(candidate: Dict[str, Any]) -> List[str]:
+    """Return known candidate pages, preferring candidate-specific profile URLs."""
+    name_tokens = _name_tokens(str(candidate.get("name", "")))
+    pages: List[Tuple[int, str]] = []
+    website = candidate.get("website")
+    if isinstance(website, str) and website.startswith(("http://", "https://")):
+        pages.append((20, website))
+
+    for link in candidate.get("links", []):
+        if not isinstance(link, dict):
+            continue
+        url = link.get("url")
+        if not isinstance(url, str) or not url.startswith(("http://", "https://")):
+            continue
+        parsed_path = unquote(urlparse(url).path).lower()
+        score = 10
+        if link.get("type") == "official":
+            score += 20
+        if "/candidate/" in parsed_path or name_tokens.intersection(re.findall(r"[a-z0-9]+", parsed_path)):
+            score += 30
+        pages.append((score, url))
+
+    deduped: List[str] = []
+    seen: set[str] = set()
+    for _, url in sorted(pages, key=lambda item: item[0], reverse=True):
+        normalized = url.rstrip("/")
+        if normalized in seen:
+            continue
+        seen.add(normalized)
+        deduped.append(url)
+    return deduped[:8]
+
+
+async def _lookup_known_page_image(candidate: Dict[str, Any]) -> Optional[str]:
+    """Extract a direct image URL from known candidate website/profile pages."""
+    headers = {"User-Agent": _BROWSER_UA}
+    try:
+        async with httpx.AsyncClient(timeout=12, follow_redirects=True) as client:
+            for page_url in _candidate_page_urls(candidate):
+                try:
+                    response = await client.get(page_url, headers=headers)
+                    response.raise_for_status()
+                except Exception:
+                    continue
+                content_type = response.headers.get("content-type", "")
+                if "html" not in content_type.lower():
+                    continue
+                for image_url in _extract_page_image_urls(response.text, str(response.url), candidate.get("name", "")):
+                    accessible, final_url = await _check_url_accessible(image_url)
+                    if accessible:
+                        return final_url if _is_valid_image_url(final_url) else image_url
+    except Exception as exc:
+        logger.debug("Candidate page image lookup failed: %s", exc)
+    return None
 
 
 def _is_valid_image_url(url: Any) -> bool:
@@ -48,9 +189,7 @@ def _is_valid_image_url(url: Any) -> bool:
             return True
 
         # Common image CDNs
-        if any(host in netloc for host in (
-            "cloudfront.net", "githubusercontent.com", "twimg.com", "fbcdn.net"
-        )):
+        if any(host in netloc for host in ("cloudfront.net", "githubusercontent.com", "twimg.com", "fbcdn.net")):
             return True
 
     except Exception:
@@ -261,8 +400,18 @@ async def _resolve_single_image(
     else:
         log("info", f"  [{name}] Wikipedia API found no image — falling back to agent search")
 
+    # Fast path 3: inspect candidate website/profile pages for image metadata.
+    log("info", f"  [{name}] Inspecting known candidate pages for image metadata...")
+    page_url = await _lookup_known_page_image(candidate)
+    if page_url:
+        candidate["image_url"] = page_url
+        log("info", f"  [{name}] Candidate page image confirmed -> {page_url[:80]}")
+        return
+    log("info", f"  [{name}] Known pages yielded no usable image - falling back to agent search")
+
     # Ask the agent to find a working image URL
     from .prompts import IMAGE_SEARCH_SYSTEM, IMAGE_SEARCH_USER
+
     log("info", f"  [{name}] Running agent image search...")
     try:
         result = await agent_loop_fn(
