@@ -5,6 +5,7 @@ import json
 import logging
 from datetime import datetime, timezone
 from typing import Any, Callable, Dict, List, Optional
+from urllib.parse import urlparse
 
 import httpx
 
@@ -30,6 +31,16 @@ _REVIEW_MODELS = {
     "gemini": (DEFAULT_GEMINI_MODEL, CHEAP_GEMINI_MODEL),
     "grok": (DEFAULT_GROK_MODEL, CHEAP_GROK_MODEL),
 }
+
+_ACCESS_RESTRICTED_HOSTS = frozenset({"facebook.com", "www.facebook.com", "m.facebook.com"})
+
+
+def _is_access_restricted_response(url: str, status_code: int) -> bool:
+    """Return True when a response cannot reliably establish that a link is dead."""
+    if status_code in (401, 403, 429):
+        return True
+    hostname = (urlparse(url).hostname or "").lower()
+    return status_code == 400 and hostname in _ACCESS_RESTRICTED_HOSTS
 
 
 async def _call_review_model(system: str, user: str, *, model: str) -> str:
@@ -94,7 +105,7 @@ async def _verify_url(client: httpx.AsyncClient, url: str) -> Optional[str]:
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
         }
         resp = await _get_validated(client, url, headers=headers)
-        if resp.status_code in (401, 403, 429):
+        if _is_access_restricted_response(url, resp.status_code):
             return None
         if resp.status_code >= 400:
             return f"HTTP error {resp.status_code}"

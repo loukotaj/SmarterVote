@@ -215,3 +215,32 @@ async def test_check_profile_links_skips_profiles_without_sources():
     from pipeline_client.agent.review import check_profile_links
 
     assert await check_profile_links({"candidates": []}) is None
+
+
+@pytest.mark.asyncio
+async def test_verify_url_treats_facebook_400_as_inconclusive():
+    import httpx
+
+    from pipeline_client.agent.review import _verify_url
+
+    url = (
+        "https://www.facebook.com/FredLoveforGovernor/posts/"
+        "ive-noticed-some-of-you-saying-youre-not-familiar-with-my-platform-yet-and-i-hea/842216614978960/"
+    )
+    response = httpx.Response(400, request=httpx.Request("GET", url))
+
+    with patch("pipeline_client.agent.review._get_validated", new_callable=AsyncMock, return_value=response):
+        assert await _verify_url(AsyncMock(), url) is None
+
+
+@pytest.mark.asyncio
+async def test_verify_url_still_flags_non_facebook_400():
+    import httpx
+
+    from pipeline_client.agent.review import _verify_url
+
+    url = "https://example.com/bad-request"
+    response = httpx.Response(400, request=httpx.Request("GET", url))
+
+    with patch("pipeline_client.agent.review._get_validated", new_callable=AsyncMock, return_value=response):
+        assert await _verify_url(AsyncMock(), url) == "HTTP error 400"
