@@ -257,29 +257,11 @@ jobs:
         path: terraform-plan.json
         retention-days: 30
 
-    - name: Terraform Apply with Failure Handling
+    - name: Terraform Apply
       if: env.ACTION == 'apply' && github.ref == 'refs/heads/main'
       run: |
         cd infra
-        set +e  # Don't exit on error
         terraform apply -auto-approve tfplan
-        APPLY_EXIT_CODE=$?
-
-        if [ $APPLY_EXIT_CODE -ne 0 ]; then
-          echo "❌ Terraform apply failed! Attempting rollback..."
-
-          # Try to rollback to previous commit
-          PREV_COMMIT=$(git log --oneline -n 2 --format="%H" -- . | tail -n 1)
-
-          echo "🔄 Rolling back to commit: $PREV_COMMIT"
-          git checkout $PREV_COMMIT -- .
-          terraform init -reconfigure
-          terraform plan -out=rollback-plan
-          terraform apply -auto-approve rollback-plan
-
-          echo "::error::Terraform apply failed and rollback attempted"
-          exit 1
-        fi
 
     - name: Manual Rollback
       if: env.ACTION == 'rollback'
@@ -291,29 +273,6 @@ jobs:
         terraform init -reconfigure
         terraform plan -out=rollback-plan
         terraform apply -auto-approve rollback-plan
-
-    - name: Bootstrap static race summaries
-      if: env.ACTION == 'apply' && github.ref == 'refs/heads/main'
-      run: |
-        cd infra
-        API_URL=$(terraform output -raw races_api_url)
-        BUCKET=$(terraform output -raw bucket_name)
-        for attempt in {1..12}; do
-          if curl --fail --silent --show-error "$API_URL/races/summaries" -o /tmp/race-summaries.json; then
-            python - <<'PY'
-        import json
-        with open("/tmp/race-summaries.json", encoding="utf-8") as source:
-            summaries = json.load(source)
-        if not isinstance(summaries, list):
-            raise SystemExit("Race summaries response was not a JSON list")
-        PY
-            gcloud storage cp /tmp/race-summaries.json "gs://$BUCKET/races/summaries.json"
-            exit 0
-          fi
-          sleep 10
-        done
-        echo "::error::Unable to bootstrap races/summaries.json from $API_URL"
-        exit 1
 
     - name: Upload State Backup
       if: always()
