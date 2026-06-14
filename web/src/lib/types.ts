@@ -166,7 +166,6 @@ export interface Race {
   polling_note?: string;
   reviews?: AgentReview[];
   validation_grade?: ValidationGrade;
-  post_run_analysis?: { model: string; analyzed_at: string; analysis: string };
   agent_metrics?: AgentMetrics;
   ballotpedia_url?: string;
   register_to_vote_url?: string;
@@ -288,7 +287,6 @@ export interface RunOptions {
     review_claude?: string;
     review_gemini?: string;
     review_grok?: string;
-    post_run_analysis?: string;
   };
   force_fresh?: boolean;
   research_model?: string;

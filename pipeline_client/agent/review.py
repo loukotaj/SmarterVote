@@ -17,7 +17,6 @@ from .model_registry import (
     DEFAULT_CLAUDE_MODEL,
     DEFAULT_GEMINI_MODEL,
     DEFAULT_GROK_MODEL,
-    DEFAULT_POST_RUN_ANALYSIS_MODEL,
     normalize_model_id,
 )
 from .prompts import REVIEW_SYSTEM, REVIEW_USER
@@ -329,67 +328,3 @@ def compute_validation_grade(reviews: List[Dict[str, Any]]) -> Optional[Dict[str
         summary = f"Below quality threshold - {approved_count}/{total} reviewers approved, average score {avg}/100."
 
     return {"grade": grade, "score": avg, "passed": passed, "summary": summary}
-
-
-_MAX_LOG_CHARS = 300_000
-
-
-async def run_post_run_analysis(
-    run_id: str,
-    race_id: str,
-    logs: List[Dict[str, Any]],
-    *,
-    artifact: Optional[Dict[str, Any]] = None,
-    model: Optional[str] = None,
-) -> Dict[str, Any]:
-    """Analyze run logs and output through OpenRouter."""
-    from .prompts import (
-        DISCOVERY_SYSTEM,
-        FINANCE_VOTING_SYSTEM,
-        ISSUE_SUBAGENT_SYSTEM,
-        ITERATE_SYSTEM,
-        POST_RUN_ANALYSIS_SYSTEM,
-        POST_RUN_ANALYSIS_USER,
-        REFINE_SYSTEM,
-    )
-
-    effective_model = normalize_model_id(model) or DEFAULT_POST_RUN_ANALYSIS_MODEL
-
-    log_lines = [f"[{e.get('timestamp', '')}] {e.get('level', 'info').upper():7s} {e.get('message', '')}" for e in logs]
-    logs_text = "\n".join(log_lines)
-    if len(logs_text) > _MAX_LOG_CHARS:
-        logs_text = "... (truncated - showing last portion) ...\n" + logs_text[-_MAX_LOG_CHARS:]
-
-    user_prompt = POST_RUN_ANALYSIS_USER.format(
-        run_id=run_id,
-        race_id=race_id,
-        discovery_system=DISCOVERY_SYSTEM,
-        issue_system=ISSUE_SUBAGENT_SYSTEM,
-        refine_system=REFINE_SYSTEM,
-        finance_system=FINANCE_VOTING_SYSTEM,
-        iterate_system=ITERATE_SYSTEM,
-        log_count=len(logs),
-        logs_text=logs_text,
-    )
-
-    if artifact:
-        artifact_text = json.dumps(artifact, indent=2, default=str)
-        if len(artifact_text) > 100_000:
-            artifact_text = artifact_text[:100_000] + "\n... (truncated)"
-        user_prompt += f"\n\n## Output Artifact (RaceJSON)\n\n```json\n{artifact_text}\n```"
-
-    logger.info("Post-run analysis: sending %s log entries to %s", len(logs), effective_model)
-    try:
-        analysis_text = await _call_review_model(POST_RUN_ANALYSIS_SYSTEM, user_prompt, model=effective_model)
-    except Exception as exc:
-        logger.warning("Post-run analysis failed: %s", exc)
-        return {"skipped": True, "reason": str(exc)}
-
-    return {
-        "run_id": run_id,
-        "race_id": race_id,
-        "model": effective_model,
-        "analyzed_at": datetime.now(timezone.utc).isoformat(),
-        "log_count": len(logs),
-        "analysis": analysis_text,
-    }

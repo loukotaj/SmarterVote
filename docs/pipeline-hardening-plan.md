@@ -31,6 +31,8 @@ Each phase should be delivered as a separate pull request where practical. Avoid
 
 ## Phase 1: Remove Post-Run Analysis
 
+Status: Complete.
+
 ### Problem
 
 Every local runner completion can send up to 300,000 log characters, 100,000 artifact characters, and copies of the pipeline system prompts to another LLM. This duplicates cost, exposes operational data, and has already allowed provider error URLs containing API keys to enter local artifacts.
@@ -596,8 +598,8 @@ PYTHONPATH=. python -m pytest
 
 ## Completion Checklist
 
-- [ ] Automatic post-run LLM analysis removed.
-- [ ] Shared log sanitizer covers every persistence path.
+- [x] Automatic post-run LLM analysis removed.
+- [x] Shared log sanitizer covers every persistence path.
 - [ ] LLM requests use generous model-aware context targets and avoid repeated history.
 - [ ] OpenRouter transport helpers use OpenRouter-specific names.
 - [ ] Retries and timeouts respect a shared run deadline.

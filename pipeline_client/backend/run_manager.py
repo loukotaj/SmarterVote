@@ -27,6 +27,8 @@ from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 
+from pipeline_client.logging_utils import sanitize_log_data, sanitize_log_message
+
 from .models import RunInfo, RunOptions, RunRequest, RunStatus, RunStep
 
 logger = logging.getLogger("pipeline")
@@ -99,7 +101,7 @@ class RunManager:
             try:
                 log_entry = {
                     "level": record.levelname.lower(),
-                    "message": record.getMessage(),
+                    "message": sanitize_log_message(record.getMessage()),
                     "timestamp": datetime.fromtimestamp(record.created, tz=timezone.utc).isoformat(),
                     "logger": record.name,
                     "filename": record.filename,
@@ -190,7 +192,7 @@ class RunManager:
                     step_info.completed_at = datetime.now(timezone.utc)
                     step_info.duration_ms = duration_ms
                     step_info.artifact_id = artifact_id
-                    step_info.error = error
+                    step_info.error = sanitize_log_message(error) if error is not None else None
                     if artifact_id:
                         run_info.artifact_id = artifact_id
                 break
@@ -233,7 +235,7 @@ class RunManager:
             run_info = self.active_runs[run_id]
             run_info.status = RunStatus.FAILED
             run_info.completed_at = datetime.now(timezone.utc)
-            run_info.error = error
+            run_info.error = sanitize_log_message(error)
             run_info.duration_ms = duration_ms
             if serper_calls is not None:
                 run_info.serper_calls = serper_calls
@@ -395,7 +397,7 @@ class RunManager:
         if run_info:
             if not hasattr(run_info, "logs") or run_info.logs is None:
                 run_info.logs = []
-            run_info.logs.append(log)
+            run_info.logs.append(sanitize_log_data(log))
 
     def get_run_logs(self, run_id: str):
         run_info = self.get_run(run_id)

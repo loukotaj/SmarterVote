@@ -48,7 +48,6 @@ interface RunOptions {
     review_claude?: string;
     review_gemini?: string;
     review_grok?: string;
-    post_run_analysis?: string;
   };
   research_model?: string;
   claude_model?: string;

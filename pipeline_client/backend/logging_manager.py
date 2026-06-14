@@ -13,6 +13,8 @@ from dataclasses import asdict, dataclass
 from datetime import datetime
 from typing import Any, Dict, Optional
 
+from pipeline_client.logging_utils import sanitize_log_data, sanitize_log_message
+
 logger = logging.getLogger("pipeline")
 
 
@@ -45,12 +47,12 @@ class PipelineLoggingHandler(logging.Handler):
             log_entry = LogEntry(
                 timestamp=datetime.fromtimestamp(record.created).isoformat(),
                 level=record.levelname.lower(),
-                message=record.getMessage(),
+                message=sanitize_log_message(record.getMessage()),
                 step=getattr(record, "step", None),
                 run_id=getattr(record, "run_id", None),
                 race_id=getattr(record, "race_id", None),
                 duration_ms=getattr(record, "duration_ms", None),
-                extra=getattr(record, "extra", None),
+                extra=sanitize_log_data(getattr(record, "extra", None)),
             )
             self.manager.add_log_to_queue(log_entry)
         except Exception:
@@ -114,7 +116,7 @@ class LoggingManager:
     async def broadcast_message(self, message_data: dict) -> None:
         """Store a structured status/log event for local debugging."""
         with self.lock:
-            self.status_buffer.append(message_data)
+            self.status_buffer.append(sanitize_log_data(message_data))
 
     async def send_run_status(self, run_id: str, status: str, **kwargs) -> None:
         """Store a structured run status event for local debugging."""

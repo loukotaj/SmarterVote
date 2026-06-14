@@ -5,6 +5,8 @@ import logging
 import re
 from typing import Any, Callable, Dict, Optional
 
+from pipeline_client.logging_utils import sanitize_log_message
+
 _logger = logging.getLogger("pipeline")
 
 
@@ -29,7 +31,7 @@ def _extract_json(text: str) -> Dict[str, Any]:
         pass
 
     # Find the outermost balanced JSON object or array.
-    for open_ch, close_ch in [('{', '}'), ('[', ']')]:
+    for open_ch, close_ch in [("{", "}"), ("[", "]")]:
         start = cleaned.find(open_ch)
         if start == -1:
             continue
@@ -41,7 +43,7 @@ def _extract_json(text: str) -> Dict[str, Any]:
             if escape_next:
                 escape_next = False
                 continue
-            if ch == '\\' and in_string:
+            if ch == "\\" and in_string:
                 escape_next = True
                 continue
             if ch == '"':
@@ -68,8 +70,11 @@ def _extract_json(text: str) -> Dict[str, Any]:
 
 def make_logger(on_log: Optional[Callable] = None) -> Callable:
     """Return a log(level, msg) function writing to both module logger and callback."""
+
     def log(level: str, msg: str) -> None:
-        _logger.log(getattr(logging, level.upper(), logging.INFO), msg)
+        safe_msg = sanitize_log_message(msg)
+        _logger.log(getattr(logging, level.upper(), logging.INFO), safe_msg)
         if on_log:
-            on_log(level, msg)
+            on_log(level, safe_msg)
+
     return log

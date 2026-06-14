@@ -17,6 +17,8 @@ import time
 from datetime import datetime, timezone
 from typing import Any, Dict, Optional
 
+from pipeline_client.logging_utils import sanitize_log_data, sanitize_log_message
+
 logger = logging.getLogger("pipeline")
 
 _db = None  # lazy singleton
@@ -78,7 +80,7 @@ class FirestoreLogger:
             entry: Dict[str, Any] = {
                 "timestamp": ts.isoformat(),
                 "level": level,
-                "message": message,
+                "message": sanitize_log_message(message),
                 "run_id": self.run_id,
             }
             if step:
@@ -86,14 +88,8 @@ class FirestoreLogger:
             if race_id:
                 entry["race_id"] = race_id
             if extra:
-                entry["extra"] = extra
-            (
-                db.collection("pipeline_runs")
-                .document(self.run_id)
-                .collection("logs")
-                .document(doc_id)
-                .set(entry)
-            )
+                entry["extra"] = sanitize_log_data(extra)
+            (db.collection("pipeline_runs").document(self.run_id).collection("logs").document(doc_id).set(entry))
         except Exception as exc:
             # Never crash the agent because of a logging failure
             logger.debug("FirestoreLogger.log failed: %s", exc)
@@ -126,14 +122,12 @@ class FirestoreLogger:
             if current_step_progress is not None:
                 update["current_step_progress"] = max(0, min(100, int(current_step_progress)))
             if progress_message is not None:
-                update["progress_message"] = progress_message
+                update["progress_message"] = sanitize_log_message(progress_message)
             if remaining_steps is not None:
                 update["remaining_steps"] = remaining_steps
             if status is not None:
                 update["status"] = status
-            db.collection("pipeline_runs").document(self.run_id).set(
-                update, merge=True
-            )
+            db.collection("pipeline_runs").document(self.run_id).set(update, merge=True)
         except Exception as exc:
             logger.debug("FirestoreLogger.update_progress failed: %s", exc)
 
@@ -150,9 +144,7 @@ class FirestoreLogger:
             }
             if duration_ms is not None:
                 update["duration_ms"] = duration_ms
-            db.collection("pipeline_runs").document(self.run_id).set(
-                update, merge=True
-            )
+            db.collection("pipeline_runs").document(self.run_id).set(update, merge=True)
         except Exception as exc:
             logger.debug("FirestoreLogger.mark_completed failed: %s", exc)
 
@@ -164,14 +156,12 @@ class FirestoreLogger:
         try:
             update: Dict[str, Any] = {
                 "status": "failed",
-                "error": error,
+                "error": sanitize_log_message(error),
                 "failed_at": datetime.now(timezone.utc).isoformat(),
             }
             if duration_ms is not None:
                 update["duration_ms"] = duration_ms
-            db.collection("pipeline_runs").document(self.run_id).set(
-                update, merge=True
-            )
+            db.collection("pipeline_runs").document(self.run_id).set(update, merge=True)
         except Exception as exc:
             logger.debug("FirestoreLogger.mark_failed failed: %s", exc)
 

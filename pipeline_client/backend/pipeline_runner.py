@@ -14,90 +14,6 @@ from .step_registry import get_handler
 from .storage import new_artifact_id, save_artifact
 
 
-async def _run_and_save_post_analysis(
-    run_id: str, race_id: str, logs: list, *, output: Optional[Dict[str, Any]] = None
-) -> None:
-    """Run OpenRouter post-run analysis, broadcast log lines, and save as artifact.
-
-    When *output* is provided (the race JSON result), it is included in the
-    model context so the analysis covers data quality in addition to pipeline
-    execution.  The analysis text is also written back into the draft JSON.
-    """
-    _log = logging.getLogger("pipeline")
-
-    async def _emit(message: str, level: str = "info") -> None:
-        """Log to Python and record a structured local status event."""
-        getattr(_log, level, _log.info)(f"[post-analysis] {message}")
-        await logging_manager.broadcast_message(
-            {
-                "type": "log",
-                "level": level,
-                "message": message,
-                "run_id": run_id,
-                "timestamp": datetime.now(timezone.utc).isoformat(),
-            }
-        )
-
-    try:
-        from pipeline_client.agent.review import run_post_run_analysis
-
-        result = await run_post_run_analysis(run_id, race_id, logs, artifact=output)
-        if result.get("skipped"):
-            _log.info(f"Post-run analysis skipped: {result.get('reason')}")
-            return
-
-        analysis_text: str = result.get("analysis", "").strip()
-        model = result.get("model", "?")
-
-        # 1. Save as its own artifact so it is retrievable independently of UI polling.
-        try:
-            analysis_artifact_id = new_artifact_id("post-analysis")
-            save_artifact(
-                analysis_artifact_id,
-                {
-                    "type": "post_run_analysis",
-                    "run_id": run_id,
-                    "race_id": race_id,
-                    "model": model,
-                    "analyzed_at": result.get("analyzed_at"),
-                    "log_count": result.get("log_count", len(logs)),
-                    "analysis": analysis_text,
-                },
-            )
-            _log.info(f"Post-run analysis saved as artifact {analysis_artifact_id}")
-        except Exception:
-            _log.warning("Failed to save post-run analysis artifact", exc_info=True)
-
-        # 2. Write the analysis into the draft JSON so it persists with the artifact
-        if analysis_text and race_id:
-            try:
-                from pathlib import Path as _Path
-
-                draft_path = _Path(__file__).resolve().parents[2] / "data" / "drafts" / f"{race_id}.json"
-                if draft_path.exists():
-                    import json as _json
-
-                    draft_data = _json.loads(draft_path.read_text(encoding="utf-8"))
-                    draft_data["post_run_analysis"] = {
-                        "model": model,
-                        "analyzed_at": result.get("analyzed_at"),
-                        "analysis": analysis_text,
-                    }
-                    draft_path.write_text(_json.dumps(draft_data, indent=2, default=str), encoding="utf-8")
-                    _log.info(f"Post-run analysis written to draft {race_id}.json")
-            except Exception:
-                _log.warning("Failed to write post-run analysis to draft", exc_info=True)
-
-        # 3. Emit each line to Python logger and the local structured event buffer.
-        await _emit(f"━━━ Post-run pipeline analysis ({model}) ━━━")
-        for line in analysis_text.splitlines():
-            await _emit(line)
-        await _emit("━━━ End post-run analysis ━━━")
-
-    except Exception:
-        _log.warning("Post-run analysis failed", exc_info=True)
-
-
 def _merge_options(req_opts) -> Dict[str, Any]:
     """Merge RunOptions from the RunRequest with defaults.
 
@@ -219,9 +135,6 @@ async def run_step_async(step: str, request: RunRequest, run_id: Optional[str] =
         # Mark step as completed
         run_manager.update_step_status(run_id, step, RunStatus.COMPLETED, artifact_id, duration_ms)
 
-        # Collect logs before complete_run removes the run from active memory
-        run_logs = list(run_manager.get_run_logs(run_id) or [])
-
         # Extract serper_calls from output
         serper_calls = 0
         if isinstance(output, dict) and isinstance(output.get("race_json"), dict):
@@ -242,11 +155,6 @@ async def run_step_async(step: str, request: RunRequest, run_id: Optional[str] =
                     race_manager.save_run(race_id, final_run)
             except Exception:
                 context_logger.warning("Failed to update race record after completion", exc_info=True)
-
-        # Run post-run analysis before marking the run completed so the
-        # analysis log lines are captured with the run.
-        race_id_for_analysis = request.payload.get("race_id", "unknown")
-        await _run_and_save_post_analysis(run_id, race_id_for_analysis, run_logs, output=output)
 
         await logging_manager.send_run_status(run_id, "completed", artifact_id=artifact_id, duration_ms=duration_ms)
 

@@ -25,7 +25,6 @@ DEFAULT_GROK_MODEL = "x-ai/grok-4.20"
 CHEAP_GROK_MODEL = "x-ai/grok-4.3"
 
 DEFAULT_ADMIN_CHAT_MODEL = NEMOTRON_ULTRA_MODEL
-DEFAULT_POST_RUN_ANALYSIS_MODEL = CHEAP_GEMINI_MODEL
 
 MODEL_PROFILES = {"economy", "balanced", "quality", "custom"}
 
@@ -86,7 +85,6 @@ PROFILE_DEFAULTS: Dict[str, Dict[str, str]] = {
         "review_claude": CHEAP_CLAUDE_MODEL,
         "review_gemini": CHEAP_GEMINI_MODEL,
         "review_grok": CHEAP_GROK_MODEL,
-        "post_run_analysis": DEFAULT_POST_RUN_ANALYSIS_MODEL,
     },
     "balanced": {
         "primary": NEMOTRON_ULTRA_MODEL,
@@ -94,7 +92,6 @@ PROFILE_DEFAULTS: Dict[str, Dict[str, str]] = {
         "review_claude": CHEAP_CLAUDE_MODEL,
         "review_gemini": CHEAP_GEMINI_MODEL,
         "review_grok": CHEAP_GROK_MODEL,
-        "post_run_analysis": NEMOTRON_ULTRA_MODEL,
     },
     "quality": {
         "primary": DEFAULT_MODEL,
@@ -102,7 +99,6 @@ PROFILE_DEFAULTS: Dict[str, Dict[str, str]] = {
         "review_claude": DEFAULT_CLAUDE_MODEL,
         "review_gemini": DEFAULT_GEMINI_MODEL,
         "review_grok": DEFAULT_GROK_MODEL,
-        "post_run_analysis": DEFAULT_GEMINI_MODEL,
     },
 }
 

@@ -304,6 +304,3 @@ class RaceJSON(BaseModel):
     # Multi-LLM reviews
     reviews: List[AgentReview] = Field(default_factory=list)
     validation_grade: Optional[ValidationGrade] = None
-
-    # Post-run pipeline analysis (Gemini)
-    post_run_analysis: Optional[Dict[str, Any]] = None
