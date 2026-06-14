@@ -13,6 +13,8 @@ import sqlite3
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 
+from shared.config import local_paths
+
 logger = logging.getLogger("pipeline")
 
 
@@ -46,7 +48,7 @@ class PipelineMetricsStore:
 
     def __init__(self) -> None:
         self._firestore_project = os.getenv("FIRESTORE_PROJECT")
-        self._db_path = os.getenv("PIPELINE_METRICS_DB_PATH", "data/pipeline_metrics.db")
+        self._db_path = os.getenv("PIPELINE_METRICS_DB_PATH", str(local_paths.metrics_db_path))
         self._client = None
         self._sqlite_conn: Optional[sqlite3.Connection] = None
 

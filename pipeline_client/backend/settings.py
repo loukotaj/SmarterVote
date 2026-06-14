@@ -1,17 +1,19 @@
 import os
-
 from pathlib import Path
+from typing import Literal
 
 from pydantic import AliasChoices, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+from shared.config import local_paths
 
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_prefix="", env_file=".env", extra="allow")
 
     app_name: str = "SmarterVote Pipeline Client"
-    artifacts_dir: Path = Path(__file__).resolve().parents[1] / "artifacts"
-    storage_mode: str = "local"  # "local" or "gcp"
+    artifacts_dir: Path = local_paths.artifacts_dir
+    storage_mode: Literal["local", "gcp"] = "local"
     gcs_bucket: str | None = Field(
         default=None,
         validation_alias=AliasChoices("GCS_BUCKET", "GCS_BUCKET_NAME", "BUCKET_NAME"),
@@ -47,12 +49,10 @@ class Settings(BaseSettings):
             errors.append(f"STORAGE_MODE must be 'gcp' on Cloud Run, got '{self.storage_mode}'")
         if errors:
             raise RuntimeError(
-                "Cloud Run environment detected but cloud backends are not configured:\n  - "
-                + "\n  - ".join(errors)
+                "Cloud Run environment detected but cloud backends are not configured:\n  - " + "\n  - ".join(errors)
             )
 
 
 settings = Settings()
-settings.artifacts_dir.mkdir(parents=True, exist_ok=True)
 # Blow up immediately if deployed without required cloud config
 settings.validate_cloud_config()

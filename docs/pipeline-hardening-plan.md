@@ -699,6 +699,24 @@ Use typed settings and validators:
 - Tests can override all paths with a temporary directory.
 - GCS prefixes and Firestore collection names are not repeated across modules.
 
+### Delivered
+
+- Added `shared.config.LocalPaths` as the single repository-root-relative source
+  for data, draft, published, retired, artifact, cache, metrics, and local queue
+  paths.
+- Added `SMARTERVOTE_REPO_ROOT` as an explicit test/alternate-checkout override.
+- Centralized the pipeline's GCS prefixes and Firestore collection names.
+- Routed draft/checkpoint persistence, local queue state, search cache, metrics,
+  and backend artifact defaults through the shared configuration.
+- Made `storage_mode` a typed `local | gcp` setting and removed import-time
+  artifact directory creation.
+
+### Validation
+
+```text
+Focused path/storage suite: 28 passed
+```
+
 ## Phase 9: Centralize Magic Values and Validate Options
 
 ### Implementation

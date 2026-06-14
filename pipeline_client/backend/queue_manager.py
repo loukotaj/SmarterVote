@@ -17,6 +17,8 @@ from typing import Any, Dict, List, Optional
 
 from pydantic import BaseModel
 
+from shared.config import FIRESTORE_QUEUE_COLLECTION, local_paths
+
 logger = logging.getLogger("pipeline")
 
 
@@ -56,8 +58,8 @@ class QueueManager:
     In local dev: uses local JSON file (ephemeral, but fast)
     """
 
-    def __init__(self, storage_path: str = "pipeline_client/queue.json"):
-        self._storage_path = Path(storage_path)
+    def __init__(self, storage_path: str | Path | None = None):
+        self._storage_path = Path(storage_path) if storage_path is not None else local_paths.local_queue_path
         self._items: List[QueueItem] = []
         self._processing = False
         self._db: Optional[Any] = None  # Firestore client if available
@@ -90,7 +92,7 @@ class QueueManager:
 
             self._db = firestore.Client(project=project)
             self._use_firestore = True
-            logger.info(f"QueueManager: using Firestore project={project} collection=pipeline_queue")
+            logger.info("QueueManager: using Firestore project=%s collection=%s", project, FIRESTORE_QUEUE_COLLECTION)
         except ImportError:
             if is_cloud_run:
                 raise RuntimeError(

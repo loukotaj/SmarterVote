@@ -15,6 +15,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set
 
+from shared.config import GCS_CHECKPOINTS_PREFIX, local_paths
+
 
 class HandoffTriggered(Exception):
     """Raised when the agent hands off to a continuation Cloud Function invocation.
@@ -413,7 +415,7 @@ class AgentHandler:
                 if gcs_bucket and race_json_holder:
                     client = self._get_storage_client()
                     if client:
-                        path = f"checkpoints/{current_run_id}.json"
+                        path = f"{GCS_CHECKPOINTS_PREFIX}/{current_run_id}.json"
                         client.bucket(gcs_bucket).blob(path).upload_from_string(
                             json.dumps(race_json_holder[0], default=str),
                             content_type="application/json",
@@ -606,7 +608,7 @@ class AgentHandler:
     async def _save_draft(self, race_id: str, race_json: Dict[str, Any]) -> Path:
         """Write RaceJSON to drafts/, retiring the previous active draft if present."""
         logger = logging.getLogger("pipeline")
-        drafts_dir = Path(__file__).resolve().parents[3] / "data" / "drafts"
+        drafts_dir = local_paths.drafts_dir
         drafts_dir.mkdir(parents=True, exist_ok=True)
 
         output_path = drafts_dir / f"{race_id}.json"
@@ -649,7 +651,7 @@ class AgentHandler:
         return f"retired/{race_id}/{stamp}-{source}.json"
 
     def _archive_local_version(self, source_path: Path, race_id: str, *, source: str) -> Path:
-        retired_dir = Path(__file__).resolve().parents[3] / "data" / "retired" / race_id
+        retired_dir = local_paths.retired_dir / race_id
         retired_dir.mkdir(parents=True, exist_ok=True)
         stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
         retired_path = retired_dir / f"{stamp}-{source}.json"

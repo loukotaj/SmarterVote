@@ -28,6 +28,8 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
+from shared.config import local_paths
+
 logger = logging.getLogger("pipeline")
 
 
@@ -52,7 +54,7 @@ class SearchCache:
         if cache_dir:
             self.cache_dir = Path(cache_dir)
         else:
-            self.cache_dir = Path(os.getenv("SEARCH_CACHE_DIR", "./data/cache"))
+            self.cache_dir = Path(os.getenv("SEARCH_CACHE_DIR", str(local_paths.cache_dir)))
 
         self.cache_dir.mkdir(parents=True, exist_ok=True)
         self.db_path = self.cache_dir / "search_cache.db"
