@@ -274,6 +274,8 @@ def _recheck_race_status(db: Any, race_id: str, race_data: Dict[str, Any]) -> tu
             reconciled_view = {**race_data, **update}
     updated_doc = db.collection("races").document(race_id).get()
     latest = firestore_helpers._doc_to_plain(updated_doc)
+    if latest is not None and not latest.get("race_id"):
+        latest["race_id"] = race_id
     if updated and reconciled_view is not None:
         if latest is None:
             return reconciled_view, updated
@@ -470,8 +472,13 @@ async def list_all_races(reconcile_active: bool = False) -> Dict[str, Any]:
     """List all race records from Firestore (admin view with catalog metadata)."""
     db = firestore_helpers._get_fs()
     docs = db.collection("races").limit(500).stream()
-    races = [firestore_helpers._doc_to_plain(d) for d in docs]
-    races = [r for r in races if r is not None]
+    races = []
+    for d in docs:
+        plain = firestore_helpers._doc_to_plain(d)
+        if plain is not None:
+            if not plain.get("race_id"):
+                plain["race_id"] = d.id
+            races.append(plain)
 
     if reconcile_active:
         reconciled: list[Dict[str, Any]] = []
@@ -530,9 +537,9 @@ async def recheck_all_race_statuses() -> Dict[str, Any]:
         race_data = firestore_helpers._doc_to_plain(doc)
         if not race_data:
             continue
-        race_id = race_data.get("race_id") or race_data.get("id")
-        if not race_id:
-            continue
+        race_id = race_data.get("race_id") or race_data.get("id") or doc.id
+        if not race_data.get("race_id"):
+            race_data["race_id"] = race_id
         seen_race_ids.add(str(race_id))
         latest, changed = _recheck_race_status(db, race_id, race_data)
         if latest:
@@ -560,10 +567,14 @@ async def get_race_record(race_id: str, reconcile: bool = True) -> Dict[str, Any
     data = firestore_helpers._doc_to_plain(doc)
     if data is None:
         raise HTTPException(status_code=404, detail="Race not found")
+    if not data.get("race_id"):
+        data["race_id"] = race_id
     if reconcile:
         latest, _changed = _recheck_race_status(db, race_id, data)
         if latest is not None:
             data = latest
+            if not data.get("race_id"):
+                data["race_id"] = race_id
     _apply_catalog_view(data)
     return data
 
