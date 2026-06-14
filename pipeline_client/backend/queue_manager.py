@@ -107,7 +107,7 @@ class QueueManager:
     def _load(self):
         """Load queue state from Firestore or local JSON file."""
         if self._use_firestore:
-            self._load_from_firestore(mark_interrupted_running=True)
+            self._load_from_firestore(mark_interrupted_running=False)
             logger.info(
                 "QueueManager: started with %d items from Firestore (%d pending, %d running)",
                 len(self._items),
@@ -150,13 +150,7 @@ class QueueManager:
                 self._items.append(QueueItem(**data))
 
             if mark_interrupted_running:
-                # Mark interrupted runs as failed on startup.
-                for item in self._items:
-                    if item.status == "running":
-                        item.status = "failed"
-                        item.error = "Server restarted during processing"
-                        item.completed_at = datetime.now(timezone.utc).isoformat()
-                        collection.document(item.id).set(item.model_dump(mode="json"))
+                logger.warning("Ignoring legacy startup recovery request; running queue items are lease-owned")
 
             logger.debug("QueueManager: synced %d items from Firestore", len(self._items))
         except Exception:

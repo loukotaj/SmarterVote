@@ -9,13 +9,17 @@ from typing import Any, Dict, Protocol, runtime_checkable
 class StorageBackend(Protocol):
     """Protocol for storage backends."""
 
-    def save_artifact(self, artifact_id: str, data: Dict[str, Any]) -> str: ...
+    def save_artifact(self, artifact_id: str, data: Dict[str, Any]) -> str:
+        ...
 
-    def load_artifact(self, artifact_id: str) -> Dict[str, Any]: ...
+    def load_artifact(self, artifact_id: str) -> Dict[str, Any]:
+        ...
 
-    def list_artifacts(self) -> Dict[str, Any]: ...
+    def list_artifacts(self) -> Dict[str, Any]:
+        ...
 
-    def save_race_json(self, race_id: str, data: Dict[str, Any]) -> str: ...
+    def save_race_json(self, race_id: str, data: Dict[str, Any]) -> str:
+        ...
 
     def save_web_content(
         self,
@@ -24,7 +28,8 @@ class StorageBackend(Protocol):
         content: bytes | str,
         content_type: str | None = None,
         kind: str = "raw",
-    ) -> str: ...
+    ) -> str:
+        ...
 
 
 class LocalStorageBackend:
@@ -122,7 +127,7 @@ class GCPStorageBackend:
         return json.loads(blob.download_as_text())
 
     def list_artifacts(self) -> Dict[str, Any]:
-        blobs = list(self._storage_client.list_blobs(self.bucket.name, prefix="artifacts/"))
+        blobs = list(self._storage_client.list_blobs(self.bucket.name, prefix="artifacts/", max_results=500))
         items = [
             {
                 "id": b.name.removeprefix("artifacts/").removesuffix(".json"),

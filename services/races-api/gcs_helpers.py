@@ -38,7 +38,7 @@ def _gcs_list_race_ids(prefix: str) -> Optional[List[str]]:
         return None
     try:
         bucket = client.bucket(_GCS_BUCKET)
-        blobs = list(bucket.list_blobs(prefix=f"{prefix}/"))
+        blobs = list(bucket.list_blobs(prefix=f"{prefix}/", max_results=500))
         ids = []
         for blob in blobs:
             filename = blob.name.split("/")[-1]
@@ -136,7 +136,7 @@ def _gcs_list_versions(race_id: str) -> List[Dict[str, Any]]:
     versions: List[Dict[str, Any]] = []
     try:
         bucket = client.bucket(_GCS_BUCKET)
-        for blob in bucket.list_blobs(prefix=f"retired/{race_id}/"):
+        for blob in bucket.list_blobs(prefix=f"retired/{race_id}/", max_results=500):
             fname = blob.name.split("/")[-1]
             if not fname.endswith(".json"):
                 continue

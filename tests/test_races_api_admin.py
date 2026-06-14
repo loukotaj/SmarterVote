@@ -219,6 +219,7 @@ def test_get_queue_does_not_count_continuation_parent_as_running():
     )
     queue_coll = MagicMock()
     queue_coll.order_by.return_value = queue_coll
+    queue_coll.limit.return_value = queue_coll
     queue_coll.stream.return_value = iter([parent_doc, child_doc])
 
     db = _build_empty_firestore_mock()
@@ -276,7 +277,9 @@ def test_get_queue_hides_active_item_when_run_is_terminal():
     run_ref.get.return_value = completed_run_doc
 
     queue_coll = MagicMock()
+    queue_coll.where.return_value = queue_coll
     queue_coll.order_by.return_value = queue_coll
+    queue_coll.limit.return_value = queue_coll
     queue_coll.stream.return_value = iter([stale_queue_doc])
     queue_coll.document.return_value = stale_ref
 
@@ -340,7 +343,9 @@ def test_get_queue_hides_superseded_active_item_when_race_is_inactive():
     race_ref.get.return_value = race_doc
 
     queue_coll = MagicMock()
+    queue_coll.where.return_value = queue_coll
     queue_coll.order_by.return_value = queue_coll
+    queue_coll.limit.return_value = queue_coll
     queue_coll.stream.return_value = iter([stale_queue_doc])
     queue_coll.document.return_value = stale_ref
 
@@ -407,7 +412,9 @@ def test_get_queue_keeps_active_item_when_race_current_run_is_stale_terminal():
     )
 
     queue_coll = MagicMock()
+    queue_coll.where.return_value = queue_coll
     queue_coll.order_by.return_value = queue_coll
+    queue_coll.limit.return_value = queue_coll
     queue_coll.stream.return_value = iter([queue_doc])
     queue_coll.document.return_value = queue_ref
 
@@ -462,6 +469,7 @@ def test_active_runs_hides_stale_run_and_marks_queue_failed():
     run_ref = MagicMock()
     runs_coll = MagicMock()
     runs_coll.where.return_value = runs_coll
+    runs_coll.limit.return_value = runs_coll
     runs_coll.stream.return_value = iter([run_doc])
     runs_coll.document.return_value = run_ref
 
@@ -470,6 +478,7 @@ def test_active_runs_hides_stale_run_and_marks_queue_failed():
     queue_doc.reference = MagicMock()
     queue_coll = MagicMock()
     queue_coll.where.return_value = queue_coll
+    queue_coll.limit.return_value = queue_coll
     queue_coll.stream.return_value = iter([queue_doc])
 
     races_coll = MagicMock()
@@ -523,6 +532,7 @@ def test_active_runs_hides_superseded_inactive_race_run():
     run_ref = MagicMock()
     runs_coll = MagicMock()
     runs_coll.where.return_value = runs_coll
+    runs_coll.limit.return_value = runs_coll
     runs_coll.stream.return_value = iter([run_doc])
     runs_coll.document.return_value = run_ref
 
@@ -531,6 +541,7 @@ def test_active_runs_hides_superseded_inactive_race_run():
     queue_doc.reference = MagicMock()
     queue_coll = MagicMock()
     queue_coll.where.return_value = queue_coll
+    queue_coll.limit.return_value = queue_coll
     queue_coll.stream.return_value = iter([queue_doc])
 
     race_ref = MagicMock()
@@ -589,6 +600,7 @@ def test_active_runs_keeps_run_when_race_current_run_is_stale_terminal():
 
     runs_coll = MagicMock()
     runs_coll.where.return_value = runs_coll
+    runs_coll.limit.return_value = runs_coll
     runs_coll.stream.return_value = iter([run_doc])
     runs_coll.document.side_effect = lambda run_id: old_run_ref if run_id == "run-old" else new_run_ref
 
@@ -665,6 +677,7 @@ def test_list_runs_merges_active_runs_missing_from_recent_query():
     recent_query.stream.return_value = iter([recent_doc])
 
     active_query = MagicMock()
+    active_query.limit.return_value = active_query
     active_query.stream.return_value = iter([active_doc])
 
     runs_coll = MagicMock()
@@ -2508,6 +2521,7 @@ def test_get_run_logs_since():
 
     # Build nested subcollection mock: pipeline_runs → {run_id} → logs
     log_coll = MagicMock()
+    log_coll.limit.return_value = log_coll
     log_coll.stream.return_value = iter(log_docs)
 
     run_doc_ref = MagicMock()
@@ -2562,6 +2576,7 @@ def test_delete_active_run_cancels_matching_queue_item():
 
     queue_coll = MagicMock()
     queue_coll.where.return_value = queue_coll
+    queue_coll.limit.return_value = queue_coll
     queue_coll.stream.return_value = iter([queue_doc])
 
     race_doc = _make_existing_doc({"race_id": "az-senate-2026", "status": "running", "current_run_id": "run-active"})
@@ -2600,7 +2615,7 @@ def test_delete_active_run_cancels_matching_queue_item():
     assert resp.status_code == 200
     assert resp.json()["message"] == "Run cancelled"
     run_ref.update.assert_called_with({"status": "cancelled"})
-    queue_doc.reference.update.assert_called_with({"status": "cancelled"})
+    queue_doc.reference.update.assert_called_with({"status": "cancelled", "lease_owner": None, "lease_expires_at": None})
     race_ref.set.assert_called()
 
 
@@ -2622,6 +2637,7 @@ def test_delete_superseded_active_run_does_not_cancel_published_race():
 
     queue_coll = MagicMock()
     queue_coll.where.return_value = queue_coll
+    queue_coll.limit.return_value = queue_coll
     queue_coll.stream.return_value = iter([queue_doc])
 
     race_doc = _make_existing_doc({"race_id": "ga-senate-2026", "status": "published", "current_run_id": "run-completed"})
@@ -2660,7 +2676,7 @@ def test_delete_superseded_active_run_does_not_cancel_published_race():
     assert resp.status_code == 200
     assert resp.json()["message"] == "Run cancelled"
     run_ref.update.assert_called_with({"status": "cancelled"})
-    queue_doc.reference.update.assert_called_with({"status": "cancelled"})
+    queue_doc.reference.update.assert_called_with({"status": "cancelled", "lease_owner": None, "lease_expires_at": None})
     race_ref.set.assert_not_called()
 
 

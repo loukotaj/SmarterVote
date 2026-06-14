@@ -109,6 +109,16 @@ def _lease_expired(data: Dict[str, Any], now: datetime) -> bool:
     return expires_at is None or expires_at <= now
 
 
+def _queue_item_owned(item_ref: Any, lease_owner: str) -> bool:
+    try:
+        doc = item_ref.get()
+        data = doc.to_dict() if getattr(doc, "exists", False) else {}
+        return data.get("status") == "running" and data.get("lease_owner") == lease_owner
+    except Exception:
+        logger.exception("Failed to verify queue lease ownership")
+        return False
+
+
 def _start_lease_heartbeat(db: Any, item_ref: Any, lease_owner: str) -> tuple[threading.Event, threading.Thread]:
     stop_event = threading.Event()
 
@@ -183,21 +193,34 @@ def process_queue_item(cloud_event: CloudEvent) -> None:
         if not doc.exists:
             return None
         data = doc.to_dict() or {}
-        if data.get("status") != "pending":
-            return None  # already running / cancelled / finished — skip
-        transaction.update(
-            item_ref,
-            {
-                "status": "running",
-                "started_at": datetime.now(timezone.utc).isoformat(),
-            },
-        )
+        now = datetime.now(timezone.utc)
+        status = data.get("status")
+        if status != "pending" and not (status == "running" and _lease_expired(data, now)):
+            return {"_claim_skipped_status": status}
+        update = {
+            "status": "running",
+            "lease_owner": lease_owner,
+            "lease_expires_at": now + timedelta(seconds=_QUEUE_LEASE_SECONDS),
+            "lease_renewed_at": now.isoformat(),
+            "lease_attempts": Increment(1),
+        }
+        if status == "pending":
+            update["started_at"] = now.isoformat()
+        else:
+            update["recovered_at"] = now.isoformat()
+        transaction.update(item_ref, update)
         return data
 
     item_data: Optional[Dict[str, Any]] = _claim(db.transaction(), item_ref)
 
     if item_data is None:
-        logger.info("Queue item %s already claimed or missing — skipping", item_id)
+        logger.info("Queue item %s is missing — skipping", item_id)
+        return
+    skipped_status = item_data.get("_claim_skipped_status")
+    if skipped_status == "running":
+        raise RuntimeError(f"Queue item {item_id} has an active lease; retry after lease expiry")
+    if skipped_status:
+        logger.info("Queue item %s is already %s — skipping", item_id, skipped_status)
         return
 
     race_id: str = item_data.get("race_id", "")
@@ -208,7 +231,14 @@ def process_queue_item(cloud_event: CloudEvent) -> None:
 
     if not race_id:
         logger.error("Queue item %s missing race_id", item_id)
-        item_ref.update({"status": "failed", "error": "Missing race_id"})
+        item_ref.update(
+            {
+                "status": "failed",
+                "error": "Missing race_id",
+                "lease_owner": None,
+                "lease_expires_at": None,
+            }
+        )
         return
 
     # ---------------------------------------------------------------------------
@@ -256,6 +286,7 @@ def process_queue_item(cloud_event: CloudEvent) -> None:
     options["run_id"] = run_id
     options["queue_item_id"] = item_id
     options["deadline_at"] = time.time() + int(os.getenv("AGENT_DEADLINE_SECONDS", "3300"))
+    lease_stop, lease_thread = _start_lease_heartbeat(db, item_ref, lease_owner)
 
     # ---------------------------------------------------------------------------
     # Execute agent
@@ -294,7 +325,17 @@ def process_queue_item(cloud_event: CloudEvent) -> None:
                     "Failed to cancel continuation %s after parent cancellation: %s", exc.continuation_item_id, cleanup_exc
                 )
             return
-        item_ref.update({"status": "continued", "continuation_item_id": exc.continuation_item_id})
+        if (current_item_data or {}).get("lease_owner") != lease_owner:
+            logger.warning("Ignoring handoff from run %s after lease ownership was lost", run_id)
+            return
+        item_ref.update(
+            {
+                "status": "continued",
+                "continuation_item_id": exc.continuation_item_id,
+                "lease_owner": None,
+                "lease_expires_at": None,
+            }
+        )
         continuation_run_id = getattr(exc, "continuation_run_id", None) or run_id
         run_ref.update(
             {
@@ -311,8 +352,22 @@ def process_queue_item(cloud_event: CloudEvent) -> None:
         )
         return
     except _CancelledExit as exc:
+        current_item = item_ref.get()
+        current_item_data = current_item.to_dict() if getattr(current_item, "exists", False) else {}
+        if (current_item_data or {}).get("status") == "running" and (current_item_data or {}).get(
+            "lease_owner"
+        ) != lease_owner:
+            logger.warning("Ignoring cancellation finalization for run %s after lease ownership was lost", run_id)
+            return
         logger.info("Agent run %s cancelled: %s", run_id, exc)
-        item_ref.update({"status": "cancelled", "completed_at": datetime.now(timezone.utc).isoformat()})
+        item_ref.update(
+            {
+                "status": "cancelled",
+                "completed_at": datetime.now(timezone.utc).isoformat(),
+                "lease_owner": None,
+                "lease_expires_at": None,
+            }
+        )
         run_ref.update({"status": "cancelled", "completed_at": SERVER_TIMESTAMP})
         _set_race_if_current(db, race_id, run_id, {"status": "cancelled", "current_run_id": None})
         return
@@ -320,6 +375,8 @@ def process_queue_item(cloud_event: CloudEvent) -> None:
         error_msg = str(exc)
         logger.exception("Agent run %s failed: %s", run_id, exc)
     finally:
+        lease_stop.set()
+        lease_thread.join(timeout=2)
         if not success and not error_msg:
             # Shouldn't happen, but guard
             error_msg = "Unknown error"
@@ -327,8 +384,18 @@ def process_queue_item(cloud_event: CloudEvent) -> None:
     # ---------------------------------------------------------------------------
     # Finalise
     # ---------------------------------------------------------------------------
+    if not _queue_item_owned(item_ref, lease_owner):
+        logger.warning("Skipping finalization for run %s after lease ownership was lost", run_id)
+        return
     if success:
-        item_ref.update({"status": "completed", "completed_at": datetime.now(timezone.utc).isoformat()})
+        item_ref.update(
+            {
+                "status": "completed",
+                "completed_at": datetime.now(timezone.utc).isoformat(),
+                "lease_owner": None,
+                "lease_expires_at": None,
+            }
+        )
         run_ref.update(
             {
                 "status": "completed",
@@ -353,7 +420,14 @@ def process_queue_item(cloud_event: CloudEvent) -> None:
         if isinstance(draft_data, dict):
             db.collection("races").document(race_id).set(_draft_catalog_update(race_id, draft_data), merge=True)
     else:
-        item_ref.update({"status": "failed", "error": error_msg})
+        item_ref.update(
+            {
+                "status": "failed",
+                "error": error_msg,
+                "lease_owner": None,
+                "lease_expires_at": None,
+            }
+        )
         run_ref.update({"status": "failed", "error": error_msg, "completed_at": SERVER_TIMESTAMP})
         _set_race_if_current(
             db,

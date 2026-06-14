@@ -34,6 +34,7 @@ def test_prune_runs_endpoint():
 
     runs_coll = MagicMock()
     runs_coll.where.return_value = runs_coll
+    runs_coll.limit.return_value = runs_coll
     runs_coll.stream.side_effect = lambda: iter(run_docs)
 
     db = _build_empty_firestore_mock()
@@ -97,6 +98,8 @@ def test_pipeline_metrics_summary_hours_filter():
     ]
 
     metrics_coll = MagicMock()
+    metrics_coll.order_by.return_value = metrics_coll
+    metrics_coll.limit.return_value = metrics_coll
     metrics_coll.stream.side_effect = lambda: iter(metric_docs)
 
     db = _build_empty_firestore_mock()

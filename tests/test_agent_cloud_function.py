@@ -1,7 +1,7 @@
 """Tests for the agent Cloud Function entry point (functions/agent/main.py)."""
 
 import sys
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from unittest.mock import MagicMock, call, patch
 
 import pytest
@@ -37,14 +37,16 @@ def _make_cloud_event(item_id: str) -> MagicMock:
 def _make_firestore_mock(*, item_data: dict | None = None, run_exists: bool = False):
     """Return a mock Firestore client pre-configured for common CF paths."""
     db = MagicMock()
+    queue_state = dict(item_data or {})
 
     # pipeline_queue doc
     queue_doc = MagicMock()
     queue_doc.exists = item_data is not None
-    queue_doc.to_dict.return_value = item_data or {}
+    queue_doc.to_dict.side_effect = lambda: dict(queue_state)
 
     item_ref = MagicMock()
     item_ref.get.return_value = queue_doc
+    item_ref.update.side_effect = lambda update: queue_state.update(update)
 
     # pipeline_runs doc
     run_doc = MagicMock()
@@ -81,8 +83,14 @@ def _make_firestore_mock(*, item_data: dict | None = None, run_exists: bool = Fa
         return callback(tx, *args)
 
     db.run_transaction.side_effect = _run_transaction
-    db.transaction.return_value.__enter__ = MagicMock(return_value=MagicMock())
-    db.transaction.return_value.__exit__ = MagicMock(return_value=False)
+    transaction = MagicMock()
+
+    def _transaction_update(ref, update):
+        if ref is item_ref:
+            queue_state.update(update)
+
+    transaction.update.side_effect = _transaction_update
+    db.transaction.return_value = transaction
 
     return db, item_ref, run_ref, race_ref
 
@@ -118,6 +126,8 @@ def test_skips_when_item_already_running():
         "status": "running",
         "run_id": "run-xyz",
         "options": {},
+        "lease_owner": "other-worker",
+        "lease_expires_at": datetime.now(timezone.utc) + timedelta(minutes=5),
     }
     db, item_ref, run_ref, race_ref = _make_firestore_mock(item_data=already_running)
 
@@ -127,8 +137,56 @@ def test_skips_when_item_already_running():
         patch("functions.agent.main._get_fs", return_value=db),
         patch("functions.agent.main._run_agent") as mock_run,
     ):
-        cf_main.process_queue_item(ev)
+        with pytest.raises(RuntimeError, match="active lease"):
+            cf_main.process_queue_item(ev)
         mock_run.assert_not_called()
+
+
+def test_reclaims_running_item_after_lease_expiry():
+    import functions.agent.main as cf_main
+
+    expired = {
+        "race_id": "az-01-senate-2026",
+        "status": "running",
+        "run_id": "run-expired",
+        "options": {},
+        "lease_owner": "dead-worker",
+        "lease_expires_at": datetime.now(timezone.utc) - timedelta(minutes=1),
+    }
+    db, item_ref, _run_ref, _race_ref = _make_firestore_mock(item_data=expired)
+
+    with (
+        patch("functions.agent.main._get_fs", return_value=db),
+        patch("functions.agent.main._run_agent") as mock_run,
+    ):
+        cf_main.process_queue_item(_make_cloud_event("item-expired"))
+
+    mock_run.assert_called_once()
+    claim_updates = [call.args[1] for call in db.transaction.return_value.update.call_args_list]
+    claim = next(update for update in claim_updates if update.get("status") == "running")
+    assert claim["lease_owner"] != "dead-worker"
+    assert "recovered_at" in claim
+    assert claim["lease_expires_at"] > datetime.now(timezone.utc)
+
+
+def test_terminal_retry_is_acknowledged_without_rerunning():
+    import functions.agent.main as cf_main
+
+    completed = {
+        "race_id": "az-01-senate-2026",
+        "status": "completed",
+        "run_id": "run-completed",
+        "options": {},
+    }
+    db, _item_ref, _run_ref, _race_ref = _make_firestore_mock(item_data=completed)
+
+    with (
+        patch("functions.agent.main._get_fs", return_value=db),
+        patch("functions.agent.main._run_agent") as mock_run,
+    ):
+        cf_main.process_queue_item(_make_cloud_event("item-completed"))
+
+    mock_run.assert_not_called()
 
 
 def test_skips_when_item_missing():
@@ -406,6 +464,7 @@ def test_processes_multiple_queue_items_with_isolated_run_ids():
     with (
         patch("functions.agent.main._get_fs", return_value=db),
         patch("functions.agent.main._run_agent") as mock_run,
+        patch("functions.agent.main._queue_item_owned", return_value=True),
     ):
         cf_main.process_queue_item(_make_cloud_event("item-az"))
         cf_main.process_queue_item(_make_cloud_event("item-ga"))

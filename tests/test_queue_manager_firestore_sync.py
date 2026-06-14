@@ -48,7 +48,7 @@ def test_refresh_from_firestore_does_not_fail_running_items(monkeypatch):
     assert writes == []
 
 
-def test_startup_load_marks_interrupted_running_items_failed(monkeypatch):
+def test_startup_load_preserves_lease_owned_running_items(monkeypatch):
     manager = QueueManager()
     manager._use_firestore = True
     manager._db = object()
@@ -89,10 +89,8 @@ def test_startup_load_marks_interrupted_running_items_failed(monkeypatch):
 
     manager._load_from_firestore(mark_interrupted_running=True)
 
-    assert manager.get_all()[0].status == "failed"
-    assert writes
-    assert writes[0][0] == "item-1"
-    assert writes[0][1]["status"] == "failed"
+    assert manager.get_all()[0].status == "running"
+    assert writes == []
 
 
 def test_list_active_runs_merges_firestore_active_snapshots():

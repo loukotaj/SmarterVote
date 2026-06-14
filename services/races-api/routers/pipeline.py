@@ -321,7 +321,7 @@ async def get_pipeline_metrics_summary(hours: Optional[int] = None) -> Dict[str,
     records: list[Dict[str, Any]] = []
 
     try:
-        docs = db.collection("pipeline_metrics").stream()
+        docs = db.collection("pipeline_metrics").order_by("timestamp", direction="DESCENDING").limit(5000).stream()
         for doc in docs:
             plain = firestore_helpers._doc_to_plain(doc)
             if plain is None:
@@ -331,7 +331,7 @@ async def get_pipeline_metrics_summary(hours: Optional[int] = None) -> Dict[str,
         logging.warning("Failed to summarize pipeline_metrics: %s", exc)
 
     if not records:
-        docs = db.collection("pipeline_runs").stream()
+        docs = db.collection("pipeline_runs").order_by("started_at", direction="DESCENDING").limit(5000).stream()
         for doc in docs:
             plain = firestore_helpers._doc_to_plain(doc)
             if plain is None:

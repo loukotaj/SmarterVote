@@ -114,12 +114,14 @@ resource "google_cloudfunctions2_function" "agent" {
     service_account_email = google_service_account.agent_function[0].email
 
     environment_variables = {
-      PROJECT_ID             = var.project_id
-      FIRESTORE_PROJECT      = var.project_id
-      GCS_BUCKET             = google_storage_bucket.sv_data.name
-      STORAGE_MODE           = "gcp"
-      ENVIRONMENT            = var.environment
-      AGENT_DEADLINE_SECONDS = "480"
+      PROJECT_ID                = var.project_id
+      FIRESTORE_PROJECT         = var.project_id
+      GCS_BUCKET                = google_storage_bucket.sv_data.name
+      STORAGE_MODE              = "gcp"
+      ENVIRONMENT               = var.environment
+      AGENT_DEADLINE_SECONDS    = "480"
+      QUEUE_LEASE_SECONDS       = "180"
+      QUEUE_LEASE_RENEW_SECONDS = "60"
     }
 
     secret_environment_variables {
@@ -152,7 +154,7 @@ resource "google_cloudfunctions2_function" "agent" {
       operator  = "match-path-pattern"
     }
     service_account_email = google_service_account.agent_function[0].email
-    retry_policy          = "RETRY_POLICY_DO_NOT_RETRY"
+    retry_policy          = "RETRY_POLICY_RETRY"
   }
 
   depends_on = [

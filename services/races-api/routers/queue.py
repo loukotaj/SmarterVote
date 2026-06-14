@@ -63,7 +63,7 @@ def _is_run_actually_active(db: Any, run_id: str) -> bool:
     if not run_data or run_data.get("status") not in _ACTIVE_STATUSES:
         return False
     try:
-        queue_docs = db.collection("pipeline_queue").where("run_id", "==", str(run_id)).stream()
+        queue_docs = db.collection("pipeline_queue").where("run_id", "==", str(run_id)).limit(20).stream()
         return any((doc.to_dict() or {}).get("status") in _ACTIVE_STATUSES for doc in queue_docs)
     except Exception:
         return False
@@ -166,15 +166,18 @@ async def get_queue(active_only: bool = False, limit: int = 200) -> Dict[str, An
     When ``active_only=true``, only pending/running items are returned.
     """
     db = firestore_helpers._get_fs()
-    docs = db.collection("pipeline_queue").order_by("created_at").stream()
+    limit = max(1, min(limit, 500))
+    query = db.collection("pipeline_queue")
+    if active_only:
+        query = query.where("status", "in", sorted(_ACTIVE_STATUSES))
+    docs = query.order_by("created_at", direction="DESCENDING").limit(limit).stream()
     items = [firestore_helpers._doc_to_plain(d) for d in docs]
     items = [i for i in items if i is not None]
+    items.reverse()
     items = _normalize_continuation_ancestors(items)
     items = _normalize_terminal_run_items(db, items)
     if active_only:
-        items = [i for i in items if i.get("status") in _ACTIVE_STATUSES]
-    if limit > 0:
-        items = items[-limit:]
+        items = [item for item in items if item.get("status") in _ACTIVE_STATUSES]
     running = sum(1 for i in items if i.get("status") == "running")
     pending = sum(1 for i in items if i.get("status") == "pending")
     return {"items": items, "running": running > 0, "pending": pending}
@@ -239,11 +242,10 @@ async def clear_finished_queue() -> Dict[str, Any]:
     db = firestore_helpers._get_fs()
     finished_statuses = {"completed", "failed", "cancelled", "continued"}
     removed = 0
-    for doc in db.collection("pipeline_queue").stream():
-        data = doc.to_dict() or {}
-        if data.get("status") in finished_statuses:
-            doc.reference.delete()
-            removed += 1
+    docs = db.collection("pipeline_queue").where("status", "in", sorted(finished_statuses)).limit(500).stream()
+    for doc in docs:
+        doc.reference.delete()
+        removed += 1
     return {"removed": removed}
 
 
@@ -252,14 +254,14 @@ async def clear_pending_queue() -> Dict[str, Any]:
     """Cancel all pending (not yet started) queue items."""
     db = firestore_helpers._get_fs()
     removed = 0
-    for doc in db.collection("pipeline_queue").stream():
+    docs = db.collection("pipeline_queue").where("status", "==", "pending").limit(500).stream()
+    for doc in docs:
         data = doc.to_dict() or {}
-        if data.get("status") == "pending":
-            doc.reference.update({"status": "cancelled"})
-            removed += 1
-            race_id = data.get("race_id")
-            if race_id:
-                firestore_helpers._fs_update_race(race_id, {"status": "idle", "current_run_id": None})
+        doc.reference.update({"status": "cancelled", "lease_owner": None, "lease_expires_at": None})
+        removed += 1
+        race_id = data.get("race_id")
+        if race_id:
+            firestore_helpers._fs_update_race(race_id, {"status": "idle", "current_run_id": None})
     return {"removed": removed}
 
 
@@ -286,7 +288,7 @@ async def remove_queue_item(item_id: str, force: bool = False) -> Dict[str, Any]
         return {"ok": True, "action": "force_removed", "id": item_id}
 
     if status == "pending":
-        doc.reference.update({"status": "cancelled"})
+        doc.reference.update({"status": "cancelled", "lease_owner": None, "lease_expires_at": None})
         if race_id:
             firestore_helpers._fs_update_race(race_id, {"status": "idle", "current_run_id": None})
         return {"ok": True, "action": "cancelled", "id": item_id}
@@ -295,7 +297,7 @@ async def remove_queue_item(item_id: str, force: bool = False) -> Dict[str, Any]
         return {"ok": True, "action": "removed", "id": item_id}
     else:
         # running — mark cancelled; CF will check at next step boundary
-        doc.reference.update({"status": "cancelled"})
+        doc.reference.update({"status": "cancelled", "lease_owner": None, "lease_expires_at": None})
         if race_id:
             firestore_helpers._fs_update_race(race_id, {"status": "cancelled", "current_run_id": None})
         return {"ok": True, "action": "cancelled", "id": item_id}

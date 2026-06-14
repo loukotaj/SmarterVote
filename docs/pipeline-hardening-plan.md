@@ -530,6 +530,8 @@ Black and isort checks: passed
 
 ## Phase 6: Queue Correctness and Firestore Scalability
 
+Status: Complete.
+
 ### Problem
 
 Queue operations derive state by listing up to 500 unordered race records. This becomes incorrect when the collection grows and is vulnerable to concurrent workers claiming the same work.
@@ -564,6 +566,26 @@ Remove queue position derived from `list_races(500)`. Use creation time, explici
 - Queue behavior remains correct with more than 1,000 races and queue documents.
 - All list APIs are paginated or explicitly bounded.
 - Interrupted workers recover through lease expiry rather than marking every running item failed at process startup.
+
+### Delivered
+
+- Extended the transactional queue claim with unique lease ownership, expiry, renewal timestamps, attempt counters, and expired-lease recovery.
+- Added a background lease heartbeat and ownership checks before terminal run transitions.
+- Changed Eventarc to retry failed/timed-out deliveries. Active-lease retries deliberately remain unacknowledged until the original worker finishes or the lease expires.
+- Cleared lease state on completion, failure, cancellation, and continuation handoff.
+- Removed startup behavior that marked all running Firestore queue items failed.
+- Bounded queue, active-run, log, metrics, admin-agent, artifact, and GCS listing operations.
+- Replaced full queue scans for active and terminal operations with status queries and explicit limits.
+- Added Firestore composite indexes for queue status/creation time and run status/start time.
+
+### Validation
+
+```text
+Focused queue/API suite: 85 passed
+Full Python suite: 317 passed
+Terraform fmt and validate: passed
+Black and isort checks: passed
+```
 
 ## Phase 7: Consolidate Ownership and Remove Legacy Paths
 
@@ -795,8 +817,8 @@ PYTHONPATH=. python -m pytest
 - [x] Candidate rosters are never silently truncated.
 - [x] Candidate/issue work uses bounded concurrency and patch merging.
 - [x] Review preserves default three-provider whole-profile coverage, removes only operational duplication, and reports cost clearly.
-- [ ] Queue claims are transactional and lease-based.
-- [ ] Firestore and GCS list operations are paginated.
+- [x] Queue claims are transactional and lease-based.
+- [x] Firestore and GCS list operations are paginated or explicitly bounded.
 - [ ] Queue/run/race/storage ownership is consolidated.
 - [ ] Paths and cloud collection/prefix names are centralized.
 - [ ] Magic thresholds and provider names use typed configuration.

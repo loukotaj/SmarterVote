@@ -38,7 +38,7 @@ def _transactional(func):
 
 
 def _conversation_messages(db: Any, conversation_id: str, limit: int = 200) -> list[Dict[str, Any]]:
-    docs = db.collection(_MESSAGES).where("conversation_id", "==", conversation_id).stream()
+    docs = db.collection(_MESSAGES).where("conversation_id", "==", conversation_id).limit(1000).stream()
     messages = [_plain(doc) for doc in docs]
     return sorted(
         (message for message in messages if message is not None),
@@ -47,7 +47,7 @@ def _conversation_messages(db: Any, conversation_id: str, limit: int = 200) -> l
 
 
 def _conversation_tasks(db: Any, conversation_id: str, limit: int = 20) -> list[Dict[str, Any]]:
-    docs = db.collection(_TASKS).where("conversation_id", "==", conversation_id).stream()
+    docs = db.collection(_TASKS).where("conversation_id", "==", conversation_id).limit(1000).stream()
     tasks = [_plain(doc) for doc in docs]
     return sorted(
         (task for task in tasks if task is not None),
@@ -127,11 +127,11 @@ async def delete_conversation(conversation_id: str) -> Dict[str, Any]:
     if not conversation_ref.get().exists:
         raise HTTPException(status_code=404, detail="Conversation not found")
 
-    message_docs = db.collection(_MESSAGES).where("conversation_id", "==", conversation_id).stream()
+    message_docs = db.collection(_MESSAGES).where("conversation_id", "==", conversation_id).limit(1000).stream()
     for doc in message_docs:
         doc.reference.delete()
 
-    task_docs = db.collection(_TASKS).where("conversation_id", "==", conversation_id).stream()
+    task_docs = db.collection(_TASKS).where("conversation_id", "==", conversation_id).limit(1000).stream()
     for doc in task_docs:
         doc.reference.delete()
 

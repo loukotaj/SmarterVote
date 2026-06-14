@@ -142,7 +142,7 @@ def _normalize_active_run(db: Any, run: Dict[str, Any], now: datetime) -> Dict[s
                     runs_ref.document(str(run_id)).update(update)
                 except Exception:
                     pass
-                for queue_doc in queue_ref.where("run_id", "==", run_id).stream():
+                for queue_doc in queue_ref.where("run_id", "==", run_id).limit(20).stream():
                     queue_data = queue_doc.to_dict() or {}
                     if queue_data.get("status") in _ACTIVE_STATUSES:
                         try:
@@ -161,7 +161,7 @@ def _normalize_active_run(db: Any, run: Dict[str, Any], now: datetime) -> Dict[s
             runs_ref.document(str(run_id)).update(update)
         except Exception:
             pass
-        for queue_doc in queue_ref.where("run_id", "==", run_id).stream():
+        for queue_doc in queue_ref.where("run_id", "==", run_id).limit(20).stream():
             queue_data = queue_doc.to_dict() or {}
             if queue_data.get("status") in _ACTIVE_STATUSES:
                 try:
@@ -205,6 +205,8 @@ async def list_runs(limit: int = 50) -> Dict[str, Any]:
     dashboards always show the true active count and current parallel work.
     """
 
+    limit = max(1, min(limit, 500))
+
     def _ordered_runs(field: str) -> list[Dict[str, Any]]:
         try:
             docs = db.collection("pipeline_runs").order_by(field, direction="DESCENDING").limit(limit).stream()
@@ -217,7 +219,7 @@ async def list_runs(limit: int = 50) -> Dict[str, Any]:
     for field in ("progress_updated_at", "completed_at", "updated_at", "started_at"):
         runs.extend(_ordered_runs(field))
 
-    active_docs = db.collection("pipeline_runs").where("status", "in", ["pending", "running"]).stream()
+    active_docs = db.collection("pipeline_runs").where("status", "in", ["pending", "running"]).limit(500).stream()
     active_runs = [firestore_helpers._doc_to_plain(d) for d in active_docs]
     active_runs = [r for r in active_runs if r is not None]
     now = datetime.now(timezone.utc)
@@ -238,7 +240,7 @@ async def list_runs(limit: int = 50) -> Dict[str, Any]:
 async def list_active_runs() -> Dict[str, Any]:
     """List currently running or pending pipeline runs."""
     db = firestore_helpers._get_fs()
-    docs = db.collection("pipeline_runs").where("status", "in", ["pending", "running"]).stream()
+    docs = db.collection("pipeline_runs").where("status", "in", ["pending", "running"]).limit(500).stream()
     runs = [firestore_helpers._doc_to_plain(d) for d in docs]
     runs = [r for r in runs if r is not None]
     now = datetime.now(timezone.utc)
@@ -258,7 +260,7 @@ async def get_run(run_id: str) -> Dict[str, Any]:
 
 
 @router.get("/runs/{run_id}/logs", dependencies=[Depends(verify_token)])
-async def get_run_logs(run_id: str, since: int = 0) -> Dict[str, Any]:
+async def get_run_logs(run_id: str, since: int = 0, limit: int = 1000) -> Dict[str, Any]:
     """Return log entries for a run from the Firestore logs subcollection.
 
     Pass ``?since=N`` to return only entries after index N (incremental polling).
@@ -266,7 +268,8 @@ async def get_run_logs(run_id: str, since: int = 0) -> Dict[str, Any]:
     """
     db = firestore_helpers._get_fs()
     logs_ref = db.collection("pipeline_runs").document(run_id).collection("logs")
-    entries = [firestore_helpers._doc_to_plain(d) for d in logs_ref.stream()]
+    limit = max(1, min(limit, 5000))
+    entries = [firestore_helpers._doc_to_plain(d) for d in logs_ref.limit(limit).stream()]
     entries = [e for e in entries if e is not None]
     entries.sort(key=_log_sort_key)
     sliced = entries[since:] if since < len(entries) else []
@@ -279,7 +282,7 @@ async def prune_runs() -> Dict[str, Any]:
     db = firestore_helpers._get_fs()
     terminal_statuses = ["completed", "failed", "cancelled", "continued"]
     runs_ref = db.collection("pipeline_runs")
-    docs = list(runs_ref.where("status", "in", terminal_statuses).stream())
+    docs = list(runs_ref.where("status", "in", terminal_statuses).limit(500).stream())
 
     batch = db.batch()
     count = 0
@@ -307,10 +310,10 @@ async def cancel_or_delete_run(run_id: str) -> Dict[str, Any]:
     status = data.get("status", "")
     if status in ("pending", "running"):
         doc_ref.update({"status": "cancelled"})
-        for queue_doc in db.collection("pipeline_queue").where("run_id", "==", run_id).stream():
+        for queue_doc in db.collection("pipeline_queue").where("run_id", "==", run_id).limit(20).stream():
             queue_data = queue_doc.to_dict() or {}
             if queue_data.get("status") in ("pending", "running"):
-                queue_doc.reference.update({"status": "cancelled"})
+                queue_doc.reference.update({"status": "cancelled", "lease_owner": None, "lease_expires_at": None})
         race_id = data.get("race_id")
         if race_id:
             race_doc = db.collection("races").document(str(race_id)).get()
