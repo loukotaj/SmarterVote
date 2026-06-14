@@ -360,7 +360,11 @@ def _pipeline_run_stats(db: Any) -> Dict[str, Dict[str, Any]]:
     """Aggregate run counts from canonical pipeline_runs docs for the races table."""
     stats: Dict[str, Dict[str, Any]] = {}
     try:
-        docs = db.collection("pipeline_runs").stream()
+        docs = (
+            db.collection("pipeline_runs")
+            .select(["race_id", "status", "started_at", "completed_at", "updated_at", "payload.race_id"])
+            .stream()
+        )
     except Exception as exc:
         logging.warning("Failed to aggregate pipeline run counts: %s", exc)
         return stats

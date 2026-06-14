@@ -112,6 +112,8 @@ def fake_db(monkeypatch):
 
 def test_create_submit_and_load_conversation(fake_db):
     conversation = asyncio.run(admin_agent.create_conversation())
+    assert conversation["title"] == "New admin conversation"
+
     task = asyncio.run(
         admin_agent.submit_message(
             conversation["conversation_id"],
@@ -121,6 +123,7 @@ def test_create_submit_and_load_conversation(fake_db):
     loaded = asyncio.run(admin_agent.get_conversation(conversation["conversation_id"]))
 
     assert task["status"] == "queued"
+    assert loaded["conversation"]["title"] == "Review stale races"
     assert loaded["messages"][0]["role"] == "user"
     assert loaded["messages"][0]["content"] == "Review stale races"
     assert loaded["tasks"][0]["task_id"] == task["task_id"]

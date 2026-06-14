@@ -137,6 +137,88 @@
     }
   }
 
+  function renderContent(text: string): string {
+    if (!text) return "";
+    let s = text
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+
+    // Fenced code blocks
+    s = s.replace(/```[\s\S]*?```/g, (m) => {
+      const inner = m.slice(3, -3).replace(/^[^\n]+\n/, ""); // strip language tag
+      return `<pre class="my-2 p-2 rounded bg-surface-alt text-xs overflow-x-auto border border-stroke">${inner}</pre>`;
+    });
+
+    // Inline code
+    s = s.replace(/`([^`\n]+)`/g, '<code class="bg-surface-alt border border-stroke px-1 py-0.5 rounded text-xs font-mono">$1</code>');
+
+    // Bold + italic
+    s = s.replace(/\*\*\*(.*?)\*\*\*/g, "<strong><em>$1</em></strong>");
+    s = s.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+    s = s.replace(/\*(.*?)\*/g, "<em>$1</em>");
+
+    // Lines: process each line
+    const lines = s.split("\n");
+    const out: string[] = [];
+    let inList = false;
+    let listTag = "";
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+
+      // ATX headers
+      const hMatch = line.match(/^(#{1,3})\s+(.+)$/);
+      if (hMatch) {
+        if (inList) { out.push(`</${listTag}>`); inList = false; }
+        const lvl = hMatch[1].length;
+        const cls = lvl === 1 ? "text-base font-bold mt-3 mb-1" : lvl === 2 ? "text-sm font-bold mt-2 mb-0.5" : "text-sm font-semibold mt-1";
+        out.push(`<p class="${cls}">${hMatch[2]}</p>`);
+        continue;
+      }
+
+      // Unordered list items
+      const ulMatch = line.match(/^[-*]\s+(.*)/);
+      if (ulMatch) {
+        if (!inList || listTag !== "ul") {
+          if (inList) out.push(`</${listTag}>`);
+          out.push('<ul class="list-disc pl-4 space-y-0.5 my-1">');
+          inList = true; listTag = "ul";
+        }
+        out.push(`<li>${ulMatch[1]}</li>`);
+        continue;
+      }
+
+      // Ordered list items
+      const olMatch = line.match(/^\d+\.\s+(.*)/);
+      if (olMatch) {
+        if (!inList || listTag !== "ol") {
+          if (inList) out.push(`</${listTag}>`);
+          out.push('<ol class="list-decimal pl-4 space-y-0.5 my-1">');
+          inList = true; listTag = "ol";
+        }
+        out.push(`<li>${olMatch[1]}</li>`);
+        continue;
+      }
+
+      // Close list on non-list line
+      if (inList && line.trim() !== "") {
+        out.push(`</${listTag}>`);
+        inList = false;
+      }
+
+      // Empty line → paragraph break
+      if (line.trim() === "") {
+        if (!inList) out.push('<div class="h-2"></div>');
+      } else {
+        out.push(`<span>${line}</span><br>`);
+      }
+    }
+
+    if (inList) out.push(`</${listTag}>`);
+    return out.join("");
+  }
+
   async function handleNewConversation() {
     if (isActive || waitingApproval) {
       if (!confirm("There is an active task running. Switch anyway?")) {
@@ -250,24 +332,26 @@
     </div>
     <div class="flex-1 overflow-y-auto p-2 space-y-1">
       {#each conversations as conv (conv.conversation_id)}
-        <button
-          type="button"
-          class="w-full text-left px-3 py-2.5 rounded-lg flex items-center justify-between gap-2 transition-all duration-200 group relative
+        <div
+          class="w-full rounded-lg flex items-center justify-between transition-all duration-200 group relative
             {data?.conversation.conversation_id === conv.conversation_id
               ? 'bg-blue-50 dark:bg-blue-950/20 border-l-4 border-blue-500 text-blue-900 dark:text-blue-200 font-medium shadow-sm'
               : 'hover:bg-surface-alt/60 text-content-subtle hover:text-content'}"
-          on:click={() => selectConversation(conv.conversation_id)}
         >
-          <div class="flex items-center gap-2 min-w-0 flex-1">
+          <button
+            type="button"
+            class="flex-1 text-left px-3 py-2.5 flex items-center gap-2 min-w-0"
+            on:click={() => selectConversation(conv.conversation_id)}
+          >
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0 {data?.conversation.conversation_id === conv.conversation_id ? 'text-blue-500' : 'text-content-faint'}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
             </svg>
             <span class="truncate text-sm">{conv.title || 'Conversation'}</span>
-          </div>
+          </button>
 
           <button
             type="button"
-            class="opacity-0 group-hover:opacity-100 p-1 rounded hover:bg-red-50 dark:hover:bg-red-950/40 text-red-500 transition-opacity duration-200 shrink-0"
+            class="opacity-0 group-hover:opacity-100 p-1 mr-2 rounded hover:bg-red-50 dark:hover:bg-red-950/40 text-red-500 transition-opacity duration-200 shrink-0"
             on:click={(e) => deleteConversation(conv.conversation_id, e)}
             disabled={isDeletingConversationId === conv.conversation_id}
             title="Delete conversation"
@@ -283,7 +367,7 @@
               </svg>
             {/if}
           </button>
-        </button>
+        </div>
       {/each}
     </div>
   </div>
@@ -416,12 +500,17 @@
                     </svg>
                   </div>
                 {/if}
-                <div class="rounded-2xl px-4 py-2.5 text-sm whitespace-pre-wrap break-words shadow-sm border
+                <div class="rounded-2xl px-4 py-2.5 text-sm break-words shadow-sm border
                   {message.role === 'user'
                     ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-tr-sm border-blue-700 shadow-blue-500/10'
                     : 'bg-surface border-stroke text-content rounded-tl-sm'}"
                 >
-                  {message.content || (message.metadata?.tool_calls ? "Executing operation..." : "")}
+                  {#if message.content}
+                    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+                    {@html renderContent(message.content)}
+                  {:else if message.metadata?.tool_calls}
+                    <em>Executing operation...</em>
+                  {/if}
                 </div>
               </div>
             </div>

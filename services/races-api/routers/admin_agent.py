@@ -169,7 +169,17 @@ async def submit_message(conversation_id: str, request: AdminAgentMessageRequest
         "error": None,
     }
     db.collection(_TASKS).document(task_id).set(task)
-    conversation_ref.set({"updated_at": now, "status": "active"}, merge=True)
+
+    conv_data = conversation.to_dict() or {}
+    current_title = conv_data.get("title", "New admin conversation")
+
+    update_data: Dict[str, Any] = {"updated_at": now, "status": "active"}
+    if current_title == "New admin conversation":
+        msg_content = request.content.strip()
+        new_title = msg_content[:40] + ("..." if len(msg_content) > 40 else "")
+        update_data["title"] = new_title
+
+    conversation_ref.set(update_data, merge=True)
     return task
 
 
