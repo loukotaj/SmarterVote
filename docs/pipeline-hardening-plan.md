@@ -622,6 +622,31 @@ Do this after transactional queue work, not before.
 - Comments, architecture docs, and code agree about collection ownership.
 - Local tests can inject fake repositories without environment-variable patching.
 
+### Delivered
+
+- Kept `pipeline_runs/{run_id}` as the authoritative run record and removed the
+  local runner's duplicate writes to `races/{race_id}/runs`.
+- Documented queue items as physical invocation records and `run_id` as the
+  stable logical-run identity reused across continuations.
+- Collapsed legacy multi-ID continuation chains into one dashboard run,
+  including while the final continuation is still active.
+- Investigated the June 14, 2026 `ga-governor-2026` discovery run. It used six
+  physical invocations because the deployed function has a 540-second timeout
+  and a deliberate 480-second handoff budget. The older deployed build assigned
+  a new run ID to each continuation and repeatedly restarted discovery work.
+- Confirmed the stale Georgia roster was also caused by the removal guard
+  treating `last_updated` as an `update` data-fix signal and failing to recognize
+  "lost Republican primary" as a primary-loss signal. The guard now uses word
+  boundaries and accepts intervening party names.
+
+### Validation
+
+```text
+Focused continuation/agent/API suite: 119 passed
+Full Python suite: 320 passed
+Black and isort checks: passed
+```
+
 ## Phase 8: Centralize Paths and Storage Names
 
 ### Problem

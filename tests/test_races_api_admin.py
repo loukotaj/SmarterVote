@@ -76,6 +76,27 @@ def test_collapse_continuation_chain_reports_one_logical_run():
     assert collapsed[0]["duration_ms"] == 12 * 60 * 1000
 
 
+def test_collapse_in_progress_continuation_chain_reports_running_next_invocation():
+    from routers.runs import _collapse_continuation_chains
+
+    runs = [
+        {
+            "run_id": "run-root",
+            "status": "continued",
+            "started_at": "2026-06-14T20:00:00+00:00",
+            "continuation_run_id": "run-child",
+        }
+    ]
+
+    collapsed = _collapse_continuation_chains(runs)
+
+    assert len(collapsed) == 1
+    assert collapsed[0]["run_id"] == "run-child"
+    assert collapsed[0]["logical_run_id"] == "run-root"
+    assert collapsed[0]["status"] == "running"
+    assert collapsed[0]["invocation_run_ids"] == ["run-root", "run-child"]
+
+
 # ---------------------------------------------------------------------------
 # Fixtures
 # ---------------------------------------------------------------------------

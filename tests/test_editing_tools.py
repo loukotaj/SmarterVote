@@ -418,6 +418,23 @@ def test_remove_candidate_does_not_delete_real_names():
     assert race_json["candidates"][0].get("withdrawn") is True
 
 
+def test_remove_candidate_accepts_completed_primary_loss_with_last_updated_context():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"candidates": [{"name": "Brad Raffensperger"}]}
+    handlers = _make_editing_handlers(race_json, lambda *_: None)
+
+    result = handlers["remove_candidate"](
+        {
+            "name": "Brad Raffensperger",
+            "reason": ("Lost Republican primary on May 19, 2026, before the profile's " "last_updated date of June 13, 2026."),
+        }
+    )
+
+    assert "blocked" not in result.lower()
+    assert race_json["candidates"][0]["withdrawn"] is True
+
+
 # ---------------------------------------------------------------------------
 # Search cache
 # ---------------------------------------------------------------------------

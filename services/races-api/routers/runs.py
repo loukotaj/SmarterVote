@@ -76,6 +76,11 @@ def _collapse_continuation_chains(runs: list[Dict[str, Any]]) -> list[Dict[str, 
         ordered = sorted(group, key=_run_sort_key)
         terminal = [run for run in ordered if run.get("status") != "continued"]
         representative = dict((terminal or ordered)[-1])
+        if not terminal:
+            next_run_id = representative.get("continuation_run_id")
+            representative["status"] = "running"
+            if next_run_id:
+                representative["run_id"] = str(next_run_id)
         starts = [_coerce_datetime(run.get("started_at")) for run in group]
         starts = [value for value in starts if value is not None]
         ends = [_coerce_datetime(run.get("completed_at") or run.get("continued_at")) for run in group]
@@ -85,7 +90,10 @@ def _collapse_continuation_chains(runs: list[Dict[str, Any]]) -> list[Dict[str, 
             int(representative.get("continuation_count") or 0),
             len(group) - 1,
         )
-        representative["invocation_run_ids"] = [str(run["run_id"]) for run in ordered]
+        invocation_run_ids = [str(run["run_id"]) for run in ordered]
+        if representative.get("run_id") not in invocation_run_ids:
+            invocation_run_ids.append(str(representative["run_id"]))
+        representative["invocation_run_ids"] = invocation_run_ids
         if starts:
             representative["started_at"] = min(starts).isoformat()
         if starts and ends:

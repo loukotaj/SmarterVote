@@ -48,7 +48,10 @@ Queue documents should contain:
 - `is_continuation`
 - `created_at`
 
-The Cloud Function updates `pipeline_runs/{run_id}`, writes logs under `pipeline_runs/{run_id}/logs`, and updates `races/{race_id}` metadata.
+The original `run_id` is the logical run ID and is reused by every Cloud Function
+continuation. Queue items represent physical invocation attempts and may transition
+to `continued`; `pipeline_runs/{run_id}` remains `running` until the logical run
+reaches a terminal state. Logs live under `pipeline_runs/{run_id}/logs`.
 
 ## Admin API Surface
 
@@ -144,6 +147,8 @@ Update/rerun mode adds roster and metadata synchronization before re-researching
 ## Migration Guardrails
 
 - Treat `services/races-api` as the canonical API contract.
+- Treat `pipeline_runs` as the only run-history store. Do not recreate
+  `races/{race_id}/runs` subcollections.
 - Do not add new production-only behavior to `pipeline_client/backend/main.py`.
 - Keep `web/src/lib/services/pipelineApiService.ts` aligned with `services/races-api` responses.
 - Keep queue option models in sync with `pipeline_client.backend.models.RunOptions`.

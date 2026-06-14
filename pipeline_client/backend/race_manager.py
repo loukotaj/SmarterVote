@@ -1,13 +1,9 @@
 """
 Unified race management service.
 
-Each race is the central entity. Runs, queue status, draft/published state, and
-analytics are all attributes of a race record stored in Firestore (collection: "races").
-
-Runs are stored as a subcollection: races/{race_id}/runs/{run_id}.
-
-Queue is simply races with status="queued" ordered by queue_position — no separate
-collection needed.
+Race catalog metadata is stored in Firestore collection ``races``. Queue
+execution state lives in ``pipeline_queue`` and run history lives in
+``pipeline_runs``; this manager does not own either entity.
 
 Storage strategy mirrors run_manager.py:
 - Cloud Run: Firestore required (fail-fast if missing)
@@ -117,8 +113,7 @@ class RaceManager:
         if not project:
             if is_cloud_run:
                 raise RuntimeError(
-                    "Cloud Run detected but FIRESTORE_PROJECT is not set. "
-                    "RaceManager requires Firestore for durability."
+                    "Cloud Run detected but FIRESTORE_PROJECT is not set. " "RaceManager requires Firestore for durability."
                 )
             logger.info("RaceManager: FIRESTORE_PROJECT not set — using in-memory (local dev)")
             return
@@ -321,7 +316,9 @@ class RaceManager:
         race = self.get_race(race_id)
         total = (race.total_runs if race else 0) + 1
         # Preserve published/draft if applicable
-        new_status = "published" if (race and race.published_at) else ("draft" if (race and race.draft_updated_at) else "failed")
+        new_status = (
+            "published" if (race and race.published_at) else ("draft" if (race and race.draft_updated_at) else "failed")
+        )
 
         return self.upsert_race(
             race_id,
@@ -358,9 +355,11 @@ class RaceManager:
         has_gcs_published = False
         try:
             from .settings import settings
+
             gcs_bucket = settings.gcs_bucket
             if gcs_bucket:
                 from pipeline_client.backend.main import _get_gcs_client
+
                 client = _get_gcs_client()
                 if client is not None:
                     bucket = client.bucket(gcs_bucket)
@@ -500,13 +499,7 @@ class RaceManager:
     def get_run(self, race_id: str, run_id: str) -> Optional[RunInfo]:
         if self._db is not None:
             try:
-                doc = (
-                    self._db.collection(_COLLECTION)
-                    .document(race_id)
-                    .collection("runs")
-                    .document(run_id)
-                    .get()
-                )
+                doc = self._db.collection(_COLLECTION).document(race_id).collection("runs").document(run_id).get()
                 if doc.exists:
                     run = RunInfo(**(doc.to_dict() or {}))
                     self._local_runs.setdefault(race_id, {})[run_id] = run  # populate cache
@@ -565,12 +558,7 @@ class RaceManager:
 
         if self._db is not None:
             try:
-                doc_ref = (
-                    self._db.collection(_COLLECTION)
-                    .document(race_id)
-                    .collection("runs")
-                    .document(run_id)
-                )
+                doc_ref = self._db.collection(_COLLECTION).document(race_id).collection("runs").document(run_id)
                 if doc_ref.get().exists:
                     doc_ref.delete()
                     return True
@@ -685,7 +673,7 @@ class RaceManager:
                         continue
                     try:
                         data = json.loads(blob.download_as_text())
-                        stem = blob.name[len(f"{prefix}/"):-len(".json")]
+                        stem = blob.name[len(f"{prefix}/") : -len(".json")]
                         race_id = data.get("id", stem)
                         if race_id in seen:
                             if not is_published:
@@ -758,9 +746,7 @@ class RaceManager:
         if self._db is None:
             return
         try:
-            self._db.collection(_COLLECTION).document(record.race_id).set(
-                record.model_dump(mode="json")
-            )
+            self._db.collection(_COLLECTION).document(record.race_id).set(record.model_dump(mode="json"))
         except Exception:
             logger.exception("Firestore synchronous flush failed for race %s", record.race_id)
 
@@ -768,9 +754,7 @@ class RaceManager:
         if self._db is None:
             return
         try:
-            self._db.collection(_COLLECTION).document(record.race_id).set(
-                record.model_dump(mode="json")
-            )
+            self._db.collection(_COLLECTION).document(record.race_id).set(record.model_dump(mode="json"))
         except Exception:
             logger.exception("Firestore write failed for race %s", record.race_id)
 
@@ -782,13 +766,7 @@ class RaceManager:
             logger.debug("Skipping Firestore write for deleted run %s/%s", race_id, run_id)
             return
         try:
-            (
-                self._db.collection(_COLLECTION)
-                .document(race_id)
-                .collection("runs")
-                .document(run_id)
-                .set(data)
-            )
+            (self._db.collection(_COLLECTION).document(race_id).collection("runs").document(run_id).set(data))
         except Exception:
             logger.exception("Firestore write_run failed for %s/%s", race_id, run_id)
 

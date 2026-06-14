@@ -154,7 +154,9 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
             "primary loss",
         }
         reason_lower = reason.lower()
-        has_withdrawal_signal = any(kw in reason_lower for kw in _WITHDRAWAL_KEYWORDS)
+        has_withdrawal_signal = any(kw in reason_lower for kw in _WITHDRAWAL_KEYWORDS) or bool(
+            re.search(r"\blost\b.{0,40}\bprimary\b", reason_lower)
+        )
 
         # Also reject if reason sounds like a data-quality fix
         _DATA_FIX_KEYWORDS = {
@@ -170,7 +172,7 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
             "update",
             "correction",
         }
-        has_data_fix_signal = any(kw in reason_lower for kw in _DATA_FIX_KEYWORDS)
+        has_data_fix_signal = any(re.search(rf"\b{re.escape(kw)}\b", reason_lower) for kw in _DATA_FIX_KEYWORDS)
 
         # Special case: structurally invalid entries (e.g. a metadata key like
         # "updated_utc" accidentally stored as a candidate name) should be
