@@ -235,6 +235,17 @@ def test_rate_limit_exceeded(client):
     assert resp.status_code == 429
 
 
+def test_rate_limit_bypass_prerender(client):
+    """Requests with Origin: http://sveltekit-prerender bypass the rate limit."""
+    import main as main_mod
+
+    main_mod.limiter.reset()
+
+    for _ in range(70):
+        resp = client.get("/races", headers={"Origin": "http://sveltekit-prerender"})
+        assert resp.status_code == 200
+
+
 # ---------------------------------------------------------------------------
 # Analytics endpoint tests
 # ---------------------------------------------------------------------------

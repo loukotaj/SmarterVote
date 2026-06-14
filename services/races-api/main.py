@@ -54,8 +54,16 @@ from slowapi.util import get_remote_address
 # Initialize simple publish service
 publish_service = SimplePublishService(data_directory=DATA_DIR)
 
-# Rate limiter (keyed by client IP)
-limiter = Limiter(key_func=get_remote_address)
+
+def get_rate_limit_key(request: Request) -> str | None:
+    # Exempt SvelteKit prerendering requests from rate limiting
+    if request.headers.get("origin") == "http://sveltekit-prerender":
+        return None
+    return get_remote_address(request)
+
+
+# Rate limiter (keyed by client IP, bypassed for prerenderer)
+limiter = Limiter(key_func=get_rate_limit_key)
 
 _ADMIN_API_KEY = os.getenv("ADMIN_API_KEY")
 _http_bearer = HTTPBearer(auto_error=False)
