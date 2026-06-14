@@ -468,6 +468,8 @@ async def run_agent(
     if existing_data is None:
         existing_data = _load_existing(race_id)
 
+    discovery_only = _enabled == {"discovery"}
+
     if existing_data:
         log("info", f"Update mode for {race_id} (profile={profile}, model={model}, small_model={small_model})")
         if goal:
@@ -486,7 +488,7 @@ async def run_agent(
             target_candidate_names=candidate_names,
             goal=goal,
             resume_partial=resume_partial,
-            roster_only=_enabled == {"discovery"},
+            roster_only=discovery_only,
             run_budget=run_budget,
         )
     else:

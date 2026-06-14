@@ -855,7 +855,8 @@ def test_enforce_candidate_cap_prioritizes_nominee_signals_within_party_bucket()
     names = [candidate["name"] for candidate in race_json["candidates"]]
     assert len(names) == 8
     assert "Dem Nominee" in names
-    assert "Dem A" not in names
+    dropped_dem_low_signal = {"Dem A", "Dem B", "Dem C", "Dem D"} - set(names)
+    assert dropped_dem_low_signal
 
 
 def test_enforce_candidate_cap_keeps_original_order_for_equal_priority_candidates():

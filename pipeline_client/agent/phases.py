@@ -1094,8 +1094,16 @@ async def _run_update(
         # candidates added by the cheaper small_model during sync.
         post_sync_names = [_candidate_name(c) for c in race_json.get("candidates", []) if _candidate_name(c)]
         added_names = [n for n in post_sync_names if n not in pre_sync_names]
-        if added_names:
-            log("info", f"  Roster verify: checking {len(added_names)} added candidate(s): {', '.join(added_names)}")
+        should_verify_full_roster = not added_names and len(post_sync_names) >= MAX_RACE_CANDIDATES
+        verify_added_names = added_names if added_names else post_sync_names
+        if added_names or should_verify_full_roster:
+            if added_names:
+                log("info", f"  Roster verify: checking {len(added_names)} added candidate(s): {', '.join(added_names)}")
+            else:
+                log(
+                    "info",
+                    "  Roster verify: roster at cap with no new additions; running full-roster inactive-candidate check",
+                )
             try:
                 await _agent_loop(
                     ROSTER_VERIFY_SYSTEM,
@@ -1103,7 +1111,7 @@ async def _run_update(
                         race_id=race_id,
                         candidate_names=", ".join(post_sync_names),
                         original_names=", ".join(pre_sync_names),
-                        added_names=", ".join(added_names),
+                        added_names=", ".join(verify_added_names),
                     ),
                     model=model,
                     on_log=on_log,
