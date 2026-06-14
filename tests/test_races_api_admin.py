@@ -2849,3 +2849,43 @@ def test_admin_endpoint_accepts_admin_api_key_header(monkeypatch):
 
     assert resp.status_code == 200
     assert "steps" in resp.json()
+
+
+def test_delete_race_record():
+    """DELETE /api/races/{race_id} should delete Firestore document, delete GCS files, and update GCS summaries."""
+    os.environ["SKIP_AUTH"] = "true"
+    os.environ["ADMIN_API_KEY"] = "test-key"
+
+    import main as app_module
+    from fastapi.testclient import TestClient
+
+    firestore_helpers._fs_db = None
+
+    db = _build_empty_firestore_mock()
+    race_ref = MagicMock()
+    races_coll = MagicMock()
+    races_coll.document.return_value = race_ref
+    db.collection.side_effect = lambda name: races_coll if name == "races" else MagicMock()
+
+    with (
+        patch("firestore_helpers._get_fs", return_value=db),
+        patch("gcs_helpers._gcs_delete_race_json") as mock_delete,
+        patch("gcs_helpers.update_gcs_summaries_json") as mock_update_summaries,
+    ):
+        tc = TestClient(app_module.app)
+        resp = tc.delete("/api/races/nh-governor-2026")
+
+    assert resp.status_code == 200
+    assert resp.json() == {"message": "Race nh-governor-2026 deleted", "id": "nh-governor-2026"}
+
+    # Verify GCS deletes
+    mock_delete.assert_any_call("nh-governor-2026", "races")
+    mock_delete.assert_any_call("nh-governor-2026", "drafts")
+    assert mock_delete.call_count == 2
+
+    # Verify update_gcs_summaries_json
+    mock_update_summaries.assert_called_once_with({"nh-governor-2026": None})
+
+    # Verify Firestore delete
+    races_coll.document.assert_called_once_with("nh-governor-2026")
+    race_ref.delete.assert_called_once()

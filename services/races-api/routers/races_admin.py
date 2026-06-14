@@ -585,6 +585,7 @@ async def delete_race_record(request: Request, race_id: str) -> Dict[str, Any]:
     validate_race_id(race_id)
     gcs_helpers._gcs_delete_race_json(race_id, "races")
     gcs_helpers._gcs_delete_race_json(race_id, "drafts")
+    gcs_helpers.update_gcs_summaries_json({race_id: None})
     try:
         firestore_helpers._get_fs().collection("races").document(race_id).delete()
     except Exception as exc:

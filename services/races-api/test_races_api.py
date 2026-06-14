@@ -37,6 +37,7 @@ def _load_main_module(data_dir: str, monkeypatch) -> Any:
     monkeypatch.delenv("CLOUD_RUN_SERVICE", raising=False)
     monkeypatch.delenv("K_SERVICE", raising=False)
     monkeypatch.delenv("GAE_APPLICATION", raising=False)
+    monkeypatch.delenv("SKIP_AUTH", raising=False)
 
     import importlib
 
