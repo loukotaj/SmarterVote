@@ -196,6 +196,22 @@
     name="description"
     content="Clear, unbiased AI analysis of where candidates stand on the issues that matter. Browse races by state."
   />
+  <link rel="canonical" href="https://smarter.vote/" />
+  <meta property="og:url" content="https://smarter.vote/" />
+  <meta property="og:title" content="Smarter.vote — Know Your Candidates" />
+  <meta
+    property="og:description"
+    content="Clear, unbiased AI analysis of where candidates stand on the issues that matter. Browse races by state."
+  />
+  <meta property="og:image" content="https://smarter.vote/og-image.png" />
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://smarter.vote/" />
+  <meta property="twitter:title" content="Smarter.vote — Know Your Candidates" />
+  <meta
+    property="twitter:description"
+    content="Clear, unbiased AI analysis of where candidates stand on the issues that matter. Browse races by state."
+  />
+  <meta property="twitter:image" content="https://smarter.vote/og-image.png" />
 </svelte:head>
 
 <div class="max-w-7xl mx-auto px-4 py-8 sm:py-10">

@@ -119,9 +119,24 @@
   <title>{race?.title || "Loading..."} | Smarter.vote</title>
   <meta
     name="description"
-    content="Compare candidates for {race?.title ||
-      'this election'} on key issues using analysis from traceable public sources."
+    content="Compare candidates for {race?.title || 'this election'} on key issues using analysis from traceable public sources."
   />
+  <link rel="canonical" href="https://smarter.vote/races/{slug}/" />
+  <meta property="og:url" content="https://smarter.vote/races/{slug}/" />
+  <meta property="og:title" content="{race?.title || 'Election'} | Smarter.vote" />
+  <meta
+    property="og:description"
+    content="Compare candidates for {race?.title || 'this election'} on key issues using analysis from traceable public sources."
+  />
+  <meta property="og:image" content="https://smarter.vote/og-image.png" />
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://smarter.vote/races/{slug}/" />
+  <meta property="twitter:title" content="{race?.title || 'Election'} | Smarter.vote" />
+  <meta
+    property="twitter:description"
+    content="Compare candidates for {race?.title || 'this election'} on key issues using analysis from traceable public sources."
+  />
+  <meta property="twitter:image" content="https://smarter.vote/og-image.png" />
 </svelte:head>
 
 <div class="container mx-auto px-4 py-6 sm:py-8 max-w-7xl">

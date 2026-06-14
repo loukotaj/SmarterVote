@@ -4,6 +4,22 @@
     name="description"
     content="Learn about Smarter.vote's mission to provide unbiased candidate analysis from public, traceable sources to help voters make informed decisions."
   />
+  <link rel="canonical" href="https://smarter.vote/about/" />
+  <meta property="og:url" content="https://smarter.vote/about/" />
+  <meta property="og:title" content="About | Smarter.vote" />
+  <meta
+    property="og:description"
+    content="Learn about Smarter.vote's mission to provide unbiased candidate analysis from public, traceable sources to help voters make informed decisions."
+  />
+  <meta property="og:image" content="https://smarter.vote/og-image.png" />
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://smarter.vote/about/" />
+  <meta property="twitter:title" content="About | Smarter.vote" />
+  <meta
+    property="twitter:description"
+    content="Learn about Smarter.vote's mission to provide unbiased candidate analysis from public, traceable sources to help voters make informed decisions."
+  />
+  <meta property="twitter:image" content="https://smarter.vote/og-image.png" />
 </svelte:head>
 
 <div class="container mx-auto px-4 py-8 sm:py-12 max-w-4xl">

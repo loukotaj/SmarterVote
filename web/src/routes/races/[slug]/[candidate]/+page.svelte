@@ -103,14 +103,27 @@
 </script>
 
 <svelte:head>
-  <title
-    >{candidate?.name ?? "Candidate"} — {race?.title ?? "Loading..."} | Smarter.vote</title
-  >
+  <title>{candidate?.name ?? "Candidate"} — {race?.title ?? "Loading..."} | Smarter.vote</title>
   <meta
     name="description"
-    content="Detailed profile for {candidate?.name ??
-      'candidate'} in {race?.title ?? 'this election'}."
+    content="Detailed profile for {candidate?.name ?? 'candidate'} in {race?.title ?? 'this election'}."
   />
+  <link rel="canonical" href="https://smarter.vote/races/{slug}/{candidateParam}/" />
+  <meta property="og:url" content="https://smarter.vote/races/{slug}/{candidateParam}/" />
+  <meta property="og:title" content="{candidate?.name ?? 'Candidate'} — {race?.title ?? 'Election'} | Smarter.vote" />
+  <meta
+    property="og:description"
+    content="Detailed profile for {candidate?.name ?? 'candidate'} in {race?.title ?? 'this election'}."
+  />
+  <meta property="og:image" content={candidate?.image_url || "https://smarter.vote/og-image.png"} />
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://smarter.vote/races/{slug}/{candidateParam}/" />
+  <meta property="twitter:title" content="{candidate?.name ?? 'Candidate'} — {race?.title ?? 'Election'} | Smarter.vote" />
+  <meta
+    property="twitter:description"
+    content="Detailed profile for {candidate?.name ?? 'candidate'} in {race?.title ?? 'this election'}."
+  />
+  <meta property="twitter:image" content={candidate?.image_url || "https://smarter.vote/og-image.png"} />
 </svelte:head>
 
 <div class="container mx-auto px-4 py-6 sm:py-8 max-w-4xl">
