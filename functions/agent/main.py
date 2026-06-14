@@ -17,8 +17,10 @@ from __future__ import annotations
 import json
 import logging
 import os
+import threading
 import time
-from datetime import datetime, timezone
+import uuid
+from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, Optional
 
 import functions_framework
@@ -31,6 +33,8 @@ logger = logging.getLogger("agent_cf")
 
 _FIRESTORE_PROJECT = os.getenv("FIRESTORE_PROJECT") or os.getenv("PROJECT_ID")
 _GCS_BUCKET = os.getenv("GCS_BUCKET", "")
+_QUEUE_LEASE_SECONDS = max(60, int(os.getenv("QUEUE_LEASE_SECONDS", "180")))
+_QUEUE_LEASE_RENEW_SECONDS = max(15, min(int(os.getenv("QUEUE_LEASE_RENEW_SECONDS", "60")), _QUEUE_LEASE_SECONDS // 2))
 
 # ---------------------------------------------------------------------------
 # Lazy singletons
@@ -88,6 +92,61 @@ def _set_race_if_current(db: Any, race_id: str, run_id: str, update: Dict[str, A
     return True
 
 
+def _as_utc_datetime(value: Any) -> Optional[datetime]:
+    if isinstance(value, datetime):
+        return value if value.tzinfo else value.replace(tzinfo=timezone.utc)
+    if isinstance(value, str):
+        try:
+            parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+            return parsed if parsed.tzinfo else parsed.replace(tzinfo=timezone.utc)
+        except ValueError:
+            return None
+    return None
+
+
+def _lease_expired(data: Dict[str, Any], now: datetime) -> bool:
+    expires_at = _as_utc_datetime(data.get("lease_expires_at"))
+    return expires_at is None or expires_at <= now
+
+
+def _start_lease_heartbeat(db: Any, item_ref: Any, lease_owner: str) -> tuple[threading.Event, threading.Thread]:
+    stop_event = threading.Event()
+
+    def _heartbeat() -> None:
+        from google.cloud import firestore as fs_module  # type: ignore
+        from google.cloud.firestore_v1 import Increment  # type: ignore
+
+        while not stop_event.wait(_QUEUE_LEASE_RENEW_SECONDS):
+            now = datetime.now(timezone.utc)
+
+            @fs_module.transactional
+            def _renew(transaction, ref):
+                doc = ref.get(transaction=transaction)
+                data = doc.to_dict() if getattr(doc, "exists", False) else {}
+                if data.get("status") != "running" or data.get("lease_owner") != lease_owner:
+                    return False
+                transaction.update(
+                    ref,
+                    {
+                        "lease_expires_at": now + timedelta(seconds=_QUEUE_LEASE_SECONDS),
+                        "lease_renewed_at": now.isoformat(),
+                        "lease_renewals": Increment(1),
+                    },
+                )
+                return True
+
+            try:
+                if not _renew(db.transaction(), item_ref):
+                    logger.warning("Lease ownership lost for queue item %s", getattr(item_ref, "id", "unknown"))
+                    return
+            except Exception:
+                logger.exception("Failed to renew queue lease")
+
+    thread = threading.Thread(target=_heartbeat, name="queue-lease-heartbeat", daemon=True)
+    thread.start()
+    return stop_event, thread
+
+
 # ---------------------------------------------------------------------------
 # CF entry point (Firestore document.v1.created trigger)
 # ---------------------------------------------------------------------------
@@ -113,8 +172,10 @@ def process_queue_item(cloud_event: CloudEvent) -> None:
     # Atomic claim: transition pending → running
     # ---------------------------------------------------------------------------
     item_ref = db.collection("pipeline_queue").document(item_id)
+    lease_owner = f"{os.getenv('K_REVISION', 'local')}:{uuid.uuid4()}"
 
     from google.cloud import firestore as _fs_module  # type: ignore
+    from google.cloud.firestore_v1 import Increment  # type: ignore
 
     @_fs_module.transactional
     def _claim(transaction, item_ref):

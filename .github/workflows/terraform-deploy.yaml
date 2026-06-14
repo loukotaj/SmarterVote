@@ -28,6 +28,7 @@ on:
         - rollback
 
 env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
   PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
   REGION: us-central1
   ENVIRONMENT: ${{ github.event.inputs.environment || 'dev' }}
@@ -47,17 +48,17 @@ jobs:
             dockerfile: services/races-api/Dockerfile
             context: .
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
       with:
         ref: ${{ env.DEPLOY_SHA }}
 
     - name: Authenticate to Google Cloud
-      uses: google-github-actions/auth@v2
+      uses: google-github-actions/auth@v3
       with:
         credentials_json: ${{ secrets.GCP_SA_KEY }}
 
     - name: Setup Google Cloud SDK
-      uses: google-github-actions/setup-gcloud@v2
+      uses: google-github-actions/setup-gcloud@v3
 
     - name: Configure Docker for Artifact Registry
       if: env.ACTION == 'apply' || github.event_name != 'workflow_dispatch'
@@ -110,7 +111,7 @@ jobs:
       TF_VAR_cloudflare_analytics_site_tag: ${{ vars.CLOUDFLARE_ANALYTICS_SITE_TAG }}
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
       with:
         ref: ${{ env.DEPLOY_SHA }}
 
@@ -149,17 +150,17 @@ jobs:
         echo "✅ All required secrets are configured"
 
     - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v3
+      uses: hashicorp/setup-terraform@v4
       with:
         terraform_version: 1.9.0
 
     - name: Authenticate to Google Cloud
-      uses: google-github-actions/auth@v2
+      uses: google-github-actions/auth@v3
       with:
         credentials_json: ${{ secrets.GCP_SA_KEY }}
 
     - name: Setup Google Cloud SDK
-      uses: google-github-actions/setup-gcloud@v2
+      uses: google-github-actions/setup-gcloud@v3
 
     - name: Sync API keys to Secret Manager
       if: env.ACTION == 'apply' || github.event_name != 'workflow_dispatch'
