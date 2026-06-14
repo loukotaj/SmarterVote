@@ -339,7 +339,7 @@ async def test_run_agent_update_mode():
 
 
 @pytest.mark.asyncio
-async def test_discovery_only_update_reconciles_roster_without_rewriting_metadata():
+async def test_discovery_only_update_uses_update_discovery_phases():
     existing = {
         "id": "al-senate-2026",
         "description": "Keep this researched description.",
@@ -357,9 +357,11 @@ async def test_discovery_only_update_reconciles_roster_without_rewriting_metadat
             enabled_steps=["discovery"],
         )
 
-    assert [call.kwargs["phase_name"] for call in mock_loop.call_args_list] == ["roster-sync"]
-    assert result["description"] == existing["description"]
-    assert result["polling"][0]["pollster"] == existing["polling"][0]["pollster"]
+    assert [call.kwargs["phase_name"] for call in mock_loop.call_args_list] == [
+        "roster-sync",
+        "roster-verify",
+        "update-meta",
+    ]
 
 
 @pytest.mark.asyncio
@@ -727,8 +729,8 @@ async def test_run_agent_update_with_candidates():
 
     assert result["id"] == "test-2024"
     assert "updated_utc" in result
-    # roster sync + meta + images + 12 issues + finance + refine + meta refine = 18
-    assert mock_loop.call_count == 18
+    # roster sync + roster verify + meta + images + 12 issues + finance + refine + meta refine = 19
+    assert mock_loop.call_count == 19
 
 
 def test_sanitize_roster_removes_incumbent_found_not_running():

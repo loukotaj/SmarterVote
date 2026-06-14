@@ -1002,7 +1002,6 @@ async def _run_update(
     target_candidate_names: Optional[List[str]] = None,
     goal: Optional[str] = None,
     resume_partial: bool = False,
-    roster_only: bool = False,
     run_budget: RunBudget | None = None,
 ) -> Dict[str, Any]:
     """Phase-based update mirroring _run_fresh but starting from existing data."""
@@ -1090,47 +1089,35 @@ async def _run_update(
         )
         _sanitize_roster(race_json, log)
 
-        # Roster verify: use the primary model (at least mini) to spot-check any
-        # candidates added by the cheaper small_model during sync.
+        # Roster verify uses the primary model to re-check inactive/non-general
+        # candidates after roster-sync edits from the cheaper small_model.
         post_sync_names = [_candidate_name(c) for c in race_json.get("candidates", []) if _candidate_name(c)]
-        added_names = [n for n in post_sync_names if n not in pre_sync_names]
-        should_verify_full_roster = not added_names and len(post_sync_names) >= MAX_RACE_CANDIDATES
-        verify_added_names = added_names if added_names else post_sync_names
-        if added_names or should_verify_full_roster:
-            if added_names:
-                log("info", f"  Roster verify: checking {len(added_names)} added candidate(s): {', '.join(added_names)}")
-            else:
-                log(
-                    "info",
-                    "  Roster verify: roster at cap with no new additions; running full-roster inactive-candidate check",
-                )
-            try:
-                await _agent_loop(
-                    ROSTER_VERIFY_SYSTEM,
-                    ROSTER_VERIFY_USER.format(
-                        race_id=race_id,
-                        candidate_names=", ".join(post_sync_names),
-                        original_names=", ".join(pre_sync_names),
-                        added_names=", ".join(verify_added_names),
-                    ),
-                    model=model,
-                    on_log=on_log,
+        log("info", f"  Roster verify: checking {len(post_sync_names)} candidate(s)")
+        try:
+            await _agent_loop(
+                ROSTER_VERIFY_SYSTEM,
+                ROSTER_VERIFY_USER.format(
                     race_id=race_id,
-                    max_iterations=6,
-                    phase_name="roster-verify",
-                    max_tokens=4096,
-                    extra_tools=[REMOVE_CANDIDATE_TOOL, READ_PROFILE_TOOL],
-                    extra_tool_handlers=handlers,
-                    tools_mode=True,
-                    run_budget=run_budget,
-                )
-                _sanitize_roster(race_json, log)
-            except RunBudgetExceeded:
-                raise
-            except Exception as exc:
-                log("warning", f"  Roster verify failed: {exc} — keeping post-sync roster")
-        else:
-            log("info", "  Roster verify: no candidates added during sync — skipping")
+                    candidate_names=", ".join(post_sync_names),
+                    original_names=", ".join(pre_sync_names),
+                    added_names=", ".join(post_sync_names),
+                ),
+                model=model,
+                on_log=on_log,
+                race_id=race_id,
+                max_iterations=6,
+                phase_name="roster-verify",
+                max_tokens=4096,
+                extra_tools=[REMOVE_CANDIDATE_TOOL, READ_PROFILE_TOOL],
+                extra_tool_handlers=handlers,
+                tools_mode=True,
+                run_budget=run_budget,
+            )
+            _sanitize_roster(race_json, log)
+        except RunBudgetExceeded:
+            raise
+        except Exception as exc:
+            log("warning", f"  Roster verify failed: {exc} — keeping post-sync roster")
 
         candidate_names = [_candidate_name(c) for c in race_json.get("candidates", []) if _candidate_name(c)]
         candidate_names = _select_target_candidates(candidate_names, target_candidate_names, log)
@@ -1155,37 +1142,34 @@ async def _run_update(
                 run_budget=run_budget,
             )
 
-        if roster_only:
-            log("info", "Update Phase 1: Metadata refresh skipped for discovery-only roster run")
-        else:
-            track("progress", "discovery", pct=50, message="Discovery: updating race metadata")
+        track("progress", "discovery", pct=50, message="Discovery: updating race metadata")
 
-            # --- Phase 1: Meta update (tools mode) ---
-            meta_iters = _scale_iterations(max_iterations, n, per_candidate=2, minimum=10)
-            log("info", "Update Phase 1: Searching for new summaries, donors, polls, voting records...")
-            try:
-                await _agent_loop(
-                    UPDATE_META_SYSTEM,
-                    UPDATE_META_USER.format(
-                        race_id=race_id,
-                        last_updated=last_updated,
-                        candidate_names=", ".join(candidate_names),
-                    ),
-                    model=model,
-                    on_log=on_log,
+        # --- Phase 1: Meta update (tools mode) ---
+        meta_iters = _scale_iterations(max_iterations, n, per_candidate=2, minimum=10)
+        log("info", "Update Phase 1: Searching for new summaries, donors, polls, voting records...")
+        try:
+            await _agent_loop(
+                UPDATE_META_SYSTEM,
+                UPDATE_META_USER.format(
                     race_id=race_id,
-                    max_iterations=meta_iters,
-                    phase_name="update-meta",
-                    max_tokens=16384,
-                    extra_tools=RACE_TOOLS + CANDIDATE_TOOLS + RECORD_TOOLS + [READ_PROFILE_TOOL],
-                    extra_tool_handlers=handlers,
-                    tools_mode=True,
-                    run_budget=run_budget,
-                )
-            except RunBudgetExceeded:
-                raise
-            except Exception as exc:
-                log("warning", f"  Update meta phase failed: {exc} — keeping existing meta")
+                    last_updated=last_updated,
+                    candidate_names=", ".join(candidate_names),
+                ),
+                model=model,
+                on_log=on_log,
+                race_id=race_id,
+                max_iterations=meta_iters,
+                phase_name="update-meta",
+                max_tokens=16384,
+                extra_tools=RACE_TOOLS + CANDIDATE_TOOLS + RECORD_TOOLS + [READ_PROFILE_TOOL],
+                extra_tool_handlers=handlers,
+                tools_mode=True,
+                run_budget=run_budget,
+            )
+        except RunBudgetExceeded:
+            raise
+        except Exception as exc:
+            log("warning", f"  Update meta phase failed: {exc} — keeping existing meta")
 
         track("complete", "discovery", duration_ms=int((time.perf_counter() - disc_t0) * 1000), race_json=race_json)
     else:
