@@ -26,9 +26,11 @@ from dotenv import load_dotenv
 
 # Load local environment variables from root .env
 if "pytest" not in sys.modules:
-    env_path = Path(__file__).resolve().parents[2] / ".env"
-    if env_path.exists():
-        load_dotenv(dotenv_path=env_path)
+    for p in Path(__file__).resolve().parents:
+        env_path = p / ".env"
+        if env_path.exists():
+            load_dotenv(dotenv_path=env_path)
+            break
 
 import schemas
 from analytics_middleware import AnalyticsMiddleware
