@@ -13,6 +13,8 @@ from auth import verify_token
 from fastapi import APIRouter, Depends, HTTPException, Request
 from request_models import BatchPublishRequest, RaceQueueRequest, RunOptions, validate_race_id
 
+from shared.race_catalog import build_race_summary_fields
+
 router = APIRouter()
 
 STALE_ACTIVE_RUN_SECONDS = int(os.getenv("STALE_ACTIVE_RUN_SECONDS", "7200"))
@@ -97,6 +99,54 @@ def _derive_inactive_storage_status(race_id: str, race_data: Dict[str, Any]) -> 
         update["draft_updated_at"] = race_data.get("draft_updated_at")
 
     return new_status, update
+
+
+def _catalog_update_from_storage(race_id: str) -> Dict[str, Any] | None:
+    published_data = gcs_helpers._gcs_get_race_json(race_id, "races")
+    draft_data = gcs_helpers._gcs_get_race_json(race_id, "drafts")
+    if not isinstance(published_data, dict) and not isinstance(draft_data, dict):
+        return None
+
+    base_data = draft_data if isinstance(draft_data, dict) else published_data
+    update: Dict[str, Any] = {
+        "status": "published" if isinstance(published_data, dict) else "draft",
+        "current_run_id": None,
+        **build_race_summary_fields(race_id, base_data or {}),
+    }
+
+    if isinstance(published_data, dict):
+        update.update(firestore_helpers._fs_build_published_catalog_fields(race_id, published_data))
+    else:
+        update.update(
+            {
+                "published_at": None,
+                "published_updated_utc": None,
+                "published_candidate_count": None,
+                "published_quality_grade": None,
+            }
+        )
+
+    if isinstance(draft_data, dict):
+        update.update(firestore_helpers._fs_build_draft_catalog_fields(race_id, draft_data))
+    else:
+        update.update(
+            {
+                "draft_updated_at": None,
+                "draft_updated_utc": None,
+                "draft_candidate_count": None,
+                "draft_quality_grade": None,
+            }
+        )
+
+    return update
+
+
+def _backfill_catalog_from_storage(race_id: str) -> Dict[str, Any] | None:
+    update = _catalog_update_from_storage(race_id)
+    if update is None:
+        return None
+    firestore_helpers._fs_update_race(race_id, update)
+    return update
 
 
 def _run_is_terminal_or_missing(db: Any, run_id: str) -> bool:
@@ -201,6 +251,10 @@ def _recheck_race_status(db: Any, race_id: str, race_data: Dict[str, Any]) -> tu
     elif current_status in ("draft", "published", "empty", "failed", "cancelled"):
         update: Dict[str, Any] = {}
 
+        catalog_update = _catalog_update_from_storage(race_id)
+        if catalog_update:
+            update.update(catalog_update)
+
         expected_status, storage_update = _derive_inactive_storage_status(race_id, race_data)
         if current_status != expected_status:
             update.update(storage_update)
@@ -229,26 +283,17 @@ def _recheck_race_status(db: Any, race_id: str, race_data: Dict[str, Any]) -> tu
 
 def _race_summary(data: Dict[str, Any], fallback_id: str) -> Dict[str, Any]:
     """Build the admin race summary shape expected by the web dashboard."""
-    candidates = data.get("candidates") or []
+    summary = build_race_summary_fields(fallback_id, data)
     return {
-        "id": data.get("id") or fallback_id,
-        "title": data.get("title"),
-        "office": data.get("office"),
-        "jurisdiction": data.get("jurisdiction"),
-        "state": data.get("state"),
-        "election_date": data.get("election_date") or "",
-        "updated_utc": data.get("updated_utc") or "",
-        "candidates": [
-            {
-                "name": c.get("name", ""),
-                "party": c.get("party"),
-                "incumbent": c.get("incumbent"),
-                "image_url": c.get("image_url"),
-            }
-            for c in candidates
-            if isinstance(c, dict)
-        ],
-        "agent_metrics": data.get("agent_metrics"),
+        "id": summary.get("race_id") or fallback_id,
+        "title": summary.get("title"),
+        "office": summary.get("office"),
+        "jurisdiction": summary.get("jurisdiction"),
+        "state": summary.get("state"),
+        "election_date": summary.get("election_date") or "",
+        "updated_utc": summary.get("updated_utc") or "",
+        "candidates": summary.get("candidates") or [],
+        "agent_metrics": summary.get("agent_metrics"),
     }
 
 
@@ -277,56 +322,28 @@ def _newer_iso(left: str | None, right: str | None) -> bool:
     return bool(left and left != right)
 
 
-def _apply_storage_view(
-    race: Dict[str, Any],
-    race_id: str,
-    *,
-    draft_exists: bool | None = None,
-    published_exists: bool | None = None,
-) -> Dict[str, Any]:
-    """Add storage-derived public/draft metadata to an admin race record.
+def _apply_catalog_view(race: Dict[str, Any]) -> Dict[str, Any]:
+    draft_exists = bool(race.get("draft_updated_at")) or race.get("status") == "draft"
+    published_exists = bool(race.get("published_at")) or bool(race.get("published_updated_utc"))
+    draft_updated = race.get("draft_updated_utc") or race.get("draft_updated_at")
+    published_updated = race.get("published_updated_utc") or race.get("published_at")
 
-    Firestore has one quality/candidate metadata slot, but a race can have both
-    an older published JSON and a newer draft JSON. Admin/MCP callers should not
-    confuse draft quality with what the public /races/{id} page currently shows.
-    """
-    if draft_exists is None:
-        draft_exists = gcs_helpers._gcs_get_race_json(race_id, "drafts") is not None
-    if published_exists is None:
-        published_exists = gcs_helpers._gcs_get_race_json(race_id, "races") is not None
-
-    draft_data = gcs_helpers._gcs_get_race_json(race_id, "drafts") if draft_exists else None
-    published_data = gcs_helpers._gcs_get_race_json(race_id, "races") if published_exists else None
-
-    draft_grade = _grade_from_race_data(draft_data)
-    published_grade = _grade_from_race_data(published_data)
-    draft_updated = draft_data.get("updated_utc") if isinstance(draft_data, dict) else None
-    published_updated = published_data.get("updated_utc") if isinstance(published_data, dict) else None
-    draft_count = _candidate_count_from_race_data(draft_data)
-    published_count = _candidate_count_from_race_data(published_data)
-
-    race["draft_exists"] = bool(draft_exists)
-    race["published_exists"] = bool(published_exists)
-    race["draft_quality_grade"] = draft_grade
-    race["published_quality_grade"] = published_grade
-    race["draft_candidate_count"] = draft_count
-    race["published_candidate_count"] = published_count
-    race["draft_updated_utc"] = draft_updated
-    race["published_updated_utc"] = published_updated
+    race["draft_exists"] = draft_exists
+    race["published_exists"] = published_exists
     race["has_unpublished_changes"] = bool(
         draft_exists and (not published_exists or _newer_iso(draft_updated, published_updated))
     )
 
     if published_exists:
-        race["quality_grade"] = published_grade
-        if published_count is not None:
-            race["candidate_count"] = published_count
+        race["quality_grade"] = race.get("published_quality_grade")
+        if race.get("published_candidate_count") is not None:
+            race["candidate_count"] = race.get("published_candidate_count")
         if published_updated:
             race["public_updated_utc"] = published_updated
     elif draft_exists:
-        race["quality_grade"] = draft_grade
-        if draft_count is not None:
-            race["candidate_count"] = draft_count
+        race["quality_grade"] = race.get("draft_quality_grade")
+        if race.get("draft_candidate_count") is not None:
+            race["candidate_count"] = race.get("draft_candidate_count")
 
     return race
 
@@ -439,7 +456,7 @@ def _clear_public_race_cache(request: Request) -> None:
 
 @router.get("/api/races", dependencies=[Depends(verify_token)])
 async def list_all_races(reconcile_active: bool = False) -> Dict[str, Any]:
-    """List all race records from Firestore (admin view with status metadata)."""
+    """List all race records from Firestore (admin view with catalog metadata)."""
     db = firestore_helpers._get_fs()
     docs = db.collection("races").limit(500).stream()
     races = [firestore_helpers._doc_to_plain(d) for d in docs]
@@ -460,41 +477,9 @@ async def list_all_races(reconcile_active: bool = False) -> Dict[str, Any]:
         races = reconciled
 
     run_stats = _pipeline_run_stats(db)
-    draft_id_list = gcs_helpers._gcs_list_race_ids("drafts")
-    published_id_list = gcs_helpers._gcs_list_race_ids("races")
-    draft_ids = set(draft_id_list or [])
-    published_ids = set(published_id_list or [])
-    storage_state_known = draft_id_list is not None and published_id_list is not None
-
     for race in races:
         race_id = race.get("race_id") or race.get("id")
-        draft_exists = race_id in draft_ids
-        published_exists = race_id in published_ids
-
-        # Storage is the source of truth for publishability. Firestore metadata can
-        # drift after failed publishes, deletes, or legacy admin flows.
-        status = race.get("status")
-        if storage_state_known:
-            race["draft_exists"] = draft_exists
-            race["published_exists"] = published_exists
-        if storage_state_known and status not in ("queued", "running"):
-            if published_exists:
-                race["status"] = "published"
-                if not draft_exists:
-                    race["draft_updated_at"] = None
-            elif draft_exists:
-                race["status"] = "draft"
-            elif status in ("draft", "published"):
-                race["status"] = "empty"
-                race["draft_updated_at"] = None
-                race["published_at"] = None
-        if storage_state_known:
-            _apply_storage_view(
-                race,
-                str(race_id),
-                draft_exists=draft_exists,
-                published_exists=published_exists,
-            )
+        _apply_catalog_view(race)
         stats = run_stats.get(str(race_id))
         if stats:
             race["total_runs"] = stats["total_runs"]
@@ -508,23 +493,28 @@ async def list_all_races(reconcile_active: bool = False) -> Dict[str, Any]:
 
 @router.get("/api/races/drafts", dependencies=[Depends(verify_token)])
 async def list_draft_races() -> Dict[str, Any]:
-    """List all draft race summaries from GCS."""
-    ids = gcs_helpers._gcs_list_race_ids("drafts")
+    """List all draft race summaries from the Firestore race catalog."""
+    db = firestore_helpers._get_fs()
+    docs = db.collection("races").limit(500).stream()
     races = []
-    for race_id in ids or []:
-        data = gcs_helpers._gcs_get_race_json(race_id, "drafts")
-        if isinstance(data, dict):
-            races.append(_race_summary(data, race_id))
+    for doc in docs:
+        data = firestore_helpers._doc_to_plain(doc)
+        if not data:
+            continue
+        if not (data.get("draft_updated_at") or data.get("status") == "draft"):
+            continue
+        races.append(_race_summary(data, str(data.get("race_id") or data.get("id") or "")))
     return {"races": races}
 
 
 @router.post("/api/races/recheck", dependencies=[Depends(verify_token)])
 async def recheck_all_race_statuses() -> Dict[str, Any]:
-    """Re-derive status for all race records and clear stale active runs."""
+    """Re-derive status for all race records and hydrate missing catalog metadata from storage."""
     db = firestore_helpers._get_fs()
     docs = db.collection("races").limit(500).stream()
     races: list[Dict[str, Any]] = []
     updated = 0
+    seen_race_ids: set[str] = set()
     for doc in docs:
         race_data = firestore_helpers._doc_to_plain(doc)
         if not race_data:
@@ -532,11 +522,21 @@ async def recheck_all_race_statuses() -> Dict[str, Any]:
         race_id = race_data.get("race_id") or race_data.get("id")
         if not race_id:
             continue
+        seen_race_ids.add(str(race_id))
         latest, changed = _recheck_race_status(db, race_id, race_data)
         if latest:
             races.append(latest)
         if changed:
             updated += 1
+
+    storage_ids = set(gcs_helpers._gcs_list_race_ids("races") or [])
+    storage_ids.update(gcs_helpers._gcs_list_race_ids("drafts") or [])
+    for race_id in sorted(storage_ids - seen_race_ids):
+        update = _backfill_catalog_from_storage(race_id)
+        if update is None:
+            continue
+        races.append({"race_id": race_id, **update})
+        updated += 1
     return {"message": f"Rechecked {len(races)} races", "checked": len(races), "updated": updated, "races": races}
 
 
@@ -553,7 +553,7 @@ async def get_race_record(race_id: str, reconcile: bool = True) -> Dict[str, Any
         latest, _changed = _recheck_race_status(db, race_id, data)
         if latest is not None:
             data = latest
-    _apply_storage_view(data, race_id)
+    _apply_catalog_view(data)
     return data
 
 
@@ -598,12 +598,15 @@ async def cancel_race(race_id: str) -> Dict[str, Any]:
 
 @router.post("/api/races/{race_id}/recheck", dependencies=[Depends(verify_token)])
 async def recheck_race_status(race_id: str) -> Dict[str, Any]:
-    """Re-derive race status from GCS storage state (fixes stuck records)."""
+    """Re-derive race status from GCS storage state and backfill missing race docs."""
     validate_race_id(race_id)
     db = firestore_helpers._get_fs()
     race_doc = db.collection("races").document(race_id).get()
     if not race_doc.exists:
-        raise HTTPException(status_code=404, detail="Race not found")
+        update = _backfill_catalog_from_storage(race_id)
+        if update is None:
+            raise HTTPException(status_code=404, detail="Race not found")
+        return {"message": f"Race {race_id} rechecked", "race": {"race_id": race_id, **update}}
     race_data = race_doc.to_dict() or {}
     latest, _changed = _recheck_race_status(db, race_id, race_data)
     return {"message": f"Race {race_id} rechecked", "race": latest}
@@ -653,7 +656,18 @@ async def delete_draft_race(race_id: str) -> Dict[str, Any]:
     if not deleted:
         raise HTTPException(status_code=404, detail="Draft not found")
     has_published = gcs_helpers._gcs_get_race_json(race_id, "races") is not None
-    firestore_helpers._fs_update_race(race_id, {"status": "published" if has_published else "empty", "draft_updated_at": None})
+    update: Dict[str, Any] = {
+        "status": "published" if has_published else "empty",
+        "draft_updated_at": None,
+        "draft_updated_utc": None,
+        "draft_candidate_count": None,
+        "draft_quality_grade": None,
+    }
+    if has_published:
+        published_data = gcs_helpers._gcs_get_race_json(race_id, "races")
+        if isinstance(published_data, dict):
+            update.update(firestore_helpers._fs_build_published_catalog_fields(race_id, published_data))
+    firestore_helpers._fs_update_race(race_id, update)
     return {"message": f"Draft {race_id} deleted", "id": race_id}
 
 
@@ -667,7 +681,16 @@ async def publish_race(request: Request, race_id: str) -> Dict[str, Any]:
     _assert_publishable_race(data)
     gcs_helpers._publish_race_gcs(race_id, data)
     gcs_helpers.update_gcs_summaries_json({race_id: data})
-    firestore_helpers._fs_update_race(race_id, _published_race_update())
+    firestore_helpers._fs_update_race(
+        race_id,
+        {
+            **_published_race_update(),
+            **firestore_helpers._fs_build_published_catalog_fields(race_id, data),
+            "draft_updated_utc": None,
+            "draft_candidate_count": None,
+            "draft_quality_grade": None,
+        },
+    )
     _clear_public_race_cache(request)
     return {"message": f"Race {race_id} published", "id": race_id}
 
@@ -681,14 +704,19 @@ async def unpublish_race(request: Request, race_id: str) -> Dict[str, Any]:
     if not deleted:
         raise HTTPException(status_code=404, detail="Published race not found")
     gcs_helpers.update_gcs_summaries_json({race_id: None})
-    firestore_helpers._fs_update_race(
-        race_id,
-        {
-            "status": "draft" if has_draft else "empty",
-            "published_at": None,
-            "draft_updated_at": datetime.now(timezone.utc).isoformat() if has_draft else None,
-        },
-    )
+    update: Dict[str, Any] = {
+        "status": "draft" if has_draft else "empty",
+        "published_at": None,
+        "published_updated_utc": None,
+        "published_candidate_count": None,
+        "published_quality_grade": None,
+        "draft_updated_at": datetime.now(timezone.utc).isoformat() if has_draft else None,
+    }
+    if has_draft:
+        draft_data = gcs_helpers._gcs_get_race_json(race_id, "drafts")
+        if isinstance(draft_data, dict):
+            update.update(firestore_helpers._fs_build_draft_catalog_fields(race_id, draft_data))
+    firestore_helpers._fs_update_race(race_id, update)
     _clear_public_race_cache(request)
     return {"message": f"Race {race_id} unpublished (draft retained)", "id": race_id}
 
@@ -709,7 +737,16 @@ async def batch_publish_races(request: Request, payload: BatchPublishRequest) ->
             _assert_publishable_race(data)
             gcs_helpers._publish_race_gcs(race_id, data)
             updates_for_gcs[race_id] = data
-            firestore_helpers._fs_update_race(race_id, _published_race_update())
+            firestore_helpers._fs_update_race(
+                race_id,
+                {
+                    **_published_race_update(),
+                    **firestore_helpers._fs_build_published_catalog_fields(race_id, data),
+                    "draft_updated_utc": None,
+                    "draft_candidate_count": None,
+                    "draft_quality_grade": None,
+                },
+            )
             published.append(race_id)
         except HTTPException as exc:
             errors.append({"race_id": race_id, "error": exc.detail})
@@ -876,6 +913,11 @@ async def restore_version_as_draft(race_id: str, filename: str) -> Dict[str, Any
     gcs_helpers._gcs_put_race_json(race_id, "drafts", version_data)
     firestore_helpers._fs_update_race(
         race_id,
-        {"status": "draft", "draft_updated_at": datetime.now(timezone.utc).isoformat()},
+        {
+            "status": "draft",
+            "published_at": None,
+            "draft_updated_at": datetime.now(timezone.utc).isoformat(),
+            **firestore_helpers._fs_build_draft_catalog_fields(race_id, version_data),
+        },
     )
     return {"message": f"Retired version restored as draft for {race_id}", "id": race_id, "restored_from": filename}

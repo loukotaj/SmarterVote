@@ -31,9 +31,11 @@ Admin dashboard
   -> AgentHandler.handle()
   -> pipeline_client.agent.run_agent()
   -> GCS drafts/{race_id}.json
+  -> Firestore races/{race_id} catalog metadata refresh
   -> races-api publish endpoint
   -> GCS races/{race_id}.json & central races/summaries.json
-  -> public read (FastAPI races-api OR direct GCS static hosting)
+  -> Firestore races/{race_id} published catalog refresh
+  -> public read from direct GCS static hosting
 ```
 
 Queue documents should contain:
@@ -86,17 +88,27 @@ The admin dashboard should target `services/races-api`.
 
 Legacy admin aliases were removed; frontend code should use the routes above.
 
+The admin race list is intentionally Firestore-catalog-first. It should not enumerate GCS blobs or fetch per-race
+JSON on the hot path; draft/published filter state, candidate counts, grades, and freshness all come from the
+`races/{race_id}` catalog document.
+
+Initial population is handled by the existing admin recheck flow. After deploy, `POST /api/races/recheck` sweeps the
+existing Firestore race docs plus known GCS draft/published race IDs, hydrates catalog metadata from storage, and
+creates missing `races/{race_id}` documents when a race already exists in GCS.
+
 ## Public API Surface
 
 | Method | Path | Purpose |
 |--------|------|---------|
-| GET | `/races` | List published race IDs |
-| GET | `/races/summaries` | List published race summaries |
+| GET | `/races` | List published race IDs from `races/summaries.json` |
+| GET | `/races/summaries` | List published race summaries from `races/summaries.json` |
 | GET | `/races/{race_id}` | Get full published race data |
 | GET | `/health` | Liveness |
 | GET | `/health/ready` | Readiness |
 
-If `VITE_PUBLIC_DATA_URL` is set in the web environment, the public SvelteKit frontend will bypass the FastAPI public read routes (`/races/*`) and load data statically from GCS (`races/{race_id}.json` and `races/summaries.json`).
+If `VITE_PUBLIC_DATA_URL` is set in the web environment, the public SvelteKit frontend bypasses the FastAPI public
+read routes entirely and loads published data statically from GCS (`races/{race_id}.json` and `races/summaries.json`).
+That is the intended production path for public traffic.
 
 Public page traffic is therefore measured with the Cloudflare Web Analytics browser beacon, not inferred from
 `races-api` reads. The authenticated `/analytics/traffic` endpoint queries Cloudflare's GraphQL API and caches the
@@ -119,7 +131,7 @@ Update/rerun mode adds roster and metadata synchronization before re-researching
 | GCS `retired/` | Archived previous versions |
 | Firestore `pipeline_queue` | Queue items that trigger Cloud Function runs |
 | Firestore `pipeline_runs` | Run status, progress, and logs |
-| Firestore `races` | Race metadata, grading data, status, history |
+| Firestore `races` | Race catalog metadata for admin listing/filtering, plus status and history |
 | Firestore `admin_agent_conversations` | Durable deployed-agent conversation metadata |
 | Firestore `admin_agent_messages` | User, assistant, and tool-call history |
 | Firestore `admin_agent_tasks` | Asynchronous work, approval state, cancellation, and continuations |

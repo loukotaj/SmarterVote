@@ -148,7 +148,7 @@ def test_list_races_empty(monkeypatch):
         assert resp.json() == []
 
 
-def test_cloud_listing_ignores_static_summaries_index(tmp_path):
+def test_cloud_listing_uses_static_summaries_index(tmp_path):
     service = SimplePublishService.__new__(SimplePublishService)
     service.data_directory = tmp_path
     service.gcs_bucket_name = "test-bucket"
@@ -164,15 +164,61 @@ def test_cloud_listing_ignores_static_summaries_index(tmp_path):
     race_blob.download_as_text.return_value = json.dumps({"id": "ga-senate-2026", "candidates": []})
     index_blob = MagicMock()
     index_blob.name = "races/summaries.json"
+    index_blob.exists.return_value = True
     index_blob.download_as_text.return_value = json.dumps([{"id": "ga-senate-2026"}])
 
     bucket = MagicMock()
     bucket.list_blobs.return_value = [race_blob, index_blob]
+    bucket.blob.return_value = index_blob
     service.gcs_client = MagicMock()
     service.gcs_client.bucket.return_value = bucket
 
     assert service.get_published_races() == ["ga-senate-2026"]
     assert [summary["id"] for summary in service.get_race_summaries()] == ["ga-senate-2026"]
+    bucket.list_blobs.assert_not_called()
+
+
+def test_cloud_listing_does_not_scan_gcs_when_summaries_index_is_missing(tmp_path):
+    service = SimplePublishService.__new__(SimplePublishService)
+    service.data_directory = tmp_path
+    service.gcs_bucket_name = "test-bucket"
+    service.cloud_configured = True
+    service.cache_ttl = 0
+    service._race_list_cache = None
+    service._race_data_cache = {}
+    service._race_summaries_cache = None
+    service._cache_lock = threading.Lock()
+
+    index_blob = MagicMock()
+    index_blob.exists.return_value = False
+
+    bucket = MagicMock()
+    bucket.blob.return_value = index_blob
+    service.gcs_client = MagicMock()
+    service.gcs_client.bucket.return_value = bucket
+
+    assert service.get_published_races() == []
+    assert service.get_race_summaries() == []
+    bucket.list_blobs.assert_not_called()
+
+
+def test_local_listing_uses_static_summaries_index(tmp_path):
+    sample_summary = [{"id": "ga-senate-2026", "title": "Georgia Senate Race", "candidates": []}]
+    (tmp_path / "summaries.json").write_text(json.dumps(sample_summary), encoding="utf-8")
+
+    service = SimplePublishService.__new__(SimplePublishService)
+    service.data_directory = tmp_path
+    service.gcs_bucket_name = ""
+    service.cloud_configured = False
+    service.gcs_client = None
+    service.cache_ttl = 0
+    service._race_list_cache = None
+    service._race_data_cache = {}
+    service._race_summaries_cache = None
+    service._cache_lock = threading.Lock()
+
+    assert service.get_published_races() == ["ga-senate-2026"]
+    assert service.get_race_summaries() == sample_summary
 
 
 def test_rate_limit_exceeded(client):

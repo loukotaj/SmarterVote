@@ -41,11 +41,10 @@ describe("API Fallback Functionality", () => {
     expect(result.jurisdiction).toBe("Missouri");
   });
 
-  it("falls back to the API when static race data is unavailable", async () => {
+  it("uses static race data only when VITE_PUBLIC_DATA_URL is configured", async () => {
     vi.stubEnv("VITE_PUBLIC_DATA_URL", "https://static.example/races");
     const mockFetch = vi
       .fn()
-      .mockResolvedValueOnce({ ok: false, status: 403 })
       .mockResolvedValueOnce({
         ok: true,
         json: () => Promise.resolve({ id: "test-race", candidates: [] }),
@@ -58,28 +57,16 @@ describe("API Fallback Functionality", () => {
       1,
       "https://static.example/races/test-race.json"
     );
-    expect(mockFetch).toHaveBeenNthCalledWith(
-      2,
-      "http://localhost:8080/races/test-race"
-    );
   });
 
-  it("falls back to API summaries when the static index is missing", async () => {
+  it("throws when static summaries are unavailable in GCS mode", async () => {
     vi.stubEnv("VITE_PUBLIC_DATA_URL", "https://static.example/races");
     const mockFetch = vi
       .fn()
-      .mockRejectedValueOnce(new Error("static unavailable"))
-      .mockResolvedValueOnce({
-        ok: true,
-        json: () => Promise.resolve([{ id: "test-race", candidates: [] }]),
-      });
+      .mockResolvedValueOnce({ ok: false, status: 404 });
 
-    const result = await getRaceSummaries(mockFetch, false);
-
-    expect(result).toHaveLength(1);
-    expect(mockFetch).toHaveBeenNthCalledWith(
-      2,
-      "http://localhost:8080/races/summaries"
+    await expect(getRaceSummaries(mockFetch, false)).rejects.toThrow(
+      "Static data request failed: 404"
     );
   });
 

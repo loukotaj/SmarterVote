@@ -12,6 +12,7 @@ Last reviewed: 2026-06-12.
 - Checked-in stale published race JSON under `services/races-api/data/published/` was removed. Local published data should be pulled or regenerated, not committed.
 - OpenRouter migration completed: all LLM runtime calls use `OPENROUTER_API_KEY`; legacy provider keys and Terraform resources were removed.
 - GCS Static JSON Hosting completed: Configured CORS and public read access strictly for the GCS bucket `races/` folder. SvelteKit frontend supports static data loading via the new `VITE_PUBLIC_DATA_URL` setting. Publishing/unpublishing from the admin API automatically rebuilds the central `races/summaries.json` index in GCS.
+- Race catalog split completed: admin race listings now read Firestore catalog metadata, while public listings use the published GCS `races/summaries.json` index and full GCS race JSON payloads.
 
 ## Intentional Compatibility
 

@@ -25,6 +25,12 @@ def _is_published_race_blob(blob_name: str) -> bool:
     return blob_name.startswith("races/") and blob_name.endswith(".json") and blob_name != _SUMMARIES_BLOB
 
 
+def _normalize_summary_index(payload) -> Optional[List[Dict]]:
+    if not isinstance(payload, list):
+        return None
+    return [item for item in payload if isinstance(item, dict) and item.get("id")]
+
+
 class SimplePublishService:
     """Service for reading published race data from multiple sources without pipeline dependencies."""
 
@@ -199,33 +205,76 @@ class SimplePublishService:
             ),
         }
 
+    def _load_cloud_summaries_index(self, client) -> Optional[List[Dict]]:
+        try:
+            bucket = client.bucket(self.gcs_bucket_name)
+            blob = bucket.blob(_SUMMARIES_BLOB)
+            if not blob.exists():
+                return None
+            payload = json.loads(blob.download_as_text())
+            summaries = _normalize_summary_index(payload)
+            if summaries is None:
+                logger.warning("Ignoring invalid cloud summaries index %s", _SUMMARIES_BLOB)
+                return None
+            return summaries
+        except Exception as e:
+            logger.warning("Error reading summaries index from GCS: %s", e, exc_info=True)
+            return None
+
+    def _load_local_summaries_index(self) -> Optional[List[Dict]]:
+        index_path = self.data_directory / "summaries.json"
+        if not index_path.exists():
+            return None
+        try:
+            with open(index_path, "r", encoding="utf-8") as f:
+                payload = json.load(f)
+            summaries = _normalize_summary_index(payload)
+            if summaries is None:
+                logger.warning("Ignoring invalid local summaries index %s", index_path)
+                return None
+            return summaries
+        except (json.JSONDecodeError, IOError, ValueError):
+            logger.warning("Failed to parse local summaries index %s", index_path, exc_info=True)
+            return None
+
     def get_published_races(self) -> List[str]:
         """List available race IDs.
 
-        In cloud mode, GCS is the source of truth.
-        In local mode, scan the local published directory.
+        In cloud mode, the central summaries index is the source of truth.
+        In local mode, the local summaries index is preferred and file scans are a
+        development-only fallback.
         """
         cached = self._cache_get_race_list()
         if cached is not None:
             return cached
 
+        cached_summaries = self._cache_get_race_summaries()
+        if cached_summaries is not None:
+            race_ids = sorted(str(summary["id"]) for summary in cached_summaries if summary.get("id"))
+            self._cache_set_race_list(race_ids)
+            return race_ids
+
         race_ids = set()
         client = self._get_gcs_client()
 
         if client:
-            try:
-                logger.info("Listing races from GCS bucket: %s", self.gcs_bucket_name)
-                bucket = client.bucket(self.gcs_bucket_name)
-                for blob in bucket.list_blobs(prefix="races/"):
-                    logger.debug("  GCS blob: %s", blob.name)
-                    if _is_published_race_blob(blob.name):
-                        race_ids.add(blob.name[len("races/") : -len(".json")])
-                logger.info("Listed %d races from GCS: %s", len(race_ids), sorted(race_ids))
-                result = sorted(race_ids)
+            summaries = self._load_cloud_summaries_index(client)
+            if summaries is not None:
+                self._cache_set_race_summaries(summaries)
+                result = sorted(str(summary["id"]) for summary in summaries if summary.get("id"))
                 self._cache_set_race_list(result)
                 return result
-            except Exception as e:
-                logger.warning("Error listing races from GCS, falling back to local: %s", e, exc_info=True)
+            logger.warning(
+                "Cloud summaries index %s is unavailable; not scanning GCS blobs for published races", _SUMMARIES_BLOB
+            )
+            return []
+
+        local_summaries = self._load_local_summaries_index()
+        if local_summaries is not None:
+            self._cache_set_race_summaries(local_summaries)
+            result = sorted(str(summary["id"]) for summary in local_summaries if summary.get("id"))
+            self._cache_set_race_list(result)
+            return result
 
         # Local mode (or GCS list failed)
         if self.data_directory.exists():
@@ -245,7 +294,11 @@ class SimplePublishService:
         return sorted(race_ids)
 
     def get_race_summaries(self) -> List[Dict]:
-        """Return cached race summaries built directly from stored race JSON."""
+        """Return cached race summaries.
+
+        Cloud mode serves the central summaries index only. Local mode prefers the
+        local summaries index and only scans files as a development fallback.
+        """
         cached = self._cache_get_race_summaries()
         if cached is not None:
             return cached
@@ -254,23 +307,21 @@ class SimplePublishService:
         client = self._get_gcs_client()
 
         if client:
-            try:
-                bucket = client.bucket(self.gcs_bucket_name)
-                for blob in bucket.list_blobs(prefix="races/"):
-                    if not _is_published_race_blob(blob.name):
-                        continue
-                    try:
-                        race_data = json.loads(blob.download_as_text())
-                    except (json.JSONDecodeError, OSError, ValueError):
-                        logger.warning("Failed to parse race summary blob %s", blob.name, exc_info=True)
-                        continue
-                    race_id = blob.name[len("races/") : -len(".json")]
-                    summaries.append(self._summary_from_race_data(race_id, race_data))
-                summaries.sort(key=lambda item: item.get("id", ""))
-                self._cache_set_race_summaries(summaries)
-                return summaries
-            except Exception as e:
-                logger.warning("Error building summaries from GCS, falling back to local: %s", e, exc_info=True)
+            indexed = self._load_cloud_summaries_index(client)
+            if indexed is not None:
+                self._cache_set_race_summaries(indexed)
+                self._cache_set_race_list(sorted(str(summary["id"]) for summary in indexed if summary.get("id")))
+                return indexed
+            logger.warning(
+                "Cloud summaries index %s is unavailable; not rebuilding summaries from all race blobs", _SUMMARIES_BLOB
+            )
+            return []
+
+        local_indexed = self._load_local_summaries_index()
+        if local_indexed is not None:
+            self._cache_set_race_summaries(local_indexed)
+            self._cache_set_race_list(sorted(str(summary["id"]) for summary in local_indexed if summary.get("id")))
+            return local_indexed
 
         if self.data_directory.exists():
             for file_path in sorted(self.data_directory.glob("*.json")):

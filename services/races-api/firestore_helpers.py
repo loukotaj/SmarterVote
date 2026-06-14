@@ -6,6 +6,8 @@ from typing import Any, Dict, Optional
 
 from fastapi import HTTPException
 
+from shared.race_catalog import build_race_summary_fields, build_versioned_catalog_fields
+
 _FIRESTORE_PROJECT = os.getenv("FIRESTORE_PROJECT") or os.getenv("PROJECT_ID")
 
 # Module-level singleton — tests reset this to None to force re-creation.
@@ -63,3 +65,17 @@ def _fs_update_race(race_id: str, fields: Dict[str, Any]) -> None:
         _get_fs().collection("races").document(race_id).set(fields, merge=True)
     except Exception as exc:
         logging.warning("Firestore race update %s failed: %s", race_id, exc)
+
+
+def _fs_build_draft_catalog_fields(race_id: str, race_data: Dict[str, Any]) -> Dict[str, Any]:
+    fields = build_race_summary_fields(race_id, race_data)
+    fields.update(build_versioned_catalog_fields("draft", race_data))
+    fields["draft_updated_at"] = race_data.get("updated_utc")
+    return fields
+
+
+def _fs_build_published_catalog_fields(race_id: str, race_data: Dict[str, Any]) -> Dict[str, Any]:
+    fields = build_race_summary_fields(race_id, race_data)
+    fields.update(build_versioned_catalog_fields("published", race_data))
+    fields["published_at"] = race_data.get("updated_utc")
+    return fields

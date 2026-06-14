@@ -1235,7 +1235,7 @@ def test_queue_race_invalid_id():
 
 
 def test_list_drafts_returns_summaries_not_ids():
-    """The web dashboard expects /api/races/drafts to return race summary objects."""
+    """The web dashboard expects /api/races/drafts to return Firestore catalog summaries."""
     os.environ["SKIP_AUTH"] = "true"
     os.environ["ADMIN_API_KEY"] = "test-key"
 
@@ -1243,24 +1243,37 @@ def test_list_drafts_returns_summaries_not_ids():
 
     firestore_helpers._fs_db = None
 
-    draft_json = {
-        "id": "az-senate-2026",
-        "title": "Arizona Senate 2026",
-        "office": "U.S. Senate",
-        "jurisdiction": "Arizona",
-        "state": "AZ",
-        "election_date": "2026-11-03",
-        "updated_utc": "2026-05-01T00:00:00Z",
-        "candidates": [{"name": "Alice Example", "party": "D", "incumbent": False, "image_url": "https://example.com/a.jpg"}],
-    }
+    draft_doc = _make_existing_doc(
+        {
+            "race_id": "az-senate-2026",
+            "title": "Arizona Senate 2026",
+            "office": "U.S. Senate",
+            "jurisdiction": "Arizona",
+            "state": "AZ",
+            "election_date": "2026-11-03",
+            "updated_utc": "2026-05-01T00:00:00Z",
+            "status": "draft",
+            "draft_updated_at": "2026-05-01T00:00:00Z",
+            "candidates": [
+                {
+                    "name": "Alice Example",
+                    "party": "D",
+                    "incumbent": False,
+                    "image_url": "https://example.com/a.jpg",
+                }
+            ],
+        }
+    )
+
+    coll_races = MagicMock()
+    coll_races.limit.return_value = coll_races
+    coll_races.stream.return_value = iter([draft_doc])
+    db = _build_empty_firestore_mock()
+    db.collection.side_effect = lambda name: coll_races if name == "races" else MagicMock()
 
     from fastapi.testclient import TestClient
 
-    with (
-        patch("firestore_helpers._get_fs", return_value=_build_empty_firestore_mock()),
-        patch("gcs_helpers._gcs_list_race_ids", return_value=["az-senate-2026"]),
-        patch("gcs_helpers._gcs_get_race_json", return_value=draft_json),
-    ):
+    with (patch("firestore_helpers._get_fs", return_value=db),):
         tc = TestClient(app_module.app)
         resp = tc.get("/api/races/drafts")
 
@@ -1271,8 +1284,8 @@ def test_list_drafts_returns_summaries_not_ids():
     assert body["races"][0]["candidates"][0]["name"] == "Alice Example"
 
 
-def test_list_races_uses_storage_state_for_draft_flags():
-    """Race list should not expose stale Firestore draft metadata as publishable state."""
+def test_list_races_uses_firestore_catalog_state_for_draft_flags():
+    """Race list should expose draft/published flags from the Firestore catalog."""
     os.environ["SKIP_AUTH"] = "true"
     os.environ["ADMIN_API_KEY"] = "test-key"
 
@@ -1283,9 +1296,11 @@ def test_list_races_uses_storage_state_for_draft_flags():
     stale_doc = _make_existing_doc(
         {
             "race_id": "ga-senate-2026",
-            "status": "draft",
-            "draft_updated_at": "2026-05-01T00:00:00Z",
+            "status": "published",
             "published_at": "2026-04-01T00:00:00Z",
+            "published_updated_utc": "2026-04-01T00:00:00Z",
+            "published_candidate_count": 3,
+            "published_quality_grade": "B",
         }
     )
     active_draft_doc = _make_existing_doc(
@@ -1293,7 +1308,13 @@ def test_list_races_uses_storage_state_for_draft_flags():
             "race_id": "az-senate-2026",
             "status": "published",
             "draft_updated_at": "2026-05-01T00:00:00Z",
+            "draft_updated_utc": "2026-05-01T00:00:00Z",
+            "draft_candidate_count": 4,
+            "draft_quality_grade": "A",
             "published_at": "2026-04-01T00:00:00Z",
+            "published_updated_utc": "2026-04-01T00:00:00Z",
+            "published_candidate_count": 3,
+            "published_quality_grade": "B",
         }
     )
     coll_races = MagicMock()
@@ -1302,15 +1323,9 @@ def test_list_races_uses_storage_state_for_draft_flags():
     db = _build_empty_firestore_mock()
     db.collection.side_effect = lambda name: coll_races if name == "races" else MagicMock()
 
-    def _list_ids(prefix):
-        return ["az-senate-2026"] if prefix == "drafts" else ["ga-senate-2026", "az-senate-2026"]
-
     from fastapi.testclient import TestClient
 
-    with (
-        patch("firestore_helpers._get_fs", return_value=db),
-        patch("gcs_helpers._gcs_list_race_ids", side_effect=_list_ids),
-    ):
+    with (patch("firestore_helpers._get_fs", return_value=db),):
         tc = TestClient(app_module.app)
         resp = tc.get("/api/races")
 
@@ -1319,14 +1334,13 @@ def test_list_races_uses_storage_state_for_draft_flags():
     assert by_id["ga-senate-2026"]["status"] == "published"
     assert by_id["ga-senate-2026"]["draft_exists"] is False
     assert by_id["ga-senate-2026"]["published_exists"] is True
-    assert by_id["ga-senate-2026"]["draft_updated_at"] is None
     assert by_id["az-senate-2026"]["status"] == "published"
     assert by_id["az-senate-2026"]["draft_exists"] is True
     assert by_id["az-senate-2026"]["published_exists"] is True
 
 
 def test_list_races_exposes_public_and_draft_quality_separately():
-    """Admin/MCP records should not report draft quality as the public page grade."""
+    """Admin/MCP records should keep draft and published catalog metadata separate."""
     os.environ["SKIP_AUTH"] = "true"
     os.environ["ADMIN_API_KEY"] = "test-key"
 
@@ -1338,10 +1352,14 @@ def test_list_races_exposes_public_and_draft_quality_separately():
         {
             "race_id": "ar-governor-2026",
             "status": "published",
-            "candidate_count": 4,
-            "quality_grade": "A",
             "draft_updated_at": "2026-05-18T02:22:28Z",
+            "draft_updated_utc": "2026-05-18T02:22:28Z",
+            "draft_candidate_count": 4,
+            "draft_quality_grade": "A",
             "published_at": "2026-04-06T16:44:20Z",
+            "published_updated_utc": "2026-04-06T16:44:20Z",
+            "published_candidate_count": 3,
+            "published_quality_grade": None,
         }
     )
     coll_races = MagicMock()
@@ -1350,33 +1368,9 @@ def test_list_races_exposes_public_and_draft_quality_separately():
     db = _build_empty_firestore_mock()
     db.collection.side_effect = lambda name: coll_races if name == "races" else MagicMock()
 
-    published_json = {
-        "id": "ar-governor-2026",
-        "updated_utc": "2026-04-06T16:44:20Z",
-        "candidates": [{"name": "A"}, {"name": "B"}, {"name": "C"}],
-        "validation_grade": None,
-    }
-    draft_json = {
-        "id": "ar-governor-2026",
-        "updated_utc": "2026-05-18T02:22:28Z",
-        "candidates": [{"name": "A"}, {"name": "B"}, {"name": "C"}, {"name": "D"}],
-        "validation_grade": {"grade": "A", "score": 92, "passed": True},
-    }
-
-    def _list_ids(prefix):
-        return ["ar-governor-2026"]
-
-    def _get_json(race_id, prefix):
-        assert race_id == "ar-governor-2026"
-        return draft_json if prefix == "drafts" else published_json
-
     from fastapi.testclient import TestClient
 
-    with (
-        patch("firestore_helpers._get_fs", return_value=db),
-        patch("gcs_helpers._gcs_list_race_ids", side_effect=_list_ids),
-        patch("gcs_helpers._gcs_get_race_json", side_effect=_get_json),
-    ):
+    with (patch("firestore_helpers._get_fs", return_value=db),):
         tc = TestClient(app_module.app)
         resp = tc.get("/api/races")
 
@@ -1982,15 +1976,12 @@ def test_recheck_reconciles_empty_race_to_draft_when_draft_exists():
         resp = tc.post("/api/races/ar-senate-2026/recheck")
 
     assert resp.status_code == 200
-    mock_update.assert_called_once_with(
-        "ar-senate-2026",
-        {
-            "status": "draft",
-            "current_run_id": None,
-            "draft_updated_at": "2026-05-18T00:59:45.686753+00:00",
-            "published_at": None,
-        },
-    )
+    assert mock_update.call_args.args[0] == "ar-senate-2026"
+    update = mock_update.call_args.args[1]
+    assert update["status"] == "draft"
+    assert update["current_run_id"] is None
+    assert update["draft_updated_at"] == "2026-05-18T00:59:45.686753+00:00"
+    assert update["published_at"] is None
 
 
 def test_recheck_all_reconciles_empty_to_draft_from_storage():
@@ -2051,15 +2042,120 @@ def test_recheck_all_reconciles_empty_to_draft_from_storage():
     body = resp.json()
     assert body["checked"] == 2
     assert body["updated"] == 1
-    mock_update.assert_called_once_with(
-        "ar-senate-2026",
-        {
-            "status": "draft",
-            "current_run_id": None,
-            "draft_updated_at": "2026-05-18T00:59:45.686753+00:00",
-            "published_at": None,
-        },
-    )
+    assert mock_update.call_args.args[0] == "ar-senate-2026"
+    update = mock_update.call_args.args[1]
+    assert update["status"] == "draft"
+    assert update["current_run_id"] is None
+    assert update["draft_updated_at"] == "2026-05-18T00:59:45.686753+00:00"
+    assert update["published_at"] is None
+
+
+def test_recheck_all_backfills_catalog_for_gcs_only_race():
+    """Bulk recheck should create a Firestore catalog record for races that already exist only in GCS."""
+    os.environ["SKIP_AUTH"] = "true"
+    os.environ["ADMIN_API_KEY"] = "test-key"
+
+    import main as app_module
+
+    firestore_helpers._fs_db = None
+
+    races_coll = MagicMock()
+    races_coll.limit.return_value = races_coll
+    races_coll.stream.return_value = iter([])
+
+    db = _build_empty_firestore_mock()
+    db.collection.side_effect = lambda name: races_coll if name == "races" else MagicMock()
+
+    def _gcs_get(race_id, prefix):
+        if race_id != "az-senate-2026":
+            return None
+        if prefix == "races":
+            return {
+                "id": race_id,
+                "title": "Arizona Senate 2026",
+                "office": "U.S. Senate",
+                "jurisdiction": "Arizona",
+                "state": "AZ",
+                "election_date": "2026-11-03",
+                "updated_utc": "2026-05-01T00:00:00Z",
+                "candidates": [{"name": "Alice Example"}],
+            }
+        return None
+
+    from fastapi.testclient import TestClient
+
+    with (
+        patch("firestore_helpers._get_fs", return_value=db),
+        patch("gcs_helpers._gcs_list_race_ids", side_effect=lambda prefix: ["az-senate-2026"] if prefix == "races" else []),
+        patch("gcs_helpers._gcs_get_race_json", side_effect=_gcs_get),
+        patch("firestore_helpers._fs_update_race") as mock_update,
+    ):
+        tc = TestClient(app_module.app)
+        resp = tc.post("/api/races/recheck")
+
+    assert resp.status_code == 200
+    body = resp.json()
+    assert body["checked"] == 1
+    assert body["updated"] == 1
+    update = mock_update.call_args.args[1]
+    assert mock_update.call_args.args[0] == "az-senate-2026"
+    assert update["status"] == "published"
+    assert update["title"] == "Arizona Senate 2026"
+    assert update["published_updated_utc"] == "2026-05-01T00:00:00Z"
+    assert update["draft_updated_at"] is None
+
+
+def test_recheck_single_backfills_missing_firestore_record_from_storage():
+    """Single-race recheck should create a missing Firestore catalog record from storage."""
+    os.environ["SKIP_AUTH"] = "true"
+    os.environ["ADMIN_API_KEY"] = "test-key"
+
+    import main as app_module
+
+    firestore_helpers._fs_db = None
+
+    race_ref = MagicMock()
+    race_ref.get.return_value = MagicMock(exists=False)
+    races_coll = MagicMock()
+    races_coll.document.return_value = race_ref
+
+    db = _build_empty_firestore_mock()
+    db.collection.side_effect = lambda name: races_coll if name == "races" else MagicMock()
+
+    def _gcs_get(race_id, prefix):
+        if race_id != "ga-senate-2026":
+            return None
+        if prefix == "drafts":
+            return {
+                "id": race_id,
+                "title": "Georgia Senate 2026",
+                "office": "U.S. Senate",
+                "jurisdiction": "Georgia",
+                "state": "GA",
+                "election_date": "2026-11-03",
+                "updated_utc": "2026-06-01T00:00:00Z",
+                "candidates": [{"name": "Pat Example"}],
+                "validation_grade": {"grade": "A", "passed": True},
+            }
+        return None
+
+    from fastapi.testclient import TestClient
+
+    with (
+        patch("firestore_helpers._get_fs", return_value=db),
+        patch("gcs_helpers._gcs_get_race_json", side_effect=_gcs_get),
+        patch("firestore_helpers._fs_update_race") as mock_update,
+    ):
+        tc = TestClient(app_module.app)
+        resp = tc.post("/api/races/ga-senate-2026/recheck")
+
+    assert resp.status_code == 200
+    race = resp.json()["race"]
+    assert race["status"] == "draft"
+    assert race["title"] == "Georgia Senate 2026"
+    assert race["draft_quality_grade"] == "A"
+    update = mock_update.call_args.args[1]
+    assert update["draft_updated_utc"] == "2026-06-01T00:00:00Z"
 
 
 def test_publish_race_clears_draft_timestamp():

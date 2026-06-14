@@ -24,6 +24,8 @@ from typing import Any, Dict, Optional
 import functions_framework
 from cloudevents.http import CloudEvent
 
+from shared.race_catalog import build_race_summary_fields, build_versioned_catalog_fields
+
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s %(message)s")
 logger = logging.getLogger("agent_cf")
 
@@ -284,6 +286,9 @@ def process_queue_item(cloud_event: CloudEvent) -> None:
                 "total_runs": Increment(1),
             },
         )
+        draft_data = _load_gcs_json(f"drafts/{race_id}.json")
+        if isinstance(draft_data, dict):
+            db.collection("races").document(race_id).set(_draft_catalog_update(race_id, draft_data), merge=True)
     else:
         item_ref.update({"status": "failed", "error": error_msg})
         run_ref.update({"status": "failed", "error": error_msg, "completed_at": SERVER_TIMESTAMP})
@@ -349,6 +354,13 @@ def _load_gcs_json(path: str) -> Optional[Dict[str, Any]]:
     except Exception as exc:
         logger.warning("Failed to load GCS JSON %s: %s", path, exc)
         return None
+
+
+def _draft_catalog_update(race_id: str, draft_data: Dict[str, Any]) -> Dict[str, Any]:
+    fields = build_race_summary_fields(race_id, draft_data)
+    fields.update(build_versioned_catalog_fields("draft", draft_data))
+    fields["draft_updated_at"] = draft_data.get("updated_utc")
+    return fields
 
 
 def _run_agent(

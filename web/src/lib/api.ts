@@ -17,17 +17,11 @@ async function fetchPublicJson<T>(
 ): Promise<T> {
   const dataBase = publicDataBase();
   if (dataBase) {
-    try {
-      const staticResponse = await fetchFn(`${dataBase}/${staticPath}`);
-      if (staticResponse.ok) {
-        return (await staticResponse.json()) as T;
-      }
-      logger.warn(
-        `Static data request failed with ${staticResponse.status}; falling back to the API`
-      );
-    } catch (error) {
-      logger.warn("Static data request failed; falling back to the API:", error);
+    const staticResponse = await fetchFn(`${dataBase}/${staticPath}`);
+    if (!staticResponse.ok) {
+      throw new Error(`Static data request failed: ${staticResponse.status}`);
     }
+    return (await staticResponse.json()) as T;
   }
 
   const apiResponse = await fetchFn(`${API_BASE}${apiPath}`);
