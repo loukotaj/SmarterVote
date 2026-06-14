@@ -7,7 +7,17 @@ from fastapi import HTTPException
 from pydantic import BaseModel, field_validator, model_validator
 
 _RACE_ID_RE = re.compile(r"^[a-z0-9][a-z0-9_-]{0,99}$")
-_PIPELINE_STEPS = {"discovery", "images", "issues", "finance", "refinement", "review", "iteration"}
+_PIPELINE_STEPS = {
+    "discovery",
+    "images",
+    "issues",
+    "finance",
+    "refinement",
+    "polling",
+    "voter_resources",
+    "review",
+    "iteration",
+}
 
 
 def validate_race_id(race_id: str) -> None:

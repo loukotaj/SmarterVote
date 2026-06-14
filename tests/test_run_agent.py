@@ -965,6 +965,73 @@ def test_sanitize_polling_drops_non_roster_placeholder_poll():
     assert race_json["polling"] == []
 
 
+def test_sanitize_polling_requires_exact_roster_names():
+    race_json = {
+        "candidates": [{"name": "Alice Smith"}, {"name": "Bob Jones"}],
+        "polling": [
+            {
+                "pollster": "Example",
+                "date": "2026-06-01",
+                "matchups": [{"candidates": ["Alice", "Bob Jones"], "percentages": [48, 45]}],
+            }
+        ],
+    }
+
+    _sanitize_polling(race_json)
+
+    assert race_json["polling"][0]["matchups"] == []
+
+
+@pytest.mark.asyncio
+async def test_polling_step_runs_without_issue_finance_or_refinement():
+    existing = {
+        "id": "poll-only-2026",
+        "election_date": "2026-11-03",
+        "updated_utc": "2026-06-01T00:00:00Z",
+        "candidates": [{"name": "Alice Smith"}, {"name": "Bob Jones"}],
+        "polling": [],
+    }
+
+    with (
+        patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.agent._load_existing", return_value=existing),
+    ):
+        result = await run_agent("poll-only-2026", existing_data=existing, enabled_steps=["polling"])
+
+    assert mock_loop.await_count == 1
+    assert mock_loop.call_args.kwargs["phase_name"] == "update-polling"
+    tool_names = {tool["function"]["name"] for tool in mock_loop.call_args.kwargs["extra_tools"]}
+    assert tool_names == {"add_poll", "remove_poll", "update_race_field", "read_profile"}
+    assert result["candidates"][0]["name"] == "Alice Smith"
+
+
+@pytest.mark.asyncio
+async def test_voter_resources_step_runs_independently():
+    existing = {
+        "id": "resources-only-2026",
+        "election_date": "2026-11-03",
+        "updated_utc": "2026-06-01T00:00:00Z",
+        "office": "Governor",
+        "state": "Georgia",
+        "candidates": [{"name": "Alice Smith"}],
+    }
+
+    with (
+        patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.agent._load_existing", return_value=existing),
+    ):
+        await run_agent("resources-only-2026", existing_data=existing, enabled_steps=["voter_resources"])
+
+    assert mock_loop.await_count == 1
+    assert mock_loop.call_args.kwargs["phase_name"] == "update-voter-resources"
+    tool = mock_loop.call_args.kwargs["extra_tools"][0]
+    assert tool["function"]["parameters"]["properties"]["field"]["enum"] == [
+        "ballotpedia_url",
+        "register_to_vote_url",
+        "how_to_vote_url",
+    ]
+
+
 @pytest.mark.asyncio
 async def test_run_agent_continuation_skips_completed_issue_stances():
     """Continuation mode resumes issue research at the next missing issue."""

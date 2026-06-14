@@ -472,6 +472,8 @@ Black and isort checks: passed
 
 ## Phase 5b: Decouple Polling and Voter Resources
 
+Status: Complete.
+
 ### Problem
 
 Polling research and voter resource links (`register_to_vote_url`, `how_to_vote_url`, `ballotpedia_url`) are currently gathered during the Discovery and Refinement phases.
@@ -506,6 +508,25 @@ Because polling data is highly volatile and voter registration resources are sta
 - Assert that the `polling` step can be executed alone on a draft and correctly appends new `PollEntry` items.
 - Assert that mismatched matchup names are rejected or normalized.
 - Assert that running only `polling` does not invoke issue or finance handlers.
+
+### Delivered
+
+- Added first-class `polling` and `voter_resources` steps across backend validation, queue metadata, progress weights, and frontend types.
+- Added narrow polling and voter-resource prompts and tool surfaces.
+- Removed routine polling and voter-link collection from discovery, refinement, and update metadata work.
+- Preserved broad review-iteration access to polling, voter resources, roster, candidate, issue, record, and background tools.
+- Added exact roster-name enforcement both when polls are inserted and during final polling sanitation.
+- Removed the discovery-time `ballotpedia_url` side effect from roster synchronization.
+- Added isolated execution tests proving polling and voter-resource steps do not invoke issue, finance, or refinement work.
+
+### Validation
+
+```text
+Focused Python suite: 154 passed
+Full Python suite: 315 passed
+Frontend: 0 Svelte diagnostics, production build passed, 28 unit tests passed
+Black and isort checks: passed
+```
 
 ## Phase 6: Queue Correctness and Firestore Scalability
 
@@ -773,7 +794,7 @@ PYTHONPATH=. python -m pytest
 - [x] Retries and timeouts respect a shared run deadline.
 - [x] Candidate rosters are never silently truncated.
 - [x] Candidate/issue work uses bounded concurrency and patch merging.
-- [ ] Review preserves default three-provider whole-profile coverage, removes only operational duplication, and reports cost clearly.
+- [x] Review preserves default three-provider whole-profile coverage, removes only operational duplication, and reports cost clearly.
 - [ ] Queue claims are transactional and lease-based.
 - [ ] Firestore and GCS list operations are paginated.
 - [ ] Queue/run/race/storage ownership is consolidated.

@@ -266,6 +266,8 @@ export type PipelineStepId =
   | "issues"
   | "finance"
   | "refinement"
+  | "polling"
+  | "voter_resources"
   | "review"
   | "iteration";
 
@@ -274,11 +276,13 @@ export const PIPELINE_STEPS: {
   label: string;
   weight: number;
 }[] = [
-  { id: "discovery", label: "Discovery", weight: 15 },
-  { id: "images", label: "Image Resolution", weight: 5 },
-  { id: "issues", label: "Issue Research", weight: 35 },
-  { id: "finance", label: "Finance & Voting", weight: 10 },
-  { id: "refinement", label: "Refinement", weight: 15 },
+  { id: "discovery", label: "Discovery", weight: 12 },
+  { id: "images", label: "Image Resolution", weight: 4 },
+  { id: "issues", label: "Issue Research", weight: 30 },
+  { id: "finance", label: "Finance & Voting", weight: 9 },
+  { id: "refinement", label: "Refinement", weight: 12 },
+  { id: "polling", label: "Polling", weight: 8 },
+  { id: "voter_resources", label: "Voter Resources", weight: 5 },
   { id: "review", label: "AI Review", weight: 12 },
   { id: "iteration", label: "Review Iteration", weight: 8 },
 ];

@@ -28,6 +28,8 @@ class PipelineStep(str, Enum):
     ISSUES = "issues"
     FINANCE = "finance"
     REFINEMENT = "refinement"
+    POLLING = "polling"
+    VOTER_RESOURCES = "voter_resources"
     REVIEW = "review"
     ITERATION = "iteration"
 
@@ -42,17 +44,21 @@ STEP_LABELS: Dict[str, str] = {
     PipelineStep.ISSUES: "Issue Research",
     PipelineStep.FINANCE: "Finance & Voting",
     PipelineStep.REFINEMENT: "Refinement",
+    PipelineStep.POLLING: "Polling",
+    PipelineStep.VOTER_RESOURCES: "Voter Resources",
     PipelineStep.REVIEW: "AI Review",
     PipelineStep.ITERATION: "Review Iteration",
 }
 
 # Weights for progress computation (must sum to 100)
 STEP_WEIGHTS: Dict[str, int] = {
-    PipelineStep.DISCOVERY: 15,
-    PipelineStep.IMAGES: 5,
-    PipelineStep.ISSUES: 35,
-    PipelineStep.FINANCE: 10,
-    PipelineStep.REFINEMENT: 15,
+    PipelineStep.DISCOVERY: 12,
+    PipelineStep.IMAGES: 4,
+    PipelineStep.ISSUES: 30,
+    PipelineStep.FINANCE: 9,
+    PipelineStep.REFINEMENT: 12,
+    PipelineStep.POLLING: 8,
+    PipelineStep.VOTER_RESOURCES: 5,
     PipelineStep.REVIEW: 12,
     PipelineStep.ITERATION: 8,
 }

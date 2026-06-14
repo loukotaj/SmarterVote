@@ -352,6 +352,37 @@ def test_remove_poll_handler():
     assert race_json["polling"] == []
 
 
+def test_add_poll_requires_exact_roster_names():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {
+        "candidates": [{"name": "Alice Smith"}, {"name": "Bob Jones"}],
+        "polling": [],
+    }
+    handlers = _make_editing_handlers(race_json, lambda *_: None)
+
+    rejected = handlers["add_poll"](
+        {
+            "pollster": "Example Poll",
+            "date": "2026-06-01",
+            "matchups": [{"candidates": ["Alice", "Bob Jones"], "percentages": [48, 45]}],
+            "source_url": "https://example.com/poll",
+        }
+    )
+    accepted = handlers["add_poll"](
+        {
+            "pollster": "Example Poll",
+            "date": "2026-06-01",
+            "matchups": [{"candidates": ["Alice Smith", "Bob Jones"], "percentages": [48, 45]}],
+            "source_url": "https://example.com/poll",
+        }
+    )
+
+    assert rejected.startswith("ERROR:")
+    assert accepted.startswith("Added poll")
+    assert len(race_json["polling"]) == 1
+
+
 def test_remove_candidate_deletes_malformed_entries():
     """remove_candidate physically deletes entries whose name looks like a metadata key."""
     from pipeline_client.agent.agent import _make_editing_handlers

@@ -447,6 +447,24 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
     # --- Race-level handlers ---
 
     def add_poll(args: Dict[str, Any]) -> str:
+        roster_names = {
+            str(candidate.get("name") or "").strip()
+            for candidate in race_json.get("candidates", [])
+            if isinstance(candidate, dict) and str(candidate.get("name") or "").strip()
+        }
+        matchup_names = {
+            str(name).strip()
+            for matchup in args.get("matchups", [])
+            if isinstance(matchup, dict)
+            for name in matchup.get("candidates", [])
+            if str(name).strip()
+        }
+        unknown_names = sorted(matchup_names - roster_names)
+        if unknown_names:
+            return (
+                "ERROR: Poll matchup candidate names must exactly match the current roster. "
+                f"Unknown names: {', '.join(unknown_names)}. Valid names: {', '.join(sorted(roster_names))}."
+            )
         poll = {
             "pollster": args["pollster"],
             "date": args["date"],

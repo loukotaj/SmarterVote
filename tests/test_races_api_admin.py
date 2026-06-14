@@ -169,7 +169,9 @@ def test_list_steps(client):
     body = resp.json()
     assert "steps" in body
     assert "discovery" in body["steps"]
-    assert body["step_details"][0] == {"id": "discovery", "label": "Discovery", "weight": 15}
+    assert body["step_details"][0] == {"id": "discovery", "label": "Discovery", "weight": 12}
+    assert "polling" in body["steps"]
+    assert "voter_resources" in body["steps"]
 
 
 # ---------------------------------------------------------------------------

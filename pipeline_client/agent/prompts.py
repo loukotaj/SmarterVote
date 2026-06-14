@@ -84,9 +84,6 @@ Gather:
 - Each candidate: summary (2-3 sentences), career history, education.
 - A 3-4 sentence nonpartisan description of this race — what office is being
   contested, why this race matters, political context, and key contrasts.
-- Recent opinion polls. Search "[state] [office] poll 2026". Include up to 5
-  recent polls with pollster, date, sample size, percentages, and source URL.
-  Set polling to [] and polling_note to a brief explanation if none found.
 
 ## Image URL strategy
 For each candidate's headshot, try:
@@ -107,21 +104,6 @@ Return JSON:
   "district": "<district identifier if applicable, e.g. \"1st Congressional District\", \"District 5\"; null otherwise>",
   "election_date": "<YYYY-MM-DD or best estimate>",
   "description": "<3-4 sentence nonpartisan overview of the race>",
-  "polling": [
-    {{
-      "pollster": "<polling organization>",
-      "date": "<YYYY-MM-DD>",
-      "sample_size": 600,
-      "matchups": [
-        {{
-          "candidates": ["<Candidate A>", "<Candidate B>"],
-          "percentages": [48.5, 41.0]
-        }}
-      ],
-      "source_url": "<direct URL to poll or article>"
-    }}
-  ],
-  "polling_note": "<brief note if no polls were found, otherwise null>",
   "candidates": [
     {{
       "name": "<full name>",
@@ -161,7 +143,6 @@ Return JSON:
       "issues": {{}}
     }}
   ],
-  "ballotpedia_url": "<Ballotpedia ELECTION page URL — e.g. https://ballotpedia.org/United_States_Senate_election_in_Michigan,_2026 — NOT a candidate biography page>",
   "updated_utc": "<ISO timestamp>",
   "generator": ["pipeline-agent"]
 }}"""
@@ -220,26 +201,12 @@ REFINE_META_USER = """\
 Here is the top-level metadata for race "{race_id}".
 
 Current description: {race_description}
-Current polling: {polling_json}
 
-Search for:
-1. Any better or more accurate race description (3-4 sentences: office, why it matters, partisan context, key contrasts).
-2. Recent polls (last 90 days). Include pollster, date, sample_size, matchups, source_url.
-   If no real public polls exist, set polling_note via update_race_field to explain
-   (e.g. "No public polling found for this race as of <date>.") and leave polling empty.
-3. Voter resources — use update_race_field to set:
-   - ballotpedia_url: the Ballotpedia ELECTION page URL, e.g.
-     https://ballotpedia.org/United_States_Senate_election_in_Michigan,_2026
-     This MUST be the race/election page — NOT a candidate biography page. Candidate
-     bio pages (e.g. https://ballotpedia.org/Elissa_Slotkin) are NOT valid here.
-     If the current value is a candidate page, correct it with update_race_field.
-   - register_to_vote_url: an official state voter registration page (e.g. sos.state.gov/register)
-   - how_to_vote_url: an official state "how to vote" or elections info page
+Search for a better or more accurate race description: 3-4 sentences covering
+the office, why the race matters, partisan context, and key contrasts.
 
-Use your editing tools (update_race_field for description, polling_note, ballotpedia_url,
-register_to_vote_url, or how_to_vote_url; add_poll for each poll)
-to record any improvements directly. When done, reply with a short confirmation
-of what you updated (e.g. "Updated description, added 2 new polls, set voter resource links.")."""
+Use update_race_field only for description. Do not research or modify polling
+or voter-resource links in this phase. When done, briefly describe the change."""
 
 # ------------------------------------------------------------------
 # Update prompts — phase-based (mirrors fresh run)
@@ -258,13 +225,9 @@ Candidates: {candidate_names}
 Search for NEW information since {last_updated}:
 1. Any major news, announcements, or developments for each candidate.
 2. Updated or corrected candidate summaries (keep them 2-3 sentences, nonpartisan).
-3. Recent polls (published after {last_updated}). Include pollster, date, sample size,
-   percentages, source URL. Set polling_note if no polls are found.
-4. Updated race description (office context, why it matters, key contrasts).
+3. Updated race description (office context, why it matters, key contrasts).
 
 WHAT COUNTS AS "NEW" — be precise:
-- A poll is new if its publication date is AFTER {last_updated}. Do not add polls
-  from before that date even if they were not in the profile.
 - A development is new if it appears in articles published AFTER {last_updated}:
   new endorsements, policy announcements, primary results, candidate debates,
   campaign finance filings, major funding milestones, significant controversy.
@@ -279,19 +242,58 @@ WHAT COUNTS AS "NEW" — be precise:
 WHEN TO MAKE NO CHANGES:
 - If nothing meaningful has changed since {last_updated}, reply exactly:
   "No changes needed."
-- Do not add polls that predate {last_updated}.
 - Do not rephrase existing summaries without a substantive new reason.
 
 When you do find improvements, use your editing tools to record them:
-- update_race_field for description, and voter resource links (ballotpedia_url,
-  register_to_vote_url, how_to_vote_url) if they are not already set or need correction
-- add_poll for each new poll (after {last_updated} only)
+- update_race_field for description
 - set_candidate_summary for updated summaries (new events only)
 - set_donor_summary if new funding milestone or FEC filing is available
 - set_candidate_field for other candidate fields
 
 When you are done, reply with a short plain-text summary of what changed, or
 "No changes needed" if the profile is already up to date."""
+
+POLLING_SYSTEM = f"""\
+You are a nonpartisan polling research agent. Your only task is to refresh
+race-level public polling without changing candidates or any other profile data.
+
+{_SHARED_RULES}"""
+
+POLLING_USER = """\
+Race: "{race_id}"
+Current date: {current_date}
+Current roster (use these names exactly): {candidate_names}
+Existing polling:
+{polling_json}
+
+Find recent public polls from primary poll releases, reputable aggregators, or
+news coverage linking to the underlying poll. Add at most five useful recent
+polls. Every matchup candidate name must exactly match the roster above and the
+percentages array must align with the candidate array.
+
+Remove duplicate or malformed existing polls. If no public polling exists, set
+polling_note to "No public polling found for this race as of {current_date}."
+Use only add_poll, remove_poll, and update_race_field for polling_note."""
+
+VOTER_RESOURCES_SYSTEM = f"""\
+You are a nonpartisan election-resource researcher. Your only task is to verify
+official voter links for a race without changing candidates, polling, or prose.
+
+{_SHARED_RULES}"""
+
+VOTER_RESOURCES_USER = """\
+Race: "{race_id}"
+Office: {office}
+Jurisdiction: {jurisdiction}
+State: {state}
+
+Verify and set:
+- ballotpedia_url: the Ballotpedia election/race page, never a candidate biography.
+- register_to_vote_url: the official state election authority registration page.
+- how_to_vote_url: the official state election authority voting-information page.
+
+Prefer secretary-of-state or equivalent official government pages. Use only
+update_race_field for these three fields."""
 
 # ------------------------------------------------------------------
 # Image URL resolution prompt (standalone phase)

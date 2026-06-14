@@ -145,7 +145,7 @@ def _sanitize_polling(race_json: Dict[str, Any], log: Any | None = None) -> None
         return
 
     active_names = {
-        _norm_candidate_name_for_poll(_candidate_name(candidate)) for candidate in race_json.get("candidates") or []
+        _candidate_name(candidate) for candidate in race_json.get("candidates") or [] if _candidate_name(candidate)
     }
     kept_polls: List[Dict[str, Any]] = []
     dropped_polls = 0
@@ -170,7 +170,7 @@ def _sanitize_polling(race_json: Dict[str, Any], log: Any | None = None) -> None
                 continue
             names = matchup.get("candidates")
             if active_names and isinstance(names, list):
-                roster_names = [_norm_candidate_name_for_poll(str(name)) for name in names]
+                roster_names = [str(name).strip() for name in names]
                 if any(name and name not in active_names for name in roster_names):
                     if log:
                         log("warning", f"Poll {poll_index} matchup {matchup_index} references non-roster candidates; dropping")
@@ -208,10 +208,6 @@ def _sanitize_polling(race_json: Dict[str, Any], log: Any | None = None) -> None
                 "warning",
                 f"Dropped {dropped_polls} malformed or placeholder polling entr{'y' if dropped_polls == 1 else 'ies'}",
             )
-
-
-def _norm_candidate_name_for_poll(name: str) -> str:
-    return " ".join(str(name or "").lower().replace(".", "").split())
 
 
 def _sanitize_candidate_links(race_json: Dict[str, Any], log: Any | None = None) -> None:
@@ -429,7 +425,17 @@ async def run_agent(
     t0 = time.perf_counter()
 
     # Step enablement check - None means all enabled
-    _all_steps = {"discovery", "images", "issues", "finance", "refinement", "review", "iteration"}
+    _all_steps = {
+        "discovery",
+        "images",
+        "issues",
+        "finance",
+        "refinement",
+        "polling",
+        "voter_resources",
+        "review",
+        "iteration",
+    }
     _enabled = set(enabled_steps) if enabled_steps else _all_steps
 
     def _step_enabled(step: str) -> bool:
@@ -557,7 +563,9 @@ async def run_agent(
     race_json.setdefault("polling", [])
     _normalize_schema_fields(race_json, log)
 
-    semantic_steps_ran = bool(_enabled & {"discovery", "images", "issues", "finance", "refinement", "iteration"})
+    semantic_steps_ran = bool(
+        _enabled & {"discovery", "images", "issues", "finance", "refinement", "polling", "voter_resources", "iteration"}
+    )
     if should_review:
         pipeline_state["complete"] = True
         pipeline_state["remaining_candidates"] = []

@@ -42,6 +42,8 @@ from .prompts import (
     ITERATE_META_USER,
     ITERATE_SYSTEM,
     ITERATE_USER,
+    POLLING_SYSTEM,
+    POLLING_USER,
     REFINE_META_USER,
     REFINE_SYSTEM,
     REFINE_USER,
@@ -53,6 +55,8 @@ from .prompts import (
     UPDATE_ISSUE_SUBAGENT_USER,
     UPDATE_META_SYSTEM,
     UPDATE_META_USER,
+    VOTER_RESOURCES_SYSTEM,
+    VOTER_RESOURCES_USER,
 )
 from .run_budget import RunBudget, RunBudgetExceeded
 from .selection import (  # noqa: F401 — re-exported for backward compat
@@ -65,12 +69,15 @@ from .selection import (  # noqa: F401 — re-exported for backward compat
 from .tools import (
     BACKGROUND_TOOLS,
     CANDIDATE_TOOLS,
+    DESCRIPTION_TOOLS,
     ISSUE_TOOLS,
+    POLLING_TOOLS,
     RACE_TOOLS,
     READ_PROFILE_TOOL,
     RECORD_TOOLS,
     REMOVE_CANDIDATE_TOOL,
     ROSTER_TOOLS,
+    VOTER_RESOURCE_TOOLS,
 )
 from .utils import make_logger
 from .web_tools import _get_search_cache
@@ -298,11 +305,6 @@ async def _sync_ballotpedia_roster(race_json: Dict[str, Any], race_id: str, log:
 
     if not isinstance(bp_result, dict) or not bp_result.get("found"):
         return
-    page_url = bp_result.get("page_url")
-    if page_url and not race_json.get("ballotpedia_url"):
-        race_json["ballotpedia_url"] = page_url
-        if log:
-            log("info", f"  Auto-set ballotpedia_url: {page_url}")
     bp_candidates = bp_result.get("candidates")
     if isinstance(bp_candidates, list):
         authoritative = [
@@ -689,7 +691,7 @@ async def _run_shared_phases(
     continue_incomplete_work: bool = False,
     run_budget: RunBudget | None = None,
 ) -> None:
-    """Run images, issues, finance, and refinement phases.
+    """Run candidate research, polling, and voter-resource phases.
 
     Mutates *race_json* in place.
     """
@@ -970,7 +972,7 @@ async def _run_shared_phases(
             except Exception as exc:
                 log("warning", f"  Refine failed for {cname}: {exc} — keeping existing")
 
-        # Meta refinement (description + polling) — tools mode
+        # Meta refinement (description only) — tools mode
         log("info", "  Refining race metadata...")
         try:
             await _agent_loop(
@@ -978,7 +980,6 @@ async def _run_shared_phases(
                 REFINE_META_USER.format(
                     race_id=race_id,
                     race_description=race_json.get("description", ""),
-                    polling_json=json.dumps(race_json.get("polling", []), indent=2, default=str),
                 ),
                 model=model,
                 on_log=on_log,
@@ -986,7 +987,7 @@ async def _run_shared_phases(
                 max_iterations=max(6, refine_iters // 3),
                 phase_name=f"{'upd-' if is_update else ''}refine-meta",
                 max_tokens=4096,
-                extra_tools=RACE_TOOLS + [READ_PROFILE_TOOL],
+                extra_tools=DESCRIPTION_TOOLS + [READ_PROFILE_TOOL],
                 extra_tool_handlers=handlers,
                 tools_mode=True,
                 run_budget=run_budget,
@@ -999,6 +1000,76 @@ async def _run_shared_phases(
     else:
         log("info", f"{prefix} 3: Refinement — SKIPPED")
         track("skip", "refinement")
+
+    handlers = _make_editing_handlers(race_json, log)
+    if step_enabled("polling"):
+        track("start", "polling")
+        polling_t0 = time.perf_counter()
+        log("info", f"{prefix} 4: Refreshing public polling...")
+        try:
+            await _agent_loop(
+                POLLING_SYSTEM,
+                POLLING_USER.format(
+                    race_id=race_id,
+                    current_date=datetime.now(timezone.utc).date().isoformat(),
+                    candidate_names=", ".join(candidate_names),
+                    polling_json=json.dumps(race_json.get("polling", []), indent=2, default=str),
+                ),
+                model=small_model,
+                on_log=on_log,
+                race_id=race_id,
+                max_iterations=min(max_iterations, 10),
+                phase_name=f"{'update-' if is_update else ''}polling",
+                max_tokens=8192,
+                extra_tools=POLLING_TOOLS + [READ_PROFILE_TOOL],
+                extra_tool_handlers=handlers,
+                tools_mode=True,
+                run_budget=run_budget,
+            )
+        except RunBudgetExceeded:
+            raise
+        except Exception as exc:
+            log("warning", f"  Polling phase failed: {exc}")
+        track("complete", "polling", duration_ms=int((time.perf_counter() - polling_t0) * 1000), race_json=race_json)
+    else:
+        track("skip", "polling")
+
+    if step_enabled("voter_resources"):
+        track("start", "voter_resources")
+        resources_t0 = time.perf_counter()
+        log("info", f"{prefix} 5: Verifying voter resources...")
+        try:
+            await _agent_loop(
+                VOTER_RESOURCES_SYSTEM,
+                VOTER_RESOURCES_USER.format(
+                    race_id=race_id,
+                    office=race_json.get("office") or "",
+                    jurisdiction=race_json.get("jurisdiction") or "",
+                    state=race_json.get("state") or "",
+                ),
+                model=small_model,
+                on_log=on_log,
+                race_id=race_id,
+                max_iterations=min(max_iterations, 8),
+                phase_name=f"{'update-' if is_update else ''}voter-resources",
+                max_tokens=4096,
+                extra_tools=VOTER_RESOURCE_TOOLS + [READ_PROFILE_TOOL],
+                extra_tool_handlers=handlers,
+                tools_mode=True,
+                run_budget=run_budget,
+            )
+        except RunBudgetExceeded:
+            raise
+        except Exception as exc:
+            log("warning", f"  Voter resources phase failed: {exc}")
+        track(
+            "complete",
+            "voter_resources",
+            duration_ms=int((time.perf_counter() - resources_t0) * 1000),
+            race_json=race_json,
+        )
+    else:
+        track("skip", "voter_resources")
 
 
 # ---------------------------------------------------------------------------
@@ -1297,7 +1368,7 @@ async def _run_update(
             # Metadata refresh is one broad race task. Candidate count must not
             # multiply its loop budget; candidate-specific work has later phases.
             meta_iters = min(max_iterations, 12)
-            log("info", "Update Phase 1: Searching for new summaries, donors, polls, voting records...")
+            log("info", "Update Phase 1: Searching for new summaries, race developments, and voting records...")
             try:
                 await _agent_loop(
                     UPDATE_META_SYSTEM,
@@ -1313,7 +1384,7 @@ async def _run_update(
                     max_iterations=meta_iters,
                     phase_name="update-meta",
                     max_tokens=16384,
-                    extra_tools=RACE_TOOLS + CANDIDATE_TOOLS + RECORD_TOOLS + [READ_PROFILE_TOOL],
+                    extra_tools=DESCRIPTION_TOOLS + CANDIDATE_TOOLS + RECORD_TOOLS + [READ_PROFILE_TOOL],
                     extra_tool_handlers=handlers,
                     tools_mode=True,
                     run_budget=run_budget,

@@ -641,6 +641,38 @@ UPDATE_RACE_FIELD_TOOL: Dict = {
 
 RACE_TOOLS: List[Dict] = [ADD_POLL_TOOL, REMOVE_POLL_TOOL, UPDATE_RACE_FIELD_TOOL]
 
+
+def _restricted_race_field_tool(fields: List[str], description: str) -> Dict:
+    return {
+        "type": "function",
+        "function": {
+            "name": "update_race_field",
+            "description": description,
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "field": {"type": "string", "enum": fields, "description": "Field to update."},
+                    "value": {"type": "string", "description": "New value."},
+                },
+                "required": ["field", "value"],
+            },
+        },
+    }
+
+
+DESCRIPTION_TOOLS: List[Dict] = [_restricted_race_field_tool(["description"], "Update the race description.")]
+POLLING_TOOLS: List[Dict] = [
+    ADD_POLL_TOOL,
+    REMOVE_POLL_TOOL,
+    _restricted_race_field_tool(["polling_note"], "Update the race polling note."),
+]
+VOTER_RESOURCE_TOOLS: List[Dict] = [
+    _restricted_race_field_tool(
+        ["ballotpedia_url", "register_to_vote_url", "how_to_vote_url"],
+        "Update a verified voter-resource URL.",
+    )
+]
+
 # ---------------------------------------------------------------------------
 # Read-only verification tool
 # ---------------------------------------------------------------------------

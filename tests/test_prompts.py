@@ -288,3 +288,20 @@ def test_discovery_prompt_asks_for_image():
 def test_refine_prompt_asks_for_image():
     """Refine prompt includes image filling."""
     assert "image_url" in REFINE_USER or "headshot" in REFINE_USER.lower()
+
+
+def test_routine_prompts_leave_polling_and_voter_resources_to_standalone_steps():
+    from pipeline_client.agent.prompts import REFINE_META_USER, UPDATE_META_USER
+
+    assert "Recent polls" not in DISCOVERY_USER
+    assert "add_poll" not in REFINE_META_USER
+    assert "register_to_vote_url" not in REFINE_META_USER
+    assert "add_poll" not in UPDATE_META_USER
+    assert "register_to_vote_url" not in UPDATE_META_USER
+
+
+def test_iteration_retains_polling_and_voter_resource_repair_access():
+    from pipeline_client.agent.prompts import ITERATE_META_USER
+
+    assert "remove_poll" in ITERATE_META_USER
+    assert "ballotpedia_url" in ITERATE_META_USER
