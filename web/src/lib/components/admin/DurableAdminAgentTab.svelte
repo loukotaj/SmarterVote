@@ -327,13 +327,47 @@
 
     <!-- Messages Container -->
     <div bind:this={messagesElement} class="flex-1 overflow-y-auto p-4 space-y-4 bg-surface-alt/10">
-      {#if loading}
-        <div class="flex flex-col items-center justify-center h-full space-y-2 py-12">
-          <svg class="animate-spin h-8 w-8 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-          </svg>
-          <p class="text-sm text-content-subtle font-medium">Loading conversation...</p>
+      {#if error && !data}
+        <div class="flex flex-col items-center justify-center h-full space-y-4 py-12 text-center px-4">
+          <div class="p-3 bg-red-100 dark:bg-red-950/20 text-red-600 dark:text-red-400 rounded-full shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+          </div>
+          <p class="text-sm font-semibold text-content">Failed to load conversation</p>
+          <p class="text-xs text-content-subtle max-w-md">{error}</p>
+          <button
+            type="button"
+            class="px-4 py-2 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium shadow-sm"
+            on:click={initialize}
+          >
+            Retry
+          </button>
+        </div>
+      {:else if loading}
+        <!-- CSS Pulse Skeleton Loader -->
+        <div class="animate-pulse space-y-6 p-6">
+          <div class="flex items-start gap-4">
+            <div class="h-8 w-8 rounded bg-surface-alt"></div>
+            <div class="space-y-2 flex-1">
+              <div class="h-4 bg-surface-alt rounded w-1/3"></div>
+              <div class="h-4 bg-surface-alt rounded w-3/4"></div>
+            </div>
+          </div>
+          <div class="flex items-start gap-4 justify-end">
+            <div class="space-y-2 w-1/2">
+              <div class="h-4 bg-surface-alt rounded w-full"></div>
+            </div>
+            <div class="h-8 w-8 rounded bg-surface-alt"></div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="h-8 w-8 rounded bg-surface-alt"></div>
+            <div class="space-y-2 flex-1">
+              <div class="h-4 bg-surface-alt rounded w-1/4"></div>
+              <div class="h-4 bg-surface-alt rounded w-5/6"></div>
+              <div class="h-4 bg-surface-alt rounded w-1/2"></div>
+            </div>
+          </div>
         </div>
       {:else if !data || data.messages.length === 0}
         <div class="max-w-xl mx-auto text-center py-16 px-4 flex flex-col items-center justify-center h-full">

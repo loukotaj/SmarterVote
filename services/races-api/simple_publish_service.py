@@ -230,10 +230,12 @@ class SimplePublishService:
         # Local mode (or GCS list failed)
         if self.data_directory.exists():
             for file_path in self.data_directory.glob("*.json"):
+                if file_path.name == "summaries.json":
+                    continue
                 try:
                     with open(file_path, "r", encoding="utf-8") as f:
                         data = json.load(f)
-                    if "race_json" in data and "race_id" in data:
+                    if isinstance(data, dict) and "race_json" in data and "race_id" in data:
                         race_ids.add(data["race_id"])
                     else:
                         race_ids.add(file_path.stem)
@@ -272,11 +274,15 @@ class SimplePublishService:
 
         if self.data_directory.exists():
             for file_path in sorted(self.data_directory.glob("*.json")):
+                if file_path.name == "summaries.json":
+                    continue
                 try:
                     with open(file_path, "r", encoding="utf-8") as f:
                         race_data = json.load(f)
-                    if "race_json" in race_data and isinstance(race_data["race_json"], dict):
+                    if isinstance(race_data, dict) and "race_json" in race_data and isinstance(race_data["race_json"], dict):
                         race_data = race_data["race_json"]
+                    if not isinstance(race_data, dict):
+                        continue
                     summaries.append(self._summary_from_race_data(file_path.stem, race_data))
                 except (json.JSONDecodeError, IOError, ValueError):
                     logger.warning("Failed to parse local race summary file %s", file_path, exc_info=True)
@@ -325,10 +331,12 @@ class SimplePublishService:
         # File not found by direct ID — scan for a pipeline-result wrapper containing this race_id
         if self.data_directory.exists():
             for candidate_path in self.data_directory.glob("*.json"):
+                if candidate_path.name == "summaries.json":
+                    continue
                 try:
                     with open(candidate_path, "r", encoding="utf-8") as f:
                         data = json.load(f)
-                    if "race_json" in data and data.get("race_id") == race_id:
+                    if isinstance(data, dict) and "race_json" in data and data.get("race_id") == race_id:
                         logger.debug(f"Loaded race {race_id} from wrapper file {candidate_path.name}")
                         return data["race_json"]
                 except (json.JSONDecodeError, IOError):

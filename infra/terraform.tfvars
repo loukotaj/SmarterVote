@@ -7,7 +7,6 @@ environment = "dev"
 region      = "us-central1"
 
 # Development Settings
-force_update                   = false
 prevent_destroy_prod           = true
 enable_pipeline_client         = false
 enable_admin_agent_function    = true

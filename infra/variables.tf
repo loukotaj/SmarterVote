@@ -24,36 +24,6 @@ variable "openrouter_api_key" {
   default     = ""
 }
 
-# Retained temporarily so Terraform does not destroy secrets used by old
-# revisions or a rollback during the OpenRouter migration.
-variable "openai_api_key" {
-  description = "Legacy OpenAI API key retained for migration rollback"
-  type        = string
-  sensitive   = true
-  default     = ""
-}
-
-variable "anthropic_api_key" {
-  description = "Legacy Anthropic API key retained for migration rollback"
-  type        = string
-  sensitive   = true
-  default     = ""
-}
-
-variable "gemini_api_key" {
-  description = "Legacy Gemini API key retained for migration rollback"
-  type        = string
-  sensitive   = true
-  default     = ""
-}
-
-variable "xai_api_key" {
-  description = "Legacy xAI API key retained for migration rollback"
-  type        = string
-  sensitive   = true
-  default     = ""
-}
-
 variable "serper_api_key" {
   description = "Serper.dev API key for web search"
   type        = string
@@ -66,12 +36,6 @@ variable "app_version" {
   description = "Application version for tracking updates"
   type        = string
   default     = "latest"
-}
-
-variable "force_update" {
-  description = "Force update of Cloud Run services"
-  type        = bool
-  default     = false
 }
 
 variable "prevent_destroy_prod" {

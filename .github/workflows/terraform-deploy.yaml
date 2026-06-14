@@ -28,7 +28,7 @@ on:
         - rollback
 
 env:
-  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+  PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
   REGION: us-central1
   ENVIRONMENT: ${{ github.event.inputs.environment || 'dev' }}
   ACTION: ${{ github.event.inputs.action || 'apply' }}
@@ -96,23 +96,18 @@ jobs:
     # Pass all Terraform variables as TF_VAR_* env vars to avoid writing secrets into a
     # shell heredoc (backticks/special chars in secret values cause bad-substitution errors).
     env:
-      TF_VAR_project_id: ${{ secrets.GCP_PROJECT_ID }}
+      TF_VAR_project_id: ${{ vars.GCP_PROJECT_ID }}
       TF_VAR_region: us-central1
       TF_VAR_environment: ${{ github.event.inputs.environment || 'dev' }}
       TF_VAR_app_version: ${{ github.event.workflow_run.head_sha || github.sha }}
       TF_VAR_openrouter_api_key: ${{ secrets.OPENROUTER_API_KEY }}
-      # Retain legacy secrets during the migration so old revisions and rollback remain viable.
-      TF_VAR_openai_api_key: ${{ secrets.OPENAI_API_KEY }}
-      TF_VAR_anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-      TF_VAR_gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
-      TF_VAR_xai_api_key: ${{ secrets.XAI_API_KEY }}
       TF_VAR_serper_api_key: ${{ secrets.SERPER_API_KEY }}
       TF_VAR_admin_api_key: ${{ secrets.ADMIN_API_KEY }}
-      TF_VAR_auth0_domain: ${{ secrets.AUTH0_DOMAIN }}
-      TF_VAR_auth0_audience: ${{ secrets.AUTH0_AUDIENCE }}
+      TF_VAR_auth0_domain: ${{ vars.AUTH0_DOMAIN }}
+      TF_VAR_auth0_audience: ${{ vars.AUTH0_AUDIENCE }}
       TF_VAR_cloudflare_analytics_api_token: ${{ secrets.CLOUDFLARE_ANALYTICS_API_TOKEN }}
-      TF_VAR_cloudflare_analytics_account_tag: ${{ secrets.CLOUDFLARE_ANALYTICS_ACCOUNT_TAG }}
-      TF_VAR_cloudflare_analytics_site_tag: ${{ secrets.CLOUDFLARE_WEB_ANALYTICS_TOKEN }}
+      TF_VAR_cloudflare_analytics_account_tag: ${{ vars.CLOUDFLARE_ANALYTICS_ACCOUNT_TAG }}
+      TF_VAR_cloudflare_analytics_site_tag: ${{ vars.CLOUDFLARE_ANALYTICS_SITE_TAG }}
 
     steps:
     - uses: actions/checkout@v4
@@ -121,16 +116,16 @@ jobs:
 
     - name: Validate required secrets
       env:
-        REQUIRED_GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+        REQUIRED_GCP_PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
         REQUIRED_GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
         REQUIRED_OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         REQUIRED_SERPER_API_KEY: ${{ secrets.SERPER_API_KEY }}
-        REQUIRED_AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN }}
-        REQUIRED_AUTH0_AUDIENCE: ${{ secrets.AUTH0_AUDIENCE }}
+        REQUIRED_AUTH0_DOMAIN: ${{ vars.AUTH0_DOMAIN }}
+        REQUIRED_AUTH0_AUDIENCE: ${{ vars.AUTH0_AUDIENCE }}
         REQUIRED_ADMIN_API_KEY: ${{ secrets.ADMIN_API_KEY }}
         REQUIRED_CLOUDFLARE_ANALYTICS_API_TOKEN: ${{ secrets.CLOUDFLARE_ANALYTICS_API_TOKEN }}
-        REQUIRED_CLOUDFLARE_ANALYTICS_ACCOUNT_TAG: ${{ secrets.CLOUDFLARE_ANALYTICS_ACCOUNT_TAG }}
-        REQUIRED_CLOUDFLARE_WEB_ANALYTICS_TOKEN: ${{ secrets.CLOUDFLARE_WEB_ANALYTICS_TOKEN }}
+        REQUIRED_CLOUDFLARE_ANALYTICS_ACCOUNT_TAG: ${{ vars.CLOUDFLARE_ANALYTICS_ACCOUNT_TAG }}
+        REQUIRED_CLOUDFLARE_ANALYTICS_SITE_TAG: ${{ vars.CLOUDFLARE_ANALYTICS_SITE_TAG }}
       run: |
         MISSING=()
         [ -z "$REQUIRED_GCP_PROJECT_ID" ]    && MISSING+=("GCP_PROJECT_ID")
@@ -142,7 +137,7 @@ jobs:
         [ -z "$REQUIRED_ADMIN_API_KEY" ]      && MISSING+=("ADMIN_API_KEY")
         [ -z "$REQUIRED_CLOUDFLARE_ANALYTICS_API_TOKEN" ] && MISSING+=("CLOUDFLARE_ANALYTICS_API_TOKEN")
         [ -z "$REQUIRED_CLOUDFLARE_ANALYTICS_ACCOUNT_TAG" ] && MISSING+=("CLOUDFLARE_ANALYTICS_ACCOUNT_TAG")
-        [ -z "$REQUIRED_CLOUDFLARE_WEB_ANALYTICS_TOKEN" ] && MISSING+=("CLOUDFLARE_WEB_ANALYTICS_TOKEN")
+        [ -z "$REQUIRED_CLOUDFLARE_ANALYTICS_SITE_TAG" ] && MISSING+=("CLOUDFLARE_ANALYTICS_SITE_TAG")
 
         if [ ${#MISSING[@]} -ne 0 ]; then
           echo "::error::Required GitHub secrets are missing: ${MISSING[*]}"

@@ -6,11 +6,36 @@ on:
   pull_request:
     branches: [ main ]
 
-env:
-  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-  REGION: us-central1
-
 jobs:
+  security:
+    name: Secret Scan
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Reject tracked Terraform artifacts
+      shell: bash
+      run: |
+        tracked_artifacts="$(
+          git ls-files |
+          grep -E '(^|/)(tfplan|[^/]+\.tfplan|terraform\.tfstate(\..*)?|secrets\.tfvars)$' ||
+          true
+        )"
+        if [[ -n "$tracked_artifacts" ]]; then
+          echo "Generated or sensitive Terraform files must not be committed:"
+          echo "$tracked_artifacts"
+          exit 1
+        fi
+
+    - name: Scan repository for secrets
+      run: |
+        docker run --rm \
+          -v "$PWD:/repo" \
+          ghcr.io/gitleaks/gitleaks:v8.29.0 \
+          dir --redact --no-banner /repo
+
   test-pipeline:
     name: Test Pipeline
     runs-on: ubuntu-latest
@@ -138,24 +163,26 @@ jobs:
   quality-summary:
     name: CI Summary
     runs-on: ubuntu-latest
-    needs: [test-pipeline, test-apis, test-cloud-function, test-web, terraform-validate]
+    needs: [security, test-pipeline, test-apis, test-cloud-function, test-web, terraform-validate]
     if: always()
 
     steps:
     - name: Check all gates
       env:
+        SECURITY_RESULT: ${{ needs.security.result }}
         PIPELINE_RESULT: ${{ needs.test-pipeline.result }}
         APIS_RESULT: ${{ needs.test-apis.result }}
         CF_RESULT: ${{ needs.test-cloud-function.result }}
         WEB_RESULT: ${{ needs.test-web.result }}
         TERRAFORM_RESULT: ${{ needs.terraform-validate.result }}
       run: |
+        echo "security:            $SECURITY_RESULT"
         echo "test-pipeline:       $PIPELINE_RESULT"
         echo "test-apis:           $APIS_RESULT"
         echo "test-cloud-function: $CF_RESULT"
         echo "test-web:            $WEB_RESULT"
         echo "terraform-validate:  $TERRAFORM_RESULT"
-        if [[ "$PIPELINE_RESULT" != "success" || "$APIS_RESULT" != "success" || "$CF_RESULT" != "success" || "$WEB_RESULT" != "success" || "$TERRAFORM_RESULT" != "success" ]]; then
+        if [[ "$SECURITY_RESULT" != "success" || "$PIPELINE_RESULT" != "success" || "$APIS_RESULT" != "success" || "$CF_RESULT" != "success" || "$WEB_RESULT" != "success" || "$TERRAFORM_RESULT" != "success" ]]; then
           echo "❌ One or more CI gates failed"
           exit 1
         fi

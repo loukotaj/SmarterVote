@@ -10,7 +10,7 @@ Last reviewed: 2026-06-12.
 - Public sample fallback is disabled outside Vite dev mode.
 - Race-level `quality_score` has been removed from product code; migration tooling is in `scripts/remove_quality_score.py`.
 - Checked-in stale published race JSON under `services/races-api/data/published/` was removed. Local published data should be pulled or regenerated, not committed.
-- OpenRouter Migration completed: Standardized LLM provider runtime on OpenRouter using `OPENROUTER_API_KEY`. Legacy keys (openai, anthropic, gemini, xai) are no longer used by the agent, but are temporarily retained in Terraform configurations to avoid breaking rolling back deployed Cloud Run revisions.
+- OpenRouter migration completed: all LLM runtime calls use `OPENROUTER_API_KEY`; legacy provider keys and Terraform resources were removed.
 - GCS Static JSON Hosting completed: Configured CORS and public read access strictly for the GCS bucket `races/` folder. SvelteKit frontend supports static data loading via the new `VITE_PUBLIC_DATA_URL` setting. Publishing/unpublishing from the admin API automatically rebuilds the central `races/summaries.json` index in GCS.
 
 ## Intentional Compatibility

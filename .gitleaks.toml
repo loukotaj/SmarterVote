@@ -1,0 +1,31 @@
+title = "SmarterVote secret scanning"
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "xai-api-key"
+description = "xAI API key"
+regex = '''xai-[A-Za-z0-9_-]{20,}'''
+secretGroup = 0
+entropy = 3.0
+keywords = ["xai-"]
+
+[[allowlists]]
+description = "Public Auth0 SPA client ID"
+targetRules = ["generic-api-key"]
+condition = "AND"
+regexTarget = "line"
+paths = [
+  '''(^|/)web/\.env\.production$''',
+  '''(^|/)docs/auth0-configuration\.md$''',
+]
+regexes = ['''VITE_AUTH0_CLIENT_ID=''']
+
+[[allowlists]]
+description = "Public Cloudflare Web Analytics site token"
+targetRules = ["generic-api-key"]
+condition = "AND"
+regexTarget = "line"
+paths = ['''(^|/)web/\.env\.production$''']
+regexes = ['''VITE_CLOUDFLARE_WEB_ANALYTICS_TOKEN=''']

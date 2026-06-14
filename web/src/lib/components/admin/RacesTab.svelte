@@ -338,9 +338,30 @@
   </div>
 
   {#if error}
-    <div class="card p-4 text-sm text-red-600">{error}</div>
+    <div class="card p-6 flex flex-col items-center justify-center text-center space-y-3">
+      <p class="text-sm text-red-600">{error}</p>
+      <button
+        type="button"
+        class="px-4 py-2 text-sm bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium shadow-sm"
+        on:click={refresh}
+      >
+        Retry
+      </button>
+    </div>
   {:else if loading}
-    <div class="card p-8 text-center text-content-faint text-sm">Loading races...</div>
+    <!-- CSS Pulse Skeleton Loader -->
+    <div class="card overflow-hidden">
+      <div class="animate-pulse space-y-4 p-4 bg-surface">
+        <div class="h-8 bg-surface-alt rounded w-1/4"></div>
+        <div class="space-y-3">
+          <div class="h-4 bg-surface-alt rounded"></div>
+          <div class="h-4 bg-surface-alt rounded w-5/6"></div>
+          <div class="h-4 bg-surface-alt rounded w-2/3"></div>
+          <div class="h-4 bg-surface-alt rounded"></div>
+          <div class="h-4 bg-surface-alt rounded w-3/4"></div>
+        </div>
+      </div>
+    </div>
   {:else if filteredCount === 0}
     <div class="card p-8 text-center text-content-faint text-sm">No races found</div>
   {:else}

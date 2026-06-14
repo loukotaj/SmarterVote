@@ -1,4 +1,4 @@
-﻿"""
+"""
 FastAPI service for accessing published race data.
 
 This service exposes public read endpoints for race data, analytics, and
@@ -18,6 +18,17 @@ from contextlib import asynccontextmanager
 from typing import Any, Dict, List
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s %(message)s")
+
+import sys
+from pathlib import Path
+
+from dotenv import load_dotenv
+
+# Load local environment variables from root .env
+if "pytest" not in sys.modules:
+    env_path = Path(__file__).resolve().parents[2] / ".env"
+    if env_path.exists():
+        load_dotenv(dotenv_path=env_path)
 
 import schemas
 from analytics_middleware import AnalyticsMiddleware
@@ -92,12 +103,21 @@ app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 app.add_middleware(AnalyticsMiddleware)
 
 # Enable CORS - public read API + authenticated admin writes
+origins = [
+    "https://smarter.vote",
+    "https://www.smarter.vote",
+    "http://localhost:3000",
+    "http://localhost:5173",
+    "http://127.0.0.1:3000",
+    "http://127.0.0.1:5173",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=False,
-    allow_methods=["GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS"],
-    allow_headers=["*", "X-Admin-Key", "Authorization"],
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # ---------------------------------------------------------------------------

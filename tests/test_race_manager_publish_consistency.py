@@ -114,6 +114,10 @@ def test_update_metadata_only_does_not_set_draft_updated_at(monkeypatch):
 
 def test_recheck_status_no_draft_file_clears_draft_updated_at(monkeypatch, tmp_path):
     """recheck_status should not set draft_updated_at when no draft file exists."""
+    from pipeline_client.backend.settings import settings
+
+    monkeypatch.setattr(settings, "gcs_bucket", "")
+
     manager = RaceManager()
 
     existing = RaceRecord(

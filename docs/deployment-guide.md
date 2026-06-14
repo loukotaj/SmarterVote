@@ -127,7 +127,6 @@ terraform init
 ### Force Resource Update
 ```bash
 # Add to terraform variables
-force_update = true
 
 # Or target specific resource
 terraform apply -target=google_cloud_run_v2_service.races_api

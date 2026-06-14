@@ -270,10 +270,13 @@ web/.vscode/*
 
 # Terraform
 infra/secrets.tfvars
-infra/.terraform.*
-infra/.terraform
-infra/tfplan
-infra/*.tfplan
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfplan
+tfplan
+crash.log
+crash.*.log
 infra/*-source.zip
 terraform_*.zip
 

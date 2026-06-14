@@ -220,6 +220,7 @@
     </div>
   {:else if activeTab === "runs" && apiService}
     <RunsTab
+      {apiService}
       runs={runs}
       queueItems={queueItems}
       isRefreshing={isRefreshingRuns}

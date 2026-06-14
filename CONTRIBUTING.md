@@ -44,3 +44,13 @@ If a candidate's position, voting record, or biographical info is wrong or outda
 ## Code contributions
 
 PRs are welcome. For anything beyond a small fix, open an issue first to discuss the approach. The project runs on a single-person budget so changes that increase API or hosting costs need discussion upfront.
+
+### Commit hooks
+
+Install the repository-managed hook once per clone:
+
+```bash
+git config core.hooksPath .githooks
+```
+
+The hook formats staged Python files with isort and Black, fixes trailing whitespace and final newlines, stages those fixes, and continues the same commit. Secret scanning and file validation remain blocking checks.
