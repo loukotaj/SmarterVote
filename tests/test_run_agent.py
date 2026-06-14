@@ -554,6 +554,99 @@ async def test_run_agent_respects_review_provider_selection():
 
 
 @pytest.mark.asyncio
+async def test_run_agent_default_iteration_rereviews_full_profile_once():
+    discovery_result = {
+        "id": "review-cycle-2026",
+        "election_date": "2026-11-03",
+        "candidates": [{"name": "Alice", "summary": "Before", "issues": {}}],
+    }
+    initial_reviews = [
+        {
+            "model": "claude",
+            "verdict": "flagged",
+            "score": 75,
+            "flags": [{"field": "candidates[0].summary", "concern": "Needs detail", "severity": "warning"}],
+        }
+    ]
+    final_reviews = [{"model": "claude", "verdict": "approved", "score": 95, "flags": []}]
+    improved = {
+        **discovery_result,
+        "candidates": [{"name": "Alice", "summary": "After", "issues": {}}],
+    }
+
+    async def review_side_effect(_race_id, race_json, **kwargs):
+        metrics = kwargs["metrics_sink"]
+        metrics["whole_profile"] = True
+        assert race_json["candidates"][0]["name"] == "Alice"
+        return initial_reviews if not metrics.get("reviewed") else final_reviews
+
+    with (
+        patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock, return_value=discovery_result),
+        patch("pipeline_client.agent.agent._load_existing", return_value=None),
+        patch(
+            "pipeline_client.agent.agent._run_iteration_pass", new_callable=AsyncMock, return_value=improved
+        ) as mock_iteration,
+        patch("pipeline_client.agent.agent.run_reviews", new_callable=AsyncMock) as mock_reviews,
+    ):
+
+        async def tracked_reviews(*args, **kwargs):
+            metrics = kwargs["metrics_sink"]
+            result = await review_side_effect(*args, **kwargs)
+            metrics["reviewed"] = True
+            return result
+
+        mock_reviews.side_effect = tracked_reviews
+        result = await run_agent(
+            "review-cycle-2026",
+            existing_data={},
+            enabled_steps=["discovery", "review", "iteration"],
+        )
+
+    assert mock_iteration.await_count == 1
+    assert mock_reviews.await_count == 2
+    assert "candidates[0].summary" in mock_reviews.call_args_list[1].kwargs["change_manifest"]
+    assert mock_reviews.call_args_list[1].args[1]["candidates"][0]["summary"] == "After"
+    assert result["agent_metrics"]["review"]["whole_profile"] is True
+
+
+@pytest.mark.asyncio
+async def test_extra_review_cycles_require_error_flags(monkeypatch):
+    monkeypatch.setenv("PIPELINE_MAX_REVIEW_CYCLES", "3")
+    discovery_result = {
+        "id": "review-errors-2026",
+        "election_date": "2026-11-03",
+        "candidates": [{"name": "Alice", "summary": "Before", "issues": {}}],
+    }
+    warning_reviews = [
+        {
+            "model": "claude",
+            "verdict": "flagged",
+            "score": 75,
+            "flags": [{"field": "candidates[0].summary", "concern": "Needs detail", "severity": "warning"}],
+        }
+    ]
+
+    with (
+        patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock, return_value=discovery_result),
+        patch("pipeline_client.agent.agent._load_existing", return_value=None),
+        patch(
+            "pipeline_client.agent.agent._run_iteration_pass",
+            new_callable=AsyncMock,
+            return_value={**discovery_result, "candidates": [{"name": "Alice", "summary": "After", "issues": {}}]},
+        ) as mock_iteration,
+        patch("pipeline_client.agent.agent.run_reviews", new_callable=AsyncMock, return_value=warning_reviews) as mock_reviews,
+    ):
+        await run_agent(
+            "review-errors-2026",
+            existing_data={},
+            enabled_steps=["discovery", "review", "iteration"],
+        )
+
+    assert mock_iteration.await_count == 1
+    assert mock_reviews.await_count == 2
+
+
+@pytest.mark.asyncio
 async def test_run_agent_on_log_callback():
     """run_agent passes logs to the on_log callback."""
     discovery_result = {"id": "log-2024", "candidates": []}

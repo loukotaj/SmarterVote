@@ -401,6 +401,8 @@ Black and isort checks: passed
 
 ## Phase 5: Review Efficiency Without Reducing Three-Agent Coverage
 
+Status: Complete.
+
 ### Problem
 
 The full profile is sent independently to three reviewers and resent after each iteration cycle. Worst-case review cost scales with full artifact size, provider count, and cycle count.
@@ -448,6 +450,25 @@ Store review configuration and cost in `agent_metrics`.
 - Default cheap-model profiles use generous review context and advisory cost reporting rather than restrictive low budgets.
 - Cost optimizations do not reduce the number of default reviewers or narrow review scope.
 - Validation grade behavior remains deterministic when reviewers are unavailable.
+
+### Delivered
+
+- Built and validated one canonical semantic packet per race revision containing every modeled race and candidate field except operational metadata.
+- Preserved the default Claude, Gemini, and Grok whole-profile review. All configured reviewers receive the same compact serialized packet.
+- Added deterministic revision manifests while continuing to attach the complete updated profile on every re-review.
+- Added schema, canonical-issue completeness, duplicate URL, stale access date, source coverage, and link checks.
+- Cached deterministic checks by semantic packet hash and reused the packet already assembled by orchestration.
+- Changed iteration to one cycle by default. Operators may configure up to three cycles, but cycles after the first require error-severity findings.
+- Added per-provider review calls, tokens, provider cost, estimated cost, packet size, and provider configuration under `agent_metrics.review`.
+- Removed operational generator metadata from review prompts and payloads.
+
+### Validation
+
+```text
+Focused review/orchestration suite: 82 passed
+Full Python suite: 309 passed
+Black and isort checks: passed
+```
 
 ## Phase 5b: Decouple Polling and Voter Resources
 

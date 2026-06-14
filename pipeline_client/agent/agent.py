@@ -7,7 +7,7 @@ Phases (fresh run):
 2b. **Finance & voting** - dedicated donor and voting-record research.
 3. **Refinement** - tools-mode per-candidate and meta cleanup.
 4. **Review** (optional) - send to enabled OpenRouter reviewer roles for fact-checking.
-5. **Iteration** - tools-mode pass to address review flags (up to 2 cycles).
+5. **Iteration** - tools-mode pass to address review flags (one cycle by default; up to three for errors).
 
 Update run adds Phase 0 (roster sync) before Phase 1 (meta update).
 
@@ -19,6 +19,7 @@ are attached to the output JSON under ``agent_metrics``.
 import copy
 import json
 import logging
+import os
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -38,7 +39,7 @@ from .phases import (  # noqa: F401 - re-exported for backward compat
     _scale_iterations,
     _select_target_candidates,
 )
-from .review import compute_validation_grade, run_reviews
+from .review import build_review_change_manifest, build_semantic_review_packet, compute_validation_grade, run_reviews
 from .run_budget import RunBudget
 from .tools import (  # noqa: F401 - re-exported for tests
     ADD_CANDIDATE_TOOL,
@@ -575,6 +576,9 @@ async def run_agent(
         )
 
     if should_review:
+        review_metrics: Dict[str, Any] = {}
+        review_cache: Dict[str, Any] = {}
+        reviewed_packet = build_semantic_review_packet(race_json)
         _track("start", "review")
         review_t0 = time.perf_counter()
         log("info", f"Phase 4: Sending to review agents ({', '.join(enabled_review_providers)})...")
@@ -587,6 +591,10 @@ async def run_agent(
             gemini_model=gemini_model,
             grok_model=grok_model,
             review_providers=enabled_review_providers,
+            change_manifest=build_review_change_manifest(None, reviewed_packet),
+            semantic_packet=reviewed_packet,
+            metrics_sink=review_metrics,
+            review_cache=review_cache,
             run_budget=run_budget,
         )
         race_json["reviews"] = reviews
@@ -606,21 +614,10 @@ async def run_agent(
         if should_iterate:
             _track("start", "iteration")
             iter_t0 = time.perf_counter()
-            max_review_cycles = 3
+            max_review_cycles = max(1, min(int(os.getenv("PIPELINE_MAX_REVIEW_CYCLES", "1")), 3))
             did_iterate = False
             for cycle in range(1, max_review_cycles + 1):
-                # Cycles 1-2: address warning+ flags; cycle 3: error-only safety net.
-                # Skip cycle 2 if score improved above 80 (warnings resolved enough).
-                if cycle == 3:
-                    min_severity = "error"
-                elif cycle == 2:
-                    avg_score = sum(r.get("score") or 0 for r in reviews) / max(len(reviews), 1)
-                    if avg_score >= 80 or not _has_actionable_flags(reviews, min_severity="warning"):
-                        log("info", f"  Cycle {cycle}: avg score {avg_score:.0f} ≥ 80 with no errors; done")
-                        break
-                    min_severity = "warning"
-                else:
-                    min_severity = "warning"
+                min_severity = "warning" if cycle == 1 else "error"
                 if not _has_actionable_flags(reviews, min_severity=min_severity):
                     if cycle == 1:
                         log("info", "  No actionable review flags; skipping iteration")
@@ -631,13 +628,7 @@ async def run_agent(
                 did_iterate = True
                 log("info", f"Phase 5 (cycle {cycle}/{max_review_cycles}): Iterating on review feedback...")
                 _track("progress", "iteration", pct=int(cycle / max_review_cycles * 80))
-                # Split iteration budget: 50% cycle 1, 30% cycle 2, 20% cycle 3
-                if cycle == 1:
-                    cycle_budget = int(max_iterations * 0.5)
-                elif cycle == 2:
-                    cycle_budget = int(max_iterations * 0.3)
-                else:
-                    cycle_budget = int(max_iterations * 0.2)
+                cycle_budget = max_iterations if max_review_cycles == 1 else int(max_iterations / max_review_cycles)
                 improved = await _run_iteration_pass(
                     race_id,
                     race_json,
@@ -659,6 +650,7 @@ async def run_agent(
                     _sanitize_roster(race_json, log)
                     _normalize_schema_fields(race_json, log)
 
+                    updated_packet = build_semantic_review_packet(race_json)
                     log("info", f"  Cycle {cycle}: Re-running reviews...")
                     reviews = await run_reviews(
                         race_id,
@@ -669,8 +661,13 @@ async def run_agent(
                         gemini_model=gemini_model,
                         grok_model=grok_model,
                         review_providers=enabled_review_providers,
+                        change_manifest=build_review_change_manifest(reviewed_packet, updated_packet),
+                        semantic_packet=updated_packet,
+                        metrics_sink=review_metrics,
+                        review_cache=review_cache,
                         run_budget=run_budget,
                     )
+                    reviewed_packet = updated_packet
                     race_json["reviews"] = reviews
                     for rev in reviews:
                         model_name = rev.get("model", "unknown")
@@ -749,6 +746,8 @@ async def run_agent(
         "retry_provider_failures": _acc.get("retry_provider_failures", 0),
         "retry_deadline_exits": _acc.get("retry_deadline_exits", 0),
     }
+    if should_review:
+        agent_metrics["review"] = review_metrics
     race_json["agent_metrics"] = agent_metrics
     log(
         "info",

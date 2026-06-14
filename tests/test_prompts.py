@@ -265,6 +265,7 @@ def test_review_prompt_exists():
     assert "fact-checking" in REVIEW_SYSTEM.lower()
     assert "{race_id}" in REVIEW_USER
     assert "{profile_json}" in REVIEW_USER
+    assert "{change_manifest}" in REVIEW_USER
     assert "verdict" in REVIEW_USER
 
 

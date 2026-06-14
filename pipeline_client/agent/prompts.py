@@ -378,13 +378,6 @@ You are reviewing the entire race containing multiple candidates. You must check
 - Ensure the terminology remains neutral and consistent. If one candidate's stance uses their own framing (e.g. "pro-choice"), ensure the opponent's stance is described with similarly neutral terminology rather than their opponent's critical terms.
 - Raise a "warning" flag for any asymmetric framing you discover, specifying the fields of both candidates for contrast.
 
-## Generator / model names — DO NOT FLAG
-The "generator" field lists the actual AI model identifiers used by this
-pipeline. These are internal model names from the providers' APIs and are
-correct by construction — the pipeline records them programmatically.
-Do NOT flag generator or model names as "hallucinated", "fabricated", or
-"unverifiable". They are metadata, not research claims.
-
 ## Tone
 Be thorough but fair. Flag specific problems with field paths.
 When the profile is accurate and well-sourced, say so warmly and specifically."""
@@ -392,6 +385,10 @@ When the profile is accurate and well-sourced, say so warmly and specifically.""
 REVIEW_USER = """\
 Review this candidate profile for the race "{race_id}":
 
+Revision context:
+{change_manifest}
+
+Complete semantic profile:
 {profile_json}
 
 Check for:
@@ -415,9 +412,6 @@ Check for:
 5. Candidate background – is career history and education internally consistent
    with the sources cited? (Note: do not reject background facts just because
    they differ from your parametric knowledge of the candidate.)
-6. Generator metadata – the "generator" array is pipeline-managed metadata.
-   Do NOT flag model names as invalid, hallucinated, or unverifiable.
-
 For the "summary" field:
 - If verdict is "approved": write a warm, specific positive statement about what
   the profile does well (e.g. "Strong sourcing across all 12 issues with

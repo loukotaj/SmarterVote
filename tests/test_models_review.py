@@ -7,6 +7,37 @@ from unittest.mock import AsyncMock, patch
 import pytest
 
 
+def _valid_review_profile():
+    from shared.models import CanonicalIssue
+
+    return {
+        "schema_version": "0.3",
+        "id": "test-race-2026",
+        "election_date": "2026-11-03",
+        "updated_utc": "2026-06-14T00:00:00Z",
+        "title": "2026 Test Governor Election",
+        "description": (
+            "Voters will elect a governor in the November 2026 general election. The contest includes candidates "
+            "from the major parties and will determine control of the executive branch. Campaign debate has focused "
+            "on public services, economic policy, and state administration."
+        ),
+        "candidates": [
+            {
+                "name": "Alice Example",
+                "issues": {
+                    issue.value: {
+                        "issue": issue.value,
+                        "stance": "No public position found",
+                        "confidence": "low",
+                        "sources": [],
+                    }
+                    for issue in CanonicalIssue
+                },
+            }
+        ],
+    }
+
+
 def test_shared_models_have_new_fields():
     """shared/models.py has CareerEntry, EducationEntry, CandidateLink, AgentReview."""
     from shared.models import AgentReview, Candidate, CandidateLink, CareerEntry, EducationEntry, RaceJSON, ReviewFlag
@@ -160,6 +191,97 @@ async def test_run_single_review_handles_failure():
 
 
 @pytest.mark.asyncio
+async def test_run_single_review_records_provider_metrics():
+    from pipeline_client.agent.review import _run_single_review
+
+    metrics = {}
+    response = json.dumps({"verdict": "approved", "summary": "Complete review.", "flags": []})
+    usage = {
+        "prompt_tokens": 1200,
+        "completion_tokens": 300,
+        "provider_cost_usd": 0.004,
+        "estimated_cost_usd": 0.005,
+    }
+
+    with patch("pipeline_client.agent.review._call_review_model", new_callable=AsyncMock, return_value=(response, usage)):
+        await _run_single_review("test-2026", "{}", provider="claude", metrics_sink=metrics)
+
+    assert metrics["calls"] == 1
+    assert metrics["providers"]["claude"]["prompt_tokens"] == 1200
+    assert metrics["providers"]["claude"]["completion_tokens"] == 300
+    assert metrics["providers"]["claude"]["provider_cost_usd"] == pytest.approx(0.004)
+
+
+def test_semantic_review_packet_includes_every_modeled_profile_field():
+    from pipeline_client.agent.review import build_semantic_review_packet, validate_semantic_review_packet
+    from shared.models import Candidate, RaceJSON
+
+    candidate = {field: f"candidate:{field}" for field in Candidate.model_fields}
+    race = {field: f"race:{field}" for field in RaceJSON.model_fields}
+    race["candidates"] = [candidate]
+    race["reviews"] = [{"should": "not appear"}]
+    race["validation_grade"] = {"should": "not appear"}
+    race["generator"] = ["should-not-appear"]
+    race["pipeline_state"] = {"complete": True}
+    race["agent_metrics"] = {"tokens": 1}
+
+    packet = build_semantic_review_packet(race)
+    validate_semantic_review_packet(race, packet)
+
+    assert set(packet) == set(RaceJSON.model_fields) - {
+        "agent_metrics",
+        "candidate_limit_note",
+        "generator",
+        "pipeline_state",
+        "post_run_analysis",
+        "reviews",
+        "validation_grade",
+    }
+    assert set(packet["candidates"][0]) == set(Candidate.model_fields)
+    assert packet["candidates"][0] == candidate
+
+
+def test_review_change_manifest_reports_changed_paths_without_reducing_packet():
+    from pipeline_client.agent.review import build_review_change_manifest
+
+    previous = {"title": "Old", "candidates": [{"name": "Alice", "summary": "Before"}]}
+    current = {"title": "New", "candidates": [{"name": "Alice", "summary": "After"}]}
+
+    manifest = build_review_change_manifest(previous, current)
+
+    assert "- title" in manifest
+    assert "- candidates[0].summary" in manifest
+
+
+@pytest.mark.asyncio
+async def test_run_reviews_sends_identical_complete_packet_to_all_default_providers(monkeypatch):
+    from pipeline_client.agent.review import run_reviews
+    from shared.models import Candidate
+
+    monkeypatch.setenv("OPENROUTER_API_KEY", "test")
+    profile = _valid_review_profile()
+    received = []
+
+    async def capture_review(_race_id, profile_json, *, provider, change_manifest, **_kwargs):
+        received.append((provider, profile_json, change_manifest))
+        return {"model": provider, "verdict": "approved", "flags": [], "summary": ""}
+
+    with (
+        patch("pipeline_client.agent.review._run_single_review", side_effect=capture_review),
+        patch("pipeline_client.agent.review.check_profile_links", new_callable=AsyncMock, return_value=None),
+    ):
+        await run_reviews("test-race-2026", profile, change_manifest="Changed: title")
+
+    assert {provider for provider, _, _ in received} == {"claude", "gemini", "grok"}
+    assert len({payload for _, payload, _ in received}) == 1
+    packet = json.loads(received[0][1])
+    assert packet["candidates"][0]["name"] == profile["candidates"][0]["name"]
+    assert packet["candidates"][0]["issues"] == profile["candidates"][0]["issues"]
+    assert set(packet["candidates"][0]) == set(Candidate.model_fields)
+    assert all(manifest == "Changed: title" for _, _, manifest in received)
+
+
+@pytest.mark.asyncio
 async def test_check_profile_links():
     """check_profile_links programmatically detects dead and active URLs."""
     import httpx
@@ -257,22 +379,41 @@ def test_profile_quality_flags_title_like_description():
     )
 
     assert result["verdict"] == "flagged"
-    assert result["flags"][0]["field"] == "description"
-    assert result["flags"][0]["severity"] == "error"
+    description_flags = [flag for flag in result["flags"] if flag["field"] == "description"]
+    assert description_flags[0]["severity"] == "error"
 
 
 def test_profile_quality_accepts_substantive_description():
     from pipeline_client.agent.review import check_profile_quality
 
-    result = check_profile_quality(
-        {
-            "title": "2026 United States Senate election in Arkansas",
-            "description": (
-                "Arkansas voters will elect a U.S. senator on November 3, 2026. Republican incumbent Tom Cotton faces "
-                "Democrat Hallie Shoffner and Libertarian Jeff Wadlin. Arkansas has favored Republicans in recent "
-                "statewide federal elections, and the result will contribute to the Senate's partisan balance."
-            ),
-        }
-    )
+    result = check_profile_quality(_valid_review_profile())
 
     assert result["verdict"] == "approved"
+
+
+def test_profile_quality_flags_duplicate_stale_and_unsourced_claims():
+    from pipeline_client.agent.review import check_profile_quality
+
+    profile = _valid_review_profile()
+    candidate = profile["candidates"][0]
+    candidate["summary"] = "Alice Example has served in public office."
+    candidate["summary_sources"] = [
+        {
+            "url": "https://example.com/profile",
+            "type": "government",
+            "last_accessed": "2024-01-01T00:00:00Z",
+        },
+        {
+            "url": "https://example.com/profile",
+            "type": "government",
+            "last_accessed": "2024-01-01T00:00:00Z",
+        },
+    ]
+    candidate["issues"]["Healthcare"]["stance"] = "Supports expanding rural clinics."
+
+    result = check_profile_quality(profile)
+    concerns = [flag["concern"] for flag in result["flags"]]
+
+    assert any("Duplicate source URL" in concern for concern in concerns)
+    assert any("more than one year old" in concern for concern in concerns)
+    assert any("Substantive issue stance has no supporting sources" in concern for concern in concerns)
