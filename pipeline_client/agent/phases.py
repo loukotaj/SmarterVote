@@ -91,6 +91,11 @@ _INACTIVE_CANDIDATE_RE = re.compile(
     r"eliminated in (?:the )?(?:democratic|republican|gop)? ?primary)\b",
     re.IGNORECASE,
 )
+_GENERAL_ELECTION_SIGNAL_RE = re.compile(
+    r"\b(nominee|won (?:the )?(?:democratic|republican|gop)? ?primary|"
+    r"advanced to (?:the )?general(?: election)?|general election)\b",
+    re.IGNORECASE,
+)
 MAX_RACE_CANDIDATES = 8
 _MAJOR_PARTY_KEYS = ("democratic", "republican")
 _CONTROL_FLOW_EXCEPTION_NAMES = {"AgentCancelled", "HandoffFailed", "HandoffTriggered", "RunBudgetExceeded"}
@@ -230,6 +235,45 @@ def _candidate_party_key(candidate: Dict[str, Any]) -> str:
     return "other"
 
 
+def _candidate_cap_priority(candidate: Any) -> int:
+    """Rank likely general-election candidates ahead of low-signal entries."""
+    if not isinstance(candidate, dict):
+        return 0
+
+    score = 0
+    if candidate.get("incumbent") is True:
+        score += 40
+
+    text = _candidate_roster_text(candidate)
+    if _GENERAL_ELECTION_SIGNAL_RE.search(text):
+        score += 30
+
+    if isinstance(candidate.get("summary"), str) and candidate.get("summary", "").strip():
+        score += 10
+
+    issues = candidate.get("issues")
+    if isinstance(issues, dict):
+        populated_issues = sum(
+            1
+            for issue in issues.values()
+            if isinstance(issue, dict)
+            and str(issue.get("stance") or "").strip() not in {"", "MISSING", "No public position found"}
+        )
+        score += min(populated_issues, 5)
+
+    links = candidate.get("links")
+    if isinstance(links, list):
+        score += min(len(links), 5)
+
+    return score
+
+
+def _rank_candidates_for_cap(candidates: List[Any]) -> List[Any]:
+    indexed = list(enumerate(candidates))
+    indexed.sort(key=lambda item: (-_candidate_cap_priority(item[1]), item[0]))
+    return [candidate for _, candidate in indexed]
+
+
 def _norm_name_for_match(name: str) -> str:
     return re.sub(r"[^a-z0-9]+", " ", name.lower()).strip()
 
@@ -326,9 +370,11 @@ def _select_capped_candidates(candidates: List[Any], limit: int) -> List[Any]:
 
     if all(buckets[key] for key in _MAJOR_PARTY_KEYS):
         per_major_party = max(1, limit // len(_MAJOR_PARTY_KEYS))
-        selected = buckets["democratic"][:per_major_party] + buckets["republican"][:per_major_party]
+        ranked_democratic = _rank_candidates_for_cap(buckets["democratic"])
+        ranked_republican = _rank_candidates_for_cap(buckets["republican"])
+        selected = ranked_democratic[:per_major_party] + ranked_republican[:per_major_party]
         selected_ids = {id(candidate) for candidate in selected}
-        for candidate in candidates:
+        for candidate in _rank_candidates_for_cap(candidates):
             if len(selected) >= limit:
                 break
             if id(candidate) not in selected_ids:
@@ -337,7 +383,8 @@ def _select_capped_candidates(candidates: List[Any], limit: int) -> List[Any]:
         selected_ids = {id(candidate) for candidate in selected[:limit]}
         return [candidate for candidate in candidates if id(candidate) in selected_ids][:limit]
 
-    return candidates[:limit]
+    selected_ids = {id(candidate) for candidate in _rank_candidates_for_cap(candidates)[:limit]}
+    return [candidate for candidate in candidates if id(candidate) in selected_ids][:limit]
 
 
 def _enforce_candidate_cap(race_json: Dict[str, Any], log: Any | None = None, *, limit: int = MAX_RACE_CANDIDATES) -> None:

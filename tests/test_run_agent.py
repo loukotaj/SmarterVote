@@ -8,7 +8,11 @@ from unittest.mock import AsyncMock, patch
 import pytest
 
 from pipeline_client.agent.agent import _load_existing, _normalize_schema_fields, _sanitize_polling, run_agent
-from pipeline_client.agent.phases import _reconcile_candidates_with_authoritative_roster, _sanitize_roster
+from pipeline_client.agent.phases import (
+    _enforce_candidate_cap,
+    _reconcile_candidates_with_authoritative_roster,
+    _sanitize_roster,
+)
 from pipeline_client.agent.prompts import CANONICAL_ISSUES
 from pipeline_client.backend.handlers.agent import HandoffTriggered
 
@@ -822,6 +826,63 @@ def test_authoritative_roster_removes_stale_primary_candidate():
         "Sarah Huckabee Sanders",
         "Fred Love",
         "Colt Shelby",
+    ]
+
+
+def test_enforce_candidate_cap_prioritizes_nominee_signals_within_party_bucket():
+    race_json = {
+        "id": "ga-governor-2026",
+        "candidates": [
+            {"name": "Dem A", "party": "Democratic", "summary": "Declared candidate."},
+            {"name": "Dem B", "party": "Democratic", "summary": "Declared candidate."},
+            {"name": "Dem C", "party": "Democratic", "summary": "Declared candidate."},
+            {"name": "Dem D", "party": "Democratic", "summary": "Declared candidate."},
+            {
+                "name": "Dem Nominee",
+                "party": "Democratic",
+                "summary": "Won the Democratic primary and advanced to the general election.",
+            },
+            {"name": "Rep A", "party": "Republican", "summary": "Declared candidate."},
+            {"name": "Rep B", "party": "Republican", "summary": "Declared candidate."},
+            {"name": "Rep C", "party": "Republican", "summary": "Declared candidate."},
+            {"name": "Rep D", "party": "Republican", "summary": "Declared candidate."},
+            {"name": "Rep E", "party": "Republican", "summary": "Declared candidate."},
+        ],
+    }
+
+    _enforce_candidate_cap(race_json, limit=8)
+
+    names = [candidate["name"] for candidate in race_json["candidates"]]
+    assert len(names) == 8
+    assert "Dem Nominee" in names
+    assert "Dem A" not in names
+
+
+def test_enforce_candidate_cap_keeps_original_order_for_equal_priority_candidates():
+    race_json = {
+        "id": "ga-governor-2026",
+        "candidates": [
+            {
+                "name": f"Candidate {idx}",
+                "party": "Democratic" if idx < 6 else "Republican",
+                "incumbent": False,
+                "summary": "Declared candidate.",
+            }
+            for idx in range(1, 11)
+        ],
+    }
+
+    _enforce_candidate_cap(race_json, limit=8)
+
+    assert [candidate["name"] for candidate in race_json["candidates"]] == [
+        "Candidate 1",
+        "Candidate 2",
+        "Candidate 3",
+        "Candidate 4",
+        "Candidate 6",
+        "Candidate 7",
+        "Candidate 8",
+        "Candidate 9",
     ]
 
 
