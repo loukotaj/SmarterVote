@@ -1339,6 +1339,47 @@ def test_list_races_uses_firestore_catalog_state_for_draft_flags():
     assert by_id["az-senate-2026"]["published_exists"] is True
 
 
+def test_list_races_normalizes_empty_status_when_catalog_shows_draft():
+    """Race list should surface draft status when draft metadata exists even if Firestore status is stale."""
+    os.environ["SKIP_AUTH"] = "true"
+    os.environ["ADMIN_API_KEY"] = "test-key"
+
+    import main as app_module
+
+    firestore_helpers._fs_db = None
+
+    stale_doc = _make_existing_doc(
+        {
+            "race_id": "ri-senate-2026",
+            "status": "empty",
+            "draft_updated_at": "2026-06-13T23:14:48.340000+00:00",
+            "draft_updated_utc": "2026-06-13T23:14:48.340000+00:00",
+            "draft_candidate_count": 2,
+            "draft_quality_grade": "A",
+            "published_at": None,
+            "published_updated_utc": None,
+        }
+    )
+    coll_races = MagicMock()
+    coll_races.limit.return_value = coll_races
+    coll_races.stream.return_value = iter([stale_doc])
+    db = _build_empty_firestore_mock()
+    db.collection.side_effect = lambda name: coll_races if name == "races" else MagicMock()
+
+    from fastapi.testclient import TestClient
+
+    with patch("firestore_helpers._get_fs", return_value=db):
+        tc = TestClient(app_module.app)
+        resp = tc.get("/api/races")
+
+    assert resp.status_code == 200
+    race = resp.json()["races"][0]
+    assert race["race_id"] == "ri-senate-2026"
+    assert race["status"] == "draft"
+    assert race["draft_exists"] is True
+    assert race["published_exists"] is False
+
+
 def test_list_races_exposes_public_and_draft_quality_separately():
     """Admin/MCP records should keep draft and published catalog metadata separate."""
     os.environ["SKIP_AUTH"] = "true"

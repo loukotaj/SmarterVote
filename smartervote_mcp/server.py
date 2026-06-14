@@ -197,6 +197,58 @@ async def recheck_all_races() -> dict[str, Any]:
 
 
 @mcp.tool()
+async def repair_inconsistent_race_statuses(limit: int = 50) -> dict[str, Any]:
+    """Repair races where status disagrees with draft/published catalog flags.
+
+    This avoids the heavier global recheck endpoint by rechecking only obviously
+    inconsistent races one-by-one.
+    """
+    res = await list_admin_races()
+    races = res.get("races", []) if isinstance(res, dict) else []
+    inconsistent = []
+    for race in races:
+        status = str(race.get("status") or "")
+        published_exists = bool(race.get("published_exists"))
+        draft_exists = bool(race.get("draft_exists"))
+        if status == "empty" and (published_exists or draft_exists):
+            inconsistent.append(str(race.get("race_id") or race.get("id") or ""))
+        elif status == "draft" and published_exists:
+            inconsistent.append(str(race.get("race_id") or race.get("id") or ""))
+
+    repaired = []
+    failed = []
+    for race_id in [rid for rid in inconsistent if rid][: max(1, limit)]:
+        try:
+            result = await recheck_race(race_id)
+            race = result.get("race", {}) if isinstance(result, dict) else {}
+            repaired.append({"race_id": race_id, "status": race.get("status")})
+        except Exception as exc:
+            failed.append({"race_id": race_id, "error": str(exc)})
+
+    return {
+        "checked": min(len(inconsistent), max(1, limit)),
+        "inconsistent_total": len(inconsistent),
+        "repaired": repaired,
+        "failed": failed,
+    }
+
+
+@mcp.tool()
+async def list_north_dakota_races() -> list[dict[str, Any]]:
+    """List admin races that appear to belong to North Dakota."""
+    res = await list_admin_races()
+    races = res.get("races", []) if isinstance(res, dict) else []
+    filtered = []
+    for race in races:
+        race_id = str(race.get("race_id") or race.get("id") or "")
+        state = str(race.get("state") or "")
+        jurisdiction = str(race.get("jurisdiction") or "")
+        if race_id.startswith("nd-") or state.upper() == "ND" or "north dakota" in jurisdiction.lower():
+            filtered.append(race)
+    return filtered
+
+
+@mcp.tool()
 async def cancel_race(race_id: str) -> dict[str, Any]:
     """Cancel a queued or running race."""
     return await _client().post(f"/api/races/{race_id}/cancel")

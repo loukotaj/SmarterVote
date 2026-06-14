@@ -334,6 +334,17 @@ def _apply_catalog_view(race: Dict[str, Any]) -> Dict[str, Any]:
         draft_exists and (not published_exists or _newer_iso(draft_updated, published_updated))
     )
 
+    # Normalize stale Firestore status from catalog/storage evidence so UI listings
+    # don't show "empty" for races that clearly have draft/published data.
+    current_status = str(race.get("status") or "")
+    if current_status not in ("queued", "running"):
+        if published_exists:
+            race["status"] = "published"
+        elif draft_exists:
+            race["status"] = "draft"
+        elif current_status in ("published", "draft"):
+            race["status"] = "empty"
+
     if published_exists:
         race["quality_grade"] = race.get("published_quality_grade")
         if race.get("published_candidate_count") is not None:
