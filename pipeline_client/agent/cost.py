@@ -81,3 +81,12 @@ def record_context_metrics(
         truncated_results,
     )
     acc["context_dropped_tool_turns"] = acc.get("context_dropped_tool_turns", 0) + dropped_tool_turns
+
+
+def record_retry_metric(kind: str) -> None:
+    """Increment a retry/deadline metric in the current run accumulator."""
+    acc = _cost_ctx.get()
+    if acc is None:
+        return
+    key = f"retry_{kind}"
+    acc[key] = acc.get(key, 0) + 1

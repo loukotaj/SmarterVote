@@ -205,6 +205,8 @@ Black and isort checks: passed
 
 ## Phase 3: OpenRouter Naming and Deadline-Aware Run Budgets
 
+Status: Complete.
+
 ### Problem
 
 The shared LLM helper is named `_call_openai()` even though runtime requests go through OpenRouter. This obscures provider ownership and makes future maintenance confusing. Separately, LLM retry sleeps can outlive the Cloud Function deadline. Deadline handoff checks cannot execute while the provider helper is sleeping or awaiting a long request.
@@ -274,6 +276,26 @@ Checkpoint at safe units:
 - Retry metrics distinguish rate limits, provider failures, and deadline exits.
 - No active OpenRouter transport helper retains an OpenAI-specific name.
 
+### Delivered
+
+- Renamed the active OpenRouter transport, client singleton, and timeout helpers; no `_call_openai` compatibility alias remains.
+- Added a shared `RunBudget` with deadline, checkpoint buffer, remaining-time checks, bounded request timeouts, and bounded retry sleeps.
+- Propagated the run budget through `AgentHandler`, `run_agent()`, phase orchestration, image resolution, reviews, `_agent_loop()`, OpenRouter requests, Serper searches, page fetches, and Ballotpedia lookups.
+- Reduced OpenRouter requests to three attempts by default, made the retry count configurable per agent loop, added jittered bounded backoff, and capped rate-limit and transient wait totals.
+- Added a two-attempt Serper policy and retained the existing two direct page-fetch profiles plus proxy fallback.
+- Converted deep budget exhaustion into the existing checkpoint/continuation handoff path.
+- Removed expired absolute deadlines from continuation options so each continuation receives a fresh invocation deadline.
+- Added retry metrics for rate limits, provider failures, and deadline exits, including continuation carryover.
+
+Validation:
+
+```text
+Phase-focused suite: 94 passed
+Python suite excluding an unrelated races-admin regression from concurrent commit ec3783b: 291 passed, 1 deselected
+Black and isort checks: passed
+No active _call_openai/_get_openai_client/_openai_client helper names remain
+```
+
 ## Phase 4: Candidate and Issue Scalability
 
 ### Problem
@@ -332,28 +354,33 @@ The full profile is sent independently to three reviewers and resent after each 
 
 ### Implementation
 
-Split deterministic validation from LLM review:
+Split deterministic validation from LLM review without narrowing the review scope:
 
 - Run schema validation, required-field checks, source counts, duplicate URL checks, stale-date checks, and link checks first.
-- Build a compact review packet containing claims, citations, quality metrics, and detected concerns.
+- Build a complete semantic review packet containing every race field, candidate, issue stance, claim, citation, career and education entry, finance and voting record, link, and poll.
 - Exclude operational metadata, logs, agent metrics, generator lists, previous reviews, and redundant fields.
+- Preserve enough surrounding context for reviewers to detect contradictions across candidates, issues, dates, and sources.
+- Validate the packet against the source RaceJSON before sending it so no reviewable profile field is omitted accidentally.
 
 Change review behavior:
 
 - Default to one primary reviewer plus deterministic checks.
 - Allow multi-provider review as an explicit quality profile.
-- Re-review only fields changed during iteration.
+- Every initial reviewer must assess the complete semantic profile, not a candidate or field subset.
+- After iteration, provide the complete updated semantic profile again, with changed fields highlighted for attention.
 - Stop after one iteration by default.
 - Permit additional cycles only when error-severity findings remain.
-- Do not re-run healthy provider reviews when another provider alone failed.
+- Do not re-run a healthy provider solely because another provider failed unless the profile itself changed.
 
 Store review configuration and cost in `agent_metrics`.
 
 ### Acceptance Criteria
 
-- Default review sends one compact packet, not three full RaceJSON copies.
+- Default review sends one complete semantic profile packet with operational noise removed.
 - Multi-provider review remains selectable.
-- Iteration re-review is scoped to changed candidates/fields.
+- Every reviewer evaluates the whole profile and can identify cross-field or cross-candidate inconsistencies.
+- Iteration re-review receives the whole updated profile plus a deterministic change manifest; it is never limited to only the changed subset.
+- Tests prove that every reviewable RaceJSON field is represented in the review packet.
 - Review stays below the model context limit and any explicitly configured hard dollar cap.
 - Default cheap-model profiles use generous review context and advisory cost reporting rather than restrictive low budgets.
 - Validation grade behavior remains deterministic when reviewers are unavailable.

@@ -59,6 +59,32 @@ async def test_serper_search_returns_tool_error_on_http_400():
 
 
 @pytest.mark.asyncio
+async def test_serper_search_retries_transient_failure_once():
+    request = httpx.Request("POST", "https://google.serper.dev/search")
+    unavailable = httpx.Response(503, request=request, text="unavailable")
+    success = httpx.Response(
+        200,
+        request=request,
+        json={"organic": [{"title": "Result", "snippet": "Evidence", "link": "https://example.com"}]},
+    )
+    mock_client = MagicMock()
+    mock_client.post = AsyncMock(side_effect=[unavailable, success])
+
+    with (
+        patch.dict(os.environ, {"SERPER_API_KEY": "test-key"}),
+        patch("pipeline_client.agent.web_tools._get_search_cache", return_value=None),
+        patch("pipeline_client.agent.web_tools._get_serper_client", return_value=mock_client),
+        patch("pipeline_client.agent.web_tools.random.uniform", return_value=1.0),
+        patch("pipeline_client.agent.web_tools.asyncio.sleep", new_callable=AsyncMock) as mock_sleep,
+    ):
+        results = await _serper_search("retry query")
+
+    assert results == [{"title": "Result", "snippet": "Evidence", "url": "https://example.com"}]
+    assert mock_client.post.call_count == 2
+    mock_sleep.assert_awaited_once_with(1.0)
+
+
+@pytest.mark.asyncio
 async def test_serper_search_truncates_oversized_queries():
     """Oversized queries are trimmed before calling Serper."""
     response = httpx.Response(200, json={"organic": []}, request=httpx.Request("POST", "https://google.serper.dev/search"))

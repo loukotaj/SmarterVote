@@ -8,7 +8,7 @@ import pytest
 from openai import APIConnectionError
 
 from pipeline_client.agent.agent import _agent_loop
-from pipeline_client.agent.llm import _call_openai, _provider_usage_cost
+from pipeline_client.agent.llm import _call_openrouter, _provider_usage_cost
 
 FAKE_RACE_JSON = {
     "id": "mo-senate-2024",
@@ -102,8 +102,8 @@ def test_provider_usage_cost_rejects_invalid_values():
 
 
 @pytest.mark.asyncio
-async def test_call_openai_retries_connection_error():
-    """_call_openai retries transient SDK connection failures."""
+async def test_call_openrouter_retries_connection_error():
+    """_call_openrouter retries transient SDK connection failures."""
     response = _mock_openai_response(content=json.dumps({"result": "ok"}))
     client = MagicMock()
     client.chat.completions.create = AsyncMock(
@@ -114,10 +114,11 @@ async def test_call_openai_retries_connection_error():
     )
 
     with (
-        patch("pipeline_client.agent.llm._get_openai_client", return_value=client),
+        patch("pipeline_client.agent.llm._get_openrouter_client", return_value=client),
+        patch("pipeline_client.agent.llm.random.uniform", return_value=1.0),
         patch("pipeline_client.agent.llm.asyncio.sleep", new_callable=AsyncMock) as mock_sleep,
     ):
-        result = await _call_openai(
+        result = await _call_openrouter(
             [{"role": "user", "content": "Return JSON."}],
             model="gpt-5.4-mini",
             max_retries=2,
@@ -132,10 +133,26 @@ async def test_call_openai_retries_connection_error():
 async def test_agent_loop_produces_json():
     """_agent_loop returns parsed JSON when model gives a direct answer."""
     response = _mock_openai_response(content=json.dumps({"result": "ok"}))
-    with patch("pipeline_client.agent.llm._call_openai", new_callable=AsyncMock) as mock:
+    with patch("pipeline_client.agent.llm._call_openrouter", new_callable=AsyncMock) as mock:
         mock.return_value = response
         result = await _agent_loop("system", "user", model="gpt-5.4-mini", phase_name="test")
     assert result == {"result": "ok"}
+
+
+@pytest.mark.asyncio
+async def test_agent_loop_passes_phase_request_retry_limit():
+    response = _mock_openai_response(content=json.dumps({"result": "ok"}))
+    with patch("pipeline_client.agent.llm._call_openrouter", new_callable=AsyncMock) as mock:
+        mock.return_value = response
+        await _agent_loop(
+            "system",
+            "user",
+            model="gpt-5.4-mini",
+            phase_name="test",
+            max_request_retries=2,
+        )
+
+    assert mock.call_args.kwargs["max_retries"] == 2
 
 
 @pytest.mark.asyncio
@@ -155,7 +172,7 @@ async def test_agent_loop_handles_tool_calls():
     final_response = _mock_openai_response(content=json.dumps({"done": True}))
 
     with (
-        patch("pipeline_client.agent.llm._call_openai", new_callable=AsyncMock) as mock_call,
+        patch("pipeline_client.agent.llm._call_openrouter", new_callable=AsyncMock) as mock_call,
         patch("pipeline_client.agent.llm._serper_search", new_callable=AsyncMock) as mock_search,
     ):
         mock_call.side_effect = [tool_response, final_response]
@@ -191,7 +208,7 @@ async def test_agent_loop_handles_multiple_tool_calls():
     final_response = _mock_openai_response(content=json.dumps({"done": True}))
 
     with (
-        patch("pipeline_client.agent.llm._call_openai", new_callable=AsyncMock) as mock_call,
+        patch("pipeline_client.agent.llm._call_openrouter", new_callable=AsyncMock) as mock_call,
         patch("pipeline_client.agent.llm._serper_search", new_callable=AsyncMock) as mock_search,
     ):
         mock_call.side_effect = [tool_response, final_response]
@@ -209,7 +226,7 @@ async def test_agent_loop_retries_bad_json():
     bad = _mock_openai_response(content="not json")
     good = _mock_openai_response(content=json.dumps({"ok": True}))
 
-    with patch("pipeline_client.agent.llm._call_openai", new_callable=AsyncMock) as mock:
+    with patch("pipeline_client.agent.llm._call_openrouter", new_callable=AsyncMock) as mock:
         mock.side_effect = [bad, good]
         result = await _agent_loop("system", "user", model="gpt-5.4-mini", phase_name="test")
 
@@ -222,7 +239,7 @@ async def test_agent_loop_raises_on_max_iterations():
     """_agent_loop raises RuntimeError when max iterations reached."""
     bad = _mock_openai_response(content="still not json")
 
-    with patch("pipeline_client.agent.llm._call_openai", new_callable=AsyncMock) as mock:
+    with patch("pipeline_client.agent.llm._call_openrouter", new_callable=AsyncMock) as mock:
         mock.return_value = bad
         with pytest.raises(RuntimeError, match="did not produce output"):
             await _agent_loop(
@@ -251,7 +268,7 @@ async def test_agent_loop_passes_race_id_to_search():
     final_response = _mock_openai_response(content=json.dumps({"ok": True}))
 
     with (
-        patch("pipeline_client.agent.llm._call_openai", new_callable=AsyncMock) as mock_call,
+        patch("pipeline_client.agent.llm._call_openrouter", new_callable=AsyncMock) as mock_call,
         patch("pipeline_client.agent.llm._serper_search", new_callable=AsyncMock) as mock_search,
     ):
         mock_call.side_effect = [tool_response, final_response]
@@ -277,7 +294,7 @@ async def test_agent_loop_passes_race_id_to_search():
 async def test_agent_loop_tools_mode():
     """_agent_loop in tools_mode returns {} when model stops calling tools."""
     response = _mock_openai_response(content="All done, edits committed.")
-    with patch("pipeline_client.agent.llm._call_openai", new_callable=AsyncMock) as mock:
+    with patch("pipeline_client.agent.llm._call_openrouter", new_callable=AsyncMock) as mock:
         mock.return_value = response
         result = await _agent_loop(
             "system",
@@ -318,7 +335,7 @@ async def test_agent_loop_tools_mode_calls_extra_handlers():
         handler_called.update(args)
         return "OK"
 
-    with patch("pipeline_client.agent.llm._call_openai", new_callable=AsyncMock) as mock:
+    with patch("pipeline_client.agent.llm._call_openrouter", new_callable=AsyncMock) as mock:
         mock.side_effect = [tool_response, done_response]
         result = await _agent_loop(
             "system",
@@ -351,7 +368,7 @@ async def test_narrow_issue_phase_rejects_full_profile_read():
     done_response = _mock_openai_response(content="Done.")
     handler = MagicMock(return_value=json.dumps(FAKE_RACE_JSON))
 
-    with patch("pipeline_client.agent.llm._call_openai", new_callable=AsyncMock) as mock:
+    with patch("pipeline_client.agent.llm._call_openrouter", new_callable=AsyncMock) as mock:
         mock.side_effect = [tool_response, done_response]
         await _agent_loop(
             "system",
@@ -376,7 +393,7 @@ async def test_agent_loop_elevates_model_on_bad_json():
     bad_response = _mock_openai_response(content="not valid JSON")
     good_response = _mock_openai_response(content=json.dumps({"success": True}))
 
-    with patch("pipeline_client.agent.llm._call_openai", new_callable=AsyncMock) as mock_call:
+    with patch("pipeline_client.agent.llm._call_openrouter", new_callable=AsyncMock) as mock_call:
         mock_call.side_effect = [bad_response, good_response]
         result = await _agent_loop(
             "system",

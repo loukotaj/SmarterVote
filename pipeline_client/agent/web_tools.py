@@ -7,12 +7,15 @@ import asyncio
 import ipaddress
 import logging
 import os
+import random
 import re
 import socket
 from typing import Any, Dict, List, Optional
 from urllib.parse import urljoin, urlparse
 
 import httpx
+
+from .run_budget import RunBudget
 
 logger = logging.getLogger("pipeline")
 _SERPER_MAX_QUERY_CHARS = 500
@@ -631,7 +634,14 @@ def _page_fetch_log_hint(url: str, page_text: str) -> Optional[str]:
 # ---------------------------------------------------------------------------
 
 
-async def _serper_search(query: str, *, num_results: int = 8, race_id: Optional[str] = None) -> List[Dict[str, Any]]:
+async def _serper_search(
+    query: str,
+    *,
+    num_results: int = 8,
+    race_id: Optional[str] = None,
+    run_budget: RunBudget | None = None,
+    max_attempts: int = 2,
+) -> List[Dict[str, Any]]:
     """Execute a web search via the Serper API, with caching."""
     normalized_query = re.sub(r"\s+", " ", query or "").strip()
     if not normalized_query:
@@ -659,36 +669,56 @@ async def _serper_search(query: str, *, num_results: int = 8, race_id: Optional[
     if not api_key:
         return [{"error": "SERPER_API_KEY not configured"}]
 
-    # Increment serper call count in cost context if available
-    try:
-        from pipeline_client.agent.cost import _cost_ctx
-
-        acc = _cost_ctx.get()
-        if acc is not None:
-            acc["serper_calls"] = acc.get("serper_calls", 0) + 1
-    except Exception:
-        pass
-
     client = _get_serper_client()
-    try:
-        resp = await client.post(
-            "https://google.serper.dev/search",
-            headers={"X-API-KEY": api_key, "Content-Type": "application/json"},
-            json={"q": normalized_query, "num": num_results},
+    last_error = ""
+    for attempt in range(max(1, max_attempts)):
+        if run_budget:
+            run_budget.require_call_time(2.0, operation="Serper search")
+        try:
+            from pipeline_client.agent.cost import _cost_ctx
+
+            acc = _cost_ctx.get()
+            if acc is not None:
+                acc["serper_calls"] = acc.get("serper_calls", 0) + 1
+        except Exception:
+            pass
+
+        request_timeout = (
+            run_budget.bounded_timeout(10.0, minimum_seconds=2.0, operation="Serper search") if run_budget else 10.0
         )
-        resp.raise_for_status()
-    except httpx.HTTPStatusError as exc:
-        response_text = exc.response.text[:300] if exc.response is not None else ""
-        logger.warning(
-            "Serper search failed with HTTP %s for query %r: %s",
-            exc.response.status_code if exc.response is not None else "unknown",
-            normalized_query[:160],
-            response_text,
-        )
-        return [{"error": f"Serper search failed: HTTP {exc.response.status_code if exc.response else 'unknown'}"}]
-    except httpx.HTTPError as exc:
-        logger.warning("Serper search request failed for query %r: %s", normalized_query[:160], exc)
-        return [{"error": f"Serper search failed: {exc}"}]
+        try:
+            resp = await client.post(
+                "https://google.serper.dev/search",
+                headers={"X-API-KEY": api_key, "Content-Type": "application/json"},
+                json={"q": normalized_query, "num": num_results},
+                timeout=request_timeout,
+            )
+            resp.raise_for_status()
+            break
+        except httpx.HTTPStatusError as exc:
+            status = exc.response.status_code if exc.response is not None else 0
+            response_text = exc.response.text[:300] if exc.response is not None else ""
+            last_error = f"HTTP {status or 'unknown'}"
+            logger.warning(
+                "Serper search failed with HTTP %s for query %r: %s",
+                status or "unknown",
+                normalized_query[:160],
+                response_text,
+            )
+            if status not in {429, 500, 502, 503, 504} or attempt >= max_attempts - 1:
+                return [{"error": f"Serper search failed: {last_error}"}]
+        except httpx.HTTPError as exc:
+            last_error = str(exc)
+            logger.warning("Serper search request failed for query %r: %s", normalized_query[:160], exc)
+            if attempt >= max_attempts - 1:
+                return [{"error": f"Serper search failed: {exc}"}]
+
+        wait = min(15.0, (2**attempt) * random.uniform(0.8, 1.2))
+        if run_budget:
+            wait = run_budget.bounded_sleep(wait, operation="Serper retry")
+        await asyncio.sleep(wait)
+    else:
+        return [{"error": f"Serper search failed: {last_error or 'retry limit reached'}"}]
     data = resp.json()
 
     results: List[Dict[str, Any]] = []

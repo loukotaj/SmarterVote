@@ -4,13 +4,14 @@ import asyncio
 import json
 import logging
 import os
+import random
 import time
 from typing import Any, Dict, List, Optional
 
 from .ballotpedia import lookup_candidate_data as _ballotpedia_lookup
 from .ballotpedia import lookup_election_page as _ballotpedia_election_lookup
 from .context import AgentContext, AgentContextBudget
-from .cost import accumulate, record_context_metrics
+from .cost import accumulate, record_context_metrics, record_retry_metric
 from .model_registry import (
     CHEAP_CLAUDE_MODEL,
     CHEAP_GEMINI_MODEL,
@@ -25,6 +26,7 @@ from .model_registry import (
     NEMOTRON_ULTRA_MODEL,
     normalize_model_id,
 )
+from .run_budget import RunBudget, RunBudgetExceeded
 from .source_types import normalize_source_type
 from .tools import BALLOTPEDIA_ELECTION_TOOL, BALLOTPEDIA_TOOL, FETCH_TOOL, SEARCH_TOOL
 from .utils import _extract_json, make_logger
@@ -72,24 +74,24 @@ def _accumulate_usage(resp: Any, model: str) -> None:
 # OpenRouter client singleton
 # ---------------------------------------------------------------------------
 
-_openai_client: Any = None
+_openrouter_client: Any = None
 _DEFAULT_LLM_REQUEST_TIMEOUT_SECONDS = 240.0
 _DEFAULT_LLM_RATE_LIMIT_MAX_RETRIES = 3
 _DEFAULT_LLM_RATE_LIMIT_MAX_WAIT_SECONDS = 60
 
 
-def _get_openai_client() -> Any:
+def _get_openrouter_client() -> Any:
     """Return (and lazily create) the shared OpenRouter AsyncOpenAI client."""
-    global _openai_client
+    global _openrouter_client
     from openai import AsyncOpenAI
 
     api_key = os.environ.get("OPENROUTER_API_KEY", "")
     if not api_key:
         raise RuntimeError("OPENROUTER_API_KEY is not set")
 
-    existing_key = getattr(_openai_client, "api_key", None)
-    if _openai_client is None or existing_key != api_key:
-        _openai_client = AsyncOpenAI(
+    existing_key = getattr(_openrouter_client, "api_key", None)
+    if _openrouter_client is None or existing_key != api_key:
+        _openrouter_client = AsyncOpenAI(
             api_key=api_key,
             base_url="https://openrouter.ai/api/v1",
             max_retries=0,
@@ -100,10 +102,10 @@ def _get_openai_client() -> Any:
             },
         )
 
-    return _openai_client
+    return _openrouter_client
 
 
-def _openai_request_timeout_seconds() -> float:
+def _openrouter_request_timeout_seconds() -> float:
     raw = os.getenv("OPENROUTER_REQUEST_TIMEOUT_SECONDS", "").strip()
     if not raw:
         return _DEFAULT_LLM_REQUEST_TIMEOUT_SECONDS
@@ -126,17 +128,36 @@ def _env_int(name: str, default: int, *, minimum: int = 0) -> int:
         return default
 
 
-async def _create_chat_completion(client: Any, kwargs: Dict[str, Any]):
+async def _create_chat_completion(
+    client: Any,
+    kwargs: Dict[str, Any],
+    *,
+    run_budget: RunBudget | None = None,
+):
     """Wrap SDK requests in an explicit asyncio timeout.
 
     The OpenAI SDK has its own timeout, but long-running Cloud Run workers have
     previously observed stalled awaits with no retry log. An outer timeout keeps
     pipeline queue items from remaining active indefinitely.
     """
-    return await asyncio.wait_for(
-        client.chat.completions.create(**kwargs),
-        timeout=_openai_request_timeout_seconds(),
-    )
+    timeout = _openrouter_request_timeout_seconds()
+    if run_budget:
+        timeout = run_budget.bounded_timeout(timeout, minimum_seconds=5.0, operation="OpenRouter request")
+    return await asyncio.wait_for(client.chat.completions.create(**kwargs), timeout=timeout)
+
+
+async def _await_with_run_budget(
+    awaitable: Any,
+    *,
+    run_budget: RunBudget | None,
+    requested_timeout: float,
+    operation: str,
+) -> Any:
+    """Await a tool request without allowing it to cross the run deadline."""
+    timeout = requested_timeout
+    if run_budget:
+        timeout = run_budget.bounded_timeout(requested_timeout, minimum_seconds=2.0, operation=operation)
+    return await asyncio.wait_for(awaitable, timeout=timeout)
 
 
 # ---------------------------------------------------------------------------
@@ -144,13 +165,14 @@ async def _create_chat_completion(client: Any, kwargs: Dict[str, Any]):
 # ---------------------------------------------------------------------------
 
 
-async def _call_openai(
+async def _call_openrouter(
     messages: List[Dict[str, Any]],
     *,
     model: str,
     tools: List[Dict[str, Any]] | None = None,
-    max_retries: int = 12,
+    max_retries: int = 3,
     max_tokens: int = 16384,
+    run_budget: RunBudget | None = None,
 ):
     """Call OpenRouter's OpenAI-compatible Chat Completions API with retry.
 
@@ -166,7 +188,7 @@ async def _call_openai(
     """
     from openai import APIConnectionError, APIStatusError, APITimeoutError, BadRequestError, RateLimitError
 
-    client = _get_openai_client()
+    client = _get_openrouter_client()
     model = normalize_model_id(model) or model
 
     _supports_temperature = not (model.startswith("o1") or model.startswith("o3") or model.startswith("o4") or "nano" in model)
@@ -181,9 +203,13 @@ async def _call_openai(
         kwargs["tools"] = tools
         kwargs["tool_choice"] = "auto"
 
+    rate_limit_wait = 0.0
+    transient_wait = 0.0
     for attempt in range(max_retries):
         try:
-            resp = await _create_chat_completion(client, kwargs)
+            if run_budget:
+                run_budget.require_call_time(5.0, operation="OpenRouter request")
+            resp = await _create_chat_completion(client, kwargs, run_budget=run_budget)
             _accumulate_usage(resp, model)
             return resp
         except BadRequestError as exc:
@@ -201,7 +227,7 @@ async def _call_openai(
                 if len(simplified_msgs) < len(messages):
                     kwargs["messages"] = simplified_msgs
                     try:
-                        resp = await _create_chat_completion(client, kwargs)
+                        resp = await _create_chat_completion(client, kwargs, run_budget=run_budget)
                         _accumulate_usage(resp, model)
                         logger.warning("Simplified prompt accepted; continuing.")
                         return resp
@@ -221,7 +247,7 @@ async def _call_openai(
                 max_retries,
                 _env_int("OPENROUTER_RATE_LIMIT_MAX_RETRIES", _DEFAULT_LLM_RATE_LIMIT_MAX_RETRIES, minimum=0),
             )
-            if attempt >= rate_limit_max_retries:
+            if attempt >= rate_limit_max_retries or attempt >= max_retries - 1:
                 raise
             max_wait = _env_int(
                 "OPENROUTER_RATE_LIMIT_MAX_WAIT_SECONDS",
@@ -232,19 +258,38 @@ async def _call_openai(
             if exc.response is not None:
                 retry_after = int(exc.response.headers.get("retry-after", 0))
             backoff = min(max_wait, 30 * (2**attempt))
-            wait = min(max(retry_after, backoff), max_wait)
+            wait = min(max(retry_after, backoff), max_wait, max(0.0, 90.0 - rate_limit_wait))
+            wait = min(wait * random.uniform(0.8, 1.2), max_wait, max(0.0, 90.0 - rate_limit_wait))
+            if wait <= 0:
+                raise
+            if run_budget:
+                wait = run_budget.bounded_sleep(wait, operation="OpenRouter rate-limit retry")
+            rate_limit_wait += wait
+            record_retry_metric("rate_limits")
             logger.warning(f"OpenRouter 429, retrying in {wait}s (attempt {attempt + 1}/{rate_limit_max_retries + 1})")
             await asyncio.sleep(wait)
         except APIStatusError as exc:
             if attempt >= max_retries - 1 or exc.status_code < 500:
                 raise
-            backoff = 2 ** (attempt + 1)
+            backoff = min(60.0 - transient_wait, (2 ** (attempt + 1)) * random.uniform(0.8, 1.2))
+            if backoff <= 0:
+                raise
+            if run_budget:
+                backoff = run_budget.bounded_sleep(backoff, operation="OpenRouter provider retry")
+            transient_wait += backoff
+            record_retry_metric("provider_failures")
             logger.warning(f"OpenRouter {exc.status_code}, retrying in {backoff}s " f"(attempt {attempt + 1}/{max_retries})")
             await asyncio.sleep(backoff)
         except (APIConnectionError, APITimeoutError, asyncio.TimeoutError) as exc:
             if attempt >= max_retries - 1:
                 raise
-            backoff = min(60, 2 ** (attempt + 1))
+            backoff = min(60.0 - transient_wait, (2 ** (attempt + 1)) * random.uniform(0.8, 1.2))
+            if backoff <= 0:
+                raise
+            if run_budget:
+                backoff = run_budget.bounded_sleep(backoff, operation="OpenRouter connection retry")
+            transient_wait += backoff
+            record_retry_metric("provider_failures")
             logger.warning(
                 f"OpenRouter connection error, retrying in {backoff}s " f"(attempt {attempt + 1}/{max_retries}): {exc}"
             )
@@ -342,6 +387,8 @@ async def _agent_loop(
     extra_tools: List[Dict[str, Any]] | None = None,
     extra_tool_handlers: Dict[str, Any] | None = None,
     tools_mode: bool = False,
+    run_budget: RunBudget | None = None,
+    max_request_retries: int = 3,
 ) -> Dict[str, Any]:
     """Run a single agent loop.
 
@@ -429,11 +476,13 @@ async def _agent_loop(
                 truncated_results=prepared.truncated_results,
                 dropped_tool_turns=prepared.dropped_tool_turns,
             )
-            result = await _call_openai(
+            result = await _call_openrouter(
                 prepared.messages,
                 model=active_model,
                 tools=tools_for_call,
+                max_retries=max_request_retries,
                 max_tokens=context_budget.max_output_tokens,
+                run_budget=run_budget,
             )
         except RuntimeError as e:
             if "policy violation" in str(e).lower():
@@ -467,7 +516,16 @@ async def _agent_loop(
                     args = json.loads(fn.arguments)
                     query = args.get("query", "")
                     log("info", f"    🔍 {query}")
-                    search_results = await _serper_search(query, race_id=race_id)
+                    search_results = await _await_with_run_budget(
+                        _serper_search(
+                            query,
+                            race_id=race_id,
+                            **({"run_budget": run_budget} if run_budget else {}),
+                        ),
+                        run_budget=run_budget,
+                        requested_timeout=30.0,
+                        operation="Serper search",
+                    )
                     log("debug", f"    🔍 got {len(search_results)} results")
                     messages.append(
                         {
@@ -480,7 +538,12 @@ async def _agent_loop(
                     args = json.loads(fn.arguments)
                     url = args.get("url", "")
                     log("info", f"    📄 fetching {url[:80]}")
-                    page_text = await _fetch_page(url)
+                    page_text = await _await_with_run_budget(
+                        _fetch_page(url),
+                        run_budget=run_budget,
+                        requested_timeout=30.0,
+                        operation="page fetch",
+                    )
                     log("debug", f"    📄 got {len(page_text)} chars")
                     fetch_hint = _page_fetch_log_hint(url, page_text)
                     if fetch_hint:
@@ -496,7 +559,12 @@ async def _agent_loop(
                     args = json.loads(fn.arguments)
                     candidate_name = args.get("candidate_name", "")
                     log("info", f"    📋 Ballotpedia lookup: {candidate_name}")
-                    bp_data = await _ballotpedia_lookup(candidate_name)
+                    bp_data = await _await_with_run_budget(
+                        _ballotpedia_lookup(candidate_name),
+                        run_budget=run_budget,
+                        requested_timeout=20.0,
+                        operation="Ballotpedia candidate lookup",
+                    )
                     log("debug", f"    📋 found={bp_data.get('found')}")
                     messages.append(
                         {
@@ -509,7 +577,12 @@ async def _agent_loop(
                     args = json.loads(fn.arguments)
                     election_race_id = args.get("race_id", race_id or "")
                     log("info", f"    🗳️  Ballotpedia election lookup: {election_race_id}")
-                    election_data = await _ballotpedia_election_lookup(election_race_id)
+                    election_data = await _await_with_run_budget(
+                        _ballotpedia_election_lookup(election_race_id),
+                        run_budget=run_budget,
+                        requested_timeout=20.0,
+                        operation="Ballotpedia election lookup",
+                    )
                     n_found = len(election_data.get("candidates", []))
                     log("debug", f"    🗳️  found={election_data.get('found')} candidates={n_found}")
                     messages.append(

@@ -26,7 +26,7 @@ from typing import Any, Dict, List, Optional
 
 from .cost import _cost_ctx, estimate_cost
 from .handlers import _make_editing_handlers  # noqa: F401 - re-exported for tests
-from .llm import _agent_loop, _call_openai, _ensure_dict, _normalize_candidate  # noqa: F401 - re-exported for backward compat
+from .llm import _agent_loop, _call_openrouter, _ensure_dict, _normalize_candidate  # noqa: F401 - re-exported for tests
 from .model_registry import resolve_run_models
 from .phases import (  # noqa: F401 - re-exported for backward compat
     _candidate_source_hints,
@@ -39,6 +39,7 @@ from .phases import (  # noqa: F401 - re-exported for backward compat
     _select_target_candidates,
 )
 from .review import compute_validation_grade, run_reviews
+from .run_budget import RunBudget
 from .tools import (  # noqa: F401 - re-exported for tests
     ADD_CANDIDATE_TOOL,
     ADD_LINK_TOOL,
@@ -363,6 +364,7 @@ async def run_agent(
     resume_partial: bool = False,
     reject_empty_candidates: bool = False,
     prior_agent_metrics: Optional[Dict[str, Any]] = None,
+    run_budget: RunBudget | None = None,
 ) -> Dict[str, Any]:
     """Run the multi-phase research agent for a given race_id.
 
@@ -436,7 +438,7 @@ async def run_agent(
             try:
                 step_tracker[action](step, **kwargs)
             except Exception as _e:
-                if _e.__class__.__name__ in {"AgentCancelled", "HandoffFailed", "HandoffTriggered"}:
+                if _e.__class__.__name__ in {"AgentCancelled", "HandoffFailed", "HandoffTriggered", "RunBudgetExceeded"}:
                     raise
                 logger.debug("Step tracker callback '%s' for '%s' failed: %s", action, step, _e)
 
@@ -456,6 +458,9 @@ async def run_agent(
         "context_compacted_results": int(prior_agent_metrics.get("context_compacted_results", 0) or 0),
         "context_truncated_results": int(prior_agent_metrics.get("context_truncated_results", 0) or 0),
         "context_dropped_tool_turns": int(prior_agent_metrics.get("context_dropped_tool_turns", 0) or 0),
+        "retry_rate_limits": int(prior_agent_metrics.get("retry_rate_limits", 0) or 0),
+        "retry_provider_failures": int(prior_agent_metrics.get("retry_provider_failures", 0) or 0),
+        "retry_deadline_exits": int(prior_agent_metrics.get("retry_deadline_exits", 0) or 0),
         "model_breakdown": copy.deepcopy(prior_agent_metrics.get("model_breakdown", {})),
     }
     _ctx_token = _cost_ctx.set(_acc)
@@ -482,6 +487,7 @@ async def run_agent(
             goal=goal,
             resume_partial=resume_partial,
             roster_only=_enabled == {"discovery"},
+            run_budget=run_budget,
         )
     else:
         log("info", f"New research for {race_id} (profile={profile}, model={model}, small_model={small_model})")
@@ -500,6 +506,7 @@ async def run_agent(
             target_candidate_names=candidate_names,
             goal=goal,
             resume_partial=resume_partial,
+            run_budget=run_budget,
         )
 
     # LLMs sometimes wrap their output in {"race_json": {...}} - unwrap it so
@@ -554,6 +561,7 @@ async def run_agent(
             gemini_model=gemini_model,
             grok_model=grok_model,
             review_providers=enabled_review_providers,
+            run_budget=run_budget,
         )
         race_json["reviews"] = reviews
         # Log review results to live logs
@@ -611,6 +619,7 @@ async def run_agent(
                     model=model,
                     on_log=on_log,
                     max_iterations=max(cycle_budget, 14),
+                    run_budget=run_budget,
                 )
                 if improved is not None:
                     race_json = improved
@@ -634,6 +643,7 @@ async def run_agent(
                         gemini_model=gemini_model,
                         grok_model=grok_model,
                         review_providers=enabled_review_providers,
+                        run_budget=run_budget,
                     )
                     race_json["reviews"] = reviews
                     for rev in reviews:
@@ -709,6 +719,9 @@ async def run_agent(
         "context_compacted_results": _acc.get("context_compacted_results", 0),
         "context_truncated_results": _acc.get("context_truncated_results", 0),
         "context_dropped_tool_turns": _acc.get("context_dropped_tool_turns", 0),
+        "retry_rate_limits": _acc.get("retry_rate_limits", 0),
+        "retry_provider_failures": _acc.get("retry_provider_failures", 0),
+        "retry_deadline_exits": _acc.get("retry_deadline_exits", 0),
     }
     race_json["agent_metrics"] = agent_metrics
     log(

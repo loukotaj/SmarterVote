@@ -111,6 +111,7 @@ class AgentHandler:
         then passes a step_tracker to the agent so phases report back directly.
         """
         from pipeline_client.agent.agent import run_agent
+        from pipeline_client.agent.run_budget import RunBudget, RunBudgetExceeded
         from pipeline_client.backend.models import ALL_STEPS, STEP_LABELS, STEP_WEIGHTS, PipelineStep, RunStatus
 
         logger = logging.getLogger("pipeline")
@@ -147,6 +148,10 @@ class AgentHandler:
         # Deadline for Cloud Function handoff.  Callers (CF entry point) can
         # inject a tighter deadline via options; default is 55 min from now.
         deadline_at: float = options.get("deadline_at", time.time() + DEFAULT_DEADLINE_SECONDS)
+        run_budget = RunBudget(
+            deadline_at=deadline_at,
+            checkpoint_buffer_seconds=float(options.get("checkpoint_buffer_seconds", 15.0)),
+        )
 
         # Firestore logger (fire-and-forget; no-ops locally when Firestore is absent)
         from pipeline_client.backend.firestore_logger import FirestoreLogger
@@ -224,10 +229,10 @@ class AgentHandler:
             except Exception as exc:
                 logger.debug("Cancellation check failed for queue item %s: %s", queue_item_id, exc)
 
-        def _maybe_handoff(reason: str, *, step: str | None = None, pct: int = 0) -> None:
+        def _maybe_handoff(reason: str, *, step: str | None = None, pct: int = 0, force: bool = False) -> None:
             """Handoff when the deadline has passed. Safe to call from deep callbacks."""
             nonlocal _handoff_started
-            if _handoff_started or not run_id or time.time() <= deadline_at:
+            if _handoff_started or not run_id or (not force and time.time() <= deadline_at):
                 return
             _raise_if_cancelled()
             active_step = step or _current_step
@@ -430,6 +435,7 @@ class AgentHandler:
                 continuation_options["is_continuation"] = True
                 continuation_options["force_fresh"] = False
                 continuation_options["parent_run_id"] = current_run_id
+                continuation_options.pop("deadline_at", None)
                 from pipeline_client.agent.cost import _cost_ctx
 
                 cost_snapshot = _cost_ctx.get()
@@ -448,6 +454,9 @@ class AgentHandler:
                         "context_compacted_results": cost_snapshot.get("context_compacted_results", 0),
                         "context_truncated_results": cost_snapshot.get("context_truncated_results", 0),
                         "context_dropped_tool_turns": cost_snapshot.get("context_dropped_tool_turns", 0),
+                        "retry_rate_limits": cost_snapshot.get("retry_rate_limits", 0),
+                        "retry_provider_failures": cost_snapshot.get("retry_provider_failures", 0),
+                        "retry_deadline_exits": cost_snapshot.get("retry_deadline_exits", 0),
                         "model_breakdown": cost_snapshot.get("model_breakdown", {}),
                     }
                 db.collection("pipeline_queue").document(item_id).set(
@@ -502,28 +511,37 @@ class AgentHandler:
                 _fs_logger.log(level, message, race_id=race_id)
 
         # Run the agent
-        race_json = await run_agent(
-            race_id,
-            on_log=on_log,
-            cheap_mode=cheap_mode,
-            existing_data=existing_data,
-            research_model=options.get("research_model"),
-            claude_model=options.get("claude_model"),
-            gemini_model=options.get("gemini_model"),
-            grok_model=options.get("grok_model"),
-            model_profile=options.get("model_profile"),
-            model_overrides=options.get("model_overrides"),
-            review_providers=options.get("review_providers"),
-            enabled_steps=enabled_steps,
-            step_tracker=step_tracker,
-            max_candidates=options.get("max_candidates"),
-            target_no_info=options.get("target_no_info", False),
-            candidate_names=options.get("candidate_names"),
-            goal=options.get("goal"),
-            resume_partial=bool(options.get("is_continuation")),
-            reject_empty_candidates=True,
-            prior_agent_metrics=options.get("prior_agent_metrics"),
-        )
+        try:
+            race_json = await run_agent(
+                race_id,
+                on_log=on_log,
+                cheap_mode=cheap_mode,
+                existing_data=existing_data,
+                research_model=options.get("research_model"),
+                claude_model=options.get("claude_model"),
+                gemini_model=options.get("gemini_model"),
+                grok_model=options.get("grok_model"),
+                model_profile=options.get("model_profile"),
+                model_overrides=options.get("model_overrides"),
+                review_providers=options.get("review_providers"),
+                enabled_steps=enabled_steps,
+                step_tracker=step_tracker,
+                max_candidates=options.get("max_candidates"),
+                target_no_info=options.get("target_no_info", False),
+                candidate_names=options.get("candidate_names"),
+                goal=options.get("goal"),
+                resume_partial=bool(options.get("is_continuation")),
+                reject_empty_candidates=True,
+                prior_agent_metrics=options.get("prior_agent_metrics"),
+                run_budget=run_budget,
+            )
+        except RunBudgetExceeded as exc:
+            from pipeline_client.agent.cost import record_retry_metric
+
+            record_retry_metric("deadline_exits")
+            logger.warning("Run budget exhausted: %s", exc)
+            _maybe_handoff("before run budget exhaustion", step=_current_step, pct=0, force=True)
+            raise
 
         # Update checkpoint holder so handoff (if somehow triggered post-agent) has latest data
         race_json_holder[0] = race_json

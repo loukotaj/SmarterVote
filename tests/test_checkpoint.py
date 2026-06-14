@@ -166,6 +166,43 @@ async def test_handoff_raised_when_deadline_exceeded():
 
 
 @pytest.mark.asyncio
+async def test_run_budget_exhaustion_forces_checkpoint_handoff_before_deadline():
+    """Deep budget exhaustion should use the existing continuation path immediately."""
+    from pipeline_client.agent.run_budget import RunBudgetExceeded
+    from pipeline_client.backend.handlers.agent import AgentHandler
+
+    handler = AgentHandler()
+    future_deadline = time.time() + 300.0
+    options = {
+        "run_id": "run-budget-handoff-test",
+        "deadline_at": future_deadline,
+        "enabled_steps": ["discovery", "issues"],
+    }
+    payload = {
+        "race_id": "az-01-senate-2026",
+        "existing_data": {"id": "az-01-senate-2026", "candidates": [{"name": "Alice"}]},
+    }
+    mock_db = MagicMock()
+    mock_db.collection.return_value.document.return_value.set = MagicMock()
+
+    async def _fake_run_agent(_race_id, *, step_tracker=None, run_budget=None, **_kw):
+        assert run_budget.deadline_at == future_deadline
+        step_tracker["start"]("discovery")
+        raise RunBudgetExceeded("not enough time for another provider call")
+
+    with (
+        patch("pipeline_client.agent.agent.run_agent", side_effect=_fake_run_agent),
+        patch.object(handler, "_save_draft", new_callable=AsyncMock),
+        patch("pipeline_client.backend.firestore_logger.FirestoreLogger", MagicMock()),
+        patch("pipeline_client.backend.firestore_logger._get_db", return_value=mock_db),
+    ):
+        with pytest.raises(HandoffTriggered) as exc_info:
+            await handler.handle(payload, options)
+
+    assert exc_info.value.remaining_steps == ["discovery", "issues"]
+
+
+@pytest.mark.asyncio
 async def test_handoff_raised_during_step_progress_when_deadline_exceeded():
     """Long steps should hand off on progress, before Cloud Function hard timeout."""
     from pipeline_client.backend.handlers.agent import AgentHandler
@@ -211,6 +248,7 @@ async def test_handoff_raised_during_step_progress_when_deadline_exceeded():
 
     continuation_doc = queue_doc_ref.set.call_args.args[0]
     assert continuation_doc["options"]["enabled_steps"] == ["discovery", "issues"]
+    assert "deadline_at" not in continuation_doc["options"]
     assert continuation_doc["existing_data_gcs_path"] == "gs://test-bucket/checkpoints/run-progress-handoff-test.json"
     assert exc_info.value.continuation_run_id == continuation_doc["run_id"]
     mock_fs_logger_cls.return_value.mark_continued.assert_called_with(continuation_doc["run_id"])

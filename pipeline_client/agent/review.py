@@ -9,7 +9,7 @@ from urllib.parse import urlparse
 
 import httpx
 
-from .llm import _call_openai
+from .llm import _call_openrouter
 from .model_registry import (
     CHEAP_CLAUDE_MODEL,
     CHEAP_GEMINI_MODEL,
@@ -20,6 +20,7 @@ from .model_registry import (
     normalize_model_id,
 )
 from .prompts import REVIEW_SYSTEM, REVIEW_USER
+from .run_budget import RunBudget, RunBudgetExceeded
 from .utils import _extract_json, make_logger
 from .web_tools import _get_validated
 
@@ -55,15 +56,16 @@ def _is_access_restricted_response(url: str, status_code: int) -> bool:
     return status_code == 400 and hostname in _ACCESS_RESTRICTED_HOSTS
 
 
-async def _call_review_model(system: str, user: str, *, model: str) -> str:
+async def _call_review_model(system: str, user: str, *, model: str, run_budget: RunBudget | None = None) -> str:
     """Call any review model through OpenRouter and return text content."""
-    response = await _call_openai(
+    response = await _call_openrouter(
         [
             {"role": "system", "content": system},
             {"role": "user", "content": user},
         ],
         model=model,
         max_tokens=8192,
+        run_budget=run_budget,
     )
     return response.choices[0].message.content or ""
 
@@ -75,6 +77,7 @@ async def _run_single_review(
     provider: str,
     model_override: Optional[str] = None,
     on_log: Optional[Callable] = None,
+    run_budget: RunBudget | None = None,
 ) -> Optional[Dict[str, Any]]:
     """Run a single review agent role (claude, gemini, or grok)."""
     log = make_logger(on_log)
@@ -85,7 +88,7 @@ async def _run_single_review(
     model_name = normalize_model_id(model_override) or full_model
     try:
         log("info", f"  Reviewing with {model_name}...")
-        raw = await _call_review_model(REVIEW_SYSTEM, user_prompt, model=model_name)
+        raw = await _call_review_model(REVIEW_SYSTEM, user_prompt, model=model_name, run_budget=run_budget)
 
         try:
             review_data = _extract_json(raw)
@@ -105,6 +108,8 @@ async def _run_single_review(
             "flags": review_data.get("flags", []),
             "summary": review_data.get("summary", ""),
         }
+    except RunBudgetExceeded:
+        raise
     except Exception as exc:
         log("warning", f"  {provider} review failed: {exc}")
         return None
@@ -131,6 +136,7 @@ async def _verify_url(client: httpx.AsyncClient, url: str) -> Optional[str]:
 async def check_profile_links(
     race_json: Dict[str, Any],
     on_log: Optional[Callable] = None,
+    run_budget: RunBudget | None = None,
 ) -> Optional[Dict[str, Any]]:
     """Programmatically verify all source URLs in the profile."""
     log = make_logger(on_log)
@@ -167,7 +173,8 @@ async def check_profile_links(
 
     # Run link checks concurrently with a limit on concurrent requests
     sem = asyncio.Semaphore(10)
-    async with httpx.AsyncClient(timeout=5.0, follow_redirects=False) as client:
+    timeout = run_budget.bounded_timeout(5.0, minimum_seconds=2.0, operation="review link check") if run_budget else 5.0
+    async with httpx.AsyncClient(timeout=timeout, follow_redirects=False) as client:
 
         async def _check(url: str, path: str):
             async with sem:
@@ -238,6 +245,7 @@ async def run_reviews(
     gemini_model: Optional[str] = None,
     grok_model: Optional[str] = None,
     review_providers: Optional[List[str]] = None,
+    run_budget: RunBudget | None = None,
 ) -> List[Dict[str, Any]]:
     """Run review roles in parallel through OpenRouter."""
     import os
@@ -269,6 +277,7 @@ async def run_reviews(
                 provider=provider,
                 model_override=effective_model,
                 on_log=on_log,
+                run_budget=run_budget,
             )
         )
 
@@ -276,7 +285,7 @@ async def run_reviews(
     results_list = [r for r in results if r is not None]
 
     # Run the automated link checker and append the result
-    link_review = await check_profile_links(race_json, on_log=on_log)
+    link_review = await check_profile_links(race_json, on_log=on_log, run_budget=run_budget)
     if link_review is not None:
         results_list.append(link_review)
     results_list.append(check_profile_quality(race_json))

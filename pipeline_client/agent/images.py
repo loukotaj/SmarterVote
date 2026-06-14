@@ -10,6 +10,7 @@ from urllib.parse import quote, unquote, urljoin, urlparse
 import httpx
 
 from .ballotpedia import lookup_candidate_image as _ballotpedia_lookup
+from .run_budget import RunBudget, RunBudgetExceeded
 from .utils import make_logger
 
 logger = logging.getLogger("pipeline")
@@ -321,6 +322,7 @@ async def _resolve_single_image(
     max_iterations: int = 10,
     office: str = "",
     jurisdiction: str = "",
+    run_budget: RunBudget | None = None,
 ) -> None:
     """Validate and resolve image_url for a single candidate in-place."""
     log = make_logger(on_log)
@@ -423,6 +425,7 @@ async def _resolve_single_image(
             max_iterations=max_iterations,
             phase_name=f"image-{name[:20]}",
             max_tokens=2048,
+            run_budget=run_budget,
         )
         found_url = result.get("image_url")
         if not found_url:
@@ -454,6 +457,8 @@ async def _resolve_single_image(
         else:
             log("info", f"  [{name}] Agent URL failed validation (not a direct image file) — no image stored")
 
+    except RunBudgetExceeded:
+        raise
     except Exception as exc:
         log("warning", f"  [{name}] Image resolution error: {exc}")
 
@@ -467,6 +472,7 @@ async def resolve_candidate_images(
     race_id: Optional[str] = None,
     max_iterations: int = 10,
     on_progress: Optional[Callable[[int, str], None]] = None,
+    run_budget: RunBudget | None = None,
 ) -> None:
     """Validate and resolve image URLs for all candidates, running in parallel.
 
@@ -484,7 +490,7 @@ async def resolve_candidate_images(
 
     async def _resolve_with_progress(c: Dict[str, Any]) -> None:
         nonlocal done
-        await _resolve_single_image(
+        resolve_call = _resolve_single_image(
             c,
             agent_loop_fn=agent_loop_fn,
             model=model,
@@ -493,7 +499,13 @@ async def resolve_candidate_images(
             max_iterations=max_iterations,
             office=office,
             jurisdiction=jurisdiction,
+            run_budget=run_budget,
         )
+        if run_budget:
+            timeout = run_budget.bounded_timeout(60.0, minimum_seconds=5.0, operation="candidate image resolution")
+            await asyncio.wait_for(resolve_call, timeout=timeout)
+        else:
+            await resolve_call
         done += 1
         if on_progress:
             try:

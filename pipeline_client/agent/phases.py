@@ -5,6 +5,7 @@ update flow runners, and review-iteration logic.  Selection helpers live in
 ``selection.py``; patch/merge helpers live in ``patches.py``.
 """
 
+import asyncio
 import copy
 import json
 import logging
@@ -51,6 +52,7 @@ from .prompts import (
     UPDATE_META_SYSTEM,
     UPDATE_META_USER,
 )
+from .run_budget import RunBudget, RunBudgetExceeded
 from .selection import (  # noqa: F401 — re-exported for backward compat
     _candidate_info_score,
     _candidate_source_hints,
@@ -91,11 +93,28 @@ _INACTIVE_CANDIDATE_RE = re.compile(
 )
 MAX_RACE_CANDIDATES = 8
 _MAJOR_PARTY_KEYS = ("democratic", "republican")
-_CONTROL_FLOW_EXCEPTION_NAMES = {"AgentCancelled", "HandoffFailed", "HandoffTriggered"}
+_CONTROL_FLOW_EXCEPTION_NAMES = {"AgentCancelled", "HandoffFailed", "HandoffTriggered", "RunBudgetExceeded"}
 
 
 def _is_control_flow_exception(exc: Exception) -> bool:
     return exc.__class__.__name__ in _CONTROL_FLOW_EXCEPTION_NAMES
+
+
+async def _await_with_run_budget(
+    awaitable: Any,
+    *,
+    run_budget: RunBudget | None,
+    requested_timeout: float,
+    operation: str,
+) -> Any:
+    """Bound phase-level network helpers that do not receive RunBudget directly."""
+    if not run_budget:
+        return await awaitable
+    timeout = run_budget.bounded_timeout(requested_timeout, minimum_seconds=2.0, operation=operation)
+    try:
+        return await asyncio.wait_for(awaitable, timeout=timeout)
+    except asyncio.TimeoutError as exc:
+        raise RunBudgetExceeded(f"{operation} exceeded the remaining run budget") from exc
 
 
 def _candidate_name(candidate: Any) -> str:
@@ -416,13 +435,19 @@ async def _run_issue_research_for_candidate(
     on_issue_progress: Any | None = None,
     on_issue_checkpoint: Any | None = None,
     resume_partial: bool = False,
+    run_budget: RunBudget | None = None,
 ) -> None:
     """Run per-issue research for one candidate, mutating race_json in place."""
     log = make_logger(on_log)
     handlers = _make_editing_handlers(race_json, log)
     cache = _get_search_cache()
     cached_info = cache.list_cached_for_race(race_id) if cache else None
-    candidate_website, candidate_issue_urls = await _candidate_source_hints(race_json, candidate_name)
+    candidate_website, candidate_issue_urls = await _await_with_run_budget(
+        _candidate_source_hints(race_json, candidate_name),
+        run_budget=run_budget,
+        requested_timeout=20.0,
+        operation="candidate source hint crawl",
+    )
     issue_hint_text = ", ".join(candidate_issue_urls) if candidate_issue_urls else "(none found)"
 
     handoffs: List[Dict[str, Any]] = []
@@ -517,8 +542,11 @@ async def _run_issue_research_for_candidate(
                 extra_tools=ISSUE_TOOLS + [READ_PROFILE_TOOL],
                 extra_tool_handlers=handlers,
                 tools_mode=True,
+                run_budget=run_budget,
             )
         except RuntimeError as exc:
+            if _is_control_flow_exception(exc):
+                raise
             error_msg = str(exc)
             if "policy violation" in error_msg.lower():
                 log(
@@ -592,6 +620,7 @@ async def _run_shared_phases(
     refine_iters: int,
     log: Any,
     resume_partial: bool = False,
+    run_budget: RunBudget | None = None,
 ) -> None:
     """Run images, issues, finance, and refinement phases.
 
@@ -623,6 +652,7 @@ async def _run_shared_phases(
             race_id=race_id,
             max_iterations=min(max_iterations, 10),
             on_progress=_on_image_progress,
+            run_budget=run_budget,
         )
         track("complete", "images", duration_ms=int((time.perf_counter() - img_t0) * 1000), race_json=race_json)
     else:
@@ -684,6 +714,7 @@ async def _run_shared_phases(
                 on_issue_progress=_make_issue_tracker(),
                 on_issue_checkpoint=_make_issue_checkpoint(),
                 resume_partial=resume_partial,
+                run_budget=run_budget,
             )
         track("complete", "issues", duration_ms=int((time.perf_counter() - iss_t0) * 1000), race_json=race_json)
     else:
@@ -709,11 +740,14 @@ async def _run_shared_phases(
                 max_iterations=finance_iters,
                 phase_name=f"{'update-' if is_update else ''}finance-voting",
                 max_tokens=16384,
+                run_budget=run_budget,
             )
             if isinstance(finance_result, dict):
                 _apply_finance_patch(race_json, finance_result, log)
             else:
                 log("warning", "  Finance/voting phase returned non-dict — skipping")
+        except RunBudgetExceeded:
+            raise
         except Exception as exc:
             log("warning", f"  Finance/voting phase failed: {exc} — continuing without")
         track("complete", "finance", duration_ms=int((time.perf_counter() - fin_t0) * 1000), race_json=race_json)
@@ -732,7 +766,12 @@ async def _run_shared_phases(
         log("info", f"{prefix} 3: Refining profile (one candidate at a time, tools mode)...")
         for ci, candidate in enumerate(cand_list):
             cname = candidate["name"]
-            candidate_website, candidate_issue_urls = await _candidate_source_hints(race_json, cname)
+            candidate_website, candidate_issue_urls = await _await_with_run_budget(
+                _candidate_source_hints(race_json, cname),
+                run_budget=run_budget,
+                requested_timeout=20.0,
+                operation="candidate source hint crawl",
+            )
             issue_hint_text = ", ".join(candidate_issue_urls) if candidate_issue_urls else "(none found)"
             log("info", f"  Refining {cname}...")
             track(
@@ -764,7 +803,10 @@ async def _run_shared_phases(
                     extra_tools=CANDIDATE_TOOLS + ISSUE_TOOLS + RECORD_TOOLS + BACKGROUND_TOOLS + [READ_PROFILE_TOOL],
                     extra_tool_handlers=handlers,
                     tools_mode=True,
+                    run_budget=run_budget,
                 )
+            except RunBudgetExceeded:
+                raise
             except Exception as exc:
                 log("warning", f"  Refine failed for {cname}: {exc} — keeping existing")
 
@@ -787,7 +829,10 @@ async def _run_shared_phases(
                 extra_tools=RACE_TOOLS + [READ_PROFILE_TOOL],
                 extra_tool_handlers=handlers,
                 tools_mode=True,
+                run_budget=run_budget,
             )
+        except RunBudgetExceeded:
+            raise
         except Exception as exc:
             log("warning", f"  Refine meta failed: {exc} — keeping existing meta")
         track("complete", "refinement", duration_ms=int((time.perf_counter() - ref_t0) * 1000), race_json=race_json)
@@ -815,6 +860,7 @@ async def _run_fresh(
     target_candidate_names: Optional[List[str]] = None,
     goal: Optional[str] = None,
     resume_partial: bool = False,
+    run_budget: RunBudget | None = None,
 ) -> Dict[str, Any]:
     """Phase 1 → 2 → 3: Discovery → Issue research → Refinement."""
     log = make_logger(on_log)
@@ -837,12 +883,18 @@ async def _run_fresh(
             max_iterations=max_iterations,
             phase_name="discovery",
             max_tokens=16384,
+            run_budget=run_budget,
         ),
         "discovery",
         log,
     )
     _sanitize_roster(race_json, log)
-    await _sync_ballotpedia_roster(race_json, race_id, log)
+    await _await_with_run_budget(
+        _sync_ballotpedia_roster(race_json, race_id, log),
+        run_budget=run_budget,
+        requested_timeout=20.0,
+        operation="Ballotpedia roster sync",
+    )
     _sanitize_roster(race_json, log)
 
     candidate_names = [_candidate_name(c) for c in race_json.get("candidates", []) if _candidate_name(c)]
@@ -876,6 +928,7 @@ async def _run_fresh(
         refine_iters=refine_iters,
         log=log,
         resume_partial=resume_partial,
+        run_budget=run_budget,
     )
     _sanitize_roster(race_json, log)
 
@@ -903,6 +956,7 @@ async def _run_update(
     goal: Optional[str] = None,
     resume_partial: bool = False,
     roster_only: bool = False,
+    run_budget: RunBudget | None = None,
 ) -> Dict[str, Any]:
     """Phase-based update mirroring _run_fresh but starting from existing data."""
     log = make_logger(on_log)
@@ -914,7 +968,12 @@ async def _run_update(
     race_json: Dict[str, Any] = copy.deepcopy(existing)
     _backfill_source_timestamps(race_json)
     _sanitize_roster(race_json, log)
-    await _sync_ballotpedia_roster(race_json, race_id, log)
+    await _await_with_run_budget(
+        _sync_ballotpedia_roster(race_json, race_id, log),
+        run_budget=run_budget,
+        requested_timeout=20.0,
+        operation="Ballotpedia roster sync",
+    )
     _sanitize_roster(race_json, log)
 
     existing_candidates = race_json.get("candidates", [])
@@ -938,6 +997,7 @@ async def _run_update(
             target_no_info=target_no_info,
             target_candidate_names=target_candidate_names,
             resume_partial=resume_partial,
+            run_budget=run_budget,
         )
 
     refine_iters = _scale_iterations(max_iterations, n, per_candidate=2, minimum=12)
@@ -967,12 +1027,20 @@ async def _run_update(
                 extra_tools=ROSTER_TOOLS + [READ_PROFILE_TOOL],
                 extra_tool_handlers=handlers,
                 tools_mode=True,
+                run_budget=run_budget,
             )
+        except RunBudgetExceeded:
+            raise
         except Exception as exc:
             log("warning", f"  Roster sync failed: {exc} — keeping existing roster")
 
         _sanitize_roster(race_json, log)
-        await _sync_ballotpedia_roster(race_json, race_id, log)
+        await _await_with_run_budget(
+            _sync_ballotpedia_roster(race_json, race_id, log),
+            run_budget=run_budget,
+            requested_timeout=20.0,
+            operation="Ballotpedia roster sync",
+        )
         _sanitize_roster(race_json, log)
 
         # Roster verify: use the primary model (at least mini) to spot-check any
@@ -999,8 +1067,11 @@ async def _run_update(
                     extra_tools=[REMOVE_CANDIDATE_TOOL, READ_PROFILE_TOOL],
                     extra_tool_handlers=handlers,
                     tools_mode=True,
+                    run_budget=run_budget,
                 )
                 _sanitize_roster(race_json, log)
+            except RunBudgetExceeded:
+                raise
             except Exception as exc:
                 log("warning", f"  Roster verify failed: {exc} — keeping post-sync roster")
         else:
@@ -1026,6 +1097,7 @@ async def _run_update(
                 target_no_info=target_no_info,
                 target_candidate_names=target_candidate_names,
                 resume_partial=resume_partial,
+                run_budget=run_budget,
             )
 
         if roster_only:
@@ -1053,7 +1125,10 @@ async def _run_update(
                     extra_tools=RACE_TOOLS + CANDIDATE_TOOLS + RECORD_TOOLS + [READ_PROFILE_TOOL],
                     extra_tool_handlers=handlers,
                     tools_mode=True,
+                    run_budget=run_budget,
                 )
+            except RunBudgetExceeded:
+                raise
             except Exception as exc:
                 log("warning", f"  Update meta phase failed: {exc} — keeping existing meta")
 
@@ -1085,6 +1160,7 @@ async def _run_update(
         refine_iters=refine_iters,
         log=log,
         resume_partial=resume_partial,
+        run_budget=run_budget,
     )
     _sanitize_roster(race_json, log)
 
@@ -1141,6 +1217,7 @@ async def _run_iteration_pass(
     model: str,
     on_log: Any | None = None,
     max_iterations: int = 20,
+    run_budget: RunBudget | None = None,
 ) -> Optional[Dict[str, Any]]:
     """Run a single iteration pass addressing review flags (tools mode)."""
     log = make_logger(on_log)
@@ -1164,7 +1241,12 @@ async def _run_iteration_pass(
         if not isinstance(candidate, dict) or not _candidate_name(candidate):
             continue
         cname = _candidate_name(candidate)
-        candidate_website, candidate_issue_urls = await _candidate_source_hints(working, cname)
+        candidate_website, candidate_issue_urls = await _await_with_run_budget(
+            _candidate_source_hints(working, cname),
+            run_budget=run_budget,
+            requested_timeout=20.0,
+            operation="candidate source hint crawl",
+        )
         issue_hint_text = ", ".join(candidate_issue_urls) if candidate_issue_urls else "(none found)"
         log("info", f"  Iterating on {cname}...")
         try:
@@ -1188,8 +1270,11 @@ async def _run_iteration_pass(
                 extra_tools=all_tools,
                 extra_tool_handlers=handlers,
                 tools_mode=True,
+                run_budget=run_budget,
             )
             any_success = True
+        except RunBudgetExceeded:
+            raise
         except Exception as exc:
             log("warning", f"  Iteration failed for {cname}: {exc} — keeping existing")
 
@@ -1212,8 +1297,11 @@ async def _run_iteration_pass(
             extra_tools=RACE_TOOLS + [READ_PROFILE_TOOL],
             extra_tool_handlers=handlers,
             tools_mode=True,
+            run_budget=run_budget,
         )
         any_success = True
+    except RunBudgetExceeded:
+        raise
     except Exception as exc:
         log("warning", f"  Iteration meta failed: {exc} — keeping existing meta")
 
