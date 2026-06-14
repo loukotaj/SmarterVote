@@ -359,14 +359,47 @@ def _run_completed_at(data: Dict[str, Any]) -> datetime | None:
 def _pipeline_run_stats(db: Any) -> Dict[str, Dict[str, Any]]:
     """Aggregate run counts from canonical pipeline_runs docs for the races table."""
     stats: Dict[str, Dict[str, Any]] = {}
+    runs_ref = db.collection("pipeline_runs")
+    used_projection = False
     try:
-        docs = (
-            db.collection("pipeline_runs")
-            .select(["race_id", "status", "started_at", "completed_at", "updated_at", "payload.race_id"])
-            .stream()
-        )
+        selected_ref = runs_ref.select(["race_id", "status", "started_at", "completed_at", "updated_at", "payload.race_id"])
+        docs = selected_ref.stream()
+        used_projection = True
     except Exception as exc:
-        logging.warning("Failed to aggregate pipeline run counts: %s", exc)
+        logging.warning("Falling back to full pipeline_runs scan for run stats: %s", exc)
+        try:
+            docs = runs_ref.stream()
+        except Exception as fallback_exc:
+            logging.warning("Failed to aggregate pipeline run counts: %s", fallback_exc)
+            return stats
+
+    for doc in docs:
+        data = firestore_helpers._doc_to_plain(doc)
+        if not data:
+            continue
+        race_id = data.get("race_id")
+        if not race_id:
+            payload = data.get("payload")
+            if isinstance(payload, dict):
+                race_id = payload.get("race_id")
+        if not race_id:
+            continue
+        item = stats.setdefault(str(race_id), {"total_runs": 0})
+        item["total_runs"] += 1
+        completed_at = _run_completed_at(data)
+        existing_at = _coerce_datetime(item.get("last_run_at"))
+        if completed_at and (existing_at is None or completed_at > existing_at):
+            item["last_run_at"] = completed_at.isoformat()
+            item["last_run_id"] = data.get("run_id") or getattr(doc, "id", None)
+            item["last_run_status"] = data.get("status")
+
+    if stats or not used_projection:
+        return stats
+
+    try:
+        docs = runs_ref.stream()
+    except Exception as exc:
+        logging.warning("Failed full pipeline_runs fallback after empty projection: %s", exc)
         return stats
 
     for doc in docs:
