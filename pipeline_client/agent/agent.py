@@ -362,6 +362,7 @@ async def run_agent(
     candidate_names: Optional[List[str]] = None,
     goal: Optional[str] = None,
     resume_partial: bool = False,
+    continue_incomplete_work: bool = False,
     reject_empty_candidates: bool = False,
     prior_agent_metrics: Optional[Dict[str, Any]] = None,
     run_budget: RunBudget | None = None,
@@ -486,6 +487,7 @@ async def run_agent(
             target_candidate_names=candidate_names,
             goal=goal,
             resume_partial=resume_partial,
+            continue_incomplete_work=continue_incomplete_work,
             run_budget=run_budget,
         )
     else:
@@ -505,6 +507,7 @@ async def run_agent(
             target_candidate_names=candidate_names,
             goal=goal,
             resume_partial=resume_partial,
+            continue_incomplete_work=continue_incomplete_work,
             run_budget=run_budget,
         )
 
@@ -519,6 +522,18 @@ async def run_agent(
     race_json["updated_utc"] = now_iso
 
     should_review = _step_enabled("review")
+    pipeline_state = race_json.setdefault("pipeline_state", {})
+    pipeline_state.setdefault("complete", True)
+    pipeline_state.setdefault("remaining_candidates", [])
+    pipeline_state.setdefault("remaining_steps", [])
+    pipeline_state.setdefault("completed_units", [])
+    unfinished_research_steps = [step for step in pipeline_state["remaining_steps"] if step not in {"review", "iteration"}]
+    if should_review and unfinished_research_steps:
+        log(
+            "warning",
+            "Final review blocked because required pipeline work remains: " + ", ".join(unfinished_research_steps),
+        )
+        should_review = False
     should_iterate = should_review and _step_enabled("iteration")
 
     # Record the models actually used.
@@ -540,6 +555,18 @@ async def run_agent(
     _sanitize_roster(race_json, log)
     race_json.setdefault("polling", [])
     _normalize_schema_fields(race_json, log)
+
+    semantic_steps_ran = bool(_enabled & {"discovery", "images", "issues", "finance", "refinement", "iteration"})
+    if should_review:
+        pipeline_state["complete"] = True
+        pipeline_state["remaining_candidates"] = []
+        pipeline_state["remaining_steps"] = []
+    elif semantic_steps_ran:
+        pipeline_state["complete"] = False
+        if "review" not in pipeline_state["remaining_steps"]:
+            pipeline_state["remaining_steps"].append("review")
+        race_json["reviews"] = []
+        race_json["validation_grade"] = None
 
     if reject_empty_candidates and should_review and not race_json.get("candidates"):
         raise ValueError(
@@ -664,12 +691,12 @@ async def run_agent(
         else:
             _track("skip", "iteration")
     else:
-        race_json.setdefault("reviews", [])
+        race_json["reviews"] = []
         _track("skip", "review")
         _track("skip", "iteration")
 
     # Compute aggregate validation grade from review scores
-    grade = compute_validation_grade(race_json.get("reviews", []))
+    grade = compute_validation_grade(race_json.get("reviews", [])) if pipeline_state.get("complete") else None
     race_json["validation_grade"] = grade
 
     elapsed = time.perf_counter() - t0

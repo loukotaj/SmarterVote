@@ -252,6 +252,7 @@ You are a nonpartisan political research agent updating an existing race profile
 
 UPDATE_META_USER = """\
 Race: "{race_id}" — last updated {last_updated}
+Current date: {current_date}
 Candidates: {candidate_names}
 
 Search for NEW information since {last_updated}:
@@ -270,6 +271,10 @@ WHAT COUNTS AS "NEW" — be precise:
 - A summary is worth updating only if a notable new event changes the candidate's
   story — not if you could merely rephrase the existing text differently.
 - Do not update a field just to add minor wording polish.
+- Never search for, infer, or record the result of an election scheduled after
+  {current_date}. If a runoff or election is still upcoming, state that once
+  if relevant and continue with other research; do not repeatedly poll for a
+  future result.
 
 WHEN TO MAKE NO CHANGES:
 - If nothing meaningful has changed since {last_updated}, reply exactly:
@@ -760,6 +765,7 @@ still in the race, they stay in the profile regardless of data quality.
 
 ROSTER_SYNC_USER = """\
 Race: "{race_id}" — last updated {last_updated}
+Roster as-of date: {current_date}
 Current candidates in profile: {candidate_names}
 
 STEP 1 — Verify the COMPLETE current roster (not just changes):
@@ -788,6 +794,12 @@ IMPORTANT — remove_candidate rules:
 - If you're unsure whether someone has left the race, do NOT remove them.
 - After a party primary has concluded, include only that party's nominee in the
   general-election roster. Do NOT add defeated primary candidates.
+- Treat articles and candidate pages published before a completed primary as
+  historical evidence, not proof that the person remains active as of
+  {current_date}. Verify primary outcomes before adding anyone from an older
+  candidate list.
+- Never infer the result of an election scheduled after {current_date}. Keep all
+  verified runoff participants until that runoff has actually concluded.
 - Data corrections (wrong biography, bad sources, etc.) are handled in later
   pipeline phases — ignore them here.
 
@@ -822,21 +834,22 @@ sparse. If you are not sure, keep them.
 
 ROSTER_VERIFY_USER = """\
 Race: "{race_id}"
+Roster as-of date: {current_date}
 Candidates now in profile after roster sync: {candidate_names}
 Original candidates before sync: {original_names}
 
 Any candidates added during the sync that were NOT in the original list:
 {added_names}
 
-For each ADDED candidate (if any), do a quick verification:
+Audit EVERY listed candidate, not only newly added candidates:
 1. Use read_profile to see the current roster.
-2. Search for each added candidate by name + race to confirm they are real.
-3. If a candidate is clearly fake, a test entry, or cannot be verified as a
-   real declared candidate in this race, call remove_candidate with reason.
-4. If a candidate looks real (even if you can't find much), keep them.
-
-If no candidates were added during sync, confirm the roster looks correct and
-stop immediately without making any tool calls.
+2. Check completed primary results and current runoff/general-election status as
+   of {current_date}. Older campaign pages are not proof of current candidacy.
+3. Remove a candidate who verifiably lost a completed primary, withdrew, is
+   clearly fake, or cannot be verified as a real candidate in this race.
+4. Keep every verified active candidate, including all participants in a runoff
+   that has not yet occurred and qualified third-party candidates.
+5. Never infer the result of an election scheduled after {current_date}.
 
 When done, stop — do not produce any text reply."""
 

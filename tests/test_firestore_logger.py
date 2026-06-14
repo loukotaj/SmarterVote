@@ -87,16 +87,17 @@ def test_mark_failed(mock_db):
     assert "Something went wrong" in data["error"]
 
 
-def test_mark_continued(mock_db):
-    """mark_continued() sets status=continued with continuation run id."""
+def test_mark_handoff_keeps_logical_run_active(mock_db):
+    """mark_handoff() records an invocation transition without ending the run."""
     logger = FirestoreLogger("run-006")
-    logger.mark_continued("run-007")
+    logger.mark_handoff("queue-007")
 
     run_ref = mock_db.collection.return_value.document.return_value
     run_ref.set.assert_called_once()
     data = run_ref.set.call_args[0][0]
-    assert data["status"] == "continued"
-    assert data["continuation_run_id"] == "run-007"
+    assert data["status"] == "running"
+    assert data["continuation_item_id"] == "queue-007"
+    assert data["continuation_count"] is not None
 
 
 def test_get_db_falls_back_to_default_project_client():

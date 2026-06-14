@@ -108,6 +108,7 @@ def test_update_meta_user_formats():
         race_id="mo-senate-2024",
         candidate_names="Alice, Bob",
         last_updated="2024-01-01T00:00:00Z",
+        current_date="2026-06-14",
     )
     assert "mo-senate-2024" in result
     assert "2024-01-01" in result
@@ -135,6 +136,7 @@ def test_roster_sync_prompt_formats():
     result = ROSTER_SYNC_USER.format(
         race_id="ga-senate-2026",
         last_updated="2025-01-01T00:00:00Z",
+        current_date="2026-06-14",
         candidate_names="Alice, Bob",
     )
     assert "ga-senate-2026" in result
@@ -211,6 +213,7 @@ def test_update_prompt_mentions_donor_sources():
         race_id="mo-senate-2024",
         candidate_names="Alice, Bob",
         last_updated="2024-01-01T00:00:00Z",
+        current_date="2026-06-14",
     )
     assert "donor_summary" in result
     assert "donor_sources" in FINANCE_VOTING_USER

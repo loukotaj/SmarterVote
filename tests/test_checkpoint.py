@@ -250,8 +250,9 @@ async def test_handoff_raised_during_step_progress_when_deadline_exceeded():
     assert continuation_doc["options"]["enabled_steps"] == ["discovery", "issues"]
     assert "deadline_at" not in continuation_doc["options"]
     assert continuation_doc["existing_data_gcs_path"] == "gs://test-bucket/checkpoints/run-progress-handoff-test.json"
-    assert exc_info.value.continuation_run_id == continuation_doc["run_id"]
-    mock_fs_logger_cls.return_value.mark_continued.assert_called_with(continuation_doc["run_id"])
+    assert continuation_doc["run_id"] == "run-progress-handoff-test"
+    assert exc_info.value.continuation_run_id == "run-progress-handoff-test"
+    mock_fs_logger_cls.return_value.mark_handoff.assert_called_with(continuation_doc["id"])
 
 
 @pytest.mark.asyncio
@@ -300,8 +301,9 @@ async def test_handoff_raised_during_log_callback_when_deadline_exceeded():
     continuation_doc = queue_doc_ref.set.call_args.args[0]
     assert continuation_doc["options"]["enabled_steps"] == ["discovery", "issues"]
     assert continuation_doc["existing_data_gcs_path"] == "gs://test-bucket/checkpoints/run-log-handoff-test.json"
-    assert exc_info.value.continuation_run_id == continuation_doc["run_id"]
-    mock_fs_logger_cls.return_value.mark_continued.assert_called_with(continuation_doc["run_id"])
+    assert continuation_doc["run_id"] == "run-log-handoff-test"
+    assert exc_info.value.continuation_run_id == "run-log-handoff-test"
+    mock_fs_logger_cls.return_value.mark_handoff.assert_called_with(continuation_doc["id"])
 
 
 @pytest.mark.asyncio
@@ -348,15 +350,15 @@ async def test_handoff_writes_continuation_run_and_checkpoint_path():
 
     continuation_doc = queue_doc_ref.set.call_args.args[0]
     assert continuation_doc["race_id"] == "az-01-senate-2026"
-    assert continuation_doc["run_id"]
+    assert continuation_doc["run_id"] == "run-handoff-test"
     assert continuation_doc["is_continuation"] is True
-    assert continuation_doc["parent_run_id"] == "run-handoff-test"
+    assert continuation_doc["parent_queue_item_id"] is None
     assert continuation_doc["existing_data_gcs_path"] == "gs://test-bucket/checkpoints/run-handoff-test.json"
     assert continuation_doc["options"]["enabled_steps"] == ["issues"]
     assert continuation_doc["options"]["force_fresh"] is False
     assert "existing_data_gcs_path" not in continuation_doc["options"]
-    assert exc_info.value.continuation_run_id == continuation_doc["run_id"]
-    mock_fs_logger_cls.return_value.mark_continued.assert_called_with(continuation_doc["run_id"])
+    assert exc_info.value.continuation_run_id == "run-handoff-test"
+    mock_fs_logger_cls.return_value.mark_handoff.assert_called_with(continuation_doc["id"])
     mock_blob.upload_from_string.assert_called_once()
 
 
@@ -394,7 +396,7 @@ async def test_handoff_fails_if_continuation_queue_write_fails():
         with pytest.raises(RuntimeError, match="Failed to create continuation queue item"):
             await handler.handle(payload, options)
 
-    mock_fs_logger_cls.return_value.mark_continued.assert_not_called()
+    mock_fs_logger_cls.return_value.mark_handoff.assert_not_called()
 
 
 @pytest.mark.asyncio
@@ -432,7 +434,7 @@ async def test_cancelled_queue_item_does_not_handoff_after_deadline():
             await handler.handle(payload, options)
 
     queue_doc_ref.set.assert_not_called()
-    mock_fs_logger_cls.return_value.mark_continued.assert_not_called()
+    mock_fs_logger_cls.return_value.mark_handoff.assert_not_called()
 
 
 @pytest.mark.asyncio

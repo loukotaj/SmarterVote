@@ -149,6 +149,13 @@ export interface PollEntry {
   source_url?: string;
 }
 
+export interface PipelineState {
+  complete: boolean;
+  remaining_candidates: string[];
+  remaining_steps: string[];
+  completed_units: string[];
+}
+
 export interface Race {
   schema_version?: string;
   id: string;
@@ -166,6 +173,7 @@ export interface Race {
   polling_note?: string;
   reviews?: AgentReview[];
   validation_grade?: ValidationGrade;
+  pipeline_state?: PipelineState;
   agent_metrics?: AgentMetrics;
   ballotpedia_url?: string;
   register_to_vote_url?: string;

@@ -47,6 +47,35 @@ def test_pipeline_metrics_prefers_exact_provider_cost():
     assert _compute_metrics_summary([record])["total_usd"] == pytest.approx(0.0123)
 
 
+def test_collapse_continuation_chain_reports_one_logical_run():
+    from routers.runs import _collapse_continuation_chains
+
+    runs = [
+        {
+            "run_id": "run-root",
+            "status": "continued",
+            "started_at": "2026-06-14T20:00:00+00:00",
+            "continued_at": "2026-06-14T20:08:00+00:00",
+            "continuation_run_id": "run-child",
+        },
+        {
+            "run_id": "run-child",
+            "status": "completed",
+            "started_at": "2026-06-14T20:08:01+00:00",
+            "completed_at": "2026-06-14T20:12:00+00:00",
+        },
+    ]
+
+    collapsed = _collapse_continuation_chains(runs)
+
+    assert len(collapsed) == 1
+    assert collapsed[0]["run_id"] == "run-child"
+    assert collapsed[0]["logical_run_id"] == "run-root"
+    assert collapsed[0]["status"] == "completed"
+    assert collapsed[0]["continuation_count"] == 1
+    assert collapsed[0]["duration_ms"] == 12 * 60 * 1000
+
+
 # ---------------------------------------------------------------------------
 # Fixtures
 # ---------------------------------------------------------------------------
@@ -2279,6 +2308,20 @@ def test_gcs_publish_helper_rejects_failed_validation_grade():
     mock_archive.assert_not_called()
     mock_put.assert_not_called()
     mock_delete.assert_not_called()
+
+
+def test_gcs_publish_helper_rejects_incomplete_pipeline_state():
+    incomplete_race = {
+        "id": "nh-senate-2026",
+        "pipeline_state": {
+            "complete": False,
+            "remaining_candidates": ["Alice"],
+            "remaining_steps": ["issues", "review"],
+        },
+    }
+
+    with pytest.raises(ValueError, match="operationally incomplete"):
+        gcs_helpers.publish_race_to_gcs("nh-senate-2026", incomplete_race)
 
 
 def test_summary_index_retries_concurrent_write():

@@ -1,6 +1,13 @@
-"""Candidate selection and source-hint helpers for phase orchestration."""
+"""Candidate work planning and source-hint helpers for phase orchestration."""
 
+from dataclasses import dataclass
 from typing import Any, Dict, List, Optional
+
+
+@dataclass(frozen=True)
+class CandidateWorkPlan:
+    selected: List[str]
+    deferred: List[str]
 
 
 def _scale_iterations(base: int, n_candidates: int, per_candidate: int, minimum: int = 12) -> int:
@@ -26,13 +33,31 @@ def _select_candidates_for_research(
     target_no_info: bool,
     log: Any,
 ) -> List[str]:
-    """Return the (possibly truncated) list of candidates to research.
+    """Compatibility wrapper returning the selected candidate batch."""
+    return plan_candidate_work(
+        candidate_names,
+        race_json,
+        max_candidates=max_candidates,
+        target_no_info=target_no_info,
+        log=log,
+    ).selected
+
+
+def plan_candidate_work(
+    candidate_names: List[str],
+    race_json: Dict[str, Any],
+    *,
+    max_candidates: Optional[int],
+    target_no_info: bool,
+    log: Any,
+) -> CandidateWorkPlan:
+    """Create a bounded candidate batch without deleting deferred candidates.
 
     Sorts candidates by existing info density.  When *target_no_info* is True
     the least-informed candidates come first; otherwise the most-informed do.
     """
     if max_candidates is None and not target_no_info:
-        return candidate_names
+        return CandidateWorkPlan(selected=list(candidate_names), deferred=[])
 
     cand_by_name: Dict[str, Dict[str, Any]] = {
         str(c.get("name")).strip(): c
@@ -43,14 +68,15 @@ def _select_candidates_for_research(
     scored.sort(key=lambda t: t[1], reverse=not target_no_info)
 
     selected = [name for name, _ in scored]
+    deferred: List[str] = []
     if max_candidates is not None and max_candidates < len(selected):
-        skipped = selected[max_candidates:]
+        deferred = selected[max_candidates:]
         selected = selected[:max_candidates]
         log(
             "info",
-            f"  Candidate limit: researching {len(selected)} of {len(candidate_names)} " f"(skipped: {', '.join(skipped)})",
+            f"  Candidate batch: researching {len(selected)} of {len(candidate_names)} " f"(deferred: {', '.join(deferred)})",
         )
-    return selected
+    return CandidateWorkPlan(selected=selected, deferred=deferred)
 
 
 def _select_target_candidates(

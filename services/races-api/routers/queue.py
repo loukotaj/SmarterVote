@@ -80,11 +80,13 @@ def _self_heal_stale_active_race(db: Any, race_id: str, race_data: Dict[str, Any
 
 def _normalize_continuation_ancestors(items: list[Dict[str, Any]]) -> list[Dict[str, Any]]:
     """Do not report parent queue items as active after a continuation exists."""
+    parent_item_ids = {item.get("parent_queue_item_id") for item in items if item.get("parent_queue_item_id")}
     parent_run_ids = {item.get("parent_run_id") for item in items if item.get("parent_run_id")}
     normalized = []
     for item in items:
         next_item = dict(item)
-        if next_item.get("run_id") in parent_run_ids and next_item.get("status") in ("pending", "running"):
+        is_parent = next_item.get("id") in parent_item_ids or next_item.get("run_id") in parent_run_ids
+        if is_parent and next_item.get("status") in ("pending", "running"):
             next_item["status"] = "continued"
         normalized.append(next_item)
     return normalized

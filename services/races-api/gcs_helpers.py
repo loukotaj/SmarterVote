@@ -241,6 +241,11 @@ def update_gcs_summaries_json(updates: Dict[str, Optional[Dict[str, Any]]], max_
 
 def _assert_publishable_race(data: Dict[str, Any]) -> None:
     """Block publishing data that the review gate explicitly failed."""
+    pipeline_state = data.get("pipeline_state")
+    if isinstance(pipeline_state, dict) and pipeline_state.get("complete") is False:
+        remaining = pipeline_state.get("remaining_steps") or []
+        detail = f" Remaining steps: {', '.join(str(step) for step in remaining)}." if remaining else ""
+        raise ValueError(f"Race draft is operationally incomplete and cannot be published.{detail}")
     validation_grade = data.get("validation_grade")
     if not isinstance(validation_grade, dict):
         return

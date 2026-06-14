@@ -111,6 +111,7 @@ class AgentHandler:
         then passes a step_tracker to the agent so phases report back directly.
         """
         from pipeline_client.agent.agent import run_agent
+        from pipeline_client.agent.phases import PipelineWorkRemaining
         from pipeline_client.agent.run_budget import RunBudget, RunBudgetExceeded
         from pipeline_client.backend.models import ALL_STEPS, STEP_LABELS, STEP_WEIGHTS, PipelineStep, RunStatus
 
@@ -402,7 +403,7 @@ class AgentHandler:
             from pipeline_client.backend.settings import settings
 
             item_id = uuid.uuid4().hex[:8]
-            continuation_run_id = str(uuid.uuid4())
+            continuation_run_id = current_run_id
             checkpoint_gcs_path: Optional[str] = None
 
             # Try to save the latest race_json to GCS as a checkpoint
@@ -434,7 +435,8 @@ class AgentHandler:
                 continuation_options["enabled_steps"] = remaining
                 continuation_options["is_continuation"] = True
                 continuation_options["force_fresh"] = False
-                continuation_options["parent_run_id"] = current_run_id
+                continuation_options["logical_run_id"] = current_run_id
+                continuation_options["run_id"] = current_run_id
                 continuation_options.pop("deadline_at", None)
                 from pipeline_client.agent.cost import _cost_ctx
 
@@ -468,7 +470,7 @@ class AgentHandler:
                         "options": continuation_options,
                         "created_at": datetime.now(timezone.utc).isoformat(),
                         "is_continuation": True,
-                        "parent_run_id": current_run_id,
+                        "parent_queue_item_id": queue_item_id,
                         "existing_data_gcs_path": checkpoint_gcs_path,
                     }
                 )
@@ -479,9 +481,9 @@ class AgentHandler:
             if not wrote_continuation:
                 raise HandoffFailed("Failed to create continuation queue item")
 
-            # Mark current run as continued in Firestore
+            # Keep one logical run active across physical function invocations.
             if _fs_logger:
-                _fs_logger.mark_continued(continuation_run_id)
+                _fs_logger.mark_handoff(item_id)
 
             raise HandoffTriggered(item_id, remaining, continuation_run_id)
 
@@ -531,16 +533,22 @@ class AgentHandler:
                 candidate_names=options.get("candidate_names"),
                 goal=options.get("goal"),
                 resume_partial=bool(options.get("is_continuation")),
+                continue_incomplete_work=True,
                 reject_empty_candidates=True,
                 prior_agent_metrics=options.get("prior_agent_metrics"),
                 run_budget=run_budget,
             )
-        except RunBudgetExceeded as exc:
+        except (RunBudgetExceeded, PipelineWorkRemaining) as exc:
             from pipeline_client.agent.cost import record_retry_metric
 
-            record_retry_metric("deadline_exits")
-            logger.warning("Run budget exhausted: %s", exc)
-            _maybe_handoff("before run budget exhaustion", step=_current_step, pct=0, force=True)
+            if isinstance(exc, RunBudgetExceeded):
+                record_retry_metric("deadline_exits")
+                logger.warning("Run budget exhausted: %s", exc)
+                reason = "before run budget exhaustion"
+            else:
+                logger.info("Durable pipeline work remains: %s", exc)
+                reason = "for remaining durable work"
+            _maybe_handoff(reason, step=_current_step, pct=0, force=True)
             raise
 
         # Update checkpoint holder so handoff (if somehow triggered post-agent) has latest data

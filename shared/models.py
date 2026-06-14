@@ -266,6 +266,15 @@ class PollEntry(BaseModel):
 # ---------------------------------------------------------------------------
 
 
+class PipelineState(BaseModel):
+    """Draft-only progress state for batched research runs."""
+
+    complete: bool = True
+    remaining_candidates: List[str] = Field(default_factory=list)
+    remaining_steps: List[str] = Field(default_factory=list)
+    completed_units: List[str] = Field(default_factory=list)
+
+
 class RaceJSON(BaseModel):
     """RaceJSON v0.3 — Final output format."""
 
@@ -304,3 +313,4 @@ class RaceJSON(BaseModel):
     # Multi-LLM reviews
     reviews: List[AgentReview] = Field(default_factory=list)
     validation_grade: Optional[ValidationGrade] = None
+    pipeline_state: Optional[PipelineState] = None

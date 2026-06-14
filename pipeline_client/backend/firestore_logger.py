@@ -165,19 +165,22 @@ class FirestoreLogger:
         except Exception as exc:
             logger.debug("FirestoreLogger.mark_failed failed: %s", exc)
 
-    def mark_continued(self, continuation_run_id: str) -> None:
-        """Mark run as continued (handed off to a new CF invocation)."""
+    def mark_handoff(self, continuation_item_id: str) -> None:
+        """Record an invocation handoff while keeping the logical run active."""
         db = _get_db()
         if db is None:
             return
         try:
+            from google.cloud.firestore_v1 import Increment  # type: ignore
+
             db.collection("pipeline_runs").document(self.run_id).set(
                 {
-                    "status": "continued",
-                    "continuation_run_id": continuation_run_id,
-                    "continued_at": datetime.now(timezone.utc).isoformat(),
+                    "status": "running",
+                    "continuation_item_id": continuation_item_id,
+                    "continuation_count": Increment(1),
+                    "handoff_at": datetime.now(timezone.utc).isoformat(),
                 },
                 merge=True,
             )
         except Exception as exc:
-            logger.debug("FirestoreLogger.mark_continued failed: %s", exc)
+            logger.debug("FirestoreLogger.mark_handoff failed: %s", exc)

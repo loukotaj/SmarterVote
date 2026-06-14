@@ -82,6 +82,8 @@ def _set_race_if_current(db: Any, race_id: str, run_id: str, update: Dict[str, A
             current_run_id,
         )
         return False
+    update = dict(update)
+    update.setdefault("race_id", race_id)
     race_ref.set(update, merge=True)
     return True
 
@@ -174,7 +176,7 @@ def process_queue_item(cloud_event: CloudEvent) -> None:
 
     # Update race record
     db.collection("races").document(race_id).set(
-        {"status": "running", "current_run_id": run_id},
+        {"status": "running", "current_run_id": run_id, "race_id": race_id},
         merge=True,
     )
 
@@ -232,10 +234,10 @@ def process_queue_item(cloud_event: CloudEvent) -> None:
                 )
             return
         item_ref.update({"status": "continued", "continuation_item_id": exc.continuation_item_id})
-        continuation_run_id = getattr(exc, "continuation_run_id", None) or exc.continuation_item_id
+        continuation_run_id = getattr(exc, "continuation_run_id", None) or run_id
         run_ref.update(
             {
-                "status": "continued",
+                "status": "running",
                 "continuation_item_id": exc.continuation_item_id,
                 "continuation_run_id": continuation_run_id,
             }

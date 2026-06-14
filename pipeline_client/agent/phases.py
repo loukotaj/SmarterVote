@@ -9,8 +9,10 @@ import asyncio
 import copy
 import json
 import logging
+import os
 import re
 import time
+from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 
 logger = logging.getLogger("pipeline")
@@ -57,8 +59,8 @@ from .selection import (  # noqa: F401 — re-exported for backward compat
     _candidate_info_score,
     _candidate_source_hints,
     _scale_iterations,
-    _select_candidates_for_research,
     _select_target_candidates,
+    plan_candidate_work,
 )
 from .tools import (
     BACKGROUND_TOOLS,
@@ -91,14 +93,17 @@ _INACTIVE_CANDIDATE_RE = re.compile(
     r"eliminated in (?:the )?(?:democratic|republican|gop)? ?primary)\b",
     re.IGNORECASE,
 )
-_GENERAL_ELECTION_SIGNAL_RE = re.compile(
-    r"\b(nominee|won (?:the )?(?:democratic|republican|gop)? ?primary|"
-    r"advanced to (?:the )?general(?: election)?|general election)\b",
-    re.IGNORECASE,
-)
-MAX_RACE_CANDIDATES = 8
-_MAJOR_PARTY_KEYS = ("democratic", "republican")
-_CONTROL_FLOW_EXCEPTION_NAMES = {"AgentCancelled", "HandoffFailed", "HandoffTriggered", "RunBudgetExceeded"}
+_CONTROL_FLOW_EXCEPTION_NAMES = {
+    "AgentCancelled",
+    "HandoffFailed",
+    "HandoffTriggered",
+    "PipelineWorkRemaining",
+    "RunBudgetExceeded",
+}
+
+
+class PipelineWorkRemaining(RuntimeError):
+    """Signal that durable work units remain and a continuation is required."""
 
 
 def _is_control_flow_exception(exc: Exception) -> bool:
@@ -225,55 +230,6 @@ def _remove_inactive_candidates(race_json: Dict[str, Any], log: Any | None = Non
             log("warning", "Removed inactive candidates from discovery roster: " + ", ".join(removed))
 
 
-def _candidate_party_key(candidate: Dict[str, Any]) -> str:
-    """Normalize common party labels for roster balancing."""
-    party = str(candidate.get("party") or "").lower()
-    if "democrat" in party:
-        return "democratic"
-    if "republican" in party or party == "gop":
-        return "republican"
-    return "other"
-
-
-def _candidate_cap_priority(candidate: Any) -> int:
-    """Rank likely general-election candidates ahead of low-signal entries."""
-    if not isinstance(candidate, dict):
-        return 0
-
-    score = 0
-    if candidate.get("incumbent") is True:
-        score += 40
-
-    text = _candidate_roster_text(candidate)
-    if _GENERAL_ELECTION_SIGNAL_RE.search(text):
-        score += 30
-
-    if isinstance(candidate.get("summary"), str) and candidate.get("summary", "").strip():
-        score += 10
-
-    issues = candidate.get("issues")
-    if isinstance(issues, dict):
-        populated_issues = sum(
-            1
-            for issue in issues.values()
-            if isinstance(issue, dict)
-            and str(issue.get("stance") or "").strip() not in {"", "MISSING", "No public position found"}
-        )
-        score += min(populated_issues, 5)
-
-    links = candidate.get("links")
-    if isinstance(links, list):
-        score += min(len(links), 5)
-
-    return score
-
-
-def _rank_candidates_for_cap(candidates: List[Any]) -> List[Any]:
-    indexed = list(enumerate(candidates))
-    indexed.sort(key=lambda item: (-_candidate_cap_priority(item[1]), item[0]))
-    return [candidate for _, candidate in indexed]
-
-
 def _norm_name_for_match(name: str) -> str:
     return re.sub(r"[^a-z0-9]+", " ", name.lower()).strip()
 
@@ -356,61 +312,6 @@ async def _sync_ballotpedia_roster(race_json: Dict[str, Any], race_id: str, log:
             _reconcile_candidates_with_authoritative_roster(race_json, authoritative, log)
 
 
-def _select_capped_candidates(candidates: List[Any], limit: int) -> List[Any]:
-    """Select a bounded roster while avoiding one crowded primary field dominating."""
-    if len(candidates) <= limit:
-        return candidates
-
-    buckets: Dict[str, List[Any]] = {"democratic": [], "republican": [], "other": []}
-    for candidate in candidates:
-        if isinstance(candidate, dict):
-            buckets[_candidate_party_key(candidate)].append(candidate)
-        else:
-            buckets["other"].append(candidate)
-
-    if all(buckets[key] for key in _MAJOR_PARTY_KEYS):
-        per_major_party = max(1, limit // len(_MAJOR_PARTY_KEYS))
-        ranked_democratic = _rank_candidates_for_cap(buckets["democratic"])
-        ranked_republican = _rank_candidates_for_cap(buckets["republican"])
-        selected = ranked_democratic[:per_major_party] + ranked_republican[:per_major_party]
-        selected_ids = {id(candidate) for candidate in selected}
-        for candidate in _rank_candidates_for_cap(candidates):
-            if len(selected) >= limit:
-                break
-            if id(candidate) not in selected_ids:
-                selected.append(candidate)
-                selected_ids.add(id(candidate))
-        selected_ids = {id(candidate) for candidate in selected[:limit]}
-        return [candidate for candidate in candidates if id(candidate) in selected_ids][:limit]
-
-    selected_ids = {id(candidate) for candidate in _rank_candidates_for_cap(candidates)[:limit]}
-    return [candidate for candidate in candidates if id(candidate) in selected_ids][:limit]
-
-
-def _enforce_candidate_cap(race_json: Dict[str, Any], log: Any | None = None, *, limit: int = MAX_RACE_CANDIDATES) -> None:
-    """Keep race profiles bounded until primary-specific race modeling exists."""
-    candidates = race_json.get("candidates")
-    if not isinstance(candidates, list) or len(candidates) <= limit:
-        return
-
-    kept = _select_capped_candidates(candidates, limit)
-    kept_ids = {id(candidate) for candidate in kept}
-    dropped = [candidate for candidate in candidates if id(candidate) not in kept_ids]
-    race_json["candidates"] = kept
-    dropped_names = [str(c.get("name") or "unknown") for c in dropped if isinstance(c, dict)]
-    race_json["candidate_limit_note"] = (
-        f"Candidate list capped at {limit} active candidates for this race. "
-        "Selection is balanced across major-party fields where possible; future primary-specific race pages should split "
-        "large primary fields."
-    )
-    if log:
-        log(
-            "warning",
-            f"Candidate roster capped at {limit}; skipped {len(dropped)} candidates"
-            + (f": {', '.join(dropped_names)}" if dropped_names else ""),
-        )
-
-
 def _backfill_source_timestamps(race_json: Dict[str, Any]) -> None:
     """Backfill missing last_accessed on legacy source objects loaded from checkpoints.
 
@@ -441,7 +342,26 @@ def _sanitize_roster(race_json: Dict[str, Any], log: Any | None = None) -> None:
     _normalize_candidate_entries(race_json, log)
     _remove_ineligible_officeholders(race_json, log)
     _remove_inactive_candidates(race_json, log)
-    _enforce_candidate_cap(race_json, log)
+    race_json.pop("candidate_limit_note", None)
+
+
+def _pipeline_completed_units(race_json: Dict[str, Any]) -> set[str]:
+    state = race_json.get("pipeline_state")
+    if not isinstance(state, dict):
+        state = {}
+        race_json["pipeline_state"] = state
+    units = state.get("completed_units")
+    if not isinstance(units, list):
+        units = []
+        state["completed_units"] = units
+    return {str(unit) for unit in units}
+
+
+def _mark_pipeline_unit_complete(race_json: Dict[str, Any], unit: str) -> None:
+    state = race_json.setdefault("pipeline_state", {})
+    units = state.setdefault("completed_units", [])
+    if unit not in units:
+        units.append(unit)
 
 
 def _build_handoff_context(
@@ -643,6 +563,105 @@ async def _run_issue_research_for_candidate(
                 logger.debug("Issue checkpoint callback failed: %s", _e)
 
 
+async def _research_issue_unit(
+    candidate_name: str,
+    issue: str,
+    candidate_snapshot: Dict[str, Any],
+    *,
+    race_id: str,
+    model: str,
+    on_log: Any,
+    max_iterations: int,
+    is_update: bool,
+    last_updated: str,
+    candidate_website: str,
+    candidate_issue_urls: List[str],
+    run_budget: RunBudget | None,
+) -> Dict[str, Any] | None:
+    """Research one issue against an isolated candidate copy and return its patch."""
+    local_race = {"candidates": [copy.deepcopy(candidate_snapshot)]}
+    log = make_logger(on_log)
+    handlers = _make_editing_handlers(local_race, log)
+    existing_issue_data = candidate_snapshot.get("issues", {}).get(issue)
+    existing_stance = "  MISSING — no existing stance"
+    if isinstance(existing_issue_data, dict):
+        existing_stance = (
+            f"  Stance: {existing_issue_data.get('stance', '?')}\n"
+            f"  Confidence: {existing_issue_data.get('confidence', '?')}\n"
+            f"  Sources: {json.dumps(existing_issue_data.get('sources', []))}"
+        )
+    prior_stances = [
+        {
+            "issue": prior_issue,
+            "stance": data.get("stance", "(not set)"),
+            "confidence": data.get("confidence", "?"),
+        }
+        for prior_issue, data in candidate_snapshot.get("issues", {}).items()
+        if prior_issue != issue and isinstance(data, dict)
+    ]
+    handoff_context = _build_handoff_context(prior_stances, None)
+    issue_hint_text = ", ".join(candidate_issue_urls) if candidate_issue_urls else "(none found)"
+
+    if is_update:
+        system_prompt = UPDATE_ISSUE_SUBAGENT_SYSTEM
+        user_prompt = UPDATE_ISSUE_SUBAGENT_USER.format(
+            candidate_name=candidate_name,
+            race_id=race_id,
+            issue=issue,
+            last_updated=last_updated,
+            existing_stance=existing_stance,
+            handoff_context=handoff_context,
+            candidate_website=candidate_website,
+            candidate_issue_urls=issue_hint_text,
+        )
+    else:
+        system_prompt = ISSUE_SUBAGENT_SYSTEM
+        user_prompt = ISSUE_SUBAGENT_USER.format(
+            candidate_name=candidate_name,
+            race_id=race_id,
+            issue=issue,
+            handoff_context=handoff_context,
+            candidate_website=candidate_website,
+            candidate_issue_urls=issue_hint_text,
+        )
+
+    try:
+        await _agent_loop(
+            system_prompt,
+            user_prompt,
+            model=model,
+            on_log=on_log,
+            race_id=race_id,
+            max_iterations=min(max_iterations, 10),
+            phase_name=f"issue-{candidate_name[:15]}-{issue[:15]}",
+            max_tokens=4096,
+            extra_tools=ISSUE_TOOLS + [READ_PROFILE_TOOL],
+            extra_tool_handlers=handlers,
+            tools_mode=True,
+            run_budget=run_budget,
+        )
+    except RunBudgetExceeded:
+        raise
+    except RuntimeError as exc:
+        if _is_control_flow_exception(exc):
+            raise
+        if "policy violation" in str(exc).lower():
+            return {
+                "stance": "No public position found (research blocked by content policy)",
+                "confidence": "low",
+                "sources": [],
+            }
+        log("warning", f"    Issue sub-agent failed for {candidate_name}/{issue}: {exc}")
+    except Exception as exc:
+        if _is_control_flow_exception(exc):
+            raise
+        log("warning", f"    Issue sub-agent failed for {candidate_name}/{issue}: {exc}")
+
+    candidate = local_race["candidates"][0]
+    result = candidate.get("issues", {}).get(issue)
+    return copy.deepcopy(result) if isinstance(result, dict) else None
+
+
 # ---------------------------------------------------------------------------
 # Shared phase runner — images → issues → finance → refinement
 # ---------------------------------------------------------------------------
@@ -667,6 +686,7 @@ async def _run_shared_phases(
     refine_iters: int,
     log: Any,
     resume_partial: bool = False,
+    continue_incomplete_work: bool = False,
     run_budget: RunBudget | None = None,
 ) -> None:
     """Run images, issues, finance, and refinement phases.
@@ -710,59 +730,152 @@ async def _run_shared_phases(
     if step_enabled("issues"):
         track("start", "issues")
         iss_t0 = time.perf_counter()
-        research_names = _select_candidates_for_research(
-            candidate_names,
+        completed_units = _pipeline_completed_units(race_json)
+        if not resume_partial:
+            completed_units = {unit for unit in completed_units if not unit.startswith("issues:")}
+            race_json["pipeline_state"]["completed_units"] = sorted(completed_units)
+        pending_candidate_names = [
+            name
+            for name in candidate_names
+            if not all(f"issues:{name}:{issue}" in completed_units for issue in CANONICAL_ISSUES)
+        ]
+        work_plan = plan_candidate_work(
+            pending_candidate_names,
             race_json,
             max_candidates=max_candidates,
             target_no_info=target_no_info,
             log=log,
         )
+        research_names = work_plan.selected
+        pipeline_state = race_json.setdefault("pipeline_state", {})
+        pipeline_state["remaining_candidates"] = work_plan.deferred
+        pipeline_state["remaining_steps"] = ["issues"] if work_plan.deferred else []
+        pipeline_state["complete"] = not work_plan.deferred
         rn = len(research_names)
         n_issues = len(CANONICAL_ISSUES)
         total_units = max(rn * n_issues, 1)
+        configured_concurrency = int(os.getenv("PIPELINE_ISSUE_CONCURRENCY", "3"))
+        issue_concurrency = max(1, min(configured_concurrency, 8))
+        semaphore = asyncio.Semaphore(issue_concurrency)
+        candidates_by_name = {
+            str(candidate.get("name")): candidate
+            for candidate in race_json.get("candidates", [])
+            if isinstance(candidate, dict) and candidate.get("name")
+        }
+        completed_count = 0
+        tasks: List[asyncio.Task] = []
         log("info", f"{prefix} 2: Researching issues for {rn} candidates ({n_issues} issues each)...")
+
         for ci, cand_name in enumerate(research_names):
-            log("info", f"  {'Updating' if is_update else 'Researching'} issues for {cand_name}...")
-
-            def _make_issue_tracker(ci=ci, cand_name=cand_name):
-                def _on_issue(issue_idx: int, issue: str) -> None:
-                    combined_pct = int((ci * n_issues + issue_idx) / total_units * 100)
+            candidate = candidates_by_name.get(cand_name)
+            if not candidate:
+                continue
+            candidate_website, candidate_issue_urls = await _await_with_run_budget(
+                _candidate_source_hints(race_json, cand_name),
+                run_budget=run_budget,
+                requested_timeout=20.0,
+                operation="candidate source hint crawl",
+            )
+            for issue_idx, issue in enumerate(CANONICAL_ISSUES):
+                unit_id = f"issues:{cand_name}:{issue}"
+                existing_issue = candidate.get("issues", {}).get(issue)
+                if unit_id in completed_units or (resume_partial and isinstance(existing_issue, dict)):
+                    _mark_pipeline_unit_complete(race_json, unit_id)
+                    completed_units.add(unit_id)
+                    completed_count += 1
                     track(
                         "progress",
                         "issues",
-                        pct=combined_pct,
-                        message=f"Issues · {cand_name} ({ci + 1}/{rn}) · {issue} ({issue_idx + 1}/{n_issues})",
-                    )
-
-                return _on_issue
-
-            def _make_issue_checkpoint(ci=ci, cand_name=cand_name):
-                def _on_issue_checkpoint(issue_idx: int, issue: str) -> None:
-                    combined_pct = int((ci * n_issues + issue_idx + 1) / total_units * 100)
-                    track(
-                        "progress",
-                        "issues",
-                        pct=combined_pct,
-                        message=f"Issues checkpoint - {cand_name} ({ci + 1}/{rn}) - {issue} ({issue_idx + 1}/{n_issues})",
+                        pct=int(completed_count / total_units * 100),
+                        message=(
+                            f"Issues checkpoint - {cand_name} ({ci + 1}/{rn}) - " f"{issue} ({issue_idx + 1}/{n_issues})"
+                        ),
                         race_json=race_json,
                     )
+                    continue
 
-                return _on_issue_checkpoint
+                async def _run_unit(
+                    candidate_name: str = cand_name,
+                    issue_name: str = issue,
+                    candidate_index: int = ci,
+                    canonical_issue_index: int = issue_idx,
+                    candidate_data: Dict[str, Any] = copy.deepcopy(candidate),
+                    website: str = candidate_website,
+                    issue_urls: List[str] = list(candidate_issue_urls),
+                ) -> tuple[str, str, int, int, Dict[str, Any] | None]:
+                    async with semaphore:
+                        track(
+                            "progress",
+                            "issues",
+                            pct=int(completed_count / total_units * 100),
+                            message=(
+                                f"Issues · {candidate_name} ({candidate_index + 1}/{rn}) · "
+                                f"{issue_name} ({canonical_issue_index + 1}/{n_issues})"
+                            ),
+                        )
+                        log(
+                            "info",
+                            f"    Issue {canonical_issue_index + 1}/{n_issues}: " f"{candidate_name} / {issue_name}",
+                        )
+                        patch = await _research_issue_unit(
+                            candidate_name,
+                            issue_name,
+                            candidate_data,
+                            race_id=race_id,
+                            model=small_model,
+                            on_log=on_log,
+                            max_iterations=max_iterations,
+                            is_update=is_update,
+                            last_updated=last_updated,
+                            candidate_website=website,
+                            candidate_issue_urls=issue_urls,
+                            run_budget=run_budget,
+                        )
+                        return candidate_name, issue_name, candidate_index, canonical_issue_index, patch
 
-            await _run_issue_research_for_candidate(
-                cand_name,
-                race_json,
-                race_id=race_id,
-                model=small_model,
-                on_log=on_log,
-                max_iterations=max_iterations,
-                is_update=is_update,
-                last_updated=last_updated,
-                on_issue_progress=_make_issue_tracker(),
-                on_issue_checkpoint=_make_issue_checkpoint(),
-                resume_partial=resume_partial,
-                run_budget=run_budget,
+                tasks.append(asyncio.create_task(_run_unit()))
+
+        try:
+            for completed_task in asyncio.as_completed(tasks):
+                cand_name, issue, ci, issue_idx, issue_patch = await completed_task
+                candidate = candidates_by_name[cand_name]
+                if issue_patch is not None:
+                    candidate.setdefault("issues", {})[issue] = issue_patch
+                    unit_id = f"issues:{cand_name}:{issue}"
+                    _mark_pipeline_unit_complete(race_json, unit_id)
+                    completed_units.add(unit_id)
+                completed_count += 1
+                pct = int(completed_count / total_units * 100)
+                track(
+                    "progress",
+                    "issues",
+                    pct=pct,
+                    message=f"Issues checkpoint - {cand_name} ({ci + 1}/{rn}) - {issue} ({issue_idx + 1}/{n_issues})",
+                    race_json=race_json,
+                )
+        except BaseException:
+            for task in tasks:
+                if not task.done():
+                    task.cancel()
+            await asyncio.gather(*tasks, return_exceptions=True)
+            raise
+        remaining_candidates = [
+            name
+            for name in candidate_names
+            if not all(f"issues:{name}:{issue}" in completed_units for issue in CANONICAL_ISSUES)
+        ]
+        pipeline_state["remaining_candidates"] = remaining_candidates
+        pipeline_state["remaining_steps"] = ["issues"] if remaining_candidates else []
+        pipeline_state["complete"] = not remaining_candidates
+        if remaining_candidates and continue_incomplete_work:
+            track(
+                "progress",
+                "issues",
+                pct=int(completed_count / total_units * 100),
+                message=f"Issues: {len(remaining_candidates)} candidate(s) remain for continuation",
+                race_json=race_json,
             )
+            raise PipelineWorkRemaining("Issue research work units remain")
         track("complete", "issues", duration_ms=int((time.perf_counter() - iss_t0) * 1000), race_json=race_json)
     else:
         log("info", f"{prefix} 2: Issue research — SKIPPED")
@@ -907,6 +1020,7 @@ async def _run_fresh(
     target_candidate_names: Optional[List[str]] = None,
     goal: Optional[str] = None,
     resume_partial: bool = False,
+    continue_incomplete_work: bool = False,
     run_budget: RunBudget | None = None,
 ) -> Dict[str, Any]:
     """Phase 1 → 2 → 3: Discovery → Issue research → Refinement."""
@@ -975,6 +1089,7 @@ async def _run_fresh(
         refine_iters=refine_iters,
         log=log,
         resume_partial=resume_partial,
+        continue_incomplete_work=continue_incomplete_work,
         run_budget=run_budget,
     )
     _sanitize_roster(race_json, log)
@@ -1002,6 +1117,7 @@ async def _run_update(
     target_candidate_names: Optional[List[str]] = None,
     goal: Optional[str] = None,
     resume_partial: bool = False,
+    continue_incomplete_work: bool = False,
     run_budget: RunBudget | None = None,
 ) -> Dict[str, Any]:
     """Phase-based update mirroring _run_fresh but starting from existing data."""
@@ -1043,6 +1159,7 @@ async def _run_update(
             target_no_info=target_no_info,
             target_candidate_names=target_candidate_names,
             resume_partial=resume_partial,
+            continue_incomplete_work=continue_incomplete_work,
             run_budget=run_budget,
         )
 
@@ -1053,71 +1170,102 @@ async def _run_update(
     if step_enabled("discovery"):
         track("start", "discovery")
         disc_t0 = time.perf_counter()
+        as_of_date = datetime.now(timezone.utc).date().isoformat()
+        completed_units = _pipeline_completed_units(race_json)
+        if not resume_partial:
+            completed_units.difference_update({"discovery.roster_sync", "discovery.roster_verify", "discovery.metadata"})
+            race_json["pipeline_state"]["completed_units"] = sorted(completed_units)
 
-        log("info", "Update Phase 0: Verifying candidate roster...")
         pre_sync_names = list(candidate_names)
-        try:
-            await _agent_loop(
-                ROSTER_SYNC_SYSTEM,
-                ROSTER_SYNC_USER.format(
+        if "discovery.roster_sync" not in completed_units:
+            log("info", "Update Phase 0: Verifying candidate roster...")
+            try:
+                await _agent_loop(
+                    ROSTER_SYNC_SYSTEM,
+                    ROSTER_SYNC_USER.format(
+                        race_id=race_id,
+                        last_updated=last_updated,
+                        current_date=as_of_date,
+                        candidate_names=", ".join(candidate_names),
+                    ),
+                    model=small_model,
+                    on_log=on_log,
                     race_id=race_id,
-                    last_updated=last_updated,
-                    candidate_names=", ".join(candidate_names),
-                ),
-                model=small_model,
-                on_log=on_log,
-                race_id=race_id,
-                max_iterations=max(12, max_iterations // 2),
-                phase_name="roster-sync",
-                max_tokens=8192,
-                extra_tools=ROSTER_TOOLS + [READ_PROFILE_TOOL],
-                extra_tool_handlers=handlers,
-                tools_mode=True,
-                run_budget=run_budget,
-            )
-        except RunBudgetExceeded:
-            raise
-        except Exception as exc:
-            log("warning", f"  Roster sync failed: {exc} — keeping existing roster")
+                    max_iterations=min(max_iterations, 12),
+                    phase_name="roster-sync",
+                    max_tokens=8192,
+                    extra_tools=ROSTER_TOOLS + [READ_PROFILE_TOOL],
+                    extra_tool_handlers=handlers,
+                    tools_mode=True,
+                    run_budget=run_budget,
+                )
+            except RunBudgetExceeded:
+                raise
+            except Exception as exc:
+                log("warning", f"  Roster sync failed: {exc} — keeping existing roster")
 
-        _sanitize_roster(race_json, log)
-        await _await_with_run_budget(
-            _sync_ballotpedia_roster(race_json, race_id, log),
-            run_budget=run_budget,
-            requested_timeout=20.0,
-            operation="Ballotpedia roster sync",
-        )
-        _sanitize_roster(race_json, log)
+            _sanitize_roster(race_json, log)
+            await _await_with_run_budget(
+                _sync_ballotpedia_roster(race_json, race_id, log),
+                run_budget=run_budget,
+                requested_timeout=20.0,
+                operation="Ballotpedia roster sync",
+            )
+            _sanitize_roster(race_json, log)
+            _mark_pipeline_unit_complete(race_json, "discovery.roster_sync")
+            completed_units.add("discovery.roster_sync")
+            track(
+                "progress",
+                "discovery",
+                pct=30,
+                message="Discovery: roster sync complete",
+                race_json=race_json,
+            )
+        else:
+            log("info", "Update Phase 0: Roster sync restored from checkpoint")
 
         # Roster verify uses the primary model to re-check inactive/non-general
         # candidates after roster-sync edits from the cheaper small_model.
         post_sync_names = [_candidate_name(c) for c in race_json.get("candidates", []) if _candidate_name(c)]
-        log("info", f"  Roster verify: checking {len(post_sync_names)} candidate(s)")
-        try:
-            await _agent_loop(
-                ROSTER_VERIFY_SYSTEM,
-                ROSTER_VERIFY_USER.format(
+        if "discovery.roster_verify" not in completed_units:
+            log("info", f"  Roster verify: checking {len(post_sync_names)} candidate(s)")
+            try:
+                await _agent_loop(
+                    ROSTER_VERIFY_SYSTEM,
+                    ROSTER_VERIFY_USER.format(
+                        race_id=race_id,
+                        current_date=as_of_date,
+                        candidate_names=", ".join(post_sync_names),
+                        original_names=", ".join(pre_sync_names),
+                        added_names=", ".join(post_sync_names),
+                    ),
+                    model=model,
+                    on_log=on_log,
                     race_id=race_id,
-                    candidate_names=", ".join(post_sync_names),
-                    original_names=", ".join(pre_sync_names),
-                    added_names=", ".join(post_sync_names),
-                ),
-                model=model,
-                on_log=on_log,
-                race_id=race_id,
-                max_iterations=6,
-                phase_name="roster-verify",
-                max_tokens=4096,
-                extra_tools=[REMOVE_CANDIDATE_TOOL, READ_PROFILE_TOOL],
-                extra_tool_handlers=handlers,
-                tools_mode=True,
-                run_budget=run_budget,
+                    max_iterations=6,
+                    phase_name="roster-verify",
+                    max_tokens=4096,
+                    extra_tools=[REMOVE_CANDIDATE_TOOL, READ_PROFILE_TOOL],
+                    extra_tool_handlers=handlers,
+                    tools_mode=True,
+                    run_budget=run_budget,
+                )
+                _sanitize_roster(race_json, log)
+            except RunBudgetExceeded:
+                raise
+            except Exception as exc:
+                log("warning", f"  Roster verify failed: {exc} — keeping post-sync roster")
+            _mark_pipeline_unit_complete(race_json, "discovery.roster_verify")
+            completed_units.add("discovery.roster_verify")
+            track(
+                "progress",
+                "discovery",
+                pct=50,
+                message="Discovery: roster verification complete",
+                race_json=race_json,
             )
-            _sanitize_roster(race_json, log)
-        except RunBudgetExceeded:
-            raise
-        except Exception as exc:
-            log("warning", f"  Roster verify failed: {exc} — keeping post-sync roster")
+        else:
+            log("info", "  Roster verify restored from checkpoint")
 
         candidate_names = [_candidate_name(c) for c in race_json.get("candidates", []) if _candidate_name(c)]
         candidate_names = _select_target_candidates(candidate_names, target_candidate_names, log)
@@ -1139,37 +1287,44 @@ async def _run_update(
                 target_no_info=target_no_info,
                 target_candidate_names=target_candidate_names,
                 resume_partial=resume_partial,
+                continue_incomplete_work=continue_incomplete_work,
                 run_budget=run_budget,
             )
 
-        track("progress", "discovery", pct=50, message="Discovery: updating race metadata")
+        if "discovery.metadata" not in completed_units:
+            track("progress", "discovery", pct=55, message="Discovery: updating race metadata", race_json=race_json)
 
-        # --- Phase 1: Meta update (tools mode) ---
-        meta_iters = _scale_iterations(max_iterations, n, per_candidate=2, minimum=10)
-        log("info", "Update Phase 1: Searching for new summaries, donors, polls, voting records...")
-        try:
-            await _agent_loop(
-                UPDATE_META_SYSTEM,
-                UPDATE_META_USER.format(
+            # Metadata refresh is one broad race task. Candidate count must not
+            # multiply its loop budget; candidate-specific work has later phases.
+            meta_iters = min(max_iterations, 12)
+            log("info", "Update Phase 1: Searching for new summaries, donors, polls, voting records...")
+            try:
+                await _agent_loop(
+                    UPDATE_META_SYSTEM,
+                    UPDATE_META_USER.format(
+                        race_id=race_id,
+                        last_updated=last_updated,
+                        current_date=as_of_date,
+                        candidate_names=", ".join(candidate_names),
+                    ),
+                    model=model,
+                    on_log=on_log,
                     race_id=race_id,
-                    last_updated=last_updated,
-                    candidate_names=", ".join(candidate_names),
-                ),
-                model=model,
-                on_log=on_log,
-                race_id=race_id,
-                max_iterations=meta_iters,
-                phase_name="update-meta",
-                max_tokens=16384,
-                extra_tools=RACE_TOOLS + CANDIDATE_TOOLS + RECORD_TOOLS + [READ_PROFILE_TOOL],
-                extra_tool_handlers=handlers,
-                tools_mode=True,
-                run_budget=run_budget,
-            )
-        except RunBudgetExceeded:
-            raise
-        except Exception as exc:
-            log("warning", f"  Update meta phase failed: {exc} — keeping existing meta")
+                    max_iterations=meta_iters,
+                    phase_name="update-meta",
+                    max_tokens=16384,
+                    extra_tools=RACE_TOOLS + CANDIDATE_TOOLS + RECORD_TOOLS + [READ_PROFILE_TOOL],
+                    extra_tool_handlers=handlers,
+                    tools_mode=True,
+                    run_budget=run_budget,
+                )
+            except RunBudgetExceeded:
+                raise
+            except Exception as exc:
+                log("warning", f"  Update meta phase failed: {exc} — keeping existing meta")
+            _mark_pipeline_unit_complete(race_json, "discovery.metadata")
+        else:
+            log("info", "Update Phase 1: Metadata refresh restored from checkpoint")
 
         track("complete", "discovery", duration_ms=int((time.perf_counter() - disc_t0) * 1000), race_json=race_json)
     else:
@@ -1199,6 +1354,7 @@ async def _run_update(
         refine_iters=refine_iters,
         log=log,
         resume_partial=resume_partial,
+        continue_incomplete_work=continue_incomplete_work,
         run_budget=run_budget,
     )
     _sanitize_roster(race_json, log)

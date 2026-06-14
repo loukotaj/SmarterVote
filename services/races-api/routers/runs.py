@@ -50,6 +50,50 @@ def _run_sort_key(run: Dict[str, Any]) -> tuple[datetime, str]:
     return (activity_at, str(run.get("run_id") or ""))
 
 
+def _collapse_continuation_chains(runs: list[Dict[str, Any]]) -> list[Dict[str, Any]]:
+    """Present legacy continuation documents as one logical run."""
+    by_id = {str(run.get("run_id")): run for run in runs if run.get("run_id")}
+    parent_by_child = {
+        str(run["continuation_run_id"]): str(run["run_id"])
+        for run in runs
+        if run.get("run_id") and run.get("continuation_run_id")
+    }
+
+    def root_id(run_id: str) -> str:
+        seen: set[str] = set()
+        current = run_id
+        while current in parent_by_child and current not in seen:
+            seen.add(current)
+            current = parent_by_child[current]
+        return current
+
+    groups: Dict[str, list[Dict[str, Any]]] = {}
+    for run_id, run in by_id.items():
+        groups.setdefault(root_id(run_id), []).append(run)
+
+    collapsed: list[Dict[str, Any]] = []
+    for logical_run_id, group in groups.items():
+        ordered = sorted(group, key=_run_sort_key)
+        terminal = [run for run in ordered if run.get("status") != "continued"]
+        representative = dict((terminal or ordered)[-1])
+        starts = [_coerce_datetime(run.get("started_at")) for run in group]
+        starts = [value for value in starts if value is not None]
+        ends = [_coerce_datetime(run.get("completed_at") or run.get("continued_at")) for run in group]
+        ends = [value for value in ends if value is not None]
+        representative["logical_run_id"] = logical_run_id
+        representative["continuation_count"] = max(
+            int(representative.get("continuation_count") or 0),
+            len(group) - 1,
+        )
+        representative["invocation_run_ids"] = [str(run["run_id"]) for run in ordered]
+        if starts:
+            representative["started_at"] = min(starts).isoformat()
+        if starts and ends:
+            representative["duration_ms"] = int((max(ends) - min(starts)).total_seconds() * 1000)
+        collapsed.append(representative)
+    return collapsed
+
+
 def _is_stale_active_run(data: Dict[str, Any], now: datetime) -> bool:
     if data.get("status") not in _ACTIVE_STATUSES:
         return False
@@ -185,7 +229,7 @@ async def list_runs(limit: int = 50) -> Dict[str, Any]:
         if run_id:
             merged[str(run_id)] = run
 
-    ordered = sorted(merged.values(), key=_run_sort_key, reverse=True)
+    ordered = sorted(_collapse_continuation_chains(list(merged.values())), key=_run_sort_key, reverse=True)
     active = sum(1 for r in active_runs if r.get("status") in _ACTIVE_STATUSES)
     return {"runs": ordered[:limit], "active_count": active, "total_count": len(ordered)}
 

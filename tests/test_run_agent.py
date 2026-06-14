@@ -1,18 +1,16 @@
 """Tests for run_agent orchestration and _load_existing helper."""
 
+import asyncio
 import json
 import os
+import re
 from pathlib import Path
 from unittest.mock import AsyncMock, patch
 
 import pytest
 
 from pipeline_client.agent.agent import _load_existing, _normalize_schema_fields, _sanitize_polling, run_agent
-from pipeline_client.agent.phases import (
-    _enforce_candidate_cap,
-    _reconcile_candidates_with_authoritative_roster,
-    _sanitize_roster,
-)
+from pipeline_client.agent.phases import _reconcile_candidates_with_authoritative_roster, _sanitize_roster
 from pipeline_client.agent.prompts import CANONICAL_ISSUES
 from pipeline_client.backend.handlers.agent import HandoffTriggered
 
@@ -224,8 +222,8 @@ async def test_run_agent_removes_term_limited_incumbent_from_fresh_roster():
 
 
 @pytest.mark.asyncio
-async def test_run_agent_caps_fresh_roster_at_eight_candidates():
-    """Oversized primary-style rosters are capped before downstream phase fan-out."""
+async def test_run_agent_preserves_oversized_fresh_roster():
+    """Oversized primary-style rosters remain authoritative in the draft."""
     discovery_result = {
         "id": "ga-governor-2026",
         "candidates": [
@@ -250,17 +248,8 @@ async def test_run_agent_caps_fresh_roster_at_eight_candidates():
             enabled_steps=["discovery"],
         )
 
-    assert [candidate["name"] for candidate in result["candidates"]] == [
-        "Candidate 1",
-        "Candidate 2",
-        "Candidate 3",
-        "Candidate 4",
-        "Candidate 6",
-        "Candidate 7",
-        "Candidate 8",
-        "Candidate 9",
-    ]
-    assert "capped at 8" in result["candidate_limit_note"]
+    assert [candidate["name"] for candidate in result["candidates"]] == [f"Candidate {idx}" for idx in range(1, 11)]
+    assert "candidate_limit_note" not in result
 
 
 @pytest.mark.asyncio
@@ -831,62 +820,24 @@ def test_authoritative_roster_removes_stale_primary_candidate():
     ]
 
 
-def test_enforce_candidate_cap_prioritizes_nominee_signals_within_party_bucket():
+def test_sanitize_roster_preserves_twenty_active_candidates():
     race_json = {
-        "id": "ga-governor-2026",
-        "candidates": [
-            {"name": "Dem A", "party": "Democratic", "summary": "Declared candidate."},
-            {"name": "Dem B", "party": "Democratic", "summary": "Declared candidate."},
-            {"name": "Dem C", "party": "Democratic", "summary": "Declared candidate."},
-            {"name": "Dem D", "party": "Democratic", "summary": "Declared candidate."},
-            {
-                "name": "Dem Nominee",
-                "party": "Democratic",
-                "summary": "Won the Democratic primary and advanced to the general election.",
-            },
-            {"name": "Rep A", "party": "Republican", "summary": "Declared candidate."},
-            {"name": "Rep B", "party": "Republican", "summary": "Declared candidate."},
-            {"name": "Rep C", "party": "Republican", "summary": "Declared candidate."},
-            {"name": "Rep D", "party": "Republican", "summary": "Declared candidate."},
-            {"name": "Rep E", "party": "Republican", "summary": "Declared candidate."},
-        ],
-    }
-
-    _enforce_candidate_cap(race_json, limit=8)
-
-    names = [candidate["name"] for candidate in race_json["candidates"]]
-    assert len(names) == 8
-    assert "Dem Nominee" in names
-    dropped_dem_low_signal = {"Dem A", "Dem B", "Dem C", "Dem D"} - set(names)
-    assert dropped_dem_low_signal
-
-
-def test_enforce_candidate_cap_keeps_original_order_for_equal_priority_candidates():
-    race_json = {
-        "id": "ga-governor-2026",
+        "id": "crowded-primary-2026",
         "candidates": [
             {
-                "name": f"Candidate {idx}",
-                "party": "Democratic" if idx < 6 else "Republican",
+                "name": f"Candidate {idx:02d}",
+                "party": "Democratic" if idx % 2 else "Republican",
                 "incumbent": False,
                 "summary": "Declared candidate.",
             }
-            for idx in range(1, 11)
+            for idx in range(1, 21)
         ],
     }
 
-    _enforce_candidate_cap(race_json, limit=8)
+    _sanitize_roster(race_json)
 
-    assert [candidate["name"] for candidate in race_json["candidates"]] == [
-        "Candidate 1",
-        "Candidate 2",
-        "Candidate 3",
-        "Candidate 4",
-        "Candidate 6",
-        "Candidate 7",
-        "Candidate 8",
-        "Candidate 9",
-    ]
+    assert [candidate["name"] for candidate in race_json["candidates"]] == [f"Candidate {idx:02d}" for idx in range(1, 21)]
+    assert "candidate_limit_note" not in race_json
 
 
 def test_sanitize_polling_drops_non_roster_placeholder_poll():
@@ -1006,6 +957,118 @@ async def test_run_agent_continuation_does_not_report_skipped_issue_as_active():
     assert all(CANONICAL_ISSUES[0] not in message for message in active_messages)
     assert any(CANONICAL_ISSUES[0] in message for message in checkpoint_messages)
     assert mock_loop.call_count == len(CANONICAL_ISSUES) - 1
+
+
+@pytest.mark.asyncio
+async def test_issue_research_uses_bounded_isolated_concurrency(monkeypatch):
+    existing = {
+        "id": "test-2026",
+        "election_date": "2026-11-03",
+        "candidates": [
+            {"name": "Alice", "party": "D", "issues": {}},
+            {"name": "Bob", "party": "R", "issues": {}},
+        ],
+        "updated_utc": "2026-01-01T00:00:00Z",
+    }
+    active = 0
+    max_active = 0
+
+    async def fake_loop(_system, user, **kwargs):
+        nonlocal active, max_active
+        active += 1
+        max_active = max(max_active, active)
+        await asyncio.sleep(0.005)
+        candidate = re.search(r"^Candidate: (.+)$", user, re.MULTILINE).group(1)
+        issue = re.search(r"^Issue to (?:research|update): (.+)$", user, re.MULTILINE).group(1)
+        kwargs["extra_tool_handlers"]["set_issue_stance"](
+            {
+                "candidate_name": candidate,
+                "issue": issue,
+                "stance": f"{candidate} stance on {issue}",
+                "confidence": "low",
+                "sources": [],
+            }
+        )
+        active -= 1
+        return {}
+
+    monkeypatch.setenv("PIPELINE_ISSUE_CONCURRENCY", "2")
+    with (
+        patch("pipeline_client.agent.phases._agent_loop", side_effect=fake_loop),
+        patch("pipeline_client.agent.phases._candidate_source_hints", new_callable=AsyncMock, return_value=("", [])),
+        patch("pipeline_client.agent.phases._sync_ballotpedia_roster", new_callable=AsyncMock),
+    ):
+        result = await run_agent(
+            "test-2026",
+            cheap_mode=True,
+            existing_data=existing,
+            enabled_steps=["issues"],
+        )
+
+    assert 1 < max_active <= 2
+    assert all(len(candidate["issues"]) == len(CANONICAL_ISSUES) for candidate in result["candidates"])
+
+
+@pytest.mark.asyncio
+async def test_candidate_batches_resume_from_durable_issue_units():
+    existing = {
+        "id": "test-2026",
+        "election_date": "2026-11-03",
+        "candidates": [
+            {"name": "Alice", "party": "D", "issues": {}},
+            {"name": "Bob", "party": "R", "issues": {}},
+        ],
+        "updated_utc": "2026-01-01T00:00:00Z",
+    }
+
+    async def fake_loop(_system, user, **kwargs):
+        candidate = re.search(r"^Candidate: (.+)$", user, re.MULTILINE).group(1)
+        issue = re.search(r"^Issue to (?:research|update): (.+)$", user, re.MULTILINE).group(1)
+        kwargs["extra_tool_handlers"]["set_issue_stance"](
+            {
+                "candidate_name": candidate,
+                "issue": issue,
+                "stance": f"{candidate} stance on {issue}",
+                "confidence": "low",
+                "sources": [],
+            }
+        )
+        return {}
+
+    common_patches = (
+        patch("pipeline_client.agent.phases._agent_loop", side_effect=fake_loop),
+        patch("pipeline_client.agent.phases._candidate_source_hints", new_callable=AsyncMock, return_value=("", [])),
+        patch("pipeline_client.agent.phases._sync_ballotpedia_roster", new_callable=AsyncMock),
+    )
+    with common_patches[0], common_patches[1], common_patches[2]:
+        first = await run_agent(
+            "test-2026",
+            cheap_mode=True,
+            existing_data=existing,
+            enabled_steps=["issues"],
+            max_candidates=1,
+        )
+
+    assert first["pipeline_state"]["remaining_candidates"] == ["Bob"]
+    assert len(first["candidates"][0]["issues"]) == len(CANONICAL_ISSUES)
+    assert first["candidates"][1]["issues"] == {}
+
+    with (
+        patch("pipeline_client.agent.phases._agent_loop", side_effect=fake_loop),
+        patch("pipeline_client.agent.phases._candidate_source_hints", new_callable=AsyncMock, return_value=("", [])),
+        patch("pipeline_client.agent.phases._sync_ballotpedia_roster", new_callable=AsyncMock),
+    ):
+        resumed = await run_agent(
+            "test-2026",
+            cheap_mode=True,
+            existing_data=first,
+            enabled_steps=["issues"],
+            max_candidates=1,
+            resume_partial=True,
+        )
+
+    assert resumed["pipeline_state"]["remaining_candidates"] == []
+    assert all(len(candidate["issues"]) == len(CANONICAL_ISSUES) for candidate in resumed["candidates"])
 
 
 @pytest.mark.asyncio

@@ -114,6 +114,7 @@ export interface QueueItem {
   completed_at?: string;
   error?: string;
   parent_run_id?: string;
+  parent_queue_item_id?: string;
   is_continuation?: boolean;
 }
 

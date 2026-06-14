@@ -12,7 +12,7 @@ This plan covers the research agent, Cloud Function orchestration, queue/run per
 
 - Remove automatic post-run LLM analysis completely.
 - Use the durable admin agent, MCP tools, and interactive coding agents for occasional diagnostics instead of sending every run's logs and artifact through another model.
-- Keep the three-provider profile review available, but make its context and repetition configurable and prevent wasteful duplication.
+- Keep full whole-profile review by three providers as the default quality bar. Optimize the review packet and rerun policy only where that does not reduce review coverage or semantic context.
 - Use large context budgets by default so cheap long-context models can consume substantial source material when it improves research quality.
 - Replace silent candidate deletion with explicit partitioning or deferred work.
 - Treat `services/races-api`, `pipeline_queue`, `pipeline_runs`, and `races` as the production control plane.
@@ -22,10 +22,11 @@ This plan covers the research agent, Cloud Function orchestration, queue/run per
 
 1. Remove post-run analysis and close secret/log exposure.
 2. Make LLM context large, intentional, measurable, and free of avoidable repetition; bound retries and run time.
-3. Make candidate and issue processing scalable.
-4. Fix queue correctness and consolidate state ownership.
-5. Centralize paths, constants, model configuration, and retention.
-6. Add load, cost, and regression tests.
+3. Make candidate and issue processing scalable without reducing roster completeness or review coverage.
+4. Decouple polling and voter resources into dedicated, lightweight pipeline steps.
+5. Fix queue correctness and consolidate state ownership.
+6. Centralize paths, constants, model configuration, and retention.
+7. Add load, cost, and regression tests.
 
 Each phase should be delivered as a separate pull request where practical. Avoid combining queue migrations with prompt or model-loop changes.
 
@@ -296,11 +297,15 @@ Black and isort checks: passed
 No active _call_openai/_get_openai_client/_openai_client helper names remain
 ```
 
-## Phase 4: Candidate and Issue Scalability
+## Phase 4: Candidate and Issue Scalability Without Incomplete Output
+
+Status: Complete.
 
 ### Problem
 
-The pipeline silently reduces races to eight candidates and processes candidate/issue work serially. This produces incomplete crowded-primary data and excessive wall-clock time.
+The pipeline silently reduces races to eight candidates and processes candidate and issue work serially. That mixes two different concerns: product completeness and worker throughput. The result is both incomplete crowded-primary data and unnecessary wall-clock time.
+
+The goal of this phase is not to accept partial race quality as a normal outcome. The goal is to preserve the full candidate roster, make progress in bounded units, and only run final whole-race review once the required research for the race is complete.
 
 ### Implementation
 
@@ -309,10 +314,10 @@ Remove `_enforce_candidate_cap()` as a data-deletion step. Keep a configurable w
 Preferred data flow:
 
 1. Discovery records the complete authoritative active roster.
-2. A work planner creates candidate batches.
-3. Each batch researches candidates without removing others from RaceJSON.
-4. Continuations process remaining batches.
-5. Final review runs only after all required batches complete.
+2. A work planner creates resumable work units for candidate-level and issue-level research.
+3. The orchestrator may execute those work units in bounded batches or bounded concurrency, but it never drops undispatched candidates from the authoritative roster.
+4. Continuations process remaining work units until the race reaches a review-ready state.
+5. Final whole-race review runs only after all required candidate, issue, finance, and refinement work for the race is complete.
 
 Do not add partial or placeholder candidate profiles to published output. Draft metadata should clearly indicate incomplete work:
 
@@ -328,6 +333,13 @@ Do not add partial or placeholder candidate profiles to published output. Draft 
 
 If schema changes are required, update `shared/models.py` and `web/src/lib/types.ts` together.
 
+Clarify lifecycle semantics:
+
+- `pipeline_state.complete = false` means the draft is operationally incomplete and is not eligible for final publish or final review.
+- Deferred candidates remain visible in pipeline state and progress reporting so operators can see exactly what work is outstanding.
+- A continuation must resume from durable per-work-unit status, not from a recomputed guess based on current profile contents.
+- Review and publish gates must fail closed when required work units remain incomplete.
+
 Add bounded concurrency for independent issue research:
 
 - Start with a semaphore of two to four concurrent candidate/issue jobs per worker.
@@ -335,22 +347,65 @@ Add bounded concurrency for independent issue research:
 - Merge patches deterministically in the orchestrator.
 - Deduplicate searches and source fetches through the shared cache.
 - Respect provider rate limits and the run budget.
+- Preserve the existing research granularity unless quality measurements justify a change.
 
 Consider grouping low-information issues into one candidate call only after measuring quality. The first implementation should preserve one issue per task while gaining bounded concurrency and context limits.
+
+Constrain batching so it cannot degrade review quality:
+
+- Do not run final review on a batch subset and treat it as equivalent to whole-race review.
+- Do not mark a race complete merely because the current invocation exhausted its budget.
+- Do allow interim draft saves, checkpoints, and operator-visible progress after each completed work unit.
 
 ### Acceptance Criteria
 
 - A race with more than eight candidates preserves the complete roster.
 - Work limits defer candidates instead of deleting them.
+- Deferred work is explicit in durable state and blocks final review and publish until complete.
 - Concurrent jobs cannot mutate shared dictionaries directly.
 - Resume logic skips completed issue units.
+- Final review still evaluates the complete race only after all required work units are complete.
 - Tests cover at least 20 candidates and interrupted continuation.
 
-## Phase 5: Review Duplication Control and Cost Visibility
+### Delivered
+
+- Removed the eight-candidate roster cap and its `candidate_limit_note`; authoritative rosters are no longer truncated.
+- Added durable `pipeline_state` metadata with completed work units, remaining candidates, remaining steps, and a publish gate for incomplete drafts.
+- Added candidate work planning that defers workload without deleting candidates and automatically hands remaining cloud work to a continuation.
+- Replaced shared mutable issue research with isolated candidate/issue snapshots, bounded concurrency through `PIPELINE_ISSUE_CONCURRENCY` (default 3, maximum 8), and deterministic per-unit patch merging.
+- Added durable issue-unit checkpoints so continuations skip completed candidate/issue work rather than inferring completion only from profile contents.
+- Kept final review blocked until all required work units are complete. Any semantic run that omits review clears stale reviews and validation grades.
+- Added discovery sub-stage checkpoints for roster sync, roster verification, and metadata refresh.
+- Bounded update metadata refresh independently of candidate count and explicitly prohibited searching for results of elections that have not occurred yet.
+- Strengthened roster prompts to evaluate every candidate against completed primary results as of the current date while retaining active runoff and qualified third-party candidates.
+- Changed Cloud Function continuations to reuse one logical run ID and one log stream. Queue invocation records may be internally `continued`, but the run remains `running` and appears once in the Runs tab.
+- Added legacy run-chain collapsing in the runs API so historical continuation chains report as one logical run.
+
+GA Governor incident findings from the June 14, 2026 production run:
+
+- One logical discovery run was represented by six run documents from 20:01 to 20:46 UTC because every function invocation received a new run ID.
+- The deployed function is limited to 540 seconds and intentionally hands off after 480 seconds; the platform lifetime was working as configured.
+- Discovery repeatedly restarted roster sync, roster verification, and metadata refresh because only whole-step completion was durable.
+- Metadata refresh scaled to 26 iterations for eight candidates and repeatedly searched for the June 16 Republican runoff result on June 14.
+- The final draft retained five defeated primary candidates because stale pre-primary search results could re-add candidates and the eight-candidate cap obscured the complete roster.
+- The draft also retained old reviews and an old passing validation grade after its roster changed.
+
+Validation:
+
+```text
+Focused Phase 4 suite: 159 passed
+Full Python suite: 302 passed
+Frontend: 0 Svelte diagnostics, production build passed, 28 unit tests passed
+Black and isort checks: passed
+```
+
+## Phase 5: Review Efficiency Without Reducing Three-Agent Coverage
 
 ### Problem
 
 The full profile is sent independently to three reviewers and resent after each iteration cycle. Worst-case review cost scales with full artifact size, provider count, and cycle count.
+
+The quality goal of review is correct: three independent whole-profile reviewers should inspect the same substantive race output. The waste is not that three reviewers exist. The waste is sending operational noise, redundant payload, or unnecessary reruns that do not improve review quality.
 
 ### Implementation
 
@@ -364,26 +419,72 @@ Split deterministic validation from LLM review without narrowing the review scop
 
 Change review behavior:
 
-- Default to one primary reviewer plus deterministic checks.
-- Allow multi-provider review as an explicit quality profile.
+- Keep three full-profile reviewers as the default and recommended behavior.
+- Permit fewer than three reviewers only as an explicit operator override for debugging or emergency fallback, not as the normal production path.
 - Every initial reviewer must assess the complete semantic profile, not a candidate or field subset.
 - After iteration, provide the complete updated semantic profile again, with changed fields highlighted for attention.
 - Stop after one iteration by default.
 - Permit additional cycles only when error-severity findings remain.
 - Do not re-run a healthy provider solely because another provider failed unless the profile itself changed.
 
+Reduce review waste without reducing coverage:
+
+- Build one canonical semantic review packet per race revision, then send that same complete packet to all three reviewers.
+- Strip only operational metadata and redundant serialization. Do not strip any reviewable semantic field.
+- Include a deterministic change manifest on reruns so reviewers can focus attention, but always attach the full updated semantic packet as context.
+- Cache deterministic pre-review validation results and packet assembly so those steps are not recomputed unnecessarily.
+- Record per-provider token and cost metrics so waste can be measured without changing the review bar.
+
 Store review configuration and cost in `agent_metrics`.
 
 ### Acceptance Criteria
 
-- Default review sends one complete semantic profile packet with operational noise removed.
-- Multi-provider review remains selectable.
+- Default review sends three providers the same complete semantic profile packet with operational noise removed.
+- Three-provider whole-profile review remains the standard production path.
 - Every reviewer evaluates the whole profile and can identify cross-field or cross-candidate inconsistencies.
 - Iteration re-review receives the whole updated profile plus a deterministic change manifest; it is never limited to only the changed subset.
 - Tests prove that every reviewable RaceJSON field is represented in the review packet.
 - Review stays below the model context limit and any explicitly configured hard dollar cap.
 - Default cheap-model profiles use generous review context and advisory cost reporting rather than restrictive low budgets.
+- Cost optimizations do not reduce the number of default reviewers or narrow review scope.
 - Validation grade behavior remains deterministic when reviewers are unavailable.
+
+## Phase 5b: Decouple Polling and Voter Resources
+
+### Problem
+
+Polling research and voter resource links (`register_to_vote_url`, `how_to_vote_url`, `ballotpedia_url`) are currently gathered during the Discovery and Refinement phases.
+Because polling data is highly volatile and voter registration resources are static per jurisdiction, bundling them with candidate/issue research causes:
+- Overloaded LLM prompts and bloated context windows during Discovery and Refinement.
+- Wasted API tokens and execution time, as operators must trigger full candidate/issue research passes (which run expensive candidate loops) just to update dynamic polling numbers or correct static voter links.
+- Poor name-matching in matchups (e.g., the LLM adding poll entries with misspelled or mismatched candidate names that fail schema validation).
+
+### Implementation
+
+1. **Add Standalone Steps**: Define two new standalone step identifiers `polling` and `voter_resources` (or a single combined `meta_resources` step) in `PipelineStep`.
+2. **Specialized Agent Prompts**:
+   - Create a dedicated polling agent system prompt and user prompt focusing purely on polling aggregation. The agent should be instructed to query major polling aggregators (FiveThirtyEight, RealClearPolitics, 270toWin) and state portals.
+   - Create a dedicated voter resources prompt focusing on official state secretary of state or local election authority URLs.
+3. **Structured Matchup Validation**:
+   - Implement strict name-matching validation in the polling handler. Before adding a `PollEntry`, verify that all candidate names in matchups exactly match candidates already on the roster. Reject or automatically correct close matches (e.g., matching "Kamala Harris" to "Harris").
+4. **Remove Bundled Logic**: Strip polling and voter link gathering instructions and tool schemas from the Discovery and Refinement system prompts.
+5. **Decoupled Execution**:
+   - Support running the `polling` step independently to refresh poll numbers for a race on demand in less than 60 seconds.
+   - Support running `voter_resources` independently to resolve links.
+   - Update step weights and overall progress metrics.
+
+### Acceptance Criteria
+
+- `PipelineStep` schema includes `polling` and `voter_resources`.
+- Polling data can be updated for a race without executing candidate image, issue, or finance research.
+- Names in matchups are programmatically matched and validated against the roster; any mismatched names fail validation.
+- Discovery and Refinement prompts contain no instructions or tools related to polling or voter links.
+
+### Tests
+
+- Assert that the `polling` step can be executed alone on a draft and correctly appends new `PollEntry` items.
+- Assert that mismatched matchup names are rejected or normalized.
+- Assert that running only `polling` does not invoke issue or finance handlers.
 
 ## Phase 6: Queue Correctness and Firestore Scalability
 
@@ -646,18 +747,19 @@ PYTHONPATH=. python -m pytest
 
 - [x] Automatic post-run LLM analysis removed.
 - [x] Shared log sanitizer covers every persistence path.
-- [ ] LLM requests use generous model-aware context targets and avoid repeated history.
-- [ ] OpenRouter transport helpers use OpenRouter-specific names.
-- [ ] Retries and timeouts respect a shared run deadline.
-- [ ] Candidate rosters are never silently truncated.
-- [ ] Candidate/issue work uses bounded concurrency and patch merging.
-- [ ] Review uses generous context, avoids duplicate full-profile sends, and reports cost clearly.
+- [x] LLM requests use generous model-aware context targets and avoid repeated history.
+- [x] OpenRouter transport helpers use OpenRouter-specific names.
+- [x] Retries and timeouts respect a shared run deadline.
+- [x] Candidate rosters are never silently truncated.
+- [x] Candidate/issue work uses bounded concurrency and patch merging.
+- [ ] Review preserves default three-provider whole-profile coverage, removes only operational duplication, and reports cost clearly.
 - [ ] Queue claims are transactional and lease-based.
 - [ ] Firestore and GCS list operations are paginated.
 - [ ] Queue/run/race/storage ownership is consolidated.
 - [ ] Paths and cloud collection/prefix names are centralized.
 - [ ] Magic thresholds and provider names use typed configuration.
 - [ ] Logs, artifacts, checkpoints, and caches have retention policies.
+- [ ] Polling and voter resources decoupled into separate pipeline steps.
 - [ ] Load, deadline, security, and cost regression tests pass.
 
 ## Non-Goals and Guardrails
@@ -669,3 +771,4 @@ These items are explicitly excluded to prevent the hardening work from changing 
 - **Do not replace OpenRouter or Serper as part of this work.** Provider replacement would be a separate migration. This plan may improve provider abstractions, naming, retries, and configuration.
 - **Do not redesign the public RaceJSON presentation.** Internal pipeline-state fields may be added if needed, but public UI and presentation redesign are separate product work.
 - **Do not use an LLM to summarize routine run logs.** Automated post-run analysis is being removed intentionally. Agents and MCP tools can inspect logs on demand when diagnosis is needed.
+- **Do not lower the default review bar below three whole-profile reviewers.** Review efficiency work may remove operational waste, but it must not narrow semantic coverage or make reduced review the default.
