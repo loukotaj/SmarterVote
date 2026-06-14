@@ -749,13 +749,16 @@ tools. Do NOT change any other data — only the candidate roster.
 You may ONLY use these roster tools: add_candidate, remove_candidate,
 rename_candidate. Do NOT call any non-roster editing tools in this phase.
 
-CRITICAL — remove_candidate is ONLY for candidates who have officially
-withdrawn, dropped out, been disqualified, or verifiably lost a completed
-primary for THIS SPECIFIC RACE.
-NEVER use remove_candidate for any other reason — not to fix data quality
+CRITICAL — remove_candidate is ONLY for candidates who are no longer active
+in THIS SPECIFIC RACE. Valid reasons to remove:
+- Officially withdrew or dropped out
+- Was disqualified or removed from the ballot
+- Lost a completed primary election and is therefore eliminated
+- Lost a completed convention or nomination contest
+NEVER remove a candidate for any other reason — not to fix data quality
 issues, not to correct information, not to replace a candidate entry, not
 because you think data about them is wrong or incomplete. If a candidate is
-still in the race, they stay in the profile regardless of data quality.
+still actively competing in the race, they stay regardless of data quality.
 
 {_SHARED_RULES}"""
 
@@ -780,16 +783,21 @@ STEP 2 — Make corrections using your tools:
 3. Any name corrections (e.g. legal name, common misspelling) → rename_candidate
 
 IMPORTANT — remove_candidate rules:
-- ONLY call remove_candidate when you have a specific, verifiable report that the
-  candidate left or was removed from THIS race (withdrew, dropped out,
-  disqualified, or lost a completed primary).
+- ONLY call remove_candidate when you have a specific, verifiable source showing
+  the candidate is no longer actively competing: they withdrew, were disqualified,
+  or were eliminated in a completed primary or convention.
 - Do NOT use remove_candidate to fix data quality issues, biography errors,
   incorrect facts, or anything else related to the candidate's profile data.
-- Do NOT remove incumbents or major-party candidates without a news source
-  explicitly confirming they left the race.
-- If you're unsure whether someone has left the race, do NOT remove them.
-- After a party primary has concluded, include only that party's nominee in the
-  general-election roster. Do NOT add defeated primary candidates.
+- Do NOT remove a candidate without a credible source (news article, official
+  election results, Ballotpedia page) confirming they are no longer competing.
+- PRIMARY ELECTIONS ARE KEY: Search for "[state] [party] primary results {current_date[:4]}"
+  to check whether any party primaries for this race have already occurred. If a
+  primary has concluded, candidates who lost that primary MUST be removed — they
+  are no longer competing even though they were once declared candidates.
+- After a party primary has concluded, include only that party's nominee(s) who
+  advanced. Remove all other candidates from that party.
+- If you're unsure whether someone was eliminated, search specifically for their
+  name + primary results before deciding.
 - Treat articles and candidate pages published before a completed primary as
   historical evidence, not proof that the person remains active as of
   {current_date}. Verify primary outcomes before adding anyone from an older
@@ -837,15 +845,24 @@ Original candidates before sync: {original_names}
 Any candidates added during the sync that were NOT in the original list:
 {added_names}
 
-Audit EVERY listed candidate, not only newly added candidates:
+Your PRIMARY goal is to ensure eliminated candidates are removed. Audit EVERY
+listed candidate:
+
 1. Use read_profile to see the current roster.
-2. Check completed primary results and current runoff/general-election status as
-   of {current_date}. Older campaign pages are not proof of current candidacy.
-3. Remove a candidate who verifiably lost a completed primary, withdrew, is
-   clearly fake, or cannot be verified as a real candidate in this race.
-4. Keep every verified active candidate, including all participants in a runoff
+2. FIRST — Search for completed primary results: try queries like
+   "{race_id} primary results", "[state] [party] primary {current_date[:4]}",
+   and "[state] gubernatorial/senate primary winner {current_date[:4]}".
+   If a party primary has concluded, every candidate from that party who did NOT
+   win must be removed immediately using remove_candidate.
+3. Search for withdrawal/disqualification news for each candidate who seems
+   questionable.
+4. Remove any candidate who:
+   - Lost a completed primary election (even if they were a major candidate)
+   - Officially withdrew or was disqualified
+   - Is clearly fake or cannot be verified as a real candidate
+5. Keep every verified active candidate, including all participants in a runoff
    that has not yet occurred and qualified third-party candidates.
-5. Never infer the result of an election scheduled after {current_date}.
+6. Never infer the result of an election scheduled after {current_date}.
 
 When done, stop — do not produce any text reply."""
 

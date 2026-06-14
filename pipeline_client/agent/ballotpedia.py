@@ -511,14 +511,45 @@ async def lookup_election_page(race_id: str) -> Dict[str, Any]:
         return empty
 
     try:
+        import asyncio as _asyncio
+
         async with httpx.AsyncClient(timeout=12, follow_redirects=True) as client:
             resp = await client.get(url, headers={"User-Agent": _BROWSER_UA})
+
+            # Retry once on 202 (Ballotpedia delayed-render / bot mitigation)
+            if resp.status_code == 202:
+                logger.debug("Ballotpedia election page %s returned 202 — retrying after 2s", url)
+                await _asyncio.sleep(2)
+                resp = await client.get(url, headers={"User-Agent": _BROWSER_UA})
+
             if resp.status_code != 200:
-                logger.debug("Ballotpedia election page %s returned %d", url, resp.status_code)
-                return {**empty, "page_url": url, "http_status": resp.status_code}
+                # Try r.jina.ai proxy as fallback (same pattern as lookup_candidate_data)
+                logger.debug("Ballotpedia election page %s returned %d — trying proxy", url, resp.status_code)
+                proxy_resp = await client.get(
+                    f"https://r.jina.ai/{url}",
+                    headers={"User-Agent": _BROWSER_UA},
+                    timeout=15,
+                )
+                if proxy_resp.status_code == 200 and not _is_unusable_ballotpedia_html(proxy_resp.text):
+                    resp = proxy_resp
+                else:
+                    return {**empty, "page_url": url, "http_status": resp.status_code}
 
             page_url = str(resp.url)
             html = resp.text
+
+            # Handle Cloudflare-style challenge / bot-mitigation pages
+            if _is_unusable_ballotpedia_html(html):
+                logger.debug("Ballotpedia election page %s returned unusable HTML — trying proxy", url)
+                proxy_resp = await client.get(
+                    f"https://r.jina.ai/{url}",
+                    headers={"User-Agent": _BROWSER_UA},
+                    timeout=15,
+                )
+                if proxy_resp.status_code == 200 and not _is_unusable_ballotpedia_html(proxy_resp.text):
+                    html = proxy_resp.text
+                else:
+                    return {**empty, "page_url": url}
 
             candidates = _parse_candidate_list_from_html(html)
 

@@ -1259,7 +1259,7 @@ async def _run_update(
                         current_date=as_of_date,
                         candidate_names=", ".join(candidate_names),
                     ),
-                    model=small_model,
+                    model=model,
                     on_log=on_log,
                     race_id=race_id,
                     max_iterations=min(max_iterations, 12),
@@ -1296,7 +1296,7 @@ async def _run_update(
             log("info", "Update Phase 0: Roster sync restored from checkpoint")
 
         # Roster verify uses the primary model to re-check inactive/non-general
-        # candidates after roster-sync edits from the cheaper small_model.
+        # candidates after roster-sync edits.
         post_sync_names = [_candidate_name(c) for c in race_json.get("candidates", []) if _candidate_name(c)]
         if "discovery.roster_verify" not in completed_units:
             log("info", f"  Roster verify: checking {len(post_sync_names)} candidate(s)")
@@ -1313,7 +1313,7 @@ async def _run_update(
                     model=model,
                     on_log=on_log,
                     race_id=race_id,
-                    max_iterations=6,
+                    max_iterations=8,
                     phase_name="roster-verify",
                     max_tokens=4096,
                     extra_tools=[REMOVE_CANDIDATE_TOOL, READ_PROFILE_TOOL],
