@@ -27,7 +27,14 @@
             "label": "Run Pipeline Tests",
             "type": "shell",
             "command": "python",
-            "args": ["-m", "pytest", "pipeline_client/", "-v"],
+            "args": [
+                "-m",
+                "pytest",
+                "tests",
+                "-v",
+                "--ignore=tests/test_agent_cloud_function.py",
+                "--ignore=tests/test_races_api_admin.py"
+            ],
             "group": "test",
             "presentation": {
                 "echo": true,

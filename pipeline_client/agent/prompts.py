@@ -759,6 +759,8 @@ NEVER remove a candidate for any other reason — not to fix data quality
 issues, not to correct information, not to replace a candidate entry, not
 because you think data about them is wrong or incomplete. If a candidate is
 still actively competing in the race, they stay regardless of data quality.
+Removal requires evidence the candidate verifiably lost a completed contest or
+otherwise left this race.
 
 {_SHARED_RULES}"""
 
@@ -790,7 +792,8 @@ IMPORTANT — remove_candidate rules:
   incorrect facts, or anything else related to the candidate's profile data.
 - Do NOT remove a candidate without a credible source (news article, official
   election results, Ballotpedia page) confirming they are no longer competing.
-- PRIMARY ELECTIONS ARE KEY: Search for "[state] [party] primary results {current_date[:4]}"
+- PRIMARY ELECTIONS ARE KEY: Search for "[state] [party] primary results" and
+  include the election year from {current_date}
   to check whether any party primaries for this race have already occurred. If a
   primary has concluded, candidates who lost that primary MUST be removed — they
   are no longer competing even though they were once declared candidates.
@@ -850,8 +853,9 @@ listed candidate:
 
 1. Use read_profile to see the current roster.
 2. FIRST — Search for completed primary results: try queries like
-   "{race_id} primary results", "[state] [party] primary {current_date[:4]}",
-   and "[state] gubernatorial/senate primary winner {current_date[:4]}".
+  "{race_id} primary results", "[state] [party] primary results", and
+  "[state] gubernatorial/senate primary winner" with the election year from
+  {current_date}.
    If a party primary has concluded, every candidate from that party who did NOT
    win must be removed immediately using remove_candidate.
 3. Search for withdrawal/disqualification news for each candidate who seems
