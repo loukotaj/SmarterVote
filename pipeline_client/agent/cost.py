@@ -47,3 +47,37 @@ def accumulate(
         entry = breakdown.setdefault(normalized_model, {"prompt_tokens": 0, "completion_tokens": 0})
         entry["prompt_tokens"] += prompt_tokens
         entry["completion_tokens"] += completion_tokens
+
+
+def record_context_metrics(
+    *,
+    estimated_input_tokens: int,
+    context_window_tokens: int,
+    deduplicated_results: int,
+    compacted_results: int,
+    truncated_results: int,
+    dropped_tool_turns: int,
+) -> None:
+    """Record request context utilization and deterministic compaction work."""
+    acc = _cost_ctx.get()
+    if acc is None:
+        return
+    acc["context_requests"] = acc.get("context_requests", 0) + 1
+    acc["max_estimated_context_tokens"] = max(
+        acc.get("max_estimated_context_tokens", 0),
+        estimated_input_tokens,
+    )
+    acc["max_context_window_tokens"] = max(
+        acc.get("max_context_window_tokens", 0),
+        context_window_tokens,
+    )
+    acc["context_deduplicated_results"] = max(
+        acc.get("context_deduplicated_results", 0),
+        deduplicated_results,
+    )
+    acc["context_compacted_results"] = acc.get("context_compacted_results", 0) + compacted_results
+    acc["context_truncated_results"] = max(
+        acc.get("context_truncated_results", 0),
+        truncated_results,
+    )
+    acc["context_dropped_tool_turns"] = acc.get("context_dropped_tool_turns", 0) + dropped_tool_turns

@@ -658,8 +658,12 @@ READ_PROFILE_TOOL: Dict = {
             "properties": {
                 "section": {
                     "type": "string",
-                    "enum": ["full", "candidates", "issues", "polling", "meta"],
+                    "enum": ["full", "candidate", "candidates", "issues", "polling", "meta"],
                     "description": "Which section to read. Use 'issues' for a compact issues-only view.",
+                },
+                "candidate_name": {
+                    "type": "string",
+                    "description": "Exact candidate name. Required when section is 'candidate'.",
                 },
             },
             "required": ["section"],

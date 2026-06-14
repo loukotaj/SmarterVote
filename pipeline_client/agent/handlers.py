@@ -506,9 +506,15 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
     def read_profile(args: Dict[str, Any]) -> str:
         section = args.get("section", "full")
         if section == "full":
-            return json.dumps(race_json, indent=2, default=str)
+            return json.dumps(race_json, separators=(",", ":"), default=str)
         if section == "candidates":
-            return json.dumps(race_json.get("candidates", []), indent=2, default=str)
+            return json.dumps(race_json.get("candidates", []), separators=(",", ":"), default=str)
+        if section == "candidate":
+            candidate_name = str(args.get("candidate_name") or "").strip().lower()
+            for candidate in race_json.get("candidates", []):
+                if str(candidate.get("name") or "").strip().lower() == candidate_name:
+                    return json.dumps(candidate, separators=(",", ":"), default=str)
+            return f"Candidate '{args.get('candidate_name', '')}' not found."
         if section == "issues":
             compact = {}
             for c in race_json.get("candidates", []):
@@ -520,9 +526,9 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
                             "confidence": v.get("confidence", "?"),
                         }
                 compact[c.get("name", "?")] = issues
-            return json.dumps(compact, indent=2)
+            return json.dumps(compact, separators=(",", ":"))
         if section == "polling":
-            return json.dumps(race_json.get("polling", []), indent=2, default=str)
+            return json.dumps(race_json.get("polling", []), separators=(",", ":"), default=str)
         if section == "meta":
             return json.dumps(
                 {
@@ -530,7 +536,7 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
                     for k in ("id", "title", "office", "jurisdiction", "election_date", "description")
                     if k in race_json
                 },
-                indent=2,
+                separators=(",", ":"),
                 default=str,
             )
         return f"Unknown section '{section}'."

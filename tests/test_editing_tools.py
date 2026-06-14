@@ -1,5 +1,6 @@
 """Tests for editing tool handlers, roster sync, candidate targeting, and search cache."""
 
+import json
 import tempfile
 
 from pipeline_client.agent.agent import _select_target_candidates
@@ -280,6 +281,12 @@ def test_read_profile_handler():
 
     issues = handlers["read_profile"]({"section": "issues"})
     assert "Healthcare" in issues
+
+    candidate = handlers["read_profile"]({"section": "candidate", "candidate_name": "Alice"})
+    assert json.loads(candidate)["name"] == "Alice"
+
+    full = handlers["read_profile"]({"section": "full"})
+    assert "\n" not in full
 
 
 def test_update_race_field_rejects_title_like_description():

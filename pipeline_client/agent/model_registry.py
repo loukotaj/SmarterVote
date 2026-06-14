@@ -35,26 +35,42 @@ class ModelSpec:
     label: str
     input_per_m: float
     output_per_m: float
+    context_window_tokens: int
+    max_completion_tokens: Optional[int] = None
 
 
 MODEL_CATALOG: Dict[str, ModelSpec] = {
-    "openai/gpt-5.4": ModelSpec("openai/gpt-5.4", "GPT-5.4", 2.50, 15.00),
-    "openai/gpt-5.4-mini": ModelSpec("openai/gpt-5.4-mini", "GPT-5.4 Mini", 0.75, 4.50),
-    "openai/gpt-5-nano": ModelSpec("openai/gpt-5-nano", "GPT-5 Nano", 0.05, 0.40),
-    "anthropic/claude-sonnet-4.6": ModelSpec("anthropic/claude-sonnet-4.6", "Claude Sonnet 4.6", 3.00, 15.00),
-    "anthropic/claude-haiku-4.5": ModelSpec("anthropic/claude-haiku-4.5", "Claude Haiku 4.5", 1.00, 5.00),
-    "google/gemini-3.1-pro-preview": ModelSpec("google/gemini-3.1-pro-preview", "Gemini 3.1 Pro Preview", 2.00, 12.00),
-    "google/gemini-3.1-flash-lite-preview": ModelSpec(
-        "google/gemini-3.1-flash-lite-preview", "Gemini 3.1 Flash Lite Preview", 0.25, 1.50
+    "openai/gpt-5.4": ModelSpec("openai/gpt-5.4", "GPT-5.4", 2.50, 15.00, 1_050_000, 128_000),
+    "openai/gpt-5.4-mini": ModelSpec("openai/gpt-5.4-mini", "GPT-5.4 Mini", 0.75, 4.50, 400_000, 128_000),
+    "openai/gpt-5-nano": ModelSpec("openai/gpt-5-nano", "GPT-5 Nano", 0.05, 0.40, 400_000),
+    "anthropic/claude-sonnet-4.6": ModelSpec(
+        "anthropic/claude-sonnet-4.6", "Claude Sonnet 4.6", 3.00, 15.00, 1_000_000, 128_000
     ),
-    "google/gemini-3-flash-preview": ModelSpec("google/gemini-3-flash-preview", "Gemini 3 Flash Preview", 0.10, 0.40),
-    "x-ai/grok-4.20": ModelSpec("x-ai/grok-4.20", "Grok 4.20", 1.25, 2.50),
-    "x-ai/grok-4.3": ModelSpec("x-ai/grok-4.3", "Grok 4.3", 1.25, 2.50),
-    "deepseek/deepseek-v4-flash": ModelSpec("deepseek/deepseek-v4-flash", "DeepSeek V4 Flash", 0.098, 0.196),
-    "nvidia/nemotron-3-super-120b-a12b": ModelSpec("nvidia/nemotron-3-super-120b-a12b", "Nemotron 3 Super", 0.09, 0.45),
-    "nvidia/nemotron-3-ultra-550b-a55b": ModelSpec("nvidia/nemotron-3-ultra-550b-a55b", "Nemotron 3 Ultra", 0.50, 2.50),
-    "meta-llama/llama-3.3-70b-instruct": ModelSpec("meta-llama/llama-3.3-70b-instruct", "Llama 3.3 70B Instruct", 0.10, 0.32),
-    "deepseek/deepseek-r1": ModelSpec("deepseek/deepseek-r1", "DeepSeek R1", 0.70, 2.50),
+    "anthropic/claude-haiku-4.5": ModelSpec("anthropic/claude-haiku-4.5", "Claude Haiku 4.5", 1.00, 5.00, 200_000, 64_000),
+    "google/gemini-3.1-pro-preview": ModelSpec(
+        "google/gemini-3.1-pro-preview", "Gemini 3.1 Pro Preview", 2.00, 12.00, 1_048_576, 65_536
+    ),
+    "google/gemini-3.1-flash-lite-preview": ModelSpec(
+        "google/gemini-3.1-flash-lite-preview", "Gemini 3.1 Flash Lite Preview", 0.25, 1.50, 1_048_576, 65_536
+    ),
+    "google/gemini-3-flash-preview": ModelSpec(
+        "google/gemini-3-flash-preview", "Gemini 3 Flash Preview", 0.10, 0.40, 1_048_576, 65_536
+    ),
+    "x-ai/grok-4.20": ModelSpec("x-ai/grok-4.20", "Grok 4.20", 1.25, 2.50, 2_000_000),
+    "x-ai/grok-4.3": ModelSpec("x-ai/grok-4.3", "Grok 4.3", 1.25, 2.50, 1_000_000),
+    "deepseek/deepseek-v4-flash": ModelSpec(
+        "deepseek/deepseek-v4-flash", "DeepSeek V4 Flash", 0.098, 0.196, 1_048_576, 65_536
+    ),
+    "nvidia/nemotron-3-super-120b-a12b": ModelSpec(
+        "nvidia/nemotron-3-super-120b-a12b", "Nemotron 3 Super", 0.09, 0.45, 1_000_000
+    ),
+    "nvidia/nemotron-3-ultra-550b-a55b": ModelSpec(
+        "nvidia/nemotron-3-ultra-550b-a55b", "Nemotron 3 Ultra", 0.50, 2.50, 1_000_000, 16_384
+    ),
+    "meta-llama/llama-3.3-70b-instruct": ModelSpec(
+        "meta-llama/llama-3.3-70b-instruct", "Llama 3.3 70B Instruct", 0.10, 0.32, 131_072, 16_384
+    ),
+    "deepseek/deepseek-r1": ModelSpec("deepseek/deepseek-r1", "DeepSeek R1", 0.70, 2.50, 163_840, 16_000),
 }
 
 LEGACY_MODEL_ALIASES: Dict[str, str] = {

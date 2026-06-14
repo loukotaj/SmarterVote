@@ -9,7 +9,8 @@ from typing import Any, Dict, List, Optional
 
 from .ballotpedia import lookup_candidate_data as _ballotpedia_lookup
 from .ballotpedia import lookup_election_page as _ballotpedia_election_lookup
-from .cost import accumulate
+from .context import AgentContext, AgentContextBudget
+from .cost import accumulate, record_context_metrics
 from .model_registry import (
     CHEAP_CLAUDE_MODEL,
     CHEAP_GEMINI_MODEL,
@@ -354,6 +355,13 @@ async def _agent_loop(
         {"role": "system", "content": system},
         {"role": "user", "content": user},
     ]
+    context_budget = AgentContextBudget.for_model(
+        model,
+        phase_name=phase_name,
+        max_iterations=max_iterations,
+        max_output_tokens=max_tokens,
+    )
+    context = AgentContext(context_budget, task_text=f"{system}\n{user}")
 
     nudge_at = max(int(max_iterations / 1.5), 3)
     _extra_tools = extra_tools or []
@@ -412,7 +420,21 @@ async def _agent_loop(
 
         t_call = time.perf_counter()
         try:
-            result = await _call_openai(messages, model=active_model, tools=tools_for_call, max_tokens=max_tokens)
+            prepared = context.prepare_messages(messages, tools=tools_for_call)
+            record_context_metrics(
+                estimated_input_tokens=prepared.estimated_input_tokens,
+                context_window_tokens=context_budget.context_window_tokens,
+                deduplicated_results=prepared.deduplicated_results,
+                compacted_results=prepared.compacted_results,
+                truncated_results=prepared.truncated_results,
+                dropped_tool_turns=prepared.dropped_tool_turns,
+            )
+            result = await _call_openai(
+                prepared.messages,
+                model=active_model,
+                tools=tools_for_call,
+                max_tokens=context_budget.max_output_tokens,
+            )
         except RuntimeError as e:
             if "policy violation" in str(e).lower():
                 log("error", f"  [{phase_name}] policy violation detected; exiting iteration loop")
@@ -451,7 +473,7 @@ async def _agent_loop(
                         {
                             "role": "tool",
                             "tool_call_id": tool_call.id,
-                            "content": json.dumps(search_results),
+                            "content": context.prepare_tool_result("web_search", search_results),
                         }
                     )
                 elif fn.name == "fetch_page":
@@ -467,7 +489,7 @@ async def _agent_loop(
                         {
                             "role": "tool",
                             "tool_call_id": tool_call.id,
-                            "content": page_text,
+                            "content": context.prepare_tool_result("fetch_page", page_text, source_url=url),
                         }
                     )
                 elif fn.name == "ballotpedia_lookup":
@@ -480,7 +502,7 @@ async def _agent_loop(
                         {
                             "role": "tool",
                             "tool_call_id": tool_call.id,
-                            "content": json.dumps(bp_data),
+                            "content": context.prepare_tool_result("ballotpedia_lookup", bp_data),
                         }
                     )
                 elif fn.name == "ballotpedia_election_lookup":
@@ -494,14 +516,20 @@ async def _agent_loop(
                         {
                             "role": "tool",
                             "tool_call_id": tool_call.id,
-                            "content": json.dumps(election_data),
+                            "content": context.prepare_tool_result("ballotpedia_election_lookup", election_data),
                         }
                     )
                 elif fn.name in _extra_handlers:
                     args = json.loads(fn.arguments)
                     log("info", f"    🔧 {fn.name}({', '.join(f'{k}={v!r}' for k, v in args.items())})")
                     try:
-                        handler_result = _extra_handlers[fn.name](args)
+                        if fn.name == "read_profile" and context_budget.narrow_phase and args.get("section", "full") == "full":
+                            handler_result = (
+                                "Full-profile reads are not available in this narrow phase. "
+                                "Read section='candidate' with candidate_name, or section='issues'."
+                            )
+                        else:
+                            handler_result = _extra_handlers[fn.name](args)
                         log("info", f"    🔧 {fn.name} → OK")
                     except Exception as exc:
                         handler_result = f"Error: {exc}"
@@ -510,7 +538,7 @@ async def _agent_loop(
                         {
                             "role": "tool",
                             "tool_call_id": tool_call.id,
-                            "content": str(handler_result),
+                            "content": context.prepare_tool_result(fn.name, handler_result),
                         }
                     )
                 else:

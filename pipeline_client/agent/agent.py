@@ -449,6 +449,13 @@ async def run_agent(
         "priced_calls": int(prior_agent_metrics.get("priced_calls", 0) or 0),
         "unpriced_calls": int(prior_agent_metrics.get("unpriced_calls", 0) or 0),
         "serper_calls": int(prior_agent_metrics.get("serper_calls", 0) or 0),
+        "context_requests": int(prior_agent_metrics.get("context_requests", 0) or 0),
+        "max_estimated_context_tokens": int(prior_agent_metrics.get("max_estimated_context_tokens", 0) or 0),
+        "max_context_window_tokens": int(prior_agent_metrics.get("max_context_window_tokens", 0) or 0),
+        "context_deduplicated_results": int(prior_agent_metrics.get("context_deduplicated_results", 0) or 0),
+        "context_compacted_results": int(prior_agent_metrics.get("context_compacted_results", 0) or 0),
+        "context_truncated_results": int(prior_agent_metrics.get("context_truncated_results", 0) or 0),
+        "context_dropped_tool_turns": int(prior_agent_metrics.get("context_dropped_tool_turns", 0) or 0),
         "model_breakdown": copy.deepcopy(prior_agent_metrics.get("model_breakdown", {})),
     }
     _ctx_token = _cost_ctx.set(_acc)
@@ -691,6 +698,17 @@ async def run_agent(
         "model_breakdown": breakdown,
         "duration_s": round(elapsed, 1),
         "serper_calls": serper_calls,
+        "context_requests": _acc.get("context_requests", 0),
+        "max_estimated_context_tokens": _acc.get("max_estimated_context_tokens", 0),
+        "max_context_window_tokens": _acc.get("max_context_window_tokens", 0),
+        "max_context_utilization": round(
+            _acc.get("max_estimated_context_tokens", 0) / max(_acc.get("max_context_window_tokens", 0), 1),
+            4,
+        ),
+        "context_deduplicated_results": _acc.get("context_deduplicated_results", 0),
+        "context_compacted_results": _acc.get("context_compacted_results", 0),
+        "context_truncated_results": _acc.get("context_truncated_results", 0),
+        "context_dropped_tool_turns": _acc.get("context_dropped_tool_turns", 0),
     }
     race_json["agent_metrics"] = agent_metrics
     log(

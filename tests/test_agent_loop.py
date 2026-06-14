@@ -336,6 +336,39 @@ async def test_agent_loop_tools_mode_calls_extra_handlers():
 
 
 @pytest.mark.asyncio
+async def test_narrow_issue_phase_rejects_full_profile_read():
+    tool_response = _mock_openai_response(
+        tool_calls=[
+            {
+                "id": "call_1",
+                "function": {
+                    "name": "read_profile",
+                    "arguments": json.dumps({"section": "full"}),
+                },
+            }
+        ],
+    )
+    done_response = _mock_openai_response(content="Done.")
+    handler = MagicMock(return_value=json.dumps(FAKE_RACE_JSON))
+
+    with patch("pipeline_client.agent.llm._call_openai", new_callable=AsyncMock) as mock:
+        mock.side_effect = [tool_response, done_response]
+        await _agent_loop(
+            "system",
+            "user",
+            model="gpt-5.4-mini",
+            phase_name="issue-Jane-Healthcare",
+            tools_mode=True,
+            extra_tools=[{"type": "function", "function": {"name": "read_profile", "parameters": {}}}],
+            extra_tool_handlers={"read_profile": handler},
+        )
+
+    handler.assert_not_called()
+    second_request = mock.call_args_list[1].args[0]
+    assert any("Full-profile reads are not available" in str(message.get("content")) for message in second_request)
+
+
+@pytest.mark.asyncio
 async def test_agent_loop_elevates_model_on_bad_json():
     """_agent_loop elevates model from cheap model to default model on retry when JSON parsing fails."""
     from pipeline_client.agent.model_registry import DEEPSEEK_FLASH_MODEL, NEMOTRON_ULTRA_MODEL

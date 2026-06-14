@@ -440,6 +440,14 @@ class AgentHandler:
                         "provider_cost_usd": cost_snapshot.get("provider_cost_usd", 0.0),
                         "priced_calls": cost_snapshot.get("priced_calls", 0),
                         "unpriced_calls": cost_snapshot.get("unpriced_calls", 0),
+                        "serper_calls": cost_snapshot.get("serper_calls", 0),
+                        "context_requests": cost_snapshot.get("context_requests", 0),
+                        "max_estimated_context_tokens": cost_snapshot.get("max_estimated_context_tokens", 0),
+                        "max_context_window_tokens": cost_snapshot.get("max_context_window_tokens", 0),
+                        "context_deduplicated_results": cost_snapshot.get("context_deduplicated_results", 0),
+                        "context_compacted_results": cost_snapshot.get("context_compacted_results", 0),
+                        "context_truncated_results": cost_snapshot.get("context_truncated_results", 0),
+                        "context_dropped_tool_turns": cost_snapshot.get("context_dropped_tool_turns", 0),
                         "model_breakdown": cost_snapshot.get("model_breakdown", {}),
                     }
                 db.collection("pipeline_queue").document(item_id).set(

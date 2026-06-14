@@ -87,6 +87,8 @@ Add deletion/regression tests if these paths change during implementation.
 
 ## Phase 2: Large, Efficient LLM Context
 
+Status: Complete.
+
 ### Problem
 
 `_agent_loop()` appends all assistant messages, search results, fetched pages, and tool responses to one conversation. The complete history is sent again on every iteration. Input-token use therefore grows roughly quadratically with the number and size of tool calls.
@@ -183,6 +185,23 @@ Change fetched page handling:
 - Assert source URLs survive compaction.
 - Assert each phase receives only its allowed tools.
 - Add a regression test for oversized `read_profile` output.
+
+### Delivered
+
+- Added model context-window and completion limits to the OpenRouter model registry.
+- Added `AgentContextBudget` with large defaults: broad phases target 75% of the model window and narrow phases target 60%.
+- Added deterministic search normalization, source and payload deduplication, relevant fetch excerpts, a durable source notebook, old-turn compaction, and a hard provider-window ceiling.
+- Added configurable context controls through `PIPELINE_CONTEXT_TARGET_PERCENT`, `PIPELINE_CONTEXT_HEADROOM_TOKENS`, `PIPELINE_MAX_SEARCH_RESULTS`, `PIPELINE_MAX_RETAINED_TOOL_TURNS`, and `OPENROUTER_DEFAULT_CONTEXT_TOKENS`.
+- Added candidate-specific compact profile reads and blocked full-profile reads in narrow issue and image phases.
+- Added context utilization, deduplication, compaction, truncation, and dropped-turn metrics to `agent_metrics` and continuation handoffs.
+
+Validation:
+
+```text
+Focused agent/context suite: 82 passed
+Full Python suite: 285 passed
+Black and isort checks: passed
+```
 
 ## Phase 3: OpenRouter Naming and Deadline-Aware Run Budgets
 
