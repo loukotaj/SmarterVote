@@ -467,7 +467,11 @@ export class PipelineApiService {
    * List all race records (unified view)
    */
   async listRaces(): Promise<RaceRecord[]> {
-    const res = await fetchWithAuth(`${this.apiBase}/api/races`, {}, API_TIMEOUT_DEFAULT);
+    const res = await fetchWithAuth(
+      `${this.apiBase}/api/races?reconcile_active=true`,
+      {},
+      API_TIMEOUT_DEFAULT
+    );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
     const data: RaceListResponse = await res.json();
     return data.races || [];

@@ -2579,6 +2579,74 @@ def test_get_run_logs_since():
     assert body["logs"][0]["message"] == "msg 2"
 
 
+def test_get_run_logs_pages_after_sorting_full_log_set():
+    """Pagination must not apply the Firestore limit before the since offset."""
+    os.environ["SKIP_AUTH"] = "true"
+    os.environ["ADMIN_API_KEY"] = "test-key"
+
+    entries = [{"timestamp": f"2026-01-01T00:00:0{i}Z", "level": "info", "message": f"msg {i}"} for i in range(5)]
+    log_docs = [_make_existing_doc(entry) for entry in entries]
+
+    log_coll = MagicMock()
+    log_coll.stream.return_value = iter(log_docs)
+    run_doc_ref = MagicMock()
+    run_doc_ref.collection.return_value = log_coll
+    runs_coll = MagicMock()
+    runs_coll.document.return_value = run_doc_ref
+    db = _build_empty_firestore_mock()
+    db.collection.side_effect = lambda name: runs_coll if name == "pipeline_runs" else MagicMock()
+
+    import main as app_module
+
+    firestore_helpers._fs_db = None
+
+    from fastapi.testclient import TestClient
+
+    with patch("firestore_helpers._get_fs", return_value=db):
+        tc = TestClient(app_module.app)
+        resp = tc.get("/runs/run-abc/logs?since=2&limit=2")
+
+    assert resp.status_code == 200
+    body = resp.json()
+    assert body["total"] == 5
+    assert [entry["message"] for entry in body["logs"]] == ["msg 2", "msg 3"]
+
+
+def test_get_run_detail_uses_logical_duration_across_continuations():
+    """Run detail should show wall-clock duration, not only the final invocation."""
+    os.environ["SKIP_AUTH"] = "true"
+    os.environ["ADMIN_API_KEY"] = "test-key"
+
+    run_doc = _make_existing_doc(
+        {
+            "run_id": "run-abc",
+            "status": "completed",
+            "started_at": "2026-01-01T00:00:00Z",
+            "completed_at": "2026-01-01T00:30:00Z",
+            "duration_ms": 2500,
+        }
+    )
+    run_ref = MagicMock()
+    run_ref.get.return_value = run_doc
+    runs_coll = MagicMock()
+    runs_coll.document.return_value = run_ref
+    db = _build_empty_firestore_mock()
+    db.collection.side_effect = lambda name: runs_coll if name == "pipeline_runs" else MagicMock()
+
+    import main as app_module
+
+    firestore_helpers._fs_db = None
+
+    from fastapi.testclient import TestClient
+
+    with patch("firestore_helpers._get_fs", return_value=db):
+        tc = TestClient(app_module.app)
+        resp = tc.get("/runs/run-abc")
+
+    assert resp.status_code == 200
+    assert resp.json()["duration_ms"] == 1_800_000
+
+
 def test_delete_active_run_cancels_matching_queue_item():
     """Deleting an active run should cancel its Firestore queue item so the Cloud Function stops."""
     os.environ["SKIP_AUTH"] = "true"

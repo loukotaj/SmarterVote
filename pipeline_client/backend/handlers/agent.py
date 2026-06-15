@@ -211,6 +211,20 @@ class AgentHandler:
 
             return min(98, int((done_weight + partial_weight) / total_weight * 100))
 
+        def _overall_progress(current_step: str | None = None, current_step_pct: int = 0) -> int:
+            """Use local run state when present; Cloud Functions rely on checkpoint state."""
+            if _run_manager and _run_manager.get_run(run_id):
+                return _compute_overall_progress(
+                    run_id,
+                    _run_manager,
+                    ALL_STEPS,
+                    STEP_WEIGHTS,
+                    enabled_set,
+                    current_step,
+                    current_step_pct,
+                )
+            return _fallback_progress(current_step, current_step_pct)
+
         def _broadcast_progress(pct: int, label: str) -> None:
             if run_id and _safe_broadcast:
                 _safe_broadcast({"type": "run_progress", "run_id": run_id, "progress": pct, "message": label})
@@ -263,11 +277,7 @@ class AgentHandler:
                 if _run_manager:
                     _run_manager.update_step_status(run_id, step, RunStatus.RUNNING)
                 label = STEP_LABELS.get(step, step)
-                pct = (
-                    _compute_overall_progress(run_id, _run_manager, ALL_STEPS, STEP_WEIGHTS, enabled_set)
-                    if _run_manager
-                    else _fallback_progress(step, 1)
-                )
+                pct = _overall_progress(step, 1)
                 _broadcast_progress(pct, label)
                 if _fs_logger:
                     remaining = [s for s in enabled_steps if s not in _completed_steps]
@@ -296,11 +306,7 @@ class AgentHandler:
                 if _run_manager:
                     _run_manager.update_step_status(run_id, step, RunStatus.COMPLETED, duration_ms=duration_ms)
                 _completed_steps.append(step)
-                pct = (
-                    _compute_overall_progress(run_id, _run_manager, ALL_STEPS, STEP_WEIGHTS, enabled_set)
-                    if _run_manager
-                    else _fallback_progress()
-                )
+                pct = _overall_progress()
                 label = STEP_LABELS.get(step, step) + " complete"
                 _broadcast_progress(pct, label)
 
@@ -365,11 +371,7 @@ class AgentHandler:
                             if s.name == step:
                                 s.progress_pct = pct
                                 break
-                overall = (
-                    _compute_overall_progress(run_id, _run_manager, ALL_STEPS, STEP_WEIGHTS, enabled_set, step, pct)
-                    if _run_manager
-                    else _fallback_progress(step, pct)
-                )
+                overall = _overall_progress(step, pct)
                 label = message or STEP_LABELS.get(step, step)
                 _broadcast_progress(overall, label)
                 if _fs_logger:
@@ -559,13 +561,16 @@ class AgentHandler:
         # Save as draft (not published) — admin must explicitly publish
         draft_path = await self._save_draft(race_id, race_json)
 
-        # Update race record metadata from the new draft data
-        try:
-            from pipeline_client.backend.race_manager import race_manager
+        # Durable queue executions finalize race/catalog state in the Cloud
+        # Function after this handler returns. Avoid a competing asynchronous
+        # full-document write from the legacy local runner's RaceManager.
+        if not queue_item_id:
+            try:
+                from pipeline_client.backend.race_manager import race_manager
 
-            race_manager.update_race_metadata(race_id, race_json)
-        except Exception:
-            logger.warning("Failed to update race metadata after draft save", exc_info=True)
+                race_manager.update_race_metadata(race_id, race_json)
+            except Exception:
+                logger.warning("Failed to update race metadata after draft save", exc_info=True)
 
         duration_ms = int((time.perf_counter() - t0) * 1000)
         logger.info(f"Agent: saved draft {race_id} to {draft_path} in {duration_ms}ms")

@@ -50,6 +50,15 @@ def _run_sort_key(run: Dict[str, Any]) -> tuple[datetime, str]:
     return (activity_at, str(run.get("run_id") or ""))
 
 
+def _derive_logical_duration(run: Dict[str, Any]) -> Dict[str, Any]:
+    """Use logical run timestamps instead of the final invocation duration."""
+    started_at = _coerce_datetime(run.get("started_at"))
+    completed_at = _coerce_datetime(run.get("completed_at"))
+    if started_at and completed_at and completed_at >= started_at:
+        run["duration_ms"] = int((completed_at - started_at).total_seconds() * 1000)
+    return run
+
+
 def _collapse_continuation_chains(runs: list[Dict[str, Any]]) -> list[Dict[str, Any]]:
     """Present legacy continuation documents as one logical run."""
     by_id = {str(run.get("run_id")): run for run in runs if run.get("run_id")}
@@ -98,7 +107,7 @@ def _collapse_continuation_chains(runs: list[Dict[str, Any]]) -> list[Dict[str, 
             representative["started_at"] = min(starts).isoformat()
         if starts and ends:
             representative["duration_ms"] = int((max(ends) - min(starts)).total_seconds() * 1000)
-        collapsed.append(representative)
+        collapsed.append(_derive_logical_duration(representative))
     return collapsed
 
 
@@ -264,7 +273,7 @@ async def get_run(run_id: str) -> Dict[str, Any]:
     data = firestore_helpers._doc_to_plain(doc)
     if data is None:
         raise HTTPException(status_code=404, detail="Run not found")
-    return data
+    return _derive_logical_duration(data)
 
 
 @router.get("/runs/{run_id}/logs", dependencies=[Depends(verify_token)])
@@ -277,10 +286,10 @@ async def get_run_logs(run_id: str, since: int = 0, limit: int = 1000) -> Dict[s
     db = firestore_helpers._get_fs()
     logs_ref = db.collection("pipeline_runs").document(run_id).collection("logs")
     limit = max(1, min(limit, 5000))
-    entries = [firestore_helpers._doc_to_plain(d) for d in logs_ref.limit(limit).stream()]
+    entries = [firestore_helpers._doc_to_plain(d) for d in logs_ref.stream()]
     entries = [e for e in entries if e is not None]
     entries.sort(key=_log_sort_key)
-    sliced = entries[since:] if since < len(entries) else []
+    sliced = entries[since : since + limit] if since < len(entries) else []
     return {"logs": sliced, "total": len(entries)}
 
 

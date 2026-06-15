@@ -22,6 +22,7 @@
   let connected = false;
   let queueTimer: ReturnType<typeof setInterval> | null = null;
   let cancellingItemId: string | null = null;
+  let racesTab: RacesTab | null = null;
 
   $: if (activeTab === "runs" && apiService) {
     void refreshRuns();
@@ -45,7 +46,7 @@
     let newIntervalMs = 0;
     if (activeItemsCount > 0) {
       newIntervalMs = 12000;
-    } else if (currentTab === "dashboard" || currentTab === "runs") {
+    } else if (currentTab === "dashboard" || currentTab === "races" || currentTab === "runs") {
       newIntervalMs = 30000;
     } else {
       newIntervalMs = 0;
@@ -63,7 +64,7 @@
 
     if (pollingIntervalMs > 0) {
       queueTimer = setInterval(() => {
-        if (!document.hidden) void refreshQueue();
+        if (!document.hidden) void refreshOperationalState();
       }, pollingIntervalMs);
     }
   }
@@ -104,6 +105,16 @@
     }
   }
 
+  async function refreshOperationalState() {
+    const refreshes: Promise<void>[] = [refreshQueue()];
+    if (activeTab === "runs") {
+      refreshes.push(refreshRuns());
+    } else if (activeTab === "races" && racesTab) {
+      refreshes.push(racesTab.refresh(false));
+    }
+    await Promise.allSettled(refreshes);
+  }
+
   async function cancelQueueItem(item: QueueItem) {
     if (!confirm(`Cancel ${item.race_id || item.run_id || "this queue item"}?`)) return;
     cancellingItemId = item.id;
@@ -118,7 +129,7 @@
   }
 
   async function refreshRuns() {
-    if (!apiService) return;
+    if (!apiService || isRefreshingRuns) return;
     isRefreshingRuns = true;
     try {
       runs = await apiService.loadRunHistory();
@@ -216,7 +227,7 @@
     />
   {:else if activeTab === "races" && apiService}
     <div class="card p-6">
-      <RacesTab />
+      <RacesTab bind:this={racesTab} />
     </div>
   {:else if activeTab === "runs" && apiService}
     <RunsTab

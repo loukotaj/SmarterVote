@@ -188,6 +188,55 @@ async def test_v2_handler_tracks_step_progress_in_firestore_without_run_manager(
 
 
 @pytest.mark.asyncio
+async def test_v2_handler_uses_fallback_progress_when_run_manager_has_no_local_run():
+    """Cloud Function handlers have a run manager module but no in-memory RunInfo."""
+    handler = AgentHandler()
+
+    async def _fake_run_agent(*_args, **kwargs):
+        tracker = kwargs["step_tracker"]
+        tracker["start"]("issues")
+        tracker["progress"]("issues", pct=42, message="Working issues")
+        return {"id": "test-race", "candidates": [{"name": "Alice", "issues": {}}]}
+
+    with (
+        patch("pipeline_client.agent.agent.run_agent", side_effect=_fake_run_agent),
+        patch.object(handler, "_save_draft", new_callable=AsyncMock, return_value=Path("/tmp/test-race.json")),
+        patch("pipeline_client.backend.firestore_logger.FirestoreLogger") as mock_fs_logger_cls,
+        patch("pipeline_client.backend.run_manager.run_manager.get_run", return_value=None),
+    ):
+        await handler.handle(
+            {"race_id": "test-race"},
+            {"run_id": "run-cloud", "enabled_steps": ["issues"]},
+        )
+
+    progress_updates = mock_fs_logger_cls.return_value.update_progress.call_args_list
+    issue_update = next(call for call in progress_updates if call.kwargs.get("current_step_progress") == 42)
+    assert issue_update.args[0] == 42
+
+
+@pytest.mark.asyncio
+async def test_v2_handler_leaves_durable_race_finalization_to_cloud_function():
+    """Queue executions must not race the Cloud Function with a stale full-document write."""
+    handler = AgentHandler()
+
+    with (
+        patch(
+            "pipeline_client.agent.agent.run_agent",
+            new_callable=AsyncMock,
+            return_value={"id": "test-race", "candidates": [{"name": "Alice"}]},
+        ),
+        patch.object(handler, "_save_draft", new_callable=AsyncMock, return_value=Path("/tmp/test-race.json")),
+        patch("pipeline_client.backend.race_manager.race_manager.update_race_metadata") as mock_update_metadata,
+    ):
+        await handler.handle(
+            {"race_id": "test-race"},
+            {"run_id": "run-cloud", "queue_item_id": "queue-cloud"},
+        )
+
+    mock_update_metadata.assert_not_called()
+
+
+@pytest.mark.asyncio
 async def test_v2_handler_stops_when_queue_item_cancelled():
     """Cloud Function runs should stop at the next step boundary after cancellation."""
     from pipeline_client.backend.handlers.agent import AgentCancelled

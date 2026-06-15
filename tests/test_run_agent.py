@@ -1070,6 +1070,90 @@ async def test_run_agent_continuation_skips_completed_issue_stances():
 
 
 @pytest.mark.asyncio
+async def test_run_agent_continuation_retries_blank_issue_stances():
+    existing = {
+        "id": "test-2024",
+        "candidates": [
+            {
+                "name": "Alice",
+                "party": "D",
+                "issues": {
+                    CANONICAL_ISSUES[0]: {
+                        "issue": CANONICAL_ISSUES[0],
+                        "stance": "",
+                        "confidence": "low",
+                        "sources": [],
+                    }
+                },
+            }
+        ],
+        "pipeline_state": {
+            "completed_units": [f"issues:Alice:{CANONICAL_ISSUES[0]}"],
+        },
+        "updated_utc": "2024-01-01T00:00:00Z",
+    }
+
+    with patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock) as mock_loop:
+        mock_loop.return_value = {}
+        result = await run_agent(
+            "test-2024",
+            cheap_mode=True,
+            existing_data=existing,
+            enabled_steps=["issues"],
+            resume_partial=True,
+        )
+
+    assert mock_loop.call_count == len(CANONICAL_ISSUES)
+    assert f"issues:Alice:{CANONICAL_ISSUES[0]}" not in result["pipeline_state"]["completed_units"]
+
+
+@pytest.mark.asyncio
+async def test_run_agent_continuation_caps_repeated_issue_attempts(monkeypatch):
+    capped_issue = CANONICAL_ISSUES[0]
+    completed_issues = {
+        issue: {
+            "issue": issue,
+            "stance": f"Existing stance on {issue}",
+            "confidence": "high",
+            "sources": [],
+        }
+        for issue in CANONICAL_ISSUES[1:]
+    }
+    existing = {
+        "id": "test-2024",
+        "candidates": [
+            {
+                "name": "Alice",
+                "party": "D",
+                "issues": {
+                    capped_issue: {"issue": capped_issue, "stance": "", "confidence": "low", "sources": []},
+                    **completed_issues,
+                },
+            }
+        ],
+        "pipeline_state": {
+            "completed_units": [f"issues:Alice:{issue}" for issue in CANONICAL_ISSUES],
+            "issue_attempts": {f"issues:Alice:{capped_issue}": 3},
+        },
+        "updated_utc": "2024-01-01T00:00:00Z",
+    }
+    monkeypatch.setenv("PIPELINE_ISSUE_MAX_ATTEMPTS", "3")
+
+    with patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock) as mock_loop:
+        result = await run_agent(
+            "test-2024",
+            cheap_mode=True,
+            existing_data=existing,
+            enabled_steps=["issues"],
+            resume_partial=True,
+        )
+
+    assert mock_loop.call_count == 0
+    assert "repeated research attempts" in result["candidates"][0]["issues"][capped_issue]["stance"]
+    assert f"issues:Alice:{capped_issue}" in result["pipeline_state"]["completed_units"]
+
+
+@pytest.mark.asyncio
 async def test_run_agent_continuation_does_not_report_skipped_issue_as_active():
     """Skipped checkpointed issue stances should not look like active research."""
     existing = {
@@ -1242,12 +1326,24 @@ async def test_issue_checkpoint_progress_includes_partial_race_json():
     progress_payloads = []
 
     def _progress(step: str, **kwargs):
-        if step == "issues" and "race_json" in kwargs:
+        if step == "issues" and "race_json" in kwargs and kwargs.get("message", "").startswith("Issues checkpoint"):
             progress_payloads.append(kwargs["race_json"])
 
-    with patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock) as mock_loop:
-        mock_loop.return_value = {}
+    async def fake_loop(_system, user, **kwargs):
+        candidate = re.search(r"^Candidate: (.+)$", user, re.MULTILINE).group(1)
+        issue = re.search(r"^Issue to (?:research|update): (.+)$", user, re.MULTILINE).group(1)
+        kwargs["extra_tool_handlers"]["set_issue_stance"](
+            {
+                "candidate_name": candidate,
+                "issue": issue,
+                "stance": f"{candidate} stance on {issue}",
+                "confidence": "low",
+                "sources": [],
+            }
+        )
+        return {}
 
+    with patch("pipeline_client.agent.phases._agent_loop", side_effect=fake_loop):
         await run_agent(
             "test-2024",
             cheap_mode=True,
