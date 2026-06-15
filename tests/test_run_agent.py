@@ -1154,6 +1154,40 @@ async def test_run_agent_continuation_caps_repeated_issue_attempts(monkeypatch):
 
 
 @pytest.mark.asyncio
+async def test_run_agent_continuation_skips_completed_refinement_units():
+    existing = {
+        "id": "test-2026",
+        "election_date": "2026-11-03",
+        "office": "Governor",
+        "state": "Michigan",
+        "candidates": [
+            {"name": "Alice", "party": "D", "issues": {}},
+            {"name": "Bob", "party": "R", "issues": {}},
+        ],
+        "pipeline_state": {"completed_units": ["refinement:Alice"]},
+        "updated_utc": "2026-01-01T00:00:00Z",
+    }
+
+    with (
+        patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.phases._candidate_source_hints", new_callable=AsyncMock, return_value=("", [])),
+    ):
+        result = await run_agent(
+            "test-2026",
+            cheap_mode=True,
+            existing_data=existing,
+            enabled_steps=["refinement"],
+            resume_partial=True,
+        )
+
+    phase_names = [call.kwargs["phase_name"] for call in mock_loop.call_args_list]
+    assert phase_names == ["upd-refine-Bob", "upd-refine-meta"]
+    assert "refinement:Alice" in result["pipeline_state"]["completed_units"]
+    assert "refinement:Bob" in result["pipeline_state"]["completed_units"]
+    assert "refinement:meta" in result["pipeline_state"]["completed_units"]
+
+
+@pytest.mark.asyncio
 async def test_run_agent_continuation_does_not_report_skipped_issue_as_active():
     """Skipped checkpointed issue stances should not look like active research."""
     existing = {
