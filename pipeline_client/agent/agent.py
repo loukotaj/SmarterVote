@@ -646,15 +646,22 @@ async def run_agent(
 
                 did_iterate = True
                 log("info", f"Phase 5 (cycle {cycle}/{max_review_cycles}): Iterating on review feedback...")
-                _track("progress", "iteration", pct=int(cycle / max_review_cycles * 80))
                 cycle_budget = max_iterations if max_review_cycles == 1 else int(max_iterations / max_review_cycles)
+
+                def _on_iteration_progress(pct: int, message: str, checkpoint_race: Dict[str, Any]) -> None:
+                    cycle_pct = int(((cycle - 1) + pct / 100) / max_review_cycles * 100)
+                    _track("progress", "iteration", pct=cycle_pct, message=message, race_json=checkpoint_race)
+
                 improved = await _run_iteration_pass(
                     race_id,
                     race_json,
                     reviews,
                     model=model,
                     on_log=on_log,
+                    on_progress=_on_iteration_progress,
                     max_iterations=max(cycle_budget, 14),
+                    resume_partial=resume_partial,
+                    unit_prefix=f"iteration:{cycle}",
                     run_budget=run_budget,
                 )
                 if improved is not None:

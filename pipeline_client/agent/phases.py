@@ -1578,7 +1578,10 @@ async def _run_iteration_pass(
     *,
     model: str,
     on_log: Any | None = None,
+    on_progress: Any | None = None,
     max_iterations: int = 20,
+    resume_partial: bool = False,
+    unit_prefix: str = "iteration:1",
     run_budget: RunBudget | None = None,
 ) -> Optional[Dict[str, Any]]:
     """Run a single iteration pass addressing review flags (tools mode)."""
@@ -1593,14 +1596,34 @@ async def _run_iteration_pass(
     log("info", f"  Iteration: addressing review flags for {n} candidates (tools mode)")
 
     working = copy.deepcopy(race_json)
+    completed_units = _pipeline_completed_units(working)
+    if not resume_partial:
+        completed_units = {unit for unit in completed_units if not unit.startswith(f"{unit_prefix}:")}
+        working["pipeline_state"]["completed_units"] = sorted(completed_units)
+
+    candidate_units = [
+        (candidate, f"{unit_prefix}:{_candidate_name(candidate)}")
+        for candidate in working.get("candidates", [])
+        if isinstance(candidate, dict) and _candidate_name(candidate)
+    ]
+    expected_units = {unit for _, unit in candidate_units}
+
+    def checkpoint_progress(label: str) -> None:
+        if on_progress is None:
+            return
+        completed = len(expected_units & _pipeline_completed_units(working))
+        pct = int(completed / max(len(expected_units), 1) * 100)
+        on_progress(pct, label, working)
+
     handlers = _make_editing_handlers(working, log)
     all_tools = (
         ROSTER_TOOLS + CANDIDATE_TOOLS + ISSUE_TOOLS + RECORD_TOOLS + BACKGROUND_TOOLS + RACE_TOOLS + [READ_PROFILE_TOOL]
     )
     any_success = False
 
-    for candidate in working.get("candidates", []):
-        if not isinstance(candidate, dict) or not _candidate_name(candidate):
+    for candidate, unit_id in candidate_units:
+        if unit_id in completed_units:
+            log("info", f"  Iteration checkpoint already complete for {_candidate_name(candidate)}; skipping")
             continue
         cname = _candidate_name(candidate)
         candidate_website, candidate_issue_urls = await _await_with_run_budget(
@@ -1640,6 +1663,10 @@ async def _run_iteration_pass(
         except Exception as exc:
             log("warning", f"  Iteration failed for {cname}: {exc} — keeping existing")
 
+        _mark_pipeline_unit_complete(working, unit_id)
+        completed_units.add(unit_id)
+        checkpoint_progress(f"Review iteration checkpoint: {cname}")
+
     log("info", "  Iterating on race metadata...")
     try:
         await _agent_loop(
@@ -1667,7 +1694,7 @@ async def _run_iteration_pass(
     except Exception as exc:
         log("warning", f"  Iteration meta failed: {exc} — keeping existing meta")
 
-    if not any_success:
+    if not any_success and not expected_units.issubset(_pipeline_completed_units(working)):
         log("warning", "  All iteration calls failed — keeping original")
         return None
 

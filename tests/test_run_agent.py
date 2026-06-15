@@ -10,7 +10,7 @@ from unittest.mock import AsyncMock, patch
 import pytest
 
 from pipeline_client.agent.agent import _load_existing, _normalize_schema_fields, _sanitize_polling, run_agent
-from pipeline_client.agent.phases import _reconcile_candidates_with_authoritative_roster, _sanitize_roster
+from pipeline_client.agent.phases import _reconcile_candidates_with_authoritative_roster, _run_iteration_pass, _sanitize_roster
 from pipeline_client.agent.prompts import CANONICAL_ISSUES
 from pipeline_client.backend.handlers.agent import HandoffTriggered
 
@@ -657,6 +657,40 @@ async def test_run_agent_iteration_continuation_preserves_reviews_and_computes_g
         "summary": "Validated by 1/1 reviewers with an average score of 95/100.",
     }
     assert result["pipeline_state"]["complete"] is True
+
+
+@pytest.mark.asyncio
+async def test_iteration_pass_continuation_skips_completed_candidate_units():
+    race = {
+        "id": "iteration-units-2026",
+        "candidates": [{"name": "Alice"}, {"name": "Bob"}],
+        "pipeline_state": {"completed_units": ["iteration:1:Alice"]},
+    }
+    progress_updates = []
+
+    with (
+        patch("pipeline_client.agent.phases._candidate_source_hints", new_callable=AsyncMock, return_value=("", [])),
+        patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock, return_value={}) as mock_loop,
+    ):
+        result = await _run_iteration_pass(
+            "iteration-units-2026",
+            race,
+            [{"model": "claude", "flags": [{"field": "summary", "severity": "warning"}]}],
+            model="test-model",
+            resume_partial=True,
+            unit_prefix="iteration:1",
+            on_progress=lambda pct, message, checkpoint: progress_updates.append((pct, message, checkpoint)),
+        )
+
+    assert result is not None
+    phases = [call.kwargs["phase_name"] for call in mock_loop.call_args_list]
+    assert phases == ["iterate-Bob", "iterate-meta"]
+    assert set(result["pipeline_state"]["completed_units"]) >= {
+        "iteration:1:Alice",
+        "iteration:1:Bob",
+    }
+    assert progress_updates[-1][0] == 100
+    assert progress_updates[-1][2]["pipeline_state"]["completed_units"] == result["pipeline_state"]["completed_units"]
 
 
 @pytest.mark.asyncio
