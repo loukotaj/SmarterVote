@@ -610,6 +610,56 @@ async def test_run_agent_default_iteration_rereviews_full_profile_once():
 
 
 @pytest.mark.asyncio
+async def test_run_agent_iteration_continuation_preserves_reviews_and_computes_grade():
+    carried_reviews = [
+        {
+            "model": "claude",
+            "verdict": "flagged",
+            "score": 87,
+            "flags": [{"field": "candidates[0].summary", "concern": "Needs detail", "severity": "warning"}],
+        }
+    ]
+    existing = {
+        "id": "review-continuation-2026",
+        "election_date": "2026-11-03",
+        "candidates": [{"name": "Alice", "summary": "Before", "issues": {}}],
+        "reviews": carried_reviews,
+        "pipeline_state": {"complete": True, "remaining_candidates": [], "remaining_steps": []},
+        "agent_metrics": {"review": {"whole_profile": True, "packet_revisions": 1}},
+    }
+    improved = {
+        **existing,
+        "candidates": [{"name": "Alice", "summary": "After", "issues": {}}],
+    }
+    final_reviews = [{"model": "claude", "verdict": "approved", "score": 95, "flags": []}]
+
+    with (
+        patch(
+            "pipeline_client.agent.agent._run_iteration_pass", new_callable=AsyncMock, return_value=improved
+        ) as mock_iteration,
+        patch("pipeline_client.agent.agent.run_reviews", new_callable=AsyncMock, return_value=final_reviews) as mock_reviews,
+    ):
+        result = await run_agent(
+            "review-continuation-2026",
+            existing_data=existing,
+            enabled_steps=["iteration"],
+            resume_partial=True,
+        )
+
+    assert mock_iteration.await_count == 1
+    assert mock_iteration.call_args.args[2] == carried_reviews
+    assert mock_reviews.await_count == 1
+    assert result["reviews"] == final_reviews
+    assert result["validation_grade"] == {
+        "grade": "A",
+        "score": 95,
+        "passed": True,
+        "summary": "Validated by 1/1 reviewers with an average score of 95/100.",
+    }
+    assert result["pipeline_state"]["complete"] is True
+
+
+@pytest.mark.asyncio
 async def test_extra_review_cycles_require_error_flags(monkeypatch):
     monkeypatch.setenv("PIPELINE_MAX_REVIEW_CYCLES", "3")
     discovery_result = {
