@@ -202,7 +202,7 @@ async def test_v2_handler_uses_fallback_progress_when_run_manager_has_no_local_r
         patch("pipeline_client.agent.agent.run_agent", side_effect=_fake_run_agent),
         patch.object(handler, "_save_draft", new_callable=AsyncMock, return_value=Path("/tmp/test-race.json")),
         patch("pipeline_client.backend.firestore_logger.FirestoreLogger") as mock_fs_logger_cls,
-        patch("pipeline_client.backend.run_manager.run_manager.get_run", return_value=None),
+        patch("pipeline_client.backend.run_manager.run_manager.get_run", return_value=MagicMock()),
     ):
         await handler.handle(
             {"race_id": "test-race"},
