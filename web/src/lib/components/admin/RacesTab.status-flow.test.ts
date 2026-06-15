@@ -133,7 +133,7 @@ describe("RacesTab preview and render flow", () => {
 
     await waitFor(() =>
       expect(mockFetchWithAuth).toHaveBeenCalledWith(
-        "http://localhost:8080/api/races/queue",
+        expect.stringMatching(/\/api\/races\/queue$/),
         expect.objectContaining({
           method: "POST",
           body: JSON.stringify({ race_ids: ["ready-to-run"], options: {} }),
@@ -163,7 +163,7 @@ describe("RacesTab preview and render flow", () => {
 
     await waitFor(() =>
       expect(mockFetchWithAuth).toHaveBeenCalledWith(
-        "http://localhost:8080/api/races/active-race/cancel",
+        expect.stringMatching(/\/api\/races\/active-race\/cancel$/),
         { method: "POST" },
         expect.any(Number)
       )

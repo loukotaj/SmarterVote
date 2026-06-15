@@ -310,11 +310,7 @@ class AgentHandler:
                 if _run_manager:
                     _run_manager.update_step_status(run_id, step, RunStatus.RUNNING)
                 label = STEP_LABELS.get(step, step)
-                pct = 0
-                if _run_manager and _run_manager.get_run(run_id):
-                    pct = _compute_overall_progress(run_id, _run_manager, ALL_STEPS, STEP_WEIGHTS, enabled_set)
-                else:
-                    pct = _fallback_progress(step, 1)
+                pct = _overall_progress(step, 1)
                 _broadcast_progress(pct, label)
                 if _fs_logger:
                     remaining = [s for s in enabled_steps if s not in _completed_steps]
@@ -382,11 +378,7 @@ class AgentHandler:
                         estimated_usd=estimated_usd,
                     )
                 _completed_steps.append(step)
-                pct = 0
-                if _run_manager and _run_manager.get_run(run_id):
-                    pct = _compute_overall_progress(run_id, _run_manager, ALL_STEPS, STEP_WEIGHTS, enabled_set)
-                else:
-                    pct = _fallback_progress()
+                pct = _overall_progress()
                 label = STEP_LABELS.get(step, step) + " complete"
                 _broadcast_progress(pct, label)
 
@@ -451,11 +443,7 @@ class AgentHandler:
                             if s.name == step:
                                 s.progress_pct = pct
                                 break
-                overall = 0
-                if _run_manager and _run_manager.get_run(run_id):
-                    overall = _compute_overall_progress(run_id, _run_manager, ALL_STEPS, STEP_WEIGHTS, enabled_set, step, pct)
-                else:
-                    overall = _fallback_progress(step, pct)
+                overall = _overall_progress(step, pct)
                 label = message or STEP_LABELS.get(step, step)
                 _broadcast_progress(overall, label)
                 if _fs_logger:
