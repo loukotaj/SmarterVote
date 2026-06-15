@@ -213,7 +213,8 @@ class AgentHandler:
 
         def _overall_progress(current_step: str | None = None, current_step_pct: int = 0) -> int:
             """Use local run state when present; Cloud Functions rely on checkpoint state."""
-            if _run_manager and _run_manager.get_run(run_id):
+            local_runs = getattr(_run_manager, "active_runs", {}) if _run_manager else {}
+            if run_id in local_runs:
                 return _compute_overall_progress(
                     run_id,
                     _run_manager,
