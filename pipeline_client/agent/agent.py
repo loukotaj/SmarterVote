@@ -528,7 +528,12 @@ async def run_agent(
     now_iso = datetime.now(timezone.utc).isoformat()
     race_json["updated_utc"] = now_iso
 
-    should_review = _step_enabled("review")
+    review_step_enabled = _step_enabled("review")
+    carried_reviews = race_json.get("reviews")
+    resume_review_iteration = (
+        not review_step_enabled and _step_enabled("iteration") and isinstance(carried_reviews, list) and bool(carried_reviews)
+    )
+    should_review = review_step_enabled or resume_review_iteration
     pipeline_state = race_json.setdefault("pipeline_state", {})
     pipeline_state.setdefault("complete", True)
     pipeline_state.setdefault("remaining_candidates", [])
@@ -584,39 +589,45 @@ async def run_agent(
         )
 
     if should_review:
-        review_metrics: Dict[str, Any] = {}
+        prior_review_metrics = (race_json.get("agent_metrics") or {}).get("review", {})
+        review_metrics: Dict[str, Any] = copy.deepcopy(prior_review_metrics) if resume_review_iteration else {}
         review_cache: Dict[str, Any] = {}
         reviewed_packet = build_semantic_review_packet(race_json)
-        _track("start", "review")
-        review_t0 = time.perf_counter()
-        log("info", f"Phase 4: Sending to review agents ({', '.join(enabled_review_providers)})...")
-        reviews = await run_reviews(
-            race_id,
-            race_json,
-            on_log=on_log,
-            cheap_mode=cheap_mode,
-            claude_model=claude_model,
-            gemini_model=gemini_model,
-            grok_model=grok_model,
-            review_providers=enabled_review_providers,
-            change_manifest=build_review_change_manifest(None, reviewed_packet),
-            semantic_packet=reviewed_packet,
-            metrics_sink=review_metrics,
-            review_cache=review_cache,
-            run_budget=run_budget,
-        )
-        race_json["reviews"] = reviews
-        # Log review results to live logs
-        for rev in reviews:
-            model_name = rev.get("model", "unknown")
-            verdict = rev.get("verdict", "?")
-            score = rev.get("score", "?")
-            summary = rev.get("summary", "")
-            n_flags = len(rev.get("flags", []))
-            log("info", f"  {model_name}: {verdict} (score {score}/100, {n_flags} flags)")
-            if summary:
-                log("info", f"    -> {summary}")
-        _track("complete", "review", duration_ms=int((time.perf_counter() - review_t0) * 1000), race_json=race_json)
+        if review_step_enabled:
+            _track("start", "review")
+            review_t0 = time.perf_counter()
+            log("info", f"Phase 4: Sending to review agents ({', '.join(enabled_review_providers)})...")
+            reviews = await run_reviews(
+                race_id,
+                race_json,
+                on_log=on_log,
+                cheap_mode=cheap_mode,
+                claude_model=claude_model,
+                gemini_model=gemini_model,
+                grok_model=grok_model,
+                review_providers=enabled_review_providers,
+                change_manifest=build_review_change_manifest(None, reviewed_packet),
+                semantic_packet=reviewed_packet,
+                metrics_sink=review_metrics,
+                review_cache=review_cache,
+                run_budget=run_budget,
+            )
+            race_json["reviews"] = reviews
+            # Log review results to live logs
+            for rev in reviews:
+                model_name = rev.get("model", "unknown")
+                verdict = rev.get("verdict", "?")
+                score = rev.get("score", "?")
+                summary = rev.get("summary", "")
+                n_flags = len(rev.get("flags", []))
+                log("info", f"  {model_name}: {verdict} (score {score}/100, {n_flags} flags)")
+                if summary:
+                    log("info", f"    -> {summary}")
+            _track("complete", "review", duration_ms=int((time.perf_counter() - review_t0) * 1000), race_json=race_json)
+        else:
+            reviews = copy.deepcopy(carried_reviews)
+            log("info", f"Resuming review iteration with {len(reviews)} checkpointed review result(s)")
+            _track("skip", "review")
 
         # --- Phase 5: Iterate on review feedback (up to 3 cycles) ---
         if should_iterate:
@@ -648,6 +659,7 @@ async def run_agent(
                 )
                 if improved is not None:
                     race_json = improved
+                    pipeline_state = race_json.setdefault("pipeline_state", pipeline_state)
                     # Re-normalize after iteration
                     now_iso = datetime.now(timezone.utc).isoformat()
                     race_json["updated_utc"] = now_iso
