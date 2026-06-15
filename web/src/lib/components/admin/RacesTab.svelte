@@ -30,8 +30,8 @@
   let sorting: SortingState = [{ id: "draft_updated_at", desc: true }];
   let columnFilters: ColumnFiltersState = [];
 
-  export async function refresh() {
-    loading = true;
+  export async function refresh(showLoading = true) {
+    if (showLoading) loading = true;
     await loadData();
   }
 
@@ -343,7 +343,7 @@
       <button
         type="button"
         class="px-4 py-2 text-sm bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium shadow-sm"
-        on:click={refresh}
+        on:click={() => refresh()}
       >
         Retry
       </button>

@@ -95,6 +95,19 @@ describe("PipelineApiService production admin API contract", () => {
     );
   });
 
+  it("reconciles active race state when loading the admin race list", async () => {
+    fetchWithAuth.mockResolvedValueOnce(jsonResponse({ races: [] }));
+
+    const api = new PipelineApiService("https://api.example.test");
+    await api.listRaces();
+
+    expect(fetchWithAuth).toHaveBeenCalledWith(
+      "https://api.example.test/api/races?reconcile_active=true",
+      {},
+      expect.any(Number)
+    );
+  });
+
   it("parses admin chat action responses", async () => {
     fetchWithAuth.mockResolvedValueOnce(
       jsonResponse({

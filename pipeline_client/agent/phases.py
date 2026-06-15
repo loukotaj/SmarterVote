@@ -366,6 +366,20 @@ def _mark_pipeline_unit_complete(race_json: Dict[str, Any], unit: str) -> None:
         units.append(unit)
 
 
+def _issue_stance_is_complete(value: Any) -> bool:
+    return isinstance(value, dict) and bool(str(value.get("stance") or "").strip())
+
+
+def _pipeline_issue_attempts(race_json: Dict[str, Any]) -> Dict[str, int]:
+    state = race_json.setdefault("pipeline_state", {})
+    attempts = state.get("issue_attempts")
+    if not isinstance(attempts, dict):
+        attempts = {}
+    normalized = {str(unit): max(0, int(count or 0)) for unit, count in attempts.items()}
+    state["issue_attempts"] = normalized
+    return normalized
+
+
 def _build_handoff_context(
     handoffs: List[Dict[str, Any]],
     cached_info: Dict[str, Any] | None,
@@ -733,8 +747,23 @@ async def _run_shared_phases(
         track("start", "issues")
         iss_t0 = time.perf_counter()
         completed_units = _pipeline_completed_units(race_json)
+        issue_attempts = _pipeline_issue_attempts(race_json)
         if not resume_partial:
             completed_units = {unit for unit in completed_units if not unit.startswith("issues:")}
+            race_json["pipeline_state"]["completed_units"] = sorted(completed_units)
+            issue_attempts.clear()
+        else:
+            candidates_by_name = {
+                str(candidate.get("name")): candidate
+                for candidate in race_json.get("candidates", [])
+                if isinstance(candidate, dict) and candidate.get("name")
+            }
+            for name in candidate_names:
+                issues = candidates_by_name.get(name, {}).get("issues", {})
+                for issue in CANONICAL_ISSUES:
+                    unit_id = f"issues:{name}:{issue}"
+                    if unit_id in completed_units and not _issue_stance_is_complete(issues.get(issue)):
+                        completed_units.discard(unit_id)
             race_json["pipeline_state"]["completed_units"] = sorted(completed_units)
         pending_candidate_names = [
             name
@@ -758,6 +787,7 @@ async def _run_shared_phases(
         total_units = max(rn * n_issues, 1)
         configured_concurrency = int(os.getenv("PIPELINE_ISSUE_CONCURRENCY", "3"))
         issue_concurrency = max(1, min(configured_concurrency, 8))
+        max_issue_attempts = max(1, int(os.getenv("PIPELINE_ISSUE_MAX_ATTEMPTS", "3")))
         semaphore = asyncio.Semaphore(issue_concurrency)
         candidates_by_name = {
             str(candidate.get("name")): candidate
@@ -781,7 +811,33 @@ async def _run_shared_phases(
             for issue_idx, issue in enumerate(CANONICAL_ISSUES):
                 unit_id = f"issues:{cand_name}:{issue}"
                 existing_issue = candidate.get("issues", {}).get(issue)
-                if unit_id in completed_units or (resume_partial and isinstance(existing_issue, dict)):
+                if unit_id in completed_units or (resume_partial and _issue_stance_is_complete(existing_issue)):
+                    _mark_pipeline_unit_complete(race_json, unit_id)
+                    completed_units.add(unit_id)
+                    completed_count += 1
+                    track(
+                        "progress",
+                        "issues",
+                        pct=int(completed_count / total_units * 100),
+                        message=(
+                            f"Issues checkpoint - {cand_name} ({ci + 1}/{rn}) - " f"{issue} ({issue_idx + 1}/{n_issues})"
+                        ),
+                        race_json=race_json,
+                    )
+                    continue
+
+                if issue_attempts.get(unit_id, 0) >= max_issue_attempts:
+                    log(
+                        "warning",
+                        f"    Issue retry limit reached for {cand_name}/{issue}; "
+                        "recording a low-confidence no-position result",
+                    )
+                    candidate.setdefault("issues", {})[issue] = {
+                        "issue": issue,
+                        "stance": "No public position found after repeated research attempts.",
+                        "confidence": "low",
+                        "sources": [],
+                    }
                     _mark_pipeline_unit_complete(race_json, unit_id)
                     completed_units.add(unit_id)
                     completed_count += 1
@@ -805,7 +861,13 @@ async def _run_shared_phases(
                     website: str = candidate_website,
                     issue_urls: List[str] = list(candidate_issue_urls),
                 ) -> tuple[str, str, int, int, Dict[str, Any] | None]:
+                    nonlocal completed_count
+                    prior_attempts = issue_attempts.get(f"issues:{candidate_name}:{issue_name}", 0)
+                    if prior_attempts:
+                        await asyncio.sleep(prior_attempts * 0.01)
                     async with semaphore:
+                        unit_id = f"issues:{candidate_name}:{issue_name}"
+                        issue_attempts[unit_id] = issue_attempts.get(unit_id, 0) + 1
                         track(
                             "progress",
                             "issues",
@@ -814,6 +876,7 @@ async def _run_shared_phases(
                                 f"Issues · {candidate_name} ({candidate_index + 1}/{rn}) · "
                                 f"{issue_name} ({canonical_issue_index + 1}/{n_issues})"
                             ),
+                            race_json=race_json,
                         )
                         log(
                             "info",
@@ -833,28 +896,29 @@ async def _run_shared_phases(
                             candidate_issue_urls=issue_urls,
                             run_budget=run_budget,
                         )
+                        if _issue_stance_is_complete(patch):
+                            candidate = candidates_by_name[candidate_name]
+                            candidate.setdefault("issues", {})[issue_name] = patch
+                            _mark_pipeline_unit_complete(race_json, unit_id)
+                            completed_units.add(unit_id)
+                            completed_count += 1
+                            track(
+                                "progress",
+                                "issues",
+                                pct=int(completed_count / total_units * 100),
+                                message=(
+                                    f"Issues checkpoint - {candidate_name} ({candidate_index + 1}/{rn}) - "
+                                    f"{issue_name} ({canonical_issue_index + 1}/{n_issues})"
+                                ),
+                                race_json=race_json,
+                            )
                         return candidate_name, issue_name, candidate_index, canonical_issue_index, patch
 
                 tasks.append(asyncio.create_task(_run_unit()))
 
         try:
             for completed_task in asyncio.as_completed(tasks):
-                cand_name, issue, ci, issue_idx, issue_patch = await completed_task
-                candidate = candidates_by_name[cand_name]
-                if issue_patch is not None:
-                    candidate.setdefault("issues", {})[issue] = issue_patch
-                    unit_id = f"issues:{cand_name}:{issue}"
-                    _mark_pipeline_unit_complete(race_json, unit_id)
-                    completed_units.add(unit_id)
-                completed_count += 1
-                pct = int(completed_count / total_units * 100)
-                track(
-                    "progress",
-                    "issues",
-                    pct=pct,
-                    message=f"Issues checkpoint - {cand_name} ({ci + 1}/{rn}) - {issue} ({issue_idx + 1}/{n_issues})",
-                    race_json=race_json,
-                )
+                await completed_task
         except BaseException:
             for task in tasks:
                 if not task.done():
