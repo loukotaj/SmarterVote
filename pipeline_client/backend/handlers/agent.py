@@ -135,6 +135,14 @@ class AgentHandler:
         else:
             enabled_steps = list(ALL_STEPS)
         enabled_set = set(enabled_steps)
+        all_enabled_steps_raw = options.get("all_enabled_steps")
+        if all_enabled_steps_raw:
+            all_enabled_steps = [s for s in all_enabled_steps_raw if s in {e.value for e in PipelineStep}]
+        elif options.get("is_continuation"):
+            all_enabled_steps = list(ALL_STEPS)
+        else:
+            all_enabled_steps = list(enabled_steps)
+        all_enabled_set = set(all_enabled_steps)
 
         # Pre-load existing data. Continuation runs receive checkpoint data from
         # the Cloud Function payload; that is more precise than drafts/races GCS.
@@ -194,22 +202,26 @@ class AgentHandler:
         _fs_logger: Any = None  # set after run_id is resolved below
 
         # Compute completed steps so far (used for remaining_steps on handoff)
-        _completed_steps: List[str] = []
+        _completed_steps = [s for s in options.get("completed_steps", []) if s in all_enabled_set]
+        if options.get("is_continuation"):
+            for step in all_enabled_steps:
+                if step not in enabled_set and step not in _completed_steps:
+                    _completed_steps.append(step)
         _handoff_started = False
         _current_step: str | None = None
 
         def _fallback_progress(current_step: str | None = None, current_step_pct: int = 0) -> int:
             """Compute weighted progress without run_manager state."""
-            total_weight = sum(STEP_WEIGHTS.get(s, 0) for s in ALL_STEPS if s in enabled_set)
+            total_weight = sum(STEP_WEIGHTS.get(s, 0) for s in ALL_STEPS if s in all_enabled_set)
             if total_weight <= 0:
                 return 0
 
-            done_weight = sum(STEP_WEIGHTS.get(s, 0) for s in _completed_steps if s in enabled_set)
-            partial_weight = 0.0
-            if current_step and current_step in enabled_set and current_step not in _completed_steps:
-                partial_weight = STEP_WEIGHTS.get(current_step, 0) * max(0, min(current_step_pct, 100)) / 100
+            done_weight = sum(STEP_WEIGHTS.get(s, 0) for s in _completed_steps if s in all_enabled_set)
+            partial_weight_pct = 0
+            if current_step and current_step in all_enabled_set and current_step not in _completed_steps:
+                partial_weight_pct = STEP_WEIGHTS.get(current_step, 0) * max(0, min(current_step_pct, 100))
 
-            return min(98, int((done_weight + partial_weight) / total_weight * 100))
+            return min(98, (done_weight * 100 + partial_weight_pct) // total_weight)
 
         def _overall_progress(current_step: str | None = None, current_step_pct: int = 0) -> int:
             """Use local run state when present; Cloud Functions rely on checkpoint state."""
@@ -438,6 +450,8 @@ class AgentHandler:
                     raise RuntimeError("Firestore is not available for continuation handoff")
                 continuation_options = dict(options)
                 continuation_options["enabled_steps"] = remaining
+                continuation_options["all_enabled_steps"] = all_enabled_steps
+                continuation_options["completed_steps"] = list(dict.fromkeys(_completed_steps))
                 continuation_options["is_continuation"] = True
                 continuation_options["force_fresh"] = False
                 continuation_options["logical_run_id"] = current_run_id

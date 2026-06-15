@@ -215,6 +215,47 @@ async def test_v2_handler_uses_fallback_progress_when_run_manager_has_no_local_r
 
 
 @pytest.mark.asyncio
+async def test_v2_handler_continuation_progress_includes_prior_completed_steps():
+    handler = AgentHandler()
+
+    async def _fake_run_agent(*_args, **kwargs):
+        tracker = kwargs["step_tracker"]
+        tracker["start"]("refinement")
+        tracker["progress"]("refinement", pct=25, message="Refining candidates")
+        return {"id": "test-race", "candidates": [{"name": "Alice"}]}
+
+    with (
+        patch("pipeline_client.agent.agent.run_agent", side_effect=_fake_run_agent),
+        patch.object(handler, "_save_draft", new_callable=AsyncMock, return_value=Path("/tmp/test-race.json")),
+        patch("pipeline_client.backend.firestore_logger.FirestoreLogger") as mock_fs_logger_cls,
+    ):
+        await handler.handle(
+            {"race_id": "test-race"},
+            {
+                "run_id": "run-continuation",
+                "is_continuation": True,
+                "enabled_steps": ["refinement", "polling", "voter_resources", "review", "iteration"],
+                "all_enabled_steps": [
+                    "discovery",
+                    "images",
+                    "issues",
+                    "finance",
+                    "refinement",
+                    "polling",
+                    "voter_resources",
+                    "review",
+                    "iteration",
+                ],
+                "completed_steps": ["discovery", "images", "issues", "finance"],
+            },
+        )
+
+    progress_updates = mock_fs_logger_cls.return_value.update_progress.call_args_list
+    refinement_update = next(call for call in progress_updates if call.kwargs.get("current_step_progress") == 25)
+    assert refinement_update.args[0] == 58
+
+
+@pytest.mark.asyncio
 async def test_v2_handler_leaves_durable_race_finalization_to_cloud_function():
     """Queue executions must not race the Cloud Function with a stale full-document write."""
     handler = AgentHandler()
