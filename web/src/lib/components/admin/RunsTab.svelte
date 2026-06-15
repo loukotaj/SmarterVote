@@ -39,22 +39,53 @@
   let selectedRunDetail: RunInfo | null = null;
   let drawerLogs: LogEntry[] = [];
   let drawerLogFilter: "all" | "debug" | "info" | "warning" | "error" = "all";
+  let logSearchQuery = "";
   let loadingDrawerDetails = false;
   let drawerError = "";
   let logPollTimer: ReturnType<typeof setInterval> | null = null;
   let lastLogIndex = 0;
+  let logContainer: HTMLDivElement;
 
-  $: filteredDrawerLogs = drawerLogs.filter(
-    (log) => drawerLogFilter === "all" || log.level === drawerLogFilter
-  );
+  // History list filtering
+  let runSearchQuery = "";
+  let runStatusFilter = "all";
+  let runModeFilter = "all"; // 'all', 'cheap', 'full'
+  let runModelNameFilter = "all";
 
+  // Actions
+  let cancellingRunId: string | null = null;
   let clearingQueue = false;
+
+  $: filteredDrawerLogs = drawerLogs.filter((log) => {
+    const matchesLevel = drawerLogFilter === "all" || log.level === drawerLogFilter;
+    const matchesQuery = !logSearchQuery || log.message.toLowerCase().includes(logSearchQuery.toLowerCase());
+    return matchesLevel && matchesQuery;
+  });
+
+  // Scroll to bottom of logs on new logs
+  $: if (logContainer && filteredDrawerLogs) {
+    setTimeout(() => {
+      if (logContainer) {
+        logContainer.scrollTop = logContainer.scrollHeight;
+      }
+    }, 50);
+  }
 
   // cleared externally resets local clearing state
   $: if (!pendingQueue.length) clearingQueue = false;
 
   $: selectedMetricsRecord = pipelineRecords.find(r => r.run_id === selectedRunId);
   $: _isPruningPlaceholder = isPruning;
+
+  // Dynamic list of specific models present in history
+  $: uniqueModels = (() => {
+    const models = new Set<string>();
+    for (const r of runs) {
+      const model = r.options?.research_model;
+      if (model) models.add(model);
+    }
+    return Array.from(models).sort();
+  })();
 
   // Metrics Derived
   $: topModels = (() => {
@@ -117,8 +148,14 @@
 
         // If status is running or pending, start polling
         if (selectedRunDetail.status === "running" || selectedRunDetail.status === "pending") {
-          logPollTimer = setInterval(async () => {
-            if (selectedRunId !== runId) return;
+          const currentTimer = setInterval(async () => {
+            if (selectedRunId !== runId) {
+              clearInterval(currentTimer);
+              if (logPollTimer === currentTimer) {
+                logPollTimer = null;
+              }
+              return;
+            }
             try {
               if (apiService) {
                 selectedRunDetail = await apiService.getRunDetails(runId);
@@ -129,8 +166,8 @@
                 }
 
                 if (selectedRunDetail.status !== "running" && selectedRunDetail.status !== "pending") {
-                  if (logPollTimer) {
-                    clearInterval(logPollTimer);
+                  clearInterval(currentTimer);
+                  if (logPollTimer === currentTimer) {
                     logPollTimer = null;
                   }
                 }
@@ -139,6 +176,7 @@
               console.error("Error polling logs/details:", err);
             }
           }, 3000);
+          logPollTimer = currentTimer;
         }
       } else {
         drawerError = "API service not available";
@@ -165,6 +203,53 @@
     if (!confirm(`Remove all ${pendingQueue.length} pending item${pendingQueue.length !== 1 ? 's' : ''} from the queue?`)) return;
     clearingQueue = true;
     dispatch("clear-queue");
+  }
+
+  async function handleCancelRun(runId: string, event?: Event) {
+    if (event) event.stopPropagation();
+    if (!confirm(`Are you sure you want to cancel run ${runId}?`)) return;
+    cancellingRunId = runId;
+    try {
+      if (apiService) {
+        await apiService.deleteRun(runId);
+        dispatch("refresh");
+        void fetchMetrics();
+        if (selectedRunId === runId) {
+          selectedRunDetail = await apiService.getRunDetails(runId);
+        }
+      }
+    } catch (err) {
+      alert(`Failed to cancel run: ${err}`);
+    } finally {
+      cancellingRunId = null;
+    }
+  }
+
+  function sumStepTokens(run: RunHistoryItem | RunInfo): { prompt: number, completion: number, total: number, cost: number } {
+    let prompt = 0;
+    let completion = 0;
+    let cost = 0;
+    if (run.steps) {
+      for (const step of run.steps) {
+        prompt += step.prompt_tokens ?? 0;
+        completion += step.completion_tokens ?? 0;
+        cost += step.estimated_usd ?? 0;
+      }
+    }
+    return { prompt, completion, total: prompt + completion, cost };
+  }
+
+  function getRunMetrics(run: RunHistoryItem | RunInfo) {
+    const record = pipelineRecords.find(r => r.run_id === run.run_id);
+    const stepSum = sumStepTokens(run);
+
+    const cost = record ? (record.cost_usd ?? record.estimated_usd) : (stepSum.cost || (run as any).estimated_usd || 0);
+    const prompt = record ? record.prompt_tokens : (stepSum.prompt || (run as any).prompt_tokens || 0);
+    const completion = record ? record.completion_tokens : (stepSum.completion || (run as any).completion_tokens || 0);
+    const total = record ? record.total_tokens : (stepSum.total || (run as any).total_tokens || 0);
+    const serper = (record ? record.serper_calls : run.serper_calls) ?? 0;
+
+    return { cost, prompt, completion, total, serper };
   }
 
   function timeAgo(iso: string): string {
@@ -263,6 +348,76 @@
   $: historicalRuns = runs.filter(
     (r) => r.status !== "running" && r.status !== "pending" && !liveRunIds.has(r.run_id)
   );
+
+  // Filtered lists
+  $: filteredHistoricalRuns = historicalRuns.filter(r => {
+    // 1. Search Query
+    if (runSearchQuery) {
+      const q = runSearchQuery.toLowerCase();
+      const matchRace = r.race_id?.toLowerCase().includes(q) || (r.payload?.race_id as string)?.toLowerCase().includes(q);
+      const matchRun = r.run_id?.toLowerCase().includes(q);
+      if (!matchRace && !matchRun) return false;
+    }
+    // 2. Status Filter
+    if (runStatusFilter !== "all" && r.status !== runStatusFilter) {
+      return false;
+    }
+    // 3. Mode Filter
+    if (runModeFilter !== "all") {
+      const isCheap = r.options?.cheap_mode !== false;
+      if (runModeFilter === "cheap" && !isCheap) return false;
+      if (runModeFilter === "full" && isCheap) return false;
+    }
+    // 4. Model Name Filter
+    if (runModelNameFilter !== "all") {
+      if (r.options?.research_model !== runModelNameFilter) return false;
+    }
+    return true;
+  });
+
+  $: filteredActiveRuns = activeRuns.filter(r => {
+    if (runSearchQuery) {
+      const q = runSearchQuery.toLowerCase();
+      const matchRace = r.race_id?.toLowerCase().includes(q) || (r.payload?.race_id as string)?.toLowerCase().includes(q);
+      const matchRun = r.run_id?.toLowerCase().includes(q);
+      if (!matchRace && !matchRun) return false;
+    }
+    return true;
+  });
+
+  // Dynamic aggregations for filtered runs
+  $: aggregations = (() => {
+    let totalCost = 0;
+    let totalDurationMs = 0;
+    let durationCount = 0;
+    let totalTokens = 0;
+    let totalSearches = 0;
+
+    for (const r of filteredHistoricalRuns) {
+      const m = getRunMetrics(r);
+      totalCost += m.cost;
+      totalTokens += m.total;
+      totalSearches += m.serper;
+      if (r.duration_ms) {
+        totalDurationMs += r.duration_ms;
+        durationCount++;
+      }
+    }
+
+    return {
+      cost: totalCost,
+      avgDurationMs: durationCount > 0 ? totalDurationMs / durationCount : 0,
+      tokens: totalTokens,
+      searches: totalSearches
+    };
+  })();
+
+  // Lineage path calculation
+  $: lineageRunIds = (() => {
+    if (!selectedRunId) return [];
+    const matchingRun = runs.find(r => r.run_id === selectedRunId || (r as any).invocation_run_ids?.includes(selectedRunId));
+    return (matchingRun as any)?.invocation_run_ids || [];
+  })();
 
   onMount(() => {
     void fetchMetrics();
@@ -449,37 +604,60 @@
   </div>
 
   <!-- Active / running runs -->
-  {#if activeRuns.length > 0}
+  {#if filteredActiveRuns.length > 0}
     <section>
       <h3 class="text-xs font-semibold uppercase tracking-wider text-content-muted mb-2">
         Active
       </h3>
       <div class="card p-0 divide-y divide-stroke">
-        {#each activeRuns as run (run.run_id)}
+        {#each filteredActiveRuns as run (run.run_id)}
+          {@const m = getRunMetrics(run)}
           <div
-            class="px-4 py-3 hover:bg-surface-alt transition-colors cursor-pointer"
+            class="px-4 py-3 hover:bg-surface-alt transition-colors cursor-pointer flex items-center justify-between"
             role="button"
             tabindex="0"
             on:click={() => openRunDrawer(run.run_id, raceId(run))}
             on:keydown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openRunDrawer(run.run_id, raceId(run)); } }}
           >
-            <div class="flex items-center gap-3">
-              {#if run.status === "running"}
-                <svg class="animate-spin h-4 w-4 text-blue-500 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
-                  <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                </svg>
-              {/if}
-              <span class="font-mono text-sm font-medium text-content flex-1 truncate">{raceId(run)}</span>
-              <span class="text-xs text-content-subtle capitalize truncate max-w-40">{currentStepLabel(run)}</span>
-              <span class="text-xs font-mono text-content-muted w-10 text-right">{runProgress(run)}%</span>
-              <span class="text-xs px-2 py-0.5 rounded-full border {getStatusClass(run.status)}">{run.status}</span>
-            </div>
-            <div class="mt-2 grid grid-cols-[1fr_auto] items-center gap-3">
-              <div class="h-1.5 rounded-full bg-surface-alt overflow-hidden">
-                <div class="h-full rounded-full bg-blue-500 transition-all duration-500" style="width: {runProgress(run)}%"></div>
+            <div class="flex-1 min-w-0 mr-4">
+              <div class="flex items-center gap-3">
+                {#if run.status === "running"}
+                  <svg class="animate-spin h-4 w-4 text-blue-500 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
+                    <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                  </svg>
+                {/if}
+                <span class="font-mono text-sm font-medium text-content flex-1 truncate">{raceId(run)}</span>
+                <span class="text-xs text-content-subtle capitalize truncate max-w-40">{currentStepLabel(run)}</span>
+                <span class="text-xs font-mono text-content-muted w-10 text-right">{runProgress(run)}%</span>
+                <span class="text-xs px-2 py-0.5 rounded-full border {getStatusClass(run.status)}">{run.status}</span>
               </div>
-              <div class="text-xs text-content-faint whitespace-nowrap">{modelLabel(run)}</div>
+              <div class="mt-2 grid grid-cols-[1fr_auto] items-center gap-3">
+                <div class="h-1.5 rounded-full bg-surface-alt overflow-hidden">
+                  <div class="h-full rounded-full bg-blue-500 transition-all duration-500" style="width: {runProgress(run)}%"></div>
+                </div>
+                <div class="text-xs text-content-faint whitespace-nowrap font-mono">
+                  {modelLabel(run)}
+                  {#if m.total > 0} · {formatTokens(m.prompt)}/{formatTokens(m.completion)} tokens{/if}
+                  {#if m.cost > 0} · <span class="font-semibold text-content-muted">{formatUsd(m.cost)}</span>{/if}
+                </div>
+              </div>
+            </div>
+            <div on:click|stopPropagation>
+              <button
+                type="button"
+                class="px-2.5 py-1 text-xs border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/10 rounded transition-colors font-medium whitespace-nowrap flex items-center gap-1"
+                disabled={cancellingRunId === run.run_id}
+                on:click={(e) => handleCancelRun(run.run_id, e)}
+              >
+                {#if cancellingRunId === run.run_id}
+                  <svg class="animate-spin h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
+                    <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                  </svg>
+                {/if}
+                Cancel
+              </button>
             </div>
           </div>
         {/each}
@@ -508,18 +686,90 @@
     </section>
   {/if}
 
-  <!-- History -->
-  <section>
-    <h3 class="text-xs font-semibold uppercase tracking-wider text-content-muted mb-2">
-      History ({historicalRuns.length})
-    </h3>
-    {#if historicalRuns.length === 0}
+  <!-- History section with Filters & Aggregations -->
+  <section class="space-y-4">
+    <div class="flex items-center justify-between">
+      <h3 class="text-xs font-semibold uppercase tracking-wider text-content-muted">
+        History ({filteredHistoricalRuns.length})
+      </h3>
+    </div>
+
+    <!-- Runs Filters -->
+    <div class="flex items-center gap-3 flex-wrap bg-surface-alt p-3 rounded-lg border border-stroke text-sm">
+      <div class="flex-1 min-w-[200px]">
+        <input
+          type="search"
+          bind:value={runSearchQuery}
+          placeholder="Filter history by Race ID or Run ID..."
+          class="w-full px-3 py-1.5 text-xs border border-stroke rounded bg-surface text-content focus:outline-none focus:border-blue-500"
+        />
+      </div>
+
+      <!-- Status Dropdown -->
+      <select
+        bind:value={runStatusFilter}
+        class="px-2.5 py-1.5 text-xs border border-stroke rounded bg-surface text-content focus:outline-none focus:border-blue-500"
+      >
+        <option value="all">All Statuses</option>
+        <option value="completed">Completed</option>
+        <option value="failed">Failed</option>
+        <option value="cancelled">Cancelled</option>
+      </select>
+
+      <!-- Mode Dropdown -->
+      <select
+        bind:value={runModeFilter}
+        class="px-2.5 py-1.5 text-xs border border-stroke rounded bg-surface text-content focus:outline-none focus:border-blue-500"
+      >
+        <option value="all">All Modes</option>
+        <option value="cheap">Cheap Mode (Mini)</option>
+        <option value="full">Full Mode (Quality)</option>
+      </select>
+
+      <!-- Model Name Dropdown -->
+      {#if uniqueModels.length > 0}
+        <select
+          bind:value={runModelNameFilter}
+          class="px-2.5 py-1.5 text-xs border border-stroke rounded bg-surface text-content focus:outline-none focus:border-blue-500 font-mono"
+        >
+          <option value="all">All Models</option>
+          {#each uniqueModels as model}
+            <option value={model}>{shortModel(model)}</option>
+          {/each}
+        </select>
+      {/if}
+    </div>
+
+    <!-- Aggregations Bar -->
+    {#if filteredHistoricalRuns.length > 0}
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-3 bg-surface border border-stroke rounded-lg text-xs">
+        <div>
+          <span class="text-content-faint block">Matched Cost:</span>
+          <span class="font-bold text-content text-sm">{formatUsd(aggregations.cost)}</span>
+        </div>
+        <div>
+          <span class="text-content-faint block">Avg Duration:</span>
+          <span class="font-bold text-content text-sm">{aggregations.avgDurationMs ? formatMs(aggregations.avgDurationMs) : "—"}</span>
+        </div>
+        <div>
+          <span class="text-content-faint block">Total Tokens:</span>
+          <span class="font-bold text-content text-sm">{formatTokens(aggregations.tokens)}</span>
+        </div>
+        <div>
+          <span class="text-content-faint block">Total Searches:</span>
+          <span class="font-bold text-content text-sm">{aggregations.searches}</span>
+        </div>
+      </div>
+    {/if}
+
+    {#if filteredHistoricalRuns.length === 0}
       <div class="card p-8 text-center text-content-muted text-sm">
-        No completed runs yet.
+        No matching historical runs found.
       </div>
     {:else}
       <div class="card p-0 divide-y divide-stroke">
-        {#each historicalRuns as run}
+        {#each filteredHistoricalRuns as run}
+          {@const metrics = getRunMetrics(run)}
           <div
             class="px-4 py-3 hover:bg-surface-alt transition-colors cursor-pointer"
             role="button"
@@ -531,11 +781,19 @@
               <span class="font-mono text-sm font-medium text-content flex-1 truncate">{raceId(run)}</span>
               <span class="text-xs px-2 py-0.5 rounded-full border {getStatusClass(run.status)}">{run.status}</span>
             </div>
-            <div class="mt-1 flex items-center gap-3 text-xs text-content-faint">
+            <div class="mt-1 flex items-center gap-3 text-xs text-content-faint flex-wrap">
               <span>{timeAgo(run.started_at)}</span>
               {#if run.duration_ms}<span>· {formatMs(run.duration_ms)}</span>{/if}
               <span>· {modelLabel(run)}</span>
-              {#if run.serper_calls !== undefined}<span>· {run.serper_calls} search{run.serper_calls === 1 ? '' : 'es'}</span>{/if}
+              {#if metrics.total > 0}
+                <span>· {formatTokens(metrics.prompt)} / {formatTokens(metrics.completion)} tokens</span>
+              {/if}
+              {#if metrics.cost > 0}
+                <span class="font-semibold text-content-muted">· {formatUsd(metrics.cost)}</span>
+              {/if}
+              {#if metrics.serper > 0}
+                <span>· {metrics.serper} search{metrics.serper === 1 ? '' : 'es'}</span>
+              {/if}
               {#if run.options?.goal}<span class="text-content-subtle truncate">· {run.options.goal}</span>{/if}
             </div>
           </div>
@@ -556,16 +814,57 @@
           <p class="text-xs text-content-subtle font-mono">{selectedRunRaceId}</p>
         {/if}
       </div>
-      <button
-        type="button"
-        class="p-1.5 rounded-lg hover:bg-surface-alt text-content-muted hover:text-content transition-colors"
-        on:click={closeRunDrawer}
-      >
-        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
+      <div class="flex items-center gap-2">
+        {#if selectedRunDetail && (selectedRunDetail.status === 'running' || selectedRunDetail.status === 'pending')}
+          <button
+            type="button"
+            class="px-2.5 py-1 text-xs border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/10 rounded transition-colors font-medium whitespace-nowrap flex items-center gap-1"
+            disabled={cancellingRunId === selectedRunId}
+            on:click={() => handleCancelRun(selectedRunId ?? "")}
+          >
+            {#if cancellingRunId === selectedRunId}
+              <svg class="animate-spin h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
+                <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+              </svg>
+            {/if}
+            Cancel Run
+          </button>
+        {/if}
+        <button
+          type="button"
+          class="p-1.5 rounded-lg hover:bg-surface-alt text-content-muted hover:text-content transition-colors"
+          on:click={closeRunDrawer}
+        >
+          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
     </div>
+
+    <!-- Lineage Graph -->
+    {#if lineageRunIds.length > 1}
+      <div class="px-4 py-2 bg-surface-alt border-b border-stroke flex items-center gap-1.5 flex-wrap text-[11px] font-mono">
+        <span class="text-content-faint font-sans">Lineage:</span>
+        {#each lineageRunIds as id, idx}
+          {#if idx > 0}
+            <span class="text-content-faint">➔</span>
+          {/if}
+          {#if id === selectedRunId}
+            <span class="px-1.5 py-0.5 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded font-bold">{id}</span>
+          {:else}
+            <button
+              type="button"
+              class="px-1.5 py-0.5 hover:bg-surface text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 rounded underline decoration-dotted transition-colors"
+              on:click={() => openRunDrawer(id, selectedRunRaceId)}
+            >
+              {id}
+            </button>
+          {/if}
+        {/each}
+      </div>
+    {/if}
 
     <!-- Drawer Content -->
     <div class="flex-1 overflow-y-auto p-4 space-y-4">
@@ -594,6 +893,7 @@
           </button>
         </div>
       {:else if selectedRunDetail}
+        {@const m = getRunMetrics(selectedRunDetail)}
         <!-- Metadata cards -->
         <div class="card p-3 grid grid-cols-2 gap-3 text-xs">
           <div>
@@ -612,7 +912,15 @@
           </div>
           <div>
             <span class="text-content-faint">Cost:</span>
-            <span class="ml-1 text-content font-semibold">{selectedMetricsRecord ? formatUsd(selectedMetricsRecord.cost_usd ?? selectedMetricsRecord.estimated_usd) : '—'}</span>
+            <span class="ml-1 text-content font-semibold">{formatExactUsd(m.cost)}</span>
+          </div>
+          <div>
+            <span class="text-content-faint">Tokens:</span>
+            <span class="ml-1 text-content font-mono">{formatTokens(m.prompt)} / {formatTokens(m.completion)} ({formatTokens(m.total)} total)</span>
+          </div>
+          <div>
+            <span class="text-content-faint">Searches:</span>
+            <span class="ml-1 text-content font-mono">{m.serper}</span>
           </div>
           <div class="col-span-2">
             <span class="text-content-faint">Time:</span>
@@ -633,7 +941,18 @@
             <div class="space-y-1.5">
               {#each selectedRunDetail.steps as step}
                 <div class="flex items-center justify-between text-xs p-2 rounded bg-surface border border-stroke">
-                  <span class="font-medium capitalize">{step.label || step.name.replaceAll('_', ' ')}</span>
+                  <div class="flex flex-col">
+                    <span class="font-medium capitalize">{step.label || step.name.replaceAll('_', ' ')}</span>
+                    <span class="text-[10px] text-content-faint mt-0.5">
+                      {#if step.duration_ms}{formatMs(step.duration_ms)}{/if}
+                      {#if step.prompt_tokens || step.completion_tokens}
+                        · {formatTokens(step.prompt_tokens)}/{formatTokens(step.completion_tokens)} tokens
+                      {/if}
+                      {#if step.estimated_usd}
+                        · {formatUsd(step.estimated_usd)}
+                      {/if}
+                    </span>
+                  </div>
                   <div class="flex items-center gap-2">
                     {#if step.progress_pct !== undefined && step.status === 'running'}
                       <span class="text-[10px] text-content-faint">{step.progress_pct}%</span>
@@ -649,21 +968,32 @@
 
       <!-- Logs -->
       <div class="border-t border-stroke pt-3 flex flex-col h-[380px]">
-        <div class="flex items-center justify-between mb-2">
+        <div class="flex items-center gap-2 justify-between mb-2">
           <h4 class="text-xs font-semibold text-content-muted">Execution Logs</h4>
-          <select
-            bind:value={drawerLogFilter}
-            class="text-[10px] px-2 py-0.5 border border-stroke rounded bg-surface text-content"
-          >
-            <option value="all">All Levels</option>
-            <option value="debug">Debug</option>
-            <option value="info">Info</option>
-            <option value="warning">Warning</option>
-            <option value="error">Error</option>
-          </select>
+          <div class="flex items-center gap-2">
+            <!-- Log Search Input -->
+            <input
+              type="text"
+              bind:value={logSearchQuery}
+              placeholder="Search logs..."
+              class="text-[10px] px-2 py-0.5 border border-stroke rounded bg-surface text-content focus:outline-none focus:border-blue-500 w-32"
+            />
+            <!-- Level filter -->
+            <select
+              bind:value={drawerLogFilter}
+              class="text-[10px] px-2 py-0.5 border border-stroke rounded bg-surface text-content"
+              aria-label="Filter logs by level"
+            >
+              <option value="all">All Levels</option>
+              <option value="debug">Debug</option>
+              <option value="info">Info</option>
+              <option value="warning">Warning</option>
+              <option value="error">Error</option>
+            </select>
+          </div>
         </div>
 
-        <div class="flex-1 overflow-auto rounded-lg bg-surface-alt border border-stroke p-2 font-mono text-[11px] space-y-1" role="log">
+        <div bind:this={logContainer} class="flex-1 overflow-auto rounded-lg bg-surface-alt border border-stroke p-2 font-mono text-[11px] space-y-1" role="log">
           {#each filteredDrawerLogs as log}
             <div class="py-1 px-2 border-b border-stroke/40 whitespace-pre-wrap rounded-sm border-l-4 {getLogClass(log.level)}">
               <span class="text-content-faint">[{log.timestamp ? new Date(log.timestamp).toLocaleTimeString() : ''}]</span>

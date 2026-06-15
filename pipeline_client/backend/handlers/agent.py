@@ -280,17 +280,41 @@ class AgentHandler:
             _trigger_handoff(run_id, race_id, remaining, current_pct)
 
         # --- Step tracker callbacks ---
+        step_start_metrics = {}
+
         def _on_step_start(step: str, **_kw):
             nonlocal _current_step
             _raise_if_cancelled()
             if not run_id:
                 return
             try:
+                from pipeline_client.agent.cost import _cost_ctx
+
+                cost_snapshot = _cost_ctx.get()
+                if cost_snapshot:
+                    step_start_metrics[step] = {
+                        "prompt_tokens": cost_snapshot.get("prompt_tokens", 0),
+                        "completion_tokens": cost_snapshot.get("completion_tokens", 0),
+                        "provider_cost_usd": cost_snapshot.get("provider_cost_usd", 0.0),
+                        "model_breakdown": {m: dict(counts) for m, counts in cost_snapshot.get("model_breakdown", {}).items()},
+                    }
+                else:
+                    step_start_metrics[step] = {
+                        "prompt_tokens": 0,
+                        "completion_tokens": 0,
+                        "provider_cost_usd": 0.0,
+                        "model_breakdown": {},
+                    }
+
                 _current_step = step
                 if _run_manager:
                     _run_manager.update_step_status(run_id, step, RunStatus.RUNNING)
                 label = STEP_LABELS.get(step, step)
-                pct = _overall_progress(step, 1)
+                pct = 0
+                if _run_manager and _run_manager.get_run(run_id):
+                    pct = _compute_overall_progress(run_id, _run_manager, ALL_STEPS, STEP_WEIGHTS, enabled_set)
+                else:
+                    pct = _fallback_progress(step, 1)
                 _broadcast_progress(pct, label)
                 if _fs_logger:
                     remaining = [s for s in enabled_steps if s not in _completed_steps]
@@ -316,10 +340,53 @@ class AgentHandler:
                 if isinstance(latest_race_json, dict):
                     race_json_holder[0] = latest_race_json
 
+                prompt_tokens = None
+                completion_tokens = None
+                estimated_usd = None
+
+                from pipeline_client.agent.cost import _cost_ctx, estimate_cost
+
+                cost_snapshot = _cost_ctx.get()
+                if cost_snapshot:
+                    start = step_start_metrics.get(
+                        step,
+                        {
+                            "prompt_tokens": 0,
+                            "completion_tokens": 0,
+                            "model_breakdown": {},
+                        },
+                    )
+                    prompt_tokens = max(0, cost_snapshot.get("prompt_tokens", 0) - start["prompt_tokens"])
+                    completion_tokens = max(0, cost_snapshot.get("completion_tokens", 0) - start["completion_tokens"])
+
+                    estimated_usd = 0.0
+                    curr_breakdown = cost_snapshot.get("model_breakdown", {})
+                    start_breakdown = start.get("model_breakdown", {})
+                    for model, curr_counts in curr_breakdown.items():
+                        start_counts = start_breakdown.get(model, {"prompt_tokens": 0, "completion_tokens": 0})
+                        m_prompt = max(0, curr_counts.get("prompt_tokens", 0) - start_counts.get("prompt_tokens", 0))
+                        m_completion = max(
+                            0, curr_counts.get("completion_tokens", 0) - start_counts.get("completion_tokens", 0)
+                        )
+                        if m_prompt > 0 or m_completion > 0:
+                            estimated_usd += estimate_cost(model, m_prompt, m_completion)
+
                 if _run_manager:
-                    _run_manager.update_step_status(run_id, step, RunStatus.COMPLETED, duration_ms=duration_ms)
+                    _run_manager.update_step_status(
+                        run_id,
+                        step,
+                        RunStatus.COMPLETED,
+                        duration_ms=duration_ms,
+                        prompt_tokens=prompt_tokens,
+                        completion_tokens=completion_tokens,
+                        estimated_usd=estimated_usd,
+                    )
                 _completed_steps.append(step)
-                pct = _overall_progress()
+                pct = 0
+                if _run_manager and _run_manager.get_run(run_id):
+                    pct = _compute_overall_progress(run_id, _run_manager, ALL_STEPS, STEP_WEIGHTS, enabled_set)
+                else:
+                    pct = _fallback_progress()
                 label = STEP_LABELS.get(step, step) + " complete"
                 _broadcast_progress(pct, label)
 
@@ -384,7 +451,11 @@ class AgentHandler:
                             if s.name == step:
                                 s.progress_pct = pct
                                 break
-                overall = _overall_progress(step, pct)
+                overall = 0
+                if _run_manager and _run_manager.get_run(run_id):
+                    overall = _compute_overall_progress(run_id, _run_manager, ALL_STEPS, STEP_WEIGHTS, enabled_set, step, pct)
+                else:
+                    overall = _fallback_progress(step, pct)
                 label = message or STEP_LABELS.get(step, step)
                 _broadcast_progress(overall, label)
                 if _fs_logger:
@@ -576,9 +647,7 @@ class AgentHandler:
         # Save as draft (not published) — admin must explicitly publish
         draft_path = await self._save_draft(race_id, race_json)
 
-        # Durable queue executions finalize race/catalog state in the Cloud
-        # Function after this handler returns. Avoid a competing asynchronous
-        # full-document write from the legacy local runner's RaceManager.
+        # Update race record metadata from the new draft data
         if not queue_item_id:
             try:
                 from pipeline_client.backend.race_manager import race_manager

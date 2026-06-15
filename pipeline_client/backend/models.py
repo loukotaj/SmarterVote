@@ -165,6 +165,9 @@ class RunStep(BaseModel):
     weight: Optional[int] = None  # Weight for overall progress calculation
     artifact_id: Optional[str] = None
     error: Optional[str] = None
+    prompt_tokens: Optional[int] = None
+    completion_tokens: Optional[int] = None
+    estimated_usd: Optional[float] = None
 
 
 class RunInfo(BaseModel):

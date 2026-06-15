@@ -178,6 +178,9 @@ class RunManager:
         artifact_id: Optional[str] = None,
         duration_ms: Optional[int] = None,
         error: Optional[str] = None,
+        prompt_tokens: Optional[int] = None,
+        completion_tokens: Optional[int] = None,
+        estimated_usd: Optional[float] = None,
     ):
         """Update status information for a specific step."""
         run_info = self.active_runs.get(run_id)
@@ -195,6 +198,12 @@ class RunManager:
                     step_info.error = sanitize_log_message(error) if error is not None else None
                     if artifact_id:
                         run_info.artifact_id = artifact_id
+                    if prompt_tokens is not None:
+                        step_info.prompt_tokens = prompt_tokens
+                    if completion_tokens is not None:
+                        step_info.completion_tokens = completion_tokens
+                    if estimated_usd is not None:
+                        step_info.estimated_usd = estimated_usd
                 break
         self._save_run(run_info)
 

@@ -153,84 +153,186 @@
 
   // ---- markdown renderer ---------------------------------------------------
   function renderContent(text: string): string {
-    let s = text
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;");
-
-    // Fenced code blocks
-    s = s.replace(/```[\s\S]*?```/g, (m) => {
-      const inner = m.slice(3, -3).replace(/^[^\n]+\n/, ""); // strip language tag
-      return `<pre class="my-2 p-2 rounded bg-surface-alt text-xs overflow-x-auto border border-stroke">${inner}</pre>`;
+    // Step 1: extract fenced code blocks and protect them from further processing
+    const codeBlocks: string[] = [];
+    let s = text.replace(/```([^\n]*)\n?([\s\S]*?)```/g, (_m, lang: string, inner: string) => {
+      const langLabel = lang.trim()
+        ? `<div class="text-[10px] text-content-subtle mb-1 font-mono">${escapeHtml(lang.trim())}</div>`
+        : "";
+      const placeholder = `\x00CODE${codeBlocks.length}\x00`;
+      codeBlocks.push(`<pre class="my-2 p-2.5 rounded-lg bg-surface-alt text-xs overflow-x-auto border border-stroke leading-relaxed">${langLabel}<code>${escapeHtml(inner.replace(/\n$/, ""))}</code></pre>`);
+      return placeholder;
     });
+
+    // Step 2: escape HTML in remaining text
+    s = escapeHtml(s);
+
+    // Step 3: restore code block placeholders (already escaped inside)
+    s = s.replace(/\x00CODE(\d+)\x00/g, (_m, idx: string) => codeBlocks[Number(idx)]);
 
     // Inline code
     s = s.replace(/`([^`\n]+)`/g, '<code class="bg-surface-alt border border-stroke px-1 py-0.5 rounded text-xs font-mono">$1</code>');
 
-    // Bold + italic
-    s = s.replace(/\*\*\*(.*?)\*\*\*/g, "<strong><em>$1</em></strong>");
-    s = s.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
-    s = s.replace(/\*(.*?)\*/g, "<em>$1</em>");
+    // Bold + italic (order matters: *** before ** before *)
+    s = s.replace(/\*\*\*([\s\S]*?)\*\*\*/g, "<strong><em>$1</em></strong>");
+    s = s.replace(/\*\*([\s\S]*?)\*\*/g, "<strong>$1</strong>");
+    s = s.replace(/__([\s\S]*?)__/g, "<strong>$1</strong>");
+    s = s.replace(/\*([\s\S]*?)\*/g, "<em>$1</em>");
+    s = s.replace(/_([\s\S]*?)_/g, "<em>$1</em>");
+    // Strikethrough
+    s = s.replace(/~~([\s\S]*?)~~/g, "<del>$1</del>");
 
-    // Lines: process each line
+    // Links [text](url)
+    s = s.replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g,
+      '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 underline hover:opacity-80">$1</a>');
+
+    // Process lines for block-level elements
     const lines = s.split("\n");
     const out: string[] = [];
-    let inList = false;
-    let listTag = "";
+    // Stack: each entry is { tag: "ul"|"ol", indent: number }
+    type ListFrame = { tag: "ul" | "ol"; indent: number };
+    const listStack: ListFrame[] = [];
 
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i];
-
-      // ATX headers
-      const hMatch = line.match(/^(#{1,3})\s+(.+)$/);
-      if (hMatch) {
-        if (inList) { out.push(`</${listTag}>`); inList = false; }
-        const lvl = hMatch[1].length;
-        const cls = lvl === 1 ? "text-base font-bold mt-3 mb-1" : lvl === 2 ? "text-sm font-bold mt-2 mb-0.5" : "text-sm font-semibold mt-1";
-        out.push(`<p class="${cls}">${hMatch[2]}</p>`);
-        continue;
-      }
-
-      // Unordered list items
-      const ulMatch = line.match(/^[-*]\s+(.*)/);
-      if (ulMatch) {
-        if (!inList || listTag !== "ul") {
-          if (inList) out.push(`</${listTag}>`);
-          out.push('<ul class="list-disc pl-4 space-y-0.5 my-1">');
-          inList = true; listTag = "ul";
-        }
-        out.push(`<li>${ulMatch[1]}</li>`);
-        continue;
-      }
-
-      // Ordered list items
-      const olMatch = line.match(/^\d+\.\s+(.*)/);
-      if (olMatch) {
-        if (!inList || listTag !== "ol") {
-          if (inList) out.push(`</${listTag}>`);
-          out.push('<ol class="list-decimal pl-4 space-y-0.5 my-1">');
-          inList = true; listTag = "ol";
-        }
-        out.push(`<li>${olMatch[1]}</li>`);
-        continue;
-      }
-
-      // Close list on non-list line
-      if (inList && line.trim() !== "") {
-        out.push(`</${listTag}>`);
-        inList = false;
-      }
-
-      // Empty line → paragraph break
-      if (line.trim() === "") {
-        if (!inList) out.push('<div class="h-2"></div>');
-      } else {
-        out.push(`<span>${line}</span><br>`);
+    function closeListsToIndent(targetIndent: number) {
+      while (listStack.length > 0 && listStack[listStack.length - 1].indent > targetIndent) {
+        out.push(`</${listStack.pop()!.tag}>`);
       }
     }
 
-    if (inList) out.push(`</${listTag}>`);
+    function closeAllLists() {
+      while (listStack.length > 0) out.push(`</${listStack.pop()!.tag}>`);
+    }
+
+    // Collect paragraph lines to group into <p> tags
+    let paraLines: string[] = [];
+
+    function flushParagraph() {
+      if (paraLines.length > 0) {
+        out.push(`<p class="mb-1 leading-relaxed">${paraLines.join("<br>")}</p>`);
+        paraLines = [];
+      }
+    }
+
+    let i = 0;
+    while (i < lines.length) {
+      const raw = lines[i];
+      const trimmed = raw.trim();
+
+      // Blank line
+      if (trimmed === "") {
+        flushParagraph();
+        closeAllLists();
+        i++;
+        continue;
+      }
+
+      // ATX headers
+      const hMatch = raw.match(/^(#{1,6})\s+(.+)$/);
+      if (hMatch) {
+        flushParagraph();
+        closeAllLists();
+        const lvl = hMatch[1].length;
+        const cls = lvl === 1
+          ? "text-base font-bold mt-3 mb-1"
+          : lvl === 2
+            ? "text-sm font-bold mt-2 mb-0.5"
+            : "text-sm font-semibold mt-1";
+        out.push(`<p class="${cls}">${hMatch[2]}</p>`);
+        i++;
+        continue;
+      }
+
+      // Horizontal rule
+      if (/^[-*_]{3,}$/.test(trimmed)) {
+        flushParagraph();
+        closeAllLists();
+        out.push('<hr class="my-2 border-stroke">');
+        i++;
+        continue;
+      }
+
+      // Blockquote
+      const bqMatch = raw.match(/^>\s?(.*)/);
+      if (bqMatch) {
+        flushParagraph();
+        closeAllLists();
+        out.push(`<blockquote class="border-l-2 border-blue-400 pl-3 my-1 text-content-muted italic text-sm">${bqMatch[1]}</blockquote>`);
+        i++;
+        continue;
+      }
+
+      // Table detection (line starts with |)
+      if (trimmed.startsWith("|") && i + 1 < lines.length && /^\|[\s|:-]+\|/.test(lines[i + 1].trim())) {
+        flushParagraph();
+        closeAllLists();
+        // Parse header row
+        const headerCells = trimmed.split("|").filter((_, idx, arr) => idx > 0 && idx < arr.length - 1).map(c => c.trim());
+        i += 2; // skip header + separator
+        const rows: string[][] = [];
+        while (i < lines.length && lines[i].trim().startsWith("|")) {
+          const cells = lines[i].trim().split("|").filter((_, idx, arr) => idx > 0 && idx < arr.length - 1).map(c => c.trim());
+          rows.push(cells);
+          i++;
+        }
+        const thead = `<thead class="bg-surface-alt"><tr>${headerCells.map(c => `<th class="px-2 py-1 text-left text-xs font-semibold text-content-muted border-b border-stroke">${c}</th>`).join("")}</tr></thead>`;
+        const tbody = `<tbody>${rows.map(row => `<tr class="border-b border-stroke/50 hover:bg-surface-alt/50">${row.map(c => `<td class="px-2 py-1 text-xs text-content">${c}</td>`).join("")}</tr>`).join("")}</tbody>`;
+        out.push(`<div class="overflow-x-auto my-2"><table class="w-full text-left border border-stroke rounded-lg overflow-hidden text-xs">${thead}${tbody}</table></div>`);
+        continue;
+      }
+
+      // List items (unordered or ordered), with indent support
+      const ulMatch = raw.match(/^(\s*)[-*+]\s+(.*)/);
+      const olMatch = raw.match(/^(\s*)\d+\.\s+(.*)/);
+      const listMatch = ulMatch || olMatch;
+
+      if (listMatch) {
+        flushParagraph();
+        const indent = listMatch[1].length;
+        const content = listMatch[2];
+        const tag = ulMatch ? "ul" : "ol";
+        const ulCls = 'class="list-disc pl-4 space-y-0.5 my-1"';
+        const olCls = 'class="list-decimal pl-4 space-y-0.5 my-1"';
+
+        // Close deeper lists
+        closeListsToIndent(indent);
+
+        // Open new list if needed at this indent
+        if (listStack.length === 0 || listStack[listStack.length - 1].indent < indent || listStack[listStack.length - 1].tag !== tag) {
+          out.push(`<${tag} ${tag === "ul" ? ulCls : olCls}>`);
+          listStack.push({ tag, indent });
+        }
+
+        out.push(`<li class="leading-relaxed">${content}</li>`);
+        i++;
+        continue;
+      }
+
+      // Regular text line
+      closeAllLists();
+
+      // Pre-formatted code block placeholder lines pass through unchanged
+      if (raw.includes("\x00")) {
+        flushParagraph();
+        out.push(raw);
+        i++;
+        continue;
+      }
+
+      paraLines.push(raw);
+      i++;
+    }
+
+    flushParagraph();
+    closeAllLists();
     return out.join("");
+  }
+
+  function escapeHtml(s: string): string {
+    return s
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
   }
 
   // ---- build final options for queuing ------------------------------------

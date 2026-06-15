@@ -323,6 +323,9 @@ export interface RunStep {
   weight?: number;
   artifact_id?: string;
   error?: string;
+  prompt_tokens?: number;
+  completion_tokens?: number;
+  estimated_usd?: number;
 }
 
 export interface RunInfo {

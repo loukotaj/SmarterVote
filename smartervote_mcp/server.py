@@ -249,6 +249,35 @@ async def list_north_dakota_races() -> list[dict[str, Any]]:
 
 
 @mcp.tool()
+async def delete_race(race_id: str) -> dict[str, Any]:
+    """Permanently delete a race record, all GCS drafts/published files, and its Firestore entry.
+
+    This is irreversible. Use unpublish_race instead if you only want to hide a race from public view.
+    """
+    return await _client().delete(f"/api/races/{race_id}")
+
+
+@mcp.tool()
+async def delete_draft(race_id: str) -> dict[str, Any]:
+    """Delete only the draft version of a race from GCS, keeping the published page and Firestore record."""
+    return await _client().delete(f"/api/races/{race_id}/draft")
+
+
+@mcp.tool()
+async def sleep(seconds: float) -> dict[str, Any]:
+    """Pause execution for the given number of seconds (max 300).
+
+    Useful for waiting between polling operations, rate-limiting retries, or giving the pipeline
+    time to process before checking results.
+    """
+    import asyncio
+
+    clamped = min(max(0, seconds), 300)
+    await asyncio.sleep(clamped)
+    return {"slept_seconds": clamped}
+
+
+@mcp.tool()
 async def cancel_race(race_id: str) -> dict[str, Any]:
     """Cancel a queued or running race."""
     return await _client().post(f"/api/races/{race_id}/cancel")
