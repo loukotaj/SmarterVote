@@ -1134,8 +1134,8 @@ async def test_polling_step_runs_without_issue_finance_or_refinement():
         "passed": True,
         "summary": "Validated by 1/1 reviewers with an average score of 91/100.",
     }
-    assert result["pipeline_state"]["complete"] is False
-    assert "review" in result["pipeline_state"]["remaining_steps"]
+    assert result["pipeline_state"]["complete"] is True
+    assert result["pipeline_state"]["remaining_steps"] == []
 
 
 @pytest.mark.asyncio

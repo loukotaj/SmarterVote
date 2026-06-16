@@ -2360,6 +2360,29 @@ def test_gcs_publish_helper_rejects_incomplete_pipeline_state():
         gcs_helpers.publish_race_to_gcs("nh-senate-2026", incomplete_race)
 
 
+def test_gcs_publish_helper_allows_review_only_remaining_with_passing_grade():
+    polling_only_race = {
+        "id": "nh-senate-2026",
+        "reviews": [{"model": "claude", "verdict": "approved", "score": 91, "flags": []}],
+        "validation_grade": {"grade": "A", "score": 91, "passed": True},
+        "pipeline_state": {
+            "complete": False,
+            "remaining_candidates": [],
+            "remaining_steps": ["review"],
+        },
+    }
+
+    with (
+        patch("gcs_helpers._gcs_archive_race"),
+        patch("gcs_helpers._gcs_put_race_json", return_value=True) as mock_put,
+        patch("gcs_helpers._gcs_delete_race_json", return_value=True),
+        patch("firestore_helpers._fs_update_race"),
+    ):
+        gcs_helpers.publish_race_to_gcs("nh-senate-2026", polling_only_race)
+
+    mock_put.assert_called_once()
+
+
 def test_summary_index_retries_concurrent_write():
     from google.api_core.exceptions import PreconditionFailed
 
