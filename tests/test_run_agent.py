@@ -1091,12 +1091,29 @@ def test_sanitize_polling_keeps_source_only_polls_without_numeric_percentages():
 
 @pytest.mark.asyncio
 async def test_polling_step_runs_without_issue_finance_or_refinement():
+    reviews = [
+        {
+            "model": "claude",
+            "reviewed_at": "2026-06-01T00:00:00Z",
+            "verdict": "approved",
+            "score": 91,
+            "flags": [],
+            "summary": "Looks good.",
+        }
+    ]
     existing = {
         "id": "poll-only-2026",
         "election_date": "2026-11-03",
         "updated_utc": "2026-06-01T00:00:00Z",
         "candidates": [{"name": "Alice Smith"}, {"name": "Bob Jones"}],
         "polling": [],
+        "reviews": reviews,
+        "validation_grade": {
+            "grade": "A",
+            "score": 91,
+            "passed": True,
+            "summary": "Validated by 1/1 reviewers with an average score of 91/100.",
+        },
     }
 
     with (
@@ -1110,6 +1127,15 @@ async def test_polling_step_runs_without_issue_finance_or_refinement():
     tool_names = {tool["function"]["name"] for tool in mock_loop.call_args.kwargs["extra_tools"]}
     assert tool_names == {"add_poll", "remove_poll", "update_race_field", "read_profile"}
     assert result["candidates"][0]["name"] == "Alice Smith"
+    assert result["reviews"] == reviews
+    assert result["validation_grade"] == {
+        "grade": "A",
+        "score": 91,
+        "passed": True,
+        "summary": "Validated by 1/1 reviewers with an average score of 91/100.",
+    }
+    assert result["pipeline_state"]["complete"] is False
+    assert "review" in result["pipeline_state"]["remaining_steps"]
 
 
 @pytest.mark.asyncio
