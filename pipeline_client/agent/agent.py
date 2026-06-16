@@ -25,6 +25,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
+from .ballotpedia import default_ballotpedia_race_url
 from .cost import _cost_ctx, estimate_cost
 from .handlers import _make_editing_handlers  # noqa: F401 - re-exported for tests
 from .llm import _agent_loop, _call_openrouter, _ensure_dict, _normalize_candidate  # noqa: F401 - re-exported for tests
@@ -529,6 +530,10 @@ async def run_agent(
         race_json = race_json["race_json"]
 
     race_json.setdefault("id", race_id)
+    if not race_json.get("ballotpedia_url"):
+        default_ballotpedia_url = default_ballotpedia_race_url(race_id)
+        if default_ballotpedia_url:
+            race_json["ballotpedia_url"] = default_ballotpedia_url
     race_json.setdefault("reviews", [])
     race_json.setdefault("validation_grade", None)
     now_iso = datetime.now(timezone.utc).isoformat()

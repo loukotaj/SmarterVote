@@ -853,6 +853,24 @@ async def test_run_agent_skips_reviews_when_step_disabled():
 
 
 @pytest.mark.asyncio
+async def test_run_agent_defaults_house_ballotpedia_url_on_discovery_only():
+    discovery_result = {
+        "id": "ar-house-03-2026",
+        "election_date": "2026-11-03",
+        "candidates": [{"name": "Alice Smith"}],
+    }
+
+    with (
+        patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.agent._load_existing", return_value=None),
+    ):
+        mock_loop.return_value = discovery_result
+        result = await run_agent("ar-house-03-2026", cheap_mode=True, existing_data={}, enabled_steps=["discovery"])
+
+    assert result["ballotpedia_url"] == "https://ballotpedia.org/Arkansas'_3rd_Congressional_District"
+
+
+@pytest.mark.asyncio
 async def test_run_agent_review_skips_without_openrouter_key():
     """run_agent review step returns no reviews without an OpenRouter key."""
     discovery_result = {"id": "review-2024", "candidates": []}

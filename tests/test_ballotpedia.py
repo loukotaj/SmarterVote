@@ -4,7 +4,9 @@ import pytest
 
 from pipeline_client.agent.ballotpedia import (
     _parse_candidate_list_from_html,
+    _race_id_to_ballotpedia_district_url,
     _race_id_to_ballotpedia_url,
+    default_ballotpedia_race_url,
     lookup_candidate_data,
 )
 
@@ -18,6 +20,18 @@ def test_senate_race_url_still_uses_senate_pattern():
         _race_id_to_ballotpedia_url("ga-senate-2026")
         == "https://ballotpedia.org/United_States_Senate_election_in_Georgia,_2026"
     )
+
+
+def test_house_race_uses_possessive_congressional_district_urls():
+    assert (
+        _race_id_to_ballotpedia_url("ar-house-03-2026")
+        == "https://ballotpedia.org/Arkansas'_3rd_Congressional_District_election,_2026"
+    )
+    assert (
+        _race_id_to_ballotpedia_district_url("ar-house-03-2026")
+        == "https://ballotpedia.org/Arkansas'_3rd_Congressional_District"
+    )
+    assert default_ballotpedia_race_url("ar-house-03-2026") == "https://ballotpedia.org/Arkansas'_3rd_Congressional_District"
 
 
 def test_candidate_parser_uses_current_primary_votebox_sections():

@@ -290,6 +290,59 @@ _STATE_NAMES = {
 }
 
 
+def _district_label_from_parts(district_parts: List[str]) -> str:
+    district_num_str = district_parts[0] if district_parts else ""
+    try:
+        n = int(district_num_str)
+        suffix_map = {1: "st", 2: "nd", 3: "rd"}
+        ordinal = suffix_map.get(n % 10 if n % 100 not in (11, 12, 13) else 0, "th")
+        return f"{n}{ordinal}"
+    except ValueError:
+        return district_num_str or "at-large"
+
+
+def _state_possessive_url(state_url: str) -> str:
+    return f"{state_url}'" if state_url.endswith("s") else f"{state_url}'s"
+
+
+def _parse_house_race_parts(race_id: str) -> Optional[tuple[str, str, str]]:
+    parts = race_id.lower().split("-")
+    if len(parts) < 4:
+        return None
+
+    state_abbr = parts[0].upper()
+    state_name = _STATE_NAMES.get(state_abbr)
+    if not state_name:
+        return None
+
+    year: Optional[str] = None
+    office_parts: List[str] = []
+    for i, p in enumerate(parts[1:], 1):
+        if p.isdigit() and len(p) == 4:
+            year = p
+            office_parts = parts[1:i]
+            break
+    if not year or "house" not in office_parts:
+        return None
+
+    district_parts = [p for p in office_parts if p != "house"]
+    state_url = state_name.replace(" ", "_")
+    return state_url, _district_label_from_parts(district_parts), year
+
+
+def _race_id_to_ballotpedia_district_url(race_id: str) -> Optional[str]:
+    house_parts = _parse_house_race_parts(race_id)
+    if not house_parts:
+        return None
+    state_url, district_label, _year = house_parts
+    return f"https://ballotpedia.org/{_state_possessive_url(state_url)}_{district_label}_Congressional_District"
+
+
+def default_ballotpedia_race_url(race_id: str) -> Optional[str]:
+    """Return the best deterministic race-level Ballotpedia URL for a race id."""
+    return _race_id_to_ballotpedia_district_url(race_id) or _race_id_to_ballotpedia_url(race_id)
+
+
 def _race_id_to_ballotpedia_url(race_id: str) -> Optional[str]:
     """Attempt to derive a Ballotpedia election page URL from a race_id.
 
@@ -338,16 +391,8 @@ def _race_id_to_ballotpedia_url(race_id: str) -> Optional[str]:
     elif office == "governor":
         title = f"{state_url}_gubernatorial{special_infix}_election,_{year}"
     elif office.startswith("house"):
-        # Try to extract district number
-        district_num_str = district_parts[0] if district_parts else ""
-        try:
-            n = int(district_num_str)
-            suffix_map = {1: "st", 2: "nd", 3: "rd"}
-            ordinal = suffix_map.get(n % 10 if n % 100 not in (11, 12, 13) else 0, "th")
-            district_label = f"{n}{ordinal}"
-        except ValueError:
-            district_label = district_num_str or "at-large"
-        title = f"{state_url}'s_{district_label}_congressional_district_election,_{year}"
+        district_label = _district_label_from_parts(district_parts)
+        title = f"{_state_possessive_url(state_url)}_{district_label}_Congressional_District_election,_{year}"
     elif "attorney" in office or "ag" == office:
         title = f"Attorney_General_election_in_{state_url},_{year}"
     elif "secretary" in office or "sos" == office:
@@ -533,6 +578,9 @@ async def lookup_election_page(race_id: str) -> Dict[str, Any]:
                 if proxy_resp.status_code == 200 and not _is_unusable_ballotpedia_html(proxy_resp.text):
                     resp = proxy_resp
                 else:
+                    fallback_url = _race_id_to_ballotpedia_district_url(race_id)
+                    if fallback_url and fallback_url != url:
+                        return {**empty, "found": True, "page_url": fallback_url, "http_status": resp.status_code}
                     return {**empty, "page_url": url, "http_status": resp.status_code}
 
             page_url = str(resp.url)
@@ -549,6 +597,9 @@ async def lookup_election_page(race_id: str) -> Dict[str, Any]:
                 if proxy_resp.status_code == 200 and not _is_unusable_ballotpedia_html(proxy_resp.text):
                     html = proxy_resp.text
                 else:
+                    fallback_url = _race_id_to_ballotpedia_district_url(race_id)
+                    if fallback_url and fallback_url != url:
+                        return {**empty, "found": True, "page_url": fallback_url}
                     return {**empty, "page_url": url}
 
             candidates = _parse_candidate_list_from_html(html)
