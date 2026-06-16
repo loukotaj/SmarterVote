@@ -454,13 +454,27 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
             for candidate in race_json.get("candidates", [])
             if isinstance(candidate, dict) and str(candidate.get("name") or "").strip()
         }
-        matchup_names = {
-            str(name).strip()
-            for matchup in args.get("matchups", [])
-            if isinstance(matchup, dict)
-            for name in matchup.get("candidates", [])
-            if str(name).strip()
-        }
+        matchups = args.get("matchups")
+        if not isinstance(matchups, list):
+            return "ERROR: Poll matchups must be a list. Use an empty list only when the source does not publish numbers."
+
+        matchup_names = set()
+        for index, matchup in enumerate(matchups):
+            if not isinstance(matchup, dict):
+                return f"ERROR: Poll matchup {index + 1} must be an object with candidates and percentages."
+            candidates = matchup.get("candidates")
+            percentages = matchup.get("percentages")
+            if not isinstance(candidates, list) or not candidates:
+                return f"ERROR: Poll matchup {index + 1} must include candidate names."
+            if not isinstance(percentages, list) or not percentages:
+                return f"ERROR: Poll matchup {index + 1} must include numeric percentages."
+            if len(candidates) != len(percentages):
+                return f"ERROR: Poll matchup {index + 1} candidates and percentages must have the same length."
+            for percentage in percentages:
+                if not isinstance(percentage, (int, float)) or not 0 <= percentage <= 100:
+                    return f"ERROR: Poll matchup {index + 1} has an invalid percentage value: {percentage!r}."
+            matchup_names.update(str(name).strip() for name in candidates if str(name).strip())
+
         unknown_names = sorted(matchup_names - roster_names)
         if unknown_names:
             return (
@@ -470,7 +484,7 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
         poll = {
             "pollster": args["pollster"],
             "date": args["date"],
-            "matchups": args["matchups"],
+            "matchups": matchups,
             "source_url": args["source_url"],
         }
         if args.get("sample_size"):

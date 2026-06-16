@@ -566,12 +566,14 @@ ADD_POLL_TOOL: Dict = {
                 "sample_size": {"type": "integer", "description": "Number of respondents."},
                 "matchups": {
                     "type": "array",
+                    "description": "Use an empty list only when the source confirms a poll but does not publish numeric candidate percentages.",
                     "items": {
                         "type": "object",
                         "properties": {
-                            "candidates": {"type": "array", "items": {"type": "string"}},
-                            "percentages": {"type": "array", "items": {"type": "number"}},
+                            "candidates": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+                            "percentages": {"type": "array", "items": {"type": "number"}, "minItems": 1},
                         },
+                        "required": ["candidates", "percentages"],
                     },
                 },
                 "source_url": {"type": "string", "description": "URL to poll source."},

@@ -383,6 +383,46 @@ def test_add_poll_requires_exact_roster_names():
     assert len(race_json["polling"]) == 1
 
 
+def test_add_poll_allows_source_only_poll_but_rejects_incomplete_matchups():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {
+        "candidates": [{"name": "Alice Smith"}, {"name": "Bob Jones"}],
+        "polling": [],
+    }
+    handlers = _make_editing_handlers(race_json, lambda *_: None)
+
+    source_only = handlers["add_poll"](
+        {
+            "pollster": "Example Source Only Poll",
+            "date": "2026-06-01",
+            "matchups": [],
+            "source_url": "https://example.com/source-only-poll",
+        }
+    )
+    missing = handlers["add_poll"](
+        {
+            "pollster": "Example Poll",
+            "date": "2026-06-01",
+            "matchups": [{"candidates": ["Alice Smith", "Bob Jones"]}],
+            "source_url": "https://example.com/poll",
+        }
+    )
+    mismatched = handlers["add_poll"](
+        {
+            "pollster": "Example Poll",
+            "date": "2026-06-01",
+            "matchups": [{"candidates": ["Alice Smith", "Bob Jones"], "percentages": [48]}],
+            "source_url": "https://example.com/poll",
+        }
+    )
+
+    assert source_only.startswith("Added poll")
+    assert missing.startswith("ERROR:")
+    assert mismatched.startswith("ERROR:")
+    assert [poll["pollster"] for poll in race_json["polling"]] == ["Example Source Only Poll"]
+
+
 def test_remove_candidate_deletes_malformed_entries():
     """remove_candidate physically deletes entries whose name looks like a metadata key."""
     from pipeline_client.agent.agent import _make_editing_handlers

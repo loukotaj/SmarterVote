@@ -176,20 +176,24 @@ def _sanitize_polling(race_json: Dict[str, Any], log: Any | None = None) -> None
                         log("warning", f"Poll {poll_index} matchup {matchup_index} references non-roster candidates; dropping")
                     continue
             percentages = matchup.get("percentages")
-            if percentages is None:
-                matchup["percentages"] = []
+            if not isinstance(names, list) or not names:
+                if log:
+                    log("warning", f"Poll {poll_index} matchup {matchup_index} has no candidate names; dropping")
+                continue
+            if not isinstance(percentages, list) or not percentages:
+                if log:
+                    log("warning", f"Poll {poll_index} matchup {matchup_index} has no numeric percentages; dropping")
+                continue
+            if len(names) != len(percentages):
                 if log:
                     log(
-                        "warning",
-                        f"Poll {poll_index} matchup {matchup_index} had null percentages; normalized to an empty list",
+                        "warning", f"Poll {poll_index} matchup {matchup_index} has mismatched candidates/percentages; dropping"
                     )
-            if not isinstance(percentages, list):
-                matchup["percentages"] = []
+                continue
+            if any(not isinstance(pct, (int, float)) or not 0 <= pct <= 100 for pct in percentages):
                 if log:
-                    log(
-                        "warning",
-                        f"Poll {poll_index} matchup {matchup_index} percentages was not a list; normalized to an empty list",
-                    )
+                    log("warning", f"Poll {poll_index} matchup {matchup_index} has invalid percentages; dropping")
+                continue
             kept_matchups.append(matchup)
         poll["matchups"] = kept_matchups
 
