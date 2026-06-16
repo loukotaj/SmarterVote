@@ -529,6 +529,8 @@ async def run_agent(
         race_json = race_json["race_json"]
 
     race_json.setdefault("id", race_id)
+    race_json.setdefault("reviews", [])
+    race_json.setdefault("validation_grade", None)
     now_iso = datetime.now(timezone.utc).isoformat()
     race_json["updated_utc"] = now_iso
 
@@ -571,6 +573,7 @@ async def run_agent(
     _sanitize_roster(race_json, log)
     race_json.setdefault("polling", [])
     _normalize_schema_fields(race_json, log)
+    pipeline_state = race_json.setdefault("pipeline_state", pipeline_state)
 
     semantic_steps_ran = bool(
         _enabled & {"discovery", "images", "issues", "finance", "refinement", "polling", "voter_resources", "iteration"}
@@ -583,8 +586,6 @@ async def run_agent(
         pipeline_state["complete"] = False
         if "review" not in pipeline_state["remaining_steps"]:
             pipeline_state["remaining_steps"].append("review")
-        race_json["reviews"] = []
-        race_json["validation_grade"] = None
 
     if reject_empty_candidates and should_review and not race_json.get("candidates"):
         raise ValueError(
@@ -719,12 +720,11 @@ async def run_agent(
         else:
             _track("skip", "iteration")
     else:
-        race_json["reviews"] = []
         _track("skip", "review")
         _track("skip", "iteration")
 
     # Compute aggregate validation grade from review scores
-    grade = compute_validation_grade(race_json.get("reviews", [])) if pipeline_state.get("complete") else None
+    grade = compute_validation_grade(race_json.get("reviews", [])) if race_json.get("reviews") else None
     race_json["validation_grade"] = grade
 
     elapsed = time.perf_counter() - t0
