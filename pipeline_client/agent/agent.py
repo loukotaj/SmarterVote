@@ -575,17 +575,26 @@ async def run_agent(
     _normalize_schema_fields(race_json, log)
     pipeline_state = race_json.setdefault("pipeline_state", pipeline_state)
 
-    semantic_steps_ran = bool(
-        _enabled & {"discovery", "images", "issues", "finance", "refinement", "polling", "voter_resources", "iteration"}
+    review_required_steps_ran = bool(_enabled & {"discovery", "images", "issues", "finance", "refinement", "iteration"})
+    maintenance_steps_ran = bool(_enabled & {"polling", "voter_resources"})
+    validation_grade = race_json.get("validation_grade")
+    if not isinstance(validation_grade, dict) and race_json.get("reviews"):
+        validation_grade = compute_validation_grade(race_json.get("reviews", []))
+    has_passing_validation = (
+        isinstance(validation_grade, dict) and validation_grade.get("passed") is True and bool(race_json.get("reviews"))
     )
     if should_review:
         pipeline_state["complete"] = True
         pipeline_state["remaining_candidates"] = []
         pipeline_state["remaining_steps"] = []
-    elif semantic_steps_ran:
+    elif review_required_steps_ran:
         pipeline_state["complete"] = False
         if "review" not in pipeline_state["remaining_steps"]:
             pipeline_state["remaining_steps"].append("review")
+    elif maintenance_steps_ran and has_passing_validation:
+        remaining_steps = [step for step in pipeline_state.get("remaining_steps", []) if step != "review"]
+        pipeline_state["remaining_steps"] = remaining_steps
+        pipeline_state["complete"] = not remaining_steps and not pipeline_state.get("remaining_candidates")
 
     if reject_empty_candidates and should_review and not race_json.get("candidates"):
         raise ValueError(
