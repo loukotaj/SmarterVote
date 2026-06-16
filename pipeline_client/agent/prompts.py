@@ -269,7 +269,10 @@ Existing polling:
 Find recent public polls from primary poll releases, reputable aggregators, or
 news coverage linking to the underlying poll. Add at most five useful recent
 polls. Every matchup candidate name must exactly match the roster above and the
-percentages array must align with the candidate array.
+percentages array must align with the candidate array. If a source confirms a
+poll but does not publish numeric candidate percentages, add the poll with
+matchups: [] so users can follow the source, and explain the missing numbers in
+polling_note.
 
 Remove duplicate or malformed existing polls. If no public polling exists, set
 polling_note to "No public polling found for this race as of {current_date}."

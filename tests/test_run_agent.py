@@ -1066,6 +1066,29 @@ def test_sanitize_polling_requires_exact_roster_names():
     assert race_json["polling"][0]["matchups"] == []
 
 
+def test_sanitize_polling_keeps_source_only_polls_without_numeric_percentages():
+    race_json = {
+        "candidates": [{"name": "Alice Smith"}, {"name": "Bob Jones"}],
+        "polling": [
+            {
+                "pollster": "Example",
+                "date": "2026-06-01",
+                "matchups": [{"candidates": ["Alice Smith", "Bob Jones"], "percentages": []}],
+            },
+            {
+                "pollster": "Valid Poll",
+                "date": "2026-06-02",
+                "matchups": [{"candidates": ["Alice Smith", "Bob Jones"], "percentages": [48, 45]}],
+            },
+        ],
+    }
+
+    _sanitize_polling(race_json)
+
+    assert [poll["pollster"] for poll in race_json["polling"]] == ["Example", "Valid Poll"]
+    assert race_json["polling"][0]["matchups"] == []
+
+
 @pytest.mark.asyncio
 async def test_polling_step_runs_without_issue_finance_or_refinement():
     existing = {

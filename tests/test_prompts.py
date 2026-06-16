@@ -305,3 +305,10 @@ def test_iteration_retains_polling_and_voter_resource_repair_access():
 
     assert "remove_poll" in ITERATE_META_USER
     assert "ballotpedia_url" in ITERATE_META_USER
+
+
+def test_polling_prompt_distinguishes_source_only_polls_from_numeric_matchups():
+    from pipeline_client.agent.prompts import POLLING_USER
+
+    assert "matchups: []" in POLLING_USER
+    assert "does not publish numeric candidate percentages" in POLLING_USER
