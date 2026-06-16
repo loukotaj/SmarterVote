@@ -1,19 +1,16 @@
 <script lang="ts">
-  import { onMount } from "svelte";
   import type { RaceSummary } from "$lib/types";
-  import { getRaceSummaries } from "$lib/api";
   import USMap from "$lib/components/USMap.svelte";
   import RaceCard from "$lib/components/RaceCard.svelte";
   import { page } from "$app/stores";
   import { goto } from "$app/navigation";
+  import { browser } from "$app/environment";
+  import type { PageData } from "./$types";
 
-  let races: RaceSummary[] = [];
-  let loading = true;
+  export let data: PageData;
 
-  onMount(async () => {
-    races = await getRaceSummaries();
-    loading = false;
-  });
+  $: races = data.races || [];
+  let loading = false;
 
   // Filter state
   let selectedState: string | null = null;
@@ -25,10 +22,12 @@
   // would re-trigger this block and reset the value before goto() completes.
   let lastPageQ = "";
   $: {
-    const q = $page.url.searchParams.get("q") || "";
-    if (q !== lastPageQ) {
-      lastPageQ = q;
-      searchQuery = q;
+    if (browser) {
+      const q = $page.url.searchParams.get("q") || "";
+      if (q !== lastPageQ) {
+        lastPageQ = q;
+        searchQuery = q;
+      }
     }
   }
 

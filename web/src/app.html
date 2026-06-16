@@ -1,9 +1,25 @@
 <!DOCTYPE html>
-<html lang="en" %sveltekit.theme%>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%sveltekit.assets%/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Dark mode inline detection (fixes mobile blank screen / theme flash) -->
+    <script>
+      (function() {
+        try {
+          const saved = localStorage.getItem('darkMode');
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          const enabled = saved !== null ? saved === 'true' : prefersDark;
+          if (enabled) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
 
     <!-- SEO Meta Tags -->
     <meta

@@ -3,16 +3,19 @@
   import { page, navigating } from "$app/stores";
   import { onMount } from "svelte";
   import { writable } from "svelte/store";
-  import { getRaceSummaries } from "$lib/api";
   import type { RaceSummary } from "$lib/types";
   import { goto } from "$app/navigation";
   import { candidateSlug } from "$lib/utils/format";
+  import { browser } from "$app/environment";
+  import type { LayoutData } from "./$types";
+
+  export let data: LayoutData;
 
   const darkMode = writable(false);
   let isAuthenticated = false;
 
   // Global search autocomplete state
-  let races: RaceSummary[] = [];
+  $: races = data.races || [];
   let headerQuery = "";
   let showSuggestions = false;
   let matchingCandidates: { name: string; party?: string; raceId: string; raceTitle: string }[] = [];
@@ -51,13 +54,6 @@
     } catch {
       isAuthenticated = false;
     }
-
-    // Load race summaries for autocomplete suggestions
-    try {
-      races = await getRaceSummaries();
-    } catch (e) {
-      console.error("Failed to load race summaries for navbar search autocomplete:", e);
-    }
   });
 
   function toggleDark() {
@@ -72,7 +68,7 @@
   // Sync search input with URL search parameter on the landing page
   let lastHeaderQ = "";
   $: {
-    if ($page.url.pathname === "/") {
+    if (browser && $page.url.pathname === "/") {
       const q = $page.url.searchParams.get("q") || "";
       if (q !== lastHeaderQ) {
         lastHeaderQ = q;
