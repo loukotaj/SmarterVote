@@ -327,6 +327,23 @@ def test_update_race_field_accepts_substantive_description():
     assert race_json["description"] == description
 
 
+def test_update_race_field_normalizes_house_ballotpedia_to_district_page():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"id": "ar-house-03-2026", "candidates": []}
+    handlers = _make_editing_handlers(race_json, lambda *_: None)
+
+    result = handlers["update_race_field"](
+        {
+            "field": "ballotpedia_url",
+            "value": "https://ballotpedia.org/Arkansas%27_3rd_Congressional_District_election,_2026",
+        }
+    )
+
+    assert result == "Updated race.ballotpedia_url."
+    assert race_json["ballotpedia_url"] == "https://ballotpedia.org/Arkansas'_3rd_Congressional_District"
+
+
 def test_remove_poll_handler():
     """remove_poll handler deletes polls by pollster+date or pollster alone."""
     from pipeline_client.agent.agent import _make_editing_handlers

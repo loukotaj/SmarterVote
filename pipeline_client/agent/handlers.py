@@ -15,6 +15,7 @@ from typing import Any, Callable, Dict, Optional
 # Pattern matching metadata field names (snake_case, no spaces) — clearly not human names
 _METADATA_KEY_RE = re.compile(r"^[a-z][a-z0-9_]+$")
 
+from pipeline_client.agent.ballotpedia import default_ballotpedia_race_url
 from pipeline_client.agent.images import _is_valid_image_url
 from pipeline_client.agent.prompts import CANONICAL_ISSUES
 from pipeline_client.agent.source_types import normalize_source_type
@@ -522,6 +523,10 @@ def _make_editing_handlers(race_json: Dict[str, Any], log: Callable) -> Dict[str
         field, value = args["field"], args["value"]
         if field not in _ALLOWED_RACE_FIELDS:
             return f"Field '{field}' not allowed. Allowed: {', '.join(sorted(_ALLOWED_RACE_FIELDS))}."
+        if field == "ballotpedia_url":
+            default_url = default_ballotpedia_race_url(str(race_json.get("id") or ""))
+            if default_url and "_Congressional_District" in default_url and "ballotpedia.org" in str(value):
+                value = default_url
         if field == "description":
             from .review import is_substantive_race_description
 
