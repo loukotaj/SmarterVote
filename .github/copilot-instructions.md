@@ -74,6 +74,7 @@ CI (`.github/workflows/ci.yaml`) runs all four on push/PR to `main`/`develop`. C
 4. Local dev: `services/races-api` is the production-shaped admin API; `pipeline_client/backend/main.py` is only for direct local runner/debug endpoints
 5. Storage mode (`STORAGE_MODE` env var): `local` uses filesystem, `gcp` uses GCS + Firestore — see `PIPELINE_MODES.md`
 6. Static GCS Hosting: If `VITE_PUBLIC_DATA_URL` is set, public read operations fetch statically from GCS (`races/{race_id}.json` and `races/summaries.json`). Publish/unpublish operations keep the index up to date.
+7. Avoid creating untracked or temporary scratch scripts in the workspace. It is always better to beef up and enhance the MCP server tools (`smartervote-races`) rather than writing one-off scratch scripts for querying or managing the system state.
 
 ## Detailed Docs (link, don't duplicate)
 

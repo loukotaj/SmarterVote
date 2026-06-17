@@ -451,15 +451,17 @@ async def _agent_loop(
                 log("info", f"  [{phase_name}] nudging model to commit edits (iteration {iteration + 1})")
         else:
             if iteration == nudge_at and len(messages) > 2:
-                messages.append(
+                messages = [
+                    messages[0],
+                    messages[1],
                     {
                         "role": "user",
                         "content": (
-                            "You have used several searches. Please now compile your findings "
+                            "You have finished searching. Please now compile your findings "
                             "and return ONLY the final JSON response. No more searches."
                         ),
-                    }
-                )
+                    },
+                ]
                 log("info", f"  [{phase_name}] nudging model to produce output (iteration {iteration + 1})")
 
             base_tools = [SEARCH_TOOL, FETCH_TOOL, BALLOTPEDIA_TOOL, BALLOTPEDIA_ELECTION_TOOL] if iteration < nudge_at else []
@@ -491,6 +493,8 @@ async def _agent_loop(
             raise
         elapsed_call = time.perf_counter() - t_call
 
+        if not result or not getattr(result, "choices", None) or len(result.choices) == 0:
+            raise RuntimeError(f"[{phase_name}] OpenRouter returned an empty or invalid response: {result}")
         choice = result.choices[0]
         message = choice.message
         finish_reason = choice.finish_reason or "?"

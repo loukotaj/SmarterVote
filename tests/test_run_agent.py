@@ -492,7 +492,7 @@ async def test_run_agent_model_selection():
     cases = [
         (True, "deepseek/deepseek-v4-flash"),
         (False, "openai/gpt-5.4"),
-        (None, "nvidia/nemotron-3-ultra-550b-a55b"),
+        (None, "google/gemini-2.5-flash"),
     ]
 
     for cheap_mode, expected_model in cases:
@@ -520,7 +520,7 @@ async def test_run_agent_custom_profile_preserved():
         mock_loop.return_value = discovery_result
         result = await run_agent("custom-2024", model_profile="custom", existing_data={})
 
-    assert mock_loop.call_args_list[0].kwargs["model"] == "nvidia/nemotron-3-ultra-550b-a55b"
+    assert mock_loop.call_args_list[0].kwargs["model"] == "google/gemini-2.5-flash"
     assert result["agent_metrics"]["model_profile"] == "custom"
 
 
