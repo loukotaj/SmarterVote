@@ -54,23 +54,34 @@
     loading = true;
     error = "";
     try {
-      let conversationId = localStorage.getItem(STORAGE_KEY);
+      let conversationId: string | null = null;
+      try {
+        conversationId = localStorage.getItem(STORAGE_KEY);
+      } catch (e) {
+        console.warn("Failed to read conversationId from localStorage:", e);
+      }
       if (conversationId) {
         try {
           data = await apiService.getAdminAgentConversation(conversationId);
         } catch (e) {
-          localStorage.removeItem(STORAGE_KEY);
+          try {
+            localStorage.removeItem(STORAGE_KEY);
+          } catch (err) {}
           conversationId = null;
         }
       }
       if (!conversationId) {
         if (conversations.length > 0) {
           conversationId = conversations[0].conversation_id;
-          localStorage.setItem(STORAGE_KEY, conversationId);
+          try {
+            localStorage.setItem(STORAGE_KEY, conversationId);
+          } catch (e) {}
           data = await apiService.getAdminAgentConversation(conversationId);
         } else {
           const conversation = await apiService.createAdminAgentConversation();
-          localStorage.setItem(STORAGE_KEY, conversation.conversation_id);
+          try {
+            localStorage.setItem(STORAGE_KEY, conversation.conversation_id);
+          } catch (e) {}
           data = { conversation, messages: [], tasks: [] };
           await loadConversations();
         }
@@ -103,7 +114,9 @@
     loading = true;
     error = "";
     try {
-      localStorage.setItem(STORAGE_KEY, id);
+      try {
+        localStorage.setItem(STORAGE_KEY, id);
+      } catch (e) {}
       data = await apiService.getAdminAgentConversation(id);
       await scrollToBottom();
     } catch (e) {
@@ -126,7 +139,9 @@
       const activeId = data?.conversation.conversation_id;
       await loadConversations();
       if (activeId === id) {
-        localStorage.removeItem(STORAGE_KEY);
+        try {
+          localStorage.removeItem(STORAGE_KEY);
+        } catch (e) {}
         data = null;
         await initialize();
       }
@@ -229,7 +244,9 @@
     error = "";
     try {
       const conversation = await apiService.createAdminAgentConversation();
-      localStorage.setItem(STORAGE_KEY, conversation.conversation_id);
+      try {
+        localStorage.setItem(STORAGE_KEY, conversation.conversation_id);
+      } catch (e) {}
       data = { conversation, messages: [], tasks: [] };
       await loadConversations();
       await scrollToBottom();

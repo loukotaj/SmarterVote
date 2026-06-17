@@ -8,10 +8,20 @@
     <!-- Dark mode inline detection (fixes mobile blank screen / theme flash) -->
     <script>
       (function() {
+        let enabled = false;
         try {
           const saved = localStorage.getItem('darkMode');
-          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          const enabled = saved !== null ? saved === 'true' : prefersDark;
+          if (saved !== null) {
+            enabled = saved === 'true';
+          } else {
+            enabled = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          }
+        } catch (e) {
+          try {
+            enabled = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          } catch (err) {}
+        }
+        try {
           if (enabled) {
             document.documentElement.classList.add('dark');
           } else {

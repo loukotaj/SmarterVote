@@ -36,7 +36,12 @@
       document.head.appendChild(script);
     }
 
-    const saved = localStorage.getItem("darkMode");
+    let saved: string | null = null;
+    try {
+      saved = localStorage.getItem("darkMode");
+    } catch (e) {
+      console.warn("Failed to read darkMode from localStorage:", e);
+    }
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     const enabled = saved !== null ? saved === "true" : prefersDark;
     darkMode.set(enabled);
@@ -60,7 +65,11 @@
     darkMode.update(d => {
       const next = !d;
       document.documentElement.classList.toggle("dark", next);
-      localStorage.setItem("darkMode", String(next));
+      try {
+        localStorage.setItem("darkMode", String(next));
+      } catch (e) {
+        console.warn("Failed to write darkMode to localStorage:", e);
+      }
       return next;
     });
   }
